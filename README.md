@@ -5,6 +5,6 @@ Kitin - README
 
 1. Install requirements:
 
-    $ mkvirtualenv kb-kitin
-    $ pip install -r requirements.txt
+        $ mkvirtualenv kb-kitin
+        $ pip install -r requirements.txt
 
