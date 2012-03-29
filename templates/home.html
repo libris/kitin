@@ -1,7 +1,10 @@
 <!doctype html>
-<title>Kitin : Hem</title>
-{% if name %}
+{% extends "base.html" %}
+{% block title %}Hem{% endblock %}
+{% block content %}
+  {% if name %}
   <h1>Välkommen {{ name }}!</h1>
-{% else %}
-    <h1>Logga in...</h1>
-{% endif %}
+  {% else %}
+      <h1>Logga in...</h1>
+  {% endif %}
+{% endblock %}
