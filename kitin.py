@@ -3,10 +3,6 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
-from flaskext.lesscss import lesscss
-app.static_path = app.static_folder # lesscss bug workaround
-lesscss(app)
-
 
 @app.route("/")
 def start():
