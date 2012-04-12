@@ -1,0 +1,143 @@
+{
+  "001": {
+    "name": "controlNumber",
+    "repeatable": null
+  },
+  "003": {
+    "name": "controlNumberIdentifier",
+    "repeatable": null
+  },
+  "005": {
+    "name": "dateAndTimeOfLatestTransaction",
+    "repeatable": null
+  },
+  "006": {
+    "name": "dataElementsAndAdditionalMaterialCharacteristics",
+    "repeatable": null,
+    "type": "fixedLength"
+  },
+  "007": {
+    "name": "physicalDescriptionFixedField",
+    "repeatable": null
+  },
+  "008": {
+    "name": "dataElements",
+    "repeatable": null,
+    "type": "fixedLength"
+  },
+  "020": {
+    "name": "internationalStandardBookNumber",
+    "repeatable": true
+  },
+  "035": {
+    "name": "systemControlNumber",
+    "repeatable": true
+  },
+  "040": {
+    "name": "catalogingSource",
+    "repeatable": false
+  },
+  "042": {
+    "name": "authenticationCode",
+    "repeatable": false
+  },
+  "084": {
+    "name": "otherClassificationNumber",
+    "repeatable": true
+  },
+  "100": {
+    "name": "mainEntryPersonalName",
+    "repeatable": false,
+    "ind1": {
+      "0": "forename",
+      "1": "surname",
+      "3": "familyName"
+    },
+    "ind2": {"": null},
+    "subfield": {
+      "a": {"name": "personalName", "repeatable": false},
+      "b": {"name": "Numeration", "repeatable": false},
+      "c": {"name": "titlesAndWordsAssociatedWithAName", "repeatable": true},
+      "d": {"name": "datesAssociatedWithAName", "repeatable": false},
+      "e": {"name": "relatorTerm", "repeatable": true},
+      "f": {"name": "dateOfAWork", "repeatable": false},
+      "g": {"name": "miscellaneousInformation", "repeatable": false},
+      "j": {"name": "attributionQualifier", "repeatable": true},
+      "k": {"name": "formSubheading", "repeatable": true},
+      "l": {"name": "languageOfAWork", "repeatable": false},
+      "n": {"name": "numberOfPartOrSectionOfAWork", "repeatable": true},
+      "p": {"name": "nameOfPartOrSectionOfAWork", "repeatable": true},
+      "q": {"name": "fullerFormOfName", "repeatable": false},
+      "t": {"name": "titleOfAWork", "repeatable": false},
+      "u": {"name": "affiliation", "repeatable": false},
+      "0": {"name": "authorityRecordControlNumber", "repeatable": true},
+      "4": {"name": "relatorCode", "repeatable": true},
+      "6": {"name": "linkage", "repeatable": false},
+      "8": {"name": "fieldLinkAndSequenceNumber", "repeatable": true}
+    }
+  },
+  "245": {
+    "name": "titleStatement",
+    "repeatable": false,
+    "ind1": {"": null},
+    "ind2": {"": null},
+    "subfield": {
+    }
+  },
+  "260": {
+    "name": "publicationDistributionEtcImprint",
+    "repeatable": true,
+    "ind1": {"": null},
+    "ind2": {"": null},
+    "subfield": {
+    }
+  },
+  "300": {
+    "name": "physicalDescription",
+    "repeatable": true,
+    "ind1": {"": null},
+    "ind2": {"": null},
+    "subfield": {
+    }
+  },
+  "500": {
+    "name": "generalNote",
+    "repeatable": true,
+    "ind1": {"": null},
+    "ind2": {"": null},
+    "subfield": {
+    }
+  },
+  "599": {
+    "name": "localNotes",
+    "repeatable": true,
+    "ind1": {"": null},
+    "ind2": {"": null},
+    "subfield": {
+    }
+  },
+  "600": {
+    "name": "subjectAddedEntryPersonalName",
+    "repeatable": true,
+    "ind1": {"": null},
+    "ind2": {"": null},
+    "subfield": {
+    }
+  },
+  "700": {
+    "name": "addedEntryPersonalName",
+    "repeatable": true,
+    "ind1": {"": null},
+    "ind2": {"": null},
+    "subfield": {
+    }
+  },
+  "976": {
+    "name": "equivalenceOrCrossReference_976",
+    "repeatable": true,
+    "ind1": {"": null},
+    "ind2": {"": null},
+    "subfield": {
+    }
+  }
+}
