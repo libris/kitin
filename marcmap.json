@@ -99,7 +99,7 @@
     "ind2": {"": null},
     "subfield": {
       "a": {"name": "personalName", "repeatable": false},
-      "b": {"name": "Numeration", "repeatable": false},
+      "b": {"name": "numeration", "repeatable": false},
       "c": {"name": "titlesAndWordsAssociatedWithAName", "repeatable": true},
       "d": {"name": "datesAssociatedWithAName", "repeatable": false},
       "e": {"name": "relatorTerm", "repeatable": true},
@@ -127,7 +127,7 @@
     "subfield": {
       "a": {"name": "title", "repeatable": false},
       "b": {"name": "remainderOfTitle", "repeatable": false},
-      "c": {"name": "statementOfResponsibilityEtc.", "repeatable": false},
+      "c": {"name": "statementOfResponsibilityEtc", "repeatable": false},
       "f": {"name": "inclusiveDates", "repeatable": false},
       "g": {"name": "bulkDates", "repeatable": false},
       "h": {"name": "medium", "repeatable": false},
@@ -145,9 +145,9 @@
     "ind1": {"": null},
     "ind2": {"": null},
     "subfield": {
-      "a": {"name": "placeOfPublicationDistributionEtc.", "repeatable": true},
-      "b": {"name": "nameOfPublisherDistributorEtc.", "repeatable": true},
-      "c": {"name": "dateOfPublicationDistributionEtc.", "repeatable": true},
+      "a": {"name": "placeOfPublicationDistributionEtc", "repeatable": true},
+      "b": {"name": "nameOfPublisherDistributorEtc", "repeatable": true},
+      "c": {"name": "dateOfPublicationDistributionEtc", "repeatable": true},
       "e": {"name": "placeOfManufacture", "repeatable": true},
       "f": {"name": "manufacturer", "repeatable": true},
       "g": {"name": "dateOfManufacture", "repeatable": true},
