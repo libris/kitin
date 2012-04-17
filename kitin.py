@@ -8,6 +8,10 @@ app = Flask(__name__)
 def start():
     return render_template('start.html')
 
+@app.route("/monografi.html")
+def monografi():
+    return render_template('monografi.html')
+
 @app.route('/user/<name>')
 def show_user(name=None):
     return render_template('home.html', name=name)

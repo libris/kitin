@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>LIBRIS monografi</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="{{ url_for('static', filename='assets/css/bootstrap.css') }}" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="{{ url_for('static', filename='assets/css/bootstrap-responsive.css') }}" rel="stylesheet">
+
+    <!-- Le fav and touch icons -->
+    <!--<link rel="shortcut icon" href="http://twitter.github.com/bootstrap/examples/images/favicon.ico">
+    <link rel="apple-touch-icon" href="http://twitter.github.com/bootstrap/examples/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="http://twitter.github.com/bootstrap/examples/images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="http://twitter.github.com/bootstrap/examples/images/apple-touch-icon-114x114.png">-->
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">LIBRIS katalogisering (kitin)</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+<!--
+              <li><a href="#">LIBRIS</a></li>
+              <li><a href="#about">Hjälp</a></li>
+-->
+              <li class="active"><a href="#">Logga in</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <h1></h1>
+
+    <div class="container-fluid">
+    <div class="row-fluid">
+    <div class="span2">
+    <!--Sidebar content-->
+    
+        <ul class="nav nav-list">
+    <li>
+    <a href="#">Ny</a>
+    </li>
+    <li>
+    <a href="#">Öppna</a>
+    </li>
+    <li>
+    <a href="#">Öppna senaste</a>
+    </li>
+    
+    <li>
+    <a href="index.html">Sök</a>
+    </li>
+    </ul>
+    
+    
+           <ul class="nav nav-list">
+    <li class="nav-header">
+    Mallar
+    </li>
+    <li class="active">
+    <a href="#">- Monografier</a>
+    </li>
+    <li>
+    <a href="#">- Serie</a>
+    </li>
+    <li>
+    <a href="#">- Karta</a>
+    </li>
+    <li>
+    <a href="#">- Ljud</a>
+    </li>
+    </ul>
+    
+    
+    
+    
+        </div>
+    <div class="span7">
+    <!--Body content-->
+    <h2>Monografi</h2>
+    <hr>
+    <p>
+000 Postetikett: 02108cem a2200433 a 4500<br>
+001 BibID: 11691597<br>
+003: SE-LIBR<br>
+005 Tidpunkt för senaste uppdatering: 20091119170529.0<br>
+006 Kompletterande mediespecifika koder: ea f | 0<br>
+007 Fysiska egenskaper: aj can|n<br>
+008 Mediespecifika koder: 091119s2009 sw a f | 0 swe<br>
+</p>
+<hr>
+
+<label class="control-label" for="isbn-020a">ISBN <span class="help-block">Ex. 978-951-98548-9-2 </span></label> 
+<div class="controls">
+<input id="isbn-020a" class="input-xlarge" type="text">
+<!-- <p class="help-block">ISBN</p> -->
+</div>
+
+
+<label class="control-label" for="katinstans040-a">Katalogiserande instans*</label>
+<div class="controls">
+<input id="katinstans-040a" class="input-xlarge" type="text">
+
+</div>
+
+<label class="control-label" for="klassifikationskod-084a">Annan klassifikationskod <span class="help-block">kssb/8</span></label>
+<div class="controls">
+<input id="klassifikationskod-084a" class="input-xlarge" type="text">
+</div>
+
+<label class="control-label" for="personnamn-100a">Personnamn <span class="help-block">Ex. Strindberg, August</span></label>
+<div class="controls">
+<input id="personnamn-100a" class="input-xlarge" type="text" >
+</div>
+
+<label class="control-label" for="personnamn-100d">Födelse- och dödsår <span class="help-block">Auktoriserad</span></label>
+<div class="controls">
+<input id="personnamn-100d" class="input-xlarge" type="text">
+</div>
+
+<label class="control-label" for="titel-245a">Titel och upphov - Huvudtitel*</label>
+<div class="controls">
+<input id="titel-245a" class="input-xlarge" type="text">
+</div>
+
+<label class="control-label" for="titel-245b">Övrig titelinformation <span class="help-block">Ex. undertitel</span></label>
+<div class="controls">
+<input id="titel-245b" class="input-xlarge" type="text">
+</div>
+
+<label class="control-label" for="titel-245c">Särskiljande tillägg</label>
+<div class="controls">
+<input id="titel-245c" class="input-xlarge" type="text">
+</div>
+
+<label class="control-label" for="upplaga-250a">Upplaga <span class="help-block">Obligatoriskt om tillämpligt</span></label>
+<div class="controls">
+<input id="upplaga-250a" class="input-xlarge" type="text">
+</div>
+
+<label class="control-label" for="utgivning-260a">Utgivning, distribution - ort</label>
+<div class="controls">
+<input id="utgivning-260a" class="input-xlarge" type="text">
+</div>
+
+<label class="control-label" for="utgivning-260b">Förlag eller annan utgivare</label>
+<div class="controls">
+<input id="utgivning-260b" class="input-xlarge" type="text">
+</div>
+
+<label class="control-label" for="utgivning-260c">Utgivningstid</label>
+<div class="controls">
+<input id="utgivning-260c" class="input-xlarge" type="text">
+</div>
+
+<label class="control-label" for="300a">Omfång <span class="help-block">antal sidor eller volymer</span></label>
+<div class="controls">
+<input id="300a" class="input-xlarge" type="text">
+</div>
+
+<label class="control-label" for="300b">Övriga fysiska detaljer <span class="help-block">Ex. illustrationer</span></label>
+<div class="controls">
+<input id="300b" class="input-xlarge" type="text">
+</div>
+
+<label class="control-label" for="490a">Serietitel</label>
+<div class="controls">
+<input id="490a" class="input-xlarge" type="text">
+</div>
+
+<label class="control-label" for="490x">ISSN</label>
+<div class="controls">
+<input id="490x" class="input-xlarge" type="text">
+</div>
+
+<label class="control-label" for="490v">Delens nummer</label>
+<div class="controls">
+<input id="490v" class="input-xlarge" type="text">
+</div>
+
+<label class="control-label" for="650a">Ämnesord sao <span class="help-block">kommaseparerat</span></label>
+<div class="controls">
+<input id="490v" class="input-xlarge" type="text">
+</div>
+
+
+
+<hr>  
+
+<p>
+    
+    020 ISBN
+
+    
+    040 Katalogiserande instans (NR)
+    084 Annan klassifikationskod (R)
+    100 Huvuduppslag - Personnamn (NR) - Auktoritetskontrollerat &Dagger;a namn &Dagger;b ordningstal &Dagger;c särskiljande tillägg &Dagger;d födelse och dödsår
+    245 Titel och upphov (NR)
+    250 Upplaga (NR)
+    260 Utgivning, distribution etc (R)
+    300 Fysisk beskrivning (R)
+    490 Serie, ej biuppslagsform (R)
+    650 Ämnesord - Kontrollerad term (R) - Auktoritetskontrollerat
+    700 Biuppslag - Personnamn (R) - Auktoritetskontrollerat
+</p>
+
+
+
+<label class="control-label" for="personnamn-100a">Personnamn <span class="help-block">Enkelt eller sammansatt släktnamn följt av förnamn</span></label>
+<div class="controls">
+<input id="personnamn-100a" class="input-xlarge" type="text" placeholder="Strindberg, August">
+</div>
+  
+    <div class="control-group">
+
+<label class="control-label" for="input01">ISBN</label>
+<div class="controls docs-input-sizes">
+
+<select class="span2">
+<option>020&Dagger;a</option>
+<option>020&Dagger;c</option>
+<option>020&Dagger;z</option>
+</select><input id="input01" class="input-xlarge" type="text" placeholder="978-1-4133-0454-1">
+<p class="help-block">ISBN</p>
+</div>
+
+<label class="control-label" for="input02">020&Dagger;a ISBN</label>
+<div class="controls">
+<input id="input02" class="input-xlarge" type="text">
+<p class="help-block">ISBN</p>
+</div>
+
+<div class="control-group">
+<label class="control-label" for="prependedInput">Prepended text</label>
+<div class="controls">
+<div class="input-prepend">
+<span class="add-on">020:a</span>
+<input id="prependedInput" class="span3" type="text" size="16">
+</div>
+<p class="help-block">Here's some help text</p>
+</div>
+</div>
+
+<div class="control-group">
+<label class="control-label" for="appendedInput">Appended text</label>
+<div class="controls">
+<div class="input-append">
+<input id="appendedInput" class="span3" type="text" size="16">
+<span class="add-on">020&Dagger;a</span>
+</div>
+<p class="help-block">Here's more help text</p>
+</div>
+</div>
+
+
+<div class="control-group">
+<label class="control-label" for="prependedInput">Prepended text</label>
+<div class="controls">
+<div class="input-prepend">
+<span class="add-on">020:a</span>
+<input id="prependedInput" class="span3" type="text" size="16">
+</div>
+<p class="help-block">100 Huvuduppslag - Personnamn (NR) - Auktoritetskontrollerat 
+<ul>
+<li>&Dagger;a namn</li>  
+<li>&Dagger;b ordningstal</li>
+<li>&Dagger;c särskiljande tillägg</li>
+<li>&Dagger;d födelse och dödsår</li>
+</ul>
+
+</p>
+</div>
+</div>
+
+
+</div>
+    
+    
+    
+    
+        </div>
+
+    <div class="span3">
+    
+    
+    <h3>Mina Länkar</h3>
+          <ul class="nav nav-list">
+    <li>
+    <a href="#">LIBRIS formathandbok</a>
+    </li>
+    <li>
+    <a href="#">Google</a>
+    </li>
+    <li>
+    <a href="#">Wikipedia</a>
+    </li>  
+    <li>
+    <a href="#">Dewey - SAB</a>
+    </li>
+    <li>
+    <a href="#">ISBN-centralen</a>
+    </li>
+    </ul>
+    <form class="well">
+<label>Lägg till url</label>
+<input class="input-small" type="text" placeholder="URL">
+
+
+</label>
+<button class="btn" type="submit">Lägg till</button>
+</form>
+    
+    
+    <h3>Information från listor</h3> 
+    <ul class="nav nav-list">
+    <li class="nav-header">
+    CXZ
+    </li>
+    <li>
+    <a href="#">Dublettpost</a>
+    </li>
+    <li>
+    <a href="#">Problem med post</a>
+    </li>
+    <li>
+    <a href="#">Ändring i post 123456</a>
+    </li>
+    <li>
+    <a href="#">Redigerad aukt.post</a>
+    </li>
+    </ul>  
+    
+        <ul class="nav nav-list">
+    <li class="nav-header">
+    FRANK21
+    </li>
+    <li>
+    <a href="#">Nya namnformer</a>
+    </li>
+    <li>
+    <a href="#">NAMNÄNDRING: Geller/Heller</a>
+    </li>
+    <li>
+    <a href="#">Ungerskt namn</a>
+    </li>
+    <li>
+    <a href="#">Periodikamöte på KB</a>
+    </li>
+    </ul>  
+    
+    <h3>Forum / Fråga expert</h3>
+    
+    </div>
+   	</div>  
+    </div>
+
+    </div>
+    
+     <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{ url_for('static', filename='assets/js/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/bootstrap-transition.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/bootstrap-alert.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/bootstrap-modal.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/bootstrap-dropdown.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/bootstrap-scrollspy.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/bootstrap-tab.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/bootstrap-tooltip.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/bootstrap-popover.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/bootstrap-button.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/bootstrap-collapse.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/bootstrap-carousel.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/bootstrap-typeahead.js') }}"></script>
+
+  
+
+</body></html>
