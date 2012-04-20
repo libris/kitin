@@ -1,0 +1,11 @@
+<!doctype html>
+{% extends "base.html" %}
+{% block title %}Upload json{% endblock %}
+{% block content %}
+  <h1>Upload</h1>
+  <form action="/upload" method="post" enctype="multipart/form-data" >
+    <input type="file" name="jfile" size="40" />
+    <input type="submit" label="upload">
+
+  </form>
+{% endblock %}

@@ -1,0 +1,4 @@
+*.swp
+*.db
+elasticsearch-0.19.1/
+storage/
