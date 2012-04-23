@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 from sqlalchemy import *
+from sqlalchemy.orm import *
 import json
 
 
 db = create_engine('sqlite:///kitin.db')
 db.echo = True
 metadata = MetaData(db)
-
 marcpost = Table('marcpost', metadata,
     Column('id', Integer, primary_key=True),
     Column('userid', String),
@@ -16,7 +16,18 @@ marcpost = Table('marcpost', metadata,
     #Column('100', String),
     #Column('245', Integer),
 )
-marcpost.create()
+#marcpost.create()
+
+class Marcpost(object):
+    def __repr__(self):
+        return "Userid: %s, postid: %s" %(self.userid, self.id)
+    
+    #def __init__(self):
+        
+
+mapper(Marcpost, marcpost)
+
+
 """
 i = marcpost.insert()
 i.execute(marc={'ett': 'ettan'}, spills="nothing yet")

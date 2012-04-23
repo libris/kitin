@@ -5,6 +5,7 @@ import os, json
 from pprint import pprint
 from sqlalchemy import *
 import pickle
+from babydb import Marcpost
 
 
 app = Flask(__name__)
@@ -45,34 +46,19 @@ def upload_file():
         i = marcpost.insert()
         i.execute(marc=pickle.dumps(json_data), bibid=bi)
 
-        #get post
-        #s = marcpost.select()
-        #rs = s.execute()
-        #row = rs.fetchone()
-        #marcet = pickle.loads(row['marc'])
-        #hundra = marcet.get('100', 'inget')
-        #for sf in hundra:
-        #    print sf
-        #print json_data.get('100', "nej")
         return "tack"
     else:
         return render_template('upload.html')
 
-@app.route('/lookup/<bibid>/<field>')
+@app.route('/lookup/<bibid>')
 def lookup(bibid=None, field=None):
     try:
         marcpost = Table('marcpost', metadata, autoload=True)
-        s = marcpost.select(marcpost.c.bibid == bibid)
-        print "s", s
-        rs = s.execute()
-        print "executed"
-        print "size", rs.rowcount()
-        row = rs.fetchone()
-        return row
-        themarc = pickle.loads(row['marc'])
-        return themarc
-        thefield = themarc.get(field, 'inget')
-        return thefield
+        thequery = marcpost.select(marcpost.c.bibid == bibid)
+        thepost = thequery.execute().fetchone()
+        themarc = pickle.loads(thepost['marc'])
+        print "themarc", themarc
+        return str(themarc['100'])
     except Exception as e:
         print "exc", e
 
@@ -81,3 +67,6 @@ if __name__ == "__main__":
     if '-d' in argv:
         app.debug = True
     app.run()
+
+
+
