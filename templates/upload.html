@@ -5,7 +5,14 @@
   <h1>Upload</h1>
   <form action="/upload" method="post" enctype="multipart/form-data" >
     <input type="file" name="jfile" size="40" />
-    <input type="submit" label="upload">
+    <input type="text" name="uid" value="987"/>
+    <input type="submit" name="files" value="upload from files">
+
+  </form>
+  <form action="/upload" method="post" enctype="multipart/form-data" >
+    <input type="text" name="bibid" value="bibid"/>
+    <input type="text" name="uid" value="987"/>
+    <input type="submit" name="backend" value="upload from backend" >
 
   </form>
 {% endblock %}
