@@ -1,0 +1,17 @@
+<!doctype html>
+{% extends "base.html" %}
+{% block title %}View json{% endblock %}
+{% block content %}
+  <h1>Marcpost</h1>
+  {% for mid, marcpost in marcposts %}
+  <form action="/save" method="post" enctype="multipart/form-data" >
+      <input type="text" name="uid" value="{{ uid }}">
+      <input type="text" name="mid" value="{{ mid }}">
+      <textarea cols="50" rows="20" name="jdata">{{ marcpost }}</textarea>
+
+      <input type="submit" value="publish" name="publish">
+      <input type="submit" value="save draft" name="draft">
+
+  </form>
+  {% endfor %}
+{% endblock %}

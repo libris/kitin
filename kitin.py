@@ -41,8 +41,8 @@ def upload_file():
             fname = secure_filename(f.filename)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], fname)
             f.save(filepath)
-            json_file = open(filepath)
-            json_data = json.load(json_file)
+            json_text = open(filepath)
+            json_data = json.load(json_text)
             print "json", type(json_data)
 
         elif request.form.get('backend', None):
@@ -55,7 +55,7 @@ def upload_file():
         i = marcpost.insert()
         r = i.execute(marc=pickle.dumps(json_data), bibid=bi, userid=uid)
         mid = str(r.last_inserted_ids()[0])
-        return render_template('view.html', marcpost = json.dumps(json_data), uid = uid, mid = mid )
+        return render_template('view.html', marcposts = [(mid, json.dumps(json_data))], uid = uid )
     else:
         return render_template('upload.html')
 
@@ -67,17 +67,17 @@ def lookup(uid=None):
         thequery = marcpost.select(marcpost.c.userid == uid)
         theposts = thequery.execute().fetchall()
         if len(theposts) == 1:
-            print "one post ju:", theposts
-            themarc = pickle.loads(theposts[0]['marc'])
+            print "one"
+            json_text = pickle.loads(theposts[0]['marc'])
+            #json_data = json.(json_text)
             mid = theposts[0].id
             
-            return render_template('view.html', marcposts = [(mid, themarc)], uid = uid)
+            return render_template('view.html', marcposts = [(mid, json.dumps(json_text))], uid = uid)
 
 
         if len(theposts) > 1:
-            print "many posts:", theposts
-            themarcs = [(thepost.id, pickle.loads(thepost.marc)) for thepost in theposts]
-            print themarcs
+            print "many"
+            themarcs = [(thepost.id, json.dumps(pickle.loads(thepost.marc))) for thepost in theposts]
             return render_template('view.html', marcposts = themarcs, uid = uid, )
 
         else:
@@ -91,13 +91,11 @@ def lookup(uid=None):
 def save_to_db():
     """Save draft to kitin, or publish document to whelk and remove from kitin."""
     if request.method == 'POST':
-        jdata = request.form['jdata']
-        jd = json.loads(jdata)
+        json_text = request.form['jdata']
+        json_data = json.loads(json_text)
         uid = request.form['uid']
         mid = request.form['mid']
-        bjson = '{"uid": %s, "marc": %s}' % (uid, jdata)
-
-        bibid = jd.get('001', None)
+        bibid = json_data.get('001', None)
         mp = Table('marcpost', metadata, autoload=True)
         if not bibid:
             try:
@@ -106,13 +104,15 @@ def save_to_db():
                 bibid = '666'
 
         if request.form.get('publish', None):
+
+            bjson = '{"uid": %s, "marc": %s}' % (uid, json_text)
             r = requests.put("http://localhost:8080/bib/%s" % bibid, data = bjson.encode('utf-8'))
             print "published"
             delmp = mp.delete().where(mp.c.id==mid)
             db.execute(delmp)
             print "deleted draft"
         elif request.form.get('draft', None):
-            newmp = mp.update().where(mp.c.id==mid).values(marc=pickle.dumps(jdata))
+            newmp = mp.update().where(mp.c.id==mid).values(marc=pickle.dumps(json_data))
             db.execute(newmp)
 
             print "saved draft"
