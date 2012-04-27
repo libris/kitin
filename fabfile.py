@@ -7,7 +7,7 @@ from kitin import UPLOAD_FOLDER
 from sqlalchemy import *
 from sqlalchemy.orm import *
 
-import json,os
+import json, os
 
 def create_db():
     if not os.path.exists('kitin.db'):
@@ -24,8 +24,6 @@ def create_db():
         marcpost.create()
 
 def prepare():
-#    with prefix('workon kitin'):
-#        local('pip install -r dev-requirements.txt')
     if not os.path.exists(UPLOAD_FOLDER):
         os.mkdir(UPLOAD_FOLDER)
     create_db()
