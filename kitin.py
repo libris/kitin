@@ -6,12 +6,12 @@ import os, json
 from pprint import pprint
 from sqlalchemy import *
 import pickle
-from babydb import Marcpost
+#from babydb import Marcpost
 import requests
 
 
 app = Flask(__name__)
-UPLOAD_FOLDER = '/Users/lisa/dev/kitin/storage/'
+UPLOAD_FOLDER = './storage/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 db = create_engine('sqlite:///kitin.db')
