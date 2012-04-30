@@ -7,5 +7,19 @@ body {
   font-size: 1.2em;
   }
   
+  
+  
+/* Webcat form */
+
+input.field {
+	width: 30px;
+}
+select.indicator {
+	width: 50px;
+}
+input.subfield {
+	width: 150px;
+}
+  
 
 
