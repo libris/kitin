@@ -1,7 +1,7 @@
 *.swp
 *.db
 *.pyc
-settings.py
+config.py
 elasticsearch-0.19.1/
 storage/
 .DS_store
