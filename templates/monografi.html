@@ -8,7 +8,7 @@
     <p>
 000 Postetikett: 02108cem a2200433 a 4500<br>
 001 BibID: 11691597<br>
-003: SE-LIBR<br>
+003 SE-LIBR<br>
 005 Tidpunkt för senaste uppdatering: 20091119170529.0<br>
 006 Kompletterande mediespecifika koder: ea f | 0<br>
 007 Fysiska egenskaper: aj can|n<br>
@@ -74,17 +74,35 @@
 <input id="245c" class="subfield" type="text" placeholder="&Dagger;c">
 </div>
 
+<div>
+<input id="titel" class="field" type="text" value="245">
+<select class="indicator">
+<option> </option>
+<option>_</option>
+<option>1</option>
+<option>2</option>
+</select>
+<select class="indicator">
+<option> </option>
+<option>_</option>
+<option>1</option>
+<option>2</option>
+</select>
+<input id="245a" class="subfields" type="text" placeholder="Delfält">
+
+</div>
+
 <hr>  
+shift + option + t = doubledagger
 
-
-<label class="control-label" for="isbn-020a">ISBN <span class="help-block">Ex. 978-951-98548-9-2 </span></label> 
+<label class="control-label" for="isbn-020a" title="[020 &Dagger;a] ISBN">ISBN <span class="help-block">Ex. 978-951-98548-9-2 </span></label> 
 <div class="controls">
 <input id="isbn-020a" class="input-xlarge" type="text">
 <!-- <p class="help-block">ISBN</p> -->
 </div>
 
 
-<label class="control-label" for="katinstans040-a">Katalogiserande instans*</label>
+<label class="control-label" for="katinstans040-a" title="[040 &Dagger;a] Katalogiserande instans">Katalogiserande instans*</label>
 <div class="controls">
 <input id="katinstans-040a" class="input-xlarge" type="text">
 

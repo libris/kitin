@@ -26,6 +26,10 @@ def start():
 def monografi():
     return render_template('monografi.html')
 
+@app.route("/profile.html")
+def profile():
+    return render_template('profile.html')
+
 @app.route('/user/<name>')
 def show_user(name=None):
     return render_template('home.html', name=name)
