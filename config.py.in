@@ -1,9 +1,0 @@
-appconfig = {
-    'UPLOAD_FOLDER': './storage/',
-}
-kitinconfig = {
-    'DBENGINE': 'sqlite',
-    'DBNAME': 'kitin.db',
-    'WHELK_HOST': '<WHELK_HOST>',
-}
-
