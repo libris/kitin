@@ -14,6 +14,8 @@
     <style>
       body {
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+        height: 100%;
+  		margin: 0 0 1px;
       }
     </style>
     <link href="{{ url_for('static', filename='assets/css/bootstrap-responsive.css') }}" rel="stylesheet">
@@ -31,7 +33,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">LIBRIS katalogisering (kitin)</a>
+          <a class="brand" href="/">LIBRIS katalogisering (kitin)</a>
           <div class="nav-collapse">
             <ul class="nav">
 <!--
@@ -40,6 +42,9 @@
 -->
               <li class="active">
 <a href="#">Login</a>
+  </li>
+                <li>
+<a href="/profile.html">Profile</a>
   </li>
             </ul>
           </div><!--/.nav-collapse -->
@@ -63,17 +68,16 @@
     
         <ul class="nav nav-list">
     <li>
+    <a href="/">Sök</a>
+    </li>
+    <li>
     <a href="#">Ny</a>
     </li>
     <li>
-    <a href="#">Öppna</a>
+    <a href="/upload">Öppna/Ladda upp</a>
     </li>
     <li>
     <a href="#">Öppna senaste</a>
-    </li>
-    
-    <li>
-    <a href="/">Sök</a>
     </li>
     </ul>
     
@@ -126,15 +130,7 @@
     <a href="#">ISBN-centralen</a>
     </li>
     </ul>
-    <form class="well">
-<label>Lägg till url</label>
-<input class="input-small" type="text" placeholder="URL">
-
-
-</label>
-<button class="btn" type="submit">Lägg till</button>
-</form>
-    
+     
     
     <h3>Information från listor</h3> 
     <ul class="nav nav-list">

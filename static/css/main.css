@@ -1,5 +1,9 @@
 html {
   font-size: 62.5%;
+  height: 100%;
+  margin: 0 0 1px;
+  padding: 0px;
+
 }
 
 body {
@@ -19,6 +23,10 @@ select.indicator {
 }
 input.subfield {
 	width: 150px;
+}
+
+input.subfields {
+	width: 74%;
 }
   
 
