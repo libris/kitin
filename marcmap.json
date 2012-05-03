@@ -23,6 +23,8 @@
   "008": {
     "name": "dataElements",
     "repeatable": null,
+    "ind1": {"": null},
+    "ind2": {"": null},
     "type": "fixedLength"
   },
   "020": {
