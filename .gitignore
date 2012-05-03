@@ -1,6 +1,7 @@
 *.swp
 *.db
 *.pyc
+kitin.wsgi
 config.py
 elasticsearch-0.19.1/
 storage/
