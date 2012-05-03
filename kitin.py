@@ -30,6 +30,10 @@ def start():
 def monografi():
     return render_template('monografi.html')
 
+@app.route("/new_bibliographic.html")
+def new_bibliographic():
+    return render_template('new_bibliographic.html')
+
 @app.route("/profile.html")
 def profile():
     return render_template('profile.html')
