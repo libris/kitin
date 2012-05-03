@@ -8,15 +8,19 @@ from sqlalchemy import *
 import pickle
 #from babydb import Marcpost
 import requests
+from config import appconfig as ac, ac as kc
 
 
 app = Flask(__name__)
-UPLOAD_FOLDER = './storage/'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+for key, value in ac.items(): 
+    app.config[key] = value
 
-db = create_engine('sqlite:///kitin.db')
+db = create_engine(_db_string())
 db.echo = True
 metadata = MetaData(db)
+
+def _db_string():
+    return "%s:///%s", (kc['DBENGINE'], kc['DBNAME'])
 
 @app.route("/")
 def start():
@@ -38,7 +42,6 @@ def show_user(name=None):
 def upload_file():
     """Upload marc document from either local file system or from whelk. Save to kitin db."""
     if request.method == 'POST':
-        
         uid = request.form['uid']
         if request.form.get('files', None):
             f = request.files['jfile']
@@ -51,7 +54,7 @@ def upload_file():
 
         elif request.form.get('backend', None):
             bibid = request.form['bibid']
-            bpost = requests.get("http://localhost:8080/bib/%s" % bibid)
+            bpost = requests.get("%s/bib/%s" % (kc['WHELK_HOST'], bibid))
             json_data = json.loads(bpost.text)['marc']
         #get table and save post
         marcpost = Table('marcpost', metadata, autoload=True)
@@ -110,7 +113,7 @@ def save_to_db():
         if request.form.get('publish', None):
 
             bjson = '{"uid": %s, "marc": %s}' % (uid, json_text)
-            r = requests.put("http://localhost:8080/bib/%s" % bibid, data = bjson.encode('utf-8'))
+            r = requests.put("%s/bib/%s" % (kc['WHELK_HOST'], bibid), data = bjson.encode('utf-8'))
             print "published"
             delmp = mp.delete().where(mp.c.id==mid)
             db.execute(delmp)
