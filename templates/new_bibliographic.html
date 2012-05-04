@@ -7,6 +7,18 @@
 000 postetikett: fullständighetsnivå 3 (miniminivå)<br>
 008 katalogiserande instans: c = LIBRIS-bibliotek/Kooperativt katalogiseringsprogram
 <hr>
+
+
+<div class="tabbable"> <!-- Only required for left/right tabs -->
+    <ul class="nav nav-tabs">
+    <li class="active"><a href="#tab1" data-toggle="tab">Mastermode</a></li>
+    <li><a href="#tab2" data-toggle="tab">Lightmode</a></li>
+    </ul>
+    <div class="tab-content">
+    <div class="tab-pane active" id="tab1">
+
+
+
 <h2>VERSION 1</h2>
     <table class="table">
 <thead>
@@ -16,6 +28,8 @@
 <th width="25px">Kod</th>
 <th>Delfält</th>
 </tr>
+    
+
 </thead>
 <tbody>
 	<tr>
@@ -87,6 +101,13 @@
 			
 </tbody>
 </table>
+
+
+
+    </div>
+    <div class="tab-pane" id="tab2">
+
+
 
 <h2>VERSION 2</h2>
 
@@ -312,6 +333,11 @@
 			
 </tbody>
 </table>
+
+
+    </div>
+    </div>
+    </div>
 
 
 {% endblock content %}
