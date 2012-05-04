@@ -28,9 +28,11 @@ input.field {
 select.indicator, input.indicator {
 	width: 20px;
 }
+/*
 input.indicator:hover {
 	border: 1px;
 }
+*/
 
 input.subfield {
 	width: 150px;
