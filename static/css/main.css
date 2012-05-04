@@ -12,9 +12,16 @@ body {
   margin: 0 0 1px;
   font-family: Helvetica;
   font-size: 1.2em;
-  }
+}
   
 /* Webcat form */
+.monografi .control_fields {
+  list-style: none;
+  margin: 0;
+}
+.monografi .control_fields label {
+  display: inline;
+}
 input.field {
 	width: 30px;
 }
