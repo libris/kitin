@@ -18,9 +18,16 @@ body {
 input.field {
 	width: 30px;
 }
-select.indicator {
-	width: 50px;
+select.indicator, input.indicator {
+	width: 20px;
+	/* border: 0; */
+	
 }
+input.indicator:hover {
+	border: 1px;
+	
+}
+
 input.subfield {
 	width: 150px;
 }
@@ -28,7 +35,10 @@ input.subfield {
 input.subfields {
 	width: 74%;
 }
-  
+
+input.subfield-master {
+	width: 99%;
+}  
 
 .remoteoption {
 	padding: 5px;

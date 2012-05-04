@@ -3,97 +3,315 @@
 {% block content %}
 
 <h2>Ny Post (miniminivå)</h2>
-
-    <table class="table table-bordered">
+<hr>
+000 postetikett: fullständighetsnivå 3 (miniminivå)<br>
+008 katalogiserande instans: c = LIBRIS-bibliotek/Kooperativt katalogiseringsprogram
+<hr>
+<h2>VERSION 1</h2>
+    <table class="table">
 <thead>
 <tr>
-<th>#</th>
-<th>Kod</th>
-<th>Kod</th>
+<th width="25px">#</th>
+<th width="25px">Kod</th>
+<th width="25px">Kod</th>
 <th>Delfält</th>
 </tr>
 </thead>
 <tbody>
 	<tr>
-		<td>000</td>
-		<td></td>
-		<td></td>
-		<td>postetikett: fullständighetsnivå 3 (miniminivå)</td>
-	</tr>
-	<tr>
-		<td>008</td>
-		<td></td>
-		<td></td>
-		<td>katalogiserande instans: c = LIBRIS-bibliotek/Kooperativt katalogiseringsprogram</td>
-	</tr>
-	<tr>
-		<td>020</td>
-		<td></td>
-		<td></td>
-		<td>#a ISBN</td>
+		<td><input class="field" type="text" value="020"></td>
+		<td><input class="indicator" type="text"></td>
+		<td><input class="indicator" type="text"></td>
+		<td><input class="subfield-master" type="text" value="#a ISBN"></td>
 	</tr>  
 	<tr>
-		<td>040</td>
-		<td></td>
-		<td></td>
-		<td>#a Inläggande bibliotek (#d om posten övertages från annat bibliotek och fullständighetsnivån i fält 000 ändras från lägre nivå (=prel.))</td>
+		<td><input class="field" type="text" value="040"></td>
+		<td><input class="indicator" type="text"></td>
+		<td><input class="indicator" type="text"></td>
+		<td><input class="subfield-master" type="text" value="#a Inläggande bibliotek (#d om posten övertages från annat bibliotek och fullständighetsnivån i fält 000 ändras från lägre nivå (=prel.))"></td>
 	</tr> 
 	<tr>
-		<td>1XX</td>
-		<td></td>
-		<td></td>
-		<td>#a Huvuduppslag (olika delfält beroende på typ av huvuduppslag)</td>
+		<td><input class="field" type="text" value="1XX"></td>
+		<td><input class="indicator" type="text"></td>
+		<td><input class="indicator" type="text"></td>
+		<td><input class="subfield-master" type="text" value="#a Huvuduppslag (olika delfält beroende på typ av huvuduppslag)"></td>
 	</tr>
 	<tr>
-		<td>245</td>
-		<td></td>
-		<td></td>
-		<td>#a Huvudtitel / #c första upphovsuppgift (om denna avviker från huvuduppslaget)</td>
+		<td><input class="field" type="text" value="245"></td>
+		<td><input class="indicator" type="text"></td>
+		<td><input class="indicator" type="text"></td>
+		<td><input class="subfield-master" type="text" value="#a Huvudtitel / #c första upphovsuppgift (om denna avviker från huvuduppslaget)"></td>
 	</tr>
 	<tr>
-		<td>250</td>
-		<td></td>
-		<td></td>
-		<td>#a Upplaga</td>
+		<td><input class="field" type="text" value="250"></td>
+		<td><input class="indicator" type="text"></td>
+		<td><input class="indicator" type="text"></td>
+		<td><input class="subfield-master" type="text" value="#a Upplaga"></td>
 	</tr>
 	<tr>
-		<td>260</td>
-		<td></td>
-		<td></td>
-		<td>#a Första utgivningsort etc., #c utgivningstid etc.</td>
+		<td><input class="field" type="text" value="260X"></td>
+		<td><input class="indicator" type="text"></td>
+		<td><input class="indicator" type="text"></td>
+		<td><input class="subfield-master" type="text" value="#a Första utgivningsort etc., #c utgivningstid etc."></td>
 	</tr>
 	<tr>
-		<td>300</td>
-		<td></td>
-		<td></td>
-		<td>#a Omfångsuppgift (enbart delfält #a anges, objektets huvudpaginering följs)</td>
+		<td><input class="field" type="text" value="300"></td>
+		<td><input class="indicator" type="text"></td>
+		<td><input class="indicator" type="text"></td>
+		<td><input class="subfield-master" type="text" value="#a Omfångsuppgift (enbart delfält #a anges, objektets huvudpaginering följs)"></td>
 	</tr>
 	<tr>
-		<td>5XX</td>
-		<td></td>
-		<td></td>
-		<td>#a Anmärkning(ar)</td>
+		<td><input class="field" type="text" value="5XX"></td>
+		<td><input class="indicator" type="text"></td>
+		<td><input class="indicator" type="text"></td>
+		<td><input class="subfield-master" type="text" value="#a Anmärkning(ar)"></td>
 	</tr>
 	<tr>
-		<td>6XX</td>
-		<td></td>
-		<td></td>
-		<td>#a kan användas, när så är tillämpligt</td>
+		<td><input class="field" type="text" value="61XX"></td>
+		<td><input class="indicator" type="text"></td>
+		<td><input class="indicator" type="text"></td>
+		<td><input class="subfield-master" type="text" value="#a kan användas, när så är tillämpligt"></td>
 	</tr>
 	<tr>
-		<td>7XX</td>
-		<td></td>
-		<td></td>
-		<td>#a Biuppslag (olika delfält beroende på typ av biuppslag)</td>
+		<td><input class="field" type="text" value="7XX"></td>
+		<td><input class="indicator" type="text"></td>
+		<td><input class="indicator" type="text"></td>
+		<td><input class="subfield-master" type="text" value="‡a Biuppslag (olika delfält beroende på typ av biuppslag)"></td>
 	</tr>
 	<tr>
 		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
-	</tr>	
+	</tr>
 			
 </tbody>
 </table>
+
+<h2>VERSION 2</h2>
+
+    <table class="table">
+<thead>
+<tr>
+<th width="25px">#</th>
+<th width="25px">Kod</th>
+<th width="25px">Kod</th>
+<th>Delfält</th>
+<th width="25px">+ / -</th>
+</tr>
+</thead>
+<tbody>
+	<tr>
+		<td title="‡a ISBN">020 <a href="#">?</a></td>
+		<td><input class="indicator" list="indicator" />
+			<datalist id="indicator" class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+			</datalist>
+		</td>
+		<td><input class="indicator" list="indicator">
+			<datalist id="indicator" class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+			</datalist>
+		</td>
+		<td><input class="subfield-master" type="text" value="‡a"></td>
+		<td><a href="#">+</a></td>
+	</tr>  
+	<tr>
+		<td title="Inläggande bibliotek (‡d om posten övertages från annat bibliotek och fullständighetsnivån i fält 000 ändras från lägre nivå (=prel.))">040</td>
+		<td>
+			<select class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+			</select>
+		</td>
+		<td>
+			<select class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+			</select>		
+		</td>
+		<td><input class="subfield-master" type="text" value="‡a"></td>
+	</tr> 
+	<tr>
+		<td title="‡a Huvuduppslag (olika delfält beroende på typ av huvuduppslag)">1XX</td>
+		<td>
+			<select class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+			</select>		
+		</td>
+		<td>
+			<select class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+			</select>		
+		</td>
+		<td><input class="subfield-master" type="text" value="‡a"></td>
+	</tr>
+	<tr>
+		<td>245</td>
+		<td>
+			<select class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+			</select>		
+		</td>
+		<td>
+			<select class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+			</select>		
+		</td>
+		<td><input class="subfield-master" type="text" value="‡a Huvudtitel / ‡c första upphovsuppgift (om denna avviker från huvuduppslaget)"></td>
+	</tr>
+	<tr>
+		<td>250</td>
+		<td>
+			<select class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+			</select>		
+		</td>
+		<td>
+			<select class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+			</select>		
+		</td>
+		<td><input class="subfield-master" type="text" value="‡a Upplaga"></td>
+	</tr>
+	<tr>
+		<td>260</td>
+		<td>
+			<select class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+			</select>		
+		</td>
+		<td>
+			<select class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+			</select>		
+		</td>
+		<td><input class="subfield-master" type="text" value="‡a Första utgivningsort etc., ‡c utgivningstid etc."></td>
+	</tr>
+	<tr>
+		<td>300</td>
+		<td>
+			<select class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+			</select>		
+		</td>
+		<td>
+			<select class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+			</select>		
+		</td>
+		<td><input class="subfield-master" type="text" value="‡a Omfångsuppgift (enbart delfält #a anges, objektets huvudpaginering följs)"></td>
+	</tr>
+	<tr>
+		<td>5XX</td>
+		<td>
+			<select class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+			</select>		
+		</td>
+		<td>
+			<select class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+			</select>		
+		</td>
+		<td><input class="subfield-master" type="text" value="‡a Anmärkning(ar)"></td>
+	</tr>
+	<tr>
+		<td>6XX</td>
+		<td>
+			<select class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+			</select>		
+		</td>
+		<td>
+			<select class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+			</select>		
+		</td>
+		<td><input class="subfield-master" type="text" value="‡a kan användas, när så är tillämpligt"></td>
+	</tr>
+	<tr>
+		<td>7XX</td>
+		<td>
+			<select class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+			</select>		
+		</td>
+		<td>
+			<select class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+			</select>		
+		</td>
+		<td><input class="subfield-master" type="text" value="‡a Biuppslag (olika delfält beroende på typ av biuppslag)"></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+
+			
+</tbody>
+</table>
+
 
 {% endblock content %}
