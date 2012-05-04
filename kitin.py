@@ -11,7 +11,7 @@ import requests
 
 app = Flask(__name__)
 app.config.from_pyfile('config.cfg')
-app.config.from_envvar('SETTINGS')
+app.config.from_envvar('SETTINGS', silent = True)
 
 def _db_string():
     return "%s:///%s" %(app.config['DBENGINE'], app.config['DBNAME'])
