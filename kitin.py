@@ -8,19 +8,17 @@ from sqlalchemy import *
 import pickle
 #from babydb import Marcpost
 import requests
-from config import appconfig as ac, ac as kc
-
 
 app = Flask(__name__)
-for key, value in ac.items(): 
-    app.config[key] = value
+app.config.from_pyfile('config.cfg')
+app.config.from_envvar('SETTINGS', silent = True)
+
+def _db_string():
+    return "%s:///%s" %(app.config['DBENGINE'], app.config['DBNAME'])
 
 db = create_engine(_db_string())
 db.echo = True
 metadata = MetaData(db)
-
-def _db_string():
-    return "%s:///%s", (kc['DBENGINE'], kc['DBNAME'])
 
 @app.route("/")
 def start():
