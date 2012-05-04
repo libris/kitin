@@ -7,25 +7,22 @@ html {
 }
 
 body {
+  padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+  height: 100%;
+  margin: 0 0 1px;
   font-family: Helvetica;
   font-size: 1.2em;
   }
   
-  
-  
 /* Webcat form */
-
 input.field {
 	width: 30px;
 }
 select.indicator, input.indicator {
 	width: 20px;
-	/* border: 0; */
-	
 }
 input.indicator:hover {
 	border: 1px;
-	
 }
 
 input.subfield {
