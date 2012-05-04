@@ -2,288 +2,269 @@
 
 {% block content %}
 
-    <!--Body content-->
-    <h2>Monografi</h2>
-    <hr>
-    <p>
-000 Postetikett: 02108cem a2200433 a 4500<br>
-001 BibID: 11691597<br>
-003 SE-LIBR<br>
-005 Tidpunkt för senaste uppdatering: 20091119170529.0<br>
-006 Kompletterande mediespecifika koder: ea f | 0<br>
-007 Fysiska egenskaper: aj can|n<br>
-008 Mediespecifika koder: 091119s2009 sw a f | 0 swe<br>
-</p>
+<!--Body content-->
+<h2>Monografi</h2>
 <hr>
-
-
-<div>
-<input id="isbn" class="field" type="text" value="020">
-<select class="indicator">
-<option> </option>
-<option>_</option>
-<option>1</option>
-<option>2</option>
-</select>
-<select class="indicator">
-<option> </option>
-<option>_</option>
-<option>1</option>
-<option>2</option>
-</select>
-<input id="020-a" class="subfield" type="text" placeholder="&Dagger;a">
-<input id="020-c" class="subfield" type="text" placeholder="&Dagger;c">
-<input id="020-z" class="subfield" type="text" placeholder="&Dagger;z">
-</div>
-
-<div>
-<input id="upphovsman" class="field" type="text" value="100">
-<select class="indicator">
-<option> </option>
-<option>_</option>
-<option>1</option>
-<option>2</option>
-</select>
-<select class="indicator">
-<option> </option>
-<option>_</option>
-<option>1</option>
-<option>2</option>
-</select>
-<input id="100a" class="subfield" type="text" placeholder="&Dagger;a">
-<input id="100b" class="subfield" type="text" placeholder="&Dagger;b">
-<input id="100c" class="subfield" type="text" placeholder="&Dagger;c">
-</div>
-
-<div>
-<input id="titel" class="field" type="text" value="245">
-<select class="indicator">
-<option> </option>
-<option>_</option>
-<option>1</option>
-<option>2</option>
-</select>
-<select class="indicator">
-<option> </option>
-<option>_</option>
-<option>1</option>
-<option>2</option>
-</select>
-<input id="245a" class="subfield" type="text" placeholder="&Dagger;a">
-<input id="245b" class="subfield" type="text" placeholder="&Dagger;b">
-<input id="245c" class="subfield" type="text" placeholder="&Dagger;c">
-</div>
-
-<div>
-<input id="titel" class="field" type="text" value="245">
-<select class="indicator">
-<option> </option>
-<option>_</option>
-<option>1</option>
-<option>2</option>
-</select>
-<select class="indicator">
-<option> </option>
-<option>_</option>
-<option>1</option>
-<option>2</option>
-</select>
-<input id="245a" class="subfields" type="text" placeholder="Delfält">
-
-</div>
-
-<hr>  
-<p>shift + option + t = doubledagger</p>
-
-<label class="control-label" for="isbn-020_00-z_00" title="[020 &Dagger;a] ISBN">ISBN <span class="help-block">Ex. 978-951-98548-9-2 </span></label> 
-<div class="controls">
-<input id="isbn-020ax00" class="input-xlarge" type="text">
-<!-- <p class="help-block">ISBN</p> -->
-</div>
-
-
-<label class="control-label" for="katinstans040-a" title="[040 &Dagger;a] Katalogiserande instans">Katalogiserande instans*</label>
-<div class="controls">
-<input id="katinstans-040a" class="input-xlarge" type="text">
-
-</div>
-
-<label class="control-label" for="klassifikationskod-084a">Annan klassifikationskod <span class="help-block">kssb/8</span></label>
-<div class="controls">
-<input id="klassifikationskod-084a" class="input-xlarge" type="text">
-</div>
-
-<label class="control-label" for="personnamn-100a">Personnamn <span class="help-block">Ex. Strindberg, August</span></label>
-<div class="controls">
-<input id="personnamn-100a" class="input-xlarge" type="text" >
-</div>
-
-<label class="control-label" for="personnamn-100d">Födelse- och dödsår <span class="help-block">Auktoriserad</span></label>
-<div class="controls">
-<input id="personnamn-100d" class="input-xlarge" type="text">
-</div>
-
-<label class="control-label" for="titel-245a">Titel och upphov - Huvudtitel*</label>
-<div class="controls">
-<input id="titel-245a" class="input-xlarge" type="text">
-</div>
-
-<label class="control-label" for="titel-245b">Övrig titelinformation <span class="help-block">Ex. undertitel</span></label>
-<div class="controls">
-<input id="titel-245b" class="input-xlarge" type="text">
-</div>
-
-<label class="control-label" for="titel-245c">Särskiljande tillägg</label>
-<div class="controls">
-<input id="titel-245c" class="input-xlarge" type="text">
-</div>
-
-<label class="control-label" for="upplaga-250a">Upplaga <span class="help-block">Obligatoriskt om tillämpligt</span></label>
-<div class="controls">
-<input id="upplaga-250a" class="input-xlarge" type="text">
-</div>
-
-<label class="control-label" for="utgivning-260a">Utgivning, distribution - ort</label>
-<div class="controls">
-<input id="utgivning-260a" class="input-xlarge" type="text">
-</div>
-
-<label class="control-label" for="utgivning-260b">Förlag eller annan utgivare</label>
-<div class="controls">
-<input id="utgivning-260b" class="input-xlarge" type="text">
-</div>
-
-<label class="control-label" for="utgivning-260c">Utgivningstid</label>
-<div class="controls">
-<input id="utgivning-260c" class="input-xlarge" type="text">
-</div>
-
-<label class="control-label" for="300a">Omfång <span class="help-block">antal sidor eller volymer</span></label>
-<div class="controls">
-<input id="300a" class="input-xlarge" type="text">
-</div>
-
-<label class="control-label" for="300b">Övriga fysiska detaljer <span class="help-block">Ex. illustrationer</span></label>
-<div class="controls">
-<input id="300b" class="input-xlarge" type="text">
-</div>
-
-<label class="control-label" for="490a">Serietitel</label>
-<div class="controls">
-<input id="490a" class="input-xlarge" type="text">
-</div>
-
-<label class="control-label" for="490x">ISSN</label>
-<div class="controls">
-<input id="490x" class="input-xlarge" type="text">
-</div>
-
-<label class="control-label" for="490v">Delens nummer</label>
-<div class="controls">
-<input id="490v" class="input-xlarge" type="text">
-</div>
-
-<label class="control-label" for="650a">Ämnesord sao <span class="help-block">kommaseparerat</span></label>
-<div class="controls">
-<input id="490v" class="input-xlarge" type="text">
-</div>
-
-<hr>
-
-
 <p>
-    
-    020 ISBN
+	000 Postetikett: 02108cem a2200433 a 4500<br>
+	001 BibID: 11691597<br>
+	003 SE-LIBR<br>
+	005 Tidpunkt för senaste uppdatering: 20091119170529.0<br>
+	006 Kompletterande mediespecifika koder: ea f | 0<br>
+	007 Fysiska egenskaper: aj can|n<br>
+	<span class="008">008 Mediespecifika koder: 091119s2009 sw a f | 0 swe<br>
+	</p>
+	<hr>
 
-    
-    040 Katalogiserande instans (NR)
-    084 Annan klassifikationskod (R)
-    100 Huvuduppslag - Personnamn (NR) - Auktoritetskontrollerat &Dagger;a namn &Dagger;b ordningstal &Dagger;c särskiljande tillägg &Dagger;d födelse och dödsår
-    245 Titel och upphov (NR)
-    250 Upplaga (NR)
-    260 Utgivning, distribution etc (R)
-    300 Fysisk beskrivning (R)
-    490 Serie, ej biuppslagsform (R)
-    650 Ämnesord - Kontrollerad term (R) - Auktoritetskontrollerat
-    700 Biuppslag - Personnamn (R) - Auktoritetskontrollerat
-</p>
+	<div>
+		<input id="isbn" class="field" type="text" value="020">
+		<select class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+		</select>
+		<select class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+		</select>
+		<input id="020-a" class="subfield" type="text" placeholder="&Dagger;a">
+		<input id="020-c" class="subfield" type="text" placeholder="&Dagger;c">
+		<input id="020-z" class="subfield" type="text" placeholder="&Dagger;z">
+	</div>
+
+	<div>
+		<input id="upphovsman" class="field" type="text" value="100">
+		<select class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+		</select>
+		<select class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+		</select>
+		<input id="100a" class="subfield" type="text" placeholder="&Dagger;a">
+		<input id="100b" class="subfield" type="text" placeholder="&Dagger;b">
+		<input id="100c" class="subfield" type="text" placeholder="&Dagger;c">
+	</div>
+
+	<div>
+		<input id="titel" class="field" type="text" value="245">
+		<select class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+		</select>
+		<select class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+		</select>
+		<input id="245a" class="subfield" type="text" placeholder="&Dagger;a">
+		<input id="245b" class="subfield" type="text" placeholder="&Dagger;b">
+		<input id="245c" class="subfield" type="text" placeholder="&Dagger;c">
+	</div>
+
+	<div>
+		<input id="titel" class="field" type="text" value="245">
+		<select class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+		</select>
+		<select class="indicator">
+			<option> </option>
+			<option>_</option>
+			<option>1</option>
+			<option>2</option>
+		</select>
+		<input id="245a" class="subfields" type="text" placeholder="Delfält">
+
+	</div>
+
+	<hr>  
+	<p>shift + option + t = doubledagger</p>
+
+	<label class="control-label" for="isbn-020_00-z_00" title="[020 &Dagger;a] ISBN">ISBN <span class="help-block">Ex. 978-951-98548-9-2 </span></label> 
+	<div class="controls">
+		<input id="isbn-020ax00" class="input-xlarge" type="text">
+		<!-- <p class="help-block">ISBN</p> -->
+	</div>
 
 
+	<label class="control-label" for="katinstans040-a" title="[040 &Dagger;a] Katalogiserande instans">Katalogiserande instans*</label>
+	<div class="controls">
+		<input id="katinstans-040a" class="input-xlarge" type="text">
 
-<label class="control-label" for="personnamn-100a">Personnamn <span class="help-block">Enkelt eller sammansatt släktnamn följt av förnamn</span></label>
-<div class="controls">
-<input id="personnamn-100a" class="input-xlarge" type="text" placeholder="Strindberg, August">
-</div>
-  
-    <div class="control-group">
+	</div>
 
-<label class="control-label" for="input01">ISBN</label>
-<div class="controls docs-input-sizes">
+	<label class="control-label" for="klassifikationskod-084a">Annan klassifikationskod <span class="help-block">kssb/8</span></label>
+	<div class="controls">
+		<input id="klassifikationskod-084a" class="input-xlarge" type="text">
+	</div>
 
-<select class="span2">
-<option>020&Dagger;a</option>
-<option>020&Dagger;c</option>
-<option>020&Dagger;z</option>
-</select><input id="input01" class="input-xlarge" type="text" placeholder="978-1-4133-0454-1">
-<p class="help-block">ISBN</p>
-</div>
+	<label class="control-label" for="personnamn-100a">Personnamn <span class="help-block">Ex. Strindberg, August</span></label>
+	<div class="controls">
+		<input id="personnamn-100a" class="input-xlarge" type="text" >
+	</div>
 
-<label class="control-label" for="input02">020&Dagger;a ISBN</label>
-<div class="controls">
-<input id="input02" class="input-xlarge" type="text">
-<p class="help-block">ISBN</p>
-</div>
+	<label class="control-label" for="personnamn-100d">Födelse- och dödsår <span class="help-block">Auktoriserad</span></label>
+	<div class="controls">
+		<input id="personnamn-100d" class="input-xlarge" type="text">
+	</div>
 
-<div class="control-group">
-<label class="control-label" for="prependedInput">Prepended text</label>
-<div class="controls">
-<div class="input-prepend">
-<span class="add-on">020:a</span>
-<input id="prependedInput" class="span3" type="text" size="16">
-</div>
-<p class="help-block">Here's some help text</p>
-</div>
-</div>
+	<label class="control-label" for="titel-245a">Titel och upphov - Huvudtitel*</label>
+	<div class="controls">
+		<input id="titel-245a" class="input-xlarge" type="text">
+	</div>
 
-<div class="control-group">
-<label class="control-label" for="appendedInput">Appended text</label>
-<div class="controls">
-<div class="input-append">
-<input id="appendedInput" class="span3" type="text" size="16">
-<span class="add-on">020&Dagger;a</span>
-</div>
-<p class="help-block">Here's more help text</p>
-</div>
-</div>
+	<label class="control-label" for="titel-245b">Övrig titelinformation <span class="help-block">Ex. undertitel</span></label>
+	<div class="controls">
+		<input id="titel-245b" class="input-xlarge" type="text">
+	</div>
 
+	<label class="control-label" for="titel-245c">Särskiljande tillägg</label>
+	<div class="controls">
+		<input id="titel-245c" class="input-xlarge" type="text">
+	</div>
 
-<div class="control-group">
-<label class="control-label" for="prependedInput">Prepended text</label>
-<div class="controls">
-<div class="input-prepend">
-<span class="add-on">020:a</span>
-<input id="prependedInput" class="span3" type="text" size="16">
-</div>
-<p class="help-block">100 Huvuduppslag - Personnamn (NR) - Auktoritetskontrollerat 
-<ul>
-<li>&Dagger;a namn</li>  
-<li>&Dagger;b ordningstal</li>
-<li>&Dagger;c särskiljande tillägg</li>
-<li>&Dagger;d födelse och dödsår</li>
-</ul>
+	<label class="control-label" for="upplaga-250a">Upplaga <span class="help-block">Obligatoriskt om tillämpligt</span></label>
+	<div class="controls">
+		<input id="upplaga-250a" class="input-xlarge" type="text">
+	</div>
 
-</p>
-</div>
-</div>
+	<label class="control-label" for="utgivning-260a">Utgivning, distribution - ort</label>
+	<div class="controls">
+		<input id="utgivning-260a" class="input-xlarge" type="text">
+	</div>
 
+	<label class="control-label" for="utgivning-260b">Förlag eller annan utgivare</label>
+	<div class="controls">
+		<input id="utgivning-260b" class="input-xlarge" type="text">
+	</div>
 
+	<label class="control-label" for="utgivning-260c">Utgivningstid</label>
+	<div class="controls">
+		<input id="utgivning-260c" class="input-xlarge" type="text">
+	</div>
+
+	<label class="control-label" for="300a">Omfång <span class="help-block">antal sidor eller volymer</span></label>
+	<div class="controls">
+		<input id="300a" class="input-xlarge" type="text">
+	</div>
+
+	<label class="control-label" for="300b">Övriga fysiska detaljer <span class="help-block">Ex. illustrationer</span></label>
+	<div class="controls">
+		<input id="300b" class="input-xlarge" type="text">
+	</div>
+
+	<label class="control-label" for="490a">Serietitel</label>
+	<div class="controls">
+		<input id="490a" class="input-xlarge" type="text">
+	</div>
+
+	<label class="control-label" for="490x">ISSN</label>
+	<div class="controls">
+		<input id="490x" class="input-xlarge" type="text">
+	</div>
+
+	<label class="control-label" for="490v">Delens nummer</label>
+	<div class="controls">
+		<input id="490v" class="input-xlarge" type="text">
+	</div>
+
+	<label class="control-label" for="650a">Ämnesord sao <span class="help-block">kommaseparerat</span></label>
+	<div class="controls">
+		<input id="490v" class="input-xlarge" type="text">
+	</div>
+	<hr>
+	<p>
+		020 ISBN
+		040 Katalogiserande instans (NR)
+		084 Annan klassifikationskod (R)
+		100 Huvuduppslag - Personnamn (NR) - Auktoritetskontrollerat &Dagger;a namn &Dagger;b ordningstal &Dagger;c särskiljande tillägg &Dagger;d födelse och dödsår
+		245 Titel och upphov (NR)
+		250 Upplaga (NR)
+		260 Utgivning, distribution etc (R)
+		300 Fysisk beskrivning (R)
+		490 Serie, ej biuppslagsform (R)
+		650 Ämnesord - Kontrollerad term (R) - Auktoritetskontrollerat
+		700 Biuppslag - Personnamn (R) - Auktoritetskontrollerat
+	</p>
+
+	<label class="control-label" for="personnamn-100a">Personnamn <span class="help-block">Enkelt eller sammansatt släktnamn följt av förnamn</span></label>
+	<div class="controls">
+		<input id="personnamn-100a" class="input-xlarge" type="text" placeholder="Strindberg, August">
+	</div>
+
+	<div class="control-group">
+
+		<label class="control-label" for="input01">ISBN</label>
+		<div class="controls docs-input-sizes">
+
+			<select class="span2">
+				<option>020&Dagger;a</option>
+				<option>020&Dagger;c</option>
+				<option>020&Dagger;z</option>
+			</select><input id="input01" class="input-xlarge" type="text" placeholder="978-1-4133-0454-1">
+			<p class="help-block">ISBN</p>
+		</div>
+
+		<label class="control-label" for="input02">020&Dagger;a ISBN</label>
+		<div class="controls">
+			<input id="input02" class="input-xlarge" type="text">
+			<p class="help-block">ISBN</p>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="prependedInput">Prepended text</label>
+			<div class="controls">
+				<div class="input-prepend">
+					<span class="add-on">020:a</span>
+					<input id="prependedInput" class="span3" type="text" size="16">
+				</div>
+				<p class="help-block">Here's some help text</p>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="appendedInput">Appended text</label>
+			<div class="controls">
+				<div class="input-append">
+					<input id="appendedInput" class="span3" type="text" size="16">
+					<span class="add-on">020&Dagger;a</span>
+				</div>
+				<p class="help-block">Here's more help text</p>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="prependedInput">Prepended text</label>
+			<div class="controls">
+				<div class="input-prepend">
+					<span class="add-on">020:a</span>
+					<input id="prependedInput" class="span3" type="text" size="16">
+				</div>
+				<p class="help-block">100 Huvuduppslag - Personnamn (NR) - Auktoritetskontrollerat 
+					<ul>
+						<li>&Dagger;a namn</li>  
+						<li>&Dagger;b ordningstal</li>
+						<li>&Dagger;c särskiljande tillägg</li>
+						<li>&Dagger;d födelse och dödsår</li>
+					</ul>
+
+				</p>
+			</div>
+		</div>
 <!-- </div> -->
-    
-    
-    
-    
-          </div>
-
-
-
+</div>
 {% endblock %}
