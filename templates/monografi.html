@@ -44,7 +44,7 @@
   <li><label>008:</label><span class="008">{{data['008']}}</span></li>
 </ul>
 <hr>
-{% for row in data %}
+{% for row in data|sort %}
   <p>
   {{ render_marc(row, data[row]) }}
   </p>
