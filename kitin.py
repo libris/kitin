@@ -68,6 +68,12 @@ def upload_file():
     else:
         return render_template('upload.html')
 
+@app.route('/doc/<uid>')
+def browse_document(uid):
+    post = requests.get("%s/bib/%s" % (app.config['WHELK_HOST'], uid))
+    json_post = json.loads(post.text)
+    return render_template('monografi.html', data = json_post)
+
 @app.route('/lookup/<uid>')
 def lookup(uid=None):
     """List marc documents available in kitin for given user id."""

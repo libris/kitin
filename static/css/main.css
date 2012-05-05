@@ -15,11 +15,11 @@ body {
 }
   
 /* Webcat form */
-.monografi .control_fields {
+.post .control_fields {
   list-style: none;
   margin: 0;
 }
-.monografi .control_fields label {
+.post label {
   display: inline;
 }
 input.field {
@@ -33,11 +33,7 @@ input.indicator:hover {
 }
 
 input.subfield {
-	width: 150px;
-}
-
-input.subfields {
-	width: 74%;
+	width: 450px;
 }
 
 input.subfield-master {
@@ -47,3 +43,4 @@ input.subfield-master {
 .remoteoption {
 	padding: 5px;
 }
+.apa { background-color: lightblue; }
