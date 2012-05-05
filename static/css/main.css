@@ -22,21 +22,18 @@ body {
 .post label {
   display: inline;
 }
-input.field {
+.post input.field {
 	width: 30px;
 }
-select.indicator, input.indicator {
+.post select.indicator, input.indicator {
 	width: 20px;
 }
-input.indicator:hover {
-	border: 1px;
-}
 
-input.subfield {
+.post input.subfield {
 	width: 450px;
 }
 
-input.subfield-master {
+.post input.subfield-master {
 	width: 99%;
 }  
 
