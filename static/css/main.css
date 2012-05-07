@@ -22,18 +22,28 @@ body {
 .post label {
   display: inline;
 }
-.post input.field {
+.post, input.variable-field {
 	width: 30px;
 }
-.post select.indicator, input.indicator {
+.post, input.field {
+	width: 30px;
+}/* remove when changed classes to variable field */
+
+.post, select.indicator, input.indicator {
+	width: 20px;
+} /* remove when changed classes to first and second indicator */
+
+.post, select.first-indicator, input.first-indicator, select.second-indicator, input.second-indicator {
 	width: 20px;
 }
 
-.post input.subfield {
+
+
+.post, input.subfield {
 	width: 450px;
 }
 
-.post input.subfield-master {
+.post, input.subfield-master {
 	width: 99%;
 }  
 
