@@ -71,8 +71,11 @@ def upload_file():
 @app.route('/doc/<uid>')
 def browse_document(uid):
     post = requests.get("%s/bib/%s" % (app.config['WHELK_HOST'], uid))
-    json_post = json.loads(post.text)
-    return render_template('monografi.html', data = json_post)
+    if post:
+        json_post = json.loads(post.text)
+        return render_template('monografi.html', data = json_post)
+    else:
+        return render_template('monografi.html')
 
 @app.route('/lookup/<uid>')
 def lookup(uid=None):

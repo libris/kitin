@@ -33,25 +33,28 @@
 {% block content %}
 <!--Body content-->
 <h2>Monografi</h2>
-<hr>
-<ul class="control_fields">
-  <li><label>000:</label><span class="000">{{data['000']}}</span></li>
-  <li><label>001:</label><span class="001">{{data['001']}}</span></li>
-  <li><label>003:</label><span class="003">{{data['003']}}</span></li>
-  <li><label>005:</label><span class="005">{{data['005']}}</span></li>
-  <li><label>006:</label><span class="006">{{data['006']}}</span></li>
-  <li><label>007:</label><span class="007">{{data['007']}}</span></li>
-  <li><label>008:</label><span class="008">{{data['008']}}</span></li>
-</ul>
-<hr>
-{% for row in data|sort %}
-  <p>
-  {{ render_marc(row, data[row]) }}
-  </p>
-{% endfor %}
+{% if data is defined %}
+  <ul class="control_fields">
+    <li><label>000:</label><span class="000">{{data['000']}}</span></li>
+    <li><label>001:</label><span class="001">{{data['001']}}</span></li>
+    <li><label>003:</label><span class="003">{{data['003']}}</span></li>
+    <li><label>005:</label><span class="005">{{data['005']}}</span></li>
+    <li><label>006:</label><span class="006">{{data['006']}}</span></li>
+    <li><label>007:</label><span class="007">{{data['007']}}</span></li>
+    <li><label>008:</label><span class="008">{{data['008']}}</span></li>
+  </ul>
+  <hr>
+
+  {% for row in data|sort %}
+    <p>
+    {{ render_marc(row, data[row]) }}
+    </p>
+  {% endfor %}
+{% endif %}
 </table>
 
-<hr>  
+<hr>
+
 <p>shift + option + t = doubledagger</p>
 
 <label class="control-label" for="isbn-020_00-z_00" title="[020 &Dagger;a] ISBN">ISBN <span class="help-block">Ex. 978-951-98548-9-2 </span></label> 
