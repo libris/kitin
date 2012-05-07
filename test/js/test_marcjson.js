@@ -1,5 +1,5 @@
 var fs = require('fs');
-var marcjson = require('static/js/marcjson');
+var marcjson = require('../../static/js/marcjson');
 
 function loadJson(path) {
   var marcmapStr = fs.readFileSync(path, 'utf-8');

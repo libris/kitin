@@ -4,17 +4,17 @@
   {%- if data is defined -%}
     {%- if data[0] is iterable and data[0] is not string -%}
       <label>{{label}}</label>
-      <input class="input-medium indicator" type="text" value="{{data[0][0]}}"/>
-      <input class="input-medium indicator" type="text" value="{{data[0][1]}}"/>
+      <input class="first-indicator" type="text" value="{{data[0][0]}}"/>
+      <input class="second-indicator" type="text" value="{{data[0][1]}}"/>
       {%- for stuff in data[0][2] -%}
         {{ render_value_field(data[0][2])}}
       {%- endfor -%}
     {%- else -%}
       <label>{{label}}</label>
-      <input class="input-medium indicator" type="text" value="{{data[0]}}"/>
-      <input class="input-medium indicator" type="text" value="{{data[1]}}"/>
+      <input class="first-indicator" type="text" value="{{data[0]}}"/>
+      <input class="second-indicator" type="text" value="{{data[1]}}"/>
       {%- if data[2] is string -%}
-        <input class="input-medium subfield" type="text" value="{{data[2]}}"/>
+        <input class="subfield" type="text" value="{{data[2]}}"/>
       {% elif data[2] is mapping %}
         {{ render_value_field(data[2]) }}
       {%- endif -%}

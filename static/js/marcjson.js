@@ -23,6 +23,8 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
   ns.rawRowToNamedRow = function(fieldDfn, row) {
     if (typeof row === 'string' || typeof row === 'array')
       return row;
+    if (fieldDfn.type === 'fixedLength')
+      return row;
     var res = [];
     var ind1 = row[0],
         ind2 = row[1],
