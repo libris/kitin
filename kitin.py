@@ -56,7 +56,7 @@ def upload_file():
 
         elif request.form.get('backend', None):
             bibid = request.form['bibid']
-            bpost = requests.get("%s/bib/%s" % (kc['WHELK_HOST'], bibid))
+            bpost = requests.get("%s/bib/%s" % (app.config['WHELK_HOST'], bibid))
             json_data = json.loads(bpost.text)['marc']
         #get table and save post
         marcpost = Table('marcpost', metadata, autoload=True)
@@ -67,6 +67,12 @@ def upload_file():
         return render_template('view.html', marcposts = [(mid, json.dumps(json_data))], uid = uid )
     else:
         return render_template('upload.html')
+
+@app.route('/doc/<uid>')
+def browse_document(uid):
+    post = requests.get("%s/bib/%s" % (app.config['WHELK_HOST'], uid))
+    json_post = json.loads(post.text)
+    return render_template('monografi.html', data = json_post)
 
 @app.route('/lookup/<uid>')
 def lookup(uid=None):
@@ -115,7 +121,7 @@ def save_to_db():
         if request.form.get('publish', None):
 
             bjson = '{"uid": %s, "marc": %s}' % (uid, json_text)
-            r = requests.put("%s/bib/%s" % (kc['WHELK_HOST'], bibid), data = bjson.encode('utf-8'))
+            r = requests.put("%s/bib/%s" % (app.config['WHELK_HOST'], bibid), data = bjson.encode('utf-8'))
             print "published"
             delmp = mp.delete().where(mp.c.id==mid)
             db.execute(delmp)

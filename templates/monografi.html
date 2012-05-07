@@ -1,93 +1,55 @@
 {% extends "base.html" %}
-{% block content_class %}monografi{% endblock content_class %}
+{% block content_class %}post{% endblock content_class %}
+{%- macro render_marc(label, data) -%}
+  {%- if data is defined -%}
+    {%- if data[0] is iterable and data[0] is not string -%}
+      <label>{{label}}</label>
+      <input class="input-medium indicator" type="text" value="{{data[0][0]}}"/>
+      <input class="input-medium indicator" type="text" value="{{data[0][1]}}"/>
+      {%- for stuff in data[0][2] -%}
+        {{ render_value_field(data[0][2])}}
+      {%- endfor -%}
+    {%- else -%}
+      <label>{{label}}</label>
+      <input class="input-medium indicator" type="text" value="{{data[0]}}"/>
+      <input class="input-medium indicator" type="text" value="{{data[1]}}"/>
+      {%- if data[2] is string -%}
+        <input class="input-medium subfield" type="text" value="{{data[2]}}"/>
+      {% elif data[2] is mapping %}
+        {{ render_value_field(data[2]) }}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endmacro -%}
+
+{%- macro render_value_field(data) -%}
+  <input class="input-medium subfield" type="text" value="
+  {%- for subfield, value in data.items() -%}
+    &Dagger;{{subfield + " " + " ".join(value) + " " }}
+  {%- endfor -%}
+  "/>
+{%- endmacro %}
+
 {% block content %}
 <!--Body content-->
 <h2>Monografi</h2>
 <hr>
 <ul class="control_fields">
-  <li><label>000:</label><span class="000">Postetikett: 02108cem a2200433 a 4500</span></li>
-  <li><label>001:</label><span class="001">BibID: 11691597</span></li>
-  <li><label>003:</label><span class="003">SE-LIBR</span></li>
-  <li><label>005:</label><span class="005">Tidpunkt för senaste uppdatering: 20091119170529.0</span></li>
-  <li><label>006:</label><span class="006">Kompletterande mediespecifika koder: ea f | 0</span></li>
-  <li><label>007:</label><span class="007">Fysiska egenskaper: aj can|n</span></li>
-  <li><label>008:</label><span class="008"></span></li>
+  <li><label>000:</label><span class="000">{{data['000']}}</span></li>
+  <li><label>001:</label><span class="001">{{data['001']}}</span></li>
+  <li><label>003:</label><span class="003">{{data['003']}}</span></li>
+  <li><label>005:</label><span class="005">{{data['005']}}</span></li>
+  <li><label>006:</label><span class="006">{{data['006']}}</span></li>
+  <li><label>007:</label><span class="007">{{data['007']}}</span></li>
+  <li><label>008:</label><span class="008">{{data['008']}}</span></li>
 </ul>
 <hr>
-<div>
-  <input id="isbn" class="field" type="text" value="020">
-  <select class="indicator">
-    <option> </option>
-    <option>_</option>
-    <option>1</option>
-    <option>2</option>
-  </select>
-  <select class="indicator">
-    <option> </option>
-    <option>_</option>
-    <option>1</option>
-    <option>2</option>
-  </select>
-  <input id="020-a" class="subfield" type="text" placeholder="&Dagger;a">
-  <input id="020-c" class="subfield" type="text" placeholder="&Dagger;c">
-  <input id="020-z" class="subfield" type="text" placeholder="&Dagger;z">
-</div>
-
-<div>
-  <input id="upphovsman" class="field" type="text" value="100">
-  <select class="indicator">
-    <option> </option>
-    <option>_</option>
-    <option>1</option>
-    <option>2</option>
-  </select>
-  <select class="indicator">
-    <option> </option>
-    <option>_</option>
-    <option>1</option>
-    <option>2</option>
-  </select>
-  <input id="100a" class="subfield" type="text" placeholder="&Dagger;a">
-  <input id="100b" class="subfield" type="text" placeholder="&Dagger;b">
-  <input id="100c" class="subfield" type="text" placeholder="&Dagger;c">
-</div>
-
-<div>
-  <input id="titel" class="field" type="text" value="245">
-  <select class="indicator">
-    <option> </option>
-    <option>_</option>
-    <option>1</option>
-    <option>2</option>
-  </select>
-  <select class="indicator">
-    <option> </option>
-    <option>_</option>
-    <option>1</option>
-    <option>2</option>
-  </select>
-  <input id="245a" class="subfield" type="text" placeholder="&Dagger;a">
-  <input id="245b" class="subfield" type="text" placeholder="&Dagger;b">
-  <input id="245c" class="subfield" type="text" placeholder="&Dagger;c">
-</div>
-
-<div>
-  <input id="titel" class="field" type="text" value="245">
-  <select class="indicator">
-    <option> </option>
-    <option>_</option>
-    <option>1</option>
-    <option>2</option>
-  </select>
-  <select class="indicator">
-    <option> </option>
-    <option>_</option>
-    <option>1</option>
-    <option>2</option>
-  </select>
-  <input id="245a" class="subfields" type="text" placeholder="Delfält">
-
-</div>
+{% for row in data|sort %}
+  <p>
+  {{ render_marc(row, data[row]) }}
+  </p>
+{% endfor %}
+</table>
 
 <hr>  
 <p>shift + option + t = doubledagger</p>
