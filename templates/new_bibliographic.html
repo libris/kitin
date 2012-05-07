@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block extrajs %}
+<script src="{{ url_for('static', filename='assets/js/bootstrap-typeahead.js') }}"></script> 
+{% endblock extrajs %}
+
 {% block content %}
 
 <h2>Ny Post (miniminivå)</h2>
@@ -28,7 +32,6 @@
 <th width="25px">Kod</th>
 <th>Delfält</th>
 </tr>
-    
 
 </thead>
 <tbody>
@@ -48,7 +51,7 @@
 		<td><input class="field" type="text" value="1XX"></td>
 		<td><input class="indicator" type="text"></td>
 		<td><input class="indicator" type="text"></td>
-		<td><input class="subfield-master" type="text" value="#a Huvuduppslag (olika delfält beroende på typ av huvuduppslag)"></td>
+		<td><input class="subfield-master" type="text" data-source="["Strindberg August", "Stringberg Arnold",]" data-items="4" data-provide="typeahead" value=""></td>
 	</tr>
 	<tr>
 		<td><input class="field" type="text" value="245"></td>
