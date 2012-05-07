@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, make_response
 from werkzeug import secure_filename
 import os, json
 from pprint import pprint
@@ -68,14 +68,18 @@ def upload_file():
     else:
         return render_template('upload.html')
 
-@app.route('/doc/<uid>')
-def browse_document(uid):
-    post = requests.get("%s/bib/%s" % (app.config['WHELK_HOST'], uid))
-    if post:
+@app.route('/record/<bibid>')
+def browse_document(bibid):
+    post = requests.get("%s/bib/%s" % (app.config['WHELK_HOST'], bibid))
+    if not post:
+        return render_template('monografi.html')
+    if request.is_xhr:
+        resp = make_response(post.text)
+        resp.headers['Content-Type'] = 'application/json'
+        return resp
+    else:
         json_post = json.loads(post.text)
         return render_template('monografi.html', data = json_post)
-    else:
-        return render_template('monografi.html')
 
 @app.route('/lookup/<uid>')
 def lookup(uid=None):
