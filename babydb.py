@@ -12,7 +12,7 @@ marcpost = Table('marcpost', metadata,
     Column('userid', String),
     Column('marc', PickleType(pickler=json)),
     Column('bibid', String),
-    Column('spills', PickleType(pickler=json))
+    Column('spill', PickleType(pickler=json))
     #Column('100', String),
     #Column('245', Integer),
 )
@@ -30,7 +30,7 @@ mapper(Marcpost, marcpost)
 
 """
 i = marcpost.insert()
-i.execute(marc={'ett': 'ettan'}, spills="nothing yet")
+i.execute(marc={'ett': 'ettan'}, spill="nothing yet")
 
 s = marcpost.select()
 rs = s.execute()

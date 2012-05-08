@@ -8,6 +8,7 @@ from sqlalchemy import *
 import pickle
 #from babydb import Marcpost
 import requests
+from spill import Spill
 
 
 app = Flask(__name__)
@@ -47,7 +48,7 @@ def upload_file():
 
         elif request.form.get('backend', None):
             bibid = request.form['bibid']
-            bpost = requests.get("http://localhost:8080/bib/%s" % bibid)
+            bpost = requests.get("http://devlab.libris.kb.se/whelks-core/bib/%s" % bibid)
             json_data = json.loads(bpost.text)['marc']
         #get table and save post
         marcpost = Table('marcpost', metadata, autoload=True)
@@ -67,11 +68,14 @@ def lookup(uid=None):
         thequery = marcpost.select(marcpost.c.userid == uid)
         theposts = thequery.execute().fetchall()
         if len(theposts) == 1:
-            print "one"
+            print "one post"
             json_text = pickle.loads(theposts[0]['marc'])
-            #json_data = json.(json_text)
+            print "one"
+            print "two"
             mid = theposts[0].id
-            
+            print "three"
+            spill = Spill(json_text).get_spill()
+            print "spill: ", spill
             return render_template('view.html', marcposts = [(mid, json.dumps(json_text))], uid = uid)
 
 
@@ -81,11 +85,12 @@ def lookup(uid=None):
             return render_template('view.html', marcposts = themarcs, uid = uid, )
 
         else:
-            return "no marcposts available for user %s" % uid
+            return "no marcposts available for user %s, please try another uid" % uid
 
     except Exception as e:
         print "exc", e
         return "failed"
+
 
 @app.route('/save', methods=['GET', 'POST'])
 def save_to_db():
@@ -96,6 +101,8 @@ def save_to_db():
         uid = request.form['uid']
         mid = request.form['mid']
         bibid = json_data.get('001', None)
+        nollotta = json_data.get('008', None)
+        print "08: -%s-" % nollotta
         mp = Table('marcpost', metadata, autoload=True)
         if not bibid:
             try:
@@ -106,7 +113,7 @@ def save_to_db():
         if request.form.get('publish', None):
 
             bjson = '{"uid": %s, "marc": %s}' % (uid, json_text)
-            r = requests.put("http://localhost:8080/bib/%s" % bibid, data = bjson.encode('utf-8'))
+            r = requests.put("http://devlab.libris.kb.se/whelks-core/bib/%s" % bibid, data = bjson.encode('utf-8'))
             print "published"
             delmp = mp.delete().where(mp.c.id==mid)
             db.execute(delmp)
