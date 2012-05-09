@@ -43,3 +43,11 @@ body {
 .remoteoption {
 	padding: 5px;
 }
+
+label.control-label {
+	background-color: #efefef;
+	font-weight: 500;
+	padding: 3px;
+	width: 97%;
+	display: block;
+}
