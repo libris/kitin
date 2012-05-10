@@ -2,60 +2,62 @@
 var marcjson = typeof exports !== 'undefined'? exports : {};
 
 // populate module
-(function (ns) {
+(function (module) {
 
-  ns.rawToNamed = function (map, struct) {
+  module.rawToNamed = function (map, struct) {
     var res = {};
-    for (fieldCode in struct) {
-      var sourceRow = struct[fieldCode];
-      var key = fieldCode;
-      var resRow = sourceRow;
-      var dfn = map[fieldCode];
-      if (dfn) {
-        key = dfn.name;
-        resRow = ns.rawRowToNamedRow(dfn, sourceRow);
+    res.leader = struct.leader;
+    // TODO: parse leader
+    (struct.fields).forEach(function(field) {
+      for (fieldCode in field) {
+        var sourceRow = field[fieldCode];
+        var key = fieldCode;
+        var resRow = sourceRow;
+        var dfn = map[fieldCode];
+        if (dfn) {
+          key = dfn.name;
+          resRow = module.rawRowToNamedRow(dfn, sourceRow);
+        }
+        res[key] = resRow;
       }
-      res[key] = resRow;
-    }
+    });
     return res;
   };
 
-  ns.rawRowToNamedRow = function(fieldDfn, row) {
-    if (typeof row === 'string' || typeof row === 'array')
+  module.rawRowToNamedRow = function(fieldDfn, row) {
+    if (typeof row === 'string')
       return row;
     if (fieldDfn.type === 'fixedLength')
       return row;
     var res = [];
-    var ind1 = row[0],
-        ind2 = row[1],
-        field = row[2],
-        keyseq = row[3];
+    var ind1 = row.ind1, ind2 = row.ind2;
     res.push(ind1? fieldDfn.ind1[ind1.toString()] : null);
     res.push(ind2? fieldDfn.ind2[ind2.toString()] : null);
     var resField = {};
-    for (subCode in field) {
-      var key = subCode;
-      var subDfn = fieldDfn.subfield[subCode];
-      if (subDfn) {
-        key = subDfn.name;
+    row.subfields.forEach(function (subfield) {
+      for (subCode in subfield) {
+        var key = subCode;
+        var subDfn = fieldDfn.subfield[subCode];
+        if (subDfn) {
+          key = subDfn.name;
+        }
+        resField[key] = subfield[subCode];
       }
-      resField[key] = field[subCode];
-    }
+    });
     res.push(resField);
-    if (keyseq) res.push(keyseq);
     return res;
   };
 
-  ns.namedToRaw = function () {
+  module.namedToRaw = function () {
   };
 
-  ns.textRowToStructRow = function (field) {
+  module.textRowToStructRow = function (field) {
     if (typeof field === "object")
       return field;
     //return field.split(/#(\w)/);
   };
 
-  ns.textToStruct = function () {
+  module.textToStruct = function () {
     // each line, out.extend textRowToStructRow(line)
   };
 
