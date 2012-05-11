@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 
-{% block extrajs %}
-<script src="{{ url_for('static', filename='assets/js/bootstrap-typeahead.js') }}"></script> 
-{% endblock extrajs %}
+{% block extrajs %}{% endblock extrajs %}
 
 {% block content %}
 
@@ -60,63 +58,63 @@
 </thead>
 <tbody>
 	<tr>
-		<td><input class="variable-field" type="text" value="020"></td>
-		<td><input class="first-indicator" type="text"></td>
-		<td><input class="second-indicator" type="text"></td>
+		<td><input class="variable-field" type="text" value="020" maxlength="3"></td>
+		<td><input class="first-indicator" type="text" maxlength="1"></td>
+		<td><input class="second-indicator" type="text" maxlength="1"></td>
 		<td><input class="subfield-master" type="text" value="#a ISBN"></td>
 	</tr>  
 	<tr>
-		<td><input class="variable-field" type="text" value="040"></td>
-		<td><input class="first-indicator" type="text"></td>
-		<td><input class="second-indicator" type="text"></td>
+		<td><input class="variable-field" type="text" value="040" maxlength="3"></td>
+		<td><input class="first-indicator" type="text" maxlength="1"></td>
+		<td><input class="second-indicator" type="text" maxlength="1"></td>
 		<td><input class="subfield-master" type="text" value="#a Inläggande bibliotek (#d om posten övertages från annat bibliotek och fullständighetsnivån i fält 000 ändras från lägre nivå (=prel.))"></td>
 	</tr> 
 	<tr>
-		<td><input class="variable-field" type="text" value="1XX"></td>
-		<td><input class="first-indicator" type="text"></td>
-		<td><input class="second-indicator" type="text"></td>
-		<td><input class="subfield-master" type="text" data-source="["Strindberg August", "Stringberg Arnold",]" data-items="4" data-provide="typeahead" value=""></td>
+		<td><input class="variable-field" type="text" value="1XX" maxlength="3"></td>
+		<td><input class="first-indicator" type="text" maxlength="1"></td>
+		<td><input class="second-indicator" type="text" maxlength="1"></td>
+		<td><input class="subfield-master" type="text" value=""></td>
 	</tr>
 	<tr>
-		<td><input class="variable-field" type="text" value="245"></td>
-		<td><input class="first-indicator" type="text"></td>
-		<td><input class="second-indicator" type="text"></td>
+		<td><input class="variable-field" type="text" value="245" maxlength="3"></td>
+		<td><input class="first-indicator" type="text" maxlength="1"></td>
+		<td><input class="second-indicator" type="text" maxlength="1"></td>
 		<td><input class="subfield-master" type="text" value="#a Huvudtitel / #c första upphovsuppgift (om denna avviker från huvuduppslaget)"></td>
 	</tr>
 	<tr>
-		<td><input class="variable-field" type="text" value="250"></td>
-		<td><input class="first-indicator" type="text"></td>
-		<td><input class="second-indicator" type="text"></td>
+		<td><input class="variable-field" type="text" value="250" maxlength="3"></td>
+		<td><input class="first-indicator" type="text" maxlength="1"></td>
+		<td><input class="second-indicator" type="text" maxlength="1"></td>
 		<td><input class="subfield-master" type="text" value="#a Upplaga"></td>
 	</tr>
 	<tr>
-		<td><input class="variable-field" type="text" value="260X"></td>
-		<td><input class="first-indicator" type="text"></td>
-		<td><input class="second-indicator" type="text"></td>
+		<td><input class="variable-field" type="text" value="260X" maxlength="3"></td>
+		<td><input class="first-indicator" type="text" maxlength="1"></td>
+		<td><input class="second-indicator" type="text" maxlength="1"></td>
 		<td><input class="subfield-master" type="text" value="#a Första utgivningsort etc., #c utgivningstid etc."></td>
 	</tr>
 	<tr>
-		<td><input class="variable-field" type="text" value="300"></td>
-		<td><input class="first-indicator" type="text"></td>
-		<td><input class="second-indicator" type="text"></td>
+		<td><input class="variable-field" type="text" value="300" maxlength="3"></td>
+		<td><input class="first-indicator" type="text" maxlength="1"></td>
+		<td><input class="second-indicator" type="text" maxlength="1"></td>
 		<td><input class="subfield-master" type="text" value="#a Omfångsuppgift (enbart delfält #a anges, objektets huvudpaginering följs)"></td>
 	</tr>
 	<tr>
-		<td><input class="variable-field" type="text" value="5XX"></td>
-		<td><input class="first-indicator" type="text"></td>
-		<td><input class="second-indicator" type="text"></td>
+		<td><input class="variable-field" type="text" value="5XX" maxlength="3"></td>
+		<td><input class="first-indicator" type="text" maxlength="1"></td>
+		<td><input class="second-indicator" type="text" maxlength="1"></td>
 		<td><input class="subfield-master" type="text" value="#a Anmärkning(ar)"></td>
 	</tr>
 	<tr>
-		<td><input class="variable-field" type="text" value="61XX"></td>
-		<td><input class="first-indicator" type="text"></td>
-		<td><input class="second-indicator" type="text"></td>
+		<td><input class="variable-field" type="text" value="61XX" maxlength="3"></td>
+		<td><input class="first-indicator" type="text" maxlength="1"></td>
+		<td><input class="second-indicator" type="text" maxlength="1"></td>
 		<td><input class="subfield-master" type="text" value="#a kan användas, när så är tillämpligt"></td>
 	</tr>
 	<tr>
-		<td><input class="variable-field" type="text" value="7XX"></td>
-		<td><input class="first-indicator" type="text"></td>
-		<td><input class="second-indicator" type="text"></td>
+		<td><input class="variable-field" type="text" value="7XX" maxlength="3"></td>
+		<td><input class="first-indicator" type="text" maxlength="1"></td>
+		<td><input class="second-indicator" type="text" maxlength="1"></td>
 		<td><input class="subfield-master" type="text" value="‡a Biuppslag (olika delfält beroende på typ av biuppslag)"></td>
 	</tr>
 	<tr>
