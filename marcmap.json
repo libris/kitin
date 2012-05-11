@@ -47,7 +47,8 @@
       "a": {"name": "systemControlNumber", "repeatable": false},
       "z": {"name": "canceledOrInvalidControlNumber", "repeatable": true},
       "6": {"name": "linkage", "repeatable": false},
-      "8": {"name": "fieldLinkAndSequenceNumber", "repeatable": true}
+      "8": {"name": "fieldLinkAndSequenceNumber", "repeatable": true},
+      "9": {"name": "localSystemNumber", "repeatable": true, "std": false}
     }
   },
   "040": {
@@ -71,7 +72,8 @@
     "ind1": {"": null},
     "ind2": {"": null},
     "subfield": {
-      "a": {"name": "authenticationCode", "repeatable": true}
+      "a": {"name": "authenticationCode", "repeatable": true},
+      "9": {"name": "bibliographyCode", "repeatable": true, "std": false}
     }
   },
   "084": {
@@ -292,10 +294,22 @@
     }
   },
   "976": {
-    "name": "equivalenceOrCrossReference_976",
+    "name": "sabHeading",
     "repeatable": true,
+    "group": "equivalenceOrCrossReference",
+    "std": false,
     "ind1": {"": null},
-    "ind2": {"": null},
-    "subfield": {"": null}
+    "ind2": {
+      "name": "sabSystemEdition",
+      "": null,
+      "0": "SAB_6",
+      "1": "SAB_5",
+      "2": "Shortened_SAB_headings"
+    },
+    "subfield": {
+      "a": {"name": "sabClassification", "repeatable": false},
+      "b": {"name": "sabHeading", "repeatable": false},
+      "8": {"name": "linkAndSequenceNumber", "repeatable": true}
+    }
   }
 }
