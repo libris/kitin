@@ -57,8 +57,10 @@
 
 <p>shift + option + t = doubledagger</p>
 
-<label class="control-label" for="isbn-020_00-z_00" title="[020 &Dagger;a] ISBN">ISBN <span class="help-block">Ex. 978-951-98548-9-2 </span></label> 
+<!-- labels blev föräldralösa i delfältsindelning… ändra sen i hope hope-->
+<label class="control-label" for="isbn-020_00-z_00" title="[020 &Dagger;a] ISBN">020 - Internationellt standardboknummer (ISBN)</label> 
 <div class="controls">
+<span class="help-block">ISBN med ev. kvalifikatorer</span>
   <input id="isbn-020ax00" class="input-xlarge" type="text">
   <!-- <p class="help-block">ISBN</p> -->
 </div>
@@ -66,88 +68,102 @@
 
 <label class="control-label" for="katinstans040-a" title="[040 &Dagger;a] Katalogiserande instans">Katalogiserande instans*</label>
 <div class="controls">
-  <input id="katinstans-040a" class="input-xlarge" type="text">
+  <input type="text" class="input-xlarge" name="katinstans-040a" list="sigel">
+  <datalist id="sigel">
+   <option value="NB (Nationalbibliografin)">
+   <option value="S (Kungl.biblioteket)">
+   <option value="REG (Registervården)">
+   <option value="SBD (Statens biblioteksdepå)">
+  </datalist>
 
 </div>
 
-<label class="control-label" for="klassifikationskod-084a">Annan klassifikationskod <span class="help-block">kssb/8</span></label>
+<label class="control-label" for="klassifikationskod-084a">Annan klassifikationskod</label>
 <div class="controls">
-  <input id="klassifikationskod-084a" class="input-xlarge" type="text">
+<span class="help-block"></span>
+  <input id="klassifikationskod-084a" class="input-xlarge" type="text" value="‡a kssb/8">
+	<a href="#">+</a>
 </div>
 
-<label class="control-label" for="personnamn-100a">Personnamn <span class="help-block">Ex. Strindberg, August</span></label>
+
+<label class="control-label" for="personnamn-100">Huvuduppslag - Personnamn (Auktoriserad)</label>
 <div class="controls">
+<span class="help-block">a) Personnamn <em>Ex. Strindberg, August</em></span>
   <input id="personnamn-100a" class="input-xlarge" type="text" >
 </div>
 
-<label class="control-label" for="personnamn-100d">Födelse- och dödsår <span class="help-block">Auktoriserad</span></label>
 <div class="controls">
+<span class="help-block">d) Födelse- och dödsår</span>
   <input id="personnamn-100d" class="input-xlarge" type="text">
 </div>
 
-<label class="control-label" for="titel-245a">Titel och upphov - Huvudtitel*</label>
-<div class="controls">
-  <input id="titel-245a" class="input-xlarge" type="text">
+<label class="control-label" for="titel-245a" title="245 title">(hover) - Titel och upphov</label>
+
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+   
+    <div class="span4">
+
+		<!-- <div class="controls"> -->
+
+<span class="help-block">a) Huvudtitel</span>
+  <input id="titel-245a" class="input-medium" type="text">
+	</div>
+    
+    <div class="span4">
+
+<span class="help-block">b) Övrig titelinformation</span>
+  <input id="titel-245b" class="input-medium" type="text">
+	</div>
+
+	<div class="span4">
+
+<span class="help-block">c) Särskiljande tillägg</span>
+  <input id="titel-245c" class="input-medium" type="text">
+	</div>
+
+<!-- </div> -->
+</div>
 </div>
 
-<label class="control-label" for="titel-245b">Övrig titelinformation <span class="help-block">Ex. undertitel</span></label>
+<label class="control-label" for="upplaga-250a">Upplaga</label>
 <div class="controls">
-  <input id="titel-245b" class="input-xlarge" type="text">
-</div>
-
-<label class="control-label" for="titel-245c">Särskiljande tillägg</label>
-<div class="controls">
-  <input id="titel-245c" class="input-xlarge" type="text">
-</div>
-
-<label class="control-label" for="upplaga-250a">Upplaga <span class="help-block">Obligatoriskt om tillämpligt</span></label>
-<div class="controls">
+ <span class="help-block">a) Upplageuppgift</span>
   <input id="upplaga-250a" class="input-xlarge" type="text">
 </div>
 
-<label class="control-label" for="utgivning-260a">Utgivning, distribution - ort</label>
+<label class="control-label" for="utgivning-260a">Utgivning, distribution etc</label>
 <div class="controls">
+ <span class="help-block">a) Ort</span>
   <input id="utgivning-260a" class="input-xlarge" type="text">
 </div>
 
-<label class="control-label" for="utgivning-260b">Förlag eller annan utgivare</label>
 <div class="controls">
+ <span class="help-block">b) Förlag eller annan utgivare</span>
   <input id="utgivning-260b" class="input-xlarge" type="text">
 </div>
 
-<label class="control-label" for="utgivning-260c">Utgivningstid</label>
 <div class="controls">
+ <span class="help-block">c) Utgivningstid</span>
   <input id="utgivning-260c" class="input-xlarge" type="text">
 </div>
 
-<label class="control-label" for="300a">Omfång <span class="help-block">antal sidor eller volymer</span></label>
+<label class="control-label" for="300a">Fysisk beskrivning</label>
 <div class="controls">
+ <span class="help-block">a) Omfång, t ex antal sidor eller volymer</span>
   <input id="300a" class="input-xlarge" type="text">
 </div>
 
-<label class="control-label" for="300b">Övriga fysiska detaljer <span class="help-block">Ex. illustrationer</span></label>
 <div class="controls">
+ <span class="help-block">b) Övriga fysiska detaljer ex. illustrationer</span>
   <input id="300b" class="input-xlarge" type="text">
 </div>
 
-<label class="control-label" for="490a">Serietitel</label>
+<label class="control-label" for="650a">Ämnesord sao </label>
 <div class="controls">
-  <input id="490a" class="input-xlarge" type="text">
-</div>
-
-<label class="control-label" for="490x">ISSN</label>
-<div class="controls">
-  <input id="490x" class="input-xlarge" type="text">
-</div>
-
-<label class="control-label" for="490v">Delens nummer</label>
-<div class="controls">
-  <input id="490v" class="input-xlarge" type="text">
-</div>
-
-<label class="control-label" for="650a">Ämnesord sao <span class="help-block">kommaseparerat</span></label>
-<div class="controls">
-  <input id="490v" class="input-xlarge" type="text">
+<span class="help-block">Term som sökelement</span>
+  <input id="650a" class="input-xlarge" type="text">
 </div>
 <hr>
 <p>
@@ -164,70 +180,4 @@
 700 Biuppslag - Personnamn (R) - Auktoritetskontrollerat
 </p>
 
-<label class="control-label" for="personnamn-100a">Personnamn <span class="help-block">Enkelt eller sammansatt släktnamn följt av förnamn</span></label>
-<div class="controls">
-  <input id="personnamn-100a" class="input-xlarge" type="text" placeholder="Strindberg, August">
-</div>
-
-<div class="control-group">
-
-  <label class="control-label" for="input01">ISBN</label>
-  <div class="controls docs-input-sizes">
-
-    <select class="span2">
-      <option>020&Dagger;a</option>
-      <option>020&Dagger;c</option>
-      <option>020&Dagger;z</option>
-    </select><input id="input01" class="input-xlarge" type="text" placeholder="978-1-4133-0454-1">
-    <p class="help-block">ISBN</p>
-  </div>
-
-  <label class="control-label" for="input02">020&Dagger;a ISBN</label>
-  <div class="controls">
-    <input id="input02" class="input-xlarge" type="text">
-    <p class="help-block">ISBN</p>
-  </div>
-
-  <div class="control-group">
-    <label class="control-label" for="prependedInput">Prepended text</label>
-    <div class="controls">
-      <div class="input-prepend">
-        <span class="add-on">020:a</span>
-        <input id="prependedInput" class="span3" type="text" size="16">
-      </div>
-      <p class="help-block">Here's some help text</p>
-    </div>
-  </div>
-
-  <div class="control-group">
-    <label class="control-label" for="appendedInput">Appended text</label>
-    <div class="controls">
-      <div class="input-append">
-        <input id="appendedInput" class="span3" type="text" size="16">
-        <span class="add-on">020&Dagger;a</span>
-      </div>
-      <p class="help-block">Here's more help text</p>
-    </div>
-  </div>
-
-  <div class="control-group">
-    <label class="control-label" for="prependedInput">Prepended text</label>
-    <div class="controls">
-      <div class="input-prepend">
-        <span class="add-on">020:a</span>
-        <input id="prependedInput" class="span3" type="text" size="16">
-      </div>
-      <p class="help-block">100 Huvuduppslag - Personnamn (NR) - Auktoritetskontrollerat 
-      <ul>
-        <li>&Dagger;a namn</li>  
-        <li>&Dagger;b ordningstal</li>
-        <li>&Dagger;c särskiljande tillägg</li>
-        <li>&Dagger;d födelse och dödsår</li>
-      </ul>
-
-      </p>
-    </div>
-  </div>
-  <!-- </div> -->
-</div>
 {% endblock %}
