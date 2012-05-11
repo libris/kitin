@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, make_response
 from werkzeug import secure_filename
 import os, json
 from pprint import pprint
@@ -10,12 +10,14 @@ import pickle
 import requests
 from spill import Spill
 
-
 app = Flask(__name__)
-UPLOAD_FOLDER = './storage/'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config.from_pyfile('config.cfg')
+app.config.from_envvar('SETTINGS', silent = True)
 
-db = create_engine('sqlite:///kitin.db')
+def _db_string():
+    return "%s:///%s" %(app.config['DBENGINE'], app.config['DBNAME'])
+
+db = create_engine(_db_string())
 db.echo = True
 metadata = MetaData(db)
 
@@ -27,6 +29,14 @@ def start():
 def monografi():
     return render_template('monografi.html')
 
+@app.route("/new_bibliographic.html")
+def new_bibliographic():
+    return render_template('new_bibliographic.html')
+
+@app.route("/profile.html")
+def profile():
+    return render_template('profile.html')
+
 @app.route('/user/<name>')
 def show_user(name=None):
     return render_template('home.html', name=name)
@@ -35,7 +45,6 @@ def show_user(name=None):
 def upload_file():
     """Upload marc document from either local file system or from whelk. Save to kitin db."""
     if request.method == 'POST':
-        
         uid = request.form['uid']
         if request.form.get('files', None):
             f = request.files['jfile']
@@ -48,17 +57,31 @@ def upload_file():
 
         elif request.form.get('backend', None):
             bibid = request.form['bibid']
-            bpost = requests.get("http://devlab.libris.kb.se/whelks-core/bib/%s" % bibid)
+            bpost = requests.get("%sbib/%s" % (app.config['WHELK_HOST'], bibid))
             json_data = json.loads(bpost.text)['marc']
         #get table and save post
         marcpost = Table('marcpost', metadata, autoload=True)
         bi = json_data.get('001', None)
         i = marcpost.insert()
+        print "type jsondata", type(json_data)
         r = i.execute(marc=pickle.dumps(json_data), bibid=bi, userid=uid)
         mid = str(r.last_inserted_ids()[0])
         return render_template('view.html', marcposts = [(mid, json.dumps(json_data))], uid = uid )
     else:
         return render_template('upload.html')
+
+@app.route('/record/<bibid>')
+def browse_document(bibid):
+    post = requests.get("%s/bib/%s" % (app.config['WHELK_HOST'], bibid))
+    if not post:
+        return render_template('monografi.html')
+    if request.is_xhr:
+        resp = make_response(post.text)
+        resp.headers['Content-Type'] = 'application/json'
+        return resp
+    else:
+        json_post = json.loads(post.text)
+        return render_template('monografi.html', data = json_post)
 
 @app.route('/lookup/<uid>')
 def lookup(uid=None):
@@ -113,7 +136,7 @@ def save_to_db():
         if request.form.get('publish', None):
 
             bjson = '{"uid": %s, "marc": %s}' % (uid, json_text)
-            r = requests.put("http://devlab.libris.kb.se/whelks-core/bib/%s" % bibid, data = bjson.encode('utf-8'))
+            r = requests.put("%sbib/%s" % (app.config['WHELK_HOST'], bibid), data = bjson.encode('utf-8'))
             print "published"
             delmp = mp.delete().where(mp.c.id==mid)
             db.execute(delmp)

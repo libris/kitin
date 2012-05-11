@@ -139,7 +139,8 @@ body {
   background-color: #ffffff;
 }
 a {
-  color: #0088cc;
+  /* color: #0088cc; */
+  color: #2288BB;
   text-decoration: none;
 }
 a:hover {

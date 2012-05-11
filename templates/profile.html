@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Start{% endblock %}
+
+{% block content %}
+
+<h2>Min Profil</h2>
+<hr>
+<label for="username">Namn</label>
+<input id="username" type="text" placeholder="Namn">
+
+<label for="login">E-postadress</label>
+<input id="login" type="text" placeholder="Login">
+
+<label for="sigel">Primärsigel</label>
+
+<select class="primary-sigel">
+<option>A</option>
+<option>S</option>
+<option>T</option>
+<option>SEK</option>
+</select>
+
+<label for="mode">Default visningsläge</label>
+<select class="mode">
+<option>Human (lightmode)</option>
+<option>Hardcore (mastermode)</option>
+</select>
+
+    <h3>Mina Länkar</h3>
+          <ul class="nav nav-list">
+    <li>
+    <a href="#">LIBRIS formathandbok</a>
+    </li>
+    <li>
+    <a href="#">Google</a>
+    </li>
+    <li>
+    <a href="#">Wikipedia</a>
+    </li>  
+    <li>
+    <a href="#">Dewey - SAB</a>
+    </li>
+    <li>
+    <a href="#">ISBN-centralen</a>
+    </li>
+    </ul>
+    <form class="well">
+<label>Lägg till url</label>
+<input class="control" type="text" placeholder="URL">
+
+
+</label>
+<button class="btn" type="submit">Lägg till</button>
+</form>
+
+
+
+
+{% endblock content %}
