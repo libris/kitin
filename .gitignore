@@ -6,3 +6,4 @@ config.py
 elasticsearch-0.19.1/
 storage/
 .DS_store
+node_modules
