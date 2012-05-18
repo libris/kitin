@@ -4,20 +4,26 @@
 // - spill
 
 var Leader = Backbone.Model.extend({ });
-var Field = Backbone.Model.extend({
-});
+var Field = Backbone.Model.extend({ });
+var ControlField = Backbone.Model.extend({ });
 
 var Record = Backbone.Model.extend({
   fields: {},
+  control_fields: {},
   urlRoot:'/record',
   parse: function(response) {
     var fields = response['fields'];
     for (field in fields) {
       var key = _.keys(fields[field])[0];
-      if(key <= 008) {
-      } else {
-        var new_field = new Field(_.values(fields[field])[0]);
-        this.fields[key] = new_field;
+      var value = _.values(fields[field])[0];
+      if(key <= 008) { // We have a ControlField
+        this.control_fields[key] = new ControlField({value: value});
+      } else { // Its a regular Field
+        if(_.include(_.keys(this.fields), key)) {
+          this.fields[key].get('rows').push(value);
+        } else {
+          this.fields[key] = new Field({rows: [value]});
+        }
       }
     }
     this.leader = new Leader({value: response['leader']});
@@ -49,18 +55,29 @@ var Router = Backbone.Router.extend({
 var View = Backbone.View.extend({
   el: $('#fields'),
   field_row_template: _.template($("#field-row-template").html()),
-  leader_template: _.template("<li class='control_field'><%= leader %></li>"),
+  control_row_template: _.template($("#control-row-template").html()),
+  leader_template: _.template("<li class='control_field'><label>Leader: </label><span><%= leader %></span></li>"),
 
   render: function() {
     $(this.el).html(this.leader_template({leader: this.model.leader.get('value')}));
-    var fields = this.model.fields;
-    for (field in fields) {
-      $(this.el).append(this.field_row_template({
+
+    for (field in this.model.control_fields) {
+      $(this.el).append(this.control_row_template({
         'label': field,
-        'ind1': fields[field].get('ind1'),
-        'ind2': fields[field].get('ind2'),
-        'subfields': fields[field].get('subfields'),
+        'value': this.model.control_fields[field].get('value')
       }));
+    }
+
+    for (field in this.model.fields) {
+      var rows = this.model.fields[field].get('rows');
+      for(row in rows) {
+        $(this.el).append(this.field_row_template({
+          'label': field,
+          'ind1': rows[row]['ind1'],
+          'ind2': rows[row]['ind2'],
+          'subfields': rows[row]['subfields'],
+        }));
+      }
     }
   },
 });

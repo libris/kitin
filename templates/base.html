@@ -258,6 +258,12 @@ Delfältet förekommer även med innebörden print-ISBN i (maskinellt eller manu
 <script src="{{ url_for('static', filename='js/underscore.js') }}"></script>  
 <script src="{{ url_for('static', filename='js/backbone.js') }}"></script>  
 
+<script type="text/html" id="control-row-template">
+  <li class='control_field'>
+  <label><%= label %></label>
+  <input class='subfields' value='<%= value %>'/>
+  </li>
+</script>
 <script type="text/html" id="field-row-template">
   <li class='regular_field'>
     <label class=''><%= label %></label>
