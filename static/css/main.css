@@ -15,7 +15,7 @@ body {
 }
   
 /* Webcat form */
-.post .control_fields {
+.post .control_field, .post .regular_field {
   list-style: none;
   margin: 0;
 }
@@ -29,8 +29,6 @@ body {
 .post, select.first-indicator, input.first-indicator, select.second-indicator, input.second-indicator {
 	width: 20px;
 }
-
-
 
 .post, input.subfield {
 	width: 450px;
