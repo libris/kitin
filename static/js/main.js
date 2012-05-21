@@ -10,7 +10,7 @@ var ControlField = Backbone.Model.extend({ });
 var Record = Backbone.Model.extend({
   fields: {},
   control_fields: {},
-  urlRoot:'/record',
+  urlRoot:'/record/bib',
   parse: function(response) {
     var fields = response['fields'];
     for (field in fields) {
@@ -40,7 +40,7 @@ var Router = Backbone.Router.extend({
     self = this;
   },
   routes: {
-    "record/:bibid": "record"
+    "record/bib/:bibid": "record"
   },
   record: function(bibid) {
     var record = new Record({id: bibid});
@@ -79,7 +79,7 @@ var View = Backbone.View.extend({
         }));
       }
     }
-  },
+  }
 });
 
 $(function() {

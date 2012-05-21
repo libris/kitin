@@ -22,20 +22,16 @@ db.echo = True
 metadata = MetaData(db)
 
 @app.route("/")
-def start():
-    return render_template('start.html')
+def search():
+    return render_template('search.html')
 
-@app.route("/monografi.html")
-def monografi():
-    return render_template('monografi.html')
-
-@app.route("/new_bibliographic.html")
-def new_bibliographic():
-    return render_template('new_bibliographic.html')
-
-@app.route("/profile.html")
+@app.route("/mockups/<name>")
+def show_mockup(name):
+    return render_template('mockups/'+ name +'.html')
+    
+@app.route("/profile")
 def profile():
-    return render_template('profile.html')
+    return render_template('mockups/profile.html')    
 
 @app.route('/user/<name>')
 def show_user(name=None):
@@ -70,18 +66,18 @@ def upload_file():
     else:
         return render_template('upload.html')
 
-@app.route('/record/<bibid>')
-def browse_document(bibid):
-    post = requests.get("%s/bib/%s" % (app.config['WHELK_HOST'], bibid))
+@app.route('/record/bib/<id>')
+def browse_document(id):
+    post = requests.get("%s/bib/%s" % (app.config['WHELK_HOST'], id))
     if not post:
-        return render_template('monografi.html')
+        return render_template('bib.html')
     if request.is_xhr:
         resp = make_response(post.text)
         resp.headers['Content-Type'] = 'application/json'
         return resp
     else:
         json_post = json.loads(post.text)
-        return render_template('monografi.html', data = json_post)
+        return render_template('bib.html', data=json_post)
 
 @app.route('/lookup/<uid>')
 def lookup(uid=None):

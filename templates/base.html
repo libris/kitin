@@ -10,8 +10,7 @@
     <style>
     </style>
     <link href="{{ url_for('static', filename='assets/css/bootstrap-responsive.css') }}" rel="stylesheet">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-	{% block extrajs %}{% endblock extrajs %}
+    
     {% endblock head %}
   </head>
   <body>
@@ -31,32 +30,21 @@
               <a href="#">Login</a>
               </li>
               <li>
-              <a href="/profile.html">Profile</a>
+              <a href="/profile">Profile</a>
               </li>
               
                           <li>
             <a href="/">Sök</a>
             </li>
             <li>
-            <a href="/new_bibliographic.html">Ny</a>
+            <a href="/mockups/new_bibliographic">Ny</a>
             </li>
             <li>
             <a href="/upload">Öppna/Ladda upp</a>
             </li>
-                        <li>
-            <a href="/monografi.html">Monografi</a>
-            </li>
+
               
-          <li class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-Dropdown later
-<b class="caret"></b>
-</a>
-<ul class="dropdown-menu">
-<li>1</li>
-<li>2</li>
-</ul>
-</li>    
+          
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -258,21 +246,9 @@ Delfältet förekommer även med innebörden print-ISBN i (maskinellt eller manu
 <script src="{{ url_for('static', filename='js/underscore.js') }}"></script>  
 <script src="{{ url_for('static', filename='js/backbone.js') }}"></script>  
 
-<script type="text/html" id="control-row-template">
-  <li class='control_field'>
-  <label><%= label %></label>
-  <input class='subfields' value='<%= value %>'/>
-  </li>
-</script>
-<script type="text/html" id="field-row-template">
-  <li class='regular_field'>
-    <label class=''><%= label %></label>
-    <input class='first-indicator' value='<%= ind1 %>'/>
-    <input class='second-indicator' value='<%= ind2 %>'/>
-    <input class='subfields' value='<% for (index in subfields) { for (item in subfields[index]) { print(item, '&Dagger; ', subfields[index][item]); } } %>'/>
-  </li>
-</script>
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>  
 
+{% block extrajs %}{% endblock extrajs %}
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>  
 </body>
 </html>

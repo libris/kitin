@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content_class %}post{% endblock content_class %}
+{% block content %}
+<!--Body content-->
+<h2>Monografi</h2>
+<ul id="fields"></ul>
+<hr>
+
+<hr>
+
+{% endblock content %}
+
+
+{% block extrajs %}
+<script type="text/html" id="control-row-template">
+  <li class='control_field'>
+  <label><%= label %></label>
+  <input class='subfields' value='<%= value %>'/>
+  </li>
+</script>
+<script type="text/html" id="field-row-template">
+  <li class='regular_field'>
+    <label class=''><%= label %></label>
+    <input class='first-indicator' value='<%= ind1 %>'/>
+    <input class='second-indicator' value='<%= ind2 %>'/>
+    <input class='subfields' value='<% for (index in subfields) { for (item in subfields[index]) { print(item, '&Dagger; ', subfields[index][item]); } } %>'/>
+  </li>
+</script>
+{% endblock extrajs %}
+
+
+
