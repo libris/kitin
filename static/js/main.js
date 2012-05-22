@@ -59,6 +59,9 @@ var View = Backbone.View.extend({
   leader_template: _.template("<li class='control_field'><label>Leader: </label><span><%= leader %></span></li>"),
 
   render: function() {
+
+    setupGlobalKeyBindings();
+
     $(this.el).html(this.leader_template({leader: this.model.leader.get('value')}));
 
     for (field in this.model.control_fields) {
@@ -79,8 +82,32 @@ var View = Backbone.View.extend({
         }));
       }
     }
+
+    setupRecordKeyBindings(this.el);
+
   }
 });
+
+function setupGlobalKeyBindings() {
+  $(document).jkey('ctrl+b',function(){
+      alert('Publish record...');
+  });
+}
+
+function setupRecordKeyBindings(el) {
+  $('input', el).jkey('f3',function() {
+      alert('Insert row before...');
+  });
+  $('input', el).jkey('f4',function() {
+      alert('Insert row after...');
+  });
+  //$('input', el).jkey('f2',function() {
+  //    alert('Show valid marc values...');
+  //});
+  //$(this.el).jkey('ctrl+t', function() {
+  //  this.value += '‡'; // insert subkey delimiter
+  //});
+}
 
 $(function() {
   this.collection = new Collection();
@@ -96,4 +123,5 @@ $(function() {
   });
 
   Backbone.history.start({pushState: true, root: "/"});
+
 });
