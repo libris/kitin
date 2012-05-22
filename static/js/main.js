@@ -16,9 +16,9 @@ var Record = Backbone.Model.extend({
     for (field in fields) {
       var key = _.keys(fields[field])[0];
       var value = _.values(fields[field])[0];
-      if(key <= 008) { // We have a ControlField
+      if(parseInt(key, 10) <= 8) { // We have a ControlField?
         this.control_fields[key] = new ControlField({value: value});
-      } else { // Its a regular Field
+      } else {
         if(_.include(_.keys(this.fields), key)) {
           this.fields[key].get('rows').push(value);
         } else {
