@@ -3,10 +3,31 @@
 {% block content %}
 <!--Body content-->
 <h2>Monografi</h2>
+<hr>
 <ul id="fields"></ul>
 <hr>
 
-<hr>
+	<div class="tabbable"> <!-- Only required for left/right tabs -->
+	    <ul class="nav nav-tabs">
+	    <li class="active"><a href="#tab1" data-toggle="tab">Marc21</a></li>
+	    <li><a href="#tab2" data-toggle="tab">Light mode</a></li>
+	    </ul>
+	    <div class="tab-content">
+	    <div class="tab-pane active" id="tab1">
+	<p>test1</p>
+	
+	   </div><!-- end tab1-->
+	
+	<div class="tab-pane" id="tab2">
+
+
+	<p>test2</p>
+
+    </div><!-- end tab2-->
+    </div><!-- end tab-content-->
+    </div><!-- end tabbable-->
+
+
 
 {% endblock content %}
 
