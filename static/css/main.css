@@ -30,7 +30,11 @@ body {
 	width: 20px;
 }
 
-.post, input.subfield {
+.post, input.controlfield {
+	width: 517px;
+}
+
+.post, input.subfields {
 	width: 450px;
 }
 
