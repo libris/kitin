@@ -1,53 +1,42 @@
 {% extends "base.html" %}
+
 {% block content_class %}post{% endblock content_class %}
+
 {% block content %}
-<!--Body content-->
-<h2>Monografi</h2>
-<hr>
-<ul id="fields"></ul>
-<hr>
-
-	<div class="tabbable"> <!-- Only required for left/right tabs -->
-	    <ul class="nav nav-tabs">
-	    <li class="active"><a href="#tab1" data-toggle="tab">Marc21</a></li>
-	    <li><a href="#tab2" data-toggle="tab">Light mode</a></li>
-	    </ul>
-	    <div class="tab-content">
-	    <div class="tab-pane active" id="tab1">
-	<p>test1</p>
-	
-	   </div><!-- end tab1-->
-	
-	<div class="tab-pane" id="tab2">
-
-
-	<p>test2</p>
-
-    </div><!-- end tab2-->
-    </div><!-- end tab-content-->
+  <!--Body content-->
+  <h2>Monografi</h2>
+  <hr>
+  <hr>
+    <div class="tabbable"> <!-- Only required for left/right tabs -->
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab1" data-toggle="tab">Marc21</a></li>
+        <li><a href="#tab2" data-toggle="tab">Light mode</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+          <ul id="fields"></ul>
+        </div><!-- end tab1-->
+        <div class="tab-pane" id="tab2">
+          <p>test2</p>
+        </div><!-- end tab2-->
+      </div><!-- end tab-content-->
     </div><!-- end tabbable-->
-
-
-
 {% endblock content %}
 
-
 {% block extrajs %}
-<script type="text/html" id="control-row-template">
-  <li class='control_field'>
-  <label><%= label %></label>
-  <input class='subfields' value='<%= value %>'/>
-  </li>
-</script>
-<script type="text/html" id="field-row-template">
-  <li class='regular_field'>
-    <label class=''><%= label %></label>
-    <input class='first-indicator' value='<%= ind1 %>'/>
-    <input class='second-indicator' value='<%= ind2 %>'/>
-    <input class='subfields' value='<% for (index in subfields) { for (item in subfields[index]) { print(item, '&Dagger; ', subfields[index][item]); } } %>'/>
-  </li>
-</script>
+  <script type="text/html" id="control-row-template">
+    <li class='control_field'>
+    <label><%= label %></label>
+    <input class='controlfield' value='<%= value %>'/>
+    </li>
+  </script>
+  <script type="text/html" id="field-row-template">
+    <li class='regular_field'>
+      <label class=''><%= label %></label>
+      <input class='first-indicator' value='<%= ind1 %>'/>
+      <input class='second-indicator' value='<%= ind2 %>'/>
+      <input class='subfields' value='<% for (index in subfields) { for (item in subfields[index]) { print(item, '&Dagger; ', subfields[index][item]); } } %>'/>
+    </li>
+  </script>
 {% endblock extrajs %}
-
-
 
