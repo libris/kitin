@@ -10,9 +10,11 @@ import pickle
 import requests
 from spill import Spill
 
+
 app = Flask(__name__)
 app.config.from_pyfile('config.cfg')
 app.config.from_envvar('SETTINGS', silent = True)
+
 
 def _db_string():
     return "%s:///%s" %(app.config['DBENGINE'], app.config['DBNAME'])
@@ -21,21 +23,26 @@ db = create_engine(_db_string())
 db.echo = True
 metadata = MetaData(db)
 
+
 @app.route("/")
 def search():
     return render_template('search.html')
 
+
 @app.route("/mockups/<name>")
 def show_mockup(name):
     return render_template('mockups/'+ name +'.html')
-    
+
+
 @app.route("/profile")
 def profile():
     return render_template('mockups/profile.html')    
 
+
 @app.route('/user/<name>')
 def show_user(name=None):
     return render_template('home.html', name=name)
+
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
@@ -66,18 +73,26 @@ def upload_file():
     else:
         return render_template('upload.html')
 
+
 @app.route('/record/bib/<id>')
 def browse_document(id):
     post = requests.get("%s/bib/%s" % (app.config['WHELK_HOST'], id))
     if not post:
         return render_template('bib.html')
     if request.is_xhr:
-        resp = make_response(post.text)
-        resp.headers['Content-Type'] = 'application/json'
-        return resp
+        return raw_json_response(post.text)
     else:
         json_post = json.loads(post.text)
         return render_template('bib.html', data=json_post)
+
+
+@app.route('/suggest/bib')
+def suggest_bib_completions():
+    return raw_json_response('''[
+            {"value": "Tove Jansson", "data": {}},
+            {"value": "Katten Jansson", "data": {}}
+            ]''')
+
 
 @app.route('/lookup/<uid>')
 def lookup(uid=None):
@@ -146,11 +161,16 @@ def save_to_db():
 
         return "tack"
 
+
+def raw_json_response(s):
+    resp = make_response(s)
+    resp.headers['Content-Type'] = 'application/json'
+    return resp
+
+
 if __name__ == "__main__":
     from sys import argv
     if '-d' in argv:
         app.debug = True
     app.run()
-
-
 
