@@ -9,7 +9,7 @@
 <p>shift + option + t = doubledagger</p>
 
 <!-- labels blev föräldralösa i delfältsindelning… ändra sen i hope hope-->
-<label class="control-label" for="isbn-020_00-z_00" ><a href="#" rel="tooltip" data-original-title="[020 &Dagger;a] ISBN">020 - Internationellt standardboknummer (ISBN)</a></label>
+<label class="control-label" for="isbn-020_00-z_00" ><a href="#" rel="tooltip" id="example" data-original-title="[020 &Dagger;acz] ISBN">020 - Internationellt standardboknummer (ISBN)</a></label>
  
 <div class="controls">
 <span class="help-block">ISBN med ev. kvalifikatorer <button class="close-record">&times;</button> </span> <input id="isbn-020ax00" class="input-xlarge" type="text">
@@ -132,3 +132,12 @@
 </p>
 
 {% endblock %}
+
+{% block extrajs %}
+<script type="text/javascript">
+$(function(){
+   $('#example').tooltip({'placement':'left', 'trigger' : 'hover'})
+});
+</script>
+
+{% endblock extrajs%}
