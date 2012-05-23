@@ -66,15 +66,3 @@ label.control-label {
   filter: alpha(opacity=20);
   border: 0;
 }
-
-.add-subfield {
-  font-size: 20px;
-  font-weight: bold;
-  line-height: 18px;
-  color: #000000;
-  text-shadow: 0 1px 0 #ffffff;
-  opacity: 0.2;
-  filter: alpha(opacity=20);
-  border: 0;
-
-}
