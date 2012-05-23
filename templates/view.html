@@ -2,13 +2,14 @@
 {% extends "base.html" %}
 {% block title %}View json{% endblock %}
 {% block content %}
-  <h1>Marcpost</h1>
+  <h1>Marcpost json</h1>
   {% for mid, marcpost in marcposts %}
   <form action="/save" method="post" enctype="multipart/form-data" >
-      <input type="text" name="uid" value="{{ uid }}">
-      <input type="text" name="mid" value="{{ mid }}">
+      <label>Uid
+      <input type="text" name="uid" value="{{ uid }}"></label>
+      <label>Mid<input type="text" name="mid" value="{{ mid }}"></label><br>
       <textarea cols="50" rows="20" name="jdata">{{ marcpost }}</textarea>
-
+	<br>
       <input type="submit" value="publish" name="publish">
       <input type="submit" value="save draft" name="draft">
 
