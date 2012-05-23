@@ -3,6 +3,29 @@
 // - marc
 // - spill
 
+
+$(function() {
+  this.collection = new Collection();
+  this.router = new Router([this.collection]);
+
+  this.router.on("route:record", function(data) {
+    //this.collection.get(data).fetch();
+  });
+
+  this.collection.on('add', function(model) {
+    var view = new View({model: model});
+    view.render();
+  });
+
+  Backbone.history.start({pushState: true, root: "/"});
+
+  // TODO: onunload:
+  //if (ajaxInProgress)
+  //  confirm('ajaxInProgress; break and leave?')
+
+});
+
+
 var Leader = Backbone.Model.extend({ });
 var Field = Backbone.Model.extend({ });
 var ControlField = Backbone.Model.extend({ });
@@ -84,6 +107,7 @@ var View = Backbone.View.extend({
     }
 
     setupRecordKeyBindings(this.el);
+    setupBibAutocomplete(this.el);
 
   }
 });
@@ -109,19 +133,13 @@ function setupRecordKeyBindings(el) {
   //});
 }
 
-$(function() {
-  this.collection = new Collection();
-  this.router = new Router([this.collection]);
-
-  this.router.on("route:record", function(data) {
-    //this.collection.get(data).fetch();
+function setupBibAutocomplete(el) {
+  var suggestUrl = "/suggest/bib";
+  $('.marc100 input.subfields'
+    + ', .marc600 input.subfields'
+    + ', .marc700 input.subfields', el).autocomplete(
+    suggestUrl, {
+    remoteDataType: 'json'
   });
+}
 
-  this.collection.on('add', function(model) {
-    var view = new View({model: model});
-    view.render();
-  });
-
-  Backbone.history.start({pushState: true, root: "/"});
-
-});

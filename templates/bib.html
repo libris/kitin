@@ -7,25 +7,25 @@
   <h2>Monografi</h2>
   <hr>
   <hr>
-    <div class="tabbable"> <!-- Only required for left/right tabs -->
-      <ul class="nav nav-tabs">
-        <li class="active"><a href="#tab1" data-toggle="tab">Marc21</a></li>
-        <li><a href="#tab2" data-toggle="tab">Light mode</a></li>
-      </ul>
-      <div class="tab-content">
-        <div class="tab-pane active" id="tab1">
-          <ul id="fields"></ul>
+  <div class="tabbable"> <!-- Only required for left/right tabs -->
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#tab1" data-toggle="tab">Marc21</a></li>
+      <li><a href="#tab2" data-toggle="tab">Light mode</a></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="tab1">
+        <ul id="fields"></ul>
         <hr>
-	      <input type="submit" value="save draft" name="draft">  
-    	  <input type="submit" value="publish" name="publish">
-         </div><!-- end tab1-->
-        <div class="tab-pane" id="tab2">
-          <p>Lightmode</p>
-        </div><!-- end tab2-->
-      </div><!-- end tab-content-->
-    </div><!-- end tabbable-->
+        <input type="submit" value="save draft" name="draft">
+        <input type="submit" value="publish" name="publish">
+      </div><!-- end tab1-->
+      <div class="tab-pane" id="tab2">
+        <p>Lightmode</p>
+      </div><!-- end tab2-->
+    </div><!-- end tab-content-->
+  </div><!-- end tabbable-->
 
-    
+
 {% endblock content %}
 
 {% block extrajs %}
@@ -36,7 +36,7 @@
     </li>
   </script>
   <script type="text/html" id="field-row-template">
-    <li class='regular_field'>
+    <li class='regular_field marc<%= label %>'>
       <label class=''><%= label %></label>
       <input class='first-indicator' value='<%= ind1 %>'/>
       <input class='second-indicator' value='<%= ind2 %>'/>

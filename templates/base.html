@@ -3,18 +3,19 @@
   <head>
     {% block head %}
     <title>{% block title %}LIBRIS{% endblock title %} - Kitin</title>
-     <meta charset="utf-8">   
+     <meta charset="utf-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/js/google-code-prettify/prettify.css') }}">
     <style>
     </style>
     <link href="{{ url_for('static', filename='assets/css/bootstrap-responsive.css') }}" rel="stylesheet">
-    
+    <link href="{{ url_for('static', filename='css/jquery.autocomplete.css') }}" rel="stylesheet">
+
     {% endblock head %}
   </head>
   <body>
-	 {% block navbar %}
+    {% block navbar %}
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -32,7 +33,7 @@
               <li>
               <a href="/profile">Profile</a>
               </li>
-              
+
                           <li>
             <a href="/">Sök</a>
             </li>
@@ -43,15 +44,15 @@
             <a href="/upload">Öppna/Ladda upp</a>
             </li>
 
-              
-          
+
+
             </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
-    </div> 
- {% endblock navbar %}
- 
+    </div>
+    {% endblock navbar %}
+
  <div class="container {% block content_class %}{% endblock content_class %}">
    {% block container %}
 
@@ -93,7 +94,7 @@
             </li>
           </ul>
         </div>
-        
+
         -->
         <div class="span9">
           {% block content %}
@@ -112,7 +113,7 @@
             </li>
             <li>
             <a href="#">Wikipedia</a>
-            </li>  
+            </li>
             <li>
             <a href="#">Dewey - SAB</a>
             </li>
@@ -121,7 +122,7 @@
             </li>
           </ul>
 
-          <h3>Information från listor</h3> 
+          <h3>Information från listor</h3>
           <ul class="nav nav-list">
             <li class="nav-header">
             CXZ
@@ -138,7 +139,7 @@
             <li>
             <a href="#">Redigerad aukt.post</a>
             </li>
-          </ul>  
+          </ul>
 
           <ul class="nav nav-list">
             <li class="nav-header">
@@ -156,7 +157,7 @@
             <li>
             <a href="#">Periodikamöte på KB</a>
             </li>
-          </ul>  
+          </ul>
 -->
 
 <!-- <input type="text" class="input-medium search-query" name="search"> -->
@@ -211,13 +212,13 @@ Delfältet förekommer även med innebörden print-ISBN i (maskinellt eller manu
 <td width="10%"></td>
 </tr>
 </tbody>
-</table>	
+</table>
 
 
         </div>
-      </div> 
-    </div> 
-  </div> 
+      </div>
+    </div>
+  </div>
 
   {% endblock container %}</div>
 
@@ -240,18 +241,18 @@ Delfältet förekommer även med innebörden print-ISBN i (maskinellt eller manu
 <script src="{{ url_for('static', filename='assets/js/bootstrap-button.js') }}"></script>
 <script src="{{ url_for('static', filename='assets/js/bootstrap-collapse.js') }}"></script>
 <script src="{{ url_for('static', filename='assets/js/bootstrap-carousel.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/bootstrap-typeahead.js') }}"></script>  
+<script src="{{ url_for('static', filename='assets/js/bootstrap-typeahead.js') }}"></script>
 
-<script src="{{ url_for('static', filename='assets/js/google-code-prettify/prettify.js') }}"></script> 
+<script src="{{ url_for('static', filename='assets/js/google-code-prettify/prettify.js') }}"></script>
 
 
-<script src="{{ url_for('static', filename='js/underscore.js') }}"></script>  
-<script src="{{ url_for('static', filename='js/backbone.js') }}"></script>  
-<script src="{{ url_for('static', filename='js/jquery.jkey.js') }}"></script>  
-
+<script src="{{ url_for('static', filename='js/underscore.js') }}"></script>
+<script src="{{ url_for('static', filename='js/backbone.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.jkey.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.autocomplete.min.js') }}"></script>
 
 {% block extrajs %}{% endblock extrajs %}
 
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>  
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
