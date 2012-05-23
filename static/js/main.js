@@ -139,7 +139,11 @@ function setupBibAutocomplete(el) {
     + ', .marc600 input.subfields'
     + ', .marc700 input.subfields', el).autocomplete(
     suggestUrl, {
-    remoteDataType: 'json'
+    remoteDataType: 'json',
+    showResult: function (value) {
+      return "<div><span>&Dagger;a "+ value +", &Dagger;d<span>" +
+        "<p><button>Info</button></p></div>"
+    }
   });
 }
 
