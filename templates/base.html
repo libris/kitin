@@ -2,16 +2,12 @@
 <html lang="sv">
   <head>
     {% block head %}
+    <meta charset="utf-8">
     <title>{% block title %}LIBRIS{% endblock title %} - Kitin</title>
-     <meta charset="utf-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/js/google-code-prettify/prettify.css') }}">
-    <style>
-    </style>
-    <link href="{{ url_for('static', filename='assets/css/bootstrap-responsive.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/jquery.autocomplete.css') }}" rel="stylesheet">
-
+    <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap-responsive.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/jquery/jquery.autocomplete.css') }}" rel="stylesheet">
     {% endblock head %}
   </head>
   <body>
@@ -228,28 +224,12 @@ Delfältet förekommer även med innebörden print-ISBN i (maskinellt eller manu
 </div>
 
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="{{ url_for('static', filename='assets/js/jquery.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/bootstrap.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/bootstrap-transition.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/bootstrap-alert.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/bootstrap-modal.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/bootstrap-dropdown.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/bootstrap-scrollspy.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/bootstrap-tab.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/bootstrap-tooltip.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/bootstrap-popover.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/bootstrap-button.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/bootstrap-collapse.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/bootstrap-carousel.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/bootstrap-typeahead.js') }}"></script>
-
-<script src="{{ url_for('static', filename='assets/js/google-code-prettify/prettify.js') }}"></script>
-
-
-<script src="{{ url_for('static', filename='js/underscore.js') }}"></script>
-<script src="{{ url_for('static', filename='js/backbone.js') }}"></script>
-<script src="{{ url_for('static', filename='js/jquery.jkey.js') }}"></script>
-<script src="{{ url_for('static', filename='js/jquery.autocomplete.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/jquery/jquery.jkey.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/jquery/jquery.autocomplete.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/backbone/underscore-min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/backbone/backbone-min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
 
 {% block extrajs %}{% endblock extrajs %}
 
