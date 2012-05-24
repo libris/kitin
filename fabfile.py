@@ -1,14 +1,13 @@
 #!/usr/bin/env python
+import json, os
 
 from fabric.api import *
-
-from config import *
 
 from sqlalchemy import *
 from sqlalchemy.orm import *
 
-import json, os
 
+@task
 def create_db():
     if not os.path.exists(kitinconfig['DBNAME']):
         db = create_engine(kitinconfig['DBENGINE'] + ':///' + kitinconfig['DBNAME'])
@@ -23,6 +22,7 @@ def create_db():
         )
         marcpost.create()
 
+@task
 def create_wsgi_file():
     wsgifile = open('kitin.wsgi', 'w')
     wsgifile.write("activate_this = '%s/kitin/bin/activate_this.py'\n" % os.environ.get('WORKON_HOME'))
@@ -30,7 +30,13 @@ def create_wsgi_file():
     wsgifile.write("from kitin import app as application\n")
     wsgifile.close()
 
+@task
 def prepare():
     if not os.path.exists(appconfig['UPLOAD_FOLDER']):
         os.mkdir(appconfig['UPLOAD_FOLDER'])
     create_db()
+
+@task
+def fetch_vendor_assets():
+    local("tools/fetch-vendor-assets.sh")
+
