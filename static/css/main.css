@@ -7,15 +7,16 @@ html {
 }
 
 body {
-  padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+  padding-top: 60px; /* to make the container go all the way to the bottom of the topbar */
   height: 100%;
   margin: 0 0 1px;
   font-family: Helvetica;
   font-size: 1.2em;
 }
-  
+
 /* Webcat form */
-.post .control_field, .post .regular_field {
+.post .control_field,
+.post .regular_field {
   list-style: none;
   margin: 0;
 }
@@ -23,35 +24,42 @@ body {
   display: inline;
 }
 .post, input.variable-field {
-	width: 30px;
+  width: 30px;
 }
 
-.post, select.first-indicator, input.first-indicator, select.second-indicator, input.second-indicator {
-	width: 20px;
+.post,
+select.first-indicator,
+input.first-indicator,
+select.second-indicator,
+input.second-indicator {
+  width: 20px;
 }
 
-.post, input.controlfield {
-	width: 517px;
+.post,
+input.controlfield {
+  width: 517px;
 }
 
-.post, input.subfields {
-	width: 450px;
+.post,
+input.subfields {
+  width: 450px;
 }
 
-.post, input.subfield-master {
-	width: 99%;
-}  
+.post,
+input.subfield-master {
+  width: 99%;
+}
 
 .remoteoption {
-	padding: 5px;
+  padding: 5px;
 }
 
 label.control-label {
-	background-color: #efefef;
-	font-weight: 500;
-	padding: 3px;
-	width: 97%;
-	display: block;
+  background-color: #efefef;
+  font-weight: 500;
+  padding: 3px;
+  width: 97%;
+  display: block;
 }
 
 /* forked from class close */
