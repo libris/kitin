@@ -119,7 +119,8 @@
       "4": {"name": "relatorCode", "repeatable": true},
       "6": {"name": "linkage", "repeatable": false},
       "8": {"name": "fieldLinkAndSequenceNumber", "repeatable": true}
-    }
+    },
+    "link": "dc:creator"
   },
   "245": {
     "name": "titleStatement",
