@@ -36,11 +36,20 @@
     </li>
   </script>
   <script type="text/html" id="field-row-template">
-    <li class='regular_field marc<%= label %>'>
-      <label class=''><%= label %></label>
-      <input class='first-indicator' value='<%= ind1 %>'/>
-      <input class='second-indicator' value='<%= ind2 %>'/>
-      <input class='subfields' value='<% for (index in subfields) { for (item in subfields[index]) { print(item, '&Dagger; ', subfields[index][item]); } } %>'/>
+    <li class='regular_field marc<%= label %> control-group'>
+      <div class="controls">
+        <div class="input-append">
+          <label><%= label %></label>
+          <input class='first-indicator' value='<%= ind1 %>'/>
+          <input class='second-indicator' value='<%= ind2 %>'/>
+          <input class='subfields' value='<% for (index in subfields) { for (item in subfields[index]) { print(item, '&Dagger; ', subfields[index][item]); } } %>'
+          /><button class="btn" title="Add above">
+              <i class="icon-plus"></i><i class="icon-arrow-up"></i></button><button
+            class="btn" title="Add below">
+              <i class="icon-plus"></i><i class="icon-arrow-down"></i></button>
+          <button class="btn" title="Delete"><i class="icon-trash"></i></button>
+        </div>
+      </div>
     </li>
   </script>
 {% endblock extrajs %}
