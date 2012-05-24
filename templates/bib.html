@@ -29,12 +29,18 @@
 {% endblock content %}
 
 {% block extrajs %}
+
+  <script type="text/html" id="leader-template">
+    <li class="control_field"><label>Leader: </label><span><%= leader %></span></li>
+  </script>
+
   <script type="text/html" id="control-row-template">
     <li class='control_field'>
     <label><%= label %></label>
     <input class='controlfield' value='<%= value %>'/>
     </li>
   </script>
+
   <script type="text/html" id="field-row-template">
     <li class='regular_field marc<%= label %> control-group'>
       <div class="controls">
@@ -52,5 +58,13 @@
       </div>
     </li>
   </script>
+
+  <script type="text/html" id="bib-autocomplete-template">
+    <div>
+      <span>&Dagger;a <%= value %>, &Dagger;d</span>
+      <p><button class="btn">Info</button></p>
+    </div>
+  </script>
+
 {% endblock extrajs %}
 

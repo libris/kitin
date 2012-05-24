@@ -77,20 +77,21 @@ var Router = Backbone.Router.extend({
 
 var View = Backbone.View.extend({
   el: $('#fields'),
-  field_row_template: _.template($("#field-row-template").html()),
-  control_row_template: _.template($("#control-row-template").html()),
-  leader_template: _.template("<li class='control_field'><label>Leader: </label><span><%= leader %></span></li>"),
+  leader_template: _.template($('#leader-template').html()),
+  field_row_template: _.template($('#field-row-template').html()),
+  control_row_template: _.template($('#control-row-template').html()),
+  bib_autocomplete_template: _.template($('#bib-autocomplete-template').html()),
 
   render: function() {
 
-    setupGlobalKeyBindings();
+    this.setupGlobalKeyBindings();
 
     $(this.el).html(this.leader_template({leader: this.model.leader.get('value')}));
 
     for (field in this.model.control_fields) {
       $(this.el).append(this.control_row_template({
-        'label': field,
-        'value': this.model.control_fields[field].get('value')
+        label: field,
+        value: this.model.control_fields[field].get('value')
       }));
     }
 
@@ -98,52 +99,53 @@ var View = Backbone.View.extend({
       var rows = this.model.fields[field].get('rows');
       for(row in rows) {
         $(this.el).append(this.field_row_template({
-          'label': field,
-          'ind1': rows[row]['ind1'],
-          'ind2': rows[row]['ind2'],
-          'subfields': rows[row]['subfields'],
+          label: field,
+          ind1: rows[row]['ind1'],
+          ind2: rows[row]['ind2'],
+          subfields: rows[row]['subfields'],
         }));
       }
     }
 
-    setupRecordKeyBindings(this.el);
-    setupBibAutocomplete(this.el);
+    this.setupRecordKeyBindings();
+    this.setupBibAutocomplete();
 
-  }
+  },
+
+  setupGlobalKeyBindings: function () {
+    $(document).jkey('ctrl+b',function(){
+        alert('Publish record...');
+    });
+  },
+
+  setupRecordKeyBindings: function () {
+    $('input', this.el).jkey('f3',function() {
+        alert('Insert row before...');
+    });
+    $('input', this.el).jkey('f4',function() {
+        alert('Insert row after...');
+    });
+    //$('input', this.el).jkey('f2',function() {
+    //    alert('Show valid marc values...');
+    //});
+    //$(this.el).jkey('ctrl+t', function() {
+    //  this.value += '‡'; // insert subkey delimiter
+    //});
+  },
+
+  setupBibAutocomplete: function () {
+    var view = this;
+    var suggestUrl = "/suggest/bib";
+    $('.marc100 input.subfields'
+      + ', .marc600 input.subfields'
+      + ', .marc700 input.subfields', this.el).autocomplete(
+      suggestUrl, {
+      remoteDataType: 'json',
+      showResult: function (value) {
+        return view.bib_autocomplete_template({value: value});
+      }
+    });
+  },
+
 });
-
-function setupGlobalKeyBindings() {
-  $(document).jkey('ctrl+b',function(){
-      alert('Publish record...');
-  });
-}
-
-function setupRecordKeyBindings(el) {
-  $('input', el).jkey('f3',function() {
-      alert('Insert row before...');
-  });
-  $('input', el).jkey('f4',function() {
-      alert('Insert row after...');
-  });
-  //$('input', el).jkey('f2',function() {
-  //    alert('Show valid marc values...');
-  //});
-  //$(this.el).jkey('ctrl+t', function() {
-  //  this.value += '‡'; // insert subkey delimiter
-  //});
-}
-
-function setupBibAutocomplete(el) {
-  var suggestUrl = "/suggest/bib";
-  $('.marc100 input.subfields'
-    + ', .marc600 input.subfields'
-    + ', .marc700 input.subfields', el).autocomplete(
-    suggestUrl, {
-    remoteDataType: 'json',
-    showResult: function (value) {
-      return "<div><span>&Dagger;a "+ value +", &Dagger;d<span>" +
-        "<p><button>Info</button></p></div>"
-    }
-  });
-}
 
