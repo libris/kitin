@@ -86,3 +86,7 @@ label.control-label {
   filter: alpha(opacity=20);
   border: 0;
 }
+
+auth-ok {
+  float: right;
+}
