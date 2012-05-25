@@ -1,14 +1,23 @@
 [
     {
         "marc": {
+          "001": "191503",
           "100": {"a": "Jansson, Tove", "d": "1914-2001"},
-          "678": {"a": "Finlandssvensk författare & konstnär"}
-        }
+          "678": [ 
+            {"a": "Finlandssvensk författare & konstnär"},
+            {"a": "Har även publicerat sig under pseudonymen Vera Haij"}
+          ] 
+        },
+        "uri": "http://libris.kb.se/auth/191503",
+        "authorized": true,
+        "records": 408
     },
     {
         "marc": {
-          "100": {"a": "Jansson, Katten", "c": "Inte vargen", "d": "1966-"},
-          "678": {"a": "Farmors huskatt"}
+          "100": {"a": "Jansson, Katten", "c": "Tecknad seriefigur", "d": "1966-"},
+          "678": [
+            {"a": "Farmors huskatt"}
+          ]
         }
     }
 ]

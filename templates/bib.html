@@ -61,8 +61,18 @@
 
   <script type="text/html" id="bib-autocomplete-template">
     <div>
-      <h4><%= data.marc['100'].a %></h4>
-      <h5><%= data.marc['100'].d || "N/A" %></h5>
+      <h4><%= data.marc['100'].a %>
+      	<% if (data.authorized) { %>
+      	  <span class="badge badge-success pull-right"><i class="icon-ok icon-white"></i></span>
+        <% } %>
+      </h4>
+      <h5><%= data.marc['100'].d || "N/A" %>
+      	<% if (data.marc['100'].c) { %>(<%= data.marc['100'].c %>)<% } %></h5>
+      <% if (data.marc['678']) { %>
+        <p><% data.marc['678'].forEach(function (it) { %>
+          <%= it.a %><br>
+        <% }) %></p>
+      <% } %> 
     </div>
   </script>
 
