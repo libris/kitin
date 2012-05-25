@@ -1,12 +1,14 @@
 [
     {
         "marc": {
-          "100": {"a": "Jansson, Tove", "d": "1914-2001"}
+          "100": {"a": "Jansson, Tove", "d": "1914-2001"},
+          "678": {"a": "Finlandssvensk författare & konstnär"}
         }
     },
     {
         "marc": {
-          "100": {"a": "Jansson, Katten", "d": "1966-"}
+          "100": {"a": "Jansson, Katten", "c": "Inte vargen", "d": "1966-"},
+          "678": {"a": "Farmors huskatt"}
         }
     }
 ]
