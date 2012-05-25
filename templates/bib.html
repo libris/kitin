@@ -61,10 +61,9 @@
 
   <script type="text/html" id="bib-autocomplete-template">
     <div>
-      <span>&Dagger;a <%= value %>, &Dagger;d</span>
-      <p><button class="btn">Info</button></p>
+      <h4><%= data.marc['100'].a %></h4>
+      <h5><%= data.marc['100'].d || "N/A" %></h5>
     </div>
   </script>
 
 {% endblock extrajs %}
-

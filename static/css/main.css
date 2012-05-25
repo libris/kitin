@@ -51,11 +51,15 @@ input.subfield-master {
 }
 
 .regular_field .input-append .btn {
-    opacity: 0;
-    -moz-transition: 0.5s opacity ease-out;
+  opacity: 0;
+  -moz-transition: 0.5s opacity ease-out;
 }
 .regular_field:hover .input-append .btn {
-    opacity: 1;
+  opacity: 1;
+}
+
+.acResults {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 }
 
 .remoteoption {

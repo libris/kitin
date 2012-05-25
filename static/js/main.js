@@ -107,8 +107,8 @@ var View = Backbone.View.extend({
       }
     }
 
-    this.setupRecordKeyBindings();
     this.setupBibAutocomplete();
+    this.setupRecordKeyBindings();
 
   },
 
@@ -131,21 +131,64 @@ var View = Backbone.View.extend({
     //$(this.el).jkey('ctrl+t', function() {
     //  this.value += '‡'; // insert subkey delimiter
     //});
+    // TODO: disable when autocompleting:
+    //$('input', this.el).jkey('down',function() {
+    //    alert('Move down');
+    //});
   },
 
   setupBibAutocomplete: function () {
     var view = this;
-    var suggestUrl = "/suggest/bib";
+    var suggestUrl = "/suggest/auth";
     $('.marc100 input.subfields'
       + ', .marc600 input.subfields'
-      + ', .marc700 input.subfields', this.el).autocomplete(
-      suggestUrl, {
-      remoteDataType: 'json',
-      showResult: function (value) {
-        return view.bib_autocomplete_template({value: value});
-      }
+      + ', .marc700 input.subfields', this.el).autocomplete(suggestUrl, {
+
+        remoteDataType: 'json',
+
+        beforeUseConverter: function (repr) {
+          return MARC.getSubFieldA(repr);
+        },
+
+        processData: function (results) {
+          return results.map(function (item) {
+            var value = view.authSuggestItemToFieldRepr(item);
+            return {value: value, data: item};
+          });
+        },
+
+        showResult: function (value, data) {
+          return view.bib_autocomplete_template({value: value, data: data});
+        },
+
+        onItemSelect: function(item) {
+          //console.log(item);
+        }
+
     });
   },
 
+  authSuggestItemToFieldRepr: function (item) {
+    var f100 = item.marc['100'];
+    return "a\u2021 "+ f100.a +",d\u2021 "+ f100.d;
+  }
+
 });
 
+// TODO: merge with marcjson.js and marcmap.json
+var MARC = {
+
+  fieldExpr: new RegExp('\\w\u2021\\s*(.+?)((\\s*,?\\s*\\w\u2021)|$)'),
+
+  /**
+   * Expect:
+   *  this.getSubFieldA("a‡ Jansson, Tove,d‡ 1914-2001")[1] == 'Jansson, Tove'
+   *  this.getSubFieldA("a‡ Jansson, Tove")[1] == 'Jansson, Tove'
+   *  this.getSubFieldA("Jansson, Tove")[1] == null
+   */
+  getSubFieldA: function (repr) {
+    var parsed = repr.match(this.fieldExpr);
+    return parsed? parsed[1] : repr;
+  }
+
+}

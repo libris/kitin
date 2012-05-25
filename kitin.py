@@ -86,12 +86,10 @@ def browse_document(id):
         return render_template('bib.html', data=json_post)
 
 
-@app.route('/suggest/bib')
-def suggest_bib_completions():
-    return raw_json_response('''[
-            {"value": "Tove Jansson", "data": {}},
-            {"value": "Katten Jansson", "data": {}}
-            ]''')
+@app.route('/suggest/auth')
+def suggest_auth_completions():
+    q = request.args.get('q')
+    return raw_json_response(render_template('mockups/auth_suggest.json'))
 
 
 @app.route('/lookup/<uid>')
