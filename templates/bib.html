@@ -71,7 +71,11 @@
       <% if (data.marc['678']) { %>
         <p><% data.marc['678'].forEach(function (it) { %>
           <%= it.a %><br>
-        <% }) %></p>
+        <% }) %>
+        <% if (data.records) { %>
+        	<a href="#"><%=  (data.records) %> titlar</a>
+       <% }  %> 
+        </p>
       <% } %> 
     </div>
   </script>

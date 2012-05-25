@@ -145,6 +145,7 @@ var View = Backbone.View.extend({
       + ', .marc700 input.subfields', this.el).autocomplete(suggestUrl, {
 
         remoteDataType: 'json',
+        autoWidth: "width",
 
         beforeUseConverter: function (repr) {
           return MARC.getSubFieldA(repr);

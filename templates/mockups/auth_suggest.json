@@ -14,6 +14,18 @@
     },
     {
         "marc": {
+          "001": "94541",
+          "100": {"a": "Strindberg, August", "d": "1849-1912"},
+          "678": [ 
+            {"a": "Skönlitterär författare och dramatiker. Skrev ett par verk under pseudonymen Härved Ulf, bland annat fritänkaren, Det sjunkande Hellas."}
+          ] 
+        },
+        "uri": "http://libris.kb.se/auth/94541",
+        "authorized": true,
+        "records": 3395
+    },
+    {
+        "marc": {
           "100": {"a": "Jansson, Katten", "c": "Tecknad seriefigur", "d": "1966-"},
           "678": [
             {"a": "Farmors huskatt"}
