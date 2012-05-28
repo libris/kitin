@@ -74,7 +74,12 @@ def upload_file():
         return render_template('upload.html')
 
 
-@app.route('/record/bib/<id>')
+@app.route('/record/bib/<id>', methods=['PUT',])
+def update_document(id):
+    # TODO: Save document to whelk and respond with 200 OK if A-OK!
+    return raw_json_response(json.dumps(request.json))
+
+@app.route('/record/bib/<id>', methods=['GET','POST']) # TODO: Why do we handle POST here?
 def browse_document(id):
     post = requests.get("%s/bib/%s" % (app.config['WHELK_HOST'], id))
     if not post:

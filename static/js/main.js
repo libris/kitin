@@ -25,31 +25,26 @@ $(function() {
 
 });
 
-
-var Leader = Backbone.Model.extend({ });
-var Field = Backbone.Model.extend({ });
-var ControlField = Backbone.Model.extend({ });
-
 var Record = Backbone.Model.extend({
-  fields: {},
-  control_fields: {},
   urlRoot:'/record/bib',
   parse: function(response) {
     var fields = response['fields'];
     for (field in fields) {
       var key = _.keys(fields[field])[0];
-      var value = _.values(fields[field])[0];
-      if(parseInt(key, 10) <= 8) { // We have a ControlField?
-        this.control_fields[key] = new ControlField({value: value});
+      if(parseInt(key, 10) <= 8) { // We have a ControlField? Yes, that's the idea! :)
+        fields[field].control_field = true;
       } else {
-        if(_.include(_.keys(this.fields), key)) {
-          this.fields[key].get('rows').push(value);
-        } else {
-          this.fields[key] = new Field({rows: [value]});
-        }
+        fields[field].control_field = false;
       }
     }
-    this.leader = new Leader({value: response['leader']});
+    return {
+      leader: response['leader'],
+      fields: fields,
+    };
+  },
+  save: function(attributes, options) {
+    _.each(this.get('fields'), function(instance) { delete instance['control_field']; });
+    Backbone.Model.prototype.save.call(this, attributes, options);
   },
 });
 
@@ -84,27 +79,32 @@ var View = Backbone.View.extend({
 
   render: function() {
 
-    this.setupGlobalKeyBindings();
+    this.setupGlobalKeyBindings(this.model);
 
-    $(this.el).html(this.leader_template({leader: this.model.leader.get('value')}));
+    $(this.el).html(this.leader_template({leader: this.model.get('leader')}));
 
-    for (field in this.model.control_fields) {
+    var control_fields = _.filter(this.model.get('fields'), function(field) {
+      return field['control_field'] == true;
+    });
+    for (field in control_fields) {
       $(this.el).append(this.control_row_template({
-        label: field,
-        value: this.model.control_fields[field].get('value')
+        label: _.keys(control_fields[field])[0],
+        value: _.values(control_fields[field])[0],
       }));
     }
 
-    for (field in this.model.fields) {
-      var rows = this.model.fields[field].get('rows');
-      for(row in rows) {
-        $(this.el).append(this.field_row_template({
-          label: field,
-          ind1: rows[row]['ind1'],
-          ind2: rows[row]['ind2'],
-          subfields: rows[row]['subfields'],
-        }));
-      }
+    var fields = _.filter(this.model.get('fields'), function(field) {
+      return field['control_field'] == false;
+    });
+    for (field in fields) {
+      var key = _.keys(fields[field])[0];
+      var value = _.values(fields[field])[0];
+      $(this.el).append(this.field_row_template({
+        label: key,
+        ind1: value['ind1'],
+        ind2: value['ind2'],
+        subfields: value['subfields'],
+      }));
     }
 
     this.setupBibAutocomplete();
@@ -112,9 +112,12 @@ var View = Backbone.View.extend({
 
   },
 
-  setupGlobalKeyBindings: function () {
+  setupGlobalKeyBindings: function (model) {
+    $("input[name='publish']").on('click', function() {
+      model.save();
+    });
     $(document).jkey('ctrl+b',function(){
-        alert('Publish record...');
+      model.save();
     });
   },
 
