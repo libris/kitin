@@ -15,40 +15,21 @@ body {
 }
 
 /* Webcat form */
+.post .leader,
 .post .control_field,
 .post .regular_field {
   list-style: none;
   margin: 0;
 }
-.post label {
-  display: inline;
-}
-.post, input.variable-field {
-  width: 30px;
-}
+.post label { display: inline; }
+.post, input.variable-field { width: 30px; }
 
-.post,
-select.first-indicator,
-input.first-indicator,
-select.second-indicator,
-input.second-indicator {
-  width: 20px;
-}
-
-.post,
-input.controlfield {
-  width: 517px;
-}
-
-.post,
-input.subfields {
-  width: 450px;
-}
-
-.post,
-input.subfield-master {
-  width: 99%;
-}
+.post .field_label { width: 30px; }
+.post .control_field .field_label { width: 300px; }
+.post .indicator { width: 20px; }
+.post .controlfield { width: 517px; }
+.post input.subfields { width: 450px; }
+.post input.subfield-master { width: 99%; }
 
 .regular_field .input-append .btn {
   opacity: 0;

@@ -14,7 +14,9 @@
     </ul>
     <div class="tab-content">
       <div class="tab-pane active" id="tab1">
-        <ul id="fields"></ul>
+        <form id="our_form">
+          <ul id="fields"></ul>
+        </form>
         <hr>
         <input type="submit" value="save draft" name="draft">
         <input type="submit" value="publish" name="publish">
@@ -31,31 +33,32 @@
 {% block extrajs %}
 
   <script type="text/html" id="leader-template">
-    <li class="control_field"><label>Leader: </label><span><%= leader %></span></li>
+    <li class="leader">
+      <label>Leader: </label>
+      <input name="leader" value="<%= leader %>"/>
+    </li>
   </script>
 
   <script type="text/html" id="control-row-template">
     <li class='control_field'>
-    <label><%= label %></label>
-    <input class='controlfield' value='<%= value %>'/>
+      <label><%= label %></label>
+      <input name="<%= label %>" class='field_label' value='<%= value %>'/>
     </li>
   </script>
 
   <script type="text/html" id="field-row-template">
     <li class='regular_field marc<%= label %> control-group'>
-      <div class="controls">
         <div class="input-append">
-          <label><%= label %></label>
-          <input class='first-indicator' value='<%= ind1 %>'/>
-          <input class='second-indicator' value='<%= ind2 %>'/>
-          <input class='subfields' value='<% for (index in subfields) { for (item in subfields[index]) { print(item, '&Dagger; ', subfields[index][item]); } } %>'
+          <input name="<%= label %>" class='field_label' value='<%= label %>'/>
+          <input class='indicator' name="ind1" value='<%= ind1 %>'/>
+          <input class='indicator' name="ind2" value='<%= ind2 %>'/>
+          <input class='subfields' name="subfields" value='<% for (index in subfields) { for (item in subfields[index]) { print(item, '&Dagger; ', subfields[index][item]); } } %>'
           /><button class="btn" title="Add above">
               <i class="icon-plus"></i><i class="icon-arrow-up"></i></button><button
             class="btn" title="Add below">
               <i class="icon-plus"></i><i class="icon-arrow-down"></i></button>
           <button class="btn" title="Delete"><i class="icon-trash"></i></button>
         </div>
-      </div>
     </li>
   </script>
 

@@ -2,7 +2,39 @@
 // - uid
 // - marc
 // - spill
+$.fn.serializeObject = function() {
+  var o = {};
+  var fields = [];
+  $.each($('#fields .control_field'), function() {
+    var obj = {};
+    var field_label = $(this).find('.field_label');
+    obj[field_label.attr('name')] = field_label.val();
+    fields.push(obj);
+  });
+  $.each($('#fields .regular_field'), function() {
+    var field_name = $(this).find('.field_label').val();
+    var ind1 = $(this).find('.ind1');
+    var ind2 = $(this).find('.ind2');
+    var subfields = $(this).find('.subfields').val();
+    var r = /[a-z]‡/g;
+    var subfield = {};
+    var match = {};
+    while(match = r.exec(subfields)) {
+      subfield[match[0][0]] = subfields.substring(match.index + match[0].length, subfields.length);
+    }
 
+    var obj = {}
+    obj[field_name] = {
+      "ind1": $(this).find('.ind1').val(),
+      "ind2": $(this).find('.ind2').val(),
+      "subfields": [subfield], // TODO: split on separator
+    };
+    fields.push(obj);
+  });
+  o['fields'] = fields;
+  o['leader'] = $(this).find("input[name='leader']").val();
+  return o;
+}
 
 $(function() {
   this.collection = new Collection();
@@ -76,6 +108,14 @@ var View = Backbone.View.extend({
   field_row_template: _.template($('#field-row-template').html()),
   control_row_template: _.template($('#control-row-template').html()),
   bib_autocomplete_template: _.template($('#bib-autocomplete-template').html()),
+
+  events: {
+    "click .subfields": "update_data" // TODO: perhaps consider other triggers..
+  },
+
+  update_data: function(event) {
+    // TODO: save to model or perhaps to front-backend
+  },
 
   render: function() {
 
