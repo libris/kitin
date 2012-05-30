@@ -15,19 +15,27 @@ $.fn.serializeObject = function() {
     var field_name = $(this).find('.field_label').val();
     var ind1 = $(this).find('.ind1');
     var ind2 = $(this).find('.ind2');
-    var subfields = $(this).find('.subfields').val();
-    var r = /[a-z]‡/g;
-    var subfield = {};
-    var match = {};
-    while(match = r.exec(subfields)) {
-      subfield[match[0][0]] = subfields.substring(match.index + match[0].length, subfields.length);
+    var str = $(this).find('.subfields').val();
+    var r = /([a-z]‡)/g;
+    var keys = str.match(/(\W?[a-z]‡)/g);
+    var subfields = [];
+    for (key in keys) {
+      var current_key = keys[key];
+      var clean_key = current_key.substring(current_key.search(/\w/), current_key.search(/\w/)+1);
+      var end_key = keys[parseInt(key, 10)+1];
+      var start_pos = str.search(current_key) + current_key.length;
+      if(end_key != undefined) {
+        subfields[clean_key] = $.trim(str.substring(start_pos, str.search(end_key)));
+      } else {
+        subfields[clean_key] = $.trim(str.substring(start_pos, str.length));
+      }
     }
 
     var obj = {}
     obj[field_name] = {
       "ind1": $(this).find('.ind1').val(),
       "ind2": $(this).find('.ind2').val(),
-      "subfields": [subfield], // TODO: split on separator
+      "subfields": subfields,
     };
     fields.push(obj);
   });
