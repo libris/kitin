@@ -14,11 +14,6 @@ body {
   font-size: 1.2em;
 }
 
-/*webcat mockup */
-
-input.mockup {
-	background-color: efefef;
-}
 
 /* Webcat form */
 .record .leader,
@@ -76,3 +71,22 @@ label.control-label {
 auth-ok {
   float: right;
 }
+
+/*webcat mockup */
+
+.mockup {
+	background-color: #efefef;
+	border-radius: 0;
+	border-color: white;
+	font-size: 14px;
+}
+.indicator {
+	width: 20px;
+}
+.variable-field {
+	width: 30px;
+	font-weight: 600;
+}
+
+input.subfield-master { width: 600px; border-radius: 0; box-shadow: 0 0 0 0;}
+.sub-active { border-color: white; font-size: 14px;}
