@@ -74,29 +74,19 @@ $.fn.serializeObject = function() {
     fields.push(obj);
   });
   $.each($('#fields .regular_field'), function() {
-    var field_name = $(this).find('.field_label').val();
+    var field_name = $(this).find('.js-field-label').text();
     var ind1 = $(this).find('.ind1');
     var ind2 = $(this).find('.ind2');
-    var str = $(this).find('.subfields').val();
-    var r = /([a-z]‡)/g;
-    var keys = str.match(/(\W?[a-z]‡)/g);
+
     var subfields = [];
-    for (key in keys) {
-      var current_key = keys[key];
-      var clean_key = current_key.substring(current_key.search(/\w/), current_key.search(/\w/)+1);
-      var end_key = keys[parseInt(key, 10)+1];
-      var start_pos = str.search(current_key) + current_key.length;
-      if(end_key != undefined) {
-        subfields[clean_key] = $.trim(str.substring(start_pos, str.search(end_key)));
-      } else {
-        subfields[clean_key] = $.trim(str.substring(start_pos, str.length));
-      }
-    }
+    $.each($(this).find('.js-subfield-wrapper'), function() {
+      subfields[$(this).find('.js-subfield-code').text()] = $(this).find('.js-subfield-value').val();
+    });
 
     var obj = {}
     obj[field_name] = {
-      "ind1": $(this).find('.ind1').val(),
-      "ind2": $(this).find('.ind2').val(),
+      "ind1": $(this).find('.js-field-ind1').val() || '',
+      "ind2": $(this).find('.js-field-ind2').val() || '',
       "subfields": subfields,
     };
     fields.push(obj);

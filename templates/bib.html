@@ -51,15 +51,15 @@
 
   <script type="text/html" id="field-row-template">
       <div class='control-group regular_field'>
-        <label class='control-label'><%= label %></label>
+        <label class='control-label js-field-label'><%= label %></label>
         <div class='controls row-fluid'>
-          <input class='indicator ' name="ind1" value='<%= ind1 %>'/>
-          <input class='indicator ' name="ind2" value='<%= ind2 %>'/>
+          <input class='indicator js-field-ind1' name="ind1" value='<%= ind1 %>'/>
+          <input class='indicator js-field-ind2' name="ind2" value='<%= ind2 %>'/>
           <% for (subfield in subfields) { %>
             <% for (item in subfields[subfield]) { %>
-              <div class="input-prepend ">
-                <span class='add-on'><%= item %></span>
-                <input id='' class='subfield' name='subfield' value='<%= subfields[subfield][item] %>' cols='<%= subfields[subfield][item].length %>'/>
+              <div class="input-prepend js-subfield-wrapper">
+                <span class='add-on js-subfield-code'><%= item %></span>
+                <input id='' class='subfield js-subfield-value' name='subfield' value='<%= subfields[subfield][item] %>' cols='<%= subfields[subfield][item].length %>'/>
               </div> <!-- input-prepend -->
             <% } %>
           <% } %>
