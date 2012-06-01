@@ -33,14 +33,19 @@ input.mockup {
 .record .control_field .field_label { width: 300px; }
 .record .indicator { width: 20px; }
 .record .controlfield { width: 517px; }
-.record input.subfields { width: 450px; }
+.record .regular_field input.subfield.label {
+  width: 10px;
+}
+.record .regular_field input.subfield {
+  width: auto;
+}
 .record input.subfield-master { width: 99%; }
 
-.regular_field .input-append .btn {
+.regular_field .controls .btn {
   opacity: 0;
   -moz-transition: 0.5s opacity ease-out;
 }
-.regular_field:hover .input-append .btn {
+.regular_field:hover .controls .btn {
   opacity: 1;
 }
 
