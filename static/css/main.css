@@ -49,6 +49,7 @@ body {
   opacity: 0;
   -moz-transition: 0.5s opacity ease-out;
 }
+.regular_field label .btn:focus,
 .regular_field label:hover .btn {
   opacity: 1;
 }
