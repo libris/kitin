@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from flask import Flask, render_template, request, make_response
+from flask import Flask, render_template, request, make_response, abort
 from werkzeug import secure_filename
 import os, json
 from pprint import pprint
@@ -62,7 +62,7 @@ def upload_file():
             bibid = request.form['bibid']
             bpost = requests.get("%sbib/%s" % (app.config['WHELK_HOST'], bibid))
             json_data = json.loads(bpost.text)['marc']
-        #get table and save post
+        #get table and save record
         marcpost = Table('marcpost', metadata, autoload=True)
         bi = json_data.get('001', None)
         i = marcpost.insert()
@@ -74,22 +74,24 @@ def upload_file():
         return render_template('upload.html')
 
 
-@app.route('/record/bib/<id>', methods=['PUT',])
+@app.route('/record/bib/<id>', methods=['PUT'])
 def update_document(id):
     # TODO: Respond with 200 OK if A-OK!
     json_string = json.dumps(request.json)
     response = requests.put("%sbib/%s" % (app.config['WHELK_HOST'], id), data = json_string)
     return raw_json_response(json_string)
 
-@app.route('/record/bib/<id>', methods=['GET','POST']) # TODO: Why do we handle POST here?
+@app.route('/record/bib/<id>', methods=['GET'])
 def browse_document(id):
-    post = requests.get("%s/bib/%s" % (app.config['WHELK_HOST'], id))
-    if not post:
-        return render_template('bib.html')
+    response = requests.get("%s/bib/%s" % (app.config['WHELK_HOST'], id))
     if request.is_xhr:
-        return raw_json_response(post.text)
+        if response.status_code >= 400:
+            abort(response.status_code)
+        return raw_json_response(response.text)
+    if not response:
+        return render_template('bib.html')
     else:
-        json_post = json.loads(post.text)
+        json_post = json.loads(response.text)
         return render_template('bib.html', data=json_post)
 
 
@@ -107,7 +109,7 @@ def lookup(uid=None):
         thequery = marcpost.select(marcpost.c.userid == uid)
         theposts = thequery.execute().fetchall()
         if len(theposts) == 1:
-            print "one post"
+            print "one record"
             json_text = pickle.loads(theposts[0]['marc'])
             print "one"
             print "two"
