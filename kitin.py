@@ -74,14 +74,14 @@ def upload_file():
         return render_template('upload.html')
 
 
-@app.route('/record/bib/<id>', methods=['PUT',])
+@app.route('/record/bib/<id>', methods=['PUT'])
 def update_document(id):
     # TODO: Respond with 200 OK if A-OK!
     json_string = json.dumps(request.json)
     response = requests.put("%sbib/%s" % (app.config['WHELK_HOST'], id), data = json_string)
     return raw_json_response(json_string)
 
-@app.route('/record/bib/<id>', methods=['GET','POST']) # TODO: Why do we handle POST here?
+@app.route('/record/bib/<id>', methods=['GET'])
 def browse_document(id):
     post = requests.get("%s/bib/%s" % (app.config['WHELK_HOST'], id))
     if not post:
