@@ -36,11 +36,20 @@ body {
 }
 .record input.subfield-master { width: 99%; }
 
-.regular_field .controls .btn {
+.regular_field label {
+  position: relative;
+}
+
+.regular_field label .action-group {
+  position: absolute;
+  top: 0; left: 0;
+}
+
+.regular_field label .btn {
   opacity: 0;
   -moz-transition: 0.5s opacity ease-out;
 }
-.regular_field:hover .controls .btn {
+.regular_field label:hover .btn {
   opacity: 1;
 }
 

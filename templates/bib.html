@@ -51,21 +51,24 @@
 
   <script type="text/html" id="field-row-template">
       <div class='control-group regular_field'>
-        <label class='control-label js-field-label'><%= label %></label>
+        <label class='control-label js-field-label'><%= label %>
+          <div class='action-group'>
+            <button class="btn" title="Add above"></i><i class="icon-arrow-up"></i></button>
+            <button class="btn" title="Add below"><!--<i class="icon-plus">--></i><i class="icon-arrow-down"></i></button>
+            <button class="btn" title="Delete"><i class="icon-trash"></i></button>
+          </div>
+        </label>
         <div class='controls row-fluid'>
           <input class='indicator js-field-ind1' name="ind1" value='<%= ind1 %>'/>
           <input class='indicator js-field-ind2' name="ind2" value='<%= ind2 %>'/>
           <% for (subfield in subfields) { %>
             <% for (item in subfields[subfield]) { %>
               <div class="input-prepend js-subfield-wrapper">
-                <span class='add-on js-subfield-code'><%= item %></span>
-                <input id='' class='subfield js-subfield-value' name='subfield' value='<%= subfields[subfield][item] %>' cols='<%= subfields[subfield][item].length %>'/>
+                <span class='add-on js-subfield-code'><%= item %></span><!--
+                --><input id='' class='subfield js-subfield-value' name='subfield' value='<%= subfields[subfield][item] %>' cols='<%= subfields[subfield][item].length %>'/>
               </div> <!-- input-prepend -->
             <% } %>
           <% } %>
-          <button class="btn" title="Add above"><i class="icon-plus"></i><i class="icon-arrow-up"></i></button>
-          <button class="btn" title="Add below"><i class="icon-plus"></i><i class="icon-arrow-down"></i></button>
-          <button class="btn" title="Delete"><i class="icon-trash"></i></button>
         </div> <!-- controls  -- >
       </div> <!-- control-group -->
   </script>
