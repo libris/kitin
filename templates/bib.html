@@ -50,7 +50,7 @@
   </script>
 
   <script type="text/html" id="field-row-template">
-      <div class='control-group regular_field'>
+      <div class='control-group regular_field  marc<%= label %>'>
         <label class='control-label js-field-label'><%= label %>
           <div class='action-group'>
             <button class="btn" title="Add above"></i><i class="icon-arrow-up"></i></button>
@@ -65,7 +65,7 @@
             <% for (item in subfields[subfield]) { %>
               <div class="input-prepend js-subfield-wrapper">
                 <span class='add-on js-subfield-code'><%= item %></span><!--
-                --><input id='' class='subfield js-subfield-value' name='subfield' value='<%= subfields[subfield][item] %>' cols='<%= subfields[subfield][item].length %>'/>
+                      --><input id='' class='subfield subfield-<%= item %> js-subfield-value' name='subfield' value='<%= subfields[subfield][item] %>' cols='<%= subfields[subfield][item].length %>'/>
               </div> <!-- input-prepend -->
             <% } %>
           <% } %>
