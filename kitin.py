@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from flask import Flask, render_template, request, make_response
+from flask import Flask, render_template, request, make_response, abort
 from werkzeug import secure_filename
 import os, json
 from pprint import pprint
@@ -83,13 +83,15 @@ def update_document(id):
 
 @app.route('/record/bib/<id>', methods=['GET'])
 def browse_document(id):
-    record = requests.get("%s/bib/%s" % (app.config['WHELK_HOST'], id))
-    if not record:
-        return render_template('bib.html')
+    response = requests.get("%s/bib/%s" % (app.config['WHELK_HOST'], id))
     if request.is_xhr:
-        return raw_json_response(record.text)
+        if response.status_code >= 400:
+            abort(response.status_code)
+        return raw_json_response(response.text)
+    if not response:
+        return render_template('bib.html')
     else:
-        json_post = json.loads(record.text)
+        json_post = json.loads(response.text)
         return render_template('bib.html', data=json_post)
 
 
