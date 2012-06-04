@@ -62,7 +62,7 @@ def upload_file():
             bibid = request.form['bibid']
             bpost = requests.get("%sbib/%s" % (app.config['WHELK_HOST'], bibid))
             json_data = json.loads(bpost.text)['marc']
-        #get table and save post
+        #get table and save record
         marcpost = Table('marcpost', metadata, autoload=True)
         bi = json_data.get('001', None)
         i = marcpost.insert()
@@ -83,13 +83,13 @@ def update_document(id):
 
 @app.route('/record/bib/<id>', methods=['GET'])
 def browse_document(id):
-    post = requests.get("%s/bib/%s" % (app.config['WHELK_HOST'], id))
-    if not post:
+    record = requests.get("%s/bib/%s" % (app.config['WHELK_HOST'], id))
+    if not record:
         return render_template('bib.html')
     if request.is_xhr:
-        return raw_json_response(post.text)
+        return raw_json_response(record.text)
     else:
-        json_post = json.loads(post.text)
+        json_post = json.loads(record.text)
         return render_template('bib.html', data=json_post)
 
 
@@ -107,7 +107,7 @@ def lookup(uid=None):
         thequery = marcpost.select(marcpost.c.userid == uid)
         theposts = thequery.execute().fetchall()
         if len(theposts) == 1:
-            print "one post"
+            print "one record"
             json_text = pickle.loads(theposts[0]['marc'])
             print "one"
             print "two"
