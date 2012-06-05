@@ -60,42 +60,6 @@
 
 })(jQuery);
 
-//
-//record
-// - uid
-// - marc
-// - spill
-$.fn.serializeObject = function() {
-  var o = {};
-  var fields = [];
-  $.each($('#fields .control_field'), function() {
-    var obj = {};
-    var field_label = $(this).find('.field_label');
-    obj[field_label.attr('name')] = field_label.val();
-    fields.push(obj);
-  });
-  $.each($('#fields .regular_field'), function() {
-    var field_name = $(this).find('.js-field-label').text();
-    var ind1 = $(this).find('.ind1');
-    var ind2 = $(this).find('.ind2');
-
-    var subfields = [];
-    $.each($(this).find('.js-subfield-wrapper'), function() {
-      subfields[$(this).find('.js-subfield-code').text()] = $(this).find('.js-subfield-value').val();
-    });
-
-    var obj = {}
-    obj[field_name] = {
-      "ind1": $(this).find('.js-field-ind1').val() || '',
-      "ind2": $(this).find('.js-field-ind2').val() || '',
-      "subfields": subfields,
-    };
-    fields.push(obj);
-  });
-  o['fields'] = fields;
-  o['leader'] = $(this).find("input[name='leader']").val();
-  return o;
-}
 
 $(function() {
 
