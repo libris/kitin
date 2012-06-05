@@ -6,11 +6,17 @@ from fabric.api import *
 from sqlalchemy import *
 from sqlalchemy.orm import *
 
+def kitinconfig(arg):
+    h = {}
+    for line in open('config.cfg'):
+        key, value = line.split('=')
+        h[key.strip()] = value.replace("'", "").strip()
+    return h[arg]
 
 @task
 def create_db():
-    if not os.path.exists(kitinconfig['DBNAME']):
-        db = create_engine(kitinconfig['DBENGINE'] + ':///' + kitinconfig['DBNAME'])
+    if not os.path.exists(kitinconfig('DBNAME')):
+        db = create_engine(kitinconfig('DBENGINE') + ':///' + kitinconfig('DBNAME'))
         db.echo = True
         metadata = MetaData(db)
         marcpost = Table('marcpost', metadata,
@@ -32,8 +38,8 @@ def create_wsgi_file():
 
 @task
 def prepare():
-    if not os.path.exists(appconfig['UPLOAD_FOLDER']):
-        os.mkdir(appconfig['UPLOAD_FOLDER'])
+    if not os.path.exists(kitinconfig('UPLOAD_FOLDER')):
+        os.mkdir(kitinconfig('UPLOAD_FOLDER'))
     create_db()
 
 @task
