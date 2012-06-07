@@ -1,16 +1,12 @@
+var records, router;
 
 $(function() {
 
-  this.collection = new Collection();
-  this.router = new Router([this.collection]);
+  records = new RecordCollection();
+  router = new Router([records]);
 
-  this.router.on("route:record", function(data) {
-    //this.collection.get(data).fetch();
-  });
-
-  this.collection.on('add', function(model) {
-    var view = new View({model: model});
-    view.render();
+  records.on('add', function(model) {
+    var view = new RecordView({model: model});
   });
 
   Backbone.history.start({pushState: true, root: "/"});
@@ -20,36 +16,97 @@ $(function() {
   //  confirm('ajaxInProgress; break and leave?')
 });
 
+
 var Record = Backbone.Model.extend({
+
   urlRoot:'/record/bib',
+
+  aggregates: {
+    fields: FieldList
+  },
+
   parse: function(response) {
-    var fields = response['fields'];
-    for (field in fields) {
-      var key = _.keys(fields[field])[0];
-      if(parseInt(key, 10) <= 8) { // We have a ControlField? Yes, that's the idea! :)
-        fields[field].control_field = true;
-      } else {
-        fields[field].control_field = false;
-      }
-    }
-    return {
+
+    var data = {
       leader: response['leader'],
-      fields: fields,
+      fields: _.map(response['fields'], function (field) {
+        for (key in field) {
+          var value = field[key];
+          var attrs = (typeof value === 'string')?
+            {'controlValue': value} : _.clone(value);
+          attrs.id = key;
+          if (attrs.subfields) {
+            attrs.subfields = _.map(attrs.subfields, function (subfield) {
+              for (subKey in subfield) {
+                return {id: subKey, value: subfield[subKey]};
+              }
+            });
+          }
+          return attrs;
+        }
+      })
     };
+    return data;
   },
-  save: function(attributes, options) {
-    _.each(this.get('fields'), function(instance) { delete instance['control_field']; });
-    Backbone.Model.prototype.save.call(this, attributes, options);
+
+  set: function(attrs, options) {
+    if (attrs.fields !== undefined &&
+        !(attrs.fields instanceof FieldList)) {
+      attrs.fields = new FieldList(attrs.fields);
+    }
+    return Backbone.Model.prototype.set.call(this, attrs, options);
   },
+
+  toJSON: function() {
+    var o = _.clone(this.attributes);
+    delete o.id;
+    return o;
+  }
+
 });
 
-var Collection = Backbone.Collection.extend({
-  model: Record,
+var RecordCollection = Backbone.Collection.extend({
+  model: Record
 });
+
+var Field = Backbone.Model.extend({
+
+  set: function (attrs, options) {
+    if (attrs.subfields !== undefined &&
+        !(attrs.subfields instanceof SubFieldList)) {
+      attrs.subfields = new SubFieldList(attrs.subfields);
+    }
+    return Backbone.Model.prototype.set.call(this, attrs, options);
+  },
+
+  toJSON: function() {
+    var o = {};
+    o[this.id] = this.attributes.controlValue || this.attributes;
+    return o;
+  }
+
+});
+
+var FieldList = Backbone.Collection.extend({
+  model: Field
+});
+
+var SubField = Backbone.Model.extend({
+  toJSON: function() {
+    var o = {};
+    o[this.id] = this.attributes.value;
+    return o;
+  }
+});
+
+var SubFieldList = Backbone.Collection.extend({
+  model: SubField
+});
+
 
 var Router = Backbone.Router.extend({
   initialize: function(options) {
-    this.collection = options[0];
+    this.records = options[0];
     self = this;
   },
   routes: {
@@ -59,64 +116,50 @@ var Router = Backbone.Router.extend({
     var record = new Record({id: bibid});
     record.fetch({
       success: function(model, response) {
-        self.collection.add(model);
+        self.records.add(model);
       },
     });
+    // TODO: set interval, and if changed, save to model or perhaps to
+    // front-backend
   },
 });
 
-var View = Backbone.View.extend({
+
+var RecordView = Backbone.View.extend({
+
   el: $('#fields'),
-  leader_template: _.template($('#leader-template').html()),
-  field_row_template: _.template($('#field-row-template').html()),
-  control_row_template: _.template($('#control-row-template').html()),
-  bib_autocomplete_template: _.template($('#bib-autocomplete-template').html()),
+
+  leaderTemplate: _.template($('#leader-template').html()),
+  bibAutocompleteTemplate: _.template($('#bib-autocomplete-template').html()),
 
   events: {
-    "click .subfields": "update_data" // TODO: perhaps consider other triggers..
   },
 
-  update_data: function(event) {
-    // TODO: save to model or perhaps to front-backend
+  initialize: function (options) {
+    this.model.bind("change", this.render, this);
+    this.renderAll();
+  },
+
+  renderAll: function() {
+    var $el = this.render();
+    this.model.get('fields').each(function(field) {
+      var fieldView = new FieldView({model: field}).render();
+      $el.append(fieldView);
+    });
+    this.setupGlobalKeyBindings();
+    this.setupBibAutocomplete();
+    this.setupKeyBindings();
+    this.$('.subfield').autoGrowInput({comfortZone: 20, minWidth: 60, maxWidth: 140});
   },
 
   render: function() {
-
-    this.setupGlobalKeyBindings(this.model);
-
-    $(this.el).html(this.leader_template({leader: this.model.get('leader')}));
-
-    var control_fields = _.filter(this.model.get('fields'), function(field) {
-      return field['control_field'] == true;
-    });
-    for (field in control_fields) {
-      $(this.el).append(this.control_row_template({
-        label: _.keys(control_fields[field])[0],
-        value: _.values(control_fields[field])[0],
-      }));
-    }
-
-    var fields = _.filter(this.model.get('fields'), function(field) {
-      return field['control_field'] == false;
-    });
-    for (field in fields) {
-      var key = _.keys(fields[field])[0];
-      var value = _.values(fields[field])[0];
-      $(this.el).append(this.field_row_template({
-        label: key,
-        ind1: value['ind1'],
-        ind2: value['ind2'],
-        subfields: value['subfields'],
-      }));
-    }
-
-    this.setupBibAutocomplete();
-    this.setupRecordKeyBindings();
-    $('.subfield').autoGrowInput({comfortZone: 20, minWidth: 60, maxWidth: 140});
-
+    var $el = $(this.el);
+    $el.html(this.leaderTemplate({leader: this.model.get('leader')}));
+    return $el;
   },
 
-  setupGlobalKeyBindings: function (model) {
+  setupGlobalKeyBindings: function () {
+    var model = this.model;
     $("input[name='publish']").on('click', function() {
       model.save();
     });
@@ -125,31 +168,12 @@ var View = Backbone.View.extend({
     });
   },
 
-  setupRecordKeyBindings: function () {
-    $('input', this.el).jkey('f3',function() {
-        alert('Insert row before...');
-    });
-    $('input', this.el).jkey('f4',function() {
-        alert('Insert row after...');
-    });
-    //$('input', this.el).jkey('f2',function() {
-    //    alert('Show valid marc values...');
-    //});
-    //$(this.el).jkey('ctrl+t', function() {
-    //  this.value += '‡'; // insert subkey delimiter
-    //});
-    // TODO: disable when autocompleting:
-    //$('input', this.el).jkey('down',function() {
-    //    alert('Move down');
-    //});
-  },
-
   setupBibAutocomplete: function () {
     var view = this;
     var suggestUrl = "/suggest/auth";
-    $('.marc100 input.subfield'
-      + ', .marc600 input.subfield'
-      + ', .marc700 input.subfield', this.el).autocomplete(suggestUrl, {
+    this.$('.marc100 input.subfield-a'
+      + ', .marc600 input.subfield-a'
+      + ', .marc700 input.subfield-a').autocomplete(suggestUrl, {
 
         remoteDataType: 'json',
         autoWidth: "min-width",
@@ -167,7 +191,7 @@ var View = Backbone.View.extend({
         },
 
         showResult: function (value, data) {
-          return view.bib_autocomplete_template({value: value, data: data});
+          return view.bibAutocompleteTemplate({value: value, data: data});
         },
 
         onItemSelect: function(item, completer) {
@@ -182,7 +206,54 @@ var View = Backbone.View.extend({
     subKey = subKey || 'a';
     var field = item.marc[fieldKey];
     return field[subKey];
+  },
+
+  setupKeyBindings: function () {
+    $('input', this.el).jkey('f3',function() {
+        alert('Insert row before...');
+    });
+    $('input', this.el).jkey('f4',function() {
+        alert('Insert row after...');
+    });
+    //$('input', this.el).jkey('f2',function() {
+    //    alert('Show valid marc values...');
+    //});
+    //$(this.el).jkey('ctrl+t', function() {
+    //  this.value += '‡'; // insert subkey delimiter
+    //});
+    // TODO: disable when autocompleting:
+    //$('input', this.el).jkey('down',function() {
+    //    alert('Move down');
+    //});
   }
 
 });
 
+var FieldView = Backbone.View.extend({
+
+  controlRowTemplate: _.template($('#control-row-template').html()),
+  fieldRowTemplate: _.template($('#field-row-template').html()),
+
+  render: function() {
+    var field = this.model;
+    var $el;
+    if (field.has('controlValue')) {
+      $el = this.controlRowTemplate({
+        label: field.id,
+        value: field.get('controlValue')
+      });
+    } else {
+      $el = this.fieldRowTemplate({
+        label: field.id,
+        ind1: field.get('ind1'),
+        ind2: field.get('ind2'),
+        subfields: field.get('subfields').toJSON()
+      });
+    }
+    return $el;
+  }
+
+});
+
+var SubFieldView = Backbone.View.extend({
+});
