@@ -61,23 +61,23 @@
 
   <script type="text/html" id="bib-autocomplete-template">
     <div>
-      <h4><%= data.marc['100'].a %>
-      	<% if (data.authorized) { %>
-      	  <span class="badge badge-success pull-right"><i class="icon-ok icon-white"></i></span>
+      <h4><%= data['100'].a %>
+        <% if (data.authorized) { %>
+          <span class="badge badge-success pull-right"><i class="icon-ok icon-white"></i></span>
         <% } %>
       </h4>
-      <h5><%= data.marc['100'].d || "N/A" %>
-      	<% if (data.marc['100'].c) { %>(<%= data.marc['100'].c %>)<% } %></h5>
-      <% if (data.marc['678']) { %>
-        <p><% data.marc['678'].forEach(function (it) { %>
+      <h5><%= data['100'].d || "N/A" %>
+        <% if (data['100'].c) { %>(<%= data['100'].c %>)<% } %></h5>
+      <% if (data['678']) { %>
+        <p><% data['678'].forEach(function (it) { %>
           <%= it.a %><br>
         <% }) %>
         <% if (data.records) { %>
-        	<a href="#"><%=  (data.records) %> titlar</a> 
-        <% }  %>
-		<br>
-		<% if (data.marc['680'].i) { %>(<%= data.marc['680'].i %>)<% } %>
-		</p>
+            <a href="#"><%=  (data.records) %> titlar</a> 
+        <% } %>
+        <br>
+        <% if (data['680']) { %>(<%= data['680'].i %>)<% } %>
+        </p>
       <% } %> 
     </div>
   </script>

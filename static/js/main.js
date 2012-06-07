@@ -177,6 +177,8 @@ var RecordView = Backbone.View.extend({
 
         remoteDataType: 'json',
         autoWidth: "min-width",
+        filterResults: false,
+        useCache: false,
 
         beforeUseConverter: function (repr) {
           // TODO: get sibling fields and narrow selection(?)
@@ -184,6 +186,10 @@ var RecordView = Backbone.View.extend({
         },
 
         processData: function (results) {
+          if (!results) {
+            console.log("Found no results!"); // TODO: notify no match?
+            return [];
+          }
           return results.map(function (item) {
             var value = view.getValueForFieldAndSubfield(item, '100');
             return {value: value, data: item};
@@ -196,7 +202,7 @@ var RecordView = Backbone.View.extend({
 
         onItemSelect: function(item, completer) {
           var subfieldD = $('.subfield-d', completer.dom.$elem.parent().siblings());
-          subfieldD.val(item.data.marc['100']['d']);
+          subfieldD.val(item.data['100']['d']);
         }
 
     });
@@ -204,7 +210,7 @@ var RecordView = Backbone.View.extend({
 
   getValueForFieldAndSubfield: function (item, fieldKey, subKey) {
     subKey = subKey || 'a';
-    var field = item.marc[fieldKey];
+    var field = item[fieldKey];
     return field[subKey];
   },
 

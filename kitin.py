@@ -83,6 +83,7 @@ def update_document(id):
 
 @app.route('/record/bib/<id>', methods=['GET'])
 def browse_document(id):
+    #response = requests.get("http://localhost:8000/bib/%s.json" % (id))
     response = requests.get("%s/bib/%s" % (app.config['WHELK_HOST'], id))
     if request.is_xhr:
         if response.status_code >= 400:
@@ -98,7 +99,11 @@ def browse_document(id):
 @app.route('/suggest/auth')
 def suggest_auth_completions():
     q = request.args.get('q')
-    return raw_json_response(render_template('mockups/auth_suggest.json'))
+    #return raw_json_response(render_template('mockups/auth_suggest.json'))
+    response = requests.get("%s/suggest/_find?q=%s" % (app.config['WHELK_HOST'], q))
+    if response.status_code >= 400:
+        abort(response.status_code)
+    return raw_json_response(response.text)
 
 
 @app.route('/lookup/<uid>')
