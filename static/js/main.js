@@ -34,11 +34,11 @@ var Record = Backbone.Model.extend({
           var value = field[key];
           var attrs = (typeof value === 'string')?
             {'controlValue': value} : _.clone(value);
-          attrs.id = key;
+          attrs.tag = key;
           if (attrs.subfields) {
             attrs.subfields = _.map(attrs.subfields, function (subfield) {
               for (subKey in subfield) {
-                return {id: subKey, value: subfield[subKey]};
+                return {tag: subKey, value: subfield[subKey]};
               }
             });
           }
@@ -59,7 +59,7 @@ var Record = Backbone.Model.extend({
 
   toJSON: function() {
     var o = _.clone(this.attributes);
-    delete o.id;
+    delete o.tag;
     return o;
   }
 
@@ -81,7 +81,7 @@ var Field = Backbone.Model.extend({
 
   toJSON: function() {
     var o = {};
-    o[this.id] = this.attributes.controlValue || this.attributes;
+    o[this.tag] = this.attributes.controlValue || this.attributes;
     return o;
   }
 
@@ -94,7 +94,7 @@ var FieldList = Backbone.Collection.extend({
 var SubField = Backbone.Model.extend({
   toJSON: function() {
     var o = {};
-    o[this.id] = this.attributes.value;
+    o[this.attributes.tag] = this.attributes.value;
     return o;
   }
 });
@@ -236,15 +236,16 @@ var FieldView = Backbone.View.extend({
 
   render: function() {
     var field = this.model;
+    var tag = field.get('tag');
     var $el;
     if (field.has('controlValue')) {
       $el = this.controlRowTemplate({
-        label: field.id,
+        label: tag,
         value: field.get('controlValue')
       });
     } else {
       $el = this.fieldRowTemplate({
-        label: field.id,
+        label: tag,
         ind1: field.get('ind1'),
         ind2: field.get('ind2'),
         subfields: field.get('subfields').toJSON()
