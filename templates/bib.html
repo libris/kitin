@@ -74,8 +74,10 @@
         <% }) %>
         <% if (data.records) { %>
         	<a href="#"><%=  (data.records) %> titlar</a> 
-       <% }  %>
-	</p>
+        <% }  %>
+		<br>
+		<% if (data.marc['680'].i) { %>(<%= data.marc['680'].i %>)<% } %>
+		</p>
       <% } %> 
     </div>
   </script>
