@@ -1,35 +1,122 @@
 [
-    {
-        "marc": {
-          "001": "191503",
-          "100": {"a": "Jansson, Tove", "d": "1914-2001"},
+   {
+       "data": {
+           "100": {
+               "a": "Jansson, Tove,", 
+               "d": "1914-2001"
+           }, 
+           "400": [
+               {
+                   "a": "Haij, Vera,", 
+                   "d": "1914-2001"
+               }, 
+               {
+                   "a": "Janssonova\u0301, Tove,", 
+                   "d": "1914-2001"
+               }, 
+               {
+                   "a": "Janson, Tuve,", 
+                   "d": "1914-2001"
+               }, 
+               {
+                   "a": "Jansson, Tuve,", 
+                   "d": "1914-2001"
+               }, 
+               {
+                   "a": "Janssonova, Tove,", 
+                   "d": "1914-2001"
+               }, 
+               {
+                   "a": "Ja\u0304nsone, Tu\u0304ve,", 
+                   "d": "1914-2001"
+               }, 
+               {
+                   "a": "Yanson, To\u0304be,", 
+                   "d": "1914-2001"
+               }, 
+               {
+                   "a": "Ya\u0304nsu\u0304n, Tu\u0304fa\u0304,", 
+                   "d": "1914-2001"
+               }
+           ], 
+           "678": [
+               {
+                   "a": "Finlandssvensk fo\u0308rfattare & konstna\u0308r"
+               }, 
+               {
+                   "a": "Har a\u0308ven publicerat sig under pseudonymen Vera Haij"
+               }
+           ], 
+           "856": [
+               {
+                   "u": "http://viaf.org/viaf/111533709", 
+                   "z": "VIAF"
+               }, 
+               {
+                   "u": "http://dbpedia.org/resource/Tove_Jansson", 
+                   "z": "DBPedia"
+               }, 
+               {
+                   "u": "http://en.wikipedia.org/wiki/Tove_Jansson", 
+                   "z": "Wikipedia"
+               }, 
+               {
+                   "u": "http://id.loc.gov/authorities/names/n79046514", 
+                   "z": "LC Name Authority"
+               }
+           ], 
+           "identifier": "/suggest/auth/191503", 
+           "link": "/auth/191503", 
+           "records": 408, 
+           "top_titles": {
+               "http://libris.kb.se/bib/11469619": "Muminr\u00f6ster [Ljudupptagning] = Moomin voices", 
+               "http://libris.kb.se/bib/256923": "Mumintrollet", 
+               "http://libris.kb.se/bib/7642016": "Trollkarlens hatt"
+           }
+       }, 
+       "identifier": "/suggest/auth/191503", 
+       "size": 1038, 
+       "version": "1"
+   },
+   
+     {
+        "data": {
+          "100":
+          		{
+          			"a": "Strindberg, August",
+          			"d": "1849-1912"
+          		},
           "678": [ 
-            {"a": "Finlandssvensk författare & konstnär"},
-            {"a": "Har även publicerat sig under pseudonymen Vera Haij"}
+           		{
+            		"a": "Skönlitterär författare och dramatiker. Skrev ett par verk under pseudonymen Härved Ulf, bland annat fritänkaren, Det sjunkande Hellas."
+            	}
           ] 
         },
-        "uri": "http://libris.kb.se/auth/191503",
+        "link": "/auth/94541",
         "authorized": true,
-        "records": 408
+        "records": 3395,
+        "top_titles": {
+        	"http://libris.kb.se/bib/123": "Röda rummet"
+        	"http://libris.kb.se/bib/456": "Röda rummet 2"
+        	"http://libris.kb.se/bib/789": "Röda rummet 3 - the revenge"
+        }
     },
     {
-        "marc": {
-          "001": "94541",
-          "100": {"a": "Strindberg, August", "d": "1849-1912"},
-          "678": [ 
-            {"a": "Skönlitterär författare och dramatiker. Skrev ett par verk under pseudonymen Härved Ulf, bland annat fritänkaren, Det sjunkande Hellas."}
-          ] 
-        },
-        "uri": "http://libris.kb.se/auth/94541",
-        "authorized": true,
-        "records": 3395
-    },
-    {
-        "marc": {
-          "100": {"a": "Jansson, Katten", "c": "Tecknad seriefigur", "d": "1966-"},
+        "data": {
+          "100": 
+          		{
+          			"a": "Jansson, Katten",
+          			"c": "Tecknad seriefigur",
+          			"d": "1966-"
+          		},
           "678": [
-            {"a": "Farmors huskatt"}
+            	{
+            		"a": "Farmors huskatt"
+            	}
           ]
         }
     }
 ]
+ 
+]
+
