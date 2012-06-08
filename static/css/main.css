@@ -56,6 +56,13 @@ body {
 
 .acResults {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  min-width: 360px;
+}
+.acResults p {
+  margin: 0 0 3px;
+}
+.acSelect a {
+  color: highlighttext;
 }
 
 .remoteoption {

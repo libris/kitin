@@ -145,7 +145,7 @@ var RecordView = Backbone.View.extend({
     this.setupGlobalKeyBindings();
     this.setupBibAutocomplete();
     this.setupKeyBindings();
-    this.$('.subfield').autoGrowInput({comfortZone: 20, minWidth: 60, maxWidth: 480});
+    this.$('.subfield').autoGrowInput({comfortZone: 11, minWidth: 20, maxWidth: 480});
   },
 
   render: function() {
@@ -172,7 +172,7 @@ var RecordView = Backbone.View.extend({
       + ', .marc700 input.subfield-a').autocomplete(suggestUrl, {
 
         remoteDataType: 'json',
-        autoWidth: "min-width",
+        autoWidth: null,
         filterResults: false,
         useCache: false,
 
