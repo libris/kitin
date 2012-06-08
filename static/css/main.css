@@ -125,6 +125,7 @@ form#fields .add-on {
 	border: 0;
 	color: #888;
 	background: #fff;
+        vertical-align: bottom;
 
 }
 
