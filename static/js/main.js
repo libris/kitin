@@ -145,7 +145,7 @@ var RecordView = Backbone.View.extend({
     this.setupGlobalKeyBindings();
     this.setupBibAutocomplete();
     this.setupKeyBindings();
-    this.$('.subfield').autoGrowInput({comfortZone: 20, minWidth: 60, maxWidth: 140});
+    this.$('.subfield').autoGrowInput({comfortZone: 20, minWidth: 60, maxWidth: 480});
   },
 
   render: function() {
