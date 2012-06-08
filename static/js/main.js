@@ -26,8 +26,7 @@ var Record = Backbone.Model.extend({
   },
 
   parse: function(response) {
-
-    var data = {
+    return {
       leader: response['leader'],
       fields: _.map(response['fields'], function (field) {
         for (key in field) {
@@ -38,7 +37,7 @@ var Record = Backbone.Model.extend({
           if (attrs.subfields) {
             attrs.subfields = _.map(attrs.subfields, function (subfield) {
               for (subKey in subfield) {
-                return {tag: subKey, value: subfield[subKey]};
+                return {code: subKey, value: subfield[subKey]};
               }
             });
           }
@@ -46,7 +45,6 @@ var Record = Backbone.Model.extend({
         }
       })
     };
-    return data;
   },
 
   set: function(attrs, options) {
@@ -58,9 +56,7 @@ var Record = Backbone.Model.extend({
   },
 
   toJSON: function() {
-    var o = _.clone(this.attributes);
-    delete o.tag;
-    return o;
+    return _.clone(this.attributes);
   }
 
 });
@@ -94,7 +90,7 @@ var FieldList = Backbone.Collection.extend({
 var SubField = Backbone.Model.extend({
   toJSON: function() {
     var o = {};
-    o[this.attributes.tag] = this.attributes.value;
+    o[this.attributes.code] = this.attributes.value;
     return o;
   }
 });
