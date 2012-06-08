@@ -6,17 +6,13 @@ from fabric.api import *
 from sqlalchemy import *
 from sqlalchemy.orm import *
 
-def kitinconfig(arg):
-    h = {}
-    for line in open('config.cfg'):
-        key, value = line.split('=')
-        h[key.strip()] = value.replace("'", "").strip()
-    return h[arg]
+cfg = {}
+execfile(os.path.join(os.path.dirname(__file__), 'config.cfg'), cfg)
 
 @task
 def create_db():
-    if not os.path.exists(kitinconfig('DBNAME')):
-        db = create_engine(kitinconfig('DBENGINE') + ':///' + kitinconfig('DBNAME'))
+    if not os.path.exists(cfg.get('DBNAME')):
+        db = create_engine(cfg.get('DBENGINE') + ':///' + cfg.get('DBNAME'))
         db.echo = True
         metadata = MetaData(db)
         marcpost = Table('marcpost', metadata,
@@ -38,8 +34,8 @@ def create_wsgi_file():
 
 @task
 def prepare():
-    if not os.path.exists(kitinconfig('UPLOAD_FOLDER')):
-        os.mkdir(kitinconfig('UPLOAD_FOLDER'))
+    if not os.path.exists(cfg.get('UPLOAD_FOLDER')):
+        os.mkdir(cfg.get('UPLOAD_FOLDER'))
     create_db()
 
 @task
