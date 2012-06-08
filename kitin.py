@@ -17,7 +17,7 @@ app.config.from_envvar('SETTINGS', silent = True)
 
 
 def _db_string():
-    return "%s:///%s" %(app.config['DBENGINE'], app.config['DBNAME'])
+    return "%(DBENGINE)s:///%(DBNAME)s" % app.config
 
 db = create_engine(_db_string())
 db.echo = True
@@ -83,8 +83,12 @@ def update_document(id):
 
 @app.route('/record/bib/<id>', methods=['GET'])
 def browse_document(id):
-    #response = requests.get("http://localhost:8000/bib/%s.json" % (id))
-    response = requests.get("%s/bib/%s" % (app.config['WHELK_HOST'], id))
+    if app.config['MOCK_API']:
+        response = requests.Response()
+        response.status_code = 200
+        response.raw = open(os.path.join(app.root_path, 'examples/bib/%s.json' % id))
+    else:
+        response = requests.get("%s/bib/%s" % (app.config['WHELK_HOST'], id))
     if request.is_xhr:
         if response.status_code >= 400:
             abort(response.status_code)
@@ -99,7 +103,9 @@ def browse_document(id):
 @app.route('/suggest/auth')
 def suggest_auth_completions():
     q = request.args.get('q')
-    #return raw_json_response(render_template('mockups/auth_suggest.json'))
+    if app.config['MOCK_API']:
+        with open(os.path.join(app.root_path, 'templates/mockups/auth_suggest.json')) as f:
+            return raw_json_response(f.read())
     response = requests.get("%s/suggest/_find?q=%s" % (app.config['WHELK_HOST'], q))
     if response.status_code >= 400:
         abort(response.status_code)
@@ -184,5 +190,6 @@ if __name__ == "__main__":
     from sys import argv
     if '-d' in argv:
         app.debug = True
+    app.config['MOCK_API'] = app.debug and '--mockapi' in argv
     app.run()
 
