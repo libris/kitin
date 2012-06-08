@@ -88,6 +88,10 @@ auth-ok {
   float: right;
 }
 
+/* auth suggest */
+.acResults ul li {
+	border-bottom: 1px solid #efefef;}
+ 
 /*form input fork */
 
 form#fields .regular_field {
@@ -96,6 +100,9 @@ form#fields .regular_field {
 	padding-bottom: 0;
 }
 form#fields {
+	font-size: 14px;
+}
+form#fields control-label {
 	font-size: 14px;
 }
 
@@ -116,9 +123,9 @@ form#fields input:focus {
 
 form#fields .add-on {
 	border: 0;
-	font-style: italic;
 	color: #888;
 	background: #fff;
+
 }
 
 /*webcat mockup */
