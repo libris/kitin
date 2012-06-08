@@ -3,7 +3,6 @@ html {
   height: 100%;
   margin: 0 0 1px;
   padding: 0px;
-
 }
 
 body {
@@ -30,8 +29,8 @@ body {
 .record .controlfield { width: 517px; }
 .record .regular_field input.subfield.label {
   width: 10px;
-
 }
+
 .record .regular_field input.subfield {
   width: auto;
 }
@@ -90,63 +89,62 @@ auth-ok {
 
 /* auth suggest */
 .acResults ul li {
-	border-bottom: 1px solid #efefef;}
+  border-bottom: 1px solid #efefef;
+}
  
 /*form input fork */
 
 form#fields .regular_field {
- 	border-bottom: 1px solid #efefef; 
-	padding-top: 0;
-	padding-bottom: 0;
+  border-bottom: 1px solid #efefef; 
+  padding-top: 0;
+  padding-bottom: 0;
 }
 form#fields {
-	font-size: 14px;
+  font-size: 14px;
 }
 form#fields control-label {
-	font-size: 14px;
+  font-size: 14px;
 }
 
 form#fields input {
-	border: 1px solid transparent;
-	box-shadow: none;
-	font-size: 14px;
+  border: 1px solid transparent;
+  box-shadow: none;
+  font-size: 14px;
 }
 
 form#fields input:hover,
 form#fields input:focus {
-	border: 1px solid #CCCCCC;
+  border: 1px solid #CCCCCC;
 }
 
 form#fields input:focus {
-	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
 }
 
 form#fields .add-on {
-	border: 0;
-	color: #888;
-	background: #fff;
-        vertical-align: bottom;
-
+  border: 0;
+  color: #888;
+  background: #fff;
+  vertical-align: bottom;
 }
 
-/*webcat mockup */
-
+/* webcat mockup */
 
 .mockup {
-	background-color: #efefef;
-	border-radius: 0;
-	border-color: white;
-	font-size: 14px;
+  background-color: #efefef;
+  border-radius: 0;
+  border-color: white;
+  font-size: 14px;
 }
 .indicator {
-	width: 20px;
-	background: #efefef;
-	border-radius: 0;
-	color: #888;
+  width: 20px;
+  background: #efefef;
+  border-radius: 0;
+  color: #888;
 }
 .variable-field {
-	width: 30px;
-	font-weight: 600;
+  width: 30px;
+  font-weight: 600;
 }
 
 input.subfield-master { width: 600px; border-radius: 0; box-shadow: 0 0 0 0;}
