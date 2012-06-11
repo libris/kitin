@@ -66,19 +66,30 @@
           <span class="badge badge-success pull-right"><i class="icon-ok icon-white"></i>Aukt.</span>
         <% } %>
       </h4>
-      <h5><%= data['100'].d || "Inget årtal angivet" %>
+      <h5>
+        <% if (data['100'].d) { %>
+          <%= data['100'].d %>
+        <% } else { %>
+          <em><%= "Inget årtal angivet" %></em>
+        <% } %>
         <% if (data['100'].c) { %>(<%= data['100'].c %>)<% } %></h5>
       <% if (data['678']) { %>
         <p><% data['678'].forEach(function (it) { %>
           <%= it.a %><br>
         <% }) %>
         <% if (data.records) { %>
-            <a href="#"><%=  (data.records) %> titlar</a> 
+            <a href="#"><%=  (data.records) %> titlar</a>
         <% } %>
-        <br>
-        <% if (data['680']) { %>(<%= data['680'].i %>)<% } %>
+        <% if (data['680']) { %><br>(<%= data['680'].i %>)<% } %>
         </p>
-      <% } %> 
+      <% } %>
+      <% if (data.top_titles) { %>
+        <p>
+          <% for (href in data.top_titles) { %>
+            <a href="<%= href %>"><%= data.top_titles[href] %></a>
+          <% break } %>
+        </p>
+      <% } %>
     </div>
   </script>
 
