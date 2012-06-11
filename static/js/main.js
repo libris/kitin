@@ -77,7 +77,9 @@ var Field = Backbone.Model.extend({
 
   toJSON: function() {
     var o = {};
-    o[this.tag] = this.attributes.controlValue || this.attributes;
+    var value = _.clone(this.attributes.controlValue || this.attributes);
+    delete value.tag;
+    o[this.attributes.tag] = value;
     return o;
   }
 
