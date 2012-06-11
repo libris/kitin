@@ -200,8 +200,7 @@ var RecordView = Backbone.View.extend({
 
         onItemSelect: function(item, completer) {
           var subfieldD = $('.subfield-d', completer.dom.$elem.parent().siblings());
-          subfieldD.val(item.data['100']['d']);
-          subfieldD.trigger('update');
+          subfieldD.val(item.data['100']['d']).trigger('update');
         }
 
     });
