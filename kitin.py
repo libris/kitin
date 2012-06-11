@@ -79,6 +79,8 @@ def update_document(id):
     # TODO: Respond with 200 OK if A-OK!
     json_string = json.dumps(request.json)
     response = requests.put("%sbib/%s" % (app.config['WHELK_HOST'], id), data = json_string)
+    if response.status_code >= 400:
+        abort(response.status_code)
     return raw_json_response(json_string)
 
 @app.route('/record/bib/<id>', methods=['GET'])
