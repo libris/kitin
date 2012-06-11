@@ -93,13 +93,21 @@ label.control-label {
 auth-ok {
   float: right;
 }
-.auth-nodate {
-  color: #CCC;
-}
+
 
 /* auth suggest */
 .acResults ul li {
   border-bottom: 1px solid #efefef;
+}
+
+.auth .name {
+  font-weight: 300;
+  padding-right: 15px;
+}
+.auth .date {
+  font-weight: 300;
+  color: #999;
+
 }
  
 /*form input fork */
@@ -109,10 +117,12 @@ form#fields .regular_field {
   padding-top: 0;
   padding-bottom: 0;
 }
+
 form#fields {
   font-size: 14px;
 }
-form#fields control-label {
+
+form#fields .control-label {
   font-size: 14px;
 }
 

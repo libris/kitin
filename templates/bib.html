@@ -60,19 +60,18 @@
   </script>
 
   <script type="text/html" id="bib-autocomplete-template">
-    <div>
-      <h4><%= data['100'].a %>
+    <div class="auth">
+      <h4><span class="name"><%= data['100'].a %></span>
+          <% if (data['100'].d) { %>
+          <span class="date"><%= data['100'].d %></span>
+        <% } else { %>
+          <em><%= "" %></em>
+        <% } %>
         <% if (data.authorized) { %>
           <span class="badge badge-success pull-right"><i class="icon-ok icon-white"></i>Aukt.</span>
         <% } %>
       </h4>
-      <h5>
-        <% if (data['100'].d) { %>
-          <%= data['100'].d %>
-        <% } else { %>
-          <em class="auth-nodate"><%= "Inget årtal angivet" %></em>
-        <% } %>
-        <% if (data['100'].c) { %>(<%= data['100'].c %>)<% } %></h5>
+        <h5><% if (data['100'].c) { %>(<%= data['100'].c %>)<% } %></h5>
       <% if (data['678']) { %>
         <p><% data['678'].forEach(function (it) { %>
           <%= it.a %><br>
@@ -86,7 +85,7 @@
       <% if (data.top_titles) { %>
         <p>
           <% for (href in data.top_titles) { %>
-            <a href="<%= href %>" target="_blank"><%= data.top_titles[href] %></a>
+           t ex. <a href="<%= href %>" target="_blank"><%= data.top_titles[href] %></a>
           <% break } %>
         </p>
       <% } %>
