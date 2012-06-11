@@ -70,7 +70,7 @@
         <% if (data['100'].d) { %>
           <%= data['100'].d %>
         <% } else { %>
-          <em><%= "Inget årtal angivet" %></em>
+          <em class="auth-nodate"><%= "Inget årtal angivet" %></em>
         <% } %>
         <% if (data['100'].c) { %>(<%= data['100'].c %>)<% } %></h5>
       <% if (data['678']) { %>
@@ -86,7 +86,7 @@
       <% if (data.top_titles) { %>
         <p>
           <% for (href in data.top_titles) { %>
-            <a href="<%= href %>"><%= data.top_titles[href] %></a>
+            <a href="<%= href %>" target="_blank"><%= data.top_titles[href] %></a>
           <% break } %>
         </p>
       <% } %>
