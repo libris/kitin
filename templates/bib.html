@@ -68,7 +68,7 @@
           <em><%= "" %></em>
         <% } %>
         <% if (data.authorized) { %>
-          <span class="badge badge-success pull-right"><i class="icon-ok icon-white"></i>Aukt.</span>
+          <span class="label label-success pull-right"><i class="icon-ok icon-white"></i>Aukt.</span>
         <% } %>
       </h4>
         <h5><% if (data['100'].c) { %>(<%= data['100'].c %>)<% } %></h5>
@@ -80,10 +80,8 @@
             <a href="#"><%=  (data.records) %> titlar</a>
         <% } %>
         <% if (data['680']) { %><br>(<%= data['680'].i %>)<% } %>
-        </p>
       <% } %>
       <% if (data.top_titles) { %>
-        <p>
           <% for (href in data.top_titles) { %>
            t ex. <a href="<%= href %>" target="_blank"><%= data.top_titles[href] %></a>
           <% break } %>

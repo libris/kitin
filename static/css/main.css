@@ -100,14 +100,17 @@ auth-ok {
   border-bottom: 1px solid #efefef;
 }
 
+div.auth {
+	font-size: 12px;
+}
+
 .auth .name {
-  font-weight: 300;
   padding-right: 15px;
 }
 .auth .date {
+  font-size: 13px;
   font-weight: 300;
   color: #999;
-
 }
  
 /*form input fork */
