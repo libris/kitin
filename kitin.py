@@ -8,7 +8,7 @@ from sqlalchemy import *
 import pickle
 #from babydb import Marcpost
 import requests
-from spill import Spill
+#from spill import Spill
 
 
 app = Flask(__name__)
@@ -108,7 +108,7 @@ def suggest_auth_completions():
     if app.config['MOCK_API']:
         with open(os.path.join(app.root_path, 'templates/mockups/auth_suggest.json')) as f:
             return raw_json_response(f.read())
-    response = requests.get("%s/suggest/_find?q=%s" % (app.config['WHELK_HOST'], q))
+    response = requests.get("%s/suggest/_complete?name=%s" % (app.config['WHELK_HOST'], q))
     if response.status_code >= 400:
         abort(response.status_code)
     return raw_json_response(response.text)
