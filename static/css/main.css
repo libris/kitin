@@ -93,6 +93,9 @@ label.control-label {
 auth-ok {
   float: right;
 }
+.auth-nodate {
+  color: #CCC;
+}
 
 /* auth suggest */
 .acResults ul li {
