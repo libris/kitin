@@ -74,12 +74,14 @@
         <h5><% if (data['100'].c) { %>(<%= data['100'].c %>)<% } %></h5>
 
         <% if (data['500']) { %>
-
-        <p><% data['500'].forEach(function (it) { %>
-          <%= it.a %><br>
-            <% } %>
-        <% if (!data.highlight['100.a'] && data.highlight['400.a']) { %>
-            <p>400hit: <%= data.highlight['400.a'][0] %> </p>
+          <p><% data['500'].forEach(function (it) { %>
+            <%= it.a %><br>
+          <% }) %>
+        <% } %>
+        <% if (data.highlight) { %>
+          <% if (!data.highlight['100.a'] && data.highlight['400.a']) { %>
+              <p class="highlight"><%= data.highlight['400.a'][0] %></p>
+          <% } %>
         <% } %>
       <% if (data['678']) { %>
         <p><% data['678'].forEach(function (it) { %>

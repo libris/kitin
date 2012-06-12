@@ -1,4 +1,4 @@
-kitin.pyvar records, router;
+var records, router;
 
 $(function() {
 
