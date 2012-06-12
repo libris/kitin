@@ -74,13 +74,13 @@
         <h5><% if (data['100'].c) { %>(<%= data['100'].c %>)<% } %></h5>
 
         <% if (data['500']) { %>
-          <p><% data['500'].forEach(function (it) { %>
-            <%= it.a %><br>
+          <p><em>Se även<% data['500'].forEach(function (it) { %>
+            <%= it.a %></em><br>
           <% }) %>
         <% } %>
         <% if (data.highlight) { %>
           <% if (!data.highlight['100.a'] && data.highlight['400.a']) { %>
-              <p class="highlight"><%= data.highlight['400.a'][0] %></p>
+              <p class="highlight"><em>Se även <%= data.highlight['400.a'][0] %></em></p>
           <% } %>
         <% } %>
       <% if (data['678']) { %>
