@@ -76,7 +76,17 @@ def upload_file():
 
 @app.route('/record/bib/<id>/draft', methods=['POST'])
 def save_draft(id):
-    # TODO: Ask Lisa how to save to DB
+    """Save draft to kitin, or publish document to whelk and remove from kitin."""
+    json_data = request.data
+    mp = Table('marcpost', metadata, autoload=True)
+# TODO: Check if exists
+    i = mp.insert()
+    i.execute(id=id, marc=pickle.dumps(json_data))
+# TODO: otherwise update record
+    #newmp = mp.update().where(mp.c.id==id).values(marc=pickle.dumps(json_data))
+    #db.execute(newmp)
+
+# TODO: send back the saved data
     return json.dumps(request.json)
 
 @app.route('/record/bib/<id>', methods=['PUT'])

@@ -162,6 +162,7 @@ var RecordView = Backbone.View.extend({
       $.ajax({
         url: '/record/bib/'+model.id+'/draft',
         type: 'POST',
+        contentType: 'application/json',
         data: JSON.stringify(model.toJSON()),
       }).done(function() {
         // TODO: Notify user when record is successfullt save as draft
