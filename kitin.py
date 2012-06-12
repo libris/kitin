@@ -74,9 +74,13 @@ def upload_file():
         return render_template('upload.html')
 
 
+@app.route('/record/bib/<id>/draft', methods=['POST'])
+def save_draft(id):
+    # TODO: Ask Lisa how to save to DB
+    return json.dumps(request.json)
+
 @app.route('/record/bib/<id>', methods=['PUT'])
 def update_document(id):
-    # TODO: Respond with 200 OK if A-OK!
     json_string = json.dumps(request.json)
     response = requests.put("%sbib/%s" % (app.config['WHELK_HOST'], id), data = json_string)
     if response.status_code >= 400:

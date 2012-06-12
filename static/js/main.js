@@ -1,4 +1,4 @@
-var records, router;
+kitin.pyvar records, router;
 
 $(function() {
 
@@ -158,6 +158,15 @@ var RecordView = Backbone.View.extend({
 
   setupGlobalKeyBindings: function () {
     var model = this.model;
+    $("input[name='draft']").on('click', function() {
+      $.ajax({
+        url: '/record/bib/'+model.id+'/draft',
+        type: 'POST',
+        data: JSON.stringify(model.toJSON()),
+      }).done(function() {
+        // TODO: Notify user when record is successfullt save as draft
+      });
+    });
     $("input[name='publish']").on('click', function() {
       model.save();
     });
