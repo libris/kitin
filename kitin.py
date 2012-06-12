@@ -76,17 +76,16 @@ def upload_file():
 
 @app.route('/record/bib/<id>/draft', methods=['POST'])
 def save_draft(id):
-    """Save draft to kitin, or publish document to whelk and remove from kitin."""
+    """Save draft to kitin"""
     json_data = request.data
-    mp = Table('marcpost', metadata, autoload=True)
-# TODO: Check if exists
-    i = mp.insert()
-    i.execute(id=id, marc=pickle.dumps(json_data))
-# TODO: otherwise update record
-    #newmp = mp.update().where(mp.c.id==id).values(marc=pickle.dumps(json_data))
-    #db.execute(newmp)
-
-# TODO: send back the saved data
+    table = Table('marcpost', metadata, autoload=True)
+    # TODO: Surely there must be a better way to check if record exists...!?
+    if(select([table.c.id]).where(table.c.id == id).execute().scalar()):
+        newmp = table.update().where(table.c.id == id).values(marc=pickle.dumps(json_data))
+        db.execute(newmp)
+    else:
+        insert = table.insert()
+        insert.execute(id=id, marc=pickle.dumps(json_data))
     return json.dumps(request.json)
 
 @app.route('/record/bib/<id>', methods=['PUT'])
@@ -99,6 +98,7 @@ def update_document(id):
 
 @app.route('/record/bib/<id>', methods=['GET'])
 def browse_document(id):
+    # TODO: Check if exists as draft and fetch from local db if so..!
     if app.config['MOCK_API']:
         response = requests.Response()
         response.status_code = 200

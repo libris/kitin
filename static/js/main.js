@@ -159,11 +159,13 @@ var RecordView = Backbone.View.extend({
   setupGlobalKeyBindings: function () {
     var model = this.model;
     $("input[name='draft']").on('click', function() {
+      var model_as_json = model.toJSON();
+      delete model_as_json.id;
       $.ajax({
         url: '/record/bib/'+model.id+'/draft',
         type: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify(model.toJSON()),
+        data: JSON.stringify(model_as_json),
       }).done(function() {
         // TODO: Notify user when record is successfullt save as draft
       });
