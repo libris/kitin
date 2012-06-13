@@ -181,9 +181,9 @@ var RecordView = Backbone.View.extend({
   setupBibAutocomplete: function () {
     var view = this;
     var suggestUrl = "/suggest/auth";
-    this.$('.marc100 input.subfield-a'
-      + ', .marc600 input.subfield-a'
-      + ', .marc700 input.subfield-a').autocomplete(suggestUrl, {
+    this.$('.marc-100 input.subfield-a'
+      + ', .marc-600 input.subfield-a'
+      + ', .marc-700 input.subfield-a').autocomplete(suggestUrl, {
 
         remoteDataType: 'json',
         autoWidth: null,
@@ -250,21 +250,37 @@ var FieldView = Backbone.View.extend({
   controlRowTemplate: _.template($('#control-row-template').html()),
   fieldRowTemplate: _.template($('#field-row-template').html()),
 
+  //events: { 'change .ind1': "updateInd1" },
+
   render: function() {
     var field = this.model;
     var tag = field.get('tag');
     var $el;
     if (field.has('controlValue')) {
-      $el = this.controlRowTemplate({
+      $el = $(this.controlRowTemplate({
         label: tag,
         value: field.get('controlValue')
+      }));
+      $('input', $el).change(function () {
+        field.set({controlValue: $(this).val()});
       });
     } else {
-      $el = this.fieldRowTemplate({
+      $el = $(this.fieldRowTemplate({
         label: tag,
         ind1: field.get('ind1'),
         ind2: field.get('ind2'),
-        subfields: field.get('subfields').toJSON()
+        subfields: field.get('subfields')
+      }));
+      $('.ind1', $el).change(function () {
+        field.set({ind1: $(this).val()});
+      });
+      $('.ind2', $el).change(function () {
+        field.set({ind2: $(this).val()});
+      });
+      field.get('subfields').each(function (subfield) {
+        $('#' + subfield.cid, $el).change(function () {
+          subfield.set('value', $(this).val());
+        });
       });
     }
     return $el;

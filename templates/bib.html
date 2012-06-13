@@ -33,27 +33,28 @@
   </script>
 
   <script type="text/html" id="field-row-template">
-      <div class='control-group regular_field  marc<%= label %>'>
-        <label class='control-label js-field-label'><%= label %>
-          <div class='action-group'>
-            <button class="btn" title="Add above"></i><i class="icon-arrow-up"></i></button>
-            <button class="btn" title="Add below"><!--<i class="icon-plus">--></i><i class="icon-arrow-down"></i></button>
-            <button class="btn" title="Delete"><i class="icon-trash"></i></button>
-          </div>
-        </label>
-        <div class='controls row-fluid'>
-          <input class='indicator js-field-ind1' name="ind1" value='<%= ind1 %>'/>
-          <input class='indicator js-field-ind2' name="ind2" value='<%= ind2 %>'/>
-          <% for (subfield in subfields) { %>
-            <% for (item in subfields[subfield]) { %>
-              <div class="input-prepend js-subfield-wrapper">
-                <span class='add-on js-subfield-code'><%= item %></span>
-                <input id='' class='subfield subfield-<%= item %> js-subfield-value' name='subfield' value='<%= subfields[subfield][item] %>' cols='<%= subfields[subfield][item].length %>'/>
-              </div>
-            <% } %>
-          <% } %>
+    <div class='control-group regular_field marc-<%= label %>'>
+      <label class='control-label'><%= label %>
+        <div class='action-group'>
+          <button class="btn" title="Add above"></i><i class="icon-arrow-up"></i></button>
+          <button class="btn" title="Add below"><!--<i class="icon-plus">--></i><i class="icon-arrow-down"></i></button>
+          <button class="btn" title="Delete"><i class="icon-trash"></i></button>
         </div>
+      </label>
+      <div class='controls row-fluid'>
+        <input class='indicator ind1' name="ind1" value='<%= ind1 %>'/>
+        <input class='indicator ind2' name="ind2" value='<%= ind2 %>'/>
+        <% subfields.each(function (subfield) { %>
+          <% var code = subfield.get('code'); %>
+          <div class="input-prepend subfield-wrapper">
+            <span class='add-on subfield-code'><%= code %></span>
+            <input id="<%= subfield.cid %>" name="subfield"
+                   class="subfield subfield-<%= code %>"
+                   value="<%= subfield.get('value') %>" />
+          </div>
+        <% }); %>
       </div>
+    </div>
   </script>
 
   <script type="text/html" id="bib-autocomplete-template">
