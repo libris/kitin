@@ -1,5 +1,21 @@
 var records, router;
 
+function displaySuccessAlert(message) {
+  var alert = $("<div class='alert alert-success'><strong>Succe!</strong></div>");
+  var message = $("<p class='message'></p>").text(message);
+  var close_btn = $("<a class='close' data-dismiss='alert' href='#'>×</a>");
+  $(alert).append(close_btn).append(message);
+  $('.alert-wrapper').append(alert);
+}
+
+function displayFailAlert(message) {
+  var alert = $("<div class='alert alert-error'><strong>Fadäs!</strong></div>");
+  var message = $("<p class='message'></p>").text(message);
+  var close_btn = $("<a class='close' data-dismiss='alert' href='#'>×</a>");
+  $(alert).append(close_btn).append(message);
+  $('.alert-wrapper').append(alert);
+}
+
 $(function() {
 
   records = new RecordCollection();
@@ -15,7 +31,6 @@ $(function() {
   //if (ajaxInProgress)
   //  confirm('ajaxInProgress; break and leave?')
 });
-
 
 var Record = Backbone.Model.extend({
 
@@ -130,8 +145,7 @@ var RecordView = Backbone.View.extend({
   leaderTemplate: _.template($('#leader-template').html()),
   bibAutocompleteTemplate: _.template($('#bib-autocomplete-template').html()),
 
-  events: {
-  },
+  events: { },
 
   initialize: function (options) {
     this.model.bind("change", this.render, this);
@@ -167,14 +181,24 @@ var RecordView = Backbone.View.extend({
         contentType: 'application/json',
         data: JSON.stringify(model_as_json),
       }).done(function() {
-        // TODO: Notify user when record is successfullt save as draft
+        displaySuccessAlert("Sparade framgångsrikt ett utkast av " + model.id);
+      }).error(function() {
+        displayFailAlert("Kunde inte spara utkast av " + model.id);
       });
     });
     $("input[name='publish']").on('click', function() {
-      model.save();
+      model.save({},
+        {
+          error: function() { displayFailAlert("Kunde inte publicera " + model.id); },
+          success: function() { displaySuccessAlert("Sparade framgångsrikt " + model.id); }
+        });
     });
     $(document).jkey('ctrl+b',function(){
-      model.save();
+      model.save({},
+        {
+          error: function() { displayFailAlert("Kunde inte publicera " + model.id); },
+          success: function() { displaySuccessAlert("Sparade framgångsrikt " + model.id); }
+        });
     });
   },
 

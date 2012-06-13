@@ -90,6 +90,7 @@ def save_draft(id):
 
 @app.route('/record/bib/<id>', methods=['PUT'])
 def update_document(id):
+    """Saves updated records to whelk (Backbone would send a POST if the record isNew)"""
     json_string = json.dumps(request.json)
     response = requests.put("%sbib/%s" % (app.config['WHELK_HOST'], id), data = json_string)
     if response.status_code >= 400:
