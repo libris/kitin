@@ -92,7 +92,8 @@ def save_draft(id):
 def update_document(id):
     """Saves updated records to whelk (Backbone would send a POST if the record isNew)"""
     json_string = json.dumps(request.json)
-    response = requests.put("%sbib/%s" % (app.config['WHELK_HOST'], id), data = json_string)
+    headers = {'content-type': 'application/json'}
+    response = requests.put("%sbib/%s" % (app.config['WHELK_HOST'], id), data=json_string, headers=headers)
     if response.status_code >= 400:
         abort(response.status_code)
     return raw_json_response(json_string)
