@@ -1,140 +1,96 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="sv">
   <head>
     {% block head %}
-    <meta charset="utf-8">
-    <title>{% block title %}LIBRIS{% endblock title %} katalogisering (development)</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.css') }}">
-    <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap-responsive.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='vendor/jquery/jquery.autocomplete.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+      <meta charset="utf-8">
+      <title>{% block title %}LIBRIS{% endblock title %} katalogisering (development)</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.css') }}">
+      <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap-responsive.css') }}" rel="stylesheet">
+      <link href="{{ url_for('static', filename='vendor/jquery/jquery.autocomplete.css') }}" rel="stylesheet">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     {% endblock head %}
   </head>
   <body>
     {% block navbar %}
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="/">LIBRIS katalogisering (development)</a>
-          <div class="nav-collapse">
-            <ul class="nav">
-              <!-- <li> 
-              	<a href="#" class="active>Login</a>
-              </li>-->
-              <li>
-            	<a href="/">Search</a>
-               </li>
-              <li>
-            	<a href="upload">Upload</a>
-               </li>
-            </ul>
-          </div><!--/.nav-collapse -->
+      <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="/">LIBRIS katalogisering (development)</a>
+            <div class="nav-collapse">
+              <ul class="nav">
+                <li><a href="profile">Profile</a></li>
+                <li><a href="/">Search</a></li>
+                <li><a href="upload">Upload</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
     {% endblock navbar %}
 
- <div class="container {% block content_class %}{% endblock content_class %}">
-   {% block container %}
+    <div class="container {% block content_class %}{% endblock content_class %}">
+      {% block container %}
 
     <div class="container-fluid">
       <div class="row-fluid">
-        <!--
-        <div class="span2">
-
-          <ul class="nav nav-list">
-            <li>
-            <a href="/">Sök</a>
-            </li>
-            <li>
-            <a href="/new_bibliographic.html">Ny</a>
-            </li>
-            <li>
-            <a href="/upload">Öppna/Ladda upp</a>
-            </li>
-            <li>
-            <a href="#">Öppna senaste</a>
-            </li>
-          </ul>
-
-          <ul class="nav nav-list">
-            <li class="nav-header">
-            Mallar
-            </li>
-            <li class="active">
-            <a href="monografi.html">- Monografier</a>
-            </li>
-            <li>
-            <a href="#">- Serie</a>
-            </li>
-            <li>
-            <a href="#">- Karta</a>
-            </li>
-            <li>
-            <a href="#">- Ljud</a>
-            </li>
-          </ul>
-        </div>
-
-        -->
         <div class="span9">
           {% block content %}
           {% endblock content %}
         </div>
         <div class="span3">
-        <div class="well">
-<!-- possible marc21 documentation-->
-          <h3>020 - ISBN </h3>
-			<table class="table" width="100%" cellspacing="0" cellpadding="0" border="0">
-				<tbody>
-				  <tr valign="top">
-					<th width="5%">D</th>
-					<th width="85%">Innehåll</th>
-					<th width="10%">Anm</th>
-				  </tr>
-				  <tr valign="top">
-					<td width="5%">
-					<td width="85%">
-					<td width="10%"></td>
-				  </tr>
-				  <tr valign="top">
-					<td>c</td>
-					<td>
-					<td></td>
-				  </tr>
-				  <tr valign="top">
-					<td>z</td>
-					<td>
-					Makulerat/ogiltigt ISBN (R)<br>
-					Delfältet förekommer även med innebörden print-ISBN i (maskinellt eller manuellt skapade) e-boksposter. Se
-					<a target="_blank" href="/Dokument/Formathandbok/allmanna_ebocker_etidskrifter.pdf">Allmänna riktlinjer för katalogisering av e-tidskrifter och e-böcker</a>.
-					</td>
-					<td></td>
-				  </tr>
-				  <tr valign="top">
-					<td width="5%">6</td>
-					<td width="85%">
-					<a href="/katalogisering/Formathandboken/Lankning/">Länkning</a>
-					&nbsp;(NR)
-					</td>
-					<td width="10%"></td>
-				  </tr>
-				  <tr valign="top">
-					<td width="5%">8</td>
-					<td width="85%">
-					<a href="/katalogisering/Formathandboken/Lankning/">Länk- och sekvensnummer</a>
-					&nbsp;(R)
-					</td>
-					<td width="10%"></td>
-				  </tr>
-				</tbody>
-			</table>
-		</div>			
+          <div class="well">
+            <!-- possible marc21 documentation-->
+            <h3>020 - ISBN </h3>
+            <table class="table" width="100%" cellspacing="0" cellpadding="0" border="0">
+              <tbody>
+                <tr valign="top">
+                  <th width="5%">D</th>
+                  <th width="85%">Innehåll</th>
+                  <th width="10%">Anm</th>
+                </tr>
+                <tr valign="top">
+                  <td width="5%"></td>
+                  <td width="85%"></td>
+                  <td width="10%"></td>
+                </tr>
+                    <tr valign="top">
+                      <td>c</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr valign="top">
+                      <td>z</td>
+                      <td>
+                        Makulerat/ogiltigt ISBN (R)<br>
+                        Delfältet förekommer även med innebörden print-ISBN i (maskinellt eller manuellt skapade) e-boksposter. Se
+                        <a target="_blank" href="/Dokument/Formathandbok/allmanna_ebocker_etidskrifter.pdf">Allmänna riktlinjer för katalogisering av e-tidskrifter och e-böcker</a>.
+                      </td>
+                      <td></td>
+                    </tr>
+                    <tr valign="top">
+                      <td width="5%">6</td>
+                      <td width="85%">
+                        <a href="/katalogisering/Formathandboken/Lankning/">Länkning</a>
+                        &nbsp;(NR)
+                      </td>
+                      <td width="10%"></td>
+                    </tr>
+                    <tr valign="top">
+                      <td width="5%">8</td>
+                      <td width="85%">
+                        <a href="/katalogisering/Formathandboken/Lankning/">Länk- och sekvensnummer</a>
+                        &nbsp;(R)
+                      </td>
+                      <td width="10%"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
 <!--
     <div class="alert alert-success">
     <a class="close" data-dismiss="alert" href="#">×</a>
@@ -152,30 +108,29 @@
     Du får inte..!
     </div>
 -->
-    
-
+            </div>
+          </div>
         </div>
       </div>
+      {% endblock container %}
     </div>
-  </div>
-  {% endblock container %}</div>
 
-<div id="footer">
-  {% block footer %}
-  {% endblock %}
-</div>
+    <div id="footer">
+      {% block footer %}
+      {% endblock %}
+    </div>
 
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
-<script src="{{ url_for('static', filename='vendor/jquery/jquery.jkey.js') }}"></script>
-<script src="{{ url_for('static', filename='vendor/jquery/jquery.autocomplete.min.js') }}"></script>
-<script src="{{ url_for('static', filename='vendor/backbone/underscore-min.js') }}"></script>
-<script src="{{ url_for('static', filename='vendor/backbone/backbone-min.js') }}"></script>
-<script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.jkey.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.autocomplete.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/backbone/underscore-min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/backbone/backbone-min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
 
-{% block extrajs %}{% endblock extrajs %}
+    {% block extrajs %}{% endblock extrajs %}
 
-<script src="{{ url_for('static', filename='js/jquery.autogrowinput.js') }}"></script>
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
-</body>
+    <script src="{{ url_for('static', filename='js/jquery.autogrowinput.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </body>
 </html>
