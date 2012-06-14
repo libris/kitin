@@ -79,8 +79,7 @@ def save_draft(id):
     """Save draft to kitin"""
     json_data = request.data
     table = Table('marcpost', metadata, autoload=True)
-    # TODO: Surely there must be a better way to check if record exists...!?
-    if(select([table.c.id]).where(table.c.id == id).execute().scalar()):
+    if exists_as_draft(id):
         newmp = table.update().where(table.c.id == id).values(marc=pickle.dumps(json_data))
         db.execute(newmp)
     else:
@@ -91,11 +90,15 @@ def save_draft(id):
 @app.route('/record/bib/<id>', methods=['PUT'])
 def update_document(id):
     """Saves updated records to whelk (Backbone would send a POST if the record isNew)"""
+# TODO: send data with correct encoding
     json_string = json.dumps(request.json)
     headers = {'content-type': 'application/json'}
     response = requests.put("%sbib/%s" % (app.config['WHELK_HOST'], id), data=json_string, headers=headers)
     if response.status_code >= 400:
         abort(response.status_code)
+    else:
+        if exists_as_draft(id):
+            db.execute(table.delete().where(table.c.id == id))
     return raw_json_response(json_string)
 
 @app.route('/record/bib/<id>', methods=['GET'])
@@ -202,6 +205,10 @@ def raw_json_response(s):
     resp = make_response(s)
     resp.headers['Content-Type'] = 'application/json'
     return resp
+
+def exists_as_draft(id):
+    table = Table('marcpost', metadata, autoload=True)
+    return table.select().where(exists([table.c.id], and_(table.c.id == id))).execute().scalar()
 
 
 if __name__ == "__main__":
