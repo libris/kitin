@@ -5,23 +5,31 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
 (function (module) {
 
   module.rawToNamed = function (map, struct) {
-    var res = {};
-    res.leader = struct.leader;
+    var out = {};
+    out.leader = struct.leader;
     // TODO: parse leader
     (struct.fields).forEach(function(field) {
-      for (fieldCode in field) {
-        var sourceRow = field[fieldCode];
-        var key = fieldCode;
-        var resRow = sourceRow;
-        var dfn = map[fieldCode];
+      for (fieldTag in field) {
+        var sourceRow = field[fieldTag];
+        var key = fieldTag;
+        var outObj = sourceRow;
+        var dfn = map[fieldTag];
         if (dfn) {
           key = dfn.name;
-          resRow = module.rawRowToNamedRow(dfn, sourceRow);
+          outObj = module.rawRowToNamedRow(dfn, sourceRow);
         }
-        res[key] = resRow;
+        if (dfn === undefined || dfn.repeatable !== false) {
+          var outList = out[key];
+          if (outList === undefined) {
+            outList = out[key] = [];
+          }
+          outList.push(outObj);
+          outObj = outList;
+        }
+        out[key] = outObj;
       }
     });
-    return res;
+    return out;
   };
 
   module.rawRowToNamedRow = function(fieldDfn, row) {
@@ -29,36 +37,40 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
       return row;
     if (fieldDfn.type === 'fixedLength')
       return row;
-    var res = [];
-    var ind1 = row.ind1, ind2 = row.ind2;
-    res.push(ind1? fieldDfn.ind1[ind1.toString()] : null);
-    res.push(ind2? fieldDfn.ind2[ind2.toString()] : null);
-    var resField = {};
+    var outField = {};
+    var ind1 = row.ind1,
+        ind2 = row.ind2;
+    if (ind1 && ind1 !== " ") {
+      var ind1Val = ind1.toString();
+      outField[fieldDfn.ind1.name || 'ind1'] = fieldDfn.ind1[ind1Val] || ind1Val;
+    }
+    if (ind2 && ind2 !== " ") {
+      var ind2Val = ind2.toString();
+      outField[fieldDfn.ind2.name || 'ind2'] = fieldDfn.ind2[ind1Val] || ind1Val;
+    }
     row.subfields.forEach(function (subfield) {
       for (subCode in subfield) {
         var key = subCode;
         var subDfn = fieldDfn.subfield[subCode];
+        var outObj = subfield[subCode];
         if (subDfn) {
           key = subDfn.name;
         }
-        resField[key] = subfield[subCode];
+        if (subDfn === undefined || subDfn.repeatable !== false) {
+          var outList = outField[key];
+          if (outList === undefined) {
+            outList = outField[key] = [];
+          }
+          outList.push(outObj);
+          outObj = outList;
+        }
+        outField[key] = outObj;
       }
     });
-    res.push(resField);
-    return res;
+    return outField;
   };
 
   module.namedToRaw = function () {
-  };
-
-  module.textRowToStructRow = function (field) {
-    if (typeof field === "object")
-      return field;
-    //return field.split(/#(\w)/);
-  };
-
-  module.textToStruct = function () {
-    // each line, out.extend textRowToStructRow(line)
   };
 
 })(marcjson);

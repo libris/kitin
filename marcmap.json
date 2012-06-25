@@ -1,28 +1,28 @@
 {
   "001": {
     "name": "controlNumber",
-    "repeatable": null
+    "repeatable": false
   },
   "003": {
     "name": "controlNumberIdentifier",
-    "repeatable": null
+    "repeatable": false
   },
   "005": {
     "name": "dateAndTimeOfLatestTransaction",
-    "repeatable": null
+    "repeatable": false
   },
   "006": {
     "name": "dataElementsAndAdditionalMaterialCharacteristics",
-    "repeatable": null,
+    "repeatable": false,
     "type": "fixedLength"
   },
   "007": {
     "name": "physicalDescriptionFixedField",
-    "repeatable": null
+    "repeatable": false
   },
   "008": {
     "name": "dataElements",
-    "repeatable": null,
+    "repeatable": false,
     "type": "fixedLength"
   },
   "020": {
@@ -208,7 +208,7 @@
     "ind2": {
       "name": "thesaurus",
       "0": "libraryOfCongressSubjectHeadings",
-      "1": "lcSubjectHeadingsForChildren'sLiterature",
+      "1": "lcSubjectHeadingsForChildrensLiterature",
       "2": "medicalSubjectHeadings",
       "3": "nationalAgriculturalLibrarySubjectAuthorityFile",
       "4": "sourceNotSpecified",
