@@ -51,7 +51,7 @@ for cat_id, name, cfg in categories:
         elif key.isdigit():
             tag, repeatable = value.rstrip().split()
             subfields = odict()
-            ind1, ind2 = None, None
+            inds = [None, None]
             if cfg.has_section(tag):
                 for subkey, subval in cfg.items(tag):
                     # Works only because [...] after [...] ..
@@ -62,19 +62,23 @@ for cat_id, name, cfg in categories:
                     elif subkey.isdigit():
                         code, subrepeat_repr = subval.rstrip().split()
                         sub_repeatable = subrepeat_repr[0] == '1'
-                        subfields[code] = dict(#id=None,
+                        subfields[code] = dict(
                                 repeatable=sub_repeatable)
-                indKey = tag + 'Ind1'
-                if cfg.has_section(indKey):
-                    ind1 = [repr(kv) for kv in cfg.items(indKey)] # TODO
-                indKey = tag + 'Ind2'
-                if cfg.has_section(indKey):
-                    ind2 = [repr(kv) for kv in cfg.items(indKey)] # TODO
-            dfn = dict(#id=None,
-                    repeatable=bool(int(repeatable)),
-                    ind1=ind1,
-                    ind2=ind2,
-                    subfield=subfields)
+                for i in (1, 2):
+                    indKey = '{0}Ind{1}'.format(tag, i)
+                    if cfg.has_section(indKey):
+                        ind = inds[i-1] = odict()
+                        for indcode, indval in cfg.items(indKey):
+                            if indcode.startswith('Value'):
+                                ind[indcode[5:]] = indval.decode(enc)
+
+            dfn = odict()
+            dfn['repeatable'] = bool(int(repeatable))
+            for i, ind in enumerate(inds):
+                if ind:
+                    dfn['ind' + str(i+1)] = ind
+            if subfields:
+                dfn['subfield'] = subfields
             block[tag] = dfn
         else:
             raise ValueError("Unknown block key: %s" % key)
