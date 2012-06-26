@@ -36,16 +36,8 @@ b_cfg = read_config(pjoin(confdir, f) for f in BIB_CONFS)
 out = odict()
 
 
-rec_map =  dict(master_cfg.items("RecFormat"))
-#valid_recs = set(['Authority', 'Holding']
-#        + ['Book', 'Computer', 'Map', 'Mixed', 'Music', 'Serial', 'Visual'])
-#assert set(rec_map.values()) == valid_recs
-out['recmap'] = rec_map
-
-#fixed = out['fixed'] = odict()
-
-categories = [('auth', "Authority", a_cfg),
-              ('bib', "Bibliographic", b_cfg),]
+categories = [('bib', "Bibliographic", b_cfg),
+              ('auth', "Authority", a_cfg),]
               #('hold', "Holdings", h_cfg)]
 
 for cat_id, name, cfg in categories:
@@ -86,6 +78,37 @@ for cat_id, name, cfg in categories:
             block[tag] = dfn
         else:
             raise ValueError("Unknown block key: %s" % key)
+
+
+rec_map =  dict(master_cfg.items("RecFormat"))
+#valid_recs = set(['Authority', 'Holding']
+#        + ['Book', 'Computer', 'Map', 'Mixed', 'Music', 'Serial', 'Visual'])
+#assert set(rec_map.values()) == valid_recs
+out['recmap'] = rec_map
+
+bib = out['bib']
+for tagcode in ['000', '006', '007', '008']:
+    fixmap = bib[tagcode]['fixmap'] = odict()
+    for key, value in bfix_cfg.items(tagcode + 'Code'):
+        tablelabel, tablename = value.split(',')
+        tablename = tablename.strip()
+        table = fixmap.setdefault(tablename, odict())
+        table.setdefault('rectype_keys', []).append(key)
+        table['label'] = tablelabel.decode(enc)
+        rows = table['rows'] = []
+        for tablerow in bfix_cfg.options(tablename):
+            cells = [s.strip() for s in tablerow.decode(enc).split(',')]
+            label, enumkey, offset, length, default = cells
+            row = odict(label=label, offset=offset, length=length, default=default)
+            if bfix_cfg.has_section(enumkey):
+                row['keys'] = dict((k, v.decode(enc)) for k, v in bfix_cfg.items(enumkey))
+            else:
+                row['placeholder'] = enumkey
+            rows.append(row)
+
+# TODO:
+#auth = out['auth']
+
 
 json.dump(out, stdout, indent=2)
 
