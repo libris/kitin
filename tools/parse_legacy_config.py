@@ -80,12 +80,14 @@ for cat_id, name, cfg in categories:
             raise ValueError("Unknown block key: %s" % key)
 
 
-rec_map =  dict(master_cfg.items("RecFormat"))
-#valid_recs = set(['Authority', 'Holding']
+rec_term_map = odict()
+for combo, term in master_cfg.items("RecFormat"):
+    rec_term_map.setdefault(term, set()).add(combo)
+#assert set(rec_term_map) == set(['Authority', 'Holding']
 #        + ['Book', 'Computer', 'Map', 'Mixed', 'Music', 'Serial', 'Visual'])
-#assert set(rec_map.values()) == valid_recs
-out['recmap'] = rec_map
 
+# TODO:
+#for block_key, codes, fix_cfg in [('bib', [...], bfix_cfg), (...)]:
 bib = out['bib']
 for tagcode in ['000', '006', '007', '008']:
     fixmap = bib[tagcode]['fixmap'] = odict()
@@ -93,21 +95,26 @@ for tagcode in ['000', '006', '007', '008']:
         tablelabel, tablename = value.split(',')
         tablename = tablename.strip()
         table = fixmap.setdefault(tablename, odict())
-        table.setdefault('rectype_keys', []).append(key)
-        table['label'] = tablelabel.decode(enc)
+        table.setdefault('matchKeys', []).append(key)
+        if tablelabel in rec_term_map:
+            table['term'] = tablelabel
+            table['matchRecTypeBibLevel'] = list(rec_term_map[tablelabel])
+        else:
+            table['label_sv'] = tablelabel.decode(enc)
         rows = table['rows'] = []
         for tablerow in bfix_cfg.options(tablename):
             cells = [s.strip() for s in tablerow.decode(enc).split(',')]
             label, enumkey, offset, length, default = cells
-            row = odict(label=label, offset=offset, length=length, default=default)
+            row = odict()
+            row['label_sv'] = label
+            row['offset'] = int(offset)
+            row['length'] = int(length)
+            row['default'] = default
             if bfix_cfg.has_section(enumkey):
                 row['keys'] = dict((k, v.decode(enc)) for k, v in bfix_cfg.items(enumkey))
             else:
                 row['placeholder'] = enumkey
             rows.append(row)
-
-# TODO:
-#auth = out['auth']
 
 
 json.dump(out, stdout, indent=2)
