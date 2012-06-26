@@ -94,6 +94,7 @@
     "name": "mainEntryPersonalName",
     "repeatable": false,
     "ind1": {
+      "name": "typeOfPersonalNameEntryElement",
       "0": "forename",
       "1": "surname",
       "3": "familyName"
