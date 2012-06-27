@@ -6,30 +6,74 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
 
   module.rawToNamed = function (map, struct) {
     var out = {};
-    out.leader = struct.leader;
-    // TODO: parse leader
+    out.leader = module.processLeader(map, struct, out);
     (struct.fields).forEach(function(field) {
       for (fieldTag in field) {
         var sourceRow = field[fieldTag];
-        var key = fieldTag;
-        var outObj = sourceRow;
-        var dfn = map[fieldTag];
-        if (dfn) {
-          key = dfn.name;
-          outObj = module.rawRowToNamedRow(dfn, sourceRow);
-        }
-        if (dfn === undefined || dfn.repeatable !== false) {
-          var outList = out[key];
-          if (outList === undefined) {
-            outList = out[key] = [];
+          var dfn = map[fieldTag];
+        var handler = module.fixedFieldHandlers[fieldTag];
+        if (handler) {
+          handler(fieldTag, sourceRow, dfn, out);
+        } else {
+          var key = fieldTag;
+          var outObj = sourceRow;
+          if (dfn) {
+            key = dfn.name;
+            outObj = module.rawRowToNamedRow(dfn, sourceRow);
           }
-          outList.push(outObj);
-          outObj = outList;
+          if (dfn === undefined || dfn.repeatable !== false) {
+            var outList = out[key];
+            if (outList === undefined) {
+              outList = out[key] = [];
+            }
+            outList.push(outObj);
+            outObj = outList;
+          }
+          out[key] = outObj;
         }
-        out[key] = outObj;
       }
     });
     return out;
+  };
+
+  module.processLeader = function (map, struct, out) {
+    var leader = struct.leader;
+    var result = {};
+    map['000'].fixmap.rows.forEach(function (row) {
+      module.processFixedRow(leader, row, result);
+    });
+    return result;
+  };
+
+  module.fixedFieldHandlers = {
+    '008': function (tag, sourceRow, dfn, out) {
+      var comboKey = out.leader.typeOfRecord + out.leader.bibLevel;
+      // TODO: prepare table to lookup fixmap by matchRecTypeBibLevel
+      dfn.fixmaps.forEach(function (fixmap) {
+        if (fixmap.matchRecTypeBibLevel.indexOf(comboKey) > -1) {
+          out['type'] = fixmap.term;
+          var result = out[dfn.name] = {};
+          fixmap.rows.forEach(function (row) {
+            module.processFixedRow(sourceRow, row, result);
+          });
+        }
+      });
+    }
+  };
+
+  module.processFixedRow = function (leader, row, result) {
+    var off = row.offset;
+    var key = leader.substring(off, off + row.length) || row['default'];
+    var prop;
+    if (row.propRef) {
+      var ref = row.propRef.replace(/^\d+(\/\d+)?/, "");
+      var prop = untitle(ref);
+    } else if (row.placeholder[0] != '<') {
+      prop = untitle(row.placeholder);
+    }
+    if (prop) {
+      result[prop] = key;
+    }
   };
 
   module.rawRowToNamedRow = function(fieldDfn, row) {
@@ -72,5 +116,9 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
 
   module.namedToRaw = function () {
   };
+
+  function untitle(term) {
+    return term.substring(0, 1).toLowerCase() + term.substring(1);;
+  }
 
 })(marcjson);
