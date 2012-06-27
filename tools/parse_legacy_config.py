@@ -93,6 +93,8 @@ for combo, term in master_cfg.items("RecFormat"):
 # TODO:
 #for block_key, codes, fix_cfg in [('bib', [...], bfix_cfg), (...)]:
 bib = out['bib']
+fixprops = bib['fixprops'] = odict()
+
 for tagcode in ['000', '006', '007', '008']:
     fixmap = bib[tagcode]['fixmap'] = odict()
     for key, value in bfix_cfg.items(tagcode + 'Code'):
@@ -115,7 +117,10 @@ for tagcode in ['000', '006', '007', '008']:
             row['length'] = int(length)
             row['default'] = default
             if bfix_cfg.has_section(enumkey):
-                row['keys'] = dict((k, v.decode(enc)) for k, v in bfix_cfg.items(enumkey))
+                row['propId'] = enumkey
+                if enumkey not in fixprops:
+                    fixprops[enumkey] = dict((k, v.decode(enc))
+                            for k, v in bfix_cfg.items(enumkey))
             else:
                 row['placeholder'] = enumkey
             rows.append(row)
