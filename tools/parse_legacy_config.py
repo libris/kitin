@@ -98,11 +98,12 @@ for block_key, fix_tags, fix_cfg in [
     fixprops = block['fixprops'] = odict()
 
     for tagcode in fix_tags:
-        fixmap = block[tagcode]['fixmap'] = odict()
+        fixmaps = odict()
         for key, value in fix_cfg.items(tagcode + 'Code'):
             tablelabel, tablename = value.split(',')
             tablename = tablename.strip()
-            table = fixmap.setdefault(tablename, odict())
+            table = fixmaps.setdefault(tablename, odict())
+            table['name'] = tablename
             table.setdefault('matchKeys', []).append(key)
             if tablelabel in rec_term_map:
                 table['term'] = tablelabel
@@ -121,13 +122,15 @@ for block_key, fix_tags, fix_cfg in [
                 row['length'] = int(length)
                 row['default'] = default
                 if fix_cfg.has_section(enumkey):
-                    row['propId'] = enumkey
+                    row['propRef'] = enumkey
                     if enumkey not in fixprops:
                         fixprops[enumkey] = dict((k, v.decode(enc))
                                 for k, v in fix_cfg.items(enumkey))
                 else:
                     row['placeholder'] = enumkey
                 rows.append(row)
+
+        block[tagcode]['fixmaps'] = fixmaps.values()
 
 
 json.dump(out, stdout, indent=2)
