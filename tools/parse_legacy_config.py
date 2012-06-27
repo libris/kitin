@@ -90,40 +90,44 @@ for combo, term in master_cfg.items("RecFormat"):
 #assert set(rec_term_map) == set(['Authority', 'Holding']
 #        + ['Book', 'Computer', 'Map', 'Mixed', 'Music', 'Serial', 'Visual'])
 
-# TODO:
-#for block_key, codes, fix_cfg in [('bib', [...], bfix_cfg), (...)]:
-bib = out['bib']
-fixprops = bib['fixprops'] = odict()
 
-for tagcode in ['000', '006', '007', '008']:
-    fixmap = bib[tagcode]['fixmap'] = odict()
-    for key, value in bfix_cfg.items(tagcode + 'Code'):
-        tablelabel, tablename = value.split(',')
-        tablename = tablename.strip()
-        table = fixmap.setdefault(tablename, odict())
-        table.setdefault('matchKeys', []).append(key)
-        if tablelabel in rec_term_map:
-            table['term'] = tablelabel
-            table['matchRecTypeBibLevel'] = list(rec_term_map[tablelabel])
-        else:
-            table['label_sv'] = tablelabel.decode(enc)
-        rows = table['rows'] = []
-        for tablerow in bfix_cfg.options(tablename):
-            cells = [s.strip() for s in tablerow.decode(enc).split(',')]
-            label, enumkey, offset, length, default = cells
-            row = odict()
-            row['label_sv'] = label
-            row['offset'] = int(offset)
-            row['length'] = int(length)
-            row['default'] = default
-            if bfix_cfg.has_section(enumkey):
-                row['propId'] = enumkey
-                if enumkey not in fixprops:
-                    fixprops[enumkey] = dict((k, v.decode(enc))
-                            for k, v in bfix_cfg.items(enumkey))
+for block_key, fix_tags, fix_cfg in [
+        ('bib', ['000', '006', '007', '008'], bfix_cfg),
+        ('auth', ['000', '008'], afix_cfg)]:
+    block = out[block_key]
+    fixprops = block['fixprops'] = odict()
+
+    for tagcode in fix_tags:
+        fixmap = block[tagcode]['fixmap'] = odict()
+        for key, value in fix_cfg.items(tagcode + 'Code'):
+            tablelabel, tablename = value.split(',')
+            tablename = tablename.strip()
+            table = fixmap.setdefault(tablename, odict())
+            table.setdefault('matchKeys', []).append(key)
+            if tablelabel in rec_term_map:
+                table['term'] = tablelabel
+                table['matchRecTypeBibLevel'] = list(rec_term_map[tablelabel])
             else:
-                row['placeholder'] = enumkey
-            rows.append(row)
+                table['label_sv'] = tablelabel.decode(enc)
+            rows = table['rows'] = []
+            for tablerow, tableval in fix_cfg.items(tablename):
+                if tableval:
+                    tablerow = tablerow + tableval
+                cells = [s.strip() for s in tablerow.decode(enc).split(',')]
+                label, enumkey, offset, length, default = cells
+                row = odict()
+                row['label_sv'] = label
+                row['offset'] = int(offset)
+                row['length'] = int(length)
+                row['default'] = default
+                if fix_cfg.has_section(enumkey):
+                    row['propId'] = enumkey
+                    if enumkey not in fixprops:
+                        fixprops[enumkey] = dict((k, v.decode(enc))
+                                for k, v in fix_cfg.items(enumkey))
+                else:
+                    row['placeholder'] = enumkey
+                rows.append(row)
 
 
 json.dump(out, stdout, indent=2)
