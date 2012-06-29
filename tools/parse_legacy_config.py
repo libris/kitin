@@ -1,3 +1,4 @@
+import re
 from sys import argv, stdout
 from os.path import join as pjoin
 from ConfigParser import RawConfigParser
@@ -91,11 +92,16 @@ for combo, term in master_cfg.items("RecFormat"):
 #        + ['Book', 'Computer', 'Map', 'Mixed', 'Music', 'Serial', 'Visual'])
 
 
+def fixkey_to_prop_id(key):
+    ref = re.sub(r"^\d+(/\d+)?", "", key)
+    return ref[0].lower() + ref[1:]
+
 for block_key, fix_tags, fix_cfg in [
         ('bib', ['000', '006', '007', '008'], bfix_cfg),
         ('auth', ['000', '008'], afix_cfg)]:
     block = out[block_key]
     fixprops = block['fixprops'] = odict()
+    _fixprop_unique = {}
 
     for tagcode in fix_tags:
         fixmaps = odict()
@@ -109,26 +115,32 @@ for block_key, fix_tags, fix_cfg in [
                 table['term'] = tablelabel
                 table['matchRecTypeBibLevel'] = list(rec_term_map[tablelabel])
             else:
-                table['label_sv'] = tablelabel.decode(enc)
-            rows = table['rows'] = []
+                table['label_'+lang] = tablelabel.decode(enc)
+            columns = table['columns'] = []
             for tablerow, tableval in fix_cfg.items(tablename):
                 if tableval:
                     tablerow = tablerow + tableval
                 cells = [s.strip() for s in tablerow.decode(enc).split(',')]
                 label, enumkey, offset, length, default = cells
-                row = odict()
-                row['label_sv'] = label
-                row['offset'] = int(offset)
-                row['length'] = int(length)
-                row['default'] = default
+                col = odict()
+                col['label_'+lang] = label
+                col['offset'] = int(offset)
+                col['length'] = int(length)
+                col['default'] = default
                 if fix_cfg.has_section(enumkey):
-                    row['propRef'] = enumkey
-                    if enumkey not in fixprops:
-                        fixprops[enumkey] = dict((k, v.decode(enc))
+                    prop_id = fixkey_to_prop_id(enumkey)
+                    # ensure converted name is still unique
+                    if prop_id in _fixprop_unique:
+                        assert _fixprop_unique[prop_id] == enumkey
+                    else:
+                        _fixprop_unique[prop_id] = enumkey
+                    col['propRef'] = prop_id
+                    if prop_id not in fixprops:
+                        fixprops[prop_id] = dict((k, v.decode(enc))
                                 for k, v in fix_cfg.items(enumkey))
                 else:
-                    row['placeholder'] = enumkey
-                rows.append(row)
+                    col['placeholder'] = prop_id
+                columns.append(col)
 
         block[tagcode]['fixmaps'] = fixmaps.values()
 

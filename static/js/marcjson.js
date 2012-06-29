@@ -10,10 +10,10 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
     (struct.fields).forEach(function(field) {
       for (fieldTag in field) {
         var sourceRow = field[fieldTag];
-          var dfn = map[fieldTag];
+        var dfn = map[fieldTag];
         var handler = module.fixedFieldHandlers[fieldTag];
         if (handler) {
-          handler(fieldTag, sourceRow, dfn, out);
+          handler(fieldTag, sourceRow, dfn, out/*, map.fixprops*/);
         } else {
           var key = fieldTag;
           var outObj = sourceRow;
@@ -39,40 +39,39 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
   module.processLeader = function (map, struct, out) {
     var leader = struct.leader;
     var result = {};
-    map['000'].fixmap.rows.forEach(function (row) {
-      module.processFixedRow(leader, row, result);
+    map['000'].fixmaps[0].columns.forEach(function (col) {
+      module.processFixedCol(leader, col, result/*, map.fixprops*/);
     });
     return result;
   };
 
   module.fixedFieldHandlers = {
-    '008': function (tag, sourceRow, dfn, out) {
-      var comboKey = out.leader.typeOfRecord + out.leader.bibLevel;
+    '008': function (tag, sourceRow, dfn, out/*, fixprops*/) {
+      var comboKey = out.leader.typeOfRecord/*.id*/ + out.leader.bibLevel/*.id*/;
       // TODO: prepare table to lookup fixmap by matchRecTypeBibLevel
       dfn.fixmaps.forEach(function (fixmap) {
         if (fixmap.matchRecTypeBibLevel.indexOf(comboKey) > -1) {
           out['type'] = fixmap.term;
           var result = out[dfn.name] = {};
-          fixmap.rows.forEach(function (row) {
-            module.processFixedRow(sourceRow, row, result);
+          fixmap.columns.forEach(function (col) {
+            module.processFixedCol(sourceRow, col, result/*, fixprops*/);
           });
         }
       });
     }
   };
 
-  module.processFixedRow = function (leader, row, result) {
-    var off = row.offset;
-    var key = leader.substring(off, off + row.length) || row['default'];
-    var prop;
-    if (row.propRef) {
-      var ref = row.propRef.replace(/^\d+(\/\d+)?/, "");
-      var prop = untitle(ref);
-    } else if (row.placeholder[0] != '<') {
-      prop = untitle(row.placeholder);
+  module.processFixedCol = function (repr, col, result/*, fixprops*/) {
+    var off = col.offset;
+    var key = repr.substring(off, off + col.length) || col['default'];
+    var prop = col.propRef;
+    if (!prop && col.placeholder[0] != '<') {
+      prop = col.placeholder;
     }
     if (prop) {
-      result[prop] = key;
+      key = key == ' '? '_' : key;
+      //var value = col.propRef? fixprops[col.propRef][key] : null;
+      result[prop] = key;// {id: key, label_sv: value};
     }
   };
 
@@ -116,9 +115,5 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
 
   module.namedToRaw = function () {
   };
-
-  function untitle(term) {
-    return term.substring(0, 1).toLowerCase() + term.substring(1);;
-  }
 
 })(marcjson);

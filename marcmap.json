@@ -1,19 +1,21 @@
 {
   "000": {
     "repeatable": false,
-    "fixmap": {
-      "rows": [
-        {"offset": 5, "length": 1, "default": "n", "propRef": "000Status"},
-        {"offset": 6, "length": 1, "default": "a", "propRef": "000TypeOfRecord"},
-        {"offset": 7, "length": 1, "default": "m", "propRef": "000BibLevel"},
-        {"offset": 8, "length": 1, "default": "_", "propRef": "000TypeOfControl"},
-        {"offset": 9, "length": 1, "default": "a", "propRef": "000CharacterCoding"},
-        {"offset": 17, "length": 1, "default": "7", "propRef": "000EncLevel"},
-        {"offset": 18, "length": 1, "default": "a", "propRef": "000CatForm"},
-        {"offset": 19, "length": 1, "default": "_", "propRef": "000Linked"},
-        {"offset": 20, "length": 4, "default": "4500", "propRef": "000EntryMap"}
-      ]
-    }
+    "fixmaps": [
+      {
+        "columns": [
+          {"offset": 5, "length": 1, "default": "n", "propRef": "status"},
+          {"offset": 6, "length": 1, "default": "a", "propRef": "typeOfRecord"},
+          {"offset": 7, "length": 1, "default": "m", "propRef": "bibLevel"},
+          {"offset": 8, "length": 1, "default": "_", "propRef": "typeOfControl"},
+          {"offset": 9, "length": 1, "default": "a", "propRef": "characterCoding"},
+          {"offset": 17, "length": 1, "default": "7", "propRef": "encLevel"},
+          {"offset": 18, "length": 1, "default": "a", "propRef": "catForm"},
+          {"offset": 19, "length": 1, "default": "_", "propRef": "linked"},
+          {"offset": 20, "length": 4, "default": "4500", "propRef": "entryMap"}
+        ]
+      }
+    ]
   },
   "001": {
     "name": "controlNumber",
@@ -45,165 +47,165 @@
       {
         "term": "Book",
         "matchRecTypeBibLevel": ["aa", "ac", "ad", "am", "tm", "hm", "hc", "td", "ha", "tc", "hd", "ta"],
-        "rows": [
+        "columns": [
           {"offset": 0, "length": 6, "default": "aaaaaa", "placeholder": "<<<TEXT>>>"},
-          {"offset": 6, "length": 1, "default": "s", "propRef": "008PublicationStatus"},
+          {"offset": 6, "length": 1, "default": "s", "propRef": "publicationStatus"},
           {"offset": 7, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
           {"offset": 11, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
-          {"offset": 15, "length": 3, "default": "sw_", "placeholder": "Country"},
-          {"offset": 18, "length": 1, "default": "|", "propRef": "006/008BooksIllustrations"},
-          {"offset": 19, "length": 1, "default": "|", "propRef": "006/008BooksIllustrations"},
-          {"offset": 20, "length": 1, "default": "|", "propRef": "006/008BooksIllustrations"},
-          {"offset": 21, "length": 1, "default": "|", "propRef": "006/008BooksIllustrations"},
-          {"offset": 22, "length": 1, "default": "_", "propRef": "006/008BooksAudience"},
-          {"offset": 23, "length": 1, "default": "_", "propRef": "006/008BooksItem"},
-          {"offset": 24, "length": 1, "default": "_", "propRef": "006/008BooksContents"},
-          {"offset": 25, "length": 1, "default": "_", "propRef": "006/008BooksContents"},
-          {"offset": 26, "length": 1, "default": "_", "propRef": "006/008BooksContents"},
-          {"offset": 27, "length": 1, "default": "_", "propRef": "006/008BooksContents"},
-          {"offset": 28, "length": 1, "default": "|", "propRef": "006/008BooksGovtPub"},
-          {"offset": 29, "length": 1, "default": "0", "propRef": "006/008BooksConfPub"},
-          {"offset": 30, "length": 1, "default": "0", "propRef": "006/008BooksFestschrift"},
-          {"offset": 31, "length": 1, "default": "|", "propRef": "006/008BooksIndex"},
-          {"offset": 33, "length": 1, "default": "|", "propRef": "006/008BooksLiteraryForm"},
-          {"offset": 34, "length": 1, "default": "|", "propRef": "006/008BooksBiography"},
-          {"offset": 35, "length": 3, "default": "swe", "placeholder": "Language"},
-          {"offset": 38, "length": 1, "default": "_", "propRef": "008ModifiedRecord"},
-          {"offset": 39, "length": 1, "default": "c", "propRef": "008CatalogingSource"}
+          {"offset": 15, "length": 3, "default": "sw_", "placeholder": "country"},
+          {"offset": 18, "length": 1, "default": "|", "propRef": "booksIllustrations"},
+          {"offset": 19, "length": 1, "default": "|", "propRef": "booksIllustrations"},
+          {"offset": 20, "length": 1, "default": "|", "propRef": "booksIllustrations"},
+          {"offset": 21, "length": 1, "default": "|", "propRef": "booksIllustrations"},
+          {"offset": 22, "length": 1, "default": "_", "propRef": "booksAudience"},
+          {"offset": 23, "length": 1, "default": "_", "propRef": "booksItem"},
+          {"offset": 24, "length": 1, "default": "_", "propRef": "booksContents"},
+          {"offset": 25, "length": 1, "default": "_", "propRef": "booksContents"},
+          {"offset": 26, "length": 1, "default": "_", "propRef": "booksContents"},
+          {"offset": 27, "length": 1, "default": "_", "propRef": "booksContents"},
+          {"offset": 28, "length": 1, "default": "|", "propRef": "booksGovtPub"},
+          {"offset": 29, "length": 1, "default": "0", "propRef": "booksConfPub"},
+          {"offset": 30, "length": 1, "default": "0", "propRef": "booksFestschrift"},
+          {"offset": 31, "length": 1, "default": "|", "propRef": "booksIndex"},
+          {"offset": 33, "length": 1, "default": "|", "propRef": "booksLiteraryForm"},
+          {"offset": 34, "length": 1, "default": "|", "propRef": "booksBiography"},
+          {"offset": 35, "length": 3, "default": "swe", "placeholder": "language"},
+          {"offset": 38, "length": 1, "default": "_", "propRef": "modifiedRecord"},
+          {"offset": 39, "length": 1, "default": "c", "propRef": "catalogingSource"}
         ]
       },
       {
         "term": "Computer",
         "matchRecTypeBibLevel": ["md", "ma", "mc", "mb", "mm", "mi", "mp", "ms", "m9"],
-        "rows": [
+        "columns": [
           {"offset": 0, "length": 6, "default": "aaaaaa", "placeholder": "<<<TEXT>>>"},
-          {"offset": 6, "length": 1, "default": "s", "propRef": "008PublicationStatus"},
+          {"offset": 6, "length": 1, "default": "s", "propRef": "publicationStatus"},
           {"offset": 7, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
           {"offset": 11, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
-          {"offset": 15, "length": 3, "default": "sw_", "placeholder": "Country"},
-          {"offset": 22, "length": 1, "default": "_", "propRef": "006/008ComputerAudience"},
-          {"offset": 23, "length": 1, "default": "_", "propRef": "006/008ComputerItem"},
-          {"offset": 26, "length": 1, "default": "d", "propRef": "006/008ComputerTypeOfFile"},
-          {"offset": 28, "length": 1, "default": "|", "propRef": "006/008ComputerGovtPub"},
-          {"offset": 35, "length": 3, "default": "swe", "placeholder": "Language"},
-          {"offset": 38, "length": 1, "default": "_", "propRef": "008ModifiedRecord"},
-          {"offset": 39, "length": 1, "default": "c", "propRef": "008CatalogingSource"}
+          {"offset": 15, "length": 3, "default": "sw_", "placeholder": "country"},
+          {"offset": 22, "length": 1, "default": "_", "propRef": "computerAudience"},
+          {"offset": 23, "length": 1, "default": "_", "propRef": "computerItem"},
+          {"offset": 26, "length": 1, "default": "d", "propRef": "computerTypeOfFile"},
+          {"offset": 28, "length": 1, "default": "|", "propRef": "computerGovtPub"},
+          {"offset": 35, "length": 3, "default": "swe", "placeholder": "language"},
+          {"offset": 38, "length": 1, "default": "_", "propRef": "modifiedRecord"},
+          {"offset": 39, "length": 1, "default": "c", "propRef": "catalogingSource"}
         ]
       },
       {
         "term": "Map",
         "matchRecTypeBibLevel": ["em", "fp", "fs", "ei", "ed", "ea", "f9", "ec", "eb", "fa", "fb", "fc", "e9", "fi", "fd", "fm", "ep", "es"],
-        "rows": [
+        "columns": [
           {"offset": 0, "length": 6, "default": "aaaaaa", "placeholder": "<<<TEXT>>>"},
-          {"offset": 6, "length": 1, "default": "s", "propRef": "008PublicationStatus"},
+          {"offset": 6, "length": 1, "default": "s", "propRef": "publicationStatus"},
           {"offset": 7, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
           {"offset": 11, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
-          {"offset": 15, "length": 3, "default": "sw_", "placeholder": "Country"},
-          {"offset": 18, "length": 1, "default": "|", "propRef": "006/008MapsRelief"},
-          {"offset": 19, "length": 1, "default": "|", "propRef": "006/008MapsRelief"},
-          {"offset": 20, "length": 1, "default": "|", "propRef": "006/008MapsRelief"},
-          {"offset": 21, "length": 1, "default": "|", "propRef": "006/008MapsRelief"},
-          {"offset": 22, "length": 2, "default": "__", "propRef": "006/008MapsProjection"},
-          {"offset": 25, "length": 1, "default": "a", "propRef": "006/008MapsMaterial"},
-          {"offset": 28, "length": 1, "default": "|", "propRef": "006/008MapsGovtPub"},
-          {"offset": 29, "length": 1, "default": "_", "propRef": "006/008MapsItem"},
-          {"offset": 31, "length": 1, "default": "|", "propRef": "006/008MapsIndex"},
-          {"offset": 33, "length": 1, "default": "_", "propRef": "006/008MapsFormat"},
-          {"offset": 34, "length": 1, "default": "_", "propRef": "006/008MapsFormat"},
-          {"offset": 35, "length": 3, "default": "swe", "placeholder": "Language"},
-          {"offset": 38, "length": 1, "default": "_", "propRef": "008ModifiedRecord"},
-          {"offset": 39, "length": 1, "default": "c", "propRef": "008CatalogingSource"}
+          {"offset": 15, "length": 3, "default": "sw_", "placeholder": "country"},
+          {"offset": 18, "length": 1, "default": "|", "propRef": "mapsRelief"},
+          {"offset": 19, "length": 1, "default": "|", "propRef": "mapsRelief"},
+          {"offset": 20, "length": 1, "default": "|", "propRef": "mapsRelief"},
+          {"offset": 21, "length": 1, "default": "|", "propRef": "mapsRelief"},
+          {"offset": 22, "length": 2, "default": "__", "propRef": "mapsProjection"},
+          {"offset": 25, "length": 1, "default": "a", "propRef": "mapsMaterial"},
+          {"offset": 28, "length": 1, "default": "|", "propRef": "mapsGovtPub"},
+          {"offset": 29, "length": 1, "default": "_", "propRef": "mapsItem"},
+          {"offset": 31, "length": 1, "default": "|", "propRef": "mapsIndex"},
+          {"offset": 33, "length": 1, "default": "_", "propRef": "mapsFormat"},
+          {"offset": 34, "length": 1, "default": "_", "propRef": "mapsFormat"},
+          {"offset": 35, "length": 3, "default": "swe", "placeholder": "language"},
+          {"offset": 38, "length": 1, "default": "_", "propRef": "modifiedRecord"},
+          {"offset": 39, "length": 1, "default": "c", "propRef": "catalogingSource"}
         ]
       },
       {
         "term": "Mixed",
         "matchRecTypeBibLevel": ["bd", "ps", "pp", "ba", "bb", "bc", "bm", "bi", "pb", "pc", "pa", "bp", "pd", "bs", "pi", "b9", "pm"],
-        "rows": [
+        "columns": [
           {"offset": 0, "length": 6, "default": "aaaaaa", "placeholder": "<<<TEXT>>>"},
-          {"offset": 6, "length": 1, "default": "s", "propRef": "008PublicationStatus"},
+          {"offset": 6, "length": 1, "default": "s", "propRef": "publicationStatus"},
           {"offset": 7, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
           {"offset": 11, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
-          {"offset": 15, "length": 3, "default": "sw_", "placeholder": "Country"},
-          {"offset": 23, "length": 1, "default": "_", "propRef": "006/008MixedItem"},
-          {"offset": 35, "length": 3, "default": "swe", "placeholder": "Language"},
-          {"offset": 38, "length": 1, "default": "_", "propRef": "008ModifiedRecord"},
-          {"offset": 39, "length": 1, "default": "c", "propRef": "008CatalogingSource"}
+          {"offset": 15, "length": 3, "default": "sw_", "placeholder": "country"},
+          {"offset": 23, "length": 1, "default": "_", "propRef": "mixedItem"},
+          {"offset": 35, "length": 3, "default": "swe", "placeholder": "language"},
+          {"offset": 38, "length": 1, "default": "_", "propRef": "modifiedRecord"},
+          {"offset": 39, "length": 1, "default": "c", "propRef": "catalogingSource"}
         ]
       },
       {
         "term": "Music",
         "matchRecTypeBibLevel": ["ci", "j9", "cm", "cc", "cb", "ca", "cd", "ii", "cs", "im", "d9", "ia", "ic", "ib", "id", "cp", "ja", "jb", "ip", "is", "i9", "dm", "di", "jp", "dd", "db", "dc", "da", "jm", "c9", "ji", "jd", "js", "ds", "dp", "jc"],
-        "rows": [
+        "columns": [
           {"offset": 0, "length": 6, "default": "aaaaaa", "placeholder": "<<<TEXT>>>"},
-          {"offset": 6, "length": 1, "default": "s", "propRef": "008PublicationStatus"},
+          {"offset": 6, "length": 1, "default": "s", "propRef": "publicationStatus"},
           {"offset": 7, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
           {"offset": 11, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
-          {"offset": 15, "length": 3, "default": "sw_", "placeholder": "Country"},
-          {"offset": 18, "length": 2, "default": "||", "propRef": "006/008MusicComposition"},
-          {"offset": 20, "length": 1, "default": "|", "propRef": "006/008MusicFormat"},
-          {"offset": 21, "length": 1, "default": "|", "propRef": "006/008MusicParts"},
-          {"offset": 22, "length": 1, "default": "_", "propRef": "006/008MusicAudience"},
-          {"offset": 23, "length": 1, "default": "_", "propRef": "006/008MusicItem"},
-          {"offset": 24, "length": 1, "default": "|", "propRef": "006/008MusicMatter"},
-          {"offset": 25, "length": 1, "default": "|", "propRef": "006/008MusicMatter"},
-          {"offset": 26, "length": 1, "default": "|", "propRef": "006/008MusicMatter"},
-          {"offset": 27, "length": 1, "default": "|", "propRef": "006/008MusicMatter"},
-          {"offset": 28, "length": 1, "default": "|", "propRef": "006/008MusicMatter"},
-          {"offset": 29, "length": 1, "default": "|", "propRef": "006/008MusicMatter"},
-          {"offset": 30, "length": 1, "default": "|", "propRef": "006/008MusicText"},
-          {"offset": 31, "length": 1, "default": "|", "propRef": "006/008MusicText"},
-          {"offset": 33, "length": 1, "default": "|", "propRef": "006/008MusicTransposition"},
-          {"offset": 35, "length": 3, "default": "___", "placeholder": "Language"},
-          {"offset": 38, "length": 1, "default": "_", "propRef": "008ModifiedRecord"},
-          {"offset": 39, "length": 1, "default": "c", "propRef": "008CatalogingSource"}
+          {"offset": 15, "length": 3, "default": "sw_", "placeholder": "country"},
+          {"offset": 18, "length": 2, "default": "||", "propRef": "musicComposition"},
+          {"offset": 20, "length": 1, "default": "|", "propRef": "musicFormat"},
+          {"offset": 21, "length": 1, "default": "|", "propRef": "musicParts"},
+          {"offset": 22, "length": 1, "default": "_", "propRef": "musicAudience"},
+          {"offset": 23, "length": 1, "default": "_", "propRef": "musicItem"},
+          {"offset": 24, "length": 1, "default": "|", "propRef": "musicMatter"},
+          {"offset": 25, "length": 1, "default": "|", "propRef": "musicMatter"},
+          {"offset": 26, "length": 1, "default": "|", "propRef": "musicMatter"},
+          {"offset": 27, "length": 1, "default": "|", "propRef": "musicMatter"},
+          {"offset": 28, "length": 1, "default": "|", "propRef": "musicMatter"},
+          {"offset": 29, "length": 1, "default": "|", "propRef": "musicMatter"},
+          {"offset": 30, "length": 1, "default": "|", "propRef": "musicText"},
+          {"offset": 31, "length": 1, "default": "|", "propRef": "musicText"},
+          {"offset": 33, "length": 1, "default": "|", "propRef": "musicTransposition"},
+          {"offset": 35, "length": 3, "default": "___", "placeholder": "language"},
+          {"offset": 38, "length": 1, "default": "_", "propRef": "modifiedRecord"},
+          {"offset": 39, "length": 1, "default": "c", "propRef": "catalogingSource"}
         ]
       },
       {
         "term": "Serial",
         "matchRecTypeBibLevel": ["ab", "t9", "ai", "hs", "hp", "ts", "h9", "hb", "ap", "as", "hi", "tp", "ti", "a9", "tb"],
-        "rows": [
+        "columns": [
           {"offset": 0, "length": 6, "default": "aaaaaa", "placeholder": "<<<TEXT>>>"},
-          {"offset": 6, "length": 1, "default": "s", "propRef": "008PublicationStatus"},
+          {"offset": 6, "length": 1, "default": "s", "propRef": "publicationStatus"},
           {"offset": 7, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
           {"offset": 11, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
-          {"offset": 15, "length": 3, "default": "sw_", "placeholder": "Country"},
-          {"offset": 18, "length": 1, "default": "|", "propRef": "006/008SerialsFrequency"},
-          {"offset": 19, "length": 1, "default": "|", "propRef": "006/008SerialsRegularity"},
-          {"offset": 20, "length": 1, "default": "|", "propRef": "006/008SerialsISSN"},
-          {"offset": 21, "length": 1, "default": "p", "propRef": "006/008SerialsTypeOfSerial"},
-          {"offset": 22, "length": 1, "default": "|", "propRef": "006/008SerialsOriginalItem"},
-          {"offset": 23, "length": 1, "default": "_", "propRef": "006/008SerialsItem"},
-          {"offset": 24, "length": 1, "default": "_", "propRef": "006/008SerialsNature"},
-          {"offset": 25, "length": 1, "default": "_", "propRef": "006/008SerialsContents"},
-          {"offset": 26, "length": 1, "default": "_", "propRef": "006/008SerialsContents"},
-          {"offset": 27, "length": 1, "default": "_", "propRef": "006/008SerialsContents"},
-          {"offset": 28, "length": 1, "default": "|", "propRef": "006/008SerialsGovtPub"},
-          {"offset": 29, "length": 1, "default": "0", "propRef": "006/008SerialsConfPub"},
-          {"offset": 33, "length": 1, "default": "|", "propRef": "006/008SerialsAlphabet"},
-          {"offset": 34, "length": 1, "default": "0", "propRef": "006/008SerialsTypeOfEntry"},
-          {"offset": 35, "length": 3, "default": "swe", "placeholder": "Language"},
-          {"offset": 38, "length": 1, "default": "_", "propRef": "008ModifiedRecord"},
-          {"offset": 39, "length": 1, "default": "c", "propRef": "008CatalogingSource"}
+          {"offset": 15, "length": 3, "default": "sw_", "placeholder": "country"},
+          {"offset": 18, "length": 1, "default": "|", "propRef": "serialsFrequency"},
+          {"offset": 19, "length": 1, "default": "|", "propRef": "serialsRegularity"},
+          {"offset": 20, "length": 1, "default": "|", "propRef": "serialsISSN"},
+          {"offset": 21, "length": 1, "default": "p", "propRef": "serialsTypeOfSerial"},
+          {"offset": 22, "length": 1, "default": "|", "propRef": "serialsOriginalItem"},
+          {"offset": 23, "length": 1, "default": "_", "propRef": "serialsItem"},
+          {"offset": 24, "length": 1, "default": "_", "propRef": "serialsNature"},
+          {"offset": 25, "length": 1, "default": "_", "propRef": "serialsContents"},
+          {"offset": 26, "length": 1, "default": "_", "propRef": "serialsContents"},
+          {"offset": 27, "length": 1, "default": "_", "propRef": "serialsContents"},
+          {"offset": 28, "length": 1, "default": "|", "propRef": "serialsGovtPub"},
+          {"offset": 29, "length": 1, "default": "0", "propRef": "serialsConfPub"},
+          {"offset": 33, "length": 1, "default": "|", "propRef": "serialsAlphabet"},
+          {"offset": 34, "length": 1, "default": "0", "propRef": "serialsTypeOfEntry"},
+          {"offset": 35, "length": 3, "default": "swe", "placeholder": "language"},
+          {"offset": 38, "length": 1, "default": "_", "propRef": "modifiedRecord"},
+          {"offset": 39, "length": 1, "default": "c", "propRef": "catalogingSource"}
         ]
       },
       {
         "term": "Visual",
         "matchRecTypeBibLevel": ["p9", "gs", "gp", "r9", "gd", "gc", "gb", "ga", "gm", "gi", "ni", "rp", "nm", "rs", "na", "nb", "nc", "nd", "oa", "rd", "ra", "o9", "rc", "np", "rm", "k9", "ns", "ri", "rb", "om", "g9", "kc", "kb", "ka", "oi", "kd", "ki", "od", "oc", "ob", "km", "ks", "n9", "kp", "os", "op"],
-        "rows": [
+        "columns": [
           {"offset": 0, "length": 6, "default": "aaaaaa", "placeholder": "<<<TEXT>>>"},
-          {"offset": 6, "length": 1, "default": "s", "propRef": "008PublicationStatus"},
+          {"offset": 6, "length": 1, "default": "s", "propRef": "publicationStatus"},
           {"offset": 7, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
           {"offset": 11, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
-          {"offset": 15, "length": 3, "default": "sw_", "placeholder": "Country"},
-          {"offset": 18, "length": 3, "default": "|||", "propRef": "006/008VisualRunningTime"},
-          {"offset": 22, "length": 1, "default": "_", "propRef": "006/008VisualAudience"},
-          {"offset": 28, "length": 1, "default": "|", "propRef": "006/008VisualGovtPub"},
-          {"offset": 29, "length": 1, "default": "_", "propRef": "006/008VisualItem"},
-          {"offset": 33, "length": 1, "default": "|", "propRef": "006/008VisualMaterial"},
-          {"offset": 34, "length": 1, "default": "|", "propRef": "006/008VisualTechnique"},
-          {"offset": 35, "length": 3, "default": "___", "placeholder": "Language"},
-          {"offset": 38, "length": 1, "default": "_", "propRef": "008ModifiedRecord"},
-          {"offset": 39, "length": 1, "default": "c", "propRef": "008CatalogingSource"}
+          {"offset": 15, "length": 3, "default": "sw_", "placeholder": "country"},
+          {"offset": 18, "length": 3, "default": "|||", "propRef": "visualRunningTime"},
+          {"offset": 22, "length": 1, "default": "_", "propRef": "visualAudience"},
+          {"offset": 28, "length": 1, "default": "|", "propRef": "visualGovtPub"},
+          {"offset": 29, "length": 1, "default": "_", "propRef": "visualItem"},
+          {"offset": 33, "length": 1, "default": "|", "propRef": "visualMaterial"},
+          {"offset": 34, "length": 1, "default": "|", "propRef": "visualTechnique"},
+          {"offset": 35, "length": 3, "default": "___", "placeholder": "language"},
+          {"offset": 38, "length": 1, "default": "_", "propRef": "modifiedRecord"},
+          {"offset": 39, "length": 1, "default": "c", "propRef": "catalogingSource"}
         ]
       }
     ]
