@@ -90,7 +90,7 @@ def save_draft(id):
 @app.route('/record/bib/<id>', methods=['PUT'])
 def update_document(id):
     """Saves updated records to whelk (Backbone would send a POST if the record isNew)"""
-# TODO: send data with correct encoding
+    # IMP: Using request.data is enough; do we really need this json validation?
     json_string = json.dumps(request.json)
     headers = {'content-type': 'application/json'}
     response = requests.put("%sbib/%s" % (app.config['WHELK_HOST'], id), data=json_string, headers=headers)
