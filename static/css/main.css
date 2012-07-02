@@ -172,3 +172,9 @@ form#fields .add-on {
 
 input.subfield-master { width: 600px; border-radius: 0; box-shadow: 0 0 0 0;}
 .sub-active { border-color: white; font-size: 14px;}
+
+/*future mode textarea*/
+
+.title-text {
+  font-size: 16px;
+}
