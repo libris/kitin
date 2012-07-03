@@ -127,8 +127,8 @@ for block_key, fix_tags, fix_cfg in [
                 col['offset'] = int(offset)
                 col['length'] = int(length)
                 col['default'] = default
+                prop_id = fixkey_to_prop_id(enumkey)
                 if fix_cfg.has_section(enumkey):
-                    prop_id = fixkey_to_prop_id(enumkey)
                     # ensure converted name is still unique
                     if prop_id in _fixprop_unique:
                         assert _fixprop_unique[prop_id] == enumkey
