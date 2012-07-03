@@ -121,6 +121,16 @@ def browse_document(id):
         return render_template('bib.html', data=json_post)
 
 
+@app.route('/record/bib/<id>/lite')
+def render_lite(id):
+    return render_template('lite.html')
+
+@app.route('/marcmap.json')
+def get_marcmap():
+    with open('/opt/work/kb/kitin/marcmap.json') as f:
+        return raw_json_response(f.read())
+
+
 @app.route('/suggest/auth')
 def suggest_auth_completions():
     q = request.args.get('q')

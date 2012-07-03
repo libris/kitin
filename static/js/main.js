@@ -123,7 +123,8 @@ var Router = Backbone.Router.extend({
     self = this;
   },
   routes: {
-    "record/bib/:bibid": "record"
+    "record/bib/:bibid": "record",
+    "record/bib/:bibid/lite": "lite"
   },
   record: function(bibid) {
     var record = new Record({id: bibid});
@@ -135,6 +136,14 @@ var Router = Backbone.Router.extend({
     // TODO: set interval, and if changed, save to model or perhaps to
     // front-backend
   },
+  lite: function(bibid) {
+    var tplt = _.template($('#marclite-template').html());
+    $.getJSON("/marcmap.json", function (map) {
+      $.getJSON("/record/bib/"+ bibid, function (struct) {
+        $('#litebox').html(tplt({map: map.bib, struct: struct}));
+      });
+    });
+  }
 });
 
 
