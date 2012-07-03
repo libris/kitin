@@ -6,14 +6,14 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
 
   module.rawToNamed = function (map, struct) {
     var out = {};
-    out.leader = module.processLeader(map, struct, out);
+    out.leader = module.parseLeader(map, struct);
     (struct.fields).forEach(function(field) {
       for (fieldTag in field) {
         var sourceRow = field[fieldTag];
         var dfn = map[fieldTag];
-        var handler = module.fixedFieldHandlers[fieldTag];
+        var handler = module.fixedFieldParsers[fieldTag];
         if (handler) {
-          handler(fieldTag, sourceRow, dfn, out/*, map.fixprops*/);
+          out[dfn.name] = handler(sourceRow, dfn, out.leader/*, map.fixprops*/);
         } else {
           var key = fieldTag;
           var outObj = sourceRow;
@@ -36,49 +36,50 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
     return out;
   };
 
-  module.processLeader = function (map, struct, out) {
+  module.parseLeader = function (map, struct) {
     var leader = struct.leader;
     var result = {};
-    map['000'].fixmaps[0].columns.forEach(function (col) {
-      module.processFixedCol(leader, col, result/*, map.fixprops*/);
+    map['000'].fixmaps[0].columns.forEach(function (colDfn) {
+      module.processFixedCol(leader, colDfn, result/*, map.fixprops*/);
     });
     return result;
   };
 
-  module.fixedFieldHandlers = {
-    '008': function (tag, sourceRow, dfn, out/*, fixprops*/) {
-      var comboKey = out.leader.typeOfRecord/*.id*/ + out.leader.bibLevel/*.id*/;
+  module.fixedFieldParsers = {
+    '008': function (row, dfn, leader/*, fixprops*/) {
+      var result = {};
+      var recTypeBibLevelKey = leader.typeOfRecord.code + leader.bibLevel.code;
       // TODO: prepare table to lookup fixmap by matchRecTypeBibLevel
       dfn.fixmaps.forEach(function (fixmap) {
-        if (fixmap.matchRecTypeBibLevel.indexOf(comboKey) > -1) {
-          out['type'] = fixmap.term;
-          var result = out[dfn.name] = {};
-          fixmap.columns.forEach(function (col) {
-            module.processFixedCol(sourceRow, col, result/*, fixprops*/);
+        if (fixmap.matchRecTypeBibLevel.indexOf(recTypeBibLevelKey) > -1) {
+          //var type = fixmap.term; // TODO: use computed resource type key
+          fixmap.columns.forEach(function (colDfn) {
+            module.processFixedCol(row, colDfn, result/*, fixprops*/);
           });
         }
       });
+      return result;
     }
   };
 
-  module.processFixedCol = function (repr, col, result/*, fixprops*/) {
-    var off = col.offset;
-    var key = repr.substring(off, off + col.length) || col['default'];
-    var prop = col.propRef;
-    if (!prop && col.placeholder[0] != '<') {
-      prop = col.placeholder;
+  module.processFixedCol = function (repr, colDfn, result/*, fixprops*/) {
+    var off = colDfn.offset;
+    var key = repr.substring(off, off + colDfn.length) || colDfn['default'];
+    var prop = colDfn.propRef;
+    if (!prop && colDfn.placeholder[0] != '<') {
+      prop = colDfn.placeholder;
     }
     if (prop) {
       key = key == ' '? '_' : key;
-      //var value = col.propRef? fixprops[col.propRef][key] : null;
-      result[prop] = key;// {id: key, label_sv: value};
+      //var valueId = fixprops[colDfn.propRef][key].id;
+      result[prop] = {code: key, getDfn: function () { return colDfn; }};
     }
   };
 
   module.rawRowToNamedRow = function(fieldDfn, row) {
     if (typeof row === 'string')
       return row;
-    if (fieldDfn.type === 'fixedLength')
+    if (fieldDfn.type === 'fixedLength' || fieldDfn.subfield === undefined)
       return row;
     var outField = {};
     var ind1 = row.ind1,
@@ -97,7 +98,7 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
         var subDfn = fieldDfn.subfield[subCode];
         var outObj = subfield[subCode];
         if (subDfn) {
-          key = subDfn.name;
+          key = dfnKey(subCode, subDfn);
         }
         if (subDfn === undefined || subDfn.repeatable !== false) {
           var outList = outField[key];
@@ -115,5 +116,9 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
 
   module.namedToRaw = function () {
   };
+
+  function dfnKey(key, dfn) {
+    return dfn.name || "[" + key + "] " + dfn.label_sv;
+  }
 
 })(marcjson);
