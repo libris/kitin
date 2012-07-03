@@ -1,14 +1,18 @@
 import re
 from sys import argv, stdout
-from os.path import join as pjoin
+from os.path import basename, join as pjoin
 from ConfigParser import RawConfigParser
 from collections import OrderedDict as odict
 import json
 
 
+if len(argv) < 3:
+    print "Usage: {0} CONFIG_DIR LANG".format(basename(argv[0]))
+    exit()
+
 confdir = argv[1]
 enc = "latin-1"
-lang = "sv"
+lang = argv[2]
 
 
 def read_config(paths):
@@ -34,6 +38,15 @@ b_cfg = read_config(pjoin(confdir, f) for f in BIB_CONFS)
 #"lang.cfg"
 
 
+def label_to_id(label):
+    key = label.title()
+    key = re.sub(r"\W", "", key)
+    return key[0].lower() + key[1:]
+
+def fixkey_to_prop_id(key):
+    ref = re.sub(r"^\d+(/\d+)?", "", key)
+    return ref[0].lower() + ref[1:]
+
 out = odict()
 
 
@@ -48,8 +61,12 @@ for cat_id, name, cfg in categories:
     for key, value in master_cfg.items(section):
         # Works only because these come after the field numbers..
         if key.startswith("Field"):
-            block[key[5:]]['label_'+lang] = value.decode(enc)
-        elif key.isdigit():
+            tagref = key[5:]
+            field, label = block[tagref], value.decode(enc)
+            if lang == 'en':
+                field['id'] = label_to_id(label)
+            field['label_'+lang] = label
+        elif key.strip().isdigit():
             tag, repeatable = value.rstrip().split()
             subfields = odict()
             inds = [None, None]
@@ -59,12 +76,16 @@ for cat_id, name, cfg in categories:
                     if subkey.startswith("Subf"):
                         code = subkey[4:]
                         if code in subfields:
-                            subfields[code]['label_'+lang] = subval.decode(enc)
+                            subfield, label = subfields[code], subval.decode(enc)
+                            if lang == 'en':
+                                subfield['id'] = label_to_id(label)
+                            subfield['label_'+lang] = label
                     elif subkey.isdigit():
-                        code, subrepeat_repr = subval.rstrip().split()
+                        code, subrepeat_repr = subval.rstrip().split(None, 1)
                         sub_repeatable = subrepeat_repr[0] == '1'
-                        subfields[code] = dict(
-                                repeatable=sub_repeatable)
+                        subfields[code] = subfield = odict(id=None)
+                        subfield['label_'+lang] = None
+                        subfield['repeatable'] = sub_repeatable
                 for i in (1, 2):
                     indKey = '{0}Ind{1}'.format(tag, i)
                     if cfg.has_section(indKey):
@@ -72,8 +93,8 @@ for cat_id, name, cfg in categories:
                         for indcode, indval in cfg.items(indKey):
                             if indcode.startswith('Value'):
                                 ind[indcode[5:]] = indval.decode(enc)
-
-            dfn = odict()
+            dfn = odict(id=None)
+            dfn['label_'+lang] = None
             dfn['repeatable'] = bool(int(repeatable))
             for i, ind in enumerate(inds):
                 if ind:
@@ -91,10 +112,6 @@ for combo, term in master_cfg.items("RecFormat"):
 #assert set(rec_term_map) == set(['Authority', 'Holding']
 #        + ['Book', 'Computer', 'Map', 'Mixed', 'Music', 'Serial', 'Visual'])
 
-
-def fixkey_to_prop_id(key):
-    ref = re.sub(r"^\d+(/\d+)?", "", key)
-    return ref[0].lower() + ref[1:]
 
 for block_key, fix_tags, fix_cfg in [
         ('bib', ['000', '006', '007', '008'], bfix_cfg),
