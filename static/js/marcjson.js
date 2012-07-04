@@ -13,12 +13,12 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
         var dfn = map[fieldTag];
         var handler = module.fixedFieldParsers[fieldTag];
         if (handler) {
-          out[dfn.name] = handler(sourceRow, dfn, out.leader/*, map.fixprops*/);
+          out[dfn.id] = handler(sourceRow, dfn, out.leader/*, map.fixprops*/);
         } else {
           var key = fieldTag;
           var outObj = sourceRow;
           if (dfn) {
-            key = dfn.name;
+            key = dfn.id;
             outObj = module.rawRowToNamedRow(dfn, sourceRow);
           }
           if (dfn === undefined || dfn.repeatable !== false) {
@@ -86,11 +86,11 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
         ind2 = row.ind2;
     if (ind1 && ind1 !== " ") {
       var ind1Val = ind1.toString();
-      outField[fieldDfn.ind1.name || 'ind1'] = fieldDfn.ind1[ind1Val] || ind1Val;
+      outField[fieldDfn.ind1.id || 'ind1'] = fieldDfn.ind1[ind1Val] || ind1Val;
     }
     if (ind2 && ind2 !== " ") {
       var ind2Val = ind2.toString();
-      outField[fieldDfn.ind2.name || 'ind2'] = fieldDfn.ind2[ind1Val] || ind1Val;
+      outField[fieldDfn.ind2.id || 'ind2'] = fieldDfn.ind2[ind1Val] || ind1Val;
     }
     row.subfields.forEach(function (subfield) {
       for (subCode in subfield) {
@@ -118,7 +118,7 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
   };
 
   function dfnKey(key, dfn) {
-    return dfn.name || "[" + key + "] " + dfn.label_sv;
+    return dfn.id || "[" + key + "] " + dfn.label_sv;
   }
 
 })(marcjson);
