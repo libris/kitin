@@ -70,7 +70,7 @@
               <% }); %>
             </select>
           <% } else { %>
-            <input name="<%= col.code %>" value="<%= col.code %>" />
+            <input name="<%= propRef %>" value="<%= col.code %>" />
           <% } %>
         </div>
       </div>
@@ -81,17 +81,22 @@
     <div>
       <% ;['ind1', 'ind2'].forEach(function (indKey) {
         var indEnum = dfn[indKey], indVal = row[indKey];
+        var enumKeys = _.keys(indEnum);
       %>
-        <label><%= indKey %></label>
-        <% if (indEnum) { %>
-          <select name="<%= tag + '-' + indKey %>" class="">
-            <% _.each(indEnum, function (val, key) { %>
-            <option <%= key === indVal? 'selected' : '' %>
-                    value="<%= key %>"><%= val %></option>
-            <% }); %>
-          </select>
+        <% if (enumKeys.length === 1 && indEnum['_'] === 'odefinierad') { %>
+          <input type="hidden" name="<%= tag + '-' + indKey %>" value="_"/>
         <% } else { %>
-          <input name="<%= tag + '-' + indKey %>" value="<%= indVal %>"/>
+          <label><%= indKey %></label>
+          <% if (indEnum) { %>
+            <select name="<%= tag + '-' + indKey %>" class="">
+              <% _.each(indEnum, function (val, key) { %>
+              <option <%= key === indVal? 'selected' : '' %>
+                      value="<%= key %>"><%= val %></option>
+              <% }); %>
+            </select>
+          <% } else { %>
+            <input name="<%= tag + '-' + indKey %>" value="<%= indVal %>"/>
+          <% } %>
         <% } %>
       <% }); %>
     </div>
