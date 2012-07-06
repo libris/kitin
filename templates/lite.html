@@ -96,11 +96,14 @@
       <% }); %>
     </div>
     <% row.subfields.forEach(function (subfield) { %>
-      <span class='add-on subfield-code input-append'>
+      <span class="add-on subfield-code input-append">
         <% for (subCode in subfield) {
           var subDfn = dfn.subfield[subCode], value = subfield[subCode];
         %>
-          <span class='add-on subfield-code'><%= subCode %>) <%= subDfn? subDfn.label_sv : "" %></span>
+          <span class="add-on subfield-code">
+            <%= subCode %>)<% if (subDfn && subDfn.mandatory) { %>*<% } %>
+            <%= subDfn? subDfn.label_sv : "" %>
+          </span>
           <input class="subfield" name="<%= tag + '-' + subCode %>" value="<%= value %>"
           /><% if (!subDfn || subDfn.repeatable) {
           %><button class="btn" title="Add"><i class="icon-plus"></i></button>

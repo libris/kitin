@@ -61,9 +61,15 @@ def parse_configs(confdir, lang):
                         elif subkey.isdigit():
                             code, subrepeat_repr = subval.rstrip().split(None, 1)
                             sub_repeatable = subrepeat_repr[0] == '1'
+                            sub_mandatory = subrepeat_repr[-1] == 'M'
+                            sub_applicable = subrepeat_repr[-1] == 'A'
                             subfields[code] = subfield = odict(id=None)
                             subfield['label_'+lang] = None
                             subfield['repeatable'] = sub_repeatable
+                            if sub_mandatory:
+                                subfield['mandatory'] = sub_mandatory
+                            #if sub_applicable:
+                            #    subfield['applicable'] = sub_applicable
                     for i in (1, 2):
                         indKey = '{0}Ind{1}'.format(tag, i)
                         if cfg.has_section(indKey):
