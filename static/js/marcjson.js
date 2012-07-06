@@ -66,8 +66,12 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
     var off = colDfn.offset;
     var key = repr.substring(off, off + colDfn.length) || colDfn['default'];
     var prop = colDfn.propRef;
-    if (!prop && colDfn.placeholder[0] != '<') {
-      prop = colDfn.placeholder;
+    if (!prop) {
+      if (colDfn.placeholder[0] != '<') {
+        prop = colDfn.placeholder;
+      } else {
+        prop = "_col_" + off + "_" + colDfn.length;
+      }
     }
     if (prop) {
       key = key == ' '? '_' : key;
