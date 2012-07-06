@@ -13,6 +13,10 @@ body {
   font-size: 1.2em;
 }
 
+select {
+  -moz-appearance: menulist-textfield;
+}
+
 
 /* Webcat form */
 .record .leader,
