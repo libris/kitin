@@ -94,7 +94,7 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
     }
     if (ind2 && ind2 !== " ") {
       var ind2Val = ind2.toString();
-      outField[fieldDfn.ind2.id || 'ind2'] = fieldDfn.ind2[ind1Val] || ind1Val;
+      outField[fieldDfn.ind2.id || 'ind2'] = fieldDfn.ind2[ind2Val] || ind2Val;
     }
     row.subfields.forEach(function (subfield) {
       for (subCode in subfield) {

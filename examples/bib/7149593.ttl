@@ -78,12 +78,12 @@
       # .. subjects based on:
       #:subjectAddedEntryPersonalName [
       #    :typeOfPersonalNameEntryElement "surname";
-      #    :thesaurus "lcSubjectHeadingsForChildrensLiterature";
+      #    :thesaurus "System ej specificerat";
       #    :personalName "Jansson, Tove,";
       #    :datesAssociatedWithAName "1914-2001"
       #  ], [
       #    :typeOfPersonalNameEntryElement "surname";
-      #    :thesaurus "lcSubjectHeadingsForChildrensLiterature";
+      #    :thesaurus "System ej specificerat";
       #    :personalName "Pietilä, Tuulikki" ];
       #:otherClassificationNumber [
       #    :classificationNumber "Gcdz Jansson, Tove";
