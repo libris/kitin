@@ -167,13 +167,27 @@ def fixkey_to_prop_id(key):
     return ref[0].lower() + ref[1:]
 
 
+def columnsdict(l):
+    d = odict()
+    for o in l:
+        if 'offset' in o and 'length' in o:
+            d['{offset}:{length}'.format(**o)] = o
+        else:
+            break
+    return d
+
 def dmerge(a, b):
     for k, v in b.items():
         if isinstance(v, dict) and k in a:
             dmerge(a[k], v)
         elif isinstance(v, list) and k in a:
-            a[k] = [dmerge(alv, blv) if isinstance(alv, dict) else alv
-                    for alv, blv in zip(a[k], v)]
+            adict = columnsdict(a[k])
+            bdict = columnsdict(v)
+            if adict or bdict:
+                a[k] = dmerge(adict, bdict).values()
+            else:
+                a[k] = [dmerge(alv, blv) if isinstance(alv, dict) else alv
+                        for alv, blv in zip(a[k], v)]
         elif k not in a or not a[k]:
             a[k] = v
     return a
