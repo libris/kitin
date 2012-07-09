@@ -35,7 +35,8 @@ def parse_configs(confdir, lang):
     for cat_id, name, cfg in categories:
         block = out[cat_id] = odict()
         section = name + " Fields"
-        mandatory = master_cfg.items("Mandatory " + section) # TODO: parse + use
+        mandatory = set(v.split()[0]
+                for k, v in master_cfg.items("Mandatory " + section))
         for key, value in master_cfg.items(section):
             # Works only because these come after the field numbers..
             if key.startswith("Field"):
@@ -80,6 +81,8 @@ def parse_configs(confdir, lang):
                 dfn = odict(id=None)
                 dfn['label_'+lang] = None
                 dfn['repeatable'] = bool(int(repeatable))
+                if tag in mandatory or tag[0] + 'XX' in mandatory:
+                    dfn['mandatory'] = True
                 for i, ind in enumerate(inds):
                     if ind:
                         dfn['ind' + str(i+1)] = ind
