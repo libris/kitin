@@ -75,8 +75,9 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
     }
     if (prop) {
       key = key == ' '? '_' : key;
-      //var valueId = fixprops[colDfn.propRef][key].id;
       result[prop] = {code: key, getDfn: function () { return colDfn; }};
+      //var valueId = fixprops[prop][key].id;
+      //if (valueId) { result[prop].id = valueId; }
     }
   };
 
@@ -89,12 +90,14 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
     var ind1 = row.ind1,
         ind2 = row.ind2;
     if (ind1 && ind1 !== " ") {
-      var ind1Val = ind1.toString();
-      outField[fieldDfn.ind1.id || 'ind1'] = fieldDfn.ind1[ind1Val] || ind1Val;
+      var ind1Repr = ind1.toString();
+      var ind1Val = fieldDfn.ind1[ind1Repr];
+      outField[fieldDfn.ind1.id || 'ind1'] = ind1Val? ind1Val.id : ind1Repr;
     }
     if (ind2 && ind2 !== " ") {
-      var ind2Val = ind2.toString();
-      outField[fieldDfn.ind2.id || 'ind2'] = fieldDfn.ind2[ind2Val] || ind2Val;
+      var ind2Repr = ind2.toString();
+      var ind2Val = fieldDfn.ind2[ind2Repr];
+      outField[fieldDfn.ind2.id || 'ind2'] = ind2Val? ind2Val.id : ind2Repr;
     }
     row.subfields.forEach(function (subfield) {
       for (subCode in subfield) {

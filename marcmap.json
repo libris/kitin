@@ -280,9 +280,9 @@
     "repeatable": false,
     "ind1": {
       "id": "typeOfPersonalNameEntryElement",
-      "0": "forename",
-      "1": "surname",
-      "3": "familyName"
+      "0": {"id": "forename"},
+      "1": {"id": "surname"},
+      "3": {"id": "familyName"}
     },
     "ind2": {"_": null},
     "subfield": {
@@ -387,20 +387,20 @@
     "repeatable": true,
     "ind1": {
       "id": "typeOfPersonalNameEntryElement",
-      "0": "forename",
-      "1": "surname",
-      "3": "familyName"
+      "0": {"id": "forename"},
+      "1": {"id": "surname"},
+      "3": {"id": "familyName"}
     },
     "ind2": {
       "id": "thesaurus",
-      "0": "libraryOfCongressSubjectHeadings",
-      "1": "lcSubjectHeadingsForChildrensLiterature",
-      "2": "medicalSubjectHeadings",
-      "3": "nationalAgriculturalLibrarySubjectAuthorityFile",
-      "4": "sourceNotSpecified",
-      "5": "canadianSubjectHeadings",
-      "6": "répertoireDeVedettes-matière",
-      "7": "sourceSpecifiedInSubfield $2"
+      "0": {"id": "libraryOfCongressSubjectHeadings"},
+      "1": {"id": "lcSubjectHeadingsForChildrensLiterature"},
+      "2": {"id": "medicalSubjectHeadings"},
+      "3": {"id": "nationalAgriculturalLibrarySubjectAuthorityFile"},
+      "4": {"id": "sourceNotSpecified"},
+      "5": {"id": "canadianSubjectHeadings"},
+      "6": {"id": "répertoireDeVedettes-matière"},
+      "7": {"id": "sourceSpecifiedInSubfield $2"}
     },
     "subfield": {
       "a": {"id": "personalName", "repeatable": false},
@@ -440,14 +440,14 @@
     "repeatable": true,
     "ind1": {
       "id": "typeOfPersonalNameEntryElement",
-      "0": "forename",
-      "1": "surname",
-      "3": "familyName"
+      "0": {"id": "forename"},
+      "1": {"id": "surname"},
+      "3": {"id": "familyName"}
     },
     "ind2": {
       "id": "typeOfAddedEntry",
-      "#": "noInformationProvided",
-      "2": "analyticalEntry"
+      "#": {"id": "noInformationProvided"},
+      "2": {"id": "analyticalEntry"}
     },
     "subfield": {
       "a": {"id": "personalName", "repeatable": false},
@@ -489,9 +489,9 @@
     "ind2": {
       "id": "sabSystemEdition",
       "_": null,
-      "0": "SAB_6",
-      "1": "SAB_5",
-      "2": "Shortened_SAB_headings"
+      "0": {"id": "SAB_6"},
+      "1": {"id": "SAB_5"},
+      "2": {"id": "Shortened_SAB_headings"}
     },
     "subfield": {
       "a": {"id": "sabClassification", "repeatable": false},

@@ -9,6 +9,9 @@ ENC = "latin-1"
 
 
 def parse_configs(confdir, lang):
+    # FIXME: Errors in english version:
+    # - Bmarcfix.cfg#267 has a leading space which ConfigParser fails on
+    # - Master.cfg#134 repeats position key 13 twice
 
     master_cfg = read_config(pjoin(confdir, "master.cfg"))
 
@@ -77,7 +80,8 @@ def parse_configs(confdir, lang):
                             ind = inds[i-1] = odict()
                             for indcode, indval in cfg.items(indKey):
                                 if indcode.startswith('Value'):
-                                    ind[indcode[5:]] = indval.decode(ENC)
+                                    ind[indcode[5:]] = labelled(indval.decode(ENC), lang)
+                                    # TODO: if '_' and id == 'undefined': None?
                 dfn = odict(id=None)
                 dfn['label_'+lang] = None
                 dfn['repeatable'] = bool(int(repeatable))
@@ -140,8 +144,9 @@ def parse_configs(confdir, lang):
                             _fixprop_unique[prop_id] = enumkey
                         col['propRef'] = prop_id
                         if prop_id not in fixprops:
-                            fixprops[prop_id] = dict((k, v.decode(ENC))
-                                    for k, v in fix_cfg.items(enumkey))
+                            fixprops[prop_id] = fixprop = odict()
+                            for k, v in fix_cfg.items(enumkey):
+                                fixprop[k] = labelled(v.decode(ENC), lang)
                     else:
                         col['placeholder'] = prop_id
                     columns.append(col)
@@ -157,7 +162,16 @@ def read_config(paths):
     cfg.read(paths)
     return cfg
 
+def labelled(label, lang):
+    obj = odict()
+    if lang == 'en':
+        obj['id'] = label_to_id(label)
+    obj['label_'+lang] = label
+    return obj
+
 def label_to_id(label):
+    if not label:
+        return None
     key = label.title()
     key = re.sub(r"\W", "", key)
     return key[0].lower() + key[1:]

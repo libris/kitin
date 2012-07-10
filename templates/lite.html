@@ -66,7 +66,7 @@
             <select name="<%= propRef %>" class="span7">
               <% _.each(propEnum, function (val, key) { %>
               <option <%= key === col.code? 'selected' : '' %>
-                      value="<%= key %>"><%= val %></option>
+                      value="<%= key %>"><%= val.label_sv %></option>
               <% }); %>
             </select>
           <% } else { %>
@@ -83,7 +83,8 @@
         var indEnum = dfn[indKey], indVal = row[indKey];
         var enumKeys = _.keys(indEnum);
       %>
-        <% if (enumKeys.length === 1 && indEnum['_'] === 'odefinierad') { %>
+        <% if (enumKeys.length === 1 && (indEnum['_'].id === 'undefined' ||
+               indEnum['_'].label_sv === 'odefinierad')) { %>
           <input type="hidden" name="<%= tag + '-' + indKey %>" value="_"/>
         <% } else { %>
           <label><%= indKey %></label>
@@ -91,7 +92,7 @@
             <select name="<%= tag + '-' + indKey %>" class="">
               <% _.each(indEnum, function (val, key) { %>
               <option <%= key === indVal? 'selected' : '' %>
-                      value="<%= key %>"><%= val %></option>
+                      value="<%= key %>"><%= val.label_sv %></option>
               <% }); %>
             </select>
           <% } else { %>
