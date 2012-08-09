@@ -71,9 +71,10 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
   function parseFixedField(row, dfn, leader) {
     var matched = false;
     var result = {};
-    var recTypeKey = leader.typeOfRecord.code;
+    //var matchKey = leader.typeOfRecord.code;
+    var matchKey = row[0];
     dfn.fixmaps.forEach(function (fixmap) {
-      if (fixmap.matchKeys.indexOf(recTypeKey) > -1) {
+      if (fixmap.matchKeys.indexOf(matchKey) > -1) {
         matched = true;
         fixmap.columns.forEach(function (colDfn) {
           module.processFixedCol(row, colDfn, result);
