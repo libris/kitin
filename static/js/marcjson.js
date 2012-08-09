@@ -46,6 +46,11 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
   };
 
   module.fixedFieldParsers = {
+
+    '006': parseFixedField,
+
+    '007': parseFixedField,
+
     '008': function (row, dfn, leader/*, fixprops*/) {
       var result = {};
       var recTypeBibLevelKey = leader.typeOfRecord.code + leader.bibLevel.code;
@@ -60,7 +65,23 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
       });
       return result;
     }
+
   };
+
+  function parseFixedField(row, dfn, leader) {
+    var matched = false;
+    var result = {};
+    var recTypeKey = leader.typeOfRecord.code;
+    dfn.fixmaps.forEach(function (fixmap) {
+      if (fixmap.matchKeys.indexOf(recTypeKey) > -1) {
+        matched = true;
+        fixmap.columns.forEach(function (colDfn) {
+          module.processFixedCol(row, colDfn, result);
+        });
+      }
+    });
+    return matched? result : row;
+  }
 
   module.processFixedCol = function (repr, colDfn, result/*, fixprops*/) {
     var off = colDfn.offset;

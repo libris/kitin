@@ -36,11 +36,15 @@
              <%= tag %> - <%= dfn.label_sv %>
           </h3>
           <div>
-            <% if (tag === '008') {
-              var dataElements = marcjson.fixedFieldParsers['008'](
+            <% if (marcjson.fixedFieldParsers[tag]) {
+              var dataElements = marcjson.fixedFieldParsers[tag](
                   row, dfn, leader, fixprops);
             %>
-              <%= renderControlField({controlField: dataElements, fixprops: fixprops}) %>
+              <% if (typeof dataElements === 'object') { %>
+                <%= renderControlField({controlField: dataElements, fixprops: fixprops}) %>
+              <% } else { %>
+                [<input name="<%= tag %>" value="<%= row %>"/>]
+              <% } %>
             <% } else { %>
               <% if (typeof row === 'string') { %>
                 <input name="<%= tag %>" value="<%= row %>"/>
