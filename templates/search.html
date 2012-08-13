@@ -1,17 +1,23 @@
 {% extends "base.html" %}
 {% block title %}Start{% endblock %}
 {% block content %}
-  <h1>Sök</h1>
-
-    <form class="well form-search" action="">
-    <div>
-    <input type="text" class="input-medium search-query" name="search">
-    <button type="submit" class="btn">Sök</button>
-    </div>
-    <label class="checkbox">
-
-<div class="remoteoption">
-<input type="checkbox"> Sök i externa källor
-</label></div>
+<!--searchbar-->
+<div class="search-bar">
+<ul class="border-search unstyled">
+  <li class="ui-search-item search-input-item">
+    <form class="form-inline search-form" action="">
+    <input id="search" class="xlarge ui-autocomplete-input" type="text" value="" autocomplete="off" placeholder="ISBN, Titel, Namn" name="q" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+    <button id="submit" class="btn btn-large btn-inverse" type="submit">
+    <i class="icon-search icon-white"></i>
+    </button>
     </form>
+  </li>
+</ul>
+</div>
+<hr>
+
+<h2>Mallar</h2>
+
+<h2>Sparade utkast</h2>
+
 {% endblock content %}
