@@ -26,7 +26,10 @@ metadata = MetaData(db)
 
 @app.route("/")
 def search():
-    return render_template('search.html')
+    open_records = []
+    if app.config['MOCK_API']:
+        open_records = list(find_mockdata_record_summaries())
+    return render_template('search.html', open_records=open_records)
 
 
 @app.route("/mockups/<name>")
@@ -36,7 +39,7 @@ def show_mockup(name):
 
 @app.route("/profile")
 def profile():
-    return render_template('mockups/profile.html')    
+    return render_template('mockups/profile.html')
 
 
 @app.route('/user/<name>')
@@ -107,7 +110,7 @@ def browse_document(id):
     if app.config['MOCK_API']:
         response = requests.Response()
         response.status_code = 200
-        response.raw = open(os.path.join(app.root_path, 'examples/bib/%s.json' % id))
+        response.raw = open(mockdatapath('bib', id))
     else:
         response = requests.get("%s/bib/%s" % (app.config['WHELK_HOST'], id))
     if request.is_xhr:
@@ -219,6 +222,48 @@ def raw_json_response(s):
 def exists_as_draft(id):
     table = Table('marcpost', metadata, autoload=True)
     return table.select().where(exists([table.c.id], and_(table.c.id == id))).execute().scalar()
+
+
+def get_record_summary(data):
+    fields = {}
+    for field in data['fields']:
+        for k, v in field.items():
+            fields.setdefault(k, []).append(v)
+    return dict(
+            id=fields['001'][0],
+            isbn=fields['035'][0]['subfields'][0].get('9', "")
+                    if '035' in fields else "",
+            title=fields['245'][0]['subfields'][0]['a'],
+            author="%s (%s)" % (
+                    fields['100'][0]['subfields'][0]['a'],
+                    fields['100'][0]['subfields'][1]['d']
+                        if len(fields['100'][0]['subfields']) > 1 else "-")
+                    if '100' in fields else "")
+
+
+def find_mockdata_record_summaries():
+    bibdir = mockdatapath('bib')
+    for fname in os.listdir(bibdir):
+        if not fname.endswith('.json'):
+            continue
+        with open(os.path.join(bibdir, fname)) as f:
+            try:
+                data = json.load(f)
+            except Exception as e:
+                app.logger.exception(e)
+                continue
+            if 'fields' not in data:
+                app.logger.warning("File %s is not in proper marc-json" % f.name)
+                continue
+            yield get_record_summary(data)
+
+
+def mockdatapath(rectype, recid=None):
+    dirpath = os.path.join(app.root_path, 'examples', rectype)
+    if recid:
+        return os.path.join(dirpath, recid +'.json')
+    else:
+        return dirpath
 
 
 if __name__ == "__main__":
