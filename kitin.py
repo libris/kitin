@@ -127,7 +127,7 @@ def render_lite(id):
 
 @app.route('/marcmap.json')
 def get_marcmap():
-    with open('/opt/work/kb/kitin/marcmap.json') as f:
+    with open(app.config['MARC_MAP']) as f:
         return raw_json_response(f.read())
 
 
@@ -222,9 +222,14 @@ def exists_as_draft(id):
 
 
 if __name__ == "__main__":
-    from sys import argv
-    if '-d' in argv:
-        app.debug = True
-    app.config['MOCK_API'] = app.debug and '--mockapi' in argv
+    from optparse import OptionParser
+    oparser = OptionParser()
+    oparser.add_option('-d', '--debug', action='store_true', default=False)
+    oparser.add_option('--mockapi', action='store_true', default=False)
+    oparser.add_option('-m', '--marcmap', type=str, default="marcmap.json")
+    opts, args = oparser.parse_args()
+    app.debug = opts.debug
+    app.config['MOCK_API'] = opts.debug and opts.mockapi
+    app.config['MARC_MAP'] = opts.marcmap
     app.run()
 
