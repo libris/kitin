@@ -25,11 +25,24 @@ metadata = MetaData(db)
 
 
 @app.route("/")
-def search():
+def start():
     open_records = []
     if app.config['MOCK_API']:
         open_records = list(find_mockdata_record_summaries())
-    return render_template('search.html', open_records=open_records)
+    return render_template('search.html',
+            open_records=open_records)
+
+
+@app.route("/search")
+def search():
+    q = request.args.get('q')
+    search_results = None
+    if q:
+        resp = requests.get("%sbib/kitin/_search?q=%s" % (
+            app.config['WHELK_HOST'], q))
+        data = json.loads(resp.text)
+        search_results = [get_record_summary(item['data']) for item in data['list']]
+    return render_template('search.html', **vars())
 
 
 @app.route("/mockups/<name>")
@@ -43,7 +56,7 @@ def profile():
 
 
 @app.route('/user/<name>')
-def show_user(name=None):
+def user_home(name=None):
     return render_template('home.html', name=name)
 
 

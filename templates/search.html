@@ -1,44 +1,47 @@
 {% extends "base.html" %}
 {% block title %}Start{% endblock %}
 {% block content %}
-<!--searchbar-->
-<div class="search-bar">
-<ul class="border-search unstyled">
-  <li class="ui-search-item search-input-item">
-    <form class="form-inline search-form" action="">
-    <input id="search" class="xlarge ui-autocomplete-input" type="text" value="" autocomplete="off" placeholder="ISBN, Titel, Namn" name="q" role="textbox" aria-autocomplete="list" aria-haspopup="true">
-    <button id="submit" class="btn btn-large btn-inverse" type="submit">
-    <i class="icon-search icon-white"></i>
-    </button>
-    </form>
-  </li>
-</ul>
-</div>
 
-<hr>
+  <section role="search">
+    <div class="search-bar">
+    <ul class="border-search unstyled">
+      <li class="ui-search-item search-input-item">
+        <form class="form-inline search-form" action="/search">
+          <input id="search"  name="q" type="text"
+                 class="xlarge ui-autocomplete-input"
+                 value="{{ q }}" placeholder="ISBN, Titel, Namn"
+                 autocomplete="off" role="textbox"
+          aria-autocomplete="list" aria-haspopup="true">
+          <button id="submit" class="btn btn-large btn-inverse" type="submit">
+            <i class="icon-search icon-white"></i>
+          </button>
+        </form>
+      </li>
+    </ul>
+    </div>
+  </section>
+  <hr>
 
-<h2>Mallar</h2>
+  {% if search_results %}
+    <section>
+      <h2>Sökresultat</h2>
+      {% with records = search_results %}
+        {% include "_record_list.html" %}
+      {% endwith %}
+    </section>
+    <hr>
+  {% endif %}
 
-<hr>
+  <section>
+    <h2>Mallar</h2>
+  </section>
+  <hr>
 
-<h2>Sparade utkast</h2>
-{% if open_records %}
-  <table class="table table-striped table-bordered table-condensed">
-    <tr>
-      <th>Bib-ID</th>
-      <th>ISBN</th>
-      <th>Titel</th>
-      <th>Författare</th>
-    </tr>
-    {% for record in open_records %}
-      <tr>
-        <td><a href="/record/bib/{{ record.id }}/lite">{{ record.id }}</a></td>
-        <td>{{ record.isbn }}</td>
-        <td>{{ record.title }}</td>
-        <td>{{ record.author }}</td>
-      </tr>
-    {% endfor %}
-  </table>
-{% endif %}
+  <section>
+    <h2>Sparade utkast</h2>
+    {% with records = open_records %}
+      {% include "_record_list.html" %}
+    {% endwith %}
+  </section>
 
 {% endblock content %}
