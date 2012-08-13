@@ -47,6 +47,7 @@
       el:languageOfTheContent "swe"; #dc:language "sv";
       bibo:authorList (
           [ a ent:Person; #owl:sameAs </auth/Jansson,+Tove+1914-2001>;
+                #:similarTo </auth/Jansson,+Tove>;
             gr2:preferredNameForThePerson "Jansson, Tove"; #variantNameForThePerson
             foaf:name "Tove Jansson";
             foaf:surname "Jansson";
