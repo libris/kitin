@@ -1,0 +1,108 @@
+{
+
+  "@context": {
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "bibo": "http://purl.org/ontology/bibo/",
+    "dc": "http://purl.org/dc/terms/",
+    "el": "http://rdvocab.info/Elements/",
+    "gr2": "http://rdvocab.info/ElementsGr2/",
+    "ent": "http://rdvocab.info/uri/schema/FRBRentitiesRDA/",
+    "rel": "http://rdvocab.info/RDARelationshipsWEMI/",
+    "dbpedia": "http://dbpedia.org/resource/",
+    "librismarc": "http://libris.kb.se/def/marc21#",
+
+    "iri": "@id",
+    "type": "@type",
+    "value": "@value",
+    "literal": "rdf:value",
+
+    "comment": "rdfs:comment",
+    "subject": "dc:subject",
+
+    "Record": "foaf:Document",
+    "controlNumber": "dc:identifier",
+    "creator": "dc:creator",
+    "dateAndTimeOfLatestTransaction": {"@id": "dc:modified", "@type": "xsd:dateTime"},
+    "describes": "foaf:primaryTopic",
+
+    "Manifestation": "ent:Manifestation",
+    "isbn": "bibo:isbn",
+    "identifierForTheManifestation": "el:identifierForTheManifestation",
+    "dateOfPublication": "dateOfPublication",
+    "dateOfPublication": "el:dateOfPublication",
+    "placeOfPublication": "el:placeOfPublication",
+    "publishersName": "el:publishersName",
+    "placeOfManufacture": "el:placeOfManufacture",
+    "baseMaterial": "el:baseMaterial",
+    "dimensions": "el:dimensions",
+    "extentOfText": "el:extentOfText",
+    "termsOfAvailability": "el:termsOfAvailability",
+    "expressionManifested": "rel:expressionManifested",
+
+    "Expression": "ent:Expression",
+    "titleProper": "el:titleProper",
+    "languageOfTheContent": "el:languageOfTheContent",
+    "statementOfResponsibilityRelatingToTitleProper": "el:statementOfResponsibilityRelatingToTitleProper",
+    "authorList": {"@id": "bibo:authorList", "@container": "@list"},
+
+    "Person": "ent:Person",
+    "name": "foaf:name",
+    "givenName": "foaf:givenName",
+    "surname": "foaf:surname",
+    "dateOfBirth": "gr2:dateOfBirth",
+    "dateOfDeath": "gr2:dateOfDeath",
+    "preferredNameForThePerson": "gr2:preferredNameForThePerson"
+  },
+
+  "entityMap": {
+
+    "#record": {
+      "iri": "http://libris.kb.se/bib/{controlNumber}",
+      "type": "Record",
+      "describes": "#manifestation",
+      "properties": [
+        "controlNumber",
+        "dateAndTimeOfLatestTransaction"
+      ]
+    },
+
+    "#manifestation": {
+      "iri": "http://libris.kb.se/bib/{controlNumber}#manifestation",
+      "type": "Manifestation",
+      "links": {
+        "expressionManifested": "#expression",
+        "termsOfAvailability": "#terms-of-availability",
+        "placeOfPublication": "#place-of-publication"
+      },
+      "properties": [
+      ]
+    },
+
+    "#terms-of-availability": {
+      "type": "Price",
+      "properties": [
+        {"value": "."}
+      ]
+    },
+
+    "#place-of-publication": {
+      "type": "Region",
+      "properties": [
+        {"label": "."}
+      ]
+    },
+
+    "#expression": {
+      "iri": "http://libris.kb.se/expression/{titleProper}-{statementOfResponsibilityRelatingToTitleProper}",
+      "type": "Expression",
+      "properties": [
+        "titleProper"
+      ]
+    }
+
+  }
+
+}
