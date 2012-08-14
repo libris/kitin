@@ -11,7 +11,8 @@
         <td><a href="/record/bib/{{ record.id }}/lite">{{ record.id }}</a></td>
         <td>{{ record.isbn }}</td>
         <td>{{ record.title }}</td>
-        <td>{{ record.author }}</td>
+        <td>{{ record.author }}
+          {% if record.author_extra %}({{ record.author_extra }}){% endif %}</td>
       </tr>
   {% endfor %}
   </table>

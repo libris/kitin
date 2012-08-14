@@ -242,16 +242,17 @@ def get_record_summary(data):
     for field in data['fields']:
         for k, v in field.items():
             fields.setdefault(k, []).append(v)
+    has_author = '100' in fields
     return dict(
             id=fields['001'][0],
             isbn=fields['035'][0]['subfields'][0].get('9', "")
                     if '035' in fields else "",
             title=fields['245'][0]['subfields'][0]['a'],
-            author="%s (%s)" % (
-                    fields['100'][0]['subfields'][0]['a'],
-                    fields['100'][0]['subfields'][1]['d']
-                        if len(fields['100'][0]['subfields']) > 1 else "-")
-                    if '100' in fields else "")
+            author=fields['100'][0]['subfields'][0]['a'] if has_author else "",
+            # TODO: 'd' can be at another offset?
+            author_extra=fields['100'][0]['subfields'][1].get('d', '')
+                        if has_author and len(fields['100'][0]['subfields']) > 1
+                        else "")
 
 
 def find_mockdata_record_summaries():
