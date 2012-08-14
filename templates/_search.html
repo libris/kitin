@@ -1,0 +1,33 @@
+<section role="search">
+  <div class="search-bar">
+  <ul class="border-search unstyled">
+    <li class="ui-search-item search-input-item">
+      <form class="form-inline search-form" action="/search">
+        <input id="search"  name="q" type="text"
+                class="xlarge ui-autocomplete-input"
+                value="{{ q }}" placeholder="ISBN, Titel, Namn"
+                autocomplete="off" role="textbox"
+        aria-autocomplete="list" aria-haspopup="true">
+        <button id="submit" class="btn btn-large btn-inverse" type="submit">
+          <i class="icon-search icon-white"></i>
+        </button>
+      </form>
+    </li>
+  </ul>
+  </div>
+</section>
+
+{% if search_results %}
+  <hr>
+  <section>
+    <h2>Sökresultat</h2>
+    {% with records = search_results %}
+      {% include "_record_list.html" %}
+    {% endwith %}
+  </section>
+{% else %}
+  <hr>
+  {% if q %}
+  <h2>Inga träffar, vill du skapa ny post?</h2>
+  {% endif %}
+{% endif %}

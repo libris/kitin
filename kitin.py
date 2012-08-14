@@ -29,7 +29,8 @@ def start():
     open_records = []
     if app.config['MOCK_API']:
         open_records = list(find_mockdata_record_summaries())
-    return render_template('search.html',
+    return render_template('home.html',
+            name="Guest",
             open_records=open_records)
 
 

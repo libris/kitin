@@ -1,8 +1,23 @@
 {% extends "base.html" %}
 {% block title %}Hem{% endblock %}
 {% block content %}
+
   {% if name %}
-    <h1>Välkommen {{ name }}!</h1>
+
+    {% include "_search.html" %}
+
+    <section>
+      <h2>Mallar</h2>
+    </section>
+    <hr>
+
+    <section>
+      <h2>Sparade utkast</h2>
+      {% with records = open_records %}
+        {% include "_record_list.html" %}
+      {% endwith %}
+    </section>
+
   {% else %}
     <h1>Logga in...</h1>
     <form class="well form-inline">
@@ -14,4 +29,5 @@
       <button type="submit" class="btn">Sign in</button>
     </form>
   {% endif %}
+
 {% endblock %}
