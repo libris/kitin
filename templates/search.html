@@ -30,6 +30,11 @@
       {% endwith %}
     </section>
     <hr>
+  {% else %}
+    {% if q %}
+    <h2>Inga träffar, vill du skapa ny post?</h2>
+	<hr>
+    {% endif %}
   {% endif %}
 
   <section>
