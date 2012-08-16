@@ -8,6 +8,14 @@
 
     <section>
       <h2>Mallar</h2>
+      <form action="/record/create" method="POST">
+        <select name="template">
+          {% for tname in record_templates %}
+            <option value="{{ tname }}">{{ tname }}</option>
+          {% endfor %}
+        </select>
+        <button type="submit">Skapa ny</button>
+      </form>
     </section>
     <hr>
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from flask import Flask, render_template, request, make_response, abort
+from flask import Flask, render_template, request, make_response, abort, redirect, url_for
 from werkzeug import secure_filename
 import os, json
 from pprint import pprint
@@ -31,6 +31,7 @@ def start():
         open_records = list(find_mockdata_record_summaries())
     return render_template('home.html',
             name="Guest",
+            record_templates=find_record_templates(),
             open_records=open_records)
 
 
@@ -104,6 +105,7 @@ def save_draft(id):
         insert.execute(id=id, marc=pickle.dumps(json_data))
     return json.dumps(request.json)
 
+
 @app.route('/record/bib/<id>', methods=['PUT'])
 def update_document(id):
     """Saves updated records to whelk (Backbone would send a POST if the record isNew)"""
@@ -118,8 +120,9 @@ def update_document(id):
             db.execute(table.delete().where(table.c.id == id))
     return raw_json_response(json_string)
 
+
 @app.route('/record/bib/<id>', methods=['GET'])
-def browse_document(id):
+def show_record(id):
     # TODO: Check if exists as draft and fetch from local db if so..!
     if app.config['MOCK_API']:
         response = requests.Response()
@@ -142,10 +145,23 @@ def browse_document(id):
 def render_lite(id):
     return render_template('lite.html')
 
+
 @app.route('/marcmap.json')
 def get_marcmap():
     with open(app.config['MARC_MAP']) as f:
         return raw_json_response(f.read())
+
+
+@app.route('/record/create', methods=['POST'])
+def create_record():
+    tplt_name = request.args.get('template')
+    # FIXME: just a hack to test!
+    import shutil as sh
+    tplt_fpath = mockdatapath('templates', tplt_name)
+    new_id = 'new-record' # + tplt_name
+    created_fpath =  mockdatapath('bib', new_id)
+    sh.copy(tplt_fpath, created_fpath)
+    return redirect(url_for('render_lite', id=new_id))
 
 
 @app.route('/suggest/auth')
@@ -245,10 +261,10 @@ def get_record_summary(data):
             fields.setdefault(k, []).append(v)
     has_author = '100' in fields
     return dict(
-            id=fields['001'][0],
+            id=fields['001'][0] if '001' in fields else 'N/A',
             isbn=fields['035'][0]['subfields'][0].get('9', "")
                     if '035' in fields else "",
-            title=fields['245'][0]['subfields'][0]['a'],
+            title=fields['245'][0]['subfields'][0]['a'] if '245' in fields else 'N/A',
             author=fields['100'][0]['subfields'][0]['a'] if has_author else "",
             # TODO: 'd' can be at another offset?
             author_extra=fields['100'][0]['subfields'][1].get('d', '')
@@ -256,12 +272,20 @@ def get_record_summary(data):
                         else "")
 
 
+def find_record_templates():
+    for fname in os.listdir(mockdatapath('templates')):
+        ext = '.json'
+        if not fname.endswith(ext):
+            continue
+        yield fname.replace(ext, '')
+
+
 def find_mockdata_record_summaries():
-    bibdir = mockdatapath('bib')
-    for fname in os.listdir(bibdir):
+    fdir = mockdatapath('bib')
+    for fname in os.listdir(fdir):
         if not fname.endswith('.json'):
             continue
-        with open(os.path.join(bibdir, fname)) as f:
+        with open(os.path.join(fdir, fname)) as f:
             try:
                 data = json.load(f)
             except Exception as e:
