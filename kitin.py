@@ -154,7 +154,7 @@ def get_marcmap():
 
 @app.route('/record/create', methods=['POST'])
 def create_record():
-    tplt_name = request.args.get('template')
+    tplt_name = request.form.get('template')
     # FIXME: just a hack to test!
     import shutil as sh
     tplt_fpath = mockdatapath('templates', tplt_name)
