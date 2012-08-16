@@ -166,27 +166,19 @@ def suggest_auth_completions():
 def lookup(uid=None):
     """List marc documents available in kitin for given user id."""
     try:
-        mp_table = storage._get_table()
-        thequery = mp_table.select(mp_table.c.userid == uid)
-        theposts = thequery.execute().fetchall()
-        if len(theposts) == 1:
-            print "one record"
-            json_text = pickle.loads(theposts[0]['marc'])
-            print "one"
-            print "two"
-            mid = theposts[0].id
-            print "three"
-            spill = Spill(json_text).get_spill()
-            print "spill: ", spill
-            return render_template('view.html', marcposts = [(mid, json.dumps(json_text))], uid = uid)
+        posts = list(storage.find_by_user(uid))
 
-        if len(theposts) > 1:
-            print "many"
-            themarcs = [(thepost.id, json.dumps(pickle.loads(thepost.marc))) for thepost in theposts]
-            return render_template('view.html', marcposts = themarcs, uid = uid, )
-
-        else:
+        if not posts:
             return "no marcposts available for user %s, please try another uid" % uid
+
+        elif len(theposts) == 1:
+            post = posts[0]
+            print "one record:", post.id
+            spill = Spill(post.marc).get_spill()
+            print "spill: ", spill
+
+        raw_items = [(post.id, json.dumps(post.marc)) for post in posts]
+        return render_template('view.html', marcposts=raw_items, uid=uid)
 
     except Exception as e:
         print "exc", e

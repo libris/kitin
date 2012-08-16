@@ -41,6 +41,17 @@ class Storage(object):
         table = self._get_table()
         return table.select().where(exists([table.c.id], and_(table.c.id == id))).execute().scalar()
 
+    def find_by_user(self, uid):
+        table = self._get_table()
+        query = table.select(table.c.userid == uid)
+        items = query.execute().fetchall()
+        for item in items:
+            yield Marcpost(item.id, pickle.loads(item.marc))
+
+
+from collections import namedtuple
+Marcpost = namedtuple('Marcpost', "id, marc")
+
 
 #marcpost = Table('marcpost', metadata,
 #    Column('id', Integer, primary_key=True),
