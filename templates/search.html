@@ -1,17 +1,7 @@
 {% extends "base.html" %}
-{% block title %}Start{% endblock %}
+{% block title %}Sök{% endblock %}
 {% block content %}
-  <h1>Sök</h1>
 
-    <form class="well form-search" action="">
-    <div>
-    <input type="text" class="input-medium search-query" name="search">
-    <button type="submit" class="btn">Sök</button>
-    </div>
-    <label class="checkbox">
+  {% include "_search.html" %}
 
-<div class="remoteoption">
-<input type="checkbox"> Sök i externa källor
-</label></div>
-    </form>
 {% endblock content %}

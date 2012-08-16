@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from flask import Flask, render_template, request, make_response, abort
+from flask import Flask, render_template, request, make_response, abort, redirect, url_for
 from werkzeug import secure_filename
 import os, json
 from pprint import pprint
@@ -25,8 +25,26 @@ metadata = MetaData(db)
 
 
 @app.route("/")
+def start():
+    open_records = []
+    if app.config['MOCK_API']:
+        open_records = list(find_mockdata_record_summaries())
+    return render_template('home.html',
+            name="Guest",
+            record_templates=find_record_templates(),
+            open_records=open_records)
+
+
+@app.route("/search")
 def search():
-    return render_template('search.html')
+    q = request.args.get('q')
+    search_results = None
+    if q:
+        resp = requests.get("%sbib/kitin/_search?q=%s" % (
+            app.config['WHELK_HOST'], q))
+        data = json.loads(resp.text)
+        search_results = [get_record_summary(item['data']) for item in data['list']]
+    return render_template('search.html', **vars())
 
 
 @app.route("/mockups/<name>")
@@ -36,11 +54,11 @@ def show_mockup(name):
 
 @app.route("/profile")
 def profile():
-    return render_template('mockups/profile.html')    
+    return render_template('mockups/profile.html')
 
 
 @app.route('/user/<name>')
-def show_user(name=None):
+def user_home(name=None):
     return render_template('home.html', name=name)
 
 
@@ -76,33 +94,40 @@ def upload_file():
 
 @app.route('/record/bib/<id>/draft', methods=['POST'])
 def save_draft(id):
-    """Save draft to kitin, or publish document to whelk and remove from kitin."""
+    """Save draft to kitin"""
     json_data = request.data
-    mp = Table('marcpost', metadata, autoload=True)
-# TODO: Check if exists
-    i = mp.insert()
-    i.execute(id=id, marc=pickle.dumps(json_data))
-# TODO: otherwise update record
-    #newmp = mp.update().where(mp.c.id==id).values(marc=pickle.dumps(json_data))
-    #db.execute(newmp)
-
-# TODO: send back the saved data
+    table = Table('marcpost', metadata, autoload=True)
+    if exists_as_draft(id):
+        newmp = table.update().where(table.c.id == id).values(marc=pickle.dumps(json_data))
+        db.execute(newmp)
+    else:
+        insert = table.insert()
+        insert.execute(id=id, marc=pickle.dumps(json_data))
     return json.dumps(request.json)
+
 
 @app.route('/record/bib/<id>', methods=['PUT'])
 def update_document(id):
+    """Saves updated records to whelk (Backbone would send a POST if the record isNew)"""
+    # IMP: Using request.data is enough; do we really need this json validation?
     json_string = json.dumps(request.json)
-    response = requests.put("%sbib/%s" % (app.config['WHELK_HOST'], id), data = json_string)
+    headers = {'content-type': 'application/json'}
+    response = requests.put("%sbib/%s" % (app.config['WHELK_HOST'], id), data=json_string, headers=headers)
     if response.status_code >= 400:
         abort(response.status_code)
+    else:
+        if exists_as_draft(id):
+            db.execute(table.delete().where(table.c.id == id))
     return raw_json_response(json_string)
 
+
 @app.route('/record/bib/<id>', methods=['GET'])
-def browse_document(id):
+def show_record(id):
+    # TODO: Check if exists as draft and fetch from local db if so..!
     if app.config['MOCK_API']:
         response = requests.Response()
         response.status_code = 200
-        response.raw = open(os.path.join(app.root_path, 'examples/bib/%s.json' % id))
+        response.raw = open(mockdatapath('bib', id))
     else:
         response = requests.get("%s/bib/%s" % (app.config['WHELK_HOST'], id))
     if request.is_xhr:
@@ -114,6 +139,29 @@ def browse_document(id):
     else:
         json_post = json.loads(response.text)
         return render_template('bib.html', data=json_post)
+
+
+@app.route('/record/bib/<id>/lite')
+def render_lite(id):
+    return render_template('lite.html')
+
+
+@app.route('/marcmap.json')
+def get_marcmap():
+    with open(app.config['MARC_MAP']) as f:
+        return raw_json_response(f.read())
+
+
+@app.route('/record/create', methods=['POST'])
+def create_record():
+    tplt_name = request.form.get('template')
+    # FIXME: just a hack to test!
+    import shutil as sh
+    tplt_fpath = mockdatapath('templates', tplt_name)
+    new_id = 'new-record' # + tplt_name
+    created_fpath =  mockdatapath('bib', new_id)
+    sh.copy(tplt_fpath, created_fpath)
+    return redirect(url_for('render_lite', id=new_id))
 
 
 @app.route('/suggest/auth')
@@ -201,11 +249,71 @@ def raw_json_response(s):
     resp.headers['Content-Type'] = 'application/json'
     return resp
 
+def exists_as_draft(id):
+    table = Table('marcpost', metadata, autoload=True)
+    return table.select().where(exists([table.c.id], and_(table.c.id == id))).execute().scalar()
+
+
+def get_record_summary(data):
+    fields = {}
+    for field in data['fields']:
+        for k, v in field.items():
+            fields.setdefault(k, []).append(v)
+    has_author = '100' in fields
+    return dict(
+            id=fields['001'][0] if '001' in fields else 'N/A',
+            isbn=fields['035'][0]['subfields'][0].get('9', "")
+                    if '035' in fields else "",
+            title=fields['245'][0]['subfields'][0]['a'] if '245' in fields else 'N/A',
+            author=fields['100'][0]['subfields'][0]['a'] if has_author else "",
+            # TODO: 'd' can be at another offset?
+            author_extra=fields['100'][0]['subfields'][1].get('d', '')
+                        if has_author and len(fields['100'][0]['subfields']) > 1
+                        else "")
+
+
+def find_record_templates():
+    for fname in os.listdir(mockdatapath('templates')):
+        ext = '.json'
+        if not fname.endswith(ext):
+            continue
+        yield fname.replace(ext, '')
+
+
+def find_mockdata_record_summaries():
+    fdir = mockdatapath('bib')
+    for fname in os.listdir(fdir):
+        if not fname.endswith('.json'):
+            continue
+        with open(os.path.join(fdir, fname)) as f:
+            try:
+                data = json.load(f)
+            except Exception as e:
+                app.logger.exception(e)
+                continue
+            if 'fields' not in data:
+                app.logger.warning("File %s is not in proper marc-json" % f.name)
+                continue
+            yield get_record_summary(data)
+
+
+def mockdatapath(rectype, recid=None):
+    dirpath = os.path.join(app.root_path, 'examples', rectype)
+    if recid:
+        return os.path.join(dirpath, recid +'.json')
+    else:
+        return dirpath
+
 
 if __name__ == "__main__":
-    from sys import argv
-    if '-d' in argv:
-        app.debug = True
-    app.config['MOCK_API'] = app.debug and '--mockapi' in argv
+    from optparse import OptionParser
+    oparser = OptionParser()
+    oparser.add_option('-d', '--debug', action='store_true', default=False)
+    oparser.add_option('--mockapi', action='store_true', default=False)
+    oparser.add_option('-m', '--marcmap', type=str, default="marcmap.json")
+    opts, args = oparser.parse_args()
+    app.debug = opts.debug
+    app.config['MOCK_API'] = opts.debug and opts.mockapi
+    app.config['MARC_MAP'] = opts.marcmap
     app.run()
 

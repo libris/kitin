@@ -6,13 +6,72 @@
 <ul id="fields"></ul>
 <hr>
 
-<p>shift + option + t = doubledagger</p>
+<label class="control-label" for="titel-245a" title="245 title">(hover) - Titel och upphov</label>
+    <div class="container-fluid">
+      <div class="row-fluid">
+	    <div class="span12">
+		  <span class="help-block">Huvudtitel</span>
+		  <textarea id="textarea" class="input-xlarge title-text" rows="5" style="width: 780px; height: 64px;">Kongl. Sundhets-Collegii circulärbref till läkarne vid de i riket befintlige militärsjukhus, länslazaretter och kurhus, meddelande resultaterne af de, till följd af Collegii cirkulär-bref d. 2 dec. 1822 inkomne rapporter, rörande de vid nämnde inrättningar år 1824 vårdade med veneriska sjukdomar och saltfluss behäftade sjuke.</textarea>
+  		 <!--  <input id="titel-245a" class="input-medium" type="text" value="Svenska slott och herrgårdar"> -->
+		</div>
+<!--
+
+	    <div class="span3">
+		  <span class="help-block">Huvudtitel</span>
+  		  <input id="titel-245a" class="input-medium" type="text" value="Svenska slott och herrgårdar">
+		</div>
+       	<div class="span3">
+		  <span class="help-block">Undertitel</span>
+  		  <input id="titel-245b" class="input-medium" type="text" value="en historisk reseguide">
+	    </div>
+		<div class="span3">
+		  <span class="help-block">c) Särskiljande tillägg</span>
+		  <input id="titel-245c" class="input-medium" type="text">
+		</div>
+		<div class="span3">
+		  <span class="help-block">c) Särskiljande tillägg</span>
+		  <input id="titel-245c" class="input-medium" type="text">
+		</div>
+-->
+	  </div>
+      <div class="row-fluid">
+	    <div class="span4">
+		  <!-- <div class="controls"> -->
+		  <span class="help-block">Första Upphov</span>
+  		  <input id="titel-245a" class="input-large" type="text" value="Svenska slott och herrgårdar">
+		</div>
+       	<div class="span4">
+		  <span class="help-block">Övriga Upphov</span>
+  		  <input id="titel-245b" class="input-large" type="text" value="en historisk reseguide">
+	    </div>
+		<div class="span4">
+		  <!--
+		  <span class="help-block">c) Särskiljande tillägg</span>
+		  <input id="titel-245c" class="input-medium" type="text">
+		  -->
+		</div>
+		<!-- </div> -->
+	  </div>
+	</div>
+
+
+<label class="control-label" for="personnamn-100">Huvuduppslag - Personnamn (Auktoriserad)</label>
+	<div class="controls">
+	  <span class="help-block">Efternamn Förnamn <em>Ex. Strindberg August</em></span>
+  	  <input id="personnamn-100a" class="input-medium" type="text" placeholder="Surname" ><input id="personnamn-100a" class="input-large" type="text" placeholder="Given name">
+	</div>
+	<div class="controls">
+	  <span class="help-block">Födelse- och dödsår</span>
+	  <input id="personnamn-100d" class="input-medium" type="text" placeholder="yyyy-mm-dd">
+	</div>
+
+
 
 <!-- labels blev föräldralösa i delfältsindelning… ändra sen i hope hope-->
-<label class="control-label" for="isbn-020_00-z_00" ><a href="#" rel="tooltip" id="example" data-original-title="[020 &Dagger;acz] ISBN">020 - Internationellt standardboknummer (ISBN)</a></label>
+<label class="control-label" for="isbn-020_00-z_00" ><a href="#" rel="tooltip" id="example" data-original-title="[020] ISBN">Internationellt standardboknummer (ISBN)</a></label>
  
 <div class="controls">
-<span class="help-block">ISBN med ev. kvalifikatorer <button class="close-record">&times;</button> </span> <input id="isbn-020ax00" class="input-xlarge" type="text">
+<span class="help-block">ISBN med ev. kvalifikatorer <button class="close-record">&times;</button> </span> <input id="isbn-020ax00" class="input-xlarge" type="text" placeholder="10 or 13 numbers">
   <!-- <p class="help-block">ISBN</p> -->
 </div>
 
@@ -32,95 +91,38 @@
 <label class="control-label" for="klassifikationskod-084a">Annan klassifikationskod</label>
 <div class="controls">
 <span class="help-block"></span>
-  <input id="klassifikationskod-084a" class="input-xlarge" type="text" value="‡a kssb/8">
+  <input id="klassifikationskod-084a" class="input-xlarge" type="text" value="kssb/8">
 	<a class="add-subfield" href="#">&#43;</a> <a class="add-subfield" href="#">&#63;</a>
 </div>
 
 
-<label class="control-label" for="personnamn-100">Huvuduppslag - Personnamn (Auktoriserad)<select class="span4">
-<option>0 - Namn i rak ordföljd</option>
-<option>1 - Enkelt eller sammansatt släktnamn</option>
-<option>3 - Beteckning för hel släkt</option>
-</select></label>
+
+<label class="control-label" for="upplaga-250">Upplaga</label>
 <div class="controls">
-<span class="help-block">a) Personnamn <em>Ex. Strindberg, August</em></span>
-  <input id="personnamn-100a" class="input-xlarge" type="text" >
+ <label class="help-block" title="250 A: Upplageupgift">Upplageuppgift
+  <input id="upplaga-250a" class="input-xlarge" type="text"></label>
 </div>
 
+
+<label class="control-label" for="upplaga-250">Upplaga</label>
 <div class="controls">
-<span class="help-block">d) Födelse- och dödsår</span>
-  <input id="personnamn-100d" class="input-xlarge" type="text">
-</div>
-
-
-
-<label class="control-label" for="titel-245a" title="245 title">(hover) - Titel och upphov
-
-
-<select class="span1">
-
-<option>1</option>
-</select>
-<select class="span1">
-<option>0</option>
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-<option>5</option>
-<option>6</option>
-<option>7</option>
-<option>8</option>
-<option>9</option>
-</select> </label>
-
-
-    <div class="container-fluid">
-      <div class="row-fluid">
-   
-    <div class="span4">
-
-		<!-- <div class="controls"> -->
-
-<span class="help-block">a) Huvudtitel</span>
-  <input id="titel-245a" class="input-medium" type="text">
-	</div>
-    
-    <div class="span4">
-
-<span class="help-block">b) Övrig titelinformation</span>
-  <input id="titel-245b" class="input-medium" type="text">
-	</div>
-
-	<div class="span4">
-
-<span class="help-block">c) Särskiljande tillägg</span>
-  <input id="titel-245c" class="input-medium" type="text">
-	</div>
-
-<!-- </div> -->
-</div>
-</div>
-
-<label class="control-label" for="upplaga-250a">Upplaga</label>
-<div class="controls">
- <span class="help-block">a) Upplageuppgift</span>
-  <input id="upplaga-250a" class="input-xlarge" type="text">
+ <label class="help-block" title="250 A: Upplageupgift">Upplageuppgift
+  <input id="upplaga-250a" class="input-xlarge" type="text"></label>
 </div>
 
 <label class="control-label" for="utgivning-260a">Utgivning, distribution etc</label>
 <div class="controls">
- <span class="help-block">a) Ort</span>
+ <span class="help-block"title="260 A">Ort</span>
   <input id="utgivning-260a" class="input-xlarge" type="text">
 </div>
 
 <div class="controls">
- <span class="help-block">b) Förlag eller annan utgivare</span>
+ <span class="help-block"title="260 B">Förlag eller annan utgivare</span>
   <input id="utgivning-260b" class="input-xlarge" type="text">
 </div>
 
 <div class="controls">
- <span class="help-block">c) Utgivningstid</span>
+ <span class="help-block"title="260 C">Utgivningstid</span>
   <input id="utgivning-260c" class="input-xlarge" type="text">
 </div>
 
@@ -131,7 +133,7 @@
 </div>
 
 <div class="controls">
- <span class="help-block">b) Övriga fysiska detaljer ex. illustrationer</span>
+ <span class="help-block" title="300b">Övriga fysiska detaljer ex. illustrationer</span>
   <input id="300b" class="input-xlarge" type="text">
 </div>
 
@@ -160,7 +162,7 @@
 {% block extrajs %}
 <script type="text/javascript">
 $(function(){
-   $('#example').tooltip({'placement':'left', 'trigger' : 'hover'})
+   $('#example').tooltip({'placement':'right', 'trigger' : 'hover'})
 });
 </script>
 

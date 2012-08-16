@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block content_class %}record{% endblock content_class %}
+
+{% block content %}
+  <h2>Bib Lite</h2>
+  <hr>
+  <div id="litebox"></div>
+{% endblock content %}
+
+{% block extrajs %}
+
+  <script src="{{ url_for('static', filename='js/marcjson.js') }}"></script>
+
+  <script type="text/html" id="marclite-template">
+    <%
+      var fixprops = map.fixprops;
+      var leader = marcjson.parseLeader(map, struct);
+      var renderControlField = _.template($('#marclite-controlfield-template').html());
+      var renderField = _.template($('#marclite-field-template').html());
+    %>
+    <form id="fields" class="form-horizontal">
+      <div class="control-group leader">
+        <h3>000 - <%= map['000'].label_sv %></h3>
+        <%= renderControlField({controlField: leader, fixprops: fixprops}) %>
+      </div>
+      <hr />
+      <% (struct.fields).forEach(function(field) { %>
+        <% _.each(field, function(row, tag) {
+          var dfn = map[tag];
+        %>
+          <h3>
+            <% if (!dfn || dfn.repeatable) { %>
+              <button class="btn" title="Add"><i class="icon-plus"></i></button>
+            <% } %>
+             <%= tag %> - <%= dfn.label_sv %>
+          </h3>
+          <div>
+            <% if (marcjson.fixedFieldParsers[tag]) {
+              var dataElements = marcjson.fixedFieldParsers[tag](
+                  row, dfn, leader, fixprops);
+            %>
+              <% if (typeof dataElements === 'object') { %>
+                <%= renderControlField({controlField: dataElements, fixprops: fixprops}) %>
+              <% } else { %>
+                [<input name="<%= tag %>" value="<%= row %>"/>]
+              <% } %>
+            <% } else { %>
+              <% if (typeof row === 'string') { %>
+                <input name="<%= tag %>" value="<%= row %>"/>
+              <% } else { %>
+                <%= renderField({tag: tag, dfn: dfn, row: row}) %>
+              <% } %>
+            <% } %>
+          </div>
+          <hr />
+        <% }); %>
+      <% }); %>
+    </form>
+  </script>
+
+  <script type="text/html" id="marclite-controlfield-template">
+    <% _.each(controlField, function (col, propRef) {
+      var propEnum = fixprops[propRef];
+    %>
+      <div class="control-group">
+        <label class="control-label"><%= col.getDfn().label_sv %></label>
+        <div class="controls">
+          <% if (propEnum) { %>
+            <select name="<%= propRef %>" class="span7">
+              <% _.each(propEnum, function (val, key) { %>
+              <option <%= key === col.code? 'selected' : '' %>
+                      value="<%= key %>"><%= val.label_sv %></option>
+              <% }); %>
+            </select>
+          <% } else { %>
+            <input name="<%= propRef %>" value="<%= col.code %>" />
+          <% } %>
+        </div>
+      </div>
+    <% }); %>
+  </script>
+
+  <script type="text/html" id="marclite-field-template">
+    <div>
+      <% ;['ind1', 'ind2'].forEach(function (indKey) {
+        var indEnum = dfn[indKey], indVal = row[indKey];
+        var enumKeys = _.keys(indEnum);
+      %>
+        <% if (enumKeys.length === 1 && (indEnum['_'].id === 'undefined' ||
+               indEnum['_'].label_sv === 'odefinierad')) { %>
+          <input type="hidden" name="<%= tag + '-' + indKey %>" value="_"/>
+        <% } else { %>
+          <label><%= indKey %></label>
+          <% if (indEnum) { %>
+            <select name="<%= tag + '-' + indKey %>" class="">
+              <% _.each(indEnum, function (val, key) { %>
+              <option <%= key === indVal? 'selected' : '' %>
+                      value="<%= key %>"><%= val.label_sv %></option>
+              <% }); %>
+            </select>
+          <% } else { %>
+            <input name="<%= tag + '-' + indKey %>" value="<%= indVal %>"/>
+          <% } %>
+        <% } %>
+      <% }); %>
+    </div>
+    <% row.subfields.forEach(function (subfield) { %>
+      <span class="add-on subfield-code input-append">
+        <% for (subCode in subfield) {
+          var subDfn = dfn.subfield[subCode], value = subfield[subCode];
+        %>
+          <span class="add-on subfield-code">
+            <%= subCode %>)<% if (subDfn && subDfn.mandatory) { %>*<% } %>
+            <%= subDfn? subDfn.label_sv : "" %>
+          </span>
+          <input class="subfield" name="<%= tag + '-' + subCode %>" value="<%= value %>"
+          /><% if (!subDfn || subDfn.repeatable) {
+          %><button class="btn" title="Add"><i class="icon-plus"></i></button>
+          <% } %>
+        <% } %>
+      </span>
+    <% }); %>
+  </script>
+
+{% endblock extrajs %}

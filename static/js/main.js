@@ -1,5 +1,21 @@
 var records, router;
 
+function displaySuccessAlert(message) {
+  var alert = $("<div class='alert alert-success'><strong>Succe!</strong></div>");
+  var message = $("<p class='message'></p>").text(message);
+  var close_btn = $("<a class='close' data-dismiss='alert' href='#'>×</a>");
+  $(alert).append(close_btn).append(message);
+  $('.alert-wrapper').append(alert);
+}
+
+function displayFailAlert(message) {
+  var alert = $("<div class='alert alert-error'><strong>Fadäs!</strong></div>");
+  var message = $("<p class='message'></p>").text(message);
+  var close_btn = $("<a class='close' data-dismiss='alert' href='#'>×</a>");
+  $(alert).append(close_btn).append(message);
+  $('.alert-wrapper').append(alert);
+}
+
 $(function() {
 
   records = new RecordCollection();
@@ -15,7 +31,6 @@ $(function() {
   //if (ajaxInProgress)
   //  confirm('ajaxInProgress; break and leave?')
 });
-
 
 var Record = Backbone.Model.extend({
 
@@ -108,7 +123,8 @@ var Router = Backbone.Router.extend({
     self = this;
   },
   routes: {
-    "record/bib/:bibid": "record"
+    "record/bib/:bibid": "record",
+    "record/bib/:bibid/lite": "lite"
   },
   record: function(bibid) {
     var record = new Record({id: bibid});
@@ -120,6 +136,14 @@ var Router = Backbone.Router.extend({
     // TODO: set interval, and if changed, save to model or perhaps to
     // front-backend
   },
+  lite: function(bibid) {
+    var tplt = _.template($('#marclite-template').html());
+    $.getJSON("/marcmap.json", function (map) {
+      $.getJSON("/record/bib/"+ bibid, function (struct) {
+        $('#litebox').html(tplt({map: map.bib, struct: struct}));
+      });
+    });
+  }
 });
 
 
@@ -130,8 +154,7 @@ var RecordView = Backbone.View.extend({
   leaderTemplate: _.template($('#leader-template').html()),
   bibAutocompleteTemplate: _.template($('#bib-autocomplete-template').html()),
 
-  events: {
-  },
+  events: { },
 
   initialize: function (options) {
     this.model.bind("change", this.render, this);
@@ -159,29 +182,41 @@ var RecordView = Backbone.View.extend({
   setupGlobalKeyBindings: function () {
     var model = this.model;
     $("input[name='draft']").on('click', function() {
+      var model_as_json = model.toJSON();
+      delete model_as_json.id;
       $.ajax({
         url: '/record/bib/'+model.id+'/draft',
         type: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify(model.toJSON()),
+        data: JSON.stringify(model_as_json),
       }).done(function() {
-        // TODO: Notify user when record is successfullt save as draft
+        displaySuccessAlert("Sparade framgångsrikt ett utkast av " + model.id);
+      }).error(function() {
+        displayFailAlert("Kunde inte spara utkast av " + model.id);
       });
     });
     $("input[name='publish']").on('click', function() {
-      model.save();
+      model.save({},
+        {
+          error: function() { displayFailAlert("Kunde inte publicera " + model.id); },
+          success: function() { displaySuccessAlert("Sparade framgångsrikt " + model.id); }
+        });
     });
     $(document).jkey('ctrl+b',function(){
-      model.save();
+      model.save({},
+        {
+          error: function() { displayFailAlert("Kunde inte publicera " + model.id); },
+          success: function() { displaySuccessAlert("Sparade framgångsrikt " + model.id); }
+        });
     });
   },
 
   setupBibAutocomplete: function () {
     var view = this;
     var suggestUrl = "/suggest/auth";
-    this.$('.marc100 input.subfield-a'
-      + ', .marc600 input.subfield-a'
-      + ', .marc700 input.subfield-a').autocomplete(suggestUrl, {
+    this.$('.marc-100 input.subfield-a'
+      + ', .marc-600 input.subfield-a'
+      + ', .marc-700 input.subfield-a').autocomplete(suggestUrl, {
 
         remoteDataType: 'json',
         autoWidth: null,
@@ -248,21 +283,37 @@ var FieldView = Backbone.View.extend({
   controlRowTemplate: _.template($('#control-row-template').html()),
   fieldRowTemplate: _.template($('#field-row-template').html()),
 
+  //events: { 'change .ind1': "updateInd1" },
+
   render: function() {
     var field = this.model;
     var tag = field.get('tag');
     var $el;
     if (field.has('controlValue')) {
-      $el = this.controlRowTemplate({
+      $el = $(this.controlRowTemplate({
         label: tag,
         value: field.get('controlValue')
+      }));
+      $('input', $el).change(function () {
+        field.set({controlValue: $(this).val()});
       });
     } else {
-      $el = this.fieldRowTemplate({
+      $el = $(this.fieldRowTemplate({
         label: tag,
         ind1: field.get('ind1'),
         ind2: field.get('ind2'),
-        subfields: field.get('subfields').toJSON()
+        subfields: field.get('subfields')
+      }));
+      $('.ind1', $el).change(function () {
+        field.set({ind1: $(this).val()});
+      });
+      $('.ind2', $el).change(function () {
+        field.set({ind2: $(this).val()});
+      });
+      field.get('subfields').each(function (subfield) {
+        $('#' + subfield.cid, $el).change(function () {
+          subfield.set('value', $(this).val());
+        });
       });
     }
     return $el;

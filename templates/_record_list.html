@@ -1,0 +1,19 @@
+{% if records %}
+  <table class="table table-striped table-bordered table-condensed">
+    <tr>
+      <th>Bib-ID</th>
+      <th>ISBN</th>
+      <th>Titel</th>
+      <th>Författare</th>
+    </tr>
+  {% for record in records %}
+      <tr>
+        <td><a href="/record/bib/{{ record.id }}/lite">{{ record.id }}</a></td>
+        <td>{{ record.isbn }}</td>
+        <td>{{ record.title }}</td>
+        <td>{{ record.author }}
+          {% if record.author_extra %}({{ record.author_extra }}){% endif %}</td>
+      </tr>
+  {% endfor %}
+  </table>
+{% endif %}

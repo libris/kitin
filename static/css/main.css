@@ -13,6 +13,11 @@ body {
   font-size: 1.2em;
 }
 
+select {
+  padding-bottom: 0;
+  -moz-appearance: menulist-textfield;
+}
+
 
 /* Webcat form */
 .record .leader,
@@ -172,3 +177,62 @@ form#fields .add-on {
 
 input.subfield-master { width: 600px; border-radius: 0; box-shadow: 0 0 0 0;}
 .sub-active { border-color: white; font-size: 14px;}
+
+/*future mode textarea*/
+
+.title-text {
+  font-size: 16px;
+}
+
+/*SEARCH BOX*/
+
+ul.unstyled, ol.unstyled {
+    list-style: none outside none;
+}
+
+.ui-search-item {
+    background-color: #F5F5F5;
+    padding: 6px;
+    position: relative;
+}
+.border-search {
+    background-color: #F5F5F5;
+    border: 1px solid #D8D8D8;
+    border-radius: 6px 6px 6px 6px;
+}
+
+.search-bar .search-input-item {
+    border-radius: 9px 9px 9px 9px;
+    padding: 10px;
+}
+
+.search-bar form input[type="text"] {
+    height: 35px;
+}
+.search-bar form input[type="text"] {
+    border-radius: 6px 0 0 6px;
+    border-right: 0 none;
+    float: left;
+    font-size: 20px;
+    height: 30px;
+    line-height: 24px;
+    margin-bottom: 0;
+    width: 95%;
+}
+.search-bar form {
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+}
+.search-bar form button[type="submit"] {
+    height: 46px;
+}
+.search-bar form button[type="submit"] {
+    border-radius: 0 6px 6px 0;
+    height: 41px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 46px;
+}

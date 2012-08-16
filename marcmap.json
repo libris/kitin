@@ -1,61 +1,246 @@
 {
+  "000": {
+    "repeatable": false,
+    "fixmaps": [
+      {
+        "columns": [
+          {"offset": 5, "length": 1, "default": "n", "propRef": "status"},
+          {"offset": 6, "length": 1, "default": "a", "propRef": "typeOfRecord"},
+          {"offset": 7, "length": 1, "default": "m", "propRef": "bibLevel"},
+          {"offset": 8, "length": 1, "default": "_", "propRef": "typeOfControl"},
+          {"offset": 9, "length": 1, "default": "a", "propRef": "characterCoding"},
+          {"offset": 17, "length": 1, "default": "7", "propRef": "encLevel"},
+          {"offset": 18, "length": 1, "default": "a", "propRef": "catForm"},
+          {"offset": 19, "length": 1, "default": "_", "propRef": "linked"},
+          {"offset": 20, "length": 4, "default": "4500", "propRef": "entryMap"}
+        ]
+      }
+    ]
+  },
   "001": {
-    "name": "controlNumber",
-    "repeatable": null
+    "id": "controlNumber",
+    "repeatable": false
   },
   "003": {
-    "name": "controlNumberIdentifier",
-    "repeatable": null
+    "id": "controlNumberIdentifier",
+    "repeatable": false
   },
   "005": {
-    "name": "dateAndTimeOfLatestTransaction",
-    "repeatable": null
+    "id": "dateAndTimeOfLatestTransaction",
+    "repeatable": false
   },
   "006": {
-    "name": "dataElementsAndAdditionalMaterialCharacteristics",
-    "repeatable": null,
+    "id": "dataElementsAndAdditionalMaterialCharacteristics",
+    "repeatable": false,
     "type": "fixedLength"
   },
   "007": {
-    "name": "physicalDescriptionFixedField",
-    "repeatable": null
-  },
-  "008": {
-    "name": "dataElements",
-    "repeatable": null,
+    "id": "physicalDescriptionFixedField",
+    "repeatable": false,
     "type": "fixedLength"
   },
+  "008": {
+    "id": "dataElements",
+    "repeatable": false,
+    "type": "fixedLength",
+    "fixmaps": [
+      {
+        "term": "Book",
+        "matchRecTypeBibLevel": ["aa", "ac", "ad", "am", "tm", "hm", "hc", "td", "ha", "tc", "hd", "ta"],
+        "columns": [
+          {"offset": 0, "length": 6, "default": "aaaaaa", "placeholder": "<<<TEXT>>>"},
+          {"offset": 6, "length": 1, "default": "s", "propRef": "publicationStatus"},
+          {"offset": 7, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
+          {"offset": 11, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
+          {"offset": 15, "length": 3, "default": "sw_", "placeholder": "country"},
+          {"offset": 18, "length": 1, "default": "|", "propRef": "booksIllustrations"},
+          {"offset": 19, "length": 1, "default": "|", "propRef": "booksIllustrations"},
+          {"offset": 20, "length": 1, "default": "|", "propRef": "booksIllustrations"},
+          {"offset": 21, "length": 1, "default": "|", "propRef": "booksIllustrations"},
+          {"offset": 22, "length": 1, "default": "_", "propRef": "booksAudience"},
+          {"offset": 23, "length": 1, "default": "_", "propRef": "booksItem"},
+          {"offset": 24, "length": 1, "default": "_", "propRef": "booksContents"},
+          {"offset": 25, "length": 1, "default": "_", "propRef": "booksContents"},
+          {"offset": 26, "length": 1, "default": "_", "propRef": "booksContents"},
+          {"offset": 27, "length": 1, "default": "_", "propRef": "booksContents"},
+          {"offset": 28, "length": 1, "default": "|", "propRef": "booksGovtPub"},
+          {"offset": 29, "length": 1, "default": "0", "propRef": "booksConfPub"},
+          {"offset": 30, "length": 1, "default": "0", "propRef": "booksFestschrift"},
+          {"offset": 31, "length": 1, "default": "|", "propRef": "booksIndex"},
+          {"offset": 33, "length": 1, "default": "|", "propRef": "booksLiteraryForm"},
+          {"offset": 34, "length": 1, "default": "|", "propRef": "booksBiography"},
+          {"offset": 35, "length": 3, "default": "swe", "placeholder": "language"},
+          {"offset": 38, "length": 1, "default": "_", "propRef": "modifiedRecord"},
+          {"offset": 39, "length": 1, "default": "c", "propRef": "catalogingSource"}
+        ]
+      },
+      {
+        "term": "Computer",
+        "matchRecTypeBibLevel": ["md", "ma", "mc", "mb", "mm", "mi", "mp", "ms", "m9"],
+        "columns": [
+          {"offset": 0, "length": 6, "default": "aaaaaa", "placeholder": "<<<TEXT>>>"},
+          {"offset": 6, "length": 1, "default": "s", "propRef": "publicationStatus"},
+          {"offset": 7, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
+          {"offset": 11, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
+          {"offset": 15, "length": 3, "default": "sw_", "placeholder": "country"},
+          {"offset": 22, "length": 1, "default": "_", "propRef": "computerAudience"},
+          {"offset": 23, "length": 1, "default": "_", "propRef": "computerItem"},
+          {"offset": 26, "length": 1, "default": "d", "propRef": "computerTypeOfFile"},
+          {"offset": 28, "length": 1, "default": "|", "propRef": "computerGovtPub"},
+          {"offset": 35, "length": 3, "default": "swe", "placeholder": "language"},
+          {"offset": 38, "length": 1, "default": "_", "propRef": "modifiedRecord"},
+          {"offset": 39, "length": 1, "default": "c", "propRef": "catalogingSource"}
+        ]
+      },
+      {
+        "term": "Map",
+        "matchRecTypeBibLevel": ["em", "fp", "fs", "ei", "ed", "ea", "f9", "ec", "eb", "fa", "fb", "fc", "e9", "fi", "fd", "fm", "ep", "es"],
+        "columns": [
+          {"offset": 0, "length": 6, "default": "aaaaaa", "placeholder": "<<<TEXT>>>"},
+          {"offset": 6, "length": 1, "default": "s", "propRef": "publicationStatus"},
+          {"offset": 7, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
+          {"offset": 11, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
+          {"offset": 15, "length": 3, "default": "sw_", "placeholder": "country"},
+          {"offset": 18, "length": 1, "default": "|", "propRef": "mapsRelief"},
+          {"offset": 19, "length": 1, "default": "|", "propRef": "mapsRelief"},
+          {"offset": 20, "length": 1, "default": "|", "propRef": "mapsRelief"},
+          {"offset": 21, "length": 1, "default": "|", "propRef": "mapsRelief"},
+          {"offset": 22, "length": 2, "default": "__", "propRef": "mapsProjection"},
+          {"offset": 25, "length": 1, "default": "a", "propRef": "mapsMaterial"},
+          {"offset": 28, "length": 1, "default": "|", "propRef": "mapsGovtPub"},
+          {"offset": 29, "length": 1, "default": "_", "propRef": "mapsItem"},
+          {"offset": 31, "length": 1, "default": "|", "propRef": "mapsIndex"},
+          {"offset": 33, "length": 1, "default": "_", "propRef": "mapsFormat"},
+          {"offset": 34, "length": 1, "default": "_", "propRef": "mapsFormat"},
+          {"offset": 35, "length": 3, "default": "swe", "placeholder": "language"},
+          {"offset": 38, "length": 1, "default": "_", "propRef": "modifiedRecord"},
+          {"offset": 39, "length": 1, "default": "c", "propRef": "catalogingSource"}
+        ]
+      },
+      {
+        "term": "Mixed",
+        "matchRecTypeBibLevel": ["bd", "ps", "pp", "ba", "bb", "bc", "bm", "bi", "pb", "pc", "pa", "bp", "pd", "bs", "pi", "b9", "pm"],
+        "columns": [
+          {"offset": 0, "length": 6, "default": "aaaaaa", "placeholder": "<<<TEXT>>>"},
+          {"offset": 6, "length": 1, "default": "s", "propRef": "publicationStatus"},
+          {"offset": 7, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
+          {"offset": 11, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
+          {"offset": 15, "length": 3, "default": "sw_", "placeholder": "country"},
+          {"offset": 23, "length": 1, "default": "_", "propRef": "mixedItem"},
+          {"offset": 35, "length": 3, "default": "swe", "placeholder": "language"},
+          {"offset": 38, "length": 1, "default": "_", "propRef": "modifiedRecord"},
+          {"offset": 39, "length": 1, "default": "c", "propRef": "catalogingSource"}
+        ]
+      },
+      {
+        "term": "Music",
+        "matchRecTypeBibLevel": ["ci", "j9", "cm", "cc", "cb", "ca", "cd", "ii", "cs", "im", "d9", "ia", "ic", "ib", "id", "cp", "ja", "jb", "ip", "is", "i9", "dm", "di", "jp", "dd", "db", "dc", "da", "jm", "c9", "ji", "jd", "js", "ds", "dp", "jc"],
+        "columns": [
+          {"offset": 0, "length": 6, "default": "aaaaaa", "placeholder": "<<<TEXT>>>"},
+          {"offset": 6, "length": 1, "default": "s", "propRef": "publicationStatus"},
+          {"offset": 7, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
+          {"offset": 11, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
+          {"offset": 15, "length": 3, "default": "sw_", "placeholder": "country"},
+          {"offset": 18, "length": 2, "default": "||", "propRef": "musicComposition"},
+          {"offset": 20, "length": 1, "default": "|", "propRef": "musicFormat"},
+          {"offset": 21, "length": 1, "default": "|", "propRef": "musicParts"},
+          {"offset": 22, "length": 1, "default": "_", "propRef": "musicAudience"},
+          {"offset": 23, "length": 1, "default": "_", "propRef": "musicItem"},
+          {"offset": 24, "length": 1, "default": "|", "propRef": "musicMatter"},
+          {"offset": 25, "length": 1, "default": "|", "propRef": "musicMatter"},
+          {"offset": 26, "length": 1, "default": "|", "propRef": "musicMatter"},
+          {"offset": 27, "length": 1, "default": "|", "propRef": "musicMatter"},
+          {"offset": 28, "length": 1, "default": "|", "propRef": "musicMatter"},
+          {"offset": 29, "length": 1, "default": "|", "propRef": "musicMatter"},
+          {"offset": 30, "length": 1, "default": "|", "propRef": "musicText"},
+          {"offset": 31, "length": 1, "default": "|", "propRef": "musicText"},
+          {"offset": 33, "length": 1, "default": "|", "propRef": "musicTransposition"},
+          {"offset": 35, "length": 3, "default": "___", "placeholder": "language"},
+          {"offset": 38, "length": 1, "default": "_", "propRef": "modifiedRecord"},
+          {"offset": 39, "length": 1, "default": "c", "propRef": "catalogingSource"}
+        ]
+      },
+      {
+        "term": "Serial",
+        "matchRecTypeBibLevel": ["ab", "t9", "ai", "hs", "hp", "ts", "h9", "hb", "ap", "as", "hi", "tp", "ti", "a9", "tb"],
+        "columns": [
+          {"offset": 0, "length": 6, "default": "aaaaaa", "placeholder": "<<<TEXT>>>"},
+          {"offset": 6, "length": 1, "default": "s", "propRef": "publicationStatus"},
+          {"offset": 7, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
+          {"offset": 11, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
+          {"offset": 15, "length": 3, "default": "sw_", "placeholder": "country"},
+          {"offset": 18, "length": 1, "default": "|", "propRef": "serialsFrequency"},
+          {"offset": 19, "length": 1, "default": "|", "propRef": "serialsRegularity"},
+          {"offset": 20, "length": 1, "default": "|", "propRef": "serialsISSN"},
+          {"offset": 21, "length": 1, "default": "p", "propRef": "serialsTypeOfSerial"},
+          {"offset": 22, "length": 1, "default": "|", "propRef": "serialsOriginalItem"},
+          {"offset": 23, "length": 1, "default": "_", "propRef": "serialsItem"},
+          {"offset": 24, "length": 1, "default": "_", "propRef": "serialsNature"},
+          {"offset": 25, "length": 1, "default": "_", "propRef": "serialsContents"},
+          {"offset": 26, "length": 1, "default": "_", "propRef": "serialsContents"},
+          {"offset": 27, "length": 1, "default": "_", "propRef": "serialsContents"},
+          {"offset": 28, "length": 1, "default": "|", "propRef": "serialsGovtPub"},
+          {"offset": 29, "length": 1, "default": "0", "propRef": "serialsConfPub"},
+          {"offset": 33, "length": 1, "default": "|", "propRef": "serialsAlphabet"},
+          {"offset": 34, "length": 1, "default": "0", "propRef": "serialsTypeOfEntry"},
+          {"offset": 35, "length": 3, "default": "swe", "placeholder": "language"},
+          {"offset": 38, "length": 1, "default": "_", "propRef": "modifiedRecord"},
+          {"offset": 39, "length": 1, "default": "c", "propRef": "catalogingSource"}
+        ]
+      },
+      {
+        "term": "Visual",
+        "matchRecTypeBibLevel": ["p9", "gs", "gp", "r9", "gd", "gc", "gb", "ga", "gm", "gi", "ni", "rp", "nm", "rs", "na", "nb", "nc", "nd", "oa", "rd", "ra", "o9", "rc", "np", "rm", "k9", "ns", "ri", "rb", "om", "g9", "kc", "kb", "ka", "oi", "kd", "ki", "od", "oc", "ob", "km", "ks", "n9", "kp", "os", "op"],
+        "columns": [
+          {"offset": 0, "length": 6, "default": "aaaaaa", "placeholder": "<<<TEXT>>>"},
+          {"offset": 6, "length": 1, "default": "s", "propRef": "publicationStatus"},
+          {"offset": 7, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
+          {"offset": 11, "length": 4, "default": "aaaa", "placeholder": "<<<TEXT>>>"},
+          {"offset": 15, "length": 3, "default": "sw_", "placeholder": "country"},
+          {"offset": 18, "length": 3, "default": "|||", "propRef": "visualRunningTime"},
+          {"offset": 22, "length": 1, "default": "_", "propRef": "visualAudience"},
+          {"offset": 28, "length": 1, "default": "|", "propRef": "visualGovtPub"},
+          {"offset": 29, "length": 1, "default": "_", "propRef": "visualItem"},
+          {"offset": 33, "length": 1, "default": "|", "propRef": "visualMaterial"},
+          {"offset": 34, "length": 1, "default": "|", "propRef": "visualTechnique"},
+          {"offset": 35, "length": 3, "default": "___", "placeholder": "language"},
+          {"offset": 38, "length": 1, "default": "_", "propRef": "modifiedRecord"},
+          {"offset": 39, "length": 1, "default": "c", "propRef": "catalogingSource"}
+        ]
+      }
+    ]
+  },
   "020": {
-    "name": "internationalStandardBookNumber",
+    "id": "internationalStandardBookNumber",
     "repeatable": true,
-    "ind1": {"": null},
-    "ind2": {"": null},
+    "ind1": {"_": null},
+    "ind2": {"_": null},
     "subfield": {
-      "a": {"name": "internationalStandardBookNumber", "repeatable": false},
-      "c": {"name": "termsOfAvailability", "repeatable": false},
-      "z": {"name": "canceledOrInvalidIsbn", "repeatable": true},
-      "6": {"name": "linkage", "repeatable": false},
-      "8": {"name": "fieldLinkAndSequenceNumber", "repeatable": true}
+      "a": {"id": "internationalStandardBookNumber", "repeatable": false},
+      "c": {"id": "termsOfAvailability", "repeatable": false},
+      "z": {"id": "canceledOrInvalidIsbn", "repeatable": true},
+      "6": {"id": "linkage", "repeatable": false},
+      "8": {"id": "fieldLinkAndSequenceNumber", "repeatable": true}
     }
   },
   "035": {
-    "name": "systemControlNumber",
+    "id": "systemControlNumber",
     "repeatable": true,
-    "ind1": {"": null},
-    "ind2": {"": null},
+    "ind1": {"_": null},
+    "ind2": {"_": null},
     "subfield": {
-      "a": {"name": "systemControlNumber", "repeatable": false},
-      "z": {"name": "canceledOrInvalidControlNumber", "repeatable": true},
-      "6": {"name": "linkage", "repeatable": false},
-      "8": {"name": "fieldLinkAndSequenceNumber", "repeatable": true},
-      "9": {"name": "localSystemNumber", "repeatable": true, "std": false}
+      "a": {"id": "systemControlNumber", "repeatable": false},
+      "z": {"id": "canceledOrInvalidControlNumber", "repeatable": true},
+      "6": {"id": "linkage", "repeatable": false},
+      "8": {"id": "fieldLinkAndSequenceNumber", "repeatable": true},
+      "9": {"id": "localSystemNumber", "repeatable": true, "std": false}
     }
   },
   "040": {
-    "name": "catalogingSource",
+    "id": "catalogingSource",
     "repeatable": false,
-    "ind1": {"": null},
-    "ind2": {"": null},
+    "ind1": {"_": null},
+    "ind2": {"_": null},
     "subfield": {
       "a": {"name" :"originalCatalogingAgency", "repeatable": false},
       "b": {"name" :"languageOfCataloging", "repeatable": false},
@@ -67,250 +252,251 @@
     }
   },
   "042": {
-    "name": "authenticationCode",
+    "id": "authenticationCode",
     "repeatable": false,
-    "ind1": {"": null},
-    "ind2": {"": null},
+    "ind1": {"_": null},
+    "ind2": {"_": null},
     "subfield": {
-      "a": {"name": "authenticationCode", "repeatable": true},
-      "9": {"name": "bibliographyCode", "repeatable": true, "std": false}
+      "a": {"id": "authenticationCode", "repeatable": true},
+      "9": {"id": "bibliographyCode", "repeatable": true, "std": false}
     }
   },
   "084": {
-    "name": "otherClassificationNumber",
+    "id": "otherClassificationNumber",
     "repeatable": true,
-    "ind1": {"": null},
-    "ind2": {"": null},
+    "ind1": {"_": null},
+    "ind2": {"_": null},
     "subfield": {
-      "a": {"name": "classificationNumber", "repeatable": true},
-      "b": {"name": "itemNumber", "repeatable": false},
-      "q": {"name": "assigningAgency", "repeatable": false},
-      "2": {"name": "numberSource", "repeatable": false},
-      "6": {"name": "linkage", "repeatable": false},
-      "8": {"name": "fieldLinkAndSequenceNumber", "repeatable": true}
+      "a": {"id": "classificationNumber", "repeatable": true},
+      "b": {"id": "itemNumber", "repeatable": false},
+      "q": {"id": "assigningAgency", "repeatable": false},
+      "2": {"id": "numberSource", "repeatable": false},
+      "6": {"id": "linkage", "repeatable": false},
+      "8": {"id": "fieldLinkAndSequenceNumber", "repeatable": true}
     }
   },
   "100": {
-    "name": "mainEntryPersonalName",
+    "id": "mainEntryPersonalName",
     "repeatable": false,
     "ind1": {
-      "0": "forename",
-      "1": "surname",
-      "3": "familyName"
+      "id": "typeOfPersonalNameEntryElement",
+      "0": {"id": "forename"},
+      "1": {"id": "surname"},
+      "3": {"id": "familyName"}
     },
-    "ind2": {"": null},
+    "ind2": {"_": null},
     "subfield": {
-      "a": {"name": "personalName", "repeatable": false},
-      "b": {"name": "numeration", "repeatable": false},
-      "c": {"name": "titlesAndWordsAssociatedWithAName", "repeatable": true},
-      "d": {"name": "datesAssociatedWithAName", "repeatable": false},
-      "e": {"name": "relatorTerm", "repeatable": true},
-      "f": {"name": "dateOfAWork", "repeatable": false},
-      "g": {"name": "miscellaneousInformation", "repeatable": false},
-      "j": {"name": "attributionQualifier", "repeatable": true},
-      "k": {"name": "formSubheading", "repeatable": true},
-      "l": {"name": "languageOfAWork", "repeatable": false},
-      "n": {"name": "numberOfPartOrSectionOfAWork", "repeatable": true},
-      "p": {"name": "nameOfPartOrSectionOfAWork", "repeatable": true},
-      "q": {"name": "fullerFormOfName", "repeatable": false},
-      "t": {"name": "titleOfAWork", "repeatable": false},
-      "u": {"name": "affiliation", "repeatable": false},
-      "0": {"name": "authorityRecordControlNumber", "repeatable": true},
-      "4": {"name": "relatorCode", "repeatable": true},
-      "6": {"name": "linkage", "repeatable": false},
-      "8": {"name": "fieldLinkAndSequenceNumber", "repeatable": true}
+      "a": {"id": "personalName", "repeatable": false},
+      "b": {"id": "numeration", "repeatable": false},
+      "c": {"id": "titlesAndWordsAssociatedWithAName", "repeatable": true},
+      "d": {"id": "datesAssociatedWithAName", "repeatable": false},
+      "e": {"id": "relatorTerm", "repeatable": true},
+      "f": {"id": "dateOfAWork", "repeatable": false},
+      "g": {"id": "miscellaneousInformation", "repeatable": false},
+      "j": {"id": "attributionQualifier", "repeatable": true},
+      "k": {"id": "formSubheading", "repeatable": true},
+      "l": {"id": "languageOfAWork", "repeatable": false},
+      "n": {"id": "numberOfPartOrSectionOfAWork", "repeatable": true},
+      "p": {"id": "nameOfPartOrSectionOfAWork", "repeatable": true},
+      "q": {"id": "fullerFormOfName", "repeatable": false},
+      "t": {"id": "titleOfAWork", "repeatable": false},
+      "u": {"id": "affiliation", "repeatable": false},
+      "0": {"id": "authorityRecordControlNumber", "repeatable": true},
+      "4": {"id": "relatorCode", "repeatable": true},
+      "6": {"id": "linkage", "repeatable": false},
+      "8": {"id": "fieldLinkAndSequenceNumber", "repeatable": true}
     },
     "link": "dc:creator"
   },
   "245": {
-    "name": "titleStatement",
+    "id": "titleStatement",
     "repeatable": false,
-    "ind1": {"": null},
-    "ind2": {"": null},
+    "ind1": {"_": null},
+    "ind2": {"_": null},
     "subfield": {
-      "a": {"name": "title", "repeatable": false},
-      "b": {"name": "remainderOfTitle", "repeatable": false},
-      "c": {"name": "statementOfResponsibilityEtc", "repeatable": false},
-      "f": {"name": "inclusiveDates", "repeatable": false},
-      "g": {"name": "bulkDates", "repeatable": false},
-      "h": {"name": "medium", "repeatable": false},
-      "k": {"name": "form", "repeatable": true},
-      "n": {"name": "numberOfPartOrSectionOfAWork", "repeatable": true},
-      "p": {"name": "nameOfPartOrSectionOfAWork", "repeatable": true},
-      "s": {"name": "version", "repeatable": false},
-      "6": {"name": "linkage", "repeatable": false},
-      "8": {"name": "fieldLinkAndSequenceNumber", "repeatable": true}
+      "a": {"id": "title", "repeatable": false},
+      "b": {"id": "remainderOfTitle", "repeatable": false},
+      "c": {"id": "statementOfResponsibilityEtc", "repeatable": false},
+      "f": {"id": "inclusiveDates", "repeatable": false},
+      "g": {"id": "bulkDates", "repeatable": false},
+      "h": {"id": "medium", "repeatable": false},
+      "k": {"id": "form", "repeatable": true},
+      "n": {"id": "numberOfPartOrSectionOfAWork", "repeatable": true},
+      "p": {"id": "nameOfPartOrSectionOfAWork", "repeatable": true},
+      "s": {"id": "version", "repeatable": false},
+      "6": {"id": "linkage", "repeatable": false},
+      "8": {"id": "fieldLinkAndSequenceNumber", "repeatable": true}
     }
   },
   "260": {
-    "name": "publicationDistributionEtcImprint",
+    "id": "publicationDistributionEtcImprint",
     "repeatable": true,
-    "ind1": {"": null},
-    "ind2": {"": null},
+    "ind1": {"_": null},
+    "ind2": {"_": null},
     "subfield": {
-      "a": {"name": "placeOfPublicationDistributionEtc", "repeatable": true},
-      "b": {"name": "nameOfPublisherDistributorEtc", "repeatable": true},
-      "c": {"name": "dateOfPublicationDistributionEtc", "repeatable": true},
-      "e": {"name": "placeOfManufacture", "repeatable": true},
-      "f": {"name": "manufacturer", "repeatable": true},
-      "g": {"name": "dateOfManufacture", "repeatable": true},
-      "3": {"name": "materialsSpecified", "repeatable": false},
-      "6": {"name": "linkage", "repeatable": false},
-      "8": {"name": "fieldLinkAndSequenceNumber", "repeatable": true}
+      "a": {"id": "placeOfPublicationDistributionEtc", "repeatable": true},
+      "b": {"id": "nameOfPublisherDistributorEtc", "repeatable": true},
+      "c": {"id": "dateOfPublicationDistributionEtc", "repeatable": true},
+      "e": {"id": "placeOfManufacture", "repeatable": true},
+      "f": {"id": "manufacturer", "repeatable": true},
+      "g": {"id": "dateOfManufacture", "repeatable": true},
+      "3": {"id": "materialsSpecified", "repeatable": false},
+      "6": {"id": "linkage", "repeatable": false},
+      "8": {"id": "fieldLinkAndSequenceNumber", "repeatable": true}
     }
   },
   "300": {
-    "name": "physicalDescription",
+    "id": "physicalDescription",
     "repeatable": true,
-    "ind1": {"": null},
-    "ind2": {"": null},
+    "ind1": {"_": null},
+    "ind2": {"_": null},
     "subfield": {
-      "a": {"name": "extent", "repeatable": true},
-      "b": {"name": "otherPhysicalDetails", "repeatable": false},
-      "c": {"name": "dimensions", "repeatable": true},
-      "e": {"name": "accompanyingMaterial", "repeatable": false},
-      "f": {"name": "typeOfUnit", "repeatable": true},
-      "g": {"name": "sizeOfUnit", "repeatable": true},
-      "3": {"name": "materialsSpecified", "repeatable": false},
-      "6": {"name": "linkage", "repeatable": false},
-      "8": {"name": "fieldLinkAndSequenceNumber", "repeatable": true}
+      "a": {"id": "extent", "repeatable": true},
+      "b": {"id": "otherPhysicalDetails", "repeatable": false},
+      "c": {"id": "dimensions", "repeatable": true},
+      "e": {"id": "accompanyingMaterial", "repeatable": false},
+      "f": {"id": "typeOfUnit", "repeatable": true},
+      "g": {"id": "sizeOfUnit", "repeatable": true},
+      "3": {"id": "materialsSpecified", "repeatable": false},
+      "6": {"id": "linkage", "repeatable": false},
+      "8": {"id": "fieldLinkAndSequenceNumber", "repeatable": true}
     }
   },
   "500": {
-    "name": "generalNote",
+    "id": "generalNote",
     "repeatable": true,
-    "ind1": {"": null},
-    "ind2": {"": null},
+    "ind1": {"_": null},
+    "ind2": {"_": null},
     "subfield": {
-      "a": {"name": "generalNote", "repeatable": false},
-      "3": {"name": "materialsSpecified", "repeatable": false},
-      "5": {"name": "institutionToWhichFieldApplies", "repeatable": false},
-      "6": {"name": "linkage", "repeatable": false},
-      "8": {"name": "fieldLinkAndSequenceNumber", "repeatable": true}
+      "a": {"id": "generalNote", "repeatable": false},
+      "3": {"id": "materialsSpecified", "repeatable": false},
+      "5": {"id": "institutionToWhichFieldApplies", "repeatable": false},
+      "6": {"id": "linkage", "repeatable": false},
+      "8": {"id": "fieldLinkAndSequenceNumber", "repeatable": true}
     }
   },
   "599": {
-    "name": "localNotes",
+    "id": "localNotes",
     "repeatable": true,
-    "ind1": {"": null},
-    "ind2": {"": null},
-    "subfield": {"": null}
+    "ind1": {"_": null},
+    "ind2": {"_": null},
+    "subfield": {}
   },
   "600": {
-    "name": "subjectAddedEntryPersonalName",
+    "id": "subjectAddedEntryPersonalName",
     "repeatable": true,
     "ind1": {
-      "name": "typeOfPersonalNameEntryElement",
-      "0": "forename",
-      "1": "surname",
-      "3": "familyName"
+      "id": "typeOfPersonalNameEntryElement",
+      "0": {"id": "forename"},
+      "1": {"id": "surname"},
+      "3": {"id": "familyName"}
     },
     "ind2": {
-      "name": "thesaurus",
-      "0": "libraryOfCongressSubjectHeadings",
-      "1": "lcSubjectHeadingsForChildren'sLiterature",
-      "2": "medicalSubjectHeadings",
-      "3": "nationalAgriculturalLibrarySubjectAuthorityFile",
-      "4": "sourceNotSpecified",
-      "5": "canadianSubjectHeadings",
-      "6": "répertoireDeVedettes-matière",
-      "7": "sourceSpecifiedInSubfield $2"
+      "id": "thesaurus",
+      "0": {"id": "libraryOfCongressSubjectHeadings"},
+      "1": {"id": "lcSubjectHeadingsForChildrensLiterature"},
+      "2": {"id": "medicalSubjectHeadings"},
+      "3": {"id": "nationalAgriculturalLibrarySubjectAuthorityFile"},
+      "4": {"id": "sourceNotSpecified"},
+      "5": {"id": "canadianSubjectHeadings"},
+      "6": {"id": "répertoireDeVedettes-matière"},
+      "7": {"id": "sourceSpecifiedInSubfield $2"}
     },
     "subfield": {
-      "a": {"name": "personalName", "repeatable": false},
-      "b": {"name": "numeration", "repeatable": false},
-      "c": {"name": "titlesAndOtherWordsAssociatedWithAName", "repeatable": true},
-      "d": {"name": "datesAssociatedWithAName", "repeatable": false},
-      "e": {"name": "relatorTerm", "repeatable": true},
-      "f": {"name": "dateOfAWork", "repeatable": false},
-      "g": {"name": "miscellaneousInformation", "repeatable": false},
-      "h": {"name": "medium", "repeatable": false},
-      "j": {"name": "attributionQualifier", "repeatable": true},
-      "k": {"name": "formSubheading", "repeatable": true},
-      "l": {"name": "languageOfAWork", "repeatable": false},
-      "m": {"name": "mediumOfPerformanceForMusic", "repeatable": true},
-      "n": {"name": "numberOfPartOrSectionOfAWork", "repeatable": true},
-      "o": {"name": "arrangedStatementForMusic", "repeatable": false},
-      "p": {"name": "nameOfPartOrSectionOfAWork", "repeatable": true},
-      "q": {"name": "fullerFormOfName", "repeatable": false},
-      "r": {"name": "keyForMusic", "repeatable": false},
-      "s": {"name": "version", "repeatable": false},
-      "t": {"name": "titleOfAWork", "repeatable": false},
-      "u": {"name": "affiliation", "repeatable": false},
-      "v": {"name": "formSubdivision", "repeatable": true},
-      "x": {"name": "generalSubdivision", "repeatable": true},
-      "y": {"name": "chronologicalSubdivision", "repeatable": true},
-      "z": {"name": "geographicSubdivision", "repeatable": true},
-      "0": {"name": "authorityRecordControlNumber", "repeatable": true},
-      "2": {"name": "sourceOfHeadingOrTerm", "repeatable": false},
-      "3": {"name": "materialsSpecified", "repeatable": false},
-      "4": {"name": "relatorCode", "repeatable": true},
-      "6": {"name": "linkage", "repeatable": false},
-      "8": {"name": "fieldLinkAndSequenceNumber", "repeatable": true}
+      "a": {"id": "personalName", "repeatable": false},
+      "b": {"id": "numeration", "repeatable": false},
+      "c": {"id": "titlesAndOtherWordsAssociatedWithAName", "repeatable": true},
+      "d": {"id": "datesAssociatedWithAName", "repeatable": false},
+      "e": {"id": "relatorTerm", "repeatable": true},
+      "f": {"id": "dateOfAWork", "repeatable": false},
+      "g": {"id": "miscellaneousInformation", "repeatable": false},
+      "h": {"id": "medium", "repeatable": false},
+      "j": {"id": "attributionQualifier", "repeatable": true},
+      "k": {"id": "formSubheading", "repeatable": true},
+      "l": {"id": "languageOfAWork", "repeatable": false},
+      "m": {"id": "mediumOfPerformanceForMusic", "repeatable": true},
+      "n": {"id": "numberOfPartOrSectionOfAWork", "repeatable": true},
+      "o": {"id": "arrangedStatementForMusic", "repeatable": false},
+      "p": {"id": "nameOfPartOrSectionOfAWork", "repeatable": true},
+      "q": {"id": "fullerFormOfName", "repeatable": false},
+      "r": {"id": "keyForMusic", "repeatable": false},
+      "s": {"id": "version", "repeatable": false},
+      "t": {"id": "titleOfAWork", "repeatable": false},
+      "u": {"id": "affiliation", "repeatable": false},
+      "v": {"id": "formSubdivision", "repeatable": true},
+      "x": {"id": "generalSubdivision", "repeatable": true},
+      "y": {"id": "chronologicalSubdivision", "repeatable": true},
+      "z": {"id": "geographicSubdivision", "repeatable": true},
+      "0": {"id": "authorityRecordControlNumber", "repeatable": true},
+      "2": {"id": "sourceOfHeadingOrTerm", "repeatable": false},
+      "3": {"id": "materialsSpecified", "repeatable": false},
+      "4": {"id": "relatorCode", "repeatable": true},
+      "6": {"id": "linkage", "repeatable": false},
+      "8": {"id": "fieldLinkAndSequenceNumber", "repeatable": true}
     }
   },
   "700": {
-    "name": "addedEntryPersonalName",
+    "id": "addedEntryPersonalName",
     "repeatable": true,
     "ind1": {
-      "name": "typeOfPersonalNameEntryElement",
-      "0": "forename",
-      "1": "surname",
-      "3": "familyName"
+      "id": "typeOfPersonalNameEntryElement",
+      "0": {"id": "forename"},
+      "1": {"id": "surname"},
+      "3": {"id": "familyName"}
     },
     "ind2": {
-      "name": "typeOfAddedEntry",
-      "#": "noInformationProvided",
-      "2": "analyticalEntry"
+      "id": "typeOfAddedEntry",
+      "#": {"id": "noInformationProvided"},
+      "2": {"id": "analyticalEntry"}
     },
     "subfield": {
-      "a": {"name": "personalName", "repeatable": false},
-      "b": {"name": "numeration", "repeatable": false},
-      "c": {"name": "titlesAndOtherWordsAssociatedWithAName", "repeatable": true},
-      "d": {"name": "datesAssociatedWithAName", "repeatable": false},
-      "e": {"name": "relatorTerm", "repeatable": true},
-      "f": {"name": "dateOfAWork", "repeatable": false},
-      "g": {"name": "miscellaneousInformation", "repeatable": false},
-      "h": {"name": "medium", "repeatable": false},
-      "i": {"name": "relationshipInformation", "repeatable": true},
-      "j": {"name": "attributionQualifier", "repeatable": true},
-      "k": {"name": "formSubheading", "repeatable": true},
-      "l": {"name": "languageOfAWork", "repeatable": false},
-      "m": {"name": "mediumOfPerformanceForMusic", "repeatable": true},
-      "n": {"name": "numberOfPartOrSectionOfAWork", "repeatable": true},
-      "o": {"name": "arrangedStatementForMusic", "repeatable": false},
-      "p": {"name": "nameOfPartOrSectionOfAWork", "repeatable": true},
-      "q": {"name": "fullerFormOfName", "repeatable": false},
-      "r": {"name": "keyForMusic", "repeatable": false},
-      "s": {"name": "version", "repeatable": false},
-      "t": {"name": "titleOfAWork", "repeatable": false},
-      "u": {"name": "affiliation", "repeatable": false},
-      "x": {"name": "internationalStandardSerialNumber", "repeatable": false},
-      "0": {"name": "authorityRecordControlNumber", "repeatable": true},
-      "3": {"name": "materialsSpecified", "repeatable": false},
-      "4": {"name": "relatorCode", "repeatable": true},
-      "5": {"name": "institutionToWhichFieldApplies", "repeatable": false},
-      "6": {"name": "linkage", "repeatable": false},
-      "8": {"name": "fieldLinkAndSequenceNumber", "repeatable": true}
+      "a": {"id": "personalName", "repeatable": false},
+      "b": {"id": "numeration", "repeatable": false},
+      "c": {"id": "titlesAndOtherWordsAssociatedWithAName", "repeatable": true},
+      "d": {"id": "datesAssociatedWithAName", "repeatable": false},
+      "e": {"id": "relatorTerm", "repeatable": true},
+      "f": {"id": "dateOfAWork", "repeatable": false},
+      "g": {"id": "miscellaneousInformation", "repeatable": false},
+      "h": {"id": "medium", "repeatable": false},
+      "i": {"id": "relationshipInformation", "repeatable": true},
+      "j": {"id": "attributionQualifier", "repeatable": true},
+      "k": {"id": "formSubheading", "repeatable": true},
+      "l": {"id": "languageOfAWork", "repeatable": false},
+      "m": {"id": "mediumOfPerformanceForMusic", "repeatable": true},
+      "n": {"id": "numberOfPartOrSectionOfAWork", "repeatable": true},
+      "o": {"id": "arrangedStatementForMusic", "repeatable": false},
+      "p": {"id": "nameOfPartOrSectionOfAWork", "repeatable": true},
+      "q": {"id": "fullerFormOfName", "repeatable": false},
+      "r": {"id": "keyForMusic", "repeatable": false},
+      "s": {"id": "version", "repeatable": false},
+      "t": {"id": "titleOfAWork", "repeatable": false},
+      "u": {"id": "affiliation", "repeatable": false},
+      "x": {"id": "internationalStandardSerialNumber", "repeatable": false},
+      "0": {"id": "authorityRecordControlNumber", "repeatable": true},
+      "3": {"id": "materialsSpecified", "repeatable": false},
+      "4": {"id": "relatorCode", "repeatable": true},
+      "5": {"id": "institutionToWhichFieldApplies", "repeatable": false},
+      "6": {"id": "linkage", "repeatable": false},
+      "8": {"id": "fieldLinkAndSequenceNumber", "repeatable": true}
     }
   },
   "976": {
-    "name": "sabHeading",
+    "id": "sabHeading",
     "repeatable": true,
     "group": "equivalenceOrCrossReference",
     "std": false,
-    "ind1": {"": null},
+    "ind1": {"_": null},
     "ind2": {
-      "name": "sabSystemEdition",
-      "": null,
-      "0": "SAB_6",
-      "1": "SAB_5",
-      "2": "Shortened_SAB_headings"
+      "id": "sabSystemEdition",
+      "_": null,
+      "0": {"id": "SAB_6"},
+      "1": {"id": "SAB_5"},
+      "2": {"id": "Shortened_SAB_headings"}
     },
     "subfield": {
-      "a": {"name": "sabClassification", "repeatable": false},
-      "b": {"name": "sabHeading", "repeatable": false},
-      "8": {"name": "linkAndSequenceNumber", "repeatable": true}
+      "a": {"id": "sabClassification", "repeatable": false},
+      "b": {"id": "sabHeading", "repeatable": false},
+      "8": {"id": "linkAndSequenceNumber", "repeatable": true}
     }
   }
 }
