@@ -20,7 +20,7 @@
 {% if search_results %}
   <hr>
   <section>
-    <h2>Sökresultat</h2>
+    <h2>Sökresultat ({{ data.hits }} träffar)</h2>
     {% with records = search_results %}
       {% include "_record_list.html" %}
     {% endwith %}
