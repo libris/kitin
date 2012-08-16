@@ -3,16 +3,13 @@
 {% block content_class %}record{% endblock content_class %}
 
 {% block content %}
-  <!--Body content-->
-  <h2>[BIB RECORD #]</h2>
+  <h2>[BIB RECORD]</h2>
   <hr>
-        <form id='fields' class='form-horizontal'>
-        </form>
-        <hr>
-        <input type="submit" value="save draft" name="draft">
-        <input type="submit" value="publish" name="publish">
-
-
+  <form id='fields' class='form-horizontal'>
+  </form>
+  <hr>
+  <input type="submit" value="save draft" name="draft">
+  <input type="submit" value="publish" name="publish">
 {% endblock content %}
 
 {% block extrajs %}
@@ -36,67 +33,69 @@
   </script>
 
   <script type="text/html" id="field-row-template">
-      <div class='control-group regular_field  marc<%= label %>'>
-        <label class='control-label js-field-label'><%= label %>
-          <div class='action-group'>
-            <button class="btn" title="Add above"></i><i class="icon-arrow-up"></i></button>
-            <button class="btn" title="Add below"><!--<i class="icon-plus">--></i><i class="icon-arrow-down"></i></button>
-            <button class="btn" title="Delete"><i class="icon-trash"></i></button>
+    <div class='control-group regular_field marc-<%= label %>'>
+      <label class='control-label'><%= label %>
+        <div class='action-group'>
+          <button class="btn" title="Add above"></i><i class="icon-arrow-up"></i></button>
+          <button class="btn" title="Add below"><!--<i class="icon-plus">--></i><i class="icon-arrow-down"></i></button>
+          <button class="btn" title="Delete"><i class="icon-trash"></i></button>
+        </div>
+      </label>
+      <div class='controls row-fluid'>
+        <input class='indicator ind1' name="ind1" value='<%= ind1 %>'/>
+        <input class='indicator ind2' name="ind2" value='<%= ind2 %>'/>
+        <% subfields.each(function (subfield) { %>
+          <% var code = subfield.get('code'); %>
+          <div class="input-prepend subfield-wrapper">
+            <span class='add-on subfield-code'><%= code %></span>
+            <input id="<%= subfield.cid %>" name="subfield"
+                   class="subfield subfield-<%= code %>"
+                   value="<%= subfield.get('value') %>" />
           </div>
-        </label>
-        <div class='controls row-fluid'>
-          <input class='indicator js-field-ind1' name="ind1" value='<%= ind1 %>'/>
-          <input class='indicator js-field-ind2' name="ind2" value='<%= ind2 %>'/>
-          <% for (subfield in subfields) { %>
-            <% for (item in subfields[subfield]) { %>
-              <div class="input-prepend js-subfield-wrapper">
-                <span class='add-on js-subfield-code'><%= item %></span><!--
-                      --><input id='' class='subfield subfield-<%= item %> js-subfield-value' name='subfield' value='<%= subfields[subfield][item] %>' cols='<%= subfields[subfield][item].length %>'/>
-              </div> <!-- input-prepend -->
-            <% } %>
-          <% } %>
-        </div> <!-- controls  -->
-      </div> <!-- control-group -->
+        <% }); %>
+      </div>
+    </div>
   </script>
 
   <script type="text/html" id="bib-autocomplete-template">
     <div class="auth">
       <h4><span class="name"><%= data['100'].a %></span>
-          <% if (data['100'].d) { %>
+        <% if (data['100'].d) { %>
           <span class="date"><%= data['100'].d %></span>
-        <% } else { %>
+          <% } else { %>
           <em><%= "" %></em>
-        <% } %>
+          <% } %>
         <% if (data.authorized) { %>
           <span class="label label-success pull-right"><i class="icon-ok icon-white"></i>Aukt.</span>
-        <% } %>
+          <% } %>
       </h4>
-        <h5><% if (data['100'].c) { %>(<%= data['100'].c %>)<% } %></h5>
+      <h5><% if (data['100'].c) { %>(<%= data['100'].c %>)<% } %></h5>
         <% if (data['500']) { %>
-          <p><% data['500'].forEach(function (it) { %>
-            <%= it.a %><br>
+          <p><em>Hänv. från<% data['500'].forEach(function (it) { %>
+            <%= it.a %></em><br>
           <% }) %>
         <% } %>
         <% if (data.highlight) { %>
           <% if (!data.highlight['100.a'] && data.highlight['400.a']) { %>
-              <p class="highlight"><%= data.highlight['400.a'][0] %></p>
+              <p class="highlight"><em>Hänv. från <%= data.highlight['400.a'][0] %></em></p>
+
           <% } %>
         <% } %>
       <% if (data['678']) { %>
         <p><% data['678'].forEach(function (it) { %>
           <%= it.a %><br>
-        <% }) %>
+          <% }) %>
         <% if (data.records) { %>
-            <a href="#"><%=  (data.records) %> titlar</a>
-        <% } %>
+          <a href="#"><%=  (data.records) %> titlar</a>
+          <% } %>
         <% if (data['680']) { %><br>(<%= data['680'].i %>)<% } %>
-      <% } %>
+        <% } %>
       <% if (data.top_titles) { %>
-          <% for (href in data.top_titles) { %>
-           t ex. <a href="<%= href %>" target="_blank"><%= data.top_titles[href] %></a>
+        <% for (href in data.top_titles) { %>
+          t ex. <a href="<%= href %>" target="_blank"><%= data.top_titles[href] %></a>
           <% break } %>
         </p>
-      <% } %>
+        <% } %>
     </div>
   </script>
 
