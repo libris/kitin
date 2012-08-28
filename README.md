@@ -13,11 +13,26 @@ Kitin - README
         $ pip install -r dev-requirements.txt
         $ fab prepare
         
-## Managing web assets
+## Generating Marc-map
 
-		$ tools/fetch-vendor-assets.sh        
+1. Get Swedish legacy config files (ask for directions)
+2. Put them in folder ($CONFIG_DIR) and create folder for marcmap ($SOME_DIR)
+		
+		$ python tools/parse_legacy_config.py $CONFIG_DIR/TagTable/Marc21 sv > $SOME_DIR/marcmap.json 		        
+
+## Starting the client
+
+1. Run ./kitin.py -h for help
+2. Run webapp
+		$ ./kitin.py -d --mockapi -m $SOME_DIR/marcmap.json
 
 ## Running js tests
         $ Install node *brew install node* on MacOSX _(also, make sure to install npm)_
         $ NODE_PATH=.:$PWD/static/js
         $ node test/js/test_marcjson.js
+                
+## Managing web assets
+
+		$ tools/fetch-vendor-assets.sh
+        
+        
