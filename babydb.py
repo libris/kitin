@@ -1,42 +1,86 @@
 #!/usr/bin/env python
-from sqlalchemy import *
-from sqlalchemy.orm import *
+import pickle
 import json
+from sqlalchemy import MetaData, Table, create_engine, exists, and_
+from sqlalchemy.orm import mapper
 
 
-db = create_engine('sqlite:///kitin.db')
-db.echo = True
-metadata = MetaData(db)
-marcpost = Table('marcpost', metadata,
-    Column('id', Integer, primary_key=True),
-    Column('userid', String),
-    Column('marc', PickleType(pickler=json)),
-    Column('bibid', String),
-    Column('spill', PickleType(pickler=json))
-    #Column('100', String),
-    #Column('245', Integer),
-)
-#marcpost.create()
+class Storage(object):
 
-class Marcpost(object):
-    def __repr__(self):
-        return "Userid: %s, postid: %s" %(self.userid, self.id)
-    
-    #def __init__(self):
-        
+    def __init__(self, config):
+        self.db = db = create_engine("%(DBENGINE)s:///%(DBNAME)s" % config)
+        db.echo = True
+        self.metadata = MetaData(db)
 
-mapper(Marcpost, marcpost)
+    def _get_table(self):
+        return Table('marcpost', self.metadata, autoload=True)
+
+    def save(self, id, json_data):
+        table = self._get_table()
+        insert = table.insert()
+        insert.execute(id=id, marc=pickle.dumps(json_data))
+
+    def save2(self, bibid, userid, json_data):
+        table = self._get_table()
+        inserter = table.insert()
+        result = inserter.execute(marc=pickle.dumps(json_data),
+                bibid=bibid, userid=userid)
+        return result.last_inserted_ids()[0]
+
+    def update(self, id, json_data):
+        table = self._get_table()
+        newmp = table.update().where(table.c.id == id).values(
+                marc=pickle.dumps(json_data))
+        self.db.execute(newmp)
+
+    def delete(self, id):
+        table = self._get_table()
+        self.db.execute(table.delete().where(table.c.id == id))
+
+    def exists(self, id):
+        table = self._get_table()
+        return table.select().where(exists([table.c.id], and_(table.c.id == id))).execute().scalar()
+
+    def find_by_user(self, uid):
+        table = self._get_table()
+        query = table.select(table.c.userid == uid)
+        items = query.execute().fetchall()
+        for item in items:
+            yield Marcpost(item.id, pickle.loads(item.marc))
 
 
-"""
-i = marcpost.insert()
-i.execute(marc={'ett': 'ettan'}, spill="nothing yet")
+from collections import namedtuple
+Marcpost = namedtuple('Marcpost', "id, marc")
 
-s = marcpost.select()
-rs = s.execute()
 
-row = rs.fetchone()
+#marcpost = Table('marcpost', metadata,
+#    Column('id', Integer, primary_key=True),
+#    Column('userid', String),
+#    Column('marc', PickleType(pickler=json)),
+#    Column('bibid', String),
+#    Column('spills', PickleType(pickler=json))
+#    #Column('100', String),
+#    #Column('245', Integer),
+#)
+##marcpost.create()
+#
+#class Marcpost(object):
+#    def __repr__(self):
+#        return "Userid: %s, postid: %s" %(self.userid, self.id)
+#
+#    #def __init__(self):
+#
+#
+#mapper(Marcpost, marcpost)
 
-for row in rs:
-    print row.id, 'wrote', row.marc
-"""
+
+#i = marcpost.insert()
+#i.execute(marc={'ett': 'ettan'}, spill="nothing yet")
+#
+#s = marcpost.select()
+#rs = s.execute()
+#
+#row = rs.fetchone()
+#
+#for row in rs:
+#    print row.id, 'wrote', row.marc

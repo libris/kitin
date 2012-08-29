@@ -11,14 +11,17 @@
     "gr2": "http://rdvocab.info/ElementsGr2/",
     "ent": "http://rdvocab.info/uri/schema/FRBRentitiesRDA/",
     "rel": "http://rdvocab.info/RDARelationshipsWEMI/",
-    "dbpedia": "http://dbpedia.org/resource/",
     "librismarc": "http://libris.kb.se/def/marc21#",
 
     "iri": "@id",
     "type": "@type",
     "value": "@value",
     "literal": "rdf:value",
+    "year": "xsd:gYear",
+    "date": "xsd:date",
+    "dateTime": "xsd:dateTime",
 
+    "label": "rdfs:label",
     "comment": "rdfs:comment",
     "subject": "dc:subject",
 
@@ -50,6 +53,7 @@
 
     "Person": "ent:Person",
     "name": "foaf:name",
+    "abbr": "foaf:nick",
     "givenName": "foaf:givenName",
     "surname": "foaf:surname",
     "dateOfBirth": "gr2:dateOfBirth",
@@ -60,7 +64,7 @@
   "entityMap": {
 
     "#record": {
-      "iri": "http://libris.kb.se/bib/{controlNumber}",
+      "iriTemplate": "http://libris.kb.se/bib/{controlNumber}",
       "type": "Record",
       "describes": "#manifestation",
       "properties": [
@@ -70,7 +74,7 @@
     },
 
     "#manifestation": {
-      "iri": "http://libris.kb.se/bib/{controlNumber}#manifestation",
+      "iriTemplate": "http://libris.kb.se/bib/{controlNumber}#manifestation",
       "type": "Manifestation",
       "links": {
         "expressionManifested": "#expression",
@@ -81,10 +85,11 @@
       ]
     },
 
-    "#terms-of-availability": {
-      "type": "Price",
+    "#expression": {
+      "iriTemplate": "http://libris.kb.se/expression/{titleProper}-{statementOfResponsibilityRelatingToTitleProper}",
+      "type": "Expression",
       "properties": [
-        {"value": "."}
+        "titleProper"
       ]
     },
 
@@ -95,12 +100,8 @@
       ]
     },
 
-    "#expression": {
-      "iri": "http://libris.kb.se/expression/{titleProper}-{statementOfResponsibilityRelatingToTitleProper}",
-      "type": "Expression",
-      "properties": [
-        "titleProper"
-      ]
+    "#person": {
+      "type": "Person"
     }
 
   }

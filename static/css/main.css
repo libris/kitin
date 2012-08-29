@@ -99,7 +99,6 @@ auth-ok {
   float: right;
 }
 
-
 /* auth suggest */
 .acResults ul li {
   border-bottom: 1px solid #efefef;
@@ -139,6 +138,11 @@ form#fields input {
   box-shadow: none;
   font-size: 14px;
 }
+form#fields-lite input {
+  border: 1px solid #CCC;
+  box-shadow: none;
+  font-size: 14px;
+}
 
 form#fields input:hover,
 form#fields input:focus {
@@ -154,6 +158,21 @@ form#fields .add-on {
   color: #888;
   background: #fff;
   vertical-align: bottom;
+}
+form#fields-lite .add-on {
+  border: 0;
+  color: #888;
+  background: #fff;
+  /*   vertical-align: bottom; */
+}
+
+.indicators-lite label, .indicators-lite select {
+  font-size: 12px;
+}
+
+.indicators-lite {
+  background-color: #f9f9f9;
+  padding-left: 25px;
 }
 
 /* webcat mockup */
@@ -183,6 +202,17 @@ input.subfield-master { width: 600px; border-radius: 0; box-shadow: 0 0 0 0;}
 .title-text {
   font-size: 16px;
 }
+
+.field-label {
+  background-color: #efefef;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 3px;
+  display: block;
+  line-height: 20px;
+}
+
+
 
 /*SEARCH BOX*/
 
@@ -236,3 +266,6 @@ ul.unstyled, ol.unstyled {
     top: 0;
     width: 46px;
 }
+
+
+	

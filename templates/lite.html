@@ -19,7 +19,7 @@
       var renderControlField = _.template($('#marclite-controlfield-template').html());
       var renderField = _.template($('#marclite-field-template').html());
     %>
-    <form id="fields" class="form-horizontal">
+    <form id="fields-lite" class="form-horizontal">
       <div class="control-group leader">
         <h3>000 - <%= map['000'].label_sv %></h3>
         <%= renderControlField({controlField: leader, fixprops: fixprops}) %>
@@ -29,11 +29,12 @@
         <% _.each(field, function(row, tag) {
           var dfn = map[tag];
         %>
-          <h3>
-            <% if (!dfn || dfn.repeatable) { %>
-              <button class="btn" title="Add"><i class="icon-plus"></i></button>
-            <% } %>
+         <h3 class="field-label">
              <%= tag %> - <%= dfn.label_sv %>
+            <% if (!dfn || dfn.repeatable) { %>
+
+              <button class="btn btn-link btn-mini" title="Add"><i class="icon-plus icon-white"></i></button>
+            <% } %><button class="close pull-right">&times;</button>
           </h3>
           <div>
             <% if (marcjson.fixedFieldParsers[tag]) {
@@ -53,7 +54,7 @@
               <% } %>
             <% } %>
           </div>
-          <hr />
+          
         <% }); %>
       <% }); %>
     </form>
@@ -82,7 +83,7 @@
   </script>
 
   <script type="text/html" id="marclite-field-template">
-    <div>
+    <div class="indicators-lite">
       <% ;['ind1', 'ind2'].forEach(function (indKey) {
         var indEnum = dfn[indKey], indVal = row[indKey];
         var enumKeys = _.keys(indEnum);
@@ -103,23 +104,25 @@
             <input name="<%= tag + '-' + indKey %>" value="<%= indVal %>"/>
           <% } %>
         <% } %>
-      <% }); %>
+      <% }); %><hr />
     </div>
+    
     <% row.subfields.forEach(function (subfield) { %>
-      <span class="add-on subfield-code input-append">
+      <ul><span class="add-on subfield-code input-append">
+        
         <% for (subCode in subfield) {
           var subDfn = dfn.subfield[subCode], value = subfield[subCode];
         %>
-          <span class="add-on subfield-code">
+          <li><span class="add-on subfield-code">
             <%= subCode %>)<% if (subDfn && subDfn.mandatory) { %>*<% } %>
             <%= subDfn? subDfn.label_sv : "" %>
           </span>
           <input class="subfield" name="<%= tag + '-' + subCode %>" value="<%= value %>"
           /><% if (!subDfn || subDfn.repeatable) {
-          %><button class="btn" title="Add"><i class="icon-plus"></i></button>
+          %><button class="btn btn-mini" title="Add"><i class="icon-plus icon-white"></i></button></li>
           <% } %>
         <% } %>
-      </span>
+      </span></ul>
     <% }); %>
   </script>
 

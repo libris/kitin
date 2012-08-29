@@ -1,12 +1,14 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import re
 from os.path import basename, join as pjoin
 from ConfigParser import RawConfigParser
 from collections import OrderedDict as odict
 import json
 
+from marcmap_bandaid import propRefMapper as bandaid
 
 ENC = "latin-1"
-
 
 def parse_configs(confdir, lang):
     # FIXME: Errors in english version:
@@ -148,7 +150,12 @@ def parse_configs(confdir, lang):
                             for k, v in fix_cfg.items(enumkey):
                                 fixprop[k] = labelled(v.decode(ENC), lang)
                     else:
+                        # should we really keep placeholder here?
                         col['placeholder'] = prop_id
+                        try:
+                            col['propRef'] = bandaid[col['label_' + lang]]
+                        except: 
+                            1
                     columns.append(col)
 
             block[tagcode]['fixmaps'] = fixmaps.values()

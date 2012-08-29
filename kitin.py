@@ -1,27 +1,20 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import os
+import json
 from flask import Flask, render_template, request, make_response, abort, redirect, url_for
 from werkzeug import secure_filename
-import os, json
-from pprint import pprint
-from sqlalchemy import *
-import pickle
-#from babydb import Marcpost
 import requests
+from babydb import Storage
 #from spill import Spill
 
 
 app = Flask(__name__)
 app.config.from_pyfile('config.cfg')
-app.config.from_envvar('SETTINGS', silent = True)
+app.config.from_envvar('SETTINGS', silent=True)
 
 
-def _db_string():
-    return "%(DBENGINE)s:///%(DBNAME)s" % app.config
-
-db = create_engine(_db_string())
-db.echo = True
-metadata = MetaData(db)
+storage = Storage(app.config)
 
 
 @app.route("/")
@@ -81,13 +74,9 @@ def upload_file():
             bpost = requests.get("%sbib/%s" % (app.config['WHELK_HOST'], bibid))
             json_data = json.loads(bpost.text)['marc']
         #get table and save record
-        marcpost = Table('marcpost', metadata, autoload=True)
-        bi = json_data.get('001', None)
-        i = marcpost.insert()
-        print "type jsondata", type(json_data)
-        r = i.execute(marc=pickle.dumps(json_data), bibid=bi, userid=uid)
-        mid = str(r.last_inserted_ids()[0])
-        return render_template('view.html', marcposts = [(mid, json.dumps(json_data))], uid = uid )
+        bibid = json_data.get('001', None)
+        mid = storage.save2(bibid, uid, json_data)
+        return render_template('view.html', marcposts = [(str(mid), json.dumps(json_data))], uid = uid )
     else:
         return render_template('upload.html')
 
@@ -96,13 +85,10 @@ def upload_file():
 def save_draft(id):
     """Save draft to kitin"""
     json_data = request.data
-    table = Table('marcpost', metadata, autoload=True)
     if exists_as_draft(id):
-        newmp = table.update().where(table.c.id == id).values(marc=pickle.dumps(json_data))
-        db.execute(newmp)
+        storage.update(id, json_data)
     else:
-        insert = table.insert()
-        insert.execute(id=id, marc=pickle.dumps(json_data))
+        storage.save(id, json_data)
     return json.dumps(request.json)
 
 
@@ -117,7 +103,7 @@ def update_document(id):
         abort(response.status_code)
     else:
         if exists_as_draft(id):
-            db.execute(table.delete().where(table.c.id == id))
+            storage.delete(id)
     return raw_json_response(json_string)
 
 
@@ -180,28 +166,19 @@ def suggest_auth_completions():
 def lookup(uid=None):
     """List marc documents available in kitin for given user id."""
     try:
-        marcpost = Table('marcpost', metadata, autoload=True)
-        thequery = marcpost.select(marcpost.c.userid == uid)
-        theposts = thequery.execute().fetchall()
-        if len(theposts) == 1:
-            print "one record"
-            json_text = pickle.loads(theposts[0]['marc'])
-            print "one"
-            print "two"
-            mid = theposts[0].id
-            print "three"
-            spill = Spill(json_text).get_spill()
-            print "spill: ", spill
-            return render_template('view.html', marcposts = [(mid, json.dumps(json_text))], uid = uid)
+        posts = list(storage.find_by_user(uid))
 
-
-        if len(theposts) > 1:
-            print "many"
-            themarcs = [(thepost.id, json.dumps(pickle.loads(thepost.marc))) for thepost in theposts]
-            return render_template('view.html', marcposts = themarcs, uid = uid, )
-
-        else:
+        if not posts:
             return "no marcposts available for user %s, please try another uid" % uid
+
+        elif len(theposts) == 1:
+            post = posts[0]
+            print "one record:", post.id
+            spill = Spill(post.marc).get_spill()
+            print "spill: ", spill
+
+        raw_items = [(post.id, json.dumps(post.marc)) for post in posts]
+        return render_template('view.html', marcposts=raw_items, uid=uid)
 
     except Exception as e:
         print "exc", e
@@ -219,7 +196,6 @@ def save_to_db():
         bibid = json_data.get('001', None)
         nollotta = json_data.get('008', None)
         print "08: -%s-" % nollotta
-        mp = Table('marcpost', metadata, autoload=True)
         if not bibid:
             try:
                 bibid = jd['035'][3]['9']
@@ -227,17 +203,15 @@ def save_to_db():
                 bibid = '666'
 
         if request.form.get('publish', None):
-
             bjson = '{"uid": %s, "marc": %s}' % (uid, json_text)
-            r = requests.put("%sbib/%s" % (app.config['WHELK_HOST'], bibid), data = bjson.encode('utf-8'))
+            r = requests.put("%sbib/%s" % (app.config['WHELK_HOST'], bibid),
+                    data=bjson.encode('utf-8'))
             print "published"
-            delmp = mp.delete().where(mp.c.id==mid)
-            db.execute(delmp)
+            storage.delete(mid)
             print "deleted draft"
-        elif request.form.get('draft', None):
-            newmp = mp.update().where(mp.c.id==mid).values(marc=pickle.dumps(json_data))
-            db.execute(newmp)
 
+        elif request.form.get('draft', None):
+            storage.update(mid, json_data)
             print "saved draft"
             return "tack"
 
@@ -250,8 +224,7 @@ def raw_json_response(s):
     return resp
 
 def exists_as_draft(id):
-    table = Table('marcpost', metadata, autoload=True)
-    return table.select().where(exists([table.c.id], and_(table.c.id == id))).execute().scalar()
+    return storage.exists(id)
 
 
 def get_record_summary(data):
