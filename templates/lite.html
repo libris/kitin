@@ -54,7 +54,7 @@
               <% } %>
             <% } %>
           </div>
-          
+
         <% }); %>
       <% }); %>
     </form>
@@ -106,14 +106,14 @@
         <% } %>
       <% }); %><hr />
     </div>
-    
+
     <% row.subfields.forEach(function (subfield) { %>
-      <ul><span class="add-on subfield-code input-append">
-        
+      <ul>
         <% for (subCode in subfield) {
           var subDfn = dfn.subfield[subCode], value = subfield[subCode];
         %>
-          <li><span class="add-on subfield-code">
+        <li class="add-on subfield-code input-append">
+          <span class="add-on subfield-code">
             <%= subCode %>)<% if (subDfn && subDfn.mandatory) { %>*<% } %>
             <%= subDfn? subDfn.label_sv : "" %>
           </span>
@@ -122,7 +122,7 @@
           %><button class="btn btn-mini" title="Add"><i class="icon-plus icon-white"></i></button></li>
           <% } %>
         <% } %>
-      </span></ul>
+      </ul>
     <% }); %>
   </script>
 
