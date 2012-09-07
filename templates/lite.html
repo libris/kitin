@@ -21,10 +21,12 @@
     %>
     <form id="fields-lite" class="form-horizontal">
       <div class="control-group leader">
-        <h3>000 - <%= map['000'].label_sv %></h3>
+        <h3 class="field-label">000 - <%= map['000'].label_sv %><button type="button" class="btn btn-mini btn-link" data-toggle="collapse" data-target="#hidden-control-fields"><i class="icon-edit"></i></button></h3>
+        
+		<div id="hidden-control-fields" class="collapse out">
         <%= renderControlField({controlField: leader, fixprops: fixprops}) %>
+        </div>
       </div>
-      <hr />
       <% (struct.fields).forEach(function(field) { %>
         <% _.each(field, function(row, tag) {
           var dfn = map[tag];
