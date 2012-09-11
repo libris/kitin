@@ -12,8 +12,8 @@ ENC = "latin-1"
 
 def parse_configs(confdir, lang):
     # FIXME: Errors in english version:
-    # - Bmarcfix.cfg#267 has a leading space which ConfigParser fails on
-    # - Master.cfg#134 repeats position key 13 twice
+    # - Bmarcfix.cfg:267 has a leading space which ConfigParser fails on
+    # - Master.cfg:134 repeats position key 13 twice (change second to e.g. 1301 to make it work)
 
     master_cfg = read_config(pjoin(confdir, "master.cfg"))
 
