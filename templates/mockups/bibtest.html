@@ -2,9 +2,89 @@
 {% block content_class %}record{% endblock content_class %}
 {% block content %}
 <!--Body content-->
-<h2>Monografi</h2>
-<ul id="fields"></ul>
-<hr>
+    <div class="page-header well">
+    <h2><a href="#myModal" role="button" class="btn btn-primary pull-right" data-toggle="modal">Visa historik</a></h2>
+
+<ul class="unstyled">
+<li><span class="muted">Medietyp</span> Text:tryckt <span class="muted">bibliografisk nivå</span> Monografisk resurs <span class="muted">Fullständighetsnivå för katalogiseringen:</span> Nationalbibliografisk nivå | <span class="muted">Regler för deskriptiv katalogisering:</span> AACR2/KRS</li>
+</ul>
+    </div>
+    <!-- Button to trigger modal -->
+
+	  <div id="myModal" class="modal hide fade" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" style="display: none;">     
+	      <-- Modal -->
+	      <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	      <div class="modal-header">
+	      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	      <h3 id="myModalLabel">Historik (5093458)</h3>
+	      </div>
+	      <div class="modal-body">
+	  		<div class="well">
+	  		    <dl>
+	  		    <dt>Tidpunkt för senaste uppdatering</dt>
+	  		    <dd>2012-20-12</dd>
+	  		    <dt>Datum för posten</dt>
+	  		    <dd>2012-20-12</dd>
+	  		    <dt>Postatus</dt>
+	  		    <dd>Rättad eller reviderad post</dd>
+	  		    <dt>040A Institution som gjort den ursprungliga katalogiseringen</dt>
+	  		    <dd>S (Kungl. biblioteket)</dd>
+	  		    </dl>
+	  		</div>
+	      </div>
+	      <div class="modal-footer">
+	      <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+<!-- 	      <button class="btn btn-primary">Save changes</button> -->
+	      </div>
+	      </div>
+	  </div>
+
+
+
+<button type="button" class="btn" data-toggle="collapse" data-target="#hidden-control-fields">
+Gömda fält
+</button>
+<div id="hidden-control-fields" class="collapse out">
+<hr/>
+
+
+<div class="control-group">
+<label class="control-label">Kontrollkod för arkivmaterial</label>
+<div class="controls">
+<select class="span7" name="typeOfControl">
+<option value="_" selected="">Resursen är ej underkastad arkivkontroll (normalvärde)</option>
+<option value="a">Resursen beskrivs enligt arkivalisk princip</option>
+</select>
+</div>
+</div>
+
+<div class="control-group">
+<label class="control-label">Teckenuppsättning</label>
+<div class="controls">
+<select class="span7" name="characterCoding">
+<option value="a" selected="">UCS/Unicode</option>
+</select>
+</div>
+</div>
+
+<div class="control-group">
+<label class="control-label">Grad av beroende av sammanhörande post</label>
+<div class="controls">
+<select class="span7" name="linked">
+<option value="_" selected="">Ej specificerat / ej tillämpligt</option>
+<option value="a">Set</option>
+<option value="b">Del med oberoende titel</option>
+<option value="c">Del med beroende titel</option>
+<option value="r">Fält 760-787 finns i posten (OBSOLET)</option>
+</select>
+</div>
+</div>
+
+<p>Entrymap (hidden)</p>
+</ul>
+</div>
+
+<hr />
 
 <label class="control-label" for="titel-245a" title="245 title">(hover) - Titel och upphov</label>
     <div class="container-fluid">
@@ -89,13 +169,29 @@
 </div>
 
 <label class="control-label" for="klassifikationskod-084a">Annan klassifikationskod</label>
+
+
 <div class="controls">
+
 <span class="help-block"></span>
   <input id="klassifikationskod-084a" class="input-xlarge" type="text" value="kssb/8">
 	<a class="add-subfield" href="#">&#43;</a> <a class="add-subfield" href="#">&#63;</a>
 </div>
 
-
+                  <div class="btn-group">
+    <a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">
+    Action
+    <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+    <li>Lägg till fält (F5)</li>
+    <li>Ta bort fält (DEL)</li>
+    <li>Kopiera fält (CTRL+C)</li>
+    <li>Klistra in fält (CTRL+V</li>
+    <li>Rensa fält</li>
+    <li>Hjälp</li>            
+    </ul>
+    </div> 
 
 <label class="control-label" for="upplaga-250">Upplaga</label>
 <div class="controls">
@@ -123,6 +219,8 @@
 
 <div class="controls">
  <span class="help-block"title="260 C">Utgivningstid</span>
+
+ 
   <input id="utgivning-260c" class="input-xlarge" type="text">
 </div>
 
@@ -162,7 +260,7 @@
 {% block extrajs %}
 <script type="text/javascript">
 $(function(){
-   $('#example').tooltip({'placement':'right', 'trigger' : 'hover'})
+   $('#example').tooltip({'placement':'right', 'trigger' : 'hover'});
 });
 </script>
 
