@@ -3,6 +3,11 @@ from collections import namedtuple, OrderedDict
 from itertools import starmap
 import csv
 
+from sys import stderr
+import cgitb; cgitb.enable(format='text')
+def error(msg):
+    print >>stderr, msg
+
 
 class Item(namedtuple('Item',
         "f1 f2 rectype field fieldname subfield position name comment entity"
@@ -21,11 +26,19 @@ def get_items(fpath):
             elif field == 'dir':
                 continue # TODO: ok? Directory is about low-level syntax parsning
             elif len(field) > 3 and field[3].isalpha():
-                rectype = field[3:]
-                rectype = {'Continuing': 'Serial',
-                           'Electronic': 'Computer'}.get(rectype) or rectype
-                field = field[0:3]
+                field, rectype = field[0:3], field[3:]
+                if field == '007':
+                    rectype = {'Continuing': 'Serial',
+                            'Electronic': 'Computer',
+                            'NPG': 'NonprojectedGraphic',
+                            'MP': 'MotionPicture',
+                            'Music': 'NotatedMusic',
+                            'RSI': 'RemoteSensingImage',
+                            'SR': 'SoundRecording',
+                            }.get(rectype) or rectype
                 fixmap = field + "_" + rectype
+            else:
+                fixmap = None
             item = item._replace(
                     field=field,
                     rectype=item.rectype.split('/'),
@@ -54,24 +67,27 @@ def add_entities_to_marcmap(marcmap, items):
             continue
         field = recmap.get(item.field)
         if not field:
-            print >>stderr, "Unknown field:", item.field
+            error("Unknown field:", item.field)
             continue
         if item.subfield:
             try:
                 field['subfield'][item.subfield]['entity'] = item.entity
             except KeyError:
-                print >>stderr, "Unknown field: {0.field}, subfield: {0.subfield}".format(item)
+                error("Unknown field: {0.field}, subfield: {0.subfield}".format(item))
         elif item.position:
+            matchmap = None
             # TODO: just guessing about 01 and 02
             if item.position == '01':
                 field['ind1_entity'] = item.entity
             elif item.position == '02':
                 field['ind2_entity'] = item.entity
-            elif 'fixmaps' in field:
-                if item.fixmap:
-                    matchmap = item.fixmap.split('/')[0]
-                else:
-                    matchmap = '000_BibLeader'
+            elif item.fixmap:
+                matchmap = item.fixmap.split('/')[0]
+            elif item.field == '000':
+                matchmap = '000_BibLeader'
+
+            if matchmap and 'fixmaps' in field:
+
                 for fixmap in field['fixmaps']:
                     name = fixmap['name']
                     if name.endswith('s') and not matchmap.endswith('s'):
@@ -79,10 +95,18 @@ def add_entities_to_marcmap(marcmap, items):
                     if name.startswith(matchmap):
                         break
                 else:
-                    print >>stderr, "Found no fixmap for field {0} matching {1} (entity: {2})".format(
-                            item.field, matchmap, item.entity)
-                # TODO: process fixmap columns
-                print >>stderr, "Fixmap for", item.field, item.position, item.entity, "columns:", len(fixmap['columns'])
+                    error("Found no fixmap for field {0} matching {1} (entity: {2})".format(
+                            item.field, matchmap, item.entity))
+                if '-' in item.position:
+                    item_start, item_stop = map(int, item.position.split('-'))
+                else:
+                    item_start, item_stop = [int(item.position)] * 2
+                columns = fixmap['columns']
+                for col in columns:
+                    offset, length = col['offset'], col['length']
+                    start, stop = offset, offset + length - 1
+                    if  start >= item_start and stop <= item_stop:
+                        col['entity'] = item.entity
             else:
                 field['entity'] = item.entity
         else:
@@ -90,7 +114,7 @@ def add_entities_to_marcmap(marcmap, items):
 
 
 if __name__ == '__main__':
-    from sys import argv, stdout, stderr
+    from sys import argv, stdout
     frbrcsv_path = argv[1]
     marcmap_path = argv[2] if len(argv) > 2 else None
 
