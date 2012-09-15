@@ -27,15 +27,22 @@ def get_items(fpath):
                 continue # TODO: ok? Directory is about low-level syntax parsning
             elif len(field) > 3 and field[3].isalpha():
                 field, rectype = field[0:3], field[3:]
-                if field == '007':
-                    rectype = {'Continuing': 'Serial',
-                            'Electronic': 'Computer',
-                            'NPG': 'NonprojectedGraphic',
-                            'MP': 'MotionPicture',
-                            'Music': 'NotatedMusic',
-                            'RSI': 'RemoteSensingImage',
-                            'SR': 'SoundRecording',
-                            }.get(rectype) or rectype
+                if field == '006':
+                    renames = {'Continuing': 'Serial'}
+                elif field == '007':
+                    renames = {
+                        'Electronic': 'Computer',
+                        'NPG': 'NonprojectedGraphic',
+                        'MP': 'MotionPicture',
+                        'Music': 'NotatedMusic',
+                        'RSI': 'RemoteSensingImage',
+                        'SR': 'SoundRecording',
+                    }
+                elif field == '008':
+                    renames = {'All': ''}
+                else:
+                    renames = {}
+                rectype = renames.get(rectype, rectype)
                 fixmap = field + "_" + rectype
             else:
                 fixmap = None
@@ -45,7 +52,7 @@ def get_items(fpath):
                     position=item.position if item.position != 'n/a' else None,
                     subfield=item.subfield if item.subfield != 'n/a' else None,
                     entity=re.sub(r'\?|\+[EA]\d+|^n/a$', '',
-                        item.entity.replace('\x98', '')).title())
+                        item.entity.replace('\x98', '')).title().replace(' ', ''))
             item.fixmap = fixmap
             yield item
 
@@ -99,6 +106,7 @@ def add_entities_to_marcmap(marcmap, items):
                             item.field, matchmap, item.entity))
                 if '-' in item.position:
                     item_start, item_stop = map(int, item.position.split('-'))
+                    # TODO: is this always information about repeated attributes?
                 else:
                     item_start, item_stop = [int(item.position)] * 2
                 columns = fixmap['columns']
