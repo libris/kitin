@@ -21,13 +21,14 @@
               <span class="icon-bar"></span>
             </a>
             <a class="brand" href="/">LIBRIS katalogisering (development)</a>
-            <div class="nav-collapse">
-              <ul class="nav">
-<!--
+            <div class="nav-collapse dropdown">
+              <ul class="nav pull-right" role="menu" aria-labelledby="dLabel">
+<!--<li><a tabindex="-1" href="#">Action</a></li>
+
                 <li><a href="/">Search</a></li>
                 <li><a href="/upload">Upload</a></li>
-				<li><a href="/record/bib/7149593">Bib record (static)</a></li>
--->
+	-->			<li><a href="/mockups/profile"><i class="icon-user"></i> Profile</a></li>
+
               </ul>
             </div>
           </div>
@@ -38,7 +39,7 @@
     <div class="container {% block content_class %}{% endblock content_class %}">
       {% block container %}
 
-    <div class="container-fluid">
+    <div class="container-fluid container-fluid-content">
       <div class="row-fluid">
         <div class="span9">
           {% block content %}

@@ -11,6 +11,7 @@ body {
   margin: 0 0 1px;
   font-family: Helvetica;
   /* font-size: 1.2em; */
+  background-color: #efefef;
 }
 
 select {
@@ -18,6 +19,11 @@ select {
   -moz-appearance: menulist-textfield;
 }
 
+.container-fluid-content {
+  background-color: white;
+  border-radius: 4px 4px 4px 4px;
+  border: 1px solid #CCC;
+}
 
 /* Webcat form */
 .record .leader,
@@ -34,6 +40,10 @@ select {
 .record .controlfield { width: 517px; }
 .record .regular_field input.subfield.label {
   width: 10px;
+}
+
+section.search {
+padding-top: 20px;
 }
 
 .record .regular_field input.subfield {
