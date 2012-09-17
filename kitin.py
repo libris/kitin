@@ -305,8 +305,9 @@ def login():
         else:
             flash("No such user.")
 
-    elif request.method == "POST" and "signout" in request.form and current_user.is_authenticated(): # and not current_user.is_anonymous:
+    elif "signout" in request.form and current_user.is_authenticated(): # and not current_user.is_anonymous:
         try:
+            print "försök logga ut"
             logout_user()
         except Exception as e:
             print "FAIL: %s" % e
@@ -315,7 +316,11 @@ def login():
     print "current_user: ", current_user
     return render_template("home.html", user = current_user if current_user.is_authenticated() else None)
 
-
+@app.route("/signout")
+@login_required
+def logout():
+    logout_user()
+    return render_template("home.html")
 
 if __name__ == "__main__":
     from optparse import OptionParser
