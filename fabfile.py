@@ -24,6 +24,12 @@ def create_db():
         )
         marcpost.create()
 
+        userdata = Table('userdata', metadata,
+            Column('username', String, primary_key=True),
+            Column('password', String),
+                        )
+        userdata.create()
+
 @task
 def create_wsgi_file():
     wsgifile = open('kitin.wsgi', 'w')

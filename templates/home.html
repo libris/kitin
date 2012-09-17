@@ -2,7 +2,7 @@
 {% block title %}Hem{% endblock %}
 {% block content %}
 
-  {% if name %}
+  {% if user %}
 
     {% include "_search.html" %}
 
@@ -28,14 +28,20 @@
 
   {% else %}
     <h1>Logga in...</h1>
-    <form class="well form-inline">
-      <input type="text" class="input-small" placeholder="Email">
-      <input type="password" class="input-small" placeholder="Password">
+    <form class="well form-inline" method="POST">
+      <input name="username" type="text" class="input-small" placeholder="User name">
+      <input name="password" type="password" class="input-small" placeholder="Password">
       <label class="checkbox">
-        <input type="checkbox"> Remember me
+        <input type="checkbox" remember="yes"> Remember me
       </label>
       <button type="submit" class="btn">Sign in</button>
     </form>
   {% endif %}
 
+  {% if user %}
+  <h2>Hej {{ user.username }}</h2>
+    <form class="well form-inline" method="POST">
+        <button type="submit" class="btn" name="signout">Signera ut</button>
+    </form>
+  {% endif %}
 {% endblock %}

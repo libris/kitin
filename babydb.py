@@ -3,6 +3,7 @@ import pickle
 import json
 from sqlalchemy import MetaData, Table, create_engine, exists, and_
 from sqlalchemy.orm import mapper
+from login import User
 
 
 class Storage(object):
@@ -12,8 +13,8 @@ class Storage(object):
         db.echo = True
         self.metadata = MetaData(db)
 
-    def _get_table(self):
-        return Table('marcpost', self.metadata, autoload=True)
+    def _get_table(self, tname = 'marcpost'):
+        return Table(tname, self.metadata, autoload=True)
 
     def save(self, id, json_data):
         table = self._get_table()
@@ -47,6 +48,20 @@ class Storage(object):
         items = query.execute().fetchall()
         for item in items:
             yield Marcpost(item.id, pickle.loads(item.marc))
+
+    def load_user(self, uname, password):
+        try:
+            users = self._get_table('userdata')
+            u = users.select(users.c.username == uname).execute().first()
+            # Yes, it's ugly
+            if u and not password == None and not u.password == password:
+                return None
+            user = User(u.username)
+            return user
+        except Exception as e:
+            print "FAIL %s" % e
+            return None
+
 
 
 from collections import namedtuple
