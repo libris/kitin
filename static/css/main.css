@@ -1,5 +1,5 @@
 html {
-  font-size: 62.5%;
+/*   font-size: 62.5%; */
   height: 100%;
   margin: 0 0 1px;
   padding: 0px;
@@ -10,7 +10,7 @@ body {
   height: 100%;
   margin: 0 0 1px;
   font-family: Helvetica;
-  font-size: 1.2em;
+  /* font-size: 1.2em; */
 }
 
 select {
