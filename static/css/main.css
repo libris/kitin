@@ -42,6 +42,10 @@ select {
   width: 10px;
 }
 
+.result-list {
+ font-size: 16px; 
+}
+
 section.search {
 padding-top: 20px;
 }
@@ -84,11 +88,11 @@ padding-top: 20px;
   padding: 5px;
 }
 
-label.control-label {
+div.fields label.control-label {
   background-color: #efefef;
   font-weight: 600;
   padding: 3px;
-  width: 97%;
+/*   width: 97%; */
   display: block;
 }
 

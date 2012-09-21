@@ -15,7 +15,7 @@
 {% block extrajs %}
 
   <script type="text/html" id="leader-template">
-    <div class="control-group leader">
+    <div class="control-group fields leader">
       <label class='control-label' for='leader'>Leader: </label>
       <div class='controls'>
         <input name="leader" id='leader' value="<%= leader %>"/>
@@ -24,7 +24,7 @@
   </script>
 
   <script type="text/html" id="control-row-template">
-    <div class='control_field control-group'>
+    <div class='control_field fields control-group'>
       <label class='control-label' for="field_<%= value %>"><%= label %></label>
       <div class='controls'>
         <input name="<%= label %>" class='field_label' id='field_<%= value %>' value='<%= value %>'/>
@@ -33,7 +33,7 @@
   </script>
 
   <script type="text/html" id="field-row-template">
-    <div class='control-group regular_field marc-<%= label %>'>
+    <div class='control-group fields regular_field marc-<%= label %>'>
       <label class='control-label'><%= label %>
         <div class='action-group'>
           <button class="btn" title="Add above"></i><i class="icon-arrow-up"></i></button>
