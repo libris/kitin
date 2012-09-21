@@ -27,8 +27,8 @@
 
                 <li><a href="/">Search</a></li>
                 <li><a href="/upload">Upload</a></li>
-	-->			<li><a href="/mockups/profile"><i class="icon-user"></i> Profile</a></li>
-                {% if user %}
+	-->			{% if user %}
+				<li><a href="/mockups/profile"><i class="icon-user"></i> Profile ({{ user.username }})</a></li>
                 <li><a href="/signout?signout=yesindeedioh">Logga ut</a></li>
                 {% endif %}
               </ul>
