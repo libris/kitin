@@ -26,10 +26,11 @@ def start():
     open_records = []
     if app.config['MOCK_API']:
         open_records = list(find_mockdata_record_summaries())
-    return render_template('home.html',
-            name="Guest",
-            record_templates=find_record_templates(),
-            open_records=open_records)
+    return render_template("home.html", record_templates=find_record_templates(), open_records=open_records, user = current_user if current_user.is_authenticated() else None)
+#   return render_template('home.html',
+#            name="Guest",
+#            record_templates=find_record_templates(),
+#            open_records=open_records)
 
 
 @app.route("/search")
