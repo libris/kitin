@@ -3,7 +3,10 @@ Kitin - README
 
 ## Getting started
 
-1. Install requirements (Mac OS X specific):
+
+### Install requirements
+
+Mac OS X specific:
 
     $ sudo easy_install pip
     $ pip install virtualenvwrapper
@@ -15,35 +18,51 @@ Kitin - README
     # During development, make sure you
     $ workon kb-kitin
 
-## Generating the marcmap
+### Generate the marcmap
 
 1. Get Swedish legacy config files... (ask for directions)
 2. Put them in folder ($CONFIG_DIR) and create folder for marcmap ($SOME_DIR)
 
     $ python tools/parse_legacy_config.py $CONFIG_DIR/TagTable/Marc21 sv > $SOME_DIR/marcmap.json
 
-## Prepare a local database
+### Prepare a local database
 
     $ fab prepare
 
-## Starting the client
+### Add a test user:
+
+    $ sqlite3 kitin.db
+    > INSERT INTO userdata VALUES ('somebody','somepass');
+
+### Start the client
 
 1. Run ./kitin.py -h for help
 2. Run webapp
 
     $ ./kitin.py -d --mockapi -m $SOME_DIR/marcmap.json
 
-## Running js tests
+
+
+
+## Development and Maintenance
+
+
+### Tool for applying the marcmap to a marc-json struct
+
+    $ node tools/map-marcjson.js $SOME_DIR/marcmap.json bib examples/bib/7149593.json
+
+### Running js test scripts
 
     $ Install node *brew install node* on MacOSX _(also, make sure to install npm)_
     $ NODE_PATH=.:$PWD/static/js
     $ node test/js/test_marcjson.js
 
-## Tool for applying the marcmap to a marc-json struct
+### Downloading third-party web assets
 
-    $ node tools/map-marcjson.js $SOME_DIR/marcmap.json bib examples/bib/7149593.json
-
-## Downloading/updating third-party web assets
+Web assets are JS and CSS dependencies. Add their locations to this script:
 
     $ tools/fetch-vendor-assets.sh
+
+By doing this, their origin is documented, and updates to them become easily
+downloaded.
 
