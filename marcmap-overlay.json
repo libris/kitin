@@ -1,0 +1,78 @@
+{
+
+  "properties": [
+
+    {"marcKey": "000.typeOfRecord", "derivable": true, "comment": "autotypes Manifestation?"},
+    {"marcKey": "000.bibLevel", "directive": "controls parsing of 006-008..."},
+    {"marcKey": "000.linked"},
+    {"marcKey": "001.controlNumber"},
+    {"marcKey": "005", "generated": true},
+    {"marcKey": "040"},
+    {"marcKey": "042"},
+    {"marcKey": "008.0+6", "parseAs": "date"},
+    {"marcKey": "008.publicationStatus", "dateTypeFor": "008.0+6"},
+    {"marcKey": "008.7+4", "parseAs": "date"},
+    {"marcKey": "008.11+4", "parseAs": "date"},
+    {"marcKey": "000.status", "detail": true},
+    {"marcKey": "000.characterCoding", "detail": true},
+    {"marcKey": "000.catForm"},
+    {"marcKey": "000.encLevel"},
+    {"marcKey": "008.catalogingSource"},
+    {"marcKey": "000.status", "hidden": true},
+    {"marcKey": "000.entryMap", "hidden": true},
+    {"marcKey": "000.typeOfControl", "detail": 0},
+    {"marcKey": "008.modifiedRecord", "detail": 0},
+
+    {"marcKey": "084", "detail": true, "equivalentProperty": "dc:subject"},
+    {"marcKey": "650", "equivalentProperty": "dc:subject"},
+    {"marcKey": "740", "detail": true, "equivalentProperty": "skos:hiddenLabel"},
+
+    {"marcKey": "245.title", "primaryValue": true, "selfExplanatory": true, "size": "big"},
+    {"marcKey": "245.title", "primaryValue": true, "selfExplanatory": true, "size": "big"},
+    {"marcKey": "245.statementOfResponsibilityEtc", "comment_sv": "Första namnet i 245.c sameValueAs 100.a. Övriga i 245.c till varsin 700.a (om relevanta)."},
+    {"marcKey": "710"},
+    {"marcKey": "008.language", "sameValueAs": [null]},
+    {"marcKey": "008.mapsRelief", "repeatedBy": "006.fixedLengthDataElementsAdditionalMaterialCharacteristics"},
+    {"marcKey": "008.mapsProjection", "repeatedBy": "006.mapsProjection"},
+    {"marcKey": "505"},
+    {"marcKey": "008.mapsIndex", "repeatedBy": "006.mapsIndex"},
+    {"marcKey": "008.mapsMaterial", "repeatedBy": "006.mapsMaterial"},
+    {"marcKey": "008.mapsGovtPub", "repeatedBy": "006.mapsGovtPub"},
+    {"marcKey": "041.languageCodeOfTextSoundTrackOrSeparateTitle", "sameValueAs": ["240.uniformTitle"], "equivalentProperty": "el:titleOfTheWork"},
+
+    {"marcKey": "008.mapsItem", "repeatedBy": "006.mapsItem"},
+    {"marcKey": "260"},
+    {"marcKey": "008.Place of Publication"},
+    {"marcKey": "300", "flatten": true, "inGroup": "physicalDescriptionEtc"},
+    {"marcKey": "007.mapColor"},
+    {"marcKey": "007.mapDetails"},
+    {"marcKey": "007.mapMaterial"},
+    {"marcKey": "007.mapMedium"},
+    {"marcKey": "007.mapReproduction"},
+    {"marcKey": "007.mapPosNeg"},
+    {"marcKey": "008.mapsFormat", "repeatedBy": "006.mapsFormat"},
+    {"marcKey": "034", "flatten": true},
+    {"marcKey": "255", "flatten": true},
+    {"marcKey": "260", "flatten": true, "a": {"entity": "Region", "property": "label"}},
+    {"marcKey": "538", "subfieldAsValue": true},
+    {"marcKey": "500", "subfieldAsValue": true}
+
+  ],
+
+  "groups": {
+    "titleRelated": {"comment": "20x-24x"},
+    "classificationCallNumbersSubjectsCategories": {"comment": "05x-08x and more"},
+    "editionImprintEtc": {"comment": "250-260"},
+    "physicalDescriptionEtc": {"comment": "3xx"}
+  },
+
+  "entityMap": {
+    "Record": [
+      {"groupName": ["field1", "field2", "..."]},
+      {"groupName2": ["field1", "field2", "..."]}
+    ],
+    "Expression": [
+      {"groupName": ["field1", "field2", "..."]}
+    ]
+  }
+}
