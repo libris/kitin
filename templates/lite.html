@@ -114,14 +114,14 @@
         <% for (subCode in subfield) {
           var subDfn = dfn.subfield[subCode], value = subfield[subCode];
         %>
-        <li class="add-on subfield-code input-append">
+       <li class="add-on subfield-code input-append">
           <span class="add-on subfield-code">
             <%= subCode %>)<% if (subDfn && subDfn.mandatory) { %>*<% } %>
             <%= subDfn? subDfn.label_sv : "" %>
-          </span>
-          <input class="subfield" name="<%= tag + '-' + subCode %>" value="<%= value %>"
+          </span><br>
+          <input type="text" class="input-xlarge" name="<%= tag + '-' + subCode %>" value="<%= value %>"
           /><% if (!subDfn || subDfn.repeatable) {
-          %><button class="btn btn-mini" title="Add"><i class="icon-plus icon-white"></i></button></li>
+          %><button class="btn btn-medium" title="Add"><i class="icon-plus icon-white"></i></button></li>
           <% } %>
         <% } %>
       </ul>
