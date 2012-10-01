@@ -16,6 +16,12 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
       },
       exemplarOfManifestation: {type: 'Item'}
     };
+    // TODO: And remove unfilled nodes.
+    // TODO: idTemplates = {
+    //  "Record": "http://libris.kb.se/bib/{controlNumber}",
+    //  "Expression": "http://libris.kb.se/expression/{titleProper}-{statementOfResponsibilityRelatingToTitleProper}",
+    //  "Manifestation": "http://libris.kb.se/bib/{controlNumber}#manifestation",
+    //}
 
     var result = {
       data: [rec],
