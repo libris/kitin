@@ -25,6 +25,20 @@ select {
   border: 1px solid #CCC;
 }
 
+/* biblite temp label fix */
+.subfield-code {
+  margin-bottom: -4px;
+}
+
+.subfield-container {
+  padding-bottom: 5px;
+}
+
+.pull-up {
+  margin-top: -35px;
+  margin-right: 5px;
+}
+
 /* Webcat form */
 .record .leader,
 .record .control_field,
@@ -43,7 +57,7 @@ select {
 }
 
 .result-list {
- font-size: 16px; 
+ font-size: 14px;
 }
 
 section.search {
