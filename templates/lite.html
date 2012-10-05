@@ -53,14 +53,15 @@
         <% _.each(field, function(row, tag) {
           var dfn = map[tag];
         %>
+         <div class="">
          <h3 class="field-label">
              <%= tag %> - <%= dfn.label_sv %>
             <% if (!dfn || dfn.repeatable) { %>
 
-              <button class="btn btn-link btn-mini" title="Add"><i class="icon-plus icon-white"></i></button>
-            <% } %><button class="close pull-right">&times;</button>
-          </h3>
-          <div>
+              
+            <% } %>
+          </h3><button class="close pull-right pull-up" data-dismiss="alert">&times;</button>
+          <div class="subfield-container">
             <% if (marcjson.fixedFieldParsers[tag]) {
               var dataElements = marcjson.fixedFieldParsers[tag](
                   row, dfn, leader, fixprops);
@@ -78,7 +79,7 @@
               <% } %>
             <% } %>
           </div>
-
+</div>
         <% }); %>
       <% }); %>
     </form>
@@ -136,14 +137,14 @@
         <% for (subCode in subfield) {
           var subDfn = dfn.subfield[subCode], value = subfield[subCode];
         %>
-        <li class="add-on subfield-code input-append">
+       <li class="add-on subfield-code input-append"><button class="close" data-dismiss="alert">&times;</button>
           <span class="add-on subfield-code">
             <%= subCode %>)<% if (subDfn && subDfn.mandatory) { %>*<% } %>
             <%= subDfn? subDfn.label_sv : "" %>
-          </span>
-          <input class="subfield" name="<%= tag + '-' + subCode %>" value="<%= value %>"
+          </span><br>
+          <input type="text" class="input-xxlarge" name="<%= tag + '-' + subCode %>" value="<%= value %>"
           /><% if (!subDfn || subDfn.repeatable) {
-          %><button class="btn btn-mini" title="Add"><i class="icon-plus icon-white"></i></button></li>
+          %><button class="btn btn-medium" title="Add"><i class="icon-plus icon-white"></i></button></li>
           <% } %>
         <% } %>
       </ul>

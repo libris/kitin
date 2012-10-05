@@ -25,6 +25,20 @@ select {
   border: 1px solid #CCC;
 }
 
+/* biblite temp label fix */
+.subfield-code {
+  margin-bottom: -4px;
+}
+
+.subfield-container {
+  padding-bottom: 5px;
+}
+
+.pull-up {
+  margin-top: -35px;
+  margin-right: 5px;
+}
+
 /* Webcat form */
 .record .leader,
 .record .control_field,
@@ -43,7 +57,7 @@ select {
 }
 
 .result-list {
- font-size: 16px; 
+ font-size: 14px;
 }
 
 section.search {
@@ -84,6 +98,7 @@ padding-top: 20px;
   color: highlighttext;
 }
 
+/* special formatting checkbox */
 .remoteoption {
   padding: 5px;
 }
@@ -150,13 +165,18 @@ form#fields .control-label {
 form#fields input {
   border: 1px solid transparent;
   box-shadow: none;
-  font-size: 14px;
+  font-size: 16px;
 }
+
+/* Special formatting for form in biblite. Unused a.t.m. */
+/* 
 form#fields-lite input {
-  border: 1px solid #CCC;
+  border: 0px solid #CCC;
   box-shadow: none;
   font-size: 14px;
 }
+*/
+
 
 form#fields input:hover,
 form#fields input:focus {

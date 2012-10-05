@@ -60,10 +60,19 @@
   ],
 
   "groups": {
-    "titleRelated": {"comment": "20x-24x"},
-    "classificationCallNumbersSubjectsCategories": {"comment": "05x-08x and more"},
-    "editionImprintEtc": {"comment": "250-260"},
-    "physicalDescriptionEtc": {"comment": "3xx"}
+    "classificationCallNumbersSubjectsCategories": {"comment": "05x-08x and more", "label_sv": "Klassifikationskoder och rapportnummer"},
+    "mainEntry": {"comment": "1xx", "label_sv": "Huvuduppslag"}
+    "titleRelated": {"comment": "20x-24x", "label_sv": "Titel och titelrelaterade f\u00e4lt"},
+    "editionImprintEtc": {"comment": "250-270", "label_sv": "Upplaga och tryckningar"},
+    "physicalDescriptionEtc": {"comment": "3xx" "label_sv": "Fysisk beskrivning m.m."},
+    "seriesStatement": {"comment": "4xx", "label_sv": "Serieuppgifter"},
+    "note": {"comment": "5xx check swedish division", "label_sv": "Anm\u00e4rkningar"},
+    "subjectAccess": {"comment": "6xx", "label_sv": "\u00c4mnesordsbiuppslag"},
+    "addedEntry": {"comment": "70x-75x", "label_sv": "Biuppslag"},
+    "linkingEntry": {"comment": "76x-78x", "label_sv": "L\u00e4nkf\u00e4lt"},
+    "seriesEntry": {"comment": "80x-83x", "label_sv": "Seriebiuppslag"},
+    "holdingsLocationAlternategraphicsEtc": {"comment": "841-88x Not used in bibformat", "label_sv": "Best\u00e5nd, elektronisk adress etc."},
+    "9xx": {"comment": "976 Libris defined" "label_sv": "SAB-Rubrik"}
   },
 
   "entityMap": {

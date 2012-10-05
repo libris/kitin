@@ -27,37 +27,38 @@
     </section>
 
   {% else %}
-  
-     <legend>Login</legend>
-    <form class="form-horizontal" method="POST" action="/login">
-    <div class="control-group">
-    <label class="control-label" for="inputEmail">Username</label>
-    <div class="controls">
-    <input name="username" type="text" class="input-medium" placeholder="User name">
-    </div>
-    </div>
-    <div class="control-group">
-    <label class="control-label" for="inputPassword">Password</label>
-    <div class="controls">
-    <input name="password" type="password" class="input-medium" placeholder="Password">
-    </div>
-    </div>
-    <div class="control-group">
-    <div class="controls">
-    <label class="checkbox">
-    <input type="checkbox"> Remember me
-    </label>
-    <button type="submit" class="btn">Sign in</button>
-    </div>
-    </div>
-    </form>
-
+  <section>
+    <legend>Login</legend>
+      <form class="form-horizontal" method="POST" action="/login">
+	    <div class="control-group">
+	      <label class="control-label" for="inputEmail">Username</label>
+          <div class="controls">
+            <input name="username" type="text" class="input-medium" placeholder="User name">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="inputPassword">Password</label>
+          <div class="controls">
+            <input name="password" type="password" class="input-medium" placeholder="Password">
+          </div>
+         </div>
+         <div class="control-group">
+           <div class="controls">
+           <label class="checkbox">
+           <input type="checkbox"> Remember me
+           </label>
+           <button type="submit" class="btn">Sign in</button>
+         </div>
+	    </div>
+      </form>
+  </section>
   {% endif %}
-
+<!--
   {% if user %}
   <h2>Hej {{ user.username }}</h2>
     <form class="well form-inline" method="POST" action="/signout">
         <button type="submit" class="btn" name="signout">Signera ut</button>
     </form>
   {% endif %}
+-->  
 {% endblock %}
