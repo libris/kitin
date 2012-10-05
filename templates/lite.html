@@ -5,11 +5,33 @@
 {% block content %}
   <h2>Bib Lite</h2>
   <hr>
-  <div id="litebox"></div>
+  {% raw %}
+  <div id="litebox" data-ng-app>
+    <form id="fields-lite" class="form-horizontal" data-ng-controller="RecordCtrl">
+      <div class="control-group leader">
+        <h3 class="field-label">000 -
+          {{ map['000'].label_sv }}<button type="button" class="btn btn-mini btn-link"
+            data-toggle="collapse" data-target="#hidden-control-fields">
+            <i class="icon-edit"></i></button>
+        </h3>
+        <div id="hidden-control-fields" class="collapse out">
+          <div data-ng-include src="'render-control-field'">Include ...</div>
+        </div>
+      </div>
+
+    <script type="text/ng-template" id="render-control-field">
+      <div class="control-group fields">
+        <label class="control-label">{{ struct.leader }}</label>
+      </div>
+    </script>
+
+  </div>
+  {% endraw %}
 {% endblock content %}
 
 {% block extrajs %}
 
+  <script src="{{ url_for('static', filename='vendor/angular.min.js') }}"></script>
   <script src="{{ url_for('static', filename='js/marcjson.js') }}"></script>
 
   <script type="text/html" id="marclite-template">

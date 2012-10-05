@@ -1,183 +1,57 @@
-var records, router;
+// app.js
+/*
+angular.module('kitin', ['kitin.services']).config(
+  ['$locationProvider', '$routeProvider',
+    function($locationProvider, $routeProvider) {
+      //locationProvider.html5mode(true);
+      console.log(locationProvider.hashPrefix());
+      locationProvider.hashPrefix('!');
+    }
+);
+*/
 
-function displaySuccessAlert(message) {
-  var alert = $("<div class='alert alert-success'><strong>Succe!</strong></div>");
-  var message = $("<p class='message'></p>").text(message);
-  var close_btn = $("<a class='close' data-dismiss='alert' href='#'>×</a>");
-  $(alert).append(close_btn).append(message);
-  $('.alert-wrapper').append(alert);
-}
+// controllers.js
 
-function displayFailAlert(message) {
-  var alert = $("<div class='alert alert-error'><strong>Fadäs!</strong></div>");
-  var message = $("<p class='message'></p>").text(message);
-  var close_btn = $("<a class='close' data-dismiss='alert' href='#'>×</a>");
-  $(alert).append(close_btn).append(message);
-  $('.alert-wrapper').append(alert);
+function RecordCtrl($scope, $http, $location) {
+  var bibid = $location.path();
+  console.log(bibid);
+  $http.get("/marcmap.json").success(function (map) {
+    $http.get("/record/bib" + bibid).success(function (struct) {
+      $scope.map = map.bib;
+      $scope.struct = struct;
+    });
+  });
 }
 
 $(function() {
 
-  records = new RecordCollection();
-  router = new Router([records]);
+  /* TODO:
+  angular.history.start({pushState: true, root: "/"});
 
-  records.on('add', function(model) {
-    var view = new RecordView({model: model});
-  });
+  "record/bib/:bibid/lite": "lite"
 
-  Backbone.history.start({pushState: true, root: "/"});
-
-  // TODO: onunload:
-  //if (ajaxInProgress)
-  //  confirm('ajaxInProgress; break and leave?')
-});
-
-var Record = Backbone.Model.extend({
-
-  urlRoot:'/record/bib',
-
-  aggregates: {
-    fields: FieldList
-  },
-
-  parse: function(response) {
-    return {
-      leader: response['leader'],
-      fields: _.map(response['fields'], function (field) {
-        for (key in field) {
-          var value = field[key];
-          var attrs = (typeof value === 'string')?
-            {'controlValue': value} : _.clone(value);
-          attrs.tag = key;
-          if (attrs.subfields) {
-            attrs.subfields = _.map(attrs.subfields, function (subfield) {
-              for (subKey in subfield) {
-                return {code: subKey, value: subfield[subKey]};
-              }
-            });
-          }
-          return attrs;
-        }
-      })
-    };
-  },
-
-  set: function(attrs, options) {
-    if (attrs.fields !== undefined &&
-        !(attrs.fields instanceof FieldList)) {
-      attrs.fields = new FieldList(attrs.fields);
-    }
-    return Backbone.Model.prototype.set.call(this, attrs, options);
-  },
-
-  toJSON: function() {
-    return _.clone(this.attributes);
-  }
-
-});
-
-var RecordCollection = Backbone.Collection.extend({
-  model: Record
-});
-
-var Field = Backbone.Model.extend({
-
-  set: function (attrs, options) {
-    if (attrs.subfields !== undefined &&
-        !(attrs.subfields instanceof SubFieldList)) {
-      attrs.subfields = new SubFieldList(attrs.subfields);
-    }
-    return Backbone.Model.prototype.set.call(this, attrs, options);
-  },
-
-  toJSON: function() {
-    var o = {};
-    var value = _.clone(this.attributes.controlValue || this.attributes);
-    delete value.tag;
-    o[this.attributes.tag] = value;
-    return o;
-  }
-
-});
-
-var FieldList = Backbone.Collection.extend({
-  model: Field
-});
-
-var SubField = Backbone.Model.extend({
-  toJSON: function() {
-    var o = {};
-    o[this.attributes.code] = this.attributes.value;
-    return o;
-  }
-});
-
-var SubFieldList = Backbone.Collection.extend({
-  model: SubField
-});
-
-
-var Router = Backbone.Router.extend({
-  initialize: function(options) {
-    this.records = options[0];
-    self = this;
-  },
-  routes: {
-    "record/bib/:bibid": "record",
-    "record/bib/:bibid/lite": "lite"
-  },
-  record: function(bibid) {
-    var record = new Record({id: bibid});
-    record.fetch({
-      success: function(model, response) {
-        self.records.add(model);
-      },
-    });
-    // TODO: set interval, and if changed, save to model or perhaps to
-    // front-backend
-  },
-  lite: function(bibid) {
+  lite = function(bibid) {
     var tplt = _.template($('#marclite-template').html());
     $.getJSON("/marcmap.json", function (map) {
       $.getJSON("/record/bib/"+ bibid, function (struct) {
         $('#litebox').html(tplt({map: map.bib, struct: struct}));
       });
-    });
-  }
+  });
+  // TODO: onunload:
+  //if (ajaxInProgress)
+  //  confirm('ajaxInProgress; break and leave?')
+
+  view.setupGlobalKeyBindings();
+  view.setupBibAutocomplete();
+  view.setupKeyBindings();
+  */
+
 });
 
 
-var RecordView = Backbone.View.extend({
 
-  el: $('#fields'),
-
-  leaderTemplate: _.template($('#leader-template').html()),
-  bibAutocompleteTemplate: _.template($('#bib-autocomplete-template').html()),
-
-  events: { },
-
-  initialize: function (options) {
-    this.model.bind("change", this.render, this);
-    this.renderAll();
-  },
-
-  renderAll: function() {
-    var $el = this.render();
-    this.model.get('fields').each(function(field) {
-      var fieldView = new FieldView({model: field}).render();
-      $el.append(fieldView);
-    });
-    this.setupGlobalKeyBindings();
-    this.setupBibAutocomplete();
-    this.setupKeyBindings();
-    this.$('.subfield').autoGrowInput({comfortZone: 11, minWidth: 20, maxWidth: 480});
-  },
-
-  render: function() {
-    var $el = $(this.el);
-    $el.html(this.leaderTemplate({leader: this.model.get('leader')}));
-    return $el;
-  },
+/* TODO:
+var view = {
 
   setupGlobalKeyBindings: function () {
     var model = this.model;
@@ -275,51 +149,23 @@ var RecordView = Backbone.View.extend({
     //    alert('Move down');
     //});
   }
+};
 
-});
+function displaySuccessAlert(message) {
+  var alert = $("<div class='alert alert-success'><strong>Succe!</strong></div>");
+  var message = $("<p class='message'></p>").text(message);
+  var close_btn = $("<a class='close' data-dismiss='alert' href='#'>×</a>");
+  $(alert).append(close_btn).append(message);
+  $('.alert-wrapper').append(alert);
+}
 
-var FieldView = Backbone.View.extend({
+function displayFailAlert(message) {
+  var alert = $("<div class='alert alert-error'><strong>Fadäs!</strong></div>");
+  var message = $("<p class='message'></p>").text(message);
+  var close_btn = $("<a class='close' data-dismiss='alert' href='#'>×</a>");
+  $(alert).append(close_btn).append(message);
+  $('.alert-wrapper').append(alert);
+}
 
-  controlRowTemplate: _.template($('#control-row-template').html()),
-  fieldRowTemplate: _.template($('#field-row-template').html()),
+*/
 
-  //events: { 'change .ind1': "updateInd1" },
-
-  render: function() {
-    var field = this.model;
-    var tag = field.get('tag');
-    var $el;
-    if (field.has('controlValue')) {
-      $el = $(this.controlRowTemplate({
-        label: tag,
-        value: field.get('controlValue')
-      }));
-      $('input', $el).change(function () {
-        field.set({controlValue: $(this).val()});
-      });
-    } else {
-      $el = $(this.fieldRowTemplate({
-        label: tag,
-        ind1: field.get('ind1'),
-        ind2: field.get('ind2'),
-        subfields: field.get('subfields')
-      }));
-      $('.ind1', $el).change(function () {
-        field.set({ind1: $(this).val()});
-      });
-      $('.ind2', $el).change(function () {
-        field.set({ind2: $(this).val()});
-      });
-      field.get('subfields').each(function (subfield) {
-        $('#' + subfield.cid, $el).change(function () {
-          subfield.set('value', $(this).val());
-        });
-      });
-    }
-    return $el;
-  }
-
-});
-
-var SubFieldView = Backbone.View.extend({
-});
