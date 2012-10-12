@@ -12,15 +12,58 @@ angular.module('kitin', ['kitin.services']).config(
 
 // controllers.js
 
+currentStruct = null;
+
 function RecordCtrl($scope, $http, $location) {
   var bibid = $location.path();
-  console.log(bibid);
+
   $http.get("/marcmap.json").success(function (map) {
     $http.get("/record/bib" + bibid).success(function (struct) {
-      $scope.map = map.bib;
+      currentStruct = struct; // for DEBUG:ging
+      // TODO: must edit pre-parsed fixed fields (and unparse before save..)
+      map = map.bib;
+      $scope.map = map;
       $scope.struct = struct;
+      // TODO: see pre-parsed note
+      var leader = marcjson.parseLeader(map, struct);
+      $scope.leader = leader;
+
+      $scope.typeOf = function (o) {
+        return typeof o;
+      }
+
+      $scope.indicatorType = function (indEnum) {
+        var i = 0;
+        for (var k in indEnum) if (i++) break;
+        if (i === 1 &&
+            (indEnum['_'].id === 'undefined' ||
+             indEnum['_'].label_sv === 'odefinierad')) {
+          return 'hidden';
+        } else if (indEnum) {
+          return 'select';
+        } else {
+          return 'plain';
+        }
+      }
+
+      $scope.widgetType = function (tag, row) {
+        if (marcjson.fixedFieldParsers[tag]) {
+          return 'fixedfield';
+        } else if (typeof row === 'string') {
+          return 'raw';
+        } else {
+          return 'field';
+        }
+      }
+
+      // TODO: see pre-parsed note
+      $scope.parseFixedField = function (tag, row, dfn) {
+        return marcjson.fixedFieldParsers[tag](row, dfn, leader, map.fixprops);
+      }
+
     });
   });
+
 }
 
 $(function() {

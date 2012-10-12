@@ -6,7 +6,7 @@
   <h2>Bib Lite</h2>
   <hr>
   {% raw %}
-  <div id="litebox" data-ng-app>
+  <div id="litebox" data-ng-app xmlns:ng="http://angularjs.org">
     <form id="fields-lite" class="form-horizontal" data-ng-controller="RecordCtrl">
       <div class="control-group leader">
         <h3 class="field-label">000 -
@@ -15,14 +15,85 @@
             <i class="icon-edit"></i></button>
         </h3>
         <div id="hidden-control-fields" class="collapse out">
-          <div data-ng-include src="'render-control-field'">Include ...</div>
+          <div data-ng-repeat="controlField in [leader]"
+               data-ng-include="'render-control-field'"></div>
         </div>
+
+        <div data-ng-repeat="field in struct.fields">
+          <div data-ng-repeat="(tag, row) in field"
+               data-ng-init="dfn = map[tag]">
+            <h3 class="field-label">{{ tag }} - {{ dfn.label_sv }}</h3>
+            <button data-TODO-if="!dfn || dfn.repeatable"
+              class="close pull-right pull-up" data-dismiss="alert">&times;</button>
+            <div class="subfield-container" data-ng-switch="widgetType(tag, row)">
+                <div data-ng-switch-when="fixedfield"
+                    data-ng-init="controlField = parseFixedField(tag, row, dfn)"
+                    data-ng-include="'render-control-field'"></div>
+                <div data-ng-switch-when="field"
+                    data-ng-include="'render-field'"></div>
+                <input data-ng-switch-default
+                    name="{{ tag }}" data-ng-model="field[tag]"/>
+            </div>
+          </div>
+        </div>
+
       </div>
 
     <script type="text/ng-template" id="render-control-field">
-      <div class="control-group fields">
-        <label class="control-label">{{ struct.leader }}</label>
+      <div data-ng-repeat="(propRef, col) in controlField"
+          data-ng-init="propEnum = map.fixprops[propRef]"
+          class="control-group fields">
+        <label class="control-label">{{ col.getDfn().label_sv }}</label>
+        <div class="controls" data-ng-switch="typeOf(propEnum)">
+          <select data-ng-switch-when="object" name="{{ propRef }}" class="span7">
+            <option data-ng-repeat="(key, val) in propEnum"
+                data-ng-selected="key == col.code"
+                data-ng-model="key">{{ val.label_sv }}</option>
+          </select>
+          <input data-ng-switch-default name="{{ propRef }}" data-ng-model="col.code" />
+        </div>
       </div>
+    </script>
+
+    <script type="text/ng-template" id="render-field">
+
+      <div class="indicators-lite">
+        <div data-ng-repeat="indKey in ['ind1', 'ind2']"
+            data-ng-init="indEnum = dfn[indKey]; indVal = row[indKey];
+                          indType = indicatorType(indEnum)">
+          <label data-ng-show="indType != 'hidden'">{{ indKey }}</label>
+          <ng:switch on="indType">
+            <input data-ng-switch-when="hidden"
+                type="hidden" name="{{ tag }}-{{ indKey }}" value="_"/>
+            <select data-ng-switch-when="select" name="{{ tag }}-{{ indKey }}">
+              <option data-ng-repeat="(key, val) in indEnum"
+                  data-ng-selected="key == indVal"
+                  data-ng-model="key">{{ val.label_sv }}</option>
+            </select>
+            <input data-ng-switch-default
+                name="{{ tag }}-{{ indKey }}" data-ng-model="row[indKey]"/>
+          </ng:switch>
+        </div>
+      </div>
+      <hr />
+
+      <ul data-ng-repeat="subfield in row.subfields">
+        <li data-ng-repeat="(subCode, value) in subfield"
+            data-ng-init="subDfn = dfn.subfield[subCode]"
+            class="add-on subfield-code input-append">
+          <button class="close" data-dismiss="alert">&times;</button>
+            <span class="add-on subfield-code">
+              {{ subCode }}){{ subDfn.mandatory && '*' || '' }}
+              {{ subDfn.label_sv }}
+            </span><br />
+            <input type="text" class="input-xxlarge"
+                name="{{ tag }}-{{ subCode }}" data-ng-model="subfield[subCode]" autofocus />
+            <button data-ng-show="!subDfn || subDfn.repeatable"
+              class="btn btn-medium"
+              title="Add"><i class="icon-plus icon-white"></i></button>
+        </li>
+      </ul>
+
     </script>
 
   </div>
@@ -33,122 +104,5 @@
 
   <script src="{{ url_for('static', filename='vendor/angular.min.js') }}"></script>
   <script src="{{ url_for('static', filename='js/marcjson.js') }}"></script>
-
-  <script type="text/html" id="marclite-template">
-    <%
-      var fixprops = map.fixprops;
-      var leader = marcjson.parseLeader(map, struct);
-      var renderControlField = _.template($('#marclite-controlfield-template').html());
-      var renderField = _.template($('#marclite-field-template').html());
-    %>
-    <form id="fields-lite" class="form-horizontal">
-      <div class="control-group leader">
-        <h3 class="field-label">000 - <%= map['000'].label_sv %><button type="button" class="btn btn-mini btn-link" data-toggle="collapse" data-target="#hidden-control-fields"><i class="icon-edit"></i></button></h3>
-        
-		<div id="hidden-control-fields" class="collapse out">
-        <%= renderControlField({controlField: leader, fixprops: fixprops}) %>
-        </div>
-      </div>
-      <% (struct.fields).forEach(function(field) { %>
-        <% _.each(field, function(row, tag) {
-          var dfn = map[tag];
-        %>
-         <div class="">
-         <h3 class="field-label">
-             <%= tag %> - <%= dfn.label_sv %>
-            <% if (!dfn || dfn.repeatable) { %>
-
-              
-            <% } %>
-          </h3><button class="close pull-right pull-up" data-dismiss="alert">&times;</button>
-          <div class="subfield-container">
-            <% if (marcjson.fixedFieldParsers[tag]) {
-              var dataElements = marcjson.fixedFieldParsers[tag](
-                  row, dfn, leader, fixprops);
-            %>
-              <% if (typeof dataElements === 'object') { %>
-                <%= renderControlField({controlField: dataElements, fixprops: fixprops}) %>
-              <% } else { %>
-                [<input name="<%= tag %>" value="<%= row %>"/>]
-              <% } %>
-            <% } else { %>
-              <% if (typeof row === 'string') { %>
-                <input name="<%= tag %>" value="<%= row %>"/>
-              <% } else { %>
-                <%= renderField({tag: tag, dfn: dfn, row: row}) %>
-              <% } %>
-            <% } %>
-          </div>
-</div>
-        <% }); %>
-      <% }); %>
-    </form>
-  </script>
-
-  <script type="text/html" id="marclite-controlfield-template">
-    <% _.each(controlField, function (col, propRef) {
-      var propEnum = fixprops[propRef];
-    %>
-      <div class="control-group fields">
-        <label class="control-label"><%= col.getDfn().label_sv %></label>
-        <div class="controls">
-          <% if (propEnum) { %>
-            <select name="<%= propRef %>" class="span7">
-              <% _.each(propEnum, function (val, key) { %>
-              <option <%= key === col.code? 'selected' : '' %>
-                      value="<%= key %>"><%= val.label_sv %></option>
-              <% }); %>
-            </select>
-          <% } else { %>
-            <input name="<%= propRef %>" value="<%= col.code %>" />
-          <% } %>
-        </div>
-      </div>
-    <% }); %>
-  </script>
-
-  <script type="text/html" id="marclite-field-template">
-    <div class="indicators-lite">
-      <% ;['ind1', 'ind2'].forEach(function (indKey) {
-        var indEnum = dfn[indKey], indVal = row[indKey];
-        var enumKeys = _.keys(indEnum);
-      %>
-        <% if (enumKeys.length === 1 && (indEnum['_'].id === 'undefined' ||
-               indEnum['_'].label_sv === 'odefinierad')) { %>
-          <input type="hidden" name="<%= tag + '-' + indKey %>" value="_"/>
-        <% } else { %>
-          <label><%= indKey %></label>
-          <% if (indEnum) { %>
-            <select name="<%= tag + '-' + indKey %>" class="">
-              <% _.each(indEnum, function (val, key) { %>
-              <option <%= key === indVal? 'selected' : '' %>
-                      value="<%= key %>"><%= val.label_sv %></option>
-              <% }); %>
-            </select>
-          <% } else { %>
-            <input name="<%= tag + '-' + indKey %>" value="<%= indVal %>"/>
-          <% } %>
-        <% } %>
-      <% }); %><hr />
-    </div>
-
-    <% row.subfields.forEach(function (subfield) { %>
-      <ul>
-        <% for (subCode in subfield) {
-          var subDfn = dfn.subfield[subCode], value = subfield[subCode];
-        %>
-       <li class="add-on subfield-code input-append"><button class="close" data-dismiss="alert">&times;</button>
-          <span class="add-on subfield-code">
-            <%= subCode %>)<% if (subDfn && subDfn.mandatory) { %>*<% } %>
-            <%= subDfn? subDfn.label_sv : "" %>
-          </span><br>
-          <input type="text" class="input-xxlarge" name="<%= tag + '-' + subCode %>" value="<%= value %>"
-          /><% if (!subDfn || subDfn.repeatable) {
-          %><button class="btn btn-medium" title="Add"><i class="icon-plus icon-white"></i></button></li>
-          <% } %>
-        <% } %>
-      </ul>
-    <% }); %>
-  </script>
 
 {% endblock extrajs %}
