@@ -31,7 +31,7 @@
                 <div data-ng-switch-when="field"
                     data-ng-include="'render-field'"></div>
                 <input data-ng-switch-default
-                    name="{{ tag }}" data-ng-model="field[tag]"/>
+                    data-ng-model="field[tag]"/>
             </div>
           </div>
         </div>
@@ -44,11 +44,11 @@
           class="control-group fields">
         <label class="control-label">{{ col.getDfn().label_sv }}</label>
         <div class="controls" data-ng-switch="typeOf(propEnum)">
-          <select data-ng-switch-when="object" name="{{ propRef }}" class="span7"
+          <select data-ng-switch-when="object" class="span7"
             data-ng-options="key as val.label_sv for (key, val) in propEnum"
             data-ng-model="col.code">
           </select>
-          <input data-ng-switch-default name="{{ propRef }}" data-ng-model="col.code" />
+          <input data-ng-switch-default data-ng-model="col.code" />
         </div>
       </div>
     </script>
@@ -61,13 +61,13 @@
           <label data-ng-show="indType != 'hidden'">{{ indKey }}</label>
           <ng:switch on="indType">
             <input data-ng-switch-when="hidden"
-                type="hidden" name="{{ tag }}-{{ indKey }}" value="_"/>
-            <select data-ng-switch-when="select" name="{{ tag }}-{{ indKey }}"
+                type="hidden" value="_"/>
+            <select data-ng-switch-when="select"
               data-ng-options="key as val.label_sv for (key, val) in indEnum"
               data-ng-model="row[indKey]">
             </select>
             <input data-ng-switch-default
-                name="{{ tag }}-{{ indKey }}" data-ng-model="row[indKey]"/>
+                data-ng-model="row[indKey]"/>
           </ng:switch>
         </div>
       </div>
@@ -82,7 +82,7 @@
               {{ subDfn.label_sv }}
             </span><br />
             <input type="text" class="input-xxlarge"
-                name="{{ tag }}-{{ subCode }}" data-ng-model="subfield[subCode]" />
+                data-ng-model="subfield[subCode]" />
             <button data-ng-show="!subDfn || subDfn.repeatable"
               class="btn btn-medium"
               title="Add"><i class="icon-plus icon-white"></i></button>
