@@ -15,7 +15,7 @@
             <i class="icon-edit"></i></button>
         </h3>
         <div id="hidden-control-fields" class="collapse out">
-          <div data-ng-repeat="controlField in [leader]"
+          <div data-ng-repeat="controlField in [struct.leader]"
                data-ng-include="'render-control-field'"></div>
         </div>
 
@@ -27,7 +27,7 @@
               data-ng-click="removeField(struct, $index)">&times;</button>
             <div class="subfield-container" data-ng-switch="widgetType(tag, row)">
                 <div data-ng-switch-when="fixedfield"
-                    data-ng-init="controlField = parseFixedField(tag, row, dfn)"
+                    data-ng-init="controlField = row"
                     data-ng-include="'render-control-field'"></div>
                 <div data-ng-switch-when="field"
                     data-ng-include="'render-field'"></div>

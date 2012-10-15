@@ -20,19 +20,11 @@ function RecordCtrl($scope, $http, $location) {
   $http.get("/marcmap.json").success(function (map) {
     $http.get("/record/bib" + bibid).success(function (struct) {
       currentStruct = struct; // for DEBUG:ging
-      // TODO: must edit pre-parsed fixed fields (and unparse before save..)
       map = map.bib;
+      expandFixedFields(map, struct);
+
       $scope.map = map;
       $scope.struct = struct;
-
-      // TODO: see pre-parsed note
-      var leader = marcjson.parseLeader(map, struct);
-      $scope.leader = leader;
-      // TODO: see pre-parsed note
-      $scope.parseFixedField = function (tag, row, dfn) {
-        return marcjson.fixedFieldParsers[tag](row, dfn, leader, map.fixprops);
-      }
-
 
       $scope.typeOf = function (o) {
         return typeof o;
@@ -83,9 +75,39 @@ function RecordCtrl($scope, $http, $location) {
 
 }
 
+
+/**
+ * Get one key from an object expected to contain only one key.
+ */
 function getMapEntryKey(o) {
   for (var key in o) return key;
 }
+
+
+/**
+ * Expands fixed marc fields into objects, in-place. Uses a marc-map containing
+ * parsing instructions.
+ */
+function expandFixedFields(map, struct) {
+  // TODO: must edit pre-parsed fixed fields (and unparse before save..)
+  var leader = marcjson.parseLeader(map, struct);
+  //leader.toJSON = serializeFixedField;
+  struct.leader = leader;
+  // TODO: see pre-parsed note
+  for (var tag in marcjson.fixedFieldParsers) {
+    struct.fields.forEach(function (field) {
+      var row = field[tag];
+      if (row) {
+        var parser = marcjson.fixedFieldParsers[tag];
+        var dfn = map[tag];
+        var parsed = parser(row, dfn, leader, map.fixprops);
+        //parsed.toJSON = serializeFixedField;
+        field[tag] = parsed;
+      }
+    });
+  }
+}
+
 
 $(function() {
 
