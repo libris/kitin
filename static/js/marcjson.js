@@ -4,38 +4,6 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
 // populate module
 (function (module) {
 
-  module.rawToNamed = function (map, struct) {
-    var out = {};
-    out.leader = module.parseLeader(map, struct);
-    (struct.fields).forEach(function(field) {
-      for (fieldTag in field) {
-        var sourceRow = field[fieldTag];
-        var dfn = map[fieldTag];
-        var parse = module.fixedFieldParsers[fieldTag];
-        if (parse) {
-          out[dfn.id] = parse(sourceRow, dfn, out.leader/*, map.fixprops*/);
-        } else {
-          var key = fieldTag;
-          var outObj = sourceRow;
-          if (dfn) {
-            key = dfn.id;
-            outObj = module.rawRowToNamedRow(dfn, sourceRow);
-          }
-          if (dfn === undefined || dfn.repeatable !== false) {
-            var outList = out[key];
-            if (outList === undefined) {
-              outList = out[key] = [];
-            }
-            outList.push(outObj);
-            outObj = outList;
-          }
-          out[key] = outObj;
-        }
-      }
-    });
-    return out;
-  };
-
   module.parseLeader = function (map, struct, reversable) {
     var leader = struct.leader;
     var columns = map['000'].fixmaps[0].columns;
@@ -134,6 +102,38 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
       return "_col_" + colDfn.offset + "_" + colDfn.length;
     }
   }
+
+  module.rawToNamed = function (map, struct) {
+    var out = {};
+    out.leader = module.parseLeader(map, struct);
+    (struct.fields).forEach(function(field) {
+      for (fieldTag in field) {
+        var sourceRow = field[fieldTag];
+        var dfn = map[fieldTag];
+        var parse = module.fixedFieldParsers[fieldTag];
+        if (parse) {
+          out[dfn.id] = parse(sourceRow, dfn, out.leader/*, map.fixprops*/);
+        } else {
+          var key = fieldTag;
+          var outObj = sourceRow;
+          if (dfn) {
+            key = dfn.id;
+            outObj = module.rawRowToNamedRow(dfn, sourceRow);
+          }
+          if (dfn === undefined || dfn.repeatable !== false) {
+            var outList = out[key];
+            if (outList === undefined) {
+              outList = out[key] = [];
+            }
+            outList.push(outObj);
+            outObj = outList;
+          }
+          out[key] = outObj;
+        }
+      }
+    });
+    return out;
+  };
 
   module.rawRowToNamedRow = function(fieldDfn, row) {
     if (typeof row === 'string')
