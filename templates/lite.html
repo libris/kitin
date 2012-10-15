@@ -20,8 +20,7 @@
         </div>
 
         <div data-ng-repeat="field in struct.fields">
-          <div data-ng-repeat="(tag, row) in field"
-               data-ng-init="dfn = map[tag]">
+          <div data-ng-init="tag = getKey(field); row = field[tag]; dfn = map[tag]">
             <h3 class="field-label">{{ tag }} - {{ dfn.label_sv }}</h3>
             <button data-TODO-if="!dfn || dfn.repeatable"
               class="close pull-right pull-up" data-dismiss="alert">&times;</button>
@@ -78,8 +77,7 @@
       <hr />
 
       <ul data-ng-repeat="subfield in row.subfields">
-        <li data-ng-repeat="(subCode, value) in subfield"
-            data-ng-init="subDfn = dfn.subfield[subCode]"
+        <li data-ng-init="subCode = getKey(subfield); subDfn = dfn.subfield[subCode]"
             class="add-on subfield-code input-append">
           <button class="close" data-dismiss="alert">&times;</button>
             <span class="add-on subfield-code">
@@ -87,7 +85,7 @@
               {{ subDfn.label_sv }}
             </span><br />
             <input type="text" class="input-xxlarge"
-                name="{{ tag }}-{{ subCode }}" data-ng-model="subfield[subCode]" autofocus />
+                name="{{ tag }}-{{ subCode }}" data-ng-model="subfield[subCode]" />
             <button data-ng-show="!subDfn || subDfn.repeatable"
               class="btn btn-medium"
               title="Add"><i class="icon-plus icon-white"></i></button>

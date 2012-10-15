@@ -32,6 +32,10 @@ function RecordCtrl($scope, $http, $location) {
         return typeof o;
       }
 
+      $scope.getKey = function (o) {
+        for (var key in o) return key;
+      }
+
       $scope.indicatorType = function (indEnum) {
         var i = 0;
         for (var k in indEnum) if (i++) break;
