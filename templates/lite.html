@@ -44,10 +44,9 @@
           class="control-group fields">
         <label class="control-label">{{ col.getDfn().label_sv }}</label>
         <div class="controls" data-ng-switch="typeOf(propEnum)">
-          <select data-ng-switch-when="object" name="{{ propRef }}" class="span7">
-            <option data-ng-repeat="(key, val) in propEnum"
-                data-ng-selected="key == col.code"
-                data-ng-model="key">{{ val.label_sv }}</option>
+          <select data-ng-switch-when="object" name="{{ propRef }}" class="span7"
+            data-ng-options="key as val.label_sv for (key, val) in propEnum"
+            data-ng-model="col.code">
           </select>
           <input data-ng-switch-default name="{{ propRef }}" data-ng-model="col.code" />
         </div>
@@ -58,16 +57,14 @@
 
       <div class="indicators-lite">
         <div data-ng-repeat="indKey in ['ind1', 'ind2']"
-            data-ng-init="indEnum = dfn[indKey]; indVal = row[indKey];
-                          indType = indicatorType(indEnum)">
+            data-ng-init="indEnum = dfn[indKey]; indType = indicatorType(indEnum)">
           <label data-ng-show="indType != 'hidden'">{{ indKey }}</label>
           <ng:switch on="indType">
             <input data-ng-switch-when="hidden"
                 type="hidden" name="{{ tag }}-{{ indKey }}" value="_"/>
-            <select data-ng-switch-when="select" name="{{ tag }}-{{ indKey }}">
-              <option data-ng-repeat="(key, val) in indEnum"
-                  data-ng-selected="key == indVal"
-                  data-ng-model="key">{{ val.label_sv }}</option>
+            <select data-ng-switch-when="select" name="{{ tag }}-{{ indKey }}"
+              data-ng-options="key as val.label_sv for (key, val) in indEnum"
+              data-ng-model="row[indKey]">
             </select>
             <input data-ng-switch-default
                 name="{{ tag }}-{{ indKey }}" data-ng-model="row[indKey]"/>
