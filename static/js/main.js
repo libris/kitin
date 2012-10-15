@@ -24,17 +24,21 @@ function RecordCtrl($scope, $http, $location) {
       map = map.bib;
       $scope.map = map;
       $scope.struct = struct;
+
       // TODO: see pre-parsed note
       var leader = marcjson.parseLeader(map, struct);
       $scope.leader = leader;
+      // TODO: see pre-parsed note
+      $scope.parseFixedField = function (tag, row, dfn) {
+        return marcjson.fixedFieldParsers[tag](row, dfn, leader, map.fixprops);
+      }
+
 
       $scope.typeOf = function (o) {
         return typeof o;
       }
 
-      $scope.getKey = function (o) {
-        for (var key in o) return key;
-      }
+      $scope.getKey = getMapEntryKey;
 
       $scope.indicatorType = function (indEnum) {
         var i = 0;
@@ -60,14 +64,27 @@ function RecordCtrl($scope, $http, $location) {
         }
       }
 
-      // TODO: see pre-parsed note
-      $scope.parseFixedField = function (tag, row, dfn) {
-        return marcjson.fixedFieldParsers[tag](row, dfn, leader, map.fixprops);
+      $scope.removeField = function (struct, index) {
+        struct.fields.splice(index, 1);
+      }
+
+      $scope.addSubField = function (row, subCode, index) {
+        var o = {};
+        o[subCode] = "";
+        row.subfields.splice(index + 1, 0, o);
+      }
+
+      $scope.removeSubField = function (row, index) {
+        row.subfields.splice(index, 1);
       }
 
     });
   });
 
+}
+
+function getMapEntryKey(o) {
+  for (var key in o) return key;
 }
 
 $(function() {
