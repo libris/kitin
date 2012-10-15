@@ -86,23 +86,21 @@ function getMapEntryKey(o) {
 
 /**
  * Expands fixed marc fields into objects, in-place. Uses a marc-map containing
- * parsing instructions.
+ * parsing instructions. The resulting objects have toJSON methods responsible
+ * for turning them back into fixed field values upon serialization.
  */
 function expandFixedFields(map, struct) {
   // TODO: must edit pre-parsed fixed fields (and unparse before save..)
-  var leader = marcjson.parseLeader(map, struct);
-  //leader.toJSON = serializeFixedField;
+  var leader = marcjson.parseLeader(map, struct, true);
   struct.leader = leader;
   // TODO: see pre-parsed note
   for (var tag in marcjson.fixedFieldParsers) {
     struct.fields.forEach(function (field) {
       var row = field[tag];
       if (row) {
-        var parser = marcjson.fixedFieldParsers[tag];
+        var parse = marcjson.fixedFieldParsers[tag];
         var dfn = map[tag];
-        var parsed = parser(row, dfn, leader, map.fixprops);
-        //parsed.toJSON = serializeFixedField;
-        field[tag] = parsed;
+        field[tag] = parse(row, dfn, leader, map.fixprops, true);
       }
     });
   }
