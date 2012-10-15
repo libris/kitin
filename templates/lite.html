@@ -21,10 +21,11 @@
 
         <div data-ng-repeat="field in struct.fields">
           <div data-ng-init="tag = getKey(field); row = field[tag]; dfn = map[tag]">
-            <h3 class="field-label">{{ tag }} - {{ dfn.label_sv }}</h3>
+            <h3 class="field-label" data-ng-click="addField(dfn, tag)"
+              >{{ tag }} - {{ dfn.label_sv }}</h3>
             <button data-ng-show="!dfn || dfn.repeatable"
               class="close pull-right pull-up"
-              data-ng-click="removeField(struct, $index)">&times;</button>
+              data-ng-click="removeField($index)">&times;</button>
             <div class="subfield-container" data-ng-switch="widgetType(tag, row)">
                 <div data-ng-switch-when="fixedfield"
                     data-ng-init="controlField = row"
@@ -78,16 +79,17 @@
         <li data-ng-init="subCode = getKey(subfield); subDfn = dfn.subfield[subCode]"
             class="add-on subfield-code input-append">
           <button class="close" data-ng-click="removeSubField(row, $index)">&times;</button>
-            <span class="add-on subfield-code">
-              {{ subCode }}){{ subDfn.mandatory && '*' || '' }}
-              {{ subDfn.label_sv }}
-            </span><br />
-            <input type="text" class="input-xxlarge"
-                data-ng-model="subfield[subCode]" />
-            <button data-ng-show="!subDfn || subDfn.repeatable"
-              data-ng-click="addSubField(row, subCode, $index)"
-              class="btn btn-medium"
-              title="Add"><i class="icon-plus icon-white"></i></button>
+          <span class="add-on subfield-code"
+            data-ng-click="addSubField(row, null, $index)">
+            {{ subCode }}){{ subDfn.mandatory && '*' || '' }}
+            {{ subDfn.label_sv }}
+          </span><br />
+          <input type="text" class="input-xxlarge"
+              data-ng-model="subfield[subCode]" />
+          <button data-ng-show="!subDfn || subDfn.repeatable"
+            data-ng-click="addSubField(row, subCode, $index)"
+            class="btn btn-medium"
+            title="Add"><i class="icon-plus icon-white"></i></button>
         </li>
       </ul>
 

@@ -56,11 +56,33 @@ function RecordCtrl($scope, $http, $location) {
         }
       }
 
-      $scope.removeField = function (struct, index) {
+      $scope.addField = function (dfn, currentTag) {
+        var fields = struct.fields;
+        var tagToAdd = prompt("Insert field:",
+                              dfn && dfn.repeatable? currentTag : "");
+        if (!tagToAdd)
+          return;
+        for (var i=0, ln=fields.length; i < ln; i++) {
+          var field = fields[i];
+          var tag = getMapEntryKey(field);
+          if (tag > tagToAdd) break;
+        }
+        // TODO: get definition from marcmap etc.
+        var o = {};
+        var row = {ind1: " ", ind2: " ", subfields: [{a: "..."}]};
+        o[tagToAdd] = row;
+        fields.splice(i, 0, o);
+      }
+
+      $scope.removeField = function (index) {
         struct.fields.splice(index, 1);
       }
 
       $scope.addSubField = function (row, subCode, index) {
+        if (!subCode)
+          subCode = prompt("Add subfield:");
+        if (!subCode)
+          return;
         var o = {};
         o[subCode] = "";
         row.subfields.splice(index + 1, 0, o);
