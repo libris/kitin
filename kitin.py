@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import os
 import json
+import urllib2
 from flask import Flask, render_template, request, make_response, abort, redirect, url_for
 from flask_login import *
 from werkzeug import secure_filename
@@ -26,20 +27,21 @@ def start():
     open_records = []
     if app.config['MOCK_API']:
         open_records = list(find_mockdata_record_summaries())
-    return render_template("home.html", record_templates=find_record_templates(), open_records=open_records, user = current_user if current_user.is_authenticated() else None)
-#   return render_template('home.html',
-#            name="Guest",
-#            record_templates=find_record_templates(),
-#            open_records=open_records)
+    return render_template('home.html',
+            name="Guest",
+            record_templates=find_record_templates(),
+            open_records=open_records)
 
 
 @app.route("/search")
 def search():
     q = request.args.get('q')
     search_results = None
+    b = request.args.get('b', None)
+    boost = ("&boost=%s" % b) if b else ''
     if q:
-        resp = requests.get("%sbib/kitin/_search?q=%s" % (
-            app.config['WHELK_HOST'], q))
+        resp = requests.get("%sbib/kitin/_search?q=%s%s" % (
+            app.config['WHELK_HOST'], q, boost))
         data = json.loads(resp.text)
         search_results = [get_record_summary(item['data']) for item in data['list']]
     return render_template('search.html', **vars())
@@ -238,16 +240,19 @@ def get_record_summary(data):
         for k, v in field.items():
             fields.setdefault(k, []).append(v)
     has_author = '100' in fields
+    try:
+        tit = "%s %s" % (fields['245'][0]['subfields'][0]['a'], fields['245'][0]['subfields'][1]['b'])
+    except Exception as e:
+        tit=fields['245'][0]['subfields'][0]['a'] if '245' in fields else 'N/A'
     return dict(
-            id=fields['001'][0] if '001' in fields else 'N/A',
-            isbn=fields['035'][0]['subfields'][0].get('9', "")
-                    if '035' in fields else "",
-            title=fields['245'][0]['subfields'][0]['a'] if '245' in fields else 'N/A',
-            author=fields['100'][0]['subfields'][0]['a'] if has_author else "",
-            # TODO: 'd' can be at another offset?
-            author_extra=fields['100'][0]['subfields'][1].get('d', '')
-                        if has_author and len(fields['100'][0]['subfields']) > 1
-                        else "")
+        id=fields['001'][0] if '001' in fields else 'N/A',
+        isbn=fields['035'][0]['subfields'][0].get('9', "")
+                if '035' in fields else "",
+        title=tit,
+        author=fields['100'][0]['subfields'][0]['a'] if has_author else "",
+        # TODO: 'd' can be at another offset?
+        author_extra=fields['100'][0]['subfields'][1].get('d', '')
+            if has_author and len(fields['100'][0]['subfields']) > 1 else "")
 
 
 def find_record_templates():
@@ -286,27 +291,47 @@ def mockdatapath(rectype, recid=None):
 
 
 @login_manager.user_loader
-def _load_user(uname):
+def _load_user(uname, pwd):
     """Get user by uid from bibdb? Return None if uid is not valid. Ensure uid is unicode."""
+    print "loading user from bibdb"
     return storage.load_user(uname, None)
+    #Real method below, for when bibdb is working
+    resp = requests.get('http://biblioteksdatabasen/api/login/auth', {username: uname, password: pwd})
+    if resp.status_code == requests.codes.ok:    
+        data = json.loads(resp.text)
+        
+        return storage.load_user(uname, None)
+    else:
+        return False
 
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST" and "username" in request.form:
+            #TODO update to authenticate user in biblioteksdatabasen
+
+            #is there a User for this user in kitin?
+            #yes
+            #   load User information
+            #   add User id to session?
+            #   list drafts
+
+            #no
+            #   create User
+            #   add User id to session
         username = request.form["username"]
         password = request.form["password"] 
         remember = request.form.get("remember", "no") == "yes"
-        user = storage.load_user(username, password)
+        user = _load_user(username, password)
         if (user):
-            login_user(user, remember)
+            kitinuser = storage.load_user(username, password)
+            login_user(kitinuser, remember)
 
             flash("Logged in!")
-            #return redirect(request.args.get("next") or url_for("index"))
         else:
             flash("No such user.")
 
-    elif "signout" in request.form and current_user.is_authenticated(): # and not current_user.is_anonymous:
+    elif "signout" in request.form and current_user.is_authenticated():
         try:
             print "försök logga ut"
             logout_user()

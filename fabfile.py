@@ -25,10 +25,12 @@ def create_db():
         marcpost.create()
 
         userdata = Table('userdata', metadata,
+            Column('id', Integer),
             Column('username', String, primary_key=True),
-            Column('password', String),
-                        )
+            Column('roles', PickleType(pickler=json)),
+        )
         userdata.create()
+
 
 @task
 def create_wsgi_file():

@@ -8,6 +8,10 @@
                 value="{{ q }}" placeholder="ISBN, Titel, Namn"
                 autocomplete="off" role="textbox"
         aria-autocomplete="list" aria-haspopup="true">
+        <input id="boost"  name="b" type="text"
+                class="xlarge ui-autocomplete-input"
+                value="{{ b }}" placeholder="Ex: fields.100.subfields.a:2,labels.title:2"
+                autocomplete="off" role="textbox">
         <button id="submit" class="btn btn-large btn-inverse" type="submit">
           <i class="icon-search icon-white"></i>
         </button>

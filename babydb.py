@@ -3,7 +3,6 @@ import pickle
 import json
 from sqlalchemy import MetaData, Table, create_engine, exists, and_
 from sqlalchemy.orm import mapper
-from login import User
 
 
 class Storage(object):
@@ -50,17 +49,26 @@ class Storage(object):
             yield Marcpost(item.id, pickle.loads(item.marc))
 
     def load_user(self, uname, password):
-        try:
-            users = self._get_table('userdata')
-            u = users.select(users.c.username == uname).execute().first()
-            # Yes, it's ugly
-            if u and not password == None and not u.password == password:
-                return None
+        """If user in kitin, update with roles from bibdb and return, 
+        else create new, with roles from bibdb and return."""
+        users = self._get_table('userdata')
+        u = users.select(users.c.username == uname).execute().first()
+        reply = requests.get('http://biblioteksdatabasen/api/user/role', {username: uname})
+        roles = json.loads(reply.text)['roles']
+        if len(u) > 0:
             user = User(u.username)
-            return user
-        except Exception as e:
-            print "FAIL %s" % e
-            return None
+            users.update().where(users.c.id == u.id).values(roles=pickle.dumps(roles)).execute()
+        else:
+            (users.insert(username=uname, roles=pickle.dumps(roles))).execute()
+            user = User(uname)
+
+        return user
+
+
+
+
+
+
 
 
 
