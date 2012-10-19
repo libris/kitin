@@ -7,7 +7,9 @@ from flask import Flask, render_template, request, make_response, abort, redirec
 from flask_login import *
 from werkzeug import secure_filename
 import requests
-from babydb import Storage
+from babydb import Storage, User
+from flask_login import UserMixin
+from sqlalchemy.orm import mapper
 #from spill import Spill
 
 
@@ -291,16 +293,16 @@ def mockdatapath(rectype, recid=None):
 
 
 @login_manager.user_loader
-def _load_user(uname, pwd):
+def _load_user(uname, pwd="Secret"):
     """Get user by uid from bibdb? Return None if uid is not valid. Ensure uid is unicode."""
     print "loading user from bibdb"
-    return storage.load_user(uname, None)
+    return storage.load_user(uname)
     #Real method below, for when bibdb is working
     resp = requests.get('http://biblioteksdatabasen/api/login/auth', {username: uname, password: pwd})
     if resp.status_code == requests.codes.ok:    
         data = json.loads(resp.text)
         
-        return storage.load_user(uname, None)
+        return storage.load_user(uname)
     else:
         return False
 
@@ -321,26 +323,29 @@ def login():
             #   add User id to session
         username = request.form["username"]
         password = request.form["password"] 
+        print "---form data: ", username, password
         remember = request.form.get("remember", "no") == "yes"
-        user = _load_user(username, password)
+        user = True #_load_user(username, password)
         if (user):
-            kitinuser = storage.load_user(username, password)
+            kitinuser = storage.load_user(username)
             login_user(kitinuser, remember)
 
             flash("Logged in!")
         else:
             flash("No such user.")
 
-    elif "signout" in request.form and current_user.is_authenticated():
+    elif "signout" in request.form and current_user:
         try:
             print "försök logga ut"
             logout_user()
         except Exception as e:
             print "FAIL: %s" % e
             return render_template("home.html")
+        user = None
 
     print "current_user: ", current_user
-    return render_template("home.html", user = current_user if current_user.is_authenticated() else None)
+    print "current_user status", current_user.is_active()
+    return render_template("home.html", user = current_user if current_user.is_active() else None)
 
 @app.route("/signout")
 @login_required

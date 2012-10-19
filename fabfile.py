@@ -28,6 +28,7 @@ def create_db():
             Column('id', Integer),
             Column('username', String, primary_key=True),
             Column('roles', PickleType(pickler=json)),
+            Column('active', Boolean),
         )
         userdata.create()
 
