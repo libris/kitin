@@ -1,10 +1,32 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import pickle
 import json
 from sqlalchemy import MetaData, Table, create_engine, exists, and_
 from sqlalchemy.orm import mapper
-from login import User
+from flask_login import UserMixin
 
+
+class User(UserMixin):
+    __tablename__ = 'userdata'
+    def __init__(self, username, password="Secret", active=True):
+        print "---initiating User"
+        self.username = username
+        self.password = password
+        self.active = active
+
+    def __repr__(self):
+        return '<User %r>' % (self.username) 
+
+    def get_id(self):
+        return self.username
+
+    def is_active(self):
+        return self.active
+
+
+#    def is_authenticated(self):
+#        return True
 
 class Storage(object):
 
@@ -12,6 +34,7 @@ class Storage(object):
         self.db = db = create_engine("%(DBENGINE)s:///%(DBNAME)s" % config)
         db.echo = True
         self.metadata = MetaData(db)
+        
 
     def _get_table(self, tname = 'marcpost'):
         return Table(tname, self.metadata, autoload=True)
@@ -49,18 +72,54 @@ class Storage(object):
         for item in items:
             yield Marcpost(item.id, pickle.loads(item.marc))
 
-    def load_user(self, uname, password):
-        try:
-            users = self._get_table('userdata')
-            u = users.select(users.c.username == uname).execute().first()
-            # Yes, it's ugly
-            if u and not password == None and not u.password == password:
-                return None
+    def load_user_original(self, uname, password):
+        """If user in kitin, update with roles from bibdb and return, 
+        else create new, with roles from bibdb and return."""
+        users = self._get_table('userdata')
+        u = users.select(users.c.username == uname).execute().first()
+        reply = requests.get('http://biblioteksdatabasen/api/user/role', {username: uname})
+        roles = json.loads(reply.text)['roles']
+        if u and len(u) > 0:
             user = User(u.username)
-            return user
-        except Exception as e:
-            print "FAIL %s" % e
-            return None
+            users.update().where(users.c.id == u.id).values(roles=pickle.dumps(roles)).execute()
+        else:
+            (users.insert(username=uname, roles=pickle.dumps(roles))).execute()
+            user = User(uname)
+
+        return user
+
+
+    def load_user(self, uname):
+        """If user in kitin, update with roles from bibdb and return, 
+        else create new, with roles from bibdb and return."""
+        users = self._get_table('userdata')
+        u = users.select(users.c.username == uname).execute().first()
+        print "---u in load_user", u
+        if u and len(u) > 0:# and u.active:
+            print "---if"
+            user = u
+        else:
+            print "---else"
+            #(users.insert(username=uname, active = 1)).execute()
+            self.db.execute(users.insert(), username=uname, active=True)
+            user = users.select(users.c.username == uname).execute().first()
+
+        return User(user.username)
+
+
+#ny användare loggar in, blir fel
+#men inloggad och kan inte logga ut
+
+        
+
+
+
+#        self.db.execute(table.delete().where(table.c.id == id))
+#con = engine.connect()
+#>>> con.execute(users.insert(), name='admin', email='admin@localhost')
+
+
+
 
 
 
