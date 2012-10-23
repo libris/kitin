@@ -293,42 +293,22 @@ def mockdatapath(rectype, recid=None):
 
 
 @login_manager.user_loader
-def _load_user(uname, pwd="Secret"):
+def _load_user(uid):
     """Get user by uid from bibdb? Return None if uid is not valid. Ensure uid is unicode."""
-    print "loading user from bibdb"
-    return storage.load_user(uname)
-    #Real method below, for when bibdb is working
-    resp = requests.get('http://biblioteksdatabasen/api/login/auth', {username: uname, password: pwd})
-    if resp.status_code == requests.codes.ok:    
-        data = json.loads(resp.text)
-        
-        return storage.load_user(uname)
-    else:
-        return False
+    print "loading user from nowhere"
+    return User(uid)
 
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST" and "username" in request.form:
-            #TODO update to authenticate user in biblioteksdatabasen
-
-            #is there a User for this user in kitin?
-            #yes
-            #   load User information
-            #   add User id to session?
-            #   list drafts
-
-            #no
-            #   create User
-            #   add User id to session
+        print "trying to log in"
         username = request.form["username"]
         password = request.form["password"] 
-        print "---form data: ", username, password
         remember = request.form.get("remember", "no") == "yes"
-        user = True #_load_user(username, password)
+        user = storage.load_user(username, password)
         if (user):
-            kitinuser = storage.load_user(username)
-            login_user(kitinuser, remember)
+            login_user(user, remember)
 
             flash("Logged in!")
         else:
@@ -336,7 +316,6 @@ def login():
 
     elif "signout" in request.form and current_user:
         try:
-            print "försök logga ut"
             logout_user()
         except Exception as e:
             print "FAIL: %s" % e
@@ -344,7 +323,6 @@ def login():
         user = None
 
     print "current_user: ", current_user
-    print "current_user status", current_user.is_active()
     return render_template("home.html", user = current_user if current_user.is_active() else None)
 
 @app.route("/signout")
@@ -363,5 +341,5 @@ if __name__ == "__main__":
     app.debug = opts.debug
     app.config['MOCK_API'] = opts.debug and opts.mockapi
     app.config['MARC_MAP'] = opts.marcmap
-    app.run()
+    app.run(host='0.0.0.0')
 
