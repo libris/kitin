@@ -28,11 +28,6 @@ pushd $DIR
 
   popd
 
-  #pushd backbone/
-  #  fetch backbone-min.js http://documentcloud.github.com/backbone/backbone-min.js
-  #  fetch underscore-min.js http://documentcloud.github.com/underscore/underscore-min.js
-  #popd
-
   fetch angular.min.js http://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js
 
 popd
