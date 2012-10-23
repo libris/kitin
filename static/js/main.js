@@ -1,24 +1,20 @@
 // app.js
-/*
-angular.module('kitin', ['kitin.services']).config(
-  ['$locationProvider', '$routeProvider',
-    function($locationProvider, $routeProvider) {
-      //locationProvider.html5mode(true);
-      console.log(locationProvider.hashPrefix());
-      locationProvider.hashPrefix('!');
-    }
+
+angular.module('kitin', []).config(
+  ['$locationProvider',
+    function($locationProvider) {
+      $locationProvider.html5Mode(true);
+    }]
 );
-*/
+
 
 // controllers.js
 
-currentStruct = null;
-
 function RecordCtrl($scope, $http, $location) {
-  var bibid = $location.path();
+  var resourceId = $location.path();
 
   $http.get("/marcmap.json").success(function (map) {
-    $http.get("/record/bib" + bibid).success(function (struct) {
+    $http.get(resourceId).success(function (struct) {
       currentStruct = struct; // for DEBUG:ging
       map = map.bib;
       expandFixedFields(map, struct);
@@ -127,6 +123,10 @@ function expandFixedFields(map, struct) {
     });
   }
 }
+
+
+// TODO: saveStruct
+//angular.toJson(struct)
 
 
 $(function() {

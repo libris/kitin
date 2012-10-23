@@ -1,102 +1,116 @@
 {% extends "base.html" %}
 
+{% block navbar_locals %}
+  <label>
+    <input type="checkbox"  onchange="$('.record').toggleClass('compact')" /> Compact
+  </label>
+{% endblock navbar_locals %}
+
 {% block content_class %}record{% endblock content_class %}
 
 {% block content %}
-  <h2>[BIB RECORD]</h2>
+  <h2>Bib Record</h2>
   <hr>
-  <form id='fields' class='form-horizontal'>
-  </form>
-  <hr>
-  <input type="submit" value="save draft" name="draft">
-  <input type="submit" value="publish" name="publish">
+  {% raw %}
+  <div id="litebox" data-ng-app="kitin" xmlns:ng="http://angularjs.org">
+    <form id="record" class="form-horizontal" data-ng-controller="RecordCtrl">
+      <div class="control-group leader">
+        <h3 class="field-label">000 -
+          {{ map['000'].label_sv }}<button type="button" class="btn btn-mini btn-link"
+            data-toggle="collapse" data-target="#hidden-control-fields">
+            <i class="icon-edit"></i></button>
+        </h3>
+        <div id="hidden-control-fields" class="collapse out">
+          <div data-ng-repeat="controlField in [struct.leader]"
+               data-ng-include="'render-control-field'"></div>
+        </div>
+
+        <div data-ng-repeat="field in struct.fields">
+          <div data-ng-init="tag = getKey(field); row = field[tag]; dfn = map[tag]">
+            <h3 class="field-label" data-ng-click="addField(dfn, tag)"
+              title="{{ dfn.label_sv }}"
+              >{{ tag }}<span class="field-label-text"> - {{ dfn.label_sv }}</span></h3>
+            <button data-ng-show="!dfn || dfn.repeatable"
+              class="close pull-right pull-up"
+              data-ng-click="removeField($index)">&times;</button>
+            <div class="subfield-container" data-ng-switch="widgetType(tag, row)">
+                <div data-ng-switch-when="fixedfield"
+                    data-ng-init="controlField = row"
+                    data-ng-include="'render-control-field'"></div>
+                <div data-ng-switch-when="field"
+                    data-ng-include="'render-field'"></div>
+                <input data-ng-switch-default
+                    data-ng-model="field[tag]"/>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    <script type="text/ng-template" id="render-control-field">
+      <div data-ng-repeat="(propRef, col) in controlField"
+          data-ng-init="propEnum = map.fixprops[propRef]"
+          class="control-group fields">
+        <label class="control-label">{{ col.getDfn().label_sv }}</label>
+        <div class="controls" data-ng-switch="typeOf(propEnum)">
+          <select data-ng-switch-when="object" class="span7"
+            data-ng-options="key as val.label_sv for (key, val) in propEnum"
+            data-ng-model="col.code">
+          </select>
+          <input data-ng-switch-default data-ng-model="col.code" />
+        </div>
+      </div>
+    </script>
+
+    <script type="text/ng-template" id="render-field">
+
+      <div class="indicators">
+        <div data-ng-repeat="indKey in ['ind1', 'ind2']"
+            data-ng-init="indEnum = dfn[indKey]; indType = indicatorType(indEnum)"
+            class="indicator">
+          <label data-ng-show="indType != 'hidden'">{{ indKey }}</label>
+          <ng:switch on="indType">
+            <input data-ng-switch-when="hidden"
+                type="hidden" value="_"/>
+            <select data-ng-switch-when="select"
+              data-ng-options="key as (key + ') ' + val.label_sv) for (key, val) in indEnum"
+              data-ng-model="row[indKey]">
+            </select>
+            <input data-ng-switch-default
+                data-ng-model="row[indKey]"/>
+          </ng:switch>
+        </div>
+      </div>
+      <hr class="breaker" />
+
+      <ul data-ng-repeat="subfield in row.subfields">
+        <li data-ng-init="subCode = getKey(subfield); subDfn = dfn.subfield[subCode]"
+            class="add-on subfield-code input-append">
+          <button class="close" data-ng-click="removeSubField(row, $index)">&times;</button>
+          <span class="add-on subfield-code"
+            data-ng-click="addSubField(row, null, $index)"
+            title="{{ subDfn.label_sv }}">
+            {{ subCode }}){{ subDfn.mandatory && '*' || '' }}
+            <span class="subfield-label">{{ subDfn.label_sv }}</span>
+          </span><br class="breaker" />
+          <input type="text" class="input-xxlarge"
+              data-ng-model="subfield[subCode]" />
+          <button data-ng-show="!subDfn || subDfn.repeatable"
+            data-ng-click="addSubField(row, subCode, $index)"
+            class="btn btn-medium"
+            title="Add"><i class="icon-plus icon-white"></i></button>
+        </li>
+      </ul>
+
+    </script>
+
+  </div>
+  {% endraw %}
 {% endblock content %}
 
 {% block extrajs %}
 
-  <script type="text/html" id="leader-template">
-    <div class="control-group fields leader">
-      <label class='control-label' for='leader'>Leader: </label>
-      <div class='controls'>
-        <input name="leader" id='leader' value="<%= leader %>"/>
-      </div>
-    </div>
-  </script>
-
-  <script type="text/html" id="control-row-template">
-    <div class='control_field fields control-group'>
-      <label class='control-label' for="field_<%= value %>"><%= label %></label>
-      <div class='controls'>
-        <input name="<%= label %>" class='field_label' id='field_<%= value %>' value='<%= value %>'/>
-      </div>
-    </div>
-  </script>
-
-  <script type="text/html" id="field-row-template">
-    <div class='control-group fields regular_field marc-<%= label %>'>
-      <label class='control-label'><%= label %>
-        <div class='action-group'>
-          <button class="btn" title="Add above"></i><i class="icon-arrow-up"></i></button>
-          <button class="btn" title="Add below"><!--<i class="icon-plus">--></i><i class="icon-arrow-down"></i></button>
-          <button class="btn" title="Delete"><i class="icon-trash"></i></button>
-        </div>
-      </label>
-      <div class='controls row-fluid'>
-        <input class='indicator ind1' name="ind1" value='<%= ind1 %>'/>
-        <input class='indicator ind2' name="ind2" value='<%= ind2 %>'/>
-        <% subfields.each(function (subfield) { %>
-          <% var code = subfield.get('code'); %>
-          <div class="input-prepend subfield-wrapper">
-            <span class='add-on subfield-code'><%= code %></span>
-            <input id="<%= subfield.cid %>" name="subfield"
-                   class="subfield subfield-<%= code %>"
-                   value="<%= subfield.get('value') %>" />
-          </div>
-        <% }); %>
-      </div>
-    </div>
-  </script>
-
-  <script type="text/html" id="bib-autocomplete-template">
-    <div class="auth">
-      <h4><span class="name"><%= data['100'].a %></span>
-        <% if (data['100'].d) { %>
-          <span class="date"><%= data['100'].d %></span>
-          <% } else { %>
-          <em><%= "" %></em>
-          <% } %>
-        <% if (data.authorized) { %>
-          <span class="label label-success pull-right"><i class="icon-ok icon-white"></i>Aukt.</span>
-          <% } %>
-      </h4>
-      <h5><% if (data['100'].c) { %>(<%= data['100'].c %>)<% } %></h5>
-        <% if (data['500']) { %>
-          <p><em>Hänv. från<% data['500'].forEach(function (it) { %>
-            <%= it.a %></em><br>
-          <% }) %>
-        <% } %>
-        <% if (data.highlight) { %>
-          <% if (!data.highlight['100.a'] && data.highlight['400.a']) { %>
-              <p class="highlight"><em>Hänv. från <%= data.highlight['400.a'][0] %></em></p>
-
-          <% } %>
-        <% } %>
-      <% if (data['678']) { %>
-        <p><% data['678'].forEach(function (it) { %>
-          <%= it.a %><br>
-          <% }) %>
-        <% if (data.records) { %>
-          <a href="#"><%=  (data.records) %> titlar</a>
-          <% } %>
-        <% if (data['680']) { %><br>(<%= data['680'].i %>)<% } %>
-        <% } %>
-      <% if (data.top_titles) { %>
-        <% for (href in data.top_titles) { %>
-          t ex. <a href="<%= href %>" target="_blank"><%= data.top_titles[href] %></a>
-          <% break } %>
-        </p>
-        <% } %>
-    </div>
-  </script>
+  <script src="{{ url_for('static', filename='vendor/angular.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/marcjson.js') }}"></script>
 
 {% endblock extrajs %}
