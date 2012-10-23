@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 import pickle
 import json
+import requests
+import os
 from sqlalchemy import MetaData, Table, create_engine, exists, and_
 from sqlalchemy.orm import mapper
 from flask_login import UserMixin
@@ -10,10 +12,14 @@ from flask_login import UserMixin
 class User(UserMixin):
     __tablename__ = 'userdata'
     def __init__(self, username, password="Secret", active=True):
-        print "---initiating User"
-        self.username = username
-        self.password = password
-        self.active = active
+        try:
+            print "---initiating User", username, password
+            self.username = unicode(username)
+            self.password = unicode(password)
+            self.active = active
+            print "---initiated User"
+        except Excetion as e:
+            print "gick inge bra: ", e
 
     def __repr__(self):
         return '<User %r>' % (self.username) 
@@ -73,8 +79,7 @@ class Storage(object):
             yield Marcpost(item.id, pickle.loads(item.marc))
 
     def load_user_original(self, uname, password):
-        """If user in kitin, update with roles from bibdb and return, 
-        else create new, with roles from bibdb and return."""
+        """ Not working, move bibdb request to new load_user when api is ready"""
         users = self._get_table('userdata')
         u = users.select(users.c.username == uname).execute().first()
         reply = requests.get('http://biblioteksdatabasen/api/user/role', {username: uname})
@@ -89,26 +94,38 @@ class Storage(object):
         return user
 
 
-    def load_user(self, uname):
-        """If user in kitin, update with roles from bibdb and return, 
+    def load_user(self, uname, pword):
+        """
+        If user not in bibdb, return None
+        If user in bibdb, return User object from kitin.
+        If user in kitin, update with roles from bibdb and return, 
         else create new, with roles from bibdb and return."""
-        users = self._get_table('userdata')
-        u = users.select(users.c.username == uname).execute().first()
-        print "---u in load_user", u
-        if u and len(u) > 0:# and u.active:
-            print "---if"
-            user = u
+        print "---loading user from userdata: %s" % uname
+        u = os.environ.get('BIBDB_USER')
+        p = os.environ.get('BIBDB_PASS')
+
+        udata = "username=%s&password=%s" % (u, p)
+        reply = requests.post('https://bibdb.libris.kb.se/api/login/auth', data=udata)
+        if reply.text == "Authenticated":
+            rolereply = requests.get('https://bibdb.libris.kb.se/api/user/role?username=%s' % u)
+            roles = rolereply.text
+
+
+            users = self._get_table('userdata')
+            u = users.select(users.c.username == uname).execute().first()
+            if u and len(u) > 0:
+                user = u
+            else:
+                (users.insert(username=uname, active = 1)).execute()
+                user = users.select(users.c.username == uname).execute().first()
+
+            self.db.execute(users.update(), username=uname, active=True, roles = roles)
+            
+            return User(user.username)
         else:
-            print "---else"
-            #(users.insert(username=uname, active = 1)).execute()
-            self.db.execute(users.insert(), username=uname, active=True)
-            user = users.select(users.c.username == uname).execute().first()
-
-        return User(user.username)
+            return None
 
 
-#ny användare loggar in, blir fel
-#men inloggad och kan inte logga ut
 
         
 
