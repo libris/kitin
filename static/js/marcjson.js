@@ -4,10 +4,10 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
 // populate module
 (function (module) {
 
-  module.parseLeader = function (map, struct, reversable) {
+  module.parseLeader = function (map, struct, reversible) {
     var leader = struct.leader;
     var columns = map['000'].fixmaps[0].columns;
-    return buildFixedFieldObject(leader, columns, map.fixprops, reversable);
+    return buildFixedFieldObject(leader, columns, map.fixprops, reversible);
   };
 
   module.fixedFieldParsers = {
@@ -16,7 +16,7 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
 
     '007': parseFixedField,
 
-    '008': function (row, dfn, leader, fixprops, reversable) {
+    '008': function (row, dfn, leader, fixprops, reversible) {
       var recTypeBibLevelKey = leader.typeOfRecord.code + leader.bibLevel.code;
       var columns = null;
       // TODO: prepare table to lookup fixmap by matchRecTypeBibLevel
@@ -27,12 +27,12 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
           break;
         }
       }
-      return buildFixedFieldObject(row, columns, fixprops, reversable);
+      return buildFixedFieldObject(row, columns, fixprops, reversible);
     }
 
   };
 
-  function parseFixedField(row, dfn, leader, fixprops, reversable) {
+  function parseFixedField(row, dfn, leader, fixprops, reversible) {
     var matchKey = row[0];
     var columns = null;
     for (var fixmap=null, i=0; fixmap=dfn.fixmaps[i++];) {
@@ -44,11 +44,11 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
     if (columns !== null)
       return row;
     else
-      return buildFixedFieldObject(row, columns, fixprops, reversable);
+      return buildFixedFieldObject(row, columns, fixprops, reversible);
   }
 
-  function buildFixedFieldObject(repr, columns, fixprops, reversable) {
-    var result = reversable? makeFixedFieldResult(columns) : {};
+  function buildFixedFieldObject(repr, columns, fixprops, reversible) {
+    var result = reversible? makeFixedFieldResult(columns) : {};
     columns.forEach(function (colDfn) {
       processFixedCol(repr, colDfn, result, fixprops);
     });
