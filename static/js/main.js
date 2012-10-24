@@ -1,21 +1,41 @@
 // app.js
 
-angular.module('kitin', []).config(
+var kitin = angular.module('kitin', []);
+
+kitin.config(
   ['$locationProvider',
     function($locationProvider) {
       $locationProvider.html5Mode(true);
     }]
 );
 
+kitin.directive('keyEnter', function () {
+  return function (scope, elm, attrs) {
+    var expr = attrs.keyEnter;
+    elm.jkey('enter', function () {
+      scope.$apply(expr);
+    });
+  }
+});
+
+kitin.directive('keyEsc', function () {
+  return function (scope, elm, attrs) {
+    var expr = attrs.keyEsc;
+    elm.jkey('esc', function () {
+      scope.$apply(expr);
+    });
+  }
+});
+
 
 // controllers.js
 
-function RecordCtrl($scope, $http, $location) {
+function RecordCtrl($scope, $location, $http, $timeout) {
   var resourceId = $location.path();
 
   $http.get("/marcmap.json").success(function (map) {
     $http.get(resourceId).success(function (struct) {
-      currentStruct = struct; // for DEBUG:ging
+      currentStruct = struct; // gloabal object used for DEBUG:ging
       map = map.bib;
       expandFixedFields(map, struct);
 
@@ -52,10 +72,49 @@ function RecordCtrl($scope, $http, $location) {
         }
       }
 
-      $scope.addField = function (dfn, currentTag) {
+      $scope.fieldToAdd = null;
+
+      $scope.promptAddField = function ($event, dfn, currentTag) {
+        $scope.fieldToAdd = {
+          tag: currentTag,
+          execute: function () {
+            addField($scope.fieldToAdd.tag, dfn);
+            $scope.fieldToAdd = null;
+          },
+          abort: function () {
+            $scope.fieldToAdd = null;
+          }
+        };
+        $timeout(function () {
+          openPrompt($event, '#prompt-add-field');
+        });
+      }
+
+      $scope.subFieldToAdd = null;
+
+      $scope.promptAddSubField = function ($event, dfn, row, currentSubCode, index) {
+        $scope.subFieldToAdd = {
+          subfields: dfn.subfield,
+          code: currentSubCode,
+          execute: function () {
+            addSubField(row, $scope.subFieldToAdd.code, index);
+            $scope.subFieldToAdd = null;
+          },
+          abort: function () {
+            $scope.subFieldToAdd = null;
+          }
+        };
+        $timeout(function () {
+          openPrompt($event, '#prompt-add-subfield');
+        });
+      }
+
+      $scope.removeField = removeField;
+      $scope.addSubField = addSubField;
+      $scope.removeSubField = removeSubField;
+
+      function addField(tagToAdd, dfn) {
         var fields = struct.fields;
-        var tagToAdd = prompt("Insert field:",
-                              dfn && dfn.repeatable? currentTag : "");
         if (!tagToAdd)
           return;
         for (var i=0, ln=fields.length; i < ln; i++) {
@@ -70,13 +129,11 @@ function RecordCtrl($scope, $http, $location) {
         fields.splice(i, 0, o);
       }
 
-      $scope.removeField = function (index) {
+      function removeField(index) {
         struct.fields.splice(index, 1);
       }
 
-      $scope.addSubField = function (row, subCode, index) {
-        if (!subCode)
-          subCode = prompt("Add subfield:");
+      function addSubField(row, subCode, index) {
         if (!subCode)
           return;
         var o = {};
@@ -84,7 +141,7 @@ function RecordCtrl($scope, $http, $location) {
         row.subfields.splice(index + 1, 0, o);
       }
 
-      $scope.removeSubField = function (row, index) {
+      function removeSubField(row, index) {
         row.subfields.splice(index, 1);
       }
 
@@ -108,10 +165,8 @@ function getMapEntryKey(o) {
  * for turning them back into fixed field values upon serialization.
  */
 function expandFixedFields(map, struct) {
-  // TODO: must edit pre-parsed fixed fields (and unparse before save..)
   var leader = marcjson.parseLeader(map, struct, true);
   struct.leader = leader;
-  // TODO: see pre-parsed note
   for (var tag in marcjson.fixedFieldParsers) {
     struct.fields.forEach(function (field) {
       var row = field[tag];
@@ -125,35 +180,28 @@ function expandFixedFields(map, struct) {
 }
 
 
+// TODO: turn into promptService?
+function openPrompt($event, promptSelect) {
+  var tgt = $($event.target), off = tgt.offset(), width = tgt.width();
+  var prompt = $(promptSelect).css(
+      { top: off.top + 'px', left: off.left + width + 'px'})
+    prompt.find('select').focus();
+}
+
+
 // TODO: saveStruct
 //angular.toJson(struct)
 
 
-$(function() {
+// TODO: onunload:
+//if (ajaxInProgress)
+//  confirm('ajaxInProgress; break and leave?')
 
-  /* TODO:
-  angular.history.start({pushState: true, root: "/"});
-
-  "record/bib/:bibid/lite": "lite"
-
-  lite = function(bibid) {
-    var tplt = _.template($('#marclite-template').html());
-    $.getJSON("/marcmap.json", function (map) {
-      $.getJSON("/record/bib/"+ bibid, function (struct) {
-        $('#litebox').html(tplt({map: map.bib, struct: struct}));
-      });
-  });
-  // TODO: onunload:
-  //if (ajaxInProgress)
-  //  confirm('ajaxInProgress; break and leave?')
-
-  view.setupGlobalKeyBindings();
-  view.setupBibAutocomplete();
-  view.setupKeyBindings();
-  */
-
-});
-
+/* TODO:
+view.setupGlobalKeyBindings();
+view.setupBibAutocomplete();
+view.setupKeyBindings();
+*/
 
 
 /* TODO:
