@@ -3,13 +3,11 @@
 import os
 import json
 import urllib2
+import logging
 from flask import Flask, render_template, request, make_response, abort, redirect, url_for
-from flask_login import *
-from werkzeug import secure_filename
+from flask_login import LoginManager, login_required, login_user, flash, current_user, UserMixin
 import requests
 from babydb import Storage, User
-from flask_login import UserMixin
-from sqlalchemy.orm import mapper
 #from spill import Spill
 
 
@@ -23,17 +21,20 @@ login_manager.setup_app(app)
 
 storage = Storage(app.config)
 
+logger = logging.getLogger(__name__)
+
 
 @app.route("/")
 def start():
-    open_records = []
-    if app.config['MOCK_API']:
+    if app.config.get('MOCK_API', False):
         open_records = list(find_mockdata_record_summaries())
+    else:
+        open_records = []
+    user = current_user if current_user.is_active() else None
     return render_template('home.html',
-            name="Guest",
+            user=user,
             record_templates=find_record_templates(),
-            open_records=open_records,
-            user = current_user if current_user.is_active() else None)
+            open_records=open_records)
 
 
 @app.route("/search")
@@ -50,47 +51,38 @@ def search():
     return render_template('search.html', **vars())
 
 
-@app.route("/mockups/<name>")
-def show_mockup(name):
-    return render_template('mockups/'+ name +'.html')
-
-
 @app.route("/profile")
 def profile():
     return render_template('mockups/profile.html')
 
 
-@app.route('/user/<name>')
-def user_home(name=None):
-    """dummy"""
-    return render_template('home.html', name=name)
+@app.route('/record')
+def show_record_form():
+    return render_template('bib.html')
 
 
-@app.route('/upload', methods=['GET', 'POST'])
-def upload_file():
-    """working, called by form in upload.html - testpage"""
-    """Upload marc document from either local file system or from whelk. Save to kitin db."""
-    if request.method == 'POST':
-        uid = request.form['uid']
-        if request.form.get('files', None):
-            f = request.files['jfile']
-            fname = secure_filename(f.filename)
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], fname)
-            f.save(filepath)
-            json_text = open(filepath)
-            json_data = json.load(json_text)
-            print "json", type(json_data)
-
-        elif request.form.get('backend', None):
-            bibid = request.form['bibid']
-            bpost = requests.get("%sbib/%s" % (app.config['WHELK_HOST'], bibid))
-            json_data = json.loads(bpost.text)['marc']
-        #get table and save record
-        bibid = json_data.get('001', None)
-        mid = storage.save2(bibid, uid, json_data)
-        return render_template('view.html', marcposts = [(str(mid), json.dumps(json_data))], uid = uid )
+@app.route('/record/bib/<id>')
+def show_record(id):
+    # TODO: Check if exists as draft and fetch from local db if so!
+    if request.is_xhr:
+        return get_bib_data(id)
     else:
-        return render_template('upload.html')
+        #json_post = json.loads(response.text)
+        #return render_template('bib.html', data=json_post)
+        return show_record_form()
+
+
+@app.route('/record/bib/<id>.json')
+def get_bib_data(id):
+    if app.config.get('MOCK_API', False):
+        response = requests.Response()
+        response.status_code = 200
+        response.raw = open(mockdatapath('bib', id))
+    else:
+        response = requests.get("%s/bib/%s" % (app.config['WHELK_HOST'], id))
+    if response.status_code >= 400:
+        abort(response.status_code)
+    return raw_json_response(response.text)
 
 
 @app.route('/record/bib/<id>/draft', methods=['POST'])
@@ -119,37 +111,6 @@ def update_document(id):
     return raw_json_response(json_string)
 
 
-@app.route('/record/bib/<id>', methods=['GET'])
-def show_record(id):
-    # TODO: Check if exists as draft and fetch from local db if so..!
-    if app.config['MOCK_API']:
-        response = requests.Response()
-        response.status_code = 200
-        response.raw = open(mockdatapath('bib', id))
-    else:
-        response = requests.get("%s/bib/%s" % (app.config['WHELK_HOST'], id))
-    if request.is_xhr:
-        if response.status_code >= 400:
-            abort(response.status_code)
-        return raw_json_response(response.text)
-    if not response:
-        return render_template('bib.html')
-    else:
-        json_post = json.loads(response.text)
-        return render_template('bib.html', data=json_post)
-
-
-@app.route('/record/bib/<id>/lite')
-def render_lite(id):
-    return render_template('lite.html')
-
-
-@app.route('/marcmap.json')
-def get_marcmap():
-    with open(app.config['MARC_MAP']) as f:
-        return raw_json_response(f.read())
-
-
 @app.route('/record/create', methods=['POST'])
 def create_record():
     tplt_name = request.form.get('template')
@@ -162,10 +123,16 @@ def create_record():
     return redirect(url_for('render_lite', id=new_id))
 
 
+@app.route('/marcmap.json')
+def get_marcmap():
+    with open(app.config['MARC_MAP']) as f:
+        return raw_json_response(f.read())
+
+
 @app.route('/suggest/auth')
 def suggest_auth_completions():
     q = request.args.get('q')
-    if app.config['MOCK_API']:
+    if app.config.get('MOCK_API', False):
         with open(os.path.join(app.root_path, 'templates/mockups/auth_suggest.json')) as f:
             return raw_json_response(f.read())
     response = requests.get("%s/suggest/_complete?name=%s" % (app.config['WHELK_HOST'], q))
@@ -197,38 +164,39 @@ def lookup(uid=None):
         return "failed"
 
 
-@app.route('/save', methods=['GET', 'POST'])
-def save_to_db():
-    """Save draft to kitin, or publish document to whelk and remove from kitin.
-    called by form in view.html"""
-    if request.method == 'POST':
-        json_text = request.form['jdata']
-        json_data = json.loads(json_text)
-        uid = request.form['uid']
-        mid = request.form['mid']
-        bibid = json_data.get('001', None)
-        nollotta = json_data.get('008', None)
-        print "08: -%s-" % nollotta
-        if not bibid:
-            try:
-                bibid = jd['035'][3]['9']
-            except:
-                bibid = '666'
+# TODO: integrate mockups in views and remove this
+@app.route("/mockups/<name>")
+def show_mockup(name):
+    return render_template('mockups/'+ name +'.html')
 
-        if request.form.get('publish', None):
-            bjson = '{"uid": %s, "marc": %s}' % (uid, json_text)
-            r = requests.put("%sbib/%s" % (app.config['WHELK_HOST'], bibid),
-                    data=bjson.encode('utf-8'))
-            print "published"
-            storage.delete(mid)
-            print "deleted draft"
 
-        elif request.form.get('draft', None):
-            storage.update(mid, json_data)
-            print "saved draft"
-            return "tack"
-
-        return "tack"
+# TODO: should we keep this feature?
+#from werkzeug import secure_filename
+#
+#@app.route('/upload', methods=['GET', 'POST'])
+#def upload_file():
+#    """Upload marc document from either local file system or from whelk. Save to kitin db."""
+#    if request.method == 'POST':
+#        uid = request.form['uid']
+#        if request.form.get('files', None):
+#            f = request.files['jfile']
+#            fname = secure_filename(f.filename)
+#            filepath = os.path.join(app.config['UPLOAD_FOLDER'], fname)
+#            f.save(filepath)
+#            json_text = open(filepath)
+#            json_data = json.load(json_text)
+#            print "json", type(json_data)
+#
+#        elif request.form.get('backend', None):
+#            bibid = request.form['bibid']
+#            bpost = requests.get("%sbib/%s" % (app.config['WHELK_HOST'], bibid))
+#            json_data = json.loads(bpost.text)['marc']
+#        #get table and save record
+#        bibid = json_data.get('001', None)
+#        mid = storage.save2(bibid, uid, json_data)
+#        return render_template('view.html', marcposts = [(str(mid), json.dumps(json_data))], uid = uid )
+#    else:
+#        return render_template('upload.html')
 
 
 def raw_json_response(s):
@@ -293,7 +261,6 @@ def mockdatapath(rectype, recid=None):
         return os.path.join(dirpath, recid +'.json')
     else:
         return dirpath
-
 
 
 @login_manager.user_loader

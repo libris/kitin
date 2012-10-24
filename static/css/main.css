@@ -25,9 +25,8 @@ select {
   border: 1px solid #CCC;
 }
 
-/* biblite temp label fix */
-.subfield-code {
-  margin-bottom: -4px;
+.subfield-container {
+  padding-bottom: 5px;
 }
 
 .subfield-container {
@@ -38,6 +37,14 @@ select {
   margin-top: -35px;
   margin-right: 5px;
 }
+
+
+.compact .breaker,
+.compact .field-label-text,
+.compact .subfield-label {
+  display: none;
+}
+
 
 /* Webcat form */
 .record .leader,
@@ -50,7 +57,7 @@ select {
 .record input.variable-field { width: 30px; }
 .record .field_label { width: 30px; }
 .record .control_field .field_label { width: 300px; }
-.record .indicator { width: 20px; }
+.record .indicator { width: 20px; display: inline; }
 .record .controlfield { width: 517px; }
 .record .regular_field input.subfield.label {
   width: 10px;
@@ -134,7 +141,7 @@ auth-ok {
 }
 
 div.auth {
-	font-size: 12px;
+  font-size: 12px;
 }
 
 .auth .name {
@@ -148,18 +155,18 @@ div.auth {
  
 /*form input fork */
 
-form#fields .regular_field {
-  border-bottom: 1px solid #efefef; 
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
 form#fields {
   font-size: 14px;
 }
 
 form#fields .control-label {
   font-size: 14px;
+}
+
+form#fields .regular_field {
+  border-bottom: 1px solid #efefef; 
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 form#fields input {
@@ -193,18 +200,19 @@ form#fields .add-on {
   background: #fff;
   vertical-align: bottom;
 }
-form#fields-lite .add-on {
+
+form#record .add-on {
   border: 0;
   color: #888;
   background: #fff;
   /*   vertical-align: bottom; */
 }
 
-.indicators-lite label, .indicators-lite select {
+.indicators label, .indicators select {
   font-size: 12px;
 }
 
-.indicators-lite {
+.indicators {
   background-color: #f9f9f9;
   padding-left: 25px;
 }
@@ -223,6 +231,7 @@ form#fields-lite .add-on {
   border-radius: 0;
   color: #888;
 }
+
 .variable-field {
   width: 30px;
   font-weight: 600;
@@ -301,5 +310,3 @@ ul.unstyled, ol.unstyled {
     width: 46px;
 }
 
-
-	

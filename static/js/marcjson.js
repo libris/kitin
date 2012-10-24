@@ -4,6 +4,105 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
 // populate module
 (function (module) {
 
+  module.parseLeader = function (map, struct, reversible) {
+    var leader = struct.leader;
+    var columns = map['000'].fixmaps[0].columns;
+    return buildFixedFieldObject(leader, columns, map.fixprops, reversible);
+  };
+
+  module.fixedFieldParsers = {
+
+    '006': parseFixedField,
+
+    '007': parseFixedField,
+
+    '008': function (row, dfn, leader, fixprops, reversible) {
+      var recTypeBibLevelKey = leader.typeOfRecord.code + leader.bibLevel.code;
+      var columns = null;
+      // TODO: prepare table to lookup fixmap by matchRecTypeBibLevel
+      for (var fixmap=null, i=0; fixmap=dfn.fixmaps[i++];) {
+        if (fixmap.matchRecTypeBibLevel.indexOf(recTypeBibLevelKey) > -1) {
+          //var type = fixmap.term; // TODO: use computed resource type key
+          columns = fixmap.columns;
+          break;
+        }
+      }
+      return buildFixedFieldObject(row, columns, fixprops, reversible);
+    }
+
+  };
+
+  function parseFixedField(row, dfn, leader, fixprops, reversible) {
+    var matchKey = row[0];
+    var columns = null;
+    for (var fixmap=null, i=0; fixmap=dfn.fixmaps[i++];) {
+      if (fixmap.matchKeys.indexOf(matchKey) > -1) {
+        columns = fixmap.columns;
+        break;
+      }
+    }
+    if (columns !== null)
+      return row;
+    else
+      return buildFixedFieldObject(row, columns, fixprops, reversible);
+  }
+
+  function buildFixedFieldObject(repr, columns, fixprops, reversible) {
+    var result = reversible? makeFixedFieldResult(columns) : {};
+    columns.forEach(function (colDfn) {
+      processFixedCol(repr, colDfn, result, fixprops);
+    });
+    return result;
+  }
+
+  function makeFixedFieldResult(columns) {
+    // TODO: save raw value in case columns don't cover the full range
+    var ctor = function () {};
+    ctor.prototype.toJSON = function () {
+      var self = this;
+      // TODO: use saved raw as base (to cover missing column defs)
+      var s = "";
+      columns.forEach(function (colDfn) {
+        var prop = getColumnName(colDfn);
+        var o = self[prop];
+        if (o === undefined) {
+          s += new Array(colDfn.length).join(" ");
+        } else {
+          var v = o.code;
+          if (v === '_') v = ' ';
+          s += v;
+          if (v.length !== colDfn.length) {
+            s += new Array(colDfn.length - v.length).join(" ");
+          }
+        }
+      });
+      return s;
+    };
+    return new ctor();
+  }
+
+  function processFixedCol (repr, colDfn, result/*, fixprops*/) {
+    var off = colDfn.offset;
+    var key = repr.substring(off, off + colDfn.length) || colDfn['default'];
+    var prop = getColumnName(colDfn);
+    if (prop) {
+      key = key == ' '? '_' : key;
+      result[prop] = {code: key, getDfn: function () { return colDfn; }};
+      //var valueId = fixprops[prop][key].id;
+      //if (valueId) { result[prop].id = valueId; }
+    }
+  }
+
+  function getColumnName(colDfn) {
+    if (colDfn.propRef) {
+      return colDfn.propRef;
+    } else if (colDfn.placeholder[0] != '<') {
+      return colDfn.placeholder;
+    } else {
+      return "_col_" + colDfn.offset + "_" + colDfn.length;
+    }
+  }
+
   module.rawToNamed = function (map, struct) {
     var out = {};
     out.leader = module.parseLeader(map, struct);
@@ -11,9 +110,9 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
       for (fieldTag in field) {
         var sourceRow = field[fieldTag];
         var dfn = map[fieldTag];
-        var handler = module.fixedFieldParsers[fieldTag];
-        if (handler) {
-          out[dfn.id] = handler(sourceRow, dfn, out.leader/*, map.fixprops*/);
+        var parse = module.fixedFieldParsers[fieldTag];
+        if (parse) {
+          out[dfn.id] = parse(sourceRow, dfn, out.leader/*, map.fixprops*/);
         } else {
           var key = fieldTag;
           var outObj = sourceRow;
@@ -34,73 +133,6 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
       }
     });
     return out;
-  };
-
-  module.parseLeader = function (map, struct) {
-    var leader = struct.leader;
-    var result = {};
-    map['000'].fixmaps[0].columns.forEach(function (colDfn) {
-      module.processFixedCol(leader, colDfn, result/*, map.fixprops*/);
-    });
-    return result;
-  };
-
-  module.fixedFieldParsers = {
-
-    '006': parseFixedField,
-
-    '007': parseFixedField,
-
-    '008': function (row, dfn, leader/*, fixprops*/) {
-      var result = {};
-      var recTypeBibLevelKey = leader.typeOfRecord.code + leader.bibLevel.code;
-      // TODO: prepare table to lookup fixmap by matchRecTypeBibLevel
-      dfn.fixmaps.forEach(function (fixmap) {
-        if (fixmap.matchRecTypeBibLevel.indexOf(recTypeBibLevelKey) > -1) {
-          //var type = fixmap.term; // TODO: use computed resource type key
-          fixmap.columns.forEach(function (colDfn) {
-            module.processFixedCol(row, colDfn, result/*, fixprops*/);
-          });
-        }
-      });
-      return result;
-    }
-
-  };
-
-  function parseFixedField(row, dfn, leader) {
-    var matched = false;
-    var result = {};
-    //var matchKey = leader.typeOfRecord.code;
-    var matchKey = row[0];
-    dfn.fixmaps.forEach(function (fixmap) {
-      if (fixmap.matchKeys.indexOf(matchKey) > -1) {
-        matched = true;
-        fixmap.columns.forEach(function (colDfn) {
-          module.processFixedCol(row, colDfn, result);
-        });
-      }
-    });
-    return matched? result : row;
-  }
-
-  module.processFixedCol = function (repr, colDfn, result/*, fixprops*/) {
-    var off = colDfn.offset;
-    var key = repr.substring(off, off + colDfn.length) || colDfn['default'];
-    var prop = colDfn.propRef;
-    if (!prop) {
-      if (colDfn.placeholder[0] != '<') {
-        prop = colDfn.placeholder;
-      } else {
-        prop = "_col_" + off + "_" + colDfn.length;
-      }
-    }
-    if (prop) {
-      key = key == ' '? '_' : key;
-      result[prop] = {code: key, getDfn: function () { return colDfn; }};
-      //var valueId = fixprops[prop][key].id;
-      //if (valueId) { result[prop].id = valueId; }
-    }
   };
 
   module.rawRowToNamedRow = function(fieldDfn, row) {
@@ -144,6 +176,7 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
   };
 
   module.namedToRaw = function () {
+    // TODO
   };
 
   function dfnKey(key, dfn) {
