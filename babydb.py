@@ -105,25 +105,30 @@ class Storage(object):
         p = os.environ.get('BIBDB_PASS')
 
         udata = "username=%s&password=%s" % (u, p)
-        reply = requests.post('https://bibdb.libris.kb.se/api/login/auth', data=udata)
-        if reply.text == "Authenticated":
-            rolereply = requests.get('https://bibdb.libris.kb.se/api/user/role?username=%s' % u)
-            roles = rolereply.text
+        apiheaders = {}
+        reply = requests.post('https://bibdb.libris.kb.se/api/login/auth', data=udata, headers=apiheaders)
+        try:
+            if reply.text == "Authenticated":
+                rolereply = requests.get('https://bibdb.libris.kb.se/api/user/role?username=%s' % u)
+                roles = rolereply.text
 
 
-            users = self._get_table('userdata')
-            u = users.select(users.c.username == uname).execute().first()
-            if u and len(u) > 0:
-                user = u
+                users = self._get_table('userdata')
+                u = users.select(users.c.username == uname).execute().first()
+                if u and len(u) > 0:
+                    user = u
+                else:
+                    (users.insert(username=uname, active = 1)).execute()
+                    user = users.select(users.c.username == uname).execute().first()
+
+                self.db.execute(users.update(), username=uname, active=True, roles = roles)
+                
+                return User(user.username)
             else:
-                (users.insert(username=uname, active = 1)).execute()
-                user = users.select(users.c.username == uname).execute().first()
-
-            self.db.execute(users.update(), username=uname, active=True, roles = roles)
-            
-            return User(user.username)
-        else:
+                return None
+        except:
             return None
+
 
 
 
@@ -131,47 +136,13 @@ class Storage(object):
 
 
 
-#        self.db.execute(table.delete().where(table.c.id == id))
-#con = engine.connect()
-#>>> con.execute(users.insert(), name='admin', email='admin@localhost')
 
 
 
 
 
 
-from collections import namedtuple
-Marcpost = namedtuple('Marcpost', "id, marc")
+#from collections import namedtuple
+#Marcpost = namedtuple('Marcpost', "id, marc")
 
 
-#marcpost = Table('marcpost', metadata,
-#    Column('id', Integer, primary_key=True),
-#    Column('userid', String),
-#    Column('marc', PickleType(pickler=json)),
-#    Column('bibid', String),
-#    Column('spills', PickleType(pickler=json))
-#    #Column('100', String),
-#    #Column('245', Integer),
-#)
-##marcpost.create()
-#
-#class Marcpost(object):
-#    def __repr__(self):
-#        return "Userid: %s, postid: %s" %(self.userid, self.id)
-#
-#    #def __init__(self):
-#
-#
-#mapper(Marcpost, marcpost)
-
-
-#i = marcpost.insert()
-#i.execute(marc={'ett': 'ettan'}, spill="nothing yet")
-#
-#s = marcpost.select()
-#rs = s.execute()
-#
-#row = rs.fetchone()
-#
-#for row in rs:
-#    print row.id, 'wrote', row.marc

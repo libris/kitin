@@ -3,6 +3,7 @@
 import os
 import json
 import urllib2
+import logging
 from flask import Flask, render_template, request, make_response, abort, redirect, url_for
 from flask_login import LoginManager, login_required, login_user, flash, current_user, UserMixin
 import requests
@@ -20,14 +21,16 @@ login_manager.setup_app(app)
 
 storage = Storage(app.config)
 
+logger = logging.getLogger(__name__)
+
 
 @app.route("/")
 def start():
-    if app.config['MOCK_API']:
+    if app.config.get('MOCK_API', False):
         open_records = list(find_mockdata_record_summaries())
     else:
         open_records = []
-    user = current_user if current_user.is_authenticated() else None
+    user = current_user if current_user.is_active() else None
     return render_template('home.html',
             user=user,
             record_templates=find_record_templates(),
@@ -71,7 +74,7 @@ def show_record(id):
 
 @app.route('/record/bib/<id>.json')
 def get_bib_data(id):
-    if app.config['MOCK_API']:
+    if app.config.get('MOCK_API', False):
         response = requests.Response()
         response.status_code = 200
         response.raw = open(mockdatapath('bib', id))
@@ -84,7 +87,7 @@ def get_bib_data(id):
 
 @app.route('/record/bib/<id>/draft', methods=['POST'])
 def save_draft(id):
-    """Save draft to kitin"""
+    """Save draft to kitin, called by form"""
     json_data = request.data
     if exists_as_draft(id):
         storage.update(id, json_data)
@@ -129,7 +132,7 @@ def get_marcmap():
 @app.route('/suggest/auth')
 def suggest_auth_completions():
     q = request.args.get('q')
-    if app.config['MOCK_API']:
+    if app.config.get('MOCK_API', False):
         with open(os.path.join(app.root_path, 'templates/mockups/auth_suggest.json')) as f:
             return raw_json_response(f.read())
     response = requests.get("%s/suggest/_complete?name=%s" % (app.config['WHELK_HOST'], q))

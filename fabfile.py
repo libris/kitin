@@ -9,7 +9,8 @@ from sqlalchemy.orm import *
 
 env.hosts = ['devlab.libris.kb.se']
 env.user = 'jenkins'
-virtualenv_home = '/srv/data/virtualenvs'
+virtualenv_home = '/srv/data/virtualenvs/505'
+kitin_path = '/srv/www/kitin'
 
 cfg = {}
 execfile(os.path.join(os.path.dirname(__file__), 'config.cfg'), cfg)
@@ -43,15 +44,6 @@ def create_db():
                   {'username': u'bälta', 'active': 1})
 
 @task
-def create_wsgi_file():
-    wsgifile = open('kitin.wsgi', 'w')
-    #wsgifile.write("activate_this = '%s/kitin/bin/activate_this.py'\n" % os.environ.get('WORKON_HOME'))
-    wsgifile.write("activate_this = '%s/kitin/bin/activate_this.py'\n" % virtualenv_home)
-    wsgifile.write("execfile(activate_this, dict(__file__=activate_this))\n\n")
-    wsgifile.write("from kitin import app as application\n")
-    wsgifile.close()
-
-@task
 def prepare():
     if not os.path.exists(cfg.get('UPLOAD_FOLDER')):
         os.mkdir(cfg.get('UPLOAD_FOLDER'))
@@ -63,17 +55,20 @@ def fetch_vendor_assets():
 
 @task
 def deploy():
-    create_wsgi_file()
     prepare()
     sudo('rm /tmp/kitin.tgz')
     local('tar cfz /tmp/kitin.tgz --exclude=\'.*\' *')
     put('/tmp/kitin.tgz', '/tmp/')
-    sudo('rm -fr /srv/www/kitin2')
-    sudo('mkdir /srv/www/kitin2', user='apache')
-    with cd('/srv/www/kitin2'):
-        sudo('tar xzf /tmp/kitin.tgz', user='apache')
-        with prefix ('workon kitin'):
-            sudo('pip install -r dev-requirements.txt', user='apache')
+    sudo('rm -fr /srv/www/kitin')
+    sudo('mkdir /srv/www/kitin')
+    sudo('chown %s:apache /srv/www/kitin' % env.user)
+    run('mkvirtualenv kitin')
+    with cd('/srv/www/kitin'):
+        run('tar xzf /tmp/kitin.tgz')
+        run('python tools/create_wsgi_file.py')
+
+    with prefix('workon kitin'):
+        run('pip install -r /srv/www/kitin/dev-requirements.txt')
 
 
 
