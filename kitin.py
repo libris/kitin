@@ -32,7 +32,8 @@ def start():
     return render_template('home.html',
             name="Guest",
             record_templates=find_record_templates(),
-            open_records=open_records)
+            open_records=open_records,
+            user = current_user if current_user.is_active() else None)
 
 
 @app.route("/search")
@@ -61,11 +62,13 @@ def profile():
 
 @app.route('/user/<name>')
 def user_home(name=None):
+    """dummy"""
     return render_template('home.html', name=name)
 
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
+    """working, called by form in upload.html - testpage"""
     """Upload marc document from either local file system or from whelk. Save to kitin db."""
     if request.method == 'POST':
         uid = request.form['uid']
@@ -92,7 +95,7 @@ def upload_file():
 
 @app.route('/record/bib/<id>/draft', methods=['POST'])
 def save_draft(id):
-    """Save draft to kitin"""
+    """Save draft to kitin, called by form"""
     json_data = request.data
     if exists_as_draft(id):
         storage.update(id, json_data)
@@ -196,7 +199,8 @@ def lookup(uid=None):
 
 @app.route('/save', methods=['GET', 'POST'])
 def save_to_db():
-    """Save draft to kitin, or publish document to whelk and remove from kitin."""
+    """Save draft to kitin, or publish document to whelk and remove from kitin.
+    called by form in view.html"""
     if request.method == 'POST':
         json_text = request.form['jdata']
         json_data = json.loads(json_text)
