@@ -21,14 +21,16 @@
               <span class="icon-bar"></span>
             </a>
             <a class="brand" href="/">LIBRIS katalogisering (development)</a>
+            {% block navbar_locals %}
+            {% endblock navbar_locals %}
             <div class="nav-collapse dropdown">
               <ul class="nav pull-right" role="menu" aria-labelledby="dLabel">
 <!--<li><a tabindex="-1" href="#">Action</a></li>
 
                 <li><a href="/">Search</a></li>
                 <li><a href="/upload">Upload</a></li>
-	-->			{% if user %}
-				<li><a href="/mockups/profile"><i class="icon-user"></i> Profile ({{ user.username }})</a></li>
+    -->         {% if user %}
+                <li><a href="/mockups/profile"><i class="icon-user"></i> Profile ({{ user.username }})</a></li>
                 <li><a href="/signout?signout=yesindeedioh">Logga ut</a></li>
                 {% endif %}
               </ul>
@@ -115,9 +117,9 @@
     <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/jquery/jquery.jkey.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/jquery/jquery.autocomplete.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='vendor/backbone/underscore-min.js') }}"></script>
-    <script src="{{ url_for('static', filename='vendor/backbone/backbone-min.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/angular.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/marcjson.js') }}"></script>
 
     {% block extrajs %}{% endblock extrajs %}
 
