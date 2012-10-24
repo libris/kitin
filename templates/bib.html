@@ -80,8 +80,8 @@
                 data-ng-model="row[indKey]"/>
           </ng:switch>
         </div>
+        <hr class="breaker" />
       </div>
-      <hr class="breaker" />
 
       <ul data-ng-repeat="subfield in row.subfields">
         <li data-ng-init="subCode = getKey(subfield); subDfn = dfn.subfield[subCode]"

@@ -39,10 +39,6 @@ select {
 }
 
 
-.compact .indicator {
-  display: inline;
-}
-
 .compact .breaker,
 .compact .field-label-text,
 .compact .subfield-label {
@@ -61,7 +57,7 @@ select {
 .record input.variable-field { width: 30px; }
 .record .field_label { width: 30px; }
 .record .control_field .field_label { width: 300px; }
-.record .indicator { width: 20px; }
+.record .indicator { width: 20px; display: inline; }
 .record .controlfield { width: 517px; }
 .record .regular_field input.subfield.label {
   width: 10px;
