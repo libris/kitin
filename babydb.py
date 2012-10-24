@@ -103,16 +103,16 @@ class Storage(object):
         print "---loading user from userdata: %s" % uname
         u = os.environ.get('BIBDB_USER')
         p = os.environ.get('BIBDB_PASS')
+        ak = os.environ.get('APIKEY')
 
         udata = "username=%s&password=%s" % (u, p)
-        apiheaders = {}
+        apiheaders = {"APIKEY_AUTH_HEADER": "%s" % ak}
         reply = requests.post('https://bibdb.libris.kb.se/api/login/auth', data=udata, headers=apiheaders)
+        print "reply is", reply.text
         try:
             if reply.text == "Authenticated":
-                rolereply = requests.get('https://bibdb.libris.kb.se/api/user/role?username=%s' % u)
+                rolereply = requests.get('https://bibdb.libris.kb.se/api/user/role?username=%s' % u, headers=apiheaders)
                 roles = rolereply.text
-
-
                 users = self._get_table('userdata')
                 u = users.select(users.c.username == uname).execute().first()
                 if u and len(u) > 0:
@@ -120,16 +120,13 @@ class Storage(object):
                 else:
                     (users.insert(username=uname, active = 1)).execute()
                     user = users.select(users.c.username == uname).execute().first()
-
-                self.db.execute(users.update(), username=uname, active=True, roles = roles)
-                
+                newvalues = users.update().where(users.c.username == uname).values(active = 1, roles = roles).execute()
+                user = users.select(users.c.username == uname).execute().first()
                 return User(user.username)
             else:
                 return None
         except:
             return None
-
-
 
 
         
