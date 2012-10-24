@@ -3,6 +3,7 @@
 import os
 import json
 import urllib2
+import logging
 from flask import Flask, render_template, request, make_response, abort, redirect, url_for
 from flask_login import *
 from werkzeug import secure_filename
@@ -23,11 +24,13 @@ login_manager.setup_app(app)
 
 storage = Storage(app.config)
 
+logger = logging.getLogger(__name__)
+
 
 @app.route("/")
 def start():
     open_records = []
-    if app.config['MOCK_API']:
+    if app.config.get('MOCK_API', False):
         open_records = list(find_mockdata_record_summaries())
     return render_template('home.html',
             name="Guest",
@@ -119,7 +122,7 @@ def update_document(id):
 @app.route('/record/bib/<id>', methods=['GET'])
 def show_record(id):
     # TODO: Check if exists as draft and fetch from local db if so..!
-    if app.config['MOCK_API']:
+    if app.config.get('MOCK_API', False):
         response = requests.Response()
         response.status_code = 200
         response.raw = open(mockdatapath('bib', id))
@@ -162,7 +165,7 @@ def create_record():
 @app.route('/suggest/auth')
 def suggest_auth_completions():
     q = request.args.get('q')
-    if app.config['MOCK_API']:
+    if app.config.get('MOCK_API', False):
         with open(os.path.join(app.root_path, 'templates/mockups/auth_suggest.json')) as f:
             return raw_json_response(f.read())
     response = requests.get("%s/suggest/_complete?name=%s" % (app.config['WHELK_HOST'], q))
