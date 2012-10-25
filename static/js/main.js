@@ -107,7 +107,7 @@ function RecordCtrl($scope, $location, $http, $timeout) {
         $scope.fieldToAdd = {
           tag: currentTag,
           execute: function () {
-            addField($scope.fieldToAdd.tag, dfn);
+            addField(struct, $scope.fieldToAdd.tag, dfn);
             $scope.fieldToAdd = null;
           },
           abort: function () {
@@ -139,7 +139,7 @@ function RecordCtrl($scope, $location, $http, $timeout) {
       }
 
       $scope.removeField = function (index) {
-        this.fadeOut(function () { removeField(index); });
+        this.fadeOut(function () { removeField(struct, index); });
       };
 
       $scope.addSubField = addSubField;
@@ -148,37 +148,11 @@ function RecordCtrl($scope, $location, $http, $timeout) {
         this.fadeOut(function () { removeSubField(index); });
       };
 
-      function addField(tagToAdd, dfn) {
-        var fields = struct.fields;
-        if (!tagToAdd)
-          return;
-        for (var i=0, ln=fields.length; i < ln; i++) {
-          var field = fields[i];
-          var tag = getMapEntryKey(field);
-          if (tag > tagToAdd) break;
-        }
-        // TODO: get definition from marcmap etc.
-        var o = {};
-        var row = {ind1: " ", ind2: " ", subfields: [{a: "..."}]};
-        o[tagToAdd] = row;
-        fields.splice(i, 0, o);
-      }
-
-      function removeField(index) {
-        struct.fields.splice(index, 1);
-      }
-
-      function addSubField(row, subCode, index) {
-        if (!subCode)
-          return;
-        var o = {};
-        o[subCode] = "";
-        row.subfields.splice(index + 1, 0, o);
-      }
-
-      function removeSubField(row, index) {
-        row.subfields.splice(index, 1);
-      }
+      // TODO:
+      //$scope.saveStruct = function () {
+      //  var repr = angular.toJson(struct)
+      //  ajax-save
+      //}
 
     });
   });
@@ -186,13 +160,25 @@ function RecordCtrl($scope, $location, $http, $timeout) {
 }
 
 
+// services.js
+
+// TODO: turn into promptService?
+function openPrompt($event, promptSelect) {
+  var tgt = $($event.target), off = tgt.offset(), width = tgt.width();
+  var prompt = $(promptSelect).css(
+      { top: off.top + 'px', left: off.left + width + 'px'})
+    prompt.find('select').focus();
+}
+
+
+// marcutil.js (uses marcjson.js)
+
 /**
  * Get one key from an object expected to contain only one key.
  */
 function getMapEntryKey(o) {
   for (var key in o) return key;
 }
-
 
 /**
  * Expands fixed marc fields into objects, in-place. Uses a marc-map containing
@@ -214,32 +200,49 @@ function expandFixedFields(map, struct) {
   }
 }
 
+function addField(struct, tagToAdd, dfn) {
+  var fields = struct.fields;
+  if (!tagToAdd)
+    return;
+  for (var i=0, ln=fields.length; i < ln; i++) {
+    var field = fields[i];
+    var tag = getMapEntryKey(field);
+    if (tag > tagToAdd) break;
+  }
+  // TODO: get definition from marcmap etc.
+  var o = {};
+  var row = {ind1: " ", ind2: " ", subfields: [{a: "..."}]};
+  o[tagToAdd] = row;
+  fields.splice(i, 0, o);
+}
 
-// TODO: turn into promptService?
-function openPrompt($event, promptSelect) {
-  var tgt = $($event.target), off = tgt.offset(), width = tgt.width();
-  var prompt = $(promptSelect).css(
-      { top: off.top + 'px', left: off.left + width + 'px'})
-    prompt.find('select').focus();
+function removeField(struct, index) {
+  struct.fields.splice(index, 1);
+}
+
+function addSubField(row, subCode, index) {
+  if (!subCode)
+    return;
+  var o = {};
+  o[subCode] = "";
+  row.subfields.splice(index + 1, 0, o);
+}
+
+function removeSubField(row, index) {
+  row.subfields.splice(index, 1);
 }
 
 
-// TODO: saveStruct
-//angular.toJson(struct)
+/* TODO: adapt to angular
 
+view.setupBibAutocomplete();
+view.setupGlobalKeyBindings();
+view.setupKeyBindings();
 
 // TODO: onunload:
 //if (ajaxInProgress)
 //  confirm('ajaxInProgress; break and leave?')
 
-/* TODO:
-view.setupGlobalKeyBindings();
-view.setupBibAutocomplete();
-view.setupKeyBindings();
-*/
-
-
-/* TODO:
 var view = {
 
   setupGlobalKeyBindings: function () {
