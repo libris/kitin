@@ -27,6 +27,33 @@ kitin.directive('keyEsc', function () {
   }
 });
 
+// TODO: poor global state; can we put this in config for this directive?
+var scrollToAdded = false;
+
+kitin.directive('fadable', function() {
+  return function(scope, elm, attrs) {
+    var duration = parseInt(attrs.fadable, 10);
+    elm.hide().fadeIn(duration);
+    if (scrollToAdded) {
+      var body = $('body');
+      var scrollTop = $(document).scrollTop(),
+        winHeight = $(window).height(),
+        scrollBot = scrollTop + winHeight,
+        offsetTop = elm.offset().top - body.offset().top;
+      if (offsetTop < scrollTop || offsetTop > scrollBot) {
+        body.animate({scrollTop: offsetTop - (winHeight / 2)});
+      }
+    }
+    scope.fadeOut = function(complete) {
+      elm.fadeOut(duration / 2, function() {
+        if (complete) {
+          complete.apply(scope);
+        }
+      });
+    };
+  };
+});
+
 
 // controllers.js
 
@@ -35,7 +62,7 @@ function RecordCtrl($scope, $location, $http, $timeout) {
 
   $http.get("/marcmap.json").success(function (map) {
     $http.get(resourceId).success(function (struct) {
-      currentStruct = struct; // gloabal object used for DEBUG:ging
+      currentStruct = struct; // global object used for DEBUG:ging
       map = map.bib;
       expandFixedFields(map, struct);
 
@@ -75,6 +102,8 @@ function RecordCtrl($scope, $location, $http, $timeout) {
       $scope.fieldToAdd = null;
 
       $scope.promptAddField = function ($event, dfn, currentTag) {
+        // TODO: set this once upon first rendering of view (listen to angular event)
+        scrollToAdded = true;
         $scope.fieldToAdd = {
           tag: currentTag,
           execute: function () {
@@ -109,9 +138,15 @@ function RecordCtrl($scope, $location, $http, $timeout) {
         });
       }
 
-      $scope.removeField = removeField;
+      $scope.removeField = function (index) {
+        this.fadeOut(function () { removeField(index); });
+      };
+
       $scope.addSubField = addSubField;
-      $scope.removeSubField = removeSubField;
+
+      $scope.removeSubField = function (index) {
+        this.fadeOut(function () { removeSubField(index); });
+      };
 
       function addField(tagToAdd, dfn) {
         var fields = struct.fields;

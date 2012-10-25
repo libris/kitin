@@ -26,7 +26,8 @@
         </div>
 
         <div data-ng-repeat="field in struct.fields"
-             data-ng-init="tag = getKey(field); row = field[tag]; dfn = map[tag]">
+             data-ng-init="tag = getKey(field); row = field[tag]; dfn = map[tag]"
+             data-fadable="800">
           <h3 class="field-label" data-ng-click="promptAddField($event, dfn, tag)"
             title="{{ dfn.label_sv }}"
             >{{ tag }}<span class="field-label-text"> - {{ dfn.label_sv }}</span></h3>
@@ -118,7 +119,8 @@
 
       <ul data-ng-repeat="subfield in row.subfields">
         <li data-ng-init="subCode = getKey(subfield); subDfn = dfn.subfield[subCode]"
-            class="add-on subfield-code input-append">
+            class="add-on subfield-code input-append"
+            data-fadable="200">
           <button class="close" data-ng-click="removeSubField(row, $index)">&times;</button>
           <span class="add-on subfield-code"
             data-ng-click="promptAddSubField($event, dfn, row, subCode, $index)"
