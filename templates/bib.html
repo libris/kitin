@@ -97,7 +97,7 @@
     <script type="text/ng-template" id="render-field">
 
       <div class="indicators"
-          data-ng-show="indicatorType(dfn.ind1) != 'hidden' && indicatorType(dfn.ind2) != 'hidden'">
+          data-ng-show="indicatorType(dfn.ind1) != 'hidden' || indicatorType(dfn.ind2) != 'hidden'">
         <div data-ng-repeat="indKey in ['ind1', 'ind2']"
             data-ng-init="indEnum = dfn[indKey]; indType = indicatorType(indEnum)"
             class="indicator">
