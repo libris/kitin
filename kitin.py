@@ -273,7 +273,6 @@ def _load_user(uid):
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST" and "username" in request.form:
-        print "trying to log in"
         username = request.form["username"]
         password = request.form["password"] 
         remember = request.form.get("remember", "no") == "yes"
@@ -293,7 +292,6 @@ def login():
             return render_template("home.html")
         user = None
 
-    print "current_user: ", current_user
     return render_template("home.html", user = current_user if current_user.is_active() else None)
 
 @app.route("/signout")
