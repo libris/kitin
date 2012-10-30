@@ -73,6 +73,9 @@ def deploy():
     with prefix('workon kitin'):
         run('pip install -r /srv/www/kitin/dev-requirements.txt')
 
+@task
+def clear_config():
+    local('rm config.cfg')
 
 @task
 def create_config():

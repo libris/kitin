@@ -37,7 +37,7 @@ class User(UserMixin):
 class Storage(object):
 
     def __init__(self, config):
-        self.db = db = create_engine("%(DBENGINE)s:///%(DBNAME)s" % config)
+        self.db = db = create_engine("%(DBENGINE)s:///%(DBPATH)s%(DBNAME)s" % config)
         db.echo = True
         self.metadata = MetaData(db)
         self.cfg = config

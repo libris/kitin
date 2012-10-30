@@ -1,5 +1,6 @@
 DBENGINE = 'sqlite'
-DBNAME = '<DBNAME>'
+DBNAME = 'kitin.db'
+DBPATH = '<DBPATH>'
 WHELK_HOST = 'http://devlab.libris.kb.se/whelks-core/'
 UPLOAD_FOLDER = './storage/'
 BIBDB_USER = '<BIBDB_USER>'
