@@ -5,7 +5,7 @@
       <form class="form-inline search-form" action="/search">
         <input id="search"  name="q" type="text"
                 class="xlarge ui-autocomplete-input"
-                value="{{ q }}" placeholder="ISBN, Titel, Namn"
+                value="{% if q %}{{ q }}{% endif %}" placeholder="ISBN, Titel, Namn"
                 autocomplete="off" role="textbox"
         aria-autocomplete="list" aria-haspopup="true">
         <input id="boost"  name="b" type="text"

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Search dummy{% endblock %}
+{% block content %}
+<h2>Search</h2>
+
+<!--searchbar-->
+<div class="search-bar">
+<ul class="border-search unstyled">
+  <li class="ui-search-item search-input-item">
+    <form class="form-inline search-form" action="">
+    <input id="search" class="xlarge ui-autocomplete-input" type="text" value="" autocomplete="off" placeholder="ISBN, Titel, Namn" name="q" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+    <button id="submit" class="btn btn-large btn-inverse" type="submit">
+    <i class="icon-search icon-white"></i>
+    </button>
+    </form>
+  </li>
+</ul>
+</div>
+<hr>
+<!--hitlist-->
+{% if result %}
+{% if hits %}X number of records.{% endif %}
+<div class="hit-list">
+<ul class="unstyled">
+{%- for record in hitlist %}
+<li>
+Author, Title, ISBN | <a href="#">Bibid</a>
+</li>
+{%- endfor %}
+</ul>
+</div>
+{% else %}
+<h2>Sorry, do you want to make a new record instead?</h2>
+{% endif %}
+{% endblock content %}
