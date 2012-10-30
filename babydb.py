@@ -115,12 +115,18 @@ class Storage(object):
                 users = self._get_table('userdata')
                 u = users.select(users.c.username == uname).execute().first()
                 if u and len(u) > 0:
+                    print "known user: ", u
                     user = u
                 else:
-                    (users.insert(username=uname, active = 1)).execute()
-                    user = users.select(users.c.username == uname).execute().first()
+                    print "unknown user, making new"
+                    try:
+                        insert = users.insert()
+                        insert.execute(username = uname, active = 1)
+                    except Exception as e:
+                        print "fail: ", e
                 newvalues = users.update().where(users.c.username == uname).values(active = 1, roles = roles).execute()
                 user = users.select(users.c.username == uname).execute().first()
+                print "user: ", user
                 return User(user.username)
             else:
                 return None
