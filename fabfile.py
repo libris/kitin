@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import json, os
+import json, os, re
 
 from fabric.api import *
 
@@ -13,10 +13,11 @@ virtualenv_home = '/srv/data/virtualenvs/505'
 kitin_path = '/srv/www/kitin'
 
 cfg = {}
-execfile(os.path.join(os.path.dirname(__file__), 'config.cfg'), cfg)
+#execfile(os.path.join(os.path.dirname(__file__), 'config.cfg'), cfg)
 
 @task
 def create_db():
+    execfile(os.path.join(os.path.dirname(__file__), 'config.cfg'), cfg)
     if not os.path.exists(cfg.get('DBNAME')):
         db = create_engine(cfg.get('DBENGINE') + ':///' + cfg.get('DBNAME'))
         db.echo = True
@@ -39,12 +40,13 @@ def create_db():
         userdata.create()
 
         i = userdata.insert()
-        i.execute({'username': u'räv', 'active': 1},
-                  {'username': u'skalbagge', 'active': 1},
-                  {'username': u'bälta', 'active': 1})
+        i.execute(
+                  {'username': u'skalbagge', 'active': 1})
 
 @task
 def prepare():
+    create_config()
+    execfile(os.path.join(os.path.dirname(__file__), 'config.cfg'), cfg)
     if not os.path.exists(cfg.get('UPLOAD_FOLDER')):
         os.mkdir(cfg.get('UPLOAD_FOLDER'))
     create_db()
@@ -71,4 +73,20 @@ def deploy():
         run('pip install -r /srv/www/kitin/dev-requirements.txt')
 
 
+@task
+def create_config():
+    if not os.path.exists('config.cfg'):
+        f = open('config.cfg.in', 'r')
+        file_contents = f.read()
+        f.close()
+        newfile = open('config.cfg', 'w')
+        newfile.write(_replace_setting_values(file_contents))
+        newfile.close()
 
+
+# Helper method
+def _replace_setting_values(text):
+    rc = re.compile('(\<)(\w+)(\>)')
+    def translate(match):
+        return os.environ.get(match.group(2), '')
+    return rc.sub(translate, text)

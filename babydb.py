@@ -40,6 +40,7 @@ class Storage(object):
         self.db = db = create_engine("%(DBENGINE)s:///%(DBNAME)s" % config)
         db.echo = True
         self.metadata = MetaData(db)
+        self.cfg = config
         
 
     def _get_table(self, tname = 'marcpost'):
@@ -100,15 +101,13 @@ class Storage(object):
         If user in bibdb, return User object from kitin.
         If user in kitin, update with roles from bibdb and return, 
         else create new, with roles from bibdb and return."""
-        print "---loading user from userdata: %s" % uname
-        u = os.environ.get('BIBDB_USER')
-        p = os.environ.get('BIBDB_PASS')
-        ak = os.environ.get('APIKEY')
+        u = self.cfg.get('BIBDB_USER')
+        p = self.cfg.get('BIBDB_PASS')
+        ak = self.cfg.get('BIBDB_API_KEY')
 
         udata = "username=%s&password=%s" % (u, p)
         apiheaders = {"APIKEY_AUTH_HEADER": "%s" % ak}
         reply = requests.post('https://bibdb.libris.kb.se/api/login/auth', data=udata, headers=apiheaders)
-        print "reply is", reply.text
         try:
             if reply.text == "Authenticated":
                 rolereply = requests.get('https://bibdb.libris.kb.se/api/user/role?username=%s' % u, headers=apiheaders)

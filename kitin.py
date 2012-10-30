@@ -5,7 +5,7 @@ import json
 import urllib2
 import logging
 from flask import Flask, render_template, request, make_response, abort, redirect, url_for
-from flask_login import LoginManager, login_required, login_user, flash, current_user, UserMixin
+from flask_login import LoginManager, login_required, login_user, flash, current_user, UserMixin, logout_user
 import requests
 from babydb import Storage, User
 #from spill import Spill
