@@ -62,12 +62,13 @@ def deploy():
     local('tar cfz /tmp/kitin.tgz --exclude=\'.*\' *')
     put('/tmp/kitin.tgz', '/tmp/')
     sudo('rm -fr /srv/www/kitin')
-    sudo('mkdir /srv/www/kitin')
+    sudo('mkdir -m 775 /srv/www/kitin')
     sudo('chown %s:apache /srv/www/kitin' % env.user)
     run('mkvirtualenv kitin')
     with cd('/srv/www/kitin'):
         run('tar xzf /tmp/kitin.tgz')
         run('python tools/create_wsgi_file.py')
+        sudo('chown apache kitin.db')
 
     with prefix('workon kitin'):
         run('pip install -r /srv/www/kitin/dev-requirements.txt')
