@@ -215,14 +215,16 @@ def get_record_summary(data):
             fields.setdefault(k, []).append(v)
     has_author = '100' in fields
     try:
-        tit = "%s %s" % (fields['245'][0]['subfields'][0]['a'], fields['245'][0]['subfields'][1]['b'])
+        tit = "%s %s" % (fields['245'][0]['subfields'][0]['a'], fields['245'][0]['subfields'][1]['b'], fields['245'][0]['subfields'][1]['p'])
     except Exception as e:
         tit=fields['245'][0]['subfields'][0]['a'] if '245' in fields else 'N/A'
     return dict(
         id=fields['001'][0] if '001' in fields else 'N/A',
+        pubyear=fields['008'][0]['subfields'][2]['yearTime1'] if '008' in fields else 'N/A',
         isbn=fields['035'][0]['subfields'][0].get('9', "")
                 if '035' in fields else "",
         title=tit,
+        publication=fields['260'][0]['subfields'][0]['a'],
         author=fields['100'][0]['subfields'][0]['a'] if has_author else "",
         # TODO: 'd' can be at another offset?
         author_extra=fields['100'][0]['subfields'][1].get('d', '')

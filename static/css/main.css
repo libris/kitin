@@ -33,6 +33,10 @@ select {
   padding-bottom: 5px;
 }
 
+.subfield-code {
+  cursor:pointer;
+}
+
 .pull-up {
   margin-top: -35px;
   margin-right: 5px;
@@ -45,8 +49,18 @@ select {
   display: none;
 }
 
+/* -----SEARCH------ */
 
-/* Webcat form */
+/*hitlist*/
+.author {
+  padding-right: 20px;
+}
+.publication {
+  font-size: 12px;
+}
+
+
+/* -----Webcat form----- */
 .record .leader,
 .record .control_field,
 .record .regular_field {
