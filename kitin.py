@@ -224,7 +224,7 @@ def get_record_summary(data):
         isbn=fields['035'][0]['subfields'][0].get('9', "")
                 if '035' in fields else "",
         title=tit,
-        publication=fields['260'][0]['subfields'][0]['a'],
+        publication=fields['260'][0]['subfields'][0]['a'] if '260' in fields else 'N/A',
         author=fields['100'][0]['subfields'][0]['a'] if has_author else "",
         # TODO: 'd' can be at another offset?
         author_extra=fields['100'][0]['subfields'][1].get('d', '')

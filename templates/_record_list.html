@@ -6,7 +6,7 @@
       <th>ISBN</th>
       <th>Titel</th>
       <th>Författare</th>
-      <th>Publikation</th>
+      <th>Publicerad</th>
     </tr>
   {% for record in records %}
       <tr>
@@ -15,7 +15,7 @@
         <td>{{ record.title }}</td>
         <td>{{ record.author }}
           {% if record.author_extra %}({{ record.author_extra }}){% endif %}</td>
-        <td>{{ record.publication }}</td>
+        <td>{{ record.pubyear }}</td>
       </tr>
   {% endfor %}
   </table>
@@ -29,7 +29,7 @@
       <div class="pull-right muted">BibId <a href="/record/bib/{{ record.id }}">{{ record.id }}</a></div>
 
       <h4>{{ record.title }}</a></h4>
-      <h5><span class="author">{% if record.author %}{{ record.author }} {% if record.author_extra %}({{ record.author_extra }}), {% endif %}{% else %}N/A{% endif %}</span> <span class="muted publication">{{ record.publication }}{{ record.pubyear }}</span></h5>
+      <h5><span class="author"><i class="icon-user"></i>{% if record.author %}{{ record.author }} {% if record.author_extra %}({{ record.author_extra }}), {% endif %}{% else %}N/A{% endif %}</span> <span class="muted publication">{{ record.publication }}{{ record.pubyear }}</span></h5>
       <div>ISBN {{ record.isbn }}</div>
       
         

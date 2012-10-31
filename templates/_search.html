@@ -24,7 +24,7 @@
 {% if search_results %}
   <hr>
   <section>
-    <h2>Sökresultat ({{ data.hits }} träffar)</h2>
+    <div class="muted">{{ data.hits }} träffar på '{{ q }}'</div>
     {% with records = search_results %}
       {% include "_record_list.html" %}
     {% endwith %}
