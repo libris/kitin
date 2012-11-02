@@ -213,22 +213,69 @@ def get_record_summary(data):
     for field in data['fields']:
         for k, v in field.items():
             fields.setdefault(k, []).append(v)
-    has_author = '100' in fields
+    for k, v in fields['100'][0]['subfields'].items():
+        if k == 'a':
+            author = v
+        elif k == 'd':
+            author_date = v
+
+    titsfs = {'a': [], 'b': [], 'n': [], 'p': []}
+    titvalues = {}
+    for sf, v in fields['245'][0]['subfields'].items():
+        if sf in titsfs.keys(): 
+            titsfs[sf].append(v)
+    for sfk, sfv in titsfs.items():
+        titvalues["tit%s" % sfk] = ', '.join(sfv)
+
+    isbn = fields['020'][0]['subfields'][0].get('a', '') if '020' in fields else ''
+
     try:
-        tit = "%s %s" % (fields['245'][0]['subfields'][0]['a'], fields['245'][0]['subfields'][1]['b'], fields['245'][0]['subfields'][1]['p'])
-    except Exception as e:
-        tit=fields['245'][0]['subfields'][0]['a'] if '245' in fields else 'N/A'
-    return dict(
-        id=fields['001'][0] if '001' in fields else 'N/A',
-        pubyear=fields['008'][0]['subfields'][2]['yearTime1'] if '008' in fields else 'N/A',
-        isbn=fields['035'][0]['subfields'][0].get('9', "")
-                if '035' in fields else "",
-        title=tit,
-        publication=fields['260'][0]['subfields'][0]['a'] if '260' in fields else 'N/A',
-        author=fields['100'][0]['subfields'][0]['a'] if has_author else "",
-        # TODO: 'd' can be at another offset?
-        author_extra=fields['100'][0]['subfields'][1].get('d', '')
-            if has_author and len(fields['100'][0]['subfields']) > 1 else "")
+        pubyearvalue = '' #260c if available, else 008
+        for k, v in fields['008'][0]['subfields'].items():
+            if k == 'yearTime1':
+                pubyearvalue = v
+        for k, v in fields['260'][0]['subfields'].items():
+            if k == 'c':
+                pubyearvalue = v
+    except:
+        pubyearvalue = ''
+
+    biblevel = ''
+    typeofrecord = ''
+    enclevel = ''
+    for k, v in fields['leader'][0]['subfields'].items():
+        if k == 'bibLevel':
+            biblevel = v
+        elif k == 'typeOfRecord':
+            typeofrecord = v
+        elif k == 'encLevel':
+            enclevel = v
+
+    librisid = v
+    for k, v in fields['035'][0]['subfields'].items():
+        if k == '9':
+            librisid = v
+    
+    edition = fields['250'][0]['subfields'][0].get('a', '') if '250' in fields else ''
+    id=fields['001'][0] if '001' in fields else ''
+
+
+
+    values = dict(
+        author = author,
+        author_date = author_date,
+        isbn = isbn,
+        pubyear = pubyearvalue,
+        biblevel = biblevel,
+        typeofrecord = typeofrecord,
+        enclevel = enclevel,
+        librisid = librisid,
+        edition = edition,
+        id = id,
+    )
+
+    allvalues = dict(values.items() + titvalues.items())
+    return allvalues
 
 
 def find_record_templates():
