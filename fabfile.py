@@ -27,7 +27,8 @@ def create_db():
             Column('userid', String),
             Column('marc', PickleType(pickler=json)),
             Column('bibid', String),
-            Column('spills', PickleType(pickler=json))
+            Column('spills', PickleType(pickler=json)),
+            #Column('timestamp', Date)) #datatype??
         )
         marcpost.create()
 

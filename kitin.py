@@ -213,48 +213,60 @@ def get_record_summary(data):
     for field in data['fields']:
         for k, v in field.items():
             fields.setdefault(k, []).append(v)
-    for k, v in fields['100'][0]['subfields'].items():
-        if k == 'a':
-            author = v
-        elif k == 'd':
-            author_date = v
+    print "fields", fields
+    print "\n\n data", data
+    author = ''
+    author_date = ''
+    #check for 100, 110, 111, pick existing
+
+    
+    try:
+        for s in fields['100'][0]['subfields']:
+            if 'a' in s.keys():
+                author = s['a']
+            elif 'd' in s.keys():
+                author_date = s['d']
+    except:
+        author = "fanns ingen 100, kolla 110 o 111 sen"
 
     titsfs = {'a': [], 'b': [], 'n': [], 'p': []}
     titvalues = {}
-    for sf, v in fields['245'][0]['subfields'].items():
-        if sf in titsfs.keys(): 
-            titsfs[sf].append(v)
+    for s in fields['245'][0]['subfields']:
+        if s.keys()[0] in titsfs.keys(): 
+            titsfs[s.keys()[0]].append(s.values()[0])
     for sfk, sfv in titsfs.items():
         titvalues["tit%s" % sfk] = ', '.join(sfv)
 
     isbn = fields['020'][0]['subfields'][0].get('a', '') if '020' in fields else ''
 
     try:
+        print "008", fields['008'][0]['subfields']
         pubyearvalue = '' #260c if available, else 008
-        for k, v in fields['008'][0]['subfields'].items():
-            if k == 'yearTime1':
-                pubyearvalue = v
-        for k, v in fields['260'][0]['subfields'].items():
-            if k == 'c':
-                pubyearvalue = v
+        for s in fields['008'][0]['subfields']:
+            if s.keys()[0] == 'yearTime1':
+                pubyearvalue = s.values()[0]
+        for s in fields['260'][0]['subfields']:
+            if s.keys()[0] == 'c':
+                pubyearvalue = s.values()[0]
     except:
         pubyearvalue = ''
 
     biblevel = ''
     typeofrecord = ''
     enclevel = ''
-    for k, v in fields['leader'][0]['subfields'].items():
-        if k == 'bibLevel':
-            biblevel = v
-        elif k == 'typeOfRecord':
-            typeofrecord = v
-        elif k == 'encLevel':
-            enclevel = v
+    for s in data['leader']['subfields']:
+        if s.keys()[0] == 'bibLevel':
+            biblevel = s.values()[0]
+        elif s.keys()[0] == 'typeOfRecord':
+            typeofrecord = s.values()[0]
+        elif s.keys()[0] == 'encLevel':
+            enclevel = s.values()[0]
 
-    librisid = v
-    for k, v in fields['035'][0]['subfields'].items():
-        if k == '9':
-            librisid = v
+    librisid = 0
+    if '035' in fields:
+        for s in fields['035'][0]['subfields']:
+            if s.keys()[0] == '9':
+                librisid = s.values()[0]
     
     edition = fields['250'][0]['subfields'][0].get('a', '') if '250' in fields else ''
     id=fields['001'][0] if '001' in fields else ''
@@ -263,7 +275,7 @@ def get_record_summary(data):
 
     values = dict(
         author = author,
-        author_date = author_date,
+        author_date = author_date if author_date else '',
         isbn = isbn,
         pubyear = pubyearvalue,
         biblevel = biblevel,
