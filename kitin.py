@@ -217,28 +217,20 @@ def get_record_summary(data):
     print "\n\n data", data
     author = ''
     author_date = ''
-    #check for 100, 110, 111, pick existing
 
-    
-    try:
-        for s in fields['100'][0]['subfields']:
-            if 'a' in s.keys():
-                author = s['a']
-            elif 'd' in s.keys():
-                author_date = s['d']
-    except:
-        author = "fanns ingen 100, kolla 110 o 111 sen"
+    id=fields['001'][0] if '001' in fields else ''
 
-    titsfs = {'a': [], 'b': [], 'n': [], 'p': []}
-    titvalues = {}
-    for s in fields['245'][0]['subfields']:
-        if s.keys()[0] in titsfs.keys(): 
-            titsfs[s.keys()[0]].append(s.values()[0])
-    for sfk, sfv in titsfs.items():
-        titvalues["tit%s" % sfk] = ', '.join(sfv)
 
-    isbn = fields['020'][0]['subfields'][0].get('a', '') if '020' in fields else ''
-
+    biblevel = ''
+    typeofrecord = ''
+    enclevel = ''
+    for s in data['leader']['subfields']:
+        if s.keys()[0] == 'bibLevel':
+            biblevel = s.values()[0]
+        elif s.keys()[0] == 'typeOfRecord':
+            typeofrecord = s.values()[0]
+        elif s.keys()[0] == 'encLevel':
+            enclevel = s.values()[0]
     try:
         print "008", fields['008'][0]['subfields']
         pubyearvalue = '' #260c if available, else 008
@@ -251,25 +243,55 @@ def get_record_summary(data):
     except:
         pubyearvalue = ''
 
-    biblevel = ''
-    typeofrecord = ''
-    enclevel = ''
-    for s in data['leader']['subfields']:
-        if s.keys()[0] == 'bibLevel':
-            biblevel = s.values()[0]
-        elif s.keys()[0] == 'typeOfRecord':
-            typeofrecord = s.values()[0]
-        elif s.keys()[0] == 'encLevel':
-            enclevel = s.values()[0]
-
-    librisid = 0
+    isbn = ''
+    if '020' in fields:
+        for s in fields['020'][0]['subfields']:
+            if s.keys()[0] == 'a':
+                isbn = s.values()[0]
+    librisid = ''
     if '035' in fields:
         for s in fields['035'][0]['subfields']:
             if s.keys()[0] == '9':
                 librisid = s.values()[0]
-    
+
+    catinst_a = ''
+    catinst_d = ''
+    if '040' in fields:
+        for s in fields['040'][0]['subfields']:
+            if s.keys()[0] == 'a':
+                catinst_a = s.values()[0]
+            elif s.keys()[0] == 'd':
+                catinst_d = s.values()[0]
+
+    lang_source = ''
+    lang_target = ''
+    if '041' in fields:
+        for s in fields['041'][0]['subfields']:
+            if s.keys()[0] == 'a':
+                lang_target = s.values()[0]
+            if s.keys()[0] == 'h':
+                lang_source = s.values()[0]
+    #check for 100, 110, 111, pick existing
+    #which subfields do we want for 110 and 111? and which labels?
+
+    for tag in ['100', '110', '111']:
+        if tag in fields:
+            for s in fields[tag][0]['subfields']:
+                if s.keys()[0] == 'a':
+                    author = s.values()[0]
+                elif s.keys()[0] == 'd':
+                    author_date = s.values()[0]
+
+
+    titsfs = {'a': [], 'b': [], 'n': [], 'p': []}
+    titvalues = {}
+    for s in fields['245'][0]['subfields']:
+        if s.keys()[0] in titsfs.keys(): 
+            titsfs[s.keys()[0]].append(s.values()[0])
+    for sfk, sfv in titsfs.items():
+        titvalues["tit%s" % sfk] = ', '.join(sfv)
+
     edition = fields['250'][0]['subfields'][0].get('a', '') if '250' in fields else ''
-    id=fields['001'][0] if '001' in fields else ''
 
 
 
