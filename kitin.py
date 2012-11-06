@@ -207,109 +207,52 @@ def raw_json_response(s):
 def exists_as_draft(id):
     return storage.exists(id)
 
+def _get_field_info(fields):
+
+    tagdict = {'008': {'yearTime': 'pubyear_008'},
+                '020': {'a': 'isbn'},
+                '035': {'9': 'librisid'},
+                '040': {'a': 'catinst_a', 'd': 'catinst_d'},
+                '041': {'a': 'lang_target', 'h': 'lang_source'},
+                '100': {'a': 'author', 'd': 'author_date', '4': '100_4', 'c': '100_c', 'n': '100_n'},
+                '110': {'a': 'author', 'd': 'author_date', '4': '110_4', 'c': '110_c', 'n': '110_n'},
+                '111': {'a': 'author', 'd': 'author_date', '4': '111_4', 'c': '111_c', 'n': '111_n'},
+                '245': {'a': 'tit_a', 'b': 'tit_b', 'n': 'tit_n', 'p': 'tit_p'},
+                '250': {'a': 'edition'},
+                '260': {'c': 'pubyear'},
+              }
+    record_info_dict = {}
+
+    for tag in tagdict.keys():
+        if tag in fields:
+            for s in fields[tag][0]['subfields']:
+                if s.keys()[0] in tagdict[tag].keys():
+                   record_info_dict[tagdict[tag][s.keys()[0]]]  = s.values()[0].strip(' /')
+    return record_info_dict
 
 def get_record_summary(data):
     fields = {}
     for field in data['fields']:
         for k, v in field.items():
             fields.setdefault(k, []).append(v)
-    print "fields", fields
-    print "\n\n data", data
-    author = ''
-    author_date = ''
 
-    id=fields['001'][0] if '001' in fields else ''
-
-
-    biblevel = ''
-    typeofrecord = ''
-    enclevel = ''
+    #extracting the control field values
+    #cannot be done as the general fields, as the json structure differs
+    control_fields = {'biblevel': '', 'typeofrecord': '', 'enclevel': '', 'id': ''}
     for s in data['leader']['subfields']:
         if s.keys()[0] == 'bibLevel':
-            biblevel = s.values()[0]
+            control_fields['biblevel'] = s.values()[0]
         elif s.keys()[0] == 'typeOfRecord':
-            typeofrecord = s.values()[0]
+            control_fields['typeofrecord'] = s.values()[0]
         elif s.keys()[0] == 'encLevel':
-            enclevel = s.values()[0]
-    try:
-        print "008", fields['008'][0]['subfields']
-        pubyearvalue = '' #260c if available, else 008
-        for s in fields['008'][0]['subfields']:
-            if s.keys()[0] == 'yearTime1':
-                pubyearvalue = s.values()[0]
-        for s in fields['260'][0]['subfields']:
-            if s.keys()[0] == 'c':
-                pubyearvalue = s.values()[0]
-    except:
-        pubyearvalue = ''
+            control_fields['enclevel'] = s.values()[0]
+    control_fields['id'] = fields['001'][0] if '001' in fields else ''
+    
+    #extracting general fields. 
+    #change in the dict to extract other fields/subfields or save them under different variables
+    general_fields = _get_field_info(fields)
 
-    isbn = ''
-    if '020' in fields:
-        for s in fields['020'][0]['subfields']:
-            if s.keys()[0] == 'a':
-                isbn = s.values()[0]
-    librisid = ''
-    if '035' in fields:
-        for s in fields['035'][0]['subfields']:
-            if s.keys()[0] == '9':
-                librisid = s.values()[0]
-
-    catinst_a = ''
-    catinst_d = ''
-    if '040' in fields:
-        for s in fields['040'][0]['subfields']:
-            if s.keys()[0] == 'a':
-                catinst_a = s.values()[0]
-            elif s.keys()[0] == 'd':
-                catinst_d = s.values()[0]
-
-    lang_source = ''
-    lang_target = ''
-    if '041' in fields:
-        for s in fields['041'][0]['subfields']:
-            if s.keys()[0] == 'a':
-                lang_target = s.values()[0]
-            if s.keys()[0] == 'h':
-                lang_source = s.values()[0]
-    #check for 100, 110, 111, pick existing
-    #which subfields do we want for 110 and 111? and which labels?
-
-    for tag in ['100', '110', '111']:
-        if tag in fields:
-            for s in fields[tag][0]['subfields']:
-                if s.keys()[0] == 'a':
-                    author = s.values()[0]
-                elif s.keys()[0] == 'd':
-                    author_date = s.values()[0]
-
-
-    titsfs = {'a': [], 'b': [], 'n': [], 'p': []}
-    titvalues = {}
-    for s in fields['245'][0]['subfields']:
-        if s.keys()[0] in titsfs.keys(): 
-            titsfs[s.keys()[0]].append(s.values()[0])
-    for sfk, sfv in titsfs.items():
-        titvalues["tit%s" % sfk] = ', '.join(sfv)
-
-    edition = fields['250'][0]['subfields'][0].get('a', '') if '250' in fields else ''
-
-
-
-    values = dict(
-        author = author,
-        author_date = author_date if author_date else '',
-        isbn = isbn,
-        pubyear = pubyearvalue,
-        biblevel = biblevel,
-        typeofrecord = typeofrecord,
-        enclevel = enclevel,
-        librisid = librisid,
-        edition = edition,
-        id = id,
-    )
-
-    allvalues = dict(values.items() + titvalues.items())
-    return allvalues
+    return dict(control_fields.items() + general_fields.items())
 
 
 def find_record_templates():
