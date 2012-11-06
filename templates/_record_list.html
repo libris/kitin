@@ -33,8 +33,8 @@
       <article class="well">
       <div class="pull-right muted">BibId <a href="/record/bib/{{ record.id }}">{{ record.id }}</a></div>
 
-      <h4>{{ record.title }}</a></h4>
-      <h5><span class="author"><i class="icon-user"></i>{% if record.author %}{{ record.author }} {% if record.author_date %}({{ record.author_date }}), {% endif %}{% else %}N/A{% endif %}</span> <span class="muted publication">{{ record.publication }}{{ record.pubyear }}</span></h5>
+      <h4>{{ record.tita }} <span class="title-remainder">{{ record.titb }} {{ record.titn }} {{ record.titp }}</span></h4>
+      <h5><span class="author"><i class="icon-user"></i>{% if record.author %}{{ record.author }} {% if record.author_date %}({{ record.author_date }}), {% endif %}{% else %}N/A{% endif %}</span> <span class="muted publication">{{ record.publication }} {{ record.edition }} {{ record.pubyear }}</span></h5>
       <div>ISBN {{ record.isbn }}</div>
       
         

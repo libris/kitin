@@ -25,6 +25,7 @@
   <hr>
   <section>
     <div class="muted">{{ data.hits }} träffar på '{{ q }}'</div>
+    <div>Facets never mind for now<br>{{ data.facets }}</div>
     {% with records = search_results %}
       {% include "_record_list.html" %}
     {% endwith %}
