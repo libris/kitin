@@ -65,6 +65,9 @@ select {
  box-shadow: 1px 1px 1px 1px #888;
 }
 
+.title-remainder {
+  font-weight: 200;
+}
 
 
 /* -----Webcat form----- */
