@@ -71,7 +71,8 @@ select {
 article.record {
   background-color: white;
   padding: 10px;
-  margin-bottom: 15px
+  margin-bottom: 15px;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
 }
 a.bib-url {
   color: #333;
