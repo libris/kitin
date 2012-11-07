@@ -1,3 +1,10 @@
+/*
+Theme Name: WEBCAT
+Theme URI: X
+Description: CSS for kitin development and bootstrap overrides.
+*/ 
+
+
 html {
 /*   font-size: 62.5%; */
   height: 100%;
@@ -48,9 +55,63 @@ select {
   display: none;
 }
 
-/* -----SEARCH------ */
+/* --------------------SEARCH-------------------- */
 
-/*hitlist*/
+
+/*SEARCH BOX*/
+
+ul.unstyled, ol.unstyled {
+  list-style: none outside none;
+}
+
+.ui-search-item {
+  background-color: #F5F5F5;
+  padding: 6px;
+  position: relative;
+}
+.border-search {
+  background-color: #F5F5F5;
+  border: 1px solid #D8D8D8;
+  border-radius: 6px 6px 6px 6px;
+}
+
+.search-bar .search-input-item {
+  border-radius: 9px 9px 9px 9px;
+  padding: 10px;
+}
+
+.search-bar form input[type="text"] {
+  height: 35px;
+}
+.search-bar form input[type="text"] {
+  border-radius: 6px 0 0 6px;
+  border-right: 0 none;
+  float: left;
+  font-size: 20px;
+  height: 30px;
+  line-height: 24px;
+  margin-bottom: 0;
+  width: 95%;
+}
+.search-bar form {
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+}
+.search-bar form button[type="submit"] {
+  height: 46px;
+}
+.search-bar form button[type="submit"] {
+  border-radius: 0 6px 6px 0;
+  height: 41px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 46px;
+}
+
+/*RECORD LIST*/
 .author {
   padding-right: 20px;
 }
@@ -59,9 +120,9 @@ select {
 }
 
 .author .icon-user {
- margin-top: -2px;
- margin-right: 5px;
- box-shadow: 1px 1px 1px 1px #888;
+  margin-top: -2px;
+  margin-right: 5px;
+  box-shadow: 1px 1px 1px 1px #888;
 }
 
 .title-remainder {
@@ -82,7 +143,7 @@ a.bib-url {
   padding-bottom: 5px;
 }
 
-/*facets*/
+/*FACETS*/
 
 .facetholder {
   background-color: white;
@@ -91,7 +152,7 @@ a.bib-url {
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
-/* -----Webcat form----- */
+/* --------------------WEBCAT FORM-------------------- */
 .record .leader,
 .record .control_field,
 .record .regular_field {
@@ -113,7 +174,7 @@ a.bib-url {
 }
 
 section.search {
-padding-top: 20px;
+  padding-top: 20px;
 }
 
 .record .regular_field input.subfield {
@@ -150,11 +211,6 @@ padding-top: 20px;
   color: highlighttext;
 }
 
-/* special formatting checkbox */
-.remoteoption {
-  padding: 5px;
-}
-
 div.fields label.control-label {
   background-color: #efefef;
   font-weight: 600;
@@ -176,11 +232,9 @@ div.fields label.control-label {
   border: 0;
 }
 
-auth-ok {
-  float: right;
-}
 
-/* auth suggest */
+
+/* AUTH SUGGEST */
 .acResults ul li {
   border-bottom: 1px solid #efefef;
 }
@@ -197,8 +251,12 @@ div.auth {
   font-weight: 300;
   color: #999;
 }
+
+auth-ok {
+  float: right;
+}
  
-/*form input fork */
+/*FORM INPUT OVERRIDE */
 
 form#fields {
   font-size: 14px;
@@ -262,7 +320,7 @@ form#record .add-on {
   padding-left: 25px;
 }
 
-/* webcat mockup */
+/* --------------------MOCKUP-------------------- */
 
 .mockup {
   background-color: #efefef;
@@ -302,56 +360,4 @@ input.subfield-master { width: 600px; border-radius: 0; box-shadow: 0 0 0 0;}
 
 
 
-/*SEARCH BOX*/
-
-ul.unstyled, ol.unstyled {
-    list-style: none outside none;
-}
-
-.ui-search-item {
-    background-color: #F5F5F5;
-    padding: 6px;
-    position: relative;
-}
-.border-search {
-    background-color: #F5F5F5;
-    border: 1px solid #D8D8D8;
-    border-radius: 6px 6px 6px 6px;
-}
-
-.search-bar .search-input-item {
-    border-radius: 9px 9px 9px 9px;
-    padding: 10px;
-}
-
-.search-bar form input[type="text"] {
-    height: 35px;
-}
-.search-bar form input[type="text"] {
-    border-radius: 6px 0 0 6px;
-    border-right: 0 none;
-    float: left;
-    font-size: 20px;
-    height: 30px;
-    line-height: 24px;
-    margin-bottom: 0;
-    width: 95%;
-}
-.search-bar form {
-    margin: 0;
-    overflow: hidden;
-    padding: 0;
-    position: relative;
-}
-.search-bar form button[type="submit"] {
-    height: 46px;
-}
-.search-bar form button[type="submit"] {
-    border-radius: 0 6px 6px 0;
-    height: 41px;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 46px;
-}
 
