@@ -82,6 +82,14 @@ a.bib-url {
   padding-bottom: 5px;
 }
 
+/*facets*/
+
+.facetholder {
+  background-color: white;
+  padding: 10px;
+  margin-bottom: 15px;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+}
 
 /* -----Webcat form----- */
 .record .leader,

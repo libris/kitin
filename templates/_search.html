@@ -1,3 +1,5 @@
+<div class="row-fluid">
+<div class="span9 offset3">
 <section class="search" role="search">
   <div class="search-bar">
   <ul class="border-search unstyled">
@@ -20,12 +22,18 @@
   </ul>
   </div>
 </section>
+</div>
+</div>
 
+<div class="row-fluid">
+<div class="span3">
 {% if search_results %}
   <hr>
   <section>
-    <div class="muted">Facets never mind for now<br>{{ data.facets }}</div>
+    <div class="facetholder">Facets: never mind for now!<br>{{ data.facets }}</div>
+    </div>
     <hr>
+    <div class="span9">
     <div >{{ data.hits }} träffar på <strong>{{ q }}</strong></div>
 
     {% with records = search_results %}
@@ -38,3 +46,5 @@
   <h2>Inga träffar, vill du skapa ny post?</h2>
   {% endif %}
 {% endif %}
+</div>
+</div>
