@@ -1,3 +1,4 @@
+<!-- table based simple hitlist
 {% if records %}
 <div class="result-list">
   <table class="table table-striped table-bordered table-condensed">
@@ -26,18 +27,18 @@
   </table>
   </div>
 {% endif %}
-
+-->
 {% if records %}
 <section>
   {% for record in records %}
-      <article class="well">
-      <div class="pull-right muted">BibId <a href="/record/bib/{{ record.id }}">{{ record.id }}</a></div>
+      <article class="record">
+      <!-- bibID <div class="pull-right muted">BibId <a href="/record/bib/{{ record.id }}">{{ record.id }}</a></div>-->
 
-      <h4>{{ record.tit_a }} <span class="title-remainder">{{ record.tit_b }} {{ record.tit_n }} {{ record.tit_p }}</span></h4>
-      <h5><span class="author"><i class="icon-user"></i>{% if record.author %}{{ record.author }} {% if record.author_date %}({{ record.author_date }}), {% endif %}{% else %}N/A{% endif %}</span> <span class="muted publication">{{ record.publication }} {{ record.edition }} {{ record.pubyear }}</span></h5>
-      <div>ISBN: {{ record.isbn }}</div>
-      <div>Fina leader koder som behöver label -> {{ record.biblevel }} {{ record.typeofrecord }} {{ record.enclevel }}</div>
-      <div>Kattat av {{ record.catinst_a }}</div>
+      <h4><a class="bib-url" href="/record/bib/{{ record.id }}"><span title="245A">{{ record.tit_a }}</span> <span class="title-remainder"><span title="245B">{{ record.tit_b }}</span> <span title="245N">{{ record.tit_n }}</span> <span title="245P">{{ record.tit_p }}</span></span></a></h4>
+      <h5><span class="author"><i class="icon-user"></i>{% if record.author %}{{ record.author }} {% if record.author_date %}({{ record.author_date }}), {% endif %}{% else %}N/A{% endif %}</span> <span class="muted publication">{{ record.publication }} {{ record.edition }} <span title="260C">{{ record.pubyear }}</span></span></h5>
+      <div class="identifier">{% if record.isbn %}ISBN: <span title="020A">{{ record.isbn }}</span>{% elif record.issn %}ISSN: <span title="020A">{{ record.issn }}</span>{% endif %}</div>
+      <div>Bibliografisk nivå: {{ record.biblevel }}, Medietyp: {{ record.typeofrecord }}, Fullständighetsnivå: {{ record.enclevel }}</div>
+      <div>{% if record.catinst_a %}Katalogiserande instans: <span title="040A">{{ record.catinst_a }}{% else %}Importerad post{% endif %}</span></div>
         
 
       </article>

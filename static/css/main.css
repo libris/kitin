@@ -20,7 +20,7 @@ select {
 }
 
 .container-fluid-content {
-  background-color: white;
+  background-color: #fafafa;
   border-radius: 4px 4px 4px 4px;
   border: 1px solid #CCC;
 }
@@ -41,7 +41,6 @@ select {
   margin-top: -35px;
   margin-right: 5px;
 }
-
 
 .compact .breaker,
 .compact .field-label-text,
@@ -66,7 +65,20 @@ select {
 }
 
 .title-remainder {
-  font-weight: 200;
+  font-weight: 300;
+}
+
+article.record {
+  background-color: white;
+  padding: 10px;
+  margin-bottom: 15px
+}
+a.bib-url {
+  color: #333;
+}
+
+.record .identifier {
+  padding-bottom: 5px;
 }
 
 
