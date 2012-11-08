@@ -61,7 +61,7 @@
 
   "groups": {
     "classificationCallNumbersSubjectsCategories": {"comment": "05x-08x and more", "label_sv": "Klassifikationskoder och rapportnummer"},
-    "mainEntry": {"comment": "1xx", "label_sv": "Huvuduppslag"}
+    "mainEntry": {"comment": "1xx", "label_sv": "Huvuduppslag"},
     "titleRelated": {"comment": "20x-24x", "label_sv": "Titel och titelrelaterade f\u00e4lt"},
     "editionImprintEtc": {"comment": "250-270", "label_sv": "Upplaga och tryckningar"},
     "physicalDescriptionEtc": {"comment": "3xx" "label_sv": "Fysisk beskrivning m.m."},
