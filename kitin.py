@@ -208,7 +208,8 @@ def exists_as_draft(id):
     return storage.exists(id)
 
 def _get_field_info(fields):
-
+    #extracting standard field info for get_record_summary
+    #change in the dict to extract other fields/subfields or save them under different lables
     tagdict = {'008': {'yearTime': 'pubyear_008'},
                 '020': {'a': 'isbn'},
                 '035': {'9': 'librisid'},
@@ -248,8 +249,7 @@ def get_record_summary(data):
             control_fields['enclevel'] = s.values()[0]
     control_fields['id'] = fields['001'][0] if '001' in fields else ''
     
-    #extracting general fields. 
-    #change in the dict to extract other fields/subfields or save them under different variables
+    #extracting general fields.
     general_fields = _get_field_info(fields)
 
     return dict(control_fields.items() + general_fields.items())
