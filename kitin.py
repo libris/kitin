@@ -212,6 +212,7 @@ def _get_field_info(fields):
     #change in the dict to extract other fields/subfields or save them under different lables
     tagdict = {'008': {'yearTime': 'pubyear_008'},
                 '020': {'a': 'isbn'},
+                '022': {'a': 'issn'},
                 '035': {'9': 'librisid'},
                 '040': {'a': 'catinst_a', 'd': 'catinst_d'},
                 '041': {'a': 'lang_target', 'h': 'lang_source'},

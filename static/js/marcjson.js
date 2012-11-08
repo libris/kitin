@@ -41,7 +41,7 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
         break;
       }
     }
-    if (columns !== null)
+    if (columns === null)
       return row;
     else
       return buildFixedFieldObject(row, columns, fixprops, reversible);
