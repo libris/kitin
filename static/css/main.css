@@ -112,15 +112,21 @@ ul.unstyled, ol.unstyled {
 }
 
 /*RECORD LIST*/
+/*alot of temp styles until lessified*/
 .author {
   padding-right: 20px;
 }
 .publication {
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.author {
+  font-weight: 200;
 }
 
 .author .icon-user {
-  margin-top: -2px;
+  margin-top: -1px;
   margin-right: 5px;
   box-shadow: 1px 1px 1px 1px #888;
 }
@@ -134,7 +140,20 @@ article.record {
   padding: 10px;
   margin-bottom: 15px;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
 }
+
+.record h3 {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.record h4 {
+  font-size: 18px;
+  line-height: 22px;
+}
+
+
 a.bib-url {
   color: #333;
 }
