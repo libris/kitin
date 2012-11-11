@@ -172,6 +172,18 @@ a.bib-url {
 }
 
 /* --------------------WEBCAT FORM-------------------- */
+
+/* Partitioned Future Mode */
+
+article > article > h2 {
+  color: white;
+}
+article > section {
+  background-color: white;
+  margin: 0 0 1.5em;
+}
+
+
 .record .leader,
 .record .control_field,
 .record .regular_field {
