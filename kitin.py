@@ -214,9 +214,11 @@ def exists_as_draft(id):
     return storage.exists(id)
 
 def _get_field_info(fields):
-
+    #extracting standard field info for get_record_summary
+    #change in the dict to extract other fields/subfields or save them under different lables
     tagdict = {'008': {'yearTime': 'pubyear_008'},
                 '020': {'a': 'isbn'},
+                '022': {'a': 'issn'},
                 '035': {'9': 'librisid'},
                 '040': {'a': 'catinst_a', 'd': 'catinst_d'},
                 '041': {'a': 'lang_target', 'h': 'lang_source'},
@@ -242,20 +244,29 @@ def get_record_summary(data):
         for k, v in field.items():
             fields.setdefault(k, []).append(v)
 
+    mm = json.loads(open(app.config['MARC_MAP']).read())['bib']['fixprops']
+    
     #extracting the control field values
     #cannot be done as the general fields, as the json structure differs
     control_fields = {'biblevel': '', 'typeofrecord': '', 'enclevel': '', 'id': ''}
     for s in data['leader']['subfields']:
         if s.keys()[0] == 'bibLevel':
-            control_fields['biblevel'] = s.values()[0]
+            control_fields['biblevel_code'] = s.values()[0]
+            control_fields['biblevel'] = mm['bibLevel'][s.values()[0]].get('label_sv', s.values()[0])
+
         elif s.keys()[0] == 'typeOfRecord':
-            control_fields['typeofrecord'] = s.values()[0]
+            control_fields['typeofrecord_code'] = s.values()[0]
+            control_fields['typeofrecord'] = mm['typeOfRecord'][s.values()[0]].get('label_sv', s.values()[0])
+
         elif s.keys()[0] == 'encLevel':
-            control_fields['enclevel'] = s.values()[0]
+            print "enclevel: _%s_"% s.values()[0]
+            val = '_' if s.values()[0] == ' ' else s.values()[0]
+            control_fields['enclevel_code'] = val
+            control_fields['enclevel'] = mm['encLevel'][val].get('label_sv', val)
+
     control_fields['id'] = fields['001'][0] if '001' in fields else ''
     
-    #extracting general fields. 
-    #change in the dict to extract other fields/subfields or save them under different variables
+    #extracting general fields.
     general_fields = _get_field_info(fields)
 
     return dict(control_fields.items() + general_fields.items())
