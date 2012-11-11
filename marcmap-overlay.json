@@ -1,12 +1,17 @@
 {
 
-  "properties": [
+  "extend": [
 
     {"marcKey": "000.typeOfRecord", "derivable": true, "comment": "autotypes Manifestation?"},
     {"marcKey": "000.bibLevel", "directive": "controls parsing of 006-008..."},
     {"marcKey": "000.linked"},
     {"marcKey": "001.controlNumber"},
     {"marcKey": "005", "generated": true},
+    {
+      "marcKey": "035",
+      "tagDisplay": "category",
+      "subfields": "choice"
+    },
     {"marcKey": "040"},
     {"marcKey": "042"},
     {"marcKey": "008.0+6", "parseAs": "date"},
@@ -59,12 +64,53 @@
 
   ],
 
+  "display": {
+    "record": [
+      {"leader": "status"},
+      {"leader": "typeOfRecord"},
+      {"leader": "bibLevel"},
+      {"leader": "typeOfControl"},
+      {"leader": "characterCoding"},
+      {"leader": "encLevel"},
+      {"leader": "catForm"},
+      {"leader": "linked"},
+      {"leader": "entryMap"},
+      "001",
+      "005",
+      {"008": "_col_0_6"},
+      {"008": "publicationStatus"},
+      {"008": "booksItem"},
+      {"008": "modifiedRecord"},
+      {"008": "catalogingSource"},
+      "035",
+      "040",
+      "599"
+    ],
+    "work": {
+      "cover": ["245", "100", "700"],
+      "contents": [
+        {"008": "booksLiteraryForm"},
+        {"008": "booksContents"},
+        {"008": "booksConfPub"},
+        {"008": "booksFestschrift"},
+        {"008": "booksBiography"},
+        {"008": "booksAudience"},
+        {"008": "booksGovtPub"}
+      ],
+      "classification": ["042", "084", "600", "650", "082", "050", "043", "976"]
+    },
+    "expression": ["028", {"008": "language"},{"008": "booksIllustrations"},  {"008": "booksIndex"}, "505", "520"],
+    "manifestation": [
+      "020", "260", {"008": "_col_7_4"}, {"008": "_col_11_4"}, {"008": "country"}, "500", "300", "..."
+    ]
+  },
+
   "groups": {
     "classificationCallNumbersSubjectsCategories": {"comment": "05x-08x and more", "label_sv": "Klassifikationskoder och rapportnummer"},
-    "mainEntry": {"comment": "1xx", "label_sv": "Huvuduppslag"}
+    "mainEntry": {"comment": "1xx", "label_sv": "Huvuduppslag"},
     "titleRelated": {"comment": "20x-24x", "label_sv": "Titel och titelrelaterade f\u00e4lt"},
     "editionImprintEtc": {"comment": "250-270", "label_sv": "Upplaga och tryckningar"},
-    "physicalDescriptionEtc": {"comment": "3xx" "label_sv": "Fysisk beskrivning m.m."},
+    "physicalDescriptionEtc": {"comment": "3xx", "label_sv": "Fysisk beskrivning m.m."},
     "seriesStatement": {"comment": "4xx", "label_sv": "Serieuppgifter"},
     "note": {"comment": "5xx check swedish division", "label_sv": "Anm\u00e4rkningar"},
     "subjectAccess": {"comment": "6xx", "label_sv": "\u00c4mnesordsbiuppslag"},
@@ -72,16 +118,7 @@
     "linkingEntry": {"comment": "76x-78x", "label_sv": "L\u00e4nkf\u00e4lt"},
     "seriesEntry": {"comment": "80x-83x", "label_sv": "Seriebiuppslag"},
     "holdingsLocationAlternategraphicsEtc": {"comment": "841-88x Not used in bibformat", "label_sv": "Best\u00e5nd, elektronisk adress etc."},
-    "9xx": {"comment": "976 Libris defined" "label_sv": "SAB-Rubrik"}
-  },
-
-  "entityMap": {
-    "Record": [
-      {"groupName": ["field1", "field2", "..."]},
-      {"groupName2": ["field1", "field2", "..."]}
-    ],
-    "Expression": [
-      {"groupName": ["field1", "field2", "..."]}
-    ]
+    "9xx": {"comment": "976 Libris defined", "label_sv": "SAB-Rubrik"}
   }
+
 }
