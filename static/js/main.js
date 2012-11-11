@@ -28,17 +28,17 @@ kitin.directive('keyEsc', function () {
 });
 
 // TODO: poor global state; can we put this in config for this directive?
-var scrollToAdded = false;
+var fadableEnabled = false;
 
 kitin.directive('fadable', function() {
   return function(scope, elm, attrs) {
-    var duration = parseInt(attrs.fadable, 10);
-    // TODO: adding this indicates that this is not a 'fadable', but a 'fieldbox'..
-    elm.hide().fadeIn(duration, function () {
-      if (scrollToAdded)
-        elm.find('input, select').first().focus();
-    });
-    if (scrollToAdded) {
+    if (fadableEnabled) {
+      var duration = parseInt(attrs.fadable, 10);
+      // TODO: adding this indicates that this is not a 'fadable', but a 'fieldbox'..
+      elm.hide().fadeIn(duration, function () {
+        if (fadableEnabled)
+          elm.find('input, select').first().focus();
+      });
       var body = $('body');
       var scrollTop = $(document).scrollTop(),
         winHeight = $(window).height(),
@@ -80,7 +80,7 @@ function RecordCtrl($scope, $location, $http, $timeout) {
 
     $scope.toggleFuture = function () {
       if (!$scope.editable) {
-        scrollToAdded = false;
+        fadableEnabled = false;
         $scope.editable = marcjson.createEditMap(map, overlay, struct);
       } else {
         $scope.editable = null;
@@ -124,7 +124,7 @@ function RecordCtrl($scope, $location, $http, $timeout) {
 
     $scope.promptAddField = function ($event, dfn, currentTag) {
       // TODO: set this once upon first rendering of view (listen to angular event)
-      scrollToAdded = true;
+      fadableEnabled = true;
       $scope.fieldToAdd = {
         tag: currentTag,
         execute: function () {
