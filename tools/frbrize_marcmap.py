@@ -130,8 +130,11 @@ if __name__ == '__main__':
     #   <http://www.loc.gov/marc/marc-functional-analysis/source/FRBR_Web_Copy.txt>
     items = get_items(frbrcsv_path)
 
-    if not marcmap_path:
+    if marcmap_path == '-e':
         dump_entities(items)
+    elif not marcmap_path:
+        for item in items:
+            print item.field, item.subfield or item.position, item.entity
     else:
         import json
         with open(marcmap_path) as f:

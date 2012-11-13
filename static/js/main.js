@@ -28,13 +28,17 @@ kitin.directive('keyEsc', function () {
 });
 
 // TODO: poor global state; can we put this in config for this directive?
-var scrollToAdded = false;
+var fadableEnabled = false;
 
 kitin.directive('fadable', function() {
   return function(scope, elm, attrs) {
-    var duration = parseInt(attrs.fadable, 10);
-    elm.hide().fadeIn(duration);
-    if (scrollToAdded) {
+    if (fadableEnabled) {
+      var duration = parseInt(attrs.fadable, 10);
+      // TODO: adding this indicates that this is not a 'fadable', but a 'fieldbox'..
+      elm.hide().fadeIn(duration, function () {
+        if (fadableEnabled)
+          elm.find('input, select').first().focus();
+      });
       var body = $('body');
       var scrollTop = $(document).scrollTop(),
         winHeight = $(window).height(),
@@ -61,101 +65,116 @@ function RecordCtrl($scope, $location, $http, $timeout) {
   var resourceId = $location.path();
 
   $http.get("/marcmap.json").success(function (map) {
-    $http.get(resourceId).success(function (struct) {
-      currentStruct = struct; // global object used for DEBUG:ging
-      map = map.bib;
-      expandFixedFields(map, struct);
-
-      $scope.map = map;
-      $scope.struct = struct;
-
-      $scope.typeOf = function (o) {
-        return typeof o;
-      }
-
-      $scope.getKey = getMapEntryKey;
-
-      $scope.indicatorType = function (indEnum) {
-        var i = 0;
-        for (var k in indEnum) if (i++) break;
-        if (i === 1 &&
-            (indEnum['_'].id === 'undefined' ||
-             indEnum['_'].label_sv === 'odefinierad')) {
-          return 'hidden';
-        } else if (indEnum) {
-          return 'select';
-        } else {
-          return 'plain';
-        }
-      }
-
-      $scope.widgetType = function (tag, row) {
-        if (marcjson.fixedFieldParsers[tag]) {
-          return 'fixedfield';
-        } else if (typeof row === 'string') {
-          return 'raw';
-        } else {
-          return 'field';
-        }
-      }
-
-      $scope.fieldToAdd = null;
-
-      $scope.promptAddField = function ($event, dfn, currentTag) {
-        // TODO: set this once upon first rendering of view (listen to angular event)
-        scrollToAdded = true;
-        $scope.fieldToAdd = {
-          tag: currentTag,
-          execute: function () {
-            addField(struct, $scope.fieldToAdd.tag, dfn);
-            $scope.fieldToAdd = null;
-          },
-          abort: function () {
-            $scope.fieldToAdd = null;
-          }
-        };
-        $timeout(function () {
-          openPrompt($event, '#prompt-add-field');
-        });
-      }
-
-      $scope.subFieldToAdd = null;
-
-      $scope.promptAddSubField = function ($event, dfn, row, currentSubCode, index) {
-        $scope.subFieldToAdd = {
-          subfields: dfn.subfield,
-          code: currentSubCode,
-          execute: function () {
-            addSubField(row, $scope.subFieldToAdd.code, index);
-            $scope.subFieldToAdd = null;
-          },
-          abort: function () {
-            $scope.subFieldToAdd = null;
-          }
-        };
-        $timeout(function () {
-          openPrompt($event, '#prompt-add-subfield');
-        });
-      }
-
-      $scope.removeField = function (index) {
-        this.fadeOut(function () { removeField(struct, index); });
-      };
-
-      $scope.addSubField = addSubField;
-
-      $scope.removeSubField = function (index) {
-        this.fadeOut(function () { removeSubField(index); });
-      };
-
-      // TODO:
-      //$scope.saveStruct = function () {
-      //  var repr = angular.toJson(struct)
-      //  ajax-save
-      //}
-
+    $http.get("/overlay.json").success(function (overlay) {
+      $http.get(resourceId).success(function (struct) {
+        ready(map, overlay, struct);
+      });
     });
   });
+
+  function ready(map, overlay, struct) {
+    currentStruct = struct; // global object used for DEBUG:ging
+    map = map.bib;
+
+    marcjson.expandFixedFields(map, struct, true);
+
+    $scope.toggleFuture = function () {
+      if (!$scope.editable) {
+        fadableEnabled = false;
+        $scope.editable = marcjson.createEditMap(map, overlay, struct);
+      } else {
+        $scope.editable = null;
+      }
+    };
+
+    $scope.map = map;
+    $scope.struct = struct;
+
+    $scope.typeOf = function (o) {
+      return typeof o;
+    }
+
+    $scope.getKey = marcjson.getMapEntryKey;
+
+    $scope.indicatorType = function (tag, indKey, indEnum) {
+      var i = 0;
+      for (var k in indEnum) if (i++) break;
+      if (i === 1 &&
+          (indEnum['_'].id === 'undefined' ||
+            indEnum['_'].label_sv === 'odefinierad')) {
+        return 'hidden';
+      } else if (indEnum) {
+        return 'select';
+      } else {
+        return 'plain';
+      }
+    }
+
+    $scope.widgetType = function (tag, row) {
+      if (tag === 'leader' || marcjson.fixedFieldParsers[tag]) {
+        return 'fixedfield';
+      } else if (typeof row === 'string') {
+        return 'raw';
+      } else {
+        return 'field';
+      }
+    }
+
+    $scope.fieldToAdd = null;
+
+    $scope.promptAddField = function ($event, dfn, currentTag) {
+      // TODO: set this once upon first rendering of view (listen to angular event)
+      fadableEnabled = true;
+      $scope.fieldToAdd = {
+        tag: currentTag,
+        execute: function () {
+          marcjson.addField(struct, $scope.fieldToAdd.tag, dfn);
+          $scope.fieldToAdd = null;
+        },
+        abort: function () {
+          $scope.fieldToAdd = null;
+        }
+      };
+      $timeout(function () {
+        openPrompt($event, '#prompt-add-field');
+      });
+    }
+
+    $scope.subFieldToAdd = null;
+
+    $scope.promptAddSubField = function ($event, dfn, row, currentSubCode, index) {
+      $scope.subFieldToAdd = {
+        subfields: dfn.subfield,
+        code: currentSubCode,
+        execute: function () {
+          marcjson.addSubField(row, $scope.subFieldToAdd.code, index);
+          $scope.subFieldToAdd = null;
+        },
+        abort: function () {
+          $scope.subFieldToAdd = null;
+        }
+      };
+      $timeout(function () {
+        openPrompt($event, '#prompt-add-subfield');
+      });
+    }
+
+    $scope.removeField = function (index) {
+      this.fadeOut(function () { marcjson.removeField(struct, index); });
+    };
+
+    $scope.addSubField = marcjson.addSubField;
+
+    $scope.removeSubField = function (index) {
+      this.fadeOut(function () { marcjson.removeSubField(index); });
+    };
+
+    // TODO:
+    //$scope.saveStruct = function () {
+    //  var repr = angular.toJson(struct)
+    //  ajax-save
+    //}
+  }
 
 }
 
@@ -168,68 +187,6 @@ function openPrompt($event, promptSelect) {
   var prompt = $(promptSelect).css(
       { top: off.top + 'px', left: off.left + width + 'px'})
     prompt.find('select').focus();
-}
-
-
-// marcutil.js (uses marcjson.js)
-
-/**
- * Get one key from an object expected to contain only one key.
- */
-function getMapEntryKey(o) {
-  for (var key in o) return key;
-}
-
-/**
- * Expands fixed marc fields into objects, in-place. Uses a marc-map containing
- * parsing instructions. The resulting objects have toJSON methods responsible
- * for turning them back into fixed field values upon serialization.
- */
-function expandFixedFields(map, struct) {
-  var leader = marcjson.parseLeader(map, struct, true);
-  struct.leader = leader;
-  for (var tag in marcjson.fixedFieldParsers) {
-    struct.fields.forEach(function (field) {
-      var row = field[tag];
-      if (row) {
-        var parse = marcjson.fixedFieldParsers[tag];
-        var dfn = map[tag];
-        field[tag] = parse(row, dfn, leader, map.fixprops, true);
-      }
-    });
-  }
-}
-
-function addField(struct, tagToAdd, dfn) {
-  var fields = struct.fields;
-  if (!tagToAdd)
-    return;
-  for (var i=0, ln=fields.length; i < ln; i++) {
-    var field = fields[i];
-    var tag = getMapEntryKey(field);
-    if (tag > tagToAdd) break;
-  }
-  // TODO: get definition from marcmap etc.
-  var o = {};
-  var row = {ind1: " ", ind2: " ", subfields: [{a: "..."}]};
-  o[tagToAdd] = row;
-  fields.splice(i, 0, o);
-}
-
-function removeField(struct, index) {
-  struct.fields.splice(index, 1);
-}
-
-function addSubField(row, subCode, index) {
-  if (!subCode)
-    return;
-  var o = {};
-  o[subCode] = "";
-  row.subfields.splice(index + 1, 0, o);
-}
-
-function removeSubField(row, index) {
-  row.subfields.splice(index, 1);
 }
 
 

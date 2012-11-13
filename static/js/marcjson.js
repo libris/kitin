@@ -1,16 +1,16 @@
-// module object (works in both browser and node)
+// namespace object (works in both browser and node)
 var marcjson = typeof exports !== 'undefined'? exports : {};
 
-// populate module
-(function (module) {
+// build namespace
+(function (exports) {
 
-  module.parseLeader = function (map, struct, reversible) {
+  exports.parseLeader = function (map, struct, reversible) {
     var leader = struct.leader;
     var columns = map['000'].fixmaps[0].columns;
     return buildFixedFieldObject(leader, columns, map.fixprops, reversible);
   };
 
-  module.fixedFieldParsers = {
+  exports.fixedFieldParsers = {
 
     '006': parseFixedField,
 
@@ -103,14 +103,129 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
     }
   }
 
-  module.rawToNamed = function (map, struct) {
+
+  /**
+  * Expands fixed marc fields into objects, in-place. Uses a marc-map containing
+  * parsing instructions. If the reversible parameter is true, the resulting
+  * objects have toJSON methods responsible for turning them back into fixed
+  * field values upon serialization.
+  */
+  exports.expandFixedFields = function (map, struct, reversible) {
+    if (typeof struct.leader === 'object')
+      return; // assumes expand has already been run
+    var leader = exports.parseLeader(map, struct, reversible);
+    struct.leader = leader;
+    for (var tag in exports.fixedFieldParsers) {
+      struct.fields.forEach(function (field) {
+        var row = field[tag];
+        if (row) {
+          var parse = exports.fixedFieldParsers[tag];
+          var dfn = map[tag];
+          field[tag] = parse(row, dfn, leader, map.fixprops, reversible);
+        }
+      });
+    }
+  };
+
+  /**
+  * Get one key from an object expected to contain only one key.
+  */
+  exports.getMapEntryKey = function (o) {
+    for (var key in o) return key;
+  };
+
+
+  exports.addField = function (struct, tagToAdd, dfn) {
+    var fields = struct.fields;
+    if (!tagToAdd)
+      return;
+    for (var i=0, ln=fields.length; i < ln; i++) {
+      var field = fields[i];
+      var tag = exports.getMapEntryKey(field);
+      if (tag > tagToAdd) break;
+    }
+    // TODO: get definition from marcmap etc.
+    var o = {};
+    var row = {ind1: " ", ind2: " ", subfields: [{a: ""}]};
+    o[tagToAdd] = row;
+    fields.splice(i, 0, o);
+  };
+
+  exports.removeField = function (struct, index) {
+    struct.fields.splice(index, 1);
+  };
+
+  exports.addSubField = function (row, subCode, index) {
+    if (!subCode)
+      return;
+    var o = {};
+    o[subCode] = "";
+    row.subfields.splice(index + 1, 0, o);
+  };
+
+  exports.removeSubField = function (row, index) {
+    row.subfields.splice(index, 1);
+  };
+
+
+  exports.createEditMap = function (map, overlay, struct) {
+    var display = overlay.display;
     var out = {};
-    out.leader = module.parseLeader(map, struct);
+    var index = {};
+    exports.expandFixedFields(map, struct);
+    index['leader'] = [{leader: struct.leader}];
+    struct.fields.forEach(function (row) {
+      var tag = exports.getMapEntryKey(row);
+      var tagged = index[tag];
+      if (tagged === undefined) tagged = index[tag] = [];
+      tagged.push(row);
+    });
+    for (entity in display) {
+      var spec = display[entity];
+      if (spec.forEach) {
+        var fields = out[entity] = [];
+        specToFields(index, spec, fields);
+      } else {
+        var group = out[entity] = {};
+        for (groupKey in spec) {
+          var fields = group[groupKey] = [];
+          specToFields(index, spec[groupKey], fields);
+        }
+      }
+    }
+    return out;
+  };
+
+  function specToFields(index, spec, fields) {
+    spec.forEach(function (path) {
+      if (typeof path === 'string') {
+        var o = index[path];
+        if (o) fields.push.apply(fields, o);
+      } else {
+        for (var key in path) {
+          var subkey = path[key];
+          var holder = index[key];
+          if (holder) {
+            var target = holder[0][key][subkey];
+            if (target) {
+              var field = {}, sub = field[key] = {};
+              sub[subkey] = target;
+              fields.push(field);
+            }
+          }
+        }
+      }
+    });
+  }
+
+  exports.rawToNamed = function (map, struct) {
+    var out = {};
+    out.leader = exports.parseLeader(map, struct);
     (struct.fields).forEach(function(field) {
       for (fieldTag in field) {
         var sourceRow = field[fieldTag];
         var dfn = map[fieldTag];
-        var parse = module.fixedFieldParsers[fieldTag];
+        var parse = exports.fixedFieldParsers[fieldTag];
         if (parse) {
           out[dfn.id] = parse(sourceRow, dfn, out.leader/*, map.fixprops*/);
         } else {
@@ -118,7 +233,7 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
           var outObj = sourceRow;
           if (dfn) {
             key = dfn.id;
-            outObj = module.rawRowToNamedRow(dfn, sourceRow);
+            outObj = exports.rawRowToNamedRow(dfn, sourceRow);
           }
           if (dfn === undefined || dfn.repeatable !== false) {
             var outList = out[key];
@@ -135,7 +250,7 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
     return out;
   };
 
-  module.rawRowToNamedRow = function(fieldDfn, row) {
+  exports.rawRowToNamedRow = function(fieldDfn, row) {
     if (typeof row === 'string')
       return row;
     if (fieldDfn.type === 'fixedLength' || fieldDfn.subfield === undefined)
@@ -175,7 +290,7 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
     return outField;
   };
 
-  module.namedToRaw = function () {
+  exports.namedToRaw = function () {
     // TODO
   };
 

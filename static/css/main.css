@@ -126,9 +126,9 @@ ul.unstyled, ol.unstyled {
 }
 
 .author .icon-user {
-  margin-top: -1px;
+  margin-top: 1px;
   margin-right: 5px;
-  box-shadow: 1px 1px 1px 1px #888;
+
 }
 
 .title-remainder {
@@ -146,6 +146,7 @@ article.record {
 .record h3 {
   font-size: 20px;
   line-height: 24px;
+  font-family: Georgia;
 }
 
 .record h4 {
@@ -172,6 +173,18 @@ a.bib-url {
 }
 
 /* --------------------WEBCAT FORM-------------------- */
+
+/* Partitioned Future Mode */
+
+article > article > h2 {
+  color: white;
+}
+article > section {
+  background-color: white;
+  margin: 0 0 1.5em;
+}
+
+
 .record .leader,
 .record .control_field,
 .record .regular_field {

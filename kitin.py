@@ -129,6 +129,12 @@ def get_marcmap():
         return raw_json_response(f.read())
 
 
+@app.route('/overlay.json')
+def get_overlay():
+    with open(app.config['MARC_OVERLAY']) as f:
+        return raw_json_response(f.read())
+
+
 @app.route('/suggest/auth')
 def suggest_auth_completions():
     q = request.args.get('q')
@@ -342,9 +348,11 @@ if __name__ == "__main__":
     oparser.add_option('-d', '--debug', action='store_true', default=False)
     oparser.add_option('--mockapi', action='store_true', default=False)
     oparser.add_option('-m', '--marcmap', type=str, default="marcmap.json")
+    oparser.add_option('-o', '--overlay', type=str, default="marcmap-overlay.json")
     opts, args = oparser.parse_args()
     app.debug = opts.debug
     app.config['MOCK_API'] = opts.debug and opts.mockapi
     app.config['MARC_MAP'] = opts.marcmap
+    app.config['MARC_OVERLAY'] = opts.overlay
     app.run(host='0.0.0.0')
 
