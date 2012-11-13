@@ -253,7 +253,6 @@ def get_record_summary(data):
             control_fields['typeofrecord'] = mm['typeOfRecord'][s.values()[0]].get('label_sv', s.values()[0])
 
         elif s.keys()[0] == 'encLevel':
-            print "enclevel: _%s_"% s.values()[0]
             val = '_' if s.values()[0] == ' ' else s.values()[0]
             control_fields['enclevel_code'] = val
             control_fields['enclevel'] = mm['encLevel'][val].get('label_sv', val)
@@ -332,7 +331,7 @@ def login():
     return render_template("home.html", user = current_user if current_user.is_active() else None)
 
 @app.route("/signout")
-@login_required
+@login_required #add this decorator to all views that require log in, i.e. all but login
 def logout():
     logout_user()
     return render_template("home.html")
