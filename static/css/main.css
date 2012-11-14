@@ -117,8 +117,6 @@ ul.unstyled, ol.unstyled {
   padding-right: 20px;
 }
 .publication {
-  font-size: 14px;
-  font-weight: 600;
 }
 
 .author {
@@ -143,7 +141,7 @@ article.record {
   font-size: 16px;
 }
 
-.record h3 {
+.record > h3 {
   font-size: 20px;
   line-height: 24px;
   font-family: Georgia;
@@ -178,6 +176,7 @@ a.bib-url {
 
 article > article > h2 {
   color: white;
+  text-shadow: 1px 1px 1px #999;
 }
 article > section {
   background-color: white;
@@ -231,6 +230,8 @@ section.search {
 .regular_field label:hover .btn {
   opacity: 1;
 }
+
+/* autocomplete */
 
 .acResults {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);

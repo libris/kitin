@@ -41,7 +41,7 @@ def start():
 def search():
     q = request.args.get('q')
     search_results = None
-    b = request.args.get('b', None)
+    b = request.args.get('b', '')
     boost = ("&boost=%s" % b) if b else ''
     if q:
         resp = requests.get("%sbib/kitin/_search?q=%s%s" % (
