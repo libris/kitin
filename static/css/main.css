@@ -16,7 +16,7 @@ body {
   padding-top: 60px; /* to make the container go all the way to the bottom of the topbar */
   height: 100%;
   margin: 0 0 1px;
-  font-family: Helvetica;
+  font-family: Verdana;
   /* font-size: 1.2em; */
   background-color: #efefef;
 }
@@ -115,16 +115,14 @@ ul.unstyled, ol.unstyled {
 /*alot of temp styles until lessified*/
 .author {
   padding-right: 20px;
+  font-weight: 400;
 }
 .publication {
 }
 
-.author {
-  font-weight: 200;
-}
 
 .author .icon-user {
-  margin-top: 1px;
+  margin-top: 4px;
   margin-right: 5px;
 
 }
