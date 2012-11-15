@@ -72,11 +72,11 @@ ul.unstyled, ol.unstyled {
 .border-search {
   background-color: #F5F5F5;
   border: 1px solid #D8D8D8;
-  border-radius: 6px 6px 6px 6px;
+  border-radius: 3px 3px 3px 3px;
 }
 
 .search-bar .search-input-item {
-  border-radius: 9px 9px 9px 9px;
+  border-radius: 3px 3px 39px 3px;
   padding: 10px;
 }
 
@@ -84,7 +84,7 @@ ul.unstyled, ol.unstyled {
   height: 35px;
 }
 .search-bar form input[type="text"] {
-  border-radius: 6px 0 0 6px;
+  border-radius: 3px 0 0 3px;
   border-right: 0 none;
   float: left;
   font-size: 20px;
@@ -103,7 +103,7 @@ ul.unstyled, ol.unstyled {
   height: 46px;
 }
 .search-bar form button[type="submit"] {
-  border-radius: 0 6px 6px 0;
+  border-radius: 0 3px 3px 0;
   height: 41px;
   position: absolute;
   right: 0;

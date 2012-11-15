@@ -222,12 +222,13 @@ def _get_field_info(fields):
                 '035': {'9': 'librisid'},
                 '040': {'a': 'catinst_a', 'd': 'catinst_d'},
                 '041': {'a': 'lang_target', 'h': 'lang_source'},
-                '100': {'a': 'author', 'd': 'author_date', '4': '100_4', 'c': '100_c', 'n': '100_n'},
+                '100': {'a': 'author', 'b': 'author_numeration', 'd': 'author_date', '4': '100_4', 'c': 'author_association', 'e': '100_e'},
                 '110': {'a': 'author', 'd': 'author_date', '4': '110_4', 'c': '110_c', 'n': '110_n'},
                 '111': {'a': 'author', 'd': 'author_date', '4': '111_4', 'c': '111_c', 'n': '111_n'},
-                '245': {'a': 'tit_a', 'b': 'tit_b', 'n': 'tit_n', 'p': 'tit_p'},
+                '245': {'a': 'tit_a', 'b': 'tit_b', 'c': 'tit_c', 'n': 'tit_n', 'p': 'tit_p'},
                 '250': {'a': 'edition'},
                 '260': {'c': 'pubyear'},
+                '773': {'a': 'link_author', 't': 'link_tit', 'g': 'link_related'},
               }
     record_info_dict = {}
 
