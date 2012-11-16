@@ -59,7 +59,7 @@ def fetch_vendor_assets():
 @task
 def deploy():
     prepare()
-    sudo('rm /tmp/kitin.tgz')
+    sudo('rm -f /tmp/kitin.tgz')
     local('tar cfz /tmp/kitin.tgz --exclude=\'.*\' *')
     put('/tmp/kitin.tgz', '/tmp/')
     sudo('rm -fr /srv/www/kitin')

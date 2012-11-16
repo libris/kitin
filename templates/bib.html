@@ -7,9 +7,13 @@
       <a href="#" onclick="$('#record').scope().toggleFuture()">Future Mode</a>
     </li>
     <li>
-      <label>
         <input type="checkbox" onchange="$('.record').toggleClass('compact')" /> Compact
-      </label>
+    </li>
+    <li>
+        <a href="#verket"> verket</a>
+    </li>
+    <li>
+        <a href="#manifestationen"> manifestationen</a>
     </li>
   </ul>
 {% endblock navbar_locals %}
@@ -31,7 +35,7 @@
              data-ng-repeat="fieldset in [editable.record]"
              data-ng-include="'render-fieldset'"></div>
         <article class="control-group">
-          <h2>Verk</h2>
+          <h2 id="verk">Verk</h2>
           <section data-ng-repeat="fieldset in [editable.work.cover, editable.work.contents, editable.work.classification]"
               data-ng-include="'render-fieldset'"></section>
         </article>
@@ -40,7 +44,7 @@
           <section data-ng-repeat="fieldset in [editable.expression]"
               data-ng-include="'render-fieldset'"></section>
         </article>
-        <article>
+        <article id="manifestationen">
           <h2>Manifestation</h2>
           <section data-ng-repeat="fieldset in [editable.manifestation]"
               data-ng-include="'render-fieldset'"></section>
