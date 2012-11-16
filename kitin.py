@@ -41,14 +41,50 @@ def start():
 def search():
     q = request.args.get('q')
     search_results = None
-    b = request.args.get('b', None)
+    b = request.args.get('b', '')
     boost = ("&boost=%s" % b) if b else ''
     if q:
         resp = requests.get("%sbib/kitin/_search?q=%s%s" % (
             app.config['WHELK_HOST'], q, boost))
         data = json.loads(resp.text)
         search_results = [get_record_summary(item['data']) for item in data['list']]
+        facets = [get_facet(key, value) for key, value in data['facets'].iteritems()]
+#        print "KOLLA: ", data['facets'], type(facets)
     return render_template('search.html', **vars())
+
+def get_facet(key, value):
+    facet = key
+    print "FARRAH FAWCETTS: ", key, value
+    fpart = key.split('.')
+    mm = json.loads(open(app.config['MARC_MAP']).read())['bib']
+    #facet = {'name': '', ['link': '', 'no': '']}
+    facet = {'name': '', 'link': '', 'no': ''}
+
+    if fpart[0] == "leader":
+        propref = fpart[2]
+        columns = mm['000']['fixmaps'][0]['columns']
+        for column in columns:
+            if column['propRef'] == propref:
+                print "BINGO ", propref, column.get('label_sv', propref)
+                #facet['name'] = propref
+            #for key, value in column.iteritems():
+            #    if key == 'propRef' and value == propref:
+            #        print "TJOSAN! ", propref
+        #leader.subfields.typeOfRecord {u'a': 2823, u'c': 27, u'e': 1, u'g': 51, u'i': 289, u'j': 40, u'm': 26, u'o': 2}
+    #print "DATA: ", data
+    #fpart = data.split('.')
+    #print "PARTS: ", fpart
+    #facet = {'name': '', 'link': '', 'no': ''}
+    #mm = json.loads(open(app.config['MARC_MAP']).read())['bib']['fixprops']
+    #if fpart[0] == "fields":
+    #    tag = fpart[1]
+#        print "TEST: ", mm[tag].label_sv
+#        facet['name'] = fpart[1]mm[tag][s.values()[0]].get('label_sv', s.values()[0])
+    #    facet['link'] = fpart[2]
+    #    facet['no'] = "A lot, or not a lot"
+        #control_fields['typeofrecord'] = mm['typeOfRecord'][s.values()[0]].get('label_sv', s.values()[0])
+    #print "FACET: ", facet
+    return facet
 
 
 @app.route("/profile")
@@ -222,12 +258,13 @@ def _get_field_info(fields):
                 '035': {'9': 'librisid'},
                 '040': {'a': 'catinst_a', 'd': 'catinst_d'},
                 '041': {'a': 'lang_target', 'h': 'lang_source'},
-                '100': {'a': 'author', 'd': 'author_date', '4': '100_4', 'c': '100_c', 'n': '100_n'},
+                '100': {'a': 'author', 'b': 'author_numeration', 'd': 'author_date', '4': '100_4', 'c': 'author_association', 'e': '100_e'},
                 '110': {'a': 'author', 'd': 'author_date', '4': '110_4', 'c': '110_c', 'n': '110_n'},
                 '111': {'a': 'author', 'd': 'author_date', '4': '111_4', 'c': '111_c', 'n': '111_n'},
-                '245': {'a': 'tit_a', 'b': 'tit_b', 'n': 'tit_n', 'p': 'tit_p'},
+                '245': {'a': 'tit_a', 'b': 'tit_b', 'c': 'tit_c', 'n': 'tit_n', 'p': 'tit_p'},
                 '250': {'a': 'edition'},
                 '260': {'c': 'pubyear'},
+                '773': {'a': 'link_author', 't': 'link_tit', 'g': 'link_related'},
               }
     record_info_dict = {}
 
@@ -269,12 +306,14 @@ def get_record_summary(data):
             control_fields['typeofrecord'] = mm['typeOfRecord'][s.values()[0]].get('label_sv', s.values()[0])
 
         elif s.keys()[0] == 'encLevel':
+            #print "enclevel: _%s_"% s.values()[0]
             val = '_' if s.values()[0] == ' ' else s.values()[0]
             control_fields['enclevel_code'] = val
             control_fields['enclevel'] = mm['encLevel'][val].get('label_sv', val)
+            #print "ENCLEVEL: ",control_fields['enclevel'] 
 
     control_fields['id'] = fields['001'][0] if '001' in fields else ''
-    
+   
     #extracting general fields.
     general_fields = _get_field_info(fields)
 
