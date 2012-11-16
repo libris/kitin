@@ -238,6 +238,16 @@ def _get_field_info(fields):
                    record_info_dict[tagdict[tag][s.keys()[0]]]  = s.values()[0].strip(' /')
     return record_info_dict
 
+def _get_facet_info(facets):
+    #extracting labels for facets given for search result
+    facet_label_dict = {}
+    for f_group, f_vals in facets.items():
+        #fetch f_group label and save along with f_group_code
+
+        #for each f_val
+        #fetch f_val label and save long with f_val_code and f_val_count
+
+
 def get_record_summary(data):
     fields = {}
     for field in data['fields']:
