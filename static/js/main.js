@@ -32,8 +32,8 @@ var fadableEnabled = false;
 
 kitin.directive('fadable', function() {
   return function(scope, elm, attrs) {
+    var duration = parseInt(attrs.fadable, 10);
     if (fadableEnabled) {
-      var duration = parseInt(attrs.fadable, 10);
       // TODO: adding this indicates that this is not a 'fadable', but a 'fieldbox'..
       elm.hide().fadeIn(duration, function () {
         if (fadableEnabled)
