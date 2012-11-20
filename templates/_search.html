@@ -1,5 +1,5 @@
-<div class="row-fluid white">
-<div class="span6 offset3">
+<div class="row-fluid">
+<div class="span9 offset3">
 <section class="search" role="search">
   <div class="search-bar">
   <ul class="border-search unstyled">
@@ -10,10 +10,10 @@
                 value="{% if q %}{{ q }}{% endif %}" placeholder="ISBN, Titel, Namn"
                 autocomplete="off" role="textbox"
         aria-autocomplete="list" aria-haspopup="true">
-        <input id="boost"  name="b" type="text"
+        <!--<input id="boost"  name="b" type="text"
                 class="xlarge ui-autocomplete-input"
                 value="{% if b %}{{ b }}{% endif %}" placeholder="Ex: fields.100.subfields.a:2,labels.title:2"
-                autocomplete="off" role="textbox">
+                autocomplete="off" role="textbox">-->
         <button id="submit" class="btn btn-large btn-inverse" type="submit">
           <i class="icon-search icon-white"></i>
         </button>
@@ -21,8 +21,6 @@
     </li>
   </ul>
   </div>
-   <div >{% if search_results %}{{ data.hits }} träffar på <strong>{{ q }}</strong>{% endif %}</div>
-</div>
 </section>
 </div>
 </div>
@@ -30,17 +28,20 @@
 <div class="row-fluid">
 	<div class="span3">
 	  {% if search_results %}
+  	  <hr>
   	  <section>
       <div class="facetholder">Facets: never mind for now!<br>{{ data.facets }}</div>
       <div class="facetholder">More merry facets placeholder<br>{{ data.facets }}</div>
     </div>
     <div class="span9">
+      <div >{{ data.hits }} träffar på <strong>{{ q }}</strong></div>
 
     {% with records = search_results %}
       {% include "_record_list.html" %}
     {% endwith %}
     </section>
 	{% else %}
+    <hr>
     {% if q %}
     <h2>Inga träffar, vill du skapa ny post?</h2>
     {% endif %}
