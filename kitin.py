@@ -24,6 +24,7 @@ storage = Storage(app.config)
 logger = logging.getLogger(__name__)
 
 
+
 @app.route("/")
 def start():
     if app.config.get('MOCK_API', False):
@@ -48,9 +49,85 @@ def search():
             app.config['WHELK_HOST'], q, boost))
         data = json.loads(resp.text)
         search_results = [get_record_summary(item['data']) for item in data['list']]
-        facets = [get_facet(key, value) for key, value in data['facets'].iteritems()]
+        facets = [get_facet_labels(f_group, f_values) for f_group, f_values in data['facets'].items()]
+        print "from get_facet_labels", facets
+        #facets = [get_facet(key, value) for key, value in data['facets'].iteritems()]
 #        print "KOLLA: ", data['facets'], type(facets)
     return render_template('search.html', **vars())
+
+def get_facet_labels(f_group, f_values):
+    #extracting group label: 
+    #if leader: get_leader_info
+    #if fixfield
+    #if other: get_field_info (rebuild)
+
+    #extract code label from marcmap-fixprops
+    #extracting labels for facets given for search result
+    mm = json.loads(open(app.config['MARC_MAP']).read())['bib']
+
+    #group labels
+    fparts = f_group.split('.')
+    if fparts[0] == "leader":
+        propref = fparts[2]
+        label_sv = _get_fixfield_label(propref, mm['000']['fixmaps'][0]['columns'])
+        f_value_labels = _get_value_label(f_values, mm['fixprops'])
+
+    if fparts[0] == "fields":
+        propref = fparts[3]
+        if parts[1].startswith('00'): #fixfield
+            label_sv = _get_fixfield_label(propref, mm[parts[1]]['fixmaps'][0]['columns'])
+            f_value_labels = _get_value_label(f_values, mm['fixprops'])
+
+        else:
+            label_sv = mm[fparts[1]]['subfield'][fparts[3]]['label_sv']
+
+    #value labels
+    f_value_labels = _get_value_label(f_values, mm['fixprops'])
+
+
+
+    #TODO, language codes, carrierType
+
+
+
+            
+
+
+    facet_label_dict = {}
+    for f_group, f_vals in facets.items():
+        print "fgroup and vals", f_group, f_vals
+        #fetch f_group label and save along with f_group_code
+
+        #for each f_val
+        #fetch f_val label and save long with f_val_code and f_val_count
+
+def _get_value_label(f_values, fp):
+    for code, count in f_values.items():
+        value_label = fp[propref][code]['label_sv']
+        f_values[code] = [count, value_label]
+
+    return f_values
+
+def _get_fixfield_label(pr, columns):
+    #pr = PropRef, bibLevel
+    #extracting the label of the leader position
+    for column in columns:
+        if column['propRef'] == propref:
+            label_sv = mm[pr][s.values()[0]].get('label_sv', s.values()[0])
+    return label_sv
+
+
+def _get_field_label(tagdict, fields):
+    #extracting standard field label for get_record_summary
+    record_info_dict = {}
+
+    for tag in tagdict.keys():
+        if tag in fields:
+            for s in fields[tag][0]['subfields']:
+                if s.keys()[0] in tagdict[tag].keys():
+                   record_info_dict[tagdict[tag][s.keys()[0]]]  = s.values()[0].strip(' /')
+    return record_info_dict
+
 
 def get_facet(key, value):
     facet = key
@@ -86,6 +163,55 @@ def get_facet(key, value):
     #print "FACET: ", facet
     return facet
 
+def get_record_summary(data):
+    fields = {}
+    for field in data['fields']:
+        for k, v in field.items():
+            fields.setdefault(k, []).append(v)
+
+    #TODO? globalise marcmap
+    mm = json.loads(open(app.config['MARC_MAP']).read())['bib']['fixprops']
+    
+    #extracting the control field values
+    #cannot be done as the general fields, as the json structure differs
+    control_fields = {'biblevel': '', 'typeofrecord': '', 'enclevel': '', 'id': ''}
+    for s in data['leader']['subfields']:
+        if s.keys()[0] == 'bibLevel':
+            control_fields['biblevel_code'] = s.values()[0]
+            control_fields['biblevel'] = mm['bibLevel'][s.values()[0]].get('label_sv', s.values()[0])
+
+        elif s.keys()[0] == 'typeOfRecord':
+            control_fields['typeofrecord_code'] = s.values()[0]
+            control_fields['typeofrecord'] = mm['typeOfRecord'][s.values()[0]].get('label_sv', s.values()[0])
+
+        elif s.keys()[0] == 'encLevel':
+            #print "enclevel: _%s_"% s.values()[0]
+            val = '_' if s.values()[0] == ' ' else s.values()[0]
+            control_fields['enclevel_code'] = val
+            control_fields['enclevel'] = mm['encLevel'][val].get('label_sv', val)
+            #print "ENCLEVEL: ",control_fields['enclevel'] 
+
+    control_fields['id'] = fields['001'][0] if '001' in fields else ''
+   
+    #extracting general fields.
+    #change in the dict to extract other fields/subfields or save them under different lables
+    tagdict = {'008': {'yearTime': 'pubyear_008'},
+                '020': {'a': 'isbn'},
+                '022': {'a': 'issn'},
+                '035': {'9': 'librisid'},
+                '040': {'a': 'catinst_a', 'd': 'catinst_d'},
+                '041': {'a': 'lang_target', 'h': 'lang_source'},
+                '100': {'a': 'author', 'b': 'author_numeration', 'd': 'author_date', '4': '100_4', 'c': 'author_association', 'e': '100_e'},
+                '110': {'a': 'author', 'd': 'author_date', '4': '110_4', 'c': '110_c', 'n': '110_n'},
+                '111': {'a': 'author', 'd': 'author_date', '4': '111_4', 'c': '111_c', 'n': '111_n'},
+                '245': {'a': 'tit_a', 'b': 'tit_b', 'c': 'tit_c', 'n': 'tit_n', 'p': 'tit_p'},
+                '250': {'a': 'edition'},
+                '260': {'c': 'pubyear'},
+                '773': {'a': 'link_author', 't': 'link_tit', 'g': 'link_related'},
+              }
+    general_fields = _get_field_label(tagdict, fields)
+
+    return dict(control_fields.items() + general_fields.items())
 
 @app.route("/profile")
 def profile():
@@ -248,76 +374,6 @@ def raw_json_response(s):
 
 def exists_as_draft(id):
     return storage.exists(id)
-
-def _get_field_info(fields):
-    #extracting standard field info for get_record_summary
-    #change in the dict to extract other fields/subfields or save them under different lables
-    tagdict = {'008': {'yearTime': 'pubyear_008'},
-                '020': {'a': 'isbn'},
-                '022': {'a': 'issn'},
-                '035': {'9': 'librisid'},
-                '040': {'a': 'catinst_a', 'd': 'catinst_d'},
-                '041': {'a': 'lang_target', 'h': 'lang_source'},
-                '100': {'a': 'author', 'b': 'author_numeration', 'd': 'author_date', '4': '100_4', 'c': 'author_association', 'e': '100_e'},
-                '110': {'a': 'author', 'd': 'author_date', '4': '110_4', 'c': '110_c', 'n': '110_n'},
-                '111': {'a': 'author', 'd': 'author_date', '4': '111_4', 'c': '111_c', 'n': '111_n'},
-                '245': {'a': 'tit_a', 'b': 'tit_b', 'c': 'tit_c', 'n': 'tit_n', 'p': 'tit_p'},
-                '250': {'a': 'edition'},
-                '260': {'c': 'pubyear'},
-                '773': {'a': 'link_author', 't': 'link_tit', 'g': 'link_related'},
-              }
-    record_info_dict = {}
-
-    for tag in tagdict.keys():
-        if tag in fields:
-            for s in fields[tag][0]['subfields']:
-                if s.keys()[0] in tagdict[tag].keys():
-                   record_info_dict[tagdict[tag][s.keys()[0]]]  = s.values()[0].strip(' /')
-    return record_info_dict
-
-def _get_facet_info(facets):
-    #extracting labels for facets given for search result
-    facet_label_dict = {}
-    for f_group, f_vals in facets.items():
-        #fetch f_group label and save along with f_group_code
-
-        #for each f_val
-        #fetch f_val label and save long with f_val_code and f_val_count
-
-
-def get_record_summary(data):
-    fields = {}
-    for field in data['fields']:
-        for k, v in field.items():
-            fields.setdefault(k, []).append(v)
-
-    mm = json.loads(open(app.config['MARC_MAP']).read())['bib']['fixprops']
-    
-    #extracting the control field values
-    #cannot be done as the general fields, as the json structure differs
-    control_fields = {'biblevel': '', 'typeofrecord': '', 'enclevel': '', 'id': ''}
-    for s in data['leader']['subfields']:
-        if s.keys()[0] == 'bibLevel':
-            control_fields['biblevel_code'] = s.values()[0]
-            control_fields['biblevel'] = mm['bibLevel'][s.values()[0]].get('label_sv', s.values()[0])
-
-        elif s.keys()[0] == 'typeOfRecord':
-            control_fields['typeofrecord_code'] = s.values()[0]
-            control_fields['typeofrecord'] = mm['typeOfRecord'][s.values()[0]].get('label_sv', s.values()[0])
-
-        elif s.keys()[0] == 'encLevel':
-            #print "enclevel: _%s_"% s.values()[0]
-            val = '_' if s.values()[0] == ' ' else s.values()[0]
-            control_fields['enclevel_code'] = val
-            control_fields['enclevel'] = mm['encLevel'][val].get('label_sv', val)
-            #print "ENCLEVEL: ",control_fields['enclevel'] 
-
-    control_fields['id'] = fields['001'][0] if '001' in fields else ''
-   
-    #extracting general fields.
-    general_fields = _get_field_info(fields)
-
-    return dict(control_fields.items() + general_fields.items())
 
 
 def find_record_templates():

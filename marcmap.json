@@ -16,7 +16,7 @@
               "label_sv": "Poststatus", 
               "offset": 5, 
               "length": 1, 
-              "default": "n", 
+              "default": "n",/ 
               "propRef": "status"
             }, 
             {
