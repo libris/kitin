@@ -95,17 +95,19 @@ class Storage(object):
         return user
 
 
+
     def load_user(self, uname, pword):
         """
         If user not in bibdb, return None
         If user in bibdb, return User object from kitin.
         If user in kitin, update with roles from bibdb and return, 
         else create new, with roles from bibdb and return."""
-        u = self.cfg.get('BIBDB_USER')
-        p = self.cfg.get('BIBDB_PASS')
-        ak = self.cfg.get('BIBDB_API_KEY')
+        #remove next 2 lines for real login, i.e. login user from form
+        uname = self.cfg.get('BIBDB_USER')
+        pword = self.cfg.get('BIBDB_PASS')
 
-        udata = "username=%s&password=%s" % (u, p)
+        ak = self.cfg.get('BIBDB_API_KEY')
+        udata = "username=%s&password=%s" % (uname, pword)
         apiheaders = {"APIKEY_AUTH_HEADER": "%s" % ak}
         reply = requests.post('https://bibdb.libris.kb.se/api/login/auth', data=udata, headers=apiheaders)
         try:
