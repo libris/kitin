@@ -48,6 +48,7 @@ def search():
         resp = requests.get("%sbib/kitin/_search?q=%s%s" % (
             app.config['WHELK_HOST'], q, boost))
         data = json.loads(resp.text)
+        #return resp.text
         search_results = [get_record_summary(item['data']) for item in data['list']]
         facets = [get_facet_labels(f_group, f_values) for f_group, f_values in data['facets'].items()]
         print "from get_facet_labels", facets
@@ -67,53 +68,60 @@ def get_facet_labels(f_group, f_values):
 
     #group labels
     fparts = f_group.split('.')
+    f_value_labels = {}
     if fparts[0] == "leader":
         propref = fparts[2]
         label_sv = _get_fixfield_label(propref, mm['000']['fixmaps'][0]['columns'])
-        f_value_labels = _get_value_label(f_values, mm['fixprops'])
+        f_value_labels = _get_value_label(f_values, propref, mm['fixprops'])
 
-    if fparts[0] == "fields":
+    elif fparts[0] == "fields":
         propref = fparts[3]
-        if parts[1].startswith('00'): #fixfield
-            label_sv = _get_fixfield_label(propref, mm[parts[1]]['fixmaps'][0]['columns'])
-            f_value_labels = _get_value_label(f_values, mm['fixprops'])
+        if fparts[1].startswith('00'): #fixfield
+            if fparts[3] == 'carrierType':
+                f_value_labels = _get_carrier_type(f_values, mm['007']['fixmaps'])
+                propref = 'carrierType'
+                label_sv = 'Bärartyp'
+            else:
+                label_sv = _get_fixfield_label(propref, mm[fparts[1]]['fixmaps'][0]['columns'])
+                f_value_labels = _get_value_label(f_values, propref, mm['fixprops'])
 
         else:
             label_sv = mm[fparts[1]]['subfield'][fparts[3]]['label_sv']
+    else:
+        return {f_group: f_values}
 
-    #value labels
-    f_value_labels = _get_value_label(f_values, mm['fixprops'])
+    f_values['propref'] = propref
+    f_values['label_sv'] = label_sv
+    f_values = dict(f_values.items() + f_value_labels.items())
+    return {f_group: f_values}
+    #TODO, language codes
+
+def _get_carrier_type(f_values, fixmaps):
+    for fm in fixmaps:
+        for code, count in f_values.items():
+            if code in fm['matchKeys']:
+                label_sv = fm.get("label_sv", '').strip("&")
+                f_values[code] = [count, label_sv]
+    return f_values
 
 
 
-    #TODO, language codes, carrierType
-
-
-
-            
-
-
-    facet_label_dict = {}
-    for f_group, f_vals in facets.items():
-        print "fgroup and vals", f_group, f_vals
-        #fetch f_group label and save along with f_group_code
-
-        #for each f_val
-        #fetch f_val label and save long with f_val_code and f_val_count
-
-def _get_value_label(f_values, fp):
+def _get_value_label(f_values, propref, fp):
+    #print "pf", fp
     for code, count in f_values.items():
-        value_label = fp[propref][code]['label_sv']
-        f_values[code] = [count, value_label]
+        if fp.get(propref, None):
+            value_label = fp[propref][code]['label_sv']
+            f_values[code] = [count, value_label]
 
     return f_values
 
 def _get_fixfield_label(pr, columns):
     #pr = PropRef, bibLevel
     #extracting the label of the leader position
+    label_sv = pr
     for column in columns:
-        if column['propRef'] == propref:
-            label_sv = mm[pr][s.values()[0]].get('label_sv', s.values()[0])
+        if column['propRef'] == pr:
+            label_sv = column.get('label_sv', pr)
     return label_sv
 
 
