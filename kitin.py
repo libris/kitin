@@ -48,12 +48,8 @@ def search():
         resp = requests.get("%sbib/kitin/_search?q=%s%s" % (
             app.config['WHELK_HOST'], q, boost))
         data = json.loads(resp.text)
-        #return resp.text
         search_results = [get_record_summary(item['data']) for item in data['list']]
-        facets = [get_facet_labels(f_group, f_values) for f_group, f_values in data['facets'].items()]
-        print "from get_facet_labels", facets
-        #facets = [get_facet(key, value) for key, value in data['facets'].iteritems()]
-#        print "KOLLA: ", data['facets'], type(facets)
+        facets = dict([get_facet_labels(f_group, f_values) for f_group, f_values in data['facets'].items()])
     return render_template('search.html', **vars())
 
 def get_facet_labels(f_group, f_values):
@@ -87,13 +83,18 @@ def get_facet_labels(f_group, f_values):
 
         else:
             label_sv = mm[fparts[1]]['subfield'][fparts[3]]['label_sv']
+            f_value_labels = {}
+            for code, count in f_values.items():
+                f_value_labels[code] = [count]
+            print "value labels", f_value_labels
+            #f_value_labels = dict([(code, [count, 'Blaj']) for code, count in f_values.items()])
     else:
-        return {f_group: f_values}
+        return f_group, f_values
 
     f_values['propref'] = propref
     f_values['label_sv'] = label_sv
-    f_values = dict(f_values.items() + f_value_labels.items())
-    return {f_group: f_values}
+    #f_values = dict(f_values.items() + f_value_labels.items())
+    return f_group, f_value_labels
     #TODO, language codes
 
 def _get_carrier_type(f_values, fixmaps):
@@ -104,14 +105,14 @@ def _get_carrier_type(f_values, fixmaps):
                 f_values[code] = [count, label_sv]
     return f_values
 
-
-
 def _get_value_label(f_values, propref, fp):
     #print "pf", fp
     for code, count in f_values.items():
         if fp.get(propref, None):
             value_label = fp[propref][code]['label_sv']
             f_values[code] = [count, value_label]
+        else:
+            f_values[code] = [count]
 
     return f_values
 
