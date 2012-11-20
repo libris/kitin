@@ -16,7 +16,7 @@ body {
   padding-top: 60px; /* to make the container go all the way to the bottom of the topbar */
   height: 100%;
   margin: 0 0 1px;
-  font-family: Verdana;
+  font-family: Helvetica;
   /* font-size: 1.2em; */
   background-color: #efefef;
 }
@@ -133,10 +133,20 @@ ul.unstyled, ol.unstyled {
 
 article.record {
   background-color: white;
-  padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   margin-bottom: 15px;
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+
+  border: solid 1px #efefef;
   font-size: 16px;
+}
+article.record:hover {
+  background-color: #fafafa;
+  border: solid 1px #ccc;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+
 }
 
 .record > h3 {
@@ -152,7 +162,9 @@ article.record {
 
 
 a.bib-url {
-  color: #333;
+  /*color: #333;  sets article record link color,disabled to use standard bootstrap*/
+  display: block;
+  text-decoration: none;
 }
 
 .record .identifier {
@@ -163,7 +175,10 @@ a.bib-url {
 
 .facetholder {
   background-color: white;
-  padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   margin-bottom: 15px;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
 }

@@ -31,10 +31,11 @@
 {% if records %}
 <section>
   {% for record in records %}
+      <a class="bib-url" href="/record/bib/{{ record.id }}">
       <article class="record">
-      <!-- bibID <div class="pull-right muted">BibId <a href="/record/bib/{{ record.id }}">{{ record.id }}</a></div>-->
-	  <div class="pull-right muted">{% if record.catinst_a %}<span title="040A">{{ record.catinst_a }}{% else %}Importerad post{% endif %}</span></div>
-      <h3><a class="bib-url" href="/record/bib/{{ record.id }}"><span title="245A">{{ record.tit_a }}</span> <span class="title-remainder"><span title="245B">{{ record.tit_b }}</span><span title="245C"> {{ record.tit_c }}</span> <span title="245N">{{ record.tit_n }}</span> <span title="245P">{{ record.tit_p }}</span></span></a></h3>
+<!-- 	  <div class="pull-right muted">{% if record.catinst_a %}<span title="040A">{{ record.catinst_a }}{% else %}Importerad post{% endif %}</span></div> -->
+      <h3><span title="245A">{{ record.tit_a }}</span> <span class="title-remainder"><span title="245B">{{ record.tit_b }}</span><span title="245C"> {{ record.tit_c }}</span> <span title="245N">{{ record.tit_n }}</span> <span title="245P">{{ record.tit_p }}</span></span></h3>
+      <span class="un-urlified">
       <h4><span class="author"><i class="icon-user"></i>{% if record.author %}<span title="100A">{{ record.author }}</span> <span title="100B">{{ record.author_numeration }}</span> {% if record.author_date %}{{ record.author_date }}, {% endif %} {{ record.author_association }}{% else %}N/A{% endif %}</span></h4>
       <div><span class="publication">{{ record.publication }} {{ record.edition }} <span title="260C">{{ record.pubyear }}</span></span></div>
       <div class="identifier">{% if record.isbn %}ISBN: <span title="020A">{{ record.isbn }}</span>{% elif record.issn %}ISSN: <span title="020A">{{ record.issn }}</span>{% endif %}</div>
@@ -44,10 +45,9 @@
         <div class="span5"><!--Fullständighetsnivå--> {{ record.enclevel }}</div>
       </div>
       {%if record.link_tit %}<div><em>Ingår i:</em> {% if record.link_author %}{{ record.link_author }}: {% endif %}{{ record.link_tit }} ; {{ record.link_related }}</div>{% endif %}
-
- 
-
+		</span>
       </article>
+      </a>
   {% endfor %}
 
 </section>
