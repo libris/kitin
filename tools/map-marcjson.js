@@ -25,7 +25,7 @@ if (op === '-n') {
   out = marcjson.rawToNamed(marcmap, struct);
 } else if (op !== undefined) {
   var overlay = loadJson(op);
-  out = marcjson.createEditMap(marcmap, overlay, struct);
+  out = marcjson.createEntityGroups(marcmap, overlay, struct);
 } else {
   marcjson.expandFixedFields(marcmap, struct);
   out = struct;
