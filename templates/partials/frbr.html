@@ -1,0 +1,27 @@
+{% raw %}
+
+  <article class="well" id="entities">
+    <button type="button" class="btn btn-mini btn-link"
+            data-toggle="collapse" data-target="#record-fields">
+      <i class="icon-edit"></i></button>
+    <div id="record-fields" class="collapse out"
+          data-ng-repeat="fieldset in [entities.record]"
+          data-ng-include="'render-fieldset'"></div>
+    <article class="control-group">
+      <h2 id="verk">Verk</h2>
+      <section data-ng-repeat="fieldset in [entities.work.cover, entities.work.contents, entities.work.classification]"
+          data-ng-include="'render-fieldset'"></section>
+    </article>
+    <article>
+      <h2>Uttryck</h2>
+      <section data-ng-repeat="fieldset in [entities.expression]"
+          data-ng-include="'render-fieldset'"></section>
+    </article>
+    <article id="manifestationen">
+      <h2>Manifestation</h2>
+      <section data-ng-repeat="fieldset in [entities.manifestation]"
+          data-ng-include="'render-fieldset'"></section>
+    </article>
+  </article>
+
+{% endraw %}

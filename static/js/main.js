@@ -9,6 +9,15 @@ kitin.config(
     }]
 );
 
+kitin.config(['$routeProvider', function($routeProvider) {
+  $routeProvider.
+      when('/frbr/:recType/:recId',
+           {templateUrl: '/partials/frbr', controller: FrbrCtrl}).
+      when('/marc/:recType/:recId',
+           {templateUrl: '/partials/marc', controller: MarcCtrl}).
+      otherwise({redirectTo: '/'});
+}]);
+
 kitin.directive('keyEnter', function () {
   return function (scope, elm, attrs) {
     var expr = attrs.keyEnter;
@@ -61,8 +70,20 @@ kitin.directive('fadable', function() {
 
 // controllers.js
 
-function RecordCtrl($scope, $location, $http, $timeout) {
-  var resourceId = $location.path();
+function typeOf(o) { return typeof o; }
+
+
+function FrbrCtrl($scope, $routeParams, $http, $timeout) {
+
+  fadableEnabled = false;
+
+  $scope.getKey = marcjson.getMapEntryKey;
+  $scope.indicatorType = marcjson.getIndicatorType;
+  $scope.widgetType = marcjson.getWidgetType;
+
+  var recType = $routeParams.recType,
+    recId = $routeParams.recId,
+    resourceId = "/record/" + recType + "/" + recId;
 
   $http.get("/marcmap.json").success(function (map) {
     $http.get("/overlay.json").success(function (overlay) {
@@ -73,57 +94,39 @@ function RecordCtrl($scope, $location, $http, $timeout) {
   });
 
   function ready(map, overlay, struct) {
-    currentStruct = struct; // global object used for DEBUG:ging
-    map = map.bib;
-
-    marcjson.expandFixedFields(map, struct, true);
-
-    $scope.toggleFuture = function () {
-      if (!$scope.entities) {
-        fadableEnabled = false;
-        $scope.entities = marcjson.createEntityGroups(map, overlay, struct);
-      } else {
-        $scope.entities = null;
-      }
-    };
-
+    map = map[recType];
+    $scope.entities = marcjson.createEntityGroups(map, overlay, struct);
     $scope.map = map;
+
+  }
+
+}
+
+
+function MarcCtrl($scope, $routeParams, $http, $timeout) {
+
+  fadableEnabled = false;
+
+  $scope.getKey = marcjson.getMapEntryKey;
+  $scope.indicatorType = marcjson.getIndicatorType;
+  $scope.widgetType = marcjson.getWidgetType;
+
+  var recType = $routeParams.recType,
+    recId = $routeParams.recId,
+    resourceId = "/record/" + recType + "/" + recId;
+
+  $http.get("/marcmap.json").success(function (map) {
+    $http.get(resourceId).success(function (struct) {
+      ready(map, struct);
+    });
+  });
+
+  function ready(map, struct) {
+    map = map[recType];
     $scope.struct = struct;
 
-    $scope.typeOf = function (o) {
-      return typeof o;
-    }
-
-    $scope.getKey = marcjson.getMapEntryKey;
-
-    $scope.indicatorType = function (tag, indKey, indEnum) {
-      var i = 0;
-      for (var k in indEnum) if (i++) break;
-      if (i === 1 &&
-          (indEnum['_'].id === 'undefined' ||
-            indEnum['_'].label_sv === 'odefinierad')) {
-        return 'hidden';
-      // TODO: hack before overlay field config is in place
-      //} else if (tag + indKey == '245ind1') {
-      //  return 'boolean';
-      //} else if (tag + indKey == '245ind2') {
-      //  return 'number';
-      } else if (indEnum) {
-        return 'select';
-      } else {
-        return 'plain';
-      }
-    }
-
-    $scope.widgetType = function (tag, row) {
-      if (tag === 'leader' || marcjson.fixedFieldParsers[tag]) {
-        return 'fixedfield';
-      } else if (typeof row === 'string') {
-        return 'raw';
-      } else {
-        return 'field';
-      }
-    }
+    marcjson.expandFixedFields(map, struct, true);
+    $scope.map = map;
 
     $scope.fieldToAdd = null;
 

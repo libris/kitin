@@ -227,24 +227,26 @@ def profile():
     return render_template('mockups/profile.html')
 
 
-@app.route('/record')
-def show_record_form():
-    return render_template('bib.html')
+@app.route('/marc')
+@app.route('/frbr')
+def show_record_form(**kws):
+    return render_template('bib.html', **kws)
+
+@app.route('/<edit_mode>/bib/<rec_id>')
+def show_edit_record(edit_mode, rec_id):
+    #json_post = json.loads(response.text)
+    #return render_template('bib.html', data=json_post)
+    return show_record_form(rec_type='bib', rec_id=rec_id)
 
 
 @app.route('/record/bib/<id>')
 def show_record(id):
-    # TODO: Check if exists as draft and fetch from local db if so!
-    if request.is_xhr:
-        return get_bib_data(id)
-    else:
-        #json_post = json.loads(response.text)
-        #return render_template('bib.html', data=json_post)
-        return show_record_form()
+    return get_bib_data(id)
 
 
 @app.route('/record/bib/<id>.json')
 def get_bib_data(id):
+    # TODO: Check if exists as draft and fetch from local db if so!
     if app.config.get('MOCK_API', False):
         response = requests.Response()
         response.status_code = 200
@@ -339,6 +341,11 @@ def lookup(uid=None):
     except Exception as e:
         print "exc", e
         return "failed"
+
+
+@app.route("/partials/<name>")
+def show_partial(name):
+    return render_template('partials/'+ name +'.html')
 
 
 # TODO: integrate mockups in views and remove this

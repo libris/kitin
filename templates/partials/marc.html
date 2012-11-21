@@ -1,0 +1,48 @@
+{% raw %}
+
+<div class="control-group leader compact">
+  <h3 class="field-label">000 -
+    {{ map['000'].label_sv }}<button type="button" class="btn btn-mini btn-link"
+      data-toggle="collapse" data-target="#hidden-control-fields">
+      <i class="icon-edit"></i></button>
+  </h3>
+  <div id="hidden-control-fields" class="collapse out">
+    <div data-ng-repeat="controlField in [struct.leader]"
+          data-ng-include="'render-control-field'"></div>
+  </div>
+  <div data-ng-repeat="fieldset in [struct.fields]"
+        data-ng-include="'render-fieldset'"></div>
+</div>
+
+<div id="prompt-add-field" data-ng-show="fieldToAdd" class="popover show">
+  <div class="popover-inner">
+    <h3 class="popover-title">Add field
+      <button class="close" data-ng-click="fieldToAdd.abort()">&times;</button></h3>
+  </div>
+  <div class="popover-content">
+    <select data-ng-options="tag as (tag + ': ' + dfn.label_sv) for (tag, dfn) in map"
+      size="1"
+      data-ng-model="fieldToAdd.tag"
+      data-key-enter="fieldToAdd.execute()"
+      data-key-esc="fieldToAdd.abort()" />
+    </select>
+  </div>
+</div>
+
+<div id="prompt-add-subfield" data-ng-show="subFieldToAdd" class="popover show">
+  <div class="popover-inner">
+    <h3 class="popover-title">Add subfield
+      <button class="close" data-ng-click="subFieldToAdd.abort()">&times;</button></h3>
+  </div>
+  <div class="popover-content">
+    <select data-ng-options="code as (code + ': ' + subDfn.label_sv)
+                              for (code, subDfn) in subFieldToAdd.subfields"
+      size="1"
+      data-ng-model="subFieldToAdd.code"
+      data-key-enter="subFieldToAdd.execute()"
+      data-key-esc="subFieldToAdd.abort()" />
+    </select>
+  </div>
+</div>
+
+{% endraw %}

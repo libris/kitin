@@ -134,6 +134,35 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
     for (var key in o) return key;
   };
 
+  exports.getIndicatorType = function (tag, indKey, indEnum) {
+    var i = 0;
+    for (var k in indEnum) if (i++) break;
+    if (i === 1 &&
+        (indEnum['_'].id === 'undefined' ||
+          indEnum['_'].label_sv === 'odefinierad')) {
+      return 'hidden';
+    // TODO: hack before overlay field config is in place
+    //} else if (tag + indKey == '245ind1') {
+    //  return 'boolean';
+    //} else if (tag + indKey == '245ind2') {
+    //  return 'number';
+    } else if (indEnum) {
+      return 'select';
+    } else {
+      return 'plain';
+    }
+  };
+
+  exports.getWidgetType = function (tag, row) {
+    if (tag === 'leader' || exports.fixedFieldParsers[tag]) {
+      return 'fixedfield';
+    } else if (typeof row === 'string') {
+      return 'raw';
+    } else {
+      return 'field';
+    }
+  };
+
 
   exports.addField = function (struct, tagToAdd, dfn) {
     var fields = struct.fields;
