@@ -6,6 +6,10 @@ function loadJson(path) {
   return JSON.parse(data);
 }
 
+if (!process.argv[2]) {
+  console.log("USAGE: map-marcjson.js MARCMAP_FILE bib MARC_JSON_FILE [OVERLAY_FILE]")
+  process.exit();
+}
 var marcMapPath = process.argv[2];
 var recordType = process.argv[3];
 var marcStructPath = process.argv[4];
