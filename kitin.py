@@ -49,10 +49,12 @@ def search():
             app.config['WHELK_HOST'], q, boost))
         data = json.loads(resp.text)
         search_results = [get_record_summary(item['data']) for item in data['list']]
-        facets = dict([get_facet_labels(f_group, f_values) for f_group, f_values in data['facets'].items()])
+        facets = [get_facet_labels(f_group, f_values) for f_group, f_values in data['facets'].items()]
+        print "this is some stuff", type(facets)
     return render_template('search.html', **vars())
 
 def get_facet_labels(f_group, f_values):
+    print "f_group", f_group
     #extracting group label: 
     #if leader: get_leader_info
     #if fixfield
@@ -76,25 +78,31 @@ def get_facet_labels(f_group, f_values):
             if fparts[3] == 'carrierType':
                 f_value_labels = _get_carrier_type(f_values, mm['007']['fixmaps'])
                 propref = 'carrierType'
-                label_sv = 'Bärartyp'
+                label_sv = u'B\u00e4rartyp'
             else:
                 label_sv = _get_fixfield_label(propref, mm[fparts[1]]['fixmaps'][0]['columns'])
                 f_value_labels = _get_value_label(f_values, propref, mm['fixprops'])
 
         else:
-            label_sv = mm[fparts[1]]['subfield'][fparts[3]]['label_sv']
-            f_value_labels = {}
-            for code, count in f_values.items():
-                f_value_labels[code] = [count]
-            print "value labels", f_value_labels
-            #f_value_labels = dict([(code, [count, 'Blaj']) for code, count in f_values.items()])
+                f_labels = {}
+                f_labels['link'] = f_group
+                f_labels['values'] = f_values
+                print "and its values", f_values
+                return f_labels
     else:
-        return f_group, f_values
+        f_labels = {}
+        f_labels['link'] = f_group
+        f_labels['values'] = f_values
+        print "and its values", f_values
+        return f_labels
 
-    f_values['propref'] = propref
-    f_values['label_sv'] = label_sv
-    #f_values = dict(f_values.items() + f_value_labels.items())
-    return f_group, f_value_labels
+    f_labels = {}
+    f_labels['propref'] = propref
+    f_labels['label_sv'] = label_sv
+    f_labels['link'] = f_group
+    f_labels['values'] = f_value_labels
+    print "and its values", f_values
+    return f_labels
     #TODO, language codes
 
 def _get_carrier_type(f_values, fixmaps):
@@ -137,40 +145,6 @@ def _get_field_label(tagdict, fields):
                    record_info_dict[tagdict[tag][s.keys()[0]]]  = s.values()[0].strip(' /')
     return record_info_dict
 
-
-def get_facet(key, value):
-    facet = key
-    print "FARRAH FAWCETTS: ", key, value
-    fpart = key.split('.')
-    mm = json.loads(open(app.config['MARC_MAP']).read())['bib']
-    #facet = {'name': '', ['link': '', 'no': '']}
-    facet = {'name': '', 'link': '', 'no': ''}
-
-    if fpart[0] == "leader":
-        propref = fpart[2]
-        columns = mm['000']['fixmaps'][0]['columns']
-        for column in columns:
-            if column['propRef'] == propref:
-                print "BINGO ", propref, column.get('label_sv', propref)
-                #facet['name'] = propref
-            #for key, value in column.iteritems():
-            #    if key == 'propRef' and value == propref:
-            #        print "TJOSAN! ", propref
-        #leader.subfields.typeOfRecord {u'a': 2823, u'c': 27, u'e': 1, u'g': 51, u'i': 289, u'j': 40, u'm': 26, u'o': 2}
-    #print "DATA: ", data
-    #fpart = data.split('.')
-    #print "PARTS: ", fpart
-    #facet = {'name': '', 'link': '', 'no': ''}
-    #mm = json.loads(open(app.config['MARC_MAP']).read())['bib']['fixprops']
-    #if fpart[0] == "fields":
-    #    tag = fpart[1]
-#        print "TEST: ", mm[tag].label_sv
-#        facet['name'] = fpart[1]mm[tag][s.values()[0]].get('label_sv', s.values()[0])
-    #    facet['link'] = fpart[2]
-    #    facet['no'] = "A lot, or not a lot"
-        #control_fields['typeofrecord'] = mm['typeOfRecord'][s.values()[0]].get('label_sv', s.values()[0])
-    #print "FACET: ", facet
-    return facet
 
 def get_record_summary(data):
     fields = {}
