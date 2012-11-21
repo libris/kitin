@@ -79,11 +79,11 @@ function RecordCtrl($scope, $location, $http, $timeout) {
     marcjson.expandFixedFields(map, struct, true);
 
     $scope.toggleFuture = function () {
-      if (!$scope.editable) {
+      if (!$scope.entities) {
         fadableEnabled = false;
-        $scope.editable = marcjson.createEditMap(map, overlay, struct);
+        $scope.entities = marcjson.createEntityGroups(map, overlay, struct);
       } else {
-        $scope.editable = null;
+        $scope.entities = null;
       }
     };
 
@@ -103,6 +103,11 @@ function RecordCtrl($scope, $location, $http, $timeout) {
           (indEnum['_'].id === 'undefined' ||
             indEnum['_'].label_sv === 'odefinierad')) {
         return 'hidden';
+      // TODO: hack before overlay field config is in place
+      //} else if (tag + indKey == '245ind1') {
+      //  return 'boolean';
+      //} else if (tag + indKey == '245ind2') {
+      //  return 'number';
       } else if (indEnum) {
         return 'select';
       } else {

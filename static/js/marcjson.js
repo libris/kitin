@@ -168,8 +168,8 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
   };
 
 
-  exports.createEditMap = function (map, overlay, struct) {
-    var display = overlay.display;
+  exports.createEntityGroups = function (map, overlay, struct) {
+    var entities = overlay.entities;
     var out = {};
     var index = {};
     exports.expandFixedFields(map, struct);
@@ -180,8 +180,8 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
       if (tagged === undefined) tagged = index[tag] = [];
       tagged.push(row);
     });
-    for (entity in display) {
-      var spec = display[entity];
+    for (entity in entities) {
+      var spec = entities[entity];
       if (spec.forEach) {
         var fields = out[entity] = [];
         specToFields(index, spec, fields);
