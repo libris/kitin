@@ -1,3 +1,4 @@
+<meta charset="utf-8">
 <div class="row-fluid">
 <div class="span9 offset3">
 <section class="search" role="search">
@@ -30,8 +31,17 @@
 	  {% if search_results %}
   	  <hr>
   	  <section>
-      <div class="facetholder">Facets: never mind for now!<br>{{ facets }}</div>
-      <div class="facetholder">More merry facets placeholder<br>{{ data.facets }}</div>
+      {%  for f in facets %}
+      <div class="facetholder">L: {{ f.link }}<br>F: {{ f }}<br>Ls: {{ f.label_sv }}<br>        {% if f.values %}
+          {%  for v in f.get('values', []) %}
+          <a href="{{ f.link }}={{ v }}">
+              <br>{{ f['values'][v][1] }}({{ f['values'][v][0] }})<br>
+          </a>
+          {% endfor %}
+        {% endif %}</div>
+
+      {% endfor %}
+      <div class="facetholder">More merry facets placeholder<br>{{ facets }}</div>
     </div>
     <div class="span9">
       <div >{{ data.hits }} träffar på <strong>{{ q }}</strong></div>
