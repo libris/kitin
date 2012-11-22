@@ -36,58 +36,8 @@ kitin.factory('conf', function ($http, $q) {
   };
 });
 
-kitin.directive('keyEnter', function () {
-  return function (scope, elm, attrs) {
-    var expr = attrs.keyEnter;
-    elm.jkey('enter', function () {
-      scope.$apply(expr);
-    });
-  }
-});
-
-kitin.directive('keyEsc', function () {
-  return function (scope, elm, attrs) {
-    var expr = attrs.keyEsc;
-    elm.jkey('esc', function () {
-      scope.$apply(expr);
-    });
-  }
-});
-
-
-kitin.directive('fadable', function(conf) {
-  return function(scope, elm, attrs) {
-    var duration = parseInt(attrs.fadable, 10);
-    if (conf.renderUpdates) {
-      // TODO: adding this indicates that this is not a 'fadable', but a 'fieldbox'..
-      elm.hide().fadeIn(duration, function () {
-        if (conf.renderUpdates)
-          elm.find('input, select').first().focus();
-      });
-      var body = $('body');
-      var scrollTop = $(document).scrollTop(),
-        winHeight = $(window).height(),
-        scrollBot = scrollTop + winHeight,
-        offsetTop = elm.offset().top - body.offset().top;
-      if (offsetTop < scrollTop || offsetTop > scrollBot) {
-        body.animate({scrollTop: offsetTop - (winHeight / 2)});
-      }
-    }
-    scope.fadeOut = function(complete) {
-      elm.fadeOut(duration / 2, function() {
-        if (complete) {
-          complete.apply(scope);
-        }
-      });
-    };
-  };
-});
-
 
 // controllers.js
-
-function typeOf(o) { return typeof o; }
-
 
 function FrbrCtrl($rootScope, $scope, $routeParams, $http, conf) {
 
@@ -194,6 +144,8 @@ function MarcCtrl($rootScope, $scope, $routeParams, $http, conf, $timeout) {
 
 }
 
+function typeOf(o) { return typeof o; }
+
 
 // services.js
 
@@ -204,6 +156,56 @@ function openPrompt($event, promptSelect) {
       { top: off.top + 'px', left: off.left + width + 'px'})
     prompt.find('select').focus();
 }
+
+
+// directives.js
+
+kitin.directive('keyEnter', function () {
+  return function (scope, elm, attrs) {
+    var expr = attrs.keyEnter;
+    elm.jkey('enter', function () {
+      scope.$apply(expr);
+    });
+  }
+});
+
+kitin.directive('keyEsc', function () {
+  return function (scope, elm, attrs) {
+    var expr = attrs.keyEsc;
+    elm.jkey('esc', function () {
+      scope.$apply(expr);
+    });
+  }
+});
+
+
+kitin.directive('fadable', function(conf) {
+  return function(scope, elm, attrs) {
+    var duration = parseInt(attrs.fadable, 10);
+    if (conf.renderUpdates) {
+      // TODO: adding this indicates that this is not a 'fadable', but a 'fieldbox'..
+      elm.hide().fadeIn(duration, function () {
+        if (conf.renderUpdates)
+          elm.find('input, select').first().focus();
+      });
+      var body = $('body');
+      var scrollTop = $(document).scrollTop(),
+        winHeight = $(window).height(),
+        scrollBot = scrollTop + winHeight,
+        offsetTop = elm.offset().top - body.offset().top;
+      if (offsetTop < scrollTop || offsetTop > scrollBot) {
+        body.animate({scrollTop: offsetTop - (winHeight / 2)});
+      }
+    }
+    scope.fadeOut = function(complete) {
+      elm.fadeOut(duration / 2, function() {
+        if (complete) {
+          complete.apply(scope);
+        }
+      });
+    };
+  };
+});
 
 
 /* TODO: adapt to angular
