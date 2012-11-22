@@ -141,11 +141,6 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
         (indEnum['_'].id === 'undefined' ||
           indEnum['_'].label_sv === 'odefinierad')) {
       return 'hidden';
-    // TODO: hack before overlay field config is in place
-    //} else if (tag + indKey == '245ind1') {
-    //  return 'boolean';
-    //} else if (tag + indKey == '245ind2') {
-    //  return 'number';
     } else if (indEnum) {
       return 'select';
     } else {
