@@ -40,9 +40,9 @@
       <div><span class="publication">{{ record.publication }} {{ record.edition }} <span title="260C">{{ record.pubyear }}</span></span></div>
       <div class="identifier">{% if record.isbn %}ISBN: <span title="020A">{{ record.isbn }}</span>{% elif record.issn %}ISSN: <span title="020A">{{ record.issn }}</span>{% endif %}</div>
       <div class="row-fluid">
-        <div class="span4"><!--Bibliografisk nivå--> {{ record.biblevel }}</div>
-        <div class="span3"><!--Medietyp--> {{ record.typeofrecord }}</div>
-        <div class="span5"><!--Fullständighetsnivå--> {{ record.enclevel }}</div>
+        <div class="span4"><!--Bibliografisk nivå--> {{ record.bibLevel }}</div>
+        <div class="span3"><!--Medietyp--> {{ record.typeOfRecord }}</div>
+        <div class="span5"><!--Fullständighetsnivå--> {{ record.encLevel }}</div>
       </div>
       {%if record.link_tit %}<div><em>Ingår i:</em> {% if record.link_author %}{{ record.link_author }}: {% endif %}{{ record.link_tit }} ; {{ record.link_related }}</div>{% endif %}
 		</span>

@@ -50,11 +50,11 @@ def search():
         data = json.loads(resp.text)
         search_results = [get_record_summary(item['data']) for item in data['list']]
         facets = [get_facet_labels(f_group, f_values) for f_group, f_values in data['facets'].items()]
-        print "this is some stuff", type(facets)
+        #print "this is some stuff", type(facets)
     return render_template('search.html', **vars())
 
 def get_facet_labels(f_group, f_values):
-    print "f_group", f_group
+    #print "f_group", f_group
     #extracting group label: 
     #if leader: get_leader_info
     #if fixfield
@@ -87,13 +87,13 @@ def get_facet_labels(f_group, f_values):
                 f_labels = {}
                 f_labels['link'] = f_group
                 f_labels['values'] = f_values
-                print "and its values", f_values
+                #print "and its values", f_values
                 return f_labels
     else:
         f_labels = {}
         f_labels['link'] = f_group
         f_labels['values'] = f_values
-        print "and its values", f_values
+        #print "and its values", f_values
         return f_labels
 
     f_labels = {}
@@ -101,7 +101,7 @@ def get_facet_labels(f_group, f_values):
     f_labels['label_sv'] = label_sv
     f_labels['link'] = f_group
     f_labels['values'] = f_value_labels
-    print "and its values", f_values
+    #print "and its values", f_values
     return f_labels
     #TODO, language codes
 
@@ -140,10 +140,30 @@ def _get_field_label(tagdict, fields):
 
     for tag in tagdict.keys():
         if tag in fields:
+
+            if 'ind1' in tagdict[tag].keys():
+                ind1 = fields[tag][0]['ind1']
+                record_info_dict['%s_ind1_code' % tag] = ind1
+                label_sv = json.loads(open(app.config['MARC_MAP']).read())['bib'][tag]['ind1'][ind1]['label_sv']
+                record_info_dict['%s_ind1' % tag] = label_sv
+
             for s in fields[tag][0]['subfields']:
                 if s.keys()[0] in tagdict[tag].keys():
                    record_info_dict[tagdict[tag][s.keys()[0]]]  = s.values()[0].strip(' /')
+
+            
     return record_info_dict
+
+def _get_control_field_label(control_list, mm, leader):
+    control_fields = {}
+    for pos in control_list:
+        for s in leader:
+            if s.keys()[0] == pos:
+                val = '_' if s.values()[0] == ' ' else s.values()[0]
+                control_fields['%s_code' % pos] = val
+                control_fields[pos] = mm[pos][val].get('label_sv', val)
+    return control_fields
+
 
 
 def get_record_summary(data):
@@ -157,22 +177,8 @@ def get_record_summary(data):
     
     #extracting the control field values
     #cannot be done as the general fields, as the json structure differs
-    control_fields = {'biblevel': '', 'typeofrecord': '', 'enclevel': '', 'id': ''}
-    for s in data['leader']['subfields']:
-        if s.keys()[0] == 'bibLevel':
-            control_fields['biblevel_code'] = s.values()[0]
-            control_fields['biblevel'] = mm['bibLevel'][s.values()[0]].get('label_sv', s.values()[0])
-
-        elif s.keys()[0] == 'typeOfRecord':
-            control_fields['typeofrecord_code'] = s.values()[0]
-            control_fields['typeofrecord'] = mm['typeOfRecord'][s.values()[0]].get('label_sv', s.values()[0])
-
-        elif s.keys()[0] == 'encLevel':
-            #print "enclevel: _%s_"% s.values()[0]
-            val = '_' if s.values()[0] == ' ' else s.values()[0]
-            control_fields['enclevel_code'] = val
-            control_fields['enclevel'] = mm['encLevel'][val].get('label_sv', val)
-            #print "ENCLEVEL: ",control_fields['enclevel'] 
+    control_list = ['bibLevel', 'typeOfRecord', 'encLevel']
+    control_fields = _get_control_field_label(control_list, mm, data['leader']['subfields'])
 
     control_fields['id'] = fields['001'][0] if '001' in fields else ''
    
@@ -181,12 +187,12 @@ def get_record_summary(data):
     tagdict = {'008': {'yearTime': 'pubyear_008'},
                 '020': {'a': 'isbn'},
                 '022': {'a': 'issn'},
-                '024': {'a': 'other_standard_id'},
-                '028': {'a': 'publisher_number'},
+                '024': {'a': 'other_standard_id', 'ind1': 'ind1'},
+                '028': {'a': 'publisher_number', 'b': 'publisher', 'ind1': 'ind1'},
                 '035': {'9': 'librisIII-id'},
                 '040': {'a': 'catinst_a', 'd': 'catinst_d'},
                 '041': {'a': 'lang_target', 'h': 'lang_source'},
-                '100': {'a': 'author', 'b': 'author_numeration', 'd': 'author_date', '4': '100_4', 'c': 'author_association', 'e': '100_e'},
+                '100': {'a': 'author', 'b': 'author_numeration', 'd': 'author_date', '4': '100_4', 'c': 'author_association', 'e': '100_e', 'q': '100_q'},
                 '110': {'a': 'author', 'd': 'author_date', '4': '110_4', 'c': '110_c', 'n': '110_n'},
                 '111': {'a': 'author', 'd': 'author_date', '4': '111_4', 'c': '111_c', 'n': '111_n'},
                 '245': {'a': 'tit_a', 'b': 'tit_b', 'c': 'tit_c', 'n': 'tit_n', 'p': 'tit_p'},
