@@ -10,12 +10,12 @@ kitin.config(
 );
 
 kitin.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.
-      when('/frbr/:recType/:recId',
-           {templateUrl: '/partials/frbr', controller: FrbrCtrl}).
-      when('/marc/:recType/:recId',
-           {templateUrl: '/partials/marc', controller: MarcCtrl}).
-      otherwise({redirectTo: '/'});
+  $routeProvider
+      .when('/edit/frbr/:recType/:recId',
+           {templateUrl: '/partials/frbr', controller: FrbrCtrl})
+      .when('/edit/marc/:recType/:recId',
+           {templateUrl: '/partials/marc', controller: MarcCtrl})
+      ;//.otherwise({redirectTo: '/'});
 }]);
 
 kitin.directive('keyEnter', function () {
@@ -73,9 +73,10 @@ kitin.directive('fadable', function() {
 function typeOf(o) { return typeof o; }
 
 
-function FrbrCtrl($scope, $routeParams, $http, $timeout) {
+function FrbrCtrl($rootScope, $scope, $routeParams, $http, $timeout) {
 
   fadableEnabled = false;
+  $rootScope.editMode = 'frbr';
 
   $scope.getKey = marcjson.getMapEntryKey;
   $scope.indicatorType = marcjson.getIndicatorType;
@@ -103,9 +104,10 @@ function FrbrCtrl($scope, $routeParams, $http, $timeout) {
 }
 
 
-function MarcCtrl($scope, $routeParams, $http, $timeout) {
+function MarcCtrl($rootScope, $scope, $routeParams, $http, $timeout) {
 
   fadableEnabled = false;
+  $rootScope.editMode = 'marc';
 
   $scope.getKey = marcjson.getMapEntryKey;
   $scope.indicatorType = marcjson.getIndicatorType;

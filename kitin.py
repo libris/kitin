@@ -203,24 +203,18 @@ def profile():
     return render_template('mockups/profile.html')
 
 
-@app.route('/marc')
-@app.route('/frbr')
+@app.route('/edit/<edit_mode>')
 def show_record_form(**kws):
     return render_template('bib.html', **kws)
 
-@app.route('/<edit_mode>/bib/<rec_id>')
-def show_edit_record(edit_mode, rec_id):
+@app.route('/edit/<edit_mode>/<rec_type>/<rec_id>')
+def show_edit_record(edit_mode, rec_type, rec_id):
     #json_post = json.loads(response.text)
     #return render_template('bib.html', data=json_post)
-    return show_record_form(rec_type='bib', rec_id=rec_id)
+    return show_record_form(rec_type=rec_type, rec_id=rec_id)
 
 
 @app.route('/record/bib/<id>')
-def show_record(id):
-    return get_bib_data(id)
-
-
-@app.route('/record/bib/<id>.json')
 def get_bib_data(id):
     # TODO: Check if exists as draft and fetch from local db if so!
     if app.config.get('MOCK_API', False):
