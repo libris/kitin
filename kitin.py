@@ -177,11 +177,13 @@ def get_record_summary(data):
     control_fields['id'] = fields['001'][0] if '001' in fields else ''
    
     #extracting general fields.
-    #change in the dict to extract other fields/subfields or save them under different lables
+    #change in the dict to extract other fields/subfields or save them under different labels
     tagdict = {'008': {'yearTime': 'pubyear_008'},
                 '020': {'a': 'isbn'},
                 '022': {'a': 'issn'},
-                '035': {'9': 'librisid'},
+                '024': {'a': 'other_standard_id'},
+                '028': {'a': 'publisher_number'},
+                '035': {'9': 'librisIII-id'},
                 '040': {'a': 'catinst_a', 'd': 'catinst_d'},
                 '041': {'a': 'lang_target', 'h': 'lang_source'},
                 '100': {'a': 'author', 'b': 'author_numeration', 'd': 'author_date', '4': '100_4', 'c': 'author_association', 'e': '100_e'},
