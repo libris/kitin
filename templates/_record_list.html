@@ -11,7 +11,7 @@
     </tr>
   {% for record in records %}
       <tr>
-        <td><a href="/record/bib/{{ record.id }}">{{ record.id }}</a></td>
+        <td><a href="/edit/frbr/bib/{{ record.id }}">{{ record.id }}</a></td>
         <td>{{ record.isbn }}</td>
         <td>{{ record.tit_a }} {{ record.tit_b }} {{ record.tit_n }} {{ record.tit_p }}</td>
         <td>{{ record.author }}
@@ -31,7 +31,7 @@
 {% if records %}
 <section>
   {% for record in records %}
-      <a class="bib-url" href="/record/bib/{{ record.id }}">
+      <a class="bib-url" href="/edit/frbr/bib/{{ record.id }}">
       <article class="record">
 <!-- 	  <div class="pull-right muted">{% if record.catinst_a %}<span title="040A">{{ record.catinst_a }}{% else %}Importerad post{% endif %}</span></div> -->
       <h3><span title="245A">{{ record.tit_a }}</span> <span class="title-remainder"><span title="245B">{{ record.tit_b }}</span><span title="245C"> {{ record.tit_c }}</span> <span title="245N">{{ record.tit_n }}</span> <span title="245P">{{ record.tit_p }}</span></span></h3>
