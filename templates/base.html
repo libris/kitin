@@ -3,7 +3,7 @@
   <head>
     {% block head %}
       <meta charset="utf-8">
-      <title>{% block title %}LIBRIS{% endblock title %} katalogisering (development)</title>
+      <title>{% block title %}untitled{% endblock title %} - LIBRIS katalogisering (development)</title>
       <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.css') }}">
       <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap-responsive.css') }}" rel="stylesheet">
       <link href="{{ url_for('static', filename='vendor/jquery/jquery.autocomplete.css') }}" rel="stylesheet">
@@ -58,10 +58,10 @@
       {% endblock container %}
     </div>
 
-    <div id="footer">
+    <footer>
       {% block footer %}
       {% endblock %}
-    </div>
+    </footer>
 
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>

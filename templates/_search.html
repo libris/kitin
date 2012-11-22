@@ -1,29 +1,28 @@
-<meta charset="utf-8">
 <div class="row-fluid">
-<div class="span6 offset3">
-<section class="search" role="search">
-  <div class="search-bar">
-  <ul class="border-search unstyled">
-    <li class="ui-search-item search-input-item">
-      <form class="form-inline search-form" action="/search">
-        <input id="search"  name="q" type="text"
-                class="xlarge ui-autocomplete-input"
-                value="{% if q %}{{ q }}{% endif %}" placeholder="ISBN, Titel, Namn"
-                autocomplete="off" role="textbox"
-        aria-autocomplete="list" aria-haspopup="true">
-        <!--<input id="boost"  name="b" type="text"
-                class="xlarge ui-autocomplete-input"
-                value="{% if b %}{{ b }}{% endif %}" placeholder="Ex: fields.100.subfields.a:2,labels.title:2"
-                autocomplete="off" role="textbox">-->
-        <button id="submit" class="btn btn-large btn-inverse" type="submit">
-          <i class="icon-search icon-white"></i>
-        </button>
-      </form>
-    </li>
-  </ul>
+  <div class="span6 offset3">
+    <section class="search" role="search">
+      <div class="search-bar">
+      <ul class="border-search unstyled">
+        <li class="ui-search-item search-input-item">
+          <form class="form-inline search-form" action="/search">
+            <input id="search"  name="q" type="text"
+                    class="xlarge ui-autocomplete-input"
+                    value="{% if q %}{{ q }}{% endif %}" placeholder="ISBN, Titel, Namn"
+                    autocomplete="off" role="textbox"
+            aria-autocomplete="list" aria-haspopup="true">
+            <!--<input id="boost"  name="b" type="text"
+                    class="xlarge ui-autocomplete-input"
+                    value="{% if b %}{{ b }}{% endif %}" placeholder="Ex: fields.100.subfields.a:2,labels.title:2"
+                    autocomplete="off" role="textbox">-->
+            <button id="submit" class="btn btn-large btn-inverse" type="submit">
+              <i class="icon-search icon-white"></i>
+            </button>
+          </form>
+        </li>
+      </ul>
+      </div>
+    </section>
   </div>
-</section>
-</div>
 </div>
 
 
