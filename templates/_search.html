@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <div class="row-fluid">
-<div class="span9 offset3">
+<div class="span6 offset3">
 <section class="search" role="search">
   <div class="search-bar">
   <ul class="border-search unstyled">
@@ -26,11 +26,10 @@
 </div>
 </div>
 
+
 <div class="row-fluid">
 	<div class="span3">
 	  {% if search_results %}
-  	  <hr>
-  	  <section>
       {%  for f in facets %}
       <div class="facetholder">L: {{ f.link }}<br>F: {{ f }}<br>Ls: {{ f.label_sv }}<br>        {% if f.values %}
           {%  for v in f.get('values', []) %}
@@ -49,9 +48,8 @@
     {% with records = search_results %}
       {% include "_record_list.html" %}
     {% endwith %}
-    </section>
 	{% else %}
-    <hr>
+    
     {% if q %}
     <h2>Inga träffar, vill du skapa ny post?</h2>
     {% endif %}
