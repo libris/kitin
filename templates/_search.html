@@ -37,11 +37,10 @@
           <p class="muted">{% if f.label_sv %}{{ f.label_sv }}{% else %}{{ f.link }}{% endif %}</p>
           <ul class="unstyled">
           {%  for v in f.get('values', []) %}
-              <li><a href="{{ f.link }}={{ v }}">{{ f['values'][v][1] }} ({{ f['values'][v][0] }})</a></li>
+              <li><a title="{{ v }}" href="{{ f.link }}={{ v }}">{% if f['values'][v][1] %}{{ f['values'][v][1] }}{% else %}{{ v|capitalize }}{% endif %} <span class="muted">({{ f['values'][v][0] }})</span></a></li>
           {% endfor %}
           </ul>
         {% endif %}</div>
-
       {% endfor %}
     </div>
 
