@@ -16,33 +16,38 @@
       {% if record.author %}
       		<span title="100A">{{ record.author }}</span>
       		<span title="100B"> {{ record.author_numeration }}</span>
-      		{% if record.author_date %} <span title="100D">{{ record.author_date }}</span>, 
-      		{% endif %} {{ record.author_association }}
+      		{% if record.author_date %} 
+      		<span title="100D">{{ record.author_date }}</span>, 
+      		{% endif %}
+      		<span title="1004">{{ record.author_4 }}</span>
+      		<span title="100E">{{ record.author_e }}</span>
+      		<span title="100Q">{{ record.author_q }}</span>
+      		<span title="100C">{{ record.author_association }}</span>
       {% else %}N/A
       {% endif %}</span></h4>
-      <div><span class="publication">{{ record.publication }} {{ record.edition }} 
+      <div><span class="publication" title"250A">{{ record.edition }} 
       		<span title="260C">{{ record.pubyear }}</span>
       		</span>
       </div>
-      <div class="identifier">{{ record.024 }}
-      {% if record.isbn %}
-      	<span title="ISBN 020A">{{ record.isbn }}</span>
-      {% elif record.issn %}
-        <span title="ISSN 022A">{{ record.issn }}</span>
-      {% endif %}
-      {% if record.other_standard_id %}
-        <span title="{{ record.ind1 }} 024A">{{ record.other_standard_id }}</span>
-      {% endif %}
-      {% if record.publisher_number %}
-        <span title="{{ record.ind1 }} 028A">{{ record.publisher_number }} - <span title="028B">{{ record.publisher }}</span></span> 
-      {% endif %}
+      <div class="identifier">{{ record.indone }}
+        {% if record.isbn %}
+        	<span title="ISBN 020A">{{ record.isbn }}</span>
+        {% elif record.issn %}
+          <span title="ISSN 022A">{{ record.issn }}</span>
+        {% endif %}
+        {% if record.other_standard_id %}
+          <span title="{{ record.ind1 }} 024A">{{ record.other_standard_id }}</span>
+        {% endif %}
+        {% if record.publisher_number %}
+          <span title="{{ record.ind1 }} 028A">{{ record.publisher_number }} - <span title="028B">{{ record.publisher }}</span></span> 
+        {% endif %}
       </div>
       <div class="row-fluid">
         <div class="span4"><!--Bibliografisk nivå--> {{ record.bibLevel }}</div>
         <div class="span3"><!--Medietyp--> {{ record.typeOfRecord }}</div>
         <div class="span5"><!--Fullständighetsnivå--> {{ record.encLevel }}</div>
       </div>
-      {%if record.link_tit %}
+      {% if record.link_tit %}
       <div><em>Ingår i:</em> 
         {% if record.link_author %}{{ record.link_author }}: 
         {% endif %}{{ record.link_tit }} ; {{ record.link_related }}
