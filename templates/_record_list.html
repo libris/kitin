@@ -1,7 +1,7 @@
 {% if records %}
 <section>
   {% for record in records %}
-      <a class="bib-url" href="/record/bib/{{ record.id }}">
+      <a class="bib-url" href="/edit/frbr/bib/{{ record.id }}">
       <article class="record">
 <!-- 	  <div class="pull-right muted">{% if record.catinst_a %}<span title="040A">{{ record.catinst_a }}{% else %}Importerad post{% endif %}</span></div> -->
       <h3><span title="245A">{{ record.tit_a }}</span>

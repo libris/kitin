@@ -1,13 +1,182 @@
 // app.js
 
+
 var kitin = angular.module('kitin', []);
 
 kitin.config(
-  ['$locationProvider',
-    function($locationProvider) {
+  ['$locationProvider', '$routeProvider',
+    function($locationProvider, $routeProvider) {
+
       $locationProvider.html5Mode(true);
+
+      $routeProvider
+        .when('/edit/frbr/:recType/:recId',
+           {templateUrl: '/partials/frbr', controller: FrbrCtrl})
+        .when('/edit/marc/:recType/:recId',
+           {templateUrl: '/partials/marc', controller: MarcCtrl})
+        ;//.otherwise({redirectTo: '/'});
+
     }]
 );
+
+kitin.factory('conf', function ($http, $q) {
+  var marcmap = $q.defer(),
+    overlay = $q.defer();
+  $http.get("/marcmap.json").success(function (o) {
+    marcmap.resolve(o);
+  });
+  $http.get("/overlay.json").success(function (o) {
+    overlay.resolve(o);
+  });
+  return {
+    marcmap: marcmap.promise,
+    overlay: overlay.promise,
+    // TODO: off between controller init and completion;
+    // use angular events for this?
+    renderUpdates: false
+  };
+});
+
+
+// controllers.js
+
+function FrbrCtrl($rootScope, $scope, $routeParams, $http, conf) {
+
+  conf.renderUpdates = false;
+  $rootScope.editMode = 'frbr';
+
+  $scope.typeOf = function (o) { return typeof o; }
+  $scope.getKey = marcjson.getMapEntryKey;
+  $scope.indicatorType = function (tag, indKey, indEnum) {
+    var i = 0;
+    for (var k in indEnum) if (i++) break;
+    if (i === 1 &&
+        (indEnum['_'].id === 'undefined' ||
+          indEnum['_'].label_sv === 'odefinierad')) {
+      return 'hidden';
+    // TODO: hack before overlay field config is in place
+    } else if (tag + indKey == '245ind1') {
+      return 'boolean';
+    } else if (tag + indKey == '245ind2') {
+      return 'number';
+    } else if (indEnum) {
+      return 'select';
+    } else {
+      return 'plain';
+    }
+  };
+  $scope.widgetType = marcjson.getWidgetType;
+
+  var recType = $routeParams.recType,
+    recId = $routeParams.recId,
+    resourceId = "/record/" + recType + "/" + recId;
+
+  conf.marcmap.then(function (map) {
+    conf.overlay.then(function (overlay) {
+      $http.get(resourceId).success(function (struct) {
+        map = map[recType];
+        $scope.entities = marcjson.createEntityGroups(map, overlay, struct);
+        $scope.map = map;
+      });
+    });
+  });
+
+}
+
+
+function MarcCtrl($rootScope, $scope, $routeParams, $http, conf, $timeout) {
+
+  conf.renderUpdates = false;
+  $rootScope.editMode = 'marc';
+
+  $scope.typeOf = function (o) { return typeof o; }
+  $scope.getKey = marcjson.getMapEntryKey;
+  $scope.indicatorType = marcjson.getIndicatorType;
+  $scope.widgetType = marcjson.getWidgetType;
+
+  var recType = $routeParams.recType,
+    recId = $routeParams.recId,
+    resourceId = "/record/" + recType + "/" + recId;
+
+  conf.marcmap.then(function (map) {
+    $http.get(resourceId).success(function (struct) {
+      map = map[recType];
+      marcjson.expandFixedFields(map, struct, true);
+      $scope.map = map;
+      $scope.struct = struct;
+    });
+  });
+
+  $scope.fieldToAdd = null;
+
+  $scope.promptAddField = function ($event, dfn, currentTag) {
+    // TODO: set this once upon first rendering of view (listen to angular event)
+    conf.renderUpdates = true;
+    $scope.fieldToAdd = {
+      tag: currentTag,
+      execute: function () {
+        marcjson.addField($scope.struct, $scope.fieldToAdd.tag, dfn);
+        $scope.fieldToAdd = null;
+      },
+      abort: function () {
+        $scope.fieldToAdd = null;
+      }
+    };
+    $timeout(function () {
+      openPrompt($event, '#prompt-add-field');
+    });
+  }
+
+  $scope.subFieldToAdd = null;
+
+  $scope.promptAddSubField = function ($event, dfn, row, currentSubCode, index) {
+    $scope.subFieldToAdd = {
+      subfields: dfn.subfield,
+      code: currentSubCode,
+      execute: function () {
+        marcjson.addSubField(row, $scope.subFieldToAdd.code, index);
+        $scope.subFieldToAdd = null;
+      },
+      abort: function () {
+        $scope.subFieldToAdd = null;
+      }
+    };
+    $timeout(function () {
+      openPrompt($event, '#prompt-add-subfield');
+    });
+  }
+
+  $scope.removeField = function (index) {
+    this.fadeOut(function () { marcjson.removeField($scope.struct, index); });
+  };
+
+  $scope.addSubField = marcjson.addSubField;
+
+  $scope.removeSubField = function (index) {
+    this.fadeOut(function () { marcjson.removeSubField(index); });
+  };
+
+  // TODO:
+  //$scope.saveStruct = function () {
+  //  var repr = angular.toJson($scope.struct)
+  //  ajax-save
+  //}
+
+}
+
+
+// services.js
+
+// TODO: turn into promptService?
+function openPrompt($event, promptSelect) {
+  var tgt = $($event.target), off = tgt.offset(), width = tgt.width();
+  var prompt = $(promptSelect).css(
+      { top: off.top + 'px', left: off.left + width + 'px'})
+    prompt.find('select').focus();
+}
+
+
+// directives.js
 
 kitin.directive('keyEnter', function () {
   return function (scope, elm, attrs) {
@@ -27,16 +196,14 @@ kitin.directive('keyEsc', function () {
   }
 });
 
-// TODO: poor global state; can we put this in config for this directive?
-var fadableEnabled = false;
 
-kitin.directive('fadable', function() {
+kitin.directive('fadable', function(conf) {
   return function(scope, elm, attrs) {
     var duration = parseInt(attrs.fadable, 10);
-    if (fadableEnabled) {
+    if (conf.renderUpdates) {
       // TODO: adding this indicates that this is not a 'fadable', but a 'fieldbox'..
       elm.hide().fadeIn(duration, function () {
-        if (fadableEnabled)
+        if (conf.renderUpdates)
           elm.find('input, select').first().focus();
       });
       var body = $('body');
@@ -57,142 +224,6 @@ kitin.directive('fadable', function() {
     };
   };
 });
-
-
-// controllers.js
-
-function RecordCtrl($scope, $location, $http, $timeout) {
-  var resourceId = $location.path();
-
-  $http.get("/marcmap.json").success(function (map) {
-    $http.get("/overlay.json").success(function (overlay) {
-      $http.get(resourceId).success(function (struct) {
-        ready(map, overlay, struct);
-      });
-    });
-  });
-
-  function ready(map, overlay, struct) {
-    currentStruct = struct; // global object used for DEBUG:ging
-    map = map.bib;
-
-    marcjson.expandFixedFields(map, struct, true);
-
-    $scope.toggleFuture = function () {
-      if (!$scope.entities) {
-        fadableEnabled = false;
-        $scope.entities = marcjson.createEntityGroups(map, overlay, struct);
-      } else {
-        $scope.entities = null;
-      }
-    };
-
-    $scope.map = map;
-    $scope.struct = struct;
-
-    $scope.typeOf = function (o) {
-      return typeof o;
-    }
-
-    $scope.getKey = marcjson.getMapEntryKey;
-
-    $scope.indicatorType = function (tag, indKey, indEnum) {
-      var i = 0;
-      for (var k in indEnum) if (i++) break;
-      if (i === 1 &&
-          (indEnum['_'].id === 'undefined' ||
-            indEnum['_'].label_sv === 'odefinierad')) {
-        return 'hidden';
-      // TODO: hack before overlay field config is in place
-      //} else if (tag + indKey == '245ind1') {
-      //  return 'boolean';
-      //} else if (tag + indKey == '245ind2') {
-      //  return 'number';
-      } else if (indEnum) {
-        return 'select';
-      } else {
-        return 'plain';
-      }
-    }
-
-    $scope.widgetType = function (tag, row) {
-      if (tag === 'leader' || marcjson.fixedFieldParsers[tag]) {
-        return 'fixedfield';
-      } else if (typeof row === 'string') {
-        return 'raw';
-      } else {
-        return 'field';
-      }
-    }
-
-    $scope.fieldToAdd = null;
-
-    $scope.promptAddField = function ($event, dfn, currentTag) {
-      // TODO: set this once upon first rendering of view (listen to angular event)
-      fadableEnabled = true;
-      $scope.fieldToAdd = {
-        tag: currentTag,
-        execute: function () {
-          marcjson.addField(struct, $scope.fieldToAdd.tag, dfn);
-          $scope.fieldToAdd = null;
-        },
-        abort: function () {
-          $scope.fieldToAdd = null;
-        }
-      };
-      $timeout(function () {
-        openPrompt($event, '#prompt-add-field');
-      });
-    }
-
-    $scope.subFieldToAdd = null;
-
-    $scope.promptAddSubField = function ($event, dfn, row, currentSubCode, index) {
-      $scope.subFieldToAdd = {
-        subfields: dfn.subfield,
-        code: currentSubCode,
-        execute: function () {
-          marcjson.addSubField(row, $scope.subFieldToAdd.code, index);
-          $scope.subFieldToAdd = null;
-        },
-        abort: function () {
-          $scope.subFieldToAdd = null;
-        }
-      };
-      $timeout(function () {
-        openPrompt($event, '#prompt-add-subfield');
-      });
-    }
-
-    $scope.removeField = function (index) {
-      this.fadeOut(function () { marcjson.removeField(struct, index); });
-    };
-
-    $scope.addSubField = marcjson.addSubField;
-
-    $scope.removeSubField = function (index) {
-      this.fadeOut(function () { marcjson.removeSubField(index); });
-    };
-
-    // TODO:
-    //$scope.saveStruct = function () {
-    //  var repr = angular.toJson(struct)
-    //  ajax-save
-    //}
-  }
-
-}
-
-
-// services.js
-
-// TODO: turn into promptService?
-function openPrompt($event, promptSelect) {
-  var tgt = $($event.target), off = tgt.offset(), width = tgt.width();
-  var prompt = $(promptSelect).css(
-      { top: off.top + 'px', left: off.left + width + 'px'})
-    prompt.find('select').focus();
-}
 
 
 /* TODO: adapt to angular

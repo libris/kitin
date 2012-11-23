@@ -1,0 +1,114 @@
+{% raw %}
+
+  <div class="control-group leader compact">
+    <h3 class="field-label">000 -
+      {{ map['000'].label_sv }}<button type="button" class="btn btn-mini btn-link"
+        data-toggle="collapse" data-target="#hidden-control-fields">
+        <i class="icon-edit"></i></button>
+    </h3>
+    <div id="hidden-control-fields" class="collapse out">
+      <div data-ng-repeat="controlField in [struct.leader]"
+            data-ng-include="'render-control-field'"></div>
+    </div>
+    <div data-ng-repeat="fieldset in [struct.fields]"
+          data-ng-include="'render-fieldset'"></div>
+  </div>
+
+  <div id="prompt-add-field" data-ng-show="fieldToAdd" class="popover show">
+    <div class="popover-inner">
+      <h3 class="popover-title">Add field
+        <button class="close" data-ng-click="fieldToAdd.abort()">&times;</button></h3>
+    </div>
+    <div class="popover-content">
+      <select data-ng-options="tag as (tag + ': ' + dfn.label_sv) for (tag, dfn) in map"
+        size="1"
+        data-ng-model="fieldToAdd.tag"
+        data-key-enter="fieldToAdd.execute()"
+        data-key-esc="fieldToAdd.abort()" />
+      </select>
+    </div>
+  </div>
+
+  <div id="prompt-add-subfield" data-ng-show="subFieldToAdd" class="popover show">
+    <div class="popover-inner">
+      <h3 class="popover-title">Add subfield
+        <button class="close" data-ng-click="subFieldToAdd.abort()">&times;</button></h3>
+    </div>
+    <div class="popover-content">
+      <select data-ng-options="code as (code + ': ' + subDfn.label_sv)
+                                for (code, subDfn) in subFieldToAdd.subfields"
+        size="1"
+        data-ng-model="subFieldToAdd.code"
+        data-key-enter="subFieldToAdd.execute()"
+        data-key-esc="subFieldToAdd.abort()" />
+      </select>
+    </div>
+  </div>
+
+  <script type="text/ng-template" id="render-fieldset">
+    <div data-ng-repeat="field in fieldset"
+          data-ng-init="tag = getKey(field); row = field[tag]; dfn = map[tag]"
+          data-fadable="800">
+      <h3 class="field-label" data-ng-click="promptAddField($event, dfn, tag)"
+        title="{{ dfn.label_sv }}"
+        >{{ tag }}<span class="field-label-text"> - {{ dfn.label_sv }}</span></h3>
+      <button data-ng-show="!dfn || dfn.repeatable"
+        class="close pull-right pull-up"
+        data-ng-click="removeField($index)">&times;</button>
+      <div class="subfield-container" data-ng-switch="widgetType(tag, row)">
+          <div data-ng-switch-when="fixedfield"
+              data-ng-init="controlField = row"
+              data-ng-include="'render-control-field'"></div>
+          <div data-ng-switch-when="field"
+              data-ng-include="'render-field'"></div>
+          <input data-ng-switch-default
+              data-ng-model="field[tag]"/>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/ng-template" id="render-field">
+
+    <div class="indicators"
+        data-ng-show="indicatorType(dfn.ind1) != 'hidden' || indicatorType(dfn.ind2) != 'hidden'">
+      <div data-ng-repeat="indKey in ['ind1', 'ind2']"
+          data-ng-init="indEnum = dfn[indKey]; indType = indicatorType(tag, indKey, indEnum)"
+          class="indicator">
+        <label data-ng-show="indType != 'hidden'">{{ indKey }}</label>
+        <ng:switch on="indType">
+          <input data-ng-switch-when="hidden"
+              type="hidden" value="_"/>
+          <select data-ng-switch-when="select"
+            data-ng-options="key as (key + ') ' + val.label_sv) for (key, val) in indEnum"
+            data-ng-model="row[indKey]">
+          </select>
+          <input data-ng-switch-default
+              data-ng-model="row[indKey]"/>
+        </ng:switch>
+      </div>
+      <hr class="breaker" />
+    </div>
+
+    <ul data-ng-repeat="subfield in row.subfields">
+      <li data-ng-init="subCode = getKey(subfield); subDfn = dfn.subfield[subCode]"
+          class="add-on subfield-code input-append"
+          data-fadable="200">
+        <button class="close" data-ng-click="removeSubField(row, $index)">&times;</button>
+        <span class="add-on subfield-code"
+          data-ng-click="promptAddSubField($event, dfn, row, subCode, $index)"
+          title="{{ subDfn.label_sv }}">
+          {{ subCode }}){{ subDfn.mandatory && '*' || '' }}
+          <span class="subfield-label">{{ subDfn.label_sv }}</span>
+        </span><br class="breaker" />
+        <input type="text" class="input-xxlarge"
+            data-ng-model="subfield[subCode]" />
+        <button data-ng-show="!subDfn || subDfn.repeatable"
+          data-ng-click="addSubField(row, subCode, $index)"
+          class="btn btn-medium"
+          title="Add"><i class="icon-plus icon-white"></i></button>
+      </li>
+    </ul>
+
+  </script>
+
+{% endraw %}
