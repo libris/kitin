@@ -1,9 +1,21 @@
 {% extends "base.html" %}
 {% block content_class %}record{% endblock content_class %}
 {% block content %}
+
+
 <!--Body content-->
+<p></p>
+
+<div class="alert alert-block">
+<button type="button" class="close" data-dismiss="alert">×</button>
+<strong>Notera!</strong> Detta är en förhandspost. Vill du uppgradera posten?
+</div>
+
+
     <div class="page-header well">
     <h2><a href="#myModal" role="button" class="btn btn-primary pull-right" data-toggle="modal">Visa historik</a></h2>
+
+
 
 <ul class="unstyled">
 <li><span class="muted">Medietyp</span> Text:tryckt <span class="muted">bibliografisk nivå</span> Monografisk resurs <span class="muted">Fullständighetsnivå för katalogiseringen:</span> Nationalbibliografisk nivå | <span class="muted">Regler för deskriptiv katalogisering:</span> AACR2/KRS</li>
@@ -21,14 +33,16 @@
 	      <div class="modal-body">
 	  		<div class="well">
 	  		    <dl>
-	  		    <dt>Tidpunkt för senaste uppdatering</dt>
+	  		    <dt id="tag005">Tidpunkt för senaste uppdatering</dt>
 	  		    <dd>2012-20-12</dd>
 	  		    <dt>Datum för posten</dt>
-	  		    <dd>2012-20-12</dd>
+	  		    <dd id="tag008:00-05">2012-20-12</dd>
 	  		    <dt>Postatus</dt>
 	  		    <dd>Rättad eller reviderad post</dd>
-	  		    <dt>040A Institution som gjort den ursprungliga katalogiseringen</dt>
+	  		    <dt id="tag040:a">Institution som gjort den ursprungliga katalogiseringen</dt>
 	  		    <dd>S (Kungl. biblioteket)</dd>
+	  		    <dt id="tag008:39">Katalogiserande instans</dt>
+	  		    <dd>C - Kooperativt katalogiseringsprogram (samverkar med 040a och d)</dd>
 	  		    </dl>
 	  		</div>
 	      </div>
@@ -39,7 +53,12 @@
 	      </div>
 	  </div>
 
-
+ <form data-ng-submit="submit()" data-ng-controller="Ctrl">
+Enter text and hit enter:
+<input type="text" ng-model="text" name="text" />
+<input type="submit" id="submit" value="Submit" />
+<pre>list={{list}}</pre>
+</form>
 
 <button type="button" class="btn" data-toggle="collapse" data-target="#hidden-control-fields">
 Gömda fält
@@ -91,7 +110,9 @@ Gömda fält
       <div class="row-fluid">
 	    <div class="span12">
 		  <span class="help-block">Huvudtitel</span>
-		  <textarea id="textarea" class="input-xlarge title-text" rows="5" style="width: 780px; height: 64px;">Kongl. Sundhets-Collegii circulärbref till läkarne vid de i riket befintlige militärsjukhus, länslazaretter och kurhus, meddelande resultaterne af de, till följd af Collegii cirkulär-bref d. 2 dec. 1822 inkomne rapporter, rörande de vid nämnde inrättningar år 1824 vårdade med veneriska sjukdomar och saltfluss behäftade sjuke.</textarea>
+		  <p id="textarea" class="input-xlarge title-text" rows="5" style="width: 780px; height: 64px;" contenteditable="true">test</p>
+
+		  <textarea id="textarea" class="input-xlarge title-text" rows="5" style="width: 780px; height: 64px;">The grand concern of England explained; in several proposals offered to the consideration of the Parliament : 1. For payment of publick debts. 2. For advancement and encouragement of trade. 3. For raising the rents of lands. In order whereunto, it is proved necessary, I. That a stop be put to further buildings in and about London. II. That the gentry be obliged to live some part of the year in the countrey. III. That registers be setled in every county. IV. That an Act for naturalizing all foreign Protestants, and indulging them, and His Majesties subjects at home, in matters of conscience, may be passed. V. That the Act prohibiting the importation of Irish cattel, may be repealed. VI. That brandy, coffee. mum, tea, and chocolata, may be prohibited. VII. That the multitude of stage-coaches and caravans may be suppressed. VIII. That no leather may be exported un-manufactured. IX. That a court of conscience be setled for Westminster, and all the suburbs of London, and in every city and corporation in England. X. That the extravagant habits and expence of all persons may be curbed; the excessive wages of servants and handicrafts-men may be reduced, and all foreign manufactures may be prohibited. XI. That it may be lawful to assign bills, bonds, and other securities; and that a course be taken to prevent the knavery of bankrupts. XII. That the Newcastle-trade for coals may be managed by commissioners, to the ease of the subjects, and great advantage of the publick. XIII. That the fishing-trade may be vigorously prosecuted, all poor people set at work to make fishing-tackle, and be paid out of the money collected every year for the poor, in the several parishes in England / By a lover of his countrey, and well-wisher to the prosperity both of the King and kingdoms. </textarea>
   		 <!--  <input id="titel-245a" class="input-medium" type="text" value="Svenska slott och herrgårdar"> -->
 		</div>
 <!--
@@ -226,13 +247,13 @@ Gömda fält
 
 <label class="control-label" for="300a">Fysisk beskrivning</label>
 <div class="controls">
- <span class="help-block">a) Omfång, t ex antal sidor eller volymer</span>
-  <input id="300a" class="input-xlarge" type="text">
+ <span class="help-block">a) Omfång, </span>
+  <input id="300a" class="input-xlarge" type="text" placeholder="t ex antal sidor eller volymer">
 </div>
 
 <div class="controls">
- <span class="help-block" title="300b">Övriga fysiska detaljer ex. illustrationer</span>
-  <input id="300b" class="input-xlarge" type="text">
+ <span class="help-block" title="300b">Övriga fysiska detaljer </span>
+  <input id="300b" class="input-xlarge" type="text" placeholder="ex. illustrationer">
 </div>
 
 <label class="control-label" for="650a">Ämnesord sao </label>
