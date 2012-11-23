@@ -33,8 +33,8 @@
 <div class="row-fluid">
 	<div class="span3">
       {%  for f in facets %}
-      <div class="facetholder">L: {{ f.link }}<br>F: {{ f }}<br>Ls: {{ f.label_sv }}<br>        {% if f.values %}
-          <p class="muted">{{ f.label_sv }}</p>
+      <div class="facetholder"><!-- legend: L: {{ f.link }}<br>F: {{ f }}<br>Ls: {{ f.label_sv }}<br> -->       {% if f.values %}
+          <p class="muted">{% if f.label_sv %}{{ f.label_sv }}{% else %}{{ f.link }}{% endif %}</p>
           <ul class="unstyled">
           {%  for v in f.get('values', []) %}
               <li><a href="{{ f.link }}={{ v }}">{{ f['values'][v][1] }} ({{ f['values'][v][0] }})</a></li>
