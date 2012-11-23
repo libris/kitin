@@ -4,22 +4,53 @@
       <a class="bib-url" href="/edit/frbr/bib/{{ record.id }}">
       <article class="record">
 <!-- 	  <div class="pull-right muted">{% if record.catinst_a %}<span title="040A">{{ record.catinst_a }}{% else %}Importerad post{% endif %}</span></div> -->
-      <h3><span title="245A">{{ record.tit_a }}</span> <span class="title-remainder"><span title="245B">{{ record.tit_b }}</span><span title="245C"> {{ record.tit_c }}</span> <span title="245N">{{ record.tit_n }}</span> <span title="245P">{{ record.tit_p }}</span></span></h3>
+      <h3><span title="245A">{{ record.tit_a }}</span>
+      		<span class="title-remainder">
+      		  <span title="245B">{{ record.tit_b }}</span>
+      		  <span title="245C"> {{ record.tit_c }}</span>
+      		  <span title="245N">{{ record.tit_n }}</span>
+      		  <span title="245P">{{ record.tit_p }}</span>
+      		  </span></h3>
       <span class="un-urlified">
-      <h4><span class="author"><i class="icon-user"></i>{% if record.author %}<span title="100A">{{ record.author }}</span> <span title="100B">{{ record.author_numeration }}</span> {% if record.author_date %}<span title="100D">{{ record.author_date }}</span>, {% endif %} {{ record.author_association }}{% else %}N/A{% endif %}</span></h4>
-      <div><span class="publication">{{ record.publication }} {{ record.edition }} <span title="260C">{{ record.pubyear }}</span></span></div>
-      <div class="identifier">{% if record.isbn %}ISBN: <span title="020A">{{ record.isbn }}</span>{% elif record.issn %}ISSN: <span title="020A">{{ record.issn }}</span>{% endif %}</div>
+      <h4><span class="author"><i class="icon-user"></i>
+      {% if record.author %}
+      		<span title="100A">{{ record.author }}</span>
+      		<span title="100B"> {{ record.author_numeration }}</span>
+      		{% if record.author_date %} <span title="100D">{{ record.author_date }}</span>, 
+      		{% endif %} {{ record.author_association }}
+      {% else %}N/A
+      {% endif %}</span></h4>
+      <div><span class="publication">{{ record.publication }} {{ record.edition }} 
+      		<span title="260C">{{ record.pubyear }}</span>
+      		</span>
+      </div>
+      <div class="identifier">{{ record.024 }}
+      {% if record.isbn %}
+      	<span title="ISBN 020A">{{ record.isbn }}</span>
+      {% elif record.issn %}
+        <span title="ISSN 022A">{{ record.issn }}</span>
+      {% endif %}
+      {% if record.other_standard_id %}
+        <span title="{{ record.ind1 }} 024A">{{ record.other_standard_id }}</span>
+      {% endif %}
+      {% if record.publisher_number %}
+        <span title="{{ record.ind1 }} 028A">{{ record.publisher_number }} - <span title="028B">{{ record.publisher }}</span></span> 
+      {% endif %}
+      </div>
       <div class="row-fluid">
         <div class="span4"><!--Bibliografisk nivå--> {{ record.bibLevel }}</div>
         <div class="span3"><!--Medietyp--> {{ record.typeOfRecord }}</div>
         <div class="span5"><!--Fullständighetsnivå--> {{ record.encLevel }}</div>
       </div>
-      {%if record.link_tit %}<div><em>Ingår i:</em> {% if record.link_author %}{{ record.link_author }}: {% endif %}{{ record.link_tit }} ; {{ record.link_related }}</div>{% endif %}
+      {%if record.link_tit %}
+      <div><em>Ingår i:</em> 
+        {% if record.link_author %}{{ record.link_author }}: 
+        {% endif %}{{ record.link_tit }} ; {{ record.link_related }}
+      </div>
+      {% endif %}
 		</span>
       </article>
       </a>
   {% endfor %}
-
 </section>
-
 {% endif %}
