@@ -24,33 +24,35 @@
     </section>
   </div>
 </div>
-
+	  {% if search_results %}
+<div class="row-fluid">
+      <div class="span9 offset3">{{ data.hits }} träffar på <strong>{{ q }}</strong></div>
+</div>
+	 
 
 <div class="row-fluid">
 	<div class="span3">
-	  {% if search_results %}
       {%  for f in facets %}
       <div class="facetholder">L: {{ f.link }}<br>F: {{ f }}<br>Ls: {{ f.label_sv }}<br>        {% if f.values %}
+          <p class="muted">{{ f.label_sv }}</p>
+          <ul class="unstyled">
           {%  for v in f.get('values', []) %}
-          <a href="{{ f.link }}={{ v }}">
-              <br>{{ f['values'][v][1] }}({{ f['values'][v][0] }})<br>
-          </a>
+              <li><a href="{{ f.link }}={{ v }}">{{ f['values'][v][1] }} ({{ f['values'][v][0] }})</a></li>
           {% endfor %}
+          </ul>
         {% endif %}</div>
 
       {% endfor %}
-      <div class="facetholder">More merry facets placeholder<br>{{ facets }}</div>
     </div>
-    <div class="span9">
-      <div >{{ data.hits }} träffar på <strong>{{ q }}</strong></div>
 
+    <div class="span9">
     {% with records = search_results %}
       {% include "_record_list.html" %}
     {% endwith %}
 	{% else %}
     
     {% if q %}
-    <h2>Inga träffar, vill du skapa ny post?</h2>
+    <h2>Inga träffar</h2>
     {% endif %}
   {% endif %}
   </div>
