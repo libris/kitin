@@ -4,11 +4,13 @@
     <button type="button" class="btn btn-mini btn-link"
             data-toggle="collapse" data-target="#record-fields">
       <i class="icon-edit"></i></button>
-    <div id="record-fields" class="collapse out"
-          data-ng-repeat="fieldset in [entities.record]"
-          data-ng-include="'render-fieldset'"></div>
-    <article class="control-group">
-      <h2 id="verk">Verk</h2>
+    <article id="record-fields" class="collapse out">
+      <h2>Katalogkort</h2>
+      <section class="well" data-ng-repeat="fieldset in [entities.record]"
+          data-ng-include="'render-fieldset'"></section>
+    </article>
+    <article class="control-group" id="verk">
+      <h2>Verk</h2>
       <section data-ng-repeat="fieldset in [entities.work.cover, entities.work.contents, entities.work.classification]"
           data-ng-include="'render-fieldset'"></section>
     </article>
@@ -17,7 +19,7 @@
       <section data-ng-repeat="fieldset in [entities.expression]"
           data-ng-include="'render-fieldset'"></section>
     </article>
-    <article id="manifestationen">
+    <article id="manifestation">
       <h2>Manifestation</h2>
       <section data-ng-repeat="fieldset in [entities.manifestation]"
           data-ng-include="'render-fieldset'"></section>

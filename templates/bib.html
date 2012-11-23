@@ -7,21 +7,20 @@
     <li><a href="#manifestationen"> manifestationen</a></li>
   </ul>
   -->
-  <div class="btn-toolbar">
-    <div class="btn-group" data-ng-repeat="isFrbr in [editMode == 'frbr']">
+  <b class="add-on">Bibliografisk post:</b> {{rec_id}}
+  <span class="btn-toolbar">
+    <span class="btn-group" data-ng-repeat="isFrbr in [editMode == 'frbr']">
       <a ng-class="{'btn': isFrbr, 'btn active': !isFrbr}"
          href="/edit/marc/{{rec_type}}/{{rec_id}}">Marc </a>
       <a ng-class="{'btn': !isFrbr, 'btn active': isFrbr}"
          href="/edit/frbr/{{rec_type}}/{{rec_id}}">FRBR</a>
-    </div>
-  </div>
+    </span>
+  </span>
 {% endblock navbar_locals %}
 
 {% block content_class %}record{% endblock content_class %}
 
 {% block content %}
-  <h2>Bibliografisk post</h2>
-  <hr>
 
   <div id="litebox">
     <form id="record" class="form-horizontal" data-ng-view>
