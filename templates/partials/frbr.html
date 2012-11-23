@@ -28,56 +28,51 @@
 
   <script type="text/ng-template" id="render-fieldset">
     <div data-ng-repeat="field in fieldset"
-          data-ng-init="tag = getKey(field); row = field[tag]; dfn = map[tag]"
+          data-ng-init="row = field.getRow(); dfn = field.getTagDfn()"
           data-fadable="800">
       <div class="close pull-right" title="{{ dfn.label_sv }}">
-          {{ tag }}
+          {{ dfn.tag }}
           <button data-ng-show="!dfn || dfn.repeatable"
               data-ng-click="removeField($index)">&times;</button>
       </div>
-      <div class="subfield-container" data-ng-switch="widgetType(tag, row)">
+      <div class="subfield-container" data-ng-switch="widgetType(dfn.tag, row)">
           <div data-ng-switch-when="fixedfield"
               data-ng-init="controlField = row"
               data-ng-include="'render-control-field'"></div>
           <div data-ng-switch-when="field"
               data-ng-include="'render-field'"></div>
           <input data-ng-switch-default
-              data-ng-model="field[tag]"/>
+              data-ng-model="field[dfn.tag]"/>
       </div>
     </div>
   </script>
 
   <script type="text/ng-template" id="render-field">
 
-    <div
-        data-ng-show="indicatorType(dfn.ind1) != 'hidden' || indicatorType(dfn.ind2) != 'hidden'">
-      <div data-ng-repeat="indKey in ['ind1', 'ind2']"
-          data-ng-init="indEnum = dfn[indKey]; indType = indicatorType(tag, indKey, indEnum)"
-          class="indicator">
-        <ng:switch on="indType">
-          <span data-ng-switch-when="hidden"></span>
-          <span data-ng-switch-when="select">
-            <label data-ng-show="false">{{ indKey }}</label>
-            <select
-              data-ng-options="key as (key + ') ' + val.label_sv) for (key, val) in indEnum"
-              data-ng-model="row[indKey]">
-            </select>
-          </span>
-          <span data-ng-switch-when="boolean">
-            <label>
-              <input type="checkbox" data-ng-model="row[indKey]"/>
-              {{ indEnum['1'].label_sv }}</label>
-          </span>
-          <span data-ng-switch-when="number">
-            <label>{{ indEnum['0'].label_sv }}:
-              <input type="number" class="input-mini" data-ng-model="row[indKey]"/>
-            </label>
-          </span>
-          <span data-ng-switch-default>
-            <input data-ng-model="row[indKey]"/>
-          </span>
-        </ng:switch>
-      </div>
+    <div data-ng-repeat="ind in dfn.indicators" class="indicator">
+      <ng:switch on="ind.type">
+        <span data-ng-switch-when="hidden"></span>
+        <span data-ng-switch-when="select">
+          <label data-ng-show="false">{{ ind.key }}</label>
+          <select
+            data-ng-options="key as (key + ') ' + val.label_sv) for (key, val) in ind.enum"
+            data-ng-model="row[ind.key]">
+          </select>
+        </span>
+        <span data-ng-switch-when="boolean">
+          <label>
+            <input type="checkbox" data-ng-model="row[ind.key]"/>
+            {{ ind.enum['1'].label_sv }}</label>
+        </span>
+        <span data-ng-switch-when="number">
+          <label>{{ ind.enum['0'].label_sv }}:
+            <input type="number" class="input-mini" data-ng-model="row[ind.key]"/>
+          </label>
+        </span>
+        <span data-ng-switch-default>
+          <input data-ng-model="row[ind.key]"/>
+        </span>
+      </ng:switch>
     </div>
 
     <ul data-ng-repeat="subfield in row.subfields">
@@ -97,7 +92,7 @@
           title="{{ subDfn.label_sv }}">
           <span class="subfield-label" data-ng-bind="subDfn.label_sv">
           </span>{{ subDfn.mandatory && '*' || '' }}
-          ({{ tag }} {{ subCode }})
+          ({{ dfn.tag }} {{ subCode }})
         </span>
       </li>
     </ul>

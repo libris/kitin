@@ -15,19 +15,19 @@ var recordType = process.argv[3];
 var marcStructPath = process.argv[4];
 var op = process.argv[5];
 
-var marcmap = loadJson(marcMapPath)
+var marcmap = loadJson(marcMapPath), submap = marcmap
 if (recordType)
-  marcmap = marcmap[recordType];
+  submap = marcmap[recordType];
 var struct = loadJson(marcStructPath);
 
 var out;
 if (op === '-n') {
-  out = marcjson.rawToNamed(marcmap, struct);
+  out = marcjson.rawToNamed(submap, struct);
 } else if (op !== undefined) {
   var overlay = loadJson(op);
-  out = marcjson.createEntityGroups(marcmap, overlay, struct);
+  out = marcjson.createEntityGroups(submap, overlay, struct);
 } else {
-  marcjson.expandFixedFields(marcmap, struct);
+  marcjson.expandFixedFields(submap, struct);
   out = struct;
 }
 

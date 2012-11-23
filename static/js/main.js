@@ -47,24 +47,6 @@ function FrbrCtrl($rootScope, $scope, $routeParams, $http, conf) {
 
   $scope.typeOf = function (o) { return typeof o; }
   $scope.getKey = marcjson.getMapEntryKey;
-  $scope.indicatorType = function (tag, indKey, indEnum) {
-    var i = 0;
-    for (var k in indEnum) if (i++) break;
-    if (i === 1 &&
-        (indEnum['_'].id === 'undefined' ||
-          indEnum['_'].label_sv === 'odefinierad')) {
-      return 'hidden';
-    // TODO: hack before overlay field config is in place
-    } else if (tag + indKey == '245ind1') {
-      return 'boolean';
-    } else if (tag + indKey == '245ind2') {
-      return 'number';
-    } else if (indEnum) {
-      return 'select';
-    } else {
-      return 'plain';
-    }
-  };
   $scope.widgetType = marcjson.getWidgetType;
 
   var recType = $routeParams.recType,

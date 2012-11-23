@@ -197,42 +197,91 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
     var out = {};
     var index = {};
     exports.expandFixedFields(map, struct);
-    index['leader'] = [{leader: struct.leader}];
-    struct.fields.forEach(function (row) {
-      var tag = exports.getMapEntryKey(row);
+    map.leader = map['000'];
+    var leaderField = {leader: struct.leader};
+    decorateMarcField(map, overlay, 'leader', leaderField);
+    index['leader'] = [leaderField];
+    struct.fields.forEach(function (field) {
+      var tag = exports.getMapEntryKey(field);
+      decorateMarcField(map, overlay, tag, field);
       var tagged = index[tag];
       if (tagged === undefined) tagged = index[tag] = [];
-      tagged.push(row);
+      tagged.push(field);
     });
+
     for (entity in entities) {
-      var spec = entities[entity];
-      if (spec.forEach) {
+      var contents = entities[entity];
+      if (contents.forEach) {
         var fields = out[entity] = [];
-        specToFields(index, spec, fields);
+        specToFields(index, contents, fields);
       } else {
         var group = out[entity] = {};
-        for (groupKey in spec) {
+        for (groupKey in contents) {
           var fields = group[groupKey] = [];
-          specToFields(index, spec[groupKey], fields);
+          specToFields(index, contents[groupKey], fields);
         }
       }
     }
     return out;
   };
 
-  function specToFields(index, spec, fields) {
-    spec.forEach(function (path) {
+  function decorateMarcField(map, overlay, tag, field) {
+    // TODO: prepare map data: clone dfn once, extend with overlay
+    var dfn = map[tag];
+    dfn.tag = tag;
+    dfn.ind1Type = indicatorType(overlay, dfn, 'ind1');
+    dfn.ind2Type = indicatorType(overlay, dfn, 'ind2');
+    // TODO: only add if not hidden
+    if (this.ind1Type == 'hidden' && this.ind2Type == 'hidden')
+      dfn.indicators = [];
+    else
+      dfn.indicators = [
+        {key: 'ind1', type: dfn.ind1Type, enum: dfn.ind1},
+        {key: 'ind2', type: dfn.ind2Type, enum: dfn.ind2}
+      ];
+    field.getRow = function () { return this[tag]; };
+    field.getTagDfn = function () { return dfn; };
+  }
+
+  function indicatorType(overlay, dfn, indKey) {
+    var tag = dfn.tag;
+    var indEnum = dfn[indKey];
+    var i = 0;
+    for (var k in indEnum) if (i++) break;
+    var indOverlay = overlay.extend[tag];
+    // TODO: extract 'hidden' logic to creation of dfn.indicators list
+    if (i === 1 &&
+        (indEnum['_'].id === 'undefined' ||
+          indEnum['_'].label_sv === 'odefinierad')) {
+      return 'hidden';
+    } else if (indOverlay && indOverlay[indKey]) {
+      return indOverlay[indKey].type;
+    } else if (indEnum) {
+      return 'select';
+    } else {
+      return 'plain';
+    }
+  }
+
+  function specToFields(index, contents, fields) {
+    contents.forEach(function (path) {
       if (typeof path === 'string') {
-        var o = index[path];
-        if (o) fields.push.apply(fields, o);
+        var field = index[path];
+        if (field) {
+          fields.push.apply(fields, field);
+        }
       } else {
         for (var key in path) {
           var subkey = path[key];
           var holder = index[key];
           if (holder) {
-            var target = holder[0][key][subkey];
+            var sourceField = holder[0];
+            var target = sourceField[key][subkey];
             if (target) {
               var field = {}, sub = field[key] = {};
+              field.getTagDfn = sourceField.getTagDfn;
+              field.getRow = sourceField.getRow;
+              //decorateField(field);
               sub[subkey] = target;
               fields.push(field);
             }
