@@ -4,7 +4,9 @@
 
 {% block content %}
 
-<h2>Min Profil</h2>
+<h2>Min profil</h2>
+<div class="well">
+<p class="muted">(Alla inställningar är exempel)</p>
 <hr>
 
 <label for="username">Namn</label>
@@ -13,7 +15,7 @@
 <label for="login">E-postadress</label>
 <input id="login" type="text" placeholder="Login">
 
-<label for="sigel">Primärsigel</label>
+<label for="sigel">Default sigel</label>
 
 <select class="primary-sigel">
 <option>A</option>
@@ -22,13 +24,27 @@
 <option>SEK</option>
 </select>
 
-<label for="mode">Default visningsläge</label>
+
+<hr>
+<h2>Inställningar</h2>
+
+<label class="checkbox">
+<input type="checkbox" value="compactmode" checked="checked">
+Compact mode
+</label>
+<hr>
+<label for="mode">Visningsläge</label>
 <select class="mode">
-<option>Descriptive</option>
+<option>FRBR</option>
 <option>Marc 21</option>
 </select>
 
+<hr>
+
+
+
     <h3>Mina Länkar</h3>
+    <div>
           <ul class="nav nav-list">
     <li>
     <a href="#">LIBRIS formathandbok</a>
@@ -46,16 +62,9 @@
     <a href="#">ISBN-centralen</a>
     </li>
     </ul>
-    <form class="well">
-<label>Lägg till url</label>
-<input class="control" type="text" placeholder="URL">
+	</div>
 
-
-</label>
-<button class="btn" type="submit">Lägg till</button>
-</form>
-
-
+</div>
 
 
 {% endblock content %}
