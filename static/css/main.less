@@ -44,6 +44,13 @@ select {
 .subfield-container {
   padding-bottom: 5px;
 }
+.subfield-container:hover {
+  background-color: #fafafa;
+}
+
+
+
+
 
 .subfield-code {
   cursor:pointer;
@@ -153,7 +160,7 @@ article.record:hover {
 
 }
 
-.record > h3 {
+.record h3 {
   font-size: 20px;
   line-height: 24px;
   font-family: Georgia;
@@ -187,9 +194,54 @@ a.bib-url {
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
-/* --------------------WEBCAT FORM-------------------- */
+/* --------------------FRBR FORM-------------------- */
+
+
+/*VISIBLE HOVER STATES*/
+
+.tag {
+  visibility:hidden;
+  align: right;
+}
+.subfield-container:hover div.tag {
+ visibility:visible;
+}
+
+li.subfield-code .close {
+  visibility:hidden;
+  
+}
+
+li.subfield-code:hover .close {
+ visibility:visible;
+}
+
+li.subfield-code .tag-code {
+  visibility:hidden;
+  
+}
+
+li.subfield-code:hover .tag-code {
+ visibility:visible;
+}
+
+
+/*a div {
+    visibility:hidden;
+}
+
+a:hover div {
+    visibility:visible;
+}*/
+
+
+/* --------------------MARC21 FORM-------------------- */
+
+
+/* --------------------GENERAL CAT FORM-------------------- */
 
 /* Partitioned Future Mode */
+/* TODO: move classes that are separate in view*/
 
 article > article > h2 {
   color: white;
