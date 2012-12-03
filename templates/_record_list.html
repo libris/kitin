@@ -1,9 +1,10 @@
 {% if records %}
 <section>
   {% for record in records %}
-      <a class="bib-url" href="/edit/frbr/bib/{{ record.id }}">
-      <article class="record">
+      
+      <article class="record {{ record.id }}"><a class="bib-url" href="/edit/frbr/bib/{{ record.id }}">
 <!-- 	  <div class="pull-right muted">{% if record.catinst_a %}<span title="040A">{{ record.catinst_a }}{% else %}Importerad post{% endif %}</span></div> -->
+      <header>
       <h3><span title="245A">{{ record.tit_a }}</span>
       		<span class="title-remainder">
       		  <span title="245B">{{ record.tit_b }}</span>
@@ -11,7 +12,8 @@
       		  <span title="245N">{{ record.tit_n }}</span>
       		  <span title="245P">{{ record.tit_p }}</span>
       		  </span></h3>
-      <span class="un-urlified">
+      </header>
+      <span class="unstyled-url">
       <h4><span class="author"><i class="icon-user"></i>
       {% if record.author %}
       		<span title="100A">{{ record.author }}</span>
@@ -29,14 +31,14 @@
       		<span title="260C">{{ record.pubyear }}</span>
       		</span>
       </div>
-      <div class="identifier">{{ record.indone }}
+      <div class="identifier"><!-- {{ record.isb }} -->
         {% if record.isbn %}
         	<span title="ISBN 020A">{{ record.isbn }}</span>
         {% elif record.issn %}
           <span title="ISSN 022A">{{ record.issn }}</span>
         {% endif %}
         {% if record.other_standard_id %}
-          <span title="{{ record.ind1 }} 024A">{{ record.other_standard_id }}</span>
+          <span title="{{ record.other_standard_id.ind1 }} 024A">{{ record.other_standard_id }}</span>
         {% endif %}
         {% if record.publisher_number %}
           <span title="{{ record.ind1 }} 028A">{{ record.publisher_number }} - <span title="028B">{{ record.publisher }}</span></span> 
@@ -54,8 +56,8 @@
       </div>
       {% endif %}
 		</span>
-      </article>
-      </a>
+      </a> </article>
+     
   {% endfor %}
 </section>
 {% endif %}

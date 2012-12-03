@@ -49,7 +49,13 @@ select {
 }
 
 
+.true {
+  color: green;
+}
 
+.false {
+  color: red;
+}
 
 
 .subfield-code {
@@ -124,7 +130,9 @@ ul.unstyled, ol.unstyled {
 }
 
 /*RECORD LIST*/
+
 /*alot of temp styles until lessified*/
+
 .author {
   padding-right: 20px;
   font-weight: 400;
@@ -150,13 +158,12 @@ article.record {
   padding-top: 10px;
   padding-bottom: 10px;
   margin-bottom: 15px;
-
   border: solid 1px #efefef;
   font-size: 16px;
 }
 article.record:hover {
   background-color: white;
-  box-shadow: 0 0 2px #0088CC;
+  box-shadow: 0 0 2px #999;
 
 }
 
@@ -171,12 +178,18 @@ article.record:hover {
   line-height: 22px;
 }
 
-
 a.bib-url {
-  /*color: #333;  sets article record link color,disabled to use standard bootstrap*/
+ /* color: #333;  /sets article record link color,disabled to use standard bootstrap*/
   display: block;
   text-decoration: none;
 }
+
+
+.unstyled-url {
+  color: #333;
+}
+
+
 
 .record .identifier {
   padding-bottom: 5px;
@@ -206,6 +219,11 @@ a.bib-url {
 .subfield-container:hover div.tag {
  visibility:visible;
 }
+.subfield-container input:focus div.tag {
+ visibility:visible;
+}
+
+
 
 li.subfield-code .close {
   visibility:hidden;
