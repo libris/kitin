@@ -31,9 +31,10 @@
 
   <script type="text/ng-template" id="render-control-field">
     <div data-ng-repeat="(propRef, col) in controlField"
-        data-ng-init="propEnum = map.fixprops[propRef]"
+        data-ng-init="propEnum = map.fixprops[propRef]; colDfn = col.getDfn()"
         class="control-group fields">
-      <label class="control-label">{{ col.getDfn().label_sv }}</label>
+      <label class="control-label" title="{{ colDfn.offset }} + {{ colDfn.length }}"
+          >{{ colDfn.label_sv }}</label>
       <div class="controls" data-ng-switch="typeOf(propEnum)">
         <select data-ng-switch-when="object" class="span7"
           data-ng-options="key as val.label_sv for (key, val) in propEnum"
