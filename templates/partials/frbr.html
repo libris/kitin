@@ -80,8 +80,14 @@
           class="add-on subfield-code input-append"
           data-fadable="200">
         <button class="close" data-ng-click="removeSubField(row, $index)">&times;</button>
-        <input type="text" class="input-xxlarge"
-            data-ng-model="subfield[subCode]" />
+        <ng:switch on="subDfn.type">
+          <input data-ng-switch-when="autocomplete" type="text" class="input-xxlarge"
+                data-kitin-autocomplete="field"
+                data-kitin-config="subDfn"
+                data-ng-model="subfield[subCode]" />
+          <input data-ng-switch-default type="text" class="input-xxlarge"
+                data-ng-model="subfield[subCode]" />
+        </ng:switch>
         <button data-ng-show="!subDfn || subDfn.repeatable"
           data-ng-click="addSubField(row, subCode, $index)"
           class="btn btn-medium"
