@@ -67,43 +67,47 @@ def get_facet_labels(f_group, f_values):
     #group labels
     fparts = f_group.split('.')
     f_value_labels = {}
+    propref = ''
+    label_sv = ''
     if fparts[0] == "leader":
         propref = fparts[2]
         label_sv = _get_fixfield_label(propref, mm['000']['fixmaps'][0]['columns'])
-        f_value_labels = _get_value_label(f_values, propref, mm['fixprops'])
+        f_values = _get_value_label(f_values, propref, mm['fixprops'])
 
     elif fparts[0] == "fields":
         propref = fparts[3]
         if fparts[1].startswith('00'): #fixfield
             if fparts[3] == 'carrierType':
-                f_value_labels = _get_carrier_type(f_values, mm['007']['fixmaps'])
+                f_values = _get_carrier_type(f_values, mm['007']['fixmaps'])
                 propref = 'carrierType'
                 label_sv = u'B\u00e4rartyp'
             else:
                 label_sv = _get_fixfield_label(propref, mm[fparts[1]]['fixmaps'][0]['columns'])
-                f_value_labels = _get_value_label(f_values, propref, mm['fixprops'])
+                f_values = _get_value_label(f_values, propref, mm['fixprops'])
 
         else:
-                f_labels = {}
-                f_labels['link'] = f_group
-                f_labels['values'] = f_values
-                #print "and its values", f_values
-                return f_labels
+                f_values = dict([(value, [count]) for value, count in f_values.items()])
+                label_sv = _get_subfield_label(fparts[1], fparts[3], mm)
     else:
-        f_labels = {}
-        f_labels['link'] = f_group
-        f_labels['values'] = f_values
-        #print "and its values", f_values
-        return f_labels
+        f_values = dict([(value, [count]) for value, count in f_values.items()])
 
     f_labels = {}
     f_labels['propref'] = propref
     f_labels['label_sv'] = label_sv
     f_labels['link'] = f_group
-    f_labels['values'] = f_value_labels
-    #print "and its values", f_values
+    f_labels['values'] = f_values
     return f_labels
     #TODO, language codes
+
+def _get_subfield_label(tag, subfield, mm):
+    for sf, sfinfo in mm[tag]['subfield'].items():
+        if sf == subfield:
+            return sfinfo['label_sv']
+
+    return ""
+
+
+
 
 def _get_carrier_type(f_values, fixmaps):
     for fm in fixmaps:
@@ -136,6 +140,7 @@ def _get_fixfield_label(pr, columns):
 
 
 def _get_field_label(tagdict, fields):
+    print "fields"
     #extracting standard field label for get_record_summary
     record_info_dict = {}
 
@@ -164,7 +169,6 @@ def _get_control_field_label(control_list, mm, leader):
                 control_fields['%s_code' % pos] = val
                 control_fields[pos] = mm[pos][val].get('label_sv', val)
     return control_fields
-
 
 
 def get_record_summary(data):
