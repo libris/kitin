@@ -109,7 +109,8 @@ def _get_carrier_type(f_values, fixmaps):
     for fm in fixmaps:
         for code, count in f_values.items():
             if code in fm['matchKeys']:
-                label_sv = fm.get("label_sv", '').strip("&")
+                label_sv = fm.get("label_sv", '').strip("&").replace("&", '')
+                #TODO remove '&' from sv-labels in marcmap to avoid ugly strip-solution above
                 f_values[code] = [count, label_sv]
     return f_values
 
