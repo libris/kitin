@@ -26,7 +26,7 @@
 </div>
 	  {% if search_results %}
 <div class="row-fluid">
-      <div class="span9 offset3"><strong>{{ data.hits }}</strong> träffar på <strong>{{ q }}</strong></div>
+      <div class="span9 offset3"><span class="hit-counter"><strong>{{ data.hits }}</strong> träffar på <strong>{{ q }}</strong></span></div>
 </div>
 	 
 
@@ -34,7 +34,7 @@
 	<div class="span3">
       {%  for f in facets %}
       <div class="facetholder"> <!-- legend: L: {{ f.link }}<br>F: {{ f }}<br>Ls: {{ f.label_sv }}<br> -->       {% if f.values %}
-          <p class="muted">{% if f.label_sv %}{{ f.label_sv }}{% else %}{{ f.link }}{% endif %}</p>
+          <div class="facetgroup-header muted">{% if f.label_sv %}{{ f.label_sv }}{% else %}{{ f.link }}{% endif %}</div>
           <ul class="unstyled">
           {%  for v in f.get('values', []) %}
               <li><a title="{{ v }}" href="{{ f.link }}={{ v }}">{% if f['values'][v][1] %}{{ f['values'][v][1] }}{% else %}{{ v|capitalize }}{% endif %} <span class="muted">({{ f['values'][v][0] }})</span></a></li>
