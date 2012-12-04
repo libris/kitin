@@ -47,7 +47,6 @@ function FrbrCtrl($rootScope, $scope, $routeParams, $http, conf) {
 
   $scope.typeOf = function (o) { return typeof o; }
   $scope.getKey = marcjson.getMapEntryKey;
-  $scope.widgetType = marcjson.getWidgetType;
 
   var recType = $routeParams.recType,
     recId = $routeParams.recId,

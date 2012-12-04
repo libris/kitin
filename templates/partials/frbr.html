@@ -30,13 +30,12 @@
     <div data-ng-repeat="field in fieldset"
           data-ng-init="row = field.getRow(); dfn = field.getTagDfn()"
           data-fadable="800">
-
-      <div class="subfield-container" data-ng-switch="widgetType(dfn.tag, row)">
-      <div class="close pull-right tag" title="{{ dfn.label_sv }}">
-          {{ dfn.tag }} <br> <span class="label">lägg till</span> <span class="label">ta bort</span>
-          <button data-ng-show="!dfn || dfn.repeatable"
-              data-ng-click="removeField($index)">&times;</button> 
-      </div>
+      <div class="subfield-container" data-ng-switch="field.getWidgetType()">
+        <div class="close pull-right tag" title="{{ dfn.label_sv }}">
+            {{ dfn.tag }} <br> <span class="label">lägg till</span> <span class="label">ta bort</span>
+            <button data-ng-show="!dfn || dfn.repeatable"
+                data-ng-click="removeField($index)">&times;</button> 
+        </div>
           <div data-ng-switch-when="fixedfield"
               data-ng-init="controlField = row"
               data-ng-include="'render-control-field'"></div>

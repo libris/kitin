@@ -239,8 +239,16 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
         {key: 'ind1', type: dfn.ind1Type, enum: dfn.ind1},
         {key: 'ind2', type: dfn.ind2Type, enum: dfn.ind2}
       ];
+    // TODO: complete (add subCode to subDfn, preproc...)
+    //dfn.getSubDfn = function (subfield) {
+    //  subCode = exports.getMapEntryKey(subfield);
+    //  return this.subfield[subCode];
+    //};
     field.getRow = function () { return this[tag]; };
     field.getTagDfn = function () { return dfn; };
+    field.getWidgetType = function () {
+      return exports.getWidgetType(tag, this.getRow());
+    };
   }
 
   function indicatorType(overlay, dfn, indKey) {
@@ -278,9 +286,11 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
             var sourceField = holder[0];
             var target = sourceField[key][subkey];
             if (target) {
+              // TODO: preproc split fixed fields like in decorateMarcField
               var field = {}, sub = field[key] = {};
               field.getTagDfn = sourceField.getTagDfn;
               field.getRow = sourceField.getRow;
+              field.getWidgetType = sourceField.getWidgetType;
               //decorateField(field);
               sub[subkey] = target;
               fields.push(field);
