@@ -313,9 +313,15 @@ article > section {
 }
 
 /* border removal in both forms */
+/* TODO: Fix a more specific bootstrap override */
 
 li.subfield-code input, textarea {
   border: 0px solid;
+  padding-top: 0px;
+  padding-right: 5px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  margin: 0;
 /*OVERRIDE ORIGINAL  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;  */
   -webkit-box-shadow: inset 0 0 0 0 rgba(0, 0, 0, 0);
      -moz-box-shadow: inset 0 0 0 0 rgba(0, 0, 0, 0);
@@ -324,6 +330,46 @@ li.subfield-code input, textarea {
      -moz-transition: 0;
        -o-transition: 0;
           transition: 0;
+}
+
+.add-on .subfield-code {
+    line-height: 11px;
+    padding-top: 2px;
+    padding-left: 3px;
+    height: 11px;
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+  border-color: #999;
+  outline: 1px;
+  outline: thin dotted \9;
+  /* IE6-9 */
+
+  -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.5), 0 0 0 rgba(82, 168, 236, 0.6);
+     -moz-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.5), 0 0 0 rgba(82, 168, 236, 0.6);
+          box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.5), 0 0 0 rgba(82, 168, 236, 0.6);
+
+}
+
+
+
+span .subfield-label, .tag-code {
+  font-size: 11px;
 }
 
 .record .leader,
