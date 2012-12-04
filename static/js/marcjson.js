@@ -229,8 +229,20 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
     // TODO: prepare map data: clone dfn once, extend with overlay
     var dfn = map[tag];
     dfn.tag = tag;
-    dfn.ind1Type = indicatorType(overlay, dfn, 'ind1');
-    dfn.ind2Type = indicatorType(overlay, dfn, 'ind2');
+    var tagExt = overlay.extend[tag];
+    for (var extKey in tagExt) {
+      var extVal = tagExt[extKey];
+      if (dfn.subfield) {
+        var subfield = dfn.subfield[extKey];
+        if (subfield) {
+          for (var subKey in extVal) {
+            subfield[subKey] = extVal[subKey];
+          }
+        }
+      }
+    }
+    dfn.ind1Type = indicatorType(tagExt, dfn, 'ind1');
+    dfn.ind2Type = indicatorType(tagExt, dfn, 'ind2');
     // TODO: only add if not hidden
     if (this.ind1Type == 'hidden' && this.ind2Type == 'hidden')
       dfn.indicators = [];
@@ -251,19 +263,18 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
     };
   }
 
-  function indicatorType(overlay, dfn, indKey) {
+  function indicatorType(tagExt, dfn, indKey) {
     var tag = dfn.tag;
     var indEnum = dfn[indKey];
     var i = 0;
     for (var k in indEnum) if (i++) break;
-    var indOverlay = overlay.extend[tag];
     // TODO: extract 'hidden' logic to creation of dfn.indicators list
     if (i === 1 &&
         (indEnum['_'].id === 'undefined' ||
           indEnum['_'].label_sv === 'odefinierad')) {
       return 'hidden';
-    } else if (indOverlay && indOverlay[indKey]) {
-      return indOverlay[indKey].type;
+    } else if (tagExt && tagExt[indKey]) {
+      return tagExt[indKey].type;
     } else if (indEnum) {
       return 'select';
     } else {
@@ -288,6 +299,7 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
             if (target) {
               // TODO: preproc split fixed fields like in decorateMarcField
               var field = {}, sub = field[key] = {};
+              // copy decorated sourceField methods manually..
               field.getTagDfn = sourceField.getTagDfn;
               field.getRow = sourceField.getRow;
               field.getWidgetType = sourceField.getWidgetType;
