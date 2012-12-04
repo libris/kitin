@@ -142,13 +142,14 @@ ul.unstyled, ol.unstyled {
 
 
 .author .icon-user {
-  margin-top: 4px;
-  margin-right: 5px;
+  padding-top: 4px;
+  padding-right: 5px;
 
 }
 
 .title-remainder {
   font-weight: 300;
+  text-decoration: none;
 }
 
 article.record {
@@ -163,9 +164,10 @@ article.record {
 }
 article.record:hover {
   background-color: white;
-  box-shadow: 0 0 2px #999;
+  box-shadow: inset 0 0 3px 1px #ccc;
 
 }
+
 
 .record h3 {
   font-size: 20px;
@@ -189,7 +191,10 @@ a.bib-url {
   color: #333;
 }
 
-
+.hit-counter {
+  display: block;
+  margin-top: 15px;
+}
 
 .record .identifier {
   padding-bottom: 5px;
@@ -207,40 +212,46 @@ a.bib-url {
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
+.facetgroup-header {
+  margin-bottom: 3px;
+}
+
 /* --------------------FRBR FORM-------------------- */
 
 
 /*VISIBLE HOVER STATES*/
 
 .tag {
-  visibility:hidden;
+  opacity: 0.075;
   align: right;
+  transition: opacity 0.5s;
 }
 .subfield-container:hover div.tag {
- visibility:visible;
+ opacity: 1;
 }
 .subfield-container input:focus div.tag {
- visibility:visible;
+ opacity: 1;
 }
 
 
 
 li.subfield-code .close {
-  visibility:hidden;
-  
+  opacity: 0;
+  transition: opacity 0.5s;
 }
 
 li.subfield-code:hover .close {
- visibility:visible;
+ opacity: 1;
 }
 
 li.subfield-code .tag-code {
-  visibility:hidden;
-  
+  opacity: 0;
+  transition: opacity 0.5s;  
+transition-timing-function: linear;
 }
 
 li.subfield-code:hover .tag-code {
- visibility:visible;
+ opacity: 1;
 }
 
 
@@ -251,6 +262,9 @@ li.subfield-code:hover .tag-code {
 a:hover div {
     visibility:visible;
 }*/
+
+
+
 
 
 /* --------------------MARC21 FORM-------------------- */
@@ -270,6 +284,13 @@ article > section {
   margin: 0 0 1.5em;
 }
 
+/* border removal in both forms */
+li.subfield-code input {
+  border: 0px solid;
+/*OVERRIDE ORIGINAL  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;  */
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) inset;
+  transition: 0;
+}
 
 .record .leader,
 .record .control_field,
