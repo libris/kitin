@@ -230,14 +230,15 @@ kitin.directive('kitinAutocomplete', function() {
 
         beforeUseConverter: function (repr) { return repr; },
 
-        processData: function (results) {
-          if (!results) {
+        processData: function (doc) {
+          if (!doc|| !doc.list) {
             console.log("Found no results!"); // TODO: notify no match?
             return [];
           }
-          return results.map(function (item) {
-            var value = getValueForFieldAndSubfield(item, tag);
-            return {value: value, data: item};
+          return doc.list.map(function (item) {
+            var data = item.data;
+            var value = getValueForFieldAndSubfield(data, tag);
+            return {value: value, data: data};
           });
         },
 
@@ -247,8 +248,13 @@ kitin.directive('kitinAutocomplete', function() {
 
         onItemSelect: function(item, completer) {
           var selected = item.data[tag];
+          // TODO: should also clear (or remove?) other subfields
           for (var subKey in selected) {
             var newValue = selected[subKey];
+            if (subKey.slice(0, 3) === 'ind') {
+              row[subKey] = newValue;
+              continue;
+            }
             for (var l=row.subfields, subfield=null, i=0; subfield=l[i++];)
               if (subfield[subKey])
                 break;
@@ -268,9 +274,9 @@ kitin.directive('kitinAutocomplete', function() {
 
 
 
-function getValueForFieldAndSubfield(item, fieldKey, subKey) {
+function getValueForFieldAndSubfield(data, fieldKey, subKey) {
   subKey = subKey || 'a';
-  var field = item[fieldKey];
+  var field = data[fieldKey];
   return field[subKey];
 }
 
