@@ -84,11 +84,14 @@
           <input data-ng-switch-when="autocomplete" type="text" class="input-xxlarge"
                 data-kitin-autocomplete="field"
                 data-kitin-config="subDfn"
+                placeholder="+ {{ subDfn.label_sv }}"
                 data-ng-model="subfield[subCode]" />
           <textarea data-ng-switch-when="heading" type="text"
-                class="input-xxlarge heading" rows="2"
+                class="input-xxlarge heading" rows="1"
+                placeholder="+ {{ subDfn.label_sv }}"
                 data-ng-model="subfield[subCode]"></textarea>
           <input data-ng-switch-default type="text" class="input-xxlarge"
+                placeholder="+ {{ subDfn.label_sv }}"
                 data-ng-model="subfield[subCode]" />
         </ng:switch>
         <button data-ng-show="!subDfn || subDfn.repeatable"
@@ -97,8 +100,9 @@
           title="Add"><i class="icon-plus icon-white"></i></button>
         <br class="breaker" />
         <span class="add-on subfield-code"
-          data-ng-click="promptAddSubField($event, dfn, row, subCode, $index)"
-          title="{{ subDfn.label_sv }}">
+          data-ng-class="{'empty': !(subfield[subCode])}"
+          title="{{ subDfn.label_sv }}"
+          data-ng-click="promptAddSubField($event, dfn, row, subCode, $index)">
           <span class="subfield-label" data-ng-bind="subDfn.label_sv">
           </span>{{ subDfn.mandatory && '*' || '' }}
          <span class="tag-code"> ({{ dfn.tag }} {{ subCode }})</span>
