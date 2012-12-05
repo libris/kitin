@@ -20,9 +20,9 @@
       		  </span></h3>
      </span>
       </header>
+      {% if record.author %}
       <span class="unstyled-url">
       <h4><span class="author"><i class="icon-user"></i>
-      {% if record.author %}
       		<span title="100A">{{ record.author }}</span>
       		<span title="100B"> {{ record.author_numeration }}</span>
       		{% if record.author_date %} 
@@ -32,8 +32,8 @@
       		<span title="100E">{{ record.author_e }}</span>
       		<span title="100Q">{{ record.author_q }}</span>
       		<span title="100C">{{ record.author_association }}</span>
-      {% else %}N/A
-      {% endif %}</span></h4>
+      </span></h4>
+      {% endif %}
       <div><span class="publication" title"250A">{{ record.edition }} 
       		<span title="260C">{{ record.pubyear }}</span>
       		</span>
