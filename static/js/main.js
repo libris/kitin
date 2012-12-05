@@ -37,10 +37,22 @@ kitin.factory('conf', function ($http, $q) {
   };
 });
 
+kitin.factory('records', function ($http, $q) {
+  return {
+    get: function (type, id) {
+      var path = "/record/" + type + "/" + id;
+      var record = $q.defer();
+      $http.get(path).success(function (struct) {
+        record.resolve(struct);
+      });
+      return record.promise;
+    }
+  };
+});
 
 // controllers.js
 
-function FrbrCtrl($rootScope, $scope, $routeParams, $http, conf) {
+function FrbrCtrl($rootScope, $scope, $routeParams, conf, records) {
 
   conf.renderUpdates = false;
   $rootScope.editMode = 'frbr';
@@ -48,13 +60,11 @@ function FrbrCtrl($rootScope, $scope, $routeParams, $http, conf) {
   $scope.typeOf = function (o) { return typeof o; }
   $scope.getKey = marcjson.getMapEntryKey;
 
-  var recType = $routeParams.recType,
-    recId = $routeParams.recId,
-    resourceId = "/record/" + recType + "/" + recId;
+  var recType = $routeParams.recType, recId = $routeParams.recId;
 
   conf.marcmap.then(function (map) {
     conf.overlay.then(function (overlay) {
-      $http.get(resourceId).success(function (struct) {
+      records.get(recType, recId).then(function (struct) {
         map = map[recType];
         $scope.entities = marcjson.createEntityGroups(map, overlay, struct);
         $scope.map = map;
@@ -65,7 +75,7 @@ function FrbrCtrl($rootScope, $scope, $routeParams, $http, conf) {
 }
 
 
-function MarcCtrl($rootScope, $scope, $routeParams, $http, conf, $timeout) {
+function MarcCtrl($rootScope, $scope, $routeParams, conf, records, $timeout) {
 
   conf.renderUpdates = false;
   $rootScope.editMode = 'marc';
@@ -75,12 +85,10 @@ function MarcCtrl($rootScope, $scope, $routeParams, $http, conf, $timeout) {
   $scope.indicatorType = marcjson.getIndicatorType;
   $scope.widgetType = marcjson.getWidgetType;
 
-  var recType = $routeParams.recType,
-    recId = $routeParams.recId,
-    resourceId = "/record/" + recType + "/" + recId;
+  var recType = $routeParams.recType, recId = $routeParams.recId;
 
   conf.marcmap.then(function (map) {
-    $http.get(resourceId).success(function (struct) {
+      records.get(recType, recId).then(function (struct) {
       map = map[recType];
       marcjson.expandFixedFields(map, struct, true);
       $scope.map = map;
