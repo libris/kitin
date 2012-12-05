@@ -319,8 +319,8 @@ li.subfield-code input, textarea {
   border: 0px solid;
   padding-top: 0px;
   padding-right: 5px;
-  padding-bottom: 1px;
-  padding-left: 5px;
+  padding-bottom: 0px;
+  padding-left: 2px;
   margin: 0;
 /*OVERRIDE ORIGINAL  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;  */
   -webkit-box-shadow: inset 0 0 0 0 rgba(0, 0, 0, 0);
@@ -332,12 +332,23 @@ li.subfield-code input, textarea {
           transition: 0;
 }
 
-.add-on .subfield-code {
-    line-height: 11px;
-    padding-top: 2px;
-    padding-left: 3px;
-    height: 11px;
+.indicator select {
+  font-size: 11px;
+  height: auto;
 }
+
+.add-on .subfield-code {
+  line-height: 9px;
+  margin-top: -1px;
+  padding-top: 2px;
+  padding-left: 3px;
+  height: 11px;
+}
+
+span .subfield-label, .tag-code {
+  font-size: 9px;
+}
+
 
 textarea:focus,
 input[type="text"]:focus,
@@ -367,10 +378,6 @@ input[type="color"]:focus,
 }
 
 
-
-span .subfield-label, .tag-code {
-  font-size: 11px;
-}
 
 .record .leader,
 .record .control_field,
