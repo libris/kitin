@@ -54,6 +54,8 @@ def search():
     return render_template('search.html', **vars())
 
 def get_facet_labels(f_group, f_values):
+    #TODO: alla facetterna ska ha samma struktur, även årtal och speciale
+
     #print "f_group", f_group
     #extracting group label: 
     #if leader: get_leader_info
@@ -89,13 +91,23 @@ def get_facet_labels(f_group, f_values):
                 f_values = dict([(value, [count]) for value, count in f_values.items()])
                 label_sv = _get_subfield_label(fparts[1], fparts[3], mm)
     else:
-        f_values = dict([(value, [count]) for value, count in f_values.items()])
+        f_values = dict([(value, [count, value]) for value, count in f_values.items()])
+
+    print "propref", propref
+    if not propref == "yearTime1":
+        a = sorted(f_values.items(), key=lambda x: x[1][0], reverse=True)
+
+    else:
+        a = sorted(f_values.items(), key=lambda x: x[0], reverse=True)
+    print "\nTHIS IS a", a
+    print "DICT f_values", f_values
 
     f_labels = {}
     f_labels['propref'] = propref
     f_labels['label_sv'] = label_sv
     f_labels['link'] = f_group
-    f_labels['values'] = f_values
+    f_labels['f_values'] = a#f_values
+    #print "these are the values: ", f_values
     return f_labels
     #TODO, language codes
 
@@ -125,7 +137,7 @@ def _get_value_label(f_values, propref, fp):
             value_label = fp[propref][code]['label_sv']
             f_values[code] = [count, value_label]
         else:
-            f_values[code] = [count]
+            f_values[code] = [count, code]
 
     return f_values
 
@@ -136,11 +148,11 @@ def _get_fixfield_label(pr, columns):
     for column in columns:
         if column['propRef'] == pr:
             label_sv = column.get('label_sv', pr)
+            label_sv = label_sv.strip(" (1)")
     return label_sv
 
 
 def _get_field_label(tagdict, fields):
-    print "fields"
     #extracting standard field label for get_record_summary
     record_info_dict = {}
 

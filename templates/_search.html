@@ -31,19 +31,21 @@
 	 
 
 <div class="row-fluid">
-	<div class="span3">
+    <div class="span3">
+
       {%  for f in facets %}
-      <div class="facetholder"> <!-- legend: L: {{ f.link }}<br>F: {{ f }}<br>Ls: {{ f.label_sv }}<br> -->       {% if f.values %}
+
+      <div class="facetholder"> <!-- legend: L: {{ f.link }}<br>F: {{ f }}<br>Ls: {{ f.label_sv }}<br> -->       {% if f.f_values %}
           <div class="facetgroup-header muted">{% if f.label_sv %}{{ f.label_sv }}{% else %}{{ f.link }}{% endif %}</div>
           <ul class="unstyled">
-          {%  for v in f.get('values', []) %}
-              <li><a title="{{ v }}" href="{{ f.link }}={{ v }}">{% if f['values'][v][1] %}{{ f['values'][v][1] }}{% else %}{{ v|capitalize }}{% endif %} <span class="muted">({{ f['values'][v][0] }})</span></a></li>
+          {%  for v in f.f_values %}
+          <li><a title="{{ v }}" href="addFacet?{{ f.link }}={{ v[0] }}">{{ v[1][1] }}<span class="muted"> ({{ v[1][0] }})</span></a></li>
           {% endfor %}
           </ul>
         {% endif %}</div>
       {% endfor %}
     </div>
-
+    <!-- here -->
     <div class="span9">
     {% with records = search_results %}
       {% include "_record_list.html" %}
