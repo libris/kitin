@@ -34,15 +34,16 @@
     <div class="span3">
 
       {%  for f in facets %}
-
-      <div class="facetholder"> <!-- legend: L: {{ f.link }}<br>F: {{ f }}<br>Ls: {{ f.label_sv }}<br> -->       {% if f.f_values %}
+		{% if f.f_values %}
+        <div class="facetholder"> <!-- legend: L: {{ f.link }}<br>F: {{ f }}<br>Ls: {{ f.label_sv }}<br> -->       
           <div class="facetgroup-header muted">{% if f.label_sv %}{{ f.label_sv }}{% else %}{{ f.link }}{% endif %}</div>
           <ul class="unstyled">
           {%  for v in f.f_values %}
           <li><a title="{{ v }}" href="?q={{ q }} {{ f.link }}:{{ v[0] }}">{{ v[1][1] }}<span class="muted"> ({{ v[1][0] }})</span></a></li>
           {% endfor %}
           </ul>
-        {% endif %}</div>
+        </div>
+        {% endif %}
       {% endfor %}
     </div>
     <!-- here -->
@@ -53,7 +54,7 @@
 	{% else %}
     
     {% if q %}
-    <h2>Inga träffar</h2>
+    <span<h2>Inga träffar</h2>
     {% endif %}
   {% endif %}
   </div>

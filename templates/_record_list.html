@@ -9,7 +9,6 @@
         <div class="span5 nopad-record-head muted"><!--Fullständighetsnivå--> {{ record.encLevel }}</div>
       </div>
       <a class="bib-url" href="/edit/frbr/bib/{{ record.id }}">
-<!-- 	  <div class="pull-right muted">{% if record.catinst_a %}<span title="040A">{{ record.catinst_a }}{% else %}Importerad post{% endif %}</span></div> -->
       <header>
       <h3><span class="title-clickable">
       <span title="245A">{{ record.tit_a }}</span>
@@ -60,7 +59,6 @@
       {% endif %}
 		</span>
       </a> </article>
-     
   {% endfor %}
 </section>
 {% endif %}
