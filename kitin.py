@@ -50,20 +50,10 @@ def search():
         data = json.loads(resp.text)
         search_results = [get_record_summary(item['data']) for item in data['list']]
         facets = [get_facet_labels(f_group, f_values) for f_group, f_values in data['facets'].items()]
-        #print "this is some stuff", type(facets)
     return render_template('search.html', **vars())
 
 def get_facet_labels(f_group, f_values):
-    #TODO: alla facetterna ska ha samma struktur, även årtal och speciale
 
-    #print "f_group", f_group
-    #extracting group label: 
-    #if leader: get_leader_info
-    #if fixfield
-    #if other: get_field_info (rebuild)
-
-    #extract code label from marcmap-fixprops
-    #extracting labels for facets given for search result
     mm = json.loads(open(app.config['MARC_MAP']).read())['bib']
 
     #group labels
@@ -71,10 +61,15 @@ def get_facet_labels(f_group, f_values):
     f_value_labels = {}
     propref = ''
     label_sv = ''
+
+    #value labels
     if fparts[0] == "leader":
         propref = fparts[2]
         label_sv = _get_fixfield_label(propref, mm['000']['fixmaps'][0]['columns'])
         f_values = _get_value_label(f_values, propref, mm['fixprops'])
+    elif fparts[0] == "custom":
+        propref = fparts[1]
+        label_sv, f_values = _get_custom_label(f_values, propref)
 
     elif fparts[0] == "fields":
         propref = fparts[3]
@@ -93,23 +88,37 @@ def get_facet_labels(f_group, f_values):
     else:
         f_values = dict([(value, [count, value]) for value, count in f_values.items()])
 
-    print "propref", propref
     if not propref == "yearTime1":
         a = sorted(f_values.items(), key=lambda x: x[1][0], reverse=True)
 
     else:
         a = sorted(f_values.items(), key=lambda x: x[0], reverse=True)
-    print "\nTHIS IS a", a
-    print "DICT f_values", f_values
 
     f_labels = {}
     f_labels['propref'] = propref
     f_labels['label_sv'] = label_sv
     f_labels['link'] = f_group
     f_labels['f_values'] = a#f_values
-    #print "these are the values: ", f_values
     return f_labels
-    #TODO, language codes
+
+
+def _get_custom_label(f_values, propref):
+    #TODO: sync with backend
+    specialdict = {"book": "Bok",
+                    "audiobook": "Ljudbok",
+                    "ebook": "E-bok",
+                    "serial": "Tryckt tidskrift",
+                    "eserial": "E-tidskrift",
+                    "bookSerial": "Bok-/tidskriftstyp"
+        }
+    for code, count in f_values.items():
+        if specialdict.get(code, None):
+            f_values[code] = [count, specialdict[code]]
+        else:
+            f_values[code] = [count, code]
+    label_sv = specialdict.get(propref, propref)
+    return (label_sv, f_values)
+
 
 def _get_subfield_label(tag, subfield, mm):
     for sf, sfinfo in mm[tag]['subfield'].items():
@@ -137,6 +146,8 @@ def _get_value_label(f_values, propref, fp):
             value_label = fp[propref][code]['label_sv']
             f_values[code] = [count, value_label]
         else:
+            if code in ['audiobook']:
+                f_value[code] = [count, "Ljudbok"]
             f_values[code] = [count, code]
 
     return f_values
@@ -164,9 +175,15 @@ def _get_field_label(tagdict, fields):
 
             if 'ind1' in tagdict[tag].keys():
                 ind1 = fields[tag][0]['ind1']
+                if ind1.strip():
+                    ind1 == '_'
                 record_info_dict['%s_ind1_code' % tag] = ind1
-                label_sv = json.loads(open(app.config['MARC_MAP']).read())['bib'][tag]['ind1'][ind1]['label_sv']
-                record_info_dict['%s_ind1' % tag] = label_sv
+                print "TEST: get_field_label: %s, _%s_"% (tag, ind1)
+                ind1_info = json.loads(open(app.config['MARC_MAP']).read())['bib'][tag]['ind1'].get(ind1, None)
+                if ind1_info:
+                    label_sv = ind1_info.get("label_sv", ind1) 
+                    record_info_dict['%s_ind1' % tag] = label_sv
+
 
             for s in fields[tag][0]['subfields']:
                 if s.keys()[0] in tagdict[tag].keys():
