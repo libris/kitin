@@ -9,5 +9,6 @@ wsgifile.write("import sys\n")
 wsgifile.write("sys.path.insert(0, '%s')\n" % os.getcwd())
 wsgifile.write("from kitin import app as application\n")
 wsgifile.write("application.config['MARC_MAP'] = '%s/marcmap.json' # Default value\n" % os.getcwd())
+wsgifile.write("application.config['MARC_OVERLAY'] = '%s/marcmap-overlay.json' # Default value\n" % os.getcwd())
 wsgifile.close()
 

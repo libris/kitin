@@ -193,32 +193,32 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
 
 
   exports.createEntityGroups = function (map, overlay, struct) {
-    var entities = overlay.entities;
+    var entitySpec = overlay.entities;
     var out = {};
-    var index = {};
+    var structFields = {};
     exports.expandFixedFields(map, struct);
     map.leader = map['000'];
     var leaderField = {leader: struct.leader};
     decorateMarcField(map, overlay, 'leader', leaderField);
-    index['leader'] = [leaderField];
+    structFields['leader'] = [leaderField];
     struct.fields.forEach(function (field) {
       var tag = exports.getMapEntryKey(field);
       decorateMarcField(map, overlay, tag, field);
-      var tagged = index[tag];
-      if (tagged === undefined) tagged = index[tag] = [];
+      var tagged = structFields[tag];
+      if (tagged === undefined) tagged = structFields[tag] = [];
       tagged.push(field);
     });
 
-    for (entity in entities) {
-      var contents = entities[entity];
-      if (contents.forEach) {
-        var fields = out[entity] = [];
-        specToFields(index, contents, fields);
+    for (entity in entitySpec) {
+      var groupSpec = entitySpec[entity];
+      if (groupSpec.forEach) {
+        var targetGroup = out[entity] = [];
+        addFieldsBySpec(structFields, groupSpec, targetGroup);
       } else {
         var group = out[entity] = {};
-        for (groupKey in contents) {
-          var fields = group[groupKey] = [];
-          specToFields(index, contents[groupKey], fields);
+        for (groupKey in groupSpec) {
+          var targetGroup = group[groupKey] = [];
+          addFieldsBySpec(structFields, groupSpec[groupKey], targetGroup);
         }
       }
     }
@@ -282,17 +282,18 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
     }
   }
 
-  function specToFields(index, contents, fields) {
-    contents.forEach(function (path) {
+  function addFieldsBySpec(structFields, groupSpec, targetGroup) {
+    groupSpec.forEach(function (path) {
       if (typeof path === 'string') {
-        var field = index[path];
-        if (field) {
-          fields.push.apply(fields, field);
+        var fieldSet = structFields[path];
+        if (fieldSet) {
+          // call apply to use fields as varargs
+          Array.prototype.push.apply(targetGroup, fieldSet);
         }
       } else {
         for (var key in path) {
           var subkey = path[key];
-          var holder = index[key];
+          var holder = structFields[key];
           if (holder) {
             var sourceField = holder[0];
             var target = sourceField[key][subkey];
@@ -305,7 +306,7 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
               field.getWidgetType = sourceField.getWidgetType;
               //decorateField(field);
               sub[subkey] = target;
-              fields.push(field);
+              targetGroup.push(field);
             }
           }
         }
