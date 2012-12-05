@@ -38,14 +38,25 @@ kitin.factory('conf', function ($http, $q) {
 });
 
 kitin.factory('records', function ($http, $q) {
+  // TODO: use proper angularjs http cache?
+  var currentPath, currentRecord;
+  function loadPromise(path) {
+    var record = $q.defer();
+    $http.get(path).success(function (struct) {
+      currentPath = path;
+      currentRecord = struct;
+      record.resolve(struct);
+    });
+    return record.promise;
+  }
   return {
     get: function (type, id) {
       var path = "/record/" + type + "/" + id;
-      var record = $q.defer();
-      $http.get(path).success(function (struct) {
-        record.resolve(struct);
-      });
-      return record.promise;
+      if (currentPath === path && currentRecord) {
+        return {then: function (callback) { callback(currentRecord); }};
+      } else {
+        return loadPromise(path);
+      }
     }
   };
 });
