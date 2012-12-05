@@ -157,7 +157,7 @@ article.record {
   padding-left: 15px;
   padding-right: 15px;
   padding-top: 10px;
-  /*padding-bottom: 10px;*/
+  padding-bottom: 5px;
   /*margin-bottom: 15px;*/
   border: solid 1px #efefef;
   font-size: 16px;
@@ -178,6 +178,7 @@ article.record:hover {
 .record h4 {
   font-size: 18px;
   line-height: 22px;
+  margin-top: -5px;
 }
 
 a.bib-url {
@@ -187,7 +188,7 @@ a.bib-url {
 }
 
 .title-clickable {
-  color: #0088CC; 
+  color: #0088CC;
 }
 
 .title-clickable:hover {
@@ -195,6 +196,19 @@ a.bib-url {
   text-decoration: underline;
 }
 
+hr {
+ margin: 8px 0;
+}
+
+.nopad-record-head {
+  padding: 0;
+  margin: 0;
+  min-height: 0;
+  margin-bottom: -8px;
+  margin-top: 1px;
+  padding-top: 0px;
+  font-size: 14px;
+}
 
 .unstyled-url {
   color: #333;
@@ -216,13 +230,14 @@ a.bib-url {
   padding-left: 15px;
   padding-right: 15px;
   padding-top: 10px;
-  padding-bottom: 10px;
-  margin-bottom: 15px;
+  padding-bottom: 5px;
+  margin-bottom: 2px;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
 .facetgroup-header {
   margin-bottom: 3px;
+  padding-top: 3px;
 }
 
 /* --------------------FRBR FORM-------------------- */
