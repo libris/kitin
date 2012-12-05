@@ -360,6 +360,24 @@ li.subfield-code input, textarea {
   height: 11px;
 }
 
+/* TODO: ues LESS; also :-ms-input-placeholder, moz changing to pseudo-element  */
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  color: #a99;
+}
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+  color: #a99;
+}
+input:focus::-webkit-input-placeholder,
+textarea:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+input:focus:-moz-placeholder,
+textarea:focus:-moz-placeholder {
+  color: transparent;
+}
+
 .subfield-code.empty {
  visibility: hidden;
 }
