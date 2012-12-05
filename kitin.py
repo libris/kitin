@@ -146,9 +146,12 @@ def _get_fixfield_label(pr, columns):
     #extracting the label of the leader position
     label_sv = pr
     for column in columns:
-        if column['propRef'] == pr:
-            label_sv = column.get('label_sv', pr)
-            label_sv = label_sv.strip(" (1)")
+        try:
+            if column['propRef'] == pr:
+                label_sv = column.get('label_sv', pr)
+                label_sv = label_sv.strip(" (1)")
+        except Exception as e:
+            print "propRef fail: ", e
     return label_sv
 
 
