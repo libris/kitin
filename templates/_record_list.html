@@ -2,7 +2,13 @@
 <section>
   {% for record in records %}
       
-      <article class="record {{ record.id }}"><a class="bib-url" href="/edit/frbr/bib/{{ record.id }}">
+      <article class="record {{ record.id }}">
+      <div class="row-fluid nopad-record-head">
+        <div class="span4 nopad-record-head muted"><!--Bibliografisk nivå-->{{ record.bibLevel }} </div>
+        <div class="span3 nopad-record-head muted"><!--Medietyp--> {{ record.typeOfRecord }}</div>
+        <div class="span5 nopad-record-head muted"><!--Fullständighetsnivå--> {{ record.encLevel }}</div>
+      </div>
+      <a class="bib-url" href="/edit/frbr/bib/{{ record.id }}">
 <!-- 	  <div class="pull-right muted">{% if record.catinst_a %}<span title="040A">{{ record.catinst_a }}{% else %}Importerad post{% endif %}</span></div> -->
       <header>
       <h3><span class="title-clickable">
@@ -46,12 +52,7 @@
           <span title="{{ record.ind1 }} 028A">{{ record.publisher_number }} - <span title="028B">{{ record.publisher }}</span></span> 
         {% endif %}
       </div>
-      <div class="row-fluid">
-        <div class="span4"><!--Bibliografisk nivå--> {{ record.bibLevel }}</div>
-        <div class="span3"><!--Medietyp--> {{ record.typeOfRecord }}</div>
-        <div class="span5"><!--Fullständighetsnivå--> {{ record.encLevel }}</div>
-      </div>
-      {% if record.link_tit %}
+       {% if record.link_tit %}
       <div><em>Ingår i:</em> 
         {% if record.link_author %}{{ record.link_author }}: 
         {% endif %}{{ record.link_tit }} ; {{ record.link_related }}
