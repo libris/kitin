@@ -181,9 +181,18 @@ article.record:hover {
 }
 
 a.bib-url {
- /* color: #333;  /sets article record link color,disabled to use standard bootstrap*/
+  color: #0088CC;
   display: block;
   text-decoration: none;
+}
+
+.title-clickable {
+  color: #0088CC; 
+}
+
+.title-clickable:hover {
+  color: #005580;
+  text-decoration: underline;
 }
 
 
@@ -221,10 +230,20 @@ a.bib-url {
 
 /*VISIBLE HOVER STATES*/
 
+textarea.heading {
+  font-size: 20px;
+  line-height: 24px;
+  font-family: Georgia;
+  
+}
+
 .tag {
   opacity: 0.075;
   align: right;
-  transition: opacity 0.5s;
+  -webkit-transition: opacity 0.5s;
+     -moz-transition: opacity 0.5s;
+       -o-transition: opacity 0.5s; 
+          transition: opacity 0.5s;  
 }
 .subfield-container:hover div.tag {
  opacity: 1;
@@ -233,11 +252,20 @@ a.bib-url {
  opacity: 1;
 }
 
-
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+     -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+       -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+          transition: border linear 0.2s, box-shadow linear 0.2s;
 
 li.subfield-code .close {
   opacity: 0;
-  transition: opacity 0.5s;
+  -webkit-transition: opacity 0.5s;
+     -moz-transition: opacity 0.5s;
+       -o-transition: opacity 0.5s; 
+          transition: opacity 0.5s; 
 }
 
 li.subfield-code:hover .close {
@@ -246,8 +274,11 @@ li.subfield-code:hover .close {
 
 li.subfield-code .tag-code {
   opacity: 0;
-  transition: opacity 0.5s;  
-transition-timing-function: linear;
+  -webkit-transition: opacity 0.5s;
+     -moz-transition: opacity 0.5s;
+       -o-transition: opacity 0.5s; 
+          transition: opacity 0.5s; 
+          transition-timing-function: linear;
 }
 
 li.subfield-code:hover .tag-code {
@@ -282,11 +313,63 @@ article > section {
 }
 
 /* border removal in both forms */
-li.subfield-code input {
+/* TODO: Fix a more specific bootstrap override */
+
+li.subfield-code input, textarea {
   border: 0px solid;
+  padding-top: 0px;
+  padding-right: 5px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  margin: 0;
 /*OVERRIDE ORIGINAL  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;  */
-  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) inset;
-  transition: 0;
+  -webkit-box-shadow: inset 0 0 0 0 rgba(0, 0, 0, 0);
+     -moz-box-shadow: inset 0 0 0 0 rgba(0, 0, 0, 0);
+          box-shadow: inset 0 0 0 0 rgba(0, 0, 0, 0);
+  -webkit-transition: 0;
+     -moz-transition: 0;
+       -o-transition: 0;
+          transition: 0;
+}
+
+.add-on .subfield-code {
+    line-height: 11px;
+    padding-top: 2px;
+    padding-left: 3px;
+    height: 11px;
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+  border-color: #999;
+  outline: 1px;
+  outline: thin dotted \9;
+  /* IE6-9 */
+
+  -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.5), 0 0 0 rgba(82, 168, 236, 0.6);
+     -moz-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.5), 0 0 0 rgba(82, 168, 236, 0.6);
+          box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.5), 0 0 0 rgba(82, 168, 236, 0.6);
+
+}
+
+
+
+span .subfield-label, .tag-code {
+  font-size: 11px;
 }
 
 .record .leader,

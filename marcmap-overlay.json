@@ -43,15 +43,19 @@
     "650": {"equivalentProperty": "dc:subject"},
     "740": {"detail": true, "equivalentProperty": "skos:hiddenLabel"},
 
+    "100": {"a": {"type": "autocomplete", "service": "auth"}},
+    "600": {"a": {"type": "autocomplete", "service": "auth"}},
+    "700": {"a": {"type": "autocomplete", "service": "auth"}},
+
     "245": {
       "ind1": {"type": "boolean"},
       "ind2": {"type": "number"},
-      "title": {"primaryValue": true, "selfExplanatory": true, "size": "big"},
-      "title": {"primaryValue": true, "selfExplanatory": true, "size": "big"},
+      "a": {"type": "heading"},
       "statementOfResponsibilityEtc": {"comment_sv": "Första namnet i 245.c sameValueAs 100.a. Övriga i 245.c till varsin 700.a (om relevanta)."}
     },
     "710": {},
     "505": {},
+    "440": {"moreModernSubfieldsIn": "490"},
     "041": {"languageCodeOfTextSoundTrackOrSeparateTitle": {"sameValueAs": ["240.uniformTitle"], "equivalentProperty": "el:titleOfTheWork"}},
 
     "260": {},

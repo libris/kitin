@@ -5,13 +5,15 @@
       <article class="record {{ record.id }}"><a class="bib-url" href="/edit/frbr/bib/{{ record.id }}">
 <!-- 	  <div class="pull-right muted">{% if record.catinst_a %}<span title="040A">{{ record.catinst_a }}{% else %}Importerad post{% endif %}</span></div> -->
       <header>
-      <h3><span title="245A">{{ record.tit_a }}</span>
+      <h3><span class="title-clickable">
+      <span title="245A">{{ record.tit_a }}</span>
       		<span class="title-remainder">
       		  <span title="245B">{{ record.tit_b }}</span>
       		  <span title="245C"> {{ record.tit_c }}</span>
       		  <span title="245N">{{ record.tit_n }}</span>
       		  <span title="245P">{{ record.tit_p }}</span>
       		  </span></h3>
+     </span>
       </header>
       <span class="unstyled-url">
       <h4><span class="author"><i class="icon-user"></i>

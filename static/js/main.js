@@ -47,7 +47,6 @@ function FrbrCtrl($rootScope, $scope, $routeParams, $http, conf) {
 
   $scope.typeOf = function (o) { return typeof o; }
   $scope.getKey = marcjson.getMapEntryKey;
-  $scope.widgetType = marcjson.getWidgetType;
 
   var recType = $routeParams.recType,
     recId = $routeParams.recId,
@@ -207,10 +206,83 @@ kitin.directive('fadable', function(conf) {
   };
 });
 
+kitin.directive('kitinAutocomplete', function() {
+  return {
+    restrict: 'A',
+    //scope: {
+    //  kitinAutocomplete: '=',
+    //  kitinService: '='
+    //},
+    link: function(scope, elem, attrs) {
+      var field = scope[attrs.kitinAutocomplete];
+      var service = scope[attrs.kitinConfig].service;
+      // TODO: always from 100 for auth?
+      var tag = service == 'auth'? '100': field.getTagDfn().tag;
+      var row = field.getRow();
+
+      elem.autocomplete("/suggest/" + service, {
+
+        inputClass: null,
+        remoteDataType: 'json',
+        autoWidth: null,
+        filterResults: false,
+        useCache: false,
+
+        beforeUseConverter: function (repr) { return repr; },
+
+        processData: function (doc) {
+          if (!doc|| !doc.list) {
+            console.log("Found no results!"); // TODO: notify no match?
+            return [];
+          }
+          return doc.list.map(function (item) {
+            var data = item.data;
+            var value = getValueForFieldAndSubfield(data, tag);
+            return {value: value, data: data};
+          });
+        },
+
+        showResult: function (value, data) {
+          return '<p><b>' + value + '</b><em>' + JSON.stringify(data) + '</em></p>';
+        },
+
+        onItemSelect: function(item, completer) {
+          var selected = item.data[tag];
+          // TODO: should also clear (or remove?) other subfields
+          for (var subKey in selected) {
+            var newValue = selected[subKey];
+            if (subKey.slice(0, 3) === 'ind') {
+              row[subKey] = newValue;
+              continue;
+            }
+            for (var l=row.subfields, subfield=null, i=0; subfield=l[i++];)
+              if (subfield[subKey])
+                break;
+            if (subfield) {
+              subfield[subKey] = newValue;
+            }
+          }
+          if (!scope.$$phase) {
+              scope.$apply();
+          }
+        }
+
+      });
+    }
+  };
+});
+
+
+
+function getValueForFieldAndSubfield(data, fieldKey, subKey) {
+  subKey = subKey || 'a';
+  var field = data[fieldKey];
+  return field[subKey];
+}
+
 
 /* TODO: adapt to angular
 
-view.setupBibAutocomplete();
 view.setupGlobalKeyBindings();
 view.setupKeyBindings();
 
@@ -250,52 +322,6 @@ var view = {
           success: function() { displaySuccessAlert("Sparade framgångsrikt " + model.id); }
         });
     });
-  },
-
-  setupBibAutocomplete: function () {
-    var view = this;
-    var suggestUrl = "/suggest/auth";
-    this.$('.marc-100 input.subfield-a'
-      + ', .marc-600 input.subfield-a'
-      + ', .marc-700 input.subfield-a').autocomplete(suggestUrl, {
-
-        remoteDataType: 'json',
-        autoWidth: null,
-        filterResults: false,
-        useCache: false,
-
-        beforeUseConverter: function (repr) {
-          // TODO: get sibling fields and narrow selection(?)
-          return repr;
-        },
-
-        processData: function (results) {
-          if (!results) {
-            console.log("Found no results!"); // TODO: notify no match?
-            return [];
-          }
-          return results.map(function (item) {
-            var value = view.getValueForFieldAndSubfield(item, '100');
-            return {value: value, data: item};
-          });
-        },
-
-        showResult: function (value, data) {
-          return view.bibAutocompleteTemplate({value: value, data: data});
-        },
-
-        onItemSelect: function(item, completer) {
-          var subfieldD = $('.subfield-d', completer.dom.$elem.parent().siblings());
-          subfieldD.val(item.data['100']['d']).trigger('update');
-        }
-
-    });
-  },
-
-  getValueForFieldAndSubfield: function (item, fieldKey, subKey) {
-    subKey = subKey || 'a';
-    var field = item[fieldKey];
-    return field[subKey];
   },
 
   setupKeyBindings: function () {
