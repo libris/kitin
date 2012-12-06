@@ -14,7 +14,7 @@
       <span title="245A">{{ record.tit_a }}</span>
       		<span class="title-remainder">
       		  <span title="245B">{{ record.tit_b }}</span>
-      		  <span title="245C"> {{ record.tit_c }}</span>
+      		  {% if record.tit_c %}/ <span title="245C"> {{ record.tit_c }}</span>{% endif %}
       		  <span title="245N">{{ record.tit_n }}</span>
       		  <span title="245P">{{ record.tit_p }}</span>
       		  </span></h3>
