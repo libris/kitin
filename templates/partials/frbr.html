@@ -31,10 +31,10 @@
           data-ng-init="row = field.getRow(); dfn = field.getTagDfn()"
           data-fadable="800">
       <div class="subfield-container" data-ng-switch="field.getWidgetType()">
-        <div class="close pull-right tag" title="{{ dfn.label_sv }}">
-            {{ dfn.tag }} <br> <span class="label">lägg till</span> <span class="label">ta bort</span>
-            <button data-ng-show="!dfn || dfn.repeatable"
-                data-ng-click="removeField($index)">&times;</button> 
+        <div class="close pull-right tag" title="{{ dfn.label_sv }} ({{ dfn.tag }})">
+            {{ dfn.label_sv }} <!--({{ dfn.tag }})--> <br> <btn class="btn btn-link">lägg till grupp</button>
+            <!--<button data-ng-show="!dfn || dfn.repeatable"
+                data-ng-click="removeField($index)">&times;</button> -->
         </div>
           <div data-ng-switch-when="fixedfield"
               data-ng-init="controlField = row"
@@ -79,7 +79,7 @@
       <li data-ng-init="subCode = getKey(subfield); subDfn = dfn.subfield[subCode]"
           class="add-on subfield-code input-append"
           data-fadable="200">
-        <button class="close" data-ng-click="removeSubField(row, $index)">&times;</button>
+        <!--No Close button for now… <button class="close" data-ng-click="removeSubField(row, $index)">&times;</button>-->
         <ng:switch on="subDfn.type">
           <input data-ng-switch-when="autocomplete" type="text" class="input-xxlarge"
                 data-kitin-autocomplete="field"
@@ -94,10 +94,7 @@
                 placeholder="+{{ subDfn.label_sv }}"
                 data-ng-model="subfield[subCode]" />
         </ng:switch>
-        <button data-ng-show="!subDfn || subDfn.repeatable"
-          data-ng-click="addSubField(row, subCode, $index)"
-          class="btn btn-medium"
-          title="Add"><i class="icon-plus icon-white"></i></button>
+
         <br class="breaker" />
         <span class="add-on subfield-code"
           data-ng-class="{'empty': !(subfield[subCode])}"
@@ -105,7 +102,12 @@
           data-ng-click="promptAddSubField($event, dfn, row, subCode, $index)">
           <span class="subfield-label" data-ng-bind="subDfn.label_sv">
           </span>{{ subDfn.mandatory && '*' || '' }}
-         <span class="tag-code"> ({{ dfn.tag }} {{ subCode }})</span>
+         <span class="tag-code"> ({{ dfn.tag }} {{ subCode }})
+        <button data-ng-show="!subDfn || subDfn.repeatable"
+          data-ng-click="addSubField(row, subCode, $index)"
+          class="btn btn-link add-subfield"
+          title="Add">lägg till delfält</button>         
+         </span>
         </span>
       </li>
     </ul>

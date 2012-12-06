@@ -330,7 +330,7 @@ article > section {
 /* border removal in both forms */
 /* TODO: Fix a more specific bootstrap override */
 
-li.subfield-code input, textarea {
+li.subfield-code input, .frbr-input, textarea {
   border: 0px solid;
   padding-top: 0px;
   padding-right: 5px;
@@ -350,6 +350,21 @@ li.subfield-code input, textarea {
 .indicator select {
   font-size: 11px;
   height: auto;
+}
+
+.add-subfield {
+  margin:0;
+  border-radius: 0 0 0 0;
+  padding:0;
+  padding-left:25px;
+  line-height: 11px;
+  font-size: 12px;
+}
+
+
+
+.add-on {
+ background-color: transparent;
 }
 
 .add-on .subfield-code {
@@ -572,7 +587,7 @@ form#fields .add-on {
 form#record .add-on {
   border: 0;
   color: #888;
-  background: #fff;
+  background-color: transparent;
   /*   vertical-align: bottom; */
 }
 
