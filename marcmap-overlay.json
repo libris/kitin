@@ -58,7 +58,6 @@
     "440": {"moreModernSubfieldsIn": "490"},
     "041": {"languageCodeOfTextSoundTrackOrSeparateTitle": {"sameValueAs": ["240.uniformTitle"], "equivalentProperty": "el:titleOfTheWork"}},
 
-    "260": {},
     "300": {"flatten": true, "inGroup": "physicalDescriptionEtc"},
     "007": {
       "mapColor": {},
@@ -70,7 +69,8 @@
     },
     "034": {"flatten": true},
     "255": {"flatten": true},
-    "260": {"flatten": true, "a": {"entity": "Region", "property": "label"}},
+    "260": {"flatten": true, "a": {"entity": "Region", "property": "label"},
+            "defaultCodes": ["a", "b", "c", "e"]},
     "538": {"subfieldAsValue": true},
     "500": {"subfieldAsValue": true}
 
