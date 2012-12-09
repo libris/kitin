@@ -79,25 +79,15 @@
   "entities": {
     "record": {
       "main": [
-        {"leader": "typeOfRecord"},
-        {"leader": "bibLevel"},
-        {"leader": "characterCoding"},
-        {"leader": "encLevel"},
-        {"008": "catalogingSource"},
+        {"leader": ["typeOfRecord", "bibLevel", "encLevel", "catForm"]},
+        {"008": ["catalogingSource"]},
         "040"
       ],
       "hidden": [
-        {"leader": "status"},
-        {"leader": "typeOfControl"},
-        {"leader": "catForm"},
-        {"leader": "linked"},
-        {"leader": "entryMap"},
+        {"leader": ["status", "typeOfControl", "characterCoding", "linked", "entryMap"]},
         "001",
         "005",
-        {"008": "_col_0_6"},
-        {"008": "publicationStatus"},
-        {"008": "booksItem"},
-        {"008": "modifiedRecord"},
+        {"008": ["_col_0_6", "publicationStatus", "booksItem", "modifiedRecord"]},
         "035",
         "599"
       ]
@@ -105,23 +95,17 @@
     "work": {
       "cover": ["245", "100", "700"],
       "contents": [
-        {"008": "booksLiteraryForm"},
-        {"008": "booksContents"},
-        {"008": "booksConfPub"},
-        {"008": "booksFestschrift"},
-        {"008": "booksBiography"},
-        {"008": "booksAudience"},
-        {"008": "booksGovtPub"}
+        {"008": ["booksLiteraryForm", "booksContents", "booksConfPub", "booksFestschrift", "booksBiography", "booksAudience", "booksGovtPub"]}
       ],
       "classification": ["042", "084", "600", "650", "082", "050", "043", "976"],
       "hidden": []
     },
     "expression": {
-      "main": ["028", {"008": "language"}, {"008": "booksIllustrations"}, {"008": "booksIndex"}, "505", "520"],
+      "main": ["028", {"008": ["language", "booksIllustrations"]}, {"008": ["booksIndex"]}, "505", "520"],
       "hidden": []
     },
     "manifestation": {
-      "main": ["020", "260", {"008": "yearTime1"}, {"008": "country"}, "500", "300", "..."],
+      "main": ["020", "260", {"008": ["yearTime1", "country"]}, "500", "300", "..."],
       "hidden": []
     },
     "other": {
