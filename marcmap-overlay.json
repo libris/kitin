@@ -77,27 +77,31 @@
   },
 
   "entities": {
-    "record": [
-      {"leader": "status"},
-      {"leader": "typeOfRecord"},
-      {"leader": "bibLevel"},
-      {"leader": "typeOfControl"},
-      {"leader": "characterCoding"},
-      {"leader": "encLevel"},
-      {"leader": "catForm"},
-      {"leader": "linked"},
-      {"leader": "entryMap"},
-      "001",
-      "005",
-      {"008": "_col_0_6"},
-      {"008": "publicationStatus"},
-      {"008": "booksItem"},
-      {"008": "modifiedRecord"},
-      {"008": "catalogingSource"},
-      "035",
-      "040",
-      "599"
-    ],
+    "record": {
+      "main": [
+        {"leader": "typeOfRecord"},
+        {"leader": "bibLevel"},
+        {"leader": "characterCoding"},
+        {"leader": "encLevel"},
+        {"008": "catalogingSource"},
+        "040"
+      ],
+      "hidden": [
+        {"leader": "status"},
+        {"leader": "typeOfControl"},
+        {"leader": "catForm"},
+        {"leader": "linked"},
+        {"leader": "entryMap"},
+        "001",
+        "005",
+        {"008": "_col_0_6"},
+        {"008": "publicationStatus"},
+        {"008": "booksItem"},
+        {"008": "modifiedRecord"},
+        "035",
+        "599"
+      ]
+    },
     "work": {
       "cover": ["245", "100", "700"],
       "contents": [
@@ -109,12 +113,20 @@
         {"008": "booksAudience"},
         {"008": "booksGovtPub"}
       ],
-      "classification": ["042", "084", "600", "650", "082", "050", "043", "976"]
+      "classification": ["042", "084", "600", "650", "082", "050", "043", "976"],
+      "hidden": []
     },
-    "expression": ["028", {"008": "language"}, {"008": "booksIllustrations"}, {"008": "booksIndex"}, "505", "520"],
-    "manifestation": [
-      "020", "260", {"008": "yearTime1"}, {"008": "country"}, "500", "300", "..."
-    ]
+    "expression": {
+      "main": ["028", {"008": "language"}, {"008": "booksIllustrations"}, {"008": "booksIndex"}, "505", "520"],
+      "hidden": []
+    },
+    "manifestation": {
+      "main": ["020", "260", {"008": "yearTime1"}, {"008": "country"}, "500", "300", "..."],
+      "hidden": []
+    },
+    "other": {
+      "main": []
+    }
   },
 
   "groups": {

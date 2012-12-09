@@ -211,15 +211,10 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
 
     for (entity in entitySpec) {
       var groupSpec = entitySpec[entity];
-      if (groupSpec.forEach) {
-        var targetGroup = out[entity] = [];
-        addFieldsBySpec(structFields, groupSpec, targetGroup);
-      } else {
-        var group = out[entity] = {};
-        for (groupKey in groupSpec) {
-          var targetGroup = group[groupKey] = [];
-          addFieldsBySpec(structFields, groupSpec[groupKey], targetGroup);
-        }
+      var group = out[entity] = {};
+      for (groupKey in groupSpec) {
+        var targetGroup = group[groupKey] = [];
+        addFieldsBySpec(structFields, groupSpec[groupKey], targetGroup);
       }
     }
     return out;
