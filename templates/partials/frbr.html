@@ -1,6 +1,6 @@
 {% raw %}
 
-  <article class="well" id="entities">
+  <article class="well bib" id="entities">
 
     <article class="well">
       <h2>Katalogkort</h2>
@@ -15,30 +15,37 @@
     </article>
 
     <article class="control-group" id="verk">
-      <h2>Verk</h2>
+      <h2>VERK</h2>
       <section data-ng-repeat="fieldset in [entities.work.cover, entities.work.contents, entities.work.classification]"
           data-ng-include="'render-fieldset'"></section>
     </article>
     <article>
-      <h2>Uttryck</h2>
+      <h2>UTTRYCK</h2>
       <section data-ng-repeat="fieldset in [entities.expression.main]"
           data-ng-include="'render-fieldset'"></section>
     </article>
     <article id="manifestation">
-      <h2>Manifestation</h2>
+      <h2>MANIFESTATION</h2>
       <section data-ng-repeat="fieldset in [entities.manifestation.main]"
           data-ng-include="'render-fieldset'"></section>
     </article>
   </article>
 
+  <article class="well hld">
+    <h2>Bestånd</h2>
+    <section>
+    blablab
+    </section>
+ </article>
+
   <script type="text/ng-template" id="render-fieldset">
-    <button class="btn pull-right"><i class="icon-plus icon-white"></i></button>
+    <button class="btn btn-link pull-right">Lägg till</button>
     <div data-ng-repeat="field in fieldset"
           data-ng-init="row = field.getRow(); dfn = field.getTagDfn()"
           data-fadable="800">
       <div class="subfield-container" data-ng-switch="field.getWidgetType()">
         <div class="close pull-right tag" title="{{ dfn.label_sv }} ({{ dfn.tag }})">
-            {{ dfn.label_sv }} <!--({{ dfn.tag }})-->
+            <!--{{ dfn.label_sv }}--> ({{ dfn.tag }})
             <!--<button data-ng-show="!dfn || dfn.repeatable"
                 data-ng-click="removeField($index)">&times;</button> -->
         </div>
@@ -89,6 +96,7 @@
         <ng:switch on="subDfn.type">
           <input data-ng-switch-when="autocomplete" type="text" class="input-xxlarge"
                 data-kitin-autocomplete="field"
+                data-kitin-template="auth-completion-template"
                 data-kitin-config="subDfn"
                 placeholder="+{{ subDfn.label_sv }}"
                 data-ng-model="subfield[subCode]" />
@@ -118,6 +126,48 @@
       </li>
     </ul>
 
+  </script>
+
+  <script type="text/html" id="auth-completion-template">
+    <div class="auth">
+      <h4><span class="name"><%= data['100'].a %></span>
+        <% if (data['100'].d) { %>
+          <span class="date"><%= data['100'].d %></span>
+          <% } else { %>
+          <em><%= "" %></em>
+          <% } %>
+        <% if (data.authorized) { %>
+          <span class="label label-success pull-right"><i class="icon-ok icon-white"></i>Aukt.</span>
+          <% } %>
+      </h4>
+      <h5><% if (data['100'].c) { %>(<%= data['100'].c %>)<% } %></h5>
+        <% if (data['500']) { %>
+          <p><em>Hänv. från<% data['500'].forEach(function (it) { %>
+            <%= it.a %></em><br>
+          <% }) %>
+        <% } %>
+        <% if (data.highlight) { %>
+          <% if (!data.highlight['100.a'] && data.highlight['400.a']) { %>
+              <p class="highlight"><em>Hänv. från <%= data.highlight['400.a'][0] %></em></p>
+
+          <% } %>
+        <% } %>
+      <% if (data['678']) { %>
+        <p><% data['678'].forEach(function (it) { %>
+          <%= it.a %><br>
+          <% }) %>
+        <% if (data.records) { %>
+          <a href="#"><%=  (data.records) %> titlar</a>
+          <% } %>
+        <% if (data['680']) { %><br>(<%= data['680'].i %>)<% } %>
+        <% } %>
+      <% if (data.top_titles) { %>
+        <% for (href in data.top_titles) { %>
+          t ex. <a href="<%= href %>" target="_blank"><%= data.top_titles[href] %></a>
+          <% break } %>
+        </p>
+        <% } %>
+    </div>
   </script>
 
 {% endraw %}

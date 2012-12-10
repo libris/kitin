@@ -8,6 +8,7 @@
       <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap-responsive.css') }}" rel="stylesheet">
       <link href="{{ url_for('static', filename='vendor/jquery/jquery.autocomplete.css') }}" rel="stylesheet">
       <link rel="stylesheet/less" type="text/css" href="{{ url_for('static', filename='css/main.less') }}">
+      <script src="{{ url_for('static', filename='vendor/less/less-1.3.1.min.js') }}" type="text/javascript"></script>
 <!--       <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}"> -->
     {% endblock head %}
   </head>
@@ -69,7 +70,7 @@
     <script src="{{ url_for('static', filename='vendor/jquery/jquery.autocomplete.min.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/angular.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='vendor/less/less-1.3.1.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='vendor/underscore-min.js') }}"></script>
 
     {% block extrajs %}{% endblock extrajs %}
 

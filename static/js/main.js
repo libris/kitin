@@ -225,6 +225,7 @@ kitin.directive('fadable', function(conf) {
   };
 });
 
+
 kitin.directive('kitinAutocomplete', function() {
   return {
     restrict: 'A',
@@ -238,6 +239,11 @@ kitin.directive('kitinAutocomplete', function() {
       // TODO: always from 100 for auth?
       var tag = service == 'auth'? '100': field.getTagDfn().tag;
       var row = field.getRow();
+
+      var templateId = attrs.kitinTemplate;
+      // IMPROVE: replace current autocomplete mechanism and use angular
+      // templates ($compile) all the way.. It if is fast enough..
+      var template = _.template(jQuery('#' + templateId).html())
 
       elem.autocomplete("/suggest/" + service, {
 
@@ -262,7 +268,7 @@ kitin.directive('kitinAutocomplete', function() {
         },
 
         showResult: function (value, data) {
-          return '<p><b>' + value + '</b><em>' + JSON.stringify(data) + '</em></p>';
+          return template({data: data});
         },
 
         onItemSelect: function(item, completer) {
