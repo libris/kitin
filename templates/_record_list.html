@@ -39,10 +39,10 @@
       <div class="row-fluid">
        <div class="span4 identifier">
           {% if record.isbn %}
-          	<span title="ISBN 020A"> {{ record.isbn }}</span>
+          	<span title="ISBN 020A">{{ record.isbn }}</span>
           	<label class="label-record-list muted">ISBN</label>
           {% elif record.issn %}
-            <span title="ISSN 022A">ISSN: {{ record.issn }}</span>
+            <span title="ISSN 022A">{{ record.issn }}</span>
             <label class="label-record-list muted">ISSN</label>
           {% endif %}
           {% if record.other_standard_id %}
