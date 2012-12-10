@@ -50,6 +50,7 @@ def search():
     search_results = None
     b = request.args.get('b', '')
     boost = ("&boost=%s" % b) if b else ''
+    facets = []
     if q:
         resp = requests.get("%sbib/kitin/_search?q=%s%s" % (
             app.config['WHELK_HOST'], q, boost))
