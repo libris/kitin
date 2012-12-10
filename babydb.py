@@ -96,26 +96,33 @@ class Storage(object):
 
 
 
-    def load_user(self, uname, pword):
+    def load_user(self, uname, pword, remember):
         """
         If user not in bibdb, return None
         If user in bibdb, return User object from kitin.
         If user in kitin, update with roles from bibdb and return, 
         else create new, with roles from bibdb and return."""
         #remove next 2 lines for real login, i.e. login user from form
-        uname = self.cfg.get('BIBDB_USER')
-        pword = self.cfg.get('BIBDB_PASS')
+        #uname = self.cfg.get('BIBDB_USER')
+        #pword = self.cfg.get('BIBDB_PASS')
 
         ak = self.cfg.get('BIBDB_API_KEY')
         udata = "username=%s&password=%s" % (uname, pword)
+        print "udata", udata
         apiheaders = {"APIKEY_AUTH_HEADER": "%s" % ak}
         reply = requests.post('https://bibdb.libris.kb.se/api/login/auth', data=udata, headers=apiheaders)
         try:
             if reply.text == "Authenticated":
-                rolereply = requests.get('https://bibdb.libris.kb.se/api/user/role?username=%s' % u, headers=apiheaders)
+                print "authtenticated"
+                udata = "username=%s"%uname
+                rolereply = requests.get('https://bibdb.libris.kb.se/api/user/role', data = udata, headers=apiheaders)
+                print "got rolereply", rolereply
                 roles = rolereply.text
+                print "got roles", roles
                 users = self._get_table('userdata')
+                print "got users"
                 u = users.select(users.c.username == uname).execute().first()
+                print "got u"
                 if u and len(u) > 0:
                     print "known user: ", u
                     user = u

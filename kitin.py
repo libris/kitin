@@ -43,7 +43,7 @@ def start():
 #bibl nivå bibLevel
 #bärartyp carrierType
 #utgivningstid yearTime1
-
+@login_required
 @app.route("/search")
 def search():
     q = request.args.get('q')
@@ -469,7 +469,7 @@ def login():
         username = request.form["username"]
         password = request.form["password"] 
         remember = request.form.get("remember", "no") == "yes"
-        user = storage.load_user(username, password)
+        user = storage.load_user(username, password, remember)
         if (user):
             login_user(user, remember)
 
