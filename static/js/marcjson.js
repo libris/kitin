@@ -211,15 +211,10 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
 
     for (entity in entitySpec) {
       var groupSpec = entitySpec[entity];
-      if (groupSpec.forEach) {
-        var targetGroup = out[entity] = [];
-        addFieldsBySpec(structFields, groupSpec, targetGroup);
-      } else {
-        var group = out[entity] = {};
-        for (groupKey in groupSpec) {
-          var targetGroup = group[groupKey] = [];
-          addFieldsBySpec(structFields, groupSpec[groupKey], targetGroup);
-        }
+      var group = out[entity] = {};
+      for (groupKey in groupSpec) {
+        var targetGroup = group[groupKey] = [];
+        addFieldsBySpec(structFields, groupSpec[groupKey], targetGroup);
       }
     }
     return out;
@@ -292,23 +287,25 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
         }
       } else {
         for (var key in path) {
-          var subkey = path[key];
           var holder = structFields[key];
-          if (holder) {
+          if (!holder)
+            continue;
+          // TODO: preproc split fixed fields like in decorateMarcField
+          var field = {}, sub = field[key] = {};
+          targetGroup.push(field);
+          var subkeys = path[key];
+          subkeys.forEach(function (subkey) {
             var sourceField = holder[0];
             var target = sourceField[key][subkey];
             if (target) {
-              // TODO: preproc split fixed fields like in decorateMarcField
-              var field = {}, sub = field[key] = {};
               // copy decorated sourceField methods manually..
               field.getTagDfn = sourceField.getTagDfn;
               field.getRow = sourceField.getRow;
               field.getWidgetType = sourceField.getWidgetType;
               //decorateField(field);
               sub[subkey] = target;
-              targetGroup.push(field);
             }
-          }
+          });
         }
       }
     });

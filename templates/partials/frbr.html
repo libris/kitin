@@ -1,14 +1,19 @@
 {% raw %}
 
   <article class="well" id="entities">
-    <button type="button" class="btn btn-mini btn-link"
-            data-toggle="collapse" data-target="#record-fields">
-      <i class="icon-edit"></i></button>
-    <article id="record-fields" class="collapse out">
+
+    <article class="well">
       <h2>Katalogkort</h2>
-      <section class="well" data-ng-repeat="fieldset in [entities.record]"
+      <section data-ng-repeat="fieldset in [entities.record.main]"
+          data-ng-include="'render-fieldset'"></section>
+      <button type="button" class="btn btn-mini btn-link"
+              data-toggle="collapse" data-target="#record-hidden">
+        <i class="icon-edit"></i></button>
+      <section id="record-hidden" class="collapse out"
+               data-ng-repeat="fieldset in [entities.record.hidden]"
           data-ng-include="'render-fieldset'"></section>
     </article>
+
     <article class="control-group" id="verk">
       <h2>Verk</h2>
       <section data-ng-repeat="fieldset in [entities.work.cover, entities.work.contents, entities.work.classification]"
@@ -16,23 +21,24 @@
     </article>
     <article>
       <h2>Uttryck</h2>
-      <section data-ng-repeat="fieldset in [entities.expression]"
+      <section data-ng-repeat="fieldset in [entities.expression.main]"
           data-ng-include="'render-fieldset'"></section>
     </article>
     <article id="manifestation">
       <h2>Manifestation</h2>
-      <section data-ng-repeat="fieldset in [entities.manifestation]"
+      <section data-ng-repeat="fieldset in [entities.manifestation.main]"
           data-ng-include="'render-fieldset'"></section>
     </article>
   </article>
 
   <script type="text/ng-template" id="render-fieldset">
+    <button class="btn pull-right"><i class="icon-plus icon-white"></i></button>
     <div data-ng-repeat="field in fieldset"
           data-ng-init="row = field.getRow(); dfn = field.getTagDfn()"
           data-fadable="800">
       <div class="subfield-container" data-ng-switch="field.getWidgetType()">
         <div class="close pull-right tag" title="{{ dfn.label_sv }} ({{ dfn.tag }})">
-            {{ dfn.label_sv }} <!--({{ dfn.tag }})--> <br> <btn class="btn btn-link">lägg till</button>
+            {{ dfn.label_sv }} <!--({{ dfn.tag }})-->
             <!--<button data-ng-show="!dfn || dfn.repeatable"
                 data-ng-click="removeField($index)">&times;</button> -->
         </div>
