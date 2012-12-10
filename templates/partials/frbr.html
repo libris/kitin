@@ -1,6 +1,6 @@
 {% raw %}
 
-  <article class="well" id="entities">
+  <article class="well bib" id="entities">
 
     <article class="well">
       <h2>Katalogkort</h2>
@@ -15,30 +15,37 @@
     </article>
 
     <article class="control-group" id="verk">
-      <h2>Verk</h2>
+      <h2>VERK</h2>
       <section data-ng-repeat="fieldset in [entities.work.cover, entities.work.contents, entities.work.classification]"
           data-ng-include="'render-fieldset'"></section>
     </article>
     <article>
-      <h2>Uttryck</h2>
+      <h2>UTTRYCK</h2>
       <section data-ng-repeat="fieldset in [entities.expression.main]"
           data-ng-include="'render-fieldset'"></section>
     </article>
     <article id="manifestation">
-      <h2>Manifestation</h2>
+      <h2>MANIFESTATION</h2>
       <section data-ng-repeat="fieldset in [entities.manifestation.main]"
           data-ng-include="'render-fieldset'"></section>
     </article>
   </article>
 
+  <article class="well hld">
+    <h2>Bestånd</h2>
+    <section>
+    blablab
+    </section>
+ </article>
+
   <script type="text/ng-template" id="render-fieldset">
-    <button class="btn pull-right"><i class="icon-plus icon-white"></i></button>
+    <button class="btn btn-link pull-right">Lägg till</button>
     <div data-ng-repeat="field in fieldset"
           data-ng-init="row = field.getRow(); dfn = field.getTagDfn()"
           data-fadable="800">
       <div class="subfield-container" data-ng-switch="field.getWidgetType()">
         <div class="close pull-right tag" title="{{ dfn.label_sv }} ({{ dfn.tag }})">
-            {{ dfn.label_sv }} <!--({{ dfn.tag }})-->
+            <!--{{ dfn.label_sv }}--> ({{ dfn.tag }})
             <!--<button data-ng-show="!dfn || dfn.repeatable"
                 data-ng-click="removeField($index)">&times;</button> -->
         </div>
