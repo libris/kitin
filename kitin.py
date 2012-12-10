@@ -37,6 +37,12 @@ def start():
             record_templates=find_record_templates(),
             open_records=open_records)
 
+#compare propref:
+#specialare bookSerial
+#medietyp typeOfRecord
+#bibl nivå bibLevel
+#bärartyp carrierType
+#utgivningstid yearTime1
 
 @app.route("/search")
 def search():
@@ -50,6 +56,16 @@ def search():
         data = json.loads(resp.text)
         search_results = [get_record_summary(item['data']) for item in data['list']]
         facets = [get_facet_labels(f_group, f_values) for f_group, f_values in data['facets'].items()]
+
+    iterate_facets = dict([(f_labels['propref'], f_labels) for f_labels in facets])
+    ordered_facets = []
+    facet_order = ["bookSerial", "typeOfRecord", "bibLevel", "carrierType", "yearTime1"]
+    for fo in facet_order:
+        if fo in iterate_facets.keys():
+            ordered_facets.append(iterate_facets[fo])
+
+
+    facets = ordered_facets
     return render_template('search.html', **vars())
 
 def get_facet_labels(f_group, f_values):
@@ -199,7 +215,13 @@ def _get_control_field_label(control_list, mm, leader):
             if s.keys()[0] == pos:
                 val = '_' if s.values()[0] == ' ' else s.values()[0]
                 control_fields['%s_code' % pos] = val
-                control_fields[pos] = mm[pos][val].get('label_sv', val)
+                print "\n STUFF: pos: %s, val: %s" % (pos, val)
+                print "mm", mm[pos]
+                mm_val = mm[pos].get(val, None)
+                if mm_val:
+                    control_fields[pos] = mm[pos][val].get('label_sv', val)
+                else:
+                    control_fields[pos] = val
     return control_fields
 
 
@@ -212,12 +234,14 @@ def get_record_summary(data):
     #TODO? globalise marcmap
     mm = json.loads(open(app.config['MARC_MAP']).read())['bib']['fixprops']
     
+    print "BIBID: %s" % fields['001'][0] if '001' in fields else ''
     #extracting the control field values
     #cannot be done as the general fields, as the json structure differs
     control_list = ['bibLevel', 'typeOfRecord', 'encLevel']
     control_fields = _get_control_field_label(control_list, mm, data['leader']['subfields'])
 
     control_fields['id'] = fields['001'][0] if '001' in fields else ''
+    print "BIBID: %s" % control_fields['id']
    
     #extracting general fields.
     #change in the dict to extract other fields/subfields or save them under different labels
