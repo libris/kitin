@@ -50,7 +50,6 @@ def search():
     search_results = None
     b = request.args.get('b', '')
     boost = ("&boost=%s" % b) if b else ''
-    facets = []
     if q:
         resp = requests.get("%sbib/kitin/_search?q=%s%s" % (
             app.config['WHELK_HOST'], q, boost))
@@ -58,15 +57,15 @@ def search():
         search_results = [get_record_summary(item['data']) for item in data['list']]
         facets = [get_facet_labels(f_group, f_values) for f_group, f_values in data['facets'].items()]
 
-    iterate_facets = dict([(f_labels['propref'], f_labels) for f_labels in facets])
-    ordered_facets = []
-    facet_order = ["bookSerial", "typeOfRecord", "bibLevel", "carrierType", "yearTime1"]
-    for fo in facet_order:
-        if fo in iterate_facets.keys():
-            ordered_facets.append(iterate_facets[fo])
+        iterate_facets = dict([(f_labels['propref'], f_labels) for f_labels in facets])
+        ordered_facets = []
+        facet_order = ["bookSerial", "typeOfRecord", "bibLevel", "carrierType", "yearTime1"]
+        for fo in facet_order:
+            if fo in iterate_facets.keys():
+                ordered_facets.append(iterate_facets[fo])
 
 
-    facets = ordered_facets
+        facets = ordered_facets
     return render_template('search.html', **vars())
 
 def get_facet_labels(f_group, f_values):
@@ -195,7 +194,6 @@ def _get_field_label(tagdict, fields):
                 if ind1.strip():
                     ind1 == '_'
                 record_info_dict['%s_ind1_code' % tag] = ind1
-                print "TEST: get_field_label: %s, _%s_"% (tag, ind1)
                 ind1_info = json.loads(open(app.config['MARC_MAP']).read())['bib'][tag]['ind1'].get(ind1, None)
                 if ind1_info:
                     label_sv = ind1_info.get("label_sv", ind1) 
@@ -216,8 +214,6 @@ def _get_control_field_label(control_list, mm, leader):
             if s.keys()[0] == pos:
                 val = '_' if s.values()[0] == ' ' else s.values()[0]
                 control_fields['%s_code' % pos] = val
-                print "\n STUFF: pos: %s, val: %s" % (pos, val)
-                print "mm", mm[pos]
                 mm_val = mm[pos].get(val, None)
                 if mm_val:
                     control_fields[pos] = mm[pos][val].get('label_sv', val)
@@ -235,14 +231,12 @@ def get_record_summary(data):
     #TODO? globalise marcmap
     mm = json.loads(open(app.config['MARC_MAP']).read())['bib']['fixprops']
     
-    print "BIBID: %s" % fields['001'][0] if '001' in fields else ''
     #extracting the control field values
     #cannot be done as the general fields, as the json structure differs
     control_list = ['bibLevel', 'typeOfRecord', 'encLevel']
     control_fields = _get_control_field_label(control_list, mm, data['leader']['subfields'])
 
     control_fields['id'] = fields['001'][0] if '001' in fields else ''
-    print "BIBID: %s" % control_fields['id']
    
     #extracting general fields.
     #change in the dict to extract other fields/subfields or save them under different labels
@@ -369,9 +363,7 @@ def lookup(uid=None):
 
         elif len(theposts) == 1:
             post = posts[0]
-            print "one record:", post.id
             spill = Spill(post.marc).get_spill()
-            print "spill: ", spill
 
         raw_items = [(post.id, json.dumps(post.marc)) for post in posts]
         return render_template('view.html', marcposts=raw_items, uid=uid)
