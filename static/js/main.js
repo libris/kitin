@@ -63,7 +63,7 @@ kitin.factory('records', function ($http, $q) {
 
 // controllers.js
 
-function FrbrCtrl($rootScope, $scope, $routeParams, conf, records) {
+function FrbrCtrl($rootScope, $scope, $routeParams, $timeout, conf, records) {
 
   conf.renderUpdates = false;
   $rootScope.editMode = 'frbr';
@@ -82,6 +82,29 @@ function FrbrCtrl($rootScope, $scope, $routeParams, conf, records) {
       });
     });
   });
+
+  $scope.promptAddField = function ($event, fieldset) {
+    // TODO: set this once upon first rendering of view (listen to angular event)
+    conf.renderUpdates = true;
+    $scope.fieldToAdd = {
+      tagDefs: fieldset.tagDefs,
+      tag: null,
+      execute: function () {
+        fieldset.addField($scope.fieldToAdd.tag);
+        $scope.fieldToAdd = null;
+      },
+      abort: function () {
+        $scope.fieldToAdd = null;
+      }
+    };
+    $timeout(function () {
+      openPrompt($event, '#prompt-add-field');
+    });
+  }
+
+  $scope.promptAddSubField = function (o, field, index) {
+    console.log(arguments);
+  }
 
 }
 
@@ -170,13 +193,23 @@ function MarcCtrl($rootScope, $scope, $routeParams, conf, records, $timeout) {
 // TODO: turn into promptService?
 function openPrompt($event, promptSelect) {
   var tgt = $($event.target), off = tgt.offset(), width = tgt.width();
-  var prompt = $(promptSelect).css(
-      { top: off.top + 'px', left: off.left + width + 'px'})
-    prompt.find('select').focus();
+  var prompt = $(promptSelect);
+  prompt.css({top: off.top + 'px',
+              left: off.left + width - prompt.width() + 'px'});
+  prompt.find('input').focus();
 }
 
 
 // directives.js
+
+kitin.directive('kitinCodekey', function () {
+  return function (scope, elm, attrs) {
+    var expr = attrs.kitinCodekey;
+    elm.jkey("alt+t", function () {
+      scope.$apply(expr);
+    });
+  }
+});
 
 kitin.directive('keyEnter', function () {
   return function (scope, elm, attrs) {
