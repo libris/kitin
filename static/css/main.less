@@ -32,6 +32,16 @@ select {
 
 }
 
+.navbar, .navbar-inner, .navbar-fixed-top {
+  background-color: #FFF;
+  background-image: none;
+  
+}
+
+.navbar .brand-fix {
+  margin-left: 0px;
+}
+
 .white { /*tmp header fix until restructure*/
   background-color: white;
   margin-bottom: 15px;
@@ -147,6 +157,17 @@ ul.unstyled, ol.unstyled {
 
 }
 
+
+/* TODO: sync semantic css with full-record mode */
+.unstyled-url label.label-record-list {
+ margin:0;
+ padding:0;
+ margin-top: -3px;
+ font-size: 13px;
+ display: block;
+ line-height: 13px;
+}
+
 .title-remainder {
   font-weight: 300;
   text-decoration: none;
@@ -157,7 +178,7 @@ article.record {
   padding-left: 15px;
   padding-right: 15px;
   padding-top: 10px;
-  padding-bottom: 5px;
+  padding-bottom: 10px;
   /*margin-bottom: 15px;*/
   border: solid 1px #efefef;
   font-size: 16px;
@@ -249,7 +270,8 @@ textarea.heading {
   font-size: 20px;
   line-height: 24px;
   font-family: Georgia;
-  min-height:24px; 
+  min-height:24px;
+  height: 24px; 
 }
 
 .tag {
@@ -330,7 +352,7 @@ article > section {
 /* border removal in both forms */
 /* TODO: Fix a more specific bootstrap override */
 
-li.subfield-code input, textarea {
+li.subfield-code input, .frbr-input, textarea {
   border: 0px solid;
   padding-top: 0px;
   padding-right: 5px;
@@ -350,6 +372,21 @@ li.subfield-code input, textarea {
 .indicator select {
   font-size: 11px;
   height: auto;
+}
+
+.add-subfield {
+  margin:0;
+  border-radius: 0 0 0 0;
+  padding:0;
+  padding-left:25px;
+  line-height: 11px;
+  font-size: 12px;
+}
+
+
+
+.add-on {
+ background-color: transparent;
 }
 
 .add-on .subfield-code {
@@ -572,7 +609,7 @@ form#fields .add-on {
 form#record .add-on {
   border: 0;
   color: #888;
-  background: #fff;
+  background-color: transparent;
   /*   vertical-align: bottom; */
 }
 
