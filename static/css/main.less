@@ -40,7 +40,9 @@ select {
   
 }
 
-
+label {
+  color: grey;
+}
 
 .navbar .brand-fix {
   margin-left: 0px;
@@ -85,6 +87,13 @@ select {
 .compact .field-label-text,
 .compact .subfield-label {
   display: none;
+}
+
+
+/* --------------------LOGIN-------------------- */
+
+.btn-xlarge {
+  width:285px;
 }
 
 /* --------------------SEARCH-------------------- */
@@ -161,6 +170,9 @@ ul.unstyled, ol.unstyled {
 
 }
 
+.icon-author {
+  opacity: 0.4;
+}
 
 /* TODO: sync semantic css with full-record mode */
 .unstyled-url label.label-record-list {
@@ -265,6 +277,7 @@ hr {
   padding-top: 3px;
 }
 
+
 /* --------------------FRBR FORM-------------------- */
 
 
@@ -328,13 +341,13 @@ li.subfield-code:hover .tag-code {
 }
 
 article.bib {
-  background: rgb(216, 238, 210)
-  /*216, 238, 210*/
+ /* background: rgb(216, 238, 210)*/
 }
 
 article.hld {
-  background: rgb(236, 209, 222)
-}
+  /*background: rgb(236, 209, 222)*/
+  display: none;
+  }
 
 /*a div {
     visibility:hidden;
@@ -356,7 +369,9 @@ a:hover div {
 article.hld h2, article.bib h2 {
   color: white;
   font-size: 24px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  /*text-shadow: 1px 1px 2px rgba(0,0,0,0.5);*/
+  text-shadow: -1px 0 rgba(0,0,0,0.3), 0 1px rgba(0,0,0,0.3),
+                1px 0 rgba(0,0,0,0.3), 0 -1px rgba(0,0,0,0.3);
   line-height:inherit;
   
   padding: 0px;
