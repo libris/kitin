@@ -34,8 +34,26 @@
   </article>
 
 
+  <div id="prompt-add-field" data-ng-show="fieldToAdd" class="popover show">
+    <div class="popover-inner">
+      <h3 class="popover-title">Add field
+        <button class="close" data-ng-click="fieldToAdd.abort()">&times;</button></h3>
+    </div>
+    <div class="popover-content">
+      <!-- if repeatable and not in fielset -->
+      <select data-ng-options="dfn.tag as (dfn.tag + ': ' + dfn.label_sv) for dfn in fieldToAdd.tagDefs"
+        size="1"
+        data-ng-model="fieldToAdd.tag"
+        data-key-enter="fieldToAdd.execute()"
+        data-key-esc="fieldToAdd.abort()" />
+      </select>
+    </div>
+  </div>
+
   <script type="text/ng-template" id="render-fieldset">
-    <button class="btn btn-link pull-right">Lägg till</button>
+    <button class="btn btn-link pull-right"
+      data-ng-click="promptAddField($event, fieldset)"
+      >Lägg till</button>
     <div data-ng-repeat="field in fieldset"
           data-ng-init="row = field.getRow(); dfn = field.getTagDfn()"
           data-fadable="800">
@@ -102,6 +120,7 @@
                 data-ng-model="subfield[subCode]"></textarea>
           <input data-ng-switch-default type="text" class="input-xxlarge"
                 placeholder="+{{ subDfn.label_sv }}"
+                data-kitin-codekey="promptAddSubField($elem, field, $index)"
                 data-ng-model="subfield[subCode]" />
         </ng:switch>
 

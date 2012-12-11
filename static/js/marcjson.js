@@ -173,6 +173,7 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
     var row = {ind1: " ", ind2: " ", subfields: [{a: ""}]};
     o[tagToAdd] = row;
     fields.splice(i, 0, o);
+    return o;
   };
 
   exports.removeField = function (struct, index) {
@@ -184,7 +185,11 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
       return;
     var o = {};
     o[subCode] = "";
-    row.subfields.splice(index + 1, 0, o);
+    if (index === -1)
+      row.subfields.push(o);
+    else
+      row.subfields.splice(index + 1, 0, o);
+    return o;
   };
 
   exports.removeSubField = function (row, index) {
@@ -193,7 +198,7 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
 
 
   exports.createEntityGroups = function (map, overlay, struct) {
-    var entitySpec = overlay.entities;
+    var entitySpecs = overlay.entities;
     var out = {};
     var structFields = {};
     exports.expandFixedFields(map, struct);
@@ -209,16 +214,33 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
       tagged.push(field);
     });
 
-    for (entity in entitySpec) {
-      var groupSpec = entitySpec[entity];
+    for (entity in entitySpecs) {
+      var entitySpec = entitySpecs[entity];
       var group = out[entity] = {};
-      for (groupKey in groupSpec) {
-        var targetGroup = group[groupKey] = [];
-        addFieldsBySpec(structFields, groupSpec[groupKey], targetGroup);
+      for (groupKey in entitySpec) {
+        groupSpec = entitySpec[groupKey];
+        var targetGroup = group[groupKey] =
+          createTargetGroup(map, overlay, struct, groupSpec);
+        addFieldsBySpec(structFields, groupSpec, targetGroup);
       }
     }
     return out;
   };
+
+  function createTargetGroup(map, overlay, struct, groupSpec) {
+    var targetGroup = [];
+    var defs = targetGroup.tagDefs = [];
+    groupSpec.forEach(function (tag) {
+      if (typeof tag === 'string') defs.push(map[tag]);
+    });
+    targetGroup.addField = function (tag) {
+      var field = exports.addField(struct, tag);
+      decorateMarcField(map, overlay, tag, field);
+      // TODO: inject into this at last tag position..
+      this.push(field);
+    };
+    return targetGroup;
+  }
 
   function decorateMarcField(map, overlay, tag, field) {
     // TODO: prepare map data: clone dfn once, extend with overlay
@@ -255,6 +277,9 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
     field.getTagDfn = function () { return dfn; };
     field.getWidgetType = function () {
       return exports.getWidgetType(tag, this.getRow());
+    };
+    field.addSubField = function (subCode, index) {
+      exports.addSubField(this[tag], subCode, index);
     };
   }
 

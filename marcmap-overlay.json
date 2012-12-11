@@ -84,7 +84,7 @@
         "040"
       ],
       "hidden": [
-        {"leader": ["status", "typeOfControl", "characterCoding", "linked", "entryMap"]},
+        {"leader": ["status", "typeOfControl", "characterCoding", "linked"]},
         "001",
         "005",
         {"008": ["_col_0_6", "publicationStatus", "booksItem", "modifiedRecord"]},
