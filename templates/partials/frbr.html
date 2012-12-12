@@ -2,8 +2,8 @@
 
   <article class="well bib" id="entities">
 
-    <article class="well">
-      <h2>Katalogkort</h2>
+    <article>
+      <h2>KATALOGKORT</h2>
       <section data-ng-repeat="fieldset in [entities.record.main]"
           data-ng-include="'render-fieldset'"></section>
       <button type="button" class="btn btn-mini btn-link"
@@ -16,27 +16,31 @@
 
     <article class="control-group" id="verk">
       <h2>VERK</h2>
-      <section data-ng-repeat="fieldset in [entities.work.cover, entities.work.contents, entities.work.classification]"
+      <section class="entity" data-ng-repeat="fieldset in [entities.work.cover, entities.work.contents, entities.work.classification]"
           data-ng-include="'render-fieldset'"></section>
     </article>
     <article>
       <h2>UTTRYCK</h2>
-      <section data-ng-repeat="fieldset in [entities.expression.main]"
+      <section class="entity" data-ng-repeat="fieldset in [entities.expression.main]"
           data-ng-include="'render-fieldset'"></section>
     </article>
     <article id="manifestation">
       <h2>MANIFESTATION</h2>
-      <section data-ng-repeat="fieldset in [entities.manifestation.main]"
+      <section class="entity" data-ng-repeat="fieldset in [entities.manifestation.main]"
           data-ng-include="'render-fieldset'"></section>
     </article>
   </article>
   <article data-ng-include="'/partials/hld'" class="well hld">
   </article>
 
+  <div class="well pull-right"><div class="pull-right"><button class="btn btn-large">SPARA UTKAST</button> <button class="btn btn-large btn-primary">PUBLICERA</button></div>
+ 
+  </div>
+
 
   <div id="prompt-add-field" data-ng-show="fieldToAdd" class="popover show">
     <div class="popover-inner">
-      <h3 class="popover-title">Add field
+      <h3 class="popover-title">Lägg till fält
         <button class="close" data-ng-click="fieldToAdd.abort()">&times;</button></h3>
     </div>
     <div class="popover-content">
@@ -51,15 +55,15 @@
   </div>
 
   <script type="text/ng-template" id="render-fieldset">
-    <button class="btn btn-link pull-right"
+    <div class="pull-right"><button class="btn btn-link"
       data-ng-click="promptAddField($event, fieldset)"
-      >Lägg till</button>
+      >Lägg till</button></div>
     <div data-ng-repeat="field in fieldset"
           data-ng-init="row = field.getRow(); dfn = field.getTagDfn()"
           data-fadable="800">
       <div class="subfield-container" data-ng-switch="field.getWidgetType()">
-        <div class="close pull-right tag" title="{{ dfn.label_sv }} ({{ dfn.tag }})">
-            <!--{{ dfn.label_sv }}--> ({{ dfn.tag }})
+        <div class="close tag" title="{{ dfn.label_sv }} ({{ dfn.tag }})">
+            {{ dfn.label_sv }}<!--({{ dfn.tag }})--> 
             <!--<button data-ng-show="!dfn || dfn.repeatable"
                 data-ng-click="removeField($index)">&times;</button> -->
         </div>
@@ -69,38 +73,14 @@
           <div data-ng-switch-when="field"
               data-ng-include="'render-field'"></div>
           <input data-ng-switch-default
-              data-ng-model="field[dfn.tag]"/>
+              data-ng-model="field[dfn.tag]" class="frbr-input"/>
       </div>
     </div>
   </script>
 
   <script type="text/ng-template" id="render-field">
 
-    <div data-ng-repeat="ind in dfn.indicators" class="indicator">
-      <ng:switch on="ind.type">
-        <span data-ng-switch-when="hidden"></span>
-        <span data-ng-switch-when="select">
-          <label data-ng-show="false">{{ ind.key }}</label>
-          <select
-            data-ng-options="key as (key + ') ' + val.label_sv) for (key, val) in ind.enum"
-            data-ng-model="row[ind.key]">
-          </select>
-        </span>
-        <span data-ng-switch-when="boolean">
-          <label>
-            <input type="checkbox" data-ng-model="row[ind.key]"/>
-            {{ ind.enum['1'].label_sv }}</label>
-        </span>
-        <span data-ng-switch-when="number">
-          <label>{{ ind.enum['0'].label_sv }}:
-            <input type="number" class="input-mini" data-ng-model="row[ind.key]"/>
-          </label>
-        </span>
-        <span data-ng-switch-default>
-          <input data-ng-model="row[ind.key]"/>
-        </span>
-      </ng:switch>
-    </div>
+
 
     <ul data-ng-repeat="subfield in row.subfields">
       <li data-ng-init="subCode = getKey(subfield); subDfn = dfn.subfield[subCode]"
@@ -123,6 +103,32 @@
                 data-kitin-codekey="promptAddSubField($elem, field, $index)"
                 data-ng-model="subfield[subCode]" />
         </ng:switch>
+
+    <div data-ng-repeat="ind in dfn.indicators" class="indicator">
+      <ng:switch on="ind.type">
+        <span data-ng-switch-when="hidden"></span>
+        <span data-ng-switch-when="select">
+          <label data-ng-show="false">{{ ind.key }}</label>
+          <select
+            data-ng-options="key as (key + ') ' + val.label_sv) for (key, val) in ind.enum"
+            data-ng-model="row[ind.key]">
+          </select>
+        </span>
+        <span data-ng-switch-when="boolean">
+          <label>
+            <input type="checkbox" data-ng-model="row[ind.key]"/>
+            {{ ind.enum['1'].label_sv }}</label>
+        </span>
+        <span data-ng-switch-when="number">
+          <label>{{ ind.enum['0'].label_sv }}:
+            <input type="number" class="input-mini" data-ng-model="row[ind.key]"/>
+          </label>
+        </span>
+        <span data-ng-switch-default>
+          <input data-ng-model="row[ind.key]" class="frbr-input" />
+        </span>
+      </ng:switch>
+    </div>
 
         <br class="breaker" />
         <span class="add-on subfield-code"

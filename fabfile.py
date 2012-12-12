@@ -7,10 +7,14 @@ from fabric.api import *
 from sqlalchemy import *
 from sqlalchemy.orm import *
 
+#env.hosts = ['192.168.3.128']
 env.hosts = ['devlab.libris.kb.se']
 env.user = 'jenkins'
-virtualenv_home = '/srv/data/virtualenvs/505'
+wwwuser = 'apache'
+wwwgroup = 'apache'
+#virtualenv_home = '/srv/data/virtualenvs/505'
 kitin_path = '/srv/www/kitin'
+#kitin_path = '/Library/WebServer/kitin'
 
 cfg = {}
 #execfile(os.path.join(os.path.dirname(__file__), 'config.cfg'), cfg)
@@ -62,17 +66,17 @@ def deploy():
     sudo('rm -f /tmp/kitin.tgz')
     local('tar cfz /tmp/kitin.tgz --exclude=\'.*\' *')
     put('/tmp/kitin.tgz', '/tmp/')
-    sudo('rm -fr /srv/www/kitin')
-    sudo('mkdir -m 775 /srv/www/kitin')
-    sudo('chown %s:apache /srv/www/kitin' % env.user)
+    sudo('rm -fr %s' % kitin_path)
+    sudo('mkdir -m 775 %s' % kitin_path)
+    sudo('chown %s:%s %s' % (env.user, wwwgroup, kitin_path))
     run('mkvirtualenv kitin')
-    with cd('/srv/www/kitin'):
+    with cd('%s' % kitin_path):
         run('tar xzf /tmp/kitin.tgz')
         run('python tools/create_wsgi_file.py')
-        sudo('chown apache kitin.db')
+        sudo('chown %s kitin.db' % wwwuser)
 
     with prefix('workon kitin'):
-        run('pip install -r /srv/www/kitin/dev-requirements.txt')
+        run('pip install -r %s/dev-requirements.txt' % kitin_path)
 
 @task
 def clear_config():

@@ -40,7 +40,9 @@ select {
   
 }
 
-
+label {
+  color: grey;
+}
 
 .navbar .brand-fix {
   margin-left: 0px;
@@ -52,11 +54,12 @@ select {
 }
 
 .subfield-container {
-  padding-bottom: 1px;
-}
-
-.subfield-container {
   padding-bottom: 5px;
+  padding-top: 5px;
+  padding-left: 5px;
+  margin-top: 0px;
+  margin-bottom: 6px;
+  background-color: #FFF;
 }
 .subfield-container:hover {
  /* background-color: #fafafa;*/
@@ -85,6 +88,13 @@ select {
 .compact .field-label-text,
 .compact .subfield-label {
   display: none;
+}
+
+
+/* --------------------LOGIN-------------------- */
+
+.btn-xlarge {
+  width:285px;
 }
 
 /* --------------------SEARCH-------------------- */
@@ -165,6 +175,9 @@ ul.unstyled, ol.unstyled {
 
 }
 
+.icon-author {
+  opacity: 0.4;
+}
 
 /* TODO: sync semantic css with full-record mode */
 .unstyled-url label.label-record-list {
@@ -269,7 +282,12 @@ hr {
   padding-top: 3px;
 }
 
+
 /* --------------------FRBR FORM-------------------- */
+
+section.entity {
+  background-color: transparent;
+}
 
 
 /*VISIBLE HOVER STATES*/
@@ -291,12 +309,25 @@ textarea.heading {
        -o-transition: opacity 0.5s; 
           transition: opacity 0.5s;  
 }
+
+.subfield-container div.indicator {
+  opacity:0
+}
+.subfield-container:hover div.indicator {
+  opacity: 1;
+  -webkit-transition: opacity 0.5s;
+     -moz-transition: opacity 0.5s;
+       -o-transition: opacity 0.5s; 
+          transition: opacity 0.5s; 
+}
+
 .subfield-container:hover div.tag {
  opacity: 1;
 }
+
 .subfield-container input:focus div.tag {
  opacity: 1;
-}
+
 
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
      -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -305,7 +336,7 @@ textarea.heading {
      -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
        -o-transition: border linear 0.2s, box-shadow linear 0.2s;
           transition: border linear 0.2s, box-shadow linear 0.2s;
-
+}
 li.subfield-code .close {
   opacity: 0;
   -webkit-transition: opacity 0.5s;
@@ -331,14 +362,14 @@ li.subfield-code:hover .tag-code {
  opacity: 1;
 }
 
+
 article.bib {
-  background: rgb(216, 238, 210)
-  /*216, 238, 210*/
+  background: rgba(216, 238, 210, 0.4);
 }
 
 article.hld {
-  background: rgb(236, 209, 222)
-}
+  background: rgba(236, 209, 222, 0.4);
+  }
 
 /*a div {
     visibility:hidden;
@@ -360,7 +391,9 @@ a:hover div {
 article.hld h2, article.bib h2 {
   color: white;
   font-size: 24px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  /*text-shadow: 1px 1px 2px rgba(0,0,0,0.5);*/
+  text-shadow: -1px 0 rgba(0,0,0,0.3), 0 1px rgba(0,0,0,0.3),
+                1px 0 rgba(0,0,0,0.3), 0 -1px rgba(0,0,0,0.3);
   line-height:inherit;
   
   padding: 0px;
@@ -374,7 +407,7 @@ article > section {
 /* border removal in both forms */
 /* TODO: Fix a more specific bootstrap override */
 
-li.subfield-code input, .frbr-input, textarea {
+li.subfield-code input, .frbr-input, textarea, select {
   border: 0px solid;
   padding-top: 0px;
   padding-right: 5px;
@@ -528,6 +561,7 @@ section.search {
 .acResults {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
   min-width: 360px;
+  font-family: helvetica;
 }
 .acResults p {
   margin: 0 0 3px;
