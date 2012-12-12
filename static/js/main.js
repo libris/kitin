@@ -337,8 +337,18 @@ function getValueForFieldAndSubfield(data, fieldKey, subKey) {
   var field = data[fieldKey];
   return field[subKey];
 }
-
-
+// Do we need a jquery namespace here? 
+(function($) {
+$("ul.facetlist").has("li.overflow").each(function() {
+    var $facetlist = $(this);
+    $('<a class="show_more" href="#">Visa fler</a>').insertAfter($facetlist).click(function() {
+        var $toggler = $(this);
+        $('li.overflow', $facetlist).toggleClass('collapsed');
+        $toggler.text($("li.collapsed", $facetlist).length? "Visa fler" : "Visa färre");
+        return false
+    });
+});
+}(jQuery));
 /* TODO: adapt to angular
 
 view.setupGlobalKeyBindings();
