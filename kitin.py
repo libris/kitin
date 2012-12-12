@@ -47,12 +47,26 @@ def start():
 @app.route("/search")
 def search():
     q = request.args.get('q')
+    facet = request.args.get('f', '').strip()
+    if facet:
+        dedupf = []
+        for ftmp in facet.split(' '):
+            if ftmp in dedupf:
+                dedupf.remove(ftmp)
+            else:
+                dedupf.append(ftmp)
+        facet = ' '.join(dedupf)
+    freq = "&f=%s" % facet
+
+    print "f", facet
+    print "freq", freq
+
     search_results = None
     b = request.args.get('b', '')
     boost = ("&boost=%s" % b) if b else ''
     if q:
-        resp = requests.get("%sbib/kitin/_search?q=%s%s" % (
-            app.config['WHELK_HOST'], q, boost))
+        resp = requests.get("%sbib/kitin/_search?q=%s%s%s" % (
+            app.config['WHELK_HOST'], q, freq, boost))
         data = json.loads(resp.text)
         search_results = [get_record_summary(item['data']) for item in data['list']]
         facets = [get_facet_labels(f_group, f_values) for f_group, f_values in data['facets'].items()]

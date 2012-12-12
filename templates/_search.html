@@ -26,7 +26,7 @@
 </div>
 	  {% if search_results %}
 <div class="row-fluid">
-      <div class="span9 offset3"><span class="hit-counter"><strong>{{ data.hits }}</strong> träffar på <strong>{{ q }}</strong></span></div>
+    <div class="span9 offset3"><span class="hit-counter"><strong>{{ data.hits }}</strong> träffar på <strong>{{ q }} {{ facet }}</strong></span></div>
 </div>
 	 
 
@@ -39,7 +39,7 @@
          <ul class="unstyled facetlist">
              {%  for v in f.f_values %}
              <li{% if loop.index > 10 %} class="collapsed overflow" {% endif %}>
-                 <a title="{{ v }}" href="?q={{ q }} {{ f.link }}:{{ v[0] }}">{{ v[1][1] }}<span class="muted"> ({{ v[1][0] }})</span></a>
+             <a title="{{ v }}" href="?q={{ q }}&f={{ facet }} {{ f.link }}:{{ v[0] }}">{{ v[1][1] }}<span class="muted"> ({{ v[1][0] }})</span></a>
              </li>
              {% endfor %}
          </ul>
