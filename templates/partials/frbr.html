@@ -33,7 +33,7 @@
   <article data-ng-include="'/partials/hld'" class="well hld">
   </article>
 
-  <div class="well pull-right"><div class="pull-right"><button class="btn btn-large">SPARA UTKAST</button> <button class="btn btn-large btn-primary">PUBLICERA</button></div>
+  <div class="well pull-right"><div class="pull-right"><button class="btn btn-large">SPARA UTKAST</button> <button class="btn btn-large btn-success">PUBLICERA</button></div>
  
   </div>
 
@@ -88,7 +88,7 @@
           data-fadable="200">
         <!--No Close button for now… <button class="close" data-ng-click="removeSubField(row, $index)">&times;</button>-->
         <ng:switch on="subDfn.type">
-          <input data-ng-switch-when="autocomplete" type="text" class="input-xxlarge"
+          <input data-ng-switch-when="autocomplete" type="text" class="input-xxlarge frbr-input"
                 data-kitin-autocomplete="field"
                 data-kitin-template="auth-completion-template"
                 data-kitin-config="subDfn"

@@ -298,7 +298,8 @@ textarea.heading {
   font-family: Georgia;
   min-height:24px;
   height: 24px;
-  font-weight: 600;  
+  font-weight: 600;
+  max-width: 530px;  
 }
 
 .tag {
@@ -380,6 +381,10 @@ a:hover div {
 }*/
 
 
+.fields .control-label + .ng-binding {
+  background: transparent;
+}
+
 /* --------------------MARC21 FORM-------------------- */
 
 
@@ -407,7 +412,7 @@ article > section {
 /* border removal in both forms */
 /* TODO: Fix a more specific bootstrap override */
 
-li.subfield-code input, .frbr-input, textarea, select {
+li.subfield-code input, .frbr-input, textarea, select, div.controls input {
   border: 0px solid;
   padding-top: 0px;
   padding-right: 5px;
@@ -479,7 +484,7 @@ span .subfield-label, .tag-code {
   color: #999;
 }
 
-
+div.controls input:focus,
 textarea:focus,
 input[type="text"]:focus,
 input[type="password"]:focus,
@@ -571,10 +576,10 @@ section.search {
 }
 
 div.fields label.control-label {
-  background-color: #efefef;
+/*  background-color: #efefef;
   font-weight: 600;
   padding: 3px;
-/*   width: 97%; */
+   width: 97%; */
   display: block;
 }
 
