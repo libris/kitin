@@ -78,7 +78,6 @@ def search():
             if fo in iterate_facets.keys():
                 ordered_facets.append(iterate_facets[fo])
 
-
         facets = ordered_facets
     return render_template('search.html', **vars())
 

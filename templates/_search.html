@@ -39,7 +39,7 @@
          <ul class="unstyled facetlist">
              {%  for v in f.f_values %}
              <li{% if loop.index > 10 %} class="collapsed overflow" {% endif %}>
-             <a title="{{ v }}" href="?q={{ q }}&f={{ facet }} {{ f.link }}:{{ v[0] }}">{{ v[1][1] }}<span class="muted"> ({{ v[1][0] }})</span></a>
+             {% if f.link in facet %}<i class="icon-ok"></i> {% endif %}<a title="{{ v }}" href="?q={{ q }}&f={{ facet }} {{ f.link }}:{{ v[0] }}">{{ v[1][1] }}<span class="muted"> ({{ v[1][0] }})</span></a>
              </li>
              {% endfor %}
          </ul>
