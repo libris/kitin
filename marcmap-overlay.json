@@ -43,9 +43,9 @@
     "650": {"equivalentProperty": "dc:subject"},
     "740": {"detail": true, "equivalentProperty": "skos:hiddenLabel"},
 
-    "100": {"a": {"type": "autocomplete", "service": "auth"}},
-    "600": {"a": {"type": "autocomplete", "service": "auth"}},
-    "700": {"a": {"type": "autocomplete", "service": "auth"}},
+    "100": {"a": {"type": "autocomplete", "service": "auth"}, "defaultCodes": ["a", "d"]},
+    "600": {"a": {"type": "autocomplete", "service": "auth"}, "defaultCodes": ["a", "d"]},
+    "700": {"a": {"type": "autocomplete", "service": "auth"}, "defaultCodes": ["a", "d"]},
 
     "245": {
       "ind1": {"type": "boolean"},

@@ -88,9 +88,11 @@ function FrbrCtrl($rootScope, $scope, $routeParams, $timeout, conf, records) {
   $scope.promptAddField = function ($event, fieldset) {
     // TODO: set this once upon first rendering of view (listen to angular event)
     conf.renderUpdates = true;
+    var fieldDefs = fieldset.fieldDefs;
+    var selectedTag = fieldDefs.length? fieldDefs[0].tag : null;
     $scope.fieldToAdd = {
-      tagDefs: fieldset.tagDefs,
-      tag: null,
+      fieldDefs: fieldDefs,
+      tag: selectedTag,
       execute: function () {
         fieldset.addField($scope.fieldToAdd.tag);
         $scope.fieldToAdd = null;
@@ -338,7 +340,7 @@ kitin.directive('kitinAutocomplete', function() {
               continue;
             }
             for (var l=row.subfields, subfield=null, i=0; subfield=l[i++];)
-              if (subfield[subKey])
+              if (subfield[subKey] !== undefined)
                 break;
             if (subfield) {
               subfield[subKey] = newValue;
