@@ -115,12 +115,11 @@
         <br class="breaker" />
         <span class="add-on subfield-code"
           data-ng-class="{'empty': !(subfield[subCode])}"
-          title="{{ subDfn.label_sv }}"
-          data-ng-click="promptAddSubField($event, dfn, row, subCode, $index)">
+          title="{{ subDfn.label_sv }}">
           <span class="subfield-label" data-ng-bind="subDfn.label_sv">
           </span>{{ subDfn.mandatory && '*' || '' }}
          <span class="tag-code"> ({{ dfn.tag }} {{ subCode }})
-        <button data-ng-click="addSubField(row, subCode, $index)"
+        <button data-ng-click="promptAddSubField($event, dfn, row, subCode, $index)"
           class="btn btn-link add-subfield"
           title="Add">lägg till</button>
          </span>
