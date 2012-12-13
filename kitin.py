@@ -63,7 +63,7 @@ def search():
     boost = ("&boost=%s" % b) if b else ''
     breadcrumbs = []
     if q:
-        resp = requests.get("%sbib/kitin/_search?q=%s%s%s" % (
+        resp = requests.get("%s/bib/kitin/_search?q=%s%s%s" % (
             app.config['WHELK_HOST'], q, freq, boost))
         data = json.loads(resp.text)
         search_results = [get_record_summary(item['data']) for item in data['list']]
