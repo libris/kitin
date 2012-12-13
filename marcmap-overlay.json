@@ -80,17 +80,16 @@
   "entities": {
     "record": {
       "main": [
-        {"leader": ["typeOfRecord", "bibLevel", "encLevel", "catForm"]},
-        {"008": ["catalogingSource"]},
-        "040"
+        {"leader": ["typeOfRecord", "bibLevel", "encLevel", "catForm"]}
       ],
       "hidden": [
         {"leader": ["status", "typeOfControl", "characterCoding", "linked"]},
         "001",
         "005",
-        {"008": ["_col_0_6", "publicationStatus", "booksItem", "modifiedRecord"]},
+        {"008": ["_col_0_6", "publicationStatus", "booksItem", "modifiedRecord", "catalogingSource"]},
         "035",
-        "599"
+        "599",
+        "040"
       ]
     },
     "work": {
@@ -106,7 +105,7 @@
       "hidden": []
     },
     "manifestation": {
-      "main": ["020", "260", {"008": ["yearTime1", "country"]}, "500", "300", "..."],
+      "main": ["020", "260", {"008": ["yearTime1", "country"]}, "500", "300"],
       "hidden": []
     },
     "other": {

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Edit{% endblock %}
+{% block body_id %}bib{% endblock %}
 {% block navbar_locals %}
   <!--
   <ul class="nav">
@@ -7,6 +8,7 @@
     <li><a href="#manifestationen"> manifestationen</a></li>
   </ul>
   -->
+  <!--
   <b class="add-on">Bibliografisk post:</b> {{rec_id}}
   <span class="btn-toolbar">
     <span class="btn-group" data-ng-repeat="isFrbr in [editMode == 'frbr']">
@@ -16,6 +18,7 @@
          href="/edit/frbr/{{rec_type}}/{{rec_id}}">FRBR</a>
     </span>
   </span>
+  -->
 {% endblock navbar_locals %}
 
 {% block content_class %}record{% endblock content_class %}

@@ -13,7 +13,7 @@
 <!--       <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}"> -->
     {% endblock head %}
   </head>
-  <body data-spy="scroll" data-target=".navbar">
+  <body data-spy="scroll" data-target=".navbar" id="{% block body_id %}{% endblock %}">
     {% block navbar %}
       <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
