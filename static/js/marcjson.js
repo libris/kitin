@@ -241,10 +241,17 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
       if (typeof tag === 'string') defs.push(map[tag]);
     });
     targetGroup.addField = function (tag) {
-      var field = exports.addField(struct, tag, map[tag]);
-      decorateMarcField(map, overlay, tag, field);
-      // TODO: inject into this at last tag position..
-      this.push(field);
+      var newField = exports.addField(struct, tag, map[tag]);
+      decorateMarcField(map, overlay, tag, newField);
+      var i = groupSpec.indexOf(tag);
+      var nextTag = groupSpec[i + 1];
+      for (ln=this.length; i < ln; i++) {
+        var field = this[i];
+        if (field.getTagDfn().tag === nextTag) {
+          break;
+        }
+      }
+      this.splice(i, 0, newField);
     };
     return targetGroup;
   }
