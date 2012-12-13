@@ -168,9 +168,16 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
       var tag = exports.getMapEntryKey(field);
       if (tag > tagToAdd) break;
     }
-    // TODO: get definition from marcmap etc.
+    // TODO: get more defaults from dfn (overlay)
+    var subfields = [];
+    var row = {ind1: " ", ind2: " ", subfields: subfields};
+    var defaultCodes = (dfn && dfn.defaultCodes)? dfn.defaultCodes : ['a'];
+    defaultCodes.forEach(function (code) {
+      var subfield = {};
+      subfield[code] = "";
+      subfields.push(subfield);
+    });
     var o = {};
-    var row = {ind1: " ", ind2: " ", subfields: [{a: ""}]};
     o[tagToAdd] = row;
     fields.splice(i, 0, o);
     return o;
@@ -229,12 +236,12 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
 
   function createTargetGroup(map, overlay, struct, groupSpec) {
     var targetGroup = [];
-    var defs = targetGroup.tagDefs = [];
+    var defs = targetGroup.fieldDefs = [];
     groupSpec.forEach(function (tag) {
       if (typeof tag === 'string') defs.push(map[tag]);
     });
     targetGroup.addField = function (tag) {
-      var field = exports.addField(struct, tag);
+      var field = exports.addField(struct, tag, map[tag]);
       decorateMarcField(map, overlay, tag, field);
       // TODO: inject into this at last tag position..
       this.push(field);
@@ -249,6 +256,9 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
     var tagExt = overlay.extend[tag];
     for (var extKey in tagExt) {
       var extVal = tagExt[extKey];
+      if (extKey === 'defaultCodes') {
+        dfn[extKey] = extVal;
+      }
       if (dfn.subfield) {
         var subfield = dfn.subfield[extKey];
         if (subfield) {

@@ -183,7 +183,7 @@
     </div>
     <div class="popover-content">
       <!-- if repeatable and not in fielset -->
-      <select data-ng-options="dfn.tag as (dfn.tag + ': ' + dfn.label_sv) for dfn in fieldToAdd.tagDefs"
+      <select data-ng-options="dfn.tag as (dfn.tag + ': ' + dfn.label_sv) for dfn in fieldToAdd.fieldDefs"
         size="1"
         data-ng-model="fieldToAdd.tag"
         data-key-enter="fieldToAdd.execute()"
