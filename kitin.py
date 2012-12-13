@@ -297,8 +297,10 @@ def get_bib_data(id):
         response.status_code = 200
         response.raw = open(mockdatapath('bib', id))
     else:
-        response = requests.get("%s/bib/%s" % (app.config['WHELK_HOST'], id))
+        whelk_url = "%s/bib/%s" % (app.config['WHELK_HOST'], id)
+        response = requests.get(whelk_url)
     if response.status_code >= 400:
+        app.logger.warning("Error response %s on GET <%s>" % (response.status_code, whelk_url))
         abort(response.status_code)
     return raw_json_response(response.text)
 
