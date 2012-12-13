@@ -108,16 +108,15 @@ class Storage(object):
 
         ak = self.cfg.get('BIBDB_API_KEY')
         udata = "username=%s&password=%s" % (uname, pword)
-        print "udata", udata
         apiheaders = {"APIKEY_AUTH_HEADER": "%s" % ak}
         reply = requests.post('https://bibdb.libris.kb.se/api/login/auth', data=udata, headers=apiheaders)
         try:
             if reply.text == "Authenticated":
-                print "authtenticated"
+                print "authenticated"
                 udata = "username=%s"%uname
-                rolereply = requests.get('https://bibdb.libris.kb.se/api/user/role', data = udata, headers=apiheaders)
+                rolereply = requests.get('https://bibdb.libris.kb.se/api/user/role', params = {'username': uname}, headers=apiheaders)
                 print "got rolereply", rolereply
-                roles = rolereply.text
+                roles = rolereply.text  
                 print "got roles", roles
                 users = self._get_table('userdata')
                 print "got users"
