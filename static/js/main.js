@@ -369,8 +369,8 @@ $("ul.facetlist").has("li.overflow").each(function() {
     var $facetlist = $(this);
     $('<a class="show_more" href="#">Visa fler</a>').insertAfter($facetlist).click(function() {
         var $toggler = $(this);
-        $('li.overflow', $facetlist).toggleClass('collapsed');
-        $toggler.text($("li.collapsed", $facetlist).length? "Visa fler" : "Visa färre");
+        $('li.overflow', $facetlist).toggleClass('facet-closed');
+        $toggler.text($("li.facet-closed", $facetlist).length? "Visa fler" : "Visa färre");
         return false
     });
 });

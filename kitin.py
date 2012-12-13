@@ -44,7 +44,7 @@ def start():
 #bärartyp carrierType
 #utgivningstid yearTime1
 @app.route("/search")
-@login_required
+#@login_required
 def search():
     q = request.args.get('q')
     facet = request.args.get('f', '').strip()
@@ -296,7 +296,7 @@ def show_edit_record(edit_mode, rec_type, rec_id):
 
 
 @app.route('/record/bib/<id>')
-@login_required
+#@login_required
 def get_bib_data(id):
     # TODO: Check if exists as draft and fetch from local db if so!
     if app.config.get('MOCK_API', False):
