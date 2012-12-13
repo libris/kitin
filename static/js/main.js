@@ -236,8 +236,10 @@ kitin.directive('fadable', function(conf) {
     if (conf.renderUpdates) {
       // TODO: adding this indicates that this is not a 'fadable', but a 'fieldbox'..
       elm.hide().fadeIn(duration, function () {
-        if (conf.renderUpdates)
-          elm.find('input, select').first().focus();
+        if (conf.renderUpdates) {
+          var fieldExpr = elm.has('input')? 'input' : 'select';
+          elm.find(fieldExpr).first().focus();
+        }
       });
       var body = $('body');
       var scrollTop = $(document).scrollTop(),
