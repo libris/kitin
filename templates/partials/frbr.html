@@ -6,9 +6,9 @@
     <article>
       <section data-ng-repeat="fieldset in [entities.record.main]"
           data-ng-include="'render-fieldset'"></section>
-      <button type="button" class="btn btn-mini btn-link"
+      <button type="button" class="btn btn-mini"
               data-toggle="collapse" data-target="#record-hidden">
-        <i class="icon-edit"></i></button>
+        <!--<i class="icon-edit"></i>-->Fler detaljer</button>
       <section id="record-hidden" class="collapse out"
                data-ng-repeat="fieldset in [entities.record.hidden]"
           data-ng-include="'render-fieldset'"></section>
