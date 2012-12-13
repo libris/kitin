@@ -58,12 +58,10 @@ def search():
         facet = ' '.join(dedupf)
     freq = "&f=%s" % facet
 
-    print "f", facet
-    print "freq", freq
-
     search_results = None
     b = request.args.get('b', '')
     boost = ("&boost=%s" % b) if b else ''
+    breadcrumbs = []
     if q:
         resp = requests.get("%sbib/kitin/_search?q=%s%s%s" % (
             app.config['WHELK_HOST'], q, freq, boost))
@@ -79,6 +77,15 @@ def search():
                 ordered_facets.append(iterate_facets[fo])
 
         facets = ordered_facets
+        for tmpfac in facets:
+            compfac = tmpfac['link']
+            if compfac in facet:
+                bclabel = tmpfac['label_sv']
+                for fvals in tmpfac['f_values']:
+                    concfac = compfac + ":" + fvals[0]
+                    if concfac in facet:
+                        breadcrumbs.append(bclabel + ":" + fvals[1][1])
+                            
     return render_template('search.html', **vars())
 
 def get_facet_labels(f_group, f_values):
