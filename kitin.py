@@ -80,11 +80,10 @@ def search():
         for tmpfac in facets:
             compfac = tmpfac['link']
             if compfac in facet:
-                bclabel = tmpfac['label_sv']
                 for fvals in tmpfac['f_values']:
                     concfac = compfac + ":" + fvals[0]
                     if concfac in facet:
-                        breadcrumbs.append(bclabel + ":" + fvals[1][1])
+                        breadcrumbs.append(fvals[1][1])
                             
     return render_template('search.html', **vars())
 
