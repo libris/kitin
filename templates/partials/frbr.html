@@ -86,6 +86,36 @@
       <li data-ng-init="subCode = getKey(subfield); subDfn = dfn.subfield[subCode]"
           class="add-on subfield-code input-append"
           data-fadable="200">
+
+        <div class="pull-right">
+          <div data-ng-repeat="ind in dfn.indicators[subCode]" class="indicator">
+            <ng:switch on="ind.type">
+              <span data-ng-switch-when="hidden"></span>
+              <span data-ng-switch-when="select">
+                <label data-ng-show="false">{{ ind.key }}</label>
+                <select
+                  data-ng-options="key as (key + ') ' + val.label_sv) for (key, val) in ind.enum"
+                  data-ng-model="row[ind.key]">
+                </select>
+              </span>
+              <span data-ng-switch-when="boolean">
+                <label>
+                  <input type="checkbox" data-ng-model="row[ind.key]"/>
+                  {{ ind.enum['1'].label_sv }}</label>
+              </span>
+              <span data-ng-switch-when="number">
+                <label>{{ ind.enum['0'].label_sv }}:
+                  <input type="number" class="input-mini" data-ng-model="row[ind.key]"/>
+                </label>
+              </span>
+              <span data-ng-switch-default>
+                <input data-ng-model="row[ind.key]" class="frbr-input" />
+              </span>
+            </ng:switch>
+            <br>
+          </div>
+        </div>
+
         <!--No Close button for now… <button class="close" data-ng-click="removeSubField(row, $index)">&times;</button>-->
         <ng:switch on="subDfn.type">
           <input data-ng-switch-when="autocomplete" type="text" class="input-xxlarge frbr-input"
@@ -103,33 +133,6 @@
                 data-kitin-codekey="promptAddSubField($elem, field, $index)"
                 data-ng-model="subfield[subCode]" />
         </ng:switch>
-
-        <div data-ng-repeat="ind in dfn.indicators[subCode]" class="indicator">
-          <ng:switch on="ind.type">
-            <span data-ng-switch-when="hidden"></span>
-            <span data-ng-switch-when="select">
-              <label data-ng-show="false">{{ ind.key }}</label>
-              <select
-                data-ng-options="key as (key + ') ' + val.label_sv) for (key, val) in ind.enum"
-                data-ng-model="row[ind.key]">
-              </select>
-            </span>
-            <span data-ng-switch-when="boolean">
-              <label>
-                <input type="checkbox" data-ng-model="row[ind.key]"/>
-                {{ ind.enum['1'].label_sv }}</label>
-            </span>
-            <span data-ng-switch-when="number">
-              <label>{{ ind.enum['0'].label_sv }}:
-                <input type="number" class="input-mini" data-ng-model="row[ind.key]"/>
-              </label>
-            </span>
-            <span data-ng-switch-default>
-              <input data-ng-model="row[ind.key]" class="frbr-input" />
-            </span>
-          </ng:switch>
-          <br>
-        </div>
 
         <br class="breaker" />
         <span class="add-on subfield-code"
