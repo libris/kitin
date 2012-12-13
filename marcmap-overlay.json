@@ -70,7 +70,8 @@
     "034": {"flatten": true},
     "255": {"flatten": true},
     "260": {"flatten": true, "a": {"entity": "Region", "property": "label"},
-            "defaultCodes": ["a", "b", "c", "e"]},
+            "defaultCodes": ["a", "b", "c", "e"],
+            "indicatorsFor": "b"},
     "538": {"subfieldAsValue": true},
     "500": {"subfieldAsValue": true}
 

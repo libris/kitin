@@ -261,10 +261,13 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
     dfn.ind1Type = indicatorType(tagExt, dfn, 'ind1');
     dfn.ind2Type = indicatorType(tagExt, dfn, 'ind2');
     // TODO: only add if not hidden
+    dfn.indicators = {};
+    var subCode = (tagExt && tagExt.indicatorsFor)?
+      tagExt.indicatorsFor : 'a';
     if (this.ind1Type == 'hidden' && this.ind2Type == 'hidden')
-      dfn.indicators = [];
+      dfn.indicators[subCode] = [];
     else
-      dfn.indicators = [
+      dfn.indicators[subCode]  = [
         {key: 'ind1', type: dfn.ind1Type, enum: dfn.ind1},
         {key: 'ind2', type: dfn.ind2Type, enum: dfn.ind2}
       ];

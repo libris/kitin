@@ -104,31 +104,32 @@
                 data-ng-model="subfield[subCode]" />
         </ng:switch>
 
-    <div data-ng-repeat="ind in dfn.indicators" class="indicator">
-      <ng:switch on="ind.type">
-        <span data-ng-switch-when="hidden"></span>
-        <span data-ng-switch-when="select">
-          <label data-ng-show="false">{{ ind.key }}</label>
-          <select
-            data-ng-options="key as (key + ') ' + val.label_sv) for (key, val) in ind.enum"
-            data-ng-model="row[ind.key]">
-          </select>
-        </span>
-        <span data-ng-switch-when="boolean">
-          <label>
-            <input type="checkbox" data-ng-model="row[ind.key]"/>
-            {{ ind.enum['1'].label_sv }}</label>
-        </span>
-        <span data-ng-switch-when="number">
-          <label>{{ ind.enum['0'].label_sv }}:
-            <input type="number" class="input-mini" data-ng-model="row[ind.key]"/>
-          </label>
-        </span>
-        <span data-ng-switch-default>
-          <input data-ng-model="row[ind.key]" class="frbr-input" />
-        </span>
-      </ng:switch>
-    </div>
+        <div data-ng-repeat="ind in dfn.indicators[subCode]" class="indicator">
+          <ng:switch on="ind.type">
+            <span data-ng-switch-when="hidden"></span>
+            <span data-ng-switch-when="select">
+              <label data-ng-show="false">{{ ind.key }}</label>
+              <select
+                data-ng-options="key as (key + ') ' + val.label_sv) for (key, val) in ind.enum"
+                data-ng-model="row[ind.key]">
+              </select>
+            </span>
+            <span data-ng-switch-when="boolean">
+              <label>
+                <input type="checkbox" data-ng-model="row[ind.key]"/>
+                {{ ind.enum['1'].label_sv }}</label>
+            </span>
+            <span data-ng-switch-when="number">
+              <label>{{ ind.enum['0'].label_sv }}:
+                <input type="number" class="input-mini" data-ng-model="row[ind.key]"/>
+              </label>
+            </span>
+            <span data-ng-switch-default>
+              <input data-ng-model="row[ind.key]" class="frbr-input" />
+            </span>
+          </ng:switch>
+          <br>
+        </div>
 
         <br class="breaker" />
         <span class="add-on subfield-code"
