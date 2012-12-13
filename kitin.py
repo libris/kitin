@@ -58,12 +58,10 @@ def search():
         facet = ' '.join(dedupf)
     freq = "&f=%s" % facet
 
-    print "f", facet
-    print "freq", freq
-
     search_results = None
     b = request.args.get('b', '')
     boost = ("&boost=%s" % b) if b else ''
+    breadcrumbs = []
     if q:
         resp = requests.get("%sbib/kitin/_search?q=%s%s%s" % (
             app.config['WHELK_HOST'], q, freq, boost))
@@ -79,6 +77,15 @@ def search():
                 ordered_facets.append(iterate_facets[fo])
 
         facets = ordered_facets
+        for tmpfac in facets:
+            compfac = tmpfac['link']
+            if compfac in facet:
+                bclabel = tmpfac['label_sv']
+                for fvals in tmpfac['f_values']:
+                    concfac = compfac + ":" + fvals[0]
+                    if concfac in facet:
+                        breadcrumbs.append(bclabel + ":" + fvals[1][1])
+                            
     return render_template('search.html', **vars())
 
 def get_facet_labels(f_group, f_values):
@@ -297,8 +304,10 @@ def get_bib_data(id):
         response.status_code = 200
         response.raw = open(mockdatapath('bib', id))
     else:
-        response = requests.get("%s/bib/%s" % (app.config['WHELK_HOST'], id))
+        whelk_url = "%s/bib/%s" % (app.config['WHELK_HOST'], id)
+        response = requests.get(whelk_url)
     if response.status_code >= 400:
+        app.logger.warning("Error response %s on GET <%s>" % (response.status_code, whelk_url))
         abort(response.status_code)
     return raw_json_response(response.text)
 

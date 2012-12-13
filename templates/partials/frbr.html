@@ -33,27 +33,6 @@
   <article data-ng-include="'/partials/hld'" class="well hld">
   </article>
 
-  <div class="well pull-right"><div class="pull-right"><button class="btn btn-large disabled">SPARA UTKAST</button> <button class="btn btn-large disabled">PUBLICERA</button></div>
- 
-  </div>
-
-
-  <div id="prompt-add-field" data-ng-show="fieldToAdd" class="popover show">
-    <div class="popover-inner">
-      <h3 class="popover-title">Lägg till fält
-        <button class="close" data-ng-click="fieldToAdd.abort()">&times;</button></h3>
-    </div>
-    <div class="popover-content">
-      <!-- if repeatable and not in fielset -->
-      <select data-ng-options="dfn.tag as (dfn.tag + ': ' + dfn.label_sv) for dfn in fieldToAdd.tagDefs"
-        size="1"
-        data-ng-model="fieldToAdd.tag"
-        data-key-enter="fieldToAdd.execute()"
-        data-key-esc="fieldToAdd.abort()" />
-      </select>
-    </div>
-  </div>
-
   <script type="text/ng-template" id="render-fieldset">
     <div class="pull-right"><button class="btn btn-link"
       data-ng-click="promptAddField($event, fieldset)"
@@ -130,22 +109,19 @@
                 data-ng-model="subfield[subCode]"></textarea>
           <input data-ng-switch-default type="text" class="input-xxlarge"
                 placeholder="+{{ subDfn.label_sv }}"
-                data-kitin-codekey="promptAddSubField($elem, field, $index)"
                 data-ng-model="subfield[subCode]" />
         </ng:switch>
 
         <br class="breaker" />
         <span class="add-on subfield-code"
           data-ng-class="{'empty': !(subfield[subCode])}"
-          title="{{ subDfn.label_sv }}"
-          data-ng-click="promptAddSubField($event, dfn, row, subCode, $index)">
+          title="{{ subDfn.label_sv }}">
           <span class="subfield-label" data-ng-bind="subDfn.label_sv">
           </span>{{ subDfn.mandatory && '*' || '' }}
          <span class="tag-code"> ({{ dfn.tag }} {{ subCode }})
-        <button data-ng-show="!subDfn || subDfn.repeatable"
-          data-ng-click="addSubField(row, subCode, $index)"
+        <button data-ng-click="promptAddSubField($event, dfn, row, subCode, $index)"
           class="btn btn-link add-subfield"
-          title="Add">lägg till</button>         
+          title="Add">lägg till</button>
          </span>
         </span>
       </li>
@@ -194,5 +170,42 @@
         <% } %>
     </div>
   </script>
+
+  <div class="well pull-right"><div class="pull-right">
+      <button class="btn btn-large disabled">SPARA UTKAST</button>
+      <button class="btn btn-large disabled">PUBLICERA</button>
+  </div></div>
+
+  <div id="prompt-add-field" data-ng-show="fieldToAdd" class="popover show">
+    <div class="popover-inner">
+      <h3 class="popover-title">Lägg till fält
+        <button class="close" data-ng-click="fieldToAdd.abort()">&times;</button></h3>
+    </div>
+    <div class="popover-content">
+      <!-- if repeatable and not in fielset -->
+      <select data-ng-options="dfn.tag as (dfn.tag + ': ' + dfn.label_sv) for dfn in fieldToAdd.tagDefs"
+        size="1"
+        data-ng-model="fieldToAdd.tag"
+        data-key-enter="fieldToAdd.execute()"
+        data-key-esc="fieldToAdd.abort()" />
+      </select>
+    </div>
+  </div>
+
+  <div id="prompt-add-subfield" data-ng-show="subFieldToAdd" class="popover show">
+    <div class="popover-inner">
+      <h3 class="popover-title">Add subfield
+        <button class="close" data-ng-click="subFieldToAdd.abort()">&times;</button></h3>
+    </div>
+    <div class="popover-content">
+      <select data-ng-options="code as (code + ': ' + subDfn.label_sv)
+                                for (code, subDfn) in subFieldToAdd.subfields"
+        size="1"
+        data-ng-model="subFieldToAdd.code"
+        data-key-enter="subFieldToAdd.execute()"
+        data-key-esc="subFieldToAdd.abort()" />
+      </select>
+    </div>
+  </div>
 
 {% endraw %}

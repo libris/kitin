@@ -83,6 +83,8 @@ function FrbrCtrl($rootScope, $scope, $routeParams, $timeout, conf, records) {
     });
   });
 
+  // TODO: unify prompt* functions with the MarcCtrl equivalents
+
   $scope.promptAddField = function ($event, fieldset) {
     // TODO: set this once upon first rendering of view (listen to angular event)
     conf.renderUpdates = true;
@@ -105,6 +107,23 @@ function FrbrCtrl($rootScope, $scope, $routeParams, $timeout, conf, records) {
   $scope.promptAddSubField = function (o, field, index) {
     console.log(arguments);
   }
+  $scope.promptAddSubField = function ($event, dfn, row, currentSubCode, index) {
+    $scope.subFieldToAdd = {
+      subfields: dfn.subfield,
+      code: currentSubCode,
+      execute: function () {
+        marcjson.addSubField(row, $scope.subFieldToAdd.code, index);
+        $scope.subFieldToAdd = null;
+      },
+      abort: function () {
+        $scope.subFieldToAdd = null;
+      }
+    };
+    $timeout(function () {
+      openPrompt($event, '#prompt-add-subfield');
+    });
+  }
+
 
 }
 
@@ -196,12 +215,14 @@ function openPrompt($event, promptSelect) {
   var prompt = $(promptSelect);
   prompt.css({top: off.top + 'px',
               left: off.left + width - prompt.width() + 'px'});
-  prompt.find('input').focus();
+  prompt.find('select').focus();
 }
 
 
 // directives.js
 
+/* TODO: Turn this into a more declarative kitin-subfield directive?
+  data-kitin-codekey="promptAddSubField($elem, field, $index)"
 kitin.directive('kitinCodekey', function () {
   return function (scope, elm, attrs) {
     var expr = attrs.kitinCodekey;
@@ -210,6 +231,7 @@ kitin.directive('kitinCodekey', function () {
     });
   }
 });
+*/
 
 kitin.directive('keyEnter', function () {
   return function (scope, elm, attrs) {
@@ -236,8 +258,10 @@ kitin.directive('fadable', function(conf) {
     if (conf.renderUpdates) {
       // TODO: adding this indicates that this is not a 'fadable', but a 'fieldbox'..
       elm.hide().fadeIn(duration, function () {
-        if (conf.renderUpdates)
-          elm.find('input, select').first().focus();
+        if (conf.renderUpdates) {
+          var fieldExpr = elm.has('input')? 'input' : 'select';
+          elm.find(fieldExpr).first().focus();
+        }
       });
       var body = $('body');
       var scrollTop = $(document).scrollTop(),
