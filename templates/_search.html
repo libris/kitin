@@ -26,7 +26,7 @@
 </div>
 	  {% if search_results %}
 <div class="row-fluid">
-    <div class="span9 offset3"><span class="hit-counter"><strong>{{ data.hits }}</strong> träffar på <strong>{{ q }} {{ facet }}</strong></span></div>
+    <div class="span9 offset3"><span class="hit-counter"><strong>{{ data.hits }}</strong> träffar på <strong>{{ q }} {% if facet != '' %}{% for bc in facet.split(' ') -%} {% if loop.first %} inom{% elif loop.last %} och{% else %}, {% endif %} {{ bc }} {%- endfor %}{% endif %}</strong></span></div>
 </div>
 	 
 
@@ -38,8 +38,9 @@
          <div class="facetgroup-header muted">{% if f.label_sv %}{{ f.label_sv }}{% else %}{{ f.link }}{% endif %}</div>
          <ul class="unstyled facetlist">
              {%  for v in f.f_values %}
+             {% set facet2 = f.link + ":" + v[0] %}
              <li{% if loop.index > 10 %} class="collapsed overflow" {% endif %}>
-             {% if f.link in facet %}<i class="icon-ok"></i> {% endif %}<a title="{{ v }}" href="?q={{ q }}&f={{ facet }} {{ f.link }}:{{ v[0] }}">{{ v[1][1] }}<span class="muted"> ({{ v[1][0] }})</span></a>
+             {% if facet2 in facet %}<i class="icon-ok"></i> {% endif %}<a title="{{ v }}" href="?q={{ q }}&f={{ facet }} {{ f.link }}:{{ v[0] }}">{{ v[1][1] }}<span class="muted"> ({{ v[1][0] }})</span></a>
              </li>
              {% endfor %}
          </ul>
