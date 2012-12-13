@@ -98,8 +98,8 @@
       "contents": [
         {"008": ["booksLiteraryForm", "booksContents", "booksConfPub", "booksFestschrift", "booksBiography", "booksAudience", "booksGovtPub"]}
       ],
-      "classification": ["042", "084", "600", "650", "082", "050", "043", "976"],
-      "hidden": []
+      "classification": ["042", "084", "600", "650", "082", "050", "043"],
+      "hidden": ["976"]
     },
     "expression": {
       "main": ["028", {"008": ["language", "booksIllustrations"]}, {"008": ["booksIndex"]}, "505", "520"],
