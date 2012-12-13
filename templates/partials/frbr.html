@@ -170,8 +170,12 @@
           <% } %>
         <% if (data['680']) { %><br>(<%= data['680'].i %>)<% } %>
         <% } %>
-      <% if (data.top_titles) { %>
-        <% data.top_titles.forEach(function (tt) { %>
+      <% if (data.top_titles) {
+        var titles = data.top_titles;
+        if (!titles.forEach)
+          titles = [titles];
+        %>
+        <% titles.forEach(function (tt) { %>
           t ex. <a href="<%= tt.uri %>" target="_blank"><%= tt.title %></a>
           <% }) %>
         </p>
