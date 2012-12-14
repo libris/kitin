@@ -1,4 +1,9 @@
 <div class="span6 offset3">
+          {% if msg %}
+          <div class=" control-group alert alert-error">
+            {{ msg }}
+          </div>
+          {% endif %}
   <section class="well">
     <h4>Logga in</h4>
       <form class="form-horizontal" method="POST" action="/login">
@@ -10,11 +15,7 @@
             <input name="password" autocomplete="off" type="password" class="input-xlarge" placeholder="">
           <label for="inputPassword">Lösenord</label>
          </div>
-          {% if msg %}
-          <div class="control-group">
-            {{ msg }}
-          </div>
-          {% endif %}
+
          <div class="control-group">
            <button type="submit" class="btn btn-success btn-xlarge">Logga in</button><!--<label class="checkbox pull-right"><input type="checkbox"> Kom ihåg mig <a href="#">?</a></label>-->
 	    </div>

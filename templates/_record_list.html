@@ -34,7 +34,7 @@
       		<span title="100C">{{ record.author_association }}</span>
       </span></h4>
       {% endif %}
-       <!--TODO: cleanup code, add indicator for printing of type and labels-->
+       <!--TODO: cleanup code, add indicator for printing of identifier type and labels-->
       {% if record.isbn or record.issn or record.other_standard_id or record.publisher_number or record.pubyear %}
       <div class="row-fluid">
        <div class="span4 identifier">
@@ -47,16 +47,17 @@
           {% endif %}
           {% if record.other_standard_id %}
            <span title="{{ record.other_standard_id.ind1 }} 024A">{{ record.other_standard_id }}</span>
-           <label class="label-record-list muted">024.identifier</label>
+           <label class="label-record-list muted">Annan standardiserad identifierare</label><!--tmp hardcoded label-->
           {% endif %}
           {% if record.publisher_number %}
-            <span title="{{ record.ind1 }} 028A">{{ record.publisher_number }} - <span title="028B">{{ record.publisher }}</span></span> 
+            <span title="{{ record.ind1 }} 028A">{{ record.publisher_number }} - <span title="028B">{{ record.publisher }}</span></span>
+            <label class="label-record-list muted">Editionsnummer</label> <!--tmp hardcoded label-->
           {% endif %}
         </div>
         {% if record.pubyear %}
         <div class="span8">
             <span class="publication" title"250A">{{ record.edition }} 
-        	<span title="260C">{{ record.pubyear }}</span>
+        	<span title="008">{{ record.pubyear_008 }}</span>
         	<label class="label-record-list muted">Publikationsår</label>
         	</span>
         </div>

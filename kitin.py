@@ -264,7 +264,7 @@ def get_record_summary(data):
    
     #extracting general fields.
     #change in the dict to extract other fields/subfields or save them under different labels
-    tagdict = {'008': {'yearTime': 'pubyear_008'},
+    tagdict = {'008': {'yearTime1': 'pubyear_008'},
                 '020': {'a': 'isbn'},
                 '022': {'a': 'issn'},
                 '024': {'a': 'other_standard_id', 'ind1': 'ind1'},
