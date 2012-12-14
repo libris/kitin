@@ -18,7 +18,7 @@ class User(UserMixin):
             self.password = unicode(password)
             self.active = active
             print "---initiated User"
-        except Excetion as e:
+        except Exception as e:
             print "gick inge bra: ", e
 
     def __repr__(self):
