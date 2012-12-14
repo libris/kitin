@@ -6,7 +6,7 @@ You are using an old version of Internet Explorer which will soon be unsupported
   <![endif]-->
     {% block head %}
       <meta charset="utf-8">
-      <title>{% block title %}untitled{% endblock title %} - LIBRIS katalogisering (development)</title>
+      <title>{% block title %}untitled{% endblock title %} | LIBRIS katalogisering - prototyp</title>
       <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.css') }}">
       <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap-responsive.css') }}" rel="stylesheet">
       <link href="{{ url_for('static', filename='vendor/jquery/jquery.autocomplete.css') }}" rel="stylesheet">
@@ -25,7 +25,7 @@ You are using an old version of Internet Explorer which will soon be unsupported
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </a>
-            <a class="brand brand-fix" href="/search">LIBRIS katalogisering - prototyp</a>
+            <a target="_self" class="brand brand-fix" href="/search">LIBRIS katalogisering - prototyp</a>
             {% block navbar_locals %}
             {% endblock navbar_locals %}
             <div class="nav-collapse dropdown">
@@ -35,7 +35,7 @@ You are using an old version of Internet Explorer which will soon be unsupported
                 <li><a href="/">Search</a></li>
                 <li><a href="/upload">Upload</a></li>
     -->         {% if user %}
-                <li><span class="muted">Inloggad som: {{ user.username }}</span></li>
+                <li><a href="#"><span class="muted">Inloggad som: {{ user.username }}</span></a></li>
                 <li><a href="/signout?signout=yesindeedioh">Logga ut</a></li>
                 {% endif %}
               </ul>

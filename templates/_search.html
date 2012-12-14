@@ -7,7 +7,7 @@
           <form class="form-inline search-form" action="/search">
             <input id="search"  name="q" type="text" autofocus
                     class="xlarge ui-autocomplete-input"
-                    value="{% if q %}{{ q }}{% endif %}" placeholder="ISBN, Titel, Namn"
+                    value="{% if q %}{{ q }}{% endif %}" placeholder=""
                     autocomplete="off" role="textbox"
             aria-autocomplete="list" aria-haspopup="true">
             <!--<input id="boost"  name="b" type="text"
@@ -41,7 +41,7 @@
              {% set facet2 = f.link + ":" + v[0] %}
              <li{% if loop.index > 10 %} class="facet-closed overflow" {% endif %}>
              {% set num = v[1][0] %}
-             {% if facet2 in facet %}<i class="icon-ok"></i> {% endif %}<a title="{{ v }}" href="?q={{ q }}&f={{ facet }} {{ f.link }}:{{ v[0] }}">{{ v[1][1] }}<span class="muted"> ({{ num|chunk_number() }})</span></a>
+             {% if facet2 in facet %}<span class="checkmark-true">&#x2713;</span> {% endif %}<a title="{{ v }}" href="?q={{ q }}&f={{ facet }} {{ f.link }}:{{ v[0] }}">{{ v[1][1] }}<span class="muted"> ({{ num|chunk_number() }})</span></a>
              </li>
              {% endfor %}
          </ul>

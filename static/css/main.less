@@ -23,7 +23,10 @@ body {
 
 select {
   padding-bottom: 0;
-  -moz-appearance: menulist-textfield;
+     -moz-appearance: menulist-textfield;
+  -webkit-appearance: menulist-textfield;
+          appearance: menulist-textfield;
+  
 }
 
 .container-fluid-content {
@@ -94,6 +97,7 @@ body#bib {
   width:285px;
 }
 
+
 /* --------------------SEARCH-------------------- */
 
 
@@ -115,8 +119,8 @@ ul.unstyled, ol.unstyled {
 }
 
 .search-bar .search-input-item {
-  border-radius: 3px 3px 39px 3px;
-  padding: 10px;
+  border-radius: 3px 3px 3px 3px;
+  padding: 0px; /* add px for frame */
 }
 
 .search-bar form input[type="text"] {
@@ -154,6 +158,11 @@ ul.unstyled, ol.unstyled {
   display: none;
 }
 
+.checkmark-true {
+  color: green;
+  font-weight: 600;
+}
+
 /*RECORD LIST*/
 
 /*alot of temp styles until lessified*/
@@ -162,14 +171,13 @@ ul.unstyled, ol.unstyled {
   padding-right: 20px;
   font-weight: 400;
 }
+
 .publication {
 }
-
 
 .author .icon-user {
   padding-top: 4px;
   padding-right: 5px;
-
 }
 
 .icon-author {
@@ -206,7 +214,6 @@ article.record:hover {
   box-shadow: inset 0 0 3px 1px #999;
 
 }
-
 
 .record h3 {
   font-size: 20px;
@@ -378,6 +385,13 @@ article.hld {
   background: rgba(236, 209, 222, 0.4);
   }
 
+h1.bibhead {
+/* color: rgba(216, 238, 210, 1);*/
+  padding-bottom: 0;
+  margin-bottom: 0;
+  color:grey;  
+}
+
 /*a div {
     visibility:hidden;
 }
@@ -390,6 +404,12 @@ a:hover div {
 .fields .control-label + .ng-binding {
   background: transparent;
 }
+
+.placeholder-hld {
+  height: 80px;
+}
+
+
 
 /* --------------------MARC21 FORM-------------------- */
 
@@ -485,9 +505,14 @@ textarea:focus:-moz-placeholder {
  visibility: hidden;
 }
 
-span .subfield-label, .tag-code {
+span .subfield-label, .fixed-field-label, .tag-code {
   font-size: 12px;
   color: #999;
+}
+
+.fixed-field-label {
+  text-align: left;
+  padding-left:30px;
 }
 
 div.controls input:focus,
@@ -517,8 +542,6 @@ input[type="color"]:focus,
           box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.5), 0 0 0 rgba(82, 168, 236, 0.6);
 
 }
-
-
 
 .record .leader,
 .record .control_field,
@@ -728,7 +751,3 @@ input.subfield-master { width: 600px; border-radius: 0; box-shadow: 0 0 0 0;}
   display: block;
   line-height: 20px;
 }
-
-
-
-
