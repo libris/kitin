@@ -23,7 +23,10 @@ body {
 
 select {
   padding-bottom: 0;
-  -moz-appearance: menulist-textfield;
+     -moz-appearance: menulist-textfield;
+  -webkit-appearance: menulist-textfield;
+          appearance: menulist-textfield;
+  
 }
 
 .container-fluid-content {
@@ -383,9 +386,10 @@ article.hld {
   }
 
 h1.bibhead {
-/*  color: rgba(216, 238, 210, 1);*/
+/* color: rgba(216, 238, 210, 1);*/
   padding-bottom: 0;
   margin-bottom: 0;
+  color:grey;  
 }
 
 /*a div {
@@ -504,6 +508,11 @@ textarea:focus:-moz-placeholder {
 span .subfield-label, .fixed-field-label, .tag-code {
   font-size: 12px;
   color: #999;
+}
+
+.fixed-field-label {
+  text-align: left;
+  padding-left:30px;
 }
 
 div.controls input:focus,
