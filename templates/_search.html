@@ -1,5 +1,5 @@
 <div class="row-fluid">
-  <div class="span6 offset3">
+  <div class="span9 offset3">
     <section class="search" role="search">
       <div class="search-bar">
       <ul class="border-search unstyled">
@@ -14,7 +14,7 @@
                     class="xlarge ui-autocomplete-input"
                     value="{% if b %}{{ b }}{% endif %}" placeholder="Ex: fields.100.subfields.a:2,labels.title:2"
                     autocomplete="off" role="textbox">-->
-            <button id="submit" class="btn btn-large btn-inverse" type="submit">
+            <button id="submit" class="btn btn-large btn-success" type="submit">
               <i class="icon-search icon-white"></i>
             </button>
           </form>
@@ -34,12 +34,12 @@
     <div class="span3">
      {%  for f in facets %}
      {% if f.f_values %}
-         <div class="facetholder"> <!-- legend: L: {{ f.link }}<br>F: {{ f }}<br>Ls: {{ f.label_sv }}<br> -->       
+         <div class="facetholder"> <!--{# legend: L: {{ f.link }}<br>F: {{ f }}<br>Ls: {{ f.label_sv }} #} -->       
          <div class="facetgroup-header muted">{% if f.label_sv %}{{ f.label_sv }}{% else %}{{ f.link }}{% endif %}</div>
          <ul class="unstyled facetlist">
              {%  for v in f.f_values %}
              {% set facet2 = f.link + ":" + v[0] %}
-             <li{% if loop.index > 10 %} class="collapsed overflow" {% endif %}>
+             <li{% if loop.index > 10 %} class="facetclosed overflow" {% endif %}>
              {% set num = v[1][0] %}
              {% if facet2 in facet %}<i class="icon-ok"></i> {% endif %}<a title="{{ v }}" href="?q={{ q }}&f={{ facet }} {{ f.link }}:{{ v[0] }}">{{ v[1][1] }}<span class="muted"> ({{ num|chunk_number() }})</span></a>
              </li>

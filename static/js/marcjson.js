@@ -238,19 +238,30 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
     var targetGroup = [];
     var defs = targetGroup.fieldDefs = [];
     groupSpec.forEach(function (tag) {
-      if (typeof tag === 'string') defs.push(map[tag]);
+      if (typeof tag === 'string') {
+        decorateMarcFieldDefinition(map, overlay, tag);
+        defs.push(map[tag]);
+      } else {
+        decorateMarcFieldDefinition(map, overlay, exports.getMapEntryKey(tag));
+      }
     });
     targetGroup.addField = function (tag) {
-      var field = exports.addField(struct, tag, map[tag]);
-      decorateMarcField(map, overlay, tag, field);
-      // TODO: inject into this at last tag position..
-      this.push(field);
+      var newField = exports.addField(struct, tag, map[tag]);
+      decorateMarcField(map, overlay, tag, newField);
+      var i = groupSpec.indexOf(tag);
+      var nextTag = groupSpec[i + 1];
+      for (ln=this.length; i < ln; i++) {
+        var field = this[i];
+        if (field.getTagDfn().tag === nextTag) {
+          break;
+        }
+      }
+      this.splice(i, 0, newField);
     };
     return targetGroup;
   }
 
-  function decorateMarcField(map, overlay, tag, field) {
-    // TODO: prepare map data: clone dfn once, extend with overlay
+  function decorateMarcFieldDefinition(map, overlay, tag) {
     var dfn = map[tag];
     dfn.tag = tag;
     var tagExt = overlay.extend[tag];
@@ -286,6 +297,10 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
     //  subCode = exports.getMapEntryKey(subfield);
     //  return this.subfield[subCode];
     //};
+  }
+
+  function decorateMarcField(map, overlay, tag, field) {
+    var dfn = map[tag];
     field.getRow = function () { return this[tag]; };
     field.getTagDfn = function () { return dfn; };
     field.getWidgetType = function () {

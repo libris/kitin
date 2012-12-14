@@ -44,8 +44,8 @@ def start():
 #bibl nivå bibLevel
 #bärartyp carrierType
 #utgivningstid yearTime1
-@login_required
 @app.route("/search")
+#@login_required
 def search():
     q = request.args.get('q')
     facet = request.args.get('f', '').strip()
@@ -301,6 +301,7 @@ def show_edit_record(edit_mode, rec_type, rec_id):
 
 
 @app.route('/record/bib/<id>')
+#@login_required
 def get_bib_data(id):
     # TODO: Check if exists as draft and fetch from local db if so!
     if app.config.get('MOCK_API', False):
@@ -488,6 +489,10 @@ def _load_user(uid):
     print "loading user from nowhere"
     return User(uid)
 
+@login_manager.unauthorized_handler
+def _handle_unauthorized():
+    return redirect("/")
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -534,4 +539,5 @@ if __name__ == "__main__":
     app.config['MARC_MAP'] = opts.marcmap
     app.config['MARC_OVERLAY'] = opts.overlay
     app.run(host='0.0.0.0')
+
 

@@ -57,12 +57,13 @@ label {
   padding-bottom: 5px;
   padding-top: 5px;
   padding-left: 5px;
-  margin-top: 0px;
-  margin-bottom: 6px;
   background-color: #FFF;
 }
 .subfield-container:hover {
  /* background-color: #fafafa;*/
+}
+
+body#bib {
 }
 
 
@@ -149,7 +150,7 @@ ul.unstyled, ol.unstyled {
   width: 46px;
 }
 /*FACET LIST*/
-.collapsed {
+.facet-closed {
   display: none;
 }
 
@@ -298,6 +299,16 @@ textarea.heading {
   max-width: 530px;  
 }
 
+.subfield-container div.indicator,
+.tag {
+  visibility: hidden;
+}
+/* TODO: currently never showing indicators nor tag labels * /
+
+.subfield-container div.indicator {
+  opacity: 0;
+}
+
 .tag {
   opacity: 0.075;
   align: right;
@@ -307,9 +318,6 @@ textarea.heading {
           transition: opacity 0.5s;  
 }
 
-.subfield-container div.indicator {
-  opacity:0
-}
 .subfield-container:hover div.indicator {
   opacity: 1;
   -webkit-transition: opacity 0.5s;
@@ -321,6 +329,8 @@ textarea.heading {
 .subfield-container:hover div.tag {
  opacity: 1;
 }
+
+/**/
 
 .subfield-container input:focus div.tag {
  opacity: 1;
