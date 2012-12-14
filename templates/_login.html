@@ -10,6 +10,11 @@
             <input name="password" autocomplete="off" type="password" class="input-xlarge" placeholder="">
           <label for="inputPassword">Lösenord <a href="#">(Glömt?)</a></label>
          </div>
+          {% if msg %}
+          <div class="control-group">
+            {{ msg }}
+          </div>
+          {% endif %}
          <div class="control-group">
            <button type="submit" class="btn btn-success btn-xlarge">Logga in</button><!--<label class="checkbox pull-right"><input type="checkbox"> Kom ihåg mig <a href="#">?</a></label>-->
 	    </div>
