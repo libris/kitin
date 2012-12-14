@@ -287,7 +287,7 @@ def get_record_summary(data):
 
 @app.route("/profile")
 def profile():
-    return render_template('mockups/profile.html')
+    return render_template('mockups/profile.html', user = current_user if current_user.is_active() else None)
 
 
 @app.route('/edit/<edit_mode>')
@@ -297,7 +297,6 @@ def show_record_form(**kws):
 @app.route('/edit/<edit_mode>/<rec_type>/<rec_id>')
 def show_edit_record(edit_mode, rec_type, rec_id):
     user = current_user if current_user.is_active() else None
-    print "user %s" % user
     #json_post = json.loads(response.text)
     #return render_template('bib.html', data=json_post)
     return show_record_form(rec_type=rec_type, rec_id=rec_id, user=user)
