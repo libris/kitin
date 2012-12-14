@@ -13,13 +13,11 @@ class User(UserMixin):
     __tablename__ = 'userdata'
     def __init__(self, username, password="Secret", active=True):
         try:
-            print "---initiating User", username, password
             self.username = unicode(username)
             self.password = unicode(password)
             self.active = active
-            print "---initiated User"
         except Exception as e:
-            print "gick inge bra: ", e
+            print "Could not initiate user %s %s" % (username, e)
 
     def __repr__(self):
         return '<User %r>' % (self.username) 
@@ -44,8 +42,12 @@ class Storage(object):
         
 
     def _get_table(self, tname = 'marcpost'):
-        return Table(tname, self.metadata, autoload=True)
-
+        try:
+            table = Table(tname, self.metadata, autoload=True)
+        except Exception as e:
+            print "Could not load table %s" % e
+        return table
+    
     def save(self, id, json_data):
         table = self._get_table()
         insert = table.insert()
@@ -112,29 +114,21 @@ class Storage(object):
         reply = requests.post('https://bibdb.libris.kb.se/api/login/auth', data=udata, headers=apiheaders)
         try:
             if reply.text == "Authenticated":
-                print "authenticated"
                 udata = "username=%s"%uname
                 rolereply = requests.get('https://bibdb.libris.kb.se/api/user/role', params = {'username': uname}, headers=apiheaders)
-                print "got rolereply", rolereply
                 roles = rolereply.text  
-                print "got roles", roles
                 users = self._get_table('userdata')
-                print "got users"
                 u = users.select(users.c.username == uname).execute().first()
-                print "got u"
                 if u and len(u) > 0:
-                    print "known user: ", u
                     user = u
                 else:
-                    print "unknown user, making new"
                     try:
                         insert = users.insert()
                         insert.execute(username = uname, active = 1)
                     except Exception as e:
-                        print "fail: ", e
+                        print "Failure trying to insert user: ", e
                 newvalues = users.update().where(users.c.username == uname).values(active = 1, roles = roles).execute()
                 user = users.select(users.c.username == uname).execute().first()
-                print "user: ", user
                 return User(user.username)
             else:
                 return None
