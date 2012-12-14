@@ -496,6 +496,7 @@ def _handle_unauthorized():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    msg = None
     if request.method == "POST" and "username" in request.form:
         username = request.form["username"]
         password = request.form["password"] 
@@ -507,6 +508,7 @@ def login():
             flash("Logged in!")
         else:
             flash("No such user.")
+            msg = u"Kunde inte logga in. Kontrollera användarnamn och lösenord."
 
     elif "signout" in request.form and current_user:
         try:
@@ -516,7 +518,7 @@ def login():
             return render_template("home.html")
         user = None
 
-    return render_template("home.html", user = current_user if current_user.is_active() else None)
+    return render_template("home.html", user = current_user if current_user.is_active() else None, msg = msg)
 
 @app.route("/signout")
 @login_required #add this decorator to all views that require log in, i.e. all but login
