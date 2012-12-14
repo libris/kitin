@@ -86,7 +86,7 @@ def search():
                     if concfac in facet:
                         breadcrumbs.append(fvals[1][1])
    
-    return render_template('search.html', **vars())
+    return render_template('search.html', user = current_user if current_user.is_active() else None, **vars())
 
 def chunk_number(num):
     number = str(num)
@@ -203,6 +203,7 @@ def _get_fixfield_label(pr, columns):
                 label_sv = label_sv.strip(" (1)")
         except Exception as e:
             print "propRef fail: ", e
+            return None
     return label_sv
 
 
@@ -295,9 +296,11 @@ def show_record_form(**kws):
 
 @app.route('/edit/<edit_mode>/<rec_type>/<rec_id>')
 def show_edit_record(edit_mode, rec_type, rec_id):
+    user = current_user if current_user.is_active() else None
+    print "user %s" % user
     #json_post = json.loads(response.text)
     #return render_template('bib.html', data=json_post)
-    return show_record_form(rec_type=rec_type, rec_id=rec_id)
+    return show_record_form(rec_type=rec_type, rec_id=rec_id, user=user)
 
 
 @app.route('/record/bib/<id>')
@@ -487,7 +490,11 @@ def mockdatapath(rectype, recid=None):
 def _load_user(uid):
     """Get user by uid from bibdb? Return None if uid is not valid. Ensure uid is unicode."""
     print "loading user from nowhere"
-    return User(uid)
+    try:
+        user = User(uid)
+    except Exception as e:
+        print "Exception trying to load user. %s" % e
+    return user
 
 @login_manager.unauthorized_handler
 def _handle_unauthorized():
