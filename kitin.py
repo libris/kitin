@@ -7,9 +7,10 @@ import logging
 from flask import Flask, render_template, request, make_response, abort, redirect, url_for
 from flask_login import LoginManager, login_required, login_user, flash, current_user, UserMixin, logout_user
 import requests
+import re
 from babydb import Storage, User
 #from spill import Spill
-
+import jinja2
 
 app = Flask(__name__)
 app.config.from_pyfile('config.cfg')
@@ -84,8 +85,12 @@ def search():
                     concfac = compfac + ":" + fvals[0]
                     if concfac in facet:
                         breadcrumbs.append(fvals[1][1])
-                            
+   
     return render_template('search.html', **vars())
+
+def chunk_number(num):
+    number = str(num)
+    return re.sub(r'\B(?=(\d{3})+(?!\d))', " ", number)
 
 def get_facet_labels(f_group, f_values):
 
@@ -513,6 +518,8 @@ def login():
 def logout():
     logout_user()
     return render_template("home.html")
+
+jinja2.filters.FILTERS['chunk_number'] = chunk_number
 
 if __name__ == "__main__":
     from optparse import OptionParser
