@@ -29,8 +29,9 @@
     <div class="span9 offset3"><span class="hit-counter"><strong>{{ data.hits|chunk_number() }}</strong> träffar på <strong>{{ q }}</strong>{% if breadcrumbs|length > 0 %}{% for bc in breadcrumbs -%} {% if loop.first %} inom{% elif loop.last %} och{% else %}, {% endif %} <strong>{{ bc }}</strong> {%- endfor %}{% endif %}</span></div>
 </div>
 	 
-
+<div class="well">
 <div class="row-fluid">
+
     <div class="span3">
      {%  for f in facets %}
      {% if f.f_values %}
@@ -61,4 +62,5 @@
     {% endif %}
   {% endif %}
   </div>
+</div>
 </div>
