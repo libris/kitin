@@ -46,12 +46,12 @@
             <label class="label-record-list muted">ISSN</label>
           {% endif %}
           {% if record.other_standard_id %}
-           <span title="{{ record.tag_024_ind1_code }} 024A">{{ record.other_standard_id }}</span>
+           <span title="024A">{{ record.other_standard_id }}</span>
            <label class="label-record-list muted">{{ record.tag_024_ind1 }}</label><!--tmp hardcoded label-->
           {% endif %}
           {% if record.publisher_number %}
             <span title="{{ record.ind1 }} 028A">{{ record.publisher_number }} - <span title="028B">{{ record.publisher }}</span></span>
-            <label class="label-record-list muted">Editionsnummer</label> <!--tmp hardcoded label-->
+            <label class="label-record-list muted">{{ record_tag_028_ind1 }}</label> <!--tmp hardcoded label-->
           {% endif %}
         </div>
         {% if record.pubyear %}
