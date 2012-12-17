@@ -86,26 +86,27 @@
         {"leader": ["status", "typeOfControl", "characterCoding", "linked"]},
         "001",
         "005",
-        {"008": ["_col_0_6", "publicationStatus", "booksItem", "modifiedRecord", "catalogingSource"]},
+        {"008": ["_col_0_6", "publicationStatus", "booksItem", "serialsItem", "modifiedRecord", "catalogingSource"]},
         "035",
         "599",
         "040"
       ]
     },
     "work": {
-      "cover": ["245", "100", "700"],
+      "cover": ["245", "100", "700", "710", "711", "720"],
       "contents": [
-        {"008": ["booksLiteraryForm", "booksContents", "booksConfPub", "booksFestschrift", "booksBiography", "booksAudience", "booksGovtPub"]}
+        {"008": ["booksLiteraryForm", "booksContents", "booksConfPub", "booksFestschrift", "booksBiography", "booksAudience", "booksGovtPub"]},
+        {"008": ["serialsLiteraryForm", "serialsContents", "serialsConfPub", "serialsFestschrift", "serialsBiography", "serialsAudience", "serialsGovtPub"]}
       ],
       "classification": ["042", "084", "600", "650", "082", "050", "043"],
       "hidden": ["976"]
     },
     "expression": {
-      "main": ["028", {"008": ["language", "booksIllustrations"]}, {"008": ["booksIndex"]}, "505", "520"],
+      "main": ["028", {"008": ["language", "booksIllustrations", "booksIndex", "serialsIllustrations", "serialsIndex"]}, "505", "520"],
       "hidden": []
     },
     "manifestation": {
-      "main": ["020", "260", {"008": ["yearTime1", "country"]}, "500", "300"],
+      "main": ["020", "260", {"008": ["yearTime1", "country"]}, "500", "300", "362"],
       "hidden": []
     },
     "other": {
