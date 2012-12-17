@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
 
 
 
-@app.route("/")
+#@app.route("/")
 def start():
     if app.config.get('MOCK_API', False):
         open_records = list(find_mockdata_record_summaries())
@@ -38,12 +38,7 @@ def start():
             record_templates=find_record_templates(),
             open_records=open_records)
 
-#compare propref:
-#specialare bookSerial
-#medietyp typeOfRecord
-#bibl nivå bibLevel
-#bärartyp carrierType
-#utgivningstid yearTime1
+@app.route("/")
 @app.route("/search")
 #@login_required
 def search():
