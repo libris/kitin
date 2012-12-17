@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
 
 
 
-@app.route("/")
+#@app.route("/")
 def start():
     if app.config.get('MOCK_API', False):
         open_records = list(find_mockdata_record_summaries())
@@ -38,12 +38,7 @@ def start():
             record_templates=find_record_templates(),
             open_records=open_records)
 
-#compare propref:
-#specialare bookSerial
-#medietyp typeOfRecord
-#bibl nivå bibLevel
-#bärartyp carrierType
-#utgivningstid yearTime1
+@app.route("/")
 @app.route("/search")
 #@login_required
 def search():
@@ -215,14 +210,20 @@ def _get_field_label(tagdict, fields):
         if tag in fields:
 
             if 'ind1' in tagdict[tag].keys():
-                ind1 = fields[tag][0]['ind1']
-                if ind1.strip():
-                    ind1 == '_'
-                record_info_dict['%s_ind1_code' % tag] = ind1
-                ind1_info = json.loads(open(app.config['MARC_MAP']).read())['bib'][tag]['ind1'].get(ind1, None)
-                if ind1_info:
-                    label_sv = ind1_info.get("label_sv", ind1) 
-                    record_info_dict['%s_ind1' % tag] = label_sv
+                try:
+                    print "ind1", tag, fields[tag][0]
+                    ind1 = fields[tag][0]['ind1']
+                    if ind1.strip():
+                        ind1 == '_'
+                    record_info_dict['tag_%s_ind1_code' % tag] = ind1
+                    ind1_info = json.loads(open(app.config['MARC_MAP']).read())['bib'][tag]['ind1'].get(ind1, None)
+                    if ind1_info:
+                        label_sv = ind1_info.get("label_sv", ind1) 
+                        print "label_sv", label_sv
+                        record_info_dict['tag_%s_ind1' % tag] = label_sv
+                        print "record_info_dict", record_info_dict
+                except:
+                    record_info_dict['tag_%s_ind1' % tag] = "%s - ind1" % tag
 
 
             for s in fields[tag][0]['subfields']:
@@ -268,7 +269,7 @@ def get_record_summary(data):
     tagdict = {'008': {'yearTime1': 'pubyear_008'},
                 '020': {'a': 'isbn'},
                 '022': {'a': 'issn'},
-                '024': {'a': 'other_standard_id', 'ind1': 'ind1'},
+                '024': {'a': 'other_standard_id', 'ind1': '024ind1'},
                 '028': {'a': 'publisher_number', 'b': 'publisher', 'ind1': 'ind1'},
                 '035': {'9': 'librisIII-id'},
                 '040': {'a': 'catinst_a', 'd': 'catinst_d'},
