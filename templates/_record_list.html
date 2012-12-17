@@ -46,7 +46,7 @@
             <label class="label-record-list muted">ISSN</label>
           {% endif %}
           {% if record.other_standard_id %}
-           <span title="{{ record.tag_024_ind1_code }} 024A">{{ record.other_standard_id }}</span>
+           <span title="024A">{{ record.other_standard_id }}</span>
            <label class="label-record-list muted">{{ record.tag_024_ind1 }}</label><!--tmp hardcoded label-->
           {% endif %}
           {% if record.publisher_number %}
