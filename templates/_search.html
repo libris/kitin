@@ -26,7 +26,7 @@
 </div>
 	  {% if search_results %}
 <div class="row-fluid">
-    <div class="span9 offset3"><span class="hit-counter"><strong>{{ data.hits|chunk_number() }}</strong> träffar på <strong>{{ q }}</strong>{% if breadcrumbs|length > 0 %}{% for bc in breadcrumbs -%} {% if loop.first %} inom{% elif loop.last %} och{% else %}, {% endif %} <strong>{{ bc }}</strong> {%- endfor %}{% endif %}</span></div>
+    <div class="span9 offset3"><span class="hit-counter"><strong>{{ data.hits|chunk_number() }}</strong> träff{% if data.hits > 1 %}ar{% endif %} på <strong>{{ q }}</strong>{% if breadcrumbs|length > 0 %}{% for bc in breadcrumbs -%} {% if loop.first %} inom{% elif loop.last %} och{% else %}, {% endif %} <strong>{{ bc }}</strong> {%- endfor %}{% endif %}</span></div>
 </div>
 	 
 <div class="well">
