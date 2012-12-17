@@ -93,7 +93,7 @@
       ]
     },
     "work": {
-      "cover": ["245", "100", "700"],
+      "cover": ["245", "100", "700", "710", "711", "720"],
       "contents": [
         {"008": ["booksLiteraryForm", "booksContents", "booksConfPub", "booksFestschrift", "booksBiography", "booksAudience", "booksGovtPub"]}
       ],
@@ -105,7 +105,7 @@
       "hidden": []
     },
     "manifestation": {
-      "main": ["020", "260", {"008": ["yearTime1", "country"]}, "500", "300"],
+      "main": ["020", "260", {"008": ["yearTime1", "country"]}, "500", "300", "362"],
       "hidden": []
     },
     "other": {
