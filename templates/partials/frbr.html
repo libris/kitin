@@ -59,15 +59,37 @@
               data-ng-include="'render-control-field'"></div>
           <div data-ng-switch-when="field"
               data-ng-include="'render-field'"></div>
-          <input data-ng-switch-default
-              data-ng-model="field[dfn.tag]" class="frbr-input"/>
+          <!-- TODO: are these always just unmatched items from the overlay groups?
+          <div data-ng-switch-default>
+            <input data-ng-model="field[dfn.tag]" class="frbr-input"/>
+            {{ field }}
+          </div>
+          -->
       </div>
     </div>
   </script>
 
+  <script type="text/ng-template" id="render-control-field">
+    <ul data-ng-repeat="(propRef, col) in controlField">
+      <li
+        data-ng-init="propEnum = map.fixprops[propRef]; colDfn = col.getDfn()"
+        class="add-on subfield-code input-append">
+      <div data-ng-switch="typeOf(propEnum)">
+        <select data-ng-switch-when="object" class="span7"
+          data-ng-options="key as val.label_sv for (key, val) in propEnum"
+          data-ng-model="col.code">
+        </select>
+        <input data-ng-switch-default data-ng-model="col.code" />
+      </div>
+      <span class="add-on subfield-code">
+        <span class="subfield-label" title="{{ colDfn.offset }} + {{ colDfn.length }}"
+            >{{ colDfn.label_sv }}</span>
+      </span>
+    </li>
+    </ul>
+  </script>
+
   <script type="text/ng-template" id="render-field">
-
-
 
     <ul data-ng-repeat="subfield in row.subfields">
       <li data-ng-init="subCode = getKey(subfield); subDfn = dfn.subfield[subCode]"
@@ -201,7 +223,7 @@
 
   <div id="prompt-add-subfield" data-ng-show="subFieldToAdd" class="popover show">
     <div class="popover-inner">
-      <h3 class="popover-title">Add subfield
+      <h3 class="popover-title">Lägg till delfält
         <button class="close" data-ng-click="subFieldToAdd.abort()">&times;</button></h3>
     </div>
     <div class="popover-content">
