@@ -107,7 +107,7 @@ function FrbrCtrl($rootScope, $scope, $routeParams, $timeout, conf, records) {
       }
     };
     $timeout(function () {
-      openPrompt($event, '#prompt-add-field');
+      openPrompt($event, '#prompt-add-field', '.dropdown-menu');
     });
   }
 
@@ -131,7 +131,7 @@ function FrbrCtrl($rootScope, $scope, $routeParams, $timeout, conf, records) {
       }
     };
     $timeout(function () {
-      openPrompt($event, '#prompt-add-subfield');
+      openPrompt($event, '#prompt-add-subfield', '.dropdown-menu');
     });
   }
 
@@ -221,12 +221,12 @@ function MarcCtrl($rootScope, $scope, $routeParams, conf, records, $timeout) {
 // services.js
 
 // TODO: turn into promptService?
-function openPrompt($event, promptSelect) {
+function openPrompt($event, promptSelect, innerMenuSelect) {
   var tgt = $($event.target),
     off = tgt.offset(), width = tgt.width();
   var prompt = $(promptSelect);
   // NOTE: picking width from .dropdown-menu which has absolute pos
-  var menuWidth = $('.dropdown-menu', prompt).width();
+  var menuWidth = (innerMenuSelect? $(innerMenuSelect, prompt) : prompt).width();
   var topPos = off.top;
   var leftPos = off.left + width - menuWidth;
   if (leftPos < 0)
