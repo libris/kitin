@@ -75,11 +75,11 @@
         data-ng-init="propEnum = map.fixprops[propRef]; colDfn = col.getDfn()"
         class="add-on subfield-code input-append">
       <div data-ng-switch="typeOf(propEnum)">
-        <select data-ng-switch-when="object" class="span7"
+        <select data-ng-switch-when="object" class="fixed-field"
           data-ng-options="key as val.label_sv for (key, val) in propEnum"
           data-ng-model="col.code">
         </select>
-        <input data-ng-switch-default data-ng-model="col.code" />
+        <input class="input-xxlarge" type="text" data-ng-switch-default data-ng-model="col.code" />
       </div>
       <span class="add-on subfield-code">
         <span class="subfield-label" title="{{ colDfn.offset }} + {{ colDfn.length }}"
