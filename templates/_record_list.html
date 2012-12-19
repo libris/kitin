@@ -34,7 +34,7 @@
       		<span title="100C">{{ record.author_association }}</span>
       </span></h4>
       {% endif %}
-       <!--TODO: cleanup code, add indicator for printing of identifier type and labels-->
+       <!--TODO: cleanup code. all short tags are directly in the html due to lengthy labels in marcmap.json-->
       {% if record.isbn or record.issn or record.other_standard_id or record.publisher_number or record.pubyear %}
       <div class="row-fluid">
        <div class="span4 identifier">
@@ -46,7 +46,7 @@
             <label class="label-record-list muted">ISSN</label>
           {% endif %}
           {% if record.other_standard_id %}
-           <span title="024A">{{ record.other_standard_id }}</span>
+           <span title="{{ record.label_sv_024 }} 024A">{{ record.other_standard_id }}</span>
            <label class="label-record-list muted">{{ record.tag_024_ind1 }}</label><!--tmp hardcoded label-->
           {% endif %}
           {% if record.publisher_number %}
