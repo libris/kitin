@@ -30,10 +30,9 @@
           data-ng-include="'render-fieldset'"></section>
     </article>
   </article>
-
-  <div class="well pull-right">
-    <button class="btn btn-large disabled">SPARA UTKAST</button>
+   <div class="well pull-right">
     <button class="btn btn-large disabled">PUBLICERA</button>
+    <button class="btn btn-large disabled">SPARA UTKAST</button>
   </div>
 
   <div class="clearfix"></div>
@@ -75,11 +74,11 @@
         data-ng-init="propEnum = map.fixprops[propRef]; colDfn = col.getDfn()"
         class="add-on subfield-code input-append">
       <div data-ng-switch="typeOf(propEnum)">
-        <select data-ng-switch-when="object" class="span7"
+        <select data-ng-switch-when="object" class="fixed-field"
           data-ng-options="key as val.label_sv for (key, val) in propEnum"
           data-ng-model="col.code">
         </select>
-        <input data-ng-switch-default data-ng-model="col.code" />
+        <input class="input-xxlarge" type="text" data-ng-switch-default data-ng-model="col.code" />
       </div>
       <span class="add-on subfield-code">
         <span class="subfield-label" title="{{ colDfn.offset }} + {{ colDfn.length }}"
@@ -151,7 +150,7 @@
          <span class="tag-code"> ({{ dfn.tag }} {{ subCode }})
         <button data-ng-click="promptAddSubField($event, dfn, row, subCode, $index)"
           class="btn btn-link add-subfield"
-          title="Add">lägg till</button>
+          title="Lägg till delfält">Lägg till</button>
          </span>
         </span>
       </li>
@@ -205,35 +204,37 @@
     </div>
   </script>
 
-  <div id="prompt-add-field" data-ng-show="fieldToAdd" class="popover show">
-    <div class="popover-inner">
-      <h3 class="popover-title">Lägg till fält
-        <button class="close" data-ng-click="fieldToAdd.abort()">&times;</button></h3>
-    </div>
-    <div class="popover-content">
-      <!-- if repeatable and not in fielset -->
-      <select data-ng-options="dfn.tag as (dfn.tag + ': ' + dfn.label_sv) for dfn in fieldToAdd.fieldDefs"
-        size="1"
-        data-ng-model="fieldToAdd.tag"
-        data-key-enter="fieldToAdd.execute()"
-        data-key-esc="fieldToAdd.abort()" />
-      </select>
+  <div id="prompt-add-field" data-ng-show="fieldToAdd">
+    <div class="dropdown open">
+      <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+        <li>
+        <a href="#" data-ng-click="fieldToAdd.abort()">
+          <b>Lägg till fält</b>
+          <button class="close">&times;</button>
+        </a>
+        </li>
+        <li class="divider"></li>
+        <li data-ng-repeat="dfn in fieldToAdd.fieldDefs">
+          <a data-ng-click="fieldToAdd.select(dfn.tag)"
+            href="#">{{ dfn.label_sv }} ({{ dfn.tag }})</a></li>
+      </ul>
     </div>
   </div>
 
-  <div id="prompt-add-subfield" data-ng-show="subFieldToAdd" class="popover show">
-    <div class="popover-inner">
-      <h3 class="popover-title">Lägg till delfält
-        <button class="close" data-ng-click="subFieldToAdd.abort()">&times;</button></h3>
-    </div>
-    <div class="popover-content">
-      <select data-ng-options="code as (code + ': ' + subDfn.label_sv)
-                                for (code, subDfn) in subFieldToAdd.subfields"
-        size="1"
-        data-ng-model="subFieldToAdd.code"
-        data-key-enter="subFieldToAdd.execute()"
-        data-key-esc="subFieldToAdd.abort()" />
-      </select>
+  <div id="prompt-add-subfield" data-ng-show="subFieldToAdd">
+    <div class="dropdown open">
+      <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+        <li>
+        <a href="#" data-ng-click="subFieldToAdd.abort()">
+          <b>Lägg till delfält</b>
+          <button class="close">&times;</button>
+        </a>
+        </li>
+        <li class="divider"></li>
+        <li data-ng-repeat="(code, subDfn) in subFieldToAdd.subfields">
+          <a data-ng-click="subFieldToAdd.select(code)"
+            href="#">{{ subDfn.label_sv }} ({{ code }})</a></li>
+      </ul>
     </div>
   </div>
 

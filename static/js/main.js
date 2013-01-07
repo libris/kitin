@@ -88,11 +88,16 @@ function FrbrCtrl($rootScope, $scope, $routeParams, $timeout, conf, records) {
   $scope.promptAddField = function ($event, fieldset) {
     // TODO: set this once upon first rendering of view (listen to angular event)
     conf.renderUpdates = true;
+    // TODO: getFieldDefs(), filtered by "if repeatable or not in fielset"
     var fieldDefs = fieldset.fieldDefs;
     var selectedTag = fieldDefs.length? fieldDefs[0].tag : null;
     $scope.fieldToAdd = {
       fieldDefs: fieldDefs,
       tag: selectedTag,
+      select: function (tag) {
+        this.tag = tag;
+        this.execute();
+      },
       execute: function () {
         fieldset.addField($scope.fieldToAdd.tag);
         $scope.fieldToAdd = null;
@@ -102,7 +107,7 @@ function FrbrCtrl($rootScope, $scope, $routeParams, $timeout, conf, records) {
       }
     };
     $timeout(function () {
-      openPrompt($event, '#prompt-add-field');
+      openPrompt($event, '#prompt-add-field', '.dropdown-menu');
     });
   }
 
@@ -113,6 +118,10 @@ function FrbrCtrl($rootScope, $scope, $routeParams, $timeout, conf, records) {
     $scope.subFieldToAdd = {
       subfields: dfn.subfield,
       code: currentSubCode,
+      select: function (code) {
+        this.code = code;
+        this.execute();
+      },
       execute: function () {
         marcjson.addSubField(row, $scope.subFieldToAdd.code, index);
         $scope.subFieldToAdd = null;
@@ -122,7 +131,7 @@ function FrbrCtrl($rootScope, $scope, $routeParams, $timeout, conf, records) {
       }
     };
     $timeout(function () {
-      openPrompt($event, '#prompt-add-subfield');
+      openPrompt($event, '#prompt-add-subfield', '.dropdown-menu');
     });
   }
 
@@ -212,11 +221,18 @@ function MarcCtrl($rootScope, $scope, $routeParams, conf, records, $timeout) {
 // services.js
 
 // TODO: turn into promptService?
-function openPrompt($event, promptSelect) {
-  var tgt = $($event.target), off = tgt.offset(), width = tgt.width();
+function openPrompt($event, promptSelect, innerMenuSelect) {
+  var tgt = $($event.target),
+    off = tgt.offset(), width = tgt.width();
   var prompt = $(promptSelect);
-  prompt.css({top: off.top + 'px',
-              left: off.left + width - prompt.width() + 'px'});
+  // NOTE: picking width from .dropdown-menu which has absolute pos
+  var menuWidth = (innerMenuSelect? $(innerMenuSelect, prompt) : prompt).width();
+  var topPos = off.top;
+  var leftPos = off.left + width - menuWidth;
+  if (leftPos < 0)
+    leftPos = 0;
+  prompt.css({position: 'absolute',
+              top: topPos + 'px', left: leftPos + 'px'});
   prompt.find('select').focus();
 }
 

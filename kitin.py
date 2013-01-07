@@ -63,6 +63,7 @@ def search():
             app.config['WHELK_HOST'], q, freq, boost))
         data = json.loads(resp.text)
         search_results = [get_record_summary(item['data']) for item in data['list']]
+        print "search results", search_results
         facets = [get_facet_labels(f_group, f_values) for f_group, f_values in data['facets'].items()]
 
         iterate_facets = dict([(f_labels['propref'], f_labels) for f_labels in facets])
@@ -208,7 +209,8 @@ def _get_field_label(tagdict, fields):
 
     for tag in tagdict.keys():
         if tag in fields:
-
+            record_info_dict['label_sv_%s' % tag] = json.loads(open(app.config['MARC_MAP']).read())['bib'][tag].get('label_sv', tag)
+ 
             if 'ind1' in tagdict[tag].keys():
                 try:
                     print "ind1", tag, fields[tag][0]

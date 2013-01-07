@@ -416,7 +416,15 @@ a:hover div {
   height: 80px;
 }
 
+select.fixed-field {
+  width: 537px;
+  height: 23px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  padding-bottom: 0px;
+  border-radius: 0px;
 
+}
 
 /* --------------------MARC21 FORM-------------------- */
 
@@ -430,13 +438,14 @@ article.hld h2, article.bib h2 {
   color: white;
   font-size: 24px;
   /*text-shadow: 1px 1px 2px rgba(0,0,0,0.5);*/
-  text-shadow: -1px 0 rgba(0,0,0,0.3), 0 1px rgba(0,0,0,0.3),
-                1px 0 rgba(0,0,0,0.3), 0 -1px rgba(0,0,0,0.3);
+  /*text-shadow: -1px 0 rgba(0,0,0,0.3), 0 1px rgba(0,0,0,0.3),
+                1px 0 rgba(0,0,0,0.3), 0 -1px rgba(0,0,0,0.3);*/
   line-height:inherit;
-  
   padding: 0px;
-  margin: 0Px;
+  margin: 0px;
+  margin-bottom: -3px;
 }
+
 article > section {
   background-color: white;
   margin: 0 0 1.5em;
@@ -477,12 +486,12 @@ li.subfield-code input, .frbr-input, textarea, select, div.controls input {
   margin:0;
   border-radius: 0 0 0 0;
   padding:0;
-  padding-left:25px;
-  line-height: 11px;
+  line-height: 13px;
   font-size: 12px;
+  padding-bottom: 5px;
+  padding-left: 25px;
+  margin-top: -2px;
 }
-
-
 
 .add-on {
  background-color: transparent;
@@ -521,6 +530,7 @@ textarea:focus:-moz-placeholder {
 span .subfield-label, .fixed-field-label, .tag-code {
   font-size: 12px;
   color: #999;
+ padding-bottom:3px;
 }
 
 .fixed-field-label {
