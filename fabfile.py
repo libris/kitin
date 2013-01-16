@@ -90,7 +90,7 @@ def deploy():
 
 @task
 def clear_config():
-    local('rm config.cfg')
+    local('rm -f config.cfg')
 
 @task
 def create_config():
