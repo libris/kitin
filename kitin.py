@@ -25,7 +25,7 @@ storage = Storage(app.config)
 logger = logging.getLogger(__name__)
 
 
-
+# TODO: refactor routes with angular
 #@app.route("/")
 def start():
     if app.config.get('MOCK_API', False):
