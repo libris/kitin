@@ -12,9 +12,6 @@
     "rel": "http://rdvocab.info/RDARelationshipsWEMI/",
     "librismarc": "http://libris.kb.se/def/marc21#",
 
-    "iri": "@id",
-    "type": "@type",
-    "value": "@value",
     "literal": "rdf:value",
     "year": "xsd:gYear",
     "date": "xsd:date",
@@ -32,8 +29,10 @@
 
     "Manifestation": "ent:Manifestation",
     "isbn": "bibo:isbn",
+    "expressionManifested": "rel:expressionManifested",
 
-    "Expression": "ent:Expression",
+    "Expression": {"@id": "ent:Expression", "_properties": ["titleProper", "..."]},
+    "titleProper": {"_min": 1, "_max": 1, "_label_sv": "Titel"},
     "authorList": {"@id": "bibo:authorList", "@container": "@list"},
 
     "Person": "ent:Person",
