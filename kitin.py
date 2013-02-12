@@ -39,9 +39,49 @@ def start():
             open_records=open_records)
 
 @app.route("/")
+def index():
+    return render_template('partials/index.html')
+
 @app.route("/search")
-#@login_required
 def search():
+    if request.is_xhr:
+        q = request.args.get('q')
+        facet = request.args.get('f', '').strip()
+        if facet:
+            dedupf = []
+            for ftmp in facet.split(' '):
+                if ftmp in dedupf:
+                    dedupf.remove(ftmp)
+                else:
+                    dedupf.append(ftmp)
+            facet = ' '.join(dedupf)
+        freq = "&f=%s" % facet
+
+        search_results = None
+        b = request.args.get('b', '')
+        boost = ("&boost=%s" % b) if b else ''
+        breadcrumbs = []
+        if q:
+            resp = requests.get("%s/bib/kitin/_search?q=%s%s%s" % (
+                app.config['WHELK_HOST'], q, freq, boost))
+            data = json.loads(resp.text)
+            search_results = [get_record_summary(item['data']) for item in data['list']]
+            print "search results", json.dumps(search_results)
+            #for item in data['list']:
+            #    print "------------------------------ RECORD: ", get_record_summary(item['data'])        
+            return json.dumps(search_results) 
+    else:
+        print "EJ XHR!"
+    return index();
+    #query = request.args.get('q')
+    #if query:
+    #    return render_template('partials/search.html', )
+    #else:
+    #    return index()
+
+@app.route("/old_search")
+#@login_required
+def old_search():
     q = request.args.get('q')
     facet = request.args.get('f', '').strip()
     if facet:
@@ -285,7 +325,10 @@ def get_record_summary(data):
                 '773': {'a': 'link_author', 't': 'link_tit', 'g': 'link_related'},
               }
     general_fields = _get_field_label(tagdict, fields)
-
+    #for genfil in general_fields.items():
+    #    print "---------------------------- generad_field:", genfil
+    #for confil in control_fields.items():
+    #    print "---------------------------- control_field:", confil
     return dict(control_fields.items() + general_fields.items())
 
 @app.route("/profile")

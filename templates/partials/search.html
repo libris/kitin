@@ -5,9 +5,64 @@
         <label>SEARCH</label>
         <input type="text" data-ng-model="q">
         <input type="submit" value="SEARCH" > 
-        <p>{{result}}</p>
-        <p>{{status}}</p>
     </form>
 </div>
+<section>
+    <article data-ng-repeat="record in result" class="record {{record.id}}">
+      <div class="row-fluid nopad-record-head">
+        <div class="span4 nopad-record-head muted"><!--Bibliografisk nivå-->{{ record.bibLevel }} </div>
+        <div class="span3 nopad-record-head muted"><!--Medietyp--> {{ record.typeOfRecord }}</div>
+        <div class="span5 nopad-record-head muted"><!--Fullständighetsnivå--> {{ record.encLevel }}</div>
+      </div>
+      <a class="bib-url" href="/edit/frbr/bib/{{ record.id }}">
+      <header>
+      <h3><span class="title-clickable">
+      <span title="245A">{{ record.tit_a }}</span>
+      <span class="title-remainder">
+      <span title="245B">{{ record.tit_b }}</span>
+      <span title="245C"> {{ record.tit_c }}</span>
+      <span title="245N">{{ record.tit_n }}</span>
+      <span title="245P">{{ record.tit_p }}</span>
+      </span>
+      </span></h3>
+      </header>
+      <span class="unstyled-url">
+      <h4><span class="author"><i class="icon-user icon-author"></i>
+      		<span title="100A">{{ record.author }}</span>
+      		<span title="100B"> {{ record.author_numeration }}</span>
+      		<span title="100D">{{ record.author_date }}</span>, 
+      		<span title="1004">{{ record.author_4 }}</span>
+      		<span title="100E">{{ record.author_e }}</span>
+      		<span title="100Q">{{ record.author_q }}</span>
+      		<span title="100C">{{ record.author_association }}</span>
+      </span></h4>
+       <!--TODO: cleanup code. all short tags are directly in the html due to lengthy labels in marcmap.json-->
+      <div class="row-fluid">
+       <div class="span4 identifier">
+          	<span title="ISBN 020A">{{ record.isbn }}</span>
+          	<label class="label-record-list muted">ISBN</label>
+            <span title="ISSN 022A">{{ record.issn }}</span>
+            <label class="label-record-list muted">ISSN</label>
+           <span title="{{ record.label_sv_024 }} 024A">{{ record.other_standard_id }}</span>
+           <label class="label-record-list muted">{{ record.tag_024_ind1 }}</label><!--tmp hardcoded label-->
+            <span title="{{ record.label_sv_028 }} 028A">{{ record.publisher_number }} - <span title="028B">{{ record.publisher }}</span></span>
+            <label class="label-record-list muted">{{ record.tag_028_ind1 }}</label> <!--tmp hardcoded label-->
+        </div>
+        <div class="span8">
+            <span class="publication" title"250A">{{ record.edition }} 
+        	<span title="008">{{ record.pubyear_008 }}</span>
+        	<label class="label-record-list muted">Publikationsår</label>
+        	</span>
+        </div>
+       </div>
+         <div><span class="muted">Ingår i:<!-- TODO: Ska styras av ind2 i 773--></span> 
+          {{ record.link_author }}: 
+          {{ record.link_tit }} ; {{ record.link_related }}
+        </div>
+      </span>
+      </a>
+
+    </article>
+</section>
 
 {% endraw %}

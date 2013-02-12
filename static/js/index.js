@@ -43,7 +43,7 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
         $scope.status = status;
     })
     .error(function(data,status){
-        $scope.result = "KNAS";
+        $scope.result = "Error";
         $scope.status = status;
     });
 

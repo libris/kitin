@@ -62,6 +62,12 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
       {% endblock container %}
     </div>
 
+  {% raw %}
+  <h1>TESTING</h1>
+  <p data-ng-controller="TestCtrl">{{servtest}}</p>
+  <h2>HTTP</h2>
+  <p data-ng-controller="TestHttpCtrl">{{anotherTest}}</p>
+  {% endraw %}
     <footer>
       {% block footer %}
       {% endblock %}

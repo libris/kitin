@@ -1,15 +1,19 @@
 // app.js
 
 
-var kitin = angular.module('kitin', []);
+var kitin2 = angular.module('kitin2', []);
 
-kitin.config(
+kitin2.config(
   ['$locationProvider', '$routeProvider',
     function($locationProvider, $routeProvider) {
 
       $locationProvider.html5Mode(true);
 
       $routeProvider
+        .when('/',
+           {templateUrl: '/partials/index', controller: IndexCtrl})
+        .when('/search',
+           {templateUrl: '/partials/search', controller: SearchCtrl})
         .when('/edit/frbr/:recType/:recId',
            {templateUrl: '/partials/frbr', controller: FrbrCtrl})
         .when('/edit/marc/:recType/:recId',
@@ -19,7 +23,7 @@ kitin.config(
     }]
 );
 
-kitin.factory('conf', function ($http, $q) {
+kitin2.factory('conf', function ($http, $q) {
   var marcmap = $q.defer(),
     overlay = $q.defer();
   $http.get("/marcmap.json").success(function (o) {
@@ -37,7 +41,7 @@ kitin.factory('conf', function ($http, $q) {
   };
 });
 
-kitin.factory('records', function ($http, $q) {
+kitin2.factory('records', function ($http, $q) {
   // TODO: use proper angularjs http cache?
   var currentPath, currentRecord;
   function loadPromise(path) {
@@ -61,7 +65,74 @@ kitin.factory('records', function ($http, $q) {
   };
 });
 
+kitin2.factory('testHttp', function ($http, $q) {
+  var overlay = $q.defer();
+  $http.get("/overlay.json").success(function (o) {
+    overlay.resolve(o);
+  });
+  return {
+    overlay: overlay.promise
+  };
+});
+
+kitin2.factory('testing', function() {
+    return {
+        getThis : function() {
+            return "Hello";
+        }
+    };
+});
+
 // controllers.js
+function TestHttpCtrl($scope, $http, testHttp) {
+    $scope.anotherTest = testHttp.overlay;
+}
+
+function TestCtrl($scope, $http, testing) {
+    $scope.books = [
+        {"title": "Röda rummet",
+        "author": "August Strindberg"},
+        {"title": "Emil i Lönneberga",
+        "author": "Astrid Lindgren"},
+        {"title": "Herr Arnes penningar",
+        "author": "Selma Lagerlöf"}
+    ];
+    //$http.get("/record/bib/7149593").success(function(data) {
+    //    $scope.testrecord = data;
+    //});
+    $scope.servtest = testing.getThis();
+    //$scope.anotherTest = testHttp.overlay; 
+    //dump($scope.testrecord);
+}
+
+function IndexCtrl($scope) {
+    $scope.test = "STARTSIDA";
+}
+
+function SearchCtrl($scope, $http, $location, $routeParams) {
+    $scope.search = function() {
+        var url = "/search?q=" + $scope.q;
+        $location.url(url);
+    };
+    if (!$routeParams.q) {
+        return;
+    }
+    $scope.q = $routeParams.q;
+
+    var url = "/search?q=" + $scope.q;
+    //var hits = $scope.query.defer();
+    $http.get(url).success(function(data, status) {
+        console.log("HITS: ", data);
+        $scope.result = data;
+        $scope.status = status;
+    })
+    .error(function(data,status){
+        $scope.result = "Error";
+        $scope.status = status;
+    });
+
+    //$scope.test = "SÖK";
+}
 
 function FrbrCtrl($rootScope, $scope, $routeParams, $timeout, conf, records) {
 
@@ -251,7 +322,7 @@ kitin.directive('kitinCodekey', function () {
 });
 */
 
-kitin.directive('keyEnter', function () {
+kitin2.directive('keyEnter', function () {
   return function (scope, elm, attrs) {
     var expr = attrs.keyEnter;
     elm.jkey('enter', function () {
@@ -260,7 +331,7 @@ kitin.directive('keyEnter', function () {
   }
 });
 
-kitin.directive('keyEsc', function () {
+kitin2.directive('keyEsc', function () {
   return function (scope, elm, attrs) {
     var expr = attrs.keyEsc;
     elm.jkey('esc', function () {
@@ -270,7 +341,7 @@ kitin.directive('keyEsc', function () {
 });
 
 
-kitin.directive('fadable', function(conf) {
+kitin2.directive('fadable', function(conf) {
   return function(scope, elm, attrs) {
     var duration = parseInt(attrs.fadable, 10);
     if (conf.renderUpdates) {
@@ -301,7 +372,7 @@ kitin.directive('fadable', function(conf) {
 });
 
 
-kitin.directive('kitinAutocomplete', function() {
+kitin2.directive('kitinAutocomplete', function() {
   return {
     restrict: 'A',
     //scope: {
