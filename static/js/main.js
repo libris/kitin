@@ -1,17 +1,16 @@
 // app.js
 
 
-var kitin2 = angular.module('kitin2', []);
+var kitin = angular.module('kitin', []);
 
-kitin2.config(
+kitin.config(
   ['$locationProvider', '$routeProvider',
     function($locationProvider, $routeProvider) {
 
       $locationProvider.html5Mode(true);
-
       $routeProvider
         .when('/',
-           {templateUrl: '/partials/index', controller: IndexCtrl})
+           {templateUrl: '/kitin', controller: KitinCtrl})
         .when('/search',
            {templateUrl: '/partials/search', controller: SearchCtrl})
         .when('/edit/frbr/:recType/:recId',
@@ -23,7 +22,7 @@ kitin2.config(
     }]
 );
 
-kitin2.factory('conf', function ($http, $q) {
+kitin.factory('conf', function ($http, $q) {
   var marcmap = $q.defer(),
     overlay = $q.defer();
   $http.get("/marcmap.json").success(function (o) {
@@ -41,7 +40,7 @@ kitin2.factory('conf', function ($http, $q) {
   };
 });
 
-kitin2.factory('records', function ($http, $q) {
+kitin.factory('records', function ($http, $q) {
   // TODO: use proper angularjs http cache?
   var currentPath, currentRecord;
   function loadPromise(path) {
@@ -65,7 +64,7 @@ kitin2.factory('records', function ($http, $q) {
   };
 });
 
-kitin2.factory('testHttp', function ($http, $q) {
+/*kitin.factory('testHttp', function ($http, $q) {
   var overlay = $q.defer();
   $http.get("/overlay.json").success(function (o) {
     overlay.resolve(o);
@@ -75,7 +74,7 @@ kitin2.factory('testHttp', function ($http, $q) {
   };
 });
 
-kitin2.factory('testing', function() {
+kitin.factory('testing', function() {
     return {
         getThis : function() {
             return "Hello";
@@ -104,11 +103,11 @@ function TestCtrl($scope, $http, testing) {
     //$scope.anotherTest = testHttp.overlay; 
     //dump($scope.testrecord);
 }
-
-function IndexCtrl($scope) {
+*/
+function KitinCtrl($scope) {
     $scope.test = "STARTSIDA";
 }
-
+// To consider: Cross-domain/JsonP directly from Whelk instead of Flask?
 function SearchCtrl($scope, $http, $location, $routeParams) {
     $scope.search = function() {
         var url = "/search?q=" + $scope.q;
@@ -131,10 +130,24 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
         $scope.status = status;
     });
 
-    //$scope.test = "SÖK";
 }
 
-function FrbrCtrl($rootScope, $scope, $routeParams, $timeout, conf, records) {
+// Reuse record from hitlist instead of retrieving it again? They differ indicewise so perhaps not.
+function FrbrCtrl($scope, $http, $routeParams) {
+    var recType = $routeParams.recType, recId = $routeParams.recId;
+    var path = "/record/" + recType + "/" + recId;
+    $http.get(path).success(function(data, status) {
+        console.log("RECORD: ", data);
+        $scope.record = data;
+        $scope.status = status;
+    })
+    .error(function(data,status){
+        $scope.record = "Error";
+        $scope.status = status;
+    });
+}
+
+function FrbrCtrl_old($rootScope, $scope, $routeParams, $timeout, conf, records) {
 
   conf.renderUpdates = false;
   $rootScope.editMode = 'frbr';
@@ -322,7 +335,7 @@ kitin.directive('kitinCodekey', function () {
 });
 */
 
-kitin2.directive('keyEnter', function () {
+kitin.directive('keyEnter', function () {
   return function (scope, elm, attrs) {
     var expr = attrs.keyEnter;
     elm.jkey('enter', function () {
@@ -331,7 +344,7 @@ kitin2.directive('keyEnter', function () {
   }
 });
 
-kitin2.directive('keyEsc', function () {
+kitin.directive('keyEsc', function () {
   return function (scope, elm, attrs) {
     var expr = attrs.keyEsc;
     elm.jkey('esc', function () {
@@ -341,7 +354,7 @@ kitin2.directive('keyEsc', function () {
 });
 
 
-kitin2.directive('fadable', function(conf) {
+kitin.directive('fadable', function(conf) {
   return function(scope, elm, attrs) {
     var duration = parseInt(attrs.fadable, 10);
     if (conf.renderUpdates) {
@@ -372,7 +385,7 @@ kitin2.directive('fadable', function(conf) {
 });
 
 
-kitin2.directive('kitinAutocomplete', function() {
+kitin.directive('kitinAutocomplete', function() {
   return {
     restrict: 'A',
     //scope: {

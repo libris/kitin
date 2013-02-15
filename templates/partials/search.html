@@ -1,66 +1,83 @@
 {% raw %}
-<h1>SEARCH</h1>
-<div>
-    <form data-ng-submit="search()">
-        <label>SEARCH</label>
-        <input type="text" data-ng-model="q">
-        <input type="submit" value="SEARCH" > 
-    </form>
+<meta charset="utf-8">
+
+<div class="row-fluid">
+  <div class="span9 offset3">
+    <section class="search" role="search">
+      <div class="search-bar">
+      <ul class="border-search unstyled">
+        <li class="ui-search-item search-input-item">
+          <form class="form-inline search-form" data-ng-submit="search()">
+            <input id="search"  name="q" type="text" autofocus
+                    class="xlarge ui-autocomplete-input"
+                    value="" placeholder=""
+                    autocomplete="off" role="textbox"
+            aria-autocomplete="list" aria-haspopup="true" data-ng-model="q">
+            <!--<input id="boost"  name="b" type="text"
+                    class="xlarge ui-autocomplete-input"
+                    value="{% if b %}{{ b }}{% endif %}" placeholder="Ex: fields.100.subfields.a:2,labels.title:2"
+                    autocomplete="off" role="textbox">-->
+            <button id="submit" class="btn btn-large btn-success" type="submit">
+              <i class="icon-search icon-white"></i>
+            </button>
+          </form>
+        </li>
+      </ul>
+      </div>
+    </section>
+  </div>
 </div>
 <section>
-    <article data-ng-repeat="record in result" class="record {{record.id}}">
+<article data-ng-repeat="record in result.list" class="record {{record.identifier}}">
       <div class="row-fluid nopad-record-head">
-        <div class="span4 nopad-record-head muted"><!--Bibliografisk nivå-->{{ record.bibLevel }} </div>
-        <div class="span3 nopad-record-head muted"><!--Medietyp--> {{ record.typeOfRecord }}</div>
-        <div class="span5 nopad-record-head muted"><!--Fullständighetsnivå--> {{ record.encLevel }}</div>
+        <div class="span4 nopad-record-head muted">{{ record.data.describes.expression['marc:bibLevel'] }} </div>
+        <div class="span3 nopad-record-head muted">{{ record.data.describes.expression['marc:typeOfRecord'] }}</div>
+        <div class="span5 nopad-record-head muted">{{ record.data.encLevel }}</div>
       </div>
-      <a class="bib-url" href="/edit/frbr/bib/{{ record.id }}">
+      <a class="bib-url" href="/edit/frbr/bib/{{ record.data.controlNumber }}">
       <header>
       <h3><span class="title-clickable">
-      <span title="245A">{{ record.tit_a }}</span>
+      <span title="245A">{{ record.data.describes.expression.titleProper }}</span>
       <span class="title-remainder">
-      <span title="245B">{{ record.tit_b }}</span>
-      <span title="245C"> {{ record.tit_c }}</span>
-      <span title="245N">{{ record.tit_n }}</span>
-      <span title="245P">{{ record.tit_p }}</span>
+      <span title="245C"> / {{ record.data.describes.expression.statementOfResponsibilityRelatingToTitleProper }}</span>
       </span>
       </span></h3>
       </header>
       <span class="unstyled-url">
-      <h4><span class="author"><i class="icon-user icon-author"></i>
-      		<span title="100A">{{ record.author }}</span>
-      		<span title="100B"> {{ record.author_numeration }}</span>
+      <h4 data-ng-repeat="author in record.data.describes.expression.authorList"><span class="author"><i class="icon-user icon-author"></i>
+      		<span title="100A">{{ author.preferredNameForThePerson }}</span>
+                <span title="100D">{{ author.dateOfBirth['@value'] }} - {{ author.dateOfDeath['@value'] }}</span> 
+      		<!--<span title="100B"> {{ record.author_numeration }}</span>
       		<span title="100D">{{ record.author_date }}</span>, 
       		<span title="1004">{{ record.author_4 }}</span>
       		<span title="100E">{{ record.author_e }}</span>
       		<span title="100Q">{{ record.author_q }}</span>
-      		<span title="100C">{{ record.author_association }}</span>
+                <span title="100C">{{ record.author_association }}</span>-->
       </span></h4>
-       <!--TODO: cleanup code. all short tags are directly in the html due to lengthy labels in marcmap.json-->
       <div class="row-fluid">
-       <div class="span4 identifier">
-          	<span title="ISBN 020A">{{ record.isbn }}</span>
+      <div class="span4 identifier">
+          	<span title="ISBN 020A">{{ record.data.describes.isbn }}</span>
           	<label class="label-record-list muted">ISBN</label>
-            <span title="ISSN 022A">{{ record.issn }}</span>
-            <label class="label-record-list muted">ISSN</label>
-           <span title="{{ record.label_sv_024 }} 024A">{{ record.other_standard_id }}</span>
-           <label class="label-record-list muted">{{ record.tag_024_ind1 }}</label><!--tmp hardcoded label-->
+            <!--<span title="ISSN 022A">{{ record.data.describes.issn }}</span>
+            <label class="label-record-list muted">ISSN</label>-->
+           <!--<span title="{{ record.label_sv_024 }} 024A">{{ record.other_standard_id }}</span>
+           <label class="label-record-list muted">{{ record.tag_024_ind1 }}</label>
             <span title="{{ record.label_sv_028 }} 028A">{{ record.publisher_number }} - <span title="028B">{{ record.publisher }}</span></span>
-            <label class="label-record-list muted">{{ record.tag_028_ind1 }}</label> <!--tmp hardcoded label-->
+            <label class="label-record-list muted">{{ record.tag_028_ind1 }}</label>-->
         </div>
-        <div class="span8">
+        <!--<div class="span8">
             <span class="publication" title"250A">{{ record.edition }} 
         	<span title="008">{{ record.pubyear_008 }}</span>
         	<label class="label-record-list muted">Publikationsår</label>
         	</span>
         </div>
        </div>
-         <div><span class="muted">Ingår i:<!-- TODO: Ska styras av ind2 i 773--></span> 
+         <div><span class="muted">Ingår i:</span> 
           {{ record.link_author }}: 
           {{ record.link_tit }} ; {{ record.link_related }}
-        </div>
-      </span>
-      </a>
+      </div>-->
+    </span>
+</a>
 
     </article>
 </section>

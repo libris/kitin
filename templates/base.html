@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="sv" data-ng-app="kitin" xmlns:ng="http://angularjs.org">
+<html lang="sv">
   <head>
   <!--[if lte IE 9]>
 Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS katalogiserings prototyp.
@@ -50,7 +50,7 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
 
     <div class="container-fluid container-fluid-content">
       <div class="row-fluid">
-        <div class="span12">
+        <div class="span12" data-ng-app="kitin">
           {% block content %}
               <meta charset="utf-8">
           {% endblock content %}
@@ -61,13 +61,6 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
       </div>
       {% endblock container %}
     </div>
-
-  {% raw %}
-  <h1>TESTING</h1>
-  <p data-ng-controller="TestCtrl">{{servtest}}</p>
-  <h2>HTTP</h2>
-  <p data-ng-controller="TestHttpCtrl">{{anotherTest}}</p>
-  {% endraw %}
     <footer>
       {% block footer %}
       {% endblock %}
