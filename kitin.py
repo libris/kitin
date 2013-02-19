@@ -29,10 +29,7 @@ logger = logging.getLogger(__name__)
 # Still not sure how to tie together user handling/flask and search/angularjs
 #@app.route("/")
 def start():
-    if app.config.get('MOCK_API', False):
-        open_records = list(find_mockdata_record_summaries())
-    else:
-        open_records = []
+    open_records = []
     user = current_user if current_user.is_active() else None
     return render_template('home.html',
             user=user,
@@ -324,10 +321,6 @@ def get_record_summary(data):
     #    print "---------------------------- control_field:", confil
     return dict(control_fields.items() + general_fields.items())
 
-@app.route("/profile")
-def profile():
-    return render_template('mockups/profile.html', user = current_user if current_user.is_active() else None)
-
 
 @app.route('/edit/<edit_mode>')
 def show_record_form(**kws):
@@ -355,13 +348,8 @@ def show_edit_record(edit_mode, rec_type, rec_id):
 #@login_required
 def get_bib_data(id):
     # TODO: Check if exists as draft and fetch from local db if so!
-    if app.config.get('MOCK_API', False):
-        response = requests.Response()
-        response.status_code = 200
-        response.raw = open(mockdatapath('bib', id))
-    else:
-        whelk_url = "%s/bib/%s" % (app.config['WHELK_HOST'], id)
-        response = requests.get(whelk_url)
+    whelk_url = "%s/bib/%s" % (app.config['WHELK_HOST'], id)
+    response = requests.get(whelk_url)
     if response.status_code >= 400:
         app.logger.warning("Error response %s on GET <%s>" % (response.status_code, whelk_url))
         abort(response.status_code)
@@ -421,9 +409,6 @@ def get_overlay():
 @app.route('/suggest/auth')
 def suggest_auth_completions():
     q = request.args.get('q')
-    if app.config.get('MOCK_API', False):
-        with open(os.path.join(app.root_path, 'templates/mockups/auth_suggest.json')) as f:
-            return raw_json_response(f.read())
     response = requests.get("%s/suggest/_complete?name=%s" % (app.config['WHELK_HOST'], q))
     if response.status_code >= 400:
         abort(response.status_code)
@@ -509,23 +494,6 @@ def find_record_templates():
         yield fname.replace(ext, '')
 
 
-def find_mockdata_record_summaries():
-    fdir = mockdatapath('bib')
-    for fname in os.listdir(fdir):
-        if not fname.endswith('.json'):
-            continue
-        with open(os.path.join(fdir, fname)) as f:
-            try:
-                data = json.load(f)
-            except Exception as e:
-                app.logger.exception(e)
-                continue
-            if 'fields' not in data:
-                app.logger.warning("File %s is not in proper marc-json" % f.name)
-                continue
-            yield get_record_summary(data)
-
-
 def mockdatapath(rectype, recid=None):
     dirpath = os.path.join(app.root_path, 'examples', rectype)
     if recid:
@@ -587,12 +555,10 @@ if __name__ == "__main__":
     from optparse import OptionParser
     oparser = OptionParser()
     oparser.add_option('-d', '--debug', action='store_true', default=False)
-    oparser.add_option('--mockapi', action='store_true', default=False)
     oparser.add_option('-m', '--marcmap', type=str, default="marcmap.json")
     oparser.add_option('-o', '--overlay', type=str, default="marcmap-overlay.json")
     opts, args = oparser.parse_args()
     app.debug = opts.debug
-    app.config['MOCK_API'] = opts.debug and opts.mockapi
     app.config['MARC_MAP'] = opts.marcmap
     app.config['MARC_OVERLAY'] = opts.overlay
     app.run(host='0.0.0.0')
