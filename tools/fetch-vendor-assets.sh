@@ -18,7 +18,7 @@ pushd $DIR
 
   pushd jquery/
 
-    fetch jquery.min.js http://code.jquery.com/jquery-1.8.3.min.js
+    fetch jquery.min.js http://code.jquery.com/jquery-1.9.1.min.js
 
     fetch jquery.autocomplete.min.js https://raw.github.com/dyve/jquery-autocomplete/master/src/jquery.autocomplete.min.js
     fetch jquery.autocomplete.css https://raw.github.com/dyve/jquery-autocomplete/master/src/jquery.autocomplete.css
@@ -30,11 +30,11 @@ pushd $DIR
   
   pushd less/
   
-  fetch http://cloud.github.com/downloads/cloudhead/less.js/less-1.3.1.min.js
+  fetch http://cloud.github.com/downloads/cloudhead/less.js/less-1.3.3.min.js
   
   popd
 
-  fetch angular.min.js http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js
+  fetch angular.min.js http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js
 
   fetch underscore-min.js http://documentcloud.github.com/underscore/underscore-min.js
 
