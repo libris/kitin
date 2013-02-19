@@ -41,8 +41,8 @@ def start():
     
 # How check if user is logged in?
 @app.route("/")
-def kitin():
-    return render_template('kitin.html')
+def index():
+    return render_template('index.html')
 
 @app.route("/search")
 def search():
@@ -70,7 +70,7 @@ def search():
             #data = json.loads(resp.text)
             #search_results = [get_record_summary(item['data']) for item in data['list']]
             #return json.dumps(search_results) 
-    return kitin()
+    return index()
 '''
 @app.route("/old_search")
 #@login_required
@@ -344,7 +344,7 @@ def show_edit_record(edit_mode, rec_type, rec_id):
             #data = json.loads(resp.text)
             #search_results = [get_record_summary(item['data']) for item in data['list']]
             #return json.dumps(search_results) 
-    return kitin()
+    return index()
     #user = current_user if current_user.is_active() else None
     #json_post = json.loads(response.text)
     #return render_template('bib.html', data=json_post)
