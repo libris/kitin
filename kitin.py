@@ -25,7 +25,8 @@ storage = Storage(app.config)
 logger = logging.getLogger(__name__)
 
 
-
+# TODO: refactor routes with angular
+# Still not sure how to tie together user handling/flask and search/angularjs
 #@app.route("/")
 def start():
     if app.config.get('MOCK_API', False):
@@ -37,11 +38,43 @@ def start():
             user=user,
             record_templates=find_record_templates(),
             open_records=open_records)
-
+    
+# How check if user is logged in?
 @app.route("/")
+def kitin():
+    return render_template('kitin.html')
+
 @app.route("/search")
-#@login_required
 def search():
+    if request.is_xhr:
+        q = request.args.get('q')
+        facet = request.args.get('f', '').strip()
+        if facet:
+            dedupf = []
+            for ftmp in facet.split(' '):
+                if ftmp in dedupf:
+                    dedupf.remove(ftmp)
+                else:
+                    dedupf.append(ftmp)
+            facet = ' '.join(dedupf)
+        freq = "&f=%s" % facet
+
+        search_results = None
+        b = request.args.get('b', '')
+        boost = ("&boost=%s" % b) if b else ''
+        breadcrumbs = []
+        if q:
+            resp = requests.get("%s/bib/kitin/_search?q=%s%s%s" % (
+                app.config['WHELK_HOST'], q, freq, boost))
+            return raw_json_response(resp.text)
+            #data = json.loads(resp.text)
+            #search_results = [get_record_summary(item['data']) for item in data['list']]
+            #return json.dumps(search_results) 
+    return kitin()
+'''
+@app.route("/old_search")
+#@login_required
+def old_search():
     q = request.args.get('q')
     facet = request.args.get('f', '').strip()
     if facet:
@@ -83,7 +116,7 @@ def search():
                         breadcrumbs.append(fvals[1][1])
    
     return render_template('search.html', user = current_user if current_user.is_active() else None, **vars())
-
+'''
 def chunk_number(num):
     number = str(num)
     return re.sub(r'\B(?=(\d{3})+(?!\d))', " ", number)
@@ -285,7 +318,10 @@ def get_record_summary(data):
                 '773': {'a': 'link_author', 't': 'link_tit', 'g': 'link_related'},
               }
     general_fields = _get_field_label(tagdict, fields)
-
+    #for genfil in general_fields.items():
+    #    print "---------------------------- generad_field:", genfil
+    #for confil in control_fields.items():
+    #    print "---------------------------- control_field:", confil
     return dict(control_fields.items() + general_fields.items())
 
 @app.route("/profile")
@@ -297,12 +333,22 @@ def profile():
 def show_record_form(**kws):
     return render_template('bib.html', **kws)
 
+# How check if user is logged in?
 @app.route('/edit/<edit_mode>/<rec_type>/<rec_id>')
 def show_edit_record(edit_mode, rec_type, rec_id):
-    user = current_user if current_user.is_active() else None
+    resp = "%s/bib/%s" % (app.config['WHELK_HOST'], rec_id)
+    if request.is_xhr:
+        url = "%s/bib/%s" % (app.config['WHELK_HOST'], rec_id)
+        resp = requests.get(url)
+        return raw_json_response(resp.text)
+            #data = json.loads(resp.text)
+            #search_results = [get_record_summary(item['data']) for item in data['list']]
+            #return json.dumps(search_results) 
+    return kitin()
+    #user = current_user if current_user.is_active() else None
     #json_post = json.loads(response.text)
     #return render_template('bib.html', data=json_post)
-    return show_record_form(rec_type=rec_type, rec_id=rec_id, user=user)
+    #return show_record_form(rec_type=rec_type, rec_id=rec_id, user=user)
 
 
 @app.route('/record/bib/<id>')

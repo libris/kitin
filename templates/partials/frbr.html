@@ -1,5 +1,20 @@
 {% raw %}
-
+<div id="litebox">
+    <form id="record" class="form-horizontal">
+        <h1 class="bibhead">BIBLIOGRAFISK POST</h1>
+        <article class="well bib" id="entities">
+            <article>
+                <section>
+                <h3>{{ record.describes.expression.titleProper }}</h3>
+                </section>
+            </article>
+        </article>
+        
+    </form>
+</div>
+<!--
+  <div id="litebox">
+    <form id="record" class="form-horizontal" data-ng-view>
   <h1 class="bibhead">BIBLIOGRAFISK POST</h1>
   <article class="well bib" id="entities">
 
@@ -7,9 +22,9 @@
       <section data-ng-repeat="fieldset in [entities.record.main]"
           data-ng-include="'render-fieldset'"></section>
       <button type="button" class="btn btn-mini"
-              data-toggle="collapse" data-target="#record-hidden">
-        <!--<i class="icon-edit"></i>-->Fler detaljer</button>
-      <section id="record-hidden" class="collapse out"
+          data-toggle="collapse" data-target="#record-hidden">-->
+          <!--<i class="icon-edit"></i>--><!--Fler detaljer</button>-->
+    <!--  <section id="record-hidden" class="collapse out"
                data-ng-repeat="fieldset in [entities.record.hidden]"
           data-ng-include="'render-fieldset'"></section>
     </article>
@@ -49,22 +64,22 @@
           data-fadable="800">
       <div class="subfield-container" data-ng-switch="field.getWidgetType()">
         <div class="pull-right tag" title="{{ dfn.label_sv }} ({{ dfn.tag }})">
-            {{ dfn.label_sv }}<!--({{ dfn.tag }})--> 
+            {{ dfn.label_sv }}--><!--({{ dfn.tag }})--> 
             <!--<button data-ng-show="!dfn || dfn.repeatable"
                 data-ng-click="removeField($index)">&times;</button> -->
-        </div>
+        <!--</div>
           <div data-ng-switch-when="fixedfield"
               data-ng-init="controlField = row"
               data-ng-include="'render-control-field'"></div>
           <div data-ng-switch-when="field"
-              data-ng-include="'render-field'"></div>
+              data-ng-include="'render-field'"></div>-->
           <!-- TODO: are these always just unmatched items from the overlay groups?
           <div data-ng-switch-default>
             <input data-ng-model="field[dfn.tag]" class="frbr-input"/>
             {{ field }}
           </div>
           -->
-      </div>
+      <!--</div>
     </div>
   </script>
 
@@ -123,9 +138,9 @@
             <br>
           </div>
         </div>
-
+        -->
         <!--No Close button for now… <button class="close" data-ng-click="removeSubField(row, $index)">&times;</button>-->
-        <ng:switch on="subDfn.type">
+        <!--<ng:switch on="subDfn.type">
           <input data-ng-switch-when="autocomplete" type="text" class="input-xxlarge frbr-input"
                 data-kitin-autocomplete="field"
                 data-kitin-template="auth-completion-template"
@@ -237,5 +252,7 @@
       </ul>
     </div>
   </div>
-
+    </form>
+  </div>
+  -->
 {% endraw %}

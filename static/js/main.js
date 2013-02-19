@@ -8,8 +8,11 @@ kitin.config(
     function($locationProvider, $routeProvider) {
 
       $locationProvider.html5Mode(true);
-
       $routeProvider
+        .when('/',
+           {templateUrl: '/kitin', controller: KitinCtrl})
+        .when('/search',
+           {templateUrl: '/partials/search', controller: SearchCtrl})
         .when('/edit/frbr/:recType/:recId',
            {templateUrl: '/partials/frbr', controller: FrbrCtrl})
         .when('/edit/marc/:recType/:recId',
@@ -61,9 +64,90 @@ kitin.factory('records', function ($http, $q) {
   };
 });
 
-// controllers.js
+/*kitin.factory('testHttp', function ($http, $q) {
+  var overlay = $q.defer();
+  $http.get("/overlay.json").success(function (o) {
+    overlay.resolve(o);
+  });
+  return {
+    overlay: overlay.promise
+  };
+});
 
-function FrbrCtrl($rootScope, $scope, $routeParams, $timeout, conf, records) {
+kitin.factory('testing', function() {
+    return {
+        getThis : function() {
+            return "Hello";
+        }
+    };
+});
+
+// controllers.js
+function TestHttpCtrl($scope, $http, testHttp) {
+    $scope.anotherTest = testHttp.overlay;
+}
+
+function TestCtrl($scope, $http, testing) {
+    $scope.books = [
+        {"title": "Röda rummet",
+        "author": "August Strindberg"},
+        {"title": "Emil i Lönneberga",
+        "author": "Astrid Lindgren"},
+        {"title": "Herr Arnes penningar",
+        "author": "Selma Lagerlöf"}
+    ];
+    //$http.get("/record/bib/7149593").success(function(data) {
+    //    $scope.testrecord = data;
+    //});
+    $scope.servtest = testing.getThis();
+    //$scope.anotherTest = testHttp.overlay; 
+    //dump($scope.testrecord);
+}
+*/
+function KitinCtrl($scope) {
+    $scope.test = "STARTSIDA";
+}
+// To consider: Cross-domain/JsonP directly from Whelk instead of Flask?
+function SearchCtrl($scope, $http, $location, $routeParams) {
+    $scope.search = function() {
+        var url = "/search?q=" + $scope.q;
+        $location.url(url);
+    };
+    if (!$routeParams.q) {
+        return;
+    }
+    $scope.q = $routeParams.q;
+
+    var url = "/search?q=" + $scope.q;
+    //var hits = $scope.query.defer();
+    $http.get(url).success(function(data, status) {
+        console.log("HITS: ", data);
+        $scope.result = data;
+        $scope.status = status;
+    })
+    .error(function(data,status){
+        $scope.result = "Error";
+        $scope.status = status;
+    });
+
+}
+
+// Reuse record from hitlist instead of retrieving it again? They differ indicewise so perhaps not.
+function FrbrCtrl($scope, $http, $routeParams) {
+    var recType = $routeParams.recType, recId = $routeParams.recId;
+    var path = "/record/" + recType + "/" + recId;
+    $http.get(path).success(function(data, status) {
+        console.log("RECORD: ", data);
+        $scope.record = data;
+        $scope.status = status;
+    })
+    .error(function(data,status){
+        $scope.record = "Error";
+        $scope.status = status;
+    });
+}
+
+function FrbrCtrl_old($rootScope, $scope, $routeParams, $timeout, conf, records) {
 
   conf.renderUpdates = false;
   $rootScope.editMode = 'frbr';

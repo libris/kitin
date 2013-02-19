@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Kitin{% endblock %}
+
+{% block content %}
+  <div>
+    <div data-ng-view>
+    </div>
+    <script type="text/ng-template" id="/kitin">
+      {% raw %}
+      <div>{{test}}</div>
+      {% endraw %}
+    </script>
+  </div>
+{% endblock content %}
