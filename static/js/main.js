@@ -10,7 +10,7 @@ kitin.config(
       $locationProvider.html5Mode(true);
       $routeProvider
         .when('/',
-           {templateUrl: '/kitin', controller: KitinCtrl})
+           {templateUrl: '/index', controller: IndexCtrl})
         .when('/search',
            {templateUrl: '/partials/search', controller: SearchCtrl})
         .when('/edit/frbr/:recType/:recId',
@@ -104,7 +104,7 @@ function TestCtrl($scope, $http, testing) {
     //dump($scope.testrecord);
 }
 */
-function KitinCtrl($scope) {
+function IndexCtrl($scope) {
     $scope.test = "STARTSIDA";
 }
 // To consider: Cross-domain/JsonP directly from Whelk instead of Flask?
