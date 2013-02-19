@@ -1,0 +1,775 @@
+/*
+OLD use main.less
+Description: CSS for Libris kitin development and bootstrap overrides.
+*/ 
+
+
+html {
+/*   font-size: 62.5%; */
+  height: 100%;
+  margin: 0 0 1px;
+  padding: 0px;
+}
+
+body {
+  padding-top: 60px; /* to make the container go all the way to the bottom of the topbar */
+  height: 100%;
+  margin: 0 0 1px;
+  font-family: Helvetica;
+  /* font-size: 1.2em; */
+  background-color: #fff;
+}
+
+select {
+  padding-bottom: 0;
+     -moz-appearance: menulist-text;
+  -webkit-appearance: menulist-text;
+          appearance: menulist-text;
+  
+}
+
+.container-fluid-content {
+/*   background-color: #fafafa; */
+  border-radius: 4px 4px 4px 4px;
+
+}
+
+.navbar, .navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner  {
+  box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0);
+  background-image: none;
+  border: 0px;
+  background-color: #fff;
+  
+}
+
+label {
+  color: grey;
+}
+
+.navbar .brand-fix {
+  margin-left: 0px;
+}
+
+.white { /*tmp header fix until restructure*/
+  background-color: white;
+  margin-bottom: 15px;
+}
+
+.subfield-container {
+  padding-bottom: 5px;
+  padding-top: 5px;
+  padding-left: 5px;
+  background-color: #FFF;
+}
+.subfield-container:hover {
+ /* background-color: #fafafa;*/
+}
+
+body#bib {
+}
+
+
+.true {
+  color: green;
+}
+
+.false {
+  color: red;
+}
+
+
+.pull-up {
+  margin-top: -35px;
+  margin-right: 5px;
+}
+
+.compact .breaker,
+.compact .field-label-text,
+.compact .subfield-label {
+  display: none;
+}
+
+
+/* --------------------LOGIN-------------------- */
+
+.btn-xlarge {
+  width:285px;
+}
+
+
+/* --------------------SEARCH-------------------- */
+
+
+/*SEARCH BOX*/
+
+ul.unstyled, ol.unstyled {
+  list-style: none outside none;
+    margin-left: 15px;
+}
+
+.ui-search-item {
+  background-color: #F5F5F5;
+  padding: 6px;
+  position: relative;
+
+}
+.border-search {
+  background-color: #F5F5F5;
+  border: 1px solid #D8D8D8;
+  border-radius: 3px 3px 3px 3px;
+
+}
+
+.search-bar .search-input-item {
+  border-radius: 3px 3px 3px 3px;
+  padding: 0px; /* add px for frame */
+}
+
+.search-bar form input[type="text"] {
+  height: 35px;
+}
+.search-bar form input[type="text"] {
+  border-radius: 3px 0 0 3px;
+  border-right: 0 none;
+  float: left;
+  font-size: 20px;
+  height: 30px;
+  line-height: 24px;
+  margin-bottom: 0;
+  width: 95%;
+}
+.search-bar form {
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+}
+.search-bar form button[type="submit"] {
+  height: 46px;
+}
+.search-bar form button[type="submit"] {
+  border-radius: 0 3px 3px 0;
+  height: 41px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 46px;
+}
+/*FACET LIST*/
+.facet-closed {
+  display: none;
+}
+
+.checkmark-true {
+  color: green;
+  font-weight: 600;
+}
+
+/*RECORD LIST*/
+
+/*alot of temp styles until lessified*/
+
+.author {
+  padding-right: 20px;
+  font-weight: 400;
+}
+
+.publication {
+}
+
+.author .icon-user {
+  padding-top: 4px;
+  padding-right: 5px;
+}
+
+.icon-author {
+  opacity: 0.4;
+}
+
+/* TODO: sync semantic css with full-record mode */
+.unstyled-url label.label-record-list {
+ margin:0;
+ padding:0;
+ margin-top: -3px;
+ font-size: 13px;
+ display: block;
+ line-height: 13px;
+}
+
+.title-remainder {
+  font-weight: 300;
+  text-decoration: none;
+}
+
+article.record {
+  background-color: white;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  /*margin-bottom: 15px;*/
+  border: solid 1px #efefef;
+  font-size: 16px;
+}
+article.record:hover {
+  background-color: white;
+  box-shadow: inset 0 0 3px 1px #999;
+
+}
+
+.record h3 {
+  font-size: 20px;
+  line-height: 24px;
+  font-family: Georgia;
+}
+
+.record h4 {
+  font-size: 18px;
+  line-height: 22px;
+  margin-top: -5px;
+}
+
+a.bib-url {
+  color: #0088CC;
+  display: block;
+  text-decoration: none;
+}
+
+.title-clickable {
+  color: #0088CC;
+}
+
+.title-clickable:hover {
+  color: #005580;
+  text-decoration: underline;
+}
+
+hr {
+ margin: 8px 0;
+}
+
+.nopad-record-head {
+  padding: 0;
+  margin: 0;
+  min-height: 0;
+  margin-bottom: -8px;
+  margin-top: 1px;
+  padding-top: 0px;
+  font-size: 14px;
+}
+
+.unstyled-url {
+  color: #333;
+}
+
+.hit-counter {
+  display: block;
+  margin-top: 15px;
+  padding-left: 15px;
+}
+
+.record .identifier {
+  padding-bottom: 5px;
+}
+
+/*FACETS*/
+
+.facetholder {
+  background-color: white;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  margin-bottom: 2px;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.facetgroup-header {
+  margin-bottom: 3px;
+  padding-top: 3px;
+}
+
+
+/* --------------------FRBR FORM-------------------- */
+
+section.entity {
+  background-color: transparent;
+}
+
+
+/*VISIBLE HOVER STATES*/
+
+textarea.heading {
+  font-size: 20px;
+  line-height: 24px;
+  font-family: Georgia;
+  min-height:24px;
+  height: 24px;
+  font-weight: 600;
+  max-width: 530px;  
+}
+
+.subfield-container div.indicator,
+.tag {
+  visibility: hidden;
+}
+/* TODO: currently never showing indicators nor tag labels * /
+
+.subfield-container div.indicator {
+  opacity: 0;
+}
+
+.tag {
+  opacity: 0.075;
+  align: right;
+  -webkit-transition: opacity 0.5s;
+     -moz-transition: opacity 0.5s;
+       -o-transition: opacity 0.5s; 
+          transition: opacity 0.5s;  
+}
+
+.subfield-container:hover div.indicator {
+  opacity: 1;
+  -webkit-transition: opacity 0.5s;
+     -moz-transition: opacity 0.5s;
+       -o-transition: opacity 0.5s; 
+          transition: opacity 0.5s; 
+}
+
+.subfield-container:hover div.tag {
+ opacity: 1;
+}
+
+/**/
+
+.subfield-container input:focus div.tag {
+ opacity: 1;
+
+
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+     -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+       -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+          transition: border linear 0.2s, box-shadow linear 0.2s;
+}
+li.subfield-code .close {
+  opacity: 0;
+  -webkit-transition: opacity 0.5s;
+     -moz-transition: opacity 0.5s;
+       -o-transition: opacity 0.5s; 
+          transition: opacity 0.5s; 
+}
+
+li.subfield-code:hover .close {
+ opacity: 1;
+}
+
+li.subfield-code .tag-code {
+  opacity: 0;
+  -webkit-transition: opacity 0.5s;
+     -moz-transition: opacity 0.5s;
+       -o-transition: opacity 0.5s; 
+          transition: opacity 0.5s; 
+          transition-timing-function: linear;
+}
+
+li.subfield-code:hover .tag-code {
+ opacity: 1;
+}
+
+
+article.bib {
+  background: rgba(222, 226, 209, 0.7);
+}
+
+article.hld {
+  background: rgba(211, 127, 127, 0.3);
+  }
+
+/* negative margin on h1 to make it sit on the element below */
+h1.bibhead {
+/* color: rgba(216, 238, 210, 1);*/
+  padding-bottom: 0;
+  margin-bottom:-4px;
+  font-size: 24px;
+  line-height: 24px;
+  color:grey;  
+}
+
+/*a div {
+    visibility:hidden;
+}
+
+a:hover div {
+    visibility:visible;
+}*/
+
+
+.fields .control-label + .ng-binding {
+  background: transparent;
+}
+
+.placeholder-hld {
+  height: 80px;
+}
+
+select.fixed-field {
+  width: 537px;
+  height: 23px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  padding-bottom: 0px;
+  border-radius: 0px;
+
+}
+
+/* --------------------MARC21 FORM-------------------- */
+
+
+/* --------------------GENERAL CAT FORM-------------------- */
+
+/* Partitioned Future Mode */
+/* TODO: move classes that are separate in view*/
+
+article.hld h2, article.bib h2 {
+  color: white;
+  font-size: 24px;
+  /*text-shadow: 1px 1px 2px rgba(0,0,0,0.5);*/
+  /*text-shadow: -1px 0 rgba(0,0,0,0.3), 0 1px rgba(0,0,0,0.3),
+                1px 0 rgba(0,0,0,0.3), 0 -1px rgba(0,0,0,0.3);*/
+  line-height:inherit;
+  padding: 0px;
+  margin: 0px;
+  margin-bottom: -3px;
+}
+
+article > section {
+  background-color: white;
+  margin: 0 0 1.5em;
+}
+
+/*tmp bootstrap select override*/
+.row-fluid .span7 {
+ width: 400px;
+}
+
+
+/* border removal in both forms */
+/* TODO: Fix a more specific bootstrap override */
+
+li.subfield-code input, .frbr-input, textarea, select, div.controls input {
+  border: 0px solid;
+  padding-top: 0px;
+  padding-right: 5px;
+  padding-bottom: 0px;
+  padding-left: 2px;
+  margin: 0;
+/*OVERRIDE ORIGINAL  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;  */
+  -webkit-box-shadow: inset 0 0 0 0 rgba(0, 0, 0, 0);
+     -moz-box-shadow: inset 0 0 0 0 rgba(0, 0, 0, 0);
+          box-shadow: inset 0 0 0 0 rgba(0, 0, 0, 0);
+  -webkit-transition: 0;
+     -moz-transition: 0;
+       -o-transition: 0;
+          transition: 0;
+}
+
+.indicator select {
+  font-size: 11px;
+  height: auto;
+}
+
+.add-subfield {
+  margin:0;
+  border-radius: 0 0 0 0;
+  padding:0;
+  line-height: 13px;
+  font-size: 12px;
+  padding-bottom: 5px;
+  padding-left: 25px;
+  margin-top: -2px;
+}
+
+.add-on {
+ background-color: transparent;
+}
+
+.add-on .subfield-code {
+  line-height: 9px;
+  margin-top: -1px;
+  padding-top: 2px;
+  padding-left: 3px;
+  height: 11px;
+}
+
+/* TODO: ues LESS; also :-ms-input-placeholder, moz changing to pseudo-element  */
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  color: #a99;
+}
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+  color: #a99;
+}
+input:focus::-webkit-input-placeholder,
+textarea:focus::-webkit-input-placeholder {
+  color: #edd;
+}
+input:focus:-moz-placeholder,
+textarea:focus:-moz-placeholder {
+  color: #edd;
+}
+
+.subfield-code.empty {
+ visibility: hidden;
+}
+
+span .subfield-label, .fixed-field-label, .tag-code {
+  font-size: 12px;
+  color: #999;
+ padding-bottom:3px;
+}
+
+.fixed-field-label {
+  text-align: left;
+  padding-left:30px;
+}
+
+div.controls input:focus,
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+  border-color: #999;
+  outline: 1px;
+  outline: thin dotted \9;
+  /* IE6-9 */
+
+  -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.5), 0 0 0 rgba(82, 168, 236, 0.6);
+     -moz-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.5), 0 0 0 rgba(82, 168, 236, 0.6);
+          box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.5), 0 0 0 rgba(82, 168, 236, 0.6);
+
+}
+
+.record .leader,
+.record .control_field,
+.record .regular_field {
+  list-style: none;
+  margin: 0;
+}
+.record label { display: inline; }
+.record input.variable-field { width: 30px; }
+.record .field_label { width: 30px; }
+.record .control_field .field_label { width: 300px; }
+.record .indicator { width: 20px; display: inline; }
+.record .controlfield { width: 517px; }
+.record .regular_field input.subfield.label {
+  width: 10px;
+}
+
+.result-list {
+ font-size: 14px;
+}
+
+section.search {
+  padding-top: 20px;
+}
+
+.record .regular_field input.subfield {
+  width: auto;
+}
+.record input.subfield-master { width: 99%; }
+
+.regular_field label {
+  position: relative;
+}
+
+.regular_field label .action-group {
+  position: absolute;
+  top: 0; left: 0;
+}
+
+.regular_field label .btn {
+  opacity: 0;
+  -moz-transition: 0.5s opacity ease-out;
+}
+.regular_field label .btn:focus,
+.regular_field label:hover .btn {
+  opacity: 1;
+}
+
+/* autocomplete */
+
+.acResults {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  min-width: 360px;
+  font-family: helvetica;
+  width: 535px;
+}
+.acResults p {
+  margin: 0 0 3px;
+}
+.acSelect a {
+  color: highlighttext;
+}
+
+div.fields label.control-label {
+/*  background-color: #efefef;
+  font-weight: 600;
+  padding: 3px;
+   width: 97%; */
+  display: block;
+}
+
+/* forked from class close */
+.close-record {
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 18px;
+  color: #000000;
+  text-shadow: 0 1px 0 #ffffff;
+  opacity: 0.2;
+  filter: alpha(opacity=20);
+  border: 0;
+}
+
+
+
+/* AUTH SUGGEST */
+.acResults ul li {
+  border-bottom: 1px solid #efefef;
+}
+
+div.auth {
+  font-size: 12px;
+}
+
+.auth .name {
+  padding-right: 15px;
+}
+.auth .date {
+  font-size: 13px;
+  font-weight: 300;
+  color: #999;
+}
+
+auth-ok {
+  float: right;
+}
+ 
+/*FORM INPUT OVERRIDE */
+
+form#fields {
+  font-size: 14px;
+}
+
+form#fields .control-label {
+  font-size: 14px;
+}
+
+form#fields .regular_field {
+  border-bottom: 1px solid #efefef; 
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+form#fields input {
+  border: 1px solid transparent;
+  box-shadow: none;
+  font-size: 16px;
+}
+
+/* Special formatting for form in biblite. Unused a.t.m. */
+/* 
+form#fields-lite input {
+  border: 0px solid #CCC;
+  box-shadow: none;
+  font-size: 14px;
+}
+*/
+
+
+form#fields input:hover,
+form#fields input:focus {
+  border: 1px solid #CCCCCC;
+}
+
+form#fields input:focus {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+
+form#fields .add-on {
+  border: 0;
+  color: #888;
+  background: #fff;
+  vertical-align: bottom;
+}
+
+form#record .add-on {
+  border: 0;
+  color: #888;
+  background-color: transparent;
+  /*   vertical-align: bottom; */
+}
+
+.indicators label, .indicators select {
+  font-size: 12px;
+}
+
+.indicators {
+  background-color: #f9f9f9;
+  padding-left: 25px;
+}
+
+/* --------------------MOCKUP-------------------- */
+
+.mockup {
+  background-color: #efefef;
+  border-radius: 0;
+  border-color: white;
+  font-size: 14px;
+}
+.indicator {
+  width: 20px;
+  background: #efefef;
+  border-radius: 0;
+  color: #888;
+}
+
+.variable-field {
+  width: 30px;
+  font-weight: 600;
+}
+
+input.subfield-master { width: 600px; border-radius: 0; box-shadow: 0 0 0 0;}
+.sub-active { border-color: white; font-size: 14px;}
+
+/*future mode textarea*/
+
+.title-text {
+  font-size: 16px;
+}
+
+.field-label {
+  background-color: #efefef;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 3px;
+  display: block;
+  line-height: 20px;
+}
