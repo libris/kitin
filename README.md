@@ -11,12 +11,11 @@ Mac OS X specific:
     $ sudo easy_install pip
     $ pip install virtualenvwrapper
     $ Add `export WORKON_HOME=$HOME/.virtualenvs` to your shell profile (zshrc, bashrc)
-    $ Add `source /path/to/virtualenvwrapper.sh` to your shell profile (zshrc, bashrc)
+    $ Add `source </path/to/virtualenvwrapper.sh>` to your shell profile (zshrc, bashrc)
     $ mkvirtualenv kb-kitin
+    $ workon kb-kitin
     $ pip install -r dev-requirements.txt
 
-    # During development, make sure you
-    $ workon kb-kitin
 
 ### Generate the marcmap
 
@@ -34,15 +33,23 @@ Mac OS X specific:
     $ sqlite3 kitin.db
     > INSERT INTO userdata VALUES ('somebody','somepass');
 
-### Start the client
+### Run the mock-whelk
+Development is more fun when there's data to toy around with.
+Clone the librisxl project and run its builtin mockserver
 
-1. Run ./kitin.py -h for help
-2. Run webapp
+    $ git clone git@github.com:libris/librisxl.git
+    $ cd librisxl/whelk-core
+    $ gradle jettyRun
 
-    $ ./kitin.py -d --mockapi -m $SOME_DIR/marcmap.json
+### Configure and run the flask client
 
+1. Make a local copy of the config file.
+    $ cp config.cfg.in config.cfg
+2. Open config.cfg in your favourite editor and set WHELK_HOST to point to localhost, like so: `WHELK_HOST = 'http://localhost:8080/whelk-core'`
+3. Run webapp
+    $ ./kitin.py -d
 
-
+Run ./kitin.py -h for help
 
 ## Development and Maintenance
 
