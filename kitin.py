@@ -67,53 +67,8 @@ def search():
             #data = json.loads(resp.text)
             #search_results = [get_record_summary(item['data']) for item in data['list']]
             #return json.dumps(search_results) 
-    return index()
-'''
-@app.route("/old_search")
-#@login_required
-def old_search():
-    q = request.args.get('q')
-    facet = request.args.get('f', '').strip()
-    if facet:
-        dedupf = []
-        for ftmp in facet.split(' '):
-            if ftmp in dedupf:
-                dedupf.remove(ftmp)
-            else:
-                dedupf.append(ftmp)
-        facet = ' '.join(dedupf)
-    freq = "&f=%s" % facet
+    return render_template('search.html')
 
-    search_results = None
-    b = request.args.get('b', '')
-    boost = ("&boost=%s" % b) if b else ''
-    breadcrumbs = []
-    if q:
-        resp = requests.get("%s/bib/kitin/_search?q=%s%s%s" % (
-            app.config['WHELK_HOST'], q, freq, boost))
-        data = json.loads(resp.text)
-        search_results = [get_record_summary(item['data']) for item in data['list']]
-        print "search results", search_results
-        facets = [get_facet_labels(f_group, f_values) for f_group, f_values in data['facets'].items()]
-
-        iterate_facets = dict([(f_labels['propref'], f_labels) for f_labels in facets])
-        ordered_facets = []
-        facet_order = ["bookSerial", "typeOfRecord", "bibLevel", "carrierType", "yearTime1"]
-        for fo in facet_order:
-            if fo in iterate_facets.keys():
-                ordered_facets.append(iterate_facets[fo])
-
-        facets = ordered_facets
-        for tmpfac in facets:
-            compfac = tmpfac['link']
-            if compfac in facet:
-                for fvals in tmpfac['f_values']:
-                    concfac = compfac + ":" + fvals[0]
-                    if concfac in facet:
-                        breadcrumbs.append(fvals[1][1])
-   
-    return render_template('search.html', user = current_user if current_user.is_active() else None, **vars())
-'''
 def chunk_number(num):
     number = str(num)
     return re.sub(r'\B(?=(\d{3})+(?!\d))', " ", number)
@@ -445,36 +400,6 @@ def show_partial(name):
 @app.route("/mockups/<name>")
 def show_mockup(name):
     return render_template('mockups/'+ name +'.html')
-
-
-# TODO: should we keep this feature?
-#from werkzeug import secure_filename
-#
-#@app.route('/upload', methods=['GET', 'POST'])
-#def upload_file():
-#    """Upload marc document from either local file system or from whelk. Save to kitin db."""
-#    if request.method == 'POST':
-#        uid = request.form['uid']
-#        if request.form.get('files', None):
-#            f = request.files['jfile']
-#            fname = secure_filename(f.filename)
-#            filepath = os.path.join(app.config['UPLOAD_FOLDER'], fname)
-#            f.save(filepath)
-#            json_text = open(filepath)
-#            json_data = json.load(json_text)
-#            print "json", type(json_data)
-#
-#        elif request.form.get('backend', None):
-#            bibid = request.form['bibid']
-#            bpost = requests.get("%sbib/%s" % (app.config['WHELK_HOST'], bibid))
-#            json_data = json.loads(bpost.text)['marc']
-#        #get table and save record
-#        bibid = json_data.get('001', None)
-#        mid = storage.save2(bibid, uid, json_data)
-#        return render_template('view.html', marcposts = [(str(mid), json.dumps(json_data))], uid = uid )
-#    else:
-#        return render_template('upload.html')
-
 
 def raw_json_response(s):
     resp = make_response(s)

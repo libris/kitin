@@ -10,13 +10,13 @@ kitin.config(
       $locationProvider.html5Mode(true);
       $routeProvider
         .when('/',
-           {templateUrl: '/index', controller: IndexCtrl})
+              {templateUrl: '/partials/index', controller: IndexCtrl})
         .when('/search',
-           {templateUrl: '/partials/search', controller: SearchCtrl})
+              {templateUrl: '/partials/search', controller: SearchCtrl})
         .when('/edit/frbr/:recType/:recId',
-           {templateUrl: '/partials/frbr', controller: FrbrCtrl})
+              {templateUrl: '/partials/frbr', controller: FrbrCtrl})
         .when('/edit/marc/:recType/:recId',
-           {templateUrl: '/partials/marc', controller: MarcCtrl})
+              {templateUrl: '/partials/marc', controller: MarcCtrl})
         ;//.otherwise({redirectTo: '/'});
 
     }]
@@ -64,48 +64,7 @@ kitin.factory('records', function ($http, $q) {
   };
 });
 
-/*kitin.factory('testHttp', function ($http, $q) {
-  var overlay = $q.defer();
-  $http.get("/overlay.json").success(function (o) {
-    overlay.resolve(o);
-  });
-  return {
-    overlay: overlay.promise
-  };
-});
-
-kitin.factory('testing', function() {
-    return {
-        getThis : function() {
-            return "Hello";
-        }
-    };
-});
-
-// controllers.js
-function TestHttpCtrl($scope, $http, testHttp) {
-    $scope.anotherTest = testHttp.overlay;
-}
-
-function TestCtrl($scope, $http, testing) {
-    $scope.books = [
-        {"title": "Röda rummet",
-        "author": "August Strindberg"},
-        {"title": "Emil i Lönneberga",
-        "author": "Astrid Lindgren"},
-        {"title": "Herr Arnes penningar",
-        "author": "Selma Lagerlöf"}
-    ];
-    //$http.get("/record/bib/7149593").success(function(data) {
-    //    $scope.testrecord = data;
-    //});
-    $scope.servtest = testing.getThis();
-    //$scope.anotherTest = testHttp.overlay; 
-    //dump($scope.testrecord);
-}
-*/
 function IndexCtrl($scope) {
-    $scope.test = "STARTSIDA";
 }
 // To consider: Cross-domain/JsonP directly from Whelk instead of Flask?
 function SearchCtrl($scope, $http, $location, $routeParams) {

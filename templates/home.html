@@ -1,46 +1,13 @@
 {% extends "base.html" %}
-{% block title %}Logga in{% endblock %}
 {% block content %}
 
 <div class="row-fluid">
 
   {% if user %}
-
     {% include "_search.html" %}
-<!--
-    <section>
-      <h2>Mallar</h2>
-      <form action="/record/create" method="POST">
-        <select name="template">
-          {% for tname in record_templates %}
-            <option value="{{ tname }}">{{ tname }}</option>
-          {% endfor %}
-        </select>
-        <button class="btn btn-inverse btn-small" type="submit"><i class="icon-file icon-white"></i> Skapa ny från mall</button>
-      </form>
-    </section>
-    <hr>
-
-    <section>
-      <h2>Sparade utkast</h2>
-      {% with records = open_records %}
-        {% include "_record_list.html" %}
-      {% endwith %}
-    </section>
--->
   {% else %}
-  
     {% include "_login.html" %}
-  
   {% endif %}
-<!--
-  {% if user %}
-  <h2>Hej {{ user.username }}</h2>
-    <form class="well form-inline" method="POST" action="/signout">
-        <button type="submit" class="btn" name="signout">Signera ut</button>
-    </form>
-  {% endif %}
--->  
 
 </div>
 {% endblock %}
