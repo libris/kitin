@@ -438,7 +438,7 @@ def lookup(uid=None):
 
 @app.route("/partials/<name>")
 def show_partial(name):
-    return render_template('partials/'+ name +'.html')
+    return make_response(open(app.template_folder + '/' + 'partials/'+ name +'.html').read())
 
 
 # TODO: integrate mockups in views and remove this
