@@ -1,33 +1,40 @@
 describe('Kitin controllers', function() {
-    beforeEach(module('kitin'));
-    describe('TestCtrl', function() {
-        var scope, ctrl;
-        beforeEach(inject(function($rootScope, $controller) {
-            scope = $rootScope.$new();
-            ctrl = $controller(TestCtrl, {$scope: scope});
-        }));
-        it('should create "books" model with 3 books', function() {
-            expect(scope.books.length).toBe(3);
-        });
-        it('should call "testing" service and store return in variable servtest', function() {
-            expect(scope.servtest).toEqual("Hello");
-        });
-    });
-    describe('TestHttpCtrl', function() {
-        var scope, ctrl, $httpBackend;
-        beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
-            $httpBackend = _$httpBackend_;
-            $httpBackend.expectGET('/overlay.json').respond({data: "OK"});
 
-            scope = $rootScope.$new();
-            ctrl = $controller(TestCtrl, {$scope: scope});
-        }));
-
-        it('should call "testHttp" service and store return in variable anotherTest', function() {
-            expect(scope.anotherTest).toBeUndefined();
-            $httpBackend.flush();
-            expect(scope.anotherTest).toEqualData({data: "OK"});
-        });
+  beforeEach(function(){
+    this.addMatchers({
+      toEqualData: function(expected) {
+        return angular.equals(this.actual, expected);
+      }
     });
+  });
+
+  beforeEach(module('kitin'));
+
+  describe('SearchCtrl without query params', function() {
+    beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
+      $httpBackend = _$httpBackend_;
+      $httpBackend.expectGET('partials/index').respond("apa");
+      scope = $rootScope.$new();
+      ctrl = $controller(SearchCtrl, {$scope: scope});
+    }));
+
+    it('it should return undefined', function() {
+      expect(scope.result).toEqualData(undefined);
+    });
+  });
+
+  describe('SearchCtrl with query param present', function() {
+    beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
+      $httpBackend = _$httpBackend_;
+      $httpBackend.expectGET('/search?q=7149593').respond("");
+      scope = $rootScope.$new();
+      ctrl = $controller(SearchCtrl, {$scope: scope, $routeParams: {
+        q:"7149593"
+      }});
+    }));
+
+    it('it should set the query params on the scope var', function() {
+      expect(scope.q).toEqualData("7149593");
+    });
+  });
 });
-

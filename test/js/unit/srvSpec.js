@@ -1,4 +1,4 @@
-describe('Kitin services', function() {
+xdescribe('Kitin services', function() {
     beforeEach(angular.mock.module('kitin'));
     it('should fetch value from service', inject(function(testing) {
         expect(testing.getThis()).toEqual("Hello");
