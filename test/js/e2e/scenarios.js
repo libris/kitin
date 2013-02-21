@@ -12,7 +12,7 @@ describe('Kitin App', function() {
 
 
     it('should have a search bar', function() {
-      expect(input('q').attr('type')).toEqual("text");
+      expect(element('#search').attr('type')).toEqual("text");
     });
   });
 });
