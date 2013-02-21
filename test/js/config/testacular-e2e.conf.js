@@ -1,4 +1,4 @@
-basePath = '../';
+basePath = '../../../';
 
 files = [
   ANGULAR_SCENARIO,
