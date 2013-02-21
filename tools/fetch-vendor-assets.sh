@@ -35,6 +35,7 @@ pushd $DIR
   popd
 
   fetch angular.min.js http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js
+  fetch angular-mocks.js http://code.angularjs.org/1.0.2/angular-mocks.js
 
   fetch underscore-min.js http://documentcloud.github.com/underscore/underscore-min.js
 
