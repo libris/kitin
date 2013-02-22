@@ -1,4 +1,26 @@
 <meta charset="utf-8">
+<div class="row-fluid">
+  <div class="span9 offset3">
+    <section class="search" role="search">
+      <div class="search-bar">
+      <ul class="border-search unstyled">
+        <li class="ui-search-item search-input-item">
+          <form class="form-inline search-form" data-ng-submit="search()">
+            <input id="search" name="q" type="text" autofocus
+                    class="xlarge ui-autocomplete-input"
+                    value="" placeholder=""
+                    autocomplete="off" role="textbox"
+            aria-autocomplete="list" aria-haspopup="true" data-ng-model="q">
+            <button id="submit" class="btn btn-large btn-success" type="submit">
+              <i class="icon-search icon-white"></i>
+            </button>
+          </form>
+        </li>
+      </ul>
+      </div>
+    </section>
+  </div>
+</div>
 <section>
   <article data-ng-repeat="record in result.list" class="record {{record.identifier}}">
     <div class="row-fluid">
@@ -33,5 +55,8 @@
         </div>
       </span>
     </a><hr>
-  </article>
-</section>
+    </article>
+    </section>
+    <div>
+        {{result}}
+    </div>
