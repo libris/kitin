@@ -25,9 +25,17 @@ class User(UserMixin):
         return self.active
 
 class Storage(object):
+    def __init__(self, path="/opt/kitin"):
+        self.path = path
+        if not os.path.exists(self.path):
+            os.makedirs(self.path)
 
-    def save(self, id, json_data):
-        raise RuntimeError("no impl yet")
+    def save(self, record_type, record_id, json_data):
+        path = "/".join([self.path, record_type, record_id])
+        if not os.path.exists(path):
+            os.makedirs(path)
+        f = open(path, 'w')
+        f.write(json_data) ## TODO need to convert to str first?
 
     def update(self, id, json_data):
         raise RuntimeError("no impl yet")

@@ -20,7 +20,7 @@ app.secret_key = 'secret key'
 login_manager = LoginManager()
 login_manager.setup_app(app)
 
-storage = Storage()
+storage = Storage(app.config.get("UPLOAD_FOLDER"))
 
 logger = logging.getLogger(__name__)
 
