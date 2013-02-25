@@ -3,8 +3,8 @@
     <section class="search" role="search">
       <div class="search-bar">
         <ul class="border-search unstyled">
-          <li class="ui-search-item search-input-item">
-            <form class="form-inline search-form" action="/search" data-ng-submit="search()">
+            <li class="ui-search-item search-input-item">
+            <form class="form-inline search-form" data-ng-submit="search()">
               <input id="search"  name="q" type="text" autofocus
                       class="xlarge ui-autocomplete-input"
                       value="{% if q %}{{ q }}{% endif %}" placeholder=""

@@ -1,3 +1,4 @@
+{% raw %}
 <meta charset="utf-8">
 <div class="row-fluid">
   <div class="span9 offset3">
@@ -23,29 +24,35 @@
 </div>
 <section>
   <article data-ng-repeat="record in result.list" class="record {{record.identifier}}">
-    <div class="row-fluid">
-      {{ record.data.describes.expression['marc:bibLevel'] }}
-      {{ record.data.describes.expression['marc:typeOfRecord'] }}
-      {{ record.data.encLevel }}
-      {{ record.data['@id'] }}
+  <div class="row-fluid">
+      <ul class="inline">
+        <li>bibLevel: {{ record.data.bibLevel.label }}</li>
+        <li>typeOfRecord: {{ record.data.typeOfRecord.label }}</li>
+        <li>encLevel: {{ record.data.encLevel.label }}</li>
+        <li>id: {{ record.data['@id'] }}</li>
+        <li>year: {{ record.data.dateOfPublication['@value'] }}</li>
+    </ul>
+    <ul class="inline">
+        <li data-ng-repeat="isbn in record.data.about | filter:isbn">ISBN: {{ isbn }}</li>
+    </ul>
     </div>
     <a class="bib-url" href="/edit/frbr/bib/{{ record.data.controlNumber }}">
       <header>
         <h3>
           <span class="title-clickable">
-            <span title="245A">{{ record.data.describes.expression.titleProper }}</span>
+            <span title="245A">{{ record.data.about.instanceOf.title }}</span>
             <span class="title-remainder">
-              <span title="245C"> / {{ record.data.describes.expression.statementOfResponsibilityRelatingToTitleProper }}</span>
+              <span title="245C"> / {{ record.data.about.instanceOf.statementOfResponsibility }}</span>
             </span>
           </span>
         </h3>
       </header>
       <span class="unstyled-url">
-        <h4 data-ng-repeat="author in record.data.describes.expression.authorList">
+        <h4 data-ng-repeat="author in record.data.about.instanceOf.authorList">
           <span class="author">
             <i class="icon-user icon-author"></i>
-            <span title="100A">{{ author.preferredNameForThePerson }}</span>
-            <span title="100D">{{ author.dateOfBirth['@value'] }} - {{ author.dateOfDeath['@value'] }}</span> 
+            <span title="100A">{{ author.name }}</span>
+            <span title="100D">{{ author.birthYear }} - {{ author.deathYear }}</span> 
           </span>
         </h4>
         <div class="row-fluid">
@@ -54,9 +61,10 @@
           </div>
         </div>
       </span>
-    </a><hr>
+    </a><hr />
     </article>
     </section>
     <div>
         {{result}}
     </div>
+{% endraw %}

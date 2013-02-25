@@ -64,10 +64,16 @@ kitin.factory('records', function ($http, $q) {
   };
 });
 
+/*kitin.factory('hitlist', function($http, $q) {
+    // Get results from whelk and format for search control
+});*/
+
 function IndexCtrl($scope) {
 }
-// To consider: Cross-domain/JsonP directly from Whelk instead of Flask?
+
 function SearchCtrl($scope, $http, $location, $routeParams) {
+    $scope.q = $routeParams.q;
+    var url = "/search?q=" + $scope.q;
     $scope.search = function() {
         var url = "/search?q=" + $scope.q;
         $location.url(url);
@@ -75,20 +81,12 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
     if (!$routeParams.q) {
         return;
     }
-    $scope.q = $routeParams.q;
-
-    var url = "/search?q=" + $scope.q;
-    //var hits = $scope.query.defer();
-    $http.get(url).success(function(data, status) {
-        console.log("HITS: ", data);
+    var hitlist;
+    $http.get(url).success(function(data) {
         $scope.result = data;
-        $scope.status = status;
-    })
-    .error(function(data,status){
-        $scope.result = "Error";
-        $scope.status = status;
     });
-
+    console.log("LIST: ", $scope.result);
+    //$scope.result = hitlist.result(url);
 }
 
 // Reuse record from hitlist instead of retrieving it again? They differ indicewise so perhaps not.

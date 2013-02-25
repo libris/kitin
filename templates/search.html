@@ -2,8 +2,11 @@
 {% block title %}Sök{% endblock %}
 {% block content %}
 
-  {% include "_search.html" %}
     <div data-ng-view>
     </div>
-
+    {% for key, value in partials.items() %}
+    <script type="text/ng-template" id="{{ key }}">
+        {% include value %}
+    </script>
+    {% endfor %}
 {% endblock content %}
