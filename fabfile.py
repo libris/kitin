@@ -4,9 +4,6 @@ import json, os, re
 
 from fabric.api import *
 
-from sqlalchemy import *
-from sqlalchemy.orm import *
-
 kitin_path = '/srv/www/kitin'
 
 cfg = {}
@@ -26,34 +23,6 @@ def demo():
     env.wwwuser = '_www'
     env.wwwgroup = '_www'
 
-@task
-def create_db():
-    execfile(os.path.join(os.path.dirname(__file__), 'config.cfg'), cfg)
-    if not os.path.exists(cfg.get('DBNAME')):
-        db = create_engine(cfg.get('DBENGINE') + ':///' + cfg.get('DBNAME'))
-        db.echo = True
-        metadata = MetaData(db)
-        marcpost = Table('marcpost', metadata,
-            Column('id', Integer, primary_key=True),
-            Column('userid', String),
-            Column('marc', PickleType(pickler=json)),
-            Column('bibid', String),
-            Column('spills', PickleType(pickler=json)),
-            #Column('timestamp', Date)) #datatype??
-        )
-        marcpost.create()
-
-        userdata = Table('userdata', metadata,
-            Column('id', Integer),
-            Column('username', String, primary_key=True),
-            Column('roles', PickleType(pickler=json)),
-            Column('active', Boolean),
-        )
-        userdata.create()
-
-        i = userdata.insert()
-        i.execute(
-                  {'username': u'skalbagge', 'active': 1})
 
 @task
 def prepare():

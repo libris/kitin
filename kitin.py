@@ -8,7 +8,7 @@ from flask import Flask, render_template, request, make_response, abort, redirec
 from flask_login import LoginManager, login_required, login_user, flash, current_user, UserMixin, logout_user
 import requests
 import re
-from babydb import Storage, User
+from storage import Storage, User
 #from spill import Spill
 import jinja2
 
@@ -20,7 +20,7 @@ app.secret_key = 'secret key'
 login_manager = LoginManager()
 login_manager.setup_app(app)
 
-storage = Storage(app.config)
+storage = Storage()
 
 logger = logging.getLogger(__name__)
 
