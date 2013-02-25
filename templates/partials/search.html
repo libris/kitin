@@ -23,11 +23,17 @@
 </div>
 <section>
   <article data-ng-repeat="record in result.list" class="record {{record.identifier}}">
-    <div class="row-fluid">
-      {{ record.data.describes.expression['marc:bibLevel'] }}
-      {{ record.data.describes.expression['marc:typeOfRecord'] }}
-      {{ record.data.encLevel }}
-      {{ record.data['@id'] }}
+  <div class="row-fluid">
+      <ul class="inline">
+        <li>bibLevel: {{ record.data.bibLevel.label }}</li>
+        <li>typeOfRecord: {{ record.data.typeOfRecord.label }}</li>
+        <li>encLevel: {{ record.data.encLevel.label }}</li>
+        <li>id: {{ record.data['@id'] }}</li>
+        <li>year: {{ record.data.dateOfPublication['@value'] }}</li>
+    </ul>
+    <ul class="inline">
+        <li data-ng-repeat="isbn in record.data.describes | filter:isbn">ISBN: {{ isbn }}</li>
+    </ul>
     </div>
     <a class="bib-url" href="/edit/frbr/bib/{{ record.data.controlNumber }}">
       <header>
@@ -54,7 +60,7 @@
           </div>
         </div>
       </span>
-    </a><hr>
+    </a><hr />
     </article>
     </section>
     <div>
