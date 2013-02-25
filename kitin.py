@@ -39,7 +39,7 @@ def start():
 # How check if user is logged in?
 @app.route("/")
 def index():
-    return render_template('index.html')
+    return render_template('home.html')
 
 @app.route("/search")
 def search():
@@ -68,7 +68,7 @@ def search():
             #data = json.loads(resp.text)
             #search_results = [get_record_summary(item['data']) for item in data['list']]
             #return json.dumps(search_results) 
-    return render_template('search.html')
+    return render_template('search.html', partials = {"/partials/search" : "partials/search.html"})
 
 def get_mockresult():
     with open("mocked_result_set.json") as f:
