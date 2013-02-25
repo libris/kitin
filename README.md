@@ -3,7 +3,6 @@ Kitin - README
 
 ## Getting started
 
-
 ### Install requirements
 
 Mac OS X specific:
@@ -15,14 +14,6 @@ Mac OS X specific:
     $ mkvirtualenv kb-kitin
     $ workon kb-kitin
     $ pip install -r dev-requirements.txt
-
-
-### Generate the marcmap
-
-1. Get Swedish legacy config files... (ask for directions)
-2. Put them in folder ($CONFIG_DIR) and create folder for marcmap ($SOME_DIR)
-
-    $ python tools/parse_legacy_config.py $CONFIG_DIR/TagTable/Marc21 sv > $SOME_DIR/marcmap.json
 
 ### Prepare a local database
 
@@ -51,12 +42,8 @@ Clone the librisxl project and run its builtin mockserver
 
 Run ./kitin.py -h for help
 
+
 ## Development and Maintenance
-
-
-### Tool for applying the marcmap to a marc-json struct
-
-    $ node tools/map-marcjson.js $SOME_DIR/marcmap.json bib examples/bib/7149593.json
 
 ### Running js test scripts
 
