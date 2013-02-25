@@ -1,6 +1,3 @@
-DBENGINE = 'sqlite'
-DBNAME = 'kitin.db'
-DBPATH = '<DBPATH>'
 WHELK_HOST = '<WHELK_HOST>'
 UPLOAD_FOLDER = './storage/'
 BIBDB_USER = '<BIBDB_USER>'
