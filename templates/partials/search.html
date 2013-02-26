@@ -1,5 +1,4 @@
 {% raw %}
-<meta charset="utf-8">
 <div class="row-fluid">
   <div class="span9 offset3">
     <section class="search" role="search">
@@ -20,22 +19,8 @@
       </ul>
       </div>
     </section>
-  </div>
-</div>
-<section>
-  <article data-ng-repeat="record in result.list" class="record {{record.identifier}}">
-  <div class="row-fluid">
-      <ul class="inline">
-        <li>bibLevel: {{ record.data.bibLevel.label }}</li>
-        <li>typeOfRecord: {{ record.data.typeOfRecord.label }}</li>
-        <li>encLevel: {{ record.data.encLevel.label }}</li>
-        <li>id: {{ record.data['@id'] }}</li>
-        <li>year: {{ record.data.dateOfPublication['@value'] }}</li>
-    </ul>
-    <ul class="inline">
-        <li data-ng-repeat="isbn in record.data.about | filter:isbn">ISBN: {{ isbn }}</li>
-    </ul>
-    </div>
+	<section>
+  	<article data-ng-repeat="record in result.list" class="record {{record.identifier}}">
     <a class="bib-url" href="/edit/frbr/bib/{{ record.data.controlNumber }}">
       <header>
         <h3>
@@ -55,16 +40,21 @@
             <span title="100D">{{ author.birthYear }} - {{ author.deathYear }}</span> 
           </span>
         </h4>
-        <div class="row-fluid">
-          <div class="span4 identifier">
-            {{ record.data.describes.isbn }}
-          </div>
-        </div>
+	    <div class="row-fluid">
+	      <ul class="inline">
+	        <li>bibLevel: {{ record.data.bibLevel.label }}</li>
+	        <li>typeOfRecord: {{ record.data.typeOfRecord.label }}</li>
+	        <li>encLevel: {{ record.data.encLevel.label }}</li>
+	        <li>id: {{ record.data['@id'] }}</li>
+	        <li>year: {{ record.data.dateOfPublication['@value'] }}</li>
+	        <li>{{ record.data.describes.isbn }}</li>
+	        <li data-ng-repeat="isbn in record.data.about | filter:isbn">ISBN: {{ isbn }}</li>
+	      </ul>
+	    </div>
       </span>
-    </a><hr />
+    </a><hr/>
     </article>
     </section>
-    <div>
-        {{result}}
-    </div>
+  </div>
+</div>
 {% endraw %}

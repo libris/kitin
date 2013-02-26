@@ -1,13 +1,138 @@
-<div id="litebox">
-    <form id="record" class="form-horizontal">
-        <h1 class="bibhead">BIBLIOGRAFISK POST</h1>
-        <article class="well bib" id="entities">
-            <article>
-                <section>
-                <div>{{ record }}</div>
-                </section>
-            </article>
-        </article>
-        
-    </form>
-</div>
+<form id="record" class="form-horizontal">
+  <h1>BIBLIOGRAFISK POST</h1>
+  <article class="well">
+
+    <section id="prelude">
+      <div class="row-fluid">
+        <div class="field span2">
+          {{ record.about['@type'].join(", ") }}
+        </div>
+        <div class="field span2">
+          {{ record.about.instanceOf['@type'].join(", ") }}
+        </div>
+        <div class="field span3">
+          <!-- TODO: value is object with both code and label? Post-process
+            on change or don't use label in editable data (just link)?
+            <select
+            data-ng-options="key as val.label_sv for (key, val) in meta.encLevels"
+            data-ng-model="record.encLevel.code"></select>
+          -->
+          <select>
+            <option value="record.encLevel.code">{{ record.encLevel.label }}</option>
+          </select>
+        </div>
+        <div class="field span3">
+          <input class="input" type="text" data-ng-model="record.catForm" />
+          <label>{{ "Katalogiseringsregler" }}</label>
+        </div>
+        <div class="field span1">
+          <input class="input-mini" type="text" data-ng-model="record.creator.abbr" />
+          <label>{{ "Bibliografi" }}</label>
+        </div>
+      </div>
+    </section>
+
+    <section id="work" data-ng-repeat="work in [record.about.instanceOf]">
+      <h2>VERK</h2>
+      <div class="row-fluid">
+        <div class="field span8">
+          <input class="input-xxlarge" type="text" data-ng-model="work.title" />
+          <label>{{ "Huvudtitel" }}</label>
+        </div>
+        <div class="field span4">
+          <input class="input-large" type="text" data-ng-model="work.statementOfResponsibility" />
+          <label>{{ "Upphov" }}</label>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="field span6" data-ng-repeat="person in work.authorList">
+          <div class="field span7">
+            <input class="input" type="text" data-ng-model="person.authoritativeName" />
+            <label>{{ "Upphov" }}</label>
+          </div>
+          <div class="field span2">
+            <input class="input-mini" type="text" data-ng-model="person.birthYear" />
+            <label>{{ "Född" }}</label>
+          </div>
+          <div class="field span2" data-ng-show="person.deathYear">
+            <input class="input-mini" type="text" data-ng-model="person.deathYear" />
+            <label> &mdash; {{ "Död" }}</label>
+          </div>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="field span12">
+          <input class="input-mini" type="text" data-ng-model="work.language" />
+          <label>{{ "Språk" }}</label>
+        </div>
+      </div>
+      <b>{{ "Ämnen" }}</b>
+      <div class="row-fluid" data-ng-repeat="topic in work.subject">
+        <div class="field span8">
+          <a href="{{ topic['@id'] }}">{{ topic['@id'] }}</a>
+          <!--
+          <input class="input-xxlarge" type="text" data-ng-model="topic['@id']" />
+          -->
+        </div>
+      </div>
+    </section>
+
+    <section id="instance" data-ng-repeat="instance in [record.about]">
+      <h2>INSTANS</h2>
+      <b>{{ "Utgivning" }}</b>
+      <div class="row-fluid">
+        <div class="field span6">
+          <input class="input" type="text" data-ng-model="instance.isbn" />
+          <input class="input-mini" type="text" data-ng-model="instance.isbnNote" />
+          <label>{{ "ISBN" }}</label>
+        </div>
+        <div class="field span6">
+          <input class="input-xlarge" type="text" data-ng-model="instance.publisher.name" />
+          <label>{{ "Utgivare/förlag" }}</label>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="field span6">
+          <input class="input" type="text" data-ng-model="instance.pubDate['@value']" />
+          <label>{{ "Utgivningsdatum" }}</label>
+        </div>
+      </div>
+      <b>{{ "Fysisk beskrivning" }}</b>
+      <div class="row-fluid">
+        <div class="field span6">
+          <input class="input" type="text" data-ng-model="instance.placeOfPublication.label" />
+          <label>{{ "Utgivningsort" }}</label>
+        </div>
+        <div class="field span6">
+          <input class="input-xlarge" type="text" data-ng-model="instance.placeOfManufacture.label" />
+          <label>{{ "Tryckland" }}</label>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="field span3">
+          <input class="input-small" type="text" data-ng-model="instance.extent" />
+          <label>{{ "Omfång" }}</label>
+        </div>
+        <div class="field span3">
+          <input class="input-small" type="text" data-ng-model="instance.dimensions" />
+          <label>{{ "Mått" }}</label>
+        </div>
+        <div class="field span3">
+          <input class="input-small" type="text" data-ng-model="instance.baseMaterial" />
+          <label>{{ "Basmaterial" }}</label>
+        </div>
+        <div class="field span3">
+          <input class="input-small" type="text" data-ng-model="instance.termsOfAvailability" />
+          <label>{{ "Pris" }}</label>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="field span12">
+          <input class="input-xxlarge" type="text" data-ng-model="instance.comment" />
+          <label>{{ "Anmärkning" }}</label>
+        </div>
+      </div>
+    </section>
+
+  </article>
+</form>
