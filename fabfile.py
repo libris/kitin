@@ -28,8 +28,8 @@ def demo():
 def prepare():
     create_config()
     execfile(os.path.join(os.path.dirname(__file__), 'config.cfg'), cfg)
-    if not os.path.exists(cfg.get('UPLOAD_FOLDER')):
-        os.mkdir(cfg.get('UPLOAD_FOLDER'))
+    if not os.path.exists(cfg.get('STORAGE_DIR')):
+        os.mkdir(cfg.get('STORAGE_DIR'))
     create_db()
 
 @task
