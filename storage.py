@@ -32,8 +32,7 @@ class Storage(object):
 
     def save(self, json_data):
         path = "/".join([self.path, self.get_type(json_data)])
-        if not os.path.exists(path):
-            os.makedirs(path)
+        self.create_dir_if_not_exists(path)
         filename = "/".join([path, self.get_id(json_data)])
         f = open(filename, 'w')
         try:
@@ -41,13 +40,10 @@ class Storage(object):
         except IOError as e:
             print "no profit"
 
-    def update(self, id, json_data):
-        raise RuntimeError("no impl yet")
+    def update(self, json_data):
+        self.save(json_data)
 
     def delete(self, id):
-        raise RuntimeError("no impl yet")
-
-    def exists(self, id):
         raise RuntimeError("no impl yet")
 
     def find_by_user(self, uid):
@@ -56,9 +52,15 @@ class Storage(object):
     def load_user(self, uname, pword, remember):
         raise RuntimeError("no impl yet")
 
-    def get_id(self, json):
+    @staticmethod
+    def get_id(json):
         return json['@id'].rsplit("/",1)[1]
 
-    def get_type(self, json):
+    @staticmethod
+    def get_type(json):
         return json['@type']
+
+    def create_dir_if_not_exists(self, path):
+        if not os.path.exists(path):
+            os.makedirs(path)
 
