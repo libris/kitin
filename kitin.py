@@ -9,7 +9,6 @@ from flask_login import LoginManager, login_required, login_user, flash, current
 import requests
 import re
 from storage import Storage, User
-#from spill import Spill
 import jinja2
 
 app = Flask(__name__)
@@ -432,7 +431,6 @@ def lookup(uid=None):
 
         elif len(theposts) == 1:
             post = posts[0]
-            spill = Spill(post.marc).get_spill()
 
         raw_items = [(post.id, json.dumps(post.marc)) for post in posts]
         return render_template('view.html', marcposts=raw_items, uid=uid)
