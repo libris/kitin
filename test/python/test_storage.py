@@ -31,3 +31,23 @@ def test_update_json():
     assert json.loads(open("some/path/Record/7149593", "r").read())['@context'] == "yadda"
     shutil.rmtree("some")
 
+def test_delete_json():
+    storage = Storage("some/path")
+    org_file = open("fixture/7149593_formatted.json", "r")
+    json_data = json.loads(org_file.read())
+    storage.save(json_data)
+    storage.delete(Storage.get_type(json_data), Storage.get_id(json_data))
+    shutil.rmtree("some")
+
+def test_read_json():
+    storage = Storage("some/path")
+    with open("fixture/7149593_formatted.json", "r") as f:
+        data = f.read()
+        storage.save(json.loads(data))
+        json_data = json.loads(data)
+        data_type = Storage.get_type(json_data)
+        data_id = Storage.get_id(json_data)
+        our_json_data = json.loads(storage.read(data_type, data_id))
+        assert Storage.get_id(our_json_data) == '7149593'
+    shutil.rmtree("some")
+

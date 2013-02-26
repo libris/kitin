@@ -43,8 +43,17 @@ class Storage(object):
     def update(self, json_data):
         self.save(json_data)
 
-    def delete(self, id):
-        raise RuntimeError("no impl yet")
+    def read(self, data_type, data_id):
+        path = "/".join([self.path, data_type])
+        filename = "/".join([path, data_id])
+        with open(filename) as f:
+            return open(filename, 'r').read()
+
+
+    def delete(self, data_type, data_id):
+        filename = "/".join([self.path, data_type, data_id])
+        if os.path.exists(filename):
+            os.remove(filename)
 
     def find_by_user(self, uid):
         raise RuntimeError("no impl yet")
@@ -60,7 +69,8 @@ class Storage(object):
     def get_type(json):
         return json['@type']
 
-    def create_dir_if_not_exists(self, path):
+    @staticmethod
+    def create_dir_if_not_exists(path):
         if not os.path.exists(path):
             os.makedirs(path)
 
