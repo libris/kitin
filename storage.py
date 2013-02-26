@@ -31,23 +31,26 @@ class Storage(object):
         if not os.path.exists(self.path):
             os.makedirs(self.path)
 
-    def save(self, rec_type, rec_id, json_data):
+    def save_draft(self, rec_type, rec_id, json_data):
         path = "/".join([self.path, rec_type])
         create_dir_if_not_exists(path)
         filename = "/".join([path, rec_id])
         with open(filename, 'w') as f:
             f.write(json.dumps(json_data))
 
-    def update(self, rec_type, rec_id, json_data):
-        self.save(rec_type, rec_id, json_data)
+    def update_draft(self, rec_type, rec_id, json_data):
+        self.save_draft(rec_type, rec_id, json_data)
 
-    def read(self, data_type, data_id):
+    def get_draft(self, data_type, data_id):
         path = "/".join([self.path, data_type])
         filename = "/".join([path, data_id])
-        with open(filename) as f:
-            return open(filename, 'r').read()
+        if os.path.exists(filename):
+            with open(filename) as f:
+                return open(filename, 'r').read()
+        else:
+            None
 
-    def delete(self, data_type, data_id):
+    def delete_draft(self, data_type, data_id):
         filename = "/".join([self.path, data_type, data_id])
         if os.path.exists(filename):
             os.remove(filename)
@@ -57,6 +60,9 @@ class Storage(object):
 
     def load_user(self, uname, pword, remember):
         raise RuntimeError("no impl yet")
+
+    def draft_exists(self, rec_type, rec_id):
+        return os.path.exists("/".join([self.path, rect_type, rec_id]))
 
 
 def create_dir_if_not_exists(path):

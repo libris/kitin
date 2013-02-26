@@ -349,41 +349,41 @@ def show_edit_record(edit_mode, rec_type, rec_id):
     #return show_record_form(rec_type=rec_type, rec_id=rec_id, user=user)
 
 
-@app.route('/record/bib/<id>')
+@app.route('/record/bib/<rec_id>')
 #@login_required
-def get_bib_data(id):
+def get_bib_data(rec_id):
     # TODO: Check if exists as draft and fetch from local db if so!
-    whelk_url = "%s/bib/%s" % (app.config['WHELK_HOST'], id)
-    response = requests.get(whelk_url)
-    if response.status_code >= 400:
-        app.logger.warning("Error response %s on GET <%s>" % (response.status_code, whelk_url))
-        abort(response.status_code)
-    return raw_json_response(response.text)
+    document = storage.get_draft("bib", rec_id)
+    if document == None:
+        whelk_url = "%s/bib/%s" % (app.config['WHELK_HOST'], rec_id)
+        response = requests.get(whelk_url)
+        if response.status_code >= 400:
+            app.logger.warning("Error response %s on GET <%s>" % (response.status_code, whelk_url))
+            abort(response.status_code)
+        else:
+            document = response.text
+    return raw_json_response(document)
 
 
 @app.route('/record/bib/<id>/draft', methods=['POST'])
 def save_draft(id):
     """Save draft to kitin, called by form"""
     json_data = request.data
-    if exists_as_draft(id):
-        storage.update(id, json_data)
-    else:
-        storage.save("bib", id, json_data)
+    storage.save_draft("bib", id, json_data)
     return json.dumps(request.json)
 
 
-@app.route('/record/bib/<id>', methods=['PUT'])
-def update_document(id):
+@app.route('/record/bib/<rec_id>', methods=['PUT'])
+def update_document(rec_id):
     """Saves updated records to whelk (Backbone would send a POST if the record isNew)"""
     # IMP: Using request.data is enough; do we really need this json validation?
     json_string = json.dumps(request.json)
     headers = {'content-type': 'application/json'}
-    response = requests.put("%sbib/%s" % (app.config['WHELK_HOST'], id), data=json_string, headers=headers)
-    if response.status_code >= 400:
-        abort(response.status_code)
+    response = requests.put("%sbib/%s" % (app.config['WHELK_HOST'], rec_id), data=json_string, headers=headers)
+    if response.status_code == 200:
+        storage.delete_draft("bib", rec_id)
     else:
-        if exists_as_draft(id):
-            storage.delete(id)
+        abort(response.status_code)
     return raw_json_response(json_string)
 
 
@@ -454,9 +454,6 @@ def raw_json_response(s):
     resp = make_response(s)
     resp.headers['Content-Type'] = 'application/json'
     return resp
-
-def exists_as_draft(id):
-    return storage.exists(id)
 
 
 def find_record_templates():
