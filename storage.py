@@ -30,12 +30,16 @@ class Storage(object):
         if not os.path.exists(self.path):
             os.makedirs(self.path)
 
-    def save(self, record_type, record_id, json_data):
-        path = "/".join([self.path, record_type, record_id])
+    def save(self, json_data):
+        path = "/".join([self.path, self.get_type(json_data)])
         if not os.path.exists(path):
             os.makedirs(path)
-        f = open(path, 'w')
-        f.write(json_data) ## TODO need to convert to str first?
+        filename = "/".join([path, self.get_id(json_data)])
+        f = open(filename, 'w')
+        try:
+            f.write(json.dumps(json_data))
+        except IOError as e:
+            print "no profit"
 
     def update(self, id, json_data):
         raise RuntimeError("no impl yet")
@@ -51,4 +55,10 @@ class Storage(object):
 
     def load_user(self, uname, pword, remember):
         raise RuntimeError("no impl yet")
+
+    def get_id(self, json):
+        return json['@id'].rsplit("/",1)[1]
+
+    def get_type(self, json):
+        return json['@type']
 

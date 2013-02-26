@@ -369,7 +369,7 @@ def save_draft(id):
     if exists_as_draft(id):
         storage.update(id, json_data)
     else:
-        storage.save(id, json_data)
+        storage.save(json_data)
     return json.dumps(request.json)
 
 
