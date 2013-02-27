@@ -20,7 +20,9 @@ body {
   background-color: #fff;
 }
 
-
+hr {
+  border-top: 1px solid #ccc;
+}
 /* --NAVIGATION-- */
 .navbar, .navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner  {
   box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0);
