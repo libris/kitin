@@ -100,10 +100,14 @@
         </div>
       </div>
       <div class="row-fluid">
-        <div class="field span6">
-          <input class="input" type="text" data-ng-model="instance.pubDate['@value']" />
+        <div class="field span3">
+          <input class="input-small" type="text" data-ng-model="instance.pubDate['@value']" />
           <label>{{ "Utgivningsdatum" }}</label>
         </div>
+        <div class="field span3">
+          <input class="input-small" type="text" data-ng-model="instance.edition" />
+          <label>{{ "Upplaga" }}</label>
+        </div>  
         <div class="field span6">
           <input class="input" type="text" data-ng-model="instance.placeOfPublication.label" />
           <label>{{ "Utgivningsort" }}</label>
