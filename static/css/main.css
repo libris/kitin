@@ -20,6 +20,9 @@ body {
   background-color: #fff;
 }
 
+h3 {
+  font-size: 16px;
+}
 
 /* --NAVIGATION-- */
 .navbar, .navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner  {
@@ -106,6 +109,19 @@ ul.unstyled, ol.unstyled {
 
 /* --------------------EDIT FORM-------------------- */
 
+.field input {
+  border: 0;
+  background: rgba(255, 255, 255, 0.6);
+  font-size: 16px;
+}
+.field .title  {
+  font-size: 24px;
+  font-family: Georgia;
+}
+label {
+  color: gray;
+  font-size: 13px;
+}
 
 /* --------------------FORM FUNCTIONS-------------------- */
 
