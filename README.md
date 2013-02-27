@@ -51,6 +51,13 @@ Run ./kitin.py -h for help
     $ NODE_PATH=.:$PWD/static/js
     $ node test/js/test_marcjson.js
 
+### Running python unit tests
+
+[Nose](https://nose.readthedocs.org/en/latest/testing.html) is used for unit tests. It is installed via pip (see above).
+Execute the following command to run all tests.
+All tests meaning all tests that matches the configured testMatch regular expression ((?:^|[\\b_\\.-])[Tt]est) by default – that is, has test or Test at a word boundary or following a - or _) and lives in a module that also matches that expression will be run as a test.
+    $ nosetests
+
 ### Downloading third-party web assets
 
 Web assets are JS and CSS dependencies. Add their locations to this script:
