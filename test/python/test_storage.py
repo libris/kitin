@@ -1,11 +1,17 @@
 import os, shutil, json
 from storage import Storage
+from nose.tools import with_setup
 
 basedir = os.path.dirname(__file__) + "/"
 
+## TODO: include the fixture file in setup as well
+def setup():
+    global storage
+    storage = Storage("some/path")
+
+@with_setup(setup)
 def test_save_draft():
     """Verify that we can open the saved file and extract some data"""
-    storage = Storage("some/path")
     with open(basedir + "fixture/7149593_formatted.json", "r") as f:
         storage.save_draft("bib", "7149593", json.loads(f.read()))
     with open("some/path/bib/7149593", "r") as f:
@@ -13,6 +19,7 @@ def test_save_draft():
         assert  id_of_data == '7149593'
     shutil.rmtree("some")
 
+@with_setup(setup)
 def test_update_draft():
     """Saves the json and then updates it with a new value.
     Verifies that we can read back the new value from file"""
@@ -26,16 +33,16 @@ def test_update_draft():
         assert json.loads(open("some/path/bib/7149593", "r").read())['@context'] == "yadda"
     shutil.rmtree("some")
 
+@with_setup(setup)
 def test_delete_draft():
-    storage = Storage("some/path")
     with open(basedir + "fixture/7149593_formatted.json", "r") as f:
         json_data = json.loads(f.read())
     storage.save_draft("bib", "7149593", json_data)
     storage.delete_draft("bib", "7149593")
     shutil.rmtree("some")
 
+@with_setup(setup)
 def test_get_draft_json():
-    storage = Storage("some/path")
     with open(basedir + "fixture/7149593_formatted.json", "r") as f:
         data = f.read()
         storage.save_draft("bib", "7149593", json.loads(data))
