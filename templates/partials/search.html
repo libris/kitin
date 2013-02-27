@@ -19,7 +19,7 @@
       </ul>
       </div>
     </section>
-	<section>
+	<section class="hitlist">
   	<article data-ng-repeat="record in result.list" class="record {{record.identifier}}">
     <a class="bib-url" href="/edit/frbr/bib/{{ record.data.controlNumber }}">
       <header>
@@ -41,18 +41,17 @@
           </span>
         </h4>
 	    <div class="row-fluid">
-	      <ul class="inline">
-	        <li>bibLevel: {{ record.data.bibLevel.label }}</li>
-	        <li>typeOfRecord: {{ record.data.typeOfRecord.label }}</li>
+	      <ul>
+	        <li>bibLevel: {{ record.data.about.instanceOf['marc:bibLevel'].label }}</li>
+	        <li>typeOfRecord: {{ record.data.about['marc:typeOfRecord'].label }}</li>
 	        <li>encLevel: {{ record.data.encLevel.label }}</li>
 	        <li>id: {{ record.data['@id'] }}</li>
-	        <li>year: {{ record.data.dateOfPublication['@value'] }}</li>
-	        <li>{{ record.data.describes.isbn }}</li>
-	        <li data-ng-repeat="isbn in record.data.about | filter:isbn">ISBN: {{ isbn }}</li>
+	        <li>year: {{ record.data.about.pubDate['@value'] }}</li>
+	        <li>isbn: {{ record.data.about.isbn }}</li>
 	      </ul>
 	    </div>
       </span>
-    </a><hr/>
+    </a><hr />
     </article>
     </section>
   </div>

@@ -24,8 +24,6 @@ storage = Storage(app.config.get("STORAGE_DIR"))
 logger = logging.getLogger(__name__)
 
 
-# TODO: refactor routes with angular
-# Still not sure how to tie together user handling/flask and search/angularjs
 #@app.route("/")
 def start():
     open_records = []
@@ -43,7 +41,6 @@ def index():
 @app.route("/search")
 def search():
     if request.is_xhr:
-        #return get_mockresult()
         q = request.args.get('q')
         facet = request.args.get('f', '').strip()
         if facet:
@@ -67,6 +64,7 @@ def search():
             #data = json.loads(resp.text)
             #search_results = [get_record_summary(item['data']) for item in data['list']]
             #return json.dumps(search_results) 
+    # TODO: One page app using the following technique
     return render_template('search.html', partials = {"/partials/search" : "partials/search.html"})
 
 def get_mockresult():
