@@ -91,18 +91,28 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
 
 // Reuse record from hitlist instead of retrieving it again? They differ indicewise so perhaps not.
 function FrbrCtrl($scope, $http, $routeParams) {
-    var recType = $routeParams.recType, recId = $routeParams.recId;
-    var path = "/record/" + recType + "/" + recId;
-    $http.get(path).success(function(data, status) {
-        console.log("RECORD: ", data);
-        $scope.record = data;
-        $scope.status = status;
-    })
-    .error(function(data,status){
-        $scope.record = "Error";
-        $scope.status = status;
-    });
+  var recType = $routeParams.recType, recId = $routeParams.recId;
+  var path = "/record/" + recType + "/" + recId;
+
+  $scope.save_draft = function() {
+    $http.post("/record/"+$routeParams.recType+"/"+$routeParams.recId+"/draft",
+               $scope.record).success(function(data, status) {
+                 $('#flash_message').text("Successfully saved draft!");
+               }).error(function(data, status) {
+                 console.log(status);
+               });
+  }
+  $http.get(path).success(function(data, status) {
+    console.log("RECORD: ", data);
+    $scope.record = data;
+    $scope.status = status;
+  })
+  .error(function(data,status){
+    $scope.record = "Error";
+    $scope.status = status;
+  });
 }
+
 
 function FrbrCtrl_old($rootScope, $scope, $routeParams, $timeout, conf, records) {
 
