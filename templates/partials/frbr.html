@@ -22,7 +22,7 @@
           </select>
         </div>
         <div class="field span3">
-          <input class="input" type="text" data-ng-model="record.catForm" />
+          <input class="input" type="text" data-ng-model="record.catForm.label" />
           <label>{{ "Katalogiseringsregler" }}</label>
         </div>
         <div class="field span1">
@@ -31,13 +31,15 @@
         </div>
       </div>
     </section>
-
+	<hr/>
     <section id="work" data-ng-repeat="work in [record.about.instanceOf]">
       <h2>VERK</h2>
       <div class="row-fluid">
         <div class="field span8">
-          <input class="input-xxlarge" type="text" data-ng-model="work.title" />
+          <input class="title input-xxlarge" type="text" data-ng-model="work.title" />
           <label>{{ "Huvudtitel" }}</label>
+          <input class="title input-xxlarge" type="text" data-ng-model="work.titleRemainder" />
+          <label>{{ "Övrigt titelinformation" }}</label>
         </div>
         <div class="field span4">
           <input class="input-large" type="text" data-ng-model="work.statementOfResponsibility" />
@@ -48,7 +50,7 @@
         <div class="field span6" data-ng-repeat="person in work.authorList">
           <div class="field span7">
             <input class="input" type="text" data-ng-model="person.authoritativeName" />
-            <label>{{ "Upphov" }}</label>
+            <label>{{ "Personnamn" }}</label>
           </div>
           <div class="field span2">
             <input class="input-mini" type="text" data-ng-model="person.birthYear" />
@@ -66,20 +68,22 @@
           <label>{{ "Språk" }}</label>
         </div>
       </div>
-      <b>{{ "Ämnen" }}</b>
-      <div class="row-fluid" data-ng-repeat="topic in work.subject">
-        <div class="field span8">
-          <a href="{{ topic['@id'] }}">{{ topic['@id'] }}</a>
+      <h3>{{ "Ämnen" }}</h3>
+      <div class="row-fluid" >
+        <div class="field span12">
+          <ul class="inline">
+          <li  data-ng-repeat="topic in work.subject"><a class="btn btn-small" href="{{ topic['@id'] }}">{{ topic['@id'] }}</a></li>
           <!--
           <input class="input-xxlarge" type="text" data-ng-model="topic['@id']" />
           -->
+          </ul>
         </div>
       </div>
     </section>
-
+	<hr/>
     <section id="instance" data-ng-repeat="instance in [record.about]">
       <h2>INSTANS</h2>
-      <b>{{ "Utgivning" }}</b>
+      <h3>{{ "Utgivning" }}</h3>
       <div class="row-fluid">
         <div class="field span6">
           <input class="input" type="text" data-ng-model="instance.isbn" />
@@ -97,7 +101,7 @@
           <label>{{ "Utgivningsdatum" }}</label>
         </div>
       </div>
-      <b>{{ "Fysisk beskrivning" }}</b>
+      <h3>{{ "Fysisk beskrivning" }}</h3>
       <div class="row-fluid">
         <div class="field span6">
           <input class="input" type="text" data-ng-model="instance.placeOfPublication.label" />
