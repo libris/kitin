@@ -19,7 +19,7 @@ app.secret_key = 'secret key'
 login_manager = LoginManager()
 login_manager.setup_app(app)
 
-storage = Storage(app.config.get("STORAGE_DIR"))
+storage = Storage(app.config.get("DRAFTS_DIR"))
 
 logger = logging.getLogger(__name__)
 
@@ -43,7 +43,8 @@ def start():
 @app.route("/")
 @login_required
 def index():
-    return render_template('home.html')
+    drafts = storage.get_drafts(current_user.get_id())
+    return render_template('home.html', drafts=drafts)
 
 @app.route("/search")
 def search():
@@ -423,26 +424,6 @@ def suggest_auth_completions():
     if response.status_code >= 400:
         abort(response.status_code)
     return raw_json_response(response.text)
-
-
-@app.route('/lookup/<uid>')
-def lookup(uid=None):
-    """List marc documents available in kitin for given user id."""
-    try:
-        posts = list(storage.find_by_user(uid))
-
-        if not posts:
-            return "no marcposts available for user %s, please try another uid" % uid
-
-        elif len(theposts) == 1:
-            post = posts[0]
-
-        raw_items = [(post.id, json.dumps(post.marc)) for post in posts]
-        return render_template('view.html', marcposts=raw_items, uid=uid)
-
-    except Exception as e:
-        print "exc", e
-        return "failed"
 
 
 @app.route("/partials/<name>")

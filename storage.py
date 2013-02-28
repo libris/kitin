@@ -32,7 +32,7 @@ class Storage(object):
             os.makedirs(self.path)
 
     def save_draft(self, user_id, rec_type, rec_id, json_data):
-        path = contruct_path(self.path, user_id, rec_type)
+        path = construct_path([self.path, user_id, rec_type])
         create_dir_if_not_exists(path)
         filename = "/".join([path, rec_id])
         with open(filename, 'w') as f:
@@ -42,7 +42,7 @@ class Storage(object):
         self.save_draft(user_id, rec_type, rec_id, json_data)
 
     def get_draft(self, user_id, rec_type, rec_id):
-        path = contruct_path(self.path, user_id, rec_type)
+        path = construct_path([self.path, user_id, rec_type])
         filename = "/".join([path, rec_id])
         if os.path.exists(filename):
             with open(filename) as f:
@@ -55,8 +55,13 @@ class Storage(object):
         if os.path.exists(filename):
             os.remove(filename)
 
-    def find_by_user(self, uid):
-        raise NotImplementedError("noop")
+    def get_drafts(self, user_id):
+        result = {}
+        for root, subFolders, files in os.walk(construct_path([self.path, user_id])):
+            for file in files:
+                f = os.path.join(root,file)
+                result["/".join(f.rsplit("/",2)[-2:])] = f
+        return result
 
     def load_user(self, uname, pword, remember):
         raise NotImplementedError("noop")
@@ -65,10 +70,10 @@ class Storage(object):
         return os.path.exists("/".join([self.path, rect_type, rec_id]))
 
 
-def contruct_path(basepath, user_id, rec_type):
-    return "/".join([basepath, user_id, rec_type])
+def construct_path(path_array):
+    return "/".join(path_array)
 
 def create_dir_if_not_exists(path):
-    if not os.path.exists(path):
+    if not os.path.exists(str(path)):
         os.makedirs(path)
 
