@@ -36,7 +36,7 @@ class Storage(object):
         create_dir_if_not_exists(path)
         filename = "/".join([path, rec_id])
         with open(filename, 'w') as f:
-            f.write(json.dumps(json_data))
+            f.write(json_data)
 
     def update_draft(self, user_id, rec_type, rec_id, json_data):
         self.save_draft(user_id, rec_type, rec_id, json_data)
