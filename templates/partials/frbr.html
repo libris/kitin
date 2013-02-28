@@ -33,6 +33,51 @@
         </div>
       </div>
     </section>
+
+      <button type="button" class="btn btn-mini"
+              data-toggle="collapse" data-target="#record-hidden">
+        <!--<i class="icon-edit"></i>-->Fler detaljer</button>
+      <section id="record-hidden" class="collapse out">
+      <h2>POSTINFORMATION</h2>
+      <div class="row-fluid">
+        <div class="field span6">
+              <table class="table table-condensed">
+			    <tbody>
+   				  <tr>
+    			    <td>{{ "Status" }}</td>
+    				<td>{{ record.status.label }}</td>
+    			  </tr>
+    			  <tr>
+    			    <td>{{ "Bibid" }}</td>
+    				<td>{{ record.controlNumber }}</td>
+    			  </tr>
+    			  <tr>
+    			    <td>{{ "LIBRISIII-nummer" }}</td>
+    				<td>{{ record.localSystemNumber }}</td>
+    			  </tr>    			  
+    			  <tr>
+    			    <td>{{ "LC-nummer" }}</td>
+    				<td>{{ record.lccn }}</td>
+    			  </tr>
+   				  <tr>
+    			    <td>{{ "Datum för senaste ändring" }}</td>
+    				<td>{{ record.dateAndTimeOfLatestTransaction }}</td>
+    			  </tr>
+   				  <tr>
+    			    <td>{{ "Katalogiserande instans" }}</td>
+    				<td>{{ record.creator['abbr'] }}</td>
+    			  </tr>
+    		    </tbody>
+   			 </table>
+        </div>
+        <div class="field span6">
+
+		</div>
+      </div>
+      
+      </section>
+
+    
 	<hr/>
     <section id="work" data-ng-repeat="work in [record.about.instanceOf]">
       <h2>VERK</h2>
@@ -51,7 +96,7 @@
       <div class="row-fluid">
         <div class="field span6" data-ng-repeat="person in work.authorList">
           <div class="field span7">
-            <input class="input" type="text" data-ng-model="person.authoritativeName" />
+            <i class="icon-user icon-author"></i><input class="input" type="text" data-ng-model="person.authoritativeName" />
             <label>{{ "Personnamn" }}</label>
           </div>
           <div class="field span2">
@@ -74,11 +119,14 @@
       <div class="row-fluid" >
         <div class="field span12">
           <ul class="inline">
-          <li  data-ng-repeat="topic in work.subject"><a class="btn btn-small" href="{{ topic['@id'] }}">{{ topic['@id'] }}</a></li>
+          <li data-ng-repeat="topic in work.subject"><a class="btn btn-small" href="{{ topic['@id'] }}"><i class="icon-user icon-tag"></i> {{ topic['@id'] }}</a></li>
           <!--
           <input class="input-xxlarge" type="text" data-ng-model="topic['@id']" />
           -->
           </ul>
+          <ul class="inline">
+          <li data-ng-repeat="topicalTerm in record.topicalTerm"><a class="btn btn-small" href="{{ topicalTerm }}"><i class="icon-user icon-tag"></i> {{ topicalTerm }}</a></li>
+          </ul>          
         </div>
       </div>
     </section>
@@ -90,6 +138,7 @@
         <div class="field span6">
           <input class="input" type="text" data-ng-model="instance.isbn" />
           <input class="input-mini" type="text" data-ng-model="instance.isbnNote" />
+          <!-- TODO: when multiple isbn and isbn-note repeat in a nicer way-->
           <label>{{ "ISBN" }}</label>
         </div>
         <div class="field span6">
@@ -98,22 +147,30 @@
         </div>
       </div>
       <div class="row-fluid">
-        <div class="field span6">
-          <input class="input" type="text" data-ng-model="instance.pubDate['@value']" />
+        <div class="field span3">
+          <input class="input-small" type="text" data-ng-model="instance.pubDate['@value']" />
           <label>{{ "Utgivningsdatum" }}</label>
         </div>
-      </div>
-      <h3>{{ "Fysisk beskrivning" }}</h3>
-      <div class="row-fluid">
+        <div class="field span3">
+          <input class="input-small" type="text" data-ng-model="instance.edition" />
+          <label>{{ "Upplaga" }}</label>
+        </div>  
         <div class="field span6">
           <input class="input" type="text" data-ng-model="instance.placeOfPublication.label" />
           <label>{{ "Utgivningsort" }}</label>
         </div>
+      </div>
+      <div class="row-fluid">
         <div class="field span6">
           <input class="input-xlarge" type="text" data-ng-model="instance.placeOfManufacture.label" />
           <label>{{ "Tryckland" }}</label>
         </div>
+        <div class="field span6">
+          <input class="input-xlarge" type="text" data-ng-model="record.about.instanceOf.country" />
+          <label>{{ "Utgivningsland" }}</label><!--instance?-->
+        </div>        
       </div>
+      <h3>{{ "Fysisk beskrivning" }}</h3>
       <div class="row-fluid">
         <div class="field span3">
           <input class="input-small" type="text" data-ng-model="instance.extent" />
@@ -132,13 +189,29 @@
           <label>{{ "Pris" }}</label>
         </div>
       </div>
+      <h3>{{ "Anmärkning" }}</h3>
       <div class="row-fluid">
         <div class="field span12">
           <input class="input-xxlarge" type="text" data-ng-model="instance.comment" />
           <label>{{ "Anmärkning" }}</label>
         </div>
       </div>
+      <div class="row-fluid">
+        <div class="field span12">
+          <input class="input-xxlarge" type="text" data-ng-model="instance.supplementaryContentNote" />
+          <label>{{ "Anmärkning bibliografi etc." }}</label>
+        </div>
+      </div>      
+      <div class="row-fluid">
+        <div class="field span6">
+          <textarea class="input-xxlarge" rows="5" data-ng-model="instance.listOfContents"></textarea> 
+          <label>{{ "Formaterad innehållsförteckning" }}</label>
+        </div>
+                <div class="field span6">
+          <textarea class="input-xxlarge" rows="5" data-ng-model="instance.summary"></textarea> 
+          <label>{{ "Sammanfattning" }}</label>
+        </div>
+      </div>
     </section>
-
   </article>
 </form>

@@ -24,9 +24,6 @@ h3 {
   font-size: 16px;
 }
 
-hr {
-  border-top: 1px solid #ccc;
-}
 
 /* --NAVIGATION-- */
 .navbar, .navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner  {
@@ -121,6 +118,7 @@ ul.unstyled, ol.unstyled {
 .field .title  {
   font-size: 24px;
   font-family: Georgia;
+  font-weight: 600;
 }
 label {
   color: gray;
