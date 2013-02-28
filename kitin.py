@@ -24,6 +24,12 @@ storage = Storage(app.config.get("STORAGE_DIR"))
 logger = logging.getLogger(__name__)
 
 
+@app.before_request
+def before_request():
+    if app.debug:
+        user = User("kalle", "hemligt", True)
+        login_user(user)
+
 #@app.route("/")
 def start():
     open_records = []
@@ -35,6 +41,7 @@ def start():
     
 # How check if user is logged in?
 @app.route("/")
+@login_required
 def index():
     return render_template('home.html')
 
@@ -483,7 +490,7 @@ def _load_user(uid):
 
 @login_manager.unauthorized_handler
 def _handle_unauthorized():
-    return redirect("/")
+    return redirect("/login")
 
 
 @app.route("/login", methods=["GET", "POST"])
