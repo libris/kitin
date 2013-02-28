@@ -31,39 +31,42 @@ class Storage(object):
         if not os.path.exists(self.path):
             os.makedirs(self.path)
 
-    def save_draft(self, rec_type, rec_id, json_data):
-        path = "/".join([self.path, rec_type])
+    def save_draft(self, user_id, rec_type, rec_id, json_data):
+        path = contruct_path(self.path, user_id, rec_type)
         create_dir_if_not_exists(path)
         filename = "/".join([path, rec_id])
         with open(filename, 'w') as f:
             f.write(json.dumps(json_data))
 
-    def update_draft(self, rec_type, rec_id, json_data):
-        self.save_draft(rec_type, rec_id, json_data)
+    def update_draft(self, user_id, rec_type, rec_id, json_data):
+        self.save_draft(user_id, rec_type, rec_id, json_data)
 
-    def get_draft(self, data_type, data_id):
-        path = "/".join([self.path, data_type])
-        filename = "/".join([path, data_id])
+    def get_draft(self, user_id, rec_type, rec_id):
+        path = contruct_path(self.path, user_id, rec_type)
+        filename = "/".join([path, rec_id])
         if os.path.exists(filename):
             with open(filename) as f:
                 return open(filename, 'r').read()
         else:
             None
 
-    def delete_draft(self, data_type, data_id):
-        filename = "/".join([self.path, data_type, data_id])
+    def delete_draft(self, user_id, rec_type, rec_id):
+        filename = "/".join([self.path, rec_type, rec_id])
         if os.path.exists(filename):
             os.remove(filename)
 
     def find_by_user(self, uid):
-        raise RuntimeError("no impl yet")
+        raise NotImplementedError("noop")
 
     def load_user(self, uname, pword, remember):
-        raise RuntimeError("no impl yet")
+        raise NotImplementedError("noop")
 
     def draft_exists(self, rec_type, rec_id):
         return os.path.exists("/".join([self.path, rect_type, rec_id]))
 
+
+def contruct_path(basepath, user_id, rec_type):
+    return "/".join([basepath, user_id, rec_type])
 
 def create_dir_if_not_exists(path):
     if not os.path.exists(path):

@@ -358,7 +358,7 @@ def show_edit_record(edit_mode, rec_type, rec_id):
 #@login_required
 def get_bib_data(rec_id):
     # TODO: Check if exists as draft and fetch from local db if so!
-    document = storage.get_draft("bib", rec_id)
+    document = storage.get_draft(current_user.get_id(), "bib", rec_id)
     if document == None:
         whelk_url = "%s/bib/%s" % (app.config['WHELK_HOST'], rec_id)
         response = requests.get(whelk_url)
@@ -374,7 +374,7 @@ def get_bib_data(rec_id):
 def save_draft(id):
     """Save draft to kitin, called by form"""
     json_data = request.data
-    storage.save_draft("bib", id, json_data)
+    storage.save_draft(current_user.get_id(), "bib", id, json_data)
     return json.dumps(request.json)
 
 
@@ -386,7 +386,7 @@ def update_document(rec_id):
     headers = {'content-type': 'application/json'}
     response = requests.put("%sbib/%s" % (app.config['WHELK_HOST'], rec_id), data=json_string, headers=headers)
     if response.status_code == 200:
-        storage.delete_draft("bib", rec_id)
+        storage.delete_draft(current_user.get_id(), "bib", rec_id)
     else:
         abort(response.status_code)
     return raw_json_response(json_string)
