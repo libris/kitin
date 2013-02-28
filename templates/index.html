@@ -1,8 +1,13 @@
 {% extends "base.html" %}
 {% block title %}Kitin{% endblock %}
-
 {% block content %}
-  {% include "_search.html" %}
+
+<ul class="drafts">
+  {% for key, value in drafts.iteritems() %}
+  <li class="draft"><a href="/edit/frbr/{{ key }}">{{ key }}</a></li>
+  {% endfor %}
+</ul>
+
     <div data-ng-view>
     </div>
 {% endblock content %}

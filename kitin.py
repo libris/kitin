@@ -44,7 +44,7 @@ def start():
 @login_required
 def index():
     drafts = storage.get_drafts(current_user.get_id())
-    return render_template('home.html', drafts=drafts)
+    return render_template('index.html', drafts=drafts)
 
 @app.route("/search")
 def search():
