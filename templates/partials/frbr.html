@@ -31,6 +31,51 @@
         </div>
       </div>
     </section>
+
+      <button type="button" class="btn btn-mini"
+              data-toggle="collapse" data-target="#record-hidden">
+        <!--<i class="icon-edit"></i>-->Fler detaljer</button>
+      <section id="record-hidden" class="collapse out">
+      <h2>POSTINFORMATION</h2>
+      <div class="row-fluid">
+        <div class="field span6">
+              <table class="table table-condensed">
+			    <tbody>
+   				  <tr>
+    			    <td>{{ "Status" }}</td>
+    				<td>{{ record.status.label }}</td>
+    			  </tr>
+    			  <tr>
+    			    <td>{{ "Bibid" }}</td>
+    				<td>{{ record.controlNumber }}</td>
+    			  </tr>
+    			  <tr>
+    			    <td>{{ "LIBRISIII-nummer" }}</td>
+    				<td>{{ record.localSystemNumber }}</td>
+    			  </tr>    			  
+    			  <tr>
+    			    <td>{{ "LC-nummer" }}</td>
+    				<td>{{ record.lccn }}</td>
+    			  </tr>
+   				  <tr>
+    			    <td>{{ "Datum för senaste ändring" }}</td>
+    				<td>{{ record.dateAndTimeOfLatestTransaction }}</td>
+    			  </tr>
+   				  <tr>
+    			    <td>{{ "Katalogiserande instans" }}</td>
+    				<td>{{ record.creator['abbr'] }}</td>
+    			  </tr>
+    		    </tbody>
+   			 </table>
+        </div>
+        <div class="field span6">
+
+		</div>
+      </div>
+      
+      </section>
+
+    
 	<hr/>
     <section id="work" data-ng-repeat="work in [record.about.instanceOf]">
       <h2>VERK</h2>
