@@ -39,17 +39,7 @@ kitin.factory('conf', function ($http, $q) {
     renderUpdates: false
   };
 });
-/*angular.module('services', [])
-  .factory('Books', ['$http', function($http){
-    return{
-      get: function(callback){
-          $http.get('books.json').success(function(data) {
-          // prepare data here
-          callback(data);
-        });
-      }
-    };
-  }]);*/
+
 kitin.factory('records', function ($http, $q) {
   // TODO: use proper angularjs http cache?
   var currentPath, currentRecord;
@@ -74,10 +64,6 @@ kitin.factory('records', function ($http, $q) {
   };
 });
 
-/*kitin.factory('hitlist', function($http, $q) {
-    // Get results from whelk and format for search control
-});*/
-
 function IndexCtrl($scope) {
 }
 
@@ -95,8 +81,6 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
     $http.get(url).success(function(data) {
         $scope.result = data;
     });
-    console.log("LIST: ", $scope.result);
-    //$scope.result = hitlist.result(url);
 }
 
 function FrbrCtrl($scope, $http, $routeParams, records) {
@@ -112,12 +96,10 @@ function FrbrCtrl($scope, $http, $routeParams, records) {
                });
   }
   records.get(recType, recId).then(function(bibdata) {
-      console.log("SUCEESSSSS: ", bibdata['@id'])
       bibid = bibdata['controlNumber'];
       $scope.record = bibdata;
       var holdpath = "/holdings?bibid=/bib/" + bibid;
       $http.get(holdpath).success(function(holdata) {
-          console.log("DATA: ", holdata);
           $scope.holdings = holdata;
       }); 
   });

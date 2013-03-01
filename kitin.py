@@ -79,8 +79,6 @@ def search():
 @app.route("/holdings")
 def get_holdings():
     bibid = request.args.get("bibid")
-    url = "%s/hold/_metasearch?link=%s" % (app.config['WHELK_HOST'], bibid)
-    print "URL: ", url
     if request.is_xhr:
         if bibid:
             resp = requests.get("%s/hold/_metasearch?link=%s" % (
