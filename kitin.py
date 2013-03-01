@@ -34,6 +34,7 @@ def before_request():
 def start():
     open_records = []
     user = current_user if current_user.is_active() else None
+    print "USER: ", user
     return render_template('home.html',
             user=user,
             record_templates=find_record_templates(),
@@ -74,6 +75,21 @@ def search():
             #return json.dumps(search_results) 
     # TODO: One page app using the following technique
     return render_template('search.html', partials = {"/partials/search" : "partials/search.html"})
+
+@app.route("/holdings")
+def get_holdings():
+    bibid = request.args.get("bibid")
+    url = "%s/hold/_metasearch?link=%s" % (app.config['WHELK_HOST'], bibid)
+    print "URL: ", url
+    if request.is_xhr:
+        if bibid:
+            resp = requests.get("%s/hold/_metasearch?link=%s" % (
+                app.config['WHELK_HOST'], bibid))
+            return raw_json_response(resp.text)
+    else:
+        resp = requests.get("%s/hold/_metasearch?link=%s" % (
+            app.config['WHELK_HOST'], bibid))
+        return resp.text
 
 def get_mockresult():
     with open("mocked_result_set.json") as f:

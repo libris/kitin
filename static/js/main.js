@@ -39,7 +39,17 @@ kitin.factory('conf', function ($http, $q) {
     renderUpdates: false
   };
 });
-
+/*angular.module('services', [])
+  .factory('Books', ['$http', function($http){
+    return{
+      get: function(callback){
+          $http.get('books.json').success(function(data) {
+          // prepare data here
+          callback(data);
+        });
+      }
+    };
+  }]);*/
 kitin.factory('records', function ($http, $q) {
   // TODO: use proper angularjs http cache?
   var currentPath, currentRecord;
@@ -89,8 +99,7 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
     //$scope.result = hitlist.result(url);
 }
 
-// Reuse record from hitlist instead of retrieving it again? They differ indicewise so perhaps not.
-function FrbrCtrl($scope, $http, $routeParams) {
+function FrbrCtrl($scope, $http, $routeParams, records) {
   var recType = $routeParams.recType, recId = $routeParams.recId;
   var path = "/record/" + recType + "/" + recId;
 
@@ -102,15 +111,30 @@ function FrbrCtrl($scope, $http, $routeParams) {
                  console.log(status);
                });
   }
+  records.get(recType, recId).then(function(bibdata) {
+      console.log("SUCEESSSSS: ", bibdata['@id'])
+      bibid = bibdata['controlNumber'];
+      $scope.record = bibdata;
+      var holdpath = "/holdings?bibid=/bib/" + bibid;
+      $http.get(holdpath).success(function(holdata) {
+          console.log("DATA: ", holdata);
+          $scope.holdings = holdata;
+      }); 
+  });
+
+  /*var bibid;
   $http.get(path).success(function(data, status) {
     console.log("RECORD: ", data);
     $scope.record = data;
+    bibid=data['@id'];
     $scope.status = status;
   })
   .error(function(data,status){
     $scope.record = "Error";
     $scope.status = status;
   });
+    console.log("BIBID: ", bibid);
+    */
 }
 
 
