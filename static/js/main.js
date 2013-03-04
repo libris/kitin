@@ -68,6 +68,12 @@ function IndexCtrl($scope, $http) {
   $scope.drafts = $http.get("/drafts").success(function(data) {
     $scope.drafts = data.drafts;
   });
+
+  $scope.delete = function(id) {
+    $http.post("/record/" + id + "/draft/delete").success(function(data, status) {
+      $scope.drafts = data.drafts;
+    });
+  }
 }
 
 function SearchCtrl($scope, $http, $location, $routeParams) {

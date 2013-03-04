@@ -388,8 +388,8 @@ def get_bib_data(rec_id):
 @app.route('/record/bib/<id>/draft/delete', methods=['POST'])
 def delete_draft(id):
     storage.delete_draft(current_user.get_id(), "bib", id)
-    drafts = storage.get_drafts(current_user.get_id())
-    return redirect(url_for('index'))
+    drafts = storage.get_drafts_as_json(current_user.get_id())
+    return raw_json_response(drafts)
 
 @app.route('/record/bib/<id>/draft', methods=['POST'])
 def save_draft(id):

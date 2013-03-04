@@ -27,5 +27,9 @@
 <ul>
   <li data-ng-repeat="draft in drafts" class="draft">
     <a href="/edit/frbr/{{ draft.id }}">{{ draft.id }} ({{draft.path}})</a>
+    <form data-ng-submit="delete(draft.id)" method="POST" class="form-inline delete-draft">
+      <input type="hidden" name="_method" value="DELETE" />
+      <button type="submit" class="btn btn-mini"><i class="icon-remove"></i></button>
+    </form>
   </li>
 </ul>
