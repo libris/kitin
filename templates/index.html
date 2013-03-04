@@ -2,11 +2,17 @@
 {% block title %}Kitin{% endblock %}
 {% block content %}
 
-<ul class="drafts">
-  {% for key, value in drafts.iteritems() %}
-  <li class="draft"><a href="/edit/frbr/{{ key }}">{{ key }}</a></li>
-  {% endfor %}
-</ul>
+  <ul class="drafts">
+    {% for key, value in drafts.iteritems() %}
+      <li class="draft">
+        <a href="/edit/frbr/{{ key }}">{{ key }} ({{value}})</a>
+        <form action="/record/{{key}}/draft/delete" method="POST" class="form-inline delete-draft">
+          <input type="hidden" name="_method" value="DELETE" />
+          <button type="submit" class="btn btn-mini"><i class="icon-remove"></i></button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
 
     <div data-ng-view>
     </div>

@@ -385,6 +385,13 @@ def get_bib_data(rec_id):
     return raw_json_response(document)
 
 
+## TODO: Add middleware to support DELETE method instead of POST
+@app.route('/record/bib/<id>/draft/delete', methods=['POST'])
+def delete_draft(id):
+    storage.delete_draft(current_user.get_id(), "bib", id)
+    drafts = storage.get_drafts(current_user.get_id())
+    return redirect(url_for('index'))
+
 @app.route('/record/bib/<id>/draft', methods=['POST'])
 def save_draft(id):
     """Save draft to kitin, called by form"""

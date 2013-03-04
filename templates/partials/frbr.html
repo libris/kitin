@@ -4,7 +4,6 @@
   <article class="well">
 
     <section id="prelude">
-      <input type='button' id='btn2' value='Save draft' data-ng-click="save_draft()"/>
       <div class="row-fluid">
         <div class="field span2">
           {{ record.about['@type'].join(", ") }}
@@ -214,6 +213,7 @@
           <label>{{ "Sammanfattning" }}</label>
         </div>
       </div>
+      <input type='button' id='btn2' value='Spara utkast' data-ng-click="save_draft()"/>
     </section>
     </article>
     <h2>BESTÅND</h2>

@@ -51,7 +51,7 @@ class Storage(object):
             None
 
     def delete_draft(self, user_id, rec_type, rec_id):
-        filename = "/".join([self.path, rec_type, rec_id])
+        filename = construct_path([self.path, user_id, rec_type, rec_id])
         if os.path.exists(filename):
             os.remove(filename)
 
