@@ -64,7 +64,10 @@ kitin.factory('records', function ($http, $q) {
   };
 });
 
-function IndexCtrl($scope) {
+function IndexCtrl($scope, $http) {
+  $scope.drafts = $http.get("/drafts").success(function(data) {
+    $scope.drafts = data.drafts;
+  });
 }
 
 function SearchCtrl($scope, $http, $location, $routeParams) {

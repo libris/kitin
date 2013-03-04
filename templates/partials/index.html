@@ -21,3 +21,11 @@
     </section>
   </div>
 </div>
+
+
+<h3>Drafts</h3>
+<ul>
+  <li data-ng-repeat="draft in drafts" class="draft">
+    <a href="/edit/frbr/{{ draft.id }}">{{ draft.id }} ({{draft.path}})</a>
+  </li>
+</ul>

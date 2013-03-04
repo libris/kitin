@@ -44,8 +44,7 @@ def start():
 @app.route("/")
 @login_required
 def index():
-    drafts = storage.get_drafts(current_user.get_id())
-    return render_template('index.html', drafts=drafts)
+    return render_template('index.html')
 
 @app.route("/search")
 def search():
@@ -399,6 +398,10 @@ def save_draft(id):
     storage.save_draft(current_user.get_id(), "bib", id, json_data)
     return json.dumps(request.json)
 
+@app.route('/drafts')
+def get_drafts():
+    drafts = storage.get_drafts_as_json(current_user.get_id())
+    return raw_json_response(drafts)
 
 @app.route('/record/bib/<rec_id>', methods=['PUT'])
 def update_document(rec_id):

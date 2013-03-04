@@ -67,6 +67,19 @@ class Storage(object):
                 result["/".join(f.rsplit("/",2)[-2:])] = f
         return result
 
+    def get_drafts_as_json(self, user_id):
+        result = {}
+        drafts = []
+        for root, subFolders, files in os.walk(construct_path([self.path, user_id])):
+            for file in files:
+                f = os.path.join(root,file)
+                item = {}
+                item["id"] = "/".join(f.rsplit("/",2)[-2:])
+                item["path"] = f
+                drafts.append(item)
+        result['drafts'] = drafts
+        return json.dumps(result)
+
     def load_user(self, uname, pword, remember):
         raise NotImplementedError("noop")
 
