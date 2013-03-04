@@ -11,6 +11,7 @@ class User(UserMixin):
         try:
             self.username = unicode(username)
             self.password = unicode(password)
+            self.siegel = "mock_siegel"
             self.active = active
         except Exception as e:
             print "Could not initiate user %s %s" % (username, e)
@@ -20,6 +21,9 @@ class User(UserMixin):
 
     def get_id(self):
         return self.username
+
+    def get_siegel(self):
+        return self.siegel
 
     def is_active(self):
         return self.active

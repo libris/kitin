@@ -25,8 +25,8 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
             <div class="nav-collapse dropdown">
                 <ul class="nav pull-right" role="menu" aria-labelledby="dLabel">
                     <!-- TODO: Check with angular if user exists -->   
-            <!--<li><a href="#"><span class="muted">Inloggad som: </span></a></li>
-            <li><a href="/signout?signout=yesindeedioh">Logga ut</a></li>-->
+                    <li><a href="#"><span class="muted">Inloggad som: </span>{{current_user.username}} ({{current_user.get_siegel()}})</a></li>
+                    <li><a href="/signout?signout=yesindeedioh">Logga ut</a></li>
               </ul>
             </div>
           </div>
