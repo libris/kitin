@@ -1,12 +1,21 @@
-<div data-ng-controller="IndexCtrl">
-  <form data-ng-submit="delete(draft.type, draft.id)" method="POST" class="form-inline delete-draft">
-    <input type="hidden" name="_method" value="DELETE" />
-    <button type="submit" class="btn btn-mini">Radera utkast. <i class="icon-remove"></i></button>
-  </form>
+<div id="confirmDeleteDraftDialog" data-ng-show="confirmDeleteDraft" class="popover show">
+  <div class="popover-inner">
+    <button class="close" data-ng-click="confirmDeleteDraft.abort()">&times;</button></h3>
+  </div>
+  <div class="popover-content">
+    <h4>Vill du verkligen ta bort utkastet?</h4>
+    <button class="btn btn-success" data-ng-click="confirmDeleteDraft.execute()">Ja</button></h3>
+    <button class="btn btn-warning" data-ng-click="confirmDeleteDraft.abort()">Nej</button></h3>
+  </div>
+</div>
+
+<div data-ng-show="draft" data-ng-click="promptConfirmDelete($event, draft.type, draft.id)">
+  <div class="popover-inner">
+    <button class="close" data-ng-click="somebutton.click()">Ta bort utkast</button>
+  </div>
 </div>
 
 <form id="record" class="form-horizontal">
-  <p id="flash_message"></p>
   <h1>BIBLIOGRAFISK POST</h1>
   <article class="well">
 
