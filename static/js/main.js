@@ -92,16 +92,34 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
     });
 }
 
-function FrbrCtrl($scope, $http, $routeParams, records) {
+function FrbrCtrl($scope, $http, $routeParams, $timeout, records) {
   var recType = $routeParams.recType, recId = $routeParams.recId;
   var path = "/record/" + recType + "/" + recId;
 
+  $scope.promptConfirmDelete = function($event, type, id) {
+    $scope.confirmDeleteDraft = {
+      execute: function() {
+        $http.post("/record" + "/" + type + "/" + id + "/draft/delete").success(function(data, status) {
+          $scope.draft = null;
+          $scope.confirmDeleteDraft = null;
+        });
+      },
+      abort: function() {
+        $scope.confirmDeleteDraft = null;
+      },
+    };
+    $timeout(function() {
+      openPrompt($event, "#confirmDeleteDraftDialog");
+    });
+  }
+
   $scope.save_draft = function() {
-    $http.post("/record/"+$routeParams.recType+"/"+$routeParams.recId+"/draft",
-               $scope.record).success(function(data, status) {
-                 $('#flash_message').text("Successfully saved draft!");
-               }).error(function(data, status) {
-               });
+    $http.post("/record/"+$routeParams.recType+"/"+$routeParams.recId+"/draft", $scope.record).success(function(data, status) {
+      console.log(data);
+      $scope.draft = data;
+      $scope.draft.type = data['@id'].split("/").slice(-3)[0];
+      $scope.draft.id = data['@id'].split("/").slice(-3)[1];
+    });
   }
 
   $http.get("/draft/"+recType+"/"+recId).success(function(data) {
