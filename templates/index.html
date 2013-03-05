@@ -2,12 +2,27 @@
 {% block title %}Kitin{% endblock %}
 {% block content %}
 
+{% if drafts %}
 <ul class="drafts">
   {% for key, value in drafts.iteritems() %}
   <li class="draft"><a href="/edit/frbr/{{ key }}">{{ key }}</a></li>
   {% endfor %}
 </ul>
+{% endif %}
 
-    <div data-ng-view>
-    </div>
+{% for key, value in partials.items() %}
+  <script type="text/ng-template" id="{{ key }}">
+    {% include value %}
+  </script>
+{% endfor %}
+{% if jsondata %}
+<script>var jsontest = {{ jsondata }}</script>
+{% endif %}
+<div data-ng-view>
+</div>
+
+{% if user %}
+  <h2>Inloggad som {{ user.username }}</h2>
+{% endif %}
+
 {% endblock content %}

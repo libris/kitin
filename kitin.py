@@ -4,7 +4,7 @@ import os
 import json
 import urllib2
 import logging
-from flask import Flask, render_template, request, make_response, abort, redirect, url_for
+from flask import Flask, render_template, request, make_response, abort, redirect, url_for, Markup
 from flask_login import LoginManager, login_required, login_user, flash, current_user, UserMixin, logout_user
 import requests
 import re
@@ -45,36 +45,35 @@ def start():
 @login_required
 def index():
     drafts = storage.get_drafts(current_user.get_id())
-    return render_template('index.html', drafts=drafts)
+    user = current_user if current_user.is_active() else None
+    return render_template('index.html', drafts=drafts, user=user, partials = {"/partials/index" : "partials/index.html"})
 
 @app.route("/search")
 def search():
-    if request.is_xhr:
-        q = request.args.get('q')
-        facet = request.args.get('f', '').strip()
-        if facet:
-            dedupf = []
-            for ftmp in facet.split(' '):
-                if ftmp in dedupf:
-                    dedupf.remove(ftmp)
-                else:
-                    dedupf.append(ftmp)
+    q = request.args.get('q')
+    facet = request.args.get('f', '').strip()
+    if facet:
+        dedupf = []
+        for ftmp in facet.split(' '):
+            if ftmp in dedupf:
+                dedupf.remove(ftmp)
+            else:
+                dedupf.append(ftmp)
             facet = ' '.join(dedupf)
-        freq = "&f=%s" % facet
+    freq = "&f=%s" % facet
 
-        search_results = None
-        b = request.args.get('b', '')
-        boost = ("&boost=%s" % b) if b else ''
-        breadcrumbs = []
-        if q:
-            resp = requests.get("%s/bib/kitin/_search?q=%s%s%s" % (
-                app.config['WHELK_HOST'], q, freq, boost))
+    search_results = None
+    b = request.args.get('b', '')
+    boost = ("&boost=%s" % b) if b else ''
+    if q:
+        resp = requests.get("%s/bib/kitin/_search?q=%s%s%s" % (
+            app.config['WHELK_HOST'], q, freq, boost))
+        if request.is_xhr:
+            print "XHR: ", resp.text
             return raw_json_response(resp.text)
-            #data = json.loads(resp.text)
-            #search_results = [get_record_summary(item['data']) for item in data['list']]
-            #return json.dumps(search_results) 
-    # TODO: One page app using the following technique
-    return render_template('search.html', partials = {"/partials/search" : "partials/search.html"})
+        else: 
+            return render_template('index.html', partials = {"/partials/search" : "partials/search.html"}, jsondata = Markup(json.dumps(resp.text)))
+    return render_template('index.html', partials = {"/partials/search" : "partials/search.html"})
 
 @app.route("/holdings")
 def get_holdings():
