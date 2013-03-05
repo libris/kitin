@@ -92,52 +92,52 @@ def get_mockresult():
     with open("mocked_result_set.json") as f:
         return raw_json_response(f.read())
 
-'''
-@app.route("/old_search")
-#@login_required
-def old_search():
-    q = request.args.get('q')
-    facet = request.args.get('f', '').strip()
-    if facet:
-        dedupf = []
-        for ftmp in facet.split(' '):
-            if ftmp in dedupf:
-                dedupf.remove(ftmp)
-            else:
-                dedupf.append(ftmp)
-        facet = ' '.join(dedupf)
-    freq = "&f=%s" % facet
 
-    search_results = None
-    b = request.args.get('b', '')
-    boost = ("&boost=%s" % b) if b else ''
-    breadcrumbs = []
-    if q:
-        resp = requests.get("%s/bib/kitin/_search?q=%s%s%s" % (
-            app.config['WHELK_HOST'], q, freq, boost))
-        data = json.loads(resp.text)
-        search_results = [get_record_summary(item['data']) for item in data['list']]
-        print "search results", search_results
-        facets = [get_facet_labels(f_group, f_values) for f_group, f_values in data['facets'].items()]
+#@app.route("/old_search")
+##@login_required
+#def old_search():
+#    q = request.args.get('q')
+#    facet = request.args.get('f', '').strip()
+#    if facet:
+#        dedupf = []
+#        for ftmp in facet.split(' '):
+#            if ftmp in dedupf:
+#                dedupf.remove(ftmp)
+#            else:
+#                dedupf.append(ftmp)
+#        facet = ' '.join(dedupf)
+#    freq = "&f=%s" % facet
+#
+#    search_results = None
+#    b = request.args.get('b', '')
+#    boost = ("&boost=%s" % b) if b else ''
+#    breadcrumbs = []
+#    if q:
+#        resp = requests.get("%s/bib/kitin/_search?q=%s%s%s" % (
+#            app.config['WHELK_HOST'], q, freq, boost))
+#        data = json.loads(resp.text)
+#        search_results = [get_record_summary(item['data']) for item in data['list']]
+#        print "search results", search_results
+#        facets = [get_facet_labels(f_group, f_values) for f_group, f_values in data['facets'].items()]
+#
+#        iterate_facets = dict([(f_labels['propref'], f_labels) for f_labels in facets])
+#        ordered_facets = []
+#        facet_order = ["bookSerial", "typeOfRecord", "bibLevel", "carrierType", "yearTime1"]
+#        for fo in facet_order:
+#            if fo in iterate_facets.keys():
+#                ordered_facets.append(iterate_facets[fo])
+#
+#        facets = ordered_facets
+#        for tmpfac in facets:
+#            compfac = tmpfac['link']
+#            if compfac in facet:
+#                for fvals in tmpfac['f_values']:
+#                    concfac = compfac + ":" + fvals[0]
+#                    if concfac in facet:
+#                        breadcrumbs.append(fvals[1][1])
+#   
+#    return render_template('search.html', user = current_user if current_user.is_active() else None, **vars())
 
-        iterate_facets = dict([(f_labels['propref'], f_labels) for f_labels in facets])
-        ordered_facets = []
-        facet_order = ["bookSerial", "typeOfRecord", "bibLevel", "carrierType", "yearTime1"]
-        for fo in facet_order:
-            if fo in iterate_facets.keys():
-                ordered_facets.append(iterate_facets[fo])
-
-        facets = ordered_facets
-        for tmpfac in facets:
-            compfac = tmpfac['link']
-            if compfac in facet:
-                for fvals in tmpfac['f_values']:
-                    concfac = compfac + ":" + fvals[0]
-                    if concfac in facet:
-                        breadcrumbs.append(fvals[1][1])
-   
-    return render_template('search.html', user = current_user if current_user.is_active() else None, **vars())
-'''
 def chunk_number(num):
     number = str(num)
     return re.sub(r'\B(?=(\d{3})+(?!\d))', " ", number)
