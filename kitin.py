@@ -217,9 +217,6 @@ def _get_subfield_label(tag, subfield, mm):
 
     return ""
 
-
-
-
 def _get_carrier_type(f_values, fixmaps):
     for fm in fixmaps:
         for code, count in f_values.items():
@@ -346,31 +343,19 @@ def get_record_summary(data):
     return dict(control_fields.items() + general_fields.items())
 
 
-@app.route('/edit/<edit_mode>')
-def show_record_form(**kws):
-    return render_template('bib.html', **kws)
-
-# How check if user is logged in?
-@app.route('/edit/<edit_mode>/<rec_type>/<rec_id>')
-def show_edit_record(edit_mode, rec_type, rec_id):
-    resp = "%s/bib/%s" % (app.config['WHELK_HOST'], rec_id)
-    if request.is_xhr:
-        url = "%s/bib/%s" % (app.config['WHELK_HOST'], rec_id)
-        resp = requests.get(url)
-        return raw_json_response(resp.text)
-            #data = json.loads(resp.text)
-            #search_results = [get_record_summary(item['data']) for item in data['list']]
-            #return json.dumps(search_results) 
+@app.route('/edit/<rec_type>/<rec_id>')
+def show_edit_record(rec_type, rec_id):
     return index()
-    #user = current_user if current_user.is_active() else None
-    #json_post = json.loads(response.text)
-    #return render_template('bib.html', data=json_post)
-    #return show_record_form(rec_type=rec_type, rec_id=rec_id, user=user)
+
+@app.route('/marc/<rec_type>/<rec_id>')
+def show_marc_record(rec_type, rec_id):
+    return index()
 
 
 @app.route('/record/bib/<rec_id>')
 #@login_required
 def get_bib_data(rec_id):
+    # TODO: How check if user is logged in?
     # TODO: Check if exists as draft and fetch from local db if so!
     document = storage.get_draft(current_user.get_id(), "bib", rec_id)
     if document == None:

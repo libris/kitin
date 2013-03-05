@@ -13,9 +13,9 @@ kitin.config(
               {templateUrl: '/partials/index', controller: IndexCtrl})
         .when('/search',
               {templateUrl: '/partials/search', controller: SearchCtrl})
-        .when('/edit/frbr/:recType/:recId',
-              {templateUrl: '/partials/frbr', controller: FrbrCtrl})
-        .when('/edit/marc/:recType/:recId',
+        .when('/edit/:recType/:recId',
+              {templateUrl: '/partials/edit', controller: FrbrCtrl})
+        .when('/marc/:recType/:recId',
               {templateUrl: '/partials/marc', controller: MarcCtrl})
         ;//.otherwise({redirectTo: '/'});
 
@@ -140,7 +140,7 @@ function FrbrCtrl($scope, $http, $routeParams, records) {
 function FrbrCtrl_old($rootScope, $scope, $routeParams, $timeout, conf, records) {
 
   conf.renderUpdates = false;
-  $rootScope.editMode = 'frbr';
+  $rootScope.editMode = 'normal';
 
   $scope.typeOf = function (o) { return typeof o; }
   $scope.getKey = marcjson.getMapEntryKey;
