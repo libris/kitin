@@ -11,6 +11,7 @@ class User(UserMixin):
         try:
             self.username = unicode(username)
             self.password = unicode(password)
+            self.siegel = "mock_siegel"
             self.active = active
         except Exception as e:
             print "Could not initiate user %s %s" % (username, e)
@@ -20,6 +21,9 @@ class User(UserMixin):
 
     def get_id(self):
         return self.username
+
+    def get_siegel(self):
+        return self.siegel
 
     def is_active(self):
         return self.active
@@ -51,7 +55,7 @@ class Storage(object):
             None
 
     def delete_draft(self, user_id, rec_type, rec_id):
-        filename = "/".join([self.path, rec_type, rec_id])
+        filename = construct_path([self.path, user_id, rec_type, rec_id])
         if os.path.exists(filename):
             os.remove(filename)
 
@@ -62,6 +66,20 @@ class Storage(object):
                 f = os.path.join(root,file)
                 result["/".join(f.rsplit("/",2)[-2:])] = f
         return result
+
+    def get_drafts_as_json(self, user_id):
+        result = {}
+        drafts = []
+        for root, subFolders, files in os.walk(construct_path([self.path, user_id])):
+            for file in files:
+                f = os.path.join(root,file)
+                item = {}
+                item["id"] = json.loads(open(f, "r").read())['@id'].rsplit("/",3)[-2:-1][0]
+                item["type"] = json.loads(open(f, "r").read())['@id'].rsplit("/",3)[-3:-2][0]
+                item["path"] = f
+                drafts.append(item)
+        result['drafts'] = drafts
+        return json.dumps(result)
 
     def load_user(self, uname, pword, remember):
         raise NotImplementedError("noop")

@@ -1,10 +1,16 @@
+<div data-ng-controller="IndexCtrl">
+  <form data-ng-submit="delete(draft.type, draft.id)" method="POST" class="form-inline delete-draft">
+    <input type="hidden" name="_method" value="DELETE" />
+    <button type="submit" class="btn btn-mini">Radera utkast. <i class="icon-remove"></i></button>
+  </form>
+</div>
+
 <form id="record" class="form-horizontal">
   <p id="flash_message"></p>
   <h1>BIBLIOGRAFISK POST</h1>
   <article class="well">
 
     <section id="prelude">
-      <input type='button' id='btn2' value='Save draft' data-ng-click="save_draft()"/>
       <div class="row-fluid">
         <div class="field span2">
           {{ record.about['@type'].join(", ") }}
@@ -214,6 +220,7 @@
           <label>{{ "Sammanfattning" }}</label>
         </div>
       </div>
+      <input type='button' id='btn2' value='Spara utkast' data-ng-click="save_draft()"/>
     </section>
     </article>
     <h2>BESTÅND</h2>

@@ -44,9 +44,8 @@ def start():
 @app.route("/")
 @login_required
 def index():
-    drafts = storage.get_drafts(current_user.get_id())
     user = current_user if current_user.is_active() else None
-    return render_template('index.html', drafts=drafts, user=user, partials = {"/partials/index" : "partials/index.html"})
+    return render_template('index.html', user=user, partials = {"/partials/index" : "partials/index.html"})
 
 @app.route("/search")
 def search():
@@ -384,6 +383,13 @@ def get_bib_data(rec_id):
     return raw_json_response(document)
 
 
+## TODO: Add middleware to support DELETE method instead of POST
+@app.route('/record/bib/<id>/draft/delete', methods=['POST'])
+def delete_draft(id):
+    storage.delete_draft(current_user.get_id(), "bib", id)
+    drafts = storage.get_drafts_as_json(current_user.get_id())
+    return raw_json_response(drafts)
+
 @app.route('/record/bib/<id>/draft', methods=['POST'])
 def save_draft(id):
     """Save draft to kitin, called by form"""
@@ -391,6 +397,18 @@ def save_draft(id):
     storage.save_draft(current_user.get_id(), "bib", id, json_data)
     return json.dumps(request.json)
 
+@app.route('/draft/<rec_type>/<rec_id>')
+def get_draft(rec_type, rec_id):
+    draft = storage.get_draft(current_user.get_id(), rec_type, rec_id)
+    if(draft):
+        return raw_json_response(draft)
+    else:
+        abort(404)
+
+@app.route('/drafts')
+def get_drafts():
+    drafts = storage.get_drafts_as_json(current_user.get_id())
+    return raw_json_response(drafts)
 
 @app.route('/record/bib/<rec_id>', methods=['PUT'])
 def update_document(rec_id):

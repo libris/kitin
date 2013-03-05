@@ -22,3 +22,15 @@
     </section>
   </div>
 </div>
+
+
+<h3>Drafts</h3>
+<ul>
+  <li data-ng-repeat="draft in drafts" class="draft">
+  <a href="/edit/frbr/{{ draft.type }}/{{ draft.id }}">{{draft.type}} + {{ draft.id }} ({{draft.path}})</a>
+    <form data-ng-submit="delete(draft.type, draft.id)" method="POST" class="form-inline delete-draft">
+      <input type="hidden" name="_method" value="DELETE" />
+      <button type="submit" class="btn btn-mini"><i class="icon-remove"></i></button>
+    </form>
+  </li>
+</ul>

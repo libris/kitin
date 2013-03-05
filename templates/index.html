@@ -2,14 +2,6 @@
 {% block title %}Kitin{% endblock %}
 {% block content %}
 
-{% if drafts %}
-<ul class="drafts">
-  {% for key, value in drafts.iteritems() %}
-  <li class="draft"><a href="/edit/frbr/{{ key }}">{{ key }}</a></li>
-  {% endfor %}
-</ul>
-{% endif %}
-
 {% for key, value in partials.items() %}
   <script type="text/ng-template" id="{{ key }}">
     {% include value %}
