@@ -73,10 +73,18 @@
                     <td>{{ "Katalogiserande instans" }}</td>
                     <td>{{ record.creator['abbr'] }}</td>
                   </tr>
+                  <tr>
+                    <td>{{ "Intern anmärkning" }}</td>
+                    <td>{{ record.internalRemark }}</td>
+                  </tr>
                 </tbody>
              </table>
         </div>
         <div class="field span6">
+        Ändrad av:
+        <ul>
+          <li data-ng-repeat="location in record.catalogingChangesBy">{{ location['abbr'] }}</li>
+        </ul>
         </div>
       </div>
     </section>
