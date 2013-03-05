@@ -10,6 +10,12 @@
   <h1>BIBLIOGRAFISK POST</h1>
   <article class="well">
 
+  <!-- TODO: when value is object (e.g. @id, code and label):
+      - link! don't use label in editable data directly
+      - E.g. (needs onchange to set label in object?):
+        <select data-ng-options="key as val.label_sv for (key, val) in meta.encLevels"
+          data-ng-model="record.encLevel.code"></select>
+    -->
     <section id="prelude">
       <div class="row-fluid">
         <div class="field span2">
@@ -19,12 +25,6 @@
           {{ record.about.instanceOf['@type'].join(", ") }}
         </div>
         <div class="field span3">
-          <!-- TODO: value is object with both code and label? Post-process
-            on change or don't use label in editable data (just link)?
-            <select
-            data-ng-options="key as val.label_sv for (key, val) in meta.encLevels"
-            data-ng-model="record.encLevel.code"></select>
-          -->
           <select>
             <option value="record.encLevel.code">{{ record.encLevel.label }}</option>
           </select>
