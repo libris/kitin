@@ -398,6 +398,14 @@ def save_draft(id):
     storage.save_draft(current_user.get_id(), "bib", id, json_data)
     return json.dumps(request.json)
 
+@app.route('/draft/<rec_type>/<rec_id>')
+def get_draft(rec_type, rec_id):
+    draft = storage.get_draft(current_user.get_id(), rec_type, rec_id)
+    if(draft):
+        return raw_json_response(draft)
+    else:
+        abort(404)
+
 @app.route('/drafts')
 def get_drafts():
     drafts = storage.get_drafts_as_json(current_user.get_id())

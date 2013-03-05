@@ -1,3 +1,10 @@
+<div data-ng-controller="IndexCtrl">
+  <form data-ng-submit="delete(draft.type, draft.id)" method="POST" class="form-inline delete-draft">
+    <input type="hidden" name="_method" value="DELETE" />
+    <button type="submit" class="btn btn-mini">Radera utkast. <i class="icon-remove"></i></button>
+  </form>
+</div>
+
 <form id="record" class="form-horizontal">
   <p id="flash_message"></p>
   <h1>BIBLIOGRAFISK POST</h1>

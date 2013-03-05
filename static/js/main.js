@@ -69,8 +69,8 @@ function IndexCtrl($scope, $http) {
     $scope.drafts = data.drafts;
   });
 
-  $scope.delete = function(id) {
-    $http.post("/record/" + id + "/draft/delete").success(function(data, status) {
+  $scope.delete = function(type, id) {
+    $http.post("/record" + "/" + type + "/" + id + "/draft/delete").success(function(data, status) {
       $scope.drafts = data.drafts;
     });
   }
@@ -101,9 +101,17 @@ function FrbrCtrl($scope, $http, $routeParams, records) {
                $scope.record).success(function(data, status) {
                  $('#flash_message').text("Successfully saved draft!");
                }).error(function(data, status) {
-                 console.log(status);
                });
   }
+
+  $http.get("/draft/"+recType+"/"+recId).success(function(data) {
+    $scope.draft = data;
+    $scope.draft.type = data['@id'].split("/").slice(-3)[0];
+    $scope.draft.id = data['@id'].split("/").slice(-3)[1];
+  }).error(function(data, status) {
+    console.log(status);
+  });
+
   records.get(recType, recId).then(function(bibdata) {
       bibid = bibdata['controlNumber'];
       $scope.record = bibdata;

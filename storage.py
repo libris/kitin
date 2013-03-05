@@ -74,7 +74,8 @@ class Storage(object):
             for file in files:
                 f = os.path.join(root,file)
                 item = {}
-                item["id"] = "/".join(f.rsplit("/",2)[-2:])
+                item["id"] = json.loads(open(f, "r").read())['@id'].rsplit("/",3)[-2:-1][0]
+                item["type"] = json.loads(open(f, "r").read())['@id'].rsplit("/",3)[-3:-2][0]
                 item["path"] = f
                 drafts.append(item)
         result['drafts'] = drafts
