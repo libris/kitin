@@ -247,5 +247,21 @@
                 <li data-ng-show="holding.classificationNumber">{{ holding.classificationNumber }}</li>
             </ul>
         </section>
-    </article>
+        </article>
+        <h1>TEST: Languages</h1>
+        <ul>
+            <li data-ng-repeat="(abbr, term) in langlist">{{ abbr }} = {{ term }}</li>
+        </ul>
+        <h1>TEST: Countries</h1>
+        <ul>
+            <li data-ng-repeat="(abbr, term) in countrylist">{{ abbr }} = {{ term }}</li>
+        </ul>
+        <h1>TEST: Functions</h1>
+        <ul>
+            <li data-ng-repeat="(abbr, term) in functionlist">{{ abbr }} = {{ term }}</li>
+        </ul>
+        <h1>TEST: Nationalities</h1>
+        <ul>
+            <li data-ng-repeat="(abbr, term) in nationalitylist">{{ abbr }} = {{ term }}</li>
+        </ul>
 </form>

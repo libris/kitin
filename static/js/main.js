@@ -64,6 +64,19 @@ kitin.factory('records', function ($http, $q) {
   };
 });
 
+kitin.factory('resources', function($http) {
+    var resources = {
+        getResourceList: function(restype) {
+            var promise = $http.get("/resource?type=" + restype).then(function(response) {
+                return response.data;
+            });
+            return promise;
+        }
+    };
+    return resources;
+});
+
+
 function IndexCtrl($scope, $http) {
   $scope.drafts = $http.get("/drafts").success(function(data) {
     $scope.drafts = data.drafts;
@@ -91,7 +104,7 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
     });
 }
 
-function FrbrCtrl($scope, $http, $routeParams, $timeout, records) {
+function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources) {
   var recType = $routeParams.recType, recId = $routeParams.recId;
   var path = "/record/" + recType + "/" + recId;
 
@@ -136,6 +149,19 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records) {
       $http.get(holdpath).success(function(holdata) {
           $scope.holdings = holdata;
       }); 
+  });
+  // GET RESOURCES
+  resources.getResourceList("lang").then(function(data) {
+      $scope.langlist = data;
+  });
+  resources.getResourceList("country").then(function(data) {
+      $scope.countrylist = data;
+  });
+  resources.getResourceList("function").then(function(data) {
+      $scope.functionlist = data;
+  });
+  resources.getResourceList("nationality").then(function(data) {
+      $scope.nationalitylist = data;
   });
 }
 

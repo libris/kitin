@@ -84,6 +84,15 @@ def get_holdings():
             app.config['WHELK_HOST'], bibid))
         return resp.text
 
+@app.route("/resource")
+def get_resource():
+    restype = request.args.get("type")
+    url = "%s/resource/_resourcelist?%s=all" % (
+                app.config['WHELK_HOST'], restype)
+    print "URL: ", url
+    resp = requests.get(url)
+    return raw_json_response(resp.text)
+
 def get_mockresult():
     with open("mocked_result_set.json") as f:
         return raw_json_response(f.read())
