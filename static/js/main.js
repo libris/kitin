@@ -13,9 +13,9 @@ kitin.config(
               {templateUrl: '/partials/index', controller: IndexCtrl})
         .when('/search',
               {templateUrl: '/partials/search', controller: SearchCtrl})
-        .when('/edit/frbr/:recType/:recId',
-              {templateUrl: '/partials/frbr', controller: FrbrCtrl})
-        .when('/edit/marc/:recType/:recId',
+        .when('/edit/:recType/:recId',
+              {templateUrl: '/partials/edit', controller: FrbrCtrl})
+        .when('/marc/:recType/:recId',
               {templateUrl: '/partials/marc', controller: MarcCtrl})
         ;//.otherwise({redirectTo: '/'});
 
@@ -91,16 +91,34 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
     });
 }
 
-function FrbrCtrl($scope, $http, $routeParams, records) {
+function FrbrCtrl($scope, $http, $routeParams, $timeout, records) {
   var recType = $routeParams.recType, recId = $routeParams.recId;
   var path = "/record/" + recType + "/" + recId;
 
+  $scope.promptConfirmDelete = function($event, type, id) {
+    $scope.confirmDeleteDraft = {
+      execute: function() {
+        $http.post("/record" + "/" + type + "/" + id + "/draft/delete").success(function(data, status) {
+          $scope.draft = null;
+          $scope.confirmDeleteDraft = null;
+        });
+      },
+      abort: function() {
+        $scope.confirmDeleteDraft = null;
+      },
+    };
+    $timeout(function() {
+      openPrompt($event, "#confirmDeleteDraftDialog");
+    });
+  }
+
   $scope.save_draft = function() {
-    $http.post("/record/"+$routeParams.recType+"/"+$routeParams.recId+"/draft",
-               $scope.record).success(function(data, status) {
-                 $('#flash_message').text("Successfully saved draft!");
-               }).error(function(data, status) {
-               });
+    $http.post("/record/"+$routeParams.recType+"/"+$routeParams.recId+"/draft", $scope.record).success(function(data, status) {
+      console.log(data);
+      $scope.draft = data;
+      $scope.draft.type = data['@id'].split("/").slice(-3)[0];
+      $scope.draft.id = data['@id'].split("/").slice(-3)[1];
+    });
   }
 
   $http.get("/draft/"+recType+"/"+recId).success(function(data) {
@@ -119,27 +137,13 @@ function FrbrCtrl($scope, $http, $routeParams, records) {
           $scope.holdings = holdata;
       }); 
   });
-
-  /*var bibid;
-  $http.get(path).success(function(data, status) {
-    console.log("RECORD: ", data);
-    $scope.record = data;
-    bibid=data['@id'];
-    $scope.status = status;
-  })
-  .error(function(data,status){
-    $scope.record = "Error";
-    $scope.status = status;
-  });
-    console.log("BIBID: ", bibid);
-    */
 }
 
 
 function FrbrCtrl_old($rootScope, $scope, $routeParams, $timeout, conf, records) {
 
   conf.renderUpdates = false;
-  $rootScope.editMode = 'frbr';
+  $rootScope.editMode = 'normal';
 
   $scope.typeOf = function (o) { return typeof o; }
   $scope.getKey = marcjson.getMapEntryKey;

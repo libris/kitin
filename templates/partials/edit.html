@@ -1,15 +1,30 @@
-<div data-ng-controller="IndexCtrl">
-  <form data-ng-submit="delete(draft.type, draft.id)" method="POST" class="form-inline delete-draft">
-    <input type="hidden" name="_method" value="DELETE" />
-    <button type="submit" class="btn btn-mini">Radera utkast. <i class="icon-remove"></i></button>
-  </form>
+<div id="confirmDeleteDraftDialog" data-ng-show="confirmDeleteDraft" class="popover show">
+  <div class="popover-inner">
+    <button class="close" data-ng-click="confirmDeleteDraft.abort()">&times;</button></h3>
+  </div>
+  <div class="popover-content">
+    <h4>Vill du verkligen ta bort utkastet?</h4>
+    <button class="btn btn-success" data-ng-click="confirmDeleteDraft.execute()">Ja</button></h3>
+    <button class="btn btn-warning" data-ng-click="confirmDeleteDraft.abort()">Nej</button></h3>
+  </div>
+</div>
+
+<div data-ng-show="draft" data-ng-click="promptConfirmDelete($event, draft.type, draft.id)">
+  <div class="popover-inner">
+    <button class="close" data-ng-click="somebutton.click()">Ta bort utkast</button>
+  </div>
 </div>
 
 <form id="record" class="form-horizontal">
-  <p id="flash_message"></p>
   <h1>BIBLIOGRAFISK POST</h1>
   <article class="well">
 
+  <!-- TODO: when value is object (e.g. @id, code and label):
+      - link! don't use label in editable data directly
+      - E.g. (needs onchange to set label in object?):
+        <select data-ng-options="key as val.label_sv for (key, val) in meta.encLevels"
+          data-ng-model="record.encLevel.code"></select>
+    -->
     <section id="prelude">
       <div class="row-fluid">
         <div class="field span2">
@@ -19,12 +34,6 @@
           {{ record.about.instanceOf['@type'].join(", ") }}
         </div>
         <div class="field span3">
-          <!-- TODO: value is object with both code and label? Post-process
-            on change or don't use label in editable data (just link)?
-            <select
-            data-ng-options="key as val.label_sv for (key, val) in meta.encLevels"
-            data-ng-model="record.encLevel.code"></select>
-          -->
           <select>
             <option value="record.encLevel.code">{{ record.encLevel.label }}</option>
           </select>
@@ -40,51 +49,57 @@
       </div>
     </section>
 
-      <button type="button" class="btn btn-mini"
-              data-toggle="collapse" data-target="#record-hidden">
-        <!--<i class="icon-edit"></i>-->Fler detaljer</button>
-      <section id="record-hidden" class="collapse out">
+    <button type="button" class="btn btn-mini"
+            data-toggle="collapse" data-target="#record-hidden">
+      <!--<i class="icon-edit"></i>-->Fler detaljer</button>
+    <section id="record-hidden" class="collapse out">
       <h2>POSTINFORMATION</h2>
       <div class="row-fluid">
         <div class="field span6">
               <table class="table table-condensed">
-			    <tbody>
-   				  <tr>
-    			    <td>{{ "Status" }}</td>
-    				<td>{{ record.status.label }}</td>
-    			  </tr>
-    			  <tr>
-    			    <td>{{ "Bibid" }}</td>
-    				<td>{{ record.controlNumber }}</td>
-    			  </tr>
-    			  <tr>
-    			    <td>{{ "LIBRISIII-nummer" }}</td>
-    				<td>{{ record.localSystemNumber }}</td>
-    			  </tr>    			  
-    			  <tr>
-    			    <td>{{ "LC-nummer" }}</td>
-    				<td>{{ record.lccn }}</td>
-    			  </tr>
-   				  <tr>
-    			    <td>{{ "Datum för senaste ändring" }}</td>
-    				<td>{{ record.dateAndTimeOfLatestTransaction }}</td>
-    			  </tr>
-   				  <tr>
-    			    <td>{{ "Katalogiserande instans" }}</td>
-    				<td>{{ record.creator['abbr'] }}</td>
-    			  </tr>
-    		    </tbody>
-   			 </table>
+                <tbody>
+                  <tr>
+                    <td>{{ "Status" }}</td>
+                    <td>{{ record.status.label }}</td>
+                  </tr>
+                  <tr>
+                    <td>{{ "Bibid" }}</td>
+                    <td>{{ record.controlNumber }}</td>
+                  </tr>
+                  <tr>
+                    <td>{{ "LIBRISIII-nummer" }}</td>
+                    <td>{{ record.localSystemNumber }}</td>
+                  </tr>
+                  <tr>
+                    <td>{{ "LC-nummer" }}</td>
+                    <td>{{ record.lccn }}</td>
+                  </tr>
+                  <tr>
+                    <td>{{ "Datum för senaste ändring" }}</td>
+                    <td>{{ record.dateAndTimeOfLatestTransaction }}</td>
+                  </tr>
+                  <tr>
+                    <td>{{ "Katalogiserande instans" }}</td>
+                    <td>{{ record.creator['abbr'] }}</td>
+                  </tr>
+                  <tr>
+                    <td>{{ "Intern anmärkning" }}</td>
+                    <td>{{ record.internalRemark }}</td>
+                  </tr>
+                </tbody>
+             </table>
         </div>
         <div class="field span6">
-
-		</div>
+        Ändrad av:
+        <ul>
+          <li data-ng-repeat="location in record.catalogingChangesBy">{{ location['abbr'] }}</li>
+        </ul>
+        </div>
       </div>
-      
-      </section>
+    </section>
 
-    
-	<hr/>
+
+    <hr/>
     <section id="work" data-ng-repeat="work in [record.about.instanceOf]">
       <h2>VERK</h2>
       <div class="row-fluid">
@@ -134,11 +149,11 @@
           </ul>
           <ul class="inline">
           <li data-ng-repeat="topicalTerm in record.topicalTerm"><a class="btn btn-small" href="{{ topicalTerm }}"><i class="icon-user icon-tag"></i> {{ topicalTerm }}</a></li>
-          </ul>          
+          </ul>
         </div>
       </div>
     </section>
-	<hr/>
+    <hr/>
     <section id="instance" data-ng-repeat="instance in [record.about]">
       <h2>INSTANS</h2>
       <h3>{{ "Utgivning" }}</h3>
@@ -162,7 +177,7 @@
         <div class="field span3">
           <input class="input-small" type="text" data-ng-model="instance.edition" />
           <label>{{ "Upplaga" }}</label>
-        </div>  
+        </div>
         <div class="field span6">
           <input class="input" type="text" data-ng-model="instance.placeOfPublication.label" />
           <label>{{ "Utgivningsort" }}</label>
@@ -176,7 +191,7 @@
         <div class="field span6">
           <input class="input-xlarge" type="text" data-ng-model="record.about.instanceOf.country" />
           <label>{{ "Utgivningsland" }}</label><!--instance?-->
-        </div>        
+        </div>
       </div>
       <h3>{{ "Fysisk beskrivning" }}</h3>
       <div class="row-fluid">
@@ -209,14 +224,14 @@
           <input class="input-xxlarge" type="text" data-ng-model="instance.supplementaryContentNote" />
           <label>{{ "Anmärkning bibliografi etc." }}</label>
         </div>
-      </div>      
+      </div>
       <div class="row-fluid">
         <div class="field span6">
-          <textarea class="input-xxlarge" rows="5" data-ng-model="instance.listOfContents"></textarea> 
+          <textarea class="input-xxlarge" rows="5" data-ng-model="instance.listOfContents"></textarea>
           <label>{{ "Formaterad innehållsförteckning" }}</label>
         </div>
                 <div class="field span6">
-          <textarea class="input-xxlarge" rows="5" data-ng-model="instance.summary"></textarea> 
+          <textarea class="input-xxlarge" rows="5" data-ng-model="instance.summary"></textarea>
           <label>{{ "Sammanfattning" }}</label>
         </div>
       </div>
@@ -226,7 +241,11 @@
     <h2>BESTÅND</h2>
     <article class="well">
         <section id="holdings" data-ng-repeat="holding in holdings.list">
-        <p>{{ holding }}</p><hr />
+            <ul>
+                <li data-ng-show="holding['@id']">{{ holding['@id'] }}</li>
+                <li data-ng-show="holding.location">{{ holding.location }}</li>
+                <li data-ng-show="holding.classificationNumber">{{ holding.classificationNumber }}</li>
+            </ul>
         </section>
     </article>
 </form>
