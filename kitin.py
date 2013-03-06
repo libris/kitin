@@ -352,8 +352,8 @@ def show_marc_record(rec_type, rec_id):
 def get_bib_data(rec_id):
     # TODO: How check if user is logged in?
     # TODO: Check if exists as draft and fetch from local db if so!
-    document = storage.get_draft(current_user.get_id(), "bib", rec_id)
-    if document == None:
+    draft = storage.get_draft(current_user.get_id(), "bib", rec_id)
+    if draft == None:
         whelk_url = "%s/bib/%s" % (app.config['WHELK_HOST'], rec_id)
         response = requests.get(whelk_url)
         if response.status_code >= 400:
@@ -361,7 +361,15 @@ def get_bib_data(rec_id):
             abort(response.status_code)
         else:
             document = response.text
-    return raw_json_response(document)
+            etag = response.headers['etag']
+    else:
+        json_data = json.loads(draft)
+        document = json.dumps(json_data['document'])
+        etag = json_data['etag']
+
+    resp = raw_json_response(document)
+    resp.headers['etag'] = etag
+    return resp
 
 
 ## TODO: Add middleware to support DELETE method instead of POST
@@ -375,14 +383,17 @@ def delete_draft(id):
 def save_draft(id):
     """Save draft to kitin, called by form"""
     json_data = request.data
-    storage.save_draft(current_user.get_id(), "bib", id, json_data)
+    storage.save_draft(current_user.get_id(), "bib", id, json_data, request.headers['If-match'])
     return json.dumps(request.json)
 
 @app.route('/draft/<rec_type>/<rec_id>')
 def get_draft(rec_type, rec_id):
     draft = storage.get_draft(current_user.get_id(), rec_type, rec_id)
     if(draft):
-        return raw_json_response(draft)
+        json_data = json.loads(draft)
+        resp = raw_json_response(json.dumps(json_data['document']))
+        resp.headers['etag'] = json_data['etag']
+        return resp
     else:
         abort(404)
 
@@ -393,11 +404,11 @@ def get_drafts():
 
 @app.route('/record/bib/<rec_id>', methods=['PUT'])
 def update_document(rec_id):
-    """Saves updated records to whelk (Backbone would send a POST if the record isNew)"""
-    # IMP: Using request.data is enough; do we really need this json validation?
+    """Saves updated records to whelk"""
     json_string = json.dumps(request.json)
-    headers = {'content-type': 'application/json'}
-    response = requests.put("%sbib/%s" % (app.config['WHELK_HOST'], rec_id), data=json_string, headers=headers)
+    headers = {'content-type': 'application/json', 'If-match': request.headers['If-match']}
+    path = "%s/bib/%s" % (app.config['WHELK_HOST'], rec_id)
+    response = requests.put(path, data=json_string, headers=headers)
     if response.status_code == 200:
         storage.delete_draft(current_user.get_id(), "bib", rec_id)
     else:
@@ -405,17 +416,14 @@ def update_document(rec_id):
     return raw_json_response(json_string)
 
 
-@app.route('/record/create', methods=['POST'])
+@app.route('/record/bib/create', methods=['POST'])
 def create_record():
-    tplt_name = request.form.get('template')
-    # FIXME: just a hack to test!
-    import shutil as sh
-    tplt_fpath = mockdatapath('templates', tplt_name)
-    new_id = 'new-record' # + tplt_name
-    created_fpath =  mockdatapath('bib', new_id)
-    sh.copy(tplt_fpath, created_fpath)
-    return redirect(url_for('render_lite', id=new_id))
-
+    if request.json['about']['isbn']:
+        resp = requests.get("%s/bib/kitin/_search?q=%s" % ( app.config['WHELK_HOST'], request.json['about']['isbn']))
+        hits = json.loads(resp.text)['hits']
+        if hits > 0:
+            abort(409) ## Record exists!
+    # TODO: implement the rest of me!
 
 @app.route('/marcmap.json')
 def get_marcmap():

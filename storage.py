@@ -35,15 +35,18 @@ class Storage(object):
         if not os.path.exists(self.path):
             os.makedirs(self.path)
 
-    def save_draft(self, user_id, rec_type, rec_id, json_data):
+    def save_draft(self, user_id, rec_type, rec_id, json_data, etag):
         path = construct_path([self.path, user_id, rec_type])
         create_dir_if_not_exists(path)
         filename = "/".join([path, rec_id])
         with open(filename, 'w') as f:
-            f.write(json_data)
+            doc = {}
+            doc['document'] = json.loads(json_data)
+            doc['etag'] = etag
+            f.write(json.dumps(doc))
 
-    def update_draft(self, user_id, rec_type, rec_id, json_data):
-        self.save_draft(user_id, rec_type, rec_id, json_data)
+    def update_draft(self, user_id, rec_type, rec_id, json_data, etag):
+        self.save_draft(user_id, rec_type, rec_id, json_data, etag)
 
     def get_draft(self, user_id, rec_type, rec_id):
         path = construct_path([self.path, user_id, rec_type])
@@ -73,11 +76,13 @@ class Storage(object):
         for root, subFolders, files in os.walk(construct_path([self.path, user_id])):
             for file in files:
                 f = os.path.join(root,file)
-                item = {}
-                item["id"] = json.loads(open(f, "r").read())['@id'].rsplit("/",3)[-2:-1][0]
-                item["type"] = json.loads(open(f, "r").read())['@id'].rsplit("/",3)[-3:-2][0]
-                item["path"] = f
-                drafts.append(item)
+                with open(f, "r") as draft:
+                    item = {}
+                    json_data = json.loads(draft.read())
+                    item["id"] = json_data['document']['@id'].rsplit("/",3)[-2:-1][0]
+                    item["type"] = json_data['document']['@id'].rsplit("/",3)[-3:-2][0]
+                    item["path"] = f
+                    drafts.append(item)
         result['drafts'] = drafts
         return json.dumps(result)
 

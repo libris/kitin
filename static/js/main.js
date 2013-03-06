@@ -45,10 +45,12 @@ kitin.factory('records', function ($http, $q) {
   var currentPath, currentRecord;
   function loadPromise(path) {
     var record = $q.defer();
-    $http.get(path).success(function (struct) {
+    $http.get(path).success(function (struct, status, headers) {
       currentPath = path;
       currentRecord = struct;
-      record.resolve(struct);
+      record['bibdata'] = struct;
+      record['etag'] = headers('etag');
+      record.resolve(record);
     });
     return record.promise;
   }
@@ -112,26 +114,38 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records) {
     });
   }
 
-  $scope.save_draft = function() {
-    $http.post("/record/"+$routeParams.recType+"/"+$routeParams.recId+"/draft", $scope.record).success(function(data, status) {
-      console.log(data);
-      $scope.draft = data;
-      $scope.draft.type = data['@id'].split("/").slice(-3)[0];
-      $scope.draft.id = data['@id'].split("/").slice(-3)[1];
+  $scope.save = function() {
+    var if_match_header = $scope.etag.replace(/["']/g, "");
+    $http.put("/record/bib/"+recId, $scope.record, {headers: {"If-match":if_match_header}}).success(function(data, status) {
+      console.log("success!");
+      $('.flash_message').text("Sparad!");
+    }).error(function() {
+      $('.flash_message').text("Kunde inte spara.");
     });
   }
 
-  $http.get("/draft/"+recType+"/"+recId).success(function(data) {
+  $scope.save_draft = function() {
+     $http.post("/record/"+$routeParams.recType+"/"+$routeParams.recId+"/draft", $scope.record, {headers: {"If-match":$scope.etag}}).success(function(data, status) {
+       $scope.draft = data;
+       $scope.draft.type = data['@id'].split("/").slice(-3)[0];
+       $scope.draft.id = data['@id'].split("/").slice(-3)[1];
+       $('.flash_message').text("Utkast sparat!");
+     });
+  }
+
+  $http.get("/draft/"+recType+"/"+recId).success(function(data, status, headers) {
     $scope.draft = data;
     $scope.draft.type = data['@id'].split("/").slice(-3)[0];
     $scope.draft.id = data['@id'].split("/").slice(-3)[1];
+    $scope.etag = headers('etag');
   }).error(function(data, status) {
     console.log(status);
   });
 
-  records.get(recType, recId).then(function(bibdata) {
-      bibid = bibdata['controlNumber'];
-      $scope.record = bibdata;
+  records.get(recType, recId).then(function(data) {
+      bibid = data['bibdata']['controlNumber'];
+      $scope.record = data['bibdata'];
+      $scope.etag = data['etag'];
       var holdpath = "/holdings?bibid=/bib/" + bibid;
       $http.get(holdpath).success(function(holdata) {
           $scope.holdings = holdata;
