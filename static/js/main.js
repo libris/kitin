@@ -86,15 +86,9 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
     if (!$routeParams.q) {
         return;
     }
-    if (jsontest) {
-        //console.log("FROM FLASK: ", JSON.parse(unescape(jsontest)));
-        $scope.result = JSON.parse(unescape(jsontest));
-        jsontest = null;
-    } else {
-        $http.get(url).success(function(data) {
-            $scope.result = data;
-        });
-    }
+    $http.get(url).success(function(data) {
+        $scope.result = data;
+    });
 }
 
 function FrbrCtrl($scope, $http, $routeParams, records) {

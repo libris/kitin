@@ -68,10 +68,7 @@ def search():
         resp = requests.get("%s/bib/kitin/_search?q=%s%s%s" % (
             app.config['WHELK_HOST'], q, freq, boost))
         if request.is_xhr:
-            print "XHR: ", resp.text
-            return raw_json_response(resp.text)
-        else: 
-            return render_template('index.html', partials = {"/partials/search" : "partials/search.html"}, jsondata = Markup(json.dumps(resp.text)))
+           return raw_json_response(resp.text)
     return render_template('index.html', partials = {"/partials/search" : "partials/search.html"})
 
 @app.route("/holdings")
@@ -338,16 +335,12 @@ def get_record_summary(data):
                 '773': {'a': 'link_author', 't': 'link_tit', 'g': 'link_related'},
               }
     general_fields = _get_field_label(tagdict, fields)
-    #for genfil in general_fields.items():
-    #    print "---------------------------- generad_field:", genfil
-    #for confil in control_fields.items():
-    #    print "---------------------------- control_field:", confil
     return dict(control_fields.items() + general_fields.items())
 
 
-@app.route('/edit/<edit_mode>')
-def show_record_form(**kws):
-    return render_template('bib.html', **kws)
+#@app.route('/edit/<edit_mode>')
+#def show_record_form(**kws):
+#    return render_template('bib.html', **kws)
 
 # How check if user is logged in?
 @app.route('/edit/<edit_mode>/<rec_type>/<rec_id>')
@@ -361,6 +354,7 @@ def show_edit_record(edit_mode, rec_type, rec_id):
             #search_results = [get_record_summary(item['data']) for item in data['list']]
             #return json.dumps(search_results) 
     return index()
+    #return render_template('index.html', partials = {"/partials/frbr" : "partials/frbr.html"})
     #user = current_user if current_user.is_active() else None
     #json_post = json.loads(response.text)
     #return render_template('bib.html', data=json_post)
