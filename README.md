@@ -47,9 +47,21 @@ Run ./kitin.py -h for help
 
 ### Running js test scripts
 
-    $ Install node *brew install node* on MacOSX _(also, make sure to install npm)_
-    $ NODE_PATH=.:$PWD/static/js
-    $ node test/js/test_marcjson.js
+Install [node ](http://nodejs.org/) and [npm](https://npmjs.org).
+
+    $ brew install node npm (MacOSX)
+    $ sudo yain node npm (Archlinux)
+
+Using npm, install [testacular](http://testacular.github.com):
+
+    $ sudo npm install -g testacular
+
+Run the unit and end2end tests by executing any of these scripts:
+
+    $ ./scripts/test.sh
+    $ ./scripts/e2e-test.sh
+
+They assume chrome but can use other browsers as well. Settings and configuration options are located under test/js/config.
 
 ### Running python unit tests
 
