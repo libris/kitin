@@ -55,10 +55,10 @@ Run ./kitin.py -h for help
 
 [Nose](https://nose.readthedocs.org/en/latest/testing.html) is used for unit tests. It is installed via pip (see above).
 Execute the following command to run all tests.
-All tests meaning all tests that matches the configured testMatch regular expression ((?:^|[\\b_\\.-])[Tt]est) by default – that is, has test or Test at a word boundary or following a - or _) and lives in a module that also matches that expression will be run as a test.
+
     $ nosetests
 
-If for some reason nose fails to find the tests, tell it where to find them and where to find required modules
+If for some reason nose fails to find the tests, tell it where to find them and where to find required modules(.)
 
     $ PYTHONPATH=$PYTHONPATH:. nosetests -w test/python
 
