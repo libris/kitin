@@ -54,6 +54,20 @@ kitin.factory('records', function ($http, $q) {
     });
     return record.promise;
   }
+
+  function saveRecord(type, id, data, etag) {
+    var record = $q.defer();
+    console.log(etag);
+    $http.put("/record/" + type + "/" + id, data, {headers: {"If-match":etag}}).success(function(data, status, headers) {
+      record['bibdata'] = data;
+      record['etag'] = headers('etag');
+      record.resolve(record);
+    }).error(function() {
+      console.log("og crap, we failed :(");
+    });
+    return record.promise;
+  }
+
   return {
     get: function (type, id) {
       var path = "/record/" + type + "/" + id;
@@ -62,7 +76,10 @@ kitin.factory('records', function ($http, $q) {
       } else {
         return loadPromise(path);
       }
-    }
+    },
+    save: function(type, id, data, etag) {
+      return saveRecord(type, id, data, etag);
+    },
   };
 });
 
@@ -127,13 +144,21 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources) {
     });
   }
 
+  records.get(recType, recId).then(function(data) {
+      bibid = data['bibdata']['controlNumber'];
+      $scope.record = data['bibdata'];
+      $scope.etag = data['etag'];
+      var holdpath = "/holdings?bibid=/bib/" + bibid;
+      $http.get(holdpath).success(function(holdata) {
+          $scope.holdings = holdata;
+      }); 
+  });
+
   $scope.save = function() {
     var if_match_header = $scope.etag.replace(/["']/g, "");
-    $http.put("/record/bib/"+recId, $scope.record, {headers: {"If-match":if_match_header}}).success(function(data, status) {
-      console.log("success!");
-      $('.flash_message').text("Sparad!");
-    }).error(function() {
-      $('.flash_message').text("Kunde inte spara.");
+    records.save(recType, recId, $scope.record, $scope.etag.replace(/["']/g, "")).then(function(data) {
+      $scope.record = data['bibdata']
+      $scope.etag = data['etag'];
     });
   }
 
@@ -155,15 +180,6 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources) {
     console.log(status);
   });
 
-  records.get(recType, recId).then(function(data) {
-      bibid = data['bibdata']['controlNumber'];
-      $scope.record = data['bibdata'];
-      $scope.etag = data['etag'];
-      var holdpath = "/holdings?bibid=/bib/" + bibid;
-      $http.get(holdpath).success(function(holdata) {
-          $scope.holdings = holdata;
-      }); 
-  });
   // GET RESOURCES
   resources.getResourceList("lang").then(function(data) {
       $scope.langlist = data;
