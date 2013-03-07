@@ -140,16 +140,16 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources) {
   $scope.save_draft = function() {
      $http.post("/record/"+$routeParams.recType+"/"+$routeParams.recId+"/draft", $scope.record, {headers: {"If-match":$scope.etag}}).success(function(data, status) {
        $scope.draft = data;
-       $scope.draft.type = data['@id'].split("/").slice(-3)[0];
-       $scope.draft.id = data['@id'].split("/").slice(-3)[1];
+       $scope.draft.type = data['@id'].split("/").slice(-2)[0];
+       $scope.draft.id = data['@id'].split("/").slice(-2)[1];
        $('.flash_message').text("Utkast sparat!");
      });
   }
 
   $http.get("/draft/"+recType+"/"+recId).success(function(data, status, headers) {
     $scope.draft = data;
-    $scope.draft.type = data['@id'].split("/").slice(-3)[0];
-    $scope.draft.id = data['@id'].split("/").slice(-3)[1];
+    $scope.draft.type = data['@id'].split("/").slice(-2)[0];
+    $scope.draft.id = data['@id'].split("/").slice(-2)[1];
     $scope.etag = headers('etag');
   }).error(function(data, status) {
     console.log(status);

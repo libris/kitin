@@ -79,8 +79,8 @@ class Storage(object):
                 with open(f, "r") as draft:
                     item = {}
                     json_data = json.loads(draft.read())
-                    item["id"] = json_data['document']['@id'].rsplit("/",3)[-2:-1][0]
-                    item["type"] = json_data['document']['@id'].rsplit("/",3)[-3:-2][0]
+                    item["id"] = json_data['document']['@id'].rsplit("/",2)[-1:][0]
+                    item["type"] = json_data['document']['@id'].rsplit("/",2)[-2:][0]
                     item["path"] = f
                     drafts.append(item)
         result['drafts'] = drafts
