@@ -95,6 +95,17 @@ kitin.factory('resources', function($http) {
     return resources;
 });
 
+/*kitin.factory('bibdb', function($http) {
+    var lib = {
+        getResourceList: function(sigel) {
+            var promise = $http.get("/bibdb?sigel=" + sigel).then(function(response) {
+                return response.data;
+            });
+            return promise;
+        }
+    };
+    return lib;
+});*/
 
 function IndexCtrl($scope, $http) {
   $scope.drafts = $http.get("/drafts").success(function(data) {
