@@ -47,16 +47,32 @@ Run ./kitin.py -h for help
 
 ### Running js test scripts
 
-    $ Install node *brew install node* on MacOSX _(also, make sure to install npm)_
-    $ NODE_PATH=.:$PWD/static/js
-    $ node test/js/test_marcjson.js
+Install [node ](http://nodejs.org/) and [npm](https://npmjs.org).
+
+    $ brew install node npm (MacOSX)
+    $ sudo yain node npm (Archlinux)
+
+Using npm, install [testacular](http://testacular.github.com):
+
+    $ sudo npm install -g testacular
+
+Run the unit and end2end tests by executing any of these scripts:
+
+    $ ./scripts/test.sh
+    $ ./scripts/e2e-test.sh
+
+They assume chrome but can use other browsers as well. Settings and configuration options are located under test/js/config.
 
 ### Running python unit tests
 
 [Nose](https://nose.readthedocs.org/en/latest/testing.html) is used for unit tests. It is installed via pip (see above).
 Execute the following command to run all tests.
-All tests meaning all tests that matches the configured testMatch regular expression ((?:^|[\\b_\\.-])[Tt]est) by default – that is, has test or Test at a word boundary or following a - or _) and lives in a module that also matches that expression will be run as a test.
+
     $ nosetests
+
+If for some reason nose fails to find the tests, tell it where to find them and where to find required modules(.)
+
+    $ PYTHONPATH=$PYTHONPATH:. nosetests -w test/python
 
 ### Downloading third-party web assets
 

@@ -54,6 +54,20 @@ kitin.factory('records', function ($http, $q) {
     });
     return record.promise;
   }
+
+  function saveRecord(type, id, data, etag) {
+    var record = $q.defer();
+    console.log(etag);
+    $http.put("/record/" + type + "/" + id, data, {headers: {"If-match":etag}}).success(function(data, status, headers) {
+      record['bibdata'] = data;
+      record['etag'] = headers('etag');
+      record.resolve(record);
+    }).error(function() {
+      console.log("og crap, we failed :(");
+    });
+    return record.promise;
+  }
+
   return {
     get: function (type, id) {
       var path = "/record/" + type + "/" + id;
@@ -62,7 +76,10 @@ kitin.factory('records', function ($http, $q) {
       } else {
         return loadPromise(path);
       }
-    }
+    },
+    save: function(type, id, data, etag) {
+      return saveRecord(type, id, data, etag);
+    },
   };
 });
 
@@ -138,33 +155,6 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources) {
     });
   }
 
-  $scope.save = function() {
-    var if_match_header = $scope.etag.replace(/["']/g, "");
-    $http.put("/record/bib/"+recId, $scope.record, {headers: {"If-match":if_match_header}}).success(function(data, status) {
-      console.log("success!");
-      $('.flash_message').text("Sparad!");
-    }).error(function() {
-      $('.flash_message').text("Kunde inte spara.");
-    });
-  }
-
-  $scope.save_draft = function() {
-     $http.post("/record/"+$routeParams.recType+"/"+$routeParams.recId+"/draft", $scope.record, {headers: {"If-match":$scope.etag}}).success(function(data, status) {
-       $scope.draft = data;
-       $scope.draft.type = data['@id'].split("/").slice(-3)[0];
-       $scope.draft.id = data['@id'].split("/").slice(-3)[1];
-       $('.flash_message').text("Utkast sparat!");
-     });
-  }
-
-  $http.get("/draft/"+recType+"/"+recId).success(function(data, status, headers) {
-    $scope.draft = data;
-    $scope.draft.type = data['@id'].split("/").slice(-3)[0];
-    $scope.draft.id = data['@id'].split("/").slice(-3)[1];
-    $scope.etag = headers('etag');
-  }).error(function(data, status) {
-    console.log(status);
-  });
   records.get(recType, recId).then(function(data) {
       bibid = data['bibdata']['controlNumber'];
       $scope.record = data['bibdata'];
@@ -175,6 +165,31 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources) {
       }); 
   });
 
+  $scope.save = function() {
+    var if_match_header = $scope.etag.replace(/["']/g, "");
+    records.save(recType, recId, $scope.record, $scope.etag.replace(/["']/g, "")).then(function(data) {
+      $scope.record = data['bibdata']
+      $scope.etag = data['etag'];
+    });
+  }
+
+  $scope.save_draft = function() {
+     $http.post("/record/"+$routeParams.recType+"/"+$routeParams.recId+"/draft", $scope.record, {headers: {"If-match":$scope.etag}}).success(function(data, status) {
+       $scope.draft = data;
+       $scope.draft.type = data['@id'].split("/").slice(-2)[0];
+       $scope.draft.id = data['@id'].split("/").slice(-2)[1];
+       $('.flash_message').text("Utkast sparat!");
+     });
+  }
+
+  $http.get("/draft/"+recType+"/"+recId).success(function(data, status, headers) {
+    $scope.draft = data;
+    $scope.draft.type = data['@id'].split("/").slice(-2)[0];
+    $scope.draft.id = data['@id'].split("/").slice(-2)[1];
+    $scope.etag = headers('etag');
+  }).error(function(data, status) {
+    console.log(status);
+  });
 
   // GET RESOURCES
   resources.getResourceList("lang").then(function(data) {
