@@ -84,15 +84,15 @@ kitin.factory('records', function ($http, $q) {
 });
 
 kitin.factory('resources', function($http) {
-    var resources = {
-        getResourceList: function(restype) {
-            var promise = $http.get("/resource?type=" + restype).then(function(response) {
-                return response.data;
-            });
-            return promise;
-        }
-    };
-    return resources;
+  var resources = {
+    getResourceList: function(restype) {
+      var promise = $http.get("/resource?type=" + restype).then(function(response) {
+        return response.data;
+      });
+      return promise;
+    }
+  };
+  return resources;
 });
 
 /*kitin.factory('bibdb', function($http) {
@@ -204,6 +204,7 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources) {
   resources.getResourceList("nationality").then(function(data) {
       $scope.nationalitylist = data;
   });
+
 }
 
 
@@ -462,18 +463,18 @@ kitin.directive('kitinAutocomplete', function() {
     //  kitinService: '='
     //},
     link: function(scope, elem, attrs) {
-      var field = scope[attrs.kitinAutocomplete];
-      var service = scope[attrs.kitinConfig].service;
+      // var field = scope[attrs.kitinAutocomplete];
+      // var service = scope[attrs.kitinConfig].service;
       // TODO: always from 100 for auth?
-      var tag = service == 'auth'? '100': field.getTagDfn().tag;
-      var row = field.getRow();
+      // var tag = service == 'auth'? '100': field.getTagDfn().tag;
+      // var row = field.getRow();
 
       var templateId = attrs.kitinTemplate;
       // IMPROVE: replace current autocomplete mechanism and use angular
       // templates ($compile) all the way.. It if is fast enough..
-      var template = _.template(jQuery('#' + templateId).html())
+      var template = _.template(jQuery('#' + 'auth-completion-template').html())
 
-      elem.autocomplete("/suggest/" + service, {
+      elem.autocomplete("/suggest/auth", {
 
         inputClass: null,
         remoteDataType: 'json',
@@ -488,11 +489,7 @@ kitin.directive('kitinAutocomplete', function() {
             console.log("Found no results!"); // TODO: notify no match?
             return [];
           }
-          return doc.list.map(function (item) {
-            var data = item.data;
-            var value = getValueForFieldAndSubfield(data, tag);
-            return {value: value, data: data};
-          });
+          return doc.list.map(function(item) { return {value: item.authoritativeName, data: item}; });
         },
 
         showResult: function (value, data) {

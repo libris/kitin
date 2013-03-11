@@ -278,3 +278,25 @@
             <li data-ng-repeat="(abbr, term) in nationalitylist">{{ abbr }} = {{ term }}</li>
         </ul>
 </form>
+
+{% raw %}
+<script type="text/html" id="auth-completion-template">
+  <div class="auth">
+    <h4>
+      <span class="name"><%= data['authoritativeName'] %></span>
+      <span class="date"><%= data['birthYear'] %> - <%= data['birthYear'] %></span>
+      <% if (data['authorized']) { %>
+        <span class="label label-success pull-right"><i class="icon-ok icon-white"></i>Aukt.</span>
+      <% } %>
+      <% if (data['description']) { %>
+        <ul>
+         <% data['description'].forEach(function(item) { %>
+           <li><%= item %></li>
+         <% }) %>
+        </ul>
+      <% } %>
+    </h4>
+  </div>
+</script>
+{% endraw %}
+
