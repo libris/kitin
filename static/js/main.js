@@ -78,6 +78,17 @@ kitin.factory('resources', function($http) {
     return resources;
 });
 
+/*kitin.factory('bibdb', function($http) {
+    var lib = {
+        getResourceList: function(sigel) {
+            var promise = $http.get("/bibdb?sigel=" + sigel).then(function(response) {
+                return response.data;
+            });
+            return promise;
+        }
+    };
+    return lib;
+});*/
 
 function IndexCtrl($scope, $http) {
   $scope.drafts = $http.get("/drafts").success(function(data) {
@@ -154,7 +165,6 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources) {
   }).error(function(data, status) {
     console.log(status);
   });
-
   records.get(recType, recId).then(function(data) {
       bibid = data['bibdata']['controlNumber'];
       $scope.record = data['bibdata'];
@@ -164,6 +174,8 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources) {
           $scope.holdings = holdata;
       }); 
   });
+
+
   // GET RESOURCES
   resources.getResourceList("lang").then(function(data) {
       $scope.langlist = data;

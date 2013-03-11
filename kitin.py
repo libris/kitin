@@ -74,22 +74,24 @@ def search():
 @app.route("/holdings")
 def get_holdings():
     bibid = request.args.get("bibid")
-    if request.is_xhr:
-        if bibid:
-            resp = requests.get("%s/hold/_metasearch?link=%s" % (
-                app.config['WHELK_HOST'], bibid))
-            return raw_json_response(resp.text)
-    else:
+    if bibid:
         resp = requests.get("%s/hold/_metasearch?link=%s" % (
             app.config['WHELK_HOST'], bibid))
-        return resp.text
+        return raw_json_response(resp.text)
+
+#@app.route("/bibdb")
+#def get_libraryinfo():
+#    print "FILE: ", app.config['LIBRARIES']
+#    libraries = open(app.config['LIBRARIES']).read()
+    
+#    libdict = json.loads(libraries)
+    #return libraries
 
 @app.route("/resource")
 def get_resource():
     restype = request.args.get("type")
     url = "%s/resource/_resourcelist?%s=all" % (
                 app.config['WHELK_HOST'], restype)
-    print "URL: ", url
     resp = requests.get(url)
     return raw_json_response(resp.text)
 
