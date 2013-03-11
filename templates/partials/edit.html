@@ -244,12 +244,21 @@
     </article>
     <h2>BESTÅND</h2>
     <article class="well">
+    <section class="classification-suggest well">
+    <h3>{{ "Förslag på signum" }}</h3>
+    	<ul class="unstyled inline">
+    	  <li data-ng-repeat="holding in holdings.list" data-ng-show="holding.classificationPart"><btn class="btn btn-small" ><i class="icon-tag"></i> {{ holding.classificationPart }}</btn></li>
+    	</ul>
+    </section>
         <section id="holdings" data-ng-repeat="holding in holdings.list">
-            <ul>
-                <li data-ng-show="holding['@id']">{{ holding['@id'] }}</li>
-                <li data-ng-show="holding.location">{{ holding.location }}</li>
-                <li data-ng-show="holding.classificationNumber">{{ holding.classificationNumber }}</li>
+            <h3 data-ng-show="holding.location"><a href="{{ holding['@id'] }}">{{ holding.location }}</a> <span class="muted"> - [biblioteksnamn]</span></h3>
+            <ul class="unstyled inline">
+				<li data-ng-show="holding.classificationPart">{{ holding.classificationPart }}</li>
+				<li data-ng-show="holding.shelvingLocation">{{ holding.shelvingLocation }}</li>
+				<li data-ng-show="holding.shelvingFormOrTitle">{{ holding.shelvingFormOrTitle }}</li>
+				<li data-ng-show="holding.shelvingControlNumber">{{ holding.shelvingControlNumber }}</li>
             </ul>
+            <hr>
         </section>
         </article>
         <h1>TEST: Languages</h1>
