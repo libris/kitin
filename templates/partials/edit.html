@@ -108,6 +108,8 @@
           <label>{{ "Huvudtitel" }}</label>
           <input class="title input-xxlarge" type="text" data-ng-model="work.titleRemainder" />
           <label>{{ "Övrigt titelinformation" }}</label>
+          <input class="input-xxlarge" type="text" data-ng-model="work.mediaTerm" />
+          <label>{{ "Allmän mediaterm" }}</label>
         </div>
         <div class="field span4">
           <input class="input-large" type="text" data-ng-model="work.statementOfResponsibility" />
@@ -142,14 +144,14 @@
       <div class="row-fluid" >
         <div class="field span12">
           <ul class="inline">
-          <li data-ng-repeat="topic in work.subject"><a class="btn btn-small" href="{{ topic['@id'] }}"><i class="icon-user icon-tag"></i> {{ topic['@id'] }}</a></li>
+          <li data-ng-repeat="topic in work.subject"><a class="btn btn-small" href="{{ topic['@id'] }}"><i class="icon-tag"></i> {{ topic['@id'] }}</a></li>
           <!--
           <input class="input-xxlarge" type="text" data-ng-model="topic['@id']" />
           -->
           </ul>
           <ul class="inline">
-          <li data-ng-repeat="topicalTerm in record.topicalTerm"><a class="btn btn-small" href="{{ topicalTerm }}"><i class="icon-user icon-tag"></i> {{ topicalTerm }}</a></li>
-          </ul>
+          <li data-ng-repeat="topicalTerm in record.topicalTerm"><a class="btn btn-small" href="{{ topicalTerm }}"><i class="icon-tag"></i> {{ topicalTerm }}</a></li>
+      
         </div>
       </div>
     </section>
