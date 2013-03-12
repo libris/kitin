@@ -500,6 +500,12 @@ kitin.directive('kitinAutocomplete', function() {
           })
           our_person.birthYear = item.data.birthYear;
           our_person.deathYear = item.data.deathYear;
+          // TODO: If possible; learn how to do this the angular way
+          if(item.data.authorized) {
+            $(elem).closest('.person').find('.authdependant').prop('disabled', true);
+          } else {
+            $(elem).closest('.person').find('.authdependant').prop('disabled', false);
+          }
           scope.person.authoritativeName = item.data.authoritativeName;
           scope.person.authorizedAccessPoint = item.data.authorizedAccessPoint;
           scope.person.givenName = item.data.givenName;

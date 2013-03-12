@@ -116,8 +116,8 @@
           <label>{{ "Upphov" }}</label>
         </div>
       </div>
-      <div class="row-fluid">
-        <div class="field span6" data-ng-repeat="person in work.authorList">
+      <div class="row-fluid persons">
+        <div class="field span6 person" data-ng-repeat="person in work.authorList">
       <div class="row-fluid">
           <div class="field span7">
             <i class="icon-user icon-author"></i>
@@ -125,11 +125,11 @@
             <label>{{ "Personnamn" }}</label>
           </div>
           <div class="field span2">
-            <input class="input-mini" type="text" data-ng-model="person.birthYear" />
+            <input class="input-mini authdependant" type="text" data-ng-model="person.birthYear" />
             <label>{{ "Född" }}</label>
           </div>
           <div class="field span2" data-ng-show="person.deathYear">
-            <input class="input-mini" type="text" data-ng-model="person.deathYear" />
+            <input class="input-mini authdependant" type="text" data-ng-model="person.deathYear" />
             <label> &mdash; {{ "Död" }}</label>
           </div>
        </div>
