@@ -458,20 +458,11 @@ kitin.directive('fadable', function(conf) {
 kitin.directive('kitinAutocomplete', function() {
   return {
     restrict: 'A',
-    //scope: {
-    //  kitinAutocomplete: '=',
-    //  kitinService: '='
-    //},
     link: function(scope, elem, attrs) {
-      // var field = scope[attrs.kitinAutocomplete];
-      // var service = scope[attrs.kitinConfig].service;
-      // TODO: always from 100 for auth?
-      // var tag = service == 'auth'? '100': field.getTagDfn().tag;
-      // var row = field.getRow();
 
       var templateId = attrs.kitinTemplate;
-      // IMPROVE: replace current autocomplete mechanism and use angular
-      // templates ($compile) all the way.. It if is fast enough..
+      /* TODO: IMPROVE: replace current autocomplete mechanism and use angular
+      templates ($compile) all the way.. It if is fast enough..*/ 
       var template = _.template(jQuery('#' + 'auth-completion-template').html())
 
       elem.autocomplete("/suggest/auth", {
@@ -482,14 +473,20 @@ kitin.directive('kitinAutocomplete', function() {
         filterResults: false,
         useCache: false,
 
+        // TODO: is this used?
         beforeUseConverter: function (repr) { return repr; },
 
         processData: function (doc) {
           if (!doc|| !doc.list) {
-            console.log("Found no results!"); // TODO: notify no match?
+            console.log("Found no results!"); // TODO: notify no match to user
             return [];
           }
-          return doc.list.map(function(item) { return {value: item.authoritativeName, data: item}; });
+          return doc.list.map(function(item) {
+            result = item.data;
+            result['authorized'] = item.authorized;
+            result['identifier'] = item.identifier;
+            return {value: item.data.authoritativeName, data: result};
+          });
         },
 
         showResult: function (value, data) {
@@ -497,26 +494,16 @@ kitin.directive('kitinAutocomplete', function() {
         },
 
         onItemSelect: function(item, completer) {
-          var selected = item.data[tag];
-          // TODO: should also clear (or remove?) other subfields
-          for (var subKey in selected) {
-            var newValue = selected[subKey];
-            if (subKey.slice(0, 3) === 'ind') {
-              row[subKey] = newValue;
-              continue;
-            }
-            for (var l=row.subfields, subfield=null, i=0; subfield=l[i++];)
-              if (subfield[subKey] !== undefined)
-                break;
-            if (subfield) {
-              subfield[subKey] = newValue;
-            }
-          }
-          if (!scope.$$phase) {
-              scope.$apply();
-          }
+          var key = scope.person['$$hashKey'];
+          var our_person = _.find(scope.$parent.work.authorList, function(e) {
+            return e['$$hashKey'] == key;
+          })
+          our_person.birthYear = item.data.birthYear;
+          our_person.deathYear = item.data.deathYear;
+          scope.person.authoritativeName = item.data.authoritativeName;
+          scope.person['@id'] = item.data.identifier;
+          scope.$apply();
         }
-
       });
     }
   };

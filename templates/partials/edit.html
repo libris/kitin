@@ -120,7 +120,8 @@
         <div class="field span6" data-ng-repeat="person in work.authorList">
       <div class="row-fluid">
           <div class="field span7">
-            <i class="icon-user icon-author"></i><input class="input" type="text" data-ng-model="person.authoritativeName" />
+            <i class="icon-user icon-author"></i>
+            <input class="input" type="text" data-kitin-autocomplete="field" data-kitin-template="auth-completion-template" data-ng-model="person.authoritativeName" />
             <label>{{ "Personnamn" }}</label>
           </div>
           <div class="field span2">
