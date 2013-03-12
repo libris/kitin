@@ -501,6 +501,10 @@ kitin.directive('kitinAutocomplete', function() {
           our_person.birthYear = item.data.birthYear;
           our_person.deathYear = item.data.deathYear;
           scope.person.authoritativeName = item.data.authoritativeName;
+          scope.person.authorizedAccessPoint = item.data.authorizedAccessPoint;
+          scope.person.givenName = item.data.givenName;
+          scope.person.familyName = item.data.familyName;
+          scope.person.name = item.data.name;
           scope.person['@id'] = item.data.identifier;
           scope.$apply();
         }
