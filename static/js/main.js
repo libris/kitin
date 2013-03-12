@@ -57,7 +57,6 @@ kitin.factory('records', function ($http, $q) {
 
   function saveRecord(type, id, data, etag) {
     var record = $q.defer();
-    console.log(etag);
     $http.put("/record/" + type + "/" + id, data, {headers: {"If-match":etag}}).success(function(data, status, headers) {
       record['bibdata'] = data;
       record['etag'] = headers('etag');

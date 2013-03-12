@@ -308,7 +308,6 @@ def show_marc_record(rec_type, rec_id):
 #@login_required
 def get_bib_data(rec_id):
     # TODO: How check if user is logged in?
-    # TODO: Check if exists as draft and fetch from local db if so!
     draft = storage.get_draft(current_user.get_id(), "bib", rec_id)
     if draft == None:
         whelk_url = "%s/bib/%s" % (app.config['WHELK_HOST'], rec_id)
@@ -363,15 +362,17 @@ def get_drafts():
 def update_document(rec_id):
     """Saves updated records to whelk"""
     json_string = json.dumps(request.json)
-    headers = {'content-type': 'application/json', 'If-match': request.headers['If-match']}
+    if_match = request.headers['If-match']
+    h = {'content-type': 'application/json', 'If-match': if_match}
     path = "%s/bib/%s" % (app.config['WHELK_HOST'], rec_id)
-    response = requests.put(path, data=json_string, headers=headers)
+    response = requests.put(path, data=json_string, headers=h, allow_redirects=True)
     if response.status_code == 200:
         storage.delete_draft(current_user.get_id(), "bib", rec_id)
+        resp = raw_json_response(response.text)
+        resp.headers['etag'] = response.headers['etag'].replace('"', '')
+        return resp
     else:
         abort(response.status_code)
-    return raw_json_response(json_string)
-
 
 @app.route('/record/bib/create', methods=['POST'])
 def create_record():
