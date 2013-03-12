@@ -42,7 +42,7 @@ class Storage(object):
         with open(filename, 'w') as f:
             doc = {}
             doc['document'] = json.loads(json_data)
-            doc['etag'] = etag
+            doc['etag'] = etag.replace('"', '')
             f.write(json.dumps(doc))
 
     def update_draft(self, user_id, rec_type, rec_id, json_data, etag):
@@ -76,13 +76,11 @@ class Storage(object):
         for root, subFolders, files in os.walk(construct_path([self.path, user_id])):
             for file in files:
                 f = os.path.join(root,file)
-                with open(f, "r") as draft:
-                    item = {}
-                    json_data = json.loads(draft.read())
-                    item["id"] = json_data['document']['@id'].rsplit("/",2)[-1:][0]
-                    item["type"] = json_data['document']['@id'].rsplit("/",2)[-2:][0]
-                    item["path"] = f
-                    drafts.append(item)
+                item = {}
+                item['type'] = f.rsplit("/",2)[-2:-1][0]
+                item['id'] = f.rsplit("/",2)[-1:][0]
+                item['path'] = f
+                drafts.append(item)
         result['drafts'] = drafts
         return json.dumps(result)
 
