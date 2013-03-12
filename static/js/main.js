@@ -95,6 +95,21 @@ kitin.factory('resources', function($http) {
   return resources;
 });
 
+kitin.factory('constants', function(flaskConstants) {
+    var constants = {
+        uiConstantOfChoice: "Whatever"
+    };
+
+    angular.extend(constants, flaskConstants);
+    return {
+        get: function(key) {
+            return constants[key];
+        },
+        all: function() {
+            return constants;
+        }
+    };
+});
 /*kitin.factory('bibdb', function($http) {
     var lib = {
         getResourceList: function(sigel) {
@@ -134,7 +149,7 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
     });
 }
 
-function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources) {
+function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, constants) {
   var recType = $routeParams.recType, recId = $routeParams.recId;
   var path = "/record/" + recType + "/" + recId;
 
@@ -159,6 +174,8 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources) {
       bibid = data['bibdata']['controlNumber'];
       $scope.record = data['bibdata'];
       $scope.etag = data['etag'];
+      $scope.user_sigel = constants.get("user_sigel")
+      $scope.all_constants = constants.all();
       var holdpath = "/holdings?bibid=/bib/" + bibid;
       $http.get(holdpath).success(function(holdata) {
           $scope.holdings = holdata;
