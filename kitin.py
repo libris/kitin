@@ -79,14 +79,6 @@ def get_holdings():
             app.config['WHELK_HOST'], bibid))
         return raw_json_response(resp.text)
 
-#@app.route("/bibdb")
-#def get_libraryinfo():
-#    print "FILE: ", app.config['LIBRARIES']
-#    libraries = open(app.config['LIBRARIES']).read()
-    
-#    libdict = json.loads(libraries)
-    #return libraries
-
 @app.route("/resource")
 def get_resource():
     restype = request.args.get("type")
@@ -98,52 +90,6 @@ def get_resource():
 def get_mockresult():
     with open("mocked_result_set.json") as f:
         return raw_json_response(f.read())
-
-
-#@app.route("/old_search")
-##@login_required
-#def old_search():
-#    q = request.args.get('q')
-#    facet = request.args.get('f', '').strip()
-#    if facet:
-#        dedupf = []
-#        for ftmp in facet.split(' '):
-#            if ftmp in dedupf:
-#                dedupf.remove(ftmp)
-#            else:
-#                dedupf.append(ftmp)
-#        facet = ' '.join(dedupf)
-#    freq = "&f=%s" % facet
-#
-#    search_results = None
-#    b = request.args.get('b', '')
-#    boost = ("&boost=%s" % b) if b else ''
-#    breadcrumbs = []
-#    if q:
-#        resp = requests.get("%s/bib/kitin/_search?q=%s%s%s" % (
-#            app.config['WHELK_HOST'], q, freq, boost))
-#        data = json.loads(resp.text)
-#        search_results = [get_record_summary(item['data']) for item in data['list']]
-#        print "search results", search_results
-#        facets = [get_facet_labels(f_group, f_values) for f_group, f_values in data['facets'].items()]
-#
-#        iterate_facets = dict([(f_labels['propref'], f_labels) for f_labels in facets])
-#        ordered_facets = []
-#        facet_order = ["bookSerial", "typeOfRecord", "bibLevel", "carrierType", "yearTime1"]
-#        for fo in facet_order:
-#            if fo in iterate_facets.keys():
-#                ordered_facets.append(iterate_facets[fo])
-#
-#        facets = ordered_facets
-#        for tmpfac in facets:
-#            compfac = tmpfac['link']
-#            if compfac in facet:
-#                for fvals in tmpfac['f_values']:
-#                    concfac = compfac + ":" + fvals[0]
-#                    if concfac in facet:
-#                        breadcrumbs.append(fvals[1][1])
-#   
-#    return render_template('search.html', user = current_user if current_user.is_active() else None, **vars())
 
 def chunk_number(num):
     number = str(num)
@@ -362,7 +308,6 @@ def show_marc_record(rec_type, rec_id):
 #@login_required
 def get_bib_data(rec_id):
     # TODO: How check if user is logged in?
-    # TODO: Check if exists as draft and fetch from local db if so!
     draft = storage.get_draft(current_user.get_id(), "bib", rec_id)
     if draft == None:
         whelk_url = "%s/bib/%s" % (app.config['WHELK_HOST'], rec_id)
@@ -417,15 +362,17 @@ def get_drafts():
 def update_document(rec_id):
     """Saves updated records to whelk"""
     json_string = json.dumps(request.json)
-    headers = {'content-type': 'application/json', 'If-match': request.headers['If-match']}
+    if_match = request.headers['If-match']
+    h = {'content-type': 'application/json', 'If-match': if_match}
     path = "%s/bib/%s" % (app.config['WHELK_HOST'], rec_id)
-    response = requests.put(path, data=json_string, headers=headers)
+    response = requests.put(path, data=json_string, headers=h, allow_redirects=True)
     if response.status_code == 200:
         storage.delete_draft(current_user.get_id(), "bib", rec_id)
+        resp = raw_json_response(response.text)
+        resp.headers['etag'] = response.headers['etag'].replace('"', '')
+        return resp
     else:
         abort(response.status_code)
-    return raw_json_response(json_string)
-
 
 @app.route('/record/bib/create', methods=['POST'])
 def create_record():
