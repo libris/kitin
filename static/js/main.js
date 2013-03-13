@@ -480,6 +480,12 @@ kitin.directive('kitinAutocomplete', function() {
       /* TODO: IMPROVE: replace current autocomplete mechanism and use angular
       templates ($compile) all the way.. It if is fast enough..*/ 
       var template = _.template(jQuery('#' + 'auth-completion-template').html())
+      var selected = false;
+      var is_authorized = false;
+
+      function toggleRelatedFieldsEditable(val) {
+        $(elem).closest('.person').find('.authdependant').prop('disabled', val);
+      };
 
       elem.autocomplete("/suggest/auth", {
 
@@ -494,6 +500,9 @@ kitin.directive('kitinAutocomplete', function() {
 
         processData: function (doc) {
           if (!doc|| !doc.list) {
+            is_authorized = false;
+            selected = false;
+            toggleRelatedFieldsEditable(false);
             console.log("Found no results!"); // TODO: notify no match to user
             return [];
           }
@@ -509,7 +518,21 @@ kitin.directive('kitinAutocomplete', function() {
           return template({data: data});
         },
 
+        onFinish: function() {
+          if(selected && is_authorized) {
+            toggleRelatedFieldsEditable(true);
+          } else {
+            toggleRelatedFieldsEditable(false);
+          }
+        },
+        onNoMatch: function() {
+          selected = false;
+          is_authorized = false;
+          toggleRelatedFieldsEditable(false);
+        },
+
         onItemSelect: function(item, completer) {
+          selected = true;
           var key = scope.person['$$hashKey'];
           var our_person = _.find(scope.$parent.work.authorList, function(e) {
             return e['$$hashKey'] == key;
@@ -518,9 +541,9 @@ kitin.directive('kitinAutocomplete', function() {
           our_person.deathYear = item.data.deathYear;
           // TODO: If possible; learn how to do this the angular way
           if(item.data.authorized) {
-            $(elem).closest('.person').find('.authdependant').prop('disabled', true);
+            is_authorized = true;
           } else {
-            $(elem).closest('.person').find('.authdependant').prop('disabled', false);
+            is_authorized = false;
           }
           scope.person.authoritativeName = item.data.authoritativeName;
           scope.person.authorizedAccessPoint = item.data.authorizedAccessPoint;
