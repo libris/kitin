@@ -71,24 +71,31 @@ def search():
            return raw_json_response(resp.text)
     return render_template('index.html', partials = {"/partials/search" : "partials/search.html"})
 
-@app.route("/holdings")
-def get_holdings():
-    bibid = request.args.get("bibid")
-    if bibid:
-        resp = requests.get("%s/hold/_metasearch?link=%s" % (
-            app.config['WHELK_HOST'], bibid))
+@app.route('/record/<record_type>/<record_id>/holdings')
+def get_holdings(record_type, record_id):
+        resp = requests.get("%s/hold/_metasearch?link=%s" % (app.config['WHELK_HOST'], record_id))
         return raw_json_response(resp.text)
 
-#TODO: Integrate holdings update with bib-record save
-@app.route('/record/hold/<rec_id>', methods=['PUT'])
-def update_holding(rec_id):
-    url = "%s/hold/%s" % (
-        app.config['WHELK_HOST'], rec_id)
-    hdr = {'content-type': 'application/json'}
-    jsonrec = json.dumps(request.json);
-    response = requests.put(url, data=jsonrec, headers=hdr, allow_redirects=True)
+@app.route('/holding/<holding_id>', methods=['GET'])
+def get_holding(holding_id):
+    response = requests.get("%s/hold/%s" % (app.config['WHELK_HOST'], holding_id))
     if response.status_code == 200:
-        return raw_json_response(jsonrec) 
+        resp = raw_json_response(response.text)
+        resp.headers['etag'] = response.headers['etag'].replace('"', '')
+        return resp
+    else:
+        abort(response.status_code)
+
+@app.route('/holding/<holding_id>', methods=['PUT'])
+def save_holding(holding_id):
+    if_match = request.headers['If-match']
+    h = {'content-type': 'application/json', 'If-match': if_match}
+    path = "%s/hold/%s" % (app.config['WHELK_HOST'], holding_id)
+    response = requests.put(path, data=request.data, headers=h, allow_redirects=True)
+    if response.status_code == 200:
+        resp = raw_json_response(response.text)
+        resp.headers['etag'] = response.headers['etag'].replace('"', '')
+        return resp
     else:
         abort(response.status_code)
 
@@ -339,7 +346,6 @@ def get_bib_data(rec_id):
     resp = raw_json_response(document)
     resp.headers['etag'] = etag
     return resp
-
 
 ## TODO: Add middleware to support DELETE method instead of POST
 @app.route('/record/bib/<id>/draft/delete', methods=['POST'])

@@ -97,31 +97,20 @@ kitin.factory('resources', function($http) {
 
 // Gather constants from angular or flask context
 kitin.factory('constants', function(flaskConstants) {
-    var constants = {
-        uiConstantOfChoice: "Whatever"
-    };
+  var constants = {
+    uiConstantOfChoice: "Whatever"
+  };
 
-    angular.extend(constants, flaskConstants);
-    return {
-        get: function(key) {
-            return constants[key];
-        },
-        all: function() {
-            return constants;
-        }
-    };
+  angular.extend(constants, flaskConstants);
+  return {
+    get: function(key) {
+      return constants[key];
+    },
+    all: function() {
+      return constants;
+    }
+  };
 });
-/*kitin.factory('bibdb', function($http) {
-    var lib = {
-        getResourceList: function(sigel) {
-            var promise = $http.get("/bibdb?sigel=" + sigel).then(function(response) {
-                return response.data;
-            });
-            return promise;
-        }
-    };
-    return lib;
-});*/
 
 function IndexCtrl($scope, $http) {
   $scope.drafts = $http.get("/drafts").success(function(data) {
@@ -136,18 +125,18 @@ function IndexCtrl($scope, $http) {
 }
 
 function SearchCtrl($scope, $http, $location, $routeParams) {
-    $scope.q = $routeParams.q;
+  $scope.q = $routeParams.q;
+  var url = "/search?q=" + $scope.q;
+  $scope.search = function() {
     var url = "/search?q=" + $scope.q;
-    $scope.search = function() {
-        var url = "/search?q=" + $scope.q;
-        $location.url(url);
-    };
-    if (!$routeParams.q) {
-        return;
-    }
-    $http.get(url).success(function(data) {
-        $scope.result = data;
-    });
+    $location.url(url);
+  };
+  if (!$routeParams.q) {
+    return;
+  }
+  $http.get(url).success(function(data) {
+    $scope.result = data;
+  });
 }
 
 function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, constants) {
@@ -172,16 +161,33 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   }
 
   records.get(recType, recId).then(function(data) {
-      bibid = data['recdata']['controlNumber'];
-      $scope.record = data['recdata'];
-      $scope.etag = data['etag'];
-      $scope.user_sigel = constants.get("user_sigel")
-      //$scope.all_constants = constants.all(); 
-      var holdpath = "/holdings?bibid=/bib/" + bibid;
-      $http.get(holdpath).success(function(holdata) {
-          $scope.holdings = holdata;
-      }); 
+    bibid = data['recdata']['controlNumber'];
+    $scope.record = data['recdata'];
+    $scope.etag = data['etag'];
+    $scope.user_sigel = constants.get("user_sigel")
+    $scope.all_constants = constants.all();
+    $http.get("/record/" + recType + "/" + recId + "/holdings").success(function(holdata) {
+      $scope.holdings = holdata;
+      var holding_etags = {};
+      var items = holdata.list;
+      for(var i in items) {
+         $http.get("/holding/"+ items[i]['@id'].split("/").slice(-2)[1]).success(function(data, status, headers) {
+           holding_etags[data['@id']] = headers('etag');
+         });
+      }
+      $scope.holding_etags = holding_etags;
+    });
   });
+
+  $scope.save_holding = function(holding) {
+    var etag = $scope.holding_etags[holding['@id']];
+    console.log("holding etag: " + etag);
+    $http.put("/holding/" + holding['@id'].split("/").slice(-2)[1], holding, {headers: {"If-match":etag}}).success(function(data, status, headers) {
+      console.log(status);
+      console.log(data);
+      console.log(headers());
+    });
+  }
 
   $scope.save = function() {
     var if_match_header = $scope.etag.replace(/["']/g, "");
@@ -192,20 +198,12 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   }
 
   $scope.save_draft = function() {
-     $http.post("/record/"+$routeParams.recType+"/"+$routeParams.recId+"/draft", $scope.record, {headers: {"If-match":$scope.etag}}).success(function(data, status) {
-       $scope.draft = data;
-       $scope.draft.type = data['@id'].split("/").slice(-2)[0];
-       $scope.draft.id = data['@id'].split("/").slice(-2)[1];
-       $('.flash_message').text("Utkast sparat!");
-     });
-  }
-  // TODO: Integrate save with records service and etag handling (must get holding separately to get hold of etag) 
-  $scope.save_holding = function(holding) {
-      var holdid = holding.controlNumber;
-      var rec = angular.toJson(holding)
-      $http.put("/record/hold/" + holdid, rec).success(function(data, status) {
-          console.log("Worked to save: ", status);
-      });
+    $http.post("/record/"+$routeParams.recType+"/"+$routeParams.recId+"/draft", $scope.record, {headers: {"If-match":$scope.etag}}).success(function(data, status) {
+      $scope.draft = data;
+      $scope.draft.type = data['@id'].split("/").slice(-2)[0];
+      $scope.draft.id = data['@id'].split("/").slice(-2)[1];
+      $('.flash_message').text("Utkast sparat!");
+    });
   }
 
   $http.get("/draft/"+recType+"/"+recId).success(function(data, status, headers) {
@@ -219,16 +217,16 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
 
   // GET RESOURCES
   resources.getResourceList("lang").then(function(data) {
-      $scope.langlist = data;
+    $scope.langlist = data;
   });
   resources.getResourceList("country").then(function(data) {
-      $scope.countrylist = data;
+    $scope.countrylist = data;
   });
   resources.getResourceList("function").then(function(data) {
-      $scope.functionlist = data;
+    $scope.functionlist = data;
   });
   resources.getResourceList("nationality").then(function(data) {
-      $scope.nationalitylist = data;
+    $scope.nationalitylist = data;
   });
 
 }

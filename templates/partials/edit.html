@@ -247,6 +247,26 @@
     <h2>BESTÅND</h2>
     <article class="well">
       <section>
+        <ul>
+          <li data-ng-repeat="holding in holdings.list">
+            <form class="form-inline">
+              <input class="input-large" data-ng-model="holding.shelvingControlNumber"/>
+              <label>shelvingControlNumber</label>
+              <input class="input-large" data-ng-model="holding.issueMode"/>
+              <label>issueMode</label>
+              <input class="input-large" data-ng-model="holding.location"/>
+              <label>location</label>
+              <input class="input-large" data.ng-model="holding.classificationPart"/>
+              <label>classificationPart</label>
+              <input type='button' value='Spara' data-ng-click="save_holding(holding)"/>
+            </form>
+          </li>
+        </ul>
+      </section>
+    </article>
+
+    <article class="well">
+      <section>
         <btn class="btn btn-primary"> Lägg till bestånd för [mitt sigel]
         <input class="input-large" placeholder="hyllsignum"/>
         <input class="input-large" placeholder="Löpnummer"/>
@@ -276,15 +296,6 @@
       </section>
     </article>
 
-    <h1>TEST: Languages</h1>
-    <ul> <li data-ng-repeat="(abbr, term) in langlist">{{ abbr }} = {{ term }}</li> </ul>
-    <h1>TEST: Countries</h1>
-    <ul> <li data-ng-repeat="(abbr, term) in countrylist">{{ abbr }} = {{ term }}</li> </ul>
-    <h1>TEST: Functions</h1>
-    <ul> <li data-ng-repeat="(abbr, term) in functionlist">{{ abbr }} = {{ term }}</li> </ul>
-    <h1>TEST: Nationalities</h1>
-    <ul> <li data-ng-repeat="(abbr, term) in nationalitylist">{{ abbr }} = {{ term }}</li> </ul>
-
 </form>
 
 <script type="text/ng-template" id="render-holding">
@@ -300,7 +311,6 @@
 </div>
 </script>
 
-{% raw %}
 <script type="text/html" id="auth-completion-template">
 <div class="auth">
   <h4>
@@ -319,5 +329,4 @@
   </h4>
 </div>
 </script>
-{% endraw %}
 
