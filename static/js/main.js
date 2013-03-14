@@ -48,8 +48,9 @@ kitin.factory('records', function ($http, $q) {
     $http.get(path).success(function (struct, status, headers) {
       currentPath = path;
       currentRecord = struct;
-      record['bibdata'] = struct;
+      record['recdata'] = struct;
       record['etag'] = headers('etag');
+      console.log("RECORD: ", record['etag']);
       record.resolve(record);
     });
     return record.promise;
@@ -58,7 +59,7 @@ kitin.factory('records', function ($http, $q) {
   function saveRecord(type, id, data, etag) {
     var record = $q.defer();
     $http.put("/record/" + type + "/" + id, data, {headers: {"If-match":etag}}).success(function(data, status, headers) {
-      record['bibdata'] = data;
+      record['recdata'] = data;
       record['etag'] = headers('etag');
       record.resolve(record);
     }).error(function() {
@@ -94,6 +95,7 @@ kitin.factory('resources', function($http) {
   return resources;
 });
 
+// Gather constants from angular or flask context
 kitin.factory('constants', function(flaskConstants) {
     var constants = {
         uiConstantOfChoice: "Whatever"
@@ -170,11 +172,11 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   }
 
   records.get(recType, recId).then(function(data) {
-      bibid = data['bibdata']['controlNumber'];
-      $scope.record = data['bibdata'];
+      bibid = data['recdata']['controlNumber'];
+      $scope.record = data['recdata'];
       $scope.etag = data['etag'];
       $scope.user_sigel = constants.get("user_sigel")
-      $scope.all_constants = constants.all();
+      //$scope.all_constants = constants.all(); 
       var holdpath = "/holdings?bibid=/bib/" + bibid;
       $http.get(holdpath).success(function(holdata) {
           $scope.holdings = holdata;
@@ -184,7 +186,7 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   $scope.save = function() {
     var if_match_header = $scope.etag.replace(/["']/g, "");
     records.save(recType, recId, $scope.record, $scope.etag.replace(/["']/g, "")).then(function(data) {
-      $scope.record = data['bibdata']
+      $scope.record = data['recdata']
       $scope.etag = data['etag'];
     });
   }
@@ -196,6 +198,14 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
        $scope.draft.id = data['@id'].split("/").slice(-2)[1];
        $('.flash_message').text("Utkast sparat!");
      });
+  }
+  // TODO: Integrate save with records service and etag handling (must get holding separately to get hold of etag) 
+  $scope.save_holding = function(holding) {
+      var holdid = holding.controlNumber;
+      var rec = angular.toJson(holding)
+      $http.put("/record/hold/" + holdid, rec).success(function(data, status) {
+          console.log("Worked to save: ", status);
+      });
   }
 
   $http.get("/draft/"+recType+"/"+recId).success(function(data, status, headers) {

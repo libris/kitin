@@ -272,9 +272,9 @@
     </section>
         </article>
         <h1>TEST: Languages</h1>
-        <ul>
-            <li data-ng-repeat="(abbr, term) in langlist">{{ abbr }} = {{ term }}</li>
-        </ul>
+        <select>
+            <option data-ng-repeat="(abbr, term) in langlist">{{ abbr }} = {{ term }}</option>
+        </select>
         <h1>TEST: Countries</h1>
         <ul>
             <li data-ng-repeat="(abbr, term) in countrylist">{{ abbr }} = {{ term }}</li>
@@ -292,11 +292,18 @@
 <script type="text/ng-template" id="render-holding">
     <div data-ng-show="holding.location">
         <h3><a href="{{ holding['@id'] }}">{{ holding.location }}</a> <span class="muted"> - [biblioteksnamn]</span></h3>
+        <div class="row-fluid">
+          <div class="field span12">
+            <input class="input-mini" type="text" data-ng-model="holding.shelvingControlNumber" />
+            <label>{{ "Hyllnummer" }}</label>
+            <input type='button' value='Spara bestånd' data-ng-click="save_holding(holding)"/>
+          </div>
+        </div>
         <ul class="unstyled inline">
+            <li>{{ holding.header('etag') }}</li>
 	    <li data-ng-show="holding.classificationPart">{{ holding.classificationPart }}</li>
 	    <li data-ng-show="holding.shelvingLocation">{{ holding.shelvingLocation }}</li>
 	    <li data-ng-show="holding.shelvingFormOrTitle">{{ holding.shelvingFormOrTitle }}</li>
-	    <li data-ng-show="holding.shelvingControlNumber">{{ holding.shelvingControlNumber }}</li>
         </ul>
         <hr>
     </div>

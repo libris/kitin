@@ -79,6 +79,19 @@ def get_holdings():
             app.config['WHELK_HOST'], bibid))
         return raw_json_response(resp.text)
 
+#TODO: Integrate holdings update with bib-record save
+@app.route('/record/hold/<rec_id>', methods=['PUT'])
+def update_holding(rec_id):
+    url = "%s/hold/%s" % (
+        app.config['WHELK_HOST'], rec_id)
+    hdr = {'content-type': 'application/json'}
+    jsonrec = json.dumps(request.json);
+    response = requests.put(url, data=jsonrec, headers=hdr, allow_redirects=True)
+    if response.status_code == 200:
+        return raw_json_response(jsonrec) 
+    else:
+        abort(response.status_code)
+
 @app.route("/resource")
 def get_resource():
     restype = request.args.get("type")
@@ -358,8 +371,8 @@ def get_drafts():
     drafts = storage.get_drafts_as_json(current_user.get_id())
     return raw_json_response(drafts)
 
-@app.route('/record/bib/<rec_id>', methods=['PUT'])
-def update_document(rec_id):
+@app.route('/record/<rec_type>/<rec_id>', methods=['PUT'])
+def update_document(rec_type, rec_id):
     """Saves updated records to whelk"""
     json_string = json.dumps(request.json)
     if_match = request.headers['If-match']
