@@ -50,7 +50,6 @@ kitin.factory('records', function ($http, $q) {
       currentRecord = struct;
       record['recdata'] = struct;
       record['etag'] = headers('etag');
-      console.log("RECORD: ", record['etag']);
       record.resolve(record);
     });
     return record.promise;
@@ -184,8 +183,9 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     console.log("holding etag: " + etag);
     $http.put("/holding/" + holding['@id'].split("/").slice(-2)[1], holding, {headers: {"If-match":etag}}).success(function(data, status, headers) {
       console.log(status);
-      console.log(data);
-      console.log(headers());
+      $scope.holding_etags[data['@id']] = headers('etag');
+    }).error(function(data, status, headers) {
+      console.log("ohh crap!");
     });
   }
 
