@@ -166,7 +166,7 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     $scope.user_sigel = constants.get("user_sigel")
     $scope.all_constants = constants.all();
     $http.get("/record/" + recType + "/" + recId + "/holdings").success(function(holdata) {
-      $scope.holdings = holdata;
+      $scope.holdings = holdata.list;
       var holding_etags = {};
       var items = holdata.list;
       for(var i in items) {
@@ -182,11 +182,21 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     var etag = $scope.holding_etags[holding['@id']];
     console.log("holding etag: " + etag);
     $http.put("/holding/" + holding['@id'].split("/").slice(-2)[1], holding, {headers: {"If-match":etag}}).success(function(data, status, headers) {
-      console.log(status);
+      console.log("successfully saved holding with id: " + holding['@id']);
       $scope.holding_etags[data['@id']] = headers('etag');
     }).error(function(data, status, headers) {
       console.log("ohh crap!");
     });
+  }
+
+  $scope.delete_holding = function(index) {
+    var holding_id = $scope.holdings[index]['@id'].split("/").slice(-2)[1];
+    $http.delete("/holding/" + holding_id).success(function(data, success) {
+      console.log("great success!");
+      $scope.holdings.splice(index,1);
+    }).error(function() {
+      console.log("oh crap!");
+    })
   }
 
   $scope.save = function() {

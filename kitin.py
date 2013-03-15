@@ -99,6 +99,12 @@ def save_holding(holding_id):
     else:
         abort(response.status_code)
 
+@app.route('/holding/<holding_id>', methods=['DELETE'])
+def delete_holding(holding_id):
+    path = "%s/hold/%s" % (app.config['WHELK_HOST'], holding_id)
+    response = requests.delete(path)
+    return make_response("success")
+
 @app.route("/resource")
 def get_resource():
     restype = request.args.get("type")
