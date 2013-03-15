@@ -217,7 +217,17 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
 
   // GET RESOURCES
   resources.getResourceList("lang").then(function(data) {
+    /*$scope.langlist = [];
+    var obj;
+    for (var key in data) {
+        $scope.langlist.push({
+        "code" : key,
+        "name" : data[key]
+        });
+    }*/
     $scope.langlist = data;
+    //console.log("LANNGSGSG", $scope.langlist);
+    //console.log("LANNGSGSG", data);
   });
   resources.getResourceList("country").then(function(data) {
     $scope.countrylist = data;

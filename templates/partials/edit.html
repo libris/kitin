@@ -140,6 +140,7 @@
           <input class="input-mini" type="text" data-ng-model="work.language" />
           <label>{{ "Språk" }}</label>
         </div>
+        <select data-ng-options="code as name for (code, name) in langlist" data-ng-model="work.language"></select><br />
       </div>
 
       <h3>{{ "Ämnen" }}</h3>
