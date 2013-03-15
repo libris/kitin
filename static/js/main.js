@@ -170,9 +170,9 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
       var holding_etags = {};
       var items = holdata.list;
       for(var i in items) {
-         $http.get("/holding/"+ items[i]['@id'].split("/").slice(-2)[1]).success(function(data, status, headers) {
-           holding_etags[data['@id']] = headers('etag');
-         });
+        $http.get("/holding/"+ items[i]['@id'].split("/").slice(-2)[1]).success(function(data, status, headers) {
+          holding_etags[data['@id']] = headers('etag');
+        });
       }
       $scope.holding_etags = holding_etags;
     });

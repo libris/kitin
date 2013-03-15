@@ -249,18 +249,10 @@
     <article class="well">
       <section>
         <ul>
-          <li data-ng-repeat="holding in holdings.list">
-            <form class="form-inline">
-              <input class="input-large" data-ng-model="holding.shelvingControlNumber"/>
-              <label>shelvingControlNumber</label>
-              <input class="input-large" data-ng-model="holding.issueMode"/>
-              <label>issueMode</label>
-              <input class="input-large" data-ng-model="holding.location"/>
-              <label>location</label>
-              <input class="input-large" data.ng-model="holding.classificationPart"/>
-              <label>classificationPart</label>
-              <input type='button' value='Spara' data-ng-click="save_holding(holding)"/>
-            </form>
+          <li data-ng-repeat="holding in holdings.list | filter:{location:user_sigel}">
+          <input class="input-large" data-ng-model="holding.shelvingControlNumber"/>
+          <label>shelvingControlNumber</label>
+          <input type='button' id='btn3' value='Spara' data-ng-click="save_holding(holding)"/>
           </li>
         </ul>
       </section>
