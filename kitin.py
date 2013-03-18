@@ -4,6 +4,7 @@ import os
 import json
 import urllib2
 import logging
+from urlparse import urlparse
 from flask import Flask, render_template, request, make_response, abort, redirect, url_for, Markup
 from flask_login import LoginManager, login_required, login_user, flash, current_user, UserMixin, logout_user
 import requests
@@ -383,6 +384,11 @@ def get_drafts():
     drafts = storage.get_drafts_as_json(current_user.get_id())
     return raw_json_response(drafts)
 
+@app.route("/record/bib/new")
+def get_template():
+    """Returns a template object"""
+    return raw_json_response(open("./examples/templates/monografi.json", 'r').read())
+
 @app.route('/record/<rec_type>/<rec_id>', methods=['PUT'])
 def update_document(rec_type, rec_id):
     """Saves updated records to whelk"""
@@ -401,12 +407,22 @@ def update_document(rec_type, rec_id):
 
 @app.route('/record/bib/create', methods=['POST'])
 def create_record():
-    if request.json['about']['isbn']:
-        resp = requests.get("%s/bib/kitin/_search?q=%s" % ( app.config['WHELK_HOST'], request.json['about']['isbn']))
-        hits = json.loads(resp.text)['hits']
-        if hits > 0:
-            abort(409) ## Record exists!
-    # TODO: implement the rest of me!
+    h = {'content-type': 'application/json', 'format': 'jsonld'}
+    path = "%s/bib/" % (app.config['WHELK_HOST'])
+    response = requests.post(path, data=json.dumps(request.json), headers=h, allow_redirects=False)
+    if response.status_code == 200:
+        resp = raw_json_response(response.text)
+        resp.headers['etag'] = response.headers['etag'].replace('"', '')
+        return resp
+    elif response.status_code == 303:
+        data = {}
+        data['document'] = json.loads(response.text)
+        data['document_id'] = urlparse(response.headers['Location']).path.rsplit("/")[-1]
+        resp = raw_json_response(json.dumps(data))
+        resp.headers['etag'] = response.headers['etag'].replace('"', '')
+        return resp
+    else:
+        abort(response.status_code)
 
 @app.route('/marcmap.json')
 def get_marcmap():

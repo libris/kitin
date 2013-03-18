@@ -13,6 +13,8 @@ kitin.config(
               {templateUrl: '/partials/index', controller: IndexCtrl})
         .when('/search',
               {templateUrl: '/partials/search', controller: SearchCtrl})
+        .when('/edit/:recType/new',
+              { templateUrl: '/partials/edit', controller: NewRecordCtrl})
         .when('/edit/:recType/:recId',
               {templateUrl: '/partials/edit', controller: FrbrCtrl})
         .when('/marc/:recType/:recId',
@@ -67,6 +69,14 @@ kitin.factory('records', function ($http, $q) {
     return record.promise;
   }
 
+  function createRecord(type, data) {
+    var record = $q.defer();
+    $http.post("/record/" + type + "/create", data).success(function(data, status, headers) { 
+      record.resolve(data);
+    });
+    return record.promise;
+  }
+
   return {
     get: function (type, id) {
       var path = "/record/" + type + "/" + id;
@@ -79,6 +89,9 @@ kitin.factory('records', function ($http, $q) {
     save: function(type, id, data, etag) {
       return saveRecord(type, id, data, etag);
     },
+    create: function(type, data) {
+      return createRecord(type, data);
+    }
   };
 });
 
@@ -136,6 +149,19 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
   $http.get(url).success(function(data) {
     $scope.result = data;
   });
+}
+
+function NewRecordCtrl($location, $scope, records, $http, $routeParams) {
+  var recType = $routeParams.recType;
+  $http.get('/record/bib/new').success(function(data) {
+    $scope.record = data;
+  });
+
+  $scope.save = function() {
+    records.create(recType, $scope.record).then(function(data) {
+      $location.url('/edit/bib/' + data['document_id']);
+    });
+  }
 }
 
 function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, constants) {

@@ -23,10 +23,22 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
             </a>
             <a target="_self" class="brand brand-fix" href="/">LIBRIS katalogisering - prototyp</a>
             <div class="nav-collapse dropdown">
-                <ul class="nav pull-right" role="menu" aria-labelledby="dLabel">
-                    <!-- TODO: Check with angular if user exists -->   
-                    <li><a href="#"><span class="muted">Inloggad som: </span>{{current_user.username}} ({{current_user.get_sigel()}})</a></li>
-                    <li><a href="/signout?signout=yesindeedioh">Logga ut</a></li>
+              <ul class="nav pull-right" role="menu" aria-labelledby="dLabel">
+                <li><a href="#"><span class="muted">Inloggad som: </span>{{current_user.username}} ({{current_user.get_sigel()}})</a></li>
+                <li><a href="/signout?signout=yesindeedioh">Logga ut</a></li>
+                <li>
+                  <div class="btn-group">
+                    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                      Skapa ny..
+                      <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a href="/edit/bib/new">Monografi</a></li>
+                      <li><a href="#">CD (TBD)</a></li>
+                      <li><a href="#">ebok (TBD)</a></li>
+                    </ul>
+                  </div>
+                </li>
               </ul>
             </div>
           </div>
