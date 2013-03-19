@@ -15,15 +15,6 @@ Mac OS X specific:
     $ workon kb-kitin
     $ pip install -r dev-requirements.txt
 
-### Prepare a local database
-
-    $ fab prepare
-
-### Add a test user:
-
-    $ sqlite3 kitin.db
-    > INSERT INTO userdata VALUES ('somebody','somepass');
-
 ### Run the mock-whelk
 Development is more fun when there's data to toy around with.
 Clone the librisxl project and run its builtin mockserver
