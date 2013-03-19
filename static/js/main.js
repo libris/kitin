@@ -251,6 +251,14 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     console.log(status);
   });
 
+  $scope.add_person = function(authors) {
+    authors.push({ authoritativeName: "", birthYear: "" });
+  }
+
+  $scope.remove_person = function(index) {
+    $scope.record.about.instanceOf.authorList.splice(index,1);
+  }
+
   // GET RESOURCES
   resources.getResourceList("lang").then(function(data) {
     /*$scope.langlist = [];

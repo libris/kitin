@@ -132,7 +132,9 @@
               <label> &mdash; {{ "Död" }}</label>
             </div>
           </div>
+          <input type='button' value='-' class="btn btn-mini" data-ng-click="remove_person($index)"/>
         </div>
+        <input type='button' value='+' class="btn btn-mini" data-ng-click="add_person(work.authorList)"/>
       </div>
 
       <h3>{{ "Språk" }}</h3>
