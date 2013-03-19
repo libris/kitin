@@ -251,6 +251,14 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     console.log(status);
   });
 
+  $scope.add_person = function(authors) {
+    authors.push({ authoritativeName: "", birthYear: "" });
+  }
+
+  $scope.remove_person = function(index) {
+    $scope.record.about.instanceOf.authorList.splice(index,1);
+  }
+
   // GET RESOURCES
   resources.getResourceList("lang").then(function(data) {
     /*$scope.langlist = [];
@@ -524,6 +532,49 @@ kitin.directive('fadable', function(conf) {
   };
 });
 
+
+kitin.directive('isbnvalidator', function() {
+  function isvalid_isbn_13(n) {
+    var check = 0;
+    for (i = 0; i < 13; i += 2) { check += +n[i]; }
+    for (i = 1; i < 12; i += 2) { check += 3 * +n[i]; }
+    return (check % 10 === 0);
+  }
+
+  function isvalid_isbn_10(n) {
+    var check = 0;
+    for(i = 0; i < 10;i++) {
+      if(n[i] == "X") {
+        check += 10 * (10-i);
+      } else {
+        check += n[i] * (10-i);
+      }
+    }
+    return (check % 11 === 0);
+  }
+
+  function clean_isbn(n) {
+    return n.replace(/-/g,'').replace(/\s+/,'')
+  }
+
+  return {
+    require: 'ngModel',
+    link: function(scope, elm, attrs, ctrl) {
+      ctrl.$parsers.unshift(function(viewValue) {
+        var isbn = clean_isbn(viewValue);
+        if (isbn.length != 10 && isbn.length != 13) {
+          ctrl.$setValidity('isbnvalidator', false);
+        }
+        if (isbn.length == 13) {
+          ctrl.$setValidity('isbnvalidator', isvalid_isbn_13(isbn));
+        } else if (isbn.length == 10) {
+          ctrl.$setValidity('isbnvalidator', (isvalid_isbn_10(isbn)));
+        }
+        return viewValue;
+      });
+    }
+  }
+});
 
 kitin.directive('kitinAutocomplete', function() {
   return {
