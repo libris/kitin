@@ -127,15 +127,15 @@
               <input class="input-mini authdependant" type="text" data-ng-model="person.birthYear" />
               <label>{{ "Född" }}</label>
             </div>
-            <div class="field span2" data-ng-show="person.deathYear">
+            <div class="field span2">
               <input class="input-mini authdependant" type="text" data-ng-model="person.deathYear" />
               <label> &mdash; {{ "Död" }}</label>
             </div>
           </div>
           <input type='button' value='-' class="btn btn-mini" data-ng-click="remove_person($index)"/>
         </div>
-        <input type='button' value='+' class="btn btn-mini" data-ng-click="add_person(work.authorList)"/>
       </div>
+        <input type='button' value='+' class="btn btn-mini" data-ng-click="add_person(work.authorList)"/>
 
       <h3>{{ "Språk" }}</h3>
       <div class="row-fluid">
