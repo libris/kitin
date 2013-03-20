@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+  <!--[if lte IE 9]>
+Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS katalogiserings prototyp.
+  <![endif]-->
+    <meta charset="utf-8">
+    <title>LIBRIS katalogisering - prototyp</title>
+    <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.css') }}">
+    <link href="{{ url_for('static', filename='vendor/jquery/jquery.autocomplete.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+  </head>
+  <body data-ng-app="kitin">
+    <div id="wrap">
+      <div id="header">
+        <div class="logo"></div>
+        <div class="kb"></div>
+        <div class="user">
+          <span>Inloggad som <a href="#">Kerstin Anderberg</a></span>
+          <span><a href="#">Logga ut</a></span>
+        </div>
+      </div>
+	  	{% block primary %}{% endblock primary %}
+	  </div>
+	</body>
+</html>

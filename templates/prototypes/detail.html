@@ -1,0 +1,117 @@
+{% extends "prototypes/base.html" %}
+
+{% block primary %}
+<div class="formwrap bib">
+  <div id="grid"></div>
+    <!--<div data-ng-view></div>-->
+    <header>
+      <h1>Bibliografisk post</h1>
+      <div class="levels">
+        <span>Text - tryck</span>
+        <span>Monografisk resurs</span>
+        <span class="active">Biblioteksnivå</span>
+        <span>AACR/KRS</span>
+      </div>
+      <div class="modes">
+        <a href="#" class="active">Formatneutral</a>
+        <a href="#">MARC</a>
+      </div>
+    </header>
+    <section id="work" class="ng-scope">
+      <h2>Verk<i></i></h2>
+      <div class="cols">
+        <div class="col6">
+          <label>
+            <textarea class="title" spellcheck="false" placeholder="Skriv en titel">Att bryta ny marc</textarea>
+            <span class="lbl">Huvudtitel</span>
+          </label>
+          <label>
+            <textarea spellcheck="false" placeholder="Skriv en undertitel">Undertitel</textarea>
+            <span class="lbl">Övrigt titelinformation</span>
+          </label>
+        </div>
+        <div class="col6">
+          <label class="ng-binding">
+            <input class="ng-pristine ng-valid" type="text" data-ng-model="work.mediaTerm" placeholder="Allmän mediaterm">
+            <span class="lbl">Allmän mediaterm</span>
+          </label>
+          <label class="ng-binding">
+            <input class="ng-pristine ng-valid" type="text" data-ng-model="work.statementOfResponsibility" placeholder="Upphov">
+            <span class="lbl">Upphov</span>
+          </label>
+        </div>
+      </div>
+      <div class="foot">
+        <button class="btn btn-libris">Lägg till <i class="icon icon-white icon-chevron-down"></i></button>
+      </div>
+    </section>
+    <section id="work2" class="ng-scope">
+      <h2>En annan titel<i></i></h2>
+      <div class="cols">
+        <div class="col3">
+          <label>
+            <textarea spellcheck="false" placeholder="Skriv en titel">Att bryta ny marc</textarea>
+            <span class="lbl">Huvudtitel</span>
+          </label>
+          <label>
+            <textarea spellcheck="false" placeholder="Skriv en undertitel">Undertitel</textarea>
+            <span class="lbl">Övrigt titelinformation</span>
+          </label>
+        </div>
+        <div class="col3">
+          <div class="split">
+            <label class="ng-binding">
+              <input class="ng-pristine ng-valid" type="text" data-ng-model="work.mediaTerm" placeholder="1998">
+              <span class="lbl">Född</span>
+            </label>
+            <label class="ng-binding">
+              <input class="ng-pristine ng-valid" type="text" data-ng-model="work.mediaTerm" placeholder="1998">
+              <span class="lbl">Död</span>
+            </label>
+          </div>
+          <label class="ng-binding">
+            <select>
+              <option>Value 1</option>
+              <option>Value 2</option>
+            </select>
+            <span class="lbl">Upphov</span>
+          </label>
+        </div>
+        <div class="col3">
+          <label class="ng-binding">
+            <input class="ng-pristine ng-valid" type="text" data-ng-model="work.mediaTerm" placeholder="Allmän mediaterm">
+            <span class="lbl">Allmän mediaterm</span>
+          </label>
+          <label class="ng-binding">
+            <input class="ng-pristine ng-valid" type="text" data-ng-model="work.statementOfResponsibility" placeholder="Upphov">
+            <span class="lbl">Upphov</span>
+          </label>
+        </div>
+        <div class="col3">
+          <label class="ng-binding">
+            <input class="ng-pristine ng-valid" type="text" data-ng-model="work.mediaTerm" placeholder="Allmän mediaterm">
+            <span class="lbl">Allmän mediaterm</span>
+          </label>
+          <label class="ng-binding">
+            <input class="ng-pristine ng-valid" type="text" data-ng-model="work.statementOfResponsibility" placeholder="Upphov">
+            <span class="lbl">Upphov</span>
+          </label>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="cols">
+        <div class="col6">
+          <h3>Ämnesord</h3>
+        </div>
+        <div class="col6">
+          <h3>Klassifikation</h3>
+        </div>
+      </div>
+    </section>
+    <section class="submit">
+      <button class="btn btn-dark btn-submit">Publicera</button>
+    </section>
+  </div>
+</div>
+{% endblock primary %}
