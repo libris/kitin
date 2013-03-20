@@ -1,58 +1,77 @@
 {% raw %}
 <div class="row-fluid">
+
+  <div class="span3 offset0">
+    <section>
+      <article>
+        <ul>
+          <li data-ng-hide="isempty(value)" data-ng-repeat="(facet, value) in result.facets">
+            <ol >
+              <h4>{{facet_terms[facet]}}</h4>
+              <li data-ng-repeat="(key, value) in value">
+                <a href="/search?q={{facet}}:{{key}}">{{key}} ({{value}})</a>
+              </li>
+            </ol>
+          </li>
+        </ul>
+      </article>
+    </section>
+  </div>
+
   <div class="span9 offset3">
     <section class="search" role="search">
       <div class="search-bar">
-      <ul class="border-search unstyled">
+        <ul class="border-search unstyled">
           <li class="ui-search-item search-input-item">
-          <form class="form-inline search-form" data-ng-submit="search()">
-            <input id="search" name="q" type="text" autofocus
+            <form class="form-inline search-form" data-ng-submit="search()">
+              <input id="search" name="q" type="text" autofocus
                     class="xlarge ui-autocomplete-input"
                     value="" placeholder=""
                     autocomplete="off" role="textbox"
-            aria-autocomplete="list" aria-haspopup="true" data-ng-model="q">
-            <button id="submit" class="btn btn-large btn-success" type="submit">
-              <i class="icon-search icon-white"></i>
-            </button>
-          </form>
-        </li>
-      </ul>
-  </div>
+                    aria-autocomplete="list" aria-haspopup="true" data-ng-model="q">
+              <button id="submit" class="btn btn-large btn-success" type="submit">
+                <i class="icon-search icon-white"></i>
+              </button>
+            </form>
+          </li>
+        </ul>
+      </div>
     </section>
+
 	<section class="hitlist">
-  	<article data-ng-repeat="record in result.list" class="record {{record.identifier}}">
-    <a class="bib-url" href="/edit/bib/{{ record.data.controlNumber }}">
-      <header>
-        <h3>
-          <span class="title-clickable">
-            <span title="245A">{{ record.data.about.instanceOf.title }}</span>
-            <span class="title-remainder">
-              <span title="245C"> / {{ record.data.about.instanceOf.statementOfResponsibility }}</span>
-            </span>
+  	  <article data-ng-repeat="record in result.list" class="record {{record.identifier}}">
+        <a class="bib-url" href="/edit/bib/{{ record.data.controlNumber }}">
+          <header>
+            <h3>
+              <span class="title-clickable">
+                <span title="245A">{{ record.data.about.instanceOf.title }}</span>
+                <span class="title-remainder">
+                  <span title="245C"> / {{ record.data.about.instanceOf.statementOfResponsibility }}</span>
+                </span>
+              </span>
+            </h3>
+          </header>
+          <span class="unstyled-url">
+            <h4 data-ng-repeat="author in record.data.about.instanceOf.authorList">
+              <span class="author">
+                <i class="icon-user icon-author"></i>
+                <span title="100A">{{ author.name }}</span>
+                <span title="100D">{{ author.birthYear }} - {{ author.deathYear }}</span> 
+              </span>
+            </h4>
+            <div class="row-fluid">
+              <ul>
+                <li>bibLevel: {{ record.data.about.instanceOf['marc:bibLevel'].label }}</li>
+                <li>typeOfRecord: {{ record.data.about['marc:typeOfRecord'].label }}</li>
+                <li>encLevel: {{ record.data.encLevel.label }}</li>
+                <li>id: {{ record.data['@id'] }}</li>
+                <li>year: {{ record.data.about.pubDate['@value'] }}</li>
+                <li>isbn: {{ record.data.about.isbn }}</li>
+              </ul>
+            </div>
           </span>
-        </h3>
-      </header>
-      <span class="unstyled-url">
-        <h4 data-ng-repeat="author in record.data.about.instanceOf.authorList">
-          <span class="author">
-            <i class="icon-user icon-author"></i>
-            <span title="100A">{{ author.name }}</span>
-            <span title="100D">{{ author.birthYear }} - {{ author.deathYear }}</span> 
-          </span>
-        </h4>
-	    <div class="row-fluid">
-	      <ul>
-	        <li>bibLevel: {{ record.data.about.instanceOf['marc:bibLevel'].label }}</li>
-	        <li>typeOfRecord: {{ record.data.about['marc:typeOfRecord'].label }}</li>
-	        <li>encLevel: {{ record.data.encLevel.label }}</li>
-	        <li>id: {{ record.data['@id'] }}</li>
-	        <li>year: {{ record.data.about.pubDate['@value'] }}</li>
-	        <li>isbn: {{ record.data.about.isbn }}</li>
-	      </ul>
-	    </div>
-      </span>
-    </a><hr />
-    </article>
+        </a><hr />
+      </article>
     </section>
   </div>
 </div>

@@ -146,9 +146,18 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
   if (!$routeParams.q) {
     return;
   }
+  facet_terms = [];
+  facet_terms['@type'] = "Typer";
+  facet_terms['about.dateOfPublication'] = "Datum";
+  $scope.facet_terms = facet_terms;
+
   $http.get(url).success(function(data) {
     $scope.result = data;
   });
+
+  $scope.isempty = function(obj) {
+    return angular.equals({},obj)
+  }
 }
 
 function NewRecordCtrl($location, $scope, records, $http, $routeParams) {
