@@ -48,6 +48,11 @@ def index():
     user = current_user if current_user.is_active() else None
     return render_template('index.html', user=user, partials = {"/partials/index" : "partials/index.html"})
 
+@app.route("/detail")
+def detail():
+    print "detail"
+    return render_template('detail.html')
+
 @app.route("/search")
 def search():
     q = request.args.get('q')

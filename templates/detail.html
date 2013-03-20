@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+  <!--[if lte IE 9]>
+Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS katalogiserings prototyp.
+  <![endif]-->
+      <meta charset="utf-8">
+      <title>LIBRIS katalogisering - prototyp</title>
+      <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+      <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.css') }}">
+      <link href="{{ url_for('static', filename='vendor/jquery/jquery.autocomplete.css') }}" rel="stylesheet">
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+  </head>
+  <body data-ng-app="kitin">
+    <div id="wrap">
+      <div id="header">
+        <div class="logo"></div>
+        <div class="kb"></div>
+        <div class="user">
+          <span>Inloggad som <a href="#">Kerstin Anderberg</a></span>
+          <span><a href="#">Logga ut</a></span>
+        </div>
+      </div>
+      <div id="primary" class="formwrap bib">
+        <div id="grid"></div>
+        <!--<div data-ng-view></div>-->
+        <header>
+          <h1>Bibliografisk post</h1>
+          <div class="levels">
+            <span>Text - tryck</span>
+            <span>Monografisk resurs</span>
+            <span class="active">Biblioteksnivå</span>
+            <span>AACR/KRS</span>
+          </div>
+          <div class="modes">
+            <a href="#" class="active">Formatneutral</a>
+            <a href="#">MARC</a>
+          </div>
+        </header>
+        <section id="work" class="ng-scope">
+          <h2>Verk<i></i></h2>
+          <div class="cols">
+            <div class="col6">
+              <label>
+                <textarea class="title" spellcheck="false" placeholder="Skriv en titel">Att bryta ny marc</textarea>
+                <span class="lbl">Huvudtitel</span>
+              </label>
+              <label>
+                <textarea spellcheck="false" placeholder="Skriv en undertitel">Undertitel</textarea>
+                <span class="lbl">Övrigt titelinformation</span>
+              </label>
+            </div>
+            <div class="col6">
+              <label class="ng-binding">
+                <input class="ng-pristine ng-valid" type="text" data-ng-model="work.mediaTerm" placeholder="Allmän mediaterm">
+                <span class="lbl">Allmän mediaterm</span>
+              </label>
+              <label class="ng-binding">
+                <input class="ng-pristine ng-valid" type="text" data-ng-model="work.statementOfResponsibility" placeholder="Upphov">
+                <span class="lbl">Upphov</span>
+              </label>
+            </div>
+          </div>
+          <div class="foot">
+            <button class="btn btn-libris">Lägg till <i class="icon icon-white icon-chevron-down"></i></button>
+          </div>
+        </section>
+        <section id="work2" class="ng-scope">
+          <h2>En annan titel<i></i></h2>
+          <div class="cols">
+            <div class="col3">
+              <label>
+                <textarea spellcheck="false" placeholder="Skriv en titel">Att bryta ny marc</textarea>
+                <span class="lbl">Huvudtitel</span>
+              </label>
+              <label>
+                <textarea spellcheck="false" placeholder="Skriv en undertitel">Undertitel</textarea>
+                <span class="lbl">Övrigt titelinformation</span>
+              </label>
+            </div>
+            <div class="col3">
+              <div class="split">
+                <label class="ng-binding">
+                  <input class="ng-pristine ng-valid" type="text" data-ng-model="work.mediaTerm" placeholder="1998">
+                  <span class="lbl">Född</span>
+                </label>
+                <label class="ng-binding">
+                  <input class="ng-pristine ng-valid" type="text" data-ng-model="work.mediaTerm" placeholder="1998">
+                  <span class="lbl">Död</span>
+                </label>
+              </div>
+              <label class="ng-binding">
+                <select>
+                  <option>Value 1</option>
+                  <option>Value 2</option>
+                </select>
+                <span class="lbl">Upphov</span>
+              </label>
+            </div>
+            <div class="col3">
+              <label class="ng-binding">
+                <input class="ng-pristine ng-valid" type="text" data-ng-model="work.mediaTerm" placeholder="Allmän mediaterm">
+                <span class="lbl">Allmän mediaterm</span>
+              </label>
+              <label class="ng-binding">
+                <input class="ng-pristine ng-valid" type="text" data-ng-model="work.statementOfResponsibility" placeholder="Upphov">
+                <span class="lbl">Upphov</span>
+              </label>
+            </div>
+            <div class="col3">
+              <label class="ng-binding">
+                <input class="ng-pristine ng-valid" type="text" data-ng-model="work.mediaTerm" placeholder="Allmän mediaterm">
+                <span class="lbl">Allmän mediaterm</span>
+              </label>
+              <label class="ng-binding">
+                <input class="ng-pristine ng-valid" type="text" data-ng-model="work.statementOfResponsibility" placeholder="Upphov">
+                <span class="lbl">Upphov</span>
+              </label>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="cols">
+            <div class="col6">
+              <h3>Ämnesord</h3>
+            </div>
+            <div class="col6">
+              <h3>Klassifikation</h3>
+            </div>
+          </div>
+        </section>
+        <section class="submit">
+          <button class="btn btn-dark btn-submit">Publicera</button>
+        </section>
+    </div>
+    </div>
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/angular.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.autosize.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% if current_user %}
+    <script>
+    kitin.constant("flaskConstants", {
+        user_sigel: '{{ current_user.get_sigel() }}'
+    });
+    </script>
+    {% endif %}
+
+    <script>
+    $('textarea').autosize();
+    $('textarea, input[type=text], select').bind('focus blur', function(e) {
+      $(this).closest('label').toggleClass('focus', e.type == 'focus');
+    })
+    </script>
+
+  </body>
+</html>
