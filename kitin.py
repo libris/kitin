@@ -97,6 +97,24 @@ def get_holding(holding_id):
     else:
         abort(response.status_code)
 
+@app.route('/holding', methods=['POST'])
+def create_holding():
+    path = "%s/hold/" % (app.config['WHELK_HOST'])
+    response = requests.post(path, data=request.data, allow_redirects=False)
+    if response.status_code == 200:
+        resp = raw_json_response(response.text)
+        resp.headers['etag'] = response.headers['etag'].replace('"', '')
+    elif response.status_code == 303:
+        data = {}
+        data['document'] = json.loads(response.text)
+        data['document_id'] = urlparse(response.headers['Location']).path.rsplit("/")[-1]
+        resp = raw_json_response(json.dumps(data))
+        resp.headers['etag'] = response.headers['etag'].replace('"', '')
+        return resp
+    else:
+        abort(response.status_code)
+
+
 @app.route('/holding/<holding_id>', methods=['PUT'])
 def save_holding(holding_id):
     if_match = request.headers['If-match']

@@ -249,6 +249,7 @@
     <h2>BESTÅND</h2>
     <article class="well">
       <section>
+        <input type='button' value='+' class="btn btn-mini" data-ng-click="add_holding(holdings)"/>
         <ul>
           <li data-ng-repeat="holding in holdings| filter:{location:user_sigel}">
           <input class="input-large" data-ng-model="holding.shelvingControlNumber"/>

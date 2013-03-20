@@ -206,13 +206,24 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
 
   $scope.save_holding = function(holding) {
     var etag = $scope.holding_etags[holding['@id']];
-    console.log("holding etag: " + etag);
-    $http.put("/holding/" + holding['@id'].split("/").slice(-2)[1], holding, {headers: {"If-match":etag}}).success(function(data, status, headers) {
-      console.log("successfully saved holding with id: " + holding['@id']);
-      $scope.holding_etags[data['@id']] = headers('etag');
-    }).error(function(data, status, headers) {
-      console.log("ohh crap!");
-    });
+    if(etag != undefined) {
+      console.log("holding etag: " + etag);
+      $http.put("/holding/" + holding['@id'].split("/").slice(-2)[1], holding, {headers: {"If-match":etag}}).success(function(data, status, headers) {
+        console.log("successfully saved holding with id: " + holding['@id']);
+        $scope.holding_etags[data['@id']] = headers('etag');
+      }).error(function(data, status, headers) {
+        console.log("ohh crap!");
+      });
+    } else {
+      $http.post("/holding", holding).success(function(data, status, headers) {
+        console.log("successfully saved holding with id: " + holding['@id']);
+        $scope.holding_etags[data['@id']] = headers('etag');
+        $scope.holdings.push(data['document']);
+      }).error(function(data, status, headers) {
+        console.log("ohh crap!");
+      });
+
+    }
   }
 
   $scope.delete_holding = function(index) {
@@ -250,6 +261,10 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   }).error(function(data, status) {
     console.log(status);
   });
+
+  $scope.add_holding = function(holdings) {
+    holdings.push({shelvingControlNumber: "", location: constants.get("user_sigel")});
+  }
 
   $scope.add_person = function(authors) {
     authors.push({ authoritativeName: "", birthYear: "" });
