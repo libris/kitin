@@ -17,6 +17,12 @@
 </div>
 
 <form id="record" class="form-horizontal">
+  <div data-ng-repeat="work in [record.about.instanceOf]">
+  <label>
+    <textarea class="title" spellcheck="false" placeholder="Skriv en titel" data-ng-model="work.title">Att bryta ny marc</textarea>
+    <span class="lbl">Huvudtitel</span>
+  </label>
+</div>
   <h1>BIBLIOGRAFISK POST</h1>
   <article class="well">
   <!-- TODO: when value is object (e.g. @id, code and label):

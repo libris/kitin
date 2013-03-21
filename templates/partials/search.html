@@ -16,115 +16,52 @@
       </section>
     </div>
     <div class="col9">
-    <section class="result">
-      <div class="cols">
-        <div class="col5">
-          <label class="title">
-            Extreme killing <i class="ficon ficon-circle-arrow-down"></i>
-            <span class="lbl">Understanding serial and mass murder</span>
+      <section data-ng-repeat="record in result.list" class="result record {{record.identifier}}">
+        <div class="cols">
+          <div class="col5">
+            <label class="title">
+              <a class="bib-url" href="/edit/bib/{{ record.data.controlNumber }}" title="245A">{{ record.data.about.instanceOf.title }}</a>
+              <span class="lbl" title="245C">{{ record.data.about.instanceOf.statementOfResponsibility }}</span>
+            </label>
+          </div>
+          <div class="col4">
+            <label data-ng-repeat="author in record.data.about.instanceOf.authorList">
+                <span title="100A">{{ author.name }}</span>, <span title="100D">{{ author.birthYear }} - {{ author.deathYear }}</span>
+                <span class="lbl">Upphovsman</span>
+            </label>
+            <label>
+              {{ record.data.about.pubDate['@value'] }}
+              <span class="lbl">Publikationsår</span>
+            </label>
+            <label>
+              {{ record.data.about.isbn }}
+              <span class="lbl">ISBN</span>
+            </label>
+          </div>
+        </div>
+        <div class="excerpt">
+          <label>
+            a <strong class="highlight">lorem</strong> Extreme (ipsum dore...
+            <span class="lbl">Utdrag ur: Innehållsförteckning</span>
           </label>
         </div>
-        <div class="col4">
-          <label>
-            Extreme killing
-            <span class="lbl">Understanding serial and mass murder</span>
-          </label>
-          <label>
-            Extreme killing
-            <span class="lbl">Understanding serial and mass murder</span>
-          </label>
-          <label>
-            Extreme killing
-            <span class="lbl">Understanding serial and mass murder</span>
-          </label>
+        <div class="footer">
+          <span>Text – tryck</span>
+          <span>[ Monografisk resurs ]</span>
+          <span class="level">[ Biblioteksnivå ]</span>
         </div>
-      </div>
-      <div class="excerpt">
-        <label>
-          a <strong class="highlight">lorem</strong> Extreme (ipsum dore...
-          <span class="lbl">Utdrag ur: Innehållsförteckning</span>
-        </label>
-      </div>
-      <div class="footer">
-        <span>Text – tryck</span>
-        <span>Monografisk resurs</span>
-        <span class="level">Biblioteksnivå</span>
-      </div>
-    </section>
-    <section class="result">
-      <h4><a href="#">Extreme killing</a></h4>
-      <p>Lorem ipsum</p>
-    </section>
-    <section class="result">
-      <h4><a href="#">Extreme killing</a></h4>
-      <p>Lorem ipsum</p>
-    </section>
-    <section class="result">
-      <h4><a href="#">Extreme killing</a></h4>
-      <p>Lorem ipsum</p>
-    </section>
-  </div>
-</div>
-
-<!--
-
-
-<div class="row-fluid">
-
-  <div class="span3 offset0">
-    <section>
-      <article>
-        <ul>
-          <li data-ng-hide="isempty(value)" data-ng-repeat="(facet, value) in result.facets">
-            <ol>
-              <h4>Test {{facet_terms[facet]}}</h4>
-              <li data-ng-repeat="(key, value) in value">
-                <a href="/search?q={{facet}}:{{key}}">{{key}} ({{value}})</a>
-              </li>
-            </ol>
-          </li>
+        <ul style="display:none">
+          <li>bibLevel: {{ record.data.about.instanceOf['marc:bibLevel'].label }}</li>
+          <li>typeOfRecord: {{ record.data.about['marc:typeOfRecord'].label }}</li>
+          <li>encLevel: {{ record.data.encLevel.label }}</li>
+          <li>id: {{ record.data['@id'] }}</li>
+          <li>year: {{ record.data.about.pubDate['@value'] }}</li>
+          <li>isbn: {{ record.data.about.isbn }}</li>
         </ul>
-      </article>
-    </section>
-  </div>
-
-	<section class="hitlist">
-  	  <article data-ng-repeat="record in result.list" class="record {{record.identifier}}">
-        <a class="bib-url" href="/edit/bib/{{ record.data.controlNumber }}">
-          <header>
-            <h3>
-              <span class="title-clickable">
-                <span title="245A">{{ record.data.about.instanceOf.title }}</span>
-                <span class="title-remainder">
-                  <span title="245C"> / {{ record.data.about.instanceOf.statementOfResponsibility }}</span>
-                </span>
-              </span>
-            </h3>
-          </header>
-          <span class="unstyled-url">
-            <h4 data-ng-repeat="author in record.data.about.instanceOf.authorList">
-              <span class="author">
-                <i class="icon-user icon-author"></i>
-                <span title="100A">{{ author.name }}</span>
-                <span title="100D">{{ author.birthYear }} - {{ author.deathYear }}</span> 
-              </span>
-            </h4>
-            <div class="row-fluid">
-              <ul>
-                <li>bibLevel: {{ record.data.about.instanceOf['marc:bibLevel'].label }}</li>
-                <li>typeOfRecord: {{ record.data.about['marc:typeOfRecord'].label }}</li>
-                <li>encLevel: {{ record.data.encLevel.label }}</li>
-                <li>id: {{ record.data['@id'] }}</li>
-                <li>year: {{ record.data.about.pubDate['@value'] }}</li>
-                <li>isbn: {{ record.data.about.isbn }}</li>
-              </ul>
-            </div>
-          </span>
-        </a><hr />
-      </article>
-    </section>
+      </section>
+    </div>
   </div>
 </div>
 
--->
+
 {% endraw %}

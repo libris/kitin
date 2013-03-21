@@ -12,15 +12,15 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
     <link rel="stylesheet" href="{{ url_for('static', filename='css/ficons.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
   </head>
-  <body data-ng-app="kitin">
+  <body data-ng-app="kitin" class="{% block bodyclass %}{% endblock %}">
     <div id="wrap">
       <div id="header">
-        <div class="logo"><a target="_self" href="/">Libris <strong>Katalogisering</strong></a></div>
+        <div class="logo"><a target="_self" href="/"><img src="/static/i/libris.png" alt="Libris Kategorisering"></a></div>
         <div class="kb"></div>
         <div class="user">
           <span>Inloggad som <a href="#">{{current_user.username}} ({{current_user.get_sigel()}})</a></span>
           <span><a href="/signout?signout=yesindeedioh">Logga ut</a></span>
-          <span><a href="/edit/bib/new">Monografi</a></span>
+          <span><a href="/edit/bib/new">Skapa ny: Monografi</a></span>
         </div>
         <div class="searchfield">
           <form action="/search"> <!-- Change to Angular route -->
