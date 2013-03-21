@@ -16,6 +16,173 @@
   </div>
 </div>
 
+<div class="content bib" id="prelude"><form id="record" class="form-horizontal">
+  <div id="grid"></div>
+    <!--<div data-ng-view></div>-->
+  <header>
+    <h1>Bibliografisk post</h1>
+    <div class="levels">
+      <span>{{ record.about['@type'].join(", ") }}</span>
+      <span>Monografisk resurs</span>
+      <span class="active">Biblioteksnivå</span>
+      <span>AACR/KRS</span>
+    </div>
+    <div class="modes">
+      <a href="#" class="active">Formatneutral</a>
+      <a href="#">MARC</a>
+    </div>
+  </header>
+  <section id="work" data-ng-repeat="work in [record.about.instanceOf]">
+    <h2>Verk<i></i></h2>
+    <div class="cols">
+      <div class="col6">
+        <label>
+          <textarea class="title" spellcheck="false" placeholder="Skriv en titel" data-ng-model="work.title"></textarea>
+          <span class="lbl">{{ "Huvudtitel" }}</span>
+        </label>
+        <label>
+          <textarea spellcheck="false" placeholder="Skriv en undertitel" data-ng-model="work.titleRemainder">{{ work.titleRemainder }}</textarea>
+          <span class="lbl">{{ "Övrigt titelinformation" }}</span>
+        </label>
+        <label class="ng-binding">
+          <input class="ng-pristine ng-valid" type="text" data-ng-model="work.mediaTerm" placeholder="Allmän mediaterm">
+          <span class="lbl">{{ "Allmän mediaterm" }}</span>
+        </label>
+        <label class="ng-binding">
+          <select data-ng-model="record.about.instanceOf.country" data-ng-options="code as name for (code, name) in langlist">
+          </select>
+          <span class="lbl">{{ "Språk" }}</span>
+        </label>
+      </div>
+      <div class="col6">
+        <label class="ng-binding">
+          <textarea spellcheck="false" data-ng-model="work.statementOfResponsibility" placeholder="Upphov"></textarea>
+          <span class="lbl">{{ "Upphov" }}</span>
+        </label>
+        <label class="ng-binding" data-ng-repeat="person in work.authorList">
+          <input class="input" type="text" data-kitin-autocomplete="field" data-kitin-template="auth-completion-template" data-ng-model="person.authoritativeName" />
+          <span class="lbl">{{ "Personnamn" }}</span>
+        </label>
+	  </div>
+    </div>
+    <div class="foot">
+      <button class="btn btn-libris">Lägg till <i class="icon icon-white icon-chevron-down"></i></button>
+    </div>
+  </section>
+  <section id="classification" data-ng-repeat="work in [record.about.instanceOf]">
+    <div class="cols">
+      <div class="col6">
+        <h3>Ämnesord</h3>
+          <ul class="inline">
+            <li data-ng-repeat="topic in work.subject"><a class="btn btn-small" href="{{ topic['@id'] }}"><i class="icon-tag"></i> {{ topic['@id'] }}</a></li>
+          </ul>
+      </div>
+      <div class="col6">
+        <h3>Klassifikation</h3>
+           <ul class="inline">
+            <li data-ng-repeat="topicalTerm in record.topicalTerm"><a class="btn btn-small" href="{{ topicalTerm }}"><i class="icon-tag"></i> {{ topicalTerm }}</a></li>
+          </ul>
+      </div>
+   
+    </div>
+  </section>
+
+  <section id="instance" data-ng-repeat="instance in [record.about]">
+    <h2>Instans<i></i></h2>
+    <div class="cols">
+      <div class="col3">
+        <label class="ng-binding">
+          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.isbn" placeholder="ISBN">
+          <span class="lbl">{{ "ISBN" }}</span>
+        </label>
+        <label class="ng-binding">
+          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.publisher.name" placeholder="Utgivare förlag">
+          <span class="lbl">{{ "Utgivare/förlag" }}</span>
+        </label>
+      </div>
+      <div class="col3">
+        <div class="split">
+          <label class="ng-binding">
+            <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.isbnNote" placeholder="ISBN Notering">
+            <span class="lbl">{{ "ISBN Notering" }}</span>
+          </label>
+          <label class="ng-binding">
+            <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.edition" placeholder="Upplaga">
+            <span class="lbl">{{ "Upplaga" }}</span>
+          </label>
+        </div>
+        <label class="ng-binding">
+          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.placeOfPublication.label" placeholder="Utgivningsort">
+          <span class="lbl">{{ "Utgivningsort" }}</span>
+        </label>
+        </label>
+      </div>
+      <div class="col6">
+        <label class="ng-binding">
+          <select data-ng-model="record.about.instanceOf.country" data-ng-options="code as name for (code, name) in countrylist">
+          </select>
+          <span class="lbl">{{ "Utgivningsland" }}</span>
+        </label>
+        <label class="ng-binding">
+          <select data-ng-model="instance.placeOfManufacture.label" data-ng-options="code as name for (code, name) in countrylist">
+          </select>
+          <span class="lbl">{{ "Utgivningsland" }}</span>
+        </label>
+      </div>
+    </div>
+    <h3>Fysisk beskrivning</h3>
+    <div class="cols">
+      <div class="col3">
+        <label class="ng-binding">
+          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.extent" placeholder="Omfång">
+          <span class="lbl">{{ "Omfång" }}</span>
+        </label>
+      </div>
+      <div class="col3">
+        <label class="ng-binding">
+          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.dimensions" placeholder="Mått">
+          <span class="lbl">{{ "Mått" }}</span>
+        </label>
+      </div>
+      <div class="col3">
+        <label class="ng-binding">
+          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.baseMaterial" placeholder="Basmaterial">
+          <span class="lbl">{{ "Basmaterial" }}</span>
+        </label>
+      </div>
+      <div class="col3">
+        <label class="ng-binding">
+          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.termsOfAvailability" placeholder="Pris">
+          <span class="lbl">{{ "Pris" }}</span>
+        </label>
+      </div>
+    </div>
+  <h3>{{ "Anmärkningar" }}</h3>
+    <div class="cols">
+      <div class="col6">
+        <label class="ng-binding">
+          <textarea spellcheck="false" data-ng-model="instance.listOfContents" placeholder="Formaterad innehållsförteckning"></textarea>
+          <span class="lbl">{{ "Formaterad innehållsförteckning" }}</span>
+        </label>
+      </div>
+      <div class="col6">
+        <label class="ng-binding">
+          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.summary" placeholder="Sammanfattning">
+          <span class="lbl">{{ "Sammanfattning" }}</span>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <section class="submit">
+    <button class="btn btn-dark btn-submit">Publicera</button>
+    <input type='button' id='btn2' value='Spara utkast' data-ng-click="save_draft()"/>
+    <input type='button' id='btn3' value='Spara' data-ng-click="save()"/>
+    <p class="flash_message"></p>
+  </section>
+</form>
+</div>
+<!--new end-->
 <form id="record" class="form-horizontal">
   <div data-ng-repeat="work in [record.about.instanceOf]">
   <label>
@@ -34,10 +201,10 @@
     <section id="prelude">
       <div class="row-fluid">
         <div class="field span2">
-          {{ record.about['@type'].join(", ") }}
+         1 {{ record.about['@type'].join(", ") }}
         </div>
         <div class="field span2">
-          {{ record.about.instanceOf['@type'].join(", ") }}
+          2{{ record.about.instanceOf['@type'].join(", ") }}
         </div>
         <div class="field span3">
           <select>
@@ -166,6 +333,7 @@
     <hr/>
     <section id="instance" data-ng-repeat="instance in [record.about]">
       <h2>INSTANS</h2>
+               
       <h3>{{ "Utgivning" }}</h3>
       <div class="row-fluid">
         <div class="field span6">
@@ -230,7 +398,7 @@
           <label>{{ "Anmärkning" }}</label>
         </div>
       </div>
-      <div class="row-fluid">
+                     <div class="row-fluid">
         <div class="field span12">
           <input class="input-xxlarge" type="text" data-ng-model="instance.supplementaryContentNote" />
           <label>{{ "Anmärkning bibliografi etc." }}</label>
