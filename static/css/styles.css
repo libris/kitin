@@ -115,7 +115,8 @@ a:hover{color:#106351;}
 #header .searchfield button:hover{background-color:#197961;}
 
 #header .searchfield button:hover{}  
-#header .searchfield > *{float:left;}
+#header .searchfield input,
+#header .searchfield button{float:left;}
 
 .content{position:relative;background:url(/static/i/bg.png);padding:0 36px 24px 36px;overflow:hidden;}
 

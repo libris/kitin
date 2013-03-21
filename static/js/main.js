@@ -146,6 +146,7 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
   if (!$routeParams.q) {
     return;
   }
+
   facet_terms = [];
   facet_terms['@type'] = "Typer";
   facet_terms['about.dateOfPublication'] = "Datum";

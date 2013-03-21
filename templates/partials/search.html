@@ -1,4 +1,74 @@
 {% raw %}
+
+<div class="content search">
+  <div id="grid"></div>
+  <header>
+    <h1></h1>
+    <p class="summary">1 234 träffar för <strong>Zlatan</strong> inom <strong>Text – tryck</strong> och <strong>Elektronisk resurs</strong></p>
+  </header>
+  <div class="cols">
+    <div class="col3">
+      <section class="nav">
+        <dl data-ng-hide="isempty(value)" data-ng-repeat="(facet, value) in result.facets">
+          <dt><i></i>Test {{facet_terms[facet]}}</dt>
+          <dd data-ng-repeat="(key, value) in value"><a href="/search?q={{facet}}:{{key}}">{{key}} ({{value}})</a></dd>
+        </dl>
+      </section>
+    </div>
+    <div class="col9">
+    <section class="result">
+      <div class="cols">
+        <div class="col5">
+          <label class="title">
+            Extreme killing <i class="ficon ficon-circle-arrow-down"></i>
+            <span class="lbl">Understanding serial and mass murder</span>
+          </label>
+        </div>
+        <div class="col4">
+          <label>
+            Extreme killing
+            <span class="lbl">Understanding serial and mass murder</span>
+          </label>
+          <label>
+            Extreme killing
+            <span class="lbl">Understanding serial and mass murder</span>
+          </label>
+          <label>
+            Extreme killing
+            <span class="lbl">Understanding serial and mass murder</span>
+          </label>
+        </div>
+      </div>
+      <div class="excerpt">
+        <label>
+          a <strong class="highlight">lorem</strong> Extreme (ipsum dore...
+          <span class="lbl">Utdrag ur: Innehållsförteckning</span>
+        </label>
+      </div>
+      <div class="footer">
+        <span>Text – tryck</span>
+        <span>Monografisk resurs</span>
+        <span class="level">Biblioteksnivå</span>
+      </div>
+    </section>
+    <section class="result">
+      <h4><a href="#">Extreme killing</a></h4>
+      <p>Lorem ipsum</p>
+    </section>
+    <section class="result">
+      <h4><a href="#">Extreme killing</a></h4>
+      <p>Lorem ipsum</p>
+    </section>
+    <section class="result">
+      <h4><a href="#">Extreme killing</a></h4>
+      <p>Lorem ipsum</p>
+    </section>
+  </div>
+</div>
+
+<!--
+
+
 <div class="row-fluid">
 
   <div class="span3 offset0">
@@ -6,8 +76,8 @@
       <article>
         <ul>
           <li data-ng-hide="isempty(value)" data-ng-repeat="(facet, value) in result.facets">
-            <ol >
-              <h4>{{facet_terms[facet]}}</h4>
+            <ol>
+              <h4>Test {{facet_terms[facet]}}</h4>
               <li data-ng-repeat="(key, value) in value">
                 <a href="/search?q={{facet}}:{{key}}">{{key}} ({{value}})</a>
               </li>
@@ -17,26 +87,6 @@
       </article>
     </section>
   </div>
-
-  <div class="span9 offset3">
-    <section class="search" role="search">
-      <div class="search-bar">
-        <ul class="border-search unstyled">
-          <li class="ui-search-item search-input-item">
-            <form class="form-inline search-form" data-ng-submit="search()">
-              <input id="search" name="q" type="text" autofocus
-                    class="xlarge ui-autocomplete-input"
-                    value="" placeholder=""
-                    autocomplete="off" role="textbox"
-                    aria-autocomplete="list" aria-haspopup="true" data-ng-model="q">
-              <button id="submit" class="btn btn-large btn-success" type="submit">
-                <i class="icon-search icon-white"></i>
-              </button>
-            </form>
-          </li>
-        </ul>
-      </div>
-    </section>
 
 	<section class="hitlist">
   	  <article data-ng-repeat="record in result.list" class="record {{record.identifier}}">
@@ -75,4 +125,6 @@
     </section>
   </div>
 </div>
+
+-->
 {% endraw %}
