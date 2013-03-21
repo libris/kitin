@@ -4,14 +4,18 @@
   <div class="span3 offset0">
     <section>
       <article>
-        <ul>
-          <li data-ng-hide="isempty(value)" data-ng-repeat="(facet, value) in result.facets">
-            <ol >
-              <h4>{{facet_terms[facet]}}</h4>
-              <li data-ng-repeat="(key, value) in value">
-                <a href="/search?q={{facet}}:{{key}}">{{key}} ({{value}})</a>
-              </li>
-            </ol>
+        <ul class="facetlist">
+          <li data-ng-repeat="facet in my_facets">
+              <h4>{{facet_terms[facet['type']]}}</h4>
+              <ol>
+                <li data-ng-repeat="item in facet['items']">
+                <a data-ng-href="{{item['slug']}}">
+                  <span data-ng-repeat="(key, value) in item['object']">
+                    {{key}}:{{value}}
+                  </span>
+                </a>
+                </li>
+              </ol>
           </li>
         </ul>
       </article>
