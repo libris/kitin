@@ -76,6 +76,8 @@ a:hover{color:#106351;}
 #header .user span:first-child{margin-left:0;padding-left:0;border:none;}
 #header .user span:first-child a{text-transform: uppercase}
 #header .kb{width:74px;height:77px;position:absolute;right:0;top:53px;background:url(/static/i/kb.png) no-repeat;z-index:2;}
+#header .logo{font:normal 18px/1 "Open Sans", sans-serif;position:absolute;left:0;top:52px; color:#aaa;text-transform:uppercase;}
+#header .logo strong{display:block;font:bold 28px/1 "Droid Serif", georgia, serif;text-transform:none; color:#27b492;letter-spacing:-1px;}
 
 #header .searchfield{position:absolute;left:384px;top:62px;z-index:2;}
 #header .searchfield input{width:500px;border:1px solid #bbb; padding: 6px 10px 6px;border-color: #aaa #fff #ccc #aaa;
@@ -154,7 +156,7 @@ a:hover{color:#106351;}
   border-bottom:1px solid #1a8f72; padding-bottom: 2px; }
 
 .content section h2,
-.content section.nav dt{background:#1a8f72;font:bold 12px/16px "Open Sans", sans-serif; text-transform:uppercase;float:left;
+section.nav dt{background:#1a8f72;font:bold 12px/16px "Open Sans", sans-serif; text-transform:uppercase;float:left;
   padding: 5px 24px;  color:#fff;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -183,8 +185,6 @@ section.nav dd{clear:both;margin: 0 0;line-height:1;font-size:13px;}
 section.nav dd a{color:#666;padding:6px 0 6px 18px;background:url(/static/i/dot.png) no-repeat 4px 9px;display:inline-block;}
 section.nav dd a.active{font-weight:bold;color:#000;background:url(/static/i/check.png) no-repeat 0 5px;cursor:default;}
 section.nav dd a.active:hover{text-decoration: none}
-
-section.nav dt i{border-right-color:#666;}
 
 section.result{position:relative;border:1px solid #fff;padding:23px 11px 41px;
   -webkit-transition:border ease-out 0.05s; cursor:pointer;}
