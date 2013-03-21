@@ -132,7 +132,7 @@ body.index #header .searchfield input{padding:10px 16px;}
 body.index #header .searchfield button{height:46px;}
 
 body.login #header .searchfield{display:none;}
-body.login .content.index header{margin-bottom:30px;}
+body.login .content.index header{margin-bottom:60px;}
 
 .content header .levels{float:left;}
 .content header .levels span{float:left;padding: 5px 12px 6px;color:#444;}
@@ -252,12 +252,12 @@ section.dash.green .circle{background-color: #1a8f72;}
 
 .content.search .summary{margin-left:252px;color:#666;font-size:14px;margin-bottom:12px}
 
-form.login{width:312px;margin: 0 auto;padding-top:60px;}
+form.login{width:312px;margin: 0 auto;padding-top:60px;position:relative;}
 form.login label{border-left:none;padding-left:0;}
-form.login input,
-form.login input:hover,
-form.login label:hover input,
-form.login input:focus{width:310px;border:1px solid #bbb; padding: 6px 10px 6px;border-color: #aaa #ccc #ccc #aaa;
+form.login .inp input,
+form.login .inp input:hover,
+form.login label.inp:hover input,
+form.login .inp input:focus{width:294px;border:1px solid #bbb; padding: 6px 10px 6px;border-color: #aaa #ccc #ccc #aaa;
   background:#fff;
   box-shadow: inset 1px 1px 1px rgba(0,0,0,.1);
   -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0,.1);
@@ -271,12 +271,18 @@ form.login input:focus{width:310px;border:1px solid #bbb; padding: 6px 10px 6px;
   height:24px;
   -webkit-transition:all ease-out 0.05s;
 }
-form.login input:hover,
-form.login input:focus{background:#fff;}
-form.login input:focus,
-form.login input:focus:hover{border-color: #777 #aaa #aaa #777;}
+form.login .inp input:hover,
+form.login .inp input:focus{background:#fff;}
+form.login .inp input:focus,
+form.login .inp input:focus:hover{border-color: #777 #aaa #aaa #777;}
 
 form.login label .lbl{color:#444;}
+
+form.login .checks{position:absolute; left:336px;bottom:14px;width: 300px;}
+form.login .checks label{overflow:hidden;margin-bottom:14px;}
+form.login .checks label input{margin-top:0;margin-right:6px;}
+form.login .checks label input,
+form.login .checks label .lbl{float:left;width:auto;}
 
 .break{clear:both;}
 
@@ -345,7 +351,6 @@ input[type="color"]:focus,
      -moz-box-shadow: none;
           box-shadow: none;
 }
-
 
 label{margin-bottom:18px;border-left:2px solid #ddd;padding-left:8px;}
 
