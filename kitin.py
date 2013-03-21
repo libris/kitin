@@ -23,6 +23,7 @@ login_manager.setup_app(app)
 storage = Storage(app.config.get("DRAFTS_DIR"))
 
 logger = logging.getLogger(__name__)
+here = os.path.dirname(__file__)
 
 
 @app.before_request
@@ -475,7 +476,7 @@ def suggest_auth_completions():
 
 @app.route("/partials/<name>")
 def show_partial(name):
-    return make_response(open(app.template_folder + '/' + 'partials/'+ name +'.html').read())
+    return make_response(open(os.path.join(here, app.template_folder + '/' + 'partials/'+ name +'.html')).read())
 
 
 # TODO: integrate mockups in views and remove this
