@@ -391,7 +391,9 @@ input::-webkit-input-placeholder { color:#ccc; font-style:italic; font-size:14px
 ::-moz-placeholder { color:#ccc; font-style:italic; font-size:14px; }
 :-ms-input-placeholder { color:#ccc; font-style:italic; font-size:14px; }
 
-:focus::-webkit-input-placeholder { color:#78ceba; }
+.fakeholder{display:block; color:#ccc; font-style:italic; font-size:14px; position:absolute;padding-top:3px;}
+
+:focus::-webkit-input-placeholder { color:#78ceba; }§
 :focus::-moz-placeholder:focus { color:#78ceba; }
 :focus:-ms-input-placeholder:focus { color:#78ceba; }
 

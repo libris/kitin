@@ -552,6 +552,25 @@ kitin.directive('direTest', function() {
     }
 });*/
 
+// David’s dirty DOM manips
+kitin.directive('fakeholder', function() {
+  return {
+    link: function(child, $elm) {
+      var select = $elm.next('select')[0];
+      $elm.mousedown(function() {
+        $elm.remove();
+        var event;
+        event = document.createEvent('MouseEvents');
+        event.initMouseEvent('mousedown', true, true, window);
+        select.dispatchEvent(event);
+      });
+      $(select).focus(function(){
+        $elm.remove();
+      })
+    }
+  };
+});
+
 kitin.directive('keyEnter', function () {
   return function (scope, elm, attrs) {
     var expr = attrs.keyEnter;
