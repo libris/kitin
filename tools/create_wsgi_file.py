@@ -3,7 +3,7 @@
 import os
 
 wsgifile = open('kitin.wsgi', 'w')
-wsgifile.write("activate_this = '%s/kitin/bin/activate_this.py'\n" % os.environ.get('WORKON_HOME'))
+wsgifile.write("activate_this = '/var/virtualenvs/kitin/bin/activate_this.py'\n")
 wsgifile.write("execfile(activate_this, dict(__file__=activate_this))\n\n")
 wsgifile.write("import logging,sys\n")
 wsgifile.write("logging.basicConfig(stream=sys.stderr)\n")
