@@ -489,9 +489,13 @@
     <% } %>
     <% if (data['hasAnnotation'] && data['hasAnnotation']['about']) { %>
       <ul class="about">
-        <% data['hasAnnotation']['about'].forEach(function(item) { %>
-          <li><%= item %></li>
-        <% }) %>
+        <% if (Object.prototype.toString.call(data['hasAnnotation']['about']) === '[object Array]') { %> 
+          <% data['hasAnnotation']['about'].forEach(function(item) { %>
+            <li><%= item %></li>
+          <% }); %>
+        <% } else { %>
+          <li><%= data['hasAnnotation']['about'] %></li>
+        <% } %>
       </ul>
     <% } %>
   </h4>
