@@ -73,9 +73,9 @@
     <div class="cols">
       <div class="col6">
         <h3>Ämnesord</h3>
-          <ul class="inline">
+          <!--<ul class="inline">
             <li data-ng-repeat="topic in work.subject"><a class="btn btn-small" href="{{ topic['@id'] }}"><i class="icon-tag"></i> {{ topic['@id'] }}</a></li>
-          </ul>
+          </ul>-->
       </div>
       <div class="col6">
         <h3>Klassifikation</h3>
@@ -175,9 +175,8 @@
   </section>
 
   <section class="submit">
-    <button class="btn btn-dark btn-submit">Publicera</button>
-    <input type='button' id='btn2' value='Spara utkast' data-ng-click="save_draft()"/>
-    <input type='button' id='btn3' value='Spara' data-ng-click="save()"/>
+    <button class="btn btn-dark btn-submit" id='btn3' data-ng-click="save()">Publicera</button>
+    <button class="btn-link" id='btn2' data-ng-click="save_draft()">Stäng och spara utkast</button>
     <p class="flash_message"></p>
   </section>
 </form>
