@@ -450,3 +450,8 @@ label .lbl{display:block;font-size:12px;color:#48d9b8;margin-top:2px;line-height
 .btn-dark:hover{background-color:#0a5041;}
 .btn-submit{padding: 12px 28px;font-size:16px;}
 
+.btn-link{color:#1a8f72;}
+.btn-link:hover{color:#106351;}
+
+.removedraft{float:right;}
+

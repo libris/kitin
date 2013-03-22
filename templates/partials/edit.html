@@ -10,12 +10,6 @@
   </div>
 </div>
 
-<div data-ng-show="draft" data-ng-click="promptConfirmDelete($event, draft.type, draft.id)">
-  <div class="popover-inner">
-    <button class="close" data-ng-click="somebutton.click()">Ta bort utkast</button>
-  </div>
-</div>
-
 <div class="content bib" id="prelude"><form id="record" class="form-horizontal">
   <div id="grid"></div>
     <!--<div data-ng-view></div>-->
@@ -180,7 +174,9 @@
   <section class="submit">
     <button class="btn btn-dark btn-submit" id='btn3' data-ng-click="save()">Publicera</button>
     <button class="btn-link" id='btn2' data-ng-click="save_draft()">Stäng och spara utkast</button>
-    <p class="flash_message"></p>
+    <span class="removedraft" data-ng-show="draft" data-ng-click="promptConfirmDelete($event, draft.type, draft.id)">
+      <button class="btn-link" data-ng-click="somebutton.click()"><i class="ficon ficon-remove"></i> Ta bort utkast</button>
+    </span>
   </section>
 </form>
 </div>
