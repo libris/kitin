@@ -1,0 +1,23 @@
+Textarea autosize:
+------------------------------------------------------------------------------
+http://www.jacklmoore.com/autosize/
+
+Selectbox: 
+------------------------------------------------------------------------------
+http://silviomoreto.github.com/bootstrap-select/
+http://angular-ui.github.com/#directives-select2 (med placeholder)
+
+Focus class:
+------------------------------------------------------------------------------
+$('textarea, input[type=text], select').bind('focus blur', function(e) {
+  $(this).closest('label').toggleClass('focus', e.type == 'focus');
+})
+
+Övrigt:
+------------------------------------------------------------------------------
+Träfflista klickyta & eventuellt collapsible
+Title som minskar i storlek beroende på mängd
+Active class på Facetter
+Popover kan användas (stylad)
+Propagera error class up till <label> så ni kan styla labeltexten (se skiss)
+Icons - använd "Font Awesome", med klassen ".ficon"

@@ -37,7 +37,7 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
     </div>
 
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery-1.9.1.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/jquery/jquery.jkey.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/jquery/jquery.autocomplete.min.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
@@ -55,11 +55,6 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
     });
     </script>
     {% endif %}
-    
-    <script>
-    $('textarea, input[type=text], select').bind('focus blur', function(e) {
-      $(this).closest('label').toggleClass('focus', e.type == 'focus');
-    })
-    </script>
+
   </body>
 </html>

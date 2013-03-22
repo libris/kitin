@@ -4,33 +4,28 @@ import json, os, re
 
 from fabric.api import *
 
-kitin_path = '/srv/www/kitin'
 
 cfg = {}
 #execfile(os.path.join(os.path.dirname(__file__), 'config.cfg'), cfg)
+env.virtenvpath = '/var/virtualenvs/kitin'
 
-@task
-def lab():
-    env.hosts = ['devlab.libris.kb.se']
-    env.user = 'jenkins'
-    env.wwwuser = 'apache'
-    env.wwwgroup = 'apache'
-
-@task
-def demo():
-    env.hosts = ['193.10.75.247']
-    env.user = 'riakcluster4'
-    env.wwwuser = '_www'
-    env.wwwgroup = '_www'
+for e in os.environ:
+    if e.startswith("FABRIC_"):
+        if e == "FABRIC_HOST":
+            h = os.environ.get(e)
+            hl = h.split(",")
+            env.hosts = hl
+        else:
+            env[e[7:].lower()] = os.environ.get(e)
 
 
 @task
 def prepare():
     create_config()
     execfile(os.path.join(os.path.dirname(__file__), 'config.cfg'), cfg)
-    if not os.path.exists(cfg.get('STORAGE_DIR')):
-        os.mkdir(cfg.get('STORAGE_DIR'))
-    create_db()
+    #if not os.path.exists(cfg.get('STORAGE_DIR')):
+    #    os.mkdir(cfg.get('STORAGE_DIR'))
+    #create_db()
 
 @task
 def fetch_vendor_assets():
@@ -38,25 +33,25 @@ def fetch_vendor_assets():
 
 @task
 def deploy():
-    if not env.host:
-        print "Call lab or demo first, i.e: $>fab lab deploy"
+    if not env.hosts or not env.wwwuser or not env.wwwgroup or not env.remotepath:
+        print "Make sure you have the proper environment settings before deploying."
     else:
         prepare()
         sudo('rm -f /tmp/kitin.tgz')
         local('tar cfz /tmp/kitin.tgz --exclude=\'.*\' *')
         put('/tmp/kitin.tgz', '/tmp/')
-        sudo('rm -fr %s' % kitin_path)
-        sudo('mkdir -m 775 %s' % kitin_path)
-        sudo('chown %s:%s %s' % (env.user, env.wwwgroup, kitin_path))
-        run('mkvirtualenv kitin')
-        with cd('%s' % kitin_path):
-            run('tar xzf /tmp/kitin.tgz')
-            run('python tools/create_wsgi_file.py')
-            sudo('chown %s kitin.db' % env.wwwuser)
+        sudo('rm -fr %s' % env.remotepath)
+        sudo('mkdir -m 775 %s' % env.remotepath)
+        with cd('%s' % env.remotepath):
+            sudo('tar xzf /tmp/kitin.tgz')
+            sudo('python tools/create_wsgi_file.py')
+            #sudo('chown %s kitin.db' % env.wwwuser)
+            #sudo('chown %s storage' % env.wwwuser)
 
-        with prefix('workon kitin'):
-            run('pip install -r %s/dev-requirements.txt' % kitin_path)
+        with prefix('source %s/bin/activate' % env.virtenvpath):
+            sudo('pip install -r %s/dev-requirements.txt' % env.remotepath)
 
+        sudo('chown -R %s:%s %s' % (env.wwwuser, env.wwwgroup, env.remotepath))
 @task
 def clear_config():
     local('rm -f config.cfg')

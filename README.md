@@ -21,7 +21,10 @@ Clone the librisxl project and run its builtin mockserver
 
     $ git clone git@github.com:libris/librisxl.git
     $ cd librisxl/whelk-core
+    $ export JAVA_OPTS="-Dfile.encoding=utf8"
     $ gradle jettyRun
+
+Add export JAVA_OPTS="-Dfile.encoding=utf8" to .profile 
 
 ### Configure and run the flask client
 
