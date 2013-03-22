@@ -485,16 +485,20 @@
     <span class="name"><%= data['authoritativeName'] %></span>
     <span class="date"><%= data['birthYear'] %> - <%= data['deathYear'] %></span>
     <% if (data['authorized']) { %>
-      <span class="label label-success pull-right"><i class="icon-ok icon-white"></i>Aukt.</span>
-    <% } %>
-    <% if (data['hasAnnotation'] && data['hasAnnotation']['about']) { %>
-      <ul class="about">
-        <% data['hasAnnotation']['about'].forEach(function(item) { %>
-          <li><%= item %></li>
-        <% }) %>
-      </ul>
+      <span class="what"><i class="ficon ficon-bookmark"></i>Aukt.</span>
     <% } %>
   </h4>
+  <% if (data['hasAnnotation'] && data['hasAnnotation']['about']) { %>
+    <ul class="about">
+      <% if (Object.prototype.toString.call(data['hasAnnotation']['about']) === '[object Array]') { %> 
+        <% data['hasAnnotation']['about'].forEach(function(item) { %>
+          <li><%= item %></li>
+        <% }); %>
+      <% } else { %>
+        <li><%= data['hasAnnotation']['about'] %></li>
+      <% } %>
+    </ul>
+  <% } %>
 </div>
 </script>
 
