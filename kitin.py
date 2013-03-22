@@ -48,15 +48,10 @@ def index():
     user = current_user if current_user.is_active() else None
     return render_template('index.html', user=user, partials = {"/partials/index" : "partials/index.html"})
 
-# Some static templates for design
-@app.route("/detail")
+# Login
+@app.route("/login")
 def detail():
-    return render_template('prototypes/detail.html')
-
-# Some static templates for design
-@app.route("/list")
-def list():
-    return render_template('prototypes/list.html')
+    return render_template('partials/login.html')
 
 @app.route("/search")
 def search():

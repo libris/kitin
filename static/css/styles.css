@@ -57,12 +57,12 @@ grey3: adadad
 
 }
 
-body{font-family: 'Open Sans', arial, sans-serif; font-size:15px; line-height: 20px; color:#191919;}
+body{font-family: 'Open Sans', arial, sans-serif; font-size:14px; line-height: 20px; color:#191919;}
 
 h1,
 h2,
-h3,
-h4{font-family: 'Droid Serif';}
+h3{font-family: 'Droid Serif';}
+h4{font-size:15px;}
 
 a{color:#1a8f72;}
 a:hover{color:#106351;}
@@ -75,8 +75,8 @@ a:hover{color:#106351;}
 #header .user span{padding-left:10px;margin-left:8px;border-left:1px solid #ccc;}
 #header .user span:first-child{margin-left:0;padding-left:0;border:none;}
 #header .user span:first-child a{text-transform: uppercase}
-#header .kb{width:74px;height:77px;position:absolute;right:0;top:53px;background:url(/static/i/kb.png) no-repeat;z-index:2;}
-#header .logo{font:normal 18px/1 "Open Sans", sans-serif;position:absolute;left:0;top:52px; color:#aaa;text-transform:uppercase;}
+#header .kb{width:74px;height:77px;position:absolute;right:0;bottom:-10px;background:url(/static/i/kb.png) no-repeat;z-index:2;}
+#header .logo{font:normal 18px/1 "Open Sans", sans-serif;position:absolute;left:0;bottom:4px; color:#aaa;text-transform:uppercase;}
 #header .logo strong{display:block;font:bold 28px/1 "Droid Serif", georgia, serif;text-transform:none; color:#27b492;letter-spacing:-1px;}
 
 #header .searchfield{position:absolute;left:384px;top:62px;z-index:2;}
@@ -115,13 +115,24 @@ a:hover{color:#106351;}
 #header .searchfield button:hover{background-color:#197961;}
 
 #header .searchfield button:hover{}  
-#header .searchfield > *{float:left;}
+#header .searchfield input,
+#header .searchfield button{float:left;}
 
 .content{position:relative;background:url(/static/i/bg.png);padding:0 36px 24px 36px;overflow:hidden;}
 
 .content header{background:url(/static/i/top.png) no-repeat;position:relative;padding:23px 36px 0;overflow:hidden;width:1008px;margin-left:-36px;}
 .content header h1{height:40px;background-repeat:no-repeat;background-position: 8px 50%;
     color:#106351;text-transform:uppercase;padding-left:48px;margin:0 0 12px 9px;font:bold 14px/40px "Open Sans", sans-serif;}
+
+.content.index header{background-image:url(/static/i/top-index.png);margin-bottom:130px;}
+.content.index > .cols{margin-left:12px;overflow:visible;}
+
+body.index #header .searchfield{left:220px;top:190px;}
+body.index #header .searchfield input{padding:10px 16px;}
+body.index #header .searchfield button{height:46px;}
+
+body.login #header .searchfield{display:none;}
+body.login .content.index header{margin-bottom:60px;}
 
 .content header .levels{float:left;}
 .content header .levels span{float:left;padding: 5px 12px 6px;color:#444;}
@@ -194,6 +205,9 @@ section.result .footer span:first-child,
 section.result .footer span.level{margin-left:0;padding-left:0;border-left:none;}
 section.result .footer span.level{float:right;}
 
+section.result a,
+section.result a:hover{color:#444;text-decoration:none;}
+
 section.result:hover{border-color:#aaa;}
 
 section.result label{cursor:pointer;}
@@ -202,25 +216,73 @@ section.result label .lbl{color:#999;}
 
 section.result label.title{font-size:24px;line-height:26px;}
 section.result label.title .ficon{font-size:16px;color:#27b492;}
+section.result label.title .lbl{margin-top:4px;}
 
 section.result .excerpt{margin-bottom:-14px;}
 section.result .excerpt label{background:#f6f3ee url(/static/i/pat1.png);padding-top:4px;padding-bottom:4px;}
 
 section.result .highlight{padding:0 2px;background:rgba(40,180,146,.4);}
 
+section.dash{border-top: 5px solid #999;position:relative;}
+section.dash .circle{width:38px;height:38px;display:block;position:absolute;left:50%;margin-left:-19px;top:-21px;
+  border-radius: 19px;
+  -moz-border-radius: 19px;
+  -webkit-border-radius: 19px;
+}
+section.dash .circle .ficon{display:block;text-align:center;line-height:38px;color:#fff;font-size:20px;padding-left:1px;}
+
+section.dash.pink{border-top-color: #fa1963;}
+section.dash.pink .circle{background-color: #fa1963;}
+section.dash.purple{border-top-color: #683568;}
+section.dash.purple .circle{background-color: #683568;}
+section.dash.green{border-top-color: #1a8f72;}
+section.dash.green .circle{background-color: #1a8f72;}
+
 .cols{overflow:hidden;width: 1008px;}
-.col9{width: 732px; float:left;margin-right:24px;overflow:hidden;}
-.col6{width: 480px; float:left;margin-right:24px;overflow:hidden;}
-.col5{width: 396px; float:left;margin-right:24px;overflow:hidden;}
-.col4{width: 312px; float:left;margin-right:24px;overflow:hidden;}
-.col3{width: 228px; float:left; margin-right:24px; overflow:hidden;}
-.col2{width: 144px; float:left; margin-right:24px; overflow:hidden;}
+.col9{width: 732px; float:left;margin-right:24px;}
+.col6{width: 480px; float:left;margin-right:24px;}
+.col5{width: 396px; float:left;margin-right:24px;}
+.col4{width: 312px; float:left;margin-right:24px;}
+.col3{width: 228px; float:left; margin-right:24px;}
+.col2{width: 144px; float:left; margin-right:24px;}
 
 .content.search > .cols{width:1036px;overflow:visible;}
 .content.search .col9{width:756px;overflow:visible;}
 .content.search .col3{overflow:visible;}
 
 .content.search .summary{margin-left:252px;color:#666;font-size:14px;margin-bottom:12px}
+
+form.login{width:312px;margin: 0 auto;padding-top:60px;position:relative;}
+form.login label{border-left:none;padding-left:0;}
+form.login .inp input,
+form.login .inp input:hover,
+form.login label.inp:hover input,
+form.login .inp input:focus{width:294px;border:1px solid #bbb; padding: 6px 10px 6px;border-color: #aaa #ccc #ccc #aaa;
+  background:#fff;
+  box-shadow: inset 1px 1px 1px rgba(0,0,0,.1);
+  -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0,.1);
+  -webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0,.1);
+  -webkit-border-top-left-radius: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  -moz-border-radius-topleft: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  height:24px;
+  -webkit-transition:all ease-out 0.05s;
+}
+form.login .inp input:hover,
+form.login .inp input:focus{background:#fff;}
+form.login .inp input:focus,
+form.login .inp input:focus:hover{border-color: #777 #aaa #aaa #777;}
+
+form.login label .lbl{color:#444;}
+
+form.login .checks{position:absolute; left:336px;bottom:14px;width: 300px;}
+form.login .checks label{overflow:hidden;margin-bottom:14px;}
+form.login .checks label input{margin-top:0;margin-right:6px;}
+form.login .checks label input,
+form.login .checks label .lbl{float:left;width:auto;}
 
 .break{clear:both;}
 
@@ -290,7 +352,6 @@ input[type="color"]:focus,
           box-shadow: none;
 }
 
-
 label{margin-bottom:18px;border-left:2px solid #ddd;padding-left:8px;}
 
 label textarea,
@@ -349,7 +410,7 @@ label textarea.title:focus{background-position:98% 9px;}
 label textarea{overflow:hidden;resize:none;color:#444;}
 label textarea.title{font-size:24px;height:26px;line-height:26px;font-weight:bold;}
 
-label .lbl{display:block;font-size:12px;color:#48d9b8;margin-top:-1px;}
+label .lbl{display:block;font-size:12px;color:#48d9b8;margin-top:2px;line-height:16px;}
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     body label select{

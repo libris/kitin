@@ -135,6 +135,7 @@ kitin.factory('constants', function(flaskConstants) {
 });
 
 function IndexCtrl($scope, $http) {
+  document.body.className = 'index';
   $scope.drafts = $http.get("/drafts").success(function(data) {
     $scope.drafts = data.drafts;
   });
@@ -147,7 +148,9 @@ function IndexCtrl($scope, $http) {
 }
 
 function SearchCtrl($scope, $http, $location, $routeParams) {
+
   var previous_facets = getParameterByName("f");
+  document.body.className = 'search';
 
   $scope.q = $routeParams.q;
   $scope.f = $routeParams.f;
@@ -165,6 +168,7 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
   }
 
   facet_terms = []; // Poor mans localization
+
   facet_terms['@type'] = "Typer";
   facet_terms['about.dateOfPublication'] = "Datum";
   $scope.facet_terms = facet_terms;
@@ -203,6 +207,7 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
 }
 
 function NewRecordCtrl($location, $scope, records, $http, $routeParams) {
+  document.body.className = 'edit new';
   var recType = $routeParams.recType;
   $http.get('/record/bib/new').success(function(data) {
     $scope.record = data;
@@ -216,6 +221,7 @@ function NewRecordCtrl($location, $scope, records, $http, $routeParams) {
 }
 
 function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, constants) {
+  document.body.className = 'edit';
   var recType = $routeParams.recType, recId = $routeParams.recId;
   var path = "/record/" + recType + "/" + recId;
 
