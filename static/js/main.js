@@ -1,5 +1,15 @@
-// app.js
+function getParameterByName(name) {
+  name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regexS = "[\\?&]" + name + "=([^&#]*)";
+    var regex = new RegExp(regexS);
+    var results = regex.exec(window.location.search);
+    if(results == null)
+      return "";
+    else
+      return decodeURIComponent(results[1].replace(/\+/g, " "));
+}
 
+// app.js
 
 var kitin = angular.module('kitin', []);
 
@@ -137,22 +147,54 @@ function IndexCtrl($scope, $http) {
 }
 
 function SearchCtrl($scope, $http, $location, $routeParams) {
+  var previous_facets = getParameterByName("f");
+
   $scope.q = $routeParams.q;
+  $scope.f = $routeParams.f;
   var url = "/search?q=" + $scope.q;
+  if($scope.f != undefined) {
+    url += "&f=" + $scope.f;
+  }
+
   $scope.search = function() {
-    var url = "/search?q=" + $scope.q;
     $location.url(url);
   };
+
   if (!$routeParams.q) {
     return;
   }
-  facet_terms = [];
+
+  facet_terms = []; // Poor mans localization
   facet_terms['@type'] = "Typer";
   facet_terms['about.dateOfPublication'] = "Datum";
   $scope.facet_terms = facet_terms;
 
   $http.get(url).success(function(data) {
     $scope.result = data;
+
+    // iterate facets to add correct slug
+    // if can do in angularistic fashion; then please do and remove this!
+    var result = []
+    for(facet_type in data.facets) {
+      var new_facet = {};
+      new_facet['type'] = facet_type;
+      new_facet['items']= [];
+      for(item in data.facets[facet_type]) {
+        var subitem = {};
+        var subitem_object = {};
+        subitem_object[item] = data.facets[facet_type][item];
+        subitem['object'] = subitem_object;
+        var slug = [facet_type, item].join(":");
+        if($.inArray(slug, previous_facets.split(" ")) != -1) {
+          subitem['slug'] = "/search?q=" + $scope.q + "&f=" + $.grep(previous_facets.split(" "), function(val) {return val != slug});
+        } else {
+          subitem['slug'] = "/search?q=" + $scope.q + "&f=" + slug + previous_facets;
+        }
+        new_facet['items'].push(subitem);
+      }
+      result.push(new_facet);
+    }
+    $scope.my_facets = result;
   });
 
   $scope.isempty = function(obj) {
