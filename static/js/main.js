@@ -169,7 +169,7 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
 
   facet_terms = []; // Poor mans localization
 
-  facet_terms['@type'] = "Typer";
+  facet_terms['about.@type'] = "Typer";
   facet_terms['about.dateOfPublication'] = "Datum";
   $scope.facet_terms = facet_terms;
 
