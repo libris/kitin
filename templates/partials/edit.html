@@ -10,12 +10,6 @@
   </div>
 </div>
 
-<div data-ng-show="draft" data-ng-click="promptConfirmDelete($event, draft.type, draft.id)">
-  <div class="popover-inner">
-    <button class="close" data-ng-click="somebutton.click()">Ta bort utkast</button>
-  </div>
-</div>
-
 <div class="content bib" id="prelude"><form id="record" class="form-horizontal">
   <div id="grid"></div>
     <!--<div data-ng-view></div>-->
@@ -49,7 +43,8 @@
           <span class="lbl">{{ "Allmän mediaterm" }}</span>
         </label>
         <label class="ng-binding">
-          <select data-ng-model="record.about.instanceOf.country" data-ng-options="code as name for (code, name) in langlist">
+          <span class="fakeholder" data-fakeholder>Välj ett land</span>
+          <select class="selectpicker" data-selectpicker data-ng-model="record.about.instanceOf.country" data-ng-options="code as name for (code, name) in langlist">
           </select>
           <span class="lbl">{{ "Språk" }}</span>
         </label>
@@ -73,9 +68,9 @@
     <div class="cols">
       <div class="col6">
         <h3>Ämnesord</h3>
-          <ul class="inline">
+          <!--<ul class="inline">
             <li data-ng-repeat="topic in work.subject"><a class="btn btn-small" href="{{ topic['@id'] }}"><i class="icon-tag"></i> {{ topic['@id'] }}</a></li>
-          </ul>
+          </ul>-->
       </div>
       <div class="col6">
         <h3>Klassifikation</h3>
@@ -119,11 +114,13 @@
       </div>
       <div class="col6">
         <label class="ng-binding">
+          <span class="fakeholder" data-fakeholder>Välj ett land</span>
           <select data-ng-model="record.about.instanceOf.country" data-ng-options="code as name for (code, name) in countrylist">
           </select>
           <span class="lbl">{{ "Utgivningsland" }}</span>
         </label>
         <label class="ng-binding">
+          <span class="fakeholder" data-fakeholder>Välj ett land</span>
           <select data-ng-model="instance.placeOfManufacture.label" data-ng-options="code as name for (code, name) in countrylist">
           </select>
           <span class="lbl">{{ "Utgivningsland" }}</span>
@@ -175,10 +172,11 @@
   </section>
 
   <section class="submit">
-    <button class="btn btn-dark btn-submit">Publicera</button>
-    <input type='button' id='btn2' value='Spara utkast' data-ng-click="save_draft()"/>
-    <input type='button' id='btn3' value='Spara' data-ng-click="save()"/>
-    <p class="flash_message"></p>
+    <button class="btn btn-dark btn-submit" id='btn3' data-ng-click="save()">Publicera</button>
+    <button class="btn-link" id='btn2' data-ng-click="save_draft()">Stäng och spara utkast</button>
+    <span class="removedraft" data-ng-show="draft" data-ng-click="promptConfirmDelete($event, draft.type, draft.id)">
+      <button class="btn-link" data-ng-click="somebutton.click()"><i class="ficon ficon-remove"></i> Ta bort utkast</button>
+    </span>
   </section>
 </form>
 </div>
