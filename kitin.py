@@ -5,11 +5,12 @@ import json
 import urllib2
 import logging
 from urlparse import urlparse
-from flask import Flask, render_template, request, make_response, abort, redirect, url_for, Markup
-from flask_login import LoginManager, login_required, login_user, flash, current_user, UserMixin, logout_user
+from flask import Flask, render_template, request, make_response, abort, redirect, url_for, Markup, session
+from flask_login import LoginManager, login_required, login_user, flash, current_user, logout_user
 import requests
 import re
-from storage import Storage, User
+from storage import Storage
+from user import User
 import jinja2
 
 app = Flask(__name__)
@@ -25,11 +26,12 @@ storage = Storage(app.config.get("DRAFTS_DIR"))
 logger = logging.getLogger(__name__)
 
 
-@app.before_request
-def before_request():
-    if app.debug:
-        user = User("kalle", "hemligt", True)
-        login_user(user)
+#@app.before_request
+#def before_request():
+    #if app.debug:
+        #user = User("kalle", "hemligt", True)
+        #print "user %s" % user
+        #login_user(user)
 
 #@app.route("/")
 def start():
@@ -41,12 +43,10 @@ def start():
             record_templates=find_record_templates(),
             open_records=open_records)
     
-# How check if user is logged in?
 @app.route("/")
 @login_required
 def index():
-    user = current_user if current_user.is_active() else None
-    return render_template('index.html', user=user, partials = {"/partials/index" : "partials/index.html"})
+    return render_template('index.html', user=current_user, partials = {"/partials/index" : "partials/index.html"})
 
 @app.route("/search")
 def search():
@@ -332,7 +332,7 @@ def show_marc_record(rec_type, rec_id):
     #return render_template('index.html', partials = {"/partials/frbr" : "partials/frbr.html"})
 
 @app.route('/record/bib/<rec_id>')
-#@login_required
+#@_required
 def get_bib_data(rec_id):
     # TODO: How check if user is logged in?
     draft = storage.get_draft(current_user.get_id(), "bib", rec_id)
@@ -477,53 +477,50 @@ def mockdatapath(rectype, recid=None):
     else:
         return dirpath
 
-
 @login_manager.user_loader
 def _load_user(uid):
-    """Get user by uid from bibdb? Return None if uid is not valid. Ensure uid is unicode."""
-    print "loading user from nowhere"
-    try:
-        user = User(uid)
-    except Exception as e:
-        print "Exception trying to load user. %s" % e
-    return user
+    print "Loading user %s " % uid
+    print "Sigel in session %s" % session.get('sigel')
+    if not 'sigel' in session:
+        return None
+    return User(uid, sigel=session.get('sigel'))
+
+#@app.context_processor
+#def inject_sigel():
+    #return dict(sigel=session.get('sigel', ''))
 
 @login_manager.unauthorized_handler
 def _handle_unauthorized():
     return redirect("/login")
-
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     msg = None
     if request.method == "POST" and "username" in request.form:
         username = request.form["username"]
-        password = request.form["password"] 
+        password = request.form["password"]
         remember = request.form.get("remember", "no") == "yes"
-        user = storage.load_user(username, password, remember)
-        if (user):
-            login_user(user, remember)
-
-            flash("Logged in!")
-        else:
-            flash("No such user.")
+        user = User(username)
+        sigel = user.authorize(password, app.config)
+        if sigel == None:
+            sigel = ""
             msg = u"Kunde inte logga in. Kontrollera användarnamn och lösenord."
-
-    elif "signout" in request.form and current_user:
-        try:
-            logout_user()
-        except Exception as e:
-            print "FAIL: %s" % e
-            return render_template("home.html")
-        user = None
-
-    return render_template("home.html", user = current_user if current_user.is_active() else None, msg = msg)
+        else:
+            user.sigel = sigel
+            session['sigel'] = sigel
+            login_user(user, remember)
+            print "User logged in"
+            print "User %s logged in with sigel %s" % (user.username, user.sigel)
+            return render_template('index.html', user = user, sigel = sigel, partials = {"/partials/index" : "partials/index.html"})
+    return render_template("home.html", user = current_user, msg = msg)
 
 @app.route("/signout")
 @login_required #add this decorator to all views that require log in, i.e. all but login
 def logout():
+    "Trying to sign out..."
     logout_user()
-    return render_template("home.html")
+    session.pop('sigel', None)
+    return redirect("/login")
 
 jinja2.filters.FILTERS['chunk_number'] = chunk_number
 
