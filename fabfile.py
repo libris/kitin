@@ -23,6 +23,21 @@ def demo():
     env.wwwuser = '_www'
     env.wwwgroup = '_www'
 
+#@task
+#def create_db():
+    #execfile(os.path.join(os.path.dirname(__file__), 'config.cfg'), cfg)
+    #if not os.path.exists(cfg.get('DBNAME')):
+        #db = create_engine(cfg.get('DBENGINE') + ':///' + cfg.get('DBNAME'))
+        #db.echo = True
+        #metadata = MetaData(db)
+        
+        #userdata = Table('userdata', metadata,
+            #Column('id', Integer),
+            #Column('username', String, primary_key=True),
+            #Column('sigel', String),
+            #Column('active', Boolean),
+        #)
+        #userdata.create()
 
 @task
 def prepare():
