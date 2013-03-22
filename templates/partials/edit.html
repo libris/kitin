@@ -50,7 +50,7 @@
         </label>
       </div>
       <div class="col6">
-        <label class="ng-binding">
+        <label class="ng-binding error">
           <textarea spellcheck="false" data-ng-model="work.statementOfResponsibility" placeholder="Upphov"></textarea>
           <span class="lbl">{{ "Upphov" }}</span>
         </label>
@@ -68,6 +68,27 @@
     <div class="cols">
       <div class="col6">
         <h3>Ämnesord</h3>
+        <label class="dynamic-subjects">
+          <span class="subjects"><i class="subject">Multiple Murders <i class="ficon ficon-circle-arrow-down"></i></i> -- America's fascination with multiple homicide -- Defining murder -- Serial murder -- An anatomy of serial murder -- With deliberation and purpose -- Murder</span>
+          <span class="lbl">Ämnesord</span>
+        </label>
+        <label class="add-subject">
+          <textarea placeholder="Lägg till ämnesord"></textarea>
+          <span class="lbl">Skriv in ämnesord</span>
+        </label>
+        <div class="suggestion-subjects">
+          <ul>
+            <li><i class="ficon ficon-circle-arrow-up"></i> Mass murder</li>
+            <li><i class="ficon ficon-circle-arrow-up"></i> Murder</li>
+            <li><i class="ficon ficon-circle-arrow-up"></i> Massacres</li>
+            <li><i class="ficon ficon-circle-arrow-up"></i> Mass murder</li>
+            <li><i class="ficon ficon-circle-arrow-up"></i> Murder</li>
+            <li><i class="ficon ficon-circle-arrow-up"></i> Massacres</li>
+            <li><i class="ficon ficon-circle-arrow-up"></i> Mass murder</li>
+            <li><i class="ficon ficon-circle-arrow-up"></i> Murder</li>
+            <li><i class="ficon ficon-circle-arrow-up"></i> Massacres</li>
+          </ul>
+        </div>
           <!--<ul class="inline">
             <li data-ng-repeat="topic in work.subject"><a class="btn btn-small" href="{{ topic['@id'] }}"><i class="icon-tag"></i> {{ topic['@id'] }}</a></li>
           </ul>-->
@@ -87,7 +108,7 @@
     <div class="cols">
       <div class="col3">
         <label class="ng-binding">
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.isbn" placeholder="ISBN">
+          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.isbn" placeholder="ISBN" isbnvalidator>
           <span class="lbl">{{ "ISBN" }}</span>
         </label>
         <label class="ng-binding">

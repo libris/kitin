@@ -409,8 +409,13 @@ label textarea:focus{background:#c8f4ea url(/static/i/pen-black.png) no-repeat 9
 label:hover textarea.title,
 label textarea.title:focus{background-position:98% 9px;}
 
+label textarea.ng-invalid,
+label input.ng-invalid,
+label select.ng-invalid {background-color:#ffd4db!important;border-color:#ffd4db!important;}
+
+
 label textarea{overflow:hidden;resize:none;color:#444;}
-label textarea.title{font-size:24px;height:26px;line-height:26px;font-weight:bold;}
+label textarea.title{font-size:22px;height:28px;line-height:26px;font-weight:bold;}
 
 label .lbl{display:block;font-size:12px;color:#48d9b8;margin-top:2px;line-height:16px;}
 
@@ -421,7 +426,6 @@ label .lbl{display:block;font-size:12px;color:#48d9b8;margin-top:2px;line-height
     body label select:hover{background:#f8f8f8 url(/static/i/select-arrow.png) no-repeat 98% -2px;}
     body label select:focus{background-color:red;background:#c8f4ea url(/static/i/select-arrow.png) no-repeat 98% -92px;}
 }
-
 
 /* bootstrap buttons */
 
@@ -456,6 +460,7 @@ label .lbl{display:block;font-size:12px;color:#48d9b8;margin-top:2px;line-height
 .removedraft{float:right;}
 
 /* Autocomplete */
+
 .acResults {width:466px;border:1px solid #ccc;border-top-width:0;background:#fff;
   -webkit-box-shadow: 0 0px 6px rgba(0,0,0,.2);
   -moz-box-shadow: 0 0px 6px rgba(0,0,0,.2);
@@ -472,4 +477,17 @@ label .lbl{display:block;font-size:12px;color:#48d9b8;margin-top:2px;line-height
 .acResults .about{font-size:13px;line-height:20px;color:#666;}
 .acSelect{background:#c8f4ea;}
 
+/* Popover */
+
+.popover{
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-box-shadow: 3px;
+  -moz-box-shadow: 3px;
+  box-shadow: 0 0px 2px rgba(0,0,0,.15);
+}
+
+.popover h3{font:bold 15px/18px "Open Sans", sans-serif;border:none;background:none;padding-bottom:0;}
+.popover .popover-content{padding-top:0;font-size:12px;color:#666;}
 

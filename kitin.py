@@ -53,6 +53,14 @@ def index():
 def detail():
     return render_template('partials/login.html')
 
+@app.route("/detail")
+def detail():
+    return render_template('prototypes/detail.html')
+
+@app.route("/list")
+def list():
+    return render_template('prototypes/list.html')
+
 @app.route("/search")
 def search():
     q = request.args.get('q')
