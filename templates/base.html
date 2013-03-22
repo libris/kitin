@@ -22,10 +22,12 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
               <span class="icon-bar"></span>
             </a>
             <a target="_self" class="brand brand-fix" href="/">LIBRIS katalogisering - prototyp</a>
+            
+            {% if current_user.is_authenticated() %}
             <div class="nav-collapse dropdown">
               <ul class="nav pull-right" role="menu" aria-labelledby="dLabel">
-                <li><a href="#"><span class="muted">Inloggad som: </span>{{current_user.username}} ({{current_user.get_sigel()}})</a></li>
-                <li><a href="/signout?signout=yesindeedioh">Logga ut</a></li>
+                <li><a href="#"><span class="muted">Inloggad som: </span>{{current_user.username}} ({{current_user.sigel}})</a></li>
+                <li><a href="/signout">Logga ut</a></li>
                 <li>
                   <div class="btn-group">
                     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -41,9 +43,33 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
                 </li>
               </ul>
             </div>
+            {% endif %}
+            
           </div>
         </div>
       </div>
+            {% if not current_user.is_authenticated() %}
+                {% block login %}
+                <div class="container">
+                    <h5>Logga in</h5>
+                        <form class="form-horizontal" method="POST" action="/login">
+	                        <div class="control-group">
+                                <input name="username" type="text" class="input-xlarge" placeholder="">
+                                <label  for="inputEmail">Användarnamn</label>
+                            </div>
+                            <div class="control-group">
+                                <input name="password" autocomplete="off" type="password" class="input-xlarge" placeholder="">
+                            <label for="inputPassword">Lösenord</label>
+                            </div>
+
+                            <div class="control-group">
+                                <!--<label class="checkbox"><input name="remember" type="checkbox"> Kom ihåg mig</label>-->
+                                <button type="submit" class="btn btn-success btn-xlarge">Logga in</button>
+	                        </div>
+                        </form>
+                </div>
+                {% endblock login %}
+            {% endif %}
 
     <div class="container">
 
@@ -74,7 +100,7 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
     {% if current_user %}
         <script type="text/javascript">
         kitin.constant("flaskConstants", {
-        user_sigel: '{{ current_user.get_sigel() }}'
+        user_sigel: '{{ current_user.sigel }}'
     });
     </script>
     {% endif %}
