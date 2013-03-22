@@ -43,7 +43,6 @@
           <span class="lbl">{{ "Allmän mediaterm" }}</span>
         </label>
         <label class="ng-binding">
-          <span class="fakeholder" data-fakeholder>Välj ett land</span>
           <select class="selectpicker" data-selectpicker data-ng-model="record.about.instanceOf.country" data-ng-options="code as name for (code, name) in langlist">
           </select>
           <span class="lbl">{{ "Språk" }}</span>
@@ -135,13 +134,11 @@
       </div>
       <div class="col6">
         <label class="ng-binding">
-          <span class="fakeholder" data-fakeholder>Välj ett land</span>
           <select data-ng-model="record.about.instanceOf.country" data-ng-options="code as name for (code, name) in countrylist">
           </select>
           <span class="lbl">{{ "Utgivningsland" }}</span>
         </label>
         <label class="ng-binding">
-          <span class="fakeholder" data-fakeholder>Välj ett land</span>
           <select data-ng-model="instance.placeOfManufacture.label" data-ng-options="code as name for (code, name) in countrylist">
           </select>
           <span class="lbl">{{ "Utgivningsland" }}</span>
