@@ -155,6 +155,8 @@ body.login .content.index header{margin-bottom:60px;}
       box-shadow: 0 1px 3px rgba(0,0,0,.2);
 }
 
+.content section .foot{text-align:right;}
+
 .content section.submit{background:transparent;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
@@ -404,7 +406,7 @@ label:hover textarea,
 label:hover input{background:#f8f8f8 url(/static/i/pen-grey.png) no-repeat 98.5% 7px;color:#000;border-color:#f8f8f8;}
 
 label input:focus,
-label textarea:focus{background:#c8f4ea url(/static/i/pen-black.png) no-repeat 98.5% 7px;color:#000;border: 1px solid #c8f4ea;}
+label textarea:focus{background:#c0f1e6 url(/static/i/pen-black.png) no-repeat 98.5% 7px;color:#000;border: 1px solid #c0f1e6;}
 
 label:hover textarea.title,
 label textarea.title:focus{background-position:98% 9px;}
@@ -417,7 +419,7 @@ label select.ng-invalid {background-color:#ffd4db!important;border-color:#ffd4db
 label textarea{overflow:hidden;resize:none;color:#444;}
 label textarea.title{font-size:22px;height:28px;line-height:26px;font-weight:bold;}
 
-label .lbl{display:block;font-size:12px;color:#48d9b8;margin-top:2px;line-height:16px;}
+label .lbl{display:block;font-size:12px;color:#1a8f72;margin-top:2px;line-height:16px;}
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     body label select{
@@ -490,4 +492,11 @@ label .lbl{display:block;font-size:12px;color:#48d9b8;margin-top:2px;line-height
 
 .popover h3{font:bold 15px/18px "Open Sans", sans-serif;border:none;background:none;padding-bottom:0;}
 .popover .popover-content{padding-top:0;font-size:12px;color:#666;}
+
+label.dynamic-subjects em.subject{padding:0 4px;background:#c0f1e6}
+label.dynamic-subjects em.subject .ficon{color:#1a8f72;}
+.suggestion-subjects{border-left:2px solid #ddd;padding-left:8px;background:#f6f3ee url(/static/i/pat1.png);padding-top:8px;padding-bottom:8px;overflow:hidden;}
+.suggestion-subjects ul{list-style:none;margin:0;padding:0;}
+.suggestion-subjects li{margin: 0 4px 4px 0;float:left;padding:4px 8px;background:rgba(20,200,160,.35);}
+.suggestion-subjects li .ficon{color:#1a8f72;}
 
