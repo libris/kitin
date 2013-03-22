@@ -1,59 +1,70 @@
 {% raw %}
-<div class="row-fluid">
-  <div class="span9 offset3">
-    <section class="search" role="search">
-      <div class="search-bar">
-      <ul class="border-search unstyled">
-          <li class="ui-search-item search-input-item">
-          <form class="form-inline search-form" data-ng-submit="search()">
-            <input id="search" name="q" type="text" autofocus
-                    class="xlarge ui-autocomplete-input"
-                    value="" placeholder=""
-                    autocomplete="off" role="textbox"
-            aria-autocomplete="list" aria-haspopup="true" data-ng-model="q">
-            <button id="submit" class="btn btn-large btn-success" type="submit">
-              <i class="icon-search icon-white"></i>
-            </button>
-          </form>
-        </li>
-      </ul>
-  </div>
-    </section>
-	<section class="hitlist">
-  	<article data-ng-repeat="record in result.list" class="record {{record.identifier}}">
-    <a class="bib-url" href="/edit/bib/{{ record.data.controlNumber }}">
-      <header>
-        <h3>
-          <span class="title-clickable">
-            <span title="245A">{{ record.data.about.instanceOf.title }}</span>
-            <span class="title-remainder">
-              <span title="245C"> / {{ record.data.about.instanceOf.statementOfResponsibility }}</span>
-            </span>
-          </span>
-        </h3>
-      </header>
-      <span class="unstyled-url">
-        <h4 data-ng-repeat="author in record.data.about.instanceOf.authorList">
-          <span class="author">
-            <i class="icon-user icon-author"></i>
-            <span title="100A">{{ author.name }}</span>
-            <span title="100D">{{ author.birthYear }} - {{ author.deathYear }}</span> 
-          </span>
-        </h4>
-	    <div class="row-fluid">
-	      <ul>
-	        <li>bibLevel: {{ record.data.about.instanceOf['marc:bibLevel'].label }}</li>
-	        <li>typeOfRecord: {{ record.data.about['marc:typeOfRecord'].label }}</li>
-	        <li>encLevel: {{ record.data.encLevel.label }}</li>
-	        <li>id: {{ record.data['@id'] }}</li>
-	        <li>year: {{ record.data.about.pubDate['@value'] }}</li>
-	        <li>isbn: {{ record.data.about.isbn }}</li>
-	      </ul>
-	    </div>
-      </span>
-    </a><hr />
-    </article>
-    </section>
+
+<div class="content search">
+  <div id="grid"></div>
+  <header>
+    <h1></h1>
+    <p class="summary">1 234 träffar för <strong>Zlatan</strong> inom <strong>Text – tryck</strong> och <strong>Elektronisk resurs</strong></p>
+  </header>
+  <div class="cols">
+    <div class="col3">
+      <section class="nav">
+        <dl data-ng-repeat="facet in my_facets">
+          <dt><i></i>Test {{facet_terms[facet['type']]}}</dt>
+          <dd data-ng-repeat="item in facet['items']">
+            <a data-ng-href="{{item['slug']}}"><span data-ng-repeat="(key, value) in item['object']">{{key}} ({{value}})</span></a>
+          </dd>
+        </dl>
+      </section>
+    </div>
+    <div class="col9">
+      <section data-ng-repeat="record in result.list" class="result record {{record.identifier}}">
+        <div class="cols">
+          <div class="col5">
+            <label class="title">
+              <a class="bib-url" href="/edit/bib/{{ record.data.controlNumber }}" title="245A">{{ record.data.about.instanceOf.title }}</a>
+              <span class="lbl" title="245C">{{ record.data.about.instanceOf.statementOfResponsibility }}</span>
+            </label>
+          </div>
+          <div class="col4">
+            <label data-ng-repeat="author in record.data.about.instanceOf.authorList">
+                <span title="100A">{{ author.name }}</span>, <span title="100D">{{ author.birthYear }} - {{ author.deathYear }}</span>
+                <span class="lbl">Upphovsman</span>
+            </label>
+            <label>
+              {{ record.data.about.pubDate['@value'] }}
+              <span class="lbl">Publikationsår</span>
+            </label>
+            <label>
+              {{ record.data.about.isbn }}
+              <span class="lbl">ISBN</span>
+            </label>
+          </div>
+        </div>
+        <div class="excerpt">
+          <label>
+            a <strong class="highlight">lorem</strong> Extreme (ipsum dore...
+            <span class="lbl">Utdrag ur: Innehållsförteckning</span>
+          </label>
+        </div>
+        <div class="footer">
+          <span>Text – tryck</span>
+          <span>[ Monografisk resurs ]</span>
+          <span class="level">[ Biblioteksnivå ]</span>
+        </div>
+        <ul style="display:none">
+          <li>bibLevel: {{ record.data.about.instanceOf['marc:bibLevel'].label }}</li>
+          <li>typeOfRecord: {{ record.data.about['marc:typeOfRecord'].label }}</li>
+          <li>encLevel: {{ record.data.encLevel.label }}</li>
+          <li>id: {{ record.data['@id'] }}</li>
+          <li>year: {{ record.data.about.pubDate['@value'] }}</li>
+          <li>isbn: {{ record.data.about.isbn }}</li>
+>>>>>>> design
+        </ul>
+      </section>
+    </div>
   </div>
 </div>
+
+
 {% endraw %}
