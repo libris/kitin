@@ -210,14 +210,19 @@
     <div class="cols holdings-editor">
       <div class="col3 holdings-list">
         <ul>
-          <li><a href="#">Yo Librarians</a></li>
-          <li class="active"><a href="#">Yo Librarians</a></li>
-          <li><a href="#">Yo Librarians</a></li>
+          <li><a href="#">A</a></li>
+          <li class="active"><a href="#">B</a></li>
+          <li><a href="#">C</a></li>
         </ul>
       </div>
       <div class="col9">
         <div class="editor">
-          Sizzle
+        <h3>{{ "Förslag på signum" }}</h3>
+          <div class="suggestion-classification">
+          <ul>
+            <li data-ng-repeat="holding in holdings" data-ng-show="holding.classificationPart"><i class="ficon ficon-circle-arrow-up"></i> {{ holding.classificationPart }}</li>
+          </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -236,7 +241,7 @@
 </div>
 
 
-<!--new end-->
+<!--old hld starts here-->
 
     <h2>BESTÅND</h2>
     <article class="well">
@@ -254,20 +259,7 @@
     </article>
 
     <article class="well">
-      <section>
-        <btn class="btn btn-primary"> Lägg till bestånd för [mitt sigel]
-        <input class="input-large" placeholder="hyllsignum"/>
-        <input class="input-large" placeholder="Löpnummer"/>
-        <input class="input-large" placeholder="Uppställningsord"/>   
-        </btn>
-      </section>
 
-      <section class="classification-suggest well">
-        <h3>{{ "Förslag på signum" }}</h3>
-        <ul class="unstyled inline">
-          <li data-ng-repeat="holding in holdings" data-ng-show="holding.classificationPart"><btn class="btn btn-small" ><i class="icon-tag"></i> {{ holding.classificationPart }}</btn></li>
-        </ul>
-      </section>
 
       <label data-ng-hide="togglesigels" for="toggle-sigels">Visa alla beståndsposter</label>
       <label data-ng-show="togglesigels" for="toggle-sigels">Visa bara mina beståndsposter</label>
