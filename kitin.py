@@ -71,7 +71,7 @@ def login():
     return render_template("partials/login.html", msg = msg)
     
 @app.route("/")
-@login_required
+#@login_required
 def index():
     return render_template('index.html', user=current_user, partials = {"/partials/index" : "partials/index.html"})
 
