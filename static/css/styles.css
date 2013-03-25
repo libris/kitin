@@ -446,6 +446,17 @@ label.dynamic-subjects em.subject .ficon{color:#1a8f72;}
 .suggestion-subjects li{margin: 0 4px 4px 0;float:left;padding:4px 8px;background:rgba(20,200,160,.35);}
 .suggestion-subjects li .ficon{color:#1a8f72;}
 
+/*
+.holdings > label.dynamic-subjects em.subject{padding:0 4px;background:#c0f1e6}
+.holdings > label.dynamic-subjects em.subject .ficon{color:#1a8f72;}
+*/
+.suggestion-classification{border-left:2px solid #ddd;padding-left:8px;background:#f6f3ee url(/static/i/pat1.png);padding-top:8px;padding-bottom:8px;overflow:hidden;}
+.suggestion-classification ul{list-style:none;margin:0;padding:0;}
+.suggestion-classification li{margin: 0 4px 4px 0;float:left;padding:4px 8px;background:rgba(167, 86, 167, 0.35);}
+.suggestion-classification li .ficon{color:#683568;}
+
+
+
 /* bootstrap buttons */
 
 .btn {
@@ -500,6 +511,11 @@ label.dynamic-subjects em.subject .ficon{color:#1a8f72;}
 
 .content.holdings section h2{background-color:#a756a7;}
 .content.holdings section h2 i{border-right-color:#683568;}
+
+.content.holdings section h3{font:bold italic 16px/20px "Droid Serif", georgia,serif; color:#a756a7; 
+  border-bottom:1px solid #a756a7; padding-bottom: 2px; }
+
+
 
 /* Autocomplete */
 
