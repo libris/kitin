@@ -134,6 +134,28 @@ kitin.factory('constants', function(flaskConstants) {
   };
 });
 
+
+/**
+ * Global scope functions.
+ */
+kitin.run(function($rootScope) {
+
+  $rootScope.isEmpty = function(obj) { return angular.equals({},obj) };
+
+  $rootScope.typeOf = function (o) { return typeof o; }
+
+});
+
+/**
+ * Global filters.
+ */
+kitin.filter('ensureArray', function($rootScope) {
+  return function (obj) {
+    return (obj === undefined || obj.length !== undefined)? obj : [obj];
+  };
+});
+
+
 function IndexCtrl($scope, $http) {
   document.body.className = 'index';
   $scope.drafts = $http.get("/drafts").success(function(data) {
@@ -201,9 +223,6 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
     $scope.my_facets = result;
   });
 
-  $scope.isempty = function(obj) {
-    return angular.equals({},obj)
-  }
 }
 
 function NewRecordCtrl($location, $scope, records, $http, $routeParams) {
@@ -360,7 +379,6 @@ function FrbrCtrl_old($rootScope, $scope, $routeParams, $timeout, conf, records)
   conf.renderUpdates = false;
   $rootScope.editMode = 'normal';
 
-  $scope.typeOf = function (o) { return typeof o; }
   $scope.getKey = marcjson.getMapEntryKey;
 
   var recType = $routeParams.recType, recId = $routeParams.recId;
@@ -436,7 +454,6 @@ function MarcCtrl($rootScope, $scope, $routeParams, conf, records, $timeout) {
   conf.renderUpdates = false;
   $rootScope.editMode = 'marc';
 
-  $scope.typeOf = function (o) { return typeof o; }
   $scope.getKey = marcjson.getMapEntryKey;
   $scope.indicatorType = marcjson.getIndicatorType;
   $scope.widgetType = marcjson.getWidgetType;
