@@ -1,5 +1,5 @@
 WHELK_HOST = '<WHELK_HOST>'
 STORAGE_DIR = './storage'
 DRAFTS_DIR = STORAGE_DIR + '/drafts'
-BIBDB_API = 'https://bibdb.libris.kb.se/api'
+BIBDB_API = '<BIBDB_API_URL>'
 BIBDB_API_KEY = '<BIBDB_API_KEY>'
