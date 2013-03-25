@@ -111,8 +111,8 @@
           <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.isbn" placeholder="ISBN" isbnvalidator>
           <span class="lbl">{{ "ISBN" }}</span>
         </label>
-        <label class="ng-binding">
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.publisher.name" placeholder="Utgivare förlag">
+        <label class="ng-binding" data-ng-repeat="publisher in instance.publisher">
+          <input class="ng-pristine ng-valid" type="text" data-ng-model="publisher.name" placeholder="Utgivare förlag">
           <span class="lbl">{{ "Utgivare/förlag" }}</span>
         </label>
       </div>
