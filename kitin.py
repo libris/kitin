@@ -27,32 +27,53 @@ logger = logging.getLogger(__name__)
 here = os.path.dirname(__file__)
 
 
-#@app.before_request
-#def before_request():
-    #if app.debug:
-        #user = User("kalle", "hemligt", True)
-        #print "user %s" % user
-        #login_user(user)
-
 #@app.route("/")
-def start():
-    open_records = []
-    user = current_user if current_user.is_active() else None
-    print "USER: ", user
-    return render_template('home.html',
-            user=user,
-            record_templates=find_record_templates(),
-            open_records=open_records)
+#def start():
+    #open_records = []
+    #user = current_user if current_user.is_active() else None
+    #print "USER: ", user
+    #return render_template('home.html',
+            #user=user,
+            #record_templates=find_record_templates(),
+            #open_records=open_records)
+
+@login_manager.user_loader
+def _load_user(uid):
+    print "Loading user %s " % uid
+    print "Sigel in session %s" % session.get('sigel')
+    if not 'sigel' in session:
+        return None
+    return User(uid, sigel=session.get('sigel'))
+
+@login_manager.unauthorized_handler
+def _handle_unauthorized():
+    return redirect("/login")
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    msg = None
+    if request.method == "POST" and "username" in request.form:
+        username = request.form["username"]
+        password = request.form["password"]
+        remember = request.form.get("remember", "no") == "yes"
+        user = User(username)
+        sigel = user.authorize(password, app.config)
+        if sigel == None:
+            sigel = ""
+            msg = u"Kunde inte logga in. Kontrollera användarnamn och lösenord."
+        else:
+            user.sigel = sigel
+            session['sigel'] = sigel
+            login_user(user, remember)
+            print "User logged in"
+            print "User %s logged in with sigel %s" % (user.username, user.sigel)
+            return render_template('index.html', partials = {"/partials/index" : "partials/index.html"})
+    return render_template("partials/login.html", msg = msg)
     
 @app.route("/")
 @login_required
 def index():
     return render_template('index.html', user=current_user, partials = {"/partials/index" : "partials/index.html"})
-
-# Login
-@app.route("/login")
-def detail():
-    return render_template('partials/login.html')
 
 @app.route("/detail")
 def detail():
@@ -117,7 +138,6 @@ def create_holding():
         return resp
     else:
         abort(response.status_code)
-
 
 @app.route('/holding/<holding_id>', methods=['PUT'])
 def save_holding(holding_id):
@@ -354,6 +374,7 @@ def get_record_summary(data):
 @app.route('/edit/<edit_mode>')
 def show_record_form(**kws):
     return render_template('bib.html', **kws)
+
 @app.route('/edit/<rec_type>/<rec_id>')
 def show_edit_record(rec_type, rec_id):
     return index()
@@ -508,43 +529,6 @@ def mockdatapath(rectype, recid=None):
         return os.path.join(dirpath, recid +'.json')
     else:
         return dirpath
-
-@login_manager.user_loader
-def _load_user(uid):
-    print "Loading user %s " % uid
-    print "Sigel in session %s" % session.get('sigel')
-    if not 'sigel' in session:
-        return None
-    return User(uid, sigel=session.get('sigel'))
-
-#@app.context_processor
-#def inject_sigel():
-    #return dict(sigel=session.get('sigel', ''))
-
-@login_manager.unauthorized_handler
-def _handle_unauthorized():
-    return redirect("/login")
-
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    msg = None
-    if request.method == "POST" and "username" in request.form:
-        username = request.form["username"]
-        password = request.form["password"]
-        remember = request.form.get("remember", "no") == "yes"
-        user = User(username)
-        sigel = user.authorize(password, app.config)
-        if sigel == None:
-            sigel = ""
-            msg = u"Kunde inte logga in. Kontrollera användarnamn och lösenord."
-        else:
-            user.sigel = sigel
-            session['sigel'] = sigel
-            login_user(user, remember)
-            print "User logged in"
-            print "User %s logged in with sigel %s" % (user.username, user.sigel)
-            return render_template('index.html', user = user, sigel = sigel, partials = {"/partials/index" : "partials/index.html"})
-    return render_template("home.html", user = current_user, msg = msg)
 
 @app.route("/signout")
 @login_required #add this decorator to all views that require log in, i.e. all but login
