@@ -7,7 +7,7 @@ fetch() {
     fi
 }
 
-DIR=$(dirname $(dirname $0))/static/vendor/
+DIR=../static/vendor/
 set -e -v
 
 pushd $DIR
