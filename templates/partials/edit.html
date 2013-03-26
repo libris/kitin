@@ -16,10 +16,9 @@
   <header>
     <h1>Bibliografisk post</h1>
     <div class="levels">
-      <span>{{ record.about['@type'].join(", ") }}</span>
       <span>Monografisk resurs</span>
-      <span class="active">Biblioteksnivå</span>
-      <span>AACR/KRS</span>
+      <span>{{ enums.encLevel[record.encLevel || '_'].label_sv }}</span>
+      <span>{{ enums.catForm[record.catForm || 'a'].label_sv }}</span>
     </div>
     <div class="modes">
       <a href="#" class="active">Formatneutral</a>
@@ -38,11 +37,7 @@
           <textarea spellcheck="false" placeholder="Skriv en undertitel" data-ng-model="work.titleRemainder">{{ work.titleRemainder }}</textarea>
           <span class="lbl">{{ "Övrigt titelinformation" }}</span>
         </label>
-        <label class="ng-binding">
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="work.mediaTerm" placeholder="Allmän mediaterm">
-          <span class="lbl">{{ "Allmän mediaterm" }}</span>
-        </label>
-        <label class="ng-binding">
+        <label>
           <span class="fakeholder" data-fakeholder>Välj ett land</span>
           <select class="selectpicker" data-selectpicker data-ng-model="work.language" data-ng-options="code as name for (code, name) in langlist">
           </select>
@@ -115,10 +110,28 @@
       </div>
    
     </div>
+    <h3>{{ "Anmärkningar" }}</h3>
+    <div class="cols">
+      <div class="col6">
+        <label>
+          <input class="ng-pristine ng-valid" type="text" data-ng-model="work.summary" placeholder="Sammanfattning">
+          <span class="lbl">{{ "Sammanfattning" }}</span>
+        </label>
+      </div>
+    </div>
   </section>
 
-  <section id="instance" data-ng-repeat="instance in [record.about]">
-    <h2>Instans<i></i></h2>
+  <section id="instance" data-ng-repeat="instance in [record.about]"
+           data-ng-init="typedef = typedefs[instance['@type']]">
+    <h2> <span>{{ typedef.label_sv }}</span> (bärarnivå)<i></i></h2>
+    <div class="cols">
+      <div class="col6" data-ng-show="instance['@type'] != 'Book'">
+        <label>
+          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.mediaTerm" placeholder="Allmän mediaterm">
+          <span class="lbl">{{ "Allmän mediaterm" }}</span>
+        </label>
+      </div>
+    </div>
     <div class="cols">
       <div class="col3">
         <label>
@@ -160,45 +173,43 @@
         </label>
       </div>
     </div>
-    <h3>Fysisk beskrivning</h3>
-    <div class="cols">
-      <div class="col3">
-        <label class="ng-binding">
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.extent" placeholder="Omfång">
-          <span class="lbl">{{ "Omfång" }}</span>
-        </label>
+
+    <section data-ng-show="typedef.subClassOf != 'DigitalResource'">
+      <h3>Fysisk beskrivning</h3>
+      <div class="cols">
+        <div class="col3">
+          <label>
+            <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.extent" placeholder="Omfång">
+            <span class="lbl">{{ "Omfång" }}</span>
+          </label>
+        </div>
+        <div class="col3">
+          <label>
+            <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.dimensions" placeholder="Mått">
+            <span class="lbl">{{ "Mått" }}</span>
+          </label>
+        </div>
+        <div class="col3">
+          <label>
+            <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.baseMaterial" placeholder="Basmaterial">
+            <span class="lbl">{{ "Basmaterial" }}</span>
+          </label>
+        </div>
+        <div class="col3">
+          <label>
+            <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.termsOfAvailability" placeholder="Pris">
+            <span class="lbl">{{ "Pris" }}</span>
+          </label>
+        </div>
       </div>
-      <div class="col3">
-        <label>
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.dimensions" placeholder="Mått">
-          <span class="lbl">{{ "Mått" }}</span>
-        </label>
-      </div>
-      <div class="col3">
-        <label>
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.baseMaterial" placeholder="Basmaterial">
-          <span class="lbl">{{ "Basmaterial" }}</span>
-        </label>
-      </div>
-      <div class="col3">
-        <label>
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.termsOfAvailability" placeholder="Pris">
-          <span class="lbl">{{ "Pris" }}</span>
-        </label>
-      </div>
-    </div>
-  <h3>{{ "Anmärkningar" }}</h3>
+    </section>
+
+    <h3>{{ "Anmärkningar" }}</h3>
     <div class="cols">
       <div class="col6">
         <label>
           <textarea spellcheck="false" data-ng-model="instance.listOfContents" placeholder="Formaterad innehållsförteckning"></textarea>
           <span class="lbl">{{ "Formaterad innehållsförteckning" }}</span>
-        </label>
-      </div>
-      <div class="col6">
-        <label>
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.summary" placeholder="Sammanfattning">
-          <span class="lbl">{{ "Sammanfattning" }}</span>
         </label>
       </div>
     </div>
