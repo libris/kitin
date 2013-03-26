@@ -37,21 +37,21 @@ def deploy():
         print "Make sure you have the proper environment settings before deploying."
     else:
         prepare()
-        sudo('rm -f /tmp/kitin.tgz')
+        run('rm -f /tmp/kitin.tgz')
         local('tar cfz /tmp/kitin.tgz --exclude=\'.*\' *')
         put('/tmp/kitin.tgz', '/tmp/')
-        sudo('rm -fr %s' % env.remotepath)
-        sudo('mkdir -m 775 %s' % env.remotepath)
+        run('rm -fr %s' % env.remotepath)
+        run('mkdir -m 775 %s' % env.remotepath)
         with cd('%s' % env.remotepath):
-            sudo('tar xzf /tmp/kitin.tgz')
-            sudo('python tools/create_wsgi_file.py')
-            #sudo('chown %s kitin.db' % env.wwwuser)
-            #sudo('chown %s storage' % env.wwwuser)
+            run('tar xzf /tmp/kitin.tgz')
+            run('python tools/create_wsgi_file.py')
+            #run('chown %s kitin.db' % env.wwwuser)
+            #run('chown %s storage' % env.wwwuser)
 
         with prefix('source %s/bin/activate' % env.virtenvpath):
-            sudo('pip install -r %s/dev-requirements.txt' % env.remotepath)
+            run('pip install -r %s/dev-requirements.txt' % env.remotepath)
 
-        sudo('chown -R %s:%s %s' % (env.wwwuser, env.wwwgroup, env.remotepath))
+        #run('chown -R %s:%s %s' % (env.wwwuser, env.wwwgroup, env.remotepath))
 @task
 def clear_config():
     local('rm -f config.cfg')
