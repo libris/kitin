@@ -390,13 +390,20 @@ label select{height:26px;}
 
 .split{overflow:hidden;}
 
-.col3 .split label{float:left; margin-left:24px; overflow:hidden;}
+.col3 .split label{float:left; margin-left:24px; overflow:hidden; width: 92px;}
 .col3 .split label:first-child{margin-left:0;}
 
-.col3 .split label{width: 92px;}
 .col3 .split label textarea,
 .col3 .split label input,
 .col3 .split label select{width:92px;}
+
+.entity { border-left: 2px solid #ddd; margin-bottom: 18px; overflow: auto; }
+.entity:hover,
+.entity.focus { border-left-color:#1a8f72; }
+
+.entity label { border: none; margin-bottom: 0; }
+.entity .addon label,
+.entity .addon input { float: left; width: 92px; }
 
 label ::-webkit-input-placeholder { color:#ccc; font-style:italic; font-size:14px; }
 input::-webkit-input-placeholder { color:#ccc; font-style:italic; font-size:14px; }
