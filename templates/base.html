@@ -19,8 +19,10 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
         <div class="logo"><a target="_self" href="/"><img src="/static/i/libris.png" alt="Libris Kategorisering"></a></div>
         <div class="kb"></div>
         <div class="user">
-          <span>Inloggad som <a href="#">{{current_user.username}} ({{current_user.get_sigel()}})</a></span>
-          <span><a href="/signout?signout=yesindeedioh">Logga ut</a></span>
+          {% if current_user %}
+          <span>Inloggad som <a href="#">{{current_user.username}} ({{current_user.sigel}})</a></span>
+          <span><a href="#">Logga ut</a></span>
+          {% endif %}
           <span><a href="/edit/bib/new">Skapa ny: Monografi</a></span>
         </div>
         <div class="searchfield">
@@ -51,24 +53,10 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
     {% if current_user %}
         <script type="text/javascript">
         kitin.constant("flaskConstants", {
-        user_sigel: '{{ current_user.get_sigel() }}'
+        user_sigel: '{{ current_user.sigel }}'
     });
     </script>
     {% endif %}
-    
-    <script>
-    
-    $('textarea, input[type=text], select').bind('focus blur', function(e) {
-      $(this).closest('label').toggleClass('focus', e.type == 'focus');
-    })
-
-    $('#header .logo').popover({
-      title: 'Lorem ipsum',
-      content: 'Import/Export',
-      trigger: 'hover'
-    });
-
-    </script>
 
   </body>
 </html>

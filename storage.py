@@ -1,33 +1,44 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import pickle
 import json
-import requests
 import os
-from flask_login import UserMixin
+#from sqlalchemy import MetaData, Table, create_engine
 
-class User(UserMixin):
-    def __init__(self, username, password="Secret", active=True):
-        try:
-            self.username = unicode(username)
-            self.password = unicode(password)
-            self.sigel = "Q"
-            self.active = active
-        except Exception as e:
-            print "Could not initiate user %s %s" % (username, e)
 
-    def __repr__(self):
-        return '<User %r>' % (self.username) 
-
-    def get_id(self):
-        return self.username
-
-    def get_sigel(self):
-        return self.sigel
-
-    def is_active(self):
-        return self.active
-
+#class UserStorage(object):
+    #def __init__(self, config):
+        #self.db = create_engine("%(DBENGINE)s:///%(DBPATH)s%(DBNAME)s" % config, echo = True)
+        #self.metadata = MetaData(self.db)
+        #self.cfg = config
+    
+    #def get_table(self):
+        #return Table('userdata', self.metadata, autoload = True)
+    
+    #def load_user(self, uname, sigel):
+        #try:
+            #connection = self.db.connect()
+            #users = self.get_table()
+            #select_query = select([users], users.c.username == uname)
+            #selected_user = connection.execute(select_query)
+            #selected_user = users.select(users.c.username == uname).execute().first()
+            #if selected_user and len(selected_user) > 0:
+                #user = selected_user
+                #print "Found user %s" % selected_user
+            #else:
+                #insert = users.insert().values(username = uname, active = True)
+                #connection.execute(insert)
+            #uppdatera sigel
+            #skapa ett userobjekt
+                #insert.execute(username = uname, active = 1)
+        #except Exception as e:
+            #print "Error trying to load user: ", e
+            #return None
+                
+                #newvalues = users.update().where(users.username == uname).values(active = 1, sigel = sigel).execute()
+                #user = users.select(users.c.username == uname).execute().first()
+                #return user
+            
+    
 
 class Storage(object):
     def __init__(self, path):
@@ -83,9 +94,6 @@ class Storage(object):
                 drafts.append(item)
         result['drafts'] = drafts
         return json.dumps(result)
-
-    def load_user(self, uname, pword, remember):
-        raise NotImplementedError("noop")
 
     def draft_exists(self, rec_type, rec_id):
         return os.path.exists("/".join([self.path, rect_type, rec_id]))

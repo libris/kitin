@@ -134,6 +134,28 @@ kitin.factory('constants', function(flaskConstants) {
   };
 });
 
+
+/**
+ * Global scope functions.
+ */
+kitin.run(function($rootScope) {
+
+  $rootScope.isEmpty = function(obj) { return angular.equals({},obj) };
+
+  $rootScope.typeOf = function (o) { return typeof o; }
+
+});
+
+/**
+ * Global filters.
+ */
+kitin.filter('ensureArray', function($rootScope) {
+  return function (obj) {
+    return (obj === undefined || obj.length !== undefined)? obj : [obj];
+  };
+});
+
+
 function IndexCtrl($scope, $http) {
   document.body.className = 'index';
   $scope.drafts = $http.get("/drafts").success(function(data) {
@@ -169,7 +191,7 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
 
   facet_terms = []; // Poor mans localization
 
-  facet_terms['@type'] = "Typer";
+  facet_terms['about.@type'] = "Typer";
   facet_terms['about.dateOfPublication'] = "Datum";
   $scope.facet_terms = facet_terms;
 
@@ -201,9 +223,6 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
     $scope.my_facets = result;
   });
 
-  $scope.isempty = function(obj) {
-    return angular.equals({},obj)
-  }
 }
 
 function NewRecordCtrl($location, $scope, records, $http, $routeParams) {
@@ -360,7 +379,6 @@ function FrbrCtrl_old($rootScope, $scope, $routeParams, $timeout, conf, records)
   conf.renderUpdates = false;
   $rootScope.editMode = 'normal';
 
-  $scope.typeOf = function (o) { return typeof o; }
   $scope.getKey = marcjson.getMapEntryKey;
 
   var recType = $routeParams.recType, recId = $routeParams.recId;
@@ -436,7 +454,6 @@ function MarcCtrl($rootScope, $scope, $routeParams, conf, records, $timeout) {
   conf.renderUpdates = false;
   $rootScope.editMode = 'marc';
 
-  $scope.typeOf = function (o) { return typeof o; }
   $scope.getKey = marcjson.getMapEntryKey;
   $scope.indicatorType = marcjson.getIndicatorType;
   $scope.widgetType = marcjson.getWidgetType;
@@ -551,25 +568,6 @@ kitin.directive('direTest', function() {
         template: '<span>ALATESTING</span>'
     }
 });*/
-
-// David’s dirty DOM manips
-kitin.directive('fakeholder', function() {
-  return {
-    link: function(child, $elm) {
-      var select = $elm.next('select')[0];
-      $elm.mousedown(function() {
-        $elm.remove();
-        var event;
-        event = document.createEvent('MouseEvents');
-        event.initMouseEvent('mousedown', true, true, window);
-        select.dispatchEvent(event);
-      });
-      $(select).focus(function(){
-        $elm.remove();
-      })
-    }
-  };
-});
 
 kitin.directive('keyEnter', function () {
   return function (scope, elm, attrs) {

@@ -7,7 +7,7 @@ fetch() {
     fi
 }
 
-DIR=$(dirname $(dirname $0))/static/vendor/
+DIR=../static/vendor/
 set -e -v
 
 pushd $DIR
@@ -26,12 +26,6 @@ pushd $DIR
 
     fetch jquery.jkey.js https://raw.github.com/OscarGodson/jKey/master/jquery.jkey.js
 
-  popd
-  
-  pushd less/
-  
-  fetch http://cloud.github.com/downloads/cloudhead/less.js/less-1.3.3.min.js
-  
   popd
 
   fetch angular.min.js http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js
