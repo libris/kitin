@@ -155,6 +155,16 @@ kitin.filter('ensureArray', function($rootScope) {
   };
 });
 
+// May be generalized at will
+kitin.filter('chop', function() {
+    return function(victim) {
+        if (victim.length < 10) {
+            return victim;
+        } else {
+            return String(victim).substring(0, 7) + "...";
+        }
+    };
+});
 
 function IndexCtrl($scope, $http) {
   document.body.className = 'index';

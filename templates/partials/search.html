@@ -22,13 +22,13 @@
         <div class="cols">
           <div class="col5">
             <label class="title">
-              <a class="bib-url" href="/edit{{ record.identifier }}" title="245A">{{ record.data.about.instanceOf.title }}</a>
+                <a class="bib-url" href="/edit{{ record.identifier }}" title="{{ record.data.about.instanceOf.title }}">{{ record.data.about.instanceOf.title | chop }}</a>
               <span class="lbl" title="245C">{{ record.data.about.instanceOf.statementOfResponsibility }}</span>
             </label>
           </div>
           <div class="col4">
-            <label data-ng-repeat="author in record.data.about.instanceOf.authorList">
-                <span title="100A">{{ author.name }}</span>, <span title="100D">{{ author.birthYear }} - {{ author.deathYear }}</span>
+            <label data-ng-repeat="author in record.data.about.instanceOf.authorList | limitTo:1">
+                <span title="100A">{{ author.name }}</span>, <span>{{ author.birthYear }} - {{ author.deathYear }}</span>
                 <span class="lbl">Upphovsman</span>
             </label>
             <label>
