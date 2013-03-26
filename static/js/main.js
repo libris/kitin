@@ -149,7 +149,7 @@ kitin.run(function($rootScope) {
 /**
  * Global filters.
  */
-kitin.filter('ensureArray', function($rootScope) {
+kitin.filter('ensureArray', function() {
   return function (obj) {
     return (obj === undefined || obj.length !== undefined)? obj : [obj];
   };
@@ -670,7 +670,7 @@ kitin.directive('kitinAutocomplete', function() {
       var templateId = attrs.kitinTemplate;
       /* TODO: IMPROVE: replace current autocomplete mechanism and use angular
       templates ($compile) all the way.. It if is fast enough..*/ 
-      var template = _.template(jQuery('#' + 'auth-completion-template').html())
+      var template = _.template(jQuery('#' + templateId).html())
       var selected = false;
       var is_authorized = false;
 
