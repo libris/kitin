@@ -61,17 +61,17 @@
           </label>
           <div class="addon">
             <label>
-              <input class="input-mini authdependant" type="text" data-ng-model="person.birthYear" />
+              <input class="input-mini authdependant" type="text" placeholder="yyyy" data-ng-model="person.birthYear" />
               <span class="lbl">{{ "Född" }}</span>
             </label>
             <label>
-              <input class="input-mini authdependant" type="text" data-ng-model="person.deathYear" />
-              <span class="lbl"> &mdash; {{ "Död" }}</span>
+              <input class="input-mini authdependant" type="text" placeholder="yyyy" data-ng-model="person.deathYear" />
+              <span class="lbl">{{ "Död" }}</span>
             </label>
           </div>
-          <input type='button' value='-' class="btn btn-mini" data-ng-click="remove_person($index)"/>
+          <button class="btn-link" data-ng-click="remove_person($index)"><i class="ficon ficon-remove"></i> Ta bort upphovsman</button>
         </div>
-        <input type='button' value='+' class="btn btn-mini" data-ng-click="add_person(work.authorList)"/>
+        <button class="btn-link" data-ng-click="add_person(work.authorList)"><i class="ficon ficon-plus-sign"></i> upphovsman</button>
       </div>
     </div>
     <div class="foot">
