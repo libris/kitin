@@ -155,6 +155,19 @@ kitin.filter('ensureArray', function() {
   };
 });
 
+// May be generalized at will
+kitin.filter('chop', function() {
+    return function(victim) {
+        if (!victim) {
+           victim = "";
+        } 
+        if (victim.length < 50) {
+            return victim;
+        } else {
+            return String(victim).substring(0, 47) + "...";
+        }
+    };
+});
 
 function IndexCtrl($scope, $http) {
   document.body.className = 'index';
