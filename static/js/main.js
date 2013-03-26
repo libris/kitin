@@ -158,10 +158,13 @@ kitin.filter('ensureArray', function($rootScope) {
 // May be generalized at will
 kitin.filter('chop', function() {
     return function(victim) {
-        if (victim.length < 10) {
+        if (!victim) {
+           victim = "";
+        } 
+        if (victim.length < 50) {
             return victim;
         } else {
-            return String(victim).substring(0, 7) + "...";
+            return String(victim).substring(0, 47) + "...";
         }
     };
 });
