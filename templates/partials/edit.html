@@ -243,52 +243,37 @@
       <button class="btn btn-purple">Lägg till <i class="icon icon-white icon-chevron-down"></i></button>
     </div>
   </section>
-  <section id="holdings-old">
-    <h2>Andra bestånd<i></i></h2>
+  <section class="holdings">
+    <h2>Bestånd<i></i></h2>
     <div class="cols">
       <div class="col6">
-        <p>Yo</p>
+        <button class="btn-link" data-ng-click="add_holding(holdings)"><i class="ficon ficon-plus-sign"></i> Bestånd</button>
+        <ul>
+          <li data-ng-repeat="holding in holdings| filter:{location:user_sigel}">
+          <label>
+          <input type="text" placeholder="hyllsignum" data-ng-model="holding.shelvingControlNumber"/>
+          <span class="lbl">{{ "Hyllsignum" }}</span></label><!--ID on buttons?-->
+          <button class="btn btn-purple" id="btn3" data-ng-click="save_holding(holding)">Spara</i></button>
+          <button class="btn-link" id="btn3" data-ng-click="delete_holding($index)">Ta bort</button>
+          </li>
+        </ul>
+      </div>
+      <div class="col6">
+        <input type="checkbox" name="toggle-sigels" ng-model="togglesigels"/>
+        <span data-ng-hide="togglesigels" for="toggle-sigels">Visa alla beståndsposter</span>
+        <span data-ng-show="togglesigels" for="toggle-sigels">Visa bara mina beståndsposter</span>
+        <section data-ng-show="togglesigels" id="holdings" data-ng-repeat="holding in holdings.list">
+          <div data-ng-include="'render-holding'">
+          </div>
+        </section>
+        <section data-ng-hide="togglesigels" id="holdings" data-ng-repeat="holding in holdings.list | filter:{location:user_sigel}">
+          <div data-ng-include="'render-holding'">
+          </div>
+        </section>     
       </div>
     </div>
   </div>
 </div>
-
-
-<!--old hld starts here-->
-
-    <h2>BESTÅND</h2>
-    <article class="well">
-      <section>
-        <input type='button' value='+' class="btn btn-mini" data-ng-click="add_holding(holdings)"/>
-        <ul>
-          <li data-ng-repeat="holding in holdings| filter:{location:user_sigel}">
-          <input class="input-large" data-ng-model="holding.shelvingControlNumber"/>
-          <label>shelvingControlNumber</label>
-          <input type='button' id='btn3' value='Spara' data-ng-click="save_holding(holding)"/>
-          <input type='button' id='btn3' value='Ta Bort' data-ng-click="delete_holding($index)"/>
-          </li>
-        </ul>
-      </section>
-    </article>
-
-    <article class="well">
-
-
-      <label data-ng-hide="togglesigels" for="toggle-sigels">Visa alla beståndsposter</label>
-      <label data-ng-show="togglesigels" for="toggle-sigels">Visa bara mina beståndsposter</label>
-      <input type="checkbox" name="toggle-sigels" ng-model="togglesigels"/>
-
-      <section data-ng-show="togglesigels" id="holdings" data-ng-repeat="holding in holdings.list">
-        <div data-ng-include="'render-holding'">
-        </div>
-      </section>
-
-      <section data-ng-hide="togglesigels" id="holdings" data-ng-repeat="holding in holdings.list | filter:{location:user_sigel}">
-        <div data-ng-include="'render-holding'">
-        </div>
-      </section>
-    </article>
-
 </form>
 
 <script type="text/ng-template" id="render-holding">

@@ -522,7 +522,7 @@ label.dynamic-subjects em.subject .ficon{color:#1a8f72;}
 .content.holdings section h3{font:bold italic 16px/20px "Droid Serif", georgia,serif; color:#a756a7; 
   border-bottom:1px solid #a756a7; padding-bottom: 2px; }
 
-
+section.holdings ul li{list-style: none;}
 
 /* Autocomplete */
 
