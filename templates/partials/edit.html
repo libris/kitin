@@ -268,32 +268,28 @@
         </ul>
       </div>
       <div class="col6">
-        <input type="checkbox" name="toggle-sigels" ng-model="togglesigels"/>
-        <span data-ng-hide="togglesigels" for="toggle-sigels">Visa alla beståndsposter</span>
-        <span data-ng-show="togglesigels" for="toggle-sigels">Visa bara mina beståndsposter</span>
-        <section data-ng-show="togglesigels" id="holdings" data-ng-repeat="holding in holdings.list">
-          <div data-ng-include="'render-holding'"></div>
-        </section>
-        <section data-ng-hide="togglesigels" id="holdings" data-ng-repeat="holding in holdings.list | filter:{location:user_sigel}">
-          <div data-ng-include="'render-holding'">
-          </div>
-        </section>     
+IPSUM 
       </div>
     </div>
+    </section>
+  <section class="holdings">
+    <h2>Allt Bestånd<i></i></h2>
+    <div class="cols">
+      <div class="col12">
+          <div data-ng-repeat="holding in holdings" data-ng-include="'render-holding'">
+          </div>
+     </div>
+    </div>
+    </section>
   </div>
 </div>
 </form>
 
 <script type="text/ng-template" id="render-holding">
-<div data-ng-show="holding.location">
-  <h3><a href="{{ holding['@id'] }}">{{ holding.location }}</a> <span class="muted"> - [biblioteksnamn]</span></h3>
-  <ul class="unstyled inline">
-    <li data-ng-show="holding.classificationPart">{{ holding.classificationPart }}</li>
-    <li data-ng-show="holding.shelvingLocation">{{ holding.shelvingLocation }}</li>
-    <li data-ng-show="holding.shelvingFormOrTitle">{{ holding.shelvingFormOrTitle }}</li>
-    <li data-ng-show="holding.shelvingControlNumber">{{ holding.shelvingControlNumber }}</li>
+<div class="holdings-list" data-ng-show="holding.location"> 
+  <ul>
+    <li data-ng-show="holding.location"><a href="{{ holding['@id'] }}">{{ holding.location }}</a></li>
   </ul>
-  <hr>
 </div>
 </script>
 

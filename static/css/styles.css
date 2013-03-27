@@ -151,6 +151,8 @@ body.login .content.index header{margin-bottom:60px;}
 .content.search header h1{background-image:url(/static/i/icon-search.png);}
 .content.holdings header h1{background-image:url(/static/i/icon-holdings.png);color:#683568;}
 
+.content.holdings a {color:#683568;}
+.content.holdings label {color:#683568;}
 .content section{background:#fff; margin: 0 0 12px; padding: 12px;
   -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.2);
      -moz-box-shadow: 0 1px 3px rgba(0,0,0,.2);
@@ -220,7 +222,7 @@ section.result label{cursor:pointer;}
 section.result label:hover{border-color:#ddd;}
 section.result label .lbl{color:#999;}
 
-section.result label.title{font-size:24px;line-height:26px;}
+section.result label.title{font-size:20px;line-height:24px;}
 section.result label.title .ficon{font-size:16px;color:#27b492;}
 section.result label.title .lbl{margin-top:4px;}
 
@@ -248,6 +250,7 @@ section.dash.green .circle{background-color: #1a8f72;}
 
 /* columns */
 .cols{overflow:hidden;width: 1008px;}
+.col12{width:960px; float:left;margin-right:24px;}
 .col9{width: 732px; float:left;margin-right:24px;}
 .col6{width: 480px; float:left;margin-right:24px;}
 .col5{width: 396px; float:left;margin-right:24px;}
@@ -493,6 +496,9 @@ label.dynamic-subjects em.subject .ficon{color:#1a8f72;}
 
 .btn-link{color:#1a8f72;}
 .btn-link:hover{color:#106351;}
+
+.holdings .btn-link{color:#683568;}
+.holdings .btn-link:hover{color:#573657;}
 
 .btn-purple{background-color:#683568;}
 .btn-purple:hover{background-color:#573657;}
