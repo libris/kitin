@@ -56,7 +56,7 @@
         </label>
         <div data-ng-repeat="person in work.authorList" class="entity person">
           <label>
-            <input class="input" type="text" data-kitin-autocomplete="field" data-kitin-template="auth-completion-template" data-ng-model="person.authoritativeName" />
+            <input class="input authdependant" type="text" data-kitin-autocomplete="field" data-kitin-template="auth-completion-template" data-ng-model="person.authoritativeName" />
             <span class="lbl">{{ "Personnamn" }}</span>
           </label>
           <div class="addon">
@@ -251,8 +251,17 @@
         <ul>
           <li data-ng-repeat="holding in holdings| filter:{location:user_sigel}">
           <label>
-          <input type="text" placeholder="hyllsignum" data-ng-model="holding.shelvingControlNumber"/>
-          <span class="lbl">{{ "Hyllsignum" }}</span></label><!--ID on buttons?-->
+          <input type="text" placeholder="Hyllsignum/Klassifikation" data-ng-model="holding.classificationPart"/>
+          <span class="lbl">{{ "Hyllsignum/Klassifikation" }}</span>
+          </label>
+          <label>
+          <input type="text" placeholder="Bibliotekets bestånd" data-ng-model="holding.textualHoldings"/>
+          <span class="lbl">{{ "Bibliotekets bestånd" }}</span>
+          </label>
+          <label>
+          <input type="text" placeholder="URI" data-ng-model="holding.uniformResourceIdentifier"/>
+          <span class="lbl">{{ "URI" }}</span>
+          </label>
           <button class="btn btn-purple" id="btn3" data-ng-click="save_holding(holding)">Spara</i></button>
           <button class="btn-link" id="btn3" data-ng-click="delete_holding($index)">Ta bort</button>
           </li>
@@ -263,8 +272,7 @@
         <span data-ng-hide="togglesigels" for="toggle-sigels">Visa alla beståndsposter</span>
         <span data-ng-show="togglesigels" for="toggle-sigels">Visa bara mina beståndsposter</span>
         <section data-ng-show="togglesigels" id="holdings" data-ng-repeat="holding in holdings.list">
-          <div data-ng-include="'render-holding'">
-          </div>
+          <div data-ng-include="'render-holding'"></div>
         </section>
         <section data-ng-hide="togglesigels" id="holdings" data-ng-repeat="holding in holdings.list | filter:{location:user_sigel}">
           <div data-ng-include="'render-holding'">
