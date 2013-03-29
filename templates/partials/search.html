@@ -1,10 +1,17 @@
 {% raw %}
-
-<div class="content search">
+<div data-ng-switch on="result.hits">
+    <div class="content search" data-ng-switch-when="0">
+       <div id="grid"></div>
+          <header>
+             <h1></h1>
+             <p class="summary">Din sökning på <strong>Zlatan</strong> inom <strong>Text – tryck</strong> och <strong>Elektronisk resurs</strong> resulterade i 0 träffar.</p>
+             </header>
+         </div>
+<div class="content search" data-ng-switch-default>
   <div id="grid"></div>
   <header>
     <h1></h1>
-    <p class="summary">1 234 träffar för <strong>Zlatan</strong> inom <strong>Text – tryck</strong> och <strong>Elektronisk resurs</strong></p>
+    <p class="summary">{{ result.hits }} träffar för <strong>Zlatan</strong> inom <strong>Text – tryck</strong> och <strong>Elektronisk resurs</strong></p>
   </header>
   <div class="cols">
     <div class="col3">
@@ -63,6 +70,7 @@
       </section>
     </div>
   </div>
+</div>
 </div>
 
 
