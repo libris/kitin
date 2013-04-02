@@ -44,21 +44,35 @@
         </label>
         <label class="ng-binding">
           <span class="fakeholder" data-fakeholder>Välj ett land</span>
-          <select class="selectpicker" data-selectpicker data-ng-model="record.about.instanceOf.language" data-ng-options="code as name for (code, name) in langlist">
+          <select class="selectpicker" data-selectpicker data-ng-model="work.language" data-ng-options="code as name for (code, name) in langlist">
           </select>
           <span class="lbl">{{ "Språk" }}</span>
         </label>
       </div>
       <div class="col6">
-        <label class="ng-binding error">
+        <label class="error">
           <textarea spellcheck="false" data-ng-model="work.statementOfResponsibility" placeholder="Upphov"></textarea>
           <span class="lbl">{{ "Upphov" }}</span>
         </label>
-        <label class="ng-binding" data-ng-repeat="person in work.authorList">
-          <input class="input" type="text" data-kitin-autocomplete="field" data-kitin-template="auth-completion-template" data-ng-model="person.authoritativeName" />
-          <span class="lbl">{{ "Personnamn" }}</span>
-        </label>
-	  </div>
+        <div data-ng-repeat="person in work.authorList" class="entity person">
+          <label>
+            <input class="input" type="text" data-kitin-autocomplete="field" data-kitin-template="auth-completion-template" data-ng-model="person.authoritativeName" />
+            <span class="lbl">{{ "Personnamn" }}</span>
+          </label>
+          <div class="addon">
+            <label>
+              <input class="input-mini authdependant" type="text" placeholder="yyyy" data-ng-model="person.birthYear" />
+              <span class="lbl">{{ "Född" }}</span>
+            </label>
+            <label>
+              <input class="input-mini authdependant" type="text" placeholder="yyyy" data-ng-model="person.deathYear" />
+              <span class="lbl">{{ "Död" }}</span>
+            </label>
+          </div>
+          <button class="btn-link" data-ng-click="remove_person($index)"><i class="ficon ficon-remove"></i> Ta bort upphovsman</button>
+        </div>
+        <button class="btn-link" data-ng-click="add_person(work.authorList)"><i class="ficon ficon-plus-sign"></i> upphovsman</button>
+      </div>
     </div>
     <div class="foot">
       <button class="btn btn-libris">Lägg till <i class="icon icon-white icon-chevron-down"></i></button>
@@ -107,42 +121,42 @@
     <h2>Instans<i></i></h2>
     <div class="cols">
       <div class="col3">
-        <label class="ng-binding">
+        <label>
           <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.isbn" placeholder="ISBN" isbnvalidator>
           <span class="lbl">{{ "ISBN" }}</span>
         </label>
-        <label class="ng-binding" data-ng-repeat="publisher in instance.publisher">
+        <label data-ng-repeat="publisher in instance.publisher">
           <input class="ng-pristine ng-valid" type="text" data-ng-model="publisher.name" placeholder="Utgivare förlag">
           <span class="lbl">{{ "Utgivare/förlag" }}</span>
         </label>
       </div>
       <div class="col3">
         <div class="split">
-          <label class="ng-binding">
+          <label>
             <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.isbnNote" placeholder="ISBN Notering">
             <span class="lbl">{{ "ISBN Notering" }}</span>
           </label>
-          <label class="ng-binding">
+          <label>
             <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.edition" placeholder="Upplaga">
             <span class="lbl">{{ "Upplaga" }}</span>
           </label>
         </div>
-        <label class="ng-binding">
+        <label>
           <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.placeOfPublication.label" placeholder="Utgivningsort">
           <span class="lbl">{{ "Utgivningsort" }}</span>
         </label>
         </label>
       </div>
       <div class="col6">
-        <label class="ng-binding">
+        <label>
           <select data-ng-model="record.about.instanceOf.country" data-ng-options="code as name for (code, name) in countrylist">
           </select>
           <span class="lbl">{{ "Utgivningsland" }}</span>
         </label>
-        <label class="ng-binding">
+        <label>
           <select data-ng-model="instance.placeOfManufacture.label" data-ng-options="code as name for (code, name) in countrylist">
           </select>
-          <span class="lbl">{{ "Utgivningsland" }}</span>
+          <span class="lbl">{{ "Tryckland" }}</span>
         </label>
       </div>
     </div>
@@ -155,19 +169,19 @@
         </label>
       </div>
       <div class="col3">
-        <label class="ng-binding">
+        <label>
           <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.dimensions" placeholder="Mått">
           <span class="lbl">{{ "Mått" }}</span>
         </label>
       </div>
       <div class="col3">
-        <label class="ng-binding">
+        <label>
           <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.baseMaterial" placeholder="Basmaterial">
           <span class="lbl">{{ "Basmaterial" }}</span>
         </label>
       </div>
       <div class="col3">
-        <label class="ng-binding">
+        <label>
           <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.termsOfAvailability" placeholder="Pris">
           <span class="lbl">{{ "Pris" }}</span>
         </label>
@@ -176,13 +190,13 @@
   <h3>{{ "Anmärkningar" }}</h3>
     <div class="cols">
       <div class="col6">
-        <label class="ng-binding">
+        <label>
           <textarea spellcheck="false" data-ng-model="instance.listOfContents" placeholder="Formaterad innehållsförteckning"></textarea>
           <span class="lbl">{{ "Formaterad innehållsförteckning" }}</span>
         </label>
       </div>
       <div class="col6">
-        <label class="ng-binding">
+        <label>
           <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.summary" placeholder="Sammanfattning">
           <span class="lbl">{{ "Sammanfattning" }}</span>
         </label>
@@ -197,8 +211,7 @@
       <button class="btn-link" data-ng-click="somebutton.click()"><i class="ficon ficon-remove"></i> Ta bort utkast</button>
     </span>
   </section>
-</form>
-</div>
+</form></div>
 
 <div class="content holdings" id="prelude">
   <div id="grid"></div>
@@ -230,64 +243,57 @@
       <button class="btn btn-purple">Lägg till <i class="icon icon-white icon-chevron-down"></i></button>
     </div>
   </section>
-  <section id="holdings-old">
-    <h2>Andra bestånd<i></i></h2>
+  <section class="holdings">
+    <h2>Bestånd<i></i></h2>
     <div class="cols">
       <div class="col6">
-        <p>Yo</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!--old hld starts here-->
-
-    <h2>BESTÅND</h2>
-    <article class="well">
-      <section>
-        <input type='button' value='+' class="btn btn-mini" data-ng-click="add_holding(holdings)"/>
+        <button class="btn-link" data-ng-click="add_holding(holdings)"><i class="ficon ficon-plus-sign"></i> Bestånd</button>
         <ul>
           <li data-ng-repeat="holding in holdings| filter:{location:user_sigel}">
-          <input class="input-large" data-ng-model="holding.shelvingControlNumber"/>
-          <label>shelvingControlNumber</label>
-          <input type='button' id='btn3' value='Spara' data-ng-click="save_holding(holding)"/>
-          <input type='button' id='btn3' value='Ta Bort' data-ng-click="delete_holding($index)"/>
+
+          <label>
+          <input type="text" data-ng-model="holding.location" value="{location:user_sigel}"/>
+          <span class="lbl">{{ "Sigel" }}</span>
+          </label>          <label>
+          <input type="text" placeholder="Hyllsignum/Klassifikation" data-ng-model="holding.classificationPart"/>
+          <span class="lbl">{{ "Hyllsignum/Klassifikation" }}</span>
+          </label>
+          <label>
+          <input type="text" placeholder="Bibliotekets bestånd" data-ng-model="holding.textualHoldings"/>
+          <span class="lbl">{{ "Bibliotekets bestånd" }}</span>
+          </label>
+          <label>
+          <input type="text" placeholder="URI" data-ng-model="holding.uniformResourceIdentifier"/>
+          <span class="lbl">{{ "URI" }}</span>
+          </label>
+          <button class="btn btn-purple" id="btn3" data-ng-click="save_holding(holding)">Spara</i></button>
+          <button class="btn-link" id="btn3" data-ng-click="delete_holding($index)">Ta bort</button>
           </li>
         </ul>
-      </section>
-    </article>
-
-    <article class="well">
-
-
-      <label data-ng-hide="togglesigels" for="toggle-sigels">Visa alla beståndsposter</label>
-      <label data-ng-show="togglesigels" for="toggle-sigels">Visa bara mina beståndsposter</label>
-      <input type="checkbox" name="toggle-sigels" ng-model="togglesigels"/>
-
-      <section data-ng-show="togglesigels" id="holdings" data-ng-repeat="holding in holdings.list">
-        <div data-ng-include="'render-holding'">
-        </div>
-      </section>
-
-      <section data-ng-hide="togglesigels" id="holdings" data-ng-repeat="holding in holdings.list | filter:{location:user_sigel}">
-        <div data-ng-include="'render-holding'">
-        </div>
-      </section>
-    </article>
-
+      </div>
+      <div class="col6">
+IPSUM 
+      </div>
+    </div>
+    </section>
+  <section class="holdings">
+    <h2>Allt Bestånd<i></i></h2>
+    <div class="cols">
+      <div class="col12">
+          <div data-ng-repeat="holding in holdings" data-ng-include="'render-holding'">
+          </div>
+     </div>
+    </div>
+    </section>
+  </div>
+</div>
 </form>
 
 <script type="text/ng-template" id="render-holding">
-<div data-ng-show="holding.location">
-  <h3><a href="{{ holding['@id'] }}">{{ holding.location }}</a> <span class="muted"> - [biblioteksnamn]</span></h3>
-  <ul class="unstyled inline">
-    <li data-ng-show="holding.classificationPart">{{ holding.classificationPart }}</li>
-    <li data-ng-show="holding.shelvingLocation">{{ holding.shelvingLocation }}</li>
-    <li data-ng-show="holding.shelvingFormOrTitle">{{ holding.shelvingFormOrTitle }}</li>
-    <li data-ng-show="holding.shelvingControlNumber">{{ holding.shelvingControlNumber }}</li>
+<div class="holdings-list" data-ng-show="holding.location"> 
+  <ul>
+    <li data-ng-show="holding.location"><a href="{{ holding['@id'] }}" class="sigel">{{ holding.location }}</a></li>
   </ul>
-  <hr>
 </div>
 </script>
 

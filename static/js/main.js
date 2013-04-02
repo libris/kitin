@@ -149,12 +149,25 @@ kitin.run(function($rootScope) {
 /**
  * Global filters.
  */
-kitin.filter('ensureArray', function($rootScope) {
+kitin.filter('ensureArray', function() {
   return function (obj) {
     return (obj === undefined || obj.length !== undefined)? obj : [obj];
   };
 });
 
+// May be generalized at will
+kitin.filter('chop', function() {
+    return function(victim) {
+        if (!victim) {
+           victim = "";
+        } 
+        if (victim.length < 50) {
+            return victim;
+        } else {
+            return String(victim).substring(0, 47) + "...";
+        }
+    };
+});
 
 function IndexCtrl($scope, $http) {
   document.body.className = 'index';
@@ -176,6 +189,7 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
 
   $scope.q = $routeParams.q;
   $scope.f = $routeParams.f;
+  console.log("prev: " + previous_facets + ", params: " + $scope.f);
   var url = "/search?q=" + $scope.q;
   if($scope.f != undefined) {
     url += "&f=" + $scope.f;
@@ -188,6 +202,43 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
   if (!$routeParams.q) {
     return;
   }
+  
+  // Bread Crumbs
+  tmp_crumbs = previous_facets.split(" ");
+  var aggr_crumbs = [];
+  if (tmp_crumbs.length > 0) {
+     aggr_crumbs[0] = tmp_crumbs[0];
+     for (i=1; i < tmp_crumbs.length; i++) {
+        aggr_crumbs[i] = aggr_crumbs[i-1] + " " + tmp_crumbs[i];
+     }
+     for (i=0; i < aggr_crumbs.length; i++) {
+        console.log("CRUMB: ", aggr_crumbs[i]);
+     }
+     $scope.crumbs = aggr_crumbs;
+     console.log($scope.crumbs);
+  }
+  /* I'm on it
+  tmp_crumbs = previous_facets.split(" ");
+  var aggr_crumbs = [];
+  if (tmp_crumbs.length > 0) {
+     var subcrumb = {};
+     subcrumb['term'] = tmp_crumbs[0].split(":")[1];
+     subcrumb['facets'] = tmp_crumbs[0]; 
+     aggr_crumbs[0].push(subcrumb);
+     for (i=1; i < tmp_crumbs.length; i++) {
+        var subcrumb = {};
+        subcrumb['term'] = tmp_crumbs[i].split(":")[1];
+        subcrumb['facets'] = tmp_crumbs[i];
+        aggr_crumbs[i].push(subcrumb);
+        aggr_crumbs[i] = aggr_crumbs[i-1] + " " + tmp_crumbs[i];
+     }
+     for (i=0; i < aggr_crumbs.length; i++) {
+        console.log("CRUMB: ", aggr_crumbs[i]);
+     }
+     $scope.crumbs = aggr_crumbs;
+     console.log($scope.crumbs);
+  }*/
+  
 
   facet_terms = []; // Poor mans localization
 
@@ -214,7 +265,7 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
         if($.inArray(slug, previous_facets.split(" ")) != -1) {
           subitem['slug'] = "/search?q=" + $scope.q + "&f=" + $.grep(previous_facets.split(" "), function(val) {return val != slug});
         } else {
-          subitem['slug'] = "/search?q=" + $scope.q + "&f=" + slug + previous_facets;
+          subitem['slug'] = "/search?q=" + $scope.q + "&f=" + slug + " " + previous_facets;
         }
         new_facet['items'].push(subitem);
       }
@@ -670,7 +721,7 @@ kitin.directive('kitinAutocomplete', function() {
       var templateId = attrs.kitinTemplate;
       /* TODO: IMPROVE: replace current autocomplete mechanism and use angular
       templates ($compile) all the way.. It if is fast enough..*/ 
-      var template = _.template(jQuery('#' + 'auth-completion-template').html())
+      var template = _.template(jQuery('#' + templateId).html())
       var selected = false;
       var is_authorized = false;
 

@@ -1,10 +1,17 @@
 {% raw %}
-
-<div class="content search">
+<div data-ng-switch on="result.hits">
+    <div class="content search" data-ng-switch-when="0">
+       <div id="grid"></div>
+          <header>
+             <h1></h1>
+             <p class="summary">Din sökning på <strong>{{ q }}</strong> resulterade i 0 träffar.</p>
+             </header>
+         </div>
+<div class="content search" data-ng-switch-default>
   <div id="grid"></div>
   <header>
-    <h1></h1>
-    <p class="summary">1 234 träffar för <strong>Zlatan</strong> inom <strong>Text – tryck</strong> och <strong>Elektronisk resurs</strong></p>
+  <h1></h1>
+  <p class="summary"><span>Sökning: <a href=/search?q=>{{ q }}</a></span><span data-ng-repeat="crumb in crumbs"> &gt; {{ crumb }}</span><span> ({{ result.hits }} träffar)</span></p>
   </header>
   <div class="cols">
     <div class="col3">
@@ -22,13 +29,13 @@
         <div class="cols">
           <div class="col5">
             <label class="title">
-              <a class="bib-url" href="/edit{{ record.identifier }}" title="245A">{{ record.data.about.instanceOf.title }}</a>
+                <a class="bib-url" href="/edit{{ record.identifier }}" title="{{ record.data.about.instanceOf.title }}">{{ record.data.about.instanceOf.title | chop }}</a>
               <span class="lbl" title="245C">{{ record.data.about.instanceOf.statementOfResponsibility }}</span>
             </label>
           </div>
           <div class="col4">
-            <label data-ng-repeat="author in record.data.about.instanceOf.authorList">
-                <span title="100A">{{ author.name }}</span>, <span title="100D">{{ author.birthYear }} - {{ author.deathYear }}</span>
+            <label data-ng-repeat="author in record.data.about.instanceOf.authorList | limitTo:1">
+                <span title="100A">{{ author.name }}</span>, <span>{{ author.birthYear }} - {{ author.deathYear }}</span>
                 <span class="lbl">Upphovsman</span>
             </label>
             <label>
@@ -59,11 +66,11 @@
           <li>id: {{ record.data['@id'] }}</li>
           <li>year: {{ record.data.about.pubDate['@value'] }}</li>
           <li>isbn: {{ record.data.about.isbn }}</li>
->>>>>>> design
         </ul>
       </section>
     </div>
   </div>
+</div>
 </div>
 
 
