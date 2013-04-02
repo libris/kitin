@@ -4,14 +4,14 @@
        <div id="grid"></div>
           <header>
              <h1></h1>
-             <p class="summary">Din sökning på <strong>Zlatan</strong> inom <strong>Text – tryck</strong> och <strong>Elektronisk resurs</strong> resulterade i 0 träffar.</p>
+             <p class="summary">Din sökning på <strong>{{ q }}</strong> resulterade i 0 träffar.</p>
              </header>
          </div>
 <div class="content search" data-ng-switch-default>
   <div id="grid"></div>
   <header>
-    <h1></h1>
-    <p class="summary">{{ result.hits }} träffar för <strong>Zlatan</strong> inom <strong>Text – tryck</strong> och <strong>Elektronisk resurs</strong></p>
+  <h1></h1>
+  <p class="summary"><span>Sökning: <a href=/search?q=>{{ q }}</a></span><span data-ng-repeat="crumb in crumbs"> &gt; {{ crumb }}</span><span> ({{ result.hits }} träffar)</span></p>
   </header>
   <div class="cols">
     <div class="col3">
