@@ -174,7 +174,7 @@
       </div>
     </div>
 
-    <section data-ng-show="typedef.subClassOf != 'DigitalResource'">
+    <div data-ng-show="typedef.subClassOf != 'DigitalResource'">
       <h3>Fysisk beskrivning</h3>
       <div class="cols">
         <div class="col3">
@@ -202,7 +202,7 @@
           </label>
         </div>
       </div>
-    </section>
+    </div>
 
     <h3>{{ "Anmärkningar" }}</h3>
     <div class="cols">
@@ -337,7 +337,7 @@
 <script type="text/ng-template" id="render-holding">
 <div class="holdings-list" data-ng-show="holding.location"> 
   <ul>
-    <li data-ng-show="holding.location"><a href="{{ holding['@id'] }}" class="sigel">{{ holding.location }}</a></li>
+    <li data-ng-show="holding.location"><a href="{{ holding['@id'] }}" class="sigel">{{ holding.location }} <span class="pull-right"><i class="icon icon-black icon-chevron-down"></i></span></a></li>
   </ul>
 </div>
 </script>
