@@ -234,6 +234,7 @@
   <header>
     <h1>Bestånd</h1>
   </header>
+<!--remove when holdings are done
   <section id="holdings">
     <div class="cols holdings-editor">
       <div class="col3 holdings-list">
@@ -257,37 +258,66 @@
     <div class="foot">
       <button class="btn btn-purple">Lägg till <i class="icon icon-white icon-chevron-down"></i></button>
     </div>
-  </section>
+  </section>-->
   <section class="holdings">
     <h2>Bestånd<i></i></h2>
-    <div class="cols">
+    <div class="cols" data-ng-repeat="holding in holdings| filter:{location:user_sigel}">
       <div class="col6">
-        <button class="btn-link" data-ng-click="add_holding(holdings)"><i class="ficon ficon-plus-sign"></i> Bestånd</button>
-        <ul>
-          <li data-ng-repeat="holding in holdings| filter:{location:user_sigel}">
           <label>
+          <input type="text" data-ng-model="holding.location" maxlength="4" value="{location:user_sigel}"/>
+          <span class="lbl">{{ "Sigel" }}</span>
+          </label>          
+          <label>
+          <input type="text" placeholder="Avdelning/Samling" data-ng-model="holding.shelvingLocation"/>
+          <span class="lbl">{{ "Avdelning/Samling" }}</span>
+          </label>
+		  <label>
           <input type="text" placeholder="Hyllsignum/Klassifikation" data-ng-model="holding.classificationPart"/>
           <span class="lbl">{{ "Hyllsignum/Klassifikation" }}</span>
           </label>
-          <label>
-          <input type="text" placeholder="Bibliotekets bestånd" data-ng-model="holding.textualHoldings"/>
-          <span class="lbl">{{ "Bibliotekets bestånd" }}</span>
-          </label>
-          <label>
-          <input type="text" placeholder="URI" data-ng-model="holding.uniformResourceIdentifier"/>
-          <span class="lbl">{{ "URI" }}</span>
-          </label>
-          <button class="btn btn-purple" id="btn3" data-ng-click="save_holding(holding)">Spara</i></button>
-          <button class="btn-link" id="btn3" data-ng-click="delete_holding($index)">Ta bort</button>
-          </li>
-        </ul>
-      </div>
+          <div class="suggestion-classification">
+          <ul>
+            <li data-ng-repeat="holding in holdings" data-ng-show="holding.classificationPart"><i class="ficon ficon-circle-arrow-up"></i> {{ holding.classificationPart }}</li>
+          </ul>
+		  <span class="lbl lbl-suggest">Förslag på signum</span>
+          </div>
+       </div>
       <div class="col6">
-IPSUM 
+          <label>
+          <input type="text" placeholder="Löpnummer" data-ng-model="holding.shelvingControlNumber"/>
+          <span class="lbl">{{ "Löpnummer" }}</span>
+          </label>
+          <label>
+          <input type="text" placeholder="Uppställningsord" data-ng-model="holding.shelvingFormOrTitle"/>
+          <span class="lbl">{{ "Uppställningsord" }}</span>
+          </label>
+          <label>
+          <input type="text" placeholder="Exemplarinfo" data-ng-model="holding.itemPart"/>
+          <span class="lbl">{{ "Exemplarinfo" }}</span>
+          </label>
+          <label>
+          <input type="text" placeholder="Exemplarnummer" data-ng-model="holding.copyNumber"/>
+          <span class="lbl">{{ "Exemplarnummer" }}</span>
+          </label>
+          <label>
+          <textarea spellcheck="false" placeholder="Publik anmärkning" data-ng-model="holding.shelvingPublicNote"></textarea>
+          <span class="lbl">{{ "Publik anmärkning" }}</span>
+          </label>
+          <label>
+          <textarea spellcheck="false" placeholder="Intern anmärkning" data-ng-model="holding.shelvingNonpublicNote"></textarea>
+          <span class="lbl">{{ "Intern anmärkning" }}</span>
+          </label>
       </div>
     </div>
+    <div class="foot">
+		<button class="btn btn-purple" data-ng-click="add_holding(holdings)">Lägg till <i class="icon icon-white icon-chevron-down"></i></button>
+    </div>
     </section>
-  <section class="holdings">
+	<section class="submit">
+          <button class="btn btn-purple  btn-submit" id="save-hld" data-ng-click="save_holding(holding)">Spara bestånd</i></button>
+          <button class="btn-link" id="delete-hld" data-ng-click="delete_holding($index)">Ta bort</button>
+    </section>
+  <section class="holdings holdings-list">
     <h2>Allt Bestånd<i></i></h2>
     <div class="cols">
       <div class="col12">
@@ -299,6 +329,7 @@ IPSUM
   </div>
 </div>
 </form>
+
 
 <script type="text/ng-template" id="render-holding">
 <div class="holdings-list" data-ng-show="holding.location"> 
