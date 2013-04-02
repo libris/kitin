@@ -441,10 +441,14 @@ def get_drafts():
     drafts = storage.get_drafts_as_json(current_user.get_id())
     return raw_json_response(drafts)
 
-@app.route("/record/bib/new")
+@app.route("/record/bib/new", methods=["GET"])
 def get_template():
     """Returns a template object"""
     return raw_json_response(open("./examples/templates/monografi.json", 'r').read())
+
+@app.route("/holding/bib/new", methods=["GET"])
+def get_holding_template():
+    return raw_json_response(open("./examples/templates/holding.json", 'r').read())
 
 @app.route('/record/<rec_type>/<rec_id>', methods=['PUT'])
 def update_document(rec_type, rec_id):

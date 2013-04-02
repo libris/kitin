@@ -261,7 +261,7 @@
   </section>-->
   <section class="holdings">
     <h2>Bestånd<i></i></h2>
-    <div class="cols" data-ng-repeat="holding in holdings| filter:{location:user_sigel}">
+    <div class="cols">
       <div class="col6">
           <label>
           <input type="text" data-ng-model="holding.location" maxlength="4" value="{location:user_sigel}"/>
@@ -310,7 +310,7 @@
       </div>
     </div>
     <div class="foot">
-		<button class="btn btn-purple" data-ng-click="add_holding(holdings)">Lägg till <i class="icon icon-white icon-chevron-down"></i></button>
+      <button class="btn btn-purple" data-ng-click="add_holding(holdings)">Lägg till <i class="icon icon-white icon-chevron-down"></i></button>
     </div>
     </section>
 	<section class="submit">

@@ -352,6 +352,16 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
       $scope.holdings = holdata.list;
       var holding_etags = {};
       var items = holdata.list;
+
+      var my_holdings = _.filter(items, function(i) { return i['location'] == constants.get("user_sigel"); });
+      if(my_holdings <= 0) {
+        $http.get("/holding/bib/new").success(function(data, status, headers) {
+          $scope.holding = data;
+        });
+      } else {
+        $scope.holding = my_holdings[0];
+      }
+
       for(var i in items) {
         $http.get("/holding/"+ items[i]['@id'].split("/").slice(-2)[1]).success(function(data, status, headers) {
           holding_etags[data['@id']] = headers('etag');
