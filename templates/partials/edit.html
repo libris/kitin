@@ -251,14 +251,13 @@
       </div>
     </div>
     <div class="foot">
-      <button class="btn btn-purple">Lägg till <i class="icon icon-white icon-chevron-down"></i></button>
+      
     </div>
   </section>
   <section class="holdings">
     <h2>Bestånd<i></i></h2>
     <div class="cols">
       <div class="col6">
-        <button class="btn-link" data-ng-click="add_holding(holdings)"><i class="ficon ficon-plus-sign"></i> Bestånd</button>
         <ul>
           <li data-ng-repeat="holding in holdings| filter:{location:user_sigel}">
 
@@ -270,15 +269,39 @@
           <span class="lbl">{{ "Hyllsignum/Klassifikation" }}</span>
           </label>
           <label>
+          <input type="text" placeholder="Avdelning/Samling" data-ng-model="holding.shelvingLocation"/>
+          <span class="lbl">{{ "Avdelning/Samling" }}</span>
+          </label>
+          <label>
+          <input type="text" placeholder="Exemplarinfo" data-ng-model="holding.itemPart"/>
+          <span class="lbl">{{ "Exemplarinfo" }}</span>
+          </label>
+          <label>
+          <input type="text" placeholder="Löpnummer" data-ng-model="holding.shelvingControlNumber"/>
+          <span class="lbl">{{ "Löpnummer" }}</span>
+          </label>
+          <label>
+          <input type="text" placeholder="Uppställningsord" data-ng-model="holding.shelvingFormOrTitle"/>
+          <span class="lbl">{{ "Uppställningsord" }}</span>
+          </label>
+          <label>
           <input type="text" placeholder="Bibliotekets bestånd" data-ng-model="holding.textualHoldings"/>
           <span class="lbl">{{ "Bibliotekets bestånd" }}</span>
+          </label>
+          <label>
+          <textarea spellcheck="false" placeholder="Intern anmärkning" data-ng-model="holding.shelvingNonpublicNote"></textarea>
+          <span class="lbl">{{ "Intern anmärkning" }}</span>
+          </label>
+          <label>
+          <textarea spellcheck="false" placeholder="Publik anmärkning" data-ng-model="holding.shelvingPublicNote"></textarea>
+          <span class="lbl">{{ "Publik anmärkning" }}</span>
           </label>
           <label>
           <input type="text" placeholder="URI" data-ng-model="holding.uniformResourceIdentifier"/>
           <span class="lbl">{{ "URI" }}</span>
           </label>
-          <button class="btn btn-purple" id="btn3" data-ng-click="save_holding(holding)">Spara</i></button>
-          <button class="btn-link" id="btn3" data-ng-click="delete_holding($index)">Ta bort</button>
+
+          
           </li>
         </ul>
       </div>
@@ -286,7 +309,12 @@
 IPSUM 
       </div>
     </div>
+		<button class="btn btn-purple" data-ng-click="add_holding(holdings)">Lägg till <i class="icon icon-white icon-chevron-down"></i></button>
     </section>
+	<div>
+          <button class="btn btn-purple" id="save-hld" data-ng-click="save_holding(holding)">Spara</i></button>
+          <button class="btn-link" id="delete-hld" data-ng-click="delete_holding($index)">Ta bort</button>
+    </div>
   <section class="holdings">
     <h2>Allt Bestånd<i></i></h2>
     <div class="cols">
