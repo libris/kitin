@@ -117,8 +117,17 @@
     </div>
   </section>
 
-  <section id="instance" data-ng-repeat="instance in [record.about]">
-    <h2>Instans<i></i></h2>
+  <section id="instance" data-ng-repeat="instance in [record.about]"
+           data-ng-init="typedef = typedefs[instance['@type']]">
+    <h2> <span>{{ typedef.label_sv }}</span> (bärarnivå)<i></i></h2>
+    <div class="cols">
+      <div class="col6" data-ng-show="instance['@type'] != 'Book'">
+        <label>
+          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.mediaTerm" placeholder="Allmän medieterm">
+          <span class="lbl">{{ "Allmän medieterm" }}</span>
+        </label>
+      </div>
+    </div>
     <div class="cols">
       <div class="col3">
         <label>
