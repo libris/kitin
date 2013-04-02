@@ -16,10 +16,9 @@
   <header>
     <h1>Bibliografisk post</h1>
     <div class="levels">
-      <span>{{ record.about['@type'].join(", ") }}</span>
       <span>Monografisk resurs</span>
-      <span class="active">Biblioteksnivå</span>
-      <span>AACR/KRS</span>
+      <span>{{ enums.encLevel[record.encLevel || '_'].label_sv }}</span>
+      <span>{{ enums.catForm[record.catForm || 'a'].label_sv }}</span>
     </div>
     <div class="modes">
       <a href="#" class="active">Formatneutral</a>
@@ -38,11 +37,7 @@
           <textarea spellcheck="false" placeholder="Skriv en undertitel" data-ng-model="work.titleRemainder">{{ work.titleRemainder }}</textarea>
           <span class="lbl">{{ "Övrigt titelinformation" }}</span>
         </label>
-        <label class="ng-binding">
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="work.mediaTerm" placeholder="Allmän mediaterm">
-          <span class="lbl">{{ "Allmän mediaterm" }}</span>
-        </label>
-        <label class="ng-binding">
+        <label>
           <span class="fakeholder" data-fakeholder>Välj ett land</span>
           <select class="selectpicker" data-selectpicker data-ng-model="work.language" data-ng-options="code as name for (code, name) in langlist">
           </select>
@@ -61,11 +56,11 @@
           </label>
           <div class="addon">
             <label>
-              <input class="input-mini authdependant" type="text" placeholder="yyyy" data-ng-model="person.birthYear" />
+              <input class="input-mini authdependant" type="text" placeholder="yyyy" maxlength="4" data-ng-model="person.birthYear" />
               <span class="lbl">{{ "Född" }}</span>
             </label>
             <label>
-              <input class="input-mini authdependant" type="text" placeholder="yyyy" data-ng-model="person.deathYear" />
+              <input class="input-mini authdependant" type="text" placeholder="yyyy" maxlength="4" data-ng-model="person.deathYear" />
               <span class="lbl">{{ "Död" }}</span>
             </label>
           </div>
@@ -115,10 +110,28 @@
       </div>
    
     </div>
+    <h3>{{ "Anmärkningar" }}</h3>
+    <div class="cols">
+      <div class="col6">
+        <label>
+          <input class="ng-pristine ng-valid" type="text" data-ng-model="work.summary" placeholder="Sammanfattning">
+          <span class="lbl">{{ "Sammanfattning" }}</span>
+        </label>
+      </div>
+    </div>
   </section>
 
-  <section id="instance" data-ng-repeat="instance in [record.about]">
-    <h2>Instans<i></i></h2>
+  <section id="instance" data-ng-repeat="instance in [record.about]"
+           data-ng-init="typedef = typedefs[instance['@type']]">
+    <h2> <span>{{ typedef.label_sv }}</span> (bärarnivå)<i></i></h2>
+    <div class="cols">
+      <div class="col6" data-ng-show="instance['@type'] != 'Book'">
+        <label>
+          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.mediaTerm" placeholder="Allmän mediaterm">
+          <span class="lbl">{{ "Allmän mediaterm" }}</span>
+        </label>
+      </div>
+    </div>
     <div class="cols">
       <div class="col3">
         <label>
@@ -160,45 +173,43 @@
         </label>
       </div>
     </div>
-    <h3>Fysisk beskrivning</h3>
-    <div class="cols">
-      <div class="col3">
-        <label class="ng-binding">
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.extent" placeholder="Omfång">
-          <span class="lbl">{{ "Omfång" }}</span>
-        </label>
-      </div>
-      <div class="col3">
-        <label>
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.dimensions" placeholder="Mått">
-          <span class="lbl">{{ "Mått" }}</span>
-        </label>
-      </div>
-      <div class="col3">
-        <label>
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.baseMaterial" placeholder="Basmaterial">
-          <span class="lbl">{{ "Basmaterial" }}</span>
-        </label>
-      </div>
-      <div class="col3">
-        <label>
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.termsOfAvailability" placeholder="Pris">
-          <span class="lbl">{{ "Pris" }}</span>
-        </label>
+
+    <div data-ng-show="typedef.subClassOf != 'DigitalResource'">
+      <h3>Fysisk beskrivning</h3>
+      <div class="cols">
+        <div class="col3">
+          <label>
+            <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.extent" placeholder="Omfång">
+            <span class="lbl">{{ "Omfång" }}</span>
+          </label>
+        </div>
+        <div class="col3">
+          <label>
+            <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.dimensions" placeholder="Mått">
+            <span class="lbl">{{ "Mått" }}</span>
+          </label>
+        </div>
+        <div class="col3">
+          <label>
+            <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.baseMaterial" placeholder="Basmaterial">
+            <span class="lbl">{{ "Basmaterial" }}</span>
+          </label>
+        </div>
+        <div class="col3">
+          <label>
+            <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.termsOfAvailability" placeholder="Pris">
+            <span class="lbl">{{ "Pris" }}</span>
+          </label>
+        </div>
       </div>
     </div>
-  <h3>{{ "Anmärkningar" }}</h3>
+
+    <h3>{{ "Anmärkningar" }}</h3>
     <div class="cols">
       <div class="col6">
         <label>
           <textarea spellcheck="false" data-ng-model="instance.listOfContents" placeholder="Formaterad innehållsförteckning"></textarea>
           <span class="lbl">{{ "Formaterad innehållsförteckning" }}</span>
-        </label>
-      </div>
-      <div class="col6">
-        <label>
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.summary" placeholder="Sammanfattning">
-          <span class="lbl">{{ "Sammanfattning" }}</span>
         </label>
       </div>
     </div>
@@ -219,6 +230,7 @@
   <header>
     <h1>Bestånd</h1>
   </header>
+<!-- remove when hld is done
   <section id="holdings">
     <div class="cols holdings-editor">
       <div class="col3 holdings-list">
@@ -230,7 +242,7 @@
       </div>
       <div class="col9">
         <div class="editor">
-        <h3>{{ "Förslag på signum" }}</h3>
+
           <div class="suggestion-classification">
           <ul>
             <li data-ng-repeat="holding in holdings" data-ng-show="holding.classificationPart"><i class="ficon ficon-circle-arrow-up"></i> {{ holding.classificationPart }}</li>
@@ -240,39 +252,71 @@
       </div>
     </div>
     <div class="foot">
-      <button class="btn btn-purple">Lägg till <i class="icon icon-white icon-chevron-down"></i></button>
-    </div>
+      
+    </div>-->
   </section>
   <section class="holdings">
     <h2>Bestånd<i></i></h2>
-    <div class="cols">
+    <div class="cols" data-ng-repeat="holding in holdings| filter:{location:user_sigel}">
       <div class="col6">
-        <button class="btn-link" data-ng-click="add_holding(holdings)"><i class="ficon ficon-plus-sign"></i> Bestånd</button>
-        <ul>
-          <li data-ng-repeat="holding in holdings| filter:{location:user_sigel}">
+
+
           <label>
+          <input type="text" data-ng-model="holding.location" maxlength="4" value="{location:user_sigel}"/>
+          <span class="lbl">{{ "Sigel" }}</span>
+          </label>          <label>
           <input type="text" placeholder="Hyllsignum/Klassifikation" data-ng-model="holding.classificationPart"/>
           <span class="lbl">{{ "Hyllsignum/Klassifikation" }}</span>
+          </label>
+
+
+        <h3>{{ "Förslag på signum" }}</h3>
+          <div class="suggestion-classification">
+          <ul>
+            <li data-ng-repeat="holding in holdings" data-ng-show="holding.classificationPart"><i class="ficon ficon-circle-arrow-up"></i> {{ holding.classificationPart }}</li>
+          </ul>
+          </div>
+       </div>
+      <div class="col6">
+          <label>
+          <input type="text" placeholder="Avdelning/Samling" data-ng-model="holding.shelvingLocation"/>
+          <span class="lbl">{{ "Avdelning/Samling" }}</span>
+          </label>
+          <label>
+          <input type="text" placeholder="Exemplarinfo" data-ng-model="holding.itemPart"/>
+          <span class="lbl">{{ "Exemplarinfo" }}</span>
+          </label>
+          <label>
+          <input type="text" placeholder="Löpnummer" data-ng-model="holding.shelvingControlNumber"/>
+          <span class="lbl">{{ "Löpnummer" }}</span>
+          </label>
+          <label>
+          <input type="text" placeholder="Uppställningsord" data-ng-model="holding.shelvingFormOrTitle"/>
+          <span class="lbl">{{ "Uppställningsord" }}</span>
           </label>
           <label>
           <input type="text" placeholder="Bibliotekets bestånd" data-ng-model="holding.textualHoldings"/>
           <span class="lbl">{{ "Bibliotekets bestånd" }}</span>
           </label>
           <label>
-          <input type="text" placeholder="URI" data-ng-model="holding.uniformResourceIdentifier"/>
-          <span class="lbl">{{ "URI" }}</span>
+          <textarea spellcheck="false" placeholder="Intern anmärkning" data-ng-model="holding.shelvingNonpublicNote"></textarea>
+          <span class="lbl">{{ "Intern anmärkning" }}</span>
           </label>
-          <button class="btn btn-purple" id="btn3" data-ng-click="save_holding(holding)">Spara</i></button>
-          <button class="btn-link" id="btn3" data-ng-click="delete_holding($index)">Ta bort</button>
-          </li>
-        </ul>
-      </div>
-      <div class="col6">
-IPSUM 
+          <label>
+          <textarea spellcheck="false" placeholder="Publik anmärkning" data-ng-model="holding.shelvingPublicNote"></textarea>
+          <span class="lbl">{{ "Publik anmärkning" }}</span>
+          </label>
       </div>
     </div>
+    <div class="foot">
+		<button class="btn btn-purple" data-ng-click="add_holding(holdings)">Lägg till <i class="icon icon-white icon-chevron-down"></i></button>
+    </div>
     </section>
-  <section class="holdings">
+	<section class="submit">
+          <button class="btn btn-purple  btn-submit" id="save-hld" data-ng-click="save_holding(holding)">Spara bestånd</i></button>
+          <button class="btn-link" id="delete-hld" data-ng-click="delete_holding($index)">Ta bort</button>
+    </section>
+  <section class="holdings holdings-list">
     <h2>Allt Bestånd<i></i></h2>
     <div class="cols">
       <div class="col12">
@@ -288,7 +332,7 @@ IPSUM
 <script type="text/ng-template" id="render-holding">
 <div class="holdings-list" data-ng-show="holding.location"> 
   <ul>
-    <li data-ng-show="holding.location"><a href="{{ holding['@id'] }}">{{ holding.location }}</a></li>
+    <li data-ng-show="holding.location"><a href="{{ holding['@id'] }}" class="sigel">{{ holding.location }} <span class="pull-right"><i class="icon icon-black icon-chevron-down"></i></span></a></li>
   </ul>
 </div>
 </script>

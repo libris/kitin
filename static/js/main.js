@@ -107,8 +107,13 @@ kitin.factory('records', function ($http, $q) {
 
 kitin.factory('resources', function($http) {
   var resources = {
-    getResourceList: function(restype) {
-      var promise = $http.get("/resource?type=" + restype).then(function(response) {
+    getResourceList: function(restype, part) {
+        var url;
+        if (restype === 'enums')
+          url = "/resource/_marcmap?part=bib.fixprops." + part;
+        else
+          url = "/resource/_resourcelist?" + restype + "=all";
+      var promise = $http.get(url).then(function(response) {
         return response.data;
       });
       return promise;
@@ -298,22 +303,44 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   var recType = $routeParams.recType, recId = $routeParams.recId;
   var path = "/record/" + recType + "/" + recId;
 
-  $scope.promptConfirmDelete = function($event, type, id) {
-    $scope.confirmDeleteDraft = {
-      execute: function() {
-        $http.post("/record" + "/" + type + "/" + id + "/draft/delete").success(function(data, status) {
-          $scope.draft = null;
-          $scope.confirmDeleteDraft = null;
-        });
-      },
-      abort: function() {
-        $scope.confirmDeleteDraft = null;
-      },
-    };
-    $timeout(function() {
-      openPrompt($event, "#confirmDeleteDraftDialog");
+  // GET RESOURCES // TODO: load cached aggregate, or lookup part on demand from backend?
+
+  resources.getResourceList("typedef").then(function(data) {
+    $scope.typedefs = data.types;
+  });
+
+  var enums = $scope.enums = {};
+  ['encLevel', 'catForm'].forEach(function (key) {
+    resources.getResourceList("enums", key).then(function(data) {
+      enums[key] = data;
     });
-  }
+  })
+
+  resources.getResourceList("relator").then(function(data) {
+    $scope.relatorlist = data;
+  });
+
+  resources.getResourceList("lang").then(function(data) {
+    /*$scope.langlist = [];
+    var obj;
+    for (var key in data) {
+        $scope.langlist.push({
+        "code" : key,
+        "name" : data[key]
+        });
+    }*/
+    $scope.langlist = data;
+    //console.log("LANNGSGSG", $scope.langlist);
+    //console.log("LANNGSGSG", data);
+  });
+  resources.getResourceList("country").then(function(data) {
+    $scope.countrylist = data;
+  });
+  resources.getResourceList("nationality").then(function(data) {
+    $scope.nationalitylist = data;
+  });
+
+  // TODO: chain this after resources, to ensure load order
 
   records.get(recType, recId).then(function(data) {
     bibid = data['recdata']['controlNumber'];
@@ -333,6 +360,23 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
       $scope.holding_etags = holding_etags;
     });
   });
+
+  $scope.promptConfirmDelete = function($event, type, id) {
+    $scope.confirmDeleteDraft = {
+      execute: function() {
+        $http.post("/record" + "/" + type + "/" + id + "/draft/delete").success(function(data, status) {
+          $scope.draft = null;
+          $scope.confirmDeleteDraft = null;
+        });
+      },
+      abort: function() {
+        $scope.confirmDeleteDraft = null;
+      },
+    };
+    $timeout(function() {
+      openPrompt($event, "#confirmDeleteDraftDialog");
+    });
+  }
 
   $scope.save_holding = function(holding) {
     var etag = $scope.holding_etags[holding['@id']];
@@ -400,30 +444,6 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   $scope.remove_person = function(index) {
     $scope.record.about.instanceOf.authorList.splice(index,1);
   }
-
-  // GET RESOURCES
-  resources.getResourceList("lang").then(function(data) {
-    /*$scope.langlist = [];
-    var obj;
-    for (var key in data) {
-        $scope.langlist.push({
-        "code" : key,
-        "name" : data[key]
-        });
-    }*/
-    $scope.langlist = data;
-    //console.log("LANNGSGSG", $scope.langlist);
-    //console.log("LANNGSGSG", data);
-  });
-  resources.getResourceList("country").then(function(data) {
-    $scope.countrylist = data;
-  });
-  resources.getResourceList("function").then(function(data) {
-    $scope.functionlist = data;
-  });
-  resources.getResourceList("nationality").then(function(data) {
-    $scope.nationalitylist = data;
-  });
 
 }
 

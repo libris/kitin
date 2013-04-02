@@ -152,7 +152,7 @@ body.login .content.index header{margin-bottom:60px;}
 .content.holdings header h1{background-image:url(/static/i/icon-holdings.png);color:#683568;}
 
 .content.holdings a {color:#683568;}
-.content.holdings label {color:#683568;}
+.content.holdings label .lbl {color:#683568;}
 .content section{background:#fff; margin: 0 0 12px; padding: 12px;
   -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.2);
      -moz-box-shadow: 0 1px 3px rgba(0,0,0,.2);
@@ -514,13 +514,18 @@ label.dynamic-subjects em.subject .ficon{color:#1a8f72;}
       box-shadow: 0 1px 3px rgba(0,0,0,.2);
 }
 
+section.holdings-list{background:#f7f3ee;}
+
 .holdings-list ul{list-style:none;margin:0;padding:0;
   -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.2);
      -moz-box-shadow: 0 1px 3px rgba(0,0,0,.2);
       box-shadow: 0 1px 3px rgba(0,0,0,.2);}
+
 .holdings-list a{display:block;background:#f7f3ee;padding:12px;border-top:1px solid #ccc;color:#666;}
 .holdings-list li:first-child a{border-top:none;}
 .holdings-list li.active a{background:#fff;color:#000;}
+
+.holdings-list a.sigel {font-weight: 600;font-size: 14px;color:#666;}
 
 .content.holdings section h2{background-color:#a756a7;}
 .content.holdings section h2 i{border-right-color:#683568;}

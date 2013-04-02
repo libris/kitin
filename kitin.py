@@ -85,6 +85,11 @@ def list():
 
 @app.route("/search")
 def search():
+    if not request.headers.getlist("X-Forwarded-For"):
+        remote_ip = request.remote_addr
+    else:
+        remote_ip = request.headers.getlist("X-Forwarded-For")[0]
+    search_headers = {"X-Forwarded-For":"%s" % remote_ip}
     q = request.args.get('q')
     facet = request.args.get('f', '').strip()
     if facet:
@@ -102,7 +107,7 @@ def search():
     boost = ("&boost=%s" % b) if b else ''
     if q:
         resp = requests.get("%s/bib/kitin/_search?q=%s%s%s" % (
-            app.config['WHELK_HOST'], q, freq, boost))
+            app.config['WHELK_HOST'], q, freq, boost), headers=search_headers)
         if request.is_xhr:
            return raw_json_response(resp.text)
     return render_template('index.html', partials = {"/partials/search" : "partials/search.html"})
@@ -158,11 +163,10 @@ def delete_holding(holding_id):
     response = requests.delete(path)
     return make_response("success")
 
-@app.route("/resource")
-def get_resource():
-    restype = request.args.get("type")
-    url = "%s/resource/_resourcelist?%s=all" % (
-                app.config['WHELK_HOST'], restype)
+@app.route("/resource/<path:path>")
+def get_resource(path):
+    qs = request.query_string
+    url = "%s/resource/%s?%s" % (app.config['WHELK_HOST'], path, qs)
     resp = requests.get(url)
     return raw_json_response(resp.text)
 
