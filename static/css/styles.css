@@ -440,6 +440,10 @@ label textarea{overflow:hidden;resize:none;color:#444;}
 label textarea.title{font-size:22px;height:28px;line-height:26px;font-weight:bold;}
 
 label .lbl{display:block;font-size:12px;color:#1a8f72;margin-top:2px;line-height:16px;}
+.lbl-suggest{display:block;font-size:12px;color:#1a8f72;margin-top:2px;line-height:16px;float:left;clear:both;}
+
+.holdings .lbl {color:#683568;}
+
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     body label select{
