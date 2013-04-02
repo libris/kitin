@@ -44,8 +44,14 @@
         </label>
         <label class="ng-binding">
           <span class="fakeholder" data-fakeholder>Välj ett land</span>
-          <select class="selectpicker" data-selectpicker data-ng-model="work.language" data-ng-options="code as name for (code, name) in langlist">
-          </select>
+          <!--<select class="selectpicker" data-selectpicker data-ng-model="work.language" data-ng-options="code as name for (code, name) in langlist">
+          </select>-->
+          <select class="selectpicker" data-ui-select2 data-ng-model="work.language" style="width:75%">
+             <option></option>
+             <option data-ng-repeat="(short, name) in langlist" value="{{ short }}">{{ name }} ({{ short }})</option>
+         </select>
+         <!--<pre>Selected: {{ work.language | json }}</pre>
+         <input ui-select2="langlist" ng-model="work.language" style="width:200px" />-->
           <span class="lbl">{{ "Språk" }}</span>
         </label>
       </div>
