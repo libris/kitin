@@ -158,11 +158,10 @@ def delete_holding(holding_id):
     response = requests.delete(path)
     return make_response("success")
 
-@app.route("/resource")
-def get_resource():
-    restype = request.args.get("type")
-    url = "%s/resource/_resourcelist?%s=all" % (
-                app.config['WHELK_HOST'], restype)
+@app.route("/resource/<path:path>")
+def get_resource(path):
+    qs = request.query_string
+    url = "%s/resource/%s?%s" % (app.config['WHELK_HOST'], path, qs)
     resp = requests.get(url)
     return raw_json_response(resp.text)
 
