@@ -56,11 +56,11 @@
           </label>
           <div class="addon">
             <label>
-              <input class="input-mini authdependant" type="text" placeholder="yyyy" data-ng-model="person.birthYear" />
+              <input class="input-mini authdependant" type="text" placeholder="yyyy" maxlength="4" data-ng-model="person.birthYear" />
               <span class="lbl">{{ "Född" }}</span>
             </label>
             <label>
-              <input class="input-mini authdependant" type="text" placeholder="yyyy" data-ng-model="person.deathYear" />
+              <input class="input-mini authdependant" type="text" placeholder="yyyy" maxlength="4" data-ng-model="person.deathYear" />
               <span class="lbl">{{ "Död" }}</span>
             </label>
           </div>
@@ -263,7 +263,7 @@
           <li data-ng-repeat="holding in holdings| filter:{location:user_sigel}">
 
           <label>
-          <input type="text" data-ng-model="holding.location" value="{location:user_sigel}"/>
+          <input type="text" data-ng-model="holding.location" maxlength="4" value="{location:user_sigel}"/>
           <span class="lbl">{{ "Sigel" }}</span>
           </label>          <label>
           <input type="text" placeholder="Hyllsignum/Klassifikation" data-ng-model="holding.classificationPart"/>
