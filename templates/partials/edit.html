@@ -250,7 +250,11 @@
         <button class="btn-link" data-ng-click="add_holding(holdings)"><i class="ficon ficon-plus-sign"></i> Bestånd</button>
         <ul>
           <li data-ng-repeat="holding in holdings| filter:{location:user_sigel}">
+
           <label>
+          <input type="text" data-ng-model="holding.location" value="{location:user_sigel}"/>
+          <span class="lbl">{{ "Sigel" }}</span>
+          </label>          <label>
           <input type="text" placeholder="Hyllsignum/Klassifikation" data-ng-model="holding.classificationPart"/>
           <span class="lbl">{{ "Hyllsignum/Klassifikation" }}</span>
           </label>
