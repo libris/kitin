@@ -1,13 +1,3 @@
-function getParameterByName(name) {
-  name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-    var regexS = "[\\?&]" + name + "=([^&#]*)";
-    var regex = new RegExp(regexS);
-    var results = regex.exec(window.location.search);
-    if(results == null)
-      return "";
-    else
-      return decodeURIComponent(results[1].replace(/\+/g, " "));
-}
 
 // app.js
 
@@ -627,6 +617,20 @@ function MarcCtrl($rootScope, $scope, $routeParams, conf, records, $timeout) {
 }
 
 
+// util.js
+
+function getParameterByName(name) {
+  name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regexS = "[\\?&]" + name + "=([^&#]*)";
+    var regex = new RegExp(regexS);
+    var results = regex.exec(window.location.search);
+    if(results == null)
+      return "";
+    else
+      return decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+
 // services.js
 
 // TODO: turn into promptService?
@@ -852,12 +856,6 @@ kitin.directive('kitinAutocomplete', function() {
 });
 
 
-
-function getValueForFieldAndSubfield(data, fieldKey, subKey) {
-  subKey = subKey || 'a';
-  var field = data[fieldKey];
-  return field[subKey];
-}
 // Do we need a jquery namespace here? 
 (function($) {
 $("ul.facetlist").has("li.overflow").each(function() {
@@ -870,10 +868,9 @@ $("ul.facetlist").has("li.overflow").each(function() {
     });
 });
 }(jQuery));
-/* TODO: adapt to angular
 
-view.setupGlobalKeyBindings();
-view.setupKeyBindings();
+
+/* TODO: adapt to angular:
 
 // TODO: onunload:
 //if (ajaxInProgress)
@@ -883,20 +880,6 @@ var view = {
 
   setupGlobalKeyBindings: function () {
     var model = this.model;
-    $("input[name='draft']").on('click', function() {
-      var model_as_json = model.toJSON();
-      delete model_as_json.id;
-      $.ajax({
-        url: '/record/bib/'+model.id+'/draft',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(model_as_json),
-      }).done(function() {
-        displaySuccessAlert("Sparade framgångsrikt ett utkast av " + model.id);
-      }).error(function() {
-        displayFailAlert("Kunde inte spara utkast av " + model.id);
-      });
-    });
     $("input[name='publish']").on('click', function() {
       model.save({},
         {
@@ -933,21 +916,4 @@ var view = {
   }
 };
 
-function displaySuccessAlert(message) {
-  var alert = $("<div class='alert alert-success'><strong>Succe!</strong></div>");
-  var message = $("<p class='message'></p>").text(message);
-  var close_btn = $("<a class='close' data-dismiss='alert' href='#'>×</a>");
-  $(alert).append(close_btn).append(message);
-  $('.alert-wrapper').append(alert);
-}
-
-function displayFailAlert(message) {
-  var alert = $("<div class='alert alert-error'><strong>Fadäs!</strong></div>");
-  var message = $("<p class='message'></p>").text(message);
-  var close_btn = $("<a class='close' data-dismiss='alert' href='#'>×</a>");
-  $(alert).append(close_btn).append(message);
-  $('.alert-wrapper').append(alert);
-}
-
 */
-
