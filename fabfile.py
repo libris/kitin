@@ -60,6 +60,7 @@ def deploy():
         with cd('%s' % env.remotepath):
             run('tar xzf /tmp/kitin.tgz')
             run('python tools/create_wsgi_file.py')
+            run('ln -s ../storage/ .')
             #run('chown %s kitin.db' % env.wwwuser)
             #run('chown %s storage' % env.wwwuser)
 
