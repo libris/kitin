@@ -43,12 +43,12 @@
           <span class="lbl">{{ "Allmän mediaterm" }}</span>
         </label>
         <label class="ng-binding">
-          <span class="fakeholder" data-fakeholder>Välj ett land</span>
-          <!--<select class="selectpicker" data-selectpicker data-ng-model="work.language" data-ng-options="code as name for (code, name) in langlist">
+          <!--<span class="fakeholder" data-fakeholder>Välj ett land</span>
+          <select class="selectpicker" data-selectpicker data-ng-model="work.language" data-ng-options="code as name for (code, name) in langlist">
           </select>-->
-          <select class="selectpicker" data-ui-select2 data-ng-model="work.language" style="width:75%">
+          <select class="selectpicker" data-placeholder="Välj ett språk" data-ui-select2 data-ng-model="work.language" style="width:75%">
              <option></option>
-             <option data-ng-repeat="(short, name) in langlist" value="{{ short }}">{{ name }} ({{ short }})</option>
+             <option data-ng-repeat="(code, name) in langlist" value="{{ code }}">{{ name }} ({{ code }})</option>
          </select>
          <!--<pre>Selected: {{ work.language | json }}</pre>
          <input ui-select2="langlist" ng-model="work.language" style="width:200px" />-->
@@ -164,13 +164,17 @@
       </div>
       <div class="col6">
         <label>
-          <select data-ng-model="record.about.instanceOf.country" data-ng-options="code as name for (code, name) in countrylist">
-          </select>
+          <select data-placeholder="Välj ett land" data-ui-select2 data-ng-model="record.about.instanceOf.country" style="width:75%">
+             <option></option>
+             <option data-ng-repeat="(code, name) in countrylist" value="{{ code }}">{{ name }} ({{ code }})</option>
+         </select>
           <span class="lbl">{{ "Utgivningsland" }}</span>
         </label>
         <label>
-          <select data-ng-model="instance.placeOfManufacture.label" data-ng-options="code as name for (code, name) in countrylist">
-          </select>
+          <select data-placeholder="Välj ett land" data-ui-select2 data-ng-model="instance.placeOfManufacture.label" style="width:75%">
+             <option></option>
+             <option data-ng-repeat="(code, name) in countrylist" value="{{ code }}">{{ name }} ({{ code }})</option>
+         </select>
           <span class="lbl">{{ "Tryckland" }}</span>
         </label>
       </div>
