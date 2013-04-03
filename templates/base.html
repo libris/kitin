@@ -27,7 +27,7 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
               <li class="active"><a href="/" target="_self"><i class="ficon ficon-home"></i></a></li>
               <li class="dropdown">
                   <a class="dropdown-toggle" data-toggle="dropdown" href="#">Skapa ny <i class="ficon ficon-caret-down"></i></a>
-                  <ul class="dropdown-menu right">
+                  <ul class="dropdown-menu">
                      <li><a href="/edit/bib/new">Monografi</a></li>
                      <li class="disabled"><a href="#">Seriell publikation</a></li>
                      <li class="disabled"><a href="#">Ljudbok</a></li>
@@ -37,7 +37,7 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
             {% if current_user %}
             <li class="dropdown">
                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Inloggad som {{current_user.username}} ({{current_user.sigel}}) <i class="ficon ficon-caret-down"></i></a>
-                 <ul class="dropdown-menu right">
+                 <ul class="dropdown-menu">
                     <li><a href="/signout" target="_self">Logga ut</a></li>
                     <li class="disabled"><a href="#">Inställningar/konto</a></li>
                  </ul>
