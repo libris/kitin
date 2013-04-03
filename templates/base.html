@@ -16,17 +16,33 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
     <link rel="stylesheet" href="{{ url_for('static', filename='vendor/select2/select2.css') }}">
   </head>
   <body data-ng-app="kitin" class="{% block bodyclass %}{% endblock %}">
-    <div id="wrap">
+      <div id="wrap">
+            <ul class="nav inline">
+              <li class="active"><a href="#"><i class="icon-home"></i></a></li>
+              <li class="divider-vertical"></li>
+              <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Skapa ny</a>
+                  <ul class="dropdown-menu right">
+                     <li><a href="/edit/bib/new">Monografi</a></li>
+                     <li class="disabled"><a href="#">Seriell publikation</a></li>
+                     <li class="disabled"><a href="#">Ljudbok</a></li>
+                     <li class="disabled"><a href="#">Tom mall</a></li>
+                  </ul>
+              </li>
+            {% if current_user %}
+            <li class="dropdown">
+                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Inloggad som {{current_user.username}} ({{current_user.sigel}})</a>
+                 <ul class="dropdown-menu right">
+                    <li><a href="#">Inställningar/konto</a></li>
+                    <li><a tabindex="-1" href="#">Logga ut</a></li>
+                 </ul>
+              </li>
+            {% endif %}
+        </ul>
+
       <div id="header">
         <div class="logo"><a target="_self" href="/"><img src="/static/i/libris.png" alt="Libris Kategorisering"></a></div>
         <div class="kb"></div>
-        <div class="user">
-          {% if current_user %}
-          <span>Inloggad som <a href="#">{{current_user.username}} ({{current_user.sigel}})</a></span>
-          <span><a href="#">Logga ut</a></span>
-          {% endif %}
-          <span><a href="/edit/bib/new">Skapa ny: Monografi</a></span>
-        </div>
         <div class="searchfield">
           <form action="/search"> <!-- Change to Angular route -->
             <input id="search" name="q" type="text" autofocus
