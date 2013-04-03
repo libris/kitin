@@ -426,6 +426,12 @@ label:hover input{background:#f8f8f8 url(/static/i/pen-grey.png) no-repeat 98.5%
 label input:focus,
 label textarea:focus{background:#c0f1e6 url(/static/i/pen-black.png) no-repeat 98.5% 7px;color:#000;border: 1px solid #c0f1e6;}
 
+.holdings label:hover,
+.holdings label.focus{border-left-color:#683568;}
+
+.holdings label input:focus,
+.holdings label textarea:focus{background:#e0c4e0 url(/static/i/pen-black.png) no-repeat 98.5% 7px; border: 1px solid #e0c4e0;}
+
 label:hover textarea.title,
 label textarea.title:focus{background-position:98% 9px;}
 
