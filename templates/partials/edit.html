@@ -318,8 +318,8 @@
     </div>
     </section>
 	<section class="submit">
-          <button class="btn btn-purple  btn-submit" id="save-hld" data-ng-click="save_holding(holding)">Spara bestånd</i></button>
-          <button class="btn-link" id="delete-hld" data-ng-click="delete_holding($index)">Ta bort</button>
+      <button class="btn btn-purple  btn-submit" id="save-hld" data-ng-click="save_holding(holding)">Spara bestånd</button>
+      <button data-ng-show="holding['@id']"class="btn-link" id="delete-hld" data-ng-click="delete_holding(holding['@id'])">Ta bort</button>
     </section>
   <section class="holdings holdings-list">
     <h2>Allt Bestånd<i></i></h2>
