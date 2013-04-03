@@ -125,7 +125,7 @@
 
   <section id="instance" data-ng-repeat="instance in [record.about]"
            data-ng-init="typedef = typedefs[instance['@type']]">
-    <h2> <span>{{ typedef.label_sv }}</span> (bärarnivå)<i></i></h2>
+    <h2> <span>{{ typedef.label_sv }}</span> (representation)<i></i></h2>
     <div class="cols">
       <div class="col6" data-ng-show="instance['@type'] != 'Book'">
         <label>
@@ -318,8 +318,8 @@
     </div>
     </section>
 	<section class="submit">
-          <button class="btn btn-purple  btn-submit" id="save-hld" data-ng-click="save_holding(holding)">Spara bestånd</i></button>
-          <button class="btn-link" id="delete-hld" data-ng-click="delete_holding($index)">Ta bort bestånd</button>
+      <button class="btn btn-purple  btn-submit" id="save-hld" data-ng-click="save_holding(holding)">Spara bestånd</button>
+      <button data-ng-show="holding['@id']"class="btn-link" id="delete-hld" data-ng-click="delete_holding(holding['@id'])">Ta bort</button>
     </section>
   <section class="holdings holdings-list">
     <h2>Allt Bestånd<i></i></h2>

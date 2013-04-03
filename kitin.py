@@ -67,9 +67,9 @@ def login():
             login_user(user, remember)
             print "User logged in"
             print "User %s logged in with sigel %s" % (user.username, user.sigel)
-            return render_template('index.html', partials = {"/partials/index" : "partials/index.html"})
+            return redirect("/")
     return render_template("partials/login.html", msg = msg)
-    
+
 @app.route("/")
 #@login_required
 def index():

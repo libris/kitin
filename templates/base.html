@@ -23,7 +23,7 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
         <div class="user">
           {% if current_user %}
           <span>Inloggad som <a href="#">{{current_user.username}} ({{current_user.sigel}})</a></span>
-          <span><a href="#">Logga ut</a></span>
+          <span><a href="/signout" target="_self">Logga ut</a></span>
           {% endif %}
           <span><a href="/edit/bib/new">Skapa ny: Monografi</a></span>
         </div>
