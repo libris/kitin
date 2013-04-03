@@ -305,8 +305,9 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
 
   // GET RESOURCES // TODO: load cached aggregate, or lookup part on demand from backend?
 
+  var typedefs = {};
   resources.getResourceList("typedef").then(function(data) {
-    $scope.typedefs = data.types;
+    typedefs = data.types;
   });
 
   var enums = $scope.enums = {};
@@ -457,6 +458,17 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
 
   $scope.remove_person = function(index) {
     $scope.record.about.instanceOf.authorList.splice(index,1);
+  }
+
+  $scope.getTypeDef = function (obj) {
+    return obj? typedefs[obj['@type']] : null;
+  }
+
+  var typeCycle = ['Book', 'EBook', 'Audiobook'], typeIndex = 0;
+  $scope.cycleType = function (obj) {
+    if (!obj) return;
+    if (typeIndex++ >= typeCycle.length - 1) typeIndex = 0;
+    obj['@type'] = typeCycle[typeIndex];
   }
 
 }
