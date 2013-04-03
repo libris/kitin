@@ -268,10 +268,7 @@
     <h3 class="inline_heading">{{ "Sigel" }}</h3>
     <div class="cols">
       <div class="col6">
-          <label>
-          <input type="text" data-ng-model="holding.location" maxlength="4" value="{location:user_sigel}"/>
-          <span class="lbl">{{ "Sigel" }}</span>
-          </label>          
+          <!--hidden input for setting sigel--><input type="hidden" data-ng-model="holding.location" maxlength="4" value="{location:user_sigel}"/>
           <label>
           <input type="text" placeholder="Avdelning/Samling" data-ng-model="holding.shelvingLocation"/>
           <span class="lbl">{{ "Avdelning/Samling" }}</span>
