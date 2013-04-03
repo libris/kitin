@@ -83,6 +83,21 @@ def detail():
 def list():
     return render_template('prototypes/list.html')
 
+@app.route("/search.json")
+def search_json():
+    q = request.args.get('q')
+    facet = request.args.get('f', '').strip()
+    if facet:
+        freq = split_facets(facet)
+    else:
+        freq = ''
+    b = request.args.get('b', '')
+    boost = ("&boost=%s" % b) if b else ''
+    resp = requests.get("%s/bib/kitin/_search?q=%s%s%s" % (
+        app.config['WHELK_HOST'], q, freq, boost),
+        headers=extract_x_forwarded_for_header(request))
+    return raw_json_response(resp.text)
+
 @app.route("/search")
 def search():
     if not request.headers.getlist("X-Forwarded-For"):
@@ -93,23 +108,14 @@ def search():
     q = request.args.get('q')
     facet = request.args.get('f', '').strip()
     if facet:
-        dedupf = []
-        for ftmp in facet.split(' '):
-            if ftmp in dedupf:
-                dedupf.remove(ftmp)
-            else:
-                dedupf.append(ftmp)
-            facet = ' '.join(dedupf)
-    freq = "&f=%s" % facet
-
-    search_results = None
+        freq = split_facets(facet)
+    else:
+        freq = ''
     b = request.args.get('b', '')
     boost = ("&boost=%s" % b) if b else ''
     if q:
         resp = requests.get("%s/bib/kitin/_search?q=%s%s%s" % (
             app.config['WHELK_HOST'], q, freq, boost), headers=search_headers)
-        if request.is_xhr:
-           return raw_json_response(resp.text)
     return render_template('index.html', partials = {"/partials/search" : "partials/search.html"})
 
 @app.route('/record/<record_type>/<record_id>/holdings')
@@ -169,6 +175,24 @@ def get_resource(path):
     url = "%s/resource/%s?%s" % (app.config['WHELK_HOST'], path, qs)
     resp = requests.get(url)
     return raw_json_response(resp.text)
+
+def split_facets(facet):
+    dedupf = []
+    for ftmp in facet.split(' '):
+        if ftmp in dedupf:
+            dedupf.remove(ftmp)
+        else:
+            dedupf.append(ftmp)
+        facet = ' '.join(dedupf)
+    freq = "&f=%s" % facet
+    return freq
+
+def extract_x_forwarded_for_header(request):
+    if not request.headers.getlist("X-Forwarded-For"):
+        remote_ip = request.remote_addr
+    else:
+        remote_ip = request.headers.getlist("X-Forwarded-For")[0]
+    return {"X-Forwarded-For":"%s" % remote_ip}
 
 def get_mockresult():
     with open("mocked_result_set.json") as f:
