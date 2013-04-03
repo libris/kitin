@@ -195,7 +195,7 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
   $scope.q = $routeParams.q;
   $scope.f = $routeParams.f;
   console.log("prev: " + previous_facets + ", params: " + $scope.f);
-  var url = "/search?q=" + $scope.q;
+  var url = "/search.json?q=" + $scope.q;
   if($scope.f != undefined) {
     url += "&f=" + $scope.f;
   }

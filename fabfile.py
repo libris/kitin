@@ -53,13 +53,14 @@ def deploy():
     else:
         prepare()
         run('rm -f /tmp/kitin.tgz')
-        local('tar cfz /tmp/kitin.tgz --exclude=\'.*\' *')
+        local('tar cfz /tmp/kitin.tgz --exclude=\'.*\' --exclude=storage *')
         put('/tmp/kitin.tgz', '/tmp/')
         run('rm -fr %s' % env.remotepath)
         run('mkdir -m 775 %s' % env.remotepath)
         with cd('%s' % env.remotepath):
             run('tar xzf /tmp/kitin.tgz')
             run('python tools/create_wsgi_file.py')
+            run('ln -s ../storage/ .')
             #run('chown %s kitin.db' % env.wwwuser)
             #run('chown %s storage' % env.wwwuser)
 
