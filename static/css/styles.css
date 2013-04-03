@@ -413,8 +413,6 @@ input::-webkit-input-placeholder { color:#ccc; font-style:italic; font-size:14px
 ::-moz-placeholder { color:#ccc; font-style:italic; font-size:14px; }
 :-ms-input-placeholder { color:#ccc; font-style:italic; font-size:14px; }
 
-.fakeholder{display:block; color:#ccc; font-style:italic; font-size:14px; position:absolute;padding-top:3px;}
-
 :focus::-webkit-input-placeholder { color:#78ceba; }
 :focus::-moz-placeholder:focus { color:#78ceba; }
 :focus:-ms-input-placeholder:focus { color:#78ceba; }
@@ -540,6 +538,14 @@ section.holdings-list{background:#f7f3ee;}
 
 .content.holdings section h3{font:bold italic 16px/20px "Droid Serif", georgia,serif; color:#a756a7; 
   border-bottom:1px solid #a756a7; padding-bottom: 2px; }
+
+.content.holdings section h3.inline_heading {
+  border: none;
+  float: left;
+  margin-left: 10px;
+  margin-bottom: 0px;
+  line-height: 32px;
+}
 
 section.holdings ul li{list-style: none;}
 

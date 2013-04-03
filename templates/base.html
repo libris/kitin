@@ -5,15 +5,20 @@
 Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS katalogiserings prototyp.
   <![endif]-->
     <meta charset="utf-8">
-    <title>LIBRIS katalogisering - prototyp</title>
+    <title>LIBRIS katalogisering</title>
     <link rel="shortcut icon" type="image/x-icon" href="/static/i/favicon.ico">
     <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.css') }}">
     <link href="{{ url_for('static', filename='vendor/jquery/jquery.autocomplete.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/ficons.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <!--<link rel="stylesheet" href="{{ url_for('static', filename='vendor/angular-ui.min.css') }}">-->
     <link rel="stylesheet" href="{{ url_for('static', filename='vendor/select2/select2.css') }}">
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>    
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery-1.9.1.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/angular.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/angular-ui.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <!--<link rel="stylesheet" href="{{ url_for('static', filename='vendor/angular-ui.min.css') }}">-->
   </head>
   <body data-ng-app="kitin" class="{% block bodyclass %}{% endblock %}">
       <div id="wrap">
@@ -57,19 +62,15 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
     </div>
 
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{{ url_for('static', filename='vendor/jquery/jquery-1.9.1.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/jquery/jquery.jkey.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/jquery/jquery.autocomplete.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='vendor/angular.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/underscore-min.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/jquery/jquery.autosize.js') }}"></script>
-    <script src="{{ url_for('static', filename='vendor/angular-ui.min.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/select2/select2.js') }}"></script>
 
     <!-- <script src="{{ url_for('static', filename='vendor/jquery/jquery.autogrowinput.js') }}"></script> -->
 
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
     {% if current_user %}
         <script type="text/javascript">
         kitin.constant("flaskConstants", {
