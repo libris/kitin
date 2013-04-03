@@ -57,9 +57,9 @@
         </div>
         -->
         <div class="footer">
-          <span>Text – tryck</span>
-          <span>[ Monografisk resurs ]</span>
-          <span class="level">[ Biblioteksnivå ]</span>
+            <span data-ng-show="record.data.about['@type']">{{ record.data.about['@type'] }}</span>
+            <span data-ng-show="record.data.about.mediaTerm">[ {{ record.data.about.mediaTerm }} ]</span>
+            <!--<span class="level">[ Biblioteksnivå ]</span>-->
         </div>
         <ul style="display:none">
           <li>bibLevel: {{ record.data.about.instanceOf['marc:bibLevel'].label }}</li>
