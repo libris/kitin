@@ -265,10 +265,10 @@
   </section>-->
   <section class="holdings">
     <h2>Bestånd<i></i></h2>
-    <h3 class="inline_heading">{{ "Sigel" }}</h3>
+    <h3 class="inline_heading">{{user_sigel}}</h3>
     <div class="cols">
       <div class="col6">
-          <!--hidden input for setting sigel--><input type="hidden" data-ng-model="holding.location" maxlength="4" value="{location:user_sigel}"/>
+          <!--hidden input for setting sigel--><input type="hidden" data-ng-model="holding.location" maxlength="4" value="{{user_sigel}}"/>
           <label>
           <input type="text" placeholder="Avdelning/Samling" data-ng-model="holding.shelvingLocation"/>
           <span class="lbl">{{ "Avdelning/Samling" }}</span>
