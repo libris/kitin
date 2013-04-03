@@ -348,10 +348,10 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     $scope.etag = data['etag'];
     $scope.user_sigel = constants.get("user_sigel")
     $scope.all_constants = constants.all();
-    $http.get("/record/" + recType + "/" + recId + "/holdings").success(function(holdata) {
-      $scope.holdings = holdata.list;
+    $http.get("/record/" + recType + "/" + recId + "/holdings").success(function(data) {
+      $scope.holdings = data.list;
       var holding_etags = {};
-      var items = holdata.list;
+      var items = data.list;
 
       var my_holdings = _.filter(items, function(i) { return i['location'] == constants.get("user_sigel"); });
       if(my_holdings <= 0) {
@@ -398,6 +398,7 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
         console.log("ohh crap!");
       });
     } else {
+      console.log("we wants to post a new holding");
       $http.post("/holding", holding).success(function(data, status, headers) {
         $scope.holding_etags[data['@id']] = headers('etag');
       }).error(function(data, status, headers) {
@@ -407,11 +408,12 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     }
   }
 
-  $scope.delete_holding = function(index) {
-    var holding_id = $scope.holdings[index]['@id'].split("/").slice(-2)[1];
+  $scope.delete_holding = function(holding_id) {
     $http.delete("/holding/" + holding_id).success(function(data, success) {
       console.log("great success!");
-      $scope.holdings.splice(index,1);
+      $http.get("/record/" + recType + "/" + recId + "/holdings").success(function(data) {
+        $scope.holdings = data.list;
+      });
     }).error(function() {
       console.log("oh crap!");
     })

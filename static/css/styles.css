@@ -507,6 +507,8 @@ label.dynamic-subjects em.subject .ficon{color:#1a8f72;}
 .btn-purple{background-color:#683568;}
 .btn-purple:hover{background-color:#573657;}
 
+section.submit .btn-link {font-size: 14px; font-weight: 600;}
+
 .removedraft{float:right;}
 
 /* Holdings */
@@ -530,6 +532,8 @@ section.holdings-list{background:#f7f3ee;}
 .holdings-list li.active a{background:#fff;color:#000;}
 
 .holdings-list a.sigel {font-weight: 600;font-size: 14px;color:#666;}
+
+.holdings-list a.sigel i {opacity:.60;}
 
 .content.holdings section h2{background-color:#a756a7;}
 .content.holdings section h2 i{border-right-color:#683568;}

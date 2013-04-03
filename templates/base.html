@@ -34,7 +34,7 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Inloggad som {{current_user.username}} ({{current_user.sigel}})</a>
                  <ul class="dropdown-menu right">
                     <li><a href="#">Inställningar/konto</a></li>
-                    <li><a tabindex="-1" href="#">Logga ut</a></li>
+                    <li><a href="/signout" target="_self">Logga ut</a></li>
                  </ul>
               </li>
             {% endif %}
