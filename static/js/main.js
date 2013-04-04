@@ -13,8 +13,6 @@ kitin.config(
               {templateUrl: '/partials/index', controller: IndexCtrl})
         .when('/search',
               {templateUrl: '/partials/search', controller: SearchCtrl})
-        .when('/edit/:recType/new',
-              { templateUrl: '/partials/edit', controller: NewRecordCtrl})
         .when('/edit/:recType/:recId',
               {templateUrl: '/partials/edit', controller: FrbrCtrl})
         .when('/marc/:recType/:recId',
@@ -290,24 +288,14 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
 
 }
 
-function NewRecordCtrl($location, $scope, records, $http, $routeParams) {
-  document.body.className = 'edit new';
-  var recType = $routeParams.recType;
-  $http.get('/record/bib/new').success(function(data) {
-    $scope.record = data;
-  });
-
-  $scope.save = function() {
-    records.create(recType, $scope.record).then(function(data) {
-      $location.url('/edit/bib/' + data['document_id']);
-    });
-  }
-}
-
 function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, constants) {
-  document.body.className = 'edit';
   var recType = $routeParams.recType, recId = $routeParams.recId;
   var path = "/record/" + recType + "/" + recId;
+
+  var isNew = (recId === 'new');
+  var newType = $routeParams.type;
+
+  document.body.className = isNew? 'edit new' : 'edit';
 
   // Fetch resources
 
@@ -351,6 +339,11 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     }
   });
 
+  if (isNew) {
+    $http.get('/record/bib/new?type' + newType).success(function(data) {
+      $scope.record = data;
+    });
+  } else
   records.get(recType, recId).then(function(data) {
     var record = $scope.record = data['recdata'];
     patchRecord(record.about.instanceOf);
@@ -434,6 +427,13 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     })
   }
 
+  if (isNew) {
+    $scope.save = function() {
+      records.create(recType, $scope.record).then(function(data) {
+        $location.url('/edit/bib/' + data['document_id']);
+      });
+    }
+  } else
   $scope.save = function() {
     var if_match_header = $scope.etag.replace(/["']/g, "");
     records.save(recType, recId, $scope.record, $scope.etag.replace(/["']/g, "")).then(function(data) {

@@ -1,18 +1,14 @@
 {
   "@context": "/context/libris.jsonld",
   "@id": "",
-  "@type": "Document",
+  "@type" : "Record",
+  "typeOfRecord" : "i",
+  "bibLevel" : "m",
+  "encLevel" : "7",
+  "catForm" : "a",
   "controlNumber": "",
   "creator": {"@type": "Organization", "abbr": ""},
   "modified": "",
-  "catForm": {
-      "code" : "",
-      "label": ""
-  },
-  "encLevel": {
-    "code":"_",
-    "label": "Nationalbibliografisk niv\u00e5 (jfr KRS 1.0D3)"
-  },
   "localSystemNumber": "",
   "status": {
       "code": "",
@@ -21,12 +17,8 @@
   "bibliographyCode": [],
   "about": {
     "@id": "",
-    "@type": ["Instance", "Book"],
-    "typeOfRecord": {
-        "code": "a",
-        "label":"Text: tryck"
-    },
-    "baseMaterial": "ill.",
+    "@type": "Book",
+    "physicalDetails": "ill.",
     "comment": "",
     "dimensions": "",
     "extent": "",
@@ -39,11 +31,11 @@
     "isbnNote": "inb.",
     "placeOfManufacture": {"@type": "Place", "label": ""},
     "placeOfPublication": {"@type": "Place", "label": ""},
-    "publisher": {"@type": "Organization", "name": ""},
-    "pubDate": {"@type": "year", "@value": ""},
+    "publisher": [{"@type": "Organization", "name": ""}],
+    "dateOfPublication": "",
     "termsOfAvailability": "",
     "instanceOf": {
-      "@type": ["Work", "Text"],
+      "@type": "Text",
       "bibLevel": {
           "code" : "m",
           "label" : "Monografisk resurs"
