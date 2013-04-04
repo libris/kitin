@@ -309,6 +309,11 @@ form.login .checks label .lbl{float:left;width:auto;}
 
 ul.drafts {list-style: none;}
 
+li.draft:hover,
+li.draft a:hover {background-color: #efefef;}
+
+
+
 .break{clear:both;}
 
 /* Override bootstrap forms */
