@@ -31,6 +31,10 @@ Add export JAVA_OPTS="-Dfile.encoding=utf8" to .profile
 1. Make a local copy of the config file.
     $ cp config.cfg.in config.cfg
 2. Open config.cfg in your favourite editor and set WHELK_HOST to point to localhost, like so: `WHELK_HOST = 'http://localhost:8080/whelk-core'`
+3. Set BIBDB_API and BIBDB_API_KEY. Ask for directions...
+4. Set SESSION_SECRET_KEY. To generate a key using python:
+    $ import os
+    $ os.urandom(24)
 3. Run webapp
     $ ./kitin.py -d
 
