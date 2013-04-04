@@ -34,7 +34,7 @@
           <span class="lbl">{{ "Huvudtitel" }}</span>
         </label>
         <label>
-          <textarea spellcheck="false" placeholder="Skriv en undertitel" data-ng-model="work.titleRemainder">{{ work.titleRemainder }}</textarea>
+          <textarea data-ui-jq="autosize" spellcheck="false" placeholder="Skriv en undertitel" data-ng-model="work.titleRemainder">{{ work.titleRemainder }}</textarea>
           <span class="lbl">{{ "Övrigt titelinformation" }}</span>
         </label>
         <label class="ng-binding">
@@ -52,7 +52,7 @@
       </div>
       <div class="col6">
         <label class="error">
-          <textarea spellcheck="false" data-ng-model="work.statementOfResponsibility" placeholder="Upphov"></textarea>
+          <textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="work.statementOfResponsibility" placeholder="Upphov"></textarea>
           <span class="lbl">{{ "Upphov" }}</span>
         </label>
         <div data-ng-repeat="person in work.authorList" class="entity person">
@@ -84,43 +84,56 @@
       <div class="col6">
         <h3>Ämnesord</h3>
         <label class="dynamic-subjects">
-          <span class="subjects"><em class="subject">Multiple Murders <i class="ficon ficon-circle-arrow-down"></i></em> -- America's fascination with multiple homicide -- Defining murder -- Serial murder -- An anatomy of serial murder -- With deliberation and purpose -- Murder</span>
-          <span class="lbl">Ämnesord</span>
+          <span class="subjects" data-ng-repeat="subject in work.subjectList">
+            <em class="subject">{{subject.term}}
+              <span data-ng-show="subject.formSubdivision">&mdash; {{subject.formSubdivision}}</span>
+              <span data-ng-show="subject.geographicSubdivision">&mdash; {{subject.geographicSubdivision}}</span>
+              <span data-ng-show="subject.system">({{subject.system}})</span>
+              <i class="ficon ficon-circle-arrow-down"></i></em>
+          </span>
+            <span class="lbl">Ämnesord</span>
         </label>
         <label class="add-subject">
-          <textarea placeholder="Lägg till ämnesord"></textarea>
+          <textarea placeholder="Lägg till ämnesord" disabled></textarea>
           <span class="lbl">Skriv in ämnesord</span>
         </label>
+        <!--
         <div class="suggestion-subjects">
           <ul>
-            <li><i class="ficon ficon-circle-arrow-up"></i> Mass murder</li>
-            <li><i class="ficon ficon-circle-arrow-up"></i> Murder</li>
-            <li><i class="ficon ficon-circle-arrow-up"></i> Massacres</li>
-            <li><i class="ficon ficon-circle-arrow-up"></i> Mass murder</li>
-            <li><i class="ficon ficon-circle-arrow-up"></i> Murder</li>
-            <li><i class="ficon ficon-circle-arrow-up"></i> Massacres</li>
-            <li><i class="ficon ficon-circle-arrow-up"></i> Mass murder</li>
-            <li><i class="ficon ficon-circle-arrow-up"></i> Murder</li>
-            <li><i class="ficon ficon-circle-arrow-up"></i> Massacres</li>
+            <li><i class="ficon ficon-circle-arrow-up"></i>...</li>
           </ul>
         </div>
+        -->
           <!--<ul class="inline">
             <li data-ng-repeat="topic in work.subject"><a class="btn btn-small" href="{{ topic['@id'] }}"><i class="icon-tag"></i> {{ topic['@id'] }}</a></li>
           </ul>-->
       </div>
       <div class="col6">
         <h3>Klassifikation</h3>
-           <ul class="inline">
-            <li data-ng-repeat="topicalTerm in record.topicalTerm"><a class="btn btn-small" href="{{ topicalTerm }}"><i class="icon-tag"></i> {{ topicalTerm }}</a></li>
-          </ul>
+        <!--
+        <ul class="inline">
+        <li data-ng-repeat="topicalTerm in record.topicalTerm"><a class="btn btn-small" href="{{ topicalTerm }}"><i class="icon-tag"></i> {{ topicalTerm }}</a></li>
+      </ul>
+          -->
+        <label class="dynamic-subjects">
+          <span class="subjects" data-ng-repeat="classification in work['class-ddc']">
+            <em class="subject">{{classification}}
+              <i class="ficon ficon-circle-arrow-down"></i></em>
+          </span>
+          <span class="lbl">Klassifikation</span>
+        </label>
+        <label class="add-subject">
+          <textarea placeholder="Lägg till klassifikation" disabled></textarea>
+          <span class="lbl">Skriv in klassifikation</span>
+        </label>
       </div>
-   
+
     </div>
     <h3>{{ "Anmärkningar" }}</h3>
     <div class="cols">
       <div class="col6">
         <label>
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="work.summary" placeholder="Sammanfattning">
+          <textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="work.summary" placeholder="Sammanfattning"></textarea>
           <span class="lbl">{{ "Sammanfattning" }}</span>
         </label>
       </div>
@@ -236,7 +249,7 @@
     <div class="cols">
       <div class="col6">
         <label>
-          <textarea spellcheck="false" data-ng-model="instance.listOfContents" placeholder="Formaterad innehållsförteckning"></textarea>
+          <textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.listOfContents" placeholder="Formaterad innehållsförteckning"></textarea>
           <span class="lbl">{{ "Formaterad innehållsförteckning" }}</span>
         </label>
       </div>
@@ -328,11 +341,11 @@
           <span class="lbl">{{ "Exemplarnummer" }}</span>
           </label>
           <label>
-          <textarea spellcheck="false" placeholder="Publik anmärkning" data-ng-model="holding.shelvingPublicNote"></textarea>
+          <textarea data-ui-jq="autosize" spellcheck="false" placeholder="Publik anmärkning" data-ng-model="holding.shelvingPublicNote"></textarea>
           <span class="lbl">{{ "Publik anmärkning" }}</span>
           </label>
           <label>
-          <textarea spellcheck="false" placeholder="Intern anmärkning" data-ng-model="holding.shelvingNonpublicNote"></textarea>
+          <textarea data-ui-jq="autosize" spellcheck="false" placeholder="Intern anmärkning" data-ng-model="holding.shelvingNonpublicNote"></textarea>
           <span class="lbl">{{ "Intern anmärkning" }}</span>
           </label>
       </div>
