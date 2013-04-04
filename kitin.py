@@ -68,7 +68,7 @@ def login():
             user.sigel = sigel
             session['sigel'] = sigel
             login_user(user, remember)
-            session.permanent = True
+            session.permanent = remember
             print "User logged in"
             print "User %s logged in with sigel %s" % (user.username, user.sigel)
             return redirect("/")
