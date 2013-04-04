@@ -169,7 +169,9 @@ body.login .content.index header{margin-bottom:60px;}
   box-shadow: none;
   padding:12px 0;
   width:1008px;
+  text-align: right;
 }
+div.submit {text-align: right;}
 
 .content section h3{font:bold italic 16px/20px "Droid Serif", georgia,serif; color:#1a8f72; 
   border-bottom:1px solid #1a8f72; padding-bottom: 2px; }
@@ -557,7 +559,7 @@ label.dynamic-subjects em.subject .ficon{color:#1a8f72;}
 
 section.submit .btn-link {font-size: 14px; font-weight: 600;}
 
-.removedraft{float:right;}
+.removedraft{float:left;}
 
 /* Holdings */
 
