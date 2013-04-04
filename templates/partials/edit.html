@@ -84,37 +84,50 @@
       <div class="col6">
         <h3>Ämnesord</h3>
         <label class="dynamic-subjects">
-          <span class="subjects"><em class="subject">Multiple Murders <i class="ficon ficon-circle-arrow-down"></i></em> -- America's fascination with multiple homicide -- Defining murder -- Serial murder -- An anatomy of serial murder -- With deliberation and purpose -- Murder</span>
-          <span class="lbl">Ämnesord</span>
+          <span class="subjects" data-ng-repeat="subject in work.subjectList">
+            <em class="subject">{{subject.term}}
+              <span data-ng-show="subject.formSubdivision">&mdash; {{subject.formSubdivision}}</span>
+              <span data-ng-show="subject.geographicSubdivision">&mdash; {{subject.geographicSubdivision}}</span>
+              <span data-ng-show="subject.system">({{subject.system}})</span>
+              <i class="ficon ficon-circle-arrow-down"></i></em>
+          </span>
+            <span class="lbl">Ämnesord</span>
         </label>
         <label class="add-subject">
-          <textarea placeholder="Lägg till ämnesord"></textarea>
+          <textarea placeholder="Lägg till ämnesord" disabled></textarea>
           <span class="lbl">Skriv in ämnesord</span>
         </label>
+        <!--
         <div class="suggestion-subjects">
           <ul>
-            <li><i class="ficon ficon-circle-arrow-up"></i> Mass murder</li>
-            <li><i class="ficon ficon-circle-arrow-up"></i> Murder</li>
-            <li><i class="ficon ficon-circle-arrow-up"></i> Massacres</li>
-            <li><i class="ficon ficon-circle-arrow-up"></i> Mass murder</li>
-            <li><i class="ficon ficon-circle-arrow-up"></i> Murder</li>
-            <li><i class="ficon ficon-circle-arrow-up"></i> Massacres</li>
-            <li><i class="ficon ficon-circle-arrow-up"></i> Mass murder</li>
-            <li><i class="ficon ficon-circle-arrow-up"></i> Murder</li>
-            <li><i class="ficon ficon-circle-arrow-up"></i> Massacres</li>
+            <li><i class="ficon ficon-circle-arrow-up"></i>...</li>
           </ul>
         </div>
+        -->
           <!--<ul class="inline">
             <li data-ng-repeat="topic in work.subject"><a class="btn btn-small" href="{{ topic['@id'] }}"><i class="icon-tag"></i> {{ topic['@id'] }}</a></li>
           </ul>-->
       </div>
       <div class="col6">
         <h3>Klassifikation</h3>
-           <ul class="inline">
-            <li data-ng-repeat="topicalTerm in record.topicalTerm"><a class="btn btn-small" href="{{ topicalTerm }}"><i class="icon-tag"></i> {{ topicalTerm }}</a></li>
-          </ul>
+        <!--
+        <ul class="inline">
+        <li data-ng-repeat="topicalTerm in record.topicalTerm"><a class="btn btn-small" href="{{ topicalTerm }}"><i class="icon-tag"></i> {{ topicalTerm }}</a></li>
+      </ul>
+          -->
+        <label class="dynamic-subjects">
+          <span class="subjects" data-ng-repeat="classification in work['class-ddc']">
+            <em class="subject">{{classification}}
+              <i class="ficon ficon-circle-arrow-down"></i></em>
+          </span>
+          <span class="lbl">Klassifikation</span>
+        </label>
+        <label class="add-subject">
+          <textarea placeholder="Lägg till klassifikation" disabled></textarea>
+          <span class="lbl">Skriv in klassifikation</span>
+        </label>
       </div>
-   
+
     </div>
     <h3>{{ "Anmärkningar" }}</h3>
     <div class="cols">
