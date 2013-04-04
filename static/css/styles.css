@@ -249,6 +249,10 @@ section.dash.purple{border-top-color: #683568;}
 section.dash.purple .circle{background-color: #683568;}
 section.dash.green{border-top-color: #1a8f72;}
 section.dash.green .circle{background-color: #1a8f72;}
+section.dash.grey{border-top-color: #c7c7c7;}
+section.dash.grey .circle{background-color: #c7c7c7;}
+
+section.dash {margin-bottom: 30px;}
 
 /* columns */
 .cols{overflow:hidden;width: 1008px;}

@@ -5,18 +5,10 @@
     <h1></h1>
   </header>
   <div class="cols">
-    <div class="col4">
+    <div class="col6">
       <section class="dash green">
-        <span class="circle"><i class="ficon ficon ficon-twitter"></i></span>
-        <h4>Senaste twitter</h4>
-        <p>Nu är den nya webbkatalogiseringen ute! Lorem ipsum dolor sit amet consectetur adi piscing elit.</p>
-        <p>Nu är den nya webbkatalogiseringen ute! Lorem ipsum dolor sit amet consectetur adi piscing elit.</p>
-        <p>Nu är den nya webbkatalogiseringen ute! Lorem ipsum dolor sit amet consectetur adi piscing elit.</p>
-      </section>
-    </div>
-    <div class="col4">
-      <section class="dash purple">
-        <h4>Drafts</h4>
+        <span class="circle"><i class="ficon ficon ficon-inbox"></i></span>
+        <h4>Inkorg (poster från kollegor)</h4>
         <ul>
           <li><a href="#">Lorem Ipsum</a></li>
           <li><a href="#">Lorem Ipsum</a></li>
@@ -25,18 +17,44 @@
         </ul>
       </section>
     </div>
-    <div class="col4">
+    <div class="col6">
+      <section class="dash purple">
+        <span class="circle"><i class="ficon ficon ficon-bullhorn"></i></span>
+        <h4>Ändringsmeddelanden (fd CXZ-listan)</h4>
+        <ul>
+          <li><a href="#">Lorem Ipsum</a></li>
+          <li><a href="#">Lorem Ipsum</a></li>
+          <li><a href="#">Lorem Ipsum</a></li>
+          <li><a href="#">Lorem Ipsum</a></li>
+        </ul>
+      </section>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="col6">
       <section class="dash pink">
-        <span class="circle"><i class="ficon ficon ficon-rss"></i></span>
-        <h4>Drafts</h4>
+        <span class="circle"><i class="ficon ficon ficon-file"></i></span>
+        <h4>Mina sparade utkast</h4>
         <ul>
           <li data-ng-repeat="draft in drafts" class="draft">
-          <a href="/edit/{{ draft.type }}/{{ draft.id }}">{{draft.type}} + {{ draft.id }} ({{draft.path}})</a>
+          <a href="/edit/{{ draft.type }}/{{ draft.id }}">{{draft.type}}/{{ draft.id }} ({{draft.path}})</a>
             <form data-ng-submit="delete(draft.type, draft.id)" method="POST" class="form-inline delete-draft">
               <input type="hidden" name="_method" value="DELETE" />
-              <button type="submit" class="btn btn-mini"><i class="icon-remove"></i></button>
+              <button type="submit" class="btn btn-link"><i class="ficon-remove"></i></button>
             </form>
           </li>
+        </ul>
+      </section>
+    </div>
+    <div class="col6">
+      <section class="dash grey">
+        <span class="circle"><i class="ficon ficon ficon-comments"></i></span>
+        <h4>Diskussionsforum (fd Marc21-listan)</h4>
+        <ul>
+          <li><a href="#">Lorem Ipsum</a></li>
+          <li><a href="#">Lorem Ipsum</a></li>
+          <li><a href="#">Lorem Ipsum</a></li>
+          <li><a href="#">Lorem Ipsum</a></li>
         </ul>
       </section>
     </div>
