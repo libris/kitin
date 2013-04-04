@@ -24,6 +24,7 @@ kitin.config(
     }]
 );
 
+
 kitin.factory('conf', function ($http, $q) {
   var marcmap = $q.defer(),
     overlay = $q.defer();
@@ -41,6 +42,7 @@ kitin.factory('conf', function ($http, $q) {
     renderUpdates: false
   };
 });
+
 
 kitin.factory('records', function ($http, $q) {
   // TODO: use proper angularjs http cache?
@@ -95,22 +97,35 @@ kitin.factory('records', function ($http, $q) {
   };
 });
 
+
 kitin.factory('resources', function($http) {
+  function getResourceList(restype, part) {
+      var url;
+      if (restype === 'enums')
+        url = "/resource/_marcmap?part=bib.fixprops." + part;
+      else
+        url = "/resource/_resourcelist?" + restype + "=all";
+    var promise = $http.get(url).then(function(response) {
+      return response.data;
+    });
+    return promise;
+  }
+  // TODO: load cached aggregate, or lookup part on demand from backend?
   var resources = {
-    getResourceList: function(restype, part) {
-        var url;
-        if (restype === 'enums')
-          url = "/resource/_marcmap?part=bib.fixprops." + part;
-        else
-          url = "/resource/_resourcelist?" + restype + "=all";
-      var promise = $http.get(url).then(function(response) {
-        return response.data;
-      });
-      return promise;
+    typedefs: getResourceList("typedef"),
+    relators: getResourceList("relator"),
+    languages: getResourceList("lang"),
+    countries: getResourceList("country"),
+    nationalities: getResourceList("nationality"),
+    enums: {
+      encLevel: getResourceList("enums", "encLevel"),
+      catForm: getResourceList("enums", "catForm"),
     }
+
   };
   return resources;
 });
+
 
 // Gather constants from angular or flask context
 kitin.factory('constants', function(flaskConstants) {
@@ -293,25 +308,19 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   var recType = $routeParams.recType, recId = $routeParams.recId;
   var path = "/record/" + recType + "/" + recId;
 
-  // GET RESOURCES // TODO: load cached aggregate, or lookup part on demand from backend?
+  // Fetch resources
 
-  var typedefs = {};
-  resources.getResourceList("typedef").then(function(data) {
-    typedefs = data.types;
+  $scope.enums = {};
+  resources.enums.encLevel.then(function(data) {
+    $scope.enums.encLevel = data;
   });
-
-  var enums = $scope.enums = {};
-  ['encLevel', 'catForm'].forEach(function (key) {
-    resources.getResourceList("enums", key).then(function(data) {
-      enums[key] = data;
-    });
-  })
-
-  resources.getResourceList("relator").then(function(data) {
+  resources.enums.catForm.then(function(data) {
+    $scope.enums.catForm = data;
+  });
+  resources.relators.then(function(data) {
     $scope.relatorlist = data;
   });
-
-  resources.getResourceList("lang").then(function(data) {
+  resources.languages.then(function(data) {
     /*$scope.langlist = [];
     var obj;
     for (var key in data) {
@@ -321,17 +330,22 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
         });
     }*/
     $scope.langlist = data;
-    //console.log("LANNGSGSG", $scope.langlist);
-    //console.log("LANNGSGSG", data);
   });
-  resources.getResourceList("country").then(function(data) {
+  resources.countries.then(function(data) {
     $scope.countrylist = data;
   });
-  resources.getResourceList("nationality").then(function(data) {
+  resources.nationalities.then(function(data) {
     $scope.nationalitylist = data;
   });
 
-  // TODO: chain this after resources, to ensure load order
+  resources.typedefs.then(function(data) {
+    var typedefs = data.types;
+    $scope.getTypeDef = function (obj) {
+      if (typeof obj === "undefined")
+        return;
+      return typedefs[obj['@type']];
+    }
+  });
 
   records.get(recType, recId).then(function(data) {
     bibid = data['recdata']['controlNumber'];
@@ -363,6 +377,7 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
       $scope.holding_etags = holding_etags;
     });
   });
+
 
   $scope.promptConfirmDelete = function($event, type, id) {
     $scope.confirmDeleteDraft = {
@@ -448,10 +463,6 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
 
   $scope.remove_person = function(index) {
     $scope.record.about.instanceOf.authorList.splice(index,1);
-  }
-
-  $scope.getTypeDef = function (obj) {
-    return obj? typedefs[obj['@type']] : null;
   }
 
   var typeCycle = ['Book', 'EBook', 'Audiobook'], typeIndex = 0;
