@@ -57,6 +57,8 @@ grey3: adadad
 
 }
 
+html {overflow-y: scroll; }
+
 body{font-family: 'Open Sans', arial, sans-serif; font-size:14px; line-height: 20px; color:#191919;}
 
 h1,
@@ -65,7 +67,7 @@ h3{font-family: 'Droid Serif', georgia, serif;}
 h4{font-size:15px;}
 
 a{color:#1a8f72;}
-a:hover{color:#106351;}
+a:hover{color:#106351; background-color: #fff;}
 
 #wrap{width:1080px;margin: 0 auto;}
 #grid{display:none;width:984px;min-height:800px;background:url(/static/i/grid.png);position:absolute;top:0;left:48px;}
@@ -473,7 +475,45 @@ label.dynamic-subjects em.subject .ficon{color:#1a8f72;}
 .suggestion-classification li{margin: 0 4px 4px 0;float:left;padding:4px 8px;background:rgba(167, 86, 167, 0.35);}
 .suggestion-classification li .ficon{color:#683568;}
 
+/* bootstrap dropdown */
 
+.nav > li > a:hover,
+.nav > li > a:focus {background-color: transparent;}
+
+.dropdown-menu {
+    background-clip: padding-box;
+    background-color: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    display: none;
+    float: left;
+    left: -2px;
+    list-style: none outside none;
+    margin: 2px 0 0;
+    min-width: 228px;
+    padding: 0px 0;
+    position: absolute;
+    top: 100%;
+    z-index: 1000;
+}
+
+.holdings-list ul{list-style:none;margin:0;padding:0;
+  -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.2);
+     -moz-box-shadow: 0 1px 3px rgba(0,0,0,.2);
+      box-shadow: 0 1px 3px rgba(0,0,0,.2);}
+
+#nav a:hover,
+#nav a:focus {text-decoration: none;}
+
+#nav .nav-menu > li {border-left:1px solid #1A8F72; padding:3px;margin:5px; padding-left: 15px;}
+#nav .nav-menu > li:first-child {border-left:none; padding-left:0px;}
+
+.dropdown-menu li a { display:block; background:#f7f3ee;padding:12px 12px 12px 18px;border-top:1px solid #ccc;color:#1A8F72;}
+.dropdown-menu li a:hover{color:#1A8F72;background:#fff;}
+.dropdown-menu li:first-child a{border-top:none;}
+.dropdown-menu li.active a{background:#fff;color:#000;}
+.disabled {background-color:#f7f3ee;}
 
 /* bootstrap buttons */
 

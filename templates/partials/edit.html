@@ -16,10 +16,9 @@
   <header>
     <h1>Bibliografisk post</h1>
     <div class="levels">
-      <span>{{ record.about['@type'].join(", ") }}</span>
       <span>Monografisk resurs</span>
-      <span class="active">Biblioteksnivå</span>
-      <span>AACR/KRS</span>
+      <span>{{ enums.encLevel[record.encLevel || '_'].label_sv }}</span>
+      <span>{{ enums.catForm[record.catForm || 'a'].label_sv }}</span>
     </div>
     <div class="modes">
       <a href="#" class="active">Formatneutral</a>
@@ -37,10 +36,6 @@
         <label>
           <textarea spellcheck="false" placeholder="Skriv en undertitel" data-ng-model="work.titleRemainder">{{ work.titleRemainder }}</textarea>
           <span class="lbl">{{ "Övrigt titelinformation" }}</span>
-        </label>
-        <label class="ng-binding">
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="work.mediaTerm" placeholder="Allmän mediaterm">
-          <span class="lbl">{{ "Allmän mediaterm" }}</span>
         </label>
         <label class="ng-binding">
           <!--<span class="fakeholder" data-fakeholder>Välj ett land</span>
@@ -121,11 +116,19 @@
       </div>
    
     </div>
+    <h3>{{ "Anmärkningar" }}</h3>
+    <div class="cols">
+      <div class="col6">
+        <label>
+          <input class="ng-pristine ng-valid" type="text" data-ng-model="work.summary" placeholder="Sammanfattning">
+          <span class="lbl">{{ "Sammanfattning" }}</span>
+        </label>
+      </div>
+    </div>
   </section>
 
-  <section id="instance" data-ng-repeat="instance in [record.about]"
-           data-ng-init="typedef = typedefs[instance['@type']]">
-    <h2> <span>{{ typedef.label_sv }}</span> (representation)<i></i></h2>
+  <section id="instance" data-ng-repeat="instance in [record.about]">
+    <h2 data-ng-click="cycleType(instance)"> <span>{{ getTypeDef(instance).label_sv }}</span> (representation)<i></i></h2>
     <div class="cols">
       <div class="col6" data-ng-show="instance['@type'] != 'Book'">
         <label>
@@ -178,7 +181,16 @@
           <span class="lbl">{{ "Tryckland" }}</span>
         </label>
       </div>
+      <div class="cols3" data-ng-show="getTypeDef(instance).term == 'Audiobook'">
+        <label>
+          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.publisherNumber" placeholder="Utgivningsnummer">
+          <span class="lbl">{{ "Utgivningsnummer" }}</span>
+        </label>
+      </div>
     </div>
+    <!-- TODO: partially toggle digital details
+    <div data-ng-show="getTypeDef(instance).subClassOf != 'DigitalResource'">
+    -->
     <h3>Fysisk beskrivning</h3>
     <div class="cols">
       <div class="col3">
@@ -195,14 +207,28 @@
       </div>
       <div class="col3">
         <label>
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.baseMaterial" placeholder="Basmaterial">
-          <span class="lbl">{{ "Basmaterial" }}</span>
+          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.physicalDetails" placeholder="Fysiska detaljer">
+          <span class="lbl">{{ "Fysiska detaljer" }}</span>
         </label>
       </div>
       <div class="col3">
         <label>
           <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.termsOfAvailability" placeholder="Pris">
           <span class="lbl">{{ "Pris" }}</span>
+        </label>
+      </div>
+    </div>
+    <div class="cols" data-ng-show="getTypeDef(instance).subClassOf == 'DigitalResource'">
+      <div class="col3">
+        <label>
+          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.fileType" placeholder="Filtyp">
+          <span class="lbl">{{ "Filtyp" }}</span>
+        </label>
+      </div>
+      <div class="col3">
+        <label>
+          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.systemRequirements" placeholder="Systemkrav">
+          <span class="lbl">{{ "Systemkrav" }}</span>
         </label>
       </div>
     </div>
@@ -214,10 +240,10 @@
           <span class="lbl">{{ "Formaterad innehållsförteckning" }}</span>
         </label>
       </div>
-      <div class="col6">
+      <div class="cols6" data-ng-show="getTypeDef(instance).term == 'Audiobook'">
         <label>
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.summary" placeholder="Sammanfattning">
-          <span class="lbl">{{ "Sammanfattning" }}</span>
+          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.contributorNote" placeholder="Medverkande">
+          <span class="lbl">{{ "Medverkande" }}</span>
         </label>
       </div>
     </div>
@@ -265,10 +291,10 @@
   </section>-->
   <section class="holdings">
     <h2>Bestånd<i></i></h2>
-    <h3 class="inline_heading">{{ "Sigel" }}</h3>
+    <h3 class="inline_heading">{{user_sigel}}</h3>
     <div class="cols">
       <div class="col6">
-          <!--hidden input for setting sigel--><input type="hidden" data-ng-model="holding.location" maxlength="4" value="{location:user_sigel}"/>
+          <!--hidden input for setting sigel--><input type="hidden" data-ng-model="holding.location" maxlength="4" value="{{user_sigel}}"/>
           <label>
           <input type="text" placeholder="Avdelning/Samling" data-ng-model="holding.shelvingLocation"/>
           <span class="lbl">{{ "Avdelning/Samling" }}</span>

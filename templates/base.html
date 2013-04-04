@@ -13,8 +13,8 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
     <link rel="stylesheet" href="{{ url_for('static', filename='css/ficons.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='vendor/select2/select2.css') }}">
-    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>    
     <script src="{{ url_for('static', filename='vendor/jquery/jquery-1.9.1.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>    
     <script src="{{ url_for('static', filename='vendor/angular.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/angular-ui.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
@@ -22,12 +22,12 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
   </head>
   <body data-ng-app="kitin" class="{% block bodyclass %}{% endblock %}">
       <div id="wrap">
-            <ul class="nav inline">
-              <li class="active"><a href="/" target="_self"><i class="icon-home"></i></a></li>
-              <li class="divider-vertical"></li>
+      <div id="nav">
+            <ul class="inline nav-menu">
+              <li class="active"><a href="/" target="_self"><i class="ficon ficon-home"></i></a></li>
               <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Skapa ny</a>
-                  <ul class="dropdown-menu right">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Skapa ny <i class="ficon ficon-caret-down"></i></a>
+                  <ul class="dropdown-menu">
                      <li><a href="/edit/bib/new">Monografi</a></li>
                      <li class="disabled"><a href="#">Seriell publikation</a></li>
                      <li class="disabled"><a href="#">Ljudbok</a></li>
@@ -36,15 +36,15 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
               </li>
             {% if current_user %}
             <li class="dropdown">
-                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Inloggad som {{current_user.username}} ({{current_user.sigel}})</a>
-                 <ul class="dropdown-menu right">
-                    <li><a href="#">Inställningar/konto</a></li>
+                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Inloggad som {{current_user.username}} ({{current_user.sigel}}) <i class="ficon ficon-caret-down"></i></a>
+                 <ul class="dropdown-menu">
                     <li><a href="/signout" target="_self">Logga ut</a></li>
+                    <li class="disabled"><a href="#">Inställningar/konto</a></li>
                  </ul>
               </li>
             {% endif %}
         </ul>
-
+	  </div>
       <div id="header">
         <div class="logo"><a target="_self" href="/"><img src="/static/i/libris.png" alt="Libris Kategorisering"></a></div>
         <div class="kb"></div>

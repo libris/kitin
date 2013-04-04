@@ -1,13 +1,3 @@
-function getParameterByName(name) {
-  name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-    var regexS = "[\\?&]" + name + "=([^&#]*)";
-    var regex = new RegExp(regexS);
-    var results = regex.exec(window.location.search);
-    if(results == null)
-      return "";
-    else
-      return decodeURIComponent(results[1].replace(/\+/g, " "));
-}
 
 // app.js
 
@@ -195,7 +185,7 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
   $scope.q = $routeParams.q;
   $scope.f = $routeParams.f;
   console.log("prev: " + previous_facets + ", params: " + $scope.f);
-  var url = "/search?q=" + $scope.q;
+  var url = "/search.json?q=" + $scope.q;
   if($scope.f != undefined) {
     url += "&f=" + $scope.f;
   }
@@ -305,8 +295,9 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
 
   // GET RESOURCES // TODO: load cached aggregate, or lookup part on demand from backend?
 
+  var typedefs = {};
   resources.getResourceList("typedef").then(function(data) {
-    $scope.typedefs = data.types;
+    typedefs = data.types;
   });
 
   var enums = $scope.enums = {};
@@ -457,6 +448,17 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
 
   $scope.remove_person = function(index) {
     $scope.record.about.instanceOf.authorList.splice(index,1);
+  }
+
+  $scope.getTypeDef = function (obj) {
+    return obj? typedefs[obj['@type']] : null;
+  }
+
+  var typeCycle = ['Book', 'EBook', 'Audiobook'], typeIndex = 0;
+  $scope.cycleType = function (obj) {
+    if (!obj) return;
+    if (typeIndex++ >= typeCycle.length - 1) typeIndex = 0;
+    obj['@type'] = typeCycle[typeIndex];
   }
 
 }
@@ -612,6 +614,20 @@ function MarcCtrl($rootScope, $scope, $routeParams, conf, records, $timeout) {
   //  ajax-save
   //}
 
+}
+
+
+// util.js
+
+function getParameterByName(name) {
+  name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regexS = "[\\?&]" + name + "=([^&#]*)";
+    var regex = new RegExp(regexS);
+    var results = regex.exec(window.location.search);
+    if(results == null)
+      return "";
+    else
+      return decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
 
@@ -840,12 +856,6 @@ kitin.directive('kitinAutocomplete', function() {
 });
 
 
-
-function getValueForFieldAndSubfield(data, fieldKey, subKey) {
-  subKey = subKey || 'a';
-  var field = data[fieldKey];
-  return field[subKey];
-}
 // Do we need a jquery namespace here? 
 (function($) {
 $("ul.facetlist").has("li.overflow").each(function() {
@@ -858,10 +868,9 @@ $("ul.facetlist").has("li.overflow").each(function() {
     });
 });
 }(jQuery));
-/* TODO: adapt to angular
 
-view.setupGlobalKeyBindings();
-view.setupKeyBindings();
+
+/* TODO: adapt to angular:
 
 // TODO: onunload:
 //if (ajaxInProgress)
@@ -871,20 +880,6 @@ var view = {
 
   setupGlobalKeyBindings: function () {
     var model = this.model;
-    $("input[name='draft']").on('click', function() {
-      var model_as_json = model.toJSON();
-      delete model_as_json.id;
-      $.ajax({
-        url: '/record/bib/'+model.id+'/draft',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(model_as_json),
-      }).done(function() {
-        displaySuccessAlert("Sparade framgångsrikt ett utkast av " + model.id);
-      }).error(function() {
-        displayFailAlert("Kunde inte spara utkast av " + model.id);
-      });
-    });
     $("input[name='publish']").on('click', function() {
       model.save({},
         {
@@ -921,21 +916,4 @@ var view = {
   }
 };
 
-function displaySuccessAlert(message) {
-  var alert = $("<div class='alert alert-success'><strong>Succe!</strong></div>");
-  var message = $("<p class='message'></p>").text(message);
-  var close_btn = $("<a class='close' data-dismiss='alert' href='#'>×</a>");
-  $(alert).append(close_btn).append(message);
-  $('.alert-wrapper').append(alert);
-}
-
-function displayFailAlert(message) {
-  var alert = $("<div class='alert alert-error'><strong>Fadäs!</strong></div>");
-  var message = $("<p class='message'></p>").text(message);
-  var close_btn = $("<a class='close' data-dismiss='alert' href='#'>×</a>");
-  $(alert).append(close_btn).append(message);
-  $('.alert-wrapper').append(alert);
-}
-
 */
-
