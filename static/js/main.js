@@ -476,9 +476,9 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     $scope.record.about.instanceOf.authorList.splice(index,1);
   }
 
-  var typeCycle = ['Book', 'EBook', 'Audiobook'], typeIndex = 0;
-  $scope.cycleType = function (obj) {
-    if (!obj) return;
+  var typeCycle = ['Book', 'EBook', 'Audiobook', 'Serial', 'ESerial'], typeIndex = 0;
+  $scope.cycleType = function (evt, obj) {
+    if (!obj || !evt.altKey) return;
     if (typeIndex++ >= typeCycle.length - 1) typeIndex = 0;
     obj['@type'] = typeCycle[typeIndex];
   }

@@ -141,7 +141,7 @@
   </section>
 
   <section id="instance" data-ng-repeat="instance in [record.about]">
-    <h2 data-ng-click="cycleType(instance)"> <span>{{ getTypeDef(instance).label_sv }}</span> (representation)<i></i></h2>
+    <h2 data-ng-click="cycleType($event, instance)"> <span>{{ getTypeDef(instance).label_sv }}</span> (representation)<i></i></h2>
     <div class="cols">
       <div class="col6" data-ng-show="instance['@type'] != 'Book'">
         <label>
