@@ -35,12 +35,12 @@
       <section class="dash pink">
         <span class="circle"><i class="ficon ficon ficon-file"></i></span>
         <h4>Mina sparade utkast</h4>
-        <ul>
+        <ul class="unstyled">
           <li data-ng-repeat="draft in drafts" class="draft">
-          <a href="/edit/{{ draft.type }}/{{ draft.id }}">{{draft.type}}/{{ draft.id }} ({{draft.path}})</a>
             <form data-ng-submit="delete(draft.type, draft.id)" method="POST" class="form-inline delete-draft">
+          	  <a href="/edit/{{ draft.type }}/{{ draft.id }}" title="{{draft.path}}">{{draft.type}}/{{ draft.id }}</a>
+              <button type="submit" class="btn-link pull-right" title="Ta bort utkast"><i class="ficon ficon-remove"></i></button>
               <input type="hidden" name="_method" value="DELETE" />
-              <button type="submit" class="btn btn-link"><i class="ficon-remove"></i></button>
             </form>
           </li>
         </ul>
