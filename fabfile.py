@@ -77,10 +77,11 @@ def create_config():
         f = open('config.cfg.in', 'r')
         file_contents = f.read()
         f.close()
-        newfile = open('config.cfg', 'w')
+        newfile = open('config.cfg', 'a')
         newfile.write(_replace_setting_values(file_contents))
+        key = os.urandom(24)
+        newfile.write('\nSESSION_SECRET_KEY=\'%s\'' % key)
         newfile.close()
-
 
 # Helper method
 def _replace_setting_values(text):
@@ -88,3 +89,6 @@ def _replace_setting_values(text):
     def translate(match):
         return os.environ.get(match.group(2), '')
     return rc.sub(translate, text)
+
+def _generate_secret_key():
+    return
