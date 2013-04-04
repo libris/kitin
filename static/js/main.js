@@ -7,7 +7,7 @@ kitin.config(
   ['$locationProvider', '$routeProvider',
     function($locationProvider, $routeProvider) {
 
-      $locationProvider.html5Mode(true);
+      $locationProvider.html5Mode(true).hashPrefix('!');
       $routeProvider
         .when('/',
               {templateUrl: '/partials/index', controller: IndexCtrl})
@@ -199,7 +199,6 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
 
   $scope.q = $routeParams.q;
   $scope.f = $routeParams.f;
-  console.log("prev: " + previous_facets + ", params: " + $scope.f);
   var url = "/search.json?q=" + $scope.q;
   if($scope.f != undefined) {
     url += "&f=" + $scope.f;
@@ -218,17 +217,14 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
   
   tmp_crumbs = previous_facets.split(" ");
   var aggr_crumbs = [];
-  console.log("LLLLL: ", tmp_crumbs);
   if (tmp_crumbs.length > 0) {
      aggr_crumbs[0] = tmp_crumbs[0];
      for (i=1; i < tmp_crumbs.length; i++) {
         aggr_crumbs[i] = aggr_crumbs[i-1] + " " + tmp_crumbs[i];
      }
      for (i=0; i < aggr_crumbs.length; i++) {
-        console.log("CRUMB: ", aggr_crumbs[i]);
      }
      $scope.crumbs = aggr_crumbs;
-     console.log($scope.crumbs);
   }
   /* I'm on it
   tmp_crumbs = previous_facets.split(" ");

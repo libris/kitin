@@ -617,6 +617,11 @@ section.holdings ul li{list-style: none;}
 .acResults .about{font-size:13px;line-height:20px;color:#666;}
 .acSelect{background:#c8f4ea;}
 
+/* Select 2 */
+.select2-results .select2-highlighted {
+    background: #c8f4ea;
+    color: #222;
+}
 /* Popover */
 
 .popover{
