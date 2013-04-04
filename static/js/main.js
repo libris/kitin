@@ -43,55 +43,42 @@ kitin.factory('conf', function ($http, $q) {
 
 
 kitin.factory('records', function ($http, $q) {
-  // TODO: use proper angularjs http cache?
-  var currentPath, currentRecord;
-  function loadPromise(path) {
-    var record = $q.defer();
-    $http.get(path).success(function (struct, status, headers) {
-      currentPath = path;
-      currentRecord = struct;
-      record['recdata'] = struct;
-      record['etag'] = headers('etag');
-      record.resolve(record);
-    });
-    return record.promise;
-  }
-
-  function saveRecord(type, id, data, etag) {
-    var record = $q.defer();
-    $http.put("/record/" + type + "/" + id, data, {headers: {"If-match":etag}}).success(function(data, status, headers) {
-      record['recdata'] = data;
-      record['etag'] = headers('etag');
-      record.resolve(record);
-    }).error(function() {
-      console.log("og crap, we failed :(");
-    });
-    return record.promise;
-  }
-
-  function createRecord(type, data) {
-    var record = $q.defer();
-    $http.post("/record/" + type + "/create", data).success(function(data, status, headers) { 
-      record.resolve(data);
-    });
-    return record.promise;
-  }
 
   return {
+
     get: function (type, id) {
       var path = "/record/" + type + "/" + id;
-      if (currentPath === path && currentRecord) {
-        return {then: function (callback) { callback(currentRecord); }};
-      } else {
-        return loadPromise(path);
-      }
+      var record = $q.defer();
+      $http.get(path).success(function (struct, status, headers) {
+        record['recdata'] = struct;
+        record['etag'] = headers('etag');
+        record.resolve(record);
+      });
+      return record.promise;
     },
+
     save: function(type, id, data, etag) {
-      return saveRecord(type, id, data, etag);
+      var record = $q.defer();
+      $http.put("/record/" + type + "/" + id, data,
+                {headers: {"If-match":etag}}).success(function(data, status, headers) {
+        record['recdata'] = data;
+        record['etag'] = headers('etag');
+        record.resolve(record);
+        console.log("Saved record.");
+      }).error(function() {
+        console.log("FAILED to save record");
+      });
+      return record.promise;
     },
+
     create: function(type, data) {
-      return createRecord(type, data);
+      var record = $q.defer();
+      $http.post("/record/" + type + "/create", data).success(function(data, status, headers) {
+        record.resolve(data);
+      });
+      return record.promise;
     }
+
   };
 });
 
