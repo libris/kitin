@@ -348,8 +348,10 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   });
 
   records.get(recType, recId).then(function(data) {
-    bibid = data['recdata']['controlNumber'];
-    $scope.record = data['recdata'];
+    var record = $scope.record = data['recdata'];
+    patchRecord(record.about.instanceOf);
+
+    bibid = record['controlNumber'];
     $scope.etag = data['etag'];
     $scope.user_sigel = constants.get("user_sigel")
     $scope.all_constants = constants.all();
@@ -472,6 +474,14 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     obj['@type'] = typeCycle[typeIndex];
   }
 
+}
+
+// TODO: work this into the backend format converter
+function patchRecord(work) {
+  if (work.author) {
+    work.authorList = work.author;
+    delete work.author;
+  }
 }
 
 
