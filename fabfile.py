@@ -89,6 +89,3 @@ def _replace_setting_values(text):
     def translate(match):
         return os.environ.get(match.group(2), '')
     return rc.sub(translate, text)
-
-def _generate_secret_key():
-    return
