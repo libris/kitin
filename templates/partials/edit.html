@@ -34,7 +34,7 @@
           <span class="lbl">{{ "Huvudtitel" }}</span>
         </label>
         <label>
-          <textarea spellcheck="false" placeholder="Skriv en undertitel" data-ng-model="work.titleRemainder">{{ work.titleRemainder }}</textarea>
+          <textarea data-ui-jq="autosize" spellcheck="false" placeholder="Skriv en undertitel" data-ng-model="work.titleRemainder">{{ work.titleRemainder }}</textarea>
           <span class="lbl">{{ "Övrigt titelinformation" }}</span>
         </label>
         <label class="ng-binding">
@@ -52,7 +52,7 @@
       </div>
       <div class="col6">
         <label class="error">
-          <textarea spellcheck="false" data-ng-model="work.statementOfResponsibility" placeholder="Upphov"></textarea>
+          <textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="work.statementOfResponsibility" placeholder="Upphov"></textarea>
           <span class="lbl">{{ "Upphov" }}</span>
         </label>
         <div data-ng-repeat="person in work.authorList" class="entity person">
@@ -236,7 +236,7 @@
     <div class="cols">
       <div class="col6">
         <label>
-          <textarea spellcheck="false" data-ng-model="instance.listOfContents" placeholder="Formaterad innehållsförteckning"></textarea>
+          <textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.listOfContents" placeholder="Formaterad innehållsförteckning"></textarea>
           <span class="lbl">{{ "Formaterad innehållsförteckning" }}</span>
         </label>
       </div>
@@ -328,11 +328,11 @@
           <span class="lbl">{{ "Exemplarnummer" }}</span>
           </label>
           <label>
-          <textarea spellcheck="false" placeholder="Publik anmärkning" data-ng-model="holding.shelvingPublicNote"></textarea>
+          <textarea data-ui-jq="autosize" spellcheck="false" placeholder="Publik anmärkning" data-ng-model="holding.shelvingPublicNote"></textarea>
           <span class="lbl">{{ "Publik anmärkning" }}</span>
           </label>
           <label>
-          <textarea spellcheck="false" placeholder="Intern anmärkning" data-ng-model="holding.shelvingNonpublicNote"></textarea>
+          <textarea data-ui-jq="autosize" spellcheck="false" placeholder="Intern anmärkning" data-ng-model="holding.shelvingNonpublicNote"></textarea>
           <span class="lbl">{{ "Intern anmärkning" }}</span>
           </label>
       </div>
