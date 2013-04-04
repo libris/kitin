@@ -546,7 +546,7 @@ label.dynamic-subjects em.subject .ficon{color:#1a8f72;}
 .btn-dark:hover{background-color:#0a5041;}
 .btn-submit{padding: 12px 28px;font-size:16px;}
 
-.btn-link{color:#1a8f72;}
+.btn-link{color:#1a8f72; outline: none; border:0;}
 .btn-link:hover{color:#106351;}
 
 .holdings .btn-link{color:#683568;}
