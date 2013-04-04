@@ -12,11 +12,14 @@ import re
 from storage import Storage
 from user import User
 import jinja2
+from datetime import timedelta
 
 app = Flask(__name__)
 app.config.from_pyfile('config.cfg')
 app.config.from_envvar('SETTINGS', silent=True)
-app.secret_key = 'secret key'
+app.secret_key = app.config.get('SESSION_SECRET_KEY')
+app.remember_cookie_duration = timedelta(days=31)
+app.permanent_session_lifetime = timedelta(days=31)
 
 login_manager = LoginManager()
 login_manager.setup_app(app)
@@ -52,10 +55,13 @@ def _handle_unauthorized():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     msg = None
+    remember = False
     if request.method == "POST" and "username" in request.form:
         username = request.form["username"]
         password = request.form["password"]
-        remember = request.form.get("remember", "no") == "yes"
+        if "remember" in request.form:
+            remember = True
+        print "remember %s" % remember
         user = User(username)
         sigel = user.authorize(password, app.config)
         if sigel == None:
@@ -65,21 +71,24 @@ def login():
             user.sigel = sigel
             session['sigel'] = sigel
             login_user(user, remember)
+            session.permanent = remember
             print "User logged in"
             print "User %s logged in with sigel %s" % (user.username, user.sigel)
             return redirect("/")
-    return render_template("partials/login.html", msg = msg)
+    return render_template("partials/login.html", msg = msg, remember = remember)
 
 @app.route("/")
-#@login_required
+@login_required
 def index():
     return render_template('index.html', user=current_user, partials = {"/partials/index" : "partials/index.html"})
 
 @app.route("/detail")
+@login_required
 def detail():
     return render_template('prototypes/detail.html')
 
 @app.route("/list")
+@login_required
 def list():
     return render_template('prototypes/list.html')
 
@@ -99,6 +108,7 @@ def search_json():
     return raw_json_response(resp.text)
 
 @app.route("/search")
+@login_required
 def search():
     if not request.headers.getlist("X-Forwarded-For"):
         remote_ip = request.remote_addr
@@ -119,11 +129,13 @@ def search():
     return render_template('index.html', partials = {"/partials/search" : "partials/search.html"})
 
 @app.route('/record/<record_type>/<record_id>/holdings')
+@login_required
 def get_holdings(record_type, record_id):
         resp = requests.get("%s/hold/_metasearch?link=%s" % (app.config['WHELK_HOST'], record_id))
         return raw_json_response(resp.text)
 
 @app.route('/holding/<holding_id>', methods=['GET'])
+@login_required
 def get_holding(holding_id):
     response = requests.get("%s/hold/%s" % (app.config['WHELK_HOST'], holding_id))
     if response.status_code == 200:
@@ -134,6 +146,7 @@ def get_holding(holding_id):
         abort(response.status_code)
 
 @app.route('/holding', methods=['POST'])
+@login_required
 def create_holding():
     path = "%s/hold/" % (app.config['WHELK_HOST'])
     response = requests.post(path, data=request.data, allow_redirects=False)
@@ -151,6 +164,7 @@ def create_holding():
         abort(response.status_code)
 
 @app.route('/holding/<holding_id>', methods=['PUT'])
+@login_required
 def save_holding(holding_id):
     if_match = request.headers['If-match']
     h = {'content-type': 'application/json', 'If-match': if_match}
@@ -164,12 +178,14 @@ def save_holding(holding_id):
         abort(response.status_code)
 
 @app.route('/holding/<holding_id>', methods=['DELETE'])
+@login_required
 def delete_holding(holding_id):
     path = "%s/hold/%s" % (app.config['WHELK_HOST'], holding_id)
     response = requests.delete(path)
     return make_response("success")
 
 @app.route("/resource/<path:path>")
+@login_required
 def get_resource(path):
     qs = request.query_string
     url = "%s/resource/%s?%s" % (app.config['WHELK_HOST'], path, qs)
@@ -400,19 +416,23 @@ def get_record_summary(data):
 
 
 @app.route('/edit/<edit_mode>')
+@login_required
 def show_record_form(**kws):
     return render_template('bib.html', **kws)
 
 @app.route('/edit/<rec_type>/<rec_id>')
+@login_required
 def show_edit_record(rec_type, rec_id):
     return index()
 
 @app.route('/marc/<rec_type>/<rec_id>')
+@login_required
 def show_marc_record(rec_type, rec_id):
     return index()
     #return render_template('index.html', partials = {"/partials/frbr" : "partials/frbr.html"})
 
 @app.route('/record/bib/<rec_id>')
+@login_required
 #@_required
 def get_bib_data(rec_id):
     # TODO: How check if user is logged in?
@@ -437,12 +457,14 @@ def get_bib_data(rec_id):
 
 ## TODO: Add middleware to support DELETE method instead of POST
 @app.route('/record/bib/<id>/draft/delete', methods=['POST'])
+@login_required
 def delete_draft(id):
     storage.delete_draft(current_user.get_id(), "bib", id)
     drafts = storage.get_drafts_as_json(current_user.get_id())
     return raw_json_response(drafts)
 
 @app.route('/record/bib/<id>/draft', methods=['POST'])
+@login_required
 def save_draft(id):
     """Save draft to kitin, called by form"""
     json_data = request.data
@@ -450,6 +472,7 @@ def save_draft(id):
     return json.dumps(request.json)
 
 @app.route('/draft/<rec_type>/<rec_id>')
+@login_required
 def get_draft(rec_type, rec_id):
     draft = storage.get_draft(current_user.get_id(), rec_type, rec_id)
     if(draft):
@@ -461,20 +484,24 @@ def get_draft(rec_type, rec_id):
         abort(404)
 
 @app.route('/drafts')
+@login_required
 def get_drafts():
     drafts = storage.get_drafts_as_json(current_user.get_id())
     return raw_json_response(drafts)
 
 @app.route("/record/bib/new", methods=["GET"])
+@login_required
 def get_template():
     """Returns a template object"""
     return raw_json_response(open("./examples/templates/monografi.json", 'r').read())
 
 @app.route("/holding/bib/new", methods=["GET"])
+@login_required
 def get_holding_template():
     return raw_json_response(open("./examples/templates/holding.json", 'r').read())
 
 @app.route('/record/<rec_type>/<rec_id>', methods=['PUT'])
+@login_required
 def update_document(rec_type, rec_id):
     """Saves updated records to whelk"""
     json_string = json.dumps(request.json)
@@ -491,6 +518,7 @@ def update_document(rec_type, rec_id):
         abort(response.status_code)
 
 @app.route('/record/bib/create', methods=['POST'])
+@login_required
 def create_record():
     h = {'content-type': 'application/json', 'format': 'jsonld'}
     path = "%s/bib/" % (app.config['WHELK_HOST'])
@@ -510,18 +538,21 @@ def create_record():
         abort(response.status_code)
 
 @app.route('/marcmap.json')
+@login_required
 def get_marcmap():
     with open(app.config['MARC_MAP']) as f:
         return raw_json_response(f.read())
 
 
 @app.route('/overlay.json')
+@login_required
 def get_overlay():
     with open(app.config['MARC_OVERLAY']) as f:
         return raw_json_response(f.read())
 
 
 @app.route('/suggest/auth')
+@login_required
 def suggest_auth_completions():
     q = request.args.get('q')
     response = requests.get("%s/suggest/_complete?name=%s" % (app.config['WHELK_HOST'], q))
@@ -531,12 +562,14 @@ def suggest_auth_completions():
 
 
 @app.route("/partials/<name>")
+@login_required
 def show_partial(name):
     return make_response(open(os.path.join(here, app.template_folder + '/' + 'partials/'+ name +'.html')).read())
 
 
 # TODO: integrate mockups in views and remove this
 @app.route("/mockups/<name>")
+@login_required
 def show_mockup(name):
     return render_template('mockups/'+ name +'.html')
 
