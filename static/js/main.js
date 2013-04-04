@@ -118,6 +118,7 @@ kitin.factory('resources', function($http) {
     countries: getResourceList("country"),
     nationalities: getResourceList("nationality"),
     enums: {
+      bibLevel: getResourceList("enums", "bibLevel"),
       encLevel: getResourceList("enums", "encLevel"),
       catForm: getResourceList("enums", "catForm"),
     }
@@ -307,6 +308,9 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   // Fetch resources
 
   $scope.enums = {};
+  resources.enums.bibLevel.then(function(data) {
+    $scope.enums.bibLevel = data;
+  });
   resources.enums.encLevel.then(function(data) {
     $scope.enums.encLevel = data;
   });
@@ -344,8 +348,10 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   });
 
   records.get(recType, recId).then(function(data) {
-    bibid = data['recdata']['controlNumber'];
-    $scope.record = data['recdata'];
+    var record = $scope.record = data['recdata'];
+    patchRecord(record.about.instanceOf);
+
+    bibid = record['controlNumber'];
     $scope.etag = data['etag'];
     $scope.user_sigel = constants.get("user_sigel")
     $scope.all_constants = constants.all();
@@ -372,6 +378,7 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
       }
       $scope.holding_etags = holding_etags;
     });
+
   });
 
 
@@ -453,7 +460,11 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     holdings.push({shelvingControlNumber: "", location: constants.get("user_sigel")});
   }
 
-  $scope.add_person = function(authors) {
+  $scope.add_person = function(work, authorsKey) {
+    var authors = work[authorsKey];
+    if (typeof authors === 'undefined') {
+      work[authorsKey] = [];
+    }
     authors.push({ authoritativeName: "", birthYear: "" });
   }
 
@@ -461,13 +472,21 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     $scope.record.about.instanceOf.authorList.splice(index,1);
   }
 
-  var typeCycle = ['Book', 'EBook', 'Audiobook'], typeIndex = 0;
-  $scope.cycleType = function (obj) {
-    if (!obj) return;
+  var typeCycle = ['Book', 'EBook', 'Audiobook', 'Serial', 'ESerial'], typeIndex = 0;
+  $scope.cycleType = function (evt, obj) {
+    if (!obj || !evt.altKey) return;
     if (typeIndex++ >= typeCycle.length - 1) typeIndex = 0;
     obj['@type'] = typeCycle[typeIndex];
   }
 
+}
+
+// TODO: work this into the backend format converter
+function patchRecord(work) {
+  if (work.author) {
+    work.authorList = work.author;
+    delete work.author;
+  }
 }
 
 
@@ -679,6 +698,12 @@ kitin.directive('direTest', function() {
         template: '<span>ALATESTING</span>'
     }
 });*/
+
+kitin.directive('inplace', function () {
+  return function(scope, elm, attrs) {
+    elm.jkey('enter', function () { this.blur(); });
+  };
+});
 
 kitin.directive('keyEnter', function () {
   return function (scope, elm, attrs) {

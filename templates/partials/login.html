@@ -6,49 +6,38 @@
 <div class="content index">
   <header>
     <form class="login" method="post" action="/login">
-      <h4>Logga in med ditt Libris-konto</h4>
+      <h4>Logga in</h4>
       <label class="inp">
         <input name="username" type="text" autofocus>
-        <span class="lbl">E-post eller Användarnamn</span>
+        <span class="lbl">Användarnamn</span>
       </label>
       <label class="inp">
         <input name="password" type="password" autocomplete="off">
-        <span class="lbl">Lösenord (<a href="#">Glömt?</a>)</span>
+        <span class="lbl">Lösenord</span>
       </label>
       <div class="submit">
         <button type="submit" class="btn btn-submit btn-dark">Logga in</button>
       </div>
       <div class="checks">
-        <label class="check"><input type="checkbox"> <span class="lbl">Visa lösenord <br>(minskar risken för att skriva fel)</span></label>
+        <!--<label class="check"><input type="checkbox"> <span class="lbl">Visa lösenord <br>(minskar risken för att skriva fel)</span></label>-->
         <label class="check"><input name="remember" type="checkbox" checked="checked" value="{{ remember }}"> <span class="lbl">Håll mig inloggad</span></label>
       </div>
     </form>
   </header>
   <div class="cols">
-    <div class="col4">
+    <div class="col8">
       <section class="dash green">
-        <span class="circle"><i class="ficon ficon ficon-twitter"></i></span>
-        <h4>Senaste twitter</h4>
-        <p>Nu är den nya webbkatalogiseringen ute! Lorem ipsum dolor sit amet consectetur adi piscing elit.</p>
-        <p>Nu är den nya webbkatalogiseringen ute! Lorem ipsum dolor sit amet consectetur adi piscing elit.</p>
-        <p>Nu är den nya webbkatalogiseringen ute! Lorem ipsum dolor sit amet consectetur adi piscing elit.</p>
+        <span class="circle"><i class="ficon ficon ficon-rss"></i></span>
+        <h4>Senaste nytt från <a href="http://librisbloggen.kb.se" target="_blank">librisbloggen</a></h4>
+        <p>Lorem Ipsum</p>
+
       </section>
     </div>
+
     <div class="col4">
       <section class="dash purple">
-        <h4>Drafts</h4>
-        <ul>
-          <li><a href="#">Lorem Ipsum</a></li>
-          <li><a href="#">Lorem Ipsum</a></li>
-          <li><a href="#">Lorem Ipsum</a></li>
-          <li><a href="#">Lorem Ipsum</a></li>
-        </ul>
-      </section>
-    </div>
-    <div class="col4">
-      <section class="dash pink">
-        <span class="circle"><i class="ficon ficon ficon-rss"></i></span>
-        <h4>Drafts</h4>
+        <span class="circle"><i class="ficon ficon ficon-twitter"></i></span>
+        <h4>Senaste tweets från <a href="http://www.twitter.com/librisnytt" target="_blank">librisnytt</a></h4>
         
       </section>
     </div>

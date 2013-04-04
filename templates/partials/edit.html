@@ -16,12 +16,12 @@
   <header>
     <h1>Bibliografisk post</h1>
     <div class="levels">
-      <span>Monografisk resurs</span>
+      <span>{{ enums.bibLevel[record.bibLevel].label_sv }}</span>
       <span>{{ enums.encLevel[record.encLevel || '_'].label_sv }}</span>
       <span>{{ enums.catForm[record.catForm || 'a'].label_sv }}</span>
     </div>
     <div class="modes">
-      <a href="#" class="active">Formatneutral</a>
+      <a href="#" class="active">LIBRIS</a>
       <a href="#">MARC</a>
     </div>
   </header>
@@ -30,11 +30,11 @@
     <div class="cols">
       <div class="col6">
         <label>
-          <textarea class="title" data-ui-jq="autosize" spellcheck="false" placeholder="Skriv en titel" data-ng-model="work.title"></textarea>
+          <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" placeholder="Skriv en titel" data-ng-model="work.title"></textarea>
           <span class="lbl">{{ "Huvudtitel" }}</span>
         </label>
         <label>
-          <textarea data-ui-jq="autosize" spellcheck="false" placeholder="Skriv en undertitel" data-ng-model="work.titleRemainder">{{ work.titleRemainder }}</textarea>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" placeholder="Skriv en undertitel" data-ng-model="work.titleRemainder">{{ work.titleRemainder }}</textarea>
           <span class="lbl">{{ "Övrigt titelinformation" }}</span>
         </label>
         <label class="ng-binding">
@@ -46,33 +46,33 @@
              <option data-ng-repeat="(code, name) in langlist" value="{{ code }}">{{ name }} ({{ code }})</option>
          </select>
          <!--<pre>Selected: {{ work.language | json }}</pre>
-         <input ui-select2="langlist" ng-model="work.language" style="width:200px" />-->
+         <input data-inplace ui-select2="langlist" ng-model="work.language" style="width:200px" />-->
           <span class="lbl">{{ "Språk" }}</span>
         </label>
       </div>
       <div class="col6">
         <label class="error">
-          <textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="work.statementOfResponsibility" placeholder="Upphov"></textarea>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="work.statementOfResponsibility" placeholder="Upphov"></textarea>
           <span class="lbl">{{ "Upphov" }}</span>
         </label>
         <div data-ng-repeat="person in work.authorList" class="entity person">
           <label>
-            <input class="input" type="text" data-kitin-autocomplete="field" data-kitin-template="auth-completion-template" data-ng-model="person.authoritativeName" />
+            <input data-inplace class="input" type="text" data-kitin-autocomplete="field" data-kitin-template="auth-completion-template" data-ng-model="person.authoritativeName" />
             <span class="lbl">{{ "Personnamn" }}</span>
           </label>
           <div class="addon">
             <label>
-              <input class="input-mini authdependant" type="text" placeholder="yyyy" data-ng-model="person.birthYear" />
+              <input data-inplace class="input-mini authdependant" type="text" placeholder="yyyy" data-ng-model="person.birthYear" />
               <span class="lbl">{{ "Född" }}</span>
             </label>
             <label>
-              <input class="input-mini authdependant" type="text" placeholder="yyyy" data-ng-model="person.deathYear" />
+              <input data-inplace class="input-mini authdependant" type="text" placeholder="yyyy" data-ng-model="person.deathYear" />
               <span class="lbl">{{ "Död" }}</span>
             </label>
           </div>
           <button class="btn-link" data-ng-click="remove_person($index)"><i class="ficon ficon-remove"></i> Ta bort upphovsman</button>
         </div>
-        <button class="btn-link" data-ng-click="add_person(work.authorList)"><i class="ficon ficon-plus-sign"></i> upphovsman</button>
+        <button class="btn-link" data-ng-click="add_person(work, 'authorList')"><i class="ficon ficon-plus-sign"></i> upphovsman</button>
       </div>
     </div>
     <div class="foot">
@@ -84,43 +84,56 @@
       <div class="col6">
         <h3>Ämnesord</h3>
         <label class="dynamic-subjects">
-          <span class="subjects"><em class="subject">Multiple Murders <i class="ficon ficon-circle-arrow-down"></i></em> -- America's fascination with multiple homicide -- Defining murder -- Serial murder -- An anatomy of serial murder -- With deliberation and purpose -- Murder</span>
-          <span class="lbl">Ämnesord</span>
+          <span class="subjects" data-ng-repeat="subject in work.subjectList">
+            <em class="subject">{{subject.term}}
+              <span data-ng-show="subject.formSubdivision">&mdash; {{subject.formSubdivision}}</span>
+              <span data-ng-show="subject.geographicSubdivision">&mdash; {{subject.geographicSubdivision}}</span>
+              <span data-ng-show="subject.system">({{subject.system}})</span>
+              <i class="ficon ficon-circle-arrow-down"></i></em>
+          </span>
+            <span class="lbl">Ämnesord</span>
         </label>
         <label class="add-subject">
-          <textarea placeholder="Lägg till ämnesord"></textarea>
+          <textarea data-inplace placeholder="Lägg till ämnesord" disabled></textarea>
           <span class="lbl">Skriv in ämnesord</span>
         </label>
+        <!--
         <div class="suggestion-subjects">
           <ul>
-            <li><i class="ficon ficon-circle-arrow-up"></i> Mass murder</li>
-            <li><i class="ficon ficon-circle-arrow-up"></i> Murder</li>
-            <li><i class="ficon ficon-circle-arrow-up"></i> Massacres</li>
-            <li><i class="ficon ficon-circle-arrow-up"></i> Mass murder</li>
-            <li><i class="ficon ficon-circle-arrow-up"></i> Murder</li>
-            <li><i class="ficon ficon-circle-arrow-up"></i> Massacres</li>
-            <li><i class="ficon ficon-circle-arrow-up"></i> Mass murder</li>
-            <li><i class="ficon ficon-circle-arrow-up"></i> Murder</li>
-            <li><i class="ficon ficon-circle-arrow-up"></i> Massacres</li>
+            <li><i class="ficon ficon-circle-arrow-up"></i>...</li>
           </ul>
         </div>
+        -->
           <!--<ul class="inline">
             <li data-ng-repeat="topic in work.subject"><a class="btn btn-small" href="{{ topic['@id'] }}"><i class="icon-tag"></i> {{ topic['@id'] }}</a></li>
           </ul>-->
       </div>
       <div class="col6">
         <h3>Klassifikation</h3>
-           <ul class="inline">
-            <li data-ng-repeat="topicalTerm in record.topicalTerm"><a class="btn btn-small" href="{{ topicalTerm }}"><i class="icon-tag"></i> {{ topicalTerm }}</a></li>
-          </ul>
+        <!--
+        <ul class="inline">
+        <li data-ng-repeat="topicalTerm in record.topicalTerm"><a class="btn btn-small" href="{{ topicalTerm }}"><i class="icon-tag"></i> {{ topicalTerm }}</a></li>
+      </ul>
+          -->
+        <label class="dynamic-subjects">
+          <span class="subjects" data-ng-repeat="classification in work['class-ddc']">
+            <em class="subject">{{classification}}
+              <i class="ficon ficon-circle-arrow-down"></i></em>
+          </span>
+          <span class="lbl">Klassifikation</span>
+        </label>
+        <label class="add-subject">
+          <textarea data-inplace placeholder="Lägg till klassifikation" disabled></textarea>
+          <span class="lbl">Skriv in klassifikation</span>
+        </label>
       </div>
-   
+
     </div>
     <h3>{{ "Anmärkningar" }}</h3>
     <div class="cols">
       <div class="col6">
         <label>
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="work.summary" placeholder="Sammanfattning">
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="work.summary" placeholder="Sammanfattning"></textarea>
           <span class="lbl">{{ "Sammanfattning" }}</span>
         </label>
       </div>
@@ -128,11 +141,11 @@
   </section>
 
   <section id="instance" data-ng-repeat="instance in [record.about]">
-    <h2 data-ng-click="cycleType(instance)"> <span>{{ getTypeDef(instance).label_sv }}</span> (representation)<i></i></h2>
+    <h2 data-ng-click="cycleType($event, instance)"> <span>{{ getTypeDef(instance).label_sv }}</span> (representation)<i></i></h2>
     <div class="cols">
       <div class="col6" data-ng-show="instance['@type'] != 'Book'">
         <label>
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.mediaTerm" placeholder="Allmän medieterm">
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.mediaTerm" placeholder="Allmän medieterm">
           <span class="lbl">{{ "Allmän medieterm" }}</span>
         </label>
       </div>
@@ -140,27 +153,27 @@
     <div class="cols">
       <div class="col3">
         <label>
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.isbn" placeholder="ISBN" isbnvalidator>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.isbn" placeholder="ISBN" isbnvalidator>
           <span class="lbl">{{ "ISBN" }}</span>
         </label>
         <label data-ng-repeat="publisher in instance.publisher">
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="publisher.name" placeholder="Utgivare förlag">
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="publisher.name" placeholder="Utgivare förlag">
           <span class="lbl">{{ "Utgivare/förlag" }}</span>
         </label>
       </div>
       <div class="col3">
         <div class="split">
           <label>
-            <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.isbnNote" placeholder="ISBN Notering">
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.isbnNote" placeholder="ISBN Notering">
             <span class="lbl">{{ "ISBN Notering" }}</span>
           </label>
           <label>
-            <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.edition" placeholder="Upplaga">
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.edition" placeholder="Upplaga">
             <span class="lbl">{{ "Upplaga" }}</span>
           </label>
         </div>
         <label>
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.placeOfPublication.label" placeholder="Utgivningsort">
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.placeOfPublication.label" placeholder="Utgivningsort">
           <span class="lbl">{{ "Utgivningsort" }}</span>
         </label>
         </label>
@@ -183,7 +196,7 @@
       </div>
       <div class="cols3" data-ng-show="getTypeDef(instance).term == 'Audiobook'">
         <label>
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.publisherNumber" placeholder="Utgivningsnummer">
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.publisherNumber" placeholder="Utgivningsnummer">
           <span class="lbl">{{ "Utgivningsnummer" }}</span>
         </label>
       </div>
@@ -195,25 +208,25 @@
     <div class="cols">
       <div class="col3">
         <label class="ng-binding">
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.extent" placeholder="Omfång">
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.extent" placeholder="Omfång">
           <span class="lbl">{{ "Omfång" }}</span>
         </label>
       </div>
       <div class="col3">
         <label>
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.dimensions" placeholder="Mått">
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.dimensions" placeholder="Mått">
           <span class="lbl">{{ "Mått" }}</span>
         </label>
       </div>
       <div class="col3">
         <label>
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.physicalDetails" placeholder="Fysiska detaljer">
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.physicalDetails" placeholder="Fysiska detaljer">
           <span class="lbl">{{ "Fysiska detaljer" }}</span>
         </label>
       </div>
       <div class="col3">
         <label>
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.termsOfAvailability" placeholder="Pris">
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.termsOfAvailability" placeholder="Pris">
           <span class="lbl">{{ "Pris" }}</span>
         </label>
       </div>
@@ -221,13 +234,13 @@
     <div class="cols" data-ng-show="getTypeDef(instance).subClassOf == 'DigitalResource'">
       <div class="col3">
         <label>
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.fileType" placeholder="Filtyp">
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.fileType" placeholder="Filtyp">
           <span class="lbl">{{ "Filtyp" }}</span>
         </label>
       </div>
       <div class="col3">
         <label>
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.systemRequirements" placeholder="Systemkrav">
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.systemRequirements" placeholder="Systemkrav">
           <span class="lbl">{{ "Systemkrav" }}</span>
         </label>
       </div>
@@ -236,13 +249,13 @@
     <div class="cols">
       <div class="col6">
         <label>
-          <textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.listOfContents" placeholder="Formaterad innehållsförteckning"></textarea>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.listOfContents" placeholder="Formaterad innehållsförteckning"></textarea>
           <span class="lbl">{{ "Formaterad innehållsförteckning" }}</span>
         </label>
       </div>
       <div class="cols6" data-ng-show="getTypeDef(instance).term == 'Audiobook'">
         <label>
-          <input class="ng-pristine ng-valid" type="text" data-ng-model="instance.contributorNote" placeholder="Medverkande">
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.contributorNote" placeholder="Medverkande">
           <span class="lbl">{{ "Medverkande" }}</span>
         </label>
       </div>
@@ -250,11 +263,12 @@
   </section>
 
   <section class="submit">
-    <button class="btn btn-dark btn-submit" id='btn3' data-ng-click="save()">Publicera</button>
-    <button class="btn-link" id='btn2' data-ng-click="save_draft()">Spara utkast</button>
+<!--post beta:
     <span class="removedraft" data-ng-show="draft" data-ng-click="promptConfirmDelete($event, draft.type, draft.id)">
       <button class="btn-link" data-ng-click="somebutton.click()"><i class="ficon ficon-remove"></i> Ta bort utkast</button>
-    </span>
+    </span>-->
+    <button class="btn-link" id='btn2' data-ng-click="save_draft()">Spara utkast</button>
+    <button class="btn btn-dark btn-submit" id='btn3' data-ng-click="save()">Publicera</button>
   </section>
 </form></div>
 
@@ -294,13 +308,13 @@
     <h3 class="inline_heading">{{user_sigel}}</h3>
     <div class="cols">
       <div class="col6">
-          <!--hidden input for setting sigel--><input type="hidden" data-ng-model="holding.location" maxlength="4" value="{{user_sigel}}"/>
+          <!--hidden input for setting sigel--><input data-inplace type="hidden" data-ng-model="holding.location" maxlength="4" value="{{user_sigel}}"/>
           <label>
-          <input type="text" placeholder="Avdelning/Samling" data-ng-model="holding.shelvingLocation"/>
+          <input data-inplace type="text" placeholder="Avdelning/Samling" data-ng-model="holding.shelvingLocation"/>
           <span class="lbl">{{ "Avdelning/Samling" }}</span>
           </label>
 		  <label>
-          <input type="text" placeholder="Hyllsignum/Klassifikation" data-ng-model="holding.classificationPart"/>
+          <input data-inplace type="text" placeholder="Hyllsignum/Klassifikation" data-ng-model="holding.classificationPart"/>
           <span class="lbl">{{ "Hyllsignum/Klassifikation" }}</span>
           </label>
           <div class="suggestion-classification">
@@ -312,27 +326,27 @@
        </div>
       <div class="col6">
           <label>
-          <input type="text" placeholder="Löpnummer" data-ng-model="holding.shelvingControlNumber"/>
+          <input data-inplace type="text" placeholder="Löpnummer" data-ng-model="holding.shelvingControlNumber"/>
           <span class="lbl">{{ "Löpnummer" }}</span>
           </label>
           <label>
-          <input type="text" placeholder="Uppställningsord" data-ng-model="holding.shelvingFormOrTitle"/>
+          <input data-inplace type="text" placeholder="Uppställningsord" data-ng-model="holding.shelvingFormOrTitle"/>
           <span class="lbl">{{ "Uppställningsord" }}</span>
           </label>
           <label>
-          <input type="text" placeholder="Exemplarinfo" data-ng-model="holding.itemPart"/>
+          <input data-inplace type="text" placeholder="Exemplarinfo" data-ng-model="holding.itemPart"/>
           <span class="lbl">{{ "Exemplarinfo" }}</span>
           </label>
           <label>
-          <input type="text" placeholder="Exemplarnummer" data-ng-model="holding.copyNumber"/>
+          <input data-inplace type="text" placeholder="Exemplarnummer" data-ng-model="holding.copyNumber"/>
           <span class="lbl">{{ "Exemplarnummer" }}</span>
           </label>
           <label>
-          <textarea data-ui-jq="autosize" spellcheck="false" placeholder="Publik anmärkning" data-ng-model="holding.shelvingPublicNote"></textarea>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" placeholder="Publik anmärkning" data-ng-model="holding.shelvingPublicNote"></textarea>
           <span class="lbl">{{ "Publik anmärkning" }}</span>
           </label>
           <label>
-          <textarea data-ui-jq="autosize" spellcheck="false" placeholder="Intern anmärkning" data-ng-model="holding.shelvingNonpublicNote"></textarea>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" placeholder="Intern anmärkning" data-ng-model="holding.shelvingNonpublicNote"></textarea>
           <span class="lbl">{{ "Intern anmärkning" }}</span>
           </label>
       </div>
