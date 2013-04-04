@@ -60,6 +60,15 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
         </div>
       </div>
       {% block content %}{% endblock content %}
+<div class="content footer">
+  <footer>
+    <h1></h1>
+    <ul class="inline">
+      <li><a href="#" id="contact">Kontakta oss</a></li>
+      <li><a href="#" id="cookies">Cookies</a></li>
+    </ul>
+  </footer>
+</div>
     </div>
 
     <!-- Placed at the end of the document so the pages load faster -->
@@ -71,7 +80,6 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
     <script src="{{ url_for('static', filename='vendor/select2/select2_locale_sv.js') }}"></script>
 
     <!-- <script src="{{ url_for('static', filename='vendor/jquery/jquery.autogrowinput.js') }}"></script> -->
-
 
     {% if current_user %}
         <script type="text/javascript">
