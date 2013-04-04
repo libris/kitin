@@ -699,6 +699,12 @@ kitin.directive('direTest', function() {
     }
 });*/
 
+kitin.directive('inplace', function () {
+  return function(scope, elm, attrs) {
+    elm.jkey('enter', function () { this.blur(); });
+  };
+});
+
 kitin.directive('keyEnter', function () {
   return function (scope, elm, attrs) {
     var expr = attrs.keyEnter;
