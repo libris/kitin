@@ -378,6 +378,7 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
       }
       $scope.holding_etags = holding_etags;
     });
+
   });
 
 
@@ -459,7 +460,11 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     holdings.push({shelvingControlNumber: "", location: constants.get("user_sigel")});
   }
 
-  $scope.add_person = function(authors) {
+  $scope.add_person = function(work, authorsKey) {
+    var authors = work[authorsKey];
+    if (typeof authors === 'undefined') {
+      work[authorsKey] = [];
+    }
     authors.push({ authoritativeName: "", birthYear: "" });
   }
 
