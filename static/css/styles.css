@@ -307,6 +307,8 @@ form.login .checks label input{margin-top:0;margin-right:6px;}
 form.login .checks label input,
 form.login .checks label .lbl{float:left;width:auto;}
 
+ul.drafts {list-style: none;}
+
 .break{clear:both;}
 
 /* Override bootstrap forms */
@@ -543,10 +545,15 @@ label.dynamic-subjects em.subject .ficon{color:#1a8f72;}
   font-weight:bold;
 }
 
-.btn:hover{background:#1a8f72;}
+.btn:hover,
+.btn:focus,
+.btn:active{background:#1a8f72;}
 
 .btn-dark{background:#106351;}
-.btn-dark:hover{background-color:#0a5041;}
+
+.btn-dark:hover,
+.btn-dark:focus,
+.btn-dark:active{background-color:#0a5041;}
 .btn-submit{padding: 12px 28px;font-size:16px;}
 
 .btn-link{color:#1a8f72; outline: none; border:0;}
@@ -556,11 +563,14 @@ label.dynamic-subjects em.subject .ficon{color:#1a8f72;}
 .holdings .btn-link:hover{color:#573657;}
 
 .btn-purple{background-color:#683568;}
-.btn-purple:hover{background-color:#573657;}
+
+.btn-purple:hover,
+.btn-purple:focus,
+.btn-purple:active{background-color:#573657;}
 
 section.submit .btn-link {font-size: 14px; font-weight: 600;}
 
-.removedraft{float:left;}
+.removedraft{float:left; vertical-align: none;}
 
 /* Holdings */
 
