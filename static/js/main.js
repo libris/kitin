@@ -118,6 +118,7 @@ kitin.factory('resources', function($http) {
     countries: getResourceList("country"),
     nationalities: getResourceList("nationality"),
     enums: {
+      bibLevel: getResourceList("enums", "bibLevel"),
       encLevel: getResourceList("enums", "encLevel"),
       catForm: getResourceList("enums", "catForm"),
     }
@@ -311,6 +312,9 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   // Fetch resources
 
   $scope.enums = {};
+  resources.enums.bibLevel.then(function(data) {
+    $scope.enums.bibLevel = data;
+  });
   resources.enums.encLevel.then(function(data) {
     $scope.enums.encLevel = data;
   });
