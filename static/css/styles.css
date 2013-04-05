@@ -685,7 +685,17 @@ section.holdings ul li{list-style: none;}
 .select2-container .select2-choice:hover {
 	background: #f8f8f8;
 }
-
+.select2-container .select2-choice div {
+    background: none;
+    border-left: 1px solid #CCC;
+    border-radius: 0 4px 4px 0;
+    display: block;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 18px;
+}
 
 
 
