@@ -11,9 +11,10 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
     <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.css') }}">
     <link href="{{ url_for('static', filename='vendor/jquery/jquery.autocomplete.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/ficons.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='vendor/select2/select2.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <script src="{{ url_for('static', filename='vendor/jquery/jquery-1.9.1.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.jkey.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>    
     <script src="{{ url_for('static', filename='vendor/angular.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/angular-ui.min.js') }}"></script>
@@ -22,13 +23,14 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
   </head>
   <body data-ng-app="kitin" class="{% block bodyclass %}{% endblock %}">
       <div id="wrap">
-     {% if current_user and current_user.is_authenticated() %}
-      <div id="nav">
-            <ul class="inline nav-menu">
-              <li class="active"><a href="/" target="_self"><i class="ficon ficon-home"></i></a></li>
+      <div id="header">
+        {% if current_user and current_user.is_authenticated() %}
+        <div id="nav">
+            <ul class="inline nav-menu pull-right">
+              <li class="active"><a href="/"><i class="ficon ficon-home"></i></a></li>
               <li class="dropdown">
                   <a class="dropdown-toggle" data-toggle="dropdown" href="#">Skapa ny <i class="ficon ficon-caret-down"></i></a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu pull-right">
                      <li><a href="/edit/bib/new">Monografi</a></li>
                      <li class="disabled"><a href="#">Seriell publikation</a></li>
                      <li class="disabled"><a href="#">Ljudbok</a></li>
@@ -38,16 +40,17 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
             
              <li class="dropdown">
                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Inloggad som {{current_user.username}} ({{current_user.sigel}}) <i class="ficon ficon-caret-down"></i></a>
-                 <ul class="dropdown-menu">
+                 <ul class="dropdown-menu pull-right">
                     <li><a href="/signout" target="_self">Logga ut</a></li>
                     <li class="disabled"><a href="#">Inställningar/konto</a></li>
                  </ul>
               </li>
-        </ul>
-	  </div>
-     {% endif %}
-      <div id="header">
-        <div class="logo"><a target="_self" href="/"><img src="/static/i/libris.png" alt="Libris Kategorisering"></a></div>
+             <li class="active"><a href="http://feedback.kat.libris.kb.se/" target="_blank"title="Feedback forum">Tyck till</a></li>           
+          </ul>
+        </div>
+        {% endif %}
+
+        <div class="logo"><a href="/"><img src="/static/i/libris.png" alt="Libris Kategorisering"></a></div>
         <div class="kb"></div>
         <div class="searchfield">
           <form action="/search"> <!-- Change to Angular route -->
@@ -60,6 +63,14 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
         </div>
       </div>
       {% block content %}{% endblock content %}
+<div class="content footer">
+  <footer>
+    <h1></h1>
+    <ul class="inline">
+      <li><a href="#" id="contact">Om kakor</a></li>
+    </ul>
+  </footer>
+</div>
     </div>
 
     <!-- Placed at the end of the document so the pages load faster -->
@@ -71,7 +82,6 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
     <script src="{{ url_for('static', filename='vendor/select2/select2_locale_sv.js') }}"></script>
 
     <!-- <script src="{{ url_for('static', filename='vendor/jquery/jquery.autogrowinput.js') }}"></script> -->
-
 
     {% if current_user %}
         <script type="text/javascript">

@@ -7,14 +7,12 @@ kitin.config(
   ['$locationProvider', '$routeProvider',
     function($locationProvider, $routeProvider) {
 
-      $locationProvider.html5Mode(true);
+      $locationProvider.html5Mode(true).hashPrefix('!');
       $routeProvider
         .when('/',
               {templateUrl: '/partials/index', controller: IndexCtrl})
         .when('/search',
               {templateUrl: '/partials/search', controller: SearchCtrl})
-        .when('/edit/:recType/new',
-              { templateUrl: '/partials/edit', controller: NewRecordCtrl})
         .when('/edit/:recType/:recId',
               {templateUrl: '/partials/edit', controller: FrbrCtrl})
         .when('/marc/:recType/:recId',
@@ -45,55 +43,42 @@ kitin.factory('conf', function ($http, $q) {
 
 
 kitin.factory('records', function ($http, $q) {
-  // TODO: use proper angularjs http cache?
-  var currentPath, currentRecord;
-  function loadPromise(path) {
-    var record = $q.defer();
-    $http.get(path).success(function (struct, status, headers) {
-      currentPath = path;
-      currentRecord = struct;
-      record['recdata'] = struct;
-      record['etag'] = headers('etag');
-      record.resolve(record);
-    });
-    return record.promise;
-  }
-
-  function saveRecord(type, id, data, etag) {
-    var record = $q.defer();
-    $http.put("/record/" + type + "/" + id, data, {headers: {"If-match":etag}}).success(function(data, status, headers) {
-      record['recdata'] = data;
-      record['etag'] = headers('etag');
-      record.resolve(record);
-    }).error(function() {
-      console.log("og crap, we failed :(");
-    });
-    return record.promise;
-  }
-
-  function createRecord(type, data) {
-    var record = $q.defer();
-    $http.post("/record/" + type + "/create", data).success(function(data, status, headers) { 
-      record.resolve(data);
-    });
-    return record.promise;
-  }
 
   return {
+
     get: function (type, id) {
       var path = "/record/" + type + "/" + id;
-      if (currentPath === path && currentRecord) {
-        return {then: function (callback) { callback(currentRecord); }};
-      } else {
-        return loadPromise(path);
-      }
+      var record = $q.defer();
+      $http.get(path).success(function (struct, status, headers) {
+        record['recdata'] = struct;
+        record['etag'] = headers('etag');
+        record.resolve(record);
+      });
+      return record.promise;
     },
+
     save: function(type, id, data, etag) {
-      return saveRecord(type, id, data, etag);
+      var record = $q.defer();
+      $http.put("/record/" + type + "/" + id, data,
+                {headers: {"If-match":etag}}).success(function(data, status, headers) {
+        record['recdata'] = data;
+        record['etag'] = headers('etag');
+        record.resolve(record);
+        console.log("Saved record.");
+      }).error(function() {
+        console.log("FAILED to save record");
+      });
+      return record.promise;
     },
+
     create: function(type, data) {
-      return createRecord(type, data);
+      var record = $q.defer();
+      $http.post("/record/" + type + "/create", data).success(function(data, status, headers) {
+        record.resolve(data);
+      });
+      return record.promise;
     }
+
   };
 });
 
@@ -118,6 +103,7 @@ kitin.factory('resources', function($http) {
     countries: getResourceList("country"),
     nationalities: getResourceList("nationality"),
     enums: {
+      bibLevel: getResourceList("enums", "bibLevel"),
       encLevel: getResourceList("enums", "encLevel"),
       catForm: getResourceList("enums", "catForm"),
     }
@@ -192,14 +178,27 @@ function IndexCtrl($scope, $http) {
   }
 }
 
-function SearchCtrl($scope, $http, $location, $routeParams) {
+function SearchCtrl($scope, $http, $location, $routeParams, resources) {
 
+  // Can this resource fetching stuff be globalized?
+  $scope.enums = {};
+  resources.enums.bibLevel.then(function(data) {
+    $scope.enums.bibLevel = data;
+  });
+  
+  resources.typedefs.then(function(data) {
+    $scope.typeDefs = data.types;
+  });
+  
+  resources.enums.encLevel.then(function(data) {
+    $scope.enums.encLevel = data;
+  });
+  
   var previous_facets = getParameterByName("f");
   document.body.className = 'search';
 
   $scope.q = $routeParams.q;
   $scope.f = $routeParams.f;
-  console.log("prev: " + previous_facets + ", params: " + $scope.f);
   var url = "/search.json?q=" + $scope.q;
   if($scope.f != undefined) {
     url += "&f=" + $scope.f;
@@ -218,17 +217,14 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
   
   tmp_crumbs = previous_facets.split(" ");
   var aggr_crumbs = [];
-  console.log("LLLLL: ", tmp_crumbs);
   if (tmp_crumbs.length > 0) {
      aggr_crumbs[0] = tmp_crumbs[0];
      for (i=1; i < tmp_crumbs.length; i++) {
         aggr_crumbs[i] = aggr_crumbs[i-1] + " " + tmp_crumbs[i];
      }
      for (i=0; i < aggr_crumbs.length; i++) {
-        console.log("CRUMB: ", aggr_crumbs[i]);
      }
      $scope.crumbs = aggr_crumbs;
-     console.log($scope.crumbs);
   }
   /* I'm on it
   tmp_crumbs = previous_facets.split(" ");
@@ -289,28 +285,21 @@ function SearchCtrl($scope, $http, $location, $routeParams) {
 
 }
 
-function NewRecordCtrl($location, $scope, records, $http, $routeParams) {
-  document.body.className = 'edit new';
-  var recType = $routeParams.recType;
-  $http.get('/record/bib/new').success(function(data) {
-    $scope.record = data;
-  });
-
-  $scope.save = function() {
-    records.create(recType, $scope.record).then(function(data) {
-      $location.url('/edit/bib/' + data['document_id']);
-    });
-  }
-}
-
 function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, constants) {
-  document.body.className = 'edit';
   var recType = $routeParams.recType, recId = $routeParams.recId;
   var path = "/record/" + recType + "/" + recId;
+
+  var isNew = (recId === 'new');
+  var newType = $routeParams.type;
+
+  document.body.className = isNew? 'edit new' : 'edit';
 
   // Fetch resources
 
   $scope.enums = {};
+  resources.enums.bibLevel.then(function(data) {
+    $scope.enums.bibLevel = data;
+  });
   resources.enums.encLevel.then(function(data) {
     $scope.enums.encLevel = data;
   });
@@ -347,9 +336,16 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     }
   });
 
+  if (isNew) {
+    $http.get('/record/bib/new?type' + newType).success(function(data) {
+      $scope.record = data;
+    });
+  } else
   records.get(recType, recId).then(function(data) {
-    bibid = data['recdata']['controlNumber'];
-    $scope.record = data['recdata'];
+    var record = $scope.record = data['recdata'];
+    patchRecord(record.about.instanceOf);
+
+    bibid = record['controlNumber'];
     $scope.etag = data['etag'];
     $scope.user_sigel = constants.get("user_sigel")
     $scope.all_constants = constants.all();
@@ -376,6 +372,7 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
       }
       $scope.holding_etags = holding_etags;
     });
+
   });
 
 
@@ -427,6 +424,13 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     })
   }
 
+  if (isNew) {
+    $scope.save = function() {
+      records.create(recType, $scope.record).then(function(data) {
+        $location.url('/edit/bib/' + data['document_id']);
+      });
+    }
+  } else
   $scope.save = function() {
     var if_match_header = $scope.etag.replace(/["']/g, "");
     records.save(recType, recId, $scope.record, $scope.etag.replace(/["']/g, "")).then(function(data) {
@@ -457,7 +461,11 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     holdings.push({shelvingControlNumber: "", location: constants.get("user_sigel")});
   }
 
-  $scope.add_person = function(authors) {
+  $scope.add_person = function(work, authorsKey) {
+    var authors = work[authorsKey];
+    if (typeof authors === 'undefined') {
+      work[authorsKey] = [];
+    }
     authors.push({ authoritativeName: "", birthYear: "" });
   }
 
@@ -465,13 +473,21 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     $scope.record.about.instanceOf.authorList.splice(index,1);
   }
 
-  var typeCycle = ['Book', 'EBook', 'Audiobook'], typeIndex = 0;
-  $scope.cycleType = function (obj) {
-    if (!obj) return;
+  var typeCycle = ['Book', 'EBook', 'Audiobook', 'Serial', 'ESerial'], typeIndex = 0;
+  $scope.cycleType = function (evt, obj) {
+    if (!obj || !evt.altKey) return;
     if (typeIndex++ >= typeCycle.length - 1) typeIndex = 0;
     obj['@type'] = typeCycle[typeIndex];
   }
 
+}
+
+// TODO: work this into the backend format converter
+function patchRecord(work) {
+  if (work.author) {
+    work.authorList = work.author;
+    delete work.author;
+  }
 }
 
 
@@ -683,6 +699,12 @@ kitin.directive('direTest', function() {
         template: '<span>ALATESTING</span>'
     }
 });*/
+
+kitin.directive('inplace', function () {
+  return function(scope, elm, attrs) {
+    elm.jkey('enter', function () { this.blur(); });
+  };
+});
 
 kitin.directive('keyEnter', function () {
   return function (scope, elm, attrs) {
