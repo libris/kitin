@@ -564,7 +564,7 @@ def suggest_auth_completions():
 @app.route("/partials/<name>")
 @login_required
 def show_partial(name):
-    return make_response(open(os.path.join(here, app.template_folder + '/' + 'partials/'+ name +'.html')).read())
+    return render_template('partials/%s.html' % name)
 
 
 # TODO: integrate mockups in views and remove this
