@@ -22,6 +22,7 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
   </head>
   <body data-ng-app="kitin" class="{% block bodyclass %}{% endblock %}">
       <div id="wrap">
+     {% if current_user and current_user.is_authenticated() %}
       <div id="nav">
             <ul class="inline nav-menu">
               <li class="active"><a href="/" target="_self"><i class="ficon ficon-home"></i></a></li>
@@ -34,17 +35,17 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
                      <li class="disabled"><a href="#">Tom mall</a></li>
                   </ul>
               </li>
-            {% if current_user %}
-            <li class="dropdown">
+            
+             <li class="dropdown">
                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Inloggad som {{current_user.username}} ({{current_user.sigel}}) <i class="ficon ficon-caret-down"></i></a>
                  <ul class="dropdown-menu">
                     <li><a href="/signout" target="_self">Logga ut</a></li>
                     <li class="disabled"><a href="#">Inställningar/konto</a></li>
                  </ul>
               </li>
-            {% endif %}
         </ul>
 	  </div>
+     {% endif %}
       <div id="header">
         <div class="logo"><a target="_self" href="/"><img src="/static/i/libris.png" alt="Libris Kategorisering"></a></div>
         <div class="kb"></div>
