@@ -139,7 +139,6 @@ body.login #header .searchfield{display:none;}
 
 .content footer a {color:#adadad; padding-left: 10px;padding-right: 5px;}
 .content footer a:hover {color:#999999;background-color: transparent;}
-footer li {border-left:2px solid #adadad; line-height: 14px;}
 
 .content.index header{background-image:url(/static/i/top-index.png);margin-bottom:130px;}
 .content.index > .cols{margin-left:12px;overflow:visible;}
