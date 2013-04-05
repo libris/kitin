@@ -262,6 +262,12 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, search_se
     search_service.search($routeParams.q).then(function(data) {
       $scope.my_facets = mangle_facets(data.facets);
       $scope.result = data;
+      var toChunk = data.hits.toString();
+      if (toChunk == "1") {
+          var new_url = "/edit" + data.list[0].identifier;
+          $location.url(new_url);
+      }
+      $scope.chunkedHits = toChunk.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     });
   }
   

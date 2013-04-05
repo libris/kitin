@@ -248,6 +248,7 @@ section.result label .lbl{color:#999;}
 section.result label.title{font-size:20px;line-height:24px;}
 section.result label.title .ficon{font-size:16px;color:#27b492;}
 section.result label.title .lbl{margin-top:4px;}
+section.result label.title .title-remainder{font-size:16px; display:block;}
 
 section.result .excerpt{margin-bottom:-14px;}
 section.result .excerpt label{background:#f6f3ee url(/static/i/pat1.png);padding-top:4px;padding-bottom:4px;}
