@@ -519,11 +519,12 @@ label.dynamic-subjects em.subject .ficon{color:#1a8f72;}
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     display: none;
     float: left;
-    left: -2px;
+    left: 1000px;
     list-style: none outside none;
     margin: 2px 0 0;
     min-width: 252px;
-    padding: 0px 0;
+    padding: 0;
+    margin-right:-16px;
     position: absolute;
     top: 100%;
     z-index: 1000;
@@ -534,8 +535,6 @@ label.dynamic-subjects em.subject .ficon{color:#1a8f72;}
      -moz-box-shadow: 0 1px 3px rgba(0,0,0,.2);
       box-shadow: 0 1px 3px rgba(0,0,0,.2);}
 
-
-ul.nav.menu {height: 100px;}
 
 #nav a:hover,
 #nav a:focus {text-decoration: none;}
