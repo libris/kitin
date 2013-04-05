@@ -320,22 +320,22 @@
     <h3 class="inline_heading">{{user_sigel}}</h3>
     <div class="cols">
       <div class="col6">
-          <!--hidden input for setting sigel--><input data-inplace type="hidden" data-ng-model="holding.location" maxlength="4" value="{{user_sigel}}"/>
-          <label>
+        <label>
           <input data-inplace type="text" placeholder="Avdelning/Samling" data-ng-model="holding.shelvingLocation"/>
           <span class="lbl">{{ "Avdelning/Samling" }}</span>
-          </label>
-		  <label>
+        </label>
+        <label>
           <input data-inplace type="text" placeholder="Hyllsignum/Klassifikation" data-ng-model="holding.classificationPart"/>
           <span class="lbl">{{ "Hyllsignum/Klassifikation" }}</span>
-          </label>
-          <!--post beta:
-          <div class="suggestion-classification">
+        </label>
+        <!-- post beta:
+        <div class="suggestion-classification">
           <ul>
             <li data-ng-repeat="holding in holdings" data-ng-show="holding.classificationPart"><i class="ficon ficon-circle-arrow-up"></i> {{ holding.classificationPart }}</li>
           </ul>
-		  <span class="lbl lbl-suggest">Förslag på signum</span>
-          </div>-->
+          <span class="lbl lbl-suggest">Förslag på signum</span>
+        </div>
+        -->
        </div>
       <div class="col6">
           <label>
@@ -368,9 +368,11 @@
       <!--not available in beta:<button disabled class="btn btn-purple" data-ng-click="add_holding(holdings)">Lägg till <i class="icon icon-white icon-chevron-down"></i></button>-->
     </div>
     </section>
-	<section class="submit">
+    <section class="submit">
       <button class="btn btn-purple  btn-submit" id="save-hld" data-ng-click="save_holding(holding)">Spara bestånd</button>
+      <!-- post beta:
       <button data-ng-show="holding['@id']"class="btn-link" id="delete-hld" data-ng-click="delete_holding(holding['@id'])">Ta bort</button>
+      -->
     </section>
   <section class="holdings holdings-list">
     <h2>Allt Bestånd<i></i></h2>

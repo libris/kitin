@@ -350,17 +350,21 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
 
     bibid = record['controlNumber'];
     $scope.etag = data['etag'];
-    $scope.user_sigel = constants.get("user_sigel")
+    $scope.user_sigel = constants.get("user_sigel");
     $scope.all_constants = constants.all();
     $http.get("/record/" + recType + "/" + recId + "/holdings").success(function(data) {
       $scope.holdings = data.list;
       var holding_etags = {};
-      var items = data.list;
+      var items = _.map(data.list, function (it) {
+        var obj = it.data; obj['@id'] = it.identifier; return obj;
+      });
 
       var my_holdings = _.filter(items, function(i) { return i['location'] == constants.get("user_sigel"); });
       if(my_holdings <= 0) {
         $http.get("/holding/bib/new").success(function(data, status, headers) {
+          data.location = $scope.user_sigel;
           $scope.holding = data;
+          data._is_new = true; // TODO: don't do this when etag works
         });
       } else {
         $scope.holding = my_holdings[0];
@@ -399,13 +403,15 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   $scope.save_holding = function(holding) {
     var etag = $scope.holding_etags[holding['@id']];
     holding['holdingFor'] = { '@id': "/"+recType+"/"+recId };
-    if(etag != undefined) {
+    // TODO: only use etag (but it's not present yet..)
+    if(!holding._is_new && (etag || holding.location === $scope.user_sigel)) {
       $http.put("/holding/" + holding['@id'].split("/").slice(-2)[1], holding, {headers: {"If-match":etag}}).success(function(data, status, headers) {
         $scope.holding_etags[data['@id']] = headers('etag');
       }).error(function(data, status, headers) {
         console.log("ohh crap!");
       });
     } else {
+      if (holding._is_new) { delete holding._is_new; }
       console.log("we wants to post a new holding");
       $http.post("/holding", holding).success(function(data, status, headers) {
         $scope.holding_etags[data['@id']] = headers('etag');

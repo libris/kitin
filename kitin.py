@@ -140,7 +140,8 @@ def search():
 @app.route('/record/<record_type>/<record_id>/holdings')
 @login_required
 def get_holdings(record_type, record_id):
-        resp = requests.get("%s/hold/_metasearch?link=%s" % (app.config['WHELK_HOST'], record_id))
+        path = "%s/hold/_find?q=holdingFor.@id:%s" % (app.config['WHELK_HOST'], record_id)
+        resp = requests.get(path)
         return raw_json_response(resp.text)
 
 @app.route('/holding/<holding_id>', methods=['GET'])
@@ -175,7 +176,7 @@ def create_holding():
 @app.route('/holding/<holding_id>', methods=['PUT'])
 @login_required
 def save_holding(holding_id):
-    if_match = request.headers['If-match']
+    if_match = request.headers.get('If-match')
     h = {'content-type': 'application/json', 'If-match': if_match}
     path = "%s/hold/%s" % (app.config['WHELK_HOST'], holding_id)
     response = requests.put(path, data=request.data, headers=h, allow_redirects=True)
