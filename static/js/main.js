@@ -51,8 +51,8 @@ kitin.factory('search_service', function($http, $q) {
   };
 
   return {
-    search: function(parameter) {
-      return perform_search("/search.json?q="+parameter);
+    search: function(url) {
+      return perform_search(url);
     }
   };
 });
@@ -259,7 +259,7 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, search_se
   if (!$routeParams.q) {
     return;
   } else {
-    search_service.search($routeParams.q).then(function(data) {
+    search_service.search(url).then(function(data) {
       $scope.my_facets = mangle_facets(data.facets);
       $scope.result = data;
       var toChunk = data.hits.toString();
