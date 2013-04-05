@@ -500,12 +500,12 @@ def get_drafts():
 @login_required
 def get_template():
     """Returns a template object"""
-    return raw_json_response(open("./examples/templates/monografi.json", 'r').read())
+    return raw_json_response(open(os.path.join(here, "examples/templates/monografi.json"), 'r').read())
 
 @app.route("/holding/bib/new", methods=["GET"])
 @login_required
 def get_holding_template():
-    return raw_json_response(open("./examples/templates/holding.json", 'r').read())
+    return raw_json_response(open(os.path.join(here, "examples/templates/holding.json"), 'r').read())
 
 @app.route('/record/<rec_type>/<rec_id>', methods=['PUT'])
 @login_required
