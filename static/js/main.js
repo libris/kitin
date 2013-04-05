@@ -193,8 +193,22 @@ function IndexCtrl($scope, $http) {
   }
 }
 
-function SearchCtrl($scope, $http, $location, $routeParams) {
+function SearchCtrl($scope, $http, $location, $routeParams, resources) {
 
+  // Can this resource fetching stuff be globalized?
+  $scope.enums = {};
+  resources.enums.bibLevel.then(function(data) {
+    $scope.enums.bibLevel = data;
+  });
+  
+  resources.typedefs.then(function(data) {
+    $scope.typeDefs = data.types;
+  });
+  
+  resources.enums.encLevel.then(function(data) {
+    $scope.enums.encLevel = data;
+  });
+  
   var previous_facets = getParameterByName("f");
   document.body.className = 'search';
 
