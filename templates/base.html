@@ -23,7 +23,6 @@ Vi rekommenderar uppdaterade versioner av Google Chrome eller Mozilla Firefox f√
   </head>
   <body data-ng-app="kitin" class="{% block bodyclass %}{% endblock %}">
       <div id="wrap">
-      <div id="header">
         {% if current_user and current_user.is_authenticated() %}
         <div id="nav">
             <ul class="inline nav-menu pull-right">
@@ -49,18 +48,6 @@ Vi rekommenderar uppdaterade versioner av Google Chrome eller Mozilla Firefox f√
         </div>
         {% endif %}
 
-        <div class="logo"><a href="/"><img src="/static/i/libris.png" alt="Libris Kategorisering"></a><span class="beta">[BETA]</span></div>
-        <div class="kb"></div>
-        <div class="searchfield">
-          <form action="/search"> <!-- Change to Angular route -->
-            <input id="search" name="q" type="text" autofocus
-                  value="" placeholder="ISBN, titel, f√∂rfattare etc"
-                  autocomplete="off" role="textbox"
-                  aria-autocomplete="list" aria-haspopup="true" data-ng-model="q">
-            <button type="submit">S√∂k</button>
-          </form>
-        </div>
-      </div>
       {% block content %}{% endblock content %}
 <div class="content footer">
   <footer>
