@@ -13,8 +13,6 @@ kitin.config(
               {templateUrl: '/partials/index', controller: IndexCtrl})
         .when('/search',
               {templateUrl: '/partials/search', controller: SearchCtrl})
-        .when('/edit/:recType/new',
-              { templateUrl: '/partials/edit', controller: NewRecordCtrl})
         .when('/edit/:recType/:recId',
               {templateUrl: '/partials/edit', controller: FrbrCtrl})
         .when('/marc/:recType/:recId',
@@ -45,55 +43,42 @@ kitin.factory('conf', function ($http, $q) {
 
 
 kitin.factory('records', function ($http, $q) {
-  // TODO: use proper angularjs http cache?
-  var currentPath, currentRecord;
-  function loadPromise(path) {
-    var record = $q.defer();
-    $http.get(path).success(function (struct, status, headers) {
-      currentPath = path;
-      currentRecord = struct;
-      record['recdata'] = struct;
-      record['etag'] = headers('etag');
-      record.resolve(record);
-    });
-    return record.promise;
-  }
-
-  function saveRecord(type, id, data, etag) {
-    var record = $q.defer();
-    $http.put("/record/" + type + "/" + id, data, {headers: {"If-match":etag}}).success(function(data, status, headers) {
-      record['recdata'] = data;
-      record['etag'] = headers('etag');
-      record.resolve(record);
-    }).error(function() {
-      console.log("og crap, we failed :(");
-    });
-    return record.promise;
-  }
-
-  function createRecord(type, data) {
-    var record = $q.defer();
-    $http.post("/record/" + type + "/create", data).success(function(data, status, headers) { 
-      record.resolve(data);
-    });
-    return record.promise;
-  }
 
   return {
+
     get: function (type, id) {
       var path = "/record/" + type + "/" + id;
-      if (currentPath === path && currentRecord) {
-        return {then: function (callback) { callback(currentRecord); }};
-      } else {
-        return loadPromise(path);
-      }
+      var record = $q.defer();
+      $http.get(path).success(function (struct, status, headers) {
+        record['recdata'] = struct;
+        record['etag'] = headers('etag');
+        record.resolve(record);
+      });
+      return record.promise;
     },
+
     save: function(type, id, data, etag) {
-      return saveRecord(type, id, data, etag);
+      var record = $q.defer();
+      $http.put("/record/" + type + "/" + id, data,
+                {headers: {"If-match":etag}}).success(function(data, status, headers) {
+        record['recdata'] = data;
+        record['etag'] = headers('etag');
+        record.resolve(record);
+        console.log("Saved record.");
+      }).error(function() {
+        console.log("FAILED to save record");
+      });
+      return record.promise;
     },
+
     create: function(type, data) {
-      return createRecord(type, data);
+      var record = $q.defer();
+      $http.post("/record/" + type + "/create", data).success(function(data, status, headers) {
+        record.resolve(data);
+      });
+      return record.promise;
     }
+
   };
 });
 
@@ -300,24 +285,14 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources) {
 
 }
 
-function NewRecordCtrl($location, $scope, records, $http, $routeParams) {
-  document.body.className = 'edit new';
-  var recType = $routeParams.recType;
-  $http.get('/record/bib/new').success(function(data) {
-    $scope.record = data;
-  });
-
-  $scope.save = function() {
-    records.create(recType, $scope.record).then(function(data) {
-      $location.url('/edit/bib/' + data['document_id']);
-    });
-  }
-}
-
 function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, constants) {
-  document.body.className = 'edit';
   var recType = $routeParams.recType, recId = $routeParams.recId;
   var path = "/record/" + recType + "/" + recId;
+
+  var isNew = (recId === 'new');
+  var newType = $routeParams.type;
+
+  document.body.className = isNew? 'edit new' : 'edit';
 
   // Fetch resources
 
@@ -361,6 +336,11 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     }
   });
 
+  if (isNew) {
+    $http.get('/record/bib/new?type' + newType).success(function(data) {
+      $scope.record = data;
+    });
+  } else
   records.get(recType, recId).then(function(data) {
     var record = $scope.record = data['recdata'];
     patchRecord(record.about.instanceOf);
@@ -444,6 +424,13 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     })
   }
 
+  if (isNew) {
+    $scope.save = function() {
+      records.create(recType, $scope.record).then(function(data) {
+        $location.url('/edit/bib/' + data['document_id']);
+      });
+    }
+  } else
   $scope.save = function() {
     var if_match_header = $scope.etag.replace(/["']/g, "");
     records.save(recType, recId, $scope.record, $scope.etag.replace(/["']/g, "")).then(function(data) {
