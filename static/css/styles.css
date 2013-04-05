@@ -659,6 +659,34 @@ section.holdings ul li{list-style: none;}
     background: #c8f4ea;
     color: #222;
 }
+.select2-container .select2-choice {
+    -moz-user-select: none;
+    background-clip: padding-box;
+    background-color: #FFFFFF;
+    background-image: none;
+    border: none;
+    border-radius: 4px 4px 4px 4px;
+    color: #444444;
+    display: block;
+    height: 26px;
+    line-height: 26px;
+    overflow: hidden;
+    padding: 0 0 0 8px;
+    position: relative;
+    text-decoration: none;
+    white-space: nowrap;
+}
+.select2-default {
+    color:#ccc !important; font-style:italic; font-size:14px !important;
+}
+
+.select2-container .select2-choice:hover {
+	background: #f8f8f8;
+}
+
+
+
+
 /* Popover */
 
 .popover{
