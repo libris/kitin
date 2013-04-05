@@ -52,6 +52,7 @@ def _load_user(uid):
 def _handle_unauthorized():
     return redirect("/login")
 
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     msg = None
@@ -77,20 +78,28 @@ def login():
             return redirect("/")
     return render_template("partials/login.html", msg = msg, remember = remember)
 
+@app.route("/signout")
+@login_required
+def logout():
+    "Trying to sign out..."
+    logout_user()
+    session.pop('sigel', None)
+    return redirect("/login")
+
 @app.route("/")
 @login_required
 def index():
     return render_template('index.html', user=current_user, partials = {"/partials/index" : "partials/index.html"})
 
-@app.route("/detail")
-@login_required
-def detail():
-    return render_template('prototypes/detail.html')
-
-@app.route("/list")
-@login_required
-def list():
-    return render_template('prototypes/list.html')
+#@app.route("/detail")
+#@login_required
+#def detail():
+#    return render_template('prototypes/detail.html')
+#
+#@app.route("/list")
+#@login_required
+#def list():
+#    return render_template('prototypes/list.html')
 
 @app.route("/search.json")
 def search_json():
@@ -330,89 +339,86 @@ def _get_fixfield_label(pr, columns):
     return label_sv
 
 
-def _get_field_label(tagdict, fields):
-    #extracting standard field label for get_record_summary
-    record_info_dict = {}
-
-    for tag in tagdict.keys():
-        if tag in fields:
-            record_info_dict['label_sv_%s' % tag] = json.loads(open(app.config['MARC_MAP']).read())['bib'][tag].get('label_sv', tag)
- 
-            if 'ind1' in tagdict[tag].keys():
-                try:
-                    print "ind1", tag, fields[tag][0]
-                    ind1 = fields[tag][0]['ind1']
-                    if ind1.strip():
-                        ind1 == '_'
-                    record_info_dict['tag_%s_ind1_code' % tag] = ind1
-                    ind1_info = json.loads(open(app.config['MARC_MAP']).read())['bib'][tag]['ind1'].get(ind1, None)
-                    if ind1_info:
-                        label_sv = ind1_info.get("label_sv", ind1) 
-                        print "label_sv", label_sv
-                        record_info_dict['tag_%s_ind1' % tag] = label_sv
-                        print "record_info_dict", record_info_dict
-                except:
-                    record_info_dict['tag_%s_ind1' % tag] = "%s - ind1" % tag
-
-
-            for s in fields[tag][0]['subfields']:
-                if s.keys()[0] in tagdict[tag].keys():
-                   record_info_dict[tagdict[tag][s.keys()[0]]]  = s.values()[0].strip(' /')
-
-            
-    return record_info_dict
-
-def _get_control_field_label(control_list, mm, leader):
-    control_fields = {}
-    for pos in control_list:
-        for s in leader:
-            if s.keys()[0] == pos:
-                val = '_' if s.values()[0] == ' ' else s.values()[0]
-                control_fields['%s_code' % pos] = val
-                mm_val = mm[pos].get(val, None)
-                if mm_val:
-                    control_fields[pos] = mm[pos][val].get('label_sv', val)
-                else:
-                    control_fields[pos] = val
-    return control_fields
-
-
-def get_record_summary(data):
-    fields = {}
-    for field in data['fields']:
-        for k, v in field.items():
-            fields.setdefault(k, []).append(v)
-
-    #TODO? globalise marcmap
-    mm = json.loads(open(app.config['MARC_MAP']).read())['bib']['fixprops']
-    
-    #extracting the control field values
-    #cannot be done as the general fields, as the json structure differs
-    control_list = ['bibLevel', 'typeOfRecord', 'encLevel']
-    control_fields = _get_control_field_label(control_list, mm, data['leader']['subfields'])
-
-    control_fields['id'] = fields['001'][0] if '001' in fields else ''
-   
-    #extracting general fields.
-    #change in the dict to extract other fields/subfields or save them under different labels
-    tagdict = {'008': {'yearTime1': 'pubyear_008'},
-                '020': {'a': 'isbn'},
-                '022': {'a': 'issn'},
-                '024': {'a': 'other_standard_id', 'ind1': '024ind1'},
-                '028': {'a': 'publisher_number', 'b': 'publisher', 'ind1': 'ind1'},
-                '035': {'9': 'librisIII-id'},
-                '040': {'a': 'catinst_a', 'd': 'catinst_d'},
-                '041': {'a': 'lang_target', 'h': 'lang_source'},
-                '100': {'a': 'author', 'b': 'author_numeration', 'd': 'author_date', '4': 'author_4', 'c': 'author_association', 'e': 'author_e', 'q': 'author_q'},
-                '110': {'a': 'author', 'd': 'author_date', '4': '110_4', 'c': '110_c', 'n': '110_n'},
-                '111': {'a': 'author', 'd': 'author_date', '4': '111_4', 'c': '111_c', 'n': '111_n'},
-                '245': {'a': 'tit_a', 'b': 'tit_b', 'c': 'tit_c', 'n': 'tit_n', 'p': 'tit_p'},
-                '250': {'a': 'edition'},
-                '260': {'c': 'pubyear'},
-                '773': {'a': 'link_author', 't': 'link_tit', 'g': 'link_related'},
-              }
-    general_fields = _get_field_label(tagdict, fields)
-    return dict(control_fields.items() + general_fields.items())
+#def _get_field_label(tagdict, fields):
+#    record_info_dict = {}
+#
+#    for tag in tagdict.keys():
+#        if tag in fields:
+#            record_info_dict['label_sv_%s' % tag] = json.loads(open(app.config['MARC_MAP']).read())['bib'][tag].get('label_sv', tag)
+# 
+#            if 'ind1' in tagdict[tag].keys():
+#                try:
+#                    print "ind1", tag, fields[tag][0]
+#                    ind1 = fields[tag][0]['ind1']
+#                    if ind1.strip():
+#                        ind1 == '_'
+#                    record_info_dict['tag_%s_ind1_code' % tag] = ind1
+#                    ind1_info = json.loads(open(app.config['MARC_MAP']).read())['bib'][tag]['ind1'].get(ind1, None)
+#                    if ind1_info:
+#                        label_sv = ind1_info.get("label_sv", ind1) 
+#                        print "label_sv", label_sv
+#                        record_info_dict['tag_%s_ind1' % tag] = label_sv
+#                        print "record_info_dict", record_info_dict
+#                except:
+#                    record_info_dict['tag_%s_ind1' % tag] = "%s - ind1" % tag
+#
+#            for s in fields[tag][0]['subfields']:
+#                if s.keys()[0] in tagdict[tag].keys():
+#                   record_info_dict[tagdict[tag][s.keys()[0]]]  = s.values()[0].strip(' /')
+#
+#    return record_info_dict
+#
+#def _get_control_field_label(control_list, mm, leader):
+#    control_fields = {}
+#    for pos in control_list:
+#        for s in leader:
+#            if s.keys()[0] == pos:
+#                val = '_' if s.values()[0] == ' ' else s.values()[0]
+#                control_fields['%s_code' % pos] = val
+#                mm_val = mm[pos].get(val, None)
+#                if mm_val:
+#                    control_fields[pos] = mm[pos][val].get('label_sv', val)
+#                else:
+#                    control_fields[pos] = val
+#    return control_fields
+#
+#
+#def get_record_summary(data):
+#    fields = {}
+#    for field in data['fields']:
+#        for k, v in field.items():
+#            fields.setdefault(k, []).append(v)
+#
+#    #TODO? globalise marcmap
+#    mm = json.loads(open(app.config['MARC_MAP']).read())['bib']['fixprops']
+#    
+#    #extracting the control field values
+#    #cannot be done as the general fields, as the json structure differs
+#    control_list = ['bibLevel', 'typeOfRecord', 'encLevel']
+#    control_fields = _get_control_field_label(control_list, mm, data['leader']['subfields'])
+#
+#    control_fields['id'] = fields['001'][0] if '001' in fields else ''
+#   
+#    #extracting general fields.
+#    #change in the dict to extract other fields/subfields or save them under different labels
+#    tagdict = {'008': {'yearTime1': 'pubyear_008'},
+#                '020': {'a': 'isbn'},
+#                '022': {'a': 'issn'},
+#                '024': {'a': 'other_standard_id', 'ind1': '024ind1'},
+#                '028': {'a': 'publisher_number', 'b': 'publisher', 'ind1': 'ind1'},
+#                '035': {'9': 'librisIII-id'},
+#                '040': {'a': 'catinst_a', 'd': 'catinst_d'},
+#                '041': {'a': 'lang_target', 'h': 'lang_source'},
+#                '100': {'a': 'author', 'b': 'author_numeration', 'd': 'author_date', '4': 'author_4', 'c': 'author_association', 'e': 'author_e', 'q': 'author_q'},
+#                '110': {'a': 'author', 'd': 'author_date', '4': '110_4', 'c': '110_c', 'n': '110_n'},
+#                '111': {'a': 'author', 'd': 'author_date', '4': '111_4', 'c': '111_c', 'n': '111_n'},
+#                '245': {'a': 'tit_a', 'b': 'tit_b', 'c': 'tit_c', 'n': 'tit_n', 'p': 'tit_p'},
+#                '250': {'a': 'edition'},
+#                '260': {'c': 'pubyear'},
+#                '773': {'a': 'link_author', 't': 'link_tit', 'g': 'link_related'},
+#              }
+#    general_fields = _get_field_label(tagdict, fields)
+#    return dict(control_fields.items() + general_fields.items())
 
 
 @app.route('/edit/<edit_mode>')
@@ -567,43 +573,30 @@ def show_partial(name):
     return render_template('partials/%s.html' % name)
 
 
-# TODO: integrate mockups in views and remove this
-@app.route("/mockups/<name>")
-@login_required
-def show_mockup(name):
-    return render_template('mockups/'+ name +'.html')
-
 def raw_json_response(s):
     resp = make_response(s)
     resp.headers['Content-Type'] = 'application/json'
     return resp
 
 
-def find_record_templates():
-    """Use to list drafts and templates in local dir."""
-    for fname in os.listdir(mockdatapath('templates')):
-        ext = '.json'
-        if not fname.endswith(ext):
-            continue
-        yield fname.replace(ext, '')
+#def find_record_templates():
+#    """Use to list drafts and templates in local dir."""
+#    for fname in os.listdir(mockdatapath('templates')):
+#        ext = '.json'
+#        if not fname.endswith(ext):
+#            continue
+#        yield fname.replace(ext, '')
+#
+#def mockdatapath(rectype, recid=None):
+#    dirpath = os.path.join(app.root_path, 'examples', rectype)
+#    if recid:
+#        return os.path.join(dirpath, recid +'.json')
+#    else:
+#        return dirpath
 
-
-def mockdatapath(rectype, recid=None):
-    dirpath = os.path.join(app.root_path, 'examples', rectype)
-    if recid:
-        return os.path.join(dirpath, recid +'.json')
-    else:
-        return dirpath
-
-@app.route("/signout")
-@login_required #add this decorator to all views that require log in, i.e. all but login
-def logout():
-    "Trying to sign out..."
-    logout_user()
-    session.pop('sigel', None)
-    return redirect("/login")
 
 jinja2.filters.FILTERS['chunk_number'] = chunk_number
+
 
 if __name__ == "__main__":
     from optparse import OptionParser
