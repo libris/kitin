@@ -72,7 +72,7 @@ a:hover{color:#106351; background-color: #fff;}
 #wrap{width:1080px;margin: 0 auto;}
 #grid{display:none;width:984px;min-height:800px;background:url(/static/i/grid.png);position:absolute;top:0;left:48px;}
 
-#header{height:110px;position:relative;}
+#header{height:130px;position:relative;}
 #header .user{float:right;font-size:12px;margin-top:6px;}
 #header .user span{padding-left:10px;margin-left:8px;border-left:1px solid #ccc;}
 #header .user span:first-child{margin-left:0;padding-left:0;border:none;}
@@ -81,7 +81,7 @@ a:hover{color:#106351; background-color: #fff;}
 #header .logo{font:normal 18px/1 "Open Sans", sans-serif;position:absolute;left:0;bottom:4px; color:#aaa;text-transform:uppercase;}
 #header .logo strong{display:block;font:bold 28px/1 "Droid Serif", georgia, serif;text-transform:none; color:#27b492;letter-spacing:-1px;}
 
-#header .searchfield{position:absolute;left:384px;top:62px;z-index:2;}
+#header .searchfield{position:absolute;left:384px;top:82px;z-index:2;}
 #header .searchfield input{width:500px;border:1px solid #bbb; padding: 6px 10px 6px;border-color: #aaa #fff #ccc #aaa;
   box-shadow: inset 1px 1px 1px rgba(0,0,0,.2);
   -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0,.2);
