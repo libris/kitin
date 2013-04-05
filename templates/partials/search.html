@@ -13,7 +13,7 @@
   <div id="grid"></div>
   <header>
   <h1></h1>
-  <p class="summary"><span>Sökning: <a href=/search?q=>{{ q }}</a></span><span data-ng-repeat="crumb in crumbs"> &gt; {{ crumb }}</span><span> ({{ result.hits }} träffar)</span></p>
+  <p class="summary"><span>{{ chunkedHits }} träffar för <a href="/search?q={{ q }}"> {{ q }}</a></span></p>
   </header>
   <div class="cols">
     <div class="col3">
