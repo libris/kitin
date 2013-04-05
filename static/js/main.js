@@ -41,6 +41,21 @@ kitin.factory('conf', function ($http, $q) {
   };
 });
 
+kitin.factory('search_service', function($http, $q) {
+  function perform_search(url) {
+    var deferred = $q.defer();
+    $http.get(url).success(function(data) {
+      deferred.resolve(data);
+    });
+    return deferred.promise;
+  };
+
+  return {
+    search: function(parameter) {
+      return perform_search("/search.json?q="+parameter);
+    }
+  };
+});
 
 kitin.factory('records', function ($http, $q) {
 
@@ -178,7 +193,13 @@ function IndexCtrl($scope, $http) {
   }
 }
 
-function SearchCtrl($scope, $http, $location, $routeParams, resources) {
+function SearchFormCtrl($scope, $location) {
+  $scope.search = function() {
+    $location.url("/search?q="+$scope.q);
+  }
+}
+
+function SearchCtrl($scope, $http, $location, $routeParams, resources, search_service) {
 
   // Can this resource fetching stuff be globalized?
   $scope.enums = {};
@@ -195,6 +216,33 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources) {
   });
   
   var previous_facets = getParameterByName("f");
+
+  function mangle_facets(facets) {
+      // iterate facets to add correct slug
+      // if can do in angularistic fashion; then please do and remove this!
+      var result = []
+      for(facet_type in facets) {
+        var new_facet = {};
+        new_facet['type'] = facet_type;
+        new_facet['items']= [];
+        for(item in facets[facet_type]) {
+          var subitem = {};
+          var subitem_object = {};
+          subitem_object[item] = facets[facet_type][item];
+          subitem['object'] = subitem_object;
+          var slug = [facet_type, item].join(":");
+          if($.inArray(slug, previous_facets.split(" ")) != -1) {
+            subitem['slug'] = "/search?q=" + $scope.q + "&f=" + $.grep(previous_facets.split(" "), function(val) {return val != slug});
+          } else {
+            subitem['slug'] = "/search?q=" + $scope.q + "&f=" + slug + " " + previous_facets;
+          }
+          new_facet['items'].push(subitem);
+        }
+        result.push(new_facet);
+      }
+      return result;
+  }
+
   document.body.className = 'search';
 
   $scope.q = $routeParams.q;
@@ -210,6 +258,11 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources) {
 
   if (!$routeParams.q) {
     return;
+  } else {
+    search_service.search($routeParams.q).then(function(data) {
+      $scope.my_facets = mangle_facets(data.facets);
+      $scope.result = data;
+    });
   }
   
   // Bread Crumbs
@@ -226,62 +279,12 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources) {
      }
      $scope.crumbs = aggr_crumbs;
   }
-  /* I'm on it
-  tmp_crumbs = previous_facets.split(" ");
-  var aggr_crumbs = [];
-  if (tmp_crumbs.length > 0) {
-     var subcrumb = {};
-     subcrumb['term'] = tmp_crumbs[0].split(":")[1];
-     subcrumb['facets'] = tmp_crumbs[0]; 
-     aggr_crumbs[0].push(subcrumb);
-     for (i=1; i < tmp_crumbs.length; i++) {
-        var subcrumb = {};
-        subcrumb['term'] = tmp_crumbs[i].split(":")[1];
-        subcrumb['facets'] = tmp_crumbs[i];
-        aggr_crumbs[i].push(subcrumb);
-        aggr_crumbs[i] = aggr_crumbs[i-1] + " " + tmp_crumbs[i];
-     }
-     for (i=0; i < aggr_crumbs.length; i++) {
-        console.log("CRUMB: ", aggr_crumbs[i]);
-     }
-     $scope.crumbs = aggr_crumbs;
-     console.log($scope.crumbs);
-  }*/
-  
 
   facet_terms = []; // Poor mans localization
 
   facet_terms['about.@type'] = "Typer";
   facet_terms['about.dateOfPublication'] = "Datum";
   $scope.facet_terms = facet_terms;
-
-  $http.get(url).success(function(data) {
-    $scope.result = data;
-
-    // iterate facets to add correct slug
-    // if can do in angularistic fashion; then please do and remove this!
-    var result = []
-    for(facet_type in data.facets) {
-      var new_facet = {};
-      new_facet['type'] = facet_type;
-      new_facet['items']= [];
-      for(item in data.facets[facet_type]) {
-        var subitem = {};
-        var subitem_object = {};
-        subitem_object[item] = data.facets[facet_type][item];
-        subitem['object'] = subitem_object;
-        var slug = [facet_type, item].join(":");
-        if($.inArray(slug, previous_facets.split(" ")) != -1) {
-          subitem['slug'] = "/search?q=" + $scope.q + "&f=" + $.grep(previous_facets.split(" "), function(val) {return val != slug});
-        } else {
-          subitem['slug'] = "/search?q=" + $scope.q + "&f=" + slug + " " + previous_facets;
-        }
-        new_facet['items'].push(subitem);
-      }
-      result.push(new_facet);
-    }
-    $scope.my_facets = result;
-  });
 
 }
 

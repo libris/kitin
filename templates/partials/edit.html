@@ -1,3 +1,5 @@
+{% include "partials/_search_bar.html" %}
+
 {% raw %}
 
 <div id="confirmDeleteDraftDialog" data-ng-show="confirmDeleteDraft" class="popover show">
@@ -19,8 +21,8 @@
     <h1>Bibliografisk post</h1>
     <div class="levels">
       <span>{{ enums.bibLevel[record.bibLevel].label_sv }}</span>
-      <span>{{ enums.encLevel[record.encLevel || '_'].label_sv }}</span>
-      <span>{{ enums.catForm[record.catForm || 'a'].label_sv }}</span>
+      <span>{{ enums.encLevel[record.encLevel].label_sv }}</span>
+      <span>{{ enums.catForm[record.catForm].label_sv }}</span>
     </div>
     <div class="modes">
       <a href="#" class="active">LIBRIS</a>
@@ -327,12 +329,13 @@
           <input data-inplace type="text" placeholder="Hyllsignum/Klassifikation" data-ng-model="holding.classificationPart"/>
           <span class="lbl">{{ "Hyllsignum/Klassifikation" }}</span>
           </label>
+          <!--post beta:
           <div class="suggestion-classification">
           <ul>
             <li data-ng-repeat="holding in holdings" data-ng-show="holding.classificationPart"><i class="ficon ficon-circle-arrow-up"></i> {{ holding.classificationPart }}</li>
           </ul>
 		  <span class="lbl lbl-suggest">Förslag på signum</span>
-          </div>
+          </div>-->
        </div>
       <div class="col6">
           <label>
