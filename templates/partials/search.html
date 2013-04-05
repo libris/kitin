@@ -32,16 +32,19 @@
           <div class="col5">
             <label class="title">
                 <a class="bib-url" href="/edit{{ record.identifier }}" title="{{ record.data.about.instanceOf.title }}">{{ record.data.about.instanceOf.title | chop }}</a>
-              <span class="lbl" title="245C">{{ record.data.about.instanceOf.statementOfResponsibility }}</span>
+              <span class="title title-remainder">{{ record.data.about.instanceOf.titleRemainder }}</span>
             </label>
+          <label>
+          <span>{{ record.data.about.instanceOf.statementOfResponsibility }}</span>
+          </label>
           </div>
           <div class="col4">
             <label data-ng-repeat="author in record.data.about.instanceOf.authorList | limitTo:1">
-                <span title="100A">{{ author.name }}</span>, <span>{{ author.birthYear }} - {{ author.deathYear }}</span>
+                <span>{{ author.name }}</span>, <span>{{ author.birthYear }} - {{ author.deathYear }}</span>
                 <span class="lbl">Upphovsman</span>
             </label>
             <label>
-              {{ record.data.about.pubDate['@value'] }}
+              {{ record.data.about.dateOfPublication }}
               <span class="lbl">Publikationsår</span>
             </label>
             <label>
