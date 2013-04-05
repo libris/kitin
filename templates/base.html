@@ -16,6 +16,8 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
     <script src="{{ url_for('static', filename='vendor/jquery/jquery-1.9.1.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/jquery/jquery.jkey.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>    
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap-tooltip.js') }}"></script>    
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap-popover.js') }}"></script>    
     <script src="{{ url_for('static', filename='vendor/angular.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/angular-ui.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
@@ -67,7 +69,8 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
   <footer>
     <h1></h1>
     <ul class="inline">
-      <li><a href="#" id="contact">Om kakor</a></li>
+        <!--<li><a href="#" id="contact" data-toggle="popover" data-placement="top" title="Information om cookies" data-content="<p>Libris katalogisering använder sig av cookies.</p><p>Cookies är små filer som lagras på besökarens dator för att webbservern ska kunna upprätthålla information om användaren inom en viss tidsperiod. Libris katalogisering använder sig av s.k. sessionscookies som sparar information om den inloggade användaren temporärt, så länge som webbläsarsessionen varar. Informationen som lagras ser till att tjänsten vet vilken användare som är inloggad och vilka bibliotek som han/hon katalogiserar för. Funktionen &quote;håll mig inloggad&quote; sparar en permanent cookie som är aktiv i 31 dagar.</p><p>Post- och telestyrelsen, som är tillsynsmyndighet på området, lämnar ytterligare information om Cookies på sin webbplats, <a href='http://www.pts.se'>www.pts.se</a>.</p>">Om kakor</a></li>-->
+        <li><a href="#" id="contact" title="Information om cookies: Libris katalogisering använder sig av cookies. Cookies är små filer som lagras på besökarens dator för att webbservern ska kunna upprätthålla information om användaren inom en viss tidsperiod. Libris katalogisering använder sig av s.k. sessionscookies som sparar information om den inloggade användaren temporärt, så länge som webbläsarsessionen varar. Informationen som lagras ser till att tjänsten vet vilken användare som är inloggad och vilka bibliotek som han/hon katalogiserar för. Funktionen &quote;håll mig inloggad&quote; sparar en permanent cookie som är aktiv i 31 dagar.Post- och telestyrelsen, som är tillsynsmyndighet på området, lämnar ytterligare information om Cookies på sin webbplats, www.pts.se">Om kakor</a></li>
     </ul>
   </footer>
 </div>
@@ -82,6 +85,11 @@ Vänligen använd en uppdaterad version av Firefox eller Chrome för LIBRIS kata
     <script src="{{ url_for('static', filename='vendor/select2/select2_locale_sv.js') }}"></script>
 
     <!-- <script src="{{ url_for('static', filename='vendor/jquery/jquery.autogrowinput.js') }}"></script> -->
+    <!--<script type="text/javascript">
+    $(function ()
+    { $("#contact").popover();
+    });
+</script>-->
 
     {% if current_user %}
         <script type="text/javascript">

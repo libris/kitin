@@ -479,7 +479,6 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     if (typeIndex++ >= typeCycle.length - 1) typeIndex = 0;
     obj['@type'] = typeCycle[typeIndex];
   }
-
 }
 
 // TODO: work this into the backend format converter
@@ -698,6 +697,12 @@ kitin.directive('direTest', function() {
         restrict: 'A',
         template: '<span>ALATESTING</span>'
     }
+});*/
+/* If we use bootstrap popover, we may use angular directive like so:
+  kitin.directive('popover', function(expression, compiledElement){
+    return function(linkElement) {
+        linkElement.popover();
+    };
 });*/
 
 kitin.directive('inplace', function () {
