@@ -408,7 +408,7 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
 
   $scope.save_holding = function(holding) {
     var etag = $scope.holding_etags[holding['@id']];
-    holding['holdingFor'] = { '@id': "/"+recType+"/"+recId };
+    holding['annotates'] = { '@id': "/"+recType+"/"+recId };
     // TODO: only use etag (but it's not present yet..)
     if(!holding._is_new && (etag || holding.location === $scope.user_sigel)) {
       $http.put("/holding/" + holding['@id'].split("/").slice(-2)[1], holding, {headers: {"If-match":etag}}).success(function(data, status, headers) {

@@ -140,7 +140,7 @@ def search():
 @app.route('/record/<record_type>/<record_id>/holdings')
 @login_required
 def get_holdings(record_type, record_id):
-        path = "%s/hold/_find?q=holdingFor.@id:%s" % (app.config['WHELK_HOST'], record_id)
+        path = "%s/hold/_find?q=annotates.@id:%s" % (app.config['WHELK_HOST'], record_id)
         resp = requests.get(path)
         return raw_json_response(resp.text)
 
