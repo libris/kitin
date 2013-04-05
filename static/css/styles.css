@@ -522,7 +522,7 @@ label.dynamic-subjects em.subject .ficon{color:#1a8f72;}
     left: -2px;
     list-style: none outside none;
     margin: 2px 0 0;
-    min-width: 228px;
+    min-width: 252px;
     padding: 0px 0;
     position: absolute;
     top: 100%;
@@ -533,6 +533,9 @@ label.dynamic-subjects em.subject .ficon{color:#1a8f72;}
   -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.2);
      -moz-box-shadow: 0 1px 3px rgba(0,0,0,.2);
       box-shadow: 0 1px 3px rgba(0,0,0,.2);}
+
+
+ul.nav.menu {height: 100px;}
 
 #nav a:hover,
 #nav a:focus {text-decoration: none;}
