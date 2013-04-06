@@ -180,7 +180,7 @@
           </label>
         </div>
         <label>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.placeOfPublication.label" placeholder="Utgivningsort">
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.placeOfPublication.name" placeholder="Utgivningsort">
           <span class="lbl">{{ "Utgivningsort" }}</span>
         </label>
         </label>
@@ -197,9 +197,9 @@
           <span class="lbl">{{ "Utgivningsland" }}</span>
         </label>
         <label>
-              <input data-inplace class="input-mini authdependant" type="text" placeholder="Tryckland" data-ng-model="instance.placeOfManufacture.label" />
+              <input data-inplace class="input-mini authdependant" type="text" placeholder="Tryckland" data-ng-model="instance.placeOfManufacture.name" />
             <!--
-          <select data-placeholder="Välj ett land" data-ui-select2 data-ng-model="instance.placeOfManufacture.label" style="width:75%">
+          <select data-placeholder="Välj ett land" data-ui-select2 data-ng-model="instance.placeOfManufacture.name" style="width:75%">
              <option></option>
              <option data-ng-repeat="(code, name) in countrylist" value="{{ code }}">{{ name }} ({{ code }})</option>
          </select>
