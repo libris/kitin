@@ -700,6 +700,9 @@ section.holdings ul li{list-style: none;}
 }
 
 
+.saved #draft, .published #publish { opacity: 0.4; }
+#draft, #publish { opacity: 1; }
+
 
 /* Popover */
 

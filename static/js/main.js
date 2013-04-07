@@ -389,6 +389,41 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   });
 
 
+  $scope.modifications = {saved: false, published: true};
+
+  function onSaveState() {
+    $scope.modifications.saved = true;
+    $scope.modifications.lastSaved = new Date();
+  }
+  function onPublishState() {
+    $scope.modifications.published = true;
+    $scope.modifications.lastPublished = new Date();
+  }
+
+  $scope.triggerModified = function () {
+    $scope.modifications.saved = false;
+    $scope.modifications.published = false;
+  }
+
+  $scope.modifiedClasses = function () {
+    var classes = [], mods = $scope.modifications;
+    if (mods.saved) classes.push('saved');
+    if (mods.published) classes.push('published');
+    return classes;
+  }
+
+  $scope.lastSavedLabel = function (tplt) {
+    if (!$scope.modifications.lastSaved)
+      return "";
+    return tplt.replace(/%s/, $scope.modifications.lastSaved.toLocaleString());
+  }
+
+  $scope.lastPublishedLabel = function (tplt) {
+    if (!$scope.modifications.lastPublished)
+      return "";
+    return tplt.replace(/%s/, $scope.modifications.lastPublished.toLocaleString());
+  }
+
   $scope.promptConfirmDelete = function($event, type, id) {
     $scope.confirmDeleteDraft = {
       execute: function() {
@@ -448,9 +483,10 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   } else
   $scope.save = function() {
     var if_match_header = $scope.etag.replace(/["']/g, "");
-    records.save(recType, recId, $scope.record, $scope.etag.replace(/["']/g, "")).then(function(data) {
-      $scope.record = data['recdata']
+    records.save(recType, recId, $scope.record, if_match_header).then(function(data) {
+      $scope.record = data['recdata'];
       $scope.etag = data['etag'];
+      onPublishState();
     });
   }
 
@@ -459,7 +495,8 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
       $scope.draft = data;
       $scope.draft.type = data['@id'].split("/").slice(-2)[0];
       $scope.draft.id = data['@id'].split("/").slice(-2)[1];
-      $('.flash_message').text("Utkast sparat!");
+      onSaveState();
+      //$('.flash_message').text("Utkast sparat!");
     });
   }
 
@@ -486,6 +523,7 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
 
   $scope.remove_person = function(index) {
     $scope.record.about.instanceOf.authorList.splice(index,1);
+    $scope.triggerModified();
   }
 
   var typeCycle = ['Book', 'EBook', 'Audiobook', 'Serial', 'ESerial'], typeIndex = 0;
@@ -722,6 +760,10 @@ kitin.directive('direTest', function() {
 
 kitin.directive('inplace', function () {
   return function(scope, elm, attrs) {
+    elm.keyup(function () { // or change (when leaving)
+      scope.triggerModified();
+      scope.$apply();
+    })
     elm.jkey('enter', function () { this.blur(); });
   };
 });
