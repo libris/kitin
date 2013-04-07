@@ -540,6 +540,8 @@ function patchRecord(work) {
   if (work.author) {
     work.authorList = work.author;
     delete work.author;
+  } else if (typeof work.authorList === 'undefined') {
+    work.authorList = [];
   }
 }
 
