@@ -389,13 +389,14 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   });
 
 
-  $scope.modifications = {saved: false, published: true};
+  $scope.modifications = {saved: true, published: true};
 
   function onSaveState() {
     $scope.modifications.saved = true;
     $scope.modifications.lastSaved = new Date();
   }
   function onPublishState() {
+    $scope.modifications.saved = true;
     $scope.modifications.published = true;
     $scope.modifications.lastPublished = new Date();
   }
