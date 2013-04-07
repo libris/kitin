@@ -647,6 +647,8 @@ section.holdings-list{background:#f7f3ee;}
 
 section.holdings ul li{list-style: none;}
 
+a.beta-blocker {text-decoration: none; cursor:default;}
+
 /* Autocomplete */
 
 .acResults {width:466px;border:1px solid #ccc;border-top-width:0;background:#fff;
