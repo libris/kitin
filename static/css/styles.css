@@ -436,6 +436,13 @@ label select{height:26px;}
 .col3 .split label input,
 .col3 .split label select{width:92px;}
 
+.col6 .split label{float:left; margin-left:24px; overflow:hidden; width: 184px;}
+.col6 .split label:first-child{margin-left:0;}
+
+.col6 .split label textarea,
+.col6 .split label input,
+.col6 .split label select{width:184px;}
+
 .entity { border-left: 2px solid #ddd; margin-bottom: 18px; overflow: auto; }
 .entity:hover,
 .entity.focus { border-left-color:#1a8f72; }
