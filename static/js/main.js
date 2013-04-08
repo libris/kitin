@@ -215,7 +215,7 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, search_se
     $scope.enums.encLevel = data;
   });
   
-  var prevFacetsStr = $routeParams.f;
+  var prevFacetsStr = $routeParams.f || "";
 
   function mangle_facets(facets) {
       // iterate facets to add correct slug
