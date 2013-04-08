@@ -28,10 +28,10 @@ Vi rekommenderar uppdaterade versioner av Google Chrome eller Mozilla Firefox f√
         {% if current_user and current_user.is_authenticated() %}
         <div id="nav">
             <ul class="inline nav-menu pull-right">
-              <li class="active"><a href="/"><i class="ficon ficon-home"></i></a></li>
+              <li class="active"><a href="/" title="Till startsida"><i class="ficon ficon-home"></i></a></li>
              <li class="active"><a href="http://feedback.kat.libris.kb.se/" target="_blank" title="Feedback forum">Tyck till <i class="ficon ficon-external-link"></i></a></li>  
               <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown">Skapa ny <i class="ficon ficon-caret-down"></i></a>
+                  <a class="dropdown-toggle" data-toggle="dropdown" title="Skapa ny post">Skapa ny <i class="ficon ficon-caret-down"></i></a>
                   <ul class="dropdown-menu pull-right">
                      <li class="disabled my_template"><a href="#"><i class="ficon ficon-heart"></i>Min egna mall</a></li>
                      <li class="disabled my_template"><a href="#"><i class="ficon ficon-heart"></i>Min egna mall</a></li>
@@ -44,7 +44,7 @@ Vi rekommenderar uppdaterade versioner av Google Chrome eller Mozilla Firefox f√
                   </ul>
               </li>
              <li class="dropdown">
-             <a class="dropdown-toggle login" data-toggle="dropdown">
+             <a class="dropdown-toggle login" data-toggle="dropdown" title="Logga ut - inst√§llningar">
                <span class="meta">Inloggad som: </span>
                <span class="username">{{current_user.username}} ({{current_user.sigel}})</span>
                <i class="ficon ficon-caret-down"></i>
