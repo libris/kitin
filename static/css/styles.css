@@ -149,16 +149,12 @@ footer li {border-left:2px solid #adadad; line-height: 14px;}
 
 body.login .content.index header{margin-bottom:60px;}
 
-.content footer .levels,
 .content header .levels{float:left;}
 
-.content footer .levels span
 .content header .levels span{float:left;padding: 5px 12px 6px;color:#444;}
 
-.content footer .modes,
 .content header .modes{float:right;margin-top:5px;}
 
-.content footer .modes a,
 .content header .modes a{float:left;font:bold 12px/1 "Open Sans", sans-serif;color:#444;padding:8px 12px 6px;
     background:#fff;margin-left:6px;text-transform:uppercase;opacity:.4;
   -webkit-box-shadow: 0 0 3px rgba(0,0,0,.25);
@@ -236,6 +232,8 @@ section.result .footer span:first-child,
 section.result .footer span.level{margin-left:0;padding-left:0;border-left:none;}
 section.result .footer span.level{float:right;}
 
+section.result .footer span {padding-right: 12px;}
+
 section.result a,
 section.result a:hover{color:#444;text-decoration:none;}
 
@@ -255,7 +253,7 @@ section.result .excerpt label{background:#f6f3ee url(/static/i/pat1.png);padding
 
 section.result .highlight{padding:0 2px;background:rgba(40,180,146,.4);}
 
-/* frontpage 98 */
+/* frontpage */
 
 section.dash{border-top: 5px solid #999;position:relative;}
 section.dash .circle{width:38px;height:38px;display:block;position:absolute;left:50%;margin-left:-19px;top:-21px;
@@ -416,11 +414,11 @@ label select{height:26px;}
 
 .col6 label textarea,
 .col6 label input,
-.col6 label select{width:468px;}
+.col6 label select{width:450px; padding-right:18px;}
 
 .col3 label textarea,
 .col3 label input,
-.col3 label select{width:216px;}
+.col3 label select{width:198px; padding-right: 18px;}
 
 .col3 label:hover textarea,
 .col3 label:hover input,
@@ -434,14 +432,14 @@ label select{height:26px;}
 
 .col3 .split label textarea,
 .col3 .split label input,
-.col3 .split label select{width:92px;}
+.col3 .split label select{width:74px;padding-right: 18px;}
 
 .col6 .split label{float:left; margin-left:24px; overflow:hidden; width: 184px;}
 .col6 .split label:first-child{margin-left:0;}
 
 .col6 .split label textarea,
 .col6 .split label input,
-.col6 .split label select{width:184px;}
+.col6 .split label select{width:166px;padding-right: 18px;}
 
 .entity { border-left: 2px solid #ddd; margin-bottom: 18px; overflow: auto; }
 .entity:hover,
@@ -449,7 +447,7 @@ label select{height:26px;}
 
 .entity label { border: none; margin-bottom: 0; }
 .entity .addon label,
-.entity .addon input { float: left; width: 92px; }
+.entity .addon input { float: left; width: 74px;padding-right: 18px; }
 
 label ::-webkit-input-placeholder { color:#ccc; font-style:italic; font-size:14px; }
 input::-webkit-input-placeholder { color:#ccc; font-style:italic; font-size:14px; }
@@ -491,6 +489,7 @@ label .lbl{display:block;font-size:12px;color:#1a8f72;margin-top:2px;line-height
 
 .holdings .lbl {color:#683568;}
 
+.result label{overflow:hidden;text-overflow:ellipsis;}
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     body label select{
@@ -515,6 +514,9 @@ label.dynamic-subjects em.subject .ficon{color:#1a8f72;}
 .suggestion-classification ul{list-style:none;margin:0;padding:0;}
 .suggestion-classification li{margin: 0 4px 4px 0;float:left;padding:4px 8px;background:rgba(167, 86, 167, 0.35);}
 .suggestion-classification li .ficon{color:#683568;}
+
+.on-hover { display:none; }
+.person:hover .on-hover { display:block; }
 
 /* bootstrap dropdown */
 
@@ -646,6 +648,8 @@ section.holdings-list{background:#f7f3ee;}
 }
 
 section.holdings ul li{list-style: none;}
+
+a.beta-blocker {text-decoration: none; cursor:default;}
 
 /* Autocomplete */
 

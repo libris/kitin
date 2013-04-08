@@ -28,26 +28,27 @@
     </div>
     <div class="col9">
       <section data-ng-repeat="record in result.list" class="result record {{record.identifier}}">
+        <a class="bib-url" href="/edit{{ record.identifier }}" >
         <div class="cols">
           <div class="col5">
-            <label class="title">
-                <a class="bib-url" href="/edit{{ record.identifier }}" title="{{ record.data.about.instanceOf.title }}">{{ record.data.about.instanceOf.title | chop }}</a>
+            <label class="title" title="{{ record.data.about.instanceOf.title }} {{ record.data.about.instanceOf.titleRemainder }}">
+                {{ record.data.about.instanceOf.title | chop }}
               <span class="title title-remainder">{{ record.data.about.instanceOf.titleRemainder }}</span>
             </label>
-          <label>
+          <label title="{{ record.data.about.instanceOf.statementOfResponsibility }}">
           <span>{{ record.data.about.instanceOf.statementOfResponsibility }}</span>
           </label>
           </div>
           <div class="col4">
-            <label data-ng-repeat="author in record.data.about.instanceOf.authorList | limitTo:1">
+            <label data-ng-repeat="author in record.data.about.instanceOf.authorList | limitTo:1" title="{{ author.name }}, {{ author.birthYear }} - {{ author.deathYear }}">
                 <span>{{ author.name }}</span>, <span>{{ author.birthYear }} - {{ author.deathYear }}</span>
                 <span class="lbl">Upphovsman</span>
             </label>
-            <label>
+            <label title="{{ record.data.about.dateOfPublication }}">
               {{ record.data.about.dateOfPublication }}
               <span class="lbl">Publikationsår</span>
             </label>
-            <label>
+            <label  title="{{ record.data.about.isbn }}">
               {{ record.data.about.isbn }}
               <span class="lbl">ISBN</span>
             </label>
@@ -61,6 +62,7 @@
           </label>
         </div>
         -->
+        </a>
         <div class="footer">
             <span data-ng-show="typeDefs[record.data.about['@type']]">{{ typeDefs[record.data.about['@type']].label_sv }}</span>
             <span data-ng-show="enums.bibLevel[record.data.bibLevel]">{{ enums.bibLevel[record.data.bibLevel].label_sv }}</span>
