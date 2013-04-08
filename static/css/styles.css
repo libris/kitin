@@ -739,6 +739,9 @@ label.dynamic-subjects em.subject .ficon{color:#1a8f72;}
 .dropdown-menu li.my_template a i { padding-right: 6px; }
 .disabled {background-color:#f7f3ee;}
 
+.dropdown .login span.meta { color: #000; }
+.dropdown .login span.username { text-transform:uppercase; }
+
 /* bootstrap buttons */
 
 .btn {
