@@ -369,11 +369,9 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     $scope.user_sigel = constants.get("user_sigel");
     $scope.all_constants = constants.all();
     $http.get("/record/" + recType + "/" + recId + "/holdings").success(function(data) {
-      $scope.holdings = data.list;
       var holding_etags = {};
-      var items = _.map(data.list, function (it) {
-        var obj = it.data; obj['@id'] = it.identifier; return obj;
-      });
+      var items = patchHoldings(data.list);
+      $scope.holdings = items;
 
       var my_holdings = _.filter(items, function(i) { return i['location'] == constants.get("user_sigel"); });
       if(my_holdings <= 0) {
@@ -478,7 +476,7 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     $http['delete']("/holding/" + holding_id).success(function(data, success) {
       console.log("great success!");
       $http.get("/record/" + recType + "/" + recId + "/holdings").success(function(data) {
-        $scope.holdings = data.list;
+        $scope.holdings = patchHoldings(data.list);
       });
     }).error(function() {
       console.log("oh crap!");
@@ -545,7 +543,8 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   }
 }
 
-// TODO: work this into the backend format converter
+// TODO: work these ("patch*") into the backend format converter
+
 function patchRecord(work) {
   if (work.author) {
     work.authorList = work.author;
@@ -553,6 +552,12 @@ function patchRecord(work) {
   } else if (typeof work.authorList === 'undefined') {
     work.authorList = [];
   }
+}
+
+function patchHoldings(holdings) {
+  return _.map(holdings, function (it) {
+    var obj = it.data; obj['@id'] = it.identifier; return obj;
+  });
 }
 
 
