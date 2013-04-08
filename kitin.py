@@ -467,8 +467,7 @@ def get_bib_data(rec_id):
 @login_required
 def delete_draft(id):
     storage.delete_draft(current_user.get_id(), "bib", id)
-    drafts = storage.get_drafts_as_json(current_user.get_id())
-    return raw_json_response(drafts)
+    return redirect("/drafts")
 
 @app.route('/record/bib/<id>/draft', methods=['POST'])
 @login_required
