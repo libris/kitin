@@ -34,11 +34,11 @@
     <div class="cols">
       <div class="col6">
         <label>
-          <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" placeholder="Skriv en titel" data-ng-model="work.title"></textarea>
+          <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" placeholder="Huvudtitel" data-ng-model="work.title"></textarea>
           <span class="lbl">{{ "Huvudtitel" }}</span>
         </label>
         <label>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" placeholder="Skriv en undertitel" data-ng-model="work.titleRemainder">{{ work.titleRemainder }}</textarea>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" placeholder="Övrig titelinformation" data-ng-model="work.titleRemainder">{{ work.titleRemainder }}</textarea>
           <span class="lbl">{{ "Övrig titelinformation" }}</span>
         </label>
         <label class="ng-binding">
@@ -62,7 +62,7 @@
         </label>
         <div data-ng-repeat="person in work.authorList" class="entity person">
           <label>
-            <input data-inplace class="input" type="text" data-kitin-autocomplete="field" data-kitin-template="auth-completion-template" data-ng-model="person.authoritativeName" />
+            <input data-inplace class="input" type="text" placeholder="Personnamn" data-kitin-autocomplete="field" data-kitin-template="auth-completion-template" data-ng-model="person.authoritativeName" />
             <span class="lbl">{{ "Personnamn" }}</span>
           </label>
           <div class="addon">
