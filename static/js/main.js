@@ -247,7 +247,7 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, search_se
 
   $scope.q = $routeParams.q;
   $scope.f = $routeParams.f;
-  var url = "/search.json?q=" + $scope.q;
+  var url = "/search.json?q=" + encodeURIComponent($scope.q);
   if($scope.f != undefined) {
     url += "&f=" + $scope.f;
   }
