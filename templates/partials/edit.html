@@ -96,13 +96,10 @@
               <span data-ng-show="subject.formSubdivision">&mdash; {{subject.formSubdivision}}</span>
               <span data-ng-show="subject.geographicSubdivision">&mdash; {{subject.geographicSubdivision}}</span>
               <span data-ng-show="subject.system">({{subject.system}})</span>
-              <i class="ficon ficon-circle-arrow-down"></i></em>
+            </em>
           </span>
-            <span class="lbl">Ämnesord</span>
-        </label>
-        <label class="add-subject">
-          <textarea data-inplace placeholder="Lägg till ämnesord" disabled></textarea>
-          <span class="lbl">Skriv in ämnesord</span>
+          <textarea data-inplace placeholder="Ämnesord" disabled></textarea>
+          <span class="lbl">Ämnesord</span>
         </label>
         <!--
         <div class="suggestion-subjects">
@@ -124,14 +121,10 @@
           -->
         <label class="dynamic-subjects">
           <span class="subjects" data-ng-repeat="classification in work['class-ddc']">
-            <em class="subject">{{classification}}
-              <i class="ficon ficon-circle-arrow-down"></i></em>
+            <em class="subject">{{classification}}</em>
           </span>
+          <textarea data-inplace placeholder="Klassifikation" disabled></textarea>
           <span class="lbl">Klassifikation</span>
-        </label>
-        <label class="add-subject">
-          <textarea data-inplace placeholder="Lägg till klassifikation" disabled></textarea>
-          <span class="lbl">Skriv in klassifikation</span>
         </label>
       </div>
 
