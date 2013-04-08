@@ -430,6 +430,8 @@ section.result .excerpt label{background:#f6f3ee url(/static/i/pat1.png);padding
 
 section.result .highlight{padding:0 2px;background:rgba(40,180,146,.4);}
 
+.nav .selected { font-weight: bold; }
+
 /* frontpage */
 
 section.dash{border-top: 5px solid #999;position:relative;}

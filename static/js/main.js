@@ -215,7 +215,7 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, search_se
     $scope.enums.encLevel = data;
   });
   
-  var previous_facets = getParameterByName("f");
+  var prevFacetsStr = $routeParams.f;
 
   function mangle_facets(facets) {
       // iterate facets to add correct slug
@@ -225,19 +225,21 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, search_se
         var new_facet = {};
         new_facet['type'] = facet_type;
         new_facet['items']= [];
-        for(item in facets[facet_type]) {
+        var prevFacets = prevFacetsStr.split(" ");
+        _.each(facets[facet_type], function (value, key) {
           var subitem = {};
           var subitem_object = {};
-          subitem_object[item] = facets[facet_type][item];
+          subitem_object[key] = value;
           subitem['object'] = subitem_object;
-          var slug = [facet_type, item].join(":");
-          if($.inArray(slug, previous_facets.split(" ")) != -1) {
-            subitem['slug'] = "/search?q=" + $scope.q + "&f=" + $.grep(previous_facets.split(" "), function(val) {return val != slug});
+          var slug = [facet_type, key].join(":");
+          subitem.selected = $.inArray(slug, prevFacets) !== -1;
+          if(subitem.selected) {
+            subitem['slug'] = "/search?q=" + $scope.q + "&f=" + $.grep(prevFacets, function(val) {return val != slug});
           } else {
-            subitem['slug'] = "/search?q=" + $scope.q + "&f=" + slug + " " + previous_facets;
+            subitem['slug'] = "/search?q=" + $scope.q + "&f=" + slug + " " + prevFacetsStr;
           }
           new_facet['items'].push(subitem);
-        }
+        });
         result.push(new_facet);
       }
       return result;
@@ -711,20 +713,6 @@ function MarcCtrl($rootScope, $scope, $routeParams, conf, records, $timeout) {
   //  ajax-save
   //}
 
-}
-
-
-// util.js
-
-function getParameterByName(name) {
-  name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-    var regexS = "[\\?&]" + name + "=([^&#]*)";
-    var regex = new RegExp(regexS);
-    var results = regex.exec(window.location.search);
-    if(results == null)
-      return "";
-    else
-      return decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
 
