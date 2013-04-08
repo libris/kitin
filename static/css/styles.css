@@ -675,6 +675,7 @@ label .lbl{display:block;font-size:12px;color:#1a8f72;margin-top:2px;line-height
     body label select:focus{background-color:red;background:#c8f4ea url(/static/i/select-arrow.png) no-repeat 98% -92px;}
 }
 
+label.dynamic-subjects { cursor: default; }
 label.dynamic-subjects em.subject {
   display: inline-block;
   padding:0 4px;
