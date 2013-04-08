@@ -850,6 +850,8 @@ a.beta-blocker {text-decoration: none; cursor:default;}
 .acResults .about{font-size:13px;line-height:20px;color:#666;}
 .acSelect{background:#c8f4ea;}
 
+.acResults h4 .name:hover {color:106351;}
+
 /* Select 2 */
 .select2-results .select2-highlighted {
     background: #c8f4ea;
