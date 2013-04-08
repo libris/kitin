@@ -576,6 +576,7 @@ def show_partial(name):
 def raw_json_response(s):
     resp = make_response(s)
     resp.headers['Content-Type'] = 'application/json'
+    resp.headers['Expires'] = '-1'
     return resp
 
 
