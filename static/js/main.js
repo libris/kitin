@@ -120,7 +120,7 @@ kitin.factory('resources', function($http) {
     enums: {
       bibLevel: getResourceList("enums", "bibLevel"),
       encLevel: getResourceList("enums", "encLevel"),
-      catForm: getResourceList("enums", "catForm"),
+      catForm: getResourceList("enums", "catForm")
     }
 
   };
@@ -186,7 +186,7 @@ function IndexCtrl($scope, $http) {
     $scope.drafts = data.drafts;
   });
 
-  $scope.delete = function(type, id) {
+  $scope['delete'] = function(type, id) {
     $http.post("/record" + "/" + type + "/" + id + "/draft/delete").success(function(data, status) {
       $scope.drafts = data.drafts;
     });
@@ -445,7 +445,7 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
       },
       abort: function() {
         $scope.confirmDeleteDraft = null;
-      },
+      }
     };
     $timeout(function() {
       openPrompt($event, "#confirmDeleteDraftDialog");
@@ -475,7 +475,7 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   }
 
   $scope.delete_holding = function(holding_id) {
-    $http.delete("/holding/" + holding_id).success(function(data, success) {
+    $http['delete']("/holding/" + holding_id).success(function(data, success) {
       console.log("great success!");
       $http.get("/record/" + recType + "/" + recId + "/holdings").success(function(data) {
         $scope.holdings = data.list;
