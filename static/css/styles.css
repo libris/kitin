@@ -419,7 +419,7 @@ section.result label{cursor:pointer;}
 section.result label:hover{border-color:#ddd;}
 section.result label .lbl{color:#999;}
 
-section.result label.title{font-size:20px;line-height:24px;}
+section.result label.title{font-size:20px;line-height:26px;}
 section.result label.title .ficon{font-size:16px;color:#27b492;}
 section.result label.title .lbl{margin-top:4px;}
 section.result label.title .title-remainder{font-size:16px; display:block;}
