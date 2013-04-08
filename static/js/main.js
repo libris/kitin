@@ -264,27 +264,37 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, search_se
       $scope.result = data;
       var toChunk = data.hits.toString();
       if (toChunk == "1") {
-          var new_url = "/edit" + data.list[0].identifier;
-          $location.url(new_url);
+          $location.url("/edit" + data.list[0].identifier);
+          $location.replace();
       }
       $scope.chunkedHits = toChunk.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     });
   }
   
   // Bread Crumbs
-  //$scope.crumbs = [{"term" : "books", "urlpart" : "f=books"}, {"term:" : "year", "urlpart" : "f=2004"}];
+  /*$scope.crumbs = [{"term" : "jansson", "urlpart" : "/search?q=jansson", "bridge" : " för "}, {"term" : "book", "urlpart" : "/search?q=jansson&f=about.@type:book", "bridge" : " inom "}, {"term" : "2003", "urlpart" : "/search?q=jansson&f=about.dateOfPublication:2003 about.@type:book", "bridge" : " , "}, {"term" : "eget bestånd", "bridge" : " och "}];*/
   
-  tmp_crumbs = previous_facets.split(" ");
+  /*var facetlist = previous_facets.split(" ");
+  var crumblist = [];
+  var new_crumb = {};
+  new_crumb['term'] = $scope.q;
+  if (facetlist.length > 1) {
+      new_crumb['urlpart'] = "/search?q=" + $scope.q;
+  }
+  crumblist.push(new_crumb);
+  $scope.crumbs = crumblist; 
+  
   var aggr_crumbs = [];
-  if (tmp_crumbs.length > 0) {
-     aggr_crumbs[0] = tmp_crumbs[0];
-     for (i=1; i < tmp_crumbs.length; i++) {
-        aggr_crumbs[i] = aggr_crumbs[i-1] + " " + tmp_crumbs[i];
+  if (facetlist.length > 0) {
+     aggr_crumbs[0] = facetlist[0];
+     
+     for (i=1; i < facetlist.length; i++) {
+        aggr_crumbs[i] = aggr_crumbs[i-1] + " " + facetlist[i];
      }
      for (i=0; i < aggr_crumbs.length; i++) {
+         console.log("AGG: ", aggr_crumbs[i]);
      }
-     $scope.crumbs = aggr_crumbs;
-  }
+  }*/
 
   facet_terms = []; // Poor mans localization
 
