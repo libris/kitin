@@ -308,7 +308,14 @@ body.login #header .searchfield{display:none;}
 .content{position:relative;background:url(/static/i/bg.png);padding:0 36px 24px 36px;overflow:hidden;}
 
 .content header{background:url(/static/i/top.png) no-repeat;position:relative;padding:23px 36px 0;overflow:hidden;width:1008px;margin-left:-36px;}
-.content footer{background:url(/static/i/bottom.png) no-repeat;position:relative;padding:43px 36px 0;width:1008px;margin-left:-36px;}
+.content.footer { overflow: visible; }
+.content footer {
+  background:url(/static/i/bottom.png) no-repeat;
+  position:relative;
+  padding:43px 36px 0;
+  width:1008px;
+  margin-left:-36px;
+}
 
 .content header h1{height:40px;background-repeat:no-repeat;background-position: 8px 50%;
     color:#106351;text-transform:uppercase;padding-left:48px;margin:0 0 12px 9px;font:bold 14px/40px "Open Sans", sans-serif;}
