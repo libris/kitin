@@ -292,6 +292,7 @@
       title="{{lastSavedLabel('Senast sparad: %s')}}">Spara utkast</button>
     <button class="btn btn-dark btn-submit" id="publish" data-ng-click="save()"
       title="{{lastPublishedLabel('Senast publicerad: %s')}}">Publicera</button>
+    <p class="message" data-ng-show="modifications.message">{{ modifications.message }}</p>
   </section>
 </form></div>
 

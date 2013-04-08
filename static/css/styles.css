@@ -710,6 +710,8 @@ section.holdings ul li{list-style: none;}
 .saved #draft, .published #publish { opacity: 0.4; }
 #draft, #publish { opacity: 1; }
 
+.modificationinfo p { font-size: 12px; color: #666; margin: 4px 0; }
+
 
 /* Popover */
 
