@@ -627,7 +627,8 @@ label select{height:26px;}
 
 label ::-webkit-input-placeholder { color:#ccc; font-style:italic; font-size:14px; }
 input::-webkit-input-placeholder { color:#ccc; font-style:italic; font-size:14px; }
-::-moz-placeholder { color:#ccc; font-style:italic; font-size:14px; }
+:-moz-placeholder { color:#ccc; font-style:italic; font-size:14px; }/*FF18*/
+::-moz-placeholder { color:#ccc; font-style:italic; font-size:14px; }/*FF19*/
 :-ms-input-placeholder { color:#ccc; font-style:italic; font-size:14px; }
 
 :focus::-webkit-input-placeholder { color:#78ceba; }
