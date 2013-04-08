@@ -51,8 +51,8 @@ kitin.factory('search_service', function($http, $q) {
   };
 
   return {
-    search: function(parameter) {
-      return perform_search("/search.json?q="+parameter);
+    search: function(url) {
+      return perform_search(url);
     }
   };
 });
@@ -259,7 +259,7 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, search_se
   if (!$routeParams.q) {
     return;
   } else {
-    search_service.search($routeParams.q).then(function(data) {
+    search_service.search(url).then(function(data) {
       $scope.my_facets = mangle_facets(data.facets);
       $scope.result = data;
       var toChunk = data.hits.toString();
@@ -366,17 +366,21 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
 
     bibid = record['controlNumber'];
     $scope.etag = data['etag'];
-    $scope.user_sigel = constants.get("user_sigel")
+    $scope.user_sigel = constants.get("user_sigel");
     $scope.all_constants = constants.all();
     $http.get("/record/" + recType + "/" + recId + "/holdings").success(function(data) {
       $scope.holdings = data.list;
       var holding_etags = {};
-      var items = data.list;
+      var items = _.map(data.list, function (it) {
+        var obj = it.data; obj['@id'] = it.identifier; return obj;
+      });
 
       var my_holdings = _.filter(items, function(i) { return i['location'] == constants.get("user_sigel"); });
       if(my_holdings <= 0) {
         $http.get("/holding/bib/new").success(function(data, status, headers) {
+          data.location = $scope.user_sigel;
           $scope.holding = data;
+          data._is_new = true; // TODO: don't do this when etag works
         });
       } else {
         $scope.holding = my_holdings[0];
@@ -394,6 +398,42 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
 
   });
 
+
+  $scope.modifications = {saved: true, published: true};
+
+  function onSaveState() {
+    $scope.modifications.saved = true;
+    $scope.modifications.lastSaved = new Date();
+  }
+  function onPublishState() {
+    $scope.modifications.saved = true;
+    $scope.modifications.published = true;
+    $scope.modifications.lastPublished = new Date();
+  }
+
+  $scope.triggerModified = function () {
+    $scope.modifications.saved = false;
+    $scope.modifications.published = false;
+  }
+
+  $scope.modifiedClasses = function () {
+    var classes = [], mods = $scope.modifications;
+    if (mods.saved) classes.push('saved');
+    if (mods.published) classes.push('published');
+    return classes;
+  }
+
+  $scope.lastSavedLabel = function (tplt) {
+    if (!$scope.modifications.lastSaved)
+      return "";
+    return tplt.replace(/%s/, $scope.modifications.lastSaved.toLocaleString());
+  }
+
+  $scope.lastPublishedLabel = function (tplt) {
+    if (!$scope.modifications.lastPublished)
+      return "";
+    return tplt.replace(/%s/, $scope.modifications.lastPublished.toLocaleString());
+  }
 
   $scope.promptConfirmDelete = function($event, type, id) {
     $scope.confirmDeleteDraft = {
@@ -414,14 +454,16 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
 
   $scope.save_holding = function(holding) {
     var etag = $scope.holding_etags[holding['@id']];
-    holding['holdingFor'] = { '@id': "/"+recType+"/"+recId };
-    if(etag != undefined) {
+    holding['annotates'] = { '@id': "/"+recType+"/"+recId };
+    // TODO: only use etag (but it's not present yet..)
+    if(!holding._is_new && (etag || holding.location === $scope.user_sigel)) {
       $http.put("/holding/" + holding['@id'].split("/").slice(-2)[1], holding, {headers: {"If-match":etag}}).success(function(data, status, headers) {
         $scope.holding_etags[data['@id']] = headers('etag');
       }).error(function(data, status, headers) {
         console.log("ohh crap!");
       });
     } else {
+      if (holding._is_new) { delete holding._is_new; }
       console.log("we wants to post a new holding");
       $http.post("/holding", holding).success(function(data, status, headers) {
         $scope.holding_etags[data['@id']] = headers('etag');
@@ -452,9 +494,10 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   } else
   $scope.save = function() {
     var if_match_header = $scope.etag.replace(/["']/g, "");
-    records.save(recType, recId, $scope.record, $scope.etag.replace(/["']/g, "")).then(function(data) {
-      $scope.record = data['recdata']
+    records.save(recType, recId, $scope.record, if_match_header).then(function(data) {
+      $scope.record = data['recdata'];
       $scope.etag = data['etag'];
+      onPublishState();
     });
   }
 
@@ -463,7 +506,8 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
       $scope.draft = data;
       $scope.draft.type = data['@id'].split("/").slice(-2)[0];
       $scope.draft.id = data['@id'].split("/").slice(-2)[1];
-      $('.flash_message').text("Utkast sparat!");
+      onSaveState();
+      //$('.flash_message').text("Utkast sparat!");
     });
   }
 
@@ -490,6 +534,7 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
 
   $scope.remove_person = function(index) {
     $scope.record.about.instanceOf.authorList.splice(index,1);
+    $scope.triggerModified();
   }
 
   var typeCycle = ['Book', 'EBook', 'Audiobook', 'Serial', 'ESerial'], typeIndex = 0;
@@ -505,6 +550,8 @@ function patchRecord(work) {
   if (work.author) {
     work.authorList = work.author;
     delete work.author;
+  } else if (typeof work.authorList === 'undefined') {
+    work.authorList = [];
   }
 }
 
@@ -726,6 +773,10 @@ kitin.directive('direTest', function() {
 
 kitin.directive('inplace', function () {
   return function(scope, elm, attrs) {
+    elm.keyup(function () { // or change (when leaving)
+      scope.triggerModified();
+      scope.$apply();
+    })
     elm.jkey('enter', function () { this.blur(); });
   };
 });

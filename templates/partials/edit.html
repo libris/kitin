@@ -26,7 +26,7 @@
     </div>
     <div class="modes">
       <a href="#" class="active">LIBRIS</a>
-      <a href="#">MARC</a>
+      <a href="#" class="beta-blocker">MARC</a>
     </div>
   </header>
   <section id="work" data-ng-repeat="work in [record.about.instanceOf]">
@@ -39,7 +39,7 @@
         </label>
         <label>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" placeholder="Skriv en undertitel" data-ng-model="work.titleRemainder">{{ work.titleRemainder }}</textarea>
-          <span class="lbl">{{ "Övrigt titelinformation" }}</span>
+          <span class="lbl">{{ "Övrig titelinformation" }}</span>
         </label>
         <label class="ng-binding">
           <!--<span class="fakeholder" data-fakeholder>Välj ett land</span>
@@ -75,13 +75,15 @@
               <span class="lbl">{{ "Död" }}</span>
             </label>
           </div>
-          <button class="btn-link" data-ng-click="remove_person($index)"><i class="ficon ficon-remove"></i> Ta bort upphovsman</button>
+          <button class="btn-link on-hover" data-ng-click="remove_person($index)"><i class="ficon ficon-remove"></i> Ta bort upphovsman</button>
         </div>
         <button class="btn-link" data-ng-click="add_person(work, 'authorList')"><i class="ficon ficon-plus-sign"></i> upphovsman</button>
       </div>
     </div>
     <div class="foot">
+      <!--
       <button class="btn btn-libris">Lägg till <i class="icon icon-white icon-chevron-down"></i></button>
+      -->
     </div>
   </section>
   <section id="classification" data-ng-repeat="work in [record.about.instanceOf]">
@@ -178,35 +180,42 @@
           </label>
         </div>
         <label>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.placeOfPublication.label" placeholder="Utgivningsort">
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.placeOfPublication.name" placeholder="Utgivningsort">
           <span class="lbl">{{ "Utgivningsort" }}</span>
         </label>
         </label>
       </div>
       <div class="col6">
-          <label>
-              <input data-inplace class="input-mini authdependant" type="text" placeholder="Utgivningsland" data-ng-model="record.about.instanceOf.country" />
-              <!--
-          <select data-placeholder="Välj ett land" data-ui-select2 data-ng-model="record.about.instanceOf.country" style="width:75%">
-             <option></option>
-             <option data-ng-repeat="(code, name) in countrylist" value="{{ code }}">{{ name }} ({{ code }})</option>
-         </select>
-         -->
-          <span class="lbl">{{ "Utgivningsland" }}</span>
-        </label>
         <label>
-              <input data-inplace class="input-mini authdependant" type="text" placeholder="Tryckland" data-ng-model="instance.placeOfManufacture.label" />
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.dateOfPublication" placeholder="Utgivningssår">
+          <span class="lbl">{{ "Utgivningssår" }}</span>
+        </label>
+        <div class="split">
+          <label>
+            <input data-inplace class="input-mini authdependant" type="text" placeholder="Utgivningsland" data-ng-model="record.about.instanceOf.country" />
             <!--
-          <select data-placeholder="Välj ett land" data-ui-select2 data-ng-model="instance.placeOfManufacture.label" style="width:75%">
-             <option></option>
-             <option data-ng-repeat="(code, name) in countrylist" value="{{ code }}">{{ name }} ({{ code }})</option>
-         </select>
-         -->
-          <span class="lbl">{{ "Tryckland" }}</span>
-      </label>
-
+            <select data-placeholder="Välj ett land" data-ui-select2 data-ng-model="record.about.instanceOf.country" style="width:75%">
+              <option></option>
+              <option data-ng-repeat="(code, name) in countrylist" value="{{ code }}">{{ name }} ({{ code }})</option>
+            </select>
+            -->
+            <span class="lbl">{{ "Utgivningsland" }}</span>
+          </label>
+          <label>
+            <input data-inplace class="input-mini authdependant" type="text" placeholder="Tryckland" data-ng-model="instance.placeOfManufacture.name" />
+            <!--
+            <select data-placeholder="Välj ett land" data-ui-select2 data-ng-model="instance.placeOfManufacture.name" style="width:75%">
+              <option></option>
+              <option data-ng-repeat="(code, name) in countrylist" value="{{ code }}">{{ name }} ({{ code }})</option>
+            </select>
+            -->
+            <span class="lbl">{{ "Tryckland" }}</span>
+          </label>
+        </div>
       </div>
-      <div class="cols3" data-ng-show="getTypeDef(instance).term == 'Audiobook'">
+    </div>
+    <div class="cols">
+      <div class="col3" data-ng-show="getTypeDef(instance).term == 'Audiobook'">
         <label>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.publisherNumber" placeholder="Utgivningsnummer">
           <span class="lbl">{{ "Utgivningsnummer" }}</span>
@@ -274,13 +283,16 @@
     </div>
   </section>
 
-  <section class="submit">
+  <section class="submit modificationinfo" data-ng-class="modifiedClasses()">
 <!--post beta:
     <span class="removedraft" data-ng-show="draft" data-ng-click="promptConfirmDelete($event, draft.type, draft.id)">
       <button class="btn-link" data-ng-click="somebutton.click()"><i class="ficon ficon-remove"></i> Ta bort utkast</button>
     </span>-->
-    <button class="btn-link" id='btn2' data-ng-click="save_draft()">Spara utkast</button>
-    <button class="btn btn-dark btn-submit" id='btn3' data-ng-click="save()">Publicera</button>
+    <button class="btn-link" id="draft" data-ng-click="save_draft()"
+      title="{{lastSavedLabel('Senast sparad: %s')}}">Spara utkast</button>
+    <button class="btn btn-dark btn-submit" id="publish" data-ng-click="save()"
+      title="{{lastPublishedLabel('Senast publicerad: %s')}}">Publicera</button>
+    <p class="message" data-ng-show="modifications.message">{{ modifications.message }}</p>
   </section>
 </form></div>
 
@@ -320,22 +332,22 @@
     <h3 class="inline_heading">{{user_sigel}}</h3>
     <div class="cols">
       <div class="col6">
-          <!--hidden input for setting sigel--><input data-inplace type="hidden" data-ng-model="holding.location" maxlength="4" value="{{user_sigel}}"/>
-          <label>
+        <label>
           <input data-inplace type="text" placeholder="Avdelning/Samling" data-ng-model="holding.shelvingLocation"/>
           <span class="lbl">{{ "Avdelning/Samling" }}</span>
-          </label>
-		  <label>
+        </label>
+        <label>
           <input data-inplace type="text" placeholder="Hyllsignum/Klassifikation" data-ng-model="holding.classificationPart"/>
           <span class="lbl">{{ "Hyllsignum/Klassifikation" }}</span>
-          </label>
-          <!--post beta:
-          <div class="suggestion-classification">
+        </label>
+        <!-- post beta:
+        <div class="suggestion-classification">
           <ul>
             <li data-ng-repeat="holding in holdings" data-ng-show="holding.classificationPart"><i class="ficon ficon-circle-arrow-up"></i> {{ holding.classificationPart }}</li>
           </ul>
-		  <span class="lbl lbl-suggest">Förslag på signum</span>
-          </div>-->
+          <span class="lbl lbl-suggest">Förslag på signum</span>
+        </div>
+        -->
        </div>
       <div class="col6">
           <label>
@@ -368,9 +380,11 @@
       <!--not available in beta:<button disabled class="btn btn-purple" data-ng-click="add_holding(holdings)">Lägg till <i class="icon icon-white icon-chevron-down"></i></button>-->
     </div>
     </section>
-	<section class="submit">
+    <section class="submit">
       <button class="btn btn-purple  btn-submit" id="save-hld" data-ng-click="save_holding(holding)">Spara bestånd</button>
+      <!-- post beta:
       <button data-ng-show="holding['@id']"class="btn-link" id="delete-hld" data-ng-click="delete_holding(holding['@id'])">Ta bort</button>
+      -->
     </section>
   <section class="holdings holdings-list">
     <h2>Allt Bestånd<i></i></h2>
@@ -389,7 +403,7 @@
 <script type="text/ng-template" id="render-holding">
 <div class="holdings-list" data-ng-show="holding.location"> 
   <ul>
-    <li data-ng-show="holding.location"><a href="{{ holding['@id'] }}" class="sigel">{{ holding.location }}<span class="pull-right"><i class="icon icon-black icon-chevron-down"></i></span></a></li>
+    <li data-ng-show="holding.location"><a href="#" class="sigel beta-blocker">{{ holding.location }}<span class="pull-right"><!--<i class="icon icon-black icon-chevron-down"></i></span>--></a></li>
   </ul>
 </div>
 </script>
