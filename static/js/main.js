@@ -276,17 +276,42 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, search_se
   // Bread Crumbs
   /*$scope.crumbs = [{"term" : "jansson", "urlpart" : "/search?q=jansson", "bridge" : " för "}, {"term" : "book", "urlpart" : "/search?q=jansson&f=about.@type:book", "bridge" : " inom "}, {"term" : "2003", "urlpart" : "/search?q=jansson&f=about.dateOfPublication:2003 about.@type:book", "bridge" : " , "}, {"term" : "eget bestånd", "bridge" : " och "}];*/
   
-  /*var facetlist = previous_facets.split(" ");
+  var facetlist = prevFacetsStr.split(" ");
   var crumblist = [];
-  var new_crumb = {};
-  new_crumb['term'] = $scope.q;
-  if (facetlist.length > 1) {
-      new_crumb['urlpart'] = "/search?q=" + $scope.q;
-  }
-  crumblist.push(new_crumb);
-  $scope.crumbs = crumblist; 
+  var tmp_crumb = {};
+  tmp_crumb['term'] = $scope.q;
+  if (prevFacetsStr.length > 0) {
+    tmp_crumb['urlpart'] = "/search?q=" + $scope.q;
+    crumblist.push(tmp_crumb);
+    var url_part = "";
+    for (i=0; i < facetlist.length; i++) {
+      var tmp_crumb = {};  
+      var facet = facetlist[i];
+      var term = facet.substring(facet.indexOf(":") + 1);
+      if (url_part == "") {
+        url_part = url_part + facet;
+      } else {
+          url_part = url_part + " " + facet;
+      }
+      tmp_crumb["term"] = term;
+      if (i < (facetlist.length - 1)) {
+        tmp_crumb['urlpart'] = "/search?q=" + $scope.q + "&f=" + url_part;
+      }
+      if (i == 0) {
+        tmp_crumb["bridge"] = " inom ";
+      }
+      if (i > 0) {
+        tmp_crumb["bridge"] = " och ";
+      }
+      //console.log("Facett: " + facet + ", term: " + term + ", urlpart: " + url_part + ", position: " + i + ", length: " + facetlist.length);
+      crumblist.push(tmp_crumb);
+    }
+  } else {
+    crumblist.push(tmp_crumb);
+  } 
+  $scope.crumbs = crumblist;
   
-  var aggr_crumbs = [];
+  /*var aggr_crumbs = [];
   if (facetlist.length > 0) {
      aggr_crumbs[0] = facetlist[0];
      
