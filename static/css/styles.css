@@ -866,13 +866,13 @@ a.beta-blocker {text-decoration: none; cursor:default;}
 .acResults>ul>li {border-top:1px solid #ddd;padding: 10px 12px;margin:0;}
 .acResults li{font-family:"Open Sans", arial,sans-serif!important;}
 .acResults h4{padding:0 28px 0 0;margin:0;position:relative;}
+.acResults h4 .name {color:#191919;}
 .acResults h4 .date{color:#aaa;color:rgba(0,0,0,.5);margin-left:4px;font-weight:normal;}
 .acResults h4 .what{position:absolute;right:0;top:-3px;color:#27b492;font-size:11px;font-weight:normal;}
 .acResults h4 .what .ficon{font-size:20px;line-height:10px;position:relative;top:3px;margin-right:-1px;}
 .acResults .about{font-size:13px;line-height:20px;color:#666;}
 .acSelect{background:#c8f4ea;}
 
-.acResults h4 .name:hover {color:106351;}
 
 /* Select 2 */
 .select2-results .select2-highlighted {
