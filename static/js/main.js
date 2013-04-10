@@ -881,9 +881,17 @@ kitin.directive('isbnvalidator', function() {
           ctrl.$setValidity('isbnvalidator', false);
         }
         if (isbn.length == 13) {
-          ctrl.$setValidity('isbnvalidator', isvalid_isbn_13(isbn));
+          scope.isbn_incorrect_length  = "hide";
+          var is_valid = isvalid_isbn_13(isbn);
+          ctrl.$setValidity('isbnvalidator', is_valid);
+          scope.isbn_invalid = (is_valid ? "hide" : "show_inline");
         } else if (isbn.length == 10) {
-          ctrl.$setValidity('isbnvalidator', (isvalid_isbn_10(isbn)));
+          scope.isbn_incorrect_length  = "hide";
+          var is_valid = isvalid_isbn_10(isbn);
+          ctrl.$setValidity('isbnvalidator', is_valid);
+          scope.isbn_invalid = (is_valid ? "hide" : "show_inline");
+        } else {
+          scope.isbn_incorrect_length  = "show_inline";
         }
         return viewValue;
       });
