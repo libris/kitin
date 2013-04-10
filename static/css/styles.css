@@ -299,7 +299,7 @@ a:hover{color:#106351; background-color: #fff;}
 #header .searchfield input,
 #header .searchfield button{float:left;}
 
-body.index #header .searchfield{left:220px;top:190px;}
+body.index #header .searchfield{left:248px;top:190px;}
 body.index #header .searchfield input{padding:10px 16px;}
 body.index #header .searchfield button{height:46px;}
 
