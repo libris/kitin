@@ -172,10 +172,10 @@ kitin.filter('chop', function() {
         if (!victim) {
            victim = "";
         } 
-        if (victim.length < 50) {
+        if (victim.length < 70) {
             return victim;
         } else {
-            return String(victim).substring(0, 47) + "...";
+            return String(victim).substring(0, 67) + "...";
         }
     };
 });
