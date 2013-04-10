@@ -276,7 +276,7 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, search_se
   // Bread Crumbs
   /*$scope.crumbs = [{"term" : "jansson", "urlpart" : "/search?q=jansson", "bridge" : " för "}, {"term" : "book", "urlpart" : "/search?q=jansson&f=about.@type:book", "bridge" : " inom "}, {"term" : "2003", "urlpart" : "/search?q=jansson&f=about.dateOfPublication:2003 about.@type:book", "bridge" : " , "}, {"term" : "eget bestånd", "bridge" : " och "}];*/
   
-  var facetlist = prevFacetsStr.split(" ");
+  var facetlist = prevFacetsStr.split(" ").reverse();
   var crumblist = [];
   var tmp_crumb = {};
   tmp_crumb['term'] = $scope.q;
