@@ -153,8 +153,10 @@
     <div class="cols">
       <div class="col3">
         <label>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.isbn" placeholder="ISBN" isbnvalidator>
-          <span class="lbl">{{ "ISBN" }}</span>
+          <input data-inplace name="isbn" class="" type="text" data-ng-model="instance.isbn" placeholder="ISBN" isbnvalidator="true"/>
+          <span data-ng-class="isbn_label" class="lbl_inline lbl">{{ "ISBN" }}</span>
+          <span data-ng-class="isbn_invalid" class="isbn_validator hide">Fel numeriskt värde</span>
+          <span data-ng-class="isbn_incorrect_length" class="isbn_validator hide">Fel längd (ska vara 10 eller 13 tecken)</span>
         </label>
         <label data-ng-repeat="publisher in instance.publisher">
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="publisher.name" placeholder="Utgivare förlag">
@@ -195,14 +197,14 @@
             <span class="lbl">{{ "Utgivningsland" }}</span>
           </label>
           <label>
-            <input data-inplace class="input-mini authdependant" type="text" placeholder="Tryckland" data-ng-model="instance.placeOfManufacture.name" />
+            <input data-inplace class="input-mini authdependant" type="text" placeholder="Tryckort" data-ng-model="instance.placeOfManufacture.name" />
             <!--
             <select data-placeholder="Välj ett land" data-ui-select2 data-ng-model="instance.placeOfManufacture.name" style="width:75%">
               <option></option>
               <option data-ng-repeat="(code, name) in countrylist" value="{{ code }}">{{ name }} ({{ code }})</option>
             </select>
             -->
-            <span class="lbl">{{ "Tryckland" }}</span>
+            <span class="lbl">{{ "Tryckort" }}</span>
           </label>
         </div>
       </div>
