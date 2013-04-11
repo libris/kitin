@@ -25,7 +25,7 @@ pushd $DIR
     fetch indicator.gif https://github.com/dyve/jquery-autocomplete/raw/master/src/indicator.gif
 
     fetch jquery.jkey.js https://raw.github.com/OscarGodson/jKey/master/jquery.jkey.js
-
+	fetch jquery.autosize.js https://github.com/jackmoore/autosize/blob/master/jquery.autosize.js
   popd
 
   fetch angular.min.js http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js
