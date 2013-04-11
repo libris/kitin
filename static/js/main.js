@@ -195,7 +195,7 @@ function IndexCtrl($scope, $http) {
 
 function SearchFormCtrl($scope, $location) {
   $scope.search = function() {
-    $location.url("/search?q="+$scope.q);
+    $location.url("/search?q="+encodeURIComponent($scope.q));
   }
 }
 
@@ -231,18 +231,56 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, search_se
           var subitem_object = {};
           subitem_object[key] = value;
           subitem['object'] = subitem_object;
-          var slug = [facet_type, key].join(":");
+          var tmpslug = [facet_type, key].join(":");
+          var slug = encodeURIComponent(tmpslug);
           subitem.selected = $.inArray(slug, prevFacets) !== -1;
           if(subitem.selected) {
-            subitem['slug'] = "/search?q=" + $scope.q + "&f=" + $.grep(prevFacets, function(val) {return val != slug});
+            subitem['slug'] = "/search?q=" + encodeURIComponent($scope.q) + "&f=" + $.grep(prevFacets, function(val) {return val != slug});
           } else {
-            subitem['slug'] = "/search?q=" + $scope.q + "&f=" + slug + " " + prevFacetsStr;
+            subitem['slug'] = "/search?q=" + encodeURIComponent($scope.q) + "&f=" + slug + " " + prevFacetsStr;
           }
           new_facet['items'].push(subitem);
         });
         result.push(new_facet);
       }
       return result;
+  }
+
+  function bake_crumbs(prv) {
+    var facetlist = prv.split(" ").reverse();
+    var crumblist = [];
+    var tmp_crumb = {};
+    tmp_crumb['term'] = $routeParams.q;
+    if (prevFacetsStr.length > 0) {
+      tmp_crumb['urlpart'] = "/search?q=" + encodeURIComponent($scope.q);
+      crumblist.push(tmp_crumb);
+      var url_part = "";
+      for (i=0; i < facetlist.length; i++) {
+        var tmp_crumb = {};  
+        var facet = facetlist[i];
+        var term = facet.substring(facet.indexOf(":") + 1);
+        if (url_part == "") {
+          url_part = url_part + facet;
+        } else {
+          url_part = url_part + " " + facet;
+        }
+        tmp_crumb["term"] = term;
+        if (i < (facetlist.length - 1)) {
+          tmp_crumb['urlpart'] = "/search?q=" + encodeURIComponent($scope.q) + "&f=" + url_part;
+        }
+        if (i == 0) {
+          tmp_crumb["bridge"] = " inom ";
+        }
+        if (i > 0) {
+          tmp_crumb["bridge"] = " och ";
+        }
+        //console.log("Facett: " + facet + ", term: " + term + ", urlpart: " + url_part + ", position: " + i + ", length: " + facetlist.length);
+        crumblist.push(tmp_crumb);
+      }
+    } else {
+    crumblist.push(tmp_crumb);
+    }
+    return crumblist; 
   }
 
   document.body.className = 'search';
@@ -273,56 +311,8 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, search_se
     });
   }
   
-  // Bread Crumbs
-  /*$scope.crumbs = [{"term" : "jansson", "urlpart" : "/search?q=jansson", "bridge" : " för "}, {"term" : "book", "urlpart" : "/search?q=jansson&f=about.@type:book", "bridge" : " inom "}, {"term" : "2003", "urlpart" : "/search?q=jansson&f=about.dateOfPublication:2003 about.@type:book", "bridge" : " , "}, {"term" : "eget bestånd", "bridge" : " och "}];*/
+  $scope.crumbs = bake_crumbs(prevFacetsStr);
   
-  var facetlist = prevFacetsStr.split(" ").reverse();
-  var crumblist = [];
-  var tmp_crumb = {};
-  tmp_crumb['term'] = $scope.q;
-  if (prevFacetsStr.length > 0) {
-    tmp_crumb['urlpart'] = "/search?q=" + $scope.q;
-    crumblist.push(tmp_crumb);
-    var url_part = "";
-    for (i=0; i < facetlist.length; i++) {
-      var tmp_crumb = {};  
-      var facet = facetlist[i];
-      var term = facet.substring(facet.indexOf(":") + 1);
-      if (url_part == "") {
-        url_part = url_part + facet;
-      } else {
-          url_part = url_part + " " + facet;
-      }
-      tmp_crumb["term"] = term;
-      if (i < (facetlist.length - 1)) {
-        tmp_crumb['urlpart'] = "/search?q=" + $scope.q + "&f=" + url_part;
-      }
-      if (i == 0) {
-        tmp_crumb["bridge"] = " inom ";
-      }
-      if (i > 0) {
-        tmp_crumb["bridge"] = " och ";
-      }
-      //console.log("Facett: " + facet + ", term: " + term + ", urlpart: " + url_part + ", position: " + i + ", length: " + facetlist.length);
-      crumblist.push(tmp_crumb);
-    }
-  } else {
-    crumblist.push(tmp_crumb);
-  } 
-  $scope.crumbs = crumblist;
-  
-  /*var aggr_crumbs = [];
-  if (facetlist.length > 0) {
-     aggr_crumbs[0] = facetlist[0];
-     
-     for (i=1; i < facetlist.length; i++) {
-        aggr_crumbs[i] = aggr_crumbs[i-1] + " " + facetlist[i];
-     }
-     for (i=0; i < aggr_crumbs.length; i++) {
-         console.log("AGG: ", aggr_crumbs[i]);
-     }
-  }*/
-
   facet_terms = []; // Poor mans localization
 
   facet_terms['about.@type'] = "Typer";
