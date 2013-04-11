@@ -52,7 +52,7 @@ def test_searches():
     do_search("Tove")
     # goes directly to first result
     assert find('body.edit') and find('form#record')
-    assert find('input[name=isbn]').get_attribute('value') == u"9100563226"
+    assert find('input[data-ng-model="instance.isbn"]').get_attribute('value') == u"9100563226"
 
 @user_session()
 def test_edit():
@@ -60,7 +60,7 @@ def test_edit():
     sleep(2.0) # TODO: watch something appearing on init
     modinfo = find('section.modificationinfo')
     summary = find('*[data-ng-model="work.summary"]')
-    summary.send_keys(Keys.BACK_SPACE, Keys.BACK_SPACE, Keys.BACK_SPACE)
+    summary.clear()
     summary.send_keys("...")
     assert 'saved' not in modinfo.get_attribute('class').split()
     find('button#draft').click()
@@ -73,6 +73,17 @@ def test_edit():
     env.driver.refresh()
     summary = find('*[data-ng-model="work.summary"]')
     assert summary.get_attribute('value') == "..."
-    summary.send_keys(Keys.BACK_SPACE, Keys.BACK_SPACE, Keys.BACK_SPACE)
+    summary.clear()
     find('button#draft').click()
+
+@user_session()
+def test_select_person():
+    get(env.start_page_url + "/edit/bib/7149593")
+    sleep(2.0) # TODO: watch something appearing on init
+    pname = find('input[data-ng-model="person.authoritativeName"]')
+    pname.clear()
+    pname.send_keys(u"Tove")
+    sleep(0.5)
+    pname.send_keys(Keys.DOWN)
+    pname.send_keys(Keys.RETURN)
 
