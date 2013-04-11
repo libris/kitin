@@ -57,7 +57,7 @@ def test_searches():
 @user_session()
 def test_edit():
     get(env.start_page_url + "/edit/bib/7149593")
-    sleep(1.0) # TODO: watch something appearing on init
+    sleep(2.0) # TODO: watch something appearing on init
     modinfo = find('section.modificationinfo')
     summary = find('*[data-ng-model="work.summary"]')
     summary.send_keys(Keys.BACK_SPACE, Keys.BACK_SPACE, Keys.BACK_SPACE)
