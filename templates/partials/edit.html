@@ -14,7 +14,7 @@
   </div>
 </div>
 
-<div class="content bib" id="prelude"><form id="record" class="form-horizontal">
+<div class="content bib" id="prelude"><form name="form" id="record" class="form-horizontal">
   <div id="grid"></div>
     <!--<div data-ng-view></div>-->
   <header>
@@ -140,7 +140,8 @@
     </div>
   </section>
 
-  <section id="instance" data-ng-repeat="instance in [record.about]">
+  <section id="instance" name="instance" data-ng-repeat="instance in [record.about]">
+    <ng-form name="subform">
     <h2 data-ng-click="cycleType($event, instance)"> <span>{{ getTypeDef(instance).label_sv }}</span> (representation)<i></i></h2>
     <div class="cols">
       <div class="col6" data-ng-show="instance['@type'] != 'Book'">
@@ -153,10 +154,10 @@
     <div class="cols">
       <div class="col3">
         <label>
-          <input data-inplace name="isbn" class="" type="text" data-ng-model="instance.isbn" placeholder="ISBN" isbnvalidator="true"/>
+          <input data-inplace name="isbn_name" type="text" required="true" data-ng-model="instance.isbn" placeholder="ISBN" isbnvalidator/>
           <span data-ng-class="isbn_label" class="lbl_inline lbl">{{ "ISBN" }}</span>
-          <span data-ng-class="isbn_invalid" class="isbn_validator hide">Fel numeriskt värde</span>
-          <span data-ng-class="isbn_incorrect_length" class="isbn_validator hide">Fel längd (ska vara 10 eller 13 tecken)</span>
+          <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_value">(Fel numeriskt värde)</span>
+          <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_length">(Fel längd)</span>
         </label>
         <label data-ng-repeat="publisher in instance.publisher">
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="publisher.name" placeholder="Utgivare förlag">
@@ -276,6 +277,7 @@
         </label>
       </div>
     </div>
+    </ng-form>
   </section>
 
   <section class="submit modificationinfo" data-ng-class="modifiedClasses()">

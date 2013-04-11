@@ -864,24 +864,18 @@ kitin.directive('isbnvalidator', function() {
 
   return {
     require: 'ngModel',
-    link: function(scope, elm, attrs, ctrl) {
-      ctrl.$parsers.unshift(function(viewValue) {
+    restrict: 'A',
+    link: function(scope, element, attributes, controller) {
+      controller.$parsers.unshift(function(viewValue) {
         var isbn = clean_isbn(viewValue);
-        if (isbn.length != 10 && isbn.length != 13) {
-          ctrl.$setValidity('isbnvalidator', false);
-        }
+        controller.$setValidity('invalid_length', true);
+        controller.$setValidity('invalid_value', true);
         if (isbn.length == 13) {
-          scope.isbn_incorrect_length  = "hide";
-          var is_valid = isvalid_isbn_13(isbn);
-          ctrl.$setValidity('isbnvalidator', is_valid);
-          scope.isbn_invalid = (is_valid ? "hide" : "show_inline");
+          controller.$setValidity('invalid_value', isvalid_isbn_13(isbn));
         } else if (isbn.length == 10) {
-          scope.isbn_incorrect_length  = "hide";
-          var is_valid = isvalid_isbn_10(isbn);
-          ctrl.$setValidity('isbnvalidator', is_valid);
-          scope.isbn_invalid = (is_valid ? "hide" : "show_inline");
-        } else {
-          scope.isbn_incorrect_length  = "show_inline";
+          controller.$setValidity('invalid_value', isvalid_isbn_10(isbn));
+        } else if ((isbn.length > 13) || (isbn.length < 10)) {
+          controller.$setValidity('invalid_length', false);
         }
         return viewValue;
       });
