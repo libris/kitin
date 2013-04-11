@@ -17,6 +17,10 @@ Web Tests
 
 Add a new `test_*` function in `test_webapp.py` for every new scenario.
 
+For repetitive runs, some useful flags are:
+
+    $ nosetests --rednose --immediate --failed
+
 For information about `webdry` (a minimal wrapper for selenium webdriver), see:
 <https://bitbucket.org/niklasl/webdry/wiki/Home>.
 
