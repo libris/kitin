@@ -155,7 +155,8 @@
       <div class="col3">
         <label>
           <input data-inplace name="isbn_name" type="text" required="true" data-ng-model="instance.isbn" placeholder="ISBN" isbnvalidator/>
-          <span data-ng-class="isbn_label" class="lbl_inline lbl">{{ "ISBN" }}</span>
+          <span class="lbl_inline lbl" data-ng-hide="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length">{{ "ISBN" }}</span>
+          <span class="lbl_inline lbl error_label" data-ng-show="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length">{{ "ISBN" }}</span>
           <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_value">(Fel numeriskt värde)</span>
           <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_length">(Fel längd)</span>
         </label>

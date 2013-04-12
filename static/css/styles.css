@@ -669,8 +669,6 @@ label textarea.ng-invalid,
 label input.ng-invalid,
 label select.ng-invalid {background-color:#ffd4db!important;border-color:#ffd4db!important;}
 
-span.error_message { font-size: 11px; color: red; }
-
 label textarea{overflow:hidden;resize:none;color:#444;}
 label textarea.title{font-size:22px;height:28px;line-height:26px;font-weight:bold;}
 
@@ -680,6 +678,10 @@ label .lbl{display:block;font-size:12px;color:#1a8f72;margin-top:2px;line-height
 .holdings .lbl {color:#683568;}
 
 .result label{overflow:hidden;text-overflow:ellipsis;}
+
+span.error_label { color: red; }
+span.error_message { font-size: 11px; color: red; }
+label .lbl_inline { display: inline; }
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     body label select{
