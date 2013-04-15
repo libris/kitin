@@ -461,7 +461,7 @@ section.dash.grey .circle{background-color: #c7c7c7;}
 section.dash {margin-bottom: 30px;}
 
 /* columns */
-.cols{overflow:hidden;width: 1008px;}
+.cols{overflow:hidden;width: 1008px;clear:both;}
 .col12{width:984px; float:left;margin-right:24px;}
 .col9{width: 732px; float:left;margin-right:24px;}
 .col8{width: 648px; float:left;margin-right:24px;}
