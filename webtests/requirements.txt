@@ -1,2 +1,2 @@
 selenium==2.32.0
-webdry==0.2a
+webdry

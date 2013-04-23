@@ -8,3 +8,5 @@ storage/
 .DS_store
 node_modules
 config.cfg
+webtests/.nodeids
+webtests/screenshots/
