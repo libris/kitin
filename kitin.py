@@ -561,7 +561,7 @@ def get_overlay():
 @login_required
 def suggest_auth_completions():
     q = request.args.get('q')
-    response = requests.get("%s/suggest/_complete?name=%s" % (app.config['WHELK_HOST'], q))
+    response = requests.get("%s/_complete?name=%s" % (app.config['WHELK_HOST'], q))
     if response.status_code >= 400:
         abort(response.status_code)
     return raw_json_response(response.text)
