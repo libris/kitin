@@ -180,6 +180,12 @@ kitin.filter('chop', function() {
     };
 });
 
+kitin.filter('chunk', function() {
+    return function(toChunk) {
+      return String(toChunk).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    };
+});
+
 function IndexCtrl($scope, $http) {
   document.body.className = 'index';
   $scope.drafts = $http.get("/drafts").success(function(data) {
@@ -302,12 +308,13 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, search_se
     search_service.search(url).then(function(data) {
       $scope.my_facets = mangle_facets(data.facets);
       $scope.result = data;
-      var toChunk = data.hits.toString();
-      if (toChunk == "1") {
+      //var toChunk = data.hits.toString();
+      if (data.hits == 1) {
           $location.url("/edit" + data.list[0].identifier);
           $location.replace();
       }
-      $scope.chunkedHits = toChunk.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+      $scope.hits = data.hits;
+      //$scope.chunkedHits = toChunk.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     });
   }
   
