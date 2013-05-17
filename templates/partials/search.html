@@ -14,7 +14,7 @@
   <header>
   <h1></h1>
   <!--<p class="summary"><span>{{ chunkedHits }} träffar för <strong>{{ q }}</strong></span></p>-->
-  <p class="summary"><span>{{ hits | chunk }} träffar för <span data-ng-repeat="crumb in crumbs"><span data-ng-show="crumb.bridge">{{ crumb.bridge }}</span><span data-ng-hide="crumb.urlpart"><strong>{{ crumb.term }}</strong></span><a data-ng-show="crumb.urlpart" href="{{ crumb.urlpart }}">{{ crumb.term }}</a></span></span></p>
+  <p class="summary"><span>{{ chunkedHits }} träffar för <span data-ng-repeat="crumb in crumbs"><span data-ng-show="crumb.bridge">{{ crumb.bridge }}</span><span data-ng-hide="crumb.urlpart"><strong>{{ crumb.term }}</strong></span><a data-ng-show="crumb.urlpart" href="{{ crumb.urlpart }}">{{ crumb.term }}</a></span></span></p>
   <!--<p class="summary"><span>{{ chunkedHits }} träffar <span data-ng-repeat="crumb in crumbs">{{ crumb.term }}</span></span></p>-->
   </header>
   <div class="cols">

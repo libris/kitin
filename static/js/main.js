@@ -206,7 +206,7 @@ function SearchFormCtrl($scope, $location) {
 }
 
 function SearchCtrl($scope, $http, $location, $routeParams, resources, search_service) {
-
+  console.time("search");
   // Can this resource fetching stuff be globalized?
   $scope.enums = {};
   resources.enums.bibLevel.then(function(data) {
@@ -308,12 +308,11 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, search_se
     search_service.search(url).then(function(data) {
       $scope.my_facets = mangle_facets(data.facets);
       $scope.result = data;
-      //var toChunk = data.hits.toString();
       if (data.hits == 1) {
           $location.url("/edit" + data.list[0].identifier);
           $location.replace();
       }
-      $scope.hits = data.hits;
+      $scope.chunkedHits = data.hits.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
       //$scope.chunkedHits = toChunk.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     });
   }
@@ -325,7 +324,7 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, search_se
   facet_terms['about.@type'] = "Typer";
   facet_terms['about.dateOfPublication'] = "Datum";
   $scope.facet_terms = facet_terms;
-
+  console.timeEnd("search");
 }
 
 function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, constants) {
