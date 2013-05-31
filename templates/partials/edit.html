@@ -154,11 +154,16 @@
     <div class="cols">
       <div class="col3">
         <label>
-          <input data-inplace name="isbn_name" type="text" required="true" data-ng-model="instance.isbn" placeholder="ISBN" isbnvalidator/>
+          <input data-inplace name="isbn_name" type="text" data-ng-model="instance.isbn" placeholder="ISBN" data-isbn-pattern="^$|^[0-9\-xX]*$" isbnvalidator/>
           <span class="lbl_inline lbl" data-ng-hide="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length">{{ "ISBN" }}</span>
-          <span class="lbl_inline lbl error_label" data-ng-show="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length">{{ "ISBN" }}</span>
+          <span class="lbl_inline lbl error_label" data-ng-show="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length">{{ "ISBN" }}</span>
           <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_value">(Fel numeriskt värde)</span>
           <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_length">(Fel längd)</span>
+          <!--<input data-inplace name="isbn_name" type="text" required="true" data-ng-model="instance.isbn" placeholder="ISBN" data-isbn-pattern="^[0-9\-xX]*$" isbnvalidator/>
+          <span class="lbl_inline lbl" data-ng-hide="subform.isbn_name.$error.invalid_value">{{ "ISBN" }}</span>
+          <span class="lbl_inline lbl error_label" data-ng-show="subform.isbn_name.$error.invalid_value">{{ "ISBN" }}</span>
+          <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_value">(Fel numeriskt värde)</span>-->
+          <!--<span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_length">(Fel längd)</span>-->
         </label>
         <label data-ng-repeat="publisher in instance.publisher">
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="publisher.name" placeholder="Utgivare förlag">

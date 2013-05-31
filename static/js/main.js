@@ -57,6 +57,23 @@ kitin.factory('search_service', function($http, $q) {
   };
 });
 
+kitin.factory('isbntools', function($http, $q) {
+  function do_check(isbn) {
+    var deferred = $q.defer();
+    var url = "/resource/_isxntool?isbn=" + isbn
+    $http.get(url).success(function(data) {
+      deferred.resolve(data);
+    });
+    return deferred.promise;
+  };
+
+  return {
+    check_isbn: function(isbn) {
+      return do_check(isbn);
+    }
+  };
+});
+
 kitin.factory('records', function ($http, $q) {
 
   return {
@@ -844,7 +861,7 @@ kitin.directive('fadable', function(conf) {
 });
 
 
-kitin.directive('isbnvalidator', function() {
+kitin.directive('isbnvalidator', function(isbntools) {
   function isvalid_isbn_13(n) {
     var check = 0;
     for (i = 0; i < 13; i += 2) { check += +n[i]; }
@@ -865,25 +882,55 @@ kitin.directive('isbnvalidator', function() {
   }
 
   function clean_isbn(n) {
-    return n.replace(/-/g,'').replace(/\s+/,'')
+    if (n) {
+        return n.replace(/-/g,'').replace(/\s+/,'');
+    }
+    else {
+        return "";
+    }
+    
   }
 
   return {
     require: 'ngModel',
     restrict: 'A',
     link: function(scope, element, attributes, controller) {
-      controller.$parsers.unshift(function(viewValue) {
-        var isbn = clean_isbn(viewValue);
-        controller.$setValidity('invalid_length', true);
-        controller.$setValidity('invalid_value', true);
-        if (isbn.length == 13) {
+     var ptn = attributes.isbnPattern;   
+     var regex = new RegExp(ptn);
+     controller.$parsers.unshift(function(viewValue) {
+        var valid = regex.test(viewValue);
+        controller.$setValidity('invalid_value', valid);
+        //inputval = viewValue;
+        /*if (isbn.length == 13) {
           controller.$setValidity('invalid_value', isvalid_isbn_13(isbn));
         } else if (isbn.length == 10) {
           controller.$setValidity('invalid_value', isvalid_isbn_10(isbn));
         } else if ((isbn.length > 13) || (isbn.length < 10)) {
           controller.$setValidity('invalid_length', false);
-        }
+        }*/
         return viewValue;
+      });
+      element.bind('blur', function() {
+       var inputval = $(element).val();
+       console.log("BLURRED: ", inputval.length);
+       /*if (inputval.length != 10 && inputval.length != 13){
+           controller.$setValidity('invalid_length', false);
+           console.log("LENGTH");
+           return;
+       }*/
+       isbntools.check_isbn(inputval).then(function(data) {
+           if (data.isbn) {
+            var approved = data.isbn.valid;
+            if (approved) {
+                console.log("OK");
+                $(element).val(data.isbn.formatted);
+            }
+            else {
+                console.log("BAD");
+                controller.$setValidity('invalid_value', false);
+            }
+           }
+        }); 
       });
     }
   }
