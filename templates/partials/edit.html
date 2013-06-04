@@ -293,7 +293,7 @@
     </span>-->
     <button class="btn-link" id="draft" data-ng-click="save_draft()"
       title="{{lastSavedLabel('Senast sparad: %s')}}">Spara utkast</button>
-    <button class="btn btn-dark btn-submit" id="publish" data-ng-click="save()"
+    <button class="btn btn-dark btn-submit" id="publish" data-ng-disabled="form.$invalid" data-ng-click="save()"
       title="{{lastPublishedLabel('Senast publicerad: %s')}}">Publicera</button>
     <p class="message" data-ng-show="modifications.message">{{ modifications.message }}</p>
   </section>
