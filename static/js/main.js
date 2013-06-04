@@ -900,6 +900,21 @@ kitin.directive('isbnvalidator', function(isbntools) {
   }
 });
 
+kitin.directive('autoselect', function() {
+   return {
+   restrict: 'A',
+   link: function(scope, elem, attrs) {
+   elem.autocomplete("/resource/_resourcelist?lang=all", {
+   
+   });
+   //resource/_resourcelist?lang=all
+      /*elem.autocomplete("/resource/_resourcelist?lang=all", {
+         console.log("COMETH WE HERE?");
+      });*/
+   }
+   };   
+});
+
 kitin.directive('kitinAutocomplete', function() {
   return {
     restrict: 'A',
