@@ -861,6 +861,7 @@ a.beta-blocker {text-decoration: none; cursor:default;}
   -moz-box-shadow: 0 0px 6px rgba(0,0,0,.2);
   box-shadow: 0 0px 6px rgba(0,0,0,.2);
   margin:-1px 0 0 1px;
+  z-index: 1000;
 }
 .acResults ul li{margin:6px 0 0;padding:0;}
 .acResults>ul>li {border-top:1px solid #ddd;padding: 10px 12px;margin:0;}
