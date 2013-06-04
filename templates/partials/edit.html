@@ -49,7 +49,7 @@
              <option></option>
              <option data-ng-repeat="(code, name) in langlist" value="{{ code }}">{{ name }} ({{ code }})</option>
          </select>-->
-              <input data-inplace class="input-mini authdependant" type="text" placeholder="Språk" data-ng-model="work.language" />
+              <input data-inplace class="input-mini authdependant" type="text" placeholder="Språk" data-ng-model="work.language" data-autoselect />
               <span class="lbl">{{ "Språk" }}</span>
          <!--<pre>Selected: {{ work.language | json }}</pre>
          <input data-inplace ui-select2="langlist" ng-model="work.language" style="width:200px" />-->
