@@ -48,11 +48,11 @@
                 <span>{{ author.name }}</span>, <span>{{ author.birthYear }} - {{ author.deathYear }}</span>
                 <span class="lbl">Upphovsman</span>
             </label>
-            <label title="{{ record.data.about.dateOfPublication }}">
+            <label data-ng-show="record.data.about.dateOfPublication" title="{{ record.data.about.dateOfPublication }}">
               {{ record.data.about.dateOfPublication }}
               <span class="lbl">Utgivningsår</span>
             </label>
-            <label  title="{{ record.data.about.isbn }}">
+            <label  data-ng-show="record.data.about.isbn" title="{{ record.data.about.isbn }}">
               {{ record.data.about.isbn }}
               <span class="lbl">ISBN</span>
             </label>
