@@ -704,6 +704,8 @@ label.dynamic-subjects em.subject .ficon{color:#1a8f72;}
 .suggestion-subjects li{margin: 0 4px 4px 0;float:left;padding:4px 8px;background:rgba(20,200,160,.35);}
 .suggestion-subjects li .ficon{color:#1a8f72;}
 
+div.loading {position: relative; left: 80%; float: left; z-index:10000; margin-top: -40px;}
+
 /*
 .holdings > label.dynamic-subjects em.subject{padding:0 4px;background:#c0f1e6}
 .holdings > label.dynamic-subjects em.subject .ficon{color:#1a8f72;}
