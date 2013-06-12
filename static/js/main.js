@@ -919,6 +919,7 @@ kitin.directive('kitinAutoselect', function(resources) {
            inputClass: null,
            remoteDataType: 'json',
            autoWidth: null,
+           mustMatch: true,
            filter: function (result) {
              var tstr = result.value.toLowerCase();
              var inputval = $(elem).val().toLowerCase(); // Is this value accessible some other way?
@@ -947,7 +948,8 @@ kitin.directive('kitinAutoselect', function(resources) {
              return template({name: name, code: code});
            },
            onItemSelect: function(item) {
-             console.log("Item: ", item.value);  
+             scope.work.language = item.value.split("!")[0];
+             scope.$apply();
            }
         });
      }
