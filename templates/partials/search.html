@@ -42,20 +42,20 @@
           <label title="{{ record.data.about.responsibilityStatement }}">
           <span>{{ record.data.about.responsibilityStatement }}</span>
           </label>
+            <label title="Upphovsman" data-ng-repeat="author in record.data.about.instanceOf.creator | limitTo:1">
+                <span>{{ author.givenName }} {{ author.familyName }}</span>, <span>{{ author.birthYear }} - {{ author.deathYear }}</span>
+                <!-- <span class="lbl">Upphovsman</span> -->
+            </label>
           </div>
           <div class="col4">
-            <label data-ng-repeat="author in record.data.about.instanceOf.creator | limitTo:1">
-                <span>{{ author.givenName }} {{ author.familyName }}</span>, <span>{{ author.birthYear }} - {{ author.deathYear }}</span>
-                <span class="lbl">Upphovsman</span>
-            </label>
-            <label data-ng-repeat="publication in record.data.about.publication"
+            <label title="Utgivningsår" data-ng-repeat="publication in record.data.about.publication | limitTo:1"
                 data-ng-show="publication.providerDate">
               {{ publication.providerDate }}
-              <span class="lbl">Utgivningsår</span>
+              <!-- <span class="lbl">Utgivningsår</span> -->
             </label>
-            <label data-ng-repeat="identifier in record.data.about.identifier">
+            <label title="{{ identifier.identifierScheme }}" data-ng-repeat="identifier in record.data.about.identifier | limitTo:1">
               {{ identifier.identifierValue }}
-              <span class="lbl">{{ identifier.identifierScheme }}</span>
+              <!-- <span class="lbl">{{ identifier.identifierScheme }}</span> -->
             </label>
           </div>
         </div>
