@@ -573,8 +573,8 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     authors.push({ authoritativeName: "", birthYear: "" });
   }
 
-  $scope.remove_person = function(index) {
-    $scope.record.about.instanceOf.authorList.splice(index,1);
+  $scope.remove_person = function(role, index) {
+    $scope.record.about.instanceOf[role].splice(index,1);
     $scope.triggerModified();
   }
 
