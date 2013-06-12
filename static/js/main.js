@@ -15,8 +15,8 @@ kitin.config(
               {templateUrl: '/partials/search', controller: SearchCtrl})
         .when('/edit/:recType/:recId',
               {templateUrl: '/partials/edit', controller: FrbrCtrl})
-        .when('/marc/:recType/:recId',
-              {templateUrl: '/partials/marc', controller: MarcCtrl})
+        .when('/jsonld/:recType/:recId',
+              {templateUrl: '/partials/jsonld', controller: FrbrCtrl})
         ;//.otherwise({redirectTo: '/'});
 
     }]
@@ -170,7 +170,7 @@ kitin.run(function($rootScope) {
 
   $rootScope.isEmpty = function(obj) { return angular.equals({},obj) };
 
-  $rootScope.typeOf = function (o) { return typeof o; }
+  $rootScope.typeOf = function (o) { return o === null? 'null' : typeof o; }
 
 });
 

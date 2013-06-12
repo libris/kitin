@@ -1,0 +1,45 @@
+{% include "partials/_search_bar.html" %}
+
+{% raw %}
+<div class="content bib"><form name="form" id="record" class="form-horizontal">
+  <header>
+    <h1>JSON-LD</h1>
+    <div class="modes">
+      <a href="/edit{{ record['@id'] }}">LIBRIS</a>
+      <a href="#" class="active">JSON-LD</a>
+      <a href="#" class="beta-blocker">MARC</a>
+    </div>
+  </header>
+
+  <section data-ng-repeat="object in [record]"
+      data-ng-include="'render-object'"></section>
+
+</form></div>
+
+<script type="text/ng-template" id="render-object">
+  <div data-ng-repeat="(key, obj) in object">
+    <ng:switch on="typeOf(obj)">
+      <div data-ng-switch-when="object">
+        <code>{{ key }}</code>
+        <section data-ng-repeat="object in [obj]"
+            data-ng-include="'render-object'" class="entity"></section>
+      </div>
+      <span data-ng-switch-when="string">
+        <code>{{ key }}</code>
+        <ng:switch on="key">
+          <span data-ng-switch-when="@id">
+            <a href="#{{ obj }}">&lt;{{ obj }}&gt;</a>
+          </span>
+          <span data-ng-switch-when="@type">
+            <span class="label label-info">{{ obj }}</span>
+          </span>
+          <span data-ng-switch-default>
+            <input data-ng-model="obj" type="text" class="input-xxlarge" />
+          </span>
+        </ng:switch>
+      </span>
+    </ng:switch>
+  </div>
+</script>
+
+{% endraw %}

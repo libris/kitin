@@ -441,6 +441,11 @@ def show_marc_record(rec_type, rec_id):
     return index()
     #return render_template('index.html', partials = {"/partials/frbr" : "partials/frbr.html"})
 
+@app.route('/jsonld/<rec_type>/<rec_id>')
+@login_required
+def show_jsonld_record(rec_type, rec_id):
+    return index()
+
 @app.route('/record/bib/<rec_id>')
 @login_required
 #@_required
