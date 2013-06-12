@@ -900,18 +900,54 @@ kitin.directive('isbnvalidator', function(isbntools) {
   }
 });
 
-kitin.directive('autoselect', function() {
+kitin.directive('kitinAutoselect', function(resources) {
    return {
    restrict: 'A',
    link: function(scope, elem, attrs) {
-   elem.autocomplete("/resource/_resourcelist?lang=all", {
-   
-   });
-   //resource/_resourcelist?lang=all
-      /*elem.autocomplete("/resource/_resourcelist?lang=all", {
-         console.log("COMETH WE HERE?");
-      });*/
-   }
+        var templateId = attrs.kitinTemplate; 
+        var template = _.template(jQuery('#' + templateId).html());
+        var ld = [{}];
+
+        resources.languages.then(function(langdata) {
+         ld['lang'] = langdata;
+        });
+        elem.autocomplete( {
+           data: ld,
+           inputClass: null,
+           remoteDataType: 'json',
+           autoWidth: null,
+           filter: function (result) {
+             var tstr = result.value.toLowerCase();
+             var inputval = $(elem).val().toLowerCase(); // Is this value accessible some other way?
+             if (tstr.indexOf(inputval) != -1) {
+                 return true;
+             }
+           },
+           useCache: false,
+           maxItemsToShow: 0, // Means show all
+
+           processData: function (data) {
+             var tmp = [];
+             //var list = [{}];
+             for (var key in data['lang']){
+                  var tmpstr = data['lang'][key] + "! (" + key + ")"; // Ugly, would like to build a json struct like in liststr example, but how catch the json in showresult?
+                  tmp.push(tmpstr);
+                  //var liststr = '{code:"' + key + '"},{name:"' + data["lang"][key] + '"}';
+                  //list.push(liststr);
+             }
+             return tmp;
+           },
+           showResult: function (data, value) {
+             var dtmp = data;
+             var name = dtmp.split("!")[0]; // Yeah, I know.
+             var code = dtmp.split("!")[1];
+             return template({name: name, code: code});
+           },
+           onItemSelect: function(item) {
+             console.log("Item: ", item.value);  
+           }
+        });
+     }
    };   
 });
 
@@ -938,7 +974,7 @@ kitin.directive('kitinAutocomplete', function() {
         autoWidth: null,
         filterResults: false,
         useCache: false,
-
+        
         // TODO: is this used?
         beforeUseConverter: function (repr) { return repr; },
 
@@ -959,7 +995,7 @@ kitin.directive('kitinAutocomplete', function() {
         },
 
         showResult: function (value, data) {
-          return template({data: data});
+            return template({data: data});
         },
 
         onFinish: function() {
