@@ -64,7 +64,10 @@ def login():
             remember = True
         print "remember %s" % remember
         user = User(username)
-        sigel = user.authorize(password, app.config)
+        if app.fakelogin:
+            sigel = "NONE"
+        else:
+            sigel = user.authorize(password, app.config)
         if sigel == None:
             sigel = ""
             msg = u"Kunde inte logga in. Kontrollera användarnamn och lösenord."
@@ -603,10 +606,12 @@ if __name__ == "__main__":
     from optparse import OptionParser
     oparser = OptionParser()
     oparser.add_option('-d', '--debug', action='store_true', default=False)
+    oparser.add_option('-L', '--fakelogin', action='store_true', default=False)
     oparser.add_option('-m', '--marcmap', type=str, default="marcmap.json")
     oparser.add_option('-o', '--overlay', type=str, default="marcmap-overlay.json")
     opts, args = oparser.parse_args()
     app.debug = opts.debug
+    app.fakelogin = opts.fakelogin
     app.config['MARC_MAP'] = opts.marcmap
     app.config['MARC_OVERLAY'] = opts.overlay
     app.run(host='0.0.0.0')
