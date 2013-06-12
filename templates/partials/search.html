@@ -9,7 +9,7 @@
              <p class="summary">Din sökning på <strong>{{ q }}</strong> resulterade i 0 träffar.</p>
              </header>
          </div>
-<div class="content search" data-ng-switch-default>
+<div data-ng-show="!loading" class="content search" data-ng-switch-default>
   <div id="grid"></div>
   <header>
   <h1></h1>
@@ -36,25 +36,26 @@
         <div class="cols">
           <div class="col5">
             <label class="title" title="{{ record.data.about.instanceOf.title }} {{ record.data.about.instanceOf.titleRemainder }}">
-                {{ record.data.about.instanceOf.title | chop }}
-              <span class="title title-remainder">{{ record.data.about.instanceOf.titleRemainder }}</span>
+                {{ record.data.about.title.titleValue | chop }}
+              <span class="title title-remainder">{{ record.data.about.title.subtitle }}</span>
             </label>
-          <label title="{{ record.data.about.instanceOf.statementOfResponsibility }}">
-          <span>{{ record.data.about.instanceOf.statementOfResponsibility }}</span>
+          <label title="{{ record.data.about.responsibilityStatement }}">
+          <span>{{ record.data.about.responsibilityStatement }}</span>
           </label>
           </div>
           <div class="col4">
-            <label data-ng-repeat="author in record.data.about.instanceOf.authorList | limitTo:1" title="{{ author.name }}, {{ author.birthYear }} - {{ author.deathYear }}">
-                <span>{{ author.name }}</span>, <span>{{ author.birthYear }} - {{ author.deathYear }}</span>
+            <label data-ng-repeat="author in record.data.about.instanceOf.creator | limitTo:1">
+                <span>{{ author.givenName }} {{ author.familyName }}</span>, <span>{{ author.birthYear }} - {{ author.deathYear }}</span>
                 <span class="lbl">Upphovsman</span>
             </label>
-            <label title="{{ record.data.about.dateOfPublication }}">
-              {{ record.data.about.dateOfPublication }}
+            <label data-ng-repeat="publication in record.data.about.publication"
+                data-ng-show="publication.providerDate">
+              {{ publication.providerDate }}
               <span class="lbl">Utgivningsår</span>
             </label>
-            <label  title="{{ record.data.about.isbn }}">
-              {{ record.data.about.isbn }}
-              <span class="lbl">ISBN</span>
+            <label data-ng-repeat="identifier in record.data.about.identifier">
+              {{ identifier.identifierValue }}
+              <span class="lbl">{{ identifier.identifierScheme }}</span>
             </label>
           </div>
         </div>
@@ -72,19 +73,11 @@
             <span data-ng-show="enums.bibLevel[record.data.bibLevel]">{{ enums.bibLevel[record.data.bibLevel].label_sv }}</span>
             <span data-ng-show="enums.encLevel[record.data.encLevel]">{{ enums.encLevel[record.data.encLevel].label_sv }}</span>
         </div>
-        <ul style="display:none">
-          <li>bibLevel: {{ record.data.about.instanceOf['marc:bibLevel'].label }}</li>
-          <li>typeOfRecord: {{ record.data.about['marc:typeOfRecord'].label }}</li>
-          <li>encLevel: {{ record.data.encLevel.label }}</li>
-          <li>id: {{ record.data['@id'] }}</li>
-          <li>year: {{ record.data.about.pubDate['@value'] }}</li>
-          <li>isbn: {{ record.data.about.isbn }}</li>
-        </ul>
       </section>
     </div>
   </div>
 </div>
 </div>
-
+<div class="loading" data-ng-show="loading"><img src="/static/i/loading.gif"/></div> 
 
 {% endraw %}

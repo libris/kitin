@@ -322,6 +322,7 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, search_se
   if (!$routeParams.q) {
     return;
   } else {
+    $scope.loading = true
     search_service.search(url).then(function(data) {
       $scope.my_facets = mangle_facets(data.facets);
       $scope.result = data;
@@ -331,11 +332,13 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, search_se
       }
       $scope.chunkedHits = data.hits.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
       //$scope.chunkedHits = toChunk.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+      $scope.loading = false
     });
   }
-  
+
+
   $scope.crumbs = bake_crumbs(prevFacetsStr);
-  
+
   facet_terms = []; // Poor mans localization
 
   facet_terms['about.@type'] = "Typer";
@@ -570,8 +573,8 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     authors.push({ authoritativeName: "", birthYear: "" });
   }
 
-  $scope.remove_person = function(index) {
-    $scope.record.about.instanceOf.authorList.splice(index,1);
+  $scope.remove_person = function(role, index) {
+    $scope.record.about.instanceOf[role].splice(index,1);
     $scope.triggerModified();
   }
 

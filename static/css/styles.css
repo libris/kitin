@@ -465,6 +465,7 @@ section.dash {margin-bottom: 30px;}
 .col12{width:984px; float:left;margin-right:24px;}
 .col9{width: 732px; float:left;margin-right:24px;}
 .col8{width: 648px; float:left;margin-right:24px;}
+.col7{width: 552px; float:left;margin-right:24px;}
 .col6{width: 480px; float:left;margin-right:24px;}
 .col5{width: 396px; float:left;margin-right:24px;}
 .col4{width: 312px; float:left;margin-right:24px;}
@@ -704,6 +705,8 @@ label.dynamic-subjects em.subject .ficon{color:#1a8f72;}
 .suggestion-subjects li{margin: 0 4px 4px 0;float:left;padding:4px 8px;background:rgba(20,200,160,.35);}
 .suggestion-subjects li .ficon{color:#1a8f72;}
 
+div.loading {position: relative; left: 80%; float: left; z-index:10000; margin-top: -40px;}
+
 /*
 .holdings > label.dynamic-subjects em.subject{padding:0 4px;background:#c0f1e6}
 .holdings > label.dynamic-subjects em.subject .ficon{color:#1a8f72;}
@@ -861,6 +864,7 @@ a.beta-blocker {text-decoration: none; cursor:default;}
   -moz-box-shadow: 0 0px 6px rgba(0,0,0,.2);
   box-shadow: 0 0px 6px rgba(0,0,0,.2);
   margin:-1px 0 0 1px;
+  z-index: 1000;
 }
 .acResults ul li{margin:6px 0 0;padding:0;}
 .acResults>ul>li {border-top:1px solid #ddd;padding: 10px 12px;margin:0;}
