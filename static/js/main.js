@@ -405,7 +405,6 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   } else
   records.get(recType, recId).then(function(data) {
     var record = $scope.record = data['recdata'];
-    patchRecord(record.about.instanceOf);
 
     bibid = record['controlNumber'];
     $scope.etag = data['etag'];
@@ -586,16 +585,7 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   }
 }
 
-// TODO: work these ("patch*") into the backend format converter
-
-function patchRecord(work) {
-  if (work.author) {
-    work.authorList = work.author;
-    delete work.author;
-  } else if (typeof work.authorList === 'undefined') {
-    work.authorList = [];
-  }
-}
+// TODO: work these ("patch*") into the backend service
 
 function patchHoldings(holdings) {
   return _.map(holdings, function (it) {
