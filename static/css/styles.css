@@ -2,6 +2,7 @@
 /*
 pink: fa1963
 purple: 683568
+purple-light: DDA0DD
 green1: 48d9b8
 green2: 27b492
 green3: 1a8f72
@@ -647,6 +648,11 @@ input :-moz-placeholder { color:#ccc; font-style:italic; font-size:14px; }/*FF18
 :focus:-moz-placeholder:focus { color:#78ceba; }/*FF18<*/
 :focus::-moz-placeholder { color:#78ceba; }/*FF19>*/
 :focus:-ms-input-placeholder:focus { color:#78ceba; }
+
+.holdings :focus::-webkit-input-placeholder { color:#DDA0DD; }
+.holdings :focus:-moz-placeholder:focus { color:#DDA0DD; }/*FF18<*/
+.holdings :focus::-moz-placeholder { color:#DDA0DD; }/*FF19>*/
+.holdings :focus:-ms-input-placeholder:focus { color:#DDA0DD; }
 
 label:hover,
 label.focus{border-left-color:#1a8f72;}
