@@ -33,17 +33,19 @@
     <div class="col9">
       <section data-ng-repeat="record in result.list" class="result record {{record.identifier}}">
         <a class="bib-url" href="/edit{{ record.identifier }}" >
-        <div class="cols">
+        <div class="nest-cols">
           <div class="col5">
-            <label class="title" title="{{ record.data.about.instanceOf.title }} {{ record.data.about.instanceOf.titleRemainder }}">
-                {{ record.data.about.title.titleValue | chop }}
-              <span class="title title-remainder">{{ record.data.about.title.subtitle }}</span>
+            <label class="title" title="{{ record.data.about.title.titleValue }} {{ record.data.about.title.subtitle }}">
+                {{ record.data.about.title.titleValue | chop }} {{ record.data.about.title.subtitle }} {{ record.data.about.responsibilityStatement }}
+              <!-- <span class="title title-remainder">{{ record.data.about.title.subtitle }}</span> -->
             </label>
+<!--
           <label title="{{ record.data.about.responsibilityStatement }}">
           <span>{{ record.data.about.responsibilityStatement }}</span>
           </label>
+-->
             <label title="Upphovsman" data-ng-repeat="author in record.data.about.instanceOf.creator | limitTo:1">
-                <span>{{ author.givenName }} {{ author.familyName }}</span>, <span>{{ author.birthYear }} - {{ author.deathYear }}</span>
+                <span>{{ author.givenName }} {{ author.familyName }}</span>, <span class="muted">{{ author.birthYear }} - {{ author.deathYear }}</span>
                 <!-- <span class="lbl">Upphovsman</span> -->
             </label>
           </div>
