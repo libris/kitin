@@ -912,9 +912,37 @@ kitin.directive('kitinAutoselect', function(resources) {
            mustMatch: true,
            filter: function (result) {
              var tstr = result.value.toLowerCase();
+             var name = tstr.split("!")[0];
+             var code = tstr.split("!")[1].replace("(", "").replace(")", "");
              var inputval = $(elem).val().toLowerCase(); // Is this value accessible some other way?
-             if (tstr.indexOf(inputval) != -1) {
+             //console.log("name: ", name, ", code: ", code, ", tstr: ", tstr, ", inputval: ", inputval)
+             //return (haystack.substr(0, needle.length) == needle);
+             //if (tstr.substr(0, inputval.length) == inputval) {
+             //   return true;
+             //}
+             if (wordStartsWith(inputval, name) || wordStartsWith(inputval,code) || inWordStartsWith(inputval,name)) {
                  return true;
+             }
+             //if (tstr.indexOf(inputval) != -1) {
+             //    return true;
+             //}
+             function wordStartsWith(input,val){
+                if (val.substr(0, input.length) == input) {
+                    return true;
+                }
+                return false;
+             }
+             function inWordStartsWith(input,val){
+                var wlist = val.split(" ");
+                if (wlist.length > 1){
+                    for (i = 1; i < wlist.length; i++) {
+                        var tmp = wlist[i].replace("(", "").replace(")", "");
+                        if (tmp.substr(0, input.length) == input) {
+                           return true;
+                        }
+                    }
+                }
+                return false;
              }
            },
            useCache: false,
@@ -924,7 +952,7 @@ kitin.directive('kitinAutoselect', function(resources) {
              var tmp = [];
              //var list = [{}];
              for (var key in data['lang']){
-                  var tmpstr = data['lang'][key] + "! (" + key + ")"; // Ugly, would like to build a json struct like in liststr example, but how catch the json in showresult?
+                  var tmpstr = data['lang'][key] + "!(" + key + ")"; // Ugly, would like to build a json struct like in liststr example, but how grab the json in showresult?
                   tmp.push(tmpstr);
                   //var liststr = '{code:"' + key + '"},{name:"' + data["lang"][key] + '"}';
                   //list.push(liststr);
@@ -938,7 +966,7 @@ kitin.directive('kitinAutoselect', function(resources) {
              return template({name: name, code: code});
            },
            onItemSelect: function(item) {
-             scope.work.language = item.value.split("!")[0];
+             scope.work.language = item.value.split("!")[0] + " " + item.value.split("!")[1];
              scope.$apply();
            }
         });
