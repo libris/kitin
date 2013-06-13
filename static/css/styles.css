@@ -638,14 +638,14 @@ label select{height:26px;}
 
 label ::-webkit-input-placeholder { color:#ccc; font-style:italic; font-size:14px; }
 input::-webkit-input-placeholder { color:#ccc; font-style:italic; font-size:14px; }
-label :-moz-placeholder { color:#ccc; font-style:italic; font-size:14px; }/*FF18*/
-input :-moz-placeholder { color:#ccc; font-style:italic; font-size:14px; }/*FF18*/
-::-moz-placeholder { color:#ccc; font-style:italic; font-size:14px; }/*FF19*/
+label :-moz-placeholder { color:#ccc; font-style:italic; font-size:14px; }/*FF18<*/
+input :-moz-placeholder { color:#ccc; font-style:italic; font-size:14px; }/*FF18<*/
+::-moz-placeholder { color:#ccc; font-style:italic; font-size:14px; }/*FF19>*/
 :-ms-input-placeholder { color:#ccc; font-style:italic; font-size:14px; }
 
 :focus::-webkit-input-placeholder { color:#78ceba; }
-:focus:-moz-placeholder:focus { color:#78ceba; }
-:focus::-moz-placeholder:focus { color:#78ceba; }
+:focus:-moz-placeholder:focus { color:#78ceba; }/*FF18<*/
+:focus::-moz-placeholder { color:#78ceba; }/*FF19>*/
 :focus:-ms-input-placeholder:focus { color:#78ceba; }
 
 label:hover,
