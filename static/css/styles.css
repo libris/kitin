@@ -2,6 +2,7 @@
 /*
 pink: fa1963
 purple: 683568
+purple-light: DDA0DD
 green1: 48d9b8
 green2: 27b492
 green3: 1a8f72
@@ -19,7 +20,7 @@ grey3: adadad
          url('/static/css/fonts/OpenSans-Light-webfont.woff') format('woff'),
          url('/static/css/fonts/OpenSans-Light-webfont.ttf') format('truetype'),
          url('/static/css/fonts/OpenSans-Light-webfont.svg#OpenSansLight') format('svg');
-    font-weight: normal;
+    font-weight: light;
     font-style: normal;
 
 }
@@ -31,8 +32,8 @@ grey3: adadad
          url('/static/css/fonts/OpenSans-LightItalic-webfont.woff') format('woff'),
          url('/static/css/fonts/OpenSans-LightItalic-webfont.ttf') format('truetype'),
          url('/static/css/fonts/OpenSans-LightItalic-webfont.svg#OpenSansLightItalic') format('svg');
-    font-weight: normal;
-    font-style: normal;
+    font-weight: light;
+    font-style: italic;
 
 }
 */
@@ -69,7 +70,7 @@ grey3: adadad
          url('/static/css/fonts/OpenSans-Semibold-webfont.woff') format('woff'),
          url('/static/css/fonts/OpenSans-Semibold-webfont.ttf') format('truetype'),
          url('/static/css/fonts/OpenSans-Semibold-webfont.svg#OpenSansSemibold') format('svg');
-    font-weight: normal;
+    font-weight: semibold;
     font-style: normal;
 
 }
@@ -83,8 +84,8 @@ grey3: adadad
          url('/static/css/fonts/OpenSans-SemiboldItalic-webfont.woff') format('woff'),
          url('/static/css/fonts/OpenSans-SemiboldItalic-webfont.ttf') format('truetype'),
          url('/static/css/fonts/OpenSans-SemiboldItalic-webfont.svg#OpenSansSemiboldItalic') format('svg');
-    font-weight: normal;
-    font-style: normal;
+    font-weight: semibold;
+    font-style: italic;
 
 }
 */
@@ -121,7 +122,7 @@ grey3: adadad
          url('/static/css/fonts/OpenSans-ExtraBold-webfont.woff') format('woff'),
          url('/static/css/fonts/OpenSans-ExtraBold-webfont.ttf') format('truetype'),
          url('/static/css/fonts/OpenSans-ExtraBold-webfont.svg#OpenSansExtrabold') format('svg');
-    font-weight: normal;
+    font-weight: extrabold;
     font-style: normal;
 
 }
@@ -133,8 +134,8 @@ grey3: adadad
          url('/static/css/fonts/OpenSans-ExtraBoldItalic-webfont.woff') format('woff'),
          url('/static/css/fonts/OpenSans-ExtraBoldItalic-webfont.ttf') format('truetype'),
          url('/static/css/fonts/OpenSans-ExtraBoldItalic-webfont.svg#OpenSansExtraboldItalic') format('svg');
-    font-weight: normal;
-    font-style: normal;
+    font-weight: extrabold;
+    font-style: italic;
 */
 
 }
@@ -186,53 +187,7 @@ grey3: adadad
     font-style: italic;
 
 }
-/*old
-@font-face {
-    font-family: 'Open Sans';
-    src: url('/static/css/fonts/OpenSans-Regular-webfont.eot');
-    src: url('/static/css/fonts/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/static/css/fonts/OpenSans-Regular-webfont.woff') format('woff'),
-         url('/static/css/fonts/OpenSans-Regular-webfont.ttf') format('truetype'),
-         url('/static/css/fonts/OpenSans-Regular-webfont.svg#OpenSansRegular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
 
-@font-face {
-    font-family: 'Open Sans';
-    src: url('/static/css/fonts/OpenSans-Italic-webfont.eot');
-    src: url('/static/css/fonts/OpenSans-Italic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/static/css/fonts/OpenSans-Italic-webfont.woff') format('woff'),
-         url('/static/css/fonts/OpenSans-Italic-webfont.ttf') format('truetype'),
-         url('/static/css/fonts/OpenSans-Italic-webfont.svg#OpenSansItalic') format('svg');
-    font-weight: normal;
-    font-style: italic;
-}
-
-@font-face {
-    font-family: 'Open Sans';
-    src: url('/static/css/fonts/OpenSans-Bold-webfont.eot');
-    src: url('/static/css/fonts/OpenSans-Bold-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/static/css/fonts/OpenSans-Bold-webfont.woff') format('woff'),
-         url('/static/css/fonts/OpenSans-Bold-webfont.ttf') format('truetype'),
-         url('/static/css/fonts/OpenSans-Bold-webfont.svg#OpenSansBold') format('svg');
-    font-weight: bold;
-    font-style: normal;
-
-}
-
-@font-face {
-    font-family: 'Open Sans';
-    src: url('/static/css/fonts/OpenSans-BoldItalic-webfont.eot');
-    src: url('/static/css/fonts/OpenSans-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/static/css/fonts/OpenSans-BoldItalic-webfont.woff') format('woff'),
-         url('/static/css/fonts/OpenSans-BoldItalic-webfont.ttf') format('truetype'),
-         url('/static/css/fonts/OpenSans-BoldItalic-webfont.svg#OpenSansBoldItalic') format('svg');
-    font-weight: bold;
-    font-style: italic;
-
-}
-*/
 html {overflow-y: scroll; }
 
 body{font-family: 'Open Sans', arial, sans-serif; font-size:14px; line-height: 20px; color:#191919;}
@@ -473,7 +428,9 @@ section.dash {margin-bottom: 30px;}
 .col2{width: 144px; float:left; margin-right:24px;}
 
 .content.search > .cols{width:1036px;overflow:visible;}
+.content.search .nest-cols{overflow:hidden;width: 732px;clear:both;}
 .content.search .col9{width:756px;overflow:visible;}
+.content.search .col4:last-child {margin-right:0px;}
 .content.search .col3{overflow:visible;}
 
 .content.search .summary{margin-left:252px;color:#666;font-size:14px;margin-bottom:12px}
@@ -612,6 +569,10 @@ label select{height:26px;}
 .col3 label input:focus,
 .col3 label textarea:focus{background-position: 97.5% 7px;}
 
+.col2 label textarea,
+.col2 label input,
+.col2 label select{width:74px; padding-right: 18px;}
+
 .split{overflow:hidden;}
 
 .col3 .split label{float:left; margin-left:24px; overflow:hidden; width: 92px;}
@@ -647,6 +608,11 @@ input :-moz-placeholder { color:#ccc; font-style:italic; font-size:14px; }/*FF18
 :focus:-moz-placeholder:focus { color:#78ceba; }/*FF18<*/
 :focus::-moz-placeholder { color:#78ceba; }/*FF19>*/
 :focus:-ms-input-placeholder:focus { color:#78ceba; }
+
+.holdings :focus::-webkit-input-placeholder { color:#DDA0DD; }
+.holdings :focus:-moz-placeholder:focus { color:#DDA0DD; }/*FF18<*/
+.holdings :focus::-moz-placeholder { color:#DDA0DD; }/*FF19>*/
+.holdings :focus:-ms-input-placeholder:focus { color:#DDA0DD; }
 
 label:hover,
 label.focus{border-left-color:#1a8f72;}
@@ -811,7 +777,7 @@ div.loading {position: relative; left: 80%; float: left; z-index:10000; margin-t
 .btn-purple:focus,
 .btn-purple:active{background-color:#573657;}
 
-section.submit .btn-link {font-size: 14px; font-weight: 600;}
+section.submit .btn-link {font-size: 14px; font-weight: bold;}
 
 .removedraft{float:left; vertical-align: none;}
 
@@ -835,7 +801,7 @@ section.holdings-list{background:#f7f3ee;}
 .holdings-list li:first-child a{border-top:none;}
 .holdings-list li.active a{background:#fff;color:#000;}
 
-.holdings-list a.sigel {font-weight: 600;font-size: 14px;color:#666;}
+.holdings-list a.sigel {font-weight: bold;font-size: 14px;color:#666;}
 
 .holdings-list a.sigel i {opacity:.60;}
 
@@ -939,4 +905,4 @@ a.beta-blocker {text-decoration: none; cursor:default;}
 .popover h3{font:bold 15px/18px "Open Sans", sans-serif;border:none;background:none;padding-bottom:0;}
 .popover .popover-content{padding-top:0;font-size:12px;color:#666;}
 
-
+#record code {color:#999999;}

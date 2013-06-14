@@ -457,8 +457,7 @@
 <script type="text/html" id="auth-completion-template">
 <div class="auth">
   <h4>
-    <span class="name"><%= data['authoritativeName'] %></span>
-    <span class="date"><%= data['birthYear'] %> - <%= data['deathYear'] %></span>
+    <span class="name"><%= data['controlledLabel'] %></span>
     <% if (data['authorized']) { %>
       <span class="what"><i class="ficon ficon-bookmark"></i>Aukt.</span>
     <% } %>
