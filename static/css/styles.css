@@ -236,6 +236,8 @@ a:hover{color:#106351; background-color: #fff;}
 #header .searchfield input:focus:-moz-placeholder:focus { color:#ddd; }
 #header .searchfield input:focus::-moz-placeholder:focus { color:#ddd; }
 #header .searchfield input:focus:-ms-input-placeholder:focus { color:#ddd; }
+#header .searchfield :focus:-moz-placeholder:focus { color:#ddd; }/*FF18<*/
+#header .searchfield :focus::-moz-placeholder { color:#ddd; }/*FF19>*/
 
 #header .searchfield button{text-indent:-10000px;height:38px;border:none;
     background:#1a8f72 url(/static/i/search.png) no-repeat 50% 50%;width:50px;
