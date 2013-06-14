@@ -537,7 +537,7 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     records.save(recType, recId, $scope.record, if_match_header).then(function(data) {
       $scope.record = data['recdata'];
       $scope.etag = data['etag'];
-      onPublishState();
+            onPublishState();
     });
   }
 
@@ -966,7 +966,7 @@ kitin.directive('kitinAutoselect', function(resources) {
              return template({name: name, code: code});
            },
            onItemSelect: function(item) {
-             scope.work.language = item.value.split("!")[0] + " " + item.value.split("!")[1];
+             scope.record.about.instanceOf.language = item.value.split("!")[0] + " " + item.value.split("!")[1];    
              scope.$apply();
            }
         });
@@ -997,6 +997,7 @@ kitin.directive('kitinAutocomplete', function() {
         remoteDataType: 'json',
         autoWidth: null,
         filterResults: false,
+        sortResults: false,
         useCache: false,
 
         processData: function (doc) {
