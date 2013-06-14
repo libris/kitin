@@ -64,7 +64,7 @@ def login():
             remember = True
         print "remember %s" % remember
         user = User(username)
-        if app.fakelogin:
+        if getattr(app, 'fakelogin', False):
             sigel = "NONE"
         else:
             sigel = user.authorize(password, app.config)
