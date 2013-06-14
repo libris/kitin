@@ -405,7 +405,7 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   } else
   records.get(recType, recId).then(function(data) {
     var record = $scope.record = data['recdata'];
-
+    
     bibid = record['controlNumber'];
     $scope.etag = data['etag'];
     $scope.user_sigel = constants.get("user_sigel");
