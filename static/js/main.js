@@ -14,9 +14,9 @@ kitin.config(
         .when('/search',
               {templateUrl: '/partials/search', controller: SearchCtrl})
         .when('/edit/:recType/:recId',
-              {templateUrl: '/partials/edit', controller: FrbrCtrl})
+              {templateUrl: '/partials/edit', controller: EditCtrl})
         .when('/jsonld/:recType/:recId',
-              {templateUrl: '/partials/jsonld', controller: FrbrCtrl})
+              {templateUrl: '/partials/jsonld', controller: EditCtrl})
         ;//.otherwise({redirectTo: '/'});
 
     }]
@@ -339,15 +339,14 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, search_se
 
   $scope.crumbs = bake_crumbs(prevFacetsStr);
 
-  facet_terms = []; // Poor mans localization
-
+  var facet_terms = []; // TODO: localization
   facet_terms['about.@type'] = "Typer";
   facet_terms['about.dateOfPublication'] = "Datum";
   $scope.facet_terms = facet_terms;
   console.timeEnd("search");
 }
 
-function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, constants) {
+function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, constants) {
   var recType = $routeParams.recType, recId = $routeParams.recId;
   var path = "/record/" + recType + "/" + recId;
 
@@ -492,39 +491,6 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     });
   }
 
-  $scope.save_holding = function(holding) {
-    var etag = $scope.holding_etags[holding['@id']];
-    holding['annotates'] = { '@id': "/"+recType+"/"+recId };
-    // TODO: only use etag (but it's not present yet..)
-    if(!holding._is_new && (etag || holding.location === $scope.user_sigel)) {
-      $http.put("/holding/" + holding['@id'].split("/").slice(-2)[1], holding, {headers: {"If-match":etag}}).success(function(data, status, headers) {
-        $scope.holding_etags[data['@id']] = headers('etag');
-      }).error(function(data, status, headers) {
-        console.log("ohh crap!");
-      });
-    } else {
-      if (holding._is_new) { delete holding._is_new; }
-      console.log("we wants to post a new holding");
-      $http.post("/holding", holding).success(function(data, status, headers) {
-        $scope.holding_etags[data['@id']] = headers('etag');
-      }).error(function(data, status, headers) {
-        console.log("ohh crap!");
-      });
-
-    }
-  }
-
-  $scope.delete_holding = function(holding_id) {
-    $http['delete']("/holding/" + holding_id).success(function(data, success) {
-      console.log("great success!");
-      $http.get("/record/" + recType + "/" + recId + "/holdings").success(function(data) {
-        $scope.holdings = patchHoldings(data.list);
-      });
-    }).error(function() {
-      console.log("oh crap!");
-    })
-  }
-
   if (isNew) {
     $scope.save = function() {
       records.create(recType, $scope.record).then(function(data) {
@@ -541,7 +507,7 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     });
   }
 
-  $scope.save_draft = function() {
+  $scope.saveDraft = function() {
     $http.post("/record/"+$routeParams.recType+"/"+$routeParams.recId+"/draft", $scope.record, {headers: {"If-match":$scope.etag}}).success(function(data, status) {
       $scope.draft = data;
       $scope.draft.type = data['@id'].split("/").slice(-2)[0];
@@ -560,21 +526,53 @@ function FrbrCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     console.log(status);
   });
 
-  $scope.add_holding = function(holdings) {
-    holdings.push({shelvingControlNumber: "", location: constants.get("user_sigel")});
-  }
-
-  $scope.add_person = function(work, authorsKey) {
+  $scope.addPerson = function(work, authorsKey) {
     var authors = work[authorsKey];
     if (typeof authors === 'undefined') {
       work[authorsKey] = [];
     }
-    authors.push({ authoritativeName: "", birthYear: "" });
+    authors.push({ controlledLabel: "", birthYear: "" });
   }
 
-  $scope.remove_person = function(role, index) {
+  $scope.removePerson = function(role, index) {
     $scope.record.about.instanceOf[role].splice(index,1);
     $scope.triggerModified();
+  }
+
+  $scope.addHolding = function(holdings) {
+    holdings.push({shelvingControlNumber: "", location: constants.get("user_sigel")});
+  }
+
+  $scope.saveHolding = function(holding) {
+    var etag = $scope.holding_etags[holding['@id']];
+    holding['annotates'] = { '@id': "/"+recType+"/"+recId };
+    // TODO: only use etag (but it's not present yet..)
+    if(!holding._is_new && (etag || holding.location === $scope.user_sigel)) {
+      $http.put("/holding/" + holding['@id'].split("/").slice(-2)[1], holding, {headers: {"If-match":etag}}).success(function(data, status, headers) {
+        $scope.holding_etags[data['@id']] = headers('etag');
+      }).error(function(data, status, headers) {
+        console.log("ohh crap!");
+      });
+    } else {
+      if (holding._is_new) { delete holding._is_new; }
+      console.log("we wants to post a new holding");
+      $http.post("/holding", holding).success(function(data, status, headers) {
+        $scope.holding_etags[data['@id']] = headers('etag');
+      }).error(function(data, status, headers) {
+        console.log("ohh crap!");
+      });
+    }
+  }
+
+  $scope.deleteHolding = function(holding_id) {
+    $http['delete']("/holding/" + holding_id).success(function(data, success) {
+      console.log("great success!");
+      $http.get("/record/" + recType + "/" + recId + "/holdings").success(function(data) {
+        $scope.holdings = patchHoldings(data.list);
+      });
+    }).error(function() {
+      console.log("oh crap!");
+    })
   }
 
   var typeCycle = ['Book', 'EBook', 'Audiobook', 'Serial', 'ESerial'], typeIndex = 0;
@@ -591,81 +589,6 @@ function patchHoldings(holdings) {
   return _.map(holdings, function (it) {
     var obj = it.data; obj['@id'] = it.identifier; return obj;
   });
-}
-
-
-function FrbrCtrl_old($rootScope, $scope, $routeParams, $timeout, conf, records) {
-
-  conf.renderUpdates = false;
-  $rootScope.editMode = 'normal';
-
-  $scope.getKey = marcjson.getMapEntryKey;
-
-  var recType = $routeParams.recType, recId = $routeParams.recId;
-
-  conf.marcmap.then(function (map) {
-    conf.overlay.then(function (overlay) {
-      records.get(recType, recId).then(function (struct) {
-        map = map[recType];
-        $scope.entities = marcjson.createEntityGroups(map, overlay, struct);
-        $scope.map = map;
-      });
-    });
-  });
-
-  // TODO: unify prompt* functions with the MarcCtrl equivalents
-
-  $scope.promptAddField = function ($event, fieldset) {
-    // TODO: set this once upon first rendering of view (listen to angular event)
-    conf.renderUpdates = true;
-    // TODO: getFieldDefs(), filtered by "if repeatable or not in fielset"
-    var fieldDefs = fieldset.fieldDefs;
-    var selectedTag = fieldDefs.length? fieldDefs[0].tag : null;
-    $scope.fieldToAdd = {
-      fieldDefs: fieldDefs,
-      tag: selectedTag,
-      select: function (tag) {
-        this.tag = tag;
-        this.execute();
-      },
-      execute: function () {
-        fieldset.addField($scope.fieldToAdd.tag);
-        $scope.fieldToAdd = null;
-      },
-      abort: function () {
-        $scope.fieldToAdd = null;
-      }
-    };
-    $timeout(function () {
-      openPrompt($event, '#prompt-add-field', '.dropdown-menu');
-    });
-  }
-
-  $scope.promptAddSubField = function (o, field, index) {
-    console.log(arguments);
-  }
-  $scope.promptAddSubField = function ($event, dfn, row, currentSubCode, index) {
-    $scope.subFieldToAdd = {
-      subfields: dfn.subfield,
-      code: currentSubCode,
-      select: function (code) {
-        this.code = code;
-        this.execute();
-      },
-      execute: function () {
-        marcjson.addSubField(row, $scope.subFieldToAdd.code, index);
-        $scope.subFieldToAdd = null;
-      },
-      abort: function () {
-        $scope.subFieldToAdd = null;
-      }
-    };
-    $timeout(function () {
-      openPrompt($event, '#prompt-add-subfield', '.dropdown-menu');
-    });
-  }
-
-
 }
 
 
@@ -1069,50 +992,7 @@ $("ul.facetlist").has("li.overflow").each(function() {
 }(jQuery));
 
 
-/* TODO: adapt to angular:
-
 // TODO: onunload:
 //if (ajaxInProgress)
 //  confirm('ajaxInProgress; break and leave?')
 
-var view = {
-
-  setupGlobalKeyBindings: function () {
-    var model = this.model;
-    $("input[name='publish']").on('click', function() {
-      model.save({},
-        {
-          error: function() { displayFailAlert("Kunde inte publicera " + model.id); },
-          success: function() { displaySuccessAlert("Sparade framgångsrikt " + model.id); }
-        });
-    });
-    $(document).jkey('ctrl+b',function(){
-      model.save({},
-        {
-          error: function() { displayFailAlert("Kunde inte publicera " + model.id); },
-          success: function() { displaySuccessAlert("Sparade framgångsrikt " + model.id); }
-        });
-    });
-  },
-
-  setupKeyBindings: function () {
-    $('input', this.el).jkey('f3',function() {
-        alert('Insert row before...');
-    });
-    $('input', this.el).jkey('f4',function() {
-        alert('Insert row after...');
-    });
-    //$('input', this.el).jkey('f2',function() {
-    //    alert('Show valid marc values...');
-    //});
-    //$(this.el).jkey('ctrl+t', function() {
-    //  this.value += '‡'; // insert subkey delimiter
-    //});
-    // TODO: disable when autocompleting:
-    //$('input', this.el).jkey('down',function() {
-    //    alert('Move down');
-    //});
-  }
-};
-
-*/

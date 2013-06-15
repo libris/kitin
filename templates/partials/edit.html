@@ -96,9 +96,9 @@
                 <span class="lbl">{{ "Död" }}</span>
               </label>
             </div>
-            <button class="btn-link on-hover" data-ng-click="remove_person(role, $index)"><i class="ficon ficon-remove"></i> Ta bort</button>
+            <button class="btn-link on-hover" data-ng-click="removePerson(role, $index)"><i class="ficon ficon-remove"></i> Ta bort</button>
           </div>
-          <button class="btn-link" data-ng-click="add_person(work, role)"><i class="ficon ficon-plus-sign"></i> {{ role }}</button>
+          <button class="btn-link" data-ng-click="addPerson(work, role)"><i class="ficon ficon-plus-sign"></i> {{ role }}</button>
         </div>
       </div>
     </div>
@@ -326,7 +326,7 @@
     <span class="removedraft" data-ng-show="draft" data-ng-click="promptConfirmDelete($event, draft.type, draft.id)">
       <button class="btn-link" data-ng-click="somebutton.click()"><i class="ficon ficon-remove"></i> Ta bort utkast</button>
     </span>-->
-    <button class="btn-link" id="draft" data-ng-click="save_draft()"
+    <button class="btn-link" id="draft" data-ng-click="saveDraft()"
       title="{{lastSavedLabel('Senast sparad: %s')}}">Spara utkast</button>
     <button class="btn btn-dark btn-submit" id="publish" data-ng-disabled="form.$invalid" data-ng-click="save()"
       title="{{lastPublishedLabel('Senast publicerad: %s')}}">Publicera</button>
@@ -415,13 +415,13 @@
       </div>
     </div>
     <div class="foot">
-      <!--not available in beta:<button disabled class="btn btn-purple" data-ng-click="add_holding(holdings)">Lägg till <i class="icon icon-white icon-chevron-down"></i></button>-->
+      <!--not available in beta:<button disabled class="btn btn-purple" data-ng-click="addHolding(holdings)">Lägg till <i class="icon icon-white icon-chevron-down"></i></button>-->
     </div>
     </section>
     <section class="submit">
-      <button class="btn btn-purple  btn-submit" id="save-hld" data-ng-click="save_holding(holding)">Spara bestånd</button>
+      <button class="btn btn-purple  btn-submit" id="save-hld" data-ng-click="saveHolding(holding)">Spara bestånd</button>
       <!-- post beta:
-      <button data-ng-show="holding['@id']"class="btn-link" id="delete-hld" data-ng-click="delete_holding(holding['@id'])">Ta bort</button>
+      <button data-ng-show="holding['@id']"class="btn-link" id="delete-hld" data-ng-click="deleteHolding(holding['@id'])">Ta bort</button>
       -->
     </section>
   <section class="holdings holdings-list">
