@@ -213,6 +213,7 @@ a:hover{color:#106351; background-color: #fff;}
 #header .logo strong{display:block;font:bold 28px/1 "Droid Serif", georgia, serif;text-transform:none; color:#27b492;letter-spacing:-1px;}
 
 #header span.beta {padding-left:5px; color:red;}
+.kitin-updated {font-size: 10px;color: #999999;float:right;margin-top:-17px;margin-right: -47px;} /*beta marker & date updated*/
 
 #header .searchfield{position:absolute;left:384px;top:82px;z-index:2;}
 #header .searchfield input{width:500px;border:1px solid #bbb; padding: 6px 10px 6px;border-color: #aaa #fff #ccc #aaa;
@@ -823,7 +824,7 @@ section.holdings-list{background:#f7f3ee;}
 
 section.holdings ul li{list-style: none;}
 
-a.beta-blocker {text-decoration: none; cursor:default;}
+a.beta-blocker {text-decoration: none; cursor:default;} /*block unfinished elements, should not be in final release*/
 
 /* Autocomplete */
 
