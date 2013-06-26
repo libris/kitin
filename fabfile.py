@@ -1,92 +1,65 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import json, os, re
-
+import os, re
 from fabric.api import *
+from fabric.contrib.files import exists, upload_template
 
-
-cfg = {}
-#execfile(os.path.join(os.path.dirname(__file__), 'config.cfg'), cfg)
+#env.remotepath = ...
+#env.wwwuser = ...
+if 'wwwgroup' not in env and 'wwwuser' in env:
+    env.wwwgroup = env.wwwuser
 env.virtenvpath = '/var/virtualenvs/kitin'
 
-for e in os.environ:
-    if e.startswith("FABRIC_"):
-        if e == "FABRIC_HOST":
-            h = os.environ.get(e)
-            hl = h.split(",")
-            env.hosts = hl
-        else:
-            env[e[7:].lower()] = os.environ.get(e)
+@task
+def deploy():
+    require('wwwuser', 'wwwgroup', 'remotepath')
+    local("tar cfz /tmp/kitin.tgz --exclude='.*' --exclude=storage --exclude=config.cfg *")
+    run('rm -f /tmp/kitin.tgz')
+    put('/tmp/kitin.tgz', '/tmp/')
+    with settings(sudo_user=env.wwwuser):
+        sudo('rm -fr %(remotepath)s' % env)
+        sudo('mkdir -m 775 %(remotepath)s' % env)
+        with cd(env.remotepath):
+            sudo('tar xzf /tmp/kitin.tgz')
+            sudo('ln -s ../storage .')
+            sudo('ln -s ../config.cfg .')
+            #run('chown %(wwwuser)s storage' % env)
+        upload_template("kitin.wsgi.in", "kitin.wsgi", env, backup=False)
+        sudo("cp kitin.wsgi %(remotepath)s" % env)
+        run("rm kitin.wsgi")
+    with prefix('source %(virtenvpath)s/bin/activate' % env):
+        run('pip install -r %(remotepath)s/requirements.txt' % env)
 
-#@task
-#def create_db():
-    #execfile(os.path.join(os.path.dirname(__file__), 'config.cfg'), cfg)
-    #if not os.path.exists(cfg.get('DBNAME')):
-        #db = create_engine(cfg.get('DBENGINE') + ':///' + cfg.get('DBNAME'))
-        #db.echo = True
-        #metadata = MetaData(db)
-        
-        #userdata = Table('userdata', metadata,
-            #Column('id', Integer),
-            #Column('username', String, primary_key=True),
-            #Column('sigel', String),
-            #Column('active', Boolean),
-        #)
-        #userdata.create()
+@task
+def create_config(force=False):
+    if os.path.exists('config.cfg') and not int(force):
+        return
+    with open('config.cfg.in', 'r') as f:
+        file_contents = f.read()
+    with open('config.cfg', 'w') as newfile:
+        key = os.urandom(24).encode('hex')
+        newfile.write(_replace_setting_values(file_contents,
+            dict(os.environ, SESSION_SECRET_KEY=key)))
+
+def _replace_setting_values(text, data):
+    return re.sub('(\<)(\w+)(\>)',
+            lambda match: data.get(match.group(2), ''), text)
 
 @task
 def prepare():
-    create_config()
-    execfile(os.path.join(os.path.dirname(__file__), 'config.cfg'), cfg)
-    #if not os.path.exists(cfg.get('STORAGE_DIR')):
-    #    os.mkdir(cfg.get('STORAGE_DIR'))
-    #create_db()
+    # System requirements (tailored for Ubuntu Linux)
+    sudo("apt-get install python-dev") # Python header files, for C-extensions
+    sudo("apt-get install python-pip")
+    sudo("sudo apt-get install python-virtualenv") #sudo("pip install virtualenv")
+    # Application directories and dependencies
+    sudo("sudo mkdir -p %(virtenvpath)s" % env)
+    sudo('chown -R %(user)s %(virtenvpath)s' % env)
+    run("virtualenv --distribute --never-download %(virtenvpath)s" % env)
+    sudo("sudo mkdir -p %(remotepath)s" % env)
+    with cd(env.remotepath):
+        if not exists("../storage"): sudo("mkdir ../storage")
+        sudo('chown -R %(wwwuser)s:%(wwwgroup)s ..' % env)
 
 @task
 def fetch_vendor_assets():
     local("tools/fetch-vendor-assets.sh")
-
-@task
-def deploy():
-    if not env.hosts or not env.wwwuser or not env.wwwgroup or not env.remotepath:
-        print "Make sure you have the proper environment settings before deploying."
-    else:
-        prepare()
-        run('rm -f /tmp/kitin.tgz')
-        local('tar cfz /tmp/kitin.tgz --exclude=\'.*\' --exclude=storage *')
-        put('/tmp/kitin.tgz', '/tmp/')
-        run('rm -fr %s' % env.remotepath)
-        run('mkdir -m 775 %s' % env.remotepath)
-        with cd('%s' % env.remotepath):
-            run('tar xzf /tmp/kitin.tgz')
-            run('python tools/create_wsgi_file.py')
-            run('ln -s ../storage/ .')
-            #run('chown %s kitin.db' % env.wwwuser)
-            #run('chown %s storage' % env.wwwuser)
-
-        with prefix('source %s/bin/activate' % env.virtenvpath):
-            run('pip install -r %s/dev-requirements.txt' % env.remotepath)
-
-        #run('chown -R %s:%s %s' % (env.wwwuser, env.wwwgroup, env.remotepath))
-@task
-def clear_config():
-    local('rm -f config.cfg')
-
-@task
-def create_config():
-    if not os.path.exists('config.cfg'):
-        f = open('config.cfg.in', 'r')
-        file_contents = f.read()
-        f.close()
-        newfile = open('config.cfg', 'a')
-        newfile.write(_replace_setting_values(file_contents))
-        key = os.urandom(24)
-        newfile.write('\nSESSION_SECRET_KEY=\'%s\'' % key)
-        newfile.close()
-
-# Helper method
-def _replace_setting_values(text):
-    rc = re.compile('(\<)(\w+)(\>)')
-    def translate(match):
-        return os.environ.get(match.group(2), '')
-    return rc.sub(translate, text)
