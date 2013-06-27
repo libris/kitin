@@ -50,12 +50,12 @@ def prepare():
     # System requirements (tailored for Ubuntu Linux)
     sudo("apt-get install python-dev") # Python header files, for C-extensions
     sudo("apt-get install python-pip")
-    sudo("sudo apt-get install python-virtualenv") #sudo("pip install virtualenv")
-    # Application directories and dependencies
-    sudo("sudo mkdir -p %(virtenvpath)s" % env)
+    sudo("apt-get install python-virtualenv") #or sudo("pip install virtualenv")
+    # Application directories
+    sudo("mkdir -p %(virtenvpath)s" % env)
     sudo('chown -R %(user)s %(virtenvpath)s' % env)
     run("virtualenv --distribute --never-download %(virtenvpath)s" % env)
-    sudo("sudo mkdir -p %(remotepath)s" % env)
+    sudo("mkdir -p %(remotepath)s" % env)
     with cd(env.remotepath):
         if not exists("../storage"): sudo("mkdir ../storage")
         sudo('chown -R %(wwwuser)s:%(wwwgroup)s ..' % env)
