@@ -448,14 +448,14 @@ def show_marc_record(rec_type, rec_id):
 def show_jsonld_record(rec_type, rec_id):
     return index()
 
-@app.route('/record/bib/<rec_id>')
+@app.route('/record/<rec_type>/<rec_id>')
 @login_required
 #@_required
-def get_bib_data(rec_id):
+def get_bib_data(rec_type, rec_id):
     # TODO: How check if user is logged in?
-    draft = storage.get_draft(current_user.get_id(), "bib", rec_id)
+    draft = storage.get_draft(current_user.get_id(), rec_type, rec_id)
     if draft == None:
-        whelk_url = "%s/bib/%s" % (app.config['WHELK_HOST'], rec_id)
+        whelk_url = "%s/%s/%s" % (app.config['WHELK_HOST'], rec_type, rec_id)
         response = requests.get(whelk_url)
         if response.status_code >= 400:
             app.logger.warning("Error response %s on GET <%s>" % (response.status_code, whelk_url))

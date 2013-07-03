@@ -88,11 +88,11 @@
               </div>
             <div class="addon">
               <label>
-                <input data-inplace class="input-mini authdependant" type="text" placeholder="yyyy" data-ng-model="person.birthYear" />
+                <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ" data-ng-model="person.birthYear" />
                 <span class="lbl">{{ "Född" }}</span>
               </label>
               <label>
-                <input data-inplace class="input-mini authdependant" type="text" placeholder="yyyy" data-ng-model="person.deathYear" />
+                <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ" data-ng-model="person.deathYear" />
                 <span class="lbl">{{ "Död" }}</span>
               </label>
             </div>
@@ -119,7 +119,7 @@
           <ng:switch on="identifier.identifierScheme">
             <div data-ng-switch-when="ISBN">
               <label>
-                <input data-inplace name="isbn_name" type="text" data-ng-model="identifier.identifierValue" placeholder="ISBN"
+                <input data-inplace name="isbn_name" type="text" data-ng-model="identifier.identifierValue" placeholder="{{ identifier.identifierScheme }}"
                       data-isbn-pattern="^$|^[0-9\-xX]*$" isbnvalidator/>
                 <span class="lbl_inline lbl"
                       data-ng-hide="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length">{{ "ISBN" }}</span>
@@ -140,7 +140,7 @@
             </div>
             <div data-ng-switch-default>
               <label>
-                <input data-inplace type="text" data-ng-model="identifier.identifierValue" />
+                <input data-inplace type="text" data-ng-model="identifier.identifierValue" placeholder="{{ identifier.identifierScheme }}"/>
                 <span class="lbl">{{ identifier.identifierScheme }}</span>
               </label>
               <label>

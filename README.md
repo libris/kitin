@@ -34,7 +34,7 @@ Add export JAVA_OPTS="-Dfile.encoding=utf8" to .profile
 3. Set BIBDB_API and BIBDB_API_KEY. Ask for directions...
 4. Set SESSION_SECRET_KEY. To generate a key using python:
     $ import os
-    $ os.urandom(24)
+    $ os.urandom(24).encode('hex')
 3. Run webapp
     $ ./kitin.py -d
 
