@@ -27,10 +27,12 @@ class User(UserMixin):
         api_key = cfg.get('BIBDB_API_KEY')
         user_data = "username=%s&password=%s" % (self.username, password)
         api_headers = {"APIKEY_AUTH_HEADER": "%s" % api_key}
+        # TODO: Change to /auth/login when new bibdb is deployed
         reply = requests.post("%s/login/auth" % bibdb_api, data = user_data, headers = api_headers)
         try:
             if reply.text == "Authenticated":
                 print "User %s authenticated." % self.username
+                # TODO: Change to /auth/role when new bibdb is deployed
                 rolereply = requests.get("%s/user/role" % bibdb_api, params = {'username': self.username}, headers = api_headers)
                 roles = json.loads(rolereply.text)
                 sigel = None
