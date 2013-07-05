@@ -1,59 +1,72 @@
 {
-  "@context": "/context/libris.jsonld",
-  "@id": "",
-  "@type" : "Record",
-  "typeOfRecord" : "i",
-  "bibLevel" : "m",
-  "encLevel" : "7",
-  "catForm" : "a",
-  "controlNumber": "",
-  "creator": {"@type": "Organization", "abbr": ""},
-  "modified": "",
-  "localSystemNumber": "",
-  "status": {
-      "code": "",
-      "label" : ""
-  },
-  "bibliographyCode": [],
-  "about": {
-    "@id": "",
-    "@type": "Book",
-    "physicalDetails": "ill.",
-    "comment": "",
-    "dimensions": "",
-    "extent": "",
-    "identifier": {
-        "@type" : "Identifier",
-        "identifierScheme" : "isbn",
-        "identifierValue" : ""
-    },
-    "isbn": "",
-    "isbnNote": "inb.",
-    "placeOfManufacture": {"@type": "Place", "label": ""},
-    "placeOfPublication": {"@type": "Place", "label": ""},
-    "publisher": [{"@type": "Organization", "name": ""}],
-    "dateOfPublication": "",
-    "termsOfAvailability": "",
-    "instanceOf": {
-      "@type": "Text",
-      "bibLevel": {
-          "code" : "m",
-          "label" : "Monografisk resurs"
-      },
-      "title": "",
-      "statementOfResponsibility": "",
-      "authorList": [
-        {
-          "@type": "Person",
-          "authorizedAccessPoint": "",
-          "birthYear": "",
-          "deathYear": "",
-          "authoritativeName": ""
+    "@type": "Record",
+    "about": {
+        "@type": "Book",
+        "availability": "",
+        "dimensions": "",
+        "edition": null,
+        "extent": "",
+        "identifier": [
+            {
+                "@type": "Identifier",
+                "identifierNote": "",
+                "identifierScheme": "ISBN",
+                "identifierValue": ""
+            }
+        ],
+        "instanceOf": {
+            "@type": "Book",
+            "contributorList": [],
+            "creator": {
+                "@type": "Person",
+                "birthYear": "",
+                "controlledLabel": "",
+                "deathYear": "",
+                "familyName": "",
+                "givenName": ""
+            },
+            "language": "swe",
+            "subject": []
+        },
+        "manufacture": [
+            {
+                "@type": "ProviderEvent",
+                "place": {
+                    "@type": "Place",
+                    "label": ""
+                }
+            }
+        ],
+        "note": "",
+        "otherPhysicalDetails": "",
+        "publication": [
+            {
+                "@type": "ProviderEvent",
+                "place": {
+                    "@type": "Place",
+                    "label": ""
+                },
+                "providerDate": "",
+                "providerName": ""
+            }
+        ],
+        "responsibilityStatement": "",
+        "title": {
+            "@type": "TitleEntity",
+            "titleValue": ""
         }
-      ],
-      "language": "",
-      "subject": [
-      ]
-    }
-  }
+    },
+    "bibLevel": "m",
+    "catForm": "a",
+    "characterCoding": "a",
+    "comment": "",
+    "controlNumber": "",
+    "librisIII-number": "",
+    "modified": "",
+    "originalCatalogingAgency": {
+        "@type": "Organization",
+        "name": ""
+    },
+    "status": "c",
+    "typeOfRecord": "a"
 }
