@@ -55,7 +55,7 @@
 
     <h3>Verk</h3>
     <div class="cols" data-ng-init="work = record.about.instanceOf">
-      <div class="col4">
+      <div class="col5">
         <label class="ng-binding">
           <!--<span class="fakeholder" data-fakeholder>Välj ett land</span>
           <select class="selectpicker" data-selectpicker data-ng-model="work.language" data-ng-options="code as name for (code, name) in langlist">
@@ -71,7 +71,7 @@
          <input data-inplace ui-select2="langlist" ng-model="work.language" style="width:200px" />-->
         </label>
       </div>
-      <div class="col8">
+      <div class="col7">
         <div data-ng-show="work.creator"
              onload="subj = work; rel = 'creator'; person = work.creator"
              data-ng-include="'render-person'"></div>
@@ -86,7 +86,16 @@
 
     <script type="text/ng-template" id="render-person">
       <div class="entity person">
-        <div class="addon">
+        <div class="col3" data-ng-hide="editable">
+          <label>
+            <a data-ng-click="editable=!editable" href="javascript:;">
+              {{ person.familyName }}, {{ person.givenName }}
+              {{ person.birthYear }}-{{ person.deathYear }}
+            </a>
+          </label>
+        </div>
+        <button class="btn-link" data-ng-show="editable" data-ng-click="editable=false"><i class="ficon ficon-ok"></i></button>
+        <div class="addon" data-ng-show="editable">
           <label>
             <input data-inplace class="input-mini" type="text" placeholder="Egennamn" data-kitin-autocomplete="field" data-kitin-template="auth-completion-template" data-ng-model="person.givenName" />
             <span class="lbl">{{ "Egennamn" }}</span>
@@ -96,7 +105,7 @@
             <span class="lbl">{{ "Familjenamn" }}</span>
           </label>
           </div>
-        <div class="addon">
+        <div class="addon" data-ng-show="editable">
           <label>
             <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ" data-ng-model="person.birthYear" />
             <span class="lbl">{{ "Född" }}</span>
@@ -105,6 +114,8 @@
             <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ" data-ng-model="person.deathYear" />
             <span class="lbl">{{ "Död" }}</span>
           </label>
+        </div>
+        <div class="addon">
           <label>
             <span data-ng-repeat="role in personRoleMap[person['@id']]"><span data-ng-hide="$first">, </span>{{ role.label_sv }}</span>
           </label>
