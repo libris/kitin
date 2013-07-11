@@ -168,6 +168,8 @@ kitin.factory('constants', function(flaskConstants) {
  */
 kitin.run(function($rootScope) {
 
+  $rootScope._ = _;
+
   $rootScope.isEmpty = function(obj) { return angular.equals({},obj) };
 
   $rootScope.typeOf = function (o) { return o === null? 'null' : typeof o; }
@@ -368,7 +370,9 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     $scope.enums.catForm = data;
   });
   resources.relators.then(function(data) {
-    $scope.relatorlist = data;
+    var map = $scope.relatorsMap = {};
+    // TODO: fix this backend resource
+    _.forEach(data, function (val, key) { map[val.term] = val; });
   });
   resources.languages.then(function(data) {
     /*$scope.langlist = [];
@@ -410,10 +414,12 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     $scope.user_sigel = constants.get("user_sigel");
     $scope.all_constants = constants.all();
     $http.get("/record/" + recType + "/" + recId + "/holdings").success(function(data) {
+
+      $scope.personRoleMap = getPersonRoleMap(record);
+
       var holding_etags = {};
       var items = patchHoldings(data.list);
       $scope.holdings = items;
-
       var my_holdings = _.filter(items, function(i) { return i['location'] == constants.get("user_sigel"); });
       if(my_holdings <= 0) {
         $http.get("/holding/bib/new").success(function(data, status, headers) {
@@ -424,7 +430,6 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
       } else {
         $scope.holding = my_holdings[0];
       }
-
       for(var i in items) {
         if(items[i]['@id']) {
           $http.get("/holding/"+ items[i]['@id'].split("/").slice(-2)[1]).success(function(data, status, headers) {
@@ -436,6 +441,51 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     });
 
   });
+
+  function getPersonRoleMap(record) {
+    var instance = record.about;
+    var work = instance.instanceOf;
+    var relatorsMap = $scope.relatorsMap;
+
+    var roleMap = {};
+    function addPersonRoles(person) {
+      roleMap[person['@id']] = [];
+    }
+    if (work.creator) {
+      addPersonRoles(work.creator);
+    }
+    if (work.contributorList) {
+      work.contributorList.forEach(function (person) {
+        addPersonRoles(person);
+      });
+    }
+
+    var personMap = {}; // .. or e.g. Organization
+    [instance, work].forEach(function (resource) {
+      var objId = resource['@id'];
+      _.forEach(resource, function (vals, key) {
+        if (!vals)
+          return;
+        if (!_.isArray(vals)) vals = [vals];
+        _.forEach(vals, function (agent) {
+          var pid = agent['@id'];
+          if (!pid)
+            return;
+          var roles = roleMap[pid];
+          if (!roles)
+            return;
+          var role = relatorsMap[key];
+          if (!role)
+            return;
+          if (!_.contains(roles, role))
+            roles.push(role);
+          //pr.roles[role] = objId;
+        });
+      });
+    });
+
+    return roleMap;
+  }
 
 
   $scope.modifications = {saved: true, published: true};
@@ -526,16 +576,34 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     console.log(status);
   });
 
-  $scope.addPerson = function(work, authorsKey) {
-    var authors = work[authorsKey];
-    if (typeof authors === 'undefined') {
-      work[authorsKey] = [];
+  function createObject(type) {
+    switch (type) {
+    case 'Person':
+      return {'@type': "Person", controlledLabel: "", birthYear: ""};
+    default:
+      return {};
     }
-    authors.push({ controlledLabel: "", birthYear: "" });
+  };
+
+  $scope.newObject = function(subj, rel, type) {
+    var obj = subj[rel] = createObject(type);
   }
 
-  $scope.removePerson = function(role, index) {
-    $scope.record.about.instanceOf[role].splice(index,1);
+  $scope.addObject = function(subj, rel, type) {
+    var authors = subj[rel];
+    if (typeof authors === 'undefined') {
+      subj[rel] = [];
+    }
+    var obj = createObject(type);
+    authors.push(obj);
+  }
+
+  $scope.removeObject = function(subj, rel, index) {
+    var obj = subj[rel];
+    if (_.isArray(obj))
+      obj.splice(index,1);
+    else
+      subj[rel] = null;
     $scope.triggerModified();
   }
 

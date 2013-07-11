@@ -55,7 +55,7 @@
 
     <h3>Verk</h3>
     <div class="cols" data-ng-repeat="work in [record.about.instanceOf]">
-      <div class="col6">
+      <div class="col4">
         <label class="ng-binding">
           <!--<span class="fakeholder" data-fakeholder>Välj ett land</span>
           <select class="selectpicker" data-selectpicker data-ng-model="work.language" data-ng-options="code as name for (code, name) in langlist">
@@ -71,35 +71,16 @@
          <input data-inplace ui-select2="langlist" ng-model="work.language" style="width:200px" />-->
         </label>
       </div>
-      <div class="col6">
-        <div data-ng-repeat="role in ['creator', 'contributor']">
-          <!-- TODO: label for role -->
-          <i>{{ role }}</i>
-          <div data-ng-repeat="person in work[role]" class="entity person">
-            <div class="addon">
-              <label>
-                <input data-inplace class="input-mini" type="text" placeholder="Egennamn" data-kitin-autocomplete="field" data-kitin-template="auth-completion-template" data-ng-model="person.givenName" />
-                <span class="lbl">{{ "Egennamn" }}</span>
-              </label>
-              <label>
-                <input data-inplace class="input-mini" type="text" placeholder="Familjenamn" data-kitin-autocomplete="field" data-kitin-template="auth-completion-template" data-ng-model="person.familyName" />
-                <span class="lbl">{{ "Familjenamn" }}</span>
-              </label>
-              </div>
-            <div class="addon">
-              <label>
-                <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ" data-ng-model="person.birthYear" />
-                <span class="lbl">{{ "Född" }}</span>
-              </label>
-              <label>
-                <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ" data-ng-model="person.deathYear" />
-                <span class="lbl">{{ "Död" }}</span>
-              </label>
-            </div>
-            <button class="btn-link on-hover" data-ng-click="removePerson(role, $index)"><i class="ficon ficon-remove"></i> Ta bort</button>
-          </div>
-          <button class="btn-link" data-ng-click="addPerson(work, role)"><i class="ficon ficon-plus-sign"></i> {{ role }}</button>
-        </div>
+      <div class="col8">
+        <div data-ng-show="work.creator"
+             onload="subj = work; rel = 'creator'; person = work.creator"
+             data-ng-include="'render-person'"></div>
+        <button class="btn-link" data-ng-click="newObject(work, 'creator', 'Person')">{{ 'Huvuduppslag' }}
+          <i data-ng-hide="work.creator" class="ficon ficon-plus-sign"></i></button>
+        <hr />
+        <div data-ng-repeat="person in work.contributorList"
+             onload="subj = work; rel = 'contributorList'" data-ng-include="'render-person'"></div>
+        <button class="btn-link" data-ng-click="addObject(work, 'contributorList', 'Person')">{{ 'Biuppslag' }} <i class="ficon ficon-plus-sign"></i></button>
       </div>
     </div>
 
@@ -437,6 +418,36 @@
 </div>
 </form>
 
+<script type="text/ng-template" id="render-person">
+  <div class="entity person">
+    <div class="addon">
+      <label>
+        <input data-inplace class="input-mini" type="text" placeholder="Egennamn" data-kitin-autocomplete="field" data-kitin-template="auth-completion-template" data-ng-model="person.givenName" />
+        <span class="lbl">{{ "Egennamn" }}</span>
+      </label>
+      <label>
+        <input data-inplace class="input-mini" type="text" placeholder="Familjenamn" data-kitin-autocomplete="field" data-kitin-template="auth-completion-template" data-ng-model="person.familyName" />
+        <span class="lbl">{{ "Familjenamn" }}</span>
+      </label>
+      </div>
+    <div class="addon">
+      <label>
+        <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ" data-ng-model="person.birthYear" />
+        <span class="lbl">{{ "Född" }}</span>
+      </label>
+      <label>
+        <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ" data-ng-model="person.deathYear" />
+        <span class="lbl">{{ "Död" }}</span>
+      </label>
+      <label>
+        <span data-ng-repeat="role in personRoleMap[person['@id']]"><span data-ng-hide="$first">, </span>{{ role.label_sv }}</span>
+      </label>
+      <label>
+        <button class="btn-link on-hover" data-ng-click="removeObject(subj, rel, $index)"><i class="ficon ficon-remove"></i></button>
+      </label>
+    </div>
+  </div>
+</script>
 
 <script type="text/ng-template" id="render-holding">
 <div class="holdings-list" data-ng-show="holding.location"> 
