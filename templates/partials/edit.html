@@ -35,7 +35,7 @@
     <ng-form name="subform">
     <h2 data-ng-click="cycleType($event, instance)"> <span>{{ getTypeDef(instance).label_sv }}</span><i></i></h2>
     <div class="cols">
-      <div class="col6" data-ng-repeat="title in [instance.title]">
+      <div class="col6" data-ng-init="title = instance.title">
         <label>
           <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" placeholder="Huvudtitel" data-ng-model="title.titleValue"></textarea>
           <span class="lbl">{{ "Huvudtitel" }}</span>
@@ -54,7 +54,7 @@
     </div>
 
     <h3>Verk</h3>
-    <div class="cols" data-ng-repeat="work in [record.about.instanceOf]">
+    <div class="cols" data-ng-init="work = record.about.instanceOf">
       <div class="col4">
         <label class="ng-binding">
           <!--<span class="fakeholder" data-fakeholder>Välj ett land</span>
