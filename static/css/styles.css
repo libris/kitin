@@ -685,8 +685,8 @@ div.loading {position: relative; left: 80%; float: left; z-index:10000; margin-t
 .suggestion-classification li{margin: 0 4px 4px 0;float:left;padding:4px 8px;background:rgba(167, 86, 167, 0.35);}
 .suggestion-classification li .ficon{color:#683568;}
 
-.on-hover { display:none; }
-.person:hover .on-hover { display:block; }
+.on-hover { visibility: hidden; }
+.person:hover .on-hover { visibility: visible; }
 
 /* bootstrap dropdown */
 
