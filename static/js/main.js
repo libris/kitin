@@ -792,7 +792,13 @@ kitin.directive('inplace', function () {
       scope.triggerModified();
       scope.$apply();
     })
-    elm.jkey('enter', function () { this.blur(); });
+    elm.jkey('enter', function () {
+      if (scope.editable) {
+        scope.editable = false;
+        scope.$apply();
+      }
+      this.blur();
+    });
   };
 });
 
