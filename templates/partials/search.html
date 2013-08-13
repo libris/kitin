@@ -44,10 +44,9 @@
           <span>{{ record.data.about.responsibilityStatement }}</span>
           </label>
 -->
-            <label title="Upphovsman" data-ng-init="work = record.data.about.instanceOf; author = work.creator || work.contributorList[0]">
-                <span>{{ author.givenName }} {{ author.familyName }}</span><span data-ng-show="author.birthYear || author.deathYear">, <span class="muted">{{ author.birthYear }}-{{ author.deathYear }}</span></span>
-                <!-- <span class="lbl">Upphovsman</span> -->
-            </label>
+            <label title="Upphovsman"
+                   data-ng-init="work = record.data.about.instanceOf; person = work.creator || work.contributorList[0]"
+                   data-ng-include="'render-person-name'"></label>
           </div>
           <div class="col4">
             <label title="Utgivningsår" data-ng-repeat="publication in record.data.about.publication | limitTo:1"

@@ -85,16 +85,11 @@
     </div>
 
     <script type="text/ng-template" id="render-person">
-      <div class="entity person">
+      <div class="entity person" data-ng-init="editable = !(person.controlledLabel || person.givenName)">
         <div class="col3" data-ng-hide="editable">
-          <label>
-            <a data-ng-click="editable=!editable" href="javascript:;">
-              {{ person.familyName }}, {{ person.givenName }}
-              {{ person.birthYear }}-{{ person.deathYear }}
-            </a>
-          </label>
+          <label data-ng-click="editable=!editable">
+            <span data-ng-include="'render-person-name'"></span> &nbsp;</label>
         </div>
-        <button class="btn-link" data-ng-show="editable" data-ng-click="editable=false"><i class="ficon ficon-ok"></i></button>
         <div class="addon" data-ng-show="editable">
           <label>
             <input data-inplace class="input-mini" type="text" placeholder="Egennamn" data-kitin-autocomplete="field" data-kitin-template="auth-completion-template" data-ng-model="person.givenName" />
@@ -119,9 +114,10 @@
           <label>
             <span data-ng-repeat="role in personRoleMap[person['@id']]"><span data-ng-hide="$first">, </span>{{ role.label_sv }}</span>
           </label>
-          <label>
+          <label data-ng-hide="editable">
             <button class="btn-link on-hover" data-ng-click="removeObject(subj, rel, $index)"><i class="ficon ficon-remove"></i></button>
           </label>
+          <button class="btn-link" data-ng-show="editable" data-ng-click="editable=false"><i class="ficon ficon-ok"></i></button>
         </div>
       </div>
     </script>
