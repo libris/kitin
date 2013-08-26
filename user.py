@@ -25,7 +25,7 @@ class User(UserMixin):
     def authorize(self, password, cfg):
         bibdb_api = cfg.get('BIBDB_API')
         api_key = cfg.get('BIBDB_API_KEY')
-        user_data = "username=%s&password=%s" % (self.username, password)
+        user_data = {"username": self.username, "password": password}
         api_headers = {"APIKEY_AUTH_HEADER": "%s" % api_key}
         # TODO: Change to /auth/login when new bibdb is deployed
         reply = requests.post("%s/login/auth" % bibdb_api, data = user_data, headers = api_headers)
