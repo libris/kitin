@@ -1,0 +1,56 @@
+{% raw %}
+    <div class="cols">
+      <div class="col6">
+        <h3>Ämnesord</h3>
+        <label class="dynamic-subjects">
+          <span class="subjects" data-ng-repeat="subject in work.subject">
+            <em class="subject">
+              <!-- Person.. -->
+              {{subject.controlledLabel}}
+              <!-- ..OR Concept.. -->
+              {{subject.prefLabel}}
+              <span data-ng-show="subject.formSubdivision">&mdash; {{subject.formSubdivision}}</span>
+              <span data-ng-show="subject.geographicSubdivision">&mdash; {{subject.geographicSubdivision}}</span>
+              <span data-ng-show="subject.system">({{subject.system}})</span>
+            </em>
+          </span>
+          <textarea data-inplace placeholder="Ämnesord"></textarea>
+          <span class="lbl">Ämnesord</span>
+        </label>
+        <!--
+        <div class="suggestion-subjects">
+          <ul>
+            <li><i class="ficon ficon-circle-arrow-up"></i>...</li>
+          </ul>
+        </div>
+        -->
+          <!--<ul class="inline">
+            <li data-ng-repeat="topic in work.subject"><a class="btn btn-small" href="{{ topic['@id'] }}"><i class="icon-tag"></i> {{ topic['@id'] }}</a></li>
+          </ul>-->
+      </div>
+      <div class="col6">
+        <h3>Klassifikation</h3>
+        <!--
+        <ul class="inline">
+        <li data-ng-repeat="topicalTerm in record.topicalTerm"><a class="btn btn-small" href="{{ topicalTerm }}"><i class="icon-tag"></i> {{ topicalTerm }}</a></li>
+      </ul>
+          -->
+        <label class="dynamic-subjects">
+          <span class="subjects" data-ng-repeat="classification in work['class-ddc']">
+            <em class="subject">{{classification}}</em>
+          </span>
+          <textarea data-inplace placeholder="Klassifikation" disabled></textarea>
+          <span class="lbl">Klassifikation</span>
+        </label>
+      </div>
+    </div>
+    <h3>{{ "Anmärkningar" }}</h3>
+    <div class="cols">
+      <div class="col6">
+        <label>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="work.summary" placeholder="Sammanfattning"></textarea>
+          <span class="lbl">{{ "Sammanfattning" }}</span>
+        </label>
+      </div>
+    </div>
+{% endraw %}
