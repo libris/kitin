@@ -356,6 +356,13 @@ section.nav dt i{
   border-color: transparent #106351 transparent transparent;
 }
 
+.content section h4 {
+  color:#1a8f72;
+  font-style: italic;
+  font-weight: 400;
+}
+
+
 /* hitlist */
 
 section.nav dt i{border-right-color:#666;}

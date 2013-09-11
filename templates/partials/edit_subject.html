@@ -2,6 +2,7 @@
     <div class="cols">
       <div class="col6">
         <h3>Ämnesord</h3>
+        <h4>Svenska ämnesord</h4>
         <label class="dynamic-subjects">
           <span class="subjects" data-ng-repeat="subject in work.subject">
             <em class="subject">
@@ -15,7 +16,39 @@
             </em>
           </span>
           <textarea data-inplace placeholder="Ämnesord"></textarea>
-          <span class="lbl">Ämnesord</span>
+          <span class="lbl">prefLabel</span>
+        </label>
+        <label class="dynamic-subjects">
+          <span class="subjects" data-ng-repeat="subject in work.subject">
+            <em class="subject">
+              <!-- Person.. -->
+              {{subject.controlledLabel}}
+              <!-- ..OR Concept.. -->
+              {{subject.notation}}
+              <span data-ng-show="subject.formSubdivision">&mdash; {{subject.formSubdivision}}</span>
+              <span data-ng-show="subject.geographicSubdivision">&mdash; {{subject.geographicSubdivision}}</span>
+              <span data-ng-show="subject.system">({{subject.system}})</span>
+            </em>
+          </span>
+          <textarea data-inplace placeholder="Ämnesord"></textarea>
+          <span class="lbl">Notation</span>
+        </label>
+        
+        <h4>Andra ämnesordssystem</h4>
+        <label class="dynamic-subjects">
+          <span class="subjects" data-ng-repeat="subject in work.subject">
+            <em class="subject">
+              <!-- Person.. -->
+              {{subject.controlledLabel}}
+              <!-- ..OR Concept.. -->
+              <!-- {{subject.prefLabel}} -->
+              <span data-ng-show="subject.formSubdivision">&mdash; {{subject.formSubdivision}}</span>
+              <span data-ng-show="subject.geographicSubdivision">&mdash; {{subject.geographicSubdivision}}</span>
+              <span data-ng-show="subject.system">({{subject.system}})</span>
+            </em>
+          </span>
+          <textarea data-inplace placeholder="Ämnesord"></textarea>
+          <span class="lbl">Allmänna Ämnesord</span>
         </label>
         <!--
         <div class="suggestion-subjects">
