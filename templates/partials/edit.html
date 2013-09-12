@@ -283,7 +283,7 @@
     </ng-form>
   </section>
 
-  <section id="subject classification" data-ng-repeat="work in [record.about.instanceOf]">
+  <section id="subject classification" data-ng-repeat="instance in [record.about]">
     <ng-include src="'/partials/edit_subject'"></ng-include>
   </section> 
   
