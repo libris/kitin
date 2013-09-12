@@ -114,7 +114,7 @@ def search_json():
         freq = ''
     b = request.args.get('b', '')
     boost = ("&boost=%s" % b) if b else ''
-    resp = requests.get("%s/kitin/_search?q=%s%s%s" % (
+    resp = requests.get("%s/kitin/bib/_search?q=%s%s%s" % (
         app.config['WHELK_HOST'], q, freq, boost),
         headers=extract_x_forwarded_for_header(request))
     return raw_json_response(resp.text)
@@ -136,7 +136,7 @@ def search():
     b = request.args.get('b', '')
     boost = ("&boost=%s" % b) if b else ''
     if q:
-        resp = requests.get("%s/kitin/_search?q=%s%s%s" % (
+        resp = requests.get("%s/kitin/bib/_search?q=%s%s%s" % (
             app.config['WHELK_HOST'], q, freq, boost), headers=search_headers)
     return render_template('index.html', partials = {"/partials/search" : "partials/search.html"})
 
