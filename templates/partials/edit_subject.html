@@ -11,7 +11,11 @@
         <div class="TEST">        
 	        <div data-ng-repeat="subject in work.subject">
   	          <div data-ng-show="subject.prefLabel">
-		        Etikett: {{ subject.prefLabel }} {{ subject.['@id'] }}
+		      <label>
+		       {{ subject.prefLabel }} 
+		       <span class="lbl" data-ng-show="subject['@type']">Geografiskt ämnesord</span>
+		       <span class="lbl">{{ subject.inScheme.notation }}</span><!--TODO Script show label to avoid duplicate-->
+		      </label>
   	          </div>
   	   	      <label>         
   	          <div data-ng-show="subject.broader">
