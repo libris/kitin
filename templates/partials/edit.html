@@ -35,7 +35,7 @@
     <ng-form name="subform">
     <h2 data-ng-click="cycleType($event, instance)"> <span>{{ getTypeDef(instance).label_sv }}</span><i></i></h2>
     <div class="cols">
-      <div class="col6" data-ng-repeat="title in [instance.title]">
+      <div class="col6" data-ng-init="title = instance.title">
         <label>
           <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" placeholder="Huvudtitel" data-ng-model="title.titleValue"></textarea>
           <span class="lbl">{{ "Huvudtitel" }}</span>
@@ -54,8 +54,8 @@
     </div>
 
     <h3>Verk</h3>
-    <div class="cols" data-ng-repeat="work in [record.about.instanceOf]">
-      <div class="col6">
+    <div class="cols" data-ng-init="work = record.about.instanceOf">
+      <div class="col5">
         <label class="ng-binding">
           <!--<span class="fakeholder" data-fakeholder>Välj ett land</span>
           <select class="selectpicker" data-selectpicker data-ng-model="work.language" data-ng-options="code as name for (code, name) in langlist">
@@ -71,37 +71,56 @@
          <input data-inplace ui-select2="langlist" ng-model="work.language" style="width:200px" />-->
         </label>
       </div>
-      <div class="col6">
-        <div data-ng-repeat="role in ['creator', 'contributor']">
-          <!-- TODO: label for role -->
-          <i>{{ role }}</i>
-          <div data-ng-repeat="person in work[role]" class="entity person">
-            <div class="addon">
-              <label>
-                <input data-inplace class="input-mini" type="text" placeholder="Egennamn" data-kitin-autocomplete="field" data-kitin-template="auth-completion-template" data-ng-model="person.givenName" />
-                <span class="lbl">{{ "Egennamn" }}</span>
-              </label>
-              <label>
-                <input data-inplace class="input-mini" type="text" placeholder="Familjenamn" data-kitin-autocomplete="field" data-kitin-template="auth-completion-template" data-ng-model="person.familyName" />
-                <span class="lbl">{{ "Familjenamn" }}</span>
-              </label>
-              </div>
-            <div class="addon">
-              <label>
-                <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ" data-ng-model="person.birthYear" />
-                <span class="lbl">{{ "Född" }}</span>
-              </label>
-              <label>
-                <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ" data-ng-model="person.deathYear" />
-                <span class="lbl">{{ "Död" }}</span>
-              </label>
-            </div>
-            <button class="btn-link on-hover" data-ng-click="removePerson(role, $index)"><i class="ficon ficon-remove"></i> Ta bort</button>
-          </div>
-          <button class="btn-link" data-ng-click="addPerson(work, role)"><i class="ficon ficon-plus-sign"></i> {{ role }}</button>
-        </div>
+      <div class="col7">
+        <div data-ng-show="work.creator"
+             onload="subj = work; rel = 'creator'; person = work.creator"
+             data-ng-include="'render-person'"></div>
+        <button class="btn-link" data-ng-click="newObject(work, 'creator', 'Person')">{{ 'Huvuduppslag' }}
+          <i data-ng-hide="work.creator" class="ficon ficon-plus-sign"></i></button>
+        <hr />
+        <div data-ng-repeat="person in work.contributorList"
+             onload="subj = work; rel = 'contributorList'" data-ng-include="'render-person'"></div>
+        <button class="btn-link" data-ng-click="addObject(work, 'contributorList', 'Person')">{{ 'Biuppslag' }} <i class="ficon ficon-plus-sign"></i></button>
       </div>
     </div>
+
+    <script type="text/ng-template" id="render-person">
+      <div class="entity person" data-ng-init="editable = !(person.controlledLabel || person.givenName)">
+        <div class="col3" data-ng-hide="editable">
+          <label data-ng-click="editable=!editable">
+            <span data-ng-include="'render-person-name'"></span> &nbsp;</label>
+        </div>
+        <div class="addon" data-ng-show="editable">
+          <label>
+            <input data-inplace class="input-mini" type="text" placeholder="Egennamn" data-kitin-autocomplete="field" data-kitin-template="auth-completion-template" data-ng-model="person.givenName" />
+            <span class="lbl">{{ "Egennamn" }}</span>
+          </label>
+          <label>
+            <input data-inplace class="input-mini" type="text" placeholder="Familjenamn" data-kitin-autocomplete="field" data-kitin-template="auth-completion-template" data-ng-model="person.familyName" />
+            <span class="lbl">{{ "Familjenamn" }}</span>
+          </label>
+          </div>
+        <div class="addon" data-ng-show="editable">
+          <label>
+            <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ" data-ng-model="person.birthYear" />
+            <span class="lbl">{{ "Född" }}</span>
+          </label>
+          <label>
+            <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ" data-ng-model="person.deathYear" />
+            <span class="lbl">{{ "Död" }}</span>
+          </label>
+        </div>
+        <div class="addon">
+          <label>
+            <span data-ng-repeat="role in personRoleMap[person['@id']]"><span data-ng-hide="$first">, </span>{{ role.label_sv }}</span>
+          </label>
+          <label data-ng-hide="editable">
+            <button class="btn-link on-hover" data-ng-click="removeObject(subj, rel, $index)"><i class="ficon ficon-remove"></i></button>
+          </label>
+          <button class="btn-link" data-ng-show="editable" data-ng-click="editable=false"><i class="ficon ficon-ok"></i></button>
+        </div>
+      </div>
+    </script>
 
     <h3>Utgivning och tillverkning</h3>
     <div class="cols">
@@ -264,63 +283,10 @@
     </ng-form>
   </section>
 
-  <section id="classification" data-ng-repeat="work in [record.about.instanceOf]">
-    <div class="cols">
-      <div class="col6">
-        <h3>Ämnesord</h3>
-        <label class="dynamic-subjects">
-          <span class="subjects" data-ng-repeat="subject in work.subject">
-            <em class="subject">
-              <!-- Person.. -->
-              {{subject.controlledLabel}}
-              <!-- ..OR Concept.. -->
-              {{subject.prefLabel}}
-              <span data-ng-show="subject.formSubdivision">&mdash; {{subject.formSubdivision}}</span>
-              <span data-ng-show="subject.geographicSubdivision">&mdash; {{subject.geographicSubdivision}}</span>
-              <span data-ng-show="subject.system">({{subject.system}})</span>
-            </em>
-          </span>
-          <textarea data-inplace placeholder="Ämnesord" disabled></textarea>
-          <span class="lbl">Ämnesord</span>
-        </label>
-        <!--
-        <div class="suggestion-subjects">
-          <ul>
-            <li><i class="ficon ficon-circle-arrow-up"></i>...</li>
-          </ul>
-        </div>
-        -->
-          <!--<ul class="inline">
-            <li data-ng-repeat="topic in work.subject"><a class="btn btn-small" href="{{ topic['@id'] }}"><i class="icon-tag"></i> {{ topic['@id'] }}</a></li>
-          </ul>-->
-      </div>
-      <div class="col6">
-        <h3>Klassifikation</h3>
-        <!--
-        <ul class="inline">
-        <li data-ng-repeat="topicalTerm in record.topicalTerm"><a class="btn btn-small" href="{{ topicalTerm }}"><i class="icon-tag"></i> {{ topicalTerm }}</a></li>
-      </ul>
-          -->
-        <label class="dynamic-subjects">
-          <span class="subjects" data-ng-repeat="classification in work['class-ddc']">
-            <em class="subject">{{classification}}</em>
-          </span>
-          <textarea data-inplace placeholder="Klassifikation" disabled></textarea>
-          <span class="lbl">Klassifikation</span>
-        </label>
-      </div>
-    </div>
-    <h3>{{ "Anmärkningar" }}</h3>
-    <div class="cols">
-      <div class="col6">
-        <label>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="work.summary" placeholder="Sammanfattning"></textarea>
-          <span class="lbl">{{ "Sammanfattning" }}</span>
-        </label>
-      </div>
-    </div>
-  </section>
-
+  <section id="subject classification" data-ng-repeat="instance in [record.about]">
+    <ng-include src="'/partials/edit_subject'"></ng-include>
+  </section> 
+  
   <section class="submit modificationinfo" data-ng-class="modifiedClasses()">
 <!--post beta:
     <span class="removedraft" data-ng-show="draft" data-ng-click="promptConfirmDelete($event, draft.type, draft.id)">
@@ -436,7 +402,6 @@
   </div>
 </div>
 </form>
-
 
 <script type="text/ng-template" id="render-holding">
 <div class="holdings-list" data-ng-show="holding.location"> 

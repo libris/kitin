@@ -93,5 +93,16 @@ Vi rekommenderar uppdaterade versioner av Google Chrome eller Mozilla Firefox f√
     </script>
     {% endif %}
 
+    {% raw %}
+    <!-- shared AngularJS templates -->
+
+    <script type="text/ng-template" id="render-person-name">
+      {{ person.givenName }}
+      {{ person.familyName }}<span data-ng-show="person.birthYear || person.deathYear">,
+        <span class="muted">{{ person.birthYear }}-{{ person.deathYear }}</span></span>
+    </script>
+
+    {% endraw %}
+
   </body>
 </html>

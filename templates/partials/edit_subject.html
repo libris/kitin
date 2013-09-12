@@ -1,0 +1,113 @@
+{% raw %}
+    <div class="cols">
+      <div class="col6">
+        <h3>Ämnesord</h3>
+ 
+        <div class="TEST">        
+	        <div data-ng-repeat="subject in instance.subject">
+  	          <div data-ng-show="subject.prefLabel">
+		        Etikett: {{ subject.prefLabel }} {{ subject['@id'] }}
+  	          </div>
+  	          
+  	          <div data-ng-show="subject.broader">
+	  	          <em>Sammansättning:</em>
+		          <div>
+		          	<span data-ng-repeat="broader in subject.broader">
+					  	<strong>{{broader.prefLabel}}</strong>
+					  	<span data-ng-show="broader.notation">({{ broader.notation }})</span>
+					  	<span data-ng-hide="$last">--</span>
+					</span>
+		          </div>
+		          <div data-ng-show="subject.inScheme">
+  	          	<label><span class="lbl">Schema: {{ subject.inScheme.notation }}</span></label>
+  	          </div>
+  	          </div>
+	        </div>
+        </div>
+        
+        <h4>Svenska ämnesord</h4>
+        <label class="dynamic-subjects">
+          <span class="subjects" data-ng-repeat="subject in instance.subject">
+            <em class="subject">
+              <!-- Person.. -->
+              {{subject.controlledLabel}}
+              <!-- ..OR Concept.. -->
+              {{subject.prefLabel}}
+              <span data-ng-show="subject.formSubdivision">&mdash; {{subject.formSubdivision}}</span>
+              <span data-ng-show="subject.geographicSubdivision">&mdash; {{subject.geographicSubdivision}}</span>
+              <span data-ng-show="subject.system">({{subject.system}})</span>
+            </em>
+          </span>
+          <textarea data-inplace placeholder="Ämnesord"></textarea>
+          <span class="lbl">prefLabel</span>
+        </label>
+        <label class="dynamic-subjects">
+          <span class="subjects" data-ng-repeat="subject in work.subject">
+            <em class="subject">
+              <!-- Person.. -->
+              {{subject.controlledLabel}}
+              <!-- ..OR Concept.. -->
+              {{subject.prefLabel}}
+              <span data-ng-show="subject.formSubdivision">&mdash; {{subject.formSubdivision}}</span>
+              <span data-ng-show="subject.formSubdivision">&mdash; {{subject.formSubdivision}}</span>
+              <span data-ng-show="subject.geographicSubdivision">&mdash; {{subject.geographicSubdivision}}</span>
+              <span data-ng-show="subject.system">({{subject.system}})</span>
+            </em>
+          </span>
+          <textarea data-inplace placeholder="Ämnesord"></textarea>
+          <span class="lbl">prefLabel</span>
+        </label>
+        
+        <h4>Andra ämnesordssystem</h4>
+        <label class="dynamic-subjects">
+          <span class="subjects" data-ng-repeat="subject in work.subject">
+            <em class="subject">
+              <!-- Person.. -->
+              {{subject.controlledLabel}}
+              <!-- ..OR Concept.. -->
+              <!-- {{subject.prefLabel}} -->
+              <span data-ng-show="subject.formSubdivision">&mdash; {{subject.formSubdivision}}</span>
+              <span data-ng-show="subject.geographicSubdivision">&mdash; {{subject.geographicSubdivision}}</span>
+              <span data-ng-show="subject.system">({{subject.system}})</span>
+            </em>
+          </span>
+          <textarea data-inplace placeholder="Ämnesord"></textarea>
+          <span class="lbl">Ämnesordssystem X</span>
+        </label>
+        <!--
+        <div class="suggestion-subjects">
+          <ul>
+            <li><i class="ficon ficon-circle-arrow-up"></i>...</li>
+          </ul>
+        </div>
+        -->
+          <!--<ul class="inline">
+            <li data-ng-repeat="topic in work.subject"><a class="btn btn-small" href="{{ topic['@id'] }}"><i class="icon-tag"></i> {{ topic['@id'] }}</a></li>
+          </ul>-->
+      </div>
+      <div class="col6">
+        <h3>Klassifikation</h3>
+        <!--
+        <ul class="inline">
+        <li data-ng-repeat="topicalTerm in record.topicalTerm"><a class="btn btn-small" href="{{ topicalTerm }}"><i class="icon-tag"></i> {{ topicalTerm }}</a></li>
+      </ul>
+          -->
+        <label class="dynamic-subjects">
+          <span class="subjects" data-ng-repeat="classification in work['class-ddc']">
+            <em class="subject">{{classification}}</em>
+          </span>
+          <textarea data-inplace placeholder="Klassifikation" disabled></textarea>
+          <span class="lbl">Klassifikation</span>
+        </label>
+      </div>
+    </div>
+    <h3>{{ "Anmärkningar" }}</h3>
+    <div class="cols">
+      <div class="col6">
+        <label>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="work.summary" placeholder="Sammanfattning"></textarea>
+          <span class="lbl">{{ "Sammanfattning" }}</span>
+        </label>
+      </div>
+    </div>
+{% endraw %}
