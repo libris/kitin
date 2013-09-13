@@ -5,7 +5,8 @@ import json
 import urllib2
 import logging
 from urlparse import urlparse
-from flask import Flask, render_template, request, make_response, abort, redirect, url_for, Markup, session
+from flask import (Flask, render_template, request, make_response, Response,
+        abort, redirect, url_for, Markup, session)
 from flask_login import LoginManager, login_required, login_user, flash, current_user, logout_user
 import requests
 import re
@@ -204,8 +205,13 @@ def delete_holding(holding_id):
 def get_resource(path):
     qs = request.query_string
     url = "%s/resource/%s?%s" % (app.config['WHELK_HOST'], path, qs)
-    resp = requests.get(url)
-    return raw_json_response(resp.text)
+    remote_resp = requests.get(url)
+    resp = Response(
+        remote_resp.text,
+        status=remote_resp.status_code,
+        content_type=remote_resp.headers['content-type'])
+    resp.headers['Expires'] = '-1'
+    return resp
 
 def split_facets(facet):
     dedupf = []
