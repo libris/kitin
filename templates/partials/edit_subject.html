@@ -14,7 +14,7 @@
   </script>
 
   <div>
-    <div data-ng-repeat="subject in work.subject">
+    <div data-ng-repeat="subject in work.subject" class="entity">
       <div data-ng-show="subject.prefLabel">
         <label>
           {{ subject.prefLabel }}
@@ -36,6 +36,9 @@
           <div data-ng-show="subject.inScheme" data-ng-include="'subject-label'">
           </div>
         </label>
+      </div>
+      <div class="addon">
+        <button class="btn-link" data-ng-click="removeObject(work, 'subject', $index)"><i class="ficon ficon-remove"></i></button>
       </div>
     </div>
   </div>
