@@ -4,7 +4,7 @@
         <h3>Ämnesord</h3>
 		<h4>Svenska ämnesord</h4>
                <label>
-                <input data-inplace type="text" data-ng-model="broader.prefLabel" placeholder="Ämnesord"/>
+                <input data-inplace type="text" data-ng-model="broader.prefLabel" placeholder="Ämnesord" data-kitin-autocomplete="subject" />
                 <span class="lbl">{{broader.prefLabel}}</span>
               </label>
               
@@ -88,4 +88,16 @@
         </label>
       </div>
     </div>
+
+<script type="text/html" id="subject-completion-template">
+<div class="auth">
+  <h4>
+    <span class="name"><%= data['prefLabel'] %></span>
+    <% if (data['authorized']) { %>
+      <span class="what"><i class="ficon ficon-bookmark"></i>Aukt.</span>
+    <% } %>
+  </h4>
+</div>
+</script>
+
 {% endraw %}

@@ -92,11 +92,12 @@
         </div>
         <div class="addon" data-ng-show="editable">
           <label>
-            <input data-inplace class="input-mini" type="text" placeholder="Egennamn" data-kitin-autocomplete="field" data-kitin-template="auth-completion-template" data-ng-model="person.givenName" />
+            <input data-inplace class="input-mini" type="text" placeholder="Egennamn" data-ng-model="person.givenName"
+            	data-kitin-autocomplete="person" />
             <span class="lbl">{{ "Egennamn" }}</span>
           </label>
           <label>
-            <input data-inplace class="input-mini" type="text" placeholder="Familjenamn" data-kitin-autocomplete="field" data-kitin-template="auth-completion-template" data-ng-model="person.familyName" />
+            <input data-inplace class="input-mini" type="text" placeholder="Familjenamn" data-kitin-autocomplete="person" data-ng-model="person.familyName" />
             <span class="lbl">{{ "Familjenamn" }}</span>
           </label>
           </div>

@@ -566,7 +566,6 @@ def get_overlay():
     with open(app.config['MARC_OVERLAY']) as f:
         return raw_json_response(f.read())
 
-
 @app.route('/suggest/auth')
 @login_required
 def suggest_auth_completions():
@@ -576,6 +575,14 @@ def suggest_auth_completions():
         abort(response.status_code)
     return raw_json_response(response.text)
 
+@app.route('/suggest/subject')
+@login_required
+def suggest_subject_completions():
+    q = request.args.get('q')
+    response = requests.get("%s/kitin/concept/_search?q=%s" % (app.config['WHELK_HOST'], q))
+    if response.status_code >= 400:
+        abort(response.status_code)
+    return raw_json_response(response.text)
 
 @app.route("/partials/<name>")
 @login_required

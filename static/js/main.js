@@ -971,15 +971,30 @@ kitin.directive('kitinAutoselect', function(resources) {
    };   
 });
 
+// TODO: built properly configurable services out of this..
+var autocompleteServices = {
+	person: {
+		serviceUrl: "/suggest/auth",
+		templateId: "auth-completion-template",
+		objectKeys: ['controlledLabel', 'familyName', 'givenName', 'birthYear', 'deathYear']
+	},
+	subject: {
+		serviceUrl: "/suggest/subject",
+		templateId: "subject-completion-template",
+		objectKeys: ['prefLabel']
+	}
+};
+
 kitin.directive('kitinAutocomplete', function() {
   return {
     restrict: 'A',
     link: function(scope, elem, attrs) {
 
-      var templateId = attrs.kitinTemplate;
+      var conf = autocompleteServices[attrs.kitinAutocomplete];
+
       /* TODO: IMPROVE: replace current autocomplete mechanism and use angular
       templates ($compile) all the way.. It if is fast enough..*/ 
-      var template = _.template(jQuery('#' + templateId).html())
+      var template = _.template(jQuery('#' + conf.templateId).html())
       var selected = false;
       var is_authorized = false;
 
@@ -987,8 +1002,7 @@ kitin.directive('kitinAutocomplete', function() {
         $(elem).closest('.person').find('.authdependant').prop('disabled', val);
       };
 
-      var personKeys = ['controlledLabel', 'familyName', 'givenName', 'birthYear', 'deathYear'];
-      elem.autocomplete("/suggest/auth", {
+      elem.autocomplete(conf.serviceUrl, {
 
         inputClass: null,
         remoteDataType: 'json',
@@ -1037,7 +1051,7 @@ kitin.directive('kitinAutocomplete', function() {
           // TODO: do this (the is_authorized part?) the angular way
           is_authorized = !!item.data.authorized;
           scope.person['@id'] = item.data.identifier;
-          personKeys.forEach(function (key) {
+          objectKeys.forEach(function (key) {
             scope.person[key] = item.data[key];
           });
           scope.$apply();
