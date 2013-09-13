@@ -69,9 +69,9 @@
   </ul>
       -->
   <label class="dynamic-subjects">
-      <span class="subjects" data-ng-repeat="classification in work['class-ddc']">
-      <em class="subject">{{classification}}</em>
-      </span>
+      <div class="subjects" data-ng-repeat="classification in unifiedClassifications">
+        <em class="subject">{{classification.prefLabel}}</em>
+      </div>
       <textarea data-inplace placeholder="Klassifikation" disabled></textarea>
       <span class="lbl">Klassifikation</span>
   </label>

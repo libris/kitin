@@ -416,6 +416,7 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     $http.get("/record/" + recType + "/" + recId + "/holdings").success(function(data) {
 
       $scope.personRoleMap = getPersonRoleMap(record);
+      $scope.unifiedClassifications = getUnifiedClassifications(record);
 
       var holding_etags = {};
       var items = patchHoldings(data.list);
@@ -485,6 +486,22 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     });
 
     return roleMap;
+  }
+
+  // TODO: this will be unified in the backend mapping and thus not needed up here
+  function getUnifiedClassifications(record) {
+    var thing = record.about.instanceOf;
+    var classes = [];
+    if (thing.class) {
+      classes.push.apply(thing.class);
+    }
+    ['class-lcc', 'class-ddc'].forEach(function (key) {
+      var cls = thing[key];
+      if (cls) {
+        classes.push({prefLabel: cls});
+      }
+    });
+    return classes;
   }
 
 
