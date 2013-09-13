@@ -10,7 +10,7 @@
   </label>
 
   <script type="text/ng-template" id="subject-label">
-    <span class="lbl">{{ subject.inScheme.notation }}</span>
+    <span class="lbl">Ämnesord</span>
   </script>
 
   <div>
@@ -19,7 +19,7 @@
         <label>
           {{ subject.prefLabel }}
           <span class="lbl" data-ng-show="subject['@type'] == 'Place'">Geografiskt ämnesord</span>
-          <span class="lbl">{{ subject.inScheme.notation }}</span><!--TODO Script show label to avoid duplicate-->
+          <span class="lbl">{{ subject.inScheme.notation }}</span><!--TODO use Script for label to avoid duplicate-->
         </label>
       </div>
       <div data-ng-show="subject.broader">
@@ -41,25 +41,18 @@
   </div>
 
   <h4>Andra ämnesordssystem</h4>
-  <label class="dynamic-subjects">
-      <span class="subjects" data-ng-repeat="subject in work.subject">
-      <em class="subject">
-          <!-- Person.. -->
-          {{subject.controlledLabel}}
-          <!-- ..OR Concept.. -->
-          <!-- {{subject.prefLabel}} -->
-      </em>
-      </span>
-      <textarea data-inplace placeholder="Ämnesord"></textarea>
+  <label>
       <span class="lbl">Ämnesordssystem X</span>
   </label>
 
+<hr>
+<!-- TODO add dynamic suggestions for subjects
   <div class="suggestion-subjects">
       <ul>
       <li><i class="ficon ficon-circle-arrow-up"></i>...</li>
       </ul>
   </div>
-
+-->
       <!--<ul class="inline">
       <li data-ng-repeat="topic in work.subject"><a class="btn btn-small" href="{{ topic['@id'] }}"><i class="icon-tag"></i> {{ topic['@id'] }}</a></li>
       </ul>-->
