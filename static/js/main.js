@@ -971,18 +971,20 @@ kitin.directive('kitinAutoselect', function(resources) {
    };   
 });
 
-// TODO: built properly configurable services out of this..
+// TODO: build properly configurable services out of this..
 var autocompleteServices = {
-	person: {
-		serviceUrl: "/suggest/auth",
-		templateId: "auth-completion-template",
-		objectKeys: ['controlledLabel', 'familyName', 'givenName', 'birthYear', 'deathYear']
-	},
-	subject: {
-		serviceUrl: "/suggest/subject",
-		templateId: "subject-completion-template",
-		objectKeys: ['prefLabel']
-	}
+  person: {
+    serviceUrl: "/suggest/auth",
+    templateId: "auth-completion-template",
+    scopeObjectKey: "person",
+    objectKeys: ['controlledLabel', 'familyName', 'givenName', 'birthYear', 'deathYear']
+  },
+  subject: {
+    serviceUrl: "/suggest/subject",
+    templateId: "subject-completion-template",
+    scopeObjectKey: "person",
+    objectKeys: ['prefLabel']
+  }
 };
 
 kitin.directive('kitinAutocomplete', function() {
@@ -1040,7 +1042,7 @@ kitin.directive('kitinAutocomplete', function() {
         },
 
         onNoMatch: function() {
-          delete scope.person['@id'];
+          delete scope[conf.scopeObjectKey]['@id'];
           selected = false;
           is_authorized = false;
           toggleRelatedFieldsEditable(false);
@@ -1050,9 +1052,10 @@ kitin.directive('kitinAutocomplete', function() {
           selected = true;
           // TODO: do this (the is_authorized part?) the angular way
           is_authorized = !!item.data.authorized;
-          scope.person['@id'] = item.data.identifier;
-          objectKeys.forEach(function (key) {
-            scope.person[key] = item.data[key];
+          var obj = scope[conf.scopeObjectKey];
+          obj['@id'] = item.data.identifier;
+          conf.objectKeys.forEach(function (key) {
+            obj[key] = item.data[key];
           });
           scope.$apply();
         }
