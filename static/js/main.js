@@ -982,7 +982,12 @@ var autocompleteServices = {
   subject: {
     serviceUrl: "/suggest/subject",
     templateId: "subject-completion-template",
-    addToScope: function (scope, obj) { scope.work.subject.unshift(obj) },
+    addToScope: function (scope, obj) {
+      if (scope.work.subject === undefined) {
+        scope.work.subject = [];
+      }
+      scope.work.subject.unshift(obj);
+    },
     objectKeys: ['prefLabel']
   }
 };
