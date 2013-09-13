@@ -78,6 +78,16 @@ Vi rekommenderar uppdaterade versioner av Google Chrome eller Mozilla Firefox f√
     <script src="{{ url_for('static', filename='vendor/select2/select2.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/select2/select2_locale_sv.js') }}"></script>
 
+    <!-- IMPROVE: only if debug? -->
+    <script>
+        $("*").on("click", function (evt) {
+            if (!evt.altKey)
+              return;
+            console.log($(evt.target).scope());
+            evt.stopPropagation();
+        });
+    </script>
+
     <!-- <script src="{{ url_for('static', filename='vendor/jquery/jquery.autogrowinput.js') }}"></script> -->
     <!--<script type="text/javascript">
     $(function ()
