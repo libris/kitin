@@ -7,7 +7,11 @@
                 <input data-inplace type="text" data-ng-model="broader.prefLabel" placeholder="Ämnesord"/>
                 <span class="lbl">{{broader.prefLabel}}</span>
               </label>
- 
+              
+              <script type="text/ng-template" id="subject-label">
+                <span class="lbl">{{ subject.inScheme.notation }}</span>
+              </script>
+              
         <div class="TEST">        
 	        <div data-ng-repeat="subject in work.subject">
   	          <div data-ng-show="subject.prefLabel">
@@ -28,8 +32,8 @@
 					  	<span class="subject-delimiter" data-ng-hide="$last">--</span>
 					</span>
 		          </div>
-		          <div data-ng-show="subject.inScheme">
-                  <span class="lbl">{{ subject.inScheme.notation }}</span></label>
+		          <div data-ng-show="subject.inScheme" data-ng-include="'subject-label'">
+                  </label>
   	          </div>
   	          </div>
 	        </div>
