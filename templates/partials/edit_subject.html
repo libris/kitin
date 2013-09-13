@@ -6,8 +6,7 @@
   <h3>Ämnesord</h3>
   <h4>Svenska ämnesord</h4>
   <label>
-      <input data-inplace type="text" data-ng-model="broader.prefLabel" placeholder="Ämnesord" data-kitin-autocomplete="subject" />
-      <span class="lbl">{{broader.prefLabel}}</span>
+      <input type="text" placeholder="Ämnesord" data-kitin-autocomplete="subject" />
   </label>
 
   <script type="text/ng-template" id="subject-label">
@@ -19,7 +18,7 @@
       <div data-ng-show="subject.prefLabel">
         <label>
           {{ subject.prefLabel }}
-          <span class="lbl" data-ng-show="subject['@type']">Geografiskt ämnesord</span>
+          <span class="lbl" data-ng-show="subject['@type'] == 'Place'">Geografiskt ämnesord</span>
           <span class="lbl">{{ subject.inScheme.notation }}</span><!--TODO Script show label to avoid duplicate-->
         </label>
       </div>

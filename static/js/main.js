@@ -982,7 +982,7 @@ var autocompleteServices = {
   subject: {
     serviceUrl: "/suggest/subject",
     templateId: "subject-completion-template",
-    scopeObjectKey: "person",
+    addToScope: function (scope, obj) { scope.work.subject.unshift(obj) },
     objectKeys: ['prefLabel']
   }
 };
@@ -1052,11 +1052,19 @@ kitin.directive('kitinAutocomplete', function() {
           selected = true;
           // TODO: do this (the is_authorized part?) the angular way
           is_authorized = !!item.data.authorized;
-          var obj = scope[conf.scopeObjectKey];
-          obj['@id'] = item.data.identifier;
-          conf.objectKeys.forEach(function (key) {
-            obj[key] = item.data[key];
-          });
+          if (conf.scopeObjectKey) {
+            var obj = scope[conf.scopeObjectKey];
+            obj['@id'] = item.data.identifier;
+            conf.objectKeys.forEach(function (key) {
+              obj[key] = item.data[key];
+            });
+          } else if (conf.addToScope) {
+            // TODO: copy data? addObject?
+            if (item.data.prefLabel) {
+              delete item.data.broader;
+            }
+            conf.addToScope(scope, item.data);
+          }
           scope.$apply();
         }
       });
