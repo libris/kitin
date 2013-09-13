@@ -20,7 +20,7 @@ pushd $DIR
 
     fetch jquery.min.js http://code.jquery.com/jquery-1.9.1.min.js
 
-    fetch jquery.autocomplete.min.js https://raw.github.com/dyve/jquery-autocomplete/0bb1a4edf23d9e3bd0d55bd78ec48623a5c19e85/src/jquery.autocomplete.min.js
+    fetch jquery.autocomplete.js https://raw.github.com/dyve/jquery-autocomplete/master/src/jquery.autocomplete.js
     fetch jquery.autocomplete.css https://raw.github.com/dyve/jquery-autocomplete/0bb1a4edf23d9e3bd0d55bd78ec48623a5c19e85/src/jquery.autocomplete.css
     fetch indicator.gif https://github.com/dyve/jquery-autocomplete/raw/master/src/indicator.gif
 
