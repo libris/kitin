@@ -154,7 +154,7 @@
                 <!--<span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_length">(Fel längd)</span>-->
               </label>
               <label>
-                <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.identifierNote" placeholder="Notering">
+                <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="identifier.identifierNote" placeholder="Notering">
                 <span class="lbl">{{ "ISBN-notering" }}</span>
               </label>
             </div>
@@ -164,7 +164,7 @@
                 <span class="lbl">{{ identifier.identifierScheme }}</span>
               </label>
               <label>
-                <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.identifierNote" placeholder="Notering">
+                <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="identifier.identifierNote" placeholder="Notering">
                 <span class="lbl">{{ "Notering" }}</span>
               </label>
             </div>
@@ -274,12 +274,21 @@
           <span class="lbl">{{ "Formaterad innehållsförteckning" }}</span>
         </label>
       </div>
-      <div class="cols6" data-ng-show="getTypeDef(instance).term == 'Audiobook'">
+      <div class="col6" data-ng-show="getTypeDef(instance).term == 'Audiobook'">
         <label>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.contributorNote" placeholder="Medverkande">
           <span class="lbl">{{ "Medverkande" }}</span>
         </label>
       </div>
+    </div>
+    <div class="cols">
+      <div class="col6">
+          <label>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.note" placeholder="Instance Note">
+          <span class="lbl">{{ "Instance Note" }}</span>
+        </label>
+      </div>
+      <div class="col6"></div>
     </div>
     </ng-form>
   </section>
