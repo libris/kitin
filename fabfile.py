@@ -34,8 +34,8 @@ def deploy():
         upload_template("kitin.wsgi.in", "kitin.wsgi", env, backup=False)
         sudo("cp kitin.wsgi %(remotepath)s" % env)
         run("rm kitin.wsgi")
-    with prefix('source %(virtenvpath)s/bin/activate' % env):
-        run('pip install -r %(remotepath)s/requirements.txt' % env)
+        with prefix('source %(virtenvpath)s/bin/activate' % env):
+            sudo('pip install -r %(remotepath)s/requirements.txt' % env)
 
 @task
 def prepare():
