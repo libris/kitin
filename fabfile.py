@@ -21,10 +21,11 @@ def deploy():
     """
     _settings()
     local("tar cfz /tmp/kitin.tgz --exclude='.*' --exclude=storage --exclude=config.cfg *")
-    run('rm -f /tmp/kitin.tgz')
-    put('/tmp/kitin.tgz', '/tmp/')
+    sudo('rm -f /tmp/kitin.tgz')
+    put('/tmp/kitin.tgz', '/tmp/', use_sudo=True)
     with settings(sudo_user=env.wwwuser):
-        sudo('rm -fr %(remotepath)s' % env)
+        sudo('rm -rf %(remotepath)s-old' % env)
+        sudo('mv %(remotepath)s %(remotepath)s-old' % env)
         sudo('mkdir -m 775 %(remotepath)s' % env)
         with cd(env.remotepath):
             sudo('tar xzf /tmp/kitin.tgz')
