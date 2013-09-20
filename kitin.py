@@ -1,19 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os
 import json
 import urllib2
+import re
+from datetime import datetime, timedelta
+import os
 import logging
 from urlparse import urlparse
 from flask import (Flask, render_template, request, make_response, Response,
         abort, redirect, url_for, Markup, session)
 from flask_login import LoginManager, login_required, login_user, flash, current_user, logout_user
+import jinja2
 import requests
-import re
 from storage import Storage
 from user import User
-import jinja2
-from datetime import timedelta
 
 app = Flask(__name__)
 app.config.from_pyfile('config.cfg')
@@ -52,6 +52,12 @@ def _load_user(uid):
 @login_manager.unauthorized_handler
 def _handle_unauthorized():
     return redirect("/login")
+
+
+@app.context_processor
+def global_view_variables():
+    mtime = os.stat(__file__).st_mtime
+    return {'modified': datetime.fromtimestamp(mtime)}
 
 
 @app.route("/login", methods=["GET", "POST"])

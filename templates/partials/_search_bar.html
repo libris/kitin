@@ -1,5 +1,5 @@
 <div id="header">
-  <div class="logo"><a href="/"><img src="/static/i/libris.png" alt="Libris Kategorisering"></a><span class="beta">[BETA]</span><br><span class="kitin-updated">Uppdaterad 17 juni</span></div>
+  <div class="logo"><a href="/"><img src="/static/i/libris.png" alt="Libris Kategorisering"></a><span class="beta">[BETA]</span><br><span class="kitin-updated">{{ modified }}</span></div>
   <div class="kb"></div>
   {% if current_user and current_user.is_authenticated() %}
     <div class="searchfield">
