@@ -56,7 +56,7 @@ def _handle_unauthorized():
 
 @app.context_processor
 def global_view_variables():
-    mtime = os.stat(__file__).st_mtime
+    mtime = os.stat(os.path.dirname(__file__)).st_mtime
     return {'modified': datetime.fromtimestamp(mtime)}
 
 
