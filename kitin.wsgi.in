@@ -3,7 +3,7 @@ execfile(activate_this, dict(__file__=activate_this))
 
 import logging, sys
 logging.basicConfig(stream=sys.stderr)
-sys.path.insert(0, '%(remotepath)s')
+sys.path.insert(0, '%(kitin_appdir)s')
 from kitin import app as application
-application.config['MARC_MAP'] = '%(remotepath)s/marcmap.json' # Default value
-application.config['MARC_OVERLAY'] = '%(remotepath)s/marcmap-overlay.json' # Default value
+application.config['MARC_MAP'] = '%(kitin_appdir)s/marcmap.json' # Default value
+application.config['MARC_OVERLAY'] = '%(kitin_appdir)s/marcmap-overlay.json' # Default value
