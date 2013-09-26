@@ -24,17 +24,12 @@ kitin.config(
 
 
 kitin.factory('conf', function ($http, $q) {
-  var marcmap = $q.defer(),
-    overlay = $q.defer();
+  var marcmap = $q.defer();
   $http.get("/marcmap.json").success(function (o) {
     marcmap.resolve(o);
   });
-  $http.get("/overlay.json").success(function (o) {
-    overlay.resolve(o);
-  });
   return {
     marcmap: marcmap.promise,
-    overlay: overlay.promise,
     // TODO: off between controller init and completion;
     // use angular events for this?
     renderUpdates: false
