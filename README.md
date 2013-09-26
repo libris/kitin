@@ -54,10 +54,10 @@ Using npm, install [testacular](http://testacular.github.com):
 
     $ sudo npm install -g testacular
 
-Run the unit and end2end tests by executing any of these scripts:
+Run the unit and end2end tests by executing any of these:
 
-    $ ./scripts/test.sh
-    $ ./scripts/e2e-test.sh
+    $ testacular start test/js/config/testacular.conf.js
+    $ testacular start test/js/config/testacular-e2e.conf.js
 
 They assume chrome but can use other browsers as well. Settings and configuration options are located under test/js/config.
 
