@@ -4,10 +4,9 @@
 kitin.wsgi
 config.py
 fabconf.py
-elasticsearch-0.19.1/
 storage/
 .DS_store
 node_modules
 config.cfg
-webtests/.nodeids
-webtests/screenshots/
+test/web/.nodeids
+test/web/screenshots/
