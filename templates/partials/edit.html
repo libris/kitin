@@ -76,11 +76,11 @@
              onload="subj = work; rel = 'creator'; person = work.creator"
              data-ng-include="'render-person'"></div>
         <button class="btn-link" data-ng-click="newObject(work, 'creator', 'Person')">{{ 'Huvuduppslag' }}
-          <i data-ng-hide="work.creator" class="ficon ficon-plus-sign"></i></button>
+          <i data-ng-hide="work.creator" class="icon icon-plus-sign"></i></button>
         <hr />
         <div data-ng-repeat="person in work.contributorList"
              onload="subj = work; rel = 'contributorList'" data-ng-include="'render-person'"></div>
-        <button class="btn-link" data-ng-click="addObject(work, 'contributorList', 'Person')">{{ 'Biuppslag' }} <i class="ficon ficon-plus-sign"></i></button>
+        <button class="btn-link" data-ng-click="addObject(work, 'contributorList', 'Person')">{{ 'Biuppslag' }} <i class="icon icon-plus-sign"></i></button>
       </div>
     </div>
 
@@ -116,9 +116,9 @@
             <span data-ng-repeat="role in personRoleMap[person['@id']]"><span data-ng-hide="$first">, </span>{{ role.label_sv }}</span>
           </label>
           <label data-ng-hide="editable">
-            <button class="btn-link on-hover" data-ng-click="removeObject(subj, rel, $index)"><i class="ficon ficon-remove"></i></button>
+            <button class="btn-link on-hover" data-ng-click="removeObject(subj, rel, $index)"><i class="icon icon-remove"></i></button>
           </label>
-          <button class="btn-link" data-ng-show="editable" data-ng-click="editable=false"><i class="ficon ficon-ok"></i></button>
+          <button class="btn-link" data-ng-show="editable" data-ng-click="editable=false"><i class="icon icon-ok"></i></button>
         </div>
       </div>
     </script>
@@ -300,7 +300,7 @@
   <section class="submit modificationinfo" data-ng-class="modifiedClasses()">
 <!--post beta:
     <span class="removedraft" data-ng-show="draft" data-ng-click="promptConfirmDelete($event, draft.type, draft.id)">
-      <button class="btn-link" data-ng-click="somebutton.click()"><i class="ficon ficon-remove"></i> Ta bort utkast</button>
+      <button class="btn-link" data-ng-click="somebutton.click()"><i class="icon icon-remove"></i> Ta bort utkast</button>
     </span>-->
     <button class="btn-link" id="draft" data-ng-click="saveDraft()"
       title="{{lastSavedLabel('Senast sparad: %s')}}">Spara utkast</button>
@@ -331,7 +331,7 @@
         <h3>{{ "Förslag på signum" }}</h3>
           <div class="suggestion-classification">
           <ul>
-            <li data-ng-repeat="holding in holdings" data-ng-show="holding.classificationPart"><i class="ficon ficon-circle-arrow-up"></i> {{ holding.classificationPart }}</li>
+            <li data-ng-repeat="holding in holdings" data-ng-show="holding.classificationPart"><i class="icon icon-circle-arrow-up"></i> {{ holding.classificationPart }}</li>
           </ul>
           </div>
         </div>
@@ -357,7 +357,7 @@
         <!-- post beta:
         <div class="suggestion-classification">
           <ul>
-            <li data-ng-repeat="holding in holdings" data-ng-show="holding.classificationPart"><i class="ficon ficon-circle-arrow-up"></i> {{ holding.classificationPart }}</li>
+            <li data-ng-repeat="holding in holdings" data-ng-show="holding.classificationPart"><i class="icon icon-circle-arrow-up"></i> {{ holding.classificationPart }}</li>
           </ul>
           <span class="lbl lbl-suggest">Förslag på signum</span>
         </div>
@@ -434,7 +434,7 @@
   <h4>
     <span class="name"><%= data['controlledLabel'] %></span>
     <% if (data['authorized']) { %>
-      <span class="what"><i class="ficon ficon-bookmark"></i>Aukt.</span>
+      <span class="what"><i class="icon icon-bookmark"></i>Aukt.</span>
     <% } %>
   </h4>
   <% if (data['hasAnnotation'] && data['hasAnnotation']['about']) { %>

@@ -1,0 +1,11 @@
+{
+  "browser": true,
+  "camelcase": true,
+  "sub": true,
+  "globals": {
+    "jQuery": true,
+    "angular": true,
+    "console": true,
+    "document": true
+  }
+}

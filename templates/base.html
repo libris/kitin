@@ -6,35 +6,30 @@ Vi rekommenderar uppdaterade versioner av Google Chrome eller Mozilla Firefox f√
   <![endif]-->
     <meta charset="utf-8">
     <title>LIBRIS katalogisering</title>
+
     <link rel="shortcut icon" type="image/x-icon" href="/static/img/favicon.ico">
-    <!--<link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>-->
-    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.css') }}">
-    <link href="{{ url_for('static', filename='vendor/jquery/jquery.autocomplete.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/ficons.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/select2/select2.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='build/css/vendor.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <script src="{{ url_for('static', filename='vendor/jquery/jquery-1.9.1.js') }}"></script>
-    <script src="{{ url_for('static', filename='vendor/jquery/jquery.jkey.js') }}"></script>
-    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>    
-    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap-tooltip.js') }}"></script>    
-    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap-popover.js') }}"></script>    
-    <script src="{{ url_for('static', filename='vendor/angular.js') }}"></script>
-    <script src="{{ url_for('static', filename='vendor/angular-ui.min.js') }}"></script>
+
+    <!-- Placed at top since this is a one-page app -->
+    <script src="{{ url_for('static', filename='build/js/vendor.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-    <!--<link rel="stylesheet" href="{{ url_for('static', filename='vendor/angular-ui.min.css') }}">-->
+    <script src="{{ url_for('static', filename='js/select2_locale_sv.js') }}"></script>
+
   </head>
   <body data-ng-app="kitin" class="{% block bodyclass %}{% endblock %}">
       <div id="wrap">
         {% if current_user and current_user.is_authenticated() %}
         <div id="nav">
             <ul class="inline nav-menu pull-right">
-              <li class="active"><a href="/" title="Till startsida"><i class="ficon ficon-home"></i></a></li>
-             <li class="active"><a href="http://feedback.kat.libris.kb.se/" target="_blank" title="Feedback forum">Tyck till <i class="ficon ficon-external-link"></i></a></li>  
+              <li class="active"><a href="/" title="Till startsida"><i class="icon icon-home"></i></a></li>
+             <li class="active"><a href="http://feedback.kat.libris.kb.se/" target="_blank" title="Feedback forum">Tyck till <i class="icon icon-external-link"></i></a></li>  
               <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" title="Skapa ny post">Skapa ny <i class="ficon ficon-caret-down"></i></a>
+                  <a class="dropdown-toggle" data-toggle="dropdown" title="Skapa ny post">Skapa ny <i class="icon icon-caret-down"></i></a>
                   <ul class="dropdown-menu pull-right">
-                     <li class="disabled my_template"><a href="#"><i class="ficon ficon-heart"></i>Min egen mall 1</a></li>
-                     <li class="disabled my_template"><a href="#"><i class="ficon ficon-heart"></i>Min egen mall 2</a></li>
+                     <li class="disabled my_template"><a href="#"><i class="icon icon-heart"></i>Min egen mall 1</a></li>
+                     <li class="disabled my_template"><a href="#"><i class="icon icon-heart"></i>Min egen mall 2</a></li>
                      <li><a href="/edit/bib/new">Monografi</a></li>
                      <li class="disabled"><a href="#">Seriell publikation</a></li>
                      <li class="disabled"><a href="#">Ljudbok</a></li>
@@ -47,7 +42,7 @@ Vi rekommenderar uppdaterade versioner av Google Chrome eller Mozilla Firefox f√
              <a class="dropdown-toggle login" data-toggle="dropdown" title="Logga ut - inst√§llningar">
                <span class="meta">Inloggad som: </span>
                <span class="username">{{current_user.username}} ({{current_user.sigel}})</span>
-               <i class="ficon ficon-caret-down"></i>
+               <i class="icon icon-caret-down"></i>
              </a>
                  <ul class="dropdown-menu pull-right">
                     <li class="disabled"><a href="#"> Mitt konto</a></li>
@@ -69,14 +64,6 @@ Vi rekommenderar uppdaterade versioner av Google Chrome eller Mozilla Firefox f√
   </footer>
 </div>
     </div>
-
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{{ url_for('static', filename='vendor/jquery/jquery.jkey.js') }}"></script>
-    <script src="{{ url_for('static', filename='vendor/jquery/jquery.autocomplete.js') }}"></script>
-    <script src="{{ url_for('static', filename='vendor/lodash.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='vendor/jquery/jquery.autosize.js') }}"></script>
-    <script src="{{ url_for('static', filename='vendor/select2/select2.js') }}"></script>
-    <script src="{{ url_for('static', filename='vendor/select2/select2_locale_sv.js') }}"></script>
 
     <!-- IMPROVE: only if debug? -->
     <script>

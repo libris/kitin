@@ -9,7 +9,7 @@
   <div class="cols">
     <div class="col6">
       <section class="dash green">
-        <span class="circle"><i class="ficon ficon ficon-inbox"></i></span>
+        <span class="circle"><i class="icon icon icon-inbox"></i></span>
         <h4>Inkorg (poster från kollegor)</h4>
         <ul>
           <li><a href="#">Lorem Ipsum</a></li>
@@ -21,7 +21,7 @@
     </div>
     <div class="col6">
       <section class="dash purple">
-        <span class="circle"><i class="ficon ficon ficon-bullhorn"></i></span>
+        <span class="circle"><i class="icon icon icon-bullhorn"></i></span>
         <h4>Ändringsmeddelanden (fd CXZ-listan)</h4>
         <ul>
           <li><a href="#">Lorem Ipsum</a></li>
@@ -35,13 +35,13 @@
   <div class="cols">
     <div class="col6">
       <section class="dash pink">
-        <span class="circle"><i class="ficon ficon ficon-file"></i></span>
+        <span class="circle"><i class="icon icon icon-file"></i></span>
         <h4>Mina sparade utkast</h4>
         <ul class="unstyled">
           <li data-ng-repeat="draft in drafts" class="draft">
             <form data-ng-submit="delete(draft.type, draft.id)" method="POST" class="form-inline delete-draft">
           	  <a href="/edit/{{ draft.type }}/{{ draft.id }}" title="{{draft.path}}">{{draft.type}}/{{ draft.id }}</a>
-              <button type="submit" class="btn-link pull-right" title="Ta bort utkast"><i class="ficon ficon-remove"></i></button>
+              <button type="submit" class="btn-link pull-right" title="Ta bort utkast"><i class="icon icon-remove"></i></button>
               <input type="hidden" name="_method" value="DELETE" />
             </form>
           </li>
@@ -50,7 +50,7 @@
     </div>
     <div class="col6">
       <section class="dash grey">
-        <span class="circle"><i class="ficon ficon ficon-comments"></i></span>
+        <span class="circle"><i class="icon icon icon-comments"></i></span>
         <h4>Diskussionsforum (fd Marc21-listan)</h4>
         <ul>
           <li><a href="#">Lorem Ipsum</a></li>

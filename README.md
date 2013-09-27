@@ -1,83 +1,166 @@
 Kitin - README
 ========================================================================
 
-## Getting started
+Instructions for using and developing the Kitin web application.
 
-### Install requirements
+(These instructions work for OS X and Linux. Substitute `brew` in cmdline
+examples below with the package manager of your OS.)
 
-Mac OS X specific:
+Prerequisites
+------------------------------------------
 
+### Python and Friends
+
+Install:
     $ sudo easy_install pip
     $ pip install virtualenvwrapper
-    $ Add `export WORKON_HOME=$HOME/.virtualenvs` to your shell profile (zshrc, bashrc)
-    $ Add `source </path/to/virtualenvwrapper.sh>` to your shell profile (zshrc, bashrc)
+
+Add these to your shell profile:
+    export WORKON_HOME=$HOME/.virtualenvs
+    source </path/to/virtualenvwrapper.sh>
+
+### Node and Friends
+
+Install:
+    $ brew install node
+    $ npm install -g grunt-cli
+
+
+Initial Configuration
+------------------------------------------
+
+### Virtualenv and Flask Settings
+
+Create a virtualenv for this project:
     $ mkvirtualenv kb-kitin
     $ workon kb-kitin
     $ pip install -r dev-requirements.txt
 
-### Run the mock-whelk
-Development is more fun when there's data to toy around with.
-Clone the librisxl project and run its builtin mockserver
+Make a local copy of the config file.
+    $ cp config.cfg.in config.cfg
+
+In it, set `WHELK_HOST` to point to localhost:
+    WHELK_HOST = 'http://localhost:8080/whelk-webapi'
+
+Set `BIBDB_API` and `BIBDB_API_KEY`. (Ask your colleagues..)
+
+Set `SESSION_SECRET_KEY`. To generate a key using python:
+    $ import os
+    $ print(os.urandom(24).encode('hex'))
+
+### Install Grunt Tasks
+
+After repository checkout, run to download dependencies:
+    $ npm install . # download tools
+
+
+Managing Dependencies
+------------------------------------------
+
+### Python Dependencies
+
+Edit requirements.txt for reqular Python libraries, and dev-requirements.txt
+for development tools. Use pip as per above to install.
+
+### Updating Grunt Tasks
+
+To add a grunt task, install it and update package.json by running:
+    $ npm install --save-dev <package-name>
+Then configure it in the Gruntfile.js
+
+### Static Vendor Dependencies
+
+These are the third-party client-side (JS and CSS) libraries.
+
+Download and build minified versions:
+    $ grunt vendor
+
+Results end up in `static/vendor` and `static/build`.
+
+To add a dependency:
+    $ bower install --save <package-name>
+
+Edit `exportsOverride` in `bower.json` to limit what is copied into
+`static/vendor/`.
+
+
+During Development
+------------------------------------------
+
+### Run Local Test Backend
+
+Clone librisxl and run its mockserver:
 
     $ git clone git@github.com:libris/librisxl.git
-    $ cd librisxl/whelk-core
-    $ export JAVA_OPTS="-Dfile.encoding=utf8"
-    $ gradle jettyRun
+    $ cd librisxl
+    $ JAVA_OPTS="-Dfile.encoding=utf8" gradle jettyRun
 
-Add export JAVA_OPTS="-Dfile.encoding=utf8" to .profile 
+### Run the Flask Webapp
 
-### Configure and run the flask client
-
-1. Make a local copy of the config file.
-    $ cp config.cfg.in config.cfg
-2. Open config.cfg in your favourite editor and set WHELK_HOST to point to localhost, like so: `WHELK_HOST = 'http://localhost:8080/whelk-webapi'`
-3. Set BIBDB_API and BIBDB_API_KEY. Ask for directions...
-4. Set SESSION_SECRET_KEY. To generate a key using python:
-    $ import os
-    $ os.urandom(24).encode('hex')
-3. Run webapp
+Run webapp:
     $ ./kitin.py -d
 
-Run ./kitin.py -h for help
+(Use -h for help.)
 
+### Automatic CSS and JS Compilation
 
-## Development and Maintenance
+Run:
+    $ grunt watch
+To:
+- compile (our) scss and coffee
+- concatenates and minifies? (see below)
 
-### Running js test scripts
+### Running Python unit tests
 
-Install [node ](http://nodejs.org/) and [npm](https://npmjs.org).
+Execute the following command to run all tests.
 
-    $ brew install node npm (MacOSX)
-    $ sudo yain node npm (Archlinux)
+    $ nosetests
 
-Using npm, install [testacular](http://testacular.github.com):
+If for some reason nose fails to find the tests, tell it where to find them and
+where to find required modules(.)
 
-    $ sudo npm install -g testacular
+    $ PYTHONPATH=$PYTHONPATH:. nosetests -w test/python
+
+### Running JS tests
 
 Run the unit and end2end tests by executing any of these:
 
     $ testacular start test/js/config/testacular.conf.js
     $ testacular start test/js/config/testacular-e2e.conf.js
 
-They assume chrome but can use other browsers as well. Settings and configuration options are located under test/js/config.
+They assume Chrome but can use other browsers as well. Settings and
+configuration options are located under test/js/config.
 
-### Running python unit tests
 
-[Nose](https://nose.readthedocs.org/en/latest/testing.html) is used for unit tests. It is installed via pip (see above).
-Execute the following command to run all tests.
+Design Principles
+------------------------------------------
 
-    $ nosetests
+Why things are as they are in this application repository.
 
-If for some reason nose fails to find the tests, tell it where to find them and where to find required modules(.)
+### What is actually under version control?
 
-    $ PYTHONPATH=$PYTHONPATH:. nosetests -w test/python
+Details:
+    node_modules/ # .gitignore:d, contains local versions of tools
 
-### Downloading third-party web assets
+a) all vendor sources - bloat? makes dep. management less useful (could forget to use bower)..
+b) only concatenated and minified release files..
+c) nothing - requires release tool chain to use node+bower+grunt...
 
-Web assets are JS and CSS dependencies. Add their locations to this script:
+We've chosen a, because:
+- overview
+- source maps..
 
-    $ tools/fetch-vendor-assets.sh
 
-By doing this, their origin is documented, and updates to them become easily
-downloaded.
+The Tools Used
+------------------------------------------
 
+Python-based:
+* Flask, webapp framework
+* [Nose](https://nose.readthedocs.org/en/latest/testing.html) for unit tests
+
+Node-based:
+* [Node](http://nodejs.org/) and [NPM](https://npmjs.org/)
+* [Grunt](http://gruntjs.com/), build tool
+
+Client-side:
+* AngularJS

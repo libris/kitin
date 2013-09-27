@@ -1,12 +1,12 @@
 *.swp
 *.db
 *.pyc
-kitin.wsgi
-config.py
-fabconf.py
-storage/
 .DS_store
-node_modules
 config.cfg
+kitin.wsgi
+storage/
 test/web/.nodeids
 test/web/screenshots/
+node_modules/
+bower_components/
+npm-debug.log

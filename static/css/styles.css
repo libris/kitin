@@ -15,11 +15,11 @@ grey3: adadad
 /*
 @font-face {
     font-family: 'Open Sans';
-    src: url('/static/css/fonts/OpenSans-Light-webfont.eot');
-    src: url('/static/css/fonts/OpenSans-Light-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/static/css/fonts/OpenSans-Light-webfont.woff') format('woff'),
-         url('/static/css/fonts/OpenSans-Light-webfont.ttf') format('truetype'),
-         url('/static/css/fonts/OpenSans-Light-webfont.svg#OpenSansLight') format('svg');
+    src: url('../fonts/OpenSans-Light-webfont.eot');
+    src: url('../fonts/OpenSans-Light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/OpenSans-Light-webfont.woff') format('woff'),
+         url('../fonts/OpenSans-Light-webfont.ttf') format('truetype'),
+         url('../fonts/OpenSans-Light-webfont.svg#OpenSansLight') format('svg');
     font-weight: light;
     font-style: normal;
 
@@ -27,11 +27,11 @@ grey3: adadad
 
 @font-face {
     font-family: 'Open Sans';
-    src: url('/static/css/fonts/OpenSans-LightItalic-webfont.eot');
-    src: url('/static/css/fonts/OpenSans-LightItalic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/static/css/fonts/OpenSans-LightItalic-webfont.woff') format('woff'),
-         url('/static/css/fonts/OpenSans-LightItalic-webfont.ttf') format('truetype'),
-         url('/static/css/fonts/OpenSans-LightItalic-webfont.svg#OpenSansLightItalic') format('svg');
+    src: url('../fonts/OpenSans-LightItalic-webfont.eot');
+    src: url('../fonts/OpenSans-LightItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/OpenSans-LightItalic-webfont.woff') format('woff'),
+         url('../fonts/OpenSans-LightItalic-webfont.ttf') format('truetype'),
+         url('../fonts/OpenSans-LightItalic-webfont.svg#OpenSansLightItalic') format('svg');
     font-weight: light;
     font-style: italic;
 
@@ -40,11 +40,11 @@ grey3: adadad
 
 @font-face {
     font-family: 'Open Sans';
-    src: url('/static/css/fonts/OpenSans-Regular-webfont.eot');
-    src: url('/static/css/fonts/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/static/css/fonts/OpenSans-Regular-webfont.woff') format('woff'),
-         url('/static/css/fonts/OpenSans-Regular-webfont.ttf') format('truetype'),
-         url('/static/css/fonts/OpenSans-Regular-webfont.svg#OpenSansRegular') format('svg');
+    src: url('../fonts/OpenSans-Regular-webfont.eot');
+    src: url('../fonts/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/OpenSans-Regular-webfont.woff') format('woff'),
+         url('../fonts/OpenSans-Regular-webfont.ttf') format('truetype'),
+         url('../fonts/OpenSans-Regular-webfont.svg#OpenSansRegular') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -52,11 +52,11 @@ grey3: adadad
 
 @font-face {
     font-family: 'Open Sans';
-    src: url('/static/css/fonts/OpenSans-Italic-webfont.eot');
-    src: url('/static/css/fonts/OpenSans-Italic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/static/css/fonts/OpenSans-Italic-webfont.woff') format('woff'),
-         url('/static/css/fonts/OpenSans-Italic-webfont.ttf') format('truetype'),
-         url('/static/css/fonts/OpenSans-Italic-webfont.svg#OpenSansItalic') format('svg');
+    src: url('../fonts/OpenSans-Italic-webfont.eot');
+    src: url('../fonts/OpenSans-Italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/OpenSans-Italic-webfont.woff') format('woff'),
+         url('../fonts/OpenSans-Italic-webfont.ttf') format('truetype'),
+         url('../fonts/OpenSans-Italic-webfont.svg#OpenSansItalic') format('svg');
     font-weight: normal;
     font-style: italic;
 
@@ -65,11 +65,11 @@ grey3: adadad
 /*
 @font-face {
     font-family: 'Open Sans';
-    src: url('/static/css/fonts/OpenSans-Semibold-webfont.eot');
-    src: url('/static/css/fonts/OpenSans-Semibold-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/static/css/fonts/OpenSans-Semibold-webfont.woff') format('woff'),
-         url('/static/css/fonts/OpenSans-Semibold-webfont.ttf') format('truetype'),
-         url('/static/css/fonts/OpenSans-Semibold-webfont.svg#OpenSansSemibold') format('svg');
+    src: url('../fonts/OpenSans-Semibold-webfont.eot');
+    src: url('../fonts/OpenSans-Semibold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/OpenSans-Semibold-webfont.woff') format('woff'),
+         url('../fonts/OpenSans-Semibold-webfont.ttf') format('truetype'),
+         url('../fonts/OpenSans-Semibold-webfont.svg#OpenSansSemibold') format('svg');
     font-weight: semibold;
     font-style: normal;
 
@@ -79,11 +79,11 @@ grey3: adadad
 /*
 @font-face {
     font-family: 'Open Sans';
-    src: url('/static/css/fonts/OpenSans-SemiboldItalic-webfont.eot');
-    src: url('/static/css/fonts/OpenSans-SemiboldItalic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/static/css/fonts/OpenSans-SemiboldItalic-webfont.woff') format('woff'),
-         url('/static/css/fonts/OpenSans-SemiboldItalic-webfont.ttf') format('truetype'),
-         url('/static/css/fonts/OpenSans-SemiboldItalic-webfont.svg#OpenSansSemiboldItalic') format('svg');
+    src: url('../fonts/OpenSans-SemiboldItalic-webfont.eot');
+    src: url('../fonts/OpenSans-SemiboldItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/OpenSans-SemiboldItalic-webfont.woff') format('woff'),
+         url('../fonts/OpenSans-SemiboldItalic-webfont.ttf') format('truetype'),
+         url('../fonts/OpenSans-SemiboldItalic-webfont.svg#OpenSansSemiboldItalic') format('svg');
     font-weight: semibold;
     font-style: italic;
 
@@ -92,11 +92,11 @@ grey3: adadad
 
 @font-face {
     font-family: 'Open Sans';
-    src: url('/static/css/fonts/OpenSans-Bold-webfont.eot');
-    src: url('/static/css/fonts/OpenSans-Bold-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/static/css/fonts/OpenSans-Bold-webfont.woff') format('woff'),
-         url('/static/css/fonts/OpenSans-Bold-webfont.ttf') format('truetype'),
-         url('/static/css/fonts/OpenSans-Bold-webfont.svg#OpenSansBold') format('svg');
+    src: url('../fonts/OpenSans-Bold-webfont.eot');
+    src: url('../fonts/OpenSans-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/OpenSans-Bold-webfont.woff') format('woff'),
+         url('../fonts/OpenSans-Bold-webfont.ttf') format('truetype'),
+         url('../fonts/OpenSans-Bold-webfont.svg#OpenSansBold') format('svg');
     font-weight: bold;
     font-style: normal;
 
@@ -104,11 +104,11 @@ grey3: adadad
 
 @font-face {
     font-family: 'Open Sans';
-    src: url('/static/css/fonts/OpenSans-BoldItalic-webfont.eot');
-    src: url('/static/css/fonts/OpenSans-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/static/css/fonts/OpenSans-BoldItalic-webfont.woff') format('woff'),
-         url('/static/css/fonts/OpenSans-BoldItalic-webfont.ttf') format('truetype'),
-         url('/static/css/fonts/OpenSans-BoldItalic-webfont.svg#OpenSansBoldItalic') format('svg');
+    src: url('../fonts/OpenSans-BoldItalic-webfont.eot');
+    src: url('../fonts/OpenSans-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/OpenSans-BoldItalic-webfont.woff') format('woff'),
+         url('../fonts/OpenSans-BoldItalic-webfont.ttf') format('truetype'),
+         url('../fonts/OpenSans-BoldItalic-webfont.svg#OpenSansBoldItalic') format('svg');
     font-weight: bold;
     font-style: italic;
 
@@ -117,11 +117,11 @@ grey3: adadad
 /*
 @font-face {
     font-family: 'Open Sans';
-    src: url('/static/css/fonts/OpenSans-ExtraBold-webfont.eot');
-    src: url('/static/css/fonts/OpenSans-ExtraBold-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/static/css/fonts/OpenSans-ExtraBold-webfont.woff') format('woff'),
-         url('/static/css/fonts/OpenSans-ExtraBold-webfont.ttf') format('truetype'),
-         url('/static/css/fonts/OpenSans-ExtraBold-webfont.svg#OpenSansExtrabold') format('svg');
+    src: url('../fonts/OpenSans-ExtraBold-webfont.eot');
+    src: url('../fonts/OpenSans-ExtraBold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/OpenSans-ExtraBold-webfont.woff') format('woff'),
+         url('../fonts/OpenSans-ExtraBold-webfont.ttf') format('truetype'),
+         url('../fonts/OpenSans-ExtraBold-webfont.svg#OpenSansExtrabold') format('svg');
     font-weight: extrabold;
     font-style: normal;
 
@@ -129,11 +129,11 @@ grey3: adadad
 
 @font-face {
     font-family: 'Open Sans';
-    src: url('/static/css/fonts/OpenSans-ExtraBoldItalic-webfont.eot');
-    src: url('/static/css/fonts/OpenSans-ExtraBoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/static/css/fonts/OpenSans-ExtraBoldItalic-webfont.woff') format('woff'),
-         url('/static/css/fonts/OpenSans-ExtraBoldItalic-webfont.ttf') format('truetype'),
-         url('/static/css/fonts/OpenSans-ExtraBoldItalic-webfont.svg#OpenSansExtraboldItalic') format('svg');
+    src: url('../fonts/OpenSans-ExtraBoldItalic-webfont.eot');
+    src: url('../fonts/OpenSans-ExtraBoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/OpenSans-ExtraBoldItalic-webfont.woff') format('woff'),
+         url('../fonts/OpenSans-ExtraBoldItalic-webfont.ttf') format('truetype'),
+         url('../fonts/OpenSans-ExtraBoldItalic-webfont.svg#OpenSansExtraboldItalic') format('svg');
     font-weight: extrabold;
     font-style: italic;
 */
@@ -142,11 +142,11 @@ grey3: adadad
 
 @font-face {
     font-family: 'Droid Serif';
-    src: url('/static/css/fonts/DroidSerif-Regular-webfont.eot');
-    src: url('/static/css/fonts/DroidSerif-Regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/static/css/fonts/DroidSerif-Regular-webfont.woff') format('woff'),
-         url('/static/css/fonts/DroidSerif-Regular-webfont.ttf') format('truetype'),
-         url('/static/css/fonts/DroidSerif-Regular-webfont.svg#DroidSerifRegular') format('svg');
+    src: url('../fonts/DroidSerif-Regular-webfont.eot');
+    src: url('../fonts/DroidSerif-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/DroidSerif-Regular-webfont.woff') format('woff'),
+         url('../fonts/DroidSerif-Regular-webfont.ttf') format('truetype'),
+         url('../fonts/DroidSerif-Regular-webfont.svg#DroidSerifRegular') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -154,11 +154,11 @@ grey3: adadad
 
 @font-face {
     font-family: 'Droid Serif';
-    src: url('/static/css/fonts/DroidSerif-Italic-webfont.eot');
-    src: url('/static/css/fonts/DroidSerif-Italic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/static/css/fonts/DroidSerif-Italic-webfont.woff') format('woff'),
-         url('/static/css/fonts/DroidSerif-Italic-webfont.ttf') format('truetype'),
-         url('/static/css/fonts/DroidSerif-Italic-webfont.svg#DroidSerifItalic') format('svg');
+    src: url('../fonts/DroidSerif-Italic-webfont.eot');
+    src: url('../fonts/DroidSerif-Italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/DroidSerif-Italic-webfont.woff') format('woff'),
+         url('../fonts/DroidSerif-Italic-webfont.ttf') format('truetype'),
+         url('../fonts/DroidSerif-Italic-webfont.svg#DroidSerifItalic') format('svg');
     font-weight: normal;
     font-style: italic;
 
@@ -166,11 +166,11 @@ grey3: adadad
 
 @font-face {
     font-family: 'Droid Serif';
-    src: url('/static/css/fonts/DroidSerif-Bold-webfont.eot');
-    src: url('/static/css/fonts/DroidSerif-Bold-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/static/css/fonts/DroidSerif-Bold-webfont.woff') format('woff'),
-         url('/static/css/fonts/DroidSerif-Bold-webfont.ttf') format('truetype'),
-         url('/static/css/fonts/DroidSerif-Bold-webfont.svg#DroidSerifBold') format('svg');
+    src: url('../fonts/DroidSerif-Bold-webfont.eot');
+    src: url('../fonts/DroidSerif-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/DroidSerif-Bold-webfont.woff') format('woff'),
+         url('../fonts/DroidSerif-Bold-webfont.ttf') format('truetype'),
+         url('../fonts/DroidSerif-Bold-webfont.svg#DroidSerifBold') format('svg');
     font-weight: bold;
     font-style: normal;
 
@@ -178,11 +178,11 @@ grey3: adadad
 
 @font-face {
     font-family: 'Droid Serif';
-    src: url('/static/css/fonts/DroidSerif-BoldItalic-webfont.eot');
-    src: url('/static/css/fonts/DroidSerif-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/static/css/fonts/DroidSerif-BoldItalic-webfont.woff') format('woff'),
-         url('/static/css/fonts/DroidSerif-BoldItalic-webfont.ttf') format('truetype'),
-         url('/static/css/fonts/DroidSerif-BoldItalic-webfont.svg#DroidSerifBoldItalic') format('svg');
+    src: url('../fonts/DroidSerif-BoldItalic-webfont.eot');
+    src: url('../fonts/DroidSerif-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/DroidSerif-BoldItalic-webfont.woff') format('woff'),
+         url('../fonts/DroidSerif-BoldItalic-webfont.ttf') format('truetype'),
+         url('../fonts/DroidSerif-BoldItalic-webfont.svg#DroidSerifBoldItalic') format('svg');
     font-weight: bold;
     font-style: italic;
 
@@ -393,7 +393,7 @@ section.result label:hover{border-color:#ddd;}
 section.result label .lbl{color:#999;}
 
 section.result label.title{font-size:20px;line-height:26px;}
-section.result label.title .ficon{font-size:16px;color:#27b492;}
+section.result label.title .icon{font-size:16px;color:#27b492;}
 section.result label.title .lbl{margin-top:4px;}
 section.result label.title .title-remainder{font-size:16px; display:block;}
 
@@ -412,7 +412,7 @@ section.dash .circle{width:38px;height:38px;display:block;position:absolute;left
   -moz-border-radius: 19px;
   -webkit-border-radius: 19px;
 }
-section.dash .circle .ficon{display:block;text-align:center;line-height:38px;color:#fff;font-size:20px;padding-left:1px;}
+section.dash .circle .icon{display:block;text-align:center;line-height:38px;color:#fff;font-size:20px;padding-left:1px;}
 
 section.dash.pink{border-top-color: #fa1963;}
 section.dash.pink .circle{background-color: #fa1963;}
@@ -673,18 +673,18 @@ label .lbl_inline { display: inline; }
 .suggestion-subjects{border-left:2px solid #ddd;padding-left:8px;background:#f6f3ee url(/static/img/pat1.png);padding-top:8px;padding-bottom:8px;overflow:hidden;}
 .suggestion-subjects ul{list-style:none;margin:0;padding:0;}
 .suggestion-subjects li{margin: 0 4px 4px 0;float:left;padding:4px 8px;background:rgba(20,200,160,.35);}
-.suggestion-subjects li .ficon{color:#1a8f72;}
+.suggestion-subjects li .icon{color:#1a8f72;}
 
 div.loading {position: relative; left: 80%; float: left; z-index:10000; margin-top: -40px;}
 
 /*
 .holdings > label.dynamic-subjects em.subject{padding:0 4px;background:#c0f1e6}
-.holdings > label.dynamic-subjects em.subject .ficon{color:#1a8f72;}
+.holdings > label.dynamic-subjects em.subject .icon{color:#1a8f72;}
 */
 .suggestion-classification{border-left:2px solid #ddd;padding-left:8px;background:#f6f3ee url(/static/img/pat1.png);padding-top:8px;padding-bottom:8px;overflow:hidden;}
 .suggestion-classification ul{list-style:none;margin:0;padding:0;}
 .suggestion-classification li{margin: 0 4px 4px 0;float:left;padding:4px 8px;background:rgba(167, 86, 167, 0.35);}
-.suggestion-classification li .ficon{color:#683568;}
+.suggestion-classification li .icon{color:#683568;}
 
 .on-hover { visibility: hidden; }
 .person:hover .on-hover { visibility: visible; }
@@ -843,7 +843,7 @@ a.beta-blocker {text-decoration: none; cursor:default;} /*block unfinished eleme
 .acResults h4 .name {color:#191919;}
 .acResults h4 .date{color:#aaa;color:rgba(0,0,0,.5);margin-left:4px;font-weight:normal;}
 .acResults h4 .what{position:absolute;right:0;top:-3px;color:#27b492;font-size:11px;font-weight:normal;}
-.acResults h4 .what .ficon{font-size:20px;line-height:10px;position:relative;top:3px;margin-right:-1px;}
+.acResults h4 .what .icon{font-size:20px;line-height:10px;position:relative;top:3px;margin-right:-1px;}
 .acResults .about{font-size:13px;line-height:20px;color:#666;}
 .acSelect{background:#c8f4ea;}
 
