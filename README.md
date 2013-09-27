@@ -12,16 +12,19 @@ Prerequisites
 ### Python and Friends
 
 Install:
+
     $ sudo easy_install pip
     $ pip install virtualenvwrapper
 
 Add these to your shell profile:
+
     export WORKON_HOME=$HOME/.virtualenvs
     source </path/to/virtualenvwrapper.sh>
 
 ### Node and Friends
 
 Install:
+
     $ brew install node
     $ npm install -g grunt-cli
 
@@ -32,25 +35,30 @@ Initial Configuration
 ### Virtualenv and Flask Settings
 
 Create a virtualenv for this project:
+
     $ mkvirtualenv kb-kitin
     $ workon kb-kitin
     $ pip install -r dev-requirements.txt
 
 Make a local copy of the config file.
+
     $ cp config.cfg.in config.cfg
 
 In it, set `WHELK_HOST` to point to localhost:
+
     WHELK_HOST = 'http://localhost:8080/whelk-webapi'
 
 Set `BIBDB_API` and `BIBDB_API_KEY`. (Ask your colleagues..)
 
 Set `SESSION_SECRET_KEY`. To generate a key using python:
+
     $ import os
     $ print(os.urandom(24).encode('hex'))
 
 ### Install Grunt Tasks
 
 After repository checkout, run to download dependencies:
+
     $ npm install . # download tools
 
 
@@ -65,7 +73,9 @@ for development tools. Use pip as per above to install.
 ### Updating Grunt Tasks
 
 To add a grunt task, install it and update package.json by running:
+
     $ npm install --save-dev <package-name>
+
 Then configure it in the Gruntfile.js
 
 ### Static Vendor Dependencies
@@ -73,11 +83,13 @@ Then configure it in the Gruntfile.js
 These are the third-party client-side (JS and CSS) libraries.
 
 Download and build minified versions:
+
     $ grunt vendor
 
 Results end up in `static/vendor` and `static/build`.
 
 To add a dependency:
+
     $ bower install --save <package-name>
 
 Edit `exportsOverride` in `bower.json` to limit what is copied into
@@ -98,6 +110,7 @@ Clone librisxl and run its mockserver:
 ### Run the Flask Webapp
 
 Run webapp:
+
     $ ./kitin.py -d
 
 (Use -h for help.)
@@ -105,10 +118,10 @@ Run webapp:
 ### Automatic CSS and JS Compilation
 
 Run:
+
     $ grunt watch
-To:
-- compile (our) scss and coffee
-- concatenates and minifies? (see below)
+
+To compile  LESS and CoffeeScript, concatenate and minifiy.
 
 ### Running Python unit tests
 
@@ -139,16 +152,14 @@ Why things are as they are in this application repository.
 
 ### What is actually under version control?
 
-Details:
-    node_modules/ # .gitignore:d, contains local versions of tools
+(See .gitignore for what is not.)
 
-a) all vendor sources - bloat? makes dep. management less useful (could forget to use bower)..
-b) only concatenated and minified release files..
-c) nothing - requires release tool chain to use node+bower+grunt...
+All vendor sources are kept, along with the minified versions, because:
 
-We've chosen a, because:
-- overview
-- source maps..
+- everything should work out of the box once the server code is in place
+- it gives an overview of what's there directly at checkout
+- some vendor assets, e.g. fonts, cannot easily be packed together
+- source maps can be used for easier debugging
 
 
 The Tools Used
