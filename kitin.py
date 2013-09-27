@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import json
-import urllib2
-import re
-from datetime import datetime, timedelta
 import os
 import logging
+import re
+from datetime import datetime, timedelta
+import json
+import urllib2
 from urlparse import urlparse
 import mimetypes
 from flask import (Flask, render_template, request, make_response, Response,
@@ -17,6 +17,8 @@ from storage import Storage
 from user import User
 
 
+here = os.path.dirname(os.path.abspath(__file__))
+logger = logging.getLogger(__name__)
 mimetypes.add_type('application/font-woff', '.woff')
 
 
@@ -31,9 +33,6 @@ login_manager = LoginManager()
 login_manager.setup_app(app)
 
 storage = Storage(app.config.get("DRAFTS_DIR"))
-
-logger = logging.getLogger(__name__)
-here = os.path.dirname(__file__)
 
 
 #@app.route("/")
@@ -61,7 +60,7 @@ def _handle_unauthorized():
 
 @app.context_processor
 def global_view_variables():
-    mtime = os.stat(os.path.dirname(__file__)).st_mtime
+    mtime = os.stat(here).st_mtime
     return {'modified': datetime.fromtimestamp(mtime)}
 
 
@@ -638,5 +637,4 @@ if __name__ == "__main__":
     app.fakelogin = opts.fakelogin
     app.config['MARC_MAP'] = opts.marcmap
     app.run(host='0.0.0.0')
-
 
