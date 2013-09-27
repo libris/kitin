@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 import os
 import logging
 from urlparse import urlparse
+import mimetypes
 from flask import (Flask, render_template, request, make_response, Response,
         abort, redirect, url_for, Markup, session)
 from flask_login import LoginManager, login_required, login_user, flash, current_user, logout_user
@@ -14,6 +15,10 @@ import jinja2
 import requests
 from storage import Storage
 from user import User
+
+
+mimetypes.add_type('application/font-woff', '.woff')
+
 
 app = Flask(__name__)
 app.config.from_pyfile('config.cfg')
