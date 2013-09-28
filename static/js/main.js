@@ -36,35 +36,35 @@ kitin.factory('conf', function ($http, $q) {
   };
 });
 
-kitin.factory('search_service', function($http, $q) {
-  function perform_search(url) {
+kitin.factory('searchService', function($http, $q) {
+  function performSearch(url) {
     var deferred = $q.defer();
     $http.get(url).success(function(data) {
       deferred.resolve(data);
     });
     return deferred.promise;
-  };
+  }
 
   return {
     search: function(url) {
-      return perform_search(url);
+      return performSearch(url);
     }
   };
 });
 
 kitin.factory('isbntools', function($http, $q) {
-  function do_check(isbn) {
+  function doCheck(isbn) {
     var deferred = $q.defer();
-    var url = "/resource/_isxntool?isbn=" + isbn
+    var url = "/resource/_isxntool?isbn=" + isbn;
     $http.get(url).success(function(data) {
       deferred.resolve(data);
     });
     return deferred.promise;
-  };
+  }
 
   return {
-    check_isbn: function(isbn) {
-      return do_check(isbn);
+    checkIsbn: function(isbn) {
+      return doCheck(isbn);
     }
   };
 });
@@ -165,9 +165,9 @@ kitin.run(function($rootScope) {
 
   $rootScope._ = _;
 
-  $rootScope.isEmpty = function(obj) { return angular.equals({},obj) };
+  $rootScope.isEmpty = function(obj) { return angular.equals({},obj); };
 
-  $rootScope.typeOf = function (o) { return o === null? 'null' : typeof o; }
+  $rootScope.typeOf = function (o) { return o === null? 'null' : typeof o; };
 
 });
 
@@ -185,7 +185,7 @@ kitin.filter('chop', function() {
     return function(victim) {
         if (!victim) {
            victim = "";
-        } 
+        }
         if (victim.length < 70) {
             return victim;
         } else {
@@ -210,97 +210,97 @@ function IndexCtrl($scope, $http) {
     $http.post("/record" + "/" + type + "/" + id + "/draft/delete").success(function(data, status) {
       $scope.drafts = data.drafts;
     });
-  }
+  };
 }
 
 function SearchFormCtrl($scope, $location) {
   $scope.search = function() {
     $location.url("/search?q="+encodeURIComponent($scope.q));
-  }
+  };
 }
 
-function SearchCtrl($scope, $http, $location, $routeParams, resources, search_service) {
+function SearchCtrl($scope, $http, $location, $routeParams, resources, searchService) {
   console.time("search");
   // Can this resource fetching stuff be globalized?
   $scope.enums = {};
   resources.enums.bibLevel.then(function(data) {
     $scope.enums.bibLevel = data;
   });
-  
+
   resources.typedefs.then(function(data) {
     $scope.typeDefs = data.types;
   });
-  
+
   resources.enums.encLevel.then(function(data) {
     $scope.enums.encLevel = data;
   });
-  
+
   var prevFacetsStr = $routeParams.f || "";
 
-  function mangle_facets(facets) {
+  function mangleFacets(facets) {
       // iterate facets to add correct slug
       // if can do in angularistic fashion; then please do and remove this!
-      var result = []
-      for(facet_type in facets) {
-        var new_facet = {};
-        new_facet['type'] = facet_type;
-        new_facet['items']= [];
+      var result = [];
+      for(var facetType in facets) {
+        var newFacet = {};
+        newFacet['type'] = facetType;
+        newFacet['items']= [];
         var prevFacets = prevFacetsStr.split(" ");
-        _.each(facets[facet_type], function (value, key) {
+        _.each(facets[facetType], function (value, key) {
           var subitem = {};
-          var subitem_object = {};
-          subitem_object[key] = value;
-          subitem['object'] = subitem_object;
-          var tmpslug = [facet_type, key].join(":");
+          var subitemObject = {};
+          subitemObject[key] = value;
+          subitem['object'] = subitemObject;
+          var tmpslug = [facetType, key].join(":");
           var slug = encodeURIComponent(tmpslug);
           subitem.selected = $.inArray(slug, prevFacets) !== -1;
           if(subitem.selected) {
-            subitem['slug'] = "/search?q=" + encodeURIComponent($scope.q) + "&f=" + $.grep(prevFacets, function(val) {return val != slug});
+            subitem['slug'] = "/search?q=" + encodeURIComponent($scope.q) + "&f=" + $.grep(prevFacets, function(val) {return val != slug;});
           } else {
             subitem['slug'] = "/search?q=" + encodeURIComponent($scope.q) + "&f=" + slug + " " + prevFacetsStr;
           }
-          new_facet['items'].push(subitem);
+          newFacet['items'].push(subitem);
         });
-        result.push(new_facet);
+        result.push(newFacet);
       }
       return result;
   }
 
-  function bake_crumbs(prv) {
+  function bakeCrumbs(prv) {
     var facetlist = prv.split(" ").reverse();
     var crumblist = [];
-    var tmp_crumb = {};
-    tmp_crumb['term'] = $routeParams.q;
+    var tmpCrumb = {};
+    tmpCrumb['term'] = $routeParams.q;
     if (prevFacetsStr.length > 0) {
-      tmp_crumb['urlpart'] = "/search?q=" + encodeURIComponent($scope.q);
-      crumblist.push(tmp_crumb);
-      var url_part = "";
+      tmpCrumb['urlpart'] = "/search?q=" + encodeURIComponent($scope.q);
+      crumblist.push(tmpCrumb);
+      var urlPart = "";
       for (i=0; i < facetlist.length; i++) {
-        var tmp_crumb = {};  
+        tmpCrumb = {};
         var facet = facetlist[i];
         var term = facet.substring(facet.indexOf(":") + 1);
-        if (url_part == "") {
-          url_part = url_part + facet;
+        if (urlPart === "") {
+          urlPart = urlPart + facet;
         } else {
-          url_part = url_part + " " + facet;
+          urlPart = urlPart + " " + facet;
         }
-        tmp_crumb["term"] = term;
+        tmpCrumb["term"] = term;
         if (i < (facetlist.length - 1)) {
-          tmp_crumb['urlpart'] = "/search?q=" + encodeURIComponent($scope.q) + "&f=" + url_part;
+          tmpCrumb['urlpart'] = "/search?q=" + encodeURIComponent($scope.q) + "&f=" + urlPart;
         }
-        if (i == 0) {
-          tmp_crumb["bridge"] = " inom ";
+        if (i === 0) {
+          tmpCrumb["bridge"] = " inom ";
         }
         if (i > 0) {
-          tmp_crumb["bridge"] = " och ";
+          tmpCrumb["bridge"] = " och ";
         }
-        //console.log("Facett: " + facet + ", term: " + term + ", urlpart: " + url_part + ", position: " + i + ", length: " + facetlist.length);
-        crumblist.push(tmp_crumb);
+        //console.log("Facett: " + facet + ", term: " + term + ", urlpart: " + urlPart + ", position: " + i + ", length: " + facetlist.length);
+        crumblist.push(tmpCrumb);
       }
     } else {
-    crumblist.push(tmp_crumb);
+    crumblist.push(tmpCrumb);
     }
-    return crumblist; 
+    return crumblist;
   }
 
   document.body.className = 'search';
@@ -308,7 +308,7 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, search_se
   $scope.q = $routeParams.q;
   $scope.f = $routeParams.f;
   var url = "/search.json?q=" + encodeURIComponent($scope.q);
-  if($scope.f != undefined) {
+  if($scope.f !== undefined) {
     url += "&f=" + $scope.f;
   }
 
@@ -319,9 +319,9 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, search_se
   if (!$routeParams.q) {
     return;
   } else {
-    $scope.loading = true
-    search_service.search(url).then(function(data) {
-      $scope.my_facets = mangle_facets(data.facets);
+    $scope.loading = true;
+    searchService.search(url).then(function(data) {
+      $scope.my_facets = mangleFacets(data.facets);
       $scope.result = data;
       if (data.hits == 1) {
           $location.url("/edit" + data.list[0].identifier);
@@ -329,17 +329,17 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, search_se
       }
       $scope.chunkedHits = data.hits.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
       //$scope.chunkedHits = toChunk.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-      $scope.loading = false
+      $scope.loading = false;
     });
   }
 
 
-  $scope.crumbs = bake_crumbs(prevFacetsStr);
+  $scope.crumbs = bakeCrumbs(prevFacetsStr);
 
-  var facet_terms = []; // TODO: localization
-  facet_terms['about.@type'] = "Typer";
-  facet_terms['about.dateOfPublication'] = "Datum";
-  $scope.facet_terms = facet_terms;
+  var facetTerms = []; // TODO: localization
+  facetTerms['about.@type'] = "Typer";
+  facetTerms['about.dateOfPublication'] = "Datum";
+  $scope.facet_terms = facetTerms;
   console.timeEnd("search");
 }
 
@@ -393,7 +393,7 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
       if (typeof obj === "undefined")
         return;
       return typedefs[obj['@type']];
-    }
+    };
   });
 
   if (isNew) {
@@ -403,7 +403,7 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   } else
   records.get(recType, recId).then(function(data) {
     var record = $scope.record = data['recdata'];
-    
+
     bibid = record['controlNumber'];
     $scope.etag = data['etag'];
     $scope.user_sigel = constants.get("user_sigel");
@@ -413,7 +413,7 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
       $scope.personRoleMap = getPersonRoleMap(record);
       $scope.unifiedClassifications = getUnifiedClassifications(record);
 
-      var holding_etags = {};
+      var holdingEtags = {};
       var items = patchHoldings(data.list);
       $scope.holdings = items;
       var my_holdings = _.filter(items, function(i) { return i['location'] == constants.get("user_sigel"); });
@@ -429,11 +429,11 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
       for(var i in items) {
         if(items[i]['@id']) {
           $http.get("/holding/"+ items[i]['@id'].split("/").slice(-2)[1]).success(function(data, status, headers) {
-            holding_etags[data['@id']] = headers('etag');
+            holdingEtags[data['@id']] = headers('etag');
           });
         }
       }
-      $scope.holding_etags = holding_etags;
+      $scope.holding_etags = holdingEtags;
     });
 
   });
@@ -515,26 +515,26 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   $scope.triggerModified = function () {
     $scope.modifications.saved = false;
     $scope.modifications.published = false;
-  }
+  };
 
   $scope.modifiedClasses = function () {
     var classes = [], mods = $scope.modifications;
     if (mods.saved) classes.push('saved');
     if (mods.published) classes.push('published');
     return classes;
-  }
+  };
 
   $scope.lastSavedLabel = function (tplt) {
     if (!$scope.modifications.lastSaved)
       return "";
     return tplt.replace(/%s/, $scope.modifications.lastSaved.toLocaleString());
-  }
+  };
 
   $scope.lastPublishedLabel = function (tplt) {
     if (!$scope.modifications.lastPublished)
       return "";
     return tplt.replace(/%s/, $scope.modifications.lastPublished.toLocaleString());
-  }
+  };
 
   $scope.promptConfirmDelete = function($event, type, id) {
     $scope.confirmDeleteDraft = {
@@ -551,23 +551,23 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     $timeout(function() {
       openPrompt($event, "#confirmDeleteDraftDialog");
     });
-  }
+  };
 
   if (isNew) {
     $scope.save = function() {
       records.create(recType, $scope.record).then(function(data) {
         $location.url('/edit/bib/' + data['document_id']);
       });
-    }
+    };
   } else
   $scope.save = function() {
-    var if_match_header = $scope.etag.replace(/["']/g, "");
-    records.save(recType, recId, $scope.record, if_match_header).then(function(data) {
+    var ifMatchHeader = $scope.etag.replace(/["']/g, "");
+    records.save(recType, recId, $scope.record, ifMatchHeader).then(function(data) {
       $scope.record = data['recdata'];
       $scope.etag = data['etag'];
             onPublishState();
     });
-  }
+  };
 
   $scope.saveDraft = function() {
     $http.post("/record/"+$routeParams.recType+"/"+$routeParams.recId+"/draft", $scope.record, {headers: {"If-match":$scope.etag}}).success(function(data, status) {
@@ -577,7 +577,7 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
       onSaveState();
       //$('.flash_message').text("Utkast sparat!");
     });
-  }
+  };
 
   $http.get("/draft/"+recType+"/"+recId).success(function(data, status, headers) {
     $scope.draft = data;
@@ -595,11 +595,11 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     default:
       return {};
     }
-  };
+  }
 
   $scope.newObject = function(subj, rel, type) {
     var obj = subj[rel] = createObject(type);
-  }
+  };
 
   $scope.addObject = function(subj, rel, type) {
     var authors = subj[rel];
@@ -608,7 +608,7 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     }
     var obj = createObject(type);
     authors.push(obj);
-  }
+  };
 
   $scope.removeObject = function(subj, rel, index) {
     var obj = subj[rel];
@@ -617,11 +617,11 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     else
       subj[rel] = null;
     $scope.triggerModified();
-  }
+  };
 
   $scope.addHolding = function(holdings) {
     holdings.push({shelvingControlNumber: "", location: constants.get("user_sigel")});
-  }
+  };
 
   $scope.saveHolding = function(holding) {
     var etag = $scope.holding_etags[holding['@id']];
@@ -642,7 +642,7 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
         console.log("ohh crap!");
       });
     }
-  }
+  };
 
   $scope.deleteHolding = function(holding_id) {
     $http['delete']("/holding/" + holding_id).success(function(data, success) {
@@ -652,15 +652,15 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
       });
     }).error(function() {
       console.log("oh crap!");
-    })
-  }
+    });
+  };
 
   var typeCycle = ['Book', 'EBook', 'Audiobook', 'Serial', 'ESerial'], typeIndex = 0;
   $scope.cycleType = function (evt, obj) {
     if (!obj || !evt.altKey) return;
     if (typeIndex++ >= typeCycle.length - 1) typeIndex = 0;
     obj['@type'] = typeCycle[typeIndex];
-  }
+  };
 }
 
 // TODO: work these ("patch*") into the backend service
@@ -710,7 +710,7 @@ function MarcCtrl($rootScope, $scope, $routeParams, conf, records, $timeout) {
     $timeout(function () {
       openPrompt($event, '#prompt-add-field');
     });
-  }
+  };
 
   $scope.subFieldToAdd = null;
 
@@ -729,7 +729,7 @@ function MarcCtrl($rootScope, $scope, $routeParams, conf, records, $timeout) {
     $timeout(function () {
       openPrompt($event, '#prompt-add-subfield');
     });
-  }
+  };
 
   $scope.removeField = function (index) {
     this.fadeOut(function () { marcjson.removeField($scope.struct, index); });
@@ -803,7 +803,7 @@ kitin.directive('inplace', function () {
     elm.keyup(function () { // or change (when leaving)
       scope.triggerModified();
       scope.$apply();
-    })
+    });
     elm.jkey('enter', function () {
       if (scope.editable) {
         scope.editable = false;
@@ -820,7 +820,7 @@ kitin.directive('keyEnter', function () {
     elm.jkey('enter', function () {
       scope.$apply(expr);
     });
-  }
+  };
 });
 
 kitin.directive('keyEsc', function () {
@@ -829,7 +829,7 @@ kitin.directive('keyEsc', function () {
     elm.jkey('esc', function () {
       scope.$apply(expr);
     });
-  }
+  };
 });
 
 kitin.directive('fadable', function(conf) {
@@ -868,10 +868,10 @@ kitin.directive('isbnvalidator', function(isbntools) {
     require: 'ngModel',
     restrict: 'A',
     link: function(scope, element, attributes, controller) {
-     var ptn = attributes.isbnPattern;   
+     var ptn = attributes.isbnPattern;
      var regex = new RegExp(ptn);
      controller.$parsers.unshift(function(viewValue) {
-        controller.$setValidity('invalid_length', true); 
+        controller.$setValidity('invalid_length', true);
         var valid = regex.test(viewValue);
         controller.$setValidity('invalid_value', valid);
         return viewValue;
@@ -885,7 +885,7 @@ kitin.directive('isbnvalidator', function(isbntools) {
            console.log("Frontend says wrong length");
         }
         else {*/
-            isbntools.check_isbn(inputval).then(function(data) {
+            isbntools.checkIsbn(inputval).then(function(data) {
                 if (data.isbn) {
                  var approved = data.isbn.valid;
                  if (approved) {
@@ -895,18 +895,18 @@ kitin.directive('isbnvalidator', function(isbntools) {
                      controller.$setValidity('invalid_value', false);
                  }
                 }
-             }); 
+             });
         //}
       });
     }
-  }
+  };
 });
 
 kitin.directive('kitinAutoselect', function(resources) {
    return {
    restrict: 'A',
    link: function(scope, elem, attrs) {
-        var templateId = attrs.kitinTemplate; 
+        var templateId = attrs.kitinTemplate;
         var template = _.template(jQuery('#' + templateId).html());
         var ld = [{}];
 
@@ -975,12 +975,12 @@ kitin.directive('kitinAutoselect', function(resources) {
              return template({name: name, code: code});
            },
            onItemSelect: function(item) {
-             scope.record.about.instanceOf.language = item.value.split("!")[0] + " " + item.value.split("!")[1];    
+             scope.record.about.instanceOf.language = item.value.split("!")[0] + " " + item.value.split("!")[1];
              scope.$apply();
            }
         });
      }
-   };   
+   };
 });
 
 // TODO: build properly configurable services out of this..
@@ -1012,14 +1012,14 @@ kitin.directive('kitinAutocomplete', function() {
       var conf = autocompleteServices[attrs.kitinAutocomplete];
 
       /* TODO: IMPROVE: replace current autocomplete mechanism and use angular
-      templates ($compile) all the way.. It if is fast enough..*/ 
-      var template = _.template(jQuery('#' + conf.templateId).html())
+      templates ($compile) all the way.. It if is fast enough..*/
+      var template = _.template(jQuery('#' + conf.templateId).html());
       var selected = false;
       var is_authorized = false;
 
       function toggleRelatedFieldsEditable(val) {
         $(elem).closest('.person').find('.authdependant').prop('disabled', val);
-      };
+      }
 
       elem.autocomplete(conf.serviceUrl, {
 
@@ -1090,7 +1090,7 @@ kitin.directive('kitinAutocomplete', function() {
 });
 
 
-// Do we need a jquery namespace here? 
+// Do we need a jquery namespace here?
 (function($) {
 $("ul.facetlist").has("li.overflow").each(function() {
     var $facetlist = $(this);
@@ -1098,7 +1098,7 @@ $("ul.facetlist").has("li.overflow").each(function() {
         var $toggler = $(this);
         $('li.overflow', $facetlist).toggleClass('facet-closed');
         $toggler.text($("li.facet-closed", $facetlist).length? "Visa fler" : "Visa färre");
-        return false
+        return false;
     });
 });
 }(jQuery));
