@@ -81,6 +81,8 @@ module.exports = (grunt) ->
       vendor:
         options:
           sourceMap: 'static/build/js/vendor.min.js.map'
+          sourceMappingURL: './vendor.min.js.map'
+          sourceMapRoot: '/'
         files:
           'static/build/js/vendor.min.js': [
             'static/vendor/jquery/*.js'
