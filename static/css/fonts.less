@@ -1,0 +1,75 @@
+
+.font-face(@title, @name, @svgAnchor, @weight, @style) {
+    font-family: @title;
+    src: url('../fonts/@{name}.eot');
+    src: url('../fonts/@{name}.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/@{name}.woff') format('woff'),
+         url('../fonts/@{name}.ttf') format('truetype'),
+         url('../fonts/@{name}.svg#@{svgAnchor}') format('svg');
+    font-weight: @weight;
+    font-style: @style;
+}
+
+/*
+@font-face {
+    .font-face('Open Sans', 'OpenSans-Light-webfont', 'OpenSansLight', light, normal);
+}
+
+@font-face {
+    .font-face('Open Sans', 'OpenSans-LightItalic-webfont', 'OpenSansLightItalic', light, italic);
+}
+*/
+
+@font-face {
+    .font-face('Open Sans', 'OpenSans-Regular-webfont', 'OpenSansRegular', normal, normal);
+}
+
+@font-face {
+    .font-face('Open Sans', 'OpenSans-Italic-webfont', 'OpenSansItalic', normal, italic);
+}
+
+/*
+@font-face {
+    .font-face('Open Sans', 'OpenSans-Semibold-webfont', 'OpenSansSemibold', semibold, normal);
+}
+
+@font-face {
+    .font-face('Open Sans', 'OpenSans-SemiboldItalic-webfont', 'OpenSansSemiboldItalic', semibold, italic);
+}
+*/
+
+
+@font-face {
+    .font-face('Open Sans', 'OpenSans-Bold-webfont', 'OpenSansBold', bold, normal);
+}
+
+@font-face {
+    .font-face('Open Sans', 'OpenSans-BoldItalic-webfont', 'OpenSansBoldItalic', bold, italic);
+}
+
+/*
+@font-face {
+    .font-face('Open Sans', 'OpenSans-ExtraBold-webfont', 'OpenSansExtraBold', extrabold, normal);
+}
+
+@font-face {
+    .font-face('Open Sans', 'OpenSans-ExtraBoldItalic-webfont', 'OpenSansExtraBoldItalic', extrabold, italic);
+}
+*/
+
+@font-face {
+    .font-face('Droid Serif', 'DroidSerif-Regular-webfont', 'DroidSerifRegular', normal, normal);
+}
+
+@font-face {
+    .font-face('Droid Serif', 'DroidSerif-Italic-webfont', 'DroidSerifItalic', normal, italic);
+}
+
+@font-face {
+    .font-face('Droid Serif', 'DroidSerif-Bold-webfont', 'DroidSerifBold', bold, normal);
+}
+
+@font-face {
+    .font-face('Droid Serif', 'DroidSerif-BoldItalic-webfont', 'DroidSerifBoldItalic', bold, italic);
+}
+
