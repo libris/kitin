@@ -333,6 +333,10 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, searchSer
     });
   }
 
+  $scope.firstPerson = function (work) {
+    var candidate = work.creator || work.contributorList;
+    return _.isArray(candidate)? candidate[0] : candidate;
+  };
 
   $scope.crumbs = bakeCrumbs(prevFacetsStr);
 
