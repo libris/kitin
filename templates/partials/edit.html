@@ -284,8 +284,8 @@
     <div class="cols">
       <div class="col6">
           <label>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.note" placeholder="Instance Note">
-          <span class="lbl">{{ "Instance Note" }}</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.note" placeholder="Allmän anmärkning">
+          <span class="lbl">{{ "Allmän anmärkning" }}</span>
         </label>
       </div>
       <div class="col6"></div>
@@ -293,8 +293,8 @@
     </ng-form>
   </section>
 
-  <section id="subject classification" data-ng-repeat="work in [record.about.instanceOf]">
-    <ng-include src="'/partials/edit_subject'"></ng-include>
+  <section id="subject classification" data-ng-repeat="work in [record.about.instanceOf]"
+           data-ng-include="'/partials/edit_subject'">
   </section> 
   
   <section class="submit modificationinfo" data-ng-class="modifiedClasses()">
