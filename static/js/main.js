@@ -1,12 +1,13 @@
 
-// app.js
+/**
+ * app.js
+ */
 
 var kitin = angular.module('kitin', ['ui']);
 
 kitin.config(
   ['$locationProvider', '$routeProvider',
     function($locationProvider, $routeProvider) {
-
       $locationProvider.html5Mode(true).hashPrefix('!');
       $routeProvider
         .when('/',
@@ -22,144 +23,44 @@ kitin.config(
     }]
 );
 
+// TODO: window.onunload or $routeProvider / $locationChangeStart
+//if (ajaxInProgress)
+//  confirm('ajaxInProgress; break and leave?')
 
-kitin.factory('conf', function ($http, $q) {
-  var marcmap = $q.defer();
-  $http.get("/marcmap.json").success(function (o) {
-    marcmap.resolve(o);
-  });
-  return {
-    marcmap: marcmap.promise,
-    // TODO: off between controller init and completion;
-    // use angular events for this?
-    renderUpdates: false
+
+/**
+ * Filters
+ */
+
+kitin.filter('ensureArray', function() {
+  return function (obj) {
+    return (obj === undefined || obj.length !== undefined)? obj : [obj];
   };
 });
 
-kitin.factory('searchService', function($http, $q) {
-  function performSearch(url) {
-    var deferred = $q.defer();
-    $http.get(url).success(function(data) {
-      deferred.resolve(data);
-    });
-    return deferred.promise;
-  }
-
-  return {
-    search: function(url) {
-      return performSearch(url);
+// May be generalized at will
+kitin.filter('chop', function() {
+  return function(victim) {
+    if (!victim) {
+      victim = "";
+    }
+    if (victim.length < 70) {
+      return victim;
+    } else {
+      return String(victim).substring(0, 67) + "...";
     }
   };
 });
 
-kitin.factory('isbntools', function($http, $q) {
-  function doCheck(isbn) {
-    var deferred = $q.defer();
-    var url = "/resource/_isxntool?isbn=" + isbn;
-    $http.get(url).success(function(data) {
-      deferred.resolve(data);
-    });
-    return deferred.promise;
-  }
-
-  return {
-    checkIsbn: function(isbn) {
-      return doCheck(isbn);
-    }
-  };
-});
-
-kitin.factory('records', function ($http, $q) {
-
-  return {
-
-    get: function (type, id) {
-      var path = "/record/" + type + "/" + id;
-      var record = $q.defer();
-      $http.get(path).success(function (struct, status, headers) {
-        record['recdata'] = struct;
-        record['etag'] = headers('etag');
-        record.resolve(record);
-      });
-      return record.promise;
-    },
-
-    save: function(type, id, data, etag) {
-      var record = $q.defer();
-      $http.put("/record/" + type + "/" + id, data,
-                {headers: {"If-match":etag}}).success(function(data, status, headers) {
-        record['recdata'] = data;
-        record['etag'] = headers('etag');
-        record.resolve(record);
-        console.log("Saved record.");
-      }).error(function() {
-        console.log("FAILED to save record");
-      });
-      return record.promise;
-    },
-
-    create: function(type, data) {
-      var record = $q.defer();
-      $http.post("/record/" + type + "/create", data).success(function(data, status, headers) {
-        record.resolve(data);
-      });
-      return record.promise;
-    }
-
-  };
-});
-
-
-kitin.factory('resources', function($http) {
-  function getResourceList(restype, part) {
-      var url;
-      if (restype === 'enums')
-        url = "/resource/_marcmap?part=bib.fixprops." + part;
-      else
-        url = "/resource/_resourcelist?" + restype + "=all";
-    var promise = $http.get(url).then(function(response) {
-      return response.data;
-    });
-    return promise;
-  }
-  // TODO: load cached aggregate, or lookup part on demand from backend?
-  var resources = {
-    typedefs: getResourceList("typedef"),
-    relators: getResourceList("relator"),
-    languages: getResourceList("lang"),
-    countries: getResourceList("country"),
-    nationalities: getResourceList("nationality"),
-    enums: {
-      bibLevel: getResourceList("enums", "bibLevel"),
-      encLevel: getResourceList("enums", "encLevel"),
-      catForm: getResourceList("enums", "catForm")
-    }
-
-  };
-  return resources;
-});
-
-
-// Gather constants from angular or flask context
-kitin.factory('constants', function(flaskConstants) {
-  var constants = {
-    uiConstantOfChoice: "Whatever"
-  };
-
-  angular.extend(constants, flaskConstants);
-  return {
-    get: function(key) {
-      return constants[key];
-    },
-    all: function() {
-      return constants;
-    }
+kitin.filter('chunk', function() {
+  return function(toChunk) {
+    return String(toChunk).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   };
 });
 
 
 /**
- * Global scope functions.
+ * Global scope functions
  */
 kitin.run(function($rootScope) {
 
@@ -171,34 +72,6 @@ kitin.run(function($rootScope) {
 
 });
 
-/**
- * Global filters.
- */
-kitin.filter('ensureArray', function() {
-  return function (obj) {
-    return (obj === undefined || obj.length !== undefined)? obj : [obj];
-  };
-});
-
-// May be generalized at will
-kitin.filter('chop', function() {
-    return function(victim) {
-        if (!victim) {
-           victim = "";
-        }
-        if (victim.length < 70) {
-            return victim;
-        } else {
-            return String(victim).substring(0, 67) + "...";
-        }
-    };
-});
-
-kitin.filter('chunk', function() {
-    return function(toChunk) {
-      return String(toChunk).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-    };
-});
 
 function IndexCtrl($scope, $http) {
   document.body.className = 'index';
@@ -213,11 +86,13 @@ function IndexCtrl($scope, $http) {
   };
 }
 
+
 function SearchFormCtrl($scope, $location) {
   $scope.search = function() {
     $location.url("/search?q="+encodeURIComponent($scope.q));
   };
 }
+
 
 function SearchCtrl($scope, $http, $location, $routeParams, resources, searchService) {
   console.time("search");
@@ -238,32 +113,32 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, searchSer
   var prevFacetsStr = $routeParams.f || "";
 
   function mangleFacets(facets) {
-      // iterate facets to add correct slug
-      // if can do in angularistic fashion; then please do and remove this!
-      var result = [];
-      for(var facetType in facets) {
-        var newFacet = {};
-        newFacet['type'] = facetType;
-        newFacet['items']= [];
-        var prevFacets = prevFacetsStr.split(" ");
-        _.each(facets[facetType], function (value, key) {
-          var subitem = {};
-          var subitemObject = {};
-          subitemObject[key] = value;
-          subitem['object'] = subitemObject;
-          var tmpslug = [facetType, key].join(":");
-          var slug = encodeURIComponent(tmpslug);
-          subitem.selected = $.inArray(slug, prevFacets) !== -1;
-          if(subitem.selected) {
-            subitem['slug'] = "/search?q=" + encodeURIComponent($scope.q) + "&f=" + $.grep(prevFacets, function(val) {return val != slug;});
-          } else {
-            subitem['slug'] = "/search?q=" + encodeURIComponent($scope.q) + "&f=" + slug + " " + prevFacetsStr;
-          }
-          newFacet['items'].push(subitem);
-        });
-        result.push(newFacet);
-      }
-      return result;
+    // iterate facets to add correct slug
+    // if can do in angularistic fashion; then please do and remove this!
+    var result = [];
+    for(var facetType in facets) {
+      var newFacet = {};
+      newFacet['type'] = facetType;
+      newFacet['items']= [];
+      var prevFacets = prevFacetsStr.split(" ");
+      _.each(facets[facetType], function (value, key) {
+        var subitem = {};
+        var subitemObject = {};
+        subitemObject[key] = value;
+        subitem['object'] = subitemObject;
+        var tmpslug = [facetType, key].join(":");
+        var slug = encodeURIComponent(tmpslug);
+        subitem.selected = $.inArray(slug, prevFacets) !== -1;
+        if(subitem.selected) {
+          subitem['slug'] = "/search?q=" + encodeURIComponent($scope.q) + "&f=" + $.grep(prevFacets, function(val) {return val != slug;});
+        } else {
+          subitem['slug'] = "/search?q=" + encodeURIComponent($scope.q) + "&f=" + slug + " " + prevFacetsStr;
+        }
+        newFacet['items'].push(subitem);
+      });
+      result.push(newFacet);
+    }
+    return result;
   }
 
   function bakeCrumbs(prv) {
@@ -347,6 +222,7 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, searchSer
   console.timeEnd("search");
 }
 
+
 function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, constants) {
   var recType = $routeParams.recType, recId = $routeParams.recId;
   var path = "/record/" + recType + "/" + recId;
@@ -414,11 +290,11 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     $scope.all_constants = constants.all();
     $http.get("/record/" + recType + "/" + recId + "/holdings").success(function(data) {
 
-      $scope.personRoleMap = getPersonRoleMap(record);
-      $scope.unifiedClassifications = getUnifiedClassifications(record);
+      $scope.personRoleMap = datatools.getPersonRoleMap(record, $scope.relatorsMap);
+      $scope.unifiedClassifications = datatools.getUnifiedClassifications(record);
 
       var holdingEtags = {};
-      var items = patchHoldings(data.list);
+      var items = datatools.patchHoldings(data.list);
       $scope.holdings = items;
       var my_holdings = _.filter(items, function(i) { return i['location'] == constants.get("user_sigel"); });
       if(my_holdings <= 0) {
@@ -441,68 +317,6 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     });
 
   });
-
-  function getPersonRoleMap(record) {
-    var instance = record.about;
-    var work = instance.instanceOf;
-    var relatorsMap = $scope.relatorsMap;
-
-    var roleMap = {};
-    function addPersonRoles(person) {
-      roleMap[person['@id']] = [];
-    }
-    if (work.creator) {
-      addPersonRoles(work.creator);
-    }
-    if (work.contributorList) {
-      work.contributorList.forEach(function (person) {
-        addPersonRoles(person);
-      });
-    }
-
-    var personMap = {}; // .. or e.g. Organization
-    [instance, work].forEach(function (resource) {
-      var objId = resource['@id'];
-      _.forEach(resource, function (vals, key) {
-        if (!vals)
-          return;
-        if (!_.isArray(vals)) vals = [vals];
-        _.forEach(vals, function (agent) {
-          var pid = agent['@id'];
-          if (!pid)
-            return;
-          var roles = roleMap[pid];
-          if (!roles)
-            return;
-          var role = relatorsMap[key];
-          if (!role)
-            return;
-          if (!_.contains(roles, role))
-            roles.push(role);
-          //pr.roles[role] = objId;
-        });
-      });
-    });
-
-    return roleMap;
-  }
-
-  // TODO: this will be unified in the backend mapping and thus not needed up here
-  function getUnifiedClassifications(record) {
-    var thing = record.about.instanceOf;
-    var classes = [];
-    if (thing.class) {
-      classes.push.apply(thing.class);
-    }
-    ['class-lcc', 'class-ddc'].forEach(function (key) {
-      var cls = thing[key];
-      if (cls) {
-        classes.push({prefLabel: cls});
-      }
-    });
-    return classes;
-  }
-
 
   $scope.modifications = {saved: true, published: true};
 
@@ -574,7 +388,10 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   };
 
   $scope.saveDraft = function() {
-    $http.post("/record/"+$routeParams.recType+"/"+$routeParams.recId+"/draft", $scope.record, {headers: {"If-match":$scope.etag}}).success(function(data, status) {
+    $http.post("/record/"+ $routeParams.recType +"/"+ $routeParams.recId +"/draft",
+      $scope.record,
+      {headers: {"If-match":$scope.etag}}
+    ).success(function(data, status) {
       $scope.draft = data;
       $scope.draft.type = data['@id'].split("/").slice(-2)[0];
       $scope.draft.id = data['@id'].split("/").slice(-2)[1];
@@ -594,10 +411,10 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
 
   function createObject(type) {
     switch (type) {
-    case 'Person':
-      return {'@type': "Person", controlledLabel: "", birthYear: ""};
-    default:
-      return {};
+      case 'Person':
+        return {'@type': "Person", controlledLabel: "", birthYear: ""};
+      default:
+        return {};
     }
   }
 
@@ -606,12 +423,12 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   };
 
   $scope.addObject = function(subj, rel, type) {
-    var authors = subj[rel];
-    if (typeof authors === 'undefined') {
-      subj[rel] = [];
+    var collection = subj[rel];
+    if (typeof collection === 'undefined') {
+      collection = subj[rel] = [];
     }
     var obj = createObject(type);
-    authors.push(obj);
+    collection.push(obj);
   };
 
   $scope.removeObject = function(subj, rel, index) {
@@ -665,96 +482,207 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     if (typeIndex++ >= typeCycle.length - 1) typeIndex = 0;
     obj['@type'] = typeCycle[typeIndex];
   };
+
 }
 
-// TODO: work these ("patch*") into the backend service
+var datatools = {
 
-function patchHoldings(holdings) {
-  return _.map(holdings, function (it) {
-    var obj = it.data; obj['@id'] = it.identifier; return obj;
-  });
-}
+  getPersonRoleMap: function (record, relatorsMap) {
+    var instance = record.about;
+    var work = instance.instanceOf;
 
+    var roleMap = {};
+    function addPersonRoles(person) {
+      roleMap[person['@id']] = [];
+    }
+    if (work.creator) {
+      addPersonRoles(work.creator);
+    }
+    if (work.contributorList) {
+      work.contributorList.forEach(function (person) {
+        addPersonRoles(person);
+      });
+    }
 
-function MarcCtrl($rootScope, $scope, $routeParams, conf, records, $timeout) {
-
-  conf.renderUpdates = false;
-  $rootScope.editMode = 'marc';
-
-  $scope.getKey = marcjson.getMapEntryKey;
-  $scope.indicatorType = marcjson.getIndicatorType;
-  $scope.widgetType = marcjson.getWidgetType;
-
-  var recType = $routeParams.recType, recId = $routeParams.recId;
-
-  conf.marcmap.then(function (map) {
-      records.get(recType, recId).then(function (struct) {
-      map = map[recType];
-      marcjson.expandFixedFields(map, struct, true);
-      $scope.map = map;
-      $scope.struct = struct;
+    var personMap = {}; // .. or e.g. Organization
+    [instance, work].forEach(function (resource) {
+      var objId = resource['@id'];
+      _.forEach(resource, function (vals, key) {
+        if (!vals)
+          return;
+        if (!_.isArray(vals)) vals = [vals];
+        _.forEach(vals, function (agent) {
+          var pid = agent['@id'];
+          if (!pid)
+            return;
+          var roles = roleMap[pid];
+          if (!roles)
+            return;
+          var role = relatorsMap[key];
+          if (!role)
+            return;
+          if (!_.contains(roles, role))
+            roles.push(role);
+          //pr.roles[role] = objId;
+        });
+      });
     });
-  });
 
-  $scope.fieldToAdd = null;
+    return roleMap;
+  },
 
-  $scope.promptAddField = function ($event, dfn, currentTag) {
-    // TODO: set this once upon first rendering of view (listen to angular event)
-    conf.renderUpdates = true;
-    $scope.fieldToAdd = {
-      tag: currentTag,
-      execute: function () {
-        marcjson.addField($scope.struct, $scope.fieldToAdd.tag, dfn);
-        $scope.fieldToAdd = null;
-      },
-      abort: function () {
-        $scope.fieldToAdd = null;
+  // TODO: this will be unified in the backend mapping and thus not needed here
+  getUnifiedClassifications: function (record) {
+    var thing = record.about.instanceOf;
+    var classes = [];
+    if (thing.class) {
+      classes.push.apply(thing.class);
+    }
+    ['class-lcc', 'class-ddc'].forEach(function (key) {
+      var cls = thing[key];
+      if (cls) {
+        classes.push({prefLabel: cls});
       }
-    };
-    $timeout(function () {
-      openPrompt($event, '#prompt-add-field');
     });
-  };
 
-  $scope.subFieldToAdd = null;
+    return classes;
+  },
 
-  $scope.promptAddSubField = function ($event, dfn, row, currentSubCode, index) {
-    $scope.subFieldToAdd = {
-      subfields: dfn.subfield,
-      code: currentSubCode,
-      execute: function () {
-        marcjson.addSubField(row, $scope.subFieldToAdd.code, index);
-        $scope.subFieldToAdd = null;
-      },
-      abort: function () {
-        $scope.subFieldToAdd = null;
-      }
-    };
-    $timeout(function () {
-      openPrompt($event, '#prompt-add-subfield');
+  // TODO: fix this in the backend service and remove this patch
+  patchHoldings: function (holdings) {
+    return _.map(holdings, function (it) {
+      var obj = it.data; obj['@id'] = it.identifier; return obj;
     });
+  }
+
+};
+
+
+
+/**
+ * services.js
+ */
+
+kitin.factory('searchService', function($http, $q) {
+  function performSearch(url) {
+    var deferred = $q.defer();
+    $http.get(url).success(function(data) {
+      deferred.resolve(data);
+    });
+    return deferred.promise;
+  }
+
+  return {
+    search: function(url) {
+      return performSearch(url);
+    }
   };
+});
 
-  $scope.removeField = function (index) {
-    this.fadeOut(function () { marcjson.removeField($scope.struct, index); });
+kitin.factory('isbntools', function($http, $q) {
+  function doCheck(isbn) {
+    var deferred = $q.defer();
+    var url = "/resource/_isxntool?isbn=" + isbn;
+    $http.get(url).success(function(data) {
+      deferred.resolve(data);
+    });
+    return deferred.promise;
+  }
+
+  return {
+    checkIsbn: function(isbn) {
+      return doCheck(isbn);
+    }
   };
+});
 
-  $scope.addSubField = marcjson.addSubField;
+kitin.factory('records', function ($http, $q) {
+  return {
 
-  $scope.removeSubField = function (index) {
-    this.fadeOut(function () { marcjson.removeSubField(index); });
+    get: function (type, id) {
+      var path = "/record/" + type + "/" + id;
+      var record = $q.defer();
+      $http.get(path).success(function (struct, status, headers) {
+        record['recdata'] = struct;
+        record['etag'] = headers('etag');
+        record.resolve(record);
+      });
+      return record.promise;
+    },
+
+    save: function(type, id, data, etag) {
+      var record = $q.defer();
+      $http.put("/record/" + type + "/" + id, data,
+                {headers: {"If-match":etag}}).success(function(data, status, headers) {
+        record['recdata'] = data;
+        record['etag'] = headers('etag');
+        record.resolve(record);
+        console.log("Saved record.");
+      }).error(function() {
+        console.log("FAILED to save record");
+      });
+      return record.promise;
+    },
+
+    create: function(type, data) {
+      var record = $q.defer();
+      $http.post("/record/" + type + "/create", data).success(function(data, status, headers) {
+        record.resolve(data);
+      });
+      return record.promise;
+    }
+
   };
-
-  // TODO:
-  //$scope.saveStruct = function () {
-  //  var repr = angular.toJson($scope.struct)
-  //  ajax-save
-  //}
-
-}
+});
 
 
-// services.js
+kitin.factory('resources', function($http) {
+  function getResourceList(restype, part) {
+      var url;
+      if (restype === 'enums')
+        url = "/resource/_marcmap?part=bib.fixprops." + part;
+      else
+        url = "/resource/_resourcelist?" + restype + "=all";
+    var promise = $http.get(url).then(function(response) {
+      return response.data;
+    });
+    return promise;
+  }
+  // TODO: load cached aggregate, or lookup part on demand from backend?
+  var resources = {
+    typedefs: getResourceList("typedef"),
+    relators: getResourceList("relator"),
+    languages: getResourceList("lang"),
+    countries: getResourceList("country"),
+    nationalities: getResourceList("nationality"),
+    enums: {
+      bibLevel: getResourceList("enums", "bibLevel"),
+      encLevel: getResourceList("enums", "encLevel"),
+      catForm: getResourceList("enums", "catForm")
+    }
+
+  };
+  return resources;
+});
+
+
+// Gather constants from angular or flask context
+kitin.factory('constants', function(flaskConstants) {
+  var constants = {
+    uiConstantOfChoice: "Whatever"
+  };
+  angular.extend(constants, flaskConstants);
+
+  return {
+    get: function(key) {
+      return constants[key];
+    },
+    all: function() {
+      return constants;
+    }
+  };
+});
+
 
 // TODO: turn into promptService?
 function openPrompt($event, promptSelect, innerMenuSelect) {
@@ -773,34 +701,17 @@ function openPrompt($event, promptSelect, innerMenuSelect) {
 }
 
 
-// directives.js
+/**
+ * directives.js
+ */
 
-/* TODO: Turn this into a more declarative kitin-subfield directive?
-  data-kitin-codekey="promptAddSubField($elem, field, $index)"
-kitin.directive('kitinCodekey', function () {
-  return function (scope, elm, attrs) {
-    var expr = attrs.kitinCodekey;
-    elm.jkey("alt+t", function () {
-      scope.$apply(expr);
-    });
-  }
+/* If we use bootstrap popover, we may use angular directive like so:
+kitin.directive('popover', function(expression, compiledElement) {
+  return function(linkElement) {
+      linkElement.popover();
+  };
 });
 */
-/*
-kitin.directive('direTest', function() {
-    return function (scope, elm, attr) {
-        var tjonga = attrs.tjonga
-    return {
-        restrict: 'A',
-        template: '<span>ALATESTING</span>'
-    }
-});*/
-/* If we use bootstrap popover, we may use angular directive like so:
-  kitin.directive('popover', function(expression, compiledElement){
-    return function(linkElement) {
-        linkElement.popover();
-    };
-});*/
 
 kitin.directive('inplace', function () {
   return function(scope, elm, attrs) {
@@ -817,55 +728,6 @@ kitin.directive('inplace', function () {
     });
   };
 });
-
-kitin.directive('keyEnter', function () {
-  return function (scope, elm, attrs) {
-    var expr = attrs.keyEnter;
-    elm.jkey('enter', function () {
-      scope.$apply(expr);
-    });
-  };
-});
-
-kitin.directive('keyEsc', function () {
-  return function (scope, elm, attrs) {
-    var expr = attrs.keyEsc;
-    elm.jkey('esc', function () {
-      scope.$apply(expr);
-    });
-  };
-});
-
-kitin.directive('fadable', function(conf) {
-  return function(scope, elm, attrs) {
-    var duration = parseInt(attrs.fadable, 10);
-    if (conf.renderUpdates) {
-      // TODO: adding this indicates that this is not a 'fadable', but a 'fieldbox'..
-      elm.hide().fadeIn(duration, function () {
-        if (conf.renderUpdates) {
-          var fieldExpr = elm.has('input')? 'input' : 'select';
-          elm.find(fieldExpr).first().focus();
-        }
-      });
-      var body = $('body');
-      var scrollTop = $(document).scrollTop(),
-        winHeight = $(window).height(),
-        scrollBot = scrollTop + winHeight,
-        offsetTop = elm.offset().top - body.offset().top;
-      if (offsetTop < scrollTop || offsetTop > scrollBot) {
-        body.animate({scrollTop: offsetTop - (winHeight / 2)});
-      }
-    }
-    scope.fadeOut = function(complete) {
-      elm.fadeOut(duration / 2, function() {
-        if (complete) {
-          complete.apply(scope);
-        }
-      });
-    };
-  };
-});
-
 
 kitin.directive('isbnvalidator', function(isbntools) {
   return {
@@ -889,17 +751,17 @@ kitin.directive('isbnvalidator', function(isbntools) {
            console.log("Frontend says wrong length");
         }
         else {*/
-            isbntools.checkIsbn(inputval).then(function(data) {
-                if (data.isbn) {
-                 var approved = data.isbn.valid;
-                 if (approved) {
-                     $(element).val(data.isbn.formatted);
-                 }
-                 else {
-                     controller.$setValidity('invalid_value', false);
-                 }
-                }
-             });
+          isbntools.checkIsbn(inputval).then(function(data) {
+            if (data.isbn) {
+              var approved = data.isbn.valid;
+              if (approved) {
+                $(element).val(data.isbn.formatted);
+              }
+              else {
+                controller.$setValidity('invalid_value', false);
+              }
+            }
+            });
         //}
       });
     }
@@ -907,87 +769,88 @@ kitin.directive('isbnvalidator', function(isbntools) {
 });
 
 kitin.directive('kitinAutoselect', function(resources) {
-   return {
-   restrict: 'A',
-   link: function(scope, elem, attrs) {
-        var templateId = attrs.kitinTemplate;
-        var template = _.template(jQuery('#' + templateId).html());
-        var ld = [{}];
+  return {
+    restrict: 'A',
+    link: function(scope, elem, attrs) {
+      var templateId = attrs.kitinTemplate;
+      var template = _.template(jQuery('#' + templateId).html());
+      var ld = [{}];
 
-        resources.languages.then(function(langdata) {
-         ld['lang'] = langdata;
-        });
-        elem.autocomplete( {
-           data: ld,
-           inputClass: null,
-           remoteDataType: 'json',
-           autoWidth: null,
-           mustMatch: true,
-           filter: function (result) {
-             var tstr = result.value.toLowerCase();
-             var name = tstr.split("!")[0];
-             var code = tstr.split("!")[1].replace("(", "").replace(")", "");
-             var inputval = $(elem).val().toLowerCase(); // Is this value accessible some other way?
-             //console.log("name: ", name, ", code: ", code, ", tstr: ", tstr, ", inputval: ", inputval)
-             //return (haystack.substr(0, needle.length) == needle);
-             //if (tstr.substr(0, inputval.length) == inputval) {
-             //   return true;
-             //}
-             if (wordStartsWith(inputval, name) || wordStartsWith(inputval,code) || inWordStartsWith(inputval,name)) {
-                 return true;
-             }
-             //if (tstr.indexOf(inputval) != -1) {
-             //    return true;
-             //}
-             function wordStartsWith(input,val){
-                if (val.substr(0, input.length) == input) {
-                    return true;
-                }
-                return false;
-             }
-             function inWordStartsWith(input,val){
-                var wlist = val.split(" ");
-                if (wlist.length > 1){
-                    for (i = 1; i < wlist.length; i++) {
-                        var tmp = wlist[i].replace("(", "").replace(")", "");
-                        if (tmp.substr(0, input.length) == input) {
-                           return true;
-                        }
-                    }
-                }
-                return false;
-             }
-           },
-           useCache: false,
-           maxItemsToShow: 0, // Means show all
+      resources.languages.then(function(langdata) {
+        ld['lang'] = langdata;
+      });
 
-           processData: function (data) {
-             var tmp = [];
-             //var list = [{}];
-             for (var key in data['lang']){
-                  var tmpstr = data['lang'][key] + "!(" + key + ")"; // Ugly, would like to build a json struct like in liststr example, but how grab the json in showresult?
-                  tmp.push(tmpstr);
-                  //var liststr = '{code:"' + key + '"},{name:"' + data["lang"][key] + '"}';
-                  //list.push(liststr);
-             }
-             return tmp;
-           },
-           showResult: function (data, value) {
-             var dtmp = data;
-             var name = dtmp.split("!")[0]; // Yeah, I know.
-             var code = dtmp.split("!")[1];
-             return template({name: name, code: code});
-           },
-           onItemSelect: function(item) {
-             scope.record.about.instanceOf.language = item.value.split("!")[0] + " " + item.value.split("!")[1];
-             scope.$apply();
-           }
-        });
-     }
-   };
+      elem.autocomplete({
+        data: ld,
+        inputClass: null,
+        remoteDataType: 'json',
+        autoWidth: null,
+        mustMatch: true,
+        filter: function (result) {
+          var tstr = result.value.toLowerCase();
+          var name = tstr.split("!")[0];
+          var code = tstr.split("!")[1].replace("(", "").replace(")", "");
+          var inputval = $(elem).val().toLowerCase(); // Is this value accessible some other way?
+          //console.log("name: ", name, ", code: ", code, ", tstr: ", tstr, ", inputval: ", inputval)
+          //return (haystack.substr(0, needle.length) == needle);
+          //if (tstr.substr(0, inputval.length) == inputval) {
+          //   return true;
+          //}
+          if (wordStartsWith(inputval, name) || wordStartsWith(inputval,code) || inWordStartsWith(inputval,name)) {
+              return true;
+          }
+          //if (tstr.indexOf(inputval) != -1) {
+          //    return true;
+          //}
+          function wordStartsWith(input,val){
+            if (val.substr(0, input.length) == input) {
+                return true;
+            }
+            return false;
+          }
+          function inWordStartsWith(input,val){
+            var wlist = val.split(" ");
+            if (wlist.length > 1){
+              for (i = 1; i < wlist.length; i++) {
+                var tmp = wlist[i].replace("(", "").replace(")", "");
+                if (tmp.substr(0, input.length) == input) {
+                  return true;
+                }
+              }
+            }
+            return false;
+          }
+        },
+        useCache: false,
+        maxItemsToShow: 0, // Means show all
+
+        processData: function (data) {
+          var tmp = [];
+          //var list = [{}];
+          for (var key in data['lang']){
+            var tmpstr = data['lang'][key] + "!(" + key + ")"; // Ugly, would like to build a json struct like in liststr example, but how grab the json in showresult?
+            tmp.push(tmpstr);
+            //var liststr = '{code:"' + key + '"},{name:"' + data["lang"][key] + '"}';
+            //list.push(liststr);
+          }
+          return tmp;
+        },
+        showResult: function (data, value) {
+          var dtmp = data;
+          var name = dtmp.split("!")[0]; // Yeah, I know.
+          var code = dtmp.split("!")[1];
+          return template({name: name, code: code});
+        },
+        onItemSelect: function(item) {
+          scope.record.about.instanceOf.language = item.value.split("!")[0] + " " + item.value.split("!")[1];
+          scope.$apply();
+        }
+      });
+    }
+  };
 });
 
-// TODO: build properly configurable services out of this..
+// TODO: build properly configurable service out of this..
 var autocompleteServices = {
   person: {
     serviceUrl: "/suggest/auth",
@@ -1016,17 +879,16 @@ kitin.directive('kitinAutocomplete', function() {
       var conf = autocompleteServices[attrs.kitinAutocomplete];
 
       /* TODO: IMPROVE: replace current autocomplete mechanism and use angular
-      templates ($compile) all the way.. It if is fast enough..*/
+      templates ($compile) all the way.. If it is fast enough.. */
       var template = _.template(jQuery('#' + conf.templateId).html());
       var selected = false;
-      var is_authorized = false;
+      var isAuthorized = false;
 
       function toggleRelatedFieldsEditable(val) {
         $(elem).closest('.person').find('.authdependant').prop('disabled', val);
       }
 
       elem.autocomplete(conf.serviceUrl, {
-
         inputClass: null,
         remoteDataType: 'json',
         autoWidth: null,
@@ -1036,7 +898,7 @@ kitin.directive('kitinAutocomplete', function() {
 
         processData: function (doc) {
           if (!doc|| !doc.list) {
-            is_authorized = false;
+            isAuthorized = false;
             selected = false;
             toggleRelatedFieldsEditable(false);
             console.log("Found no results!"); // TODO: notify no match to user
@@ -1055,7 +917,7 @@ kitin.directive('kitinAutocomplete', function() {
         },
 
         onFinish: function() {
-          if(selected && is_authorized) {
+          if(selected && isAuthorized) {
             toggleRelatedFieldsEditable(true);
           } else {
             toggleRelatedFieldsEditable(false);
@@ -1065,14 +927,14 @@ kitin.directive('kitinAutocomplete', function() {
         onNoMatch: function() {
           delete scope[conf.scopeObjectKey]['@id'];
           selected = false;
-          is_authorized = false;
+          isAuthorized = false;
           toggleRelatedFieldsEditable(false);
         },
 
         onItemSelect: function(item, completer) {
           selected = true;
-          // TODO: do this (the is_authorized part?) the angular way
-          is_authorized = !!item.data.authorized;
+          // TODO: do this (the isAuthorized part?) the angular way
+          isAuthorized = !!item.data.authorized;
           if (conf.scopeObjectKey) {
             var obj = scope[conf.scopeObjectKey];
             obj['@id'] = item.data.identifier;
@@ -1092,23 +954,3 @@ kitin.directive('kitinAutocomplete', function() {
     }
   };
 });
-
-
-// Do we need a jquery namespace here?
-(function($) {
-$("ul.facetlist").has("li.overflow").each(function() {
-    var $facetlist = $(this);
-    $('<a class="show_more" href="#">Visa fler</a>').insertAfter($facetlist).click(function() {
-        var $toggler = $(this);
-        $('li.overflow', $facetlist).toggleClass('facet-closed');
-        $toggler.text($("li.facet-closed", $facetlist).length? "Visa fler" : "Visa färre");
-        return false;
-    });
-});
-}(jQuery));
-
-
-// TODO: onunload:
-//if (ajaxInProgress)
-//  confirm('ajaxInProgress; break and leave?')
-
