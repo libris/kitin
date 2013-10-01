@@ -293,8 +293,21 @@
     </ng-form>
   </section>
 
-  <section id="subject classification" data-ng-repeat="work in [record.about.instanceOf]"
-           data-ng-include="'/partials/edit_subject'">
+  <section id="subject classification">
+    <div class="cols"
+         data-ng-include="'/partials/edit_subject'" onload="work = record.about.instanceOf">
+    </div>
+
+    <h3>{{ "Anmärkningar" }}</h3>
+    <div class="cols">
+      <div class="col6">
+        <label>
+            <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
+                      data-ng-model="work.summary" placeholder="Sammanfattning"></textarea>
+            <span class="lbl">{{ "Sammanfattning" }}</span>
+        </label>
+      </div>
+    </div>
   </section> 
   
   <section class="submit modificationinfo" data-ng-class="modifiedClasses()">
