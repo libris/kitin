@@ -25,7 +25,7 @@
           <dd data-ng-repeat="item in facet.items">
             <a data-ng-class="{active: item.selected}"
                data-ng-href="{{item['slug']}}">
-              <span data-ng-repeat="(key, value) in item['object']">{{key}} ({{value | chunk}})</span></a>
+              <span data-ng-repeat="(key, value) in item['object']">{{getLabel(key)}} ({{value | chunk}})</span></a>
           </dd>
         </dl>
       </section>

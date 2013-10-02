@@ -208,6 +208,12 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, searchSer
     });
   }
 
+  $scope.getLabel = function (term) {
+    var dfn = $scope.typeDefs[term];
+    if (!dfn) return term;
+    return dfn['label_sv'] || term;
+  };
+
   $scope.firstPerson = function (work) {
     var candidate = work.creator || work.contributorList;
     return _.isArray(candidate)? candidate[0] : candidate;
