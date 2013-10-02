@@ -161,10 +161,10 @@ input :-moz-placeholder{color:#ccc;font-style:italic;font-size:14px}
 :focus:-moz-placeholder:focus{color:#78ceba}
 :focus::-moz-placeholder{color:#78ceba}
 :focus:-ms-input-placeholder:focus{color:#78ceba}
-.holdings :focus::-webkit-input-placeholder{color:#DDA0DD}
-.holdings :focus:-moz-placeholder:focus{color:#DDA0DD}
-.holdings :focus::-moz-placeholder{color:#DDA0DD}
-.holdings :focus:-ms-input-placeholder:focus{color:#DDA0DD}
+.holdings :focus::-webkit-input-placeholder{color:#dda0dd}
+.holdings :focus:-moz-placeholder:focus{color:#dda0dd}
+.holdings :focus::-moz-placeholder{color:#dda0dd}
+.holdings :focus:-ms-input-placeholder:focus{color:#dda0dd}
 label:hover,label.focus{border-left-color:#1a8f72}
 label:hover textarea,label:hover input{background:#f8f8f8 url(/static/img/pen-grey.png) no-repeat 98.5% 7px;color:#000;border-color:#f8f8f8}
 label input:focus,label textarea:focus{background:#c0f1e6 url(/static/img/pen-black.png) no-repeat 98.5% 7px;color:#000;border:1px solid #c0f1e6}
@@ -198,10 +198,10 @@ div.loading{position:relative;left:80%;float:left;z-index:10000;margin-top:-40px
 .holdings-list ul{list-style:none;margin:0;padding:0;-webkit-box-shadow:0 1px 3px rgba(0,0,0,0.2);-moz-box-shadow:0 1px 3px rgba(0,0,0,0.2);box-shadow:0 1px 3px rgba(0,0,0,0.2)}
 #nav{position:relative;z-index:200;overflow:visible}
 #nav a:hover,#nav a:focus{text-decoration:none;cursor:pointer}
-#nav .nav-menu>li{border-left:1px solid #1A8F72;padding:3px;margin:5px;padding-left:15px}
+#nav .nav-menu>li{border-left:1px solid #1a8f72;padding:3px;margin:5px;padding-left:15px}
 #nav .nav-menu>li:first-child{border-left:none;padding-left:0px}
-.dropdown-menu li a{display:block;background:#f7f3ee;padding:12px 12px 12px 18px;border-top:1px solid #ccc;color:#1A8F72}
-.dropdown-menu li a:hover{color:#FFFFFF;background:#1A8F72}
+.dropdown-menu li a{display:block;background:#f7f3ee;padding:12px 12px 12px 18px;border-top:1px solid #ccc;color:#1a8f72}
+.dropdown-menu li a:hover{color:#FFFFFF;background:#1a8f72}
 .dropdown-menu li:first-child a{border-top:none}
 .dropdown-menu li.active a{background:#fff;color:#000}
 .dropdown-menu li.my_template a{background-color:#fff}
