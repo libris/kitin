@@ -1,3 +1,5 @@
+/*jshint loopfunc: true */
+
 // namespace object (works in both browser and node)
 var marcjson = typeof exports !== 'undefined'? exports : {};
 
@@ -20,7 +22,7 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
       var recTypeBibLevelKey = leader.typeOfRecord.code + leader.bibLevel.code;
       var columns = null;
       // TODO: prepare table to lookup fixmap by matchRecTypeBibLevel
-      for (var fixmap=null, i=0; fixmap=dfn.fixmaps[i++];) {
+      for (var fixmap=null, i=0; (fixmap=dfn.fixmaps[i++]);) {
         if (fixmap.matchRecTypeBibLevel.indexOf(recTypeBibLevelKey) > -1) {
           //var type = fixmap.term; // TODO: use computed resource type key
           columns = fixmap.columns;
@@ -35,7 +37,7 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
   function parseFixedField(row, dfn, leader, fixprops, reversible) {
     var matchKey = row[0];
     var columns = null;
-    for (var fixmap=null, i=0; fixmap=dfn.fixmaps[i++];) {
+    for (var fixmap=null, i=0; (fixmap=dfn.fixmaps[i++]);) {
       if (fixmap.matchKeys.indexOf(matchKey) > -1) {
         columns = fixmap.columns;
         break;
@@ -139,7 +141,7 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
     for (var k in indEnum) if (i++) break;
     if (i === 1 &&
         (indEnum['_'].id === 'undefined' ||
-          indEnum['_'].label_sv === 'odefinierad')) {
+          indEnum['_']['label_sv'] === 'odefinierad')) {
       return 'hidden';
     } else if (indEnum) {
       return 'select';
@@ -221,10 +223,10 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
       tagged.push(field);
     });
 
-    for (entity in entitySpecs) {
+    for (var entity in entitySpecs) {
       var entitySpec = entitySpecs[entity];
       var group = out[entity] = {};
-      for (groupKey in entitySpec) {
+      for (var groupKey in entitySpec) {
         groupSpec = entitySpec[groupKey];
         var targetGroup = group[groupKey] =
           createTargetGroup(map, overlay, struct, groupSpec);
@@ -319,7 +321,7 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
     // TODO: extract 'hidden' logic to creation of dfn.indicators list
     if (i === 1 &&
         (indEnum['_'].id === 'undefined' ||
-          indEnum['_'].label_sv === 'odefinierad')) {
+          indEnum['_']['label_sv'] === 'odefinierad')) {
       return 'hidden';
     } else if (tagExt && tagExt[indKey]) {
       return tagExt[indKey].type;
@@ -368,7 +370,7 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
     var out = {};
     out.leader = exports.parseLeader(map, struct);
     (struct.fields).forEach(function(field) {
-      for (fieldTag in field) {
+      for (var fieldTag in field) {
         var sourceRow = field[fieldTag];
         var dfn = map[fieldTag];
         var parse = exports.fixedFieldParsers[fieldTag];
@@ -415,7 +417,7 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
       outField[fieldDfn.ind2.id || 'ind2'] = ind2Val? ind2Val.id : ind2Repr;
     }
     row.subfields.forEach(function (subfield) {
-      for (subCode in subfield) {
+      for (var subCode in subfield) {
         var key = subCode;
         var subDfn = fieldDfn.subfield[subCode];
         var outObj = subfield[subCode];
@@ -441,7 +443,7 @@ var marcjson = typeof exports !== 'undefined'? exports : {};
   };
 
   function dfnKey(key, dfn) {
-    return dfn.id || "[" + key + "] " + dfn.label_sv;
+    return dfn.id || "[" + key + "] " + dfn['label_sv'];
   }
 
 })(marcjson);

@@ -20,9 +20,9 @@
   <div class="cols">
     <div class="col3">
       <section class="nav">
-        <dl data-ng-repeat="facet in my_facets">
-          <dt><i></i>{{facet_terms[facet['type']]}}</dt>
-          <dd data-ng-repeat="item in facet['items']">
+        <dl data-ng-repeat="facet in myFacets">
+          <dt><i></i>{{facetTerms[facet['type']]}}</dt>
+          <dd data-ng-repeat="item in facet.items">
             <a data-ng-class="{active: item.selected}"
                data-ng-href="{{item['slug']}}">
               <span data-ng-repeat="(key, value) in item['object']">{{key}} ({{value | chunk}})</span></a>

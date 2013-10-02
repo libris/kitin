@@ -97,6 +97,9 @@ module.exports = (grunt) ->
       coffee:
         files: ['<%= coffee.src.src %>']
         tasks: ['coffee']
+      jshint:
+        files: ['<%= jshint.app %>']
+        tasks: ['jshint']
 
     clean: [
       'static/build'

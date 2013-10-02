@@ -116,12 +116,12 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, searchSer
     // iterate facets to add correct slug
     // if can do in angularistic fashion; then please do and remove this!
     var result = [];
-    for(var facetType in facets) {
+    _.each(facets, function (facet, facetType) {
       var newFacet = {};
       newFacet['type'] = facetType;
       newFacet['items']= [];
       var prevFacets = prevFacetsStr.split(" ");
-      _.each(facets[facetType], function (value, key) {
+      _.each(facet, function (value, key) {
         var subitem = {};
         var subitemObject = {};
         subitemObject[key] = value;
@@ -129,7 +129,7 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, searchSer
         var tmpslug = [facetType, key].join(":");
         var slug = encodeURIComponent(tmpslug);
         subitem.selected = $.inArray(slug, prevFacets) !== -1;
-        if(subitem.selected) {
+        if (subitem.selected) {
           subitem['slug'] = "/search?q=" + encodeURIComponent($scope.q) + "&f=" + $.grep(prevFacets, function(val) {return val != slug;});
         } else {
           subitem['slug'] = "/search?q=" + encodeURIComponent($scope.q) + "&f=" + slug + " " + prevFacetsStr;
@@ -137,7 +137,7 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, searchSer
         newFacet['items'].push(subitem);
       });
       result.push(newFacet);
-    }
+    });
     return result;
   }
 
@@ -150,7 +150,7 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, searchSer
       tmpCrumb['urlpart'] = "/search?q=" + encodeURIComponent($scope.q);
       crumblist.push(tmpCrumb);
       var urlPart = "";
-      for (i=0; i < facetlist.length; i++) {
+      for (var i=0; i < facetlist.length; i++) {
         tmpCrumb = {};
         var facet = facetlist[i];
         var term = facet.substring(facet.indexOf(":") + 1);
@@ -183,7 +183,7 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, searchSer
   $scope.q = $routeParams.q;
   $scope.f = $routeParams.f;
   var url = "/search.json?q=" + encodeURIComponent($scope.q);
-  if($scope.f !== undefined) {
+  if ($scope.f !== undefined) {
     url += "&f=" + $scope.f;
   }
 
@@ -196,7 +196,7 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, searchSer
   } else {
     $scope.loading = true;
     searchService.search(url).then(function(data) {
-      $scope.my_facets = mangleFacets(data.facets);
+      $scope.myFacets = mangleFacets(data.facets);
       $scope.result = data;
       if (data.hits == 1) {
           $location.url("/edit" + data.list[0].identifier);
@@ -218,7 +218,8 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, searchSer
   var facetTerms = []; // TODO: localization
   facetTerms['about.@type'] = "Typer";
   facetTerms['about.dateOfPublication'] = "Datum";
-  $scope.facet_terms = facetTerms;
+  $scope.facetTerms = facetTerms;
+
   console.timeEnd("search");
 }
 
@@ -286,8 +287,7 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
 
     bibid = record['controlNumber'];
     $scope.etag = data['etag'];
-    $scope.user_sigel = constants.get("user_sigel");
-    $scope.all_constants = constants.all();
+    $scope.userSigel = constants['user_sigel'];
     $http.get("/record/" + recType + "/" + recId + "/holdings").success(function(data) {
 
       $scope.personRoleMap = datatools.getPersonRoleMap(record, $scope.relatorsMap);
@@ -296,24 +296,24 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
       var holdingEtags = {};
       var items = datatools.patchHoldings(data.list);
       $scope.holdings = items;
-      var my_holdings = _.filter(items, function(i) { return i['location'] == constants.get("user_sigel"); });
-      if(my_holdings <= 0) {
+      var myHoldings = _.filter(items, function(i) { return i['location'] == constants['user_sigel']; });
+      if (myHoldings <= 0) {
         $http.get("/holding/bib/new").success(function(data, status, headers) {
-          data.location = $scope.user_sigel;
+          data.location = $scope.userSigel;
           $scope.holding = data;
-          data._is_new = true; // TODO: don't do this when etag works
+          data._isNew = true; // TODO: don't do this when etag works
         });
       } else {
-        $scope.holding = my_holdings[0];
+        $scope.holding = myHoldings[0];
       }
-      for(var i in items) {
-        if(items[i]['@id']) {
-          $http.get("/holding/"+ items[i]['@id'].split("/").slice(-2)[1]).success(function(data, status, headers) {
+      items.forEach(function (item) {
+        if (item['@id']) {
+          $http.get("/holding/"+ item['@id'].split("/").slice(-2)[1]).success(function (data, status, headers) {
             holdingEtags[data['@id']] = headers('etag');
           });
         }
-      }
-      $scope.holding_etags = holdingEtags;
+      });
+      $scope.holdingEtags = holdingEtags;
     });
 
   });
@@ -441,32 +441,32 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   };
 
   $scope.addHolding = function(holdings) {
-    holdings.push({shelvingControlNumber: "", location: constants.get("user_sigel")});
+    holdings.push({shelvingControlNumber: "", location: constants['user_sigel']});
   };
 
   $scope.saveHolding = function(holding) {
-    var etag = $scope.holding_etags[holding['@id']];
+    var etag = $scope.holdingEtags[holding['@id']];
     holding['annotates'] = { '@id': "/"+recType+"/"+recId };
     // TODO: only use etag (but it's not present yet..)
-    if(!holding._is_new && (etag || holding.location === $scope.user_sigel)) {
+    if(!holding._isNew && (etag || holding.location === $scope.userSigel)) {
       $http.put("/holding/" + holding['@id'].split("/").slice(-2)[1], holding, {headers: {"If-match":etag}}).success(function(data, status, headers) {
-        $scope.holding_etags[data['@id']] = headers('etag');
+        $scope.holdingEtags[data['@id']] = headers('etag');
       }).error(function(data, status, headers) {
         console.log("ohh crap!");
       });
     } else {
-      if (holding._is_new) { delete holding._is_new; }
+      if (holding._isNew) { delete holding._isNew; }
       console.log("we wants to post a new holding");
       $http.post("/holding", holding).success(function(data, status, headers) {
-        $scope.holding_etags[data['@id']] = headers('etag');
+        $scope.holdingEtags[data['@id']] = headers('etag');
       }).error(function(data, status, headers) {
         console.log("ohh crap!");
       });
     }
   };
 
-  $scope.deleteHolding = function(holding_id) {
-    $http['delete']("/holding/" + holding_id).success(function(data, success) {
+  $scope.deleteHolding = function(holdingId) {
+    $http['delete']("/holding/" + holdingId).success(function(data, success) {
       console.log("great success!");
       $http.get("/record/" + recType + "/" + recId + "/holdings").success(function(data) {
         $scope.holdings = patchHoldings(data.list);
@@ -484,6 +484,7 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   };
 
 }
+
 
 var datatools = {
 
@@ -504,7 +505,6 @@ var datatools = {
       });
     }
 
-    var personMap = {}; // .. or e.g. Organization
     [instance, work].forEach(function (resource) {
       var objId = resource['@id'];
       _.forEach(resource, function (vals, key) {
@@ -556,7 +556,6 @@ var datatools = {
   }
 
 };
-
 
 
 /**
@@ -668,19 +667,9 @@ kitin.factory('resources', function($http) {
 
 // Gather constants from angular or flask context
 kitin.factory('constants', function(flaskConstants) {
-  var constants = {
-    uiConstantOfChoice: "Whatever"
-  };
+  var constants = {};
   angular.extend(constants, flaskConstants);
-
-  return {
-    get: function(key) {
-      return constants[key];
-    },
-    all: function() {
-      return constants;
-    }
-  };
+  return constants;
 });
 
 
@@ -917,7 +906,7 @@ kitin.directive('kitinAutocomplete', function() {
         },
 
         onFinish: function() {
-          if(selected && isAuthorized) {
+          if (selected && isAuthorized) {
             toggleRelatedFieldsEditable(true);
           } else {
             toggleRelatedFieldsEditable(false);
