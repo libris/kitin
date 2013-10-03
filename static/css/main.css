@@ -192,7 +192,7 @@ div.loading{position:relative;left:80%;float:left;z-index:10000;margin-top:-40px
 .suggestion-classification li{margin:0 4px 4px 0;float:left;padding:4px 8px;background:rgba(167,86,167,0.35)}
 .suggestion-classification li .icon{color:#683568}
 .on-hover{visibility:hidden}
-.person:hover .on-hover{visibility:visible}
+.entity:hover .on-hover{visibility:visible}
 .nav>li>a:hover,.nav>li>a:focus{background-color:transparent}
 .dropdown-menu{background-clip:padding-box;background-color:#fff;border:1px solid rgba(0,0,0,0.2);border-radius:3px 3px 3px 3px;box-shadow:0 5px 10px rgba(0,0,0,0.2);display:none;float:left;left:1000px;list-style:none outside none;margin:2px 0 0;min-width:252px;padding:0;margin-right:-16px;position:absolute;top:100%;z-index:1000}
 .holdings-list ul{list-style:none;margin:0;padding:0;-webkit-box-shadow:0 1px 3px rgba(0,0,0,0.2);-moz-box-shadow:0 1px 3px rgba(0,0,0,0.2);box-shadow:0 1px 3px rgba(0,0,0,0.2)}

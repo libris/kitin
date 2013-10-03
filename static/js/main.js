@@ -283,11 +283,26 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     };
   });
 
+  // TODO: resources.conceptSchemes
+  var conceptSchemes = $scope.conceptSchemes =  {
+    "sao": {"label": "Svenska ämnesord"},
+    "saogf": {"label": "SAO - Genre och form"},
+    "barn": {"label": "Barnämnesord"},
+    "lcsh": {"label": "LCSH"},
+    "kao": {"label": "Kvinnsam"},
+    "mesh": {"label": "MeSH"},
+    "agrovoc": {"label": "AgroVoc"},
+    "sfit": {"label": "SFIT"},
+    "prvt": {"label": "PRVT"},
+    "gmgpc//swe": {"label": "GMGPC (swe)"}
+  };
+
   if (isNew) {
     $http.get('/record/bib/new?type' + newType).success(function(data) {
       $scope.record = data;
     });
   } else
+
   records.get(recType, recId).then(function(data) {
     var record = $scope.record = data['recdata'];
 
@@ -298,6 +313,10 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
 
       $scope.personRoleMap = datatools.getPersonRoleMap(record, $scope.relatorsMap);
       $scope.unifiedClassifications = datatools.getUnifiedClassifications(record);
+      // FIXME: this is just a view object - add/remove must operate on source and refresh this
+      // (or else this must be converted back into source form before save)
+      $scope.conceptSchemeTuples =
+        datatools.getConceptSchemeTuples(conceptSchemes, record.about.instanceOf.subject);
 
       var holdingEtags = {};
       var items = datatools.patchHoldings(data.list);
@@ -535,6 +554,21 @@ var datatools = {
     });
 
     return roleMap;
+  },
+
+  getConceptSchemeTuples: function (conceptSchemes, concepts) {
+    var tuplesByScheme = {};
+    concepts.forEach(function (concept) {
+      var schemeNotation = (concept.inScheme && concept.inScheme.notation)?
+        concept.inScheme.notation : "N/A";
+      var tuple = tuplesByScheme[schemeNotation];
+      if (typeof tuple === "undefined") {
+        tuple = {scheme: conceptSchemes[schemeNotation] || {"label": schemeNotation}, concepts: []};
+        tuplesByScheme[schemeNotation] = tuple;
+      }
+      tuple.concepts.push(concept);
+    });
+    return _.values(tuplesByScheme);
   },
 
   // TODO: this will be unified in the backend mapping and thus not needed here
@@ -857,10 +891,10 @@ var autocompleteServices = {
     serviceUrl: "/suggest/subject",
     templateId: "subject-completion-template",
     addToScope: function (scope, obj) {
-      if (scope.work.subject === undefined) {
-        scope.work.subject = [];
+      if (scope.tuple.concepts === undefined) {
+        scope.tuple.concepts = [];
       }
-      scope.work.subject.unshift(obj);
+      scope.tuple.concepts.push(obj);
     },
     objectKeys: ['prefLabel']
   }
