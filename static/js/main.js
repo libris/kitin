@@ -896,7 +896,7 @@ var autocompleteServices = {
       }
       scope.tuple.concepts.push(obj);
     },
-    objectKeys: ['prefLabel']
+    objectKeys: ['prefLabel', '@type', 'hiddenLabel', 'broader', 'narrower', '@id', 'scopeNote' ]
   }
 };
 
