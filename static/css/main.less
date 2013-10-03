@@ -1,3 +1,4 @@
+@white: #ffffff; /*background*/
 @pink: #fa1963; /*holdings*/
 @purple: #683568; /*holdings link etc */
 @purple-light: #dda0dd; /*holdings placeholder*/
@@ -22,7 +23,7 @@ h3{font-family: 'Droid Serif', georgia, serif;}
 h4{font-size:15px;}
 
 a{color: @green3;}
-a:hover{color:@green4; background-color: #fff;}
+a:hover{color:@green4; background-color: @white;}
 
 #wrap{width:1080px;margin: 0 auto;}
 #grid{display:none;width:984px;min-height:800px;background:url(/static/img/grid.png);position:absolute;top:0;left:48px;}
@@ -40,7 +41,7 @@ a:hover{color:@green4; background-color: #fff;}
 .kitin-updated {font-size: 10px;color: #999999;float:right;margin-top:-17px;margin-right: -47px;} /*beta marker & date updated*/
 
 #header .searchfield{position:absolute;left:384px;top:82px;z-index:2;}
-#header .searchfield input{width:500px;border:1px solid #bbb; padding: 6px 10px 6px;border-color: #aaa #fff #ccc #aaa;
+#header .searchfield input{width:500px;border:1px solid #bbb; padding: 6px 10px 6px;border-color: #aaa @white #ccc #aaa;
   box-shadow: inset 1px 1px 1px rgba(0,0,0,.2);
   -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0,.2);
   -webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0,.2);
@@ -55,7 +56,7 @@ a:hover{color:@green4; background-color: #fff;}
   -webkit-transition:all ease-out 0.05s;
 }
 
-#header .searchfield input:focus{border-color: #777 #fff #aaa #777;}
+#header .searchfield input:focus{border-color: #777 @white #aaa #777;}
 
 #header .searchfield input:focus::-webkit-input-placeholder { color:#ddd; }
 #header .searchfield input:focus:-moz-placeholder:focus { color:#ddd; }
@@ -122,7 +123,7 @@ body.login .content.index header{margin-bottom:60px;}
 .content header .modes{float:right;margin-top:5px;}
 
 .content header .modes a{float:left;font:bold 12px/1 "Open Sans", sans-serif;color:#444;padding:8px 12px 6px;
-    background:#fff;margin-left:6px;text-transform:uppercase;opacity:.4;
+    background:@white;margin-left:6px;text-transform:uppercase;opacity:.4;
   -webkit-box-shadow: 0 0 3px rgba(0,0,0,.25);
      -moz-box-shadow: 0 0 3px rgba(0,0,0,.25);
       box-shadow: 0 0 3px rgba(0,0,0,.25);
@@ -137,7 +138,7 @@ body.login .content.index header{margin-bottom:60px;}
 
 .content.holdings a {color:@purple;}
 .content.holdings label .lbl {color:@purple;}
-.content section{background:#fff; margin: 0 0 12px; padding: 12px;
+.content section{background:@white; margin: 0 0 12px; padding: 12px;
   -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.2);
      -moz-box-shadow: 0 1px 3px rgba(0,0,0,.2);
       box-shadow: 0 1px 3px rgba(0,0,0,.2);
@@ -160,7 +161,7 @@ div.submit {text-align: right;}
 
 .content section h2,
 section.nav dt{background:@green3;font:bold 12px/16px "Open Sans", sans-serif; text-transform:uppercase;float:left;
-  padding: 5px 24px;  color:#fff;
+  padding: 5px 24px;  color:@white;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -198,7 +199,7 @@ section.nav dd a{color:#666;padding:6px 0 6px 18px;background:url(/static/img/do
 section.nav dd a.active{font-weight:bold;color:#000;background:url(/static/img/check.png) no-repeat 0 5px;cursor:default;}
 section.nav dd a.active:hover{text-decoration: none}
 
-section.result{position:relative;border:1px solid #fff;padding:23px 11px 41px;
+section.result{position:relative;border:1px solid @white;padding:23px 11px 41px;
   -webkit-transition:border ease-out 0.05s; cursor:pointer;}
 section.result .footer{position: absolute; bottom:0; left:0; right:0;padding: 6px 12px; background:#f6f3ee;color:#666;font-size:12px;}
 section.result .footer span:first-child,
@@ -236,7 +237,7 @@ section.dash .circle{width:38px;height:38px;display:block;position:absolute;left
   -moz-border-radius: 19px;
   -webkit-border-radius: 19px;
 }
-section.dash .circle .icon{display:block;text-align:center;line-height:38px;color:#fff;font-size:20px;padding-left:1px;}
+section.dash .circle .icon{display:block;text-align:center;line-height:38px;color:@white;font-size:20px;padding-left:1px;}
 
 section.dash.pink{border-top-color: @pink;}
 section.dash.pink .circle{background-color: @pink;}
@@ -277,7 +278,7 @@ form.login .inp input,
 form.login .inp input:hover,
 form.login label.inp:hover input,
 form.login .inp input:focus{width:294px;border:1px solid #bbb; padding: 6px 10px 6px;border-color: #aaa #ccc #ccc #aaa;
-  background:#fff;
+  background:@white;
   box-shadow: inset 1px 1px 1px rgba(0,0,0,.1);
   -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0,.1);
   -webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0,.1);
@@ -291,7 +292,7 @@ form.login .inp input:focus{width:294px;border:1px solid #bbb; padding: 6px 10px
   -webkit-transition:all ease-out 0.05s;
 }
 form.login .inp input:hover,
-form.login .inp input:focus{background:#fff;}
+form.login .inp input:focus{background:@white;}
 form.login .inp input:focus,
 form.login .inp input:focus:hover{border-color: #777 #aaa #aaa #777;}
 
@@ -343,8 +344,8 @@ input[type="color"],
   -webkit-border-radius: 0;
      -moz-border-radius: 0;
           border-radius: 0;
-  background-color: #ffffff;
-  border: 1px solid #fff;
+  background-color: @white;
+  border: 1px solid @white;
   -webkit-box-shadow: none;
      -moz-box-shadow: none;
           box-shadow: none;
@@ -371,7 +372,7 @@ input[type="search"]:focus,
 input[type="tel"]:focus,
 input[type="color"]:focus,
 .uneditable-input:focus {
-  border-color:#fff;
+  border-color:@white;
   outline: 0;
   outline: thin dotted \9;
   -webkit-box-shadow: none;
@@ -520,7 +521,7 @@ div.loading {position: relative; left: 80%; float: left; z-index:10000; margin-t
 
 .dropdown-menu {
     background-clip: padding-box;
-    background-color: #FFFFFF;
+    background-color: @white;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 3px 3px 3px 3px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
@@ -551,10 +552,10 @@ div.loading {position: relative; left: 80%; float: left; z-index:10000; margin-t
 #nav .nav-menu > li:first-child {border-left:none; padding-left:0px;}
 
 .dropdown-menu li a { display:block; background:#f7f3ee;padding:12px 12px 12px 18px;border-top:1px solid #ccc;color:@green3;}
-.dropdown-menu li a:hover {color:#FFFFFF;background:@green3;}
+.dropdown-menu li a:hover {color:@white;background:@green3;}
 .dropdown-menu li:first-child a{border-top:none;}
-.dropdown-menu li.active a{background:#fff;color:#000;}
-.dropdown-menu li.my_template a { background-color: #fff; }
+.dropdown-menu li.active a{background:@white;color:#000;}
+.dropdown-menu li.my_template a { background-color: @white; }
 .dropdown-menu li.my_template a i { padding-right: 6px; }
 .disabled {background-color:#f7f3ee;}
 
@@ -570,7 +571,7 @@ div.loading {position: relative; left: 80%; float: left; z-index:10000; margin-t
   background: @green2;
   filter: none;
   border:none;
-  color: #fff !important;
+  color: @white !important;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.08);
   -webkit-font-smoothing: antialiased;
   -webkit-box-shadow: inset -1px -1px 1px rgba(0,0,0,.2);
@@ -612,7 +613,7 @@ section.submit .btn-link {font-size: 14px; font-weight: bold;}
 /* Holdings */
 
 #holdings{background:transparent;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;padding:12px 0;}
-.holdings-editor .editor{background:#fff;width:732px;padding:12px;
+.holdings-editor .editor{background:@white;width:732px;padding:12px;
   -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.2);
      -moz-box-shadow: 0 1px 3px rgba(0,0,0,.2);
       box-shadow: 0 1px 3px rgba(0,0,0,.2);
@@ -627,7 +628,7 @@ section.holdings-list{background:#f7f3ee;}
 
 .holdings-list a{display:block;background:#f7f3ee;padding:12px;border-top:1px solid #ccc;color:#666;}
 .holdings-list li:first-child a{border-top:none;}
-.holdings-list li.active a{background:#fff;color:#000;}
+.holdings-list li.active a{background:@white;color:#000;}
 
 .holdings-list a.sigel {font-weight: bold;font-size: 14px;color:#666;}
 
@@ -653,7 +654,7 @@ a.beta-blocker {text-decoration: none; cursor:default;} /*block unfinished eleme
 
 /* Autocomplete */
 
-.acResults {width:466px;border:1px solid #ccc;border-top-width:0;background:#fff;
+.acResults {width:466px;border:1px solid #ccc;border-top-width:0;background:@white;
   -webkit-box-shadow: 0 0px 6px rgba(0,0,0,.2);
   -moz-box-shadow: 0 0px 6px rgba(0,0,0,.2);
   box-shadow: 0 0px 6px rgba(0,0,0,.2);
@@ -680,7 +681,7 @@ a.beta-blocker {text-decoration: none; cursor:default;} /*block unfinished eleme
 .select2-container .select2-choice {
     -moz-user-select: none;
     background-clip: padding-box;
-    background-color: #FFFFFF;
+    background-color: @white;
     background-image: none;
     border: none;
     border-radius: 4px 4px 4px 4px;
