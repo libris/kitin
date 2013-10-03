@@ -896,6 +896,7 @@ var autocompleteServices = {
       }
       scope.tuple.concepts.push(obj);
     },
+    muted: true,
     objectKeys: ['prefLabel', '@type', 'hiddenLabel', 'broader', 'narrower', '@id', 'scopeNote' ]
   }
 };
@@ -953,8 +954,15 @@ kitin.directive('kitinAutocomplete', function() {
           }
         },
 
+        displayValue: function (value, data) {
+          if (conf.muted)
+            return "";
+          return value;
+        },
+
         onNoMatch: function() {
-          delete scope[conf.scopeObjectKey]['@id'];
+          if (conf.scopeObjectKey)
+            delete scope[conf.scopeObjectKey]['@id'];
           selected = false;
           isAuthorized = false;
           toggleRelatedFieldsEditable(false);
