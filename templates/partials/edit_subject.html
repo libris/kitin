@@ -93,11 +93,17 @@
 <script type="text/html" id="subject-completion-template">
 <div class="auth">
   <h4>
-    <span class="name"><%= data['prefLabel'] %></span>
+    <span class="name"><%= data['prefLabel']%> <a href="<%= data['@id']%>">id</a></span></h4>
+    <% if (data['hiddenLabel']) { %>
+    <span class="muted">Ej: <%= data['hiddenLabel']%></span>
+    <% } %>  
+    <% if (data['scopeNote']) { %>
+      <div>Notering: <%= data['scopeNote']%></div>
+    <% } %>  
     <% if (data['authorized']) { %>
       <span class="what"><i class="icon icon-bookmark"></i>Aukt.</span>
     <% } %>
-  </h4>
+  
 </div>
 </script>
 

@@ -862,7 +862,7 @@ var autocompleteServices = {
       }
       scope.work.subject.unshift(obj);
     },
-    objectKeys: ['prefLabel']
+    objectKeys: ['prefLabel', '@type', 'hiddenLabel', 'broader', 'narrower', '@id', 'scopeNote' ]
   }
 };
 
