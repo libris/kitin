@@ -316,7 +316,7 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
       // FIXME: this is just a view object - add/remove must operate on source and refresh this
       // (or else this must be converted back into source form before save)
       $scope.conceptSchemeTuples =
-        datatools.getConceptSchemeTuples(conceptSchemes, record.about.instanceOf.subject);
+        datatools.getConceptSchemeTuples(conceptSchemes, record.about.instanceOf);
 
       var holdingEtags = {};
       var items = datatools.patchHoldings(data.list);
@@ -458,10 +458,16 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
 
   $scope.removeObject = function(subj, rel, index) {
     var obj = subj[rel];
-    if (_.isArray(obj))
-      obj.splice(index,1);
-    else
+    var removed = null;
+    if (_.isArray(obj)) {
+      removed = obj.splice(index,1)[0];
+    } else {
+      removed = subj[rel];
       subj[rel] = null;
+    }
+    if (typeof subj.onRemove === 'function') {
+      subj.onRemove(rel, removed, index);
+    }
     $scope.triggerModified();
   };
 
@@ -556,14 +562,23 @@ var datatools = {
     return roleMap;
   },
 
-  getConceptSchemeTuples: function (conceptSchemes, concepts) {
+  getConceptSchemeTuples: function (conceptSchemes, work) {
+    var concepts = work.subject;
     var tuplesByScheme = {};
     concepts.forEach(function (concept) {
       var schemeNotation = (concept.inScheme && concept.inScheme.notation)?
         concept.inScheme.notation : "N/A";
       var tuple = tuplesByScheme[schemeNotation];
       if (typeof tuple === "undefined") {
-        tuple = {scheme: conceptSchemes[schemeNotation] || {"label": schemeNotation}, concepts: []};
+        tuple = {
+          scheme: conceptSchemes[schemeNotation] || {"label": schemeNotation},
+          concepts: [],
+          onRemove: function (rel, removed, index) {
+            _.remove(work.subject, function (it) {
+              return it['@id'] === removed['@id'];
+            });
+          }
+        };
         tuplesByScheme[schemeNotation] = tuple;
       }
       tuple.concepts.push(concept);
@@ -884,6 +899,7 @@ var autocompleteServices = {
   person: {
     serviceUrl: "/suggest/auth",
     templateId: "auth-completion-template",
+    // TODO: remove scopeObjectKey and always use add callbacks
     scopeObjectKey: "person",
     objectKeys: ['controlledLabel', 'familyName', 'givenName', 'birthYear', 'deathYear']
   },
@@ -982,6 +998,7 @@ kitin.directive('kitinAutocomplete', function() {
           selected = true;
           // TODO: do this (the isAuthorized part?) the angular way
           isAuthorized = !!item.data.authorized;
+          // TODO: use add callbacks instead
           if (conf.scopeObjectKey) {
             var obj = scope[conf.scopeObjectKey];
             obj['@id'] = item.data.identifier;
