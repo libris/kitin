@@ -97,10 +97,17 @@
   <h4>
     <span class="name"><%= data['prefLabel']%> <a href="<%= data['@id']%>">id</a></span></h4>
     <% if (data['hiddenLabel']) { %>
-    <span class="muted">Ej: <%= data['hiddenLabel']%></span>
+      <div><span class="muted">Används ej: <%= data['hiddenLabel']%></span></div>
     <% } %>  
     <% if (data['scopeNote']) { %>
-      <div>Notering: <%= data['scopeNote']%></div>
+      <div>
+      <label><%= data['scopeNote']%>
+      <span class="lbl">Notering</span>
+      </label>
+      </div>
+    <% } %>
+    <% if (data['historyNote']) { %>
+      <div><em><%= data['historyNote']%></em></div>
     <% } %>  
     <% if (data['authorized']) { %>
       <span class="what"><i class="icon icon-bookmark"></i>Aukt.</span>
