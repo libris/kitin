@@ -273,6 +273,9 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   resources.nationalities.then(function(data) {
     $scope.nationalitylist = data;
   });
+  resources.conceptSchemes.then(function(data) {
+    $scope.conceptSchemes = data;
+  });
 
   resources.typedefs.then(function(data) {
     var typedefs = data.types;
@@ -282,20 +285,6 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
       return typedefs[obj['@type']];
     };
   });
-
-  // TODO: resources.conceptSchemes
-  var conceptSchemes = {
-    "sao": {"notation": "sao", "label": "Svenska ämnesord"},
-    "saogf": {"notation": "saogf", "label": "SAO - Genre och form"},
-    "barn": {"notation": "barn", "label": "Barnämnesord"},
-    "lcsh": {"notation": "lcsh", "label": "LCSH"},
-    "kao": {"notation": "kao", "label": "Kvinnsam"},
-    "mesh": {"notation": "mesh", "label": "MeSH"},
-    "agrovoc": {"notation": "agrovoc", "label": "AgroVoc"},
-    "sfit": {"notation": "sfit", "label": "SFIT"},
-    "prvt": {"notation": "prvt", "label": "PRVT"},
-    "gmgpc//swe": {"notation": "gmgpc//swe", "label": "GMGPC (swe)"}
-  };
 
   if (isNew) {
     $http.get('/record/bib/new?type' + newType).success(function(data) {
@@ -315,7 +304,6 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
       $scope.unifiedClassifications = datatools.getUnifiedClassifications(record);
       // FIXME: this is just a view object - add/remove must operate on source and refresh this
       // (or else this must be converted back into source form before save)
-      $scope.conceptSchemes =  conceptSchemes;
       $scope.conceptsByScheme =
         datatools.getConceptsByScheme(record.about.instanceOf);
 
@@ -711,6 +699,7 @@ kitin.factory('resources', function($http) {
     languages: getResourceList("lang"),
     countries: getResourceList("country"),
     nationalities: getResourceList("nationality"),
+    conceptSchemes: getResourceList("conceptscheme"),
     enums: {
       bibLevel: getResourceList("enums", "bibLevel"),
       encLevel: getResourceList("enums", "encLevel"),
