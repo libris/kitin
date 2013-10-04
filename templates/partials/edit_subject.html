@@ -3,10 +3,11 @@
 <div class="col6">
   <h3>Ämnesord</h3>
 
-  <div data-ng-repeat="tuple in conceptSchemeTuples" class="scheme">
-    <h4>{{ tuple.scheme.label }}</h4>
+  <div data-ng-repeat="(notation, container) in conceptsByScheme" class="scheme"
+       data-ng-init="scheme = conceptSchemes[notation] || {'label': schemeNotation}">
+    <h4>{{ scheme.label }}</h4>
     <div class="cols">
-      <div data-ng-repeat="subject in tuple.concepts" class="entity col6">
+      <div data-ng-repeat="subject in container.concepts" class="entity col6">
         <ng:switch on="subject['@type']">
           <div data-ng-switch-when="Person" class="col5">
             <label>
@@ -37,7 +38,7 @@
         </ng:switch>
         <div class="col1">
           <label>
-            <button class="btn-link on-hover" data-ng-click="removeObject(tuple, 'concepts', $index)">
+            <button class="btn-link on-hover" data-ng-click="removeObject(container, 'concepts', $index)">
               <i class="icon icon-remove"></i></button>
           </label>
         </div>
@@ -45,19 +46,19 @@
     </div>
     <label>
       <input type="text" placeholder="Nytt ämnesord" data-kitin-autocomplete="subject"
-             data-kitin-filter="{'inScheme.notation': tuple.scheme.notation}" />
+             data-kitin-filter="{'inScheme.notation': scheme.notation}" />
     </label>
   </div>
 
   <h4>Andra ämnesordssystem</h4>
   <div class="cols">
-    <div class="col4">
+    <div class="col3">
       <label>
         <input type="text" placeholder="Nytt ämnesord" data-kitin-autocomplete="subject"
               data-kitin-filter="{'inScheme.notation': chosenScheme}" />
       </label>
     </div>
-    <div class="col2">
+    <div class="col3">
       <label>
         <select data-ng-model="chosenScheme"
           data-ng-options="code as scheme.label for (code, scheme) in conceptSchemes">

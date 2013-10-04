@@ -284,7 +284,7 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
   });
 
   // TODO: resources.conceptSchemes
-  var conceptSchemes = $scope.conceptSchemes =  {
+  var conceptSchemes = {
     "sao": {"notation": "sao", "label": "Svenska ämnesord"},
     "saogf": {"notation": "saogf", "label": "SAO - Genre och form"},
     "barn": {"notation": "barn", "label": "Barnämnesord"},
@@ -315,8 +315,9 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
       $scope.unifiedClassifications = datatools.getUnifiedClassifications(record);
       // FIXME: this is just a view object - add/remove must operate on source and refresh this
       // (or else this must be converted back into source form before save)
-      $scope.conceptSchemeTuples =
-        datatools.getConceptSchemeTuples(conceptSchemes, record.about.instanceOf);
+      $scope.conceptSchemes =  conceptSchemes;
+      $scope.conceptsByScheme =
+        datatools.getConceptsByScheme(record.about.instanceOf);
 
       var holdingEtags = {};
       var items = datatools.patchHoldings(data.list);
@@ -562,28 +563,29 @@ var datatools = {
     return roleMap;
   },
 
-  getConceptSchemeTuples: function (conceptSchemes, work) {
+  getConceptsByScheme: function (work) {
     var concepts = work.subject;
-    var tuplesByScheme = {};
+    var containerByScheme = {};
     concepts.forEach(function (concept) {
       var schemeNotation = (concept.inScheme && concept.inScheme.notation)?
         concept.inScheme.notation : "N/A";
-      var tuple = tuplesByScheme[schemeNotation];
-      if (typeof tuple === "undefined") {
-        tuple = {
-          scheme: conceptSchemes[schemeNotation] || {"label": schemeNotation},
-          concepts: [],
-          onRemove: function (rel, removed, index) {
-            _.remove(work.subject, function (it) {
-              return it['@id'] === removed['@id'];
-            });
-          }
-        };
-        tuplesByScheme[schemeNotation] = tuple;
+      var container = containerByScheme[schemeNotation];
+      if (typeof container === "undefined") {
+        container = new datatools.ConceptContainer();
+        containerByScheme[schemeNotation] = container;
       }
-      tuple.concepts.push(concept);
+      container.concepts.push(concept);
     });
-    return _.values(tuplesByScheme);
+    return containerByScheme;
+  },
+
+  ConceptContainer: function () {
+    this.concepts = [];
+    this.onRemove = function (rel, removed, index) {
+      _.remove(work.subject, function (it) {
+        return it['@id'] === removed['@id'];
+      });
+    };
   },
 
   // TODO: this will be unified in the backend mapping and thus not needed here
@@ -907,10 +909,23 @@ var autocompleteServices = {
     serviceUrl: "/suggest/subject",
     templateId: "subject-completion-template",
     addToScope: function (scope, obj) {
-      if (scope.tuple.concepts === undefined) {
-        scope.tuple.concepts = [];
+      // TODO: copy data? addObject?
+      if (obj.prefLabel) {
+        delete obj.broader;
       }
-      scope.tuple.concepts.push(obj);
+      var container = scope.container,
+        conceptsByScheme = scope.conceptsByScheme;
+      if (container === undefined) {
+        var schemeKey = obj.inScheme.notation;
+        container = conceptsByScheme[schemeKey];
+        if (container === undefined) {
+          container = conceptsByScheme[schemeKey] = new datatools.ConceptContainer();
+        }
+      }
+      if (container.concepts === undefined) {
+        container.concepts = [];
+      }
+      container.concepts.push(obj);
     },
     muted: true,
     objectKeys: ['prefLabel', '@type', 'hiddenLabel', 'broader', 'narrower', '@id', 'scopeNote', 'historyNote' ]
@@ -1006,10 +1021,6 @@ kitin.directive('kitinAutocomplete', function() {
               obj[key] = item.data[key];
             });
           } else if (conf.addToScope) {
-            // TODO: copy data? addObject?
-            if (item.data.prefLabel) {
-              delete item.data.broader;
-            }
             conf.addToScope(scope, item.data);
           }
           scope.$apply();
