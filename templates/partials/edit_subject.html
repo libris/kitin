@@ -44,7 +44,8 @@
       </div>
     </div>
     <label>
-      <input type="text" placeholder="Nytt ämnesord" data-kitin-autocomplete="subject" />
+      <input type="text" placeholder="Nytt ämnesord" data-kitin-autocomplete="subject"
+             data-kitin-filter="{'inScheme.notation': tuple.scheme.notation}" />
     </label>
   </div>
 
@@ -52,7 +53,8 @@
   <div class="cols">
     <div class="col4">
       <label>
-        <input type="text" placeholder="Nytt ämnesord" />
+        <input type="text" placeholder="Nytt ämnesord" data-kitin-autocomplete="subject"
+              data-kitin-filter="{'inScheme.notation': chosenScheme}" />
       </label>
     </div>
     <div class="col2">

@@ -285,16 +285,16 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
 
   // TODO: resources.conceptSchemes
   var conceptSchemes = $scope.conceptSchemes =  {
-    "sao": {"label": "Svenska ämnesord"},
-    "saogf": {"label": "SAO - Genre och form"},
-    "barn": {"label": "Barnämnesord"},
-    "lcsh": {"label": "LCSH"},
-    "kao": {"label": "Kvinnsam"},
-    "mesh": {"label": "MeSH"},
-    "agrovoc": {"label": "AgroVoc"},
-    "sfit": {"label": "SFIT"},
-    "prvt": {"label": "PRVT"},
-    "gmgpc//swe": {"label": "GMGPC (swe)"}
+    "sao": {"notation": "sao", "label": "Svenska ämnesord"},
+    "saogf": {"notation": "saogf", "label": "SAO - Genre och form"},
+    "barn": {"notation": "barn", "label": "Barnämnesord"},
+    "lcsh": {"notation": "lcsh", "label": "LCSH"},
+    "kao": {"notation": "kao", "label": "Kvinnsam"},
+    "mesh": {"notation": "mesh", "label": "MeSH"},
+    "agrovoc": {"notation": "agrovoc", "label": "AgroVoc"},
+    "sfit": {"notation": "sfit", "label": "SFIT"},
+    "prvt": {"notation": "prvt", "label": "PRVT"},
+    "gmgpc//swe": {"notation": "gmgpc//swe", "label": "GMGPC (swe)"}
   };
 
   if (isNew) {
@@ -907,6 +907,7 @@ kitin.directive('kitinAutocomplete', function() {
     link: function(scope, elem, attrs) {
 
       var conf = autocompleteServices[attrs.kitinAutocomplete];
+      var filterParams = attrs.kitinFilter;
 
       /* TODO: IMPROVE: replace current autocomplete mechanism and use angular
       templates ($compile) all the way.. If it is fast enough.. */
@@ -925,6 +926,15 @@ kitin.directive('kitinAutocomplete', function() {
         filterResults: false,
         sortResults: false,
         useCache: false,
+
+        beforeUseConverter: function (value) {
+          // TODO: set extraParams: filterParams instead once backend supports that
+          var params = scope.$apply(filterParams);
+          var result = _.reduce(params, function (res, v, k) {
+            return v? res +"+"+ k +":" + v : res;
+          }, value);
+          return result;
+        },
 
         processData: function (doc) {
           if (!doc|| !doc.list) {
