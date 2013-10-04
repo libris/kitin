@@ -925,7 +925,7 @@ var autocompleteServices = {
       if (container.concepts === undefined) {
         container.concepts = [];
       }
-      container.concepts.push(obj);
+      container.concepts.unshift(obj);
     },
     muted: true,
     objectKeys: ['prefLabel', '@type', 'hiddenLabel', 'broader', 'narrower', '@id', 'scopeNote', 'historyNote' ]
