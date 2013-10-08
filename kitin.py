@@ -34,6 +34,8 @@ login_manager.setup_app(app)
 
 storage = Storage(app.config.get("DRAFTS_DIR"))
 
+JSON_LD_MIME_TYPE = 'application/ld+json'
+
 
 #@app.route("/")
 #def start():
@@ -193,7 +195,7 @@ def create_holding():
 @login_required
 def save_holding(holding_id):
     if_match = request.headers.get('If-match')
-    h = {'content-type': 'application/json', 'If-match': if_match}
+    h = {'content-type': JSON_LD_MIME_TYPE, 'If-match': if_match}
     path = "%s/hold/%s" % (app.config['WHELK_HOST'], holding_id)
     response = requests.put(path, data=request.data, headers=h, allow_redirects=True)
     if response.status_code == 200:
@@ -538,7 +540,7 @@ def update_document(rec_type, rec_id):
     """Saves updated records to whelk"""
     json_string = json.dumps(request.json)
     if_match = request.headers['If-match']
-    h = {'content-type': 'application/json', 'If-match': if_match}
+    h = {'content-type': JSON_LD_MIME_TYPE, 'If-match': if_match}
     path = "%s/bib/%s" % (app.config['WHELK_HOST'], rec_id)
     response = requests.put(path, data=json_string, headers=h, allow_redirects=True)
     if response.status_code == 200:
@@ -552,7 +554,7 @@ def update_document(rec_type, rec_id):
 @app.route('/record/bib/create', methods=['POST'])
 @login_required
 def create_record():
-    h = {'content-type': 'application/json', 'format': 'jsonld'}
+    h = {'content-type': JSON_LD_MIME_TYPE, 'format': 'jsonld'}
     path = "%s/bib/" % (app.config['WHELK_HOST'])
     response = requests.post(path, data=json.dumps(request.json), headers=h, allow_redirects=False)
     if response.status_code == 200:
