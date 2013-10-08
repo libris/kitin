@@ -30,17 +30,19 @@ a:hover{color:@green4; background-color: @white;}
 #wrap{width:1080px;margin: 0 auto;}
 #grid{display:none;width:984px;min-height:800px;background:url(/static/img/grid.png);position:absolute;top:0;left:48px;}
 
-#header{height:130px;position:relative;}
+#header{ height: 130px; position: relative; }
 #header .user{float:right;font-size:12px;margin-top:6px;}
 #header .user span{padding-left:10px;margin-left:8px;border-left:1px solid #ccc;}
 #header .user span:first-child{margin-left:0;padding-left:0;border:none;}
 #header .user span:first-child a{text-transform: uppercase}
 #header .kb{width:74px;height:77px;position:absolute;right:0;bottom:-10px;background:url(/static/img/kb.png) no-repeat;z-index:2;}
-#header .logo{font:normal 18px/1 "Open Sans", sans-serif;position:absolute;left:0;bottom:4px; color:#aaa;text-transform:uppercase;}
-#header .logo strong{display:block;font:bold 28px/1 "Droid Serif", georgia, serif;text-transform:none; color:@green2;letter-spacing:-1px;}
 
-#header span.beta {padding-left:5px; color:red;}
-.kitin-updated {font-size: 10px;color: @dark-grey;float:right;margin-top:-17px;margin-right: -47px;} /*beta marker & date updated*/
+#header .logo { position: absolute; left: 0; bottom: 4px; color: #929395; text-transform: uppercase; }
+#header > .logo > a { display: inline-block; }
+#header > .logo > a > h1 { background: url(/static/img/libris-stack.png) 0 4px no-repeat; width: 202px; height: 52px; display: inline-block; margin: 0; padding: 0 0 0 57px; font: normal 22px/1 "Open Sans", sans-serif; letter-spacing: 1px; color: @dark-grey; }
+#header > .logo a > h1 > strong { display: block; font-size: 32px; line-height: 27px; font-weight: normal; letter-spacing: -1px; text-transform: none; color: @green4; }
+#header .beta { font-size: 18px; color: red; float: right; margin-top: 17px; }
+#header .kitin-updated { font-size: 10px; color: @dark-grey; float: right; margin-top: -17px; margin-right: -47px; } /*beta marker & date updated*/
 
 #header .searchfield{position:absolute;left:384px;top:82px;z-index:2;}
 #header .searchfield input{width:500px;border:1px solid #bbb; padding: 6px 10px 6px;border-color: #aaa @white #ccc #aaa;

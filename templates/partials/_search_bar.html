@@ -1,5 +1,10 @@
 <div id="header">
-  <div class="logo"><a href="/"><img src="/static/img/libris.png" alt="Libris Kategorisering"></a><span class="beta">[BETA]</span><br><span class="kitin-updated" title="{{ modified.strftime('%Y-%m-%d %H:%m') }}">Uppdaterad {{ modified.strftime('%d %b') }}</span></div>
+  <div class="logo">
+    <a href="/"><h1>Libris <strong>Katalogisering</strong></h1></a>
+    <span class="beta">[BETA]</span><br>
+    <span class="kitin-updated" title="{{ modified.strftime('%Y-%m-%d %H:%m') }}"
+      >Uppdaterad {{ modified.strftime('%d %b') }}</span>
+  </div>
   <div class="kb"></div>
   {% if current_user and current_user.is_authenticated() %}
     <div class="searchfield">
