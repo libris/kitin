@@ -3,7 +3,7 @@
 <div class="col6">
   <h3>Ämnesord</h3>
 
-  <div data-ng-repeat="(notation, container) in conceptsByScheme" class="scheme"
+  <div data-ng-repeat="(notation, container) in schemeContainer.byScheme" class="scheme"
        data-ng-init="scheme = conceptSchemes[notation] || {'label': schemeNotation}">
     <h4>{{ scheme.label }}</h4>
     <label>
@@ -56,7 +56,7 @@
     <div class="col3">
       <label>
         <input type="text" placeholder="Nytt ämnesord" data-kitin-autocomplete="subject"
-              data-kitin-add-to="conceptsByScheme"
+              data-kitin-add-to="schemeContainer"
               data-kitin-filter="{'inScheme.notation': chosenScheme}" />
       </label>
     </div>

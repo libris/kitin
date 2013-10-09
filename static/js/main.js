@@ -306,7 +306,7 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
       // FIXME: this is just a view object - add/remove must operate on source and refresh this
       // (or else this must be converted back into source form before save)
       var defaultSchemes = ['sao', 'saogf'];
-      $scope.conceptsByScheme = editutil.getConceptsByScheme(record.about.instanceOf, defaultSchemes);
+      $scope.schemeContainer = new editutil.SchemeContainer(record.about.instanceOf, defaultSchemes);
 
       var holdingEtags = {};
       var items = editutil.patchHoldings(data.list);
@@ -552,36 +552,34 @@ var editutil = {
     return roleMap;
   },
 
-  getConceptsByScheme: function (work, defaultSchemes) {
+  SchemeContainer: function (work, defaultSchemes) {
     var concepts = work.subject || [];
-
-    var containerByScheme = {
-      addObject: function (obj) {
-        var schemeKey = obj.inScheme.notation;
-        container = this[schemeKey];
-        if (container === undefined) {
-          container = this[schemeKey] = new editutil.ConceptContainer(work);
-        }
-        container.addObject(obj);
-      }
-    };
+    var byScheme = {};
+    this.byScheme = byScheme;
 
     concepts.forEach(function (concept) {
       var schemeNotation = (concept.inScheme && concept.inScheme.notation)?
         concept.inScheme.notation : "N/A";
-      var container = containerByScheme[schemeNotation];
+      var container = byScheme[schemeNotation];
       if (typeof container === "undefined") {
         container = new editutil.ConceptContainer(work);
-        containerByScheme[schemeNotation] = container;
+        byScheme[schemeNotation] = container;
       }
       container.concepts.push(concept);
     });
     defaultSchemes.forEach(function (key) {
-      if (!containerByScheme[key])
-          containerByScheme[key] = new editutil.ConceptContainer(work);
+      if (!byScheme[key])
+          byScheme[key] = new editutil.ConceptContainer(work);
     });
 
-    return containerByScheme;
+    this.addObject = function (obj) {
+      var schemeKey = obj.inScheme.notation;
+      container = byScheme[schemeKey];
+      if (container === undefined) {
+        container = byScheme[schemeKey] = new editutil.ConceptContainer(work);
+      }
+      container.addObject(obj);
+    };
   },
 
   ConceptContainer: function (work) {
