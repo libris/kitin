@@ -75,12 +75,12 @@
         <div data-ng-show="work.creator"
              onload="subj = work; rel = 'creator'; person = work.creator"
              data-ng-include="'render-person'"></div>
-        <button class="btn-link" data-ng-click="newObject(work, 'creator', 'Person')">{{ 'Huvuduppslag' }}
+        <button class="add-thing btn-link" data-ng-click="newObject(work, 'creator', 'Person')">{{ 'Huvuduppslag' }}
           <i data-ng-hide="work.creator" class="icon icon-plus-sign"></i></button>
         <hr />
         <div data-ng-repeat="person in work.contributorList"
              onload="subj = work; rel = 'contributorList'" data-ng-include="'render-person'"></div>
-        <button class="btn-link" data-ng-click="addObject(work, 'contributorList', 'Person')">{{ 'Biuppslag' }} <i class="icon icon-plus-sign"></i></button>
+        <button class="add-thing btn-link" data-ng-click="addObject(work, 'contributorList', 'Person')">{{ 'Biuppslag' }} <i class="icon icon-plus-sign"></i></button>
       </div>
     </div>
 
@@ -135,7 +135,7 @@
     <div class="cols">
       <div class="col3">
 
-        <div data-ng-repeat="identifier in instance.identifier">
+        <div data-ng-repeat="identifier in instance.identifier" class="entity">
           <ng:switch on="identifier.identifierScheme">
             <div data-ng-switch-when="ISBN">
               <label>
@@ -152,6 +152,7 @@
                 <span class="lbl_inline lbl error_label" data-ng-show="subform.isbn_name.$error.invalid_value">{{ "ISBN" }}</span>
                 <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_value">(Fel numeriskt värde)</span>-->
                 <!--<span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_length">(Fel längd)</span>-->
+                <button class="btn-link on-hover" data-ng-click="removeObject(instance, 'identifier', $index)"><i class="icon icon-remove"></i></button>
               </label>
               <label>
                 <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="identifier.identifierNote" placeholder="Notering">
@@ -170,6 +171,7 @@
             </div>
           </ng:switch>
         </div>
+        <button class="add-thing btn-link" data-ng-click="addObject(instance, 'identifier', 'ISBN')">{{ 'Lägg till ISBN' }} <i class="icon icon-plus-sign"></i></button>
       </div>
       <div class="col2">
         <label>
@@ -178,7 +180,7 @@
         </label>
       </div>
       <div class="col7">
-        <div data-ng-repeat="publication in instance.publication">
+        <div data-ng-repeat="publication in instance.publication" class="entity">
           <label class="col2">
             <input data-inplace class="input-medium ng-pristine ng-valid" type="text" data-ng-model="publication.providerName" placeholder="Utgivare förlag">
             <span class="lbl">{{ "Utgivare/förlag" }}</span>
@@ -193,11 +195,14 @@
             <span class="lbl">{{ "Utgivningsland" }}</span>
           </label>
           -->
-          <label class="col2">
-            <input data-inplace class="input-medium ng-pristine ng-valid" type="text" data-ng-model="publication.providerDate" placeholder="Utgivningsår">
+          <label class="col1">
+            <input data-inplace class="input-small ng-pristine ng-valid" type="text" data-ng-model="publication.providerDate" placeholder="Utgivningsår">
             <span class="lbl">{{ "Utgivningsår" }}</span>
           </label>
+          <label class="col1 last" data-ng-hide="editable">
+            <button class="btn-link on-hover" data-ng-click="removeObject(instance, 'publication', $index)"><i class="icon icon-remove"></i></button>
         </div>
+        <button class="add-thing btn-link" data-ng-click="addObject(instance, 'publication', 'ProviderEvent')">{{ 'Lägg till utgivning' }} <i class="icon icon-plus-sign"></i></button>
       </div>
       <div class="col8">
         <div data-ng-repeat="manufacture in instance.manufacture">

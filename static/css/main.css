@@ -113,6 +113,8 @@ section.dash{margin-bottom:30px}
 .col4{width:312px;float:left;margin-right:24px}
 .col3{width:228px;float:left;margin-right:24px}
 .col2{width:144px;float:left;margin-right:24px}
+.col1{width:72px;float:left;margin-right:24px}
+.col1.last{width:72px;float:left;margin-right:0}
 .content.search>.cols{width:1036px;overflow:visible}
 .content.search .nest-cols{overflow:hidden;width:732px;clear:both}
 .content.search .col9{width:756px;overflow:visible}
@@ -196,6 +198,9 @@ div.loading>b{display:none}
 .suggestion-classification li .icon{color:#683568}
 .on-hover{visibility:hidden}
 .entity:hover .on-hover{visibility:visible}
+.add-thing.btn-link{color:#c7c7c7}
+.cols:hover .add-thing.btn-link{color:#1a8f72}
+.cols:hover .add-thing.btn-link:hover{color:#106351}
 .nav>li>a:hover,.nav>li>a:focus{background-color:transparent}
 .dropdown-menu{background-clip:padding-box;background-color:#fff;border:1px solid rgba(0,0,0,0.2);border-radius:3px 3px 3px 3px;box-shadow:0 5px 10px rgba(0,0,0,0.2);display:none;float:left;left:1000px;list-style:none outside none;margin:2px 0 0;min-width:252px;padding:0;margin-right:-16px;position:absolute;top:100%;z-index:1000}
 .holdings-list ul{list-style:none;margin:0;padding:0;-webkit-box-shadow:0 1px 3px rgba(0,0,0,0.2);-moz-box-shadow:0 1px 3px rgba(0,0,0,0.2);box-shadow:0 1px 3px rgba(0,0,0,0.2)}

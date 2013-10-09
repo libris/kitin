@@ -428,6 +428,11 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     switch (type) {
       case 'Person':
         return {'@type': "Person", controlledLabel: "", birthYear: ""};
+      case 'ISBN':
+        return {'@type': "Identifier", identifierScheme: "ISBN", identifierValue: ""};
+      case 'ProviderEvent':
+        return {'@type': "ProviderEvent", providerName: "", providerDate: "",
+                place: {'@type': "Place", label: ""}};
       default:
         return {};
     }
