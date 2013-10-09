@@ -1025,6 +1025,7 @@ kitin.directive('kitinAutocomplete', function() {
             var owner = scope.$apply(addTo);
             owner.addObject(item.data);
           }
+          scope.triggerModified();
           scope.$apply();
         }
       });
