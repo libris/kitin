@@ -305,8 +305,8 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
       $scope.unifiedClassifications = editutil.getUnifiedClassifications(record);
       // FIXME: this is just a view object - add/remove must operate on source and refresh this
       // (or else this must be converted back into source form before save)
-      $scope.conceptsByScheme =
-        editutil.getConceptsByScheme(record.about.instanceOf);
+      var defaultSchemes = ['sao', 'saogf'];
+      $scope.conceptsByScheme = editutil.getConceptsByScheme(record.about.instanceOf, defaultSchemes);
 
       var holdingEtags = {};
       var items = editutil.patchHoldings(data.list);
@@ -552,29 +552,61 @@ var editutil = {
     return roleMap;
   },
 
-  getConceptsByScheme: function (work) {
-    var concepts = work.subject;
-    var containerByScheme = {};
+  getConceptsByScheme: function (work, defaultSchemes) {
+    var concepts = work.subject || [];
+
+    var containerByScheme = {
+      addObject: function (obj) {
+        var schemeKey = obj.inScheme.notation;
+        container = this[schemeKey];
+        if (container === undefined) {
+          container = this[schemeKey] = new editutil.ConceptContainer(work);
+        }
+        container.addObject(obj);
+      }
+    };
+
     concepts.forEach(function (concept) {
       var schemeNotation = (concept.inScheme && concept.inScheme.notation)?
         concept.inScheme.notation : "N/A";
       var container = containerByScheme[schemeNotation];
       if (typeof container === "undefined") {
-        container = new editutil.ConceptContainer();
+        container = new editutil.ConceptContainer(work);
         containerByScheme[schemeNotation] = container;
       }
       container.concepts.push(concept);
     });
+    defaultSchemes.forEach(function (key) {
+      if (!containerByScheme[key])
+          containerByScheme[key] = new editutil.ConceptContainer(work);
+    });
+
     return containerByScheme;
   },
 
-  ConceptContainer: function () {
+  ConceptContainer: function (work) {
+
     this.concepts = [];
+
+    this.addObject = function (obj) {
+      // TODO: copy data? Unify with addObject and createObject..
+      if (obj.prefLabel) {
+        delete obj.broader;
+      }
+      if (typeof work.subject === 'undefined')
+        work.subject = [];
+      work.subject.push(obj);
+      this.concepts.unshift(obj);
+    };
+
     this.onRemove = function (rel, removed, index) {
       _.remove(work.subject, function (it) {
         return it['@id'] === removed['@id'];
       });
+      if (work.subject.length === 0)
+        delete work.subject;
     };
+
   },
 
   // TODO: this will be unified in the backend mapping and thus not needed here
@@ -898,26 +930,6 @@ var autocompleteServices = {
   subject: {
     serviceUrl: "/suggest/subject",
     templateId: "subject-completion-template",
-    addToScope: function (scope, obj) {
-      // TODO: copy data? addObject?
-      if (obj.prefLabel) {
-        delete obj.broader;
-      }
-      var container = scope.container,
-        conceptsByScheme = scope.conceptsByScheme;
-      if (container === undefined) {
-        var schemeKey = obj.inScheme.notation;
-        container = conceptsByScheme[schemeKey];
-        if (container === undefined) {
-          container = conceptsByScheme[schemeKey] = new editutil.ConceptContainer();
-        }
-      }
-      if (container.concepts === undefined) {
-        container.concepts = [];
-      }
-      container.concepts.unshift(obj);
-    },
-    muted: true,
     objectKeys: ['prefLabel', '@type', 'hiddenLabel', 'broader', 'narrower', '@id', 'scopeNote', 'historyNote' ]
   }
 };
@@ -929,6 +941,7 @@ kitin.directive('kitinAutocomplete', function() {
 
       var conf = autocompleteServices[attrs.kitinAutocomplete];
       var filterParams = attrs.kitinFilter;
+      var addTo = attrs.kitinAddTo;
 
       /* TODO: IMPROVE: replace current autocomplete mechanism and use angular
       templates ($compile) all the way.. If it is fast enough.. */
@@ -986,7 +999,7 @@ kitin.directive('kitinAutocomplete', function() {
         },
 
         displayValue: function (value, data) {
-          if (conf.muted)
+          if (addTo)
             return "";
           return value;
         },
@@ -1010,8 +1023,9 @@ kitin.directive('kitinAutocomplete', function() {
             conf.objectKeys.forEach(function (key) {
               obj[key] = item.data[key];
             });
-          } else if (conf.addToScope) {
-            conf.addToScope(scope, item.data);
+          } else if (addTo) {
+            var owner = scope.$apply(addTo);
+            owner.addObject(item.data);
           }
           scope.$apply();
         }
