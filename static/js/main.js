@@ -96,58 +96,108 @@ function SearchFormCtrl($scope, $location) {
 
 function SearchCtrl($scope, $http, $location, $routeParams, resources, searchService) {
   console.time("search");
-  // Can this resource fetching stuff be globalized?
-  $scope.enums = {};
-  resources.enums.bibLevel.then(function(data) {
-    $scope.enums.bibLevel = data;
-  });
 
   resources.typedefs.then(function(data) {
     $scope.typeDefs = data.types;
+  });
+
+  $scope.enums = {};
+
+  resources.enums.bibLevel.then(function(data) {
+    $scope.enums.bibLevel = data;
   });
 
   resources.enums.encLevel.then(function(data) {
     $scope.enums.encLevel = data;
   });
 
+  var facetLabels = []; // TODO: localization
+  facetLabels['about.@type'] = "Typer";
+  facetLabels['about.dateOfPublication'] = "Datum";
+  $scope.facetLabels = facetLabels;
+
+  document.body.className = 'search';
+
+  $scope.q = $routeParams.q;
+  $scope.f = $routeParams.f;
+  var url = "/search.json?q=" + encodeURIComponent($scope.q);
+  if ($scope.f !== undefined) {
+    url += "&f=" + $scope.f;
+  }
+
+  $scope.search = function() {
+    $location.url(url);
+  };
+
+  $scope.getLabel = function (term) {
+    var dfn = $scope.typeDefs[term];
+    if (!dfn) return term;
+    return dfn['label_sv'] || term;
+  };
+
+  $scope.firstPerson = function (work) {
+    var candidate = work.creator || work.contributorList;
+    return _.isArray(candidate)? candidate[0] : candidate;
+  };
+
   var prevFacetsStr = $routeParams.f || "";
 
-  function mangleFacets(facets) {
+  if (!$routeParams.q) {
+    return;
+  }
+
+  $scope.loading = true;
+  searchService.search(url).then(function(data) {
+    $scope.facetGroups = searchutil.makeLinkedFacetGroups(data.facets, $scope.q, prevFacetsStr);
+    $scope.crumbs = searchutil.bakeCrumbs($scope.q, prevFacetsStr);
+    $scope.result = data;
+    if (data.hits == 1) {
+        $location.url("/edit" + data.list[0].identifier);
+        $location.replace();
+    }
+    $scope.hitCount = data.hits.toString();
+    $scope.loading = false;
+  });
+
+  console.timeEnd("search");
+}
+
+var searchutil = {
+
+  makeLinkedFacetGroups: function (facets, q, prevFacetsStr) {
     // iterate facets to add correct slug
     // if can do in angularistic fashion; then please do and remove this!
     var result = [];
     _.each(facets, function (facet, facetType) {
       var newFacet = {};
-      newFacet['type'] = facetType;
-      newFacet['items']= [];
+      newFacet.type = facetType;
+      newFacet.items = [];
       var prevFacets = prevFacetsStr.split(" ");
-      _.each(facet, function (value, key) {
-        var subitem = {};
-        var subitemObject = {};
-        subitemObject[key] = value;
-        subitem['object'] = subitemObject;
-        var tmpslug = [facetType, key].join(":");
-        var slug = encodeURIComponent(tmpslug);
-        subitem.selected = $.inArray(slug, prevFacets) !== -1;
-        if (subitem.selected) {
-          subitem['slug'] = "/search?q=" + encodeURIComponent($scope.q) + "&f=" + $.grep(prevFacets, function(val) {return val != slug;});
-        } else {
-          subitem['slug'] = "/search?q=" + encodeURIComponent($scope.q) + "&f=" + slug + " " + prevFacetsStr;
-        }
-        newFacet['items'].push(subitem);
+      _.each(facet, function (count, key) {
+        var slug = encodeURIComponent([facetType, key].join(":"));
+        var selected = $.inArray(slug, prevFacets) !== -1;
+        var searchUrl = "/search?q=" + encodeURIComponent(q) + "&f=" +
+          (selected? $.grep(prevFacets, function(val) {return val != slug;}) : slug + " " + prevFacetsStr);
+        var item = {
+          key: key,
+          count: count,
+          selected: selected,
+          searchUrl: searchUrl
+        };
+        newFacet['items'].push(item);
       });
       result.push(newFacet);
     });
     return result;
-  }
+  },
 
-  function bakeCrumbs(prv) {
-    var facetlist = prv.split(" ").reverse();
+  bakeCrumbs: function (q, prevFacetsStr) {
+    var facetlist = prevFacetsStr.split(" ").reverse();
     var crumblist = [];
     var tmpCrumb = {};
-    tmpCrumb['term'] = $routeParams.q;
+    tmpCrumb['term'] = q;
     if (prevFacetsStr.length > 0) {
-      tmpCrumb['urlpart'] = "/search?q=" + encodeURIComponent($scope.q);
+      tmpCrumb['urlpart'] = "/search?q=" + encodeURIComponent(q);
       crumblist.push(tmpCrumb);
       var urlPart = "";
       for (var i=0; i < facetlist.length; i++) {
@@ -161,7 +211,7 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, searchSer
         }
         tmpCrumb["term"] = term;
         if (i < (facetlist.length - 1)) {
-          tmpCrumb['urlpart'] = "/search?q=" + encodeURIComponent($scope.q) + "&f=" + urlPart;
+          tmpCrumb['urlpart'] = "/search?q=" + encodeURIComponent(q) + "&f=" + urlPart;
         }
         if (i === 0) {
           tmpCrumb["bridge"] = " inom ";
@@ -178,56 +228,7 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, searchSer
     return crumblist;
   }
 
-  document.body.className = 'search';
-
-  $scope.q = $routeParams.q;
-  $scope.f = $routeParams.f;
-  var url = "/search.json?q=" + encodeURIComponent($scope.q);
-  if ($scope.f !== undefined) {
-    url += "&f=" + $scope.f;
-  }
-
-  $scope.search = function() {
-    $location.url(url);
-  };
-
-  if (!$routeParams.q) {
-    return;
-  } else {
-    $scope.loading = true;
-    searchService.search(url).then(function(data) {
-      $scope.myFacets = mangleFacets(data.facets);
-      $scope.result = data;
-      if (data.hits == 1) {
-          $location.url("/edit" + data.list[0].identifier);
-          $location.replace();
-      }
-      $scope.chunkedHits = data.hits.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-      //$scope.chunkedHits = toChunk.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-      $scope.loading = false;
-    });
-  }
-
-  $scope.getLabel = function (term) {
-    var dfn = $scope.typeDefs[term];
-    if (!dfn) return term;
-    return dfn['label_sv'] || term;
-  };
-
-  $scope.firstPerson = function (work) {
-    var candidate = work.creator || work.contributorList;
-    return _.isArray(candidate)? candidate[0] : candidate;
-  };
-
-  $scope.crumbs = bakeCrumbs(prevFacetsStr);
-
-  var facetTerms = []; // TODO: localization
-  facetTerms['about.@type'] = "Typer";
-  facetTerms['about.dateOfPublication'] = "Datum";
-  $scope.facetTerms = facetTerms;
-
-  console.timeEnd("search");
-}
+};
 
 
 function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, constants) {
@@ -300,15 +301,15 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     $scope.userSigel = constants['user_sigel'];
     $http.get("/record/" + recType + "/" + recId + "/holdings").success(function(data) {
 
-      $scope.personRoleMap = datatools.getPersonRoleMap(record, $scope.relatorsMap);
-      $scope.unifiedClassifications = datatools.getUnifiedClassifications(record);
+      $scope.personRoleMap = editutil.getPersonRoleMap(record, $scope.relatorsMap);
+      $scope.unifiedClassifications = editutil.getUnifiedClassifications(record);
       // FIXME: this is just a view object - add/remove must operate on source and refresh this
       // (or else this must be converted back into source form before save)
       $scope.conceptsByScheme =
-        datatools.getConceptsByScheme(record.about.instanceOf);
+        editutil.getConceptsByScheme(record.about.instanceOf);
 
       var holdingEtags = {};
-      var items = datatools.patchHoldings(data.list);
+      var items = editutil.patchHoldings(data.list);
       $scope.holdings = items;
       var myHoldings = _.filter(items, function(i) { return i['location'] == constants['user_sigel']; });
       if (myHoldings <= 0) {
@@ -506,7 +507,7 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
 }
 
 
-var datatools = {
+var editutil = {
 
   getPersonRoleMap: function (record, relatorsMap) {
     var instance = record.about;
@@ -559,7 +560,7 @@ var datatools = {
         concept.inScheme.notation : "N/A";
       var container = containerByScheme[schemeNotation];
       if (typeof container === "undefined") {
-        container = new datatools.ConceptContainer();
+        container = new editutil.ConceptContainer();
         containerByScheme[schemeNotation] = container;
       }
       container.concepts.push(concept);
@@ -908,7 +909,7 @@ var autocompleteServices = {
         var schemeKey = obj.inScheme.notation;
         container = conceptsByScheme[schemeKey];
         if (container === undefined) {
-          container = conceptsByScheme[schemeKey] = new datatools.ConceptContainer();
+          container = conceptsByScheme[schemeKey] = new editutil.ConceptContainer();
         }
       }
       if (container.concepts === undefined) {

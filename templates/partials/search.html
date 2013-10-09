@@ -13,19 +13,26 @@
   <div id="grid"></div>
   <header>
   <h1></h1>
-  <!--<p class="summary"><span>{{ chunkedHits }} träffar för <strong>{{ q }}</strong></span></p>-->
-  <p class="summary"><span>{{ chunkedHits }} träffar för <span data-ng-repeat="crumb in crumbs"><span data-ng-show="crumb.bridge">{{ crumb.bridge }}</span><span data-ng-hide="crumb.urlpart"><strong>{{ crumb.term }}</strong></span><a data-ng-show="crumb.urlpart" href="{{ crumb.urlpart }}">{{ crumb.term }}</a></span></span></p>
-  <!--<p class="summary"><span>{{ chunkedHits }} träffar <span data-ng-repeat="crumb in crumbs">{{ crumb.term }}</span></span></p>-->
+  <!--<p class="summary"><span>{{ hitCount }} träffar för <strong>{{ q }}</strong></span></p>-->
+  <p class="summary">
+    {{ hitCount | chunk }} träffar för
+    <span data-ng-repeat="crumb in crumbs">
+      <span data-ng-show="crumb.bridge">{{ crumb.bridge }}</span>
+      <span data-ng-hide="crumb.urlpart"><strong>{{ getLabel(crumb.term) }}</strong></span>
+      <a data-ng-show="crumb.urlpart" href="{{ crumb.urlpart }}">{{ getLabel(crumb.term) }}</a>
+    </span>
+  </p>
+  <!--<p class="summary"><span>{{ hitCount }} träffar <span data-ng-repeat="crumb in crumbs">{{ crumb.term }}</span></span></p>-->
   </header>
   <div class="cols">
     <div class="col3">
       <section class="nav">
-        <dl data-ng-repeat="facet in myFacets">
-          <dt><i></i>{{facetTerms[facet['type']]}}</dt>
+        <dl data-ng-repeat="facet in facetGroups">
+          <dt><i></i>{{facetLabels[facet.type]}}</dt>
           <dd data-ng-repeat="item in facet.items">
             <a data-ng-class="{active: item.selected}"
-               data-ng-href="{{item['slug']}}">
-              <span data-ng-repeat="(key, value) in item['object']">{{getLabel(key)}} ({{value | chunk}})</span></a>
+               data-ng-href="{{item.searchUrl}}">
+              <span>{{getLabel(item.key)}} ({{item.count | chunk}})</span></a>
           </dd>
         </dl>
       </section>
