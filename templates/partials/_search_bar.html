@@ -2,19 +2,27 @@
   <div class="logo">
     <a href="/"><h1>Libris <strong>Katalogisering</strong></h1></a>
     <span class="beta">[BETA]</span><br>
-    <a href="#rlModal" data-toggle="modal">
+    
     <span class="kitin-updated" title="{{ modified.strftime('%Y-%m-%d %H:%m') }}"
-      >Uppdaterad {{ modified.strftime('%d %b') }} - Release notes</span>
-    </a>
+      ><a href="#rlModal" data-toggle="modal">Uppdaterad {{ modified.strftime('%d %b') }} - Release notes</a></span>
+    
      
     <!-- Modal -->
     <div id="rlModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="rlModalLabel" aria-hidden="true">
     <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="rlModalLabel">Release Notes</h3>
+    <h2 id="rlModalLabel">Release Notes</h2>
     </div>
     <div class="modal-body">
     <p>2013-10-11</p>
+    <p>Ämnesord</p>
+    <ul>
+      <li>Uppdelat på system/källa (lägg till/ta bort, ej editera)</li>
+      <li>Rudimentär förslagsfunktion för concept</li>
+      <li>Okontrollerade finns ej ännu</li>
+    </ul>
+    <p>Auktoriteter (personer) är under rekonstruktion för att tillåta länkade entiteter.
+    </p>
     </div>
 <!--
     <div class="modal-footer">
