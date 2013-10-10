@@ -100,7 +100,7 @@
 <script type="text/html" id="subject-completion-template">
 <div class="auth">
   <h4>
-    <span class="name"><%= data['prefLabel']%> <a href="<%= data['@id']%>">id</a></span></h4>
+    <span class="name" title="<%= data['@id']%>"><%= data['prefLabel']%></span></h4>
     <% if (data['hiddenLabel']) { %>
       <div><span class="muted">Används ej: <%= data['hiddenLabel']%></span></div>
     <% } %>  
