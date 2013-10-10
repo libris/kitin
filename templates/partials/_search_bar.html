@@ -2,8 +2,26 @@
   <div class="logo">
     <a href="/"><h1>Libris <strong>Katalogisering</strong></h1></a>
     <span class="beta">[BETA]</span><br>
+    <a href="#rlModal" data-toggle="modal">
     <span class="kitin-updated" title="{{ modified.strftime('%Y-%m-%d %H:%m') }}"
-      >Uppdaterad {{ modified.strftime('%d %b') }}</span>
+      >Uppdaterad {{ modified.strftime('%d %b') }} - Release notes</span>
+    </a>
+     
+    <!-- Modal -->
+    <div id="rlModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="rlModalLabel" aria-hidden="true">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="rlModalLabel">Release Notes</h3>
+    </div>
+    <div class="modal-body">
+    <p>2013-10-11</p>
+    </div>
+<!--
+    <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Stäng</button>
+    </div>
+-->
+    </div>
   </div>
   <div class="kb"></div>
   {% if current_user and current_user.is_authenticated() %}
