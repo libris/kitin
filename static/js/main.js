@@ -295,6 +295,7 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
 
   records.get(recType, recId).then(function(data) {
     var record = $scope.record = data['recdata'];
+    editutil.patchBibRecord(record);
 
     bibid = record['controlNumber'];
     $scope.etag = data['etag'];
@@ -627,6 +628,14 @@ var editutil = {
     });
 
     return classes;
+  },
+
+  // TODO: fix this in the backend service and remove this patch
+  patchBibRecord: function (record) {
+    var work = record.about.instanceOf;
+    if (work && _.isArray(work.creator)) {
+      work.creator = work.creator[0];
+    }
   },
 
   // TODO: fix this in the backend service and remove this patch
