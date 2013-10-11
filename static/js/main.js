@@ -95,7 +95,6 @@ function SearchFormCtrl($scope, $location) {
 
 
 function SearchCtrl($scope, $http, $location, $routeParams, resources, searchService) {
-  console.time("search");
 
   resources.typedefs.then(function(data) {
     $scope.typeDefs = data.types;
@@ -159,7 +158,6 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, searchSer
     $scope.loading = false;
   });
 
-  console.timeEnd("search");
 }
 
 var searchutil = {
