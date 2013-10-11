@@ -218,15 +218,17 @@
           </label>
         </div>
       </div>
+    </div>
 
+    <div class="cols">
       <div class="col3" data-ng-show="getTypeDef(instance).term == 'Audiobook'">
         <label>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.publisherNumber" placeholder="Utgivningsnummer">
           <span class="lbl">{{ "Utgivningsnummer" }}</span>
         </label>
       </div>
-
     </div>
+
     <!-- TODO: partially toggle digital details
     <div data-ng-show="getTypeDef(instance).subClassOf != 'DigitalResource'">
     -->
