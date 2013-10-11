@@ -300,15 +300,15 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     bibid = record['controlNumber'];
     $scope.etag = data['etag'];
     $scope.userSigel = constants['user_sigel'];
+
+    $scope.personRoleMap = editutil.getPersonRoleMap(record, $scope.relatorsMap);
+    $scope.unifiedClassifications = editutil.getUnifiedClassifications(record);
+    // FIXME: this is just a view object - add/remove must operate on source and refresh this
+    // (or else this must be converted back into source form before save)
+    var defaultSchemes = ['sao', 'saogf'];
+    $scope.schemeContainer = new editutil.SchemeContainer(record.about.instanceOf, defaultSchemes);
+
     $http.get("/record/" + recType + "/" + recId + "/holdings").success(function(data) {
-
-      $scope.personRoleMap = editutil.getPersonRoleMap(record, $scope.relatorsMap);
-      $scope.unifiedClassifications = editutil.getUnifiedClassifications(record);
-      // FIXME: this is just a view object - add/remove must operate on source and refresh this
-      // (or else this must be converted back into source form before save)
-      var defaultSchemes = ['sao', 'saogf'];
-      $scope.schemeContainer = new editutil.SchemeContainer(record.about.instanceOf, defaultSchemes);
-
       var holdingEtags = {};
       var items = editutil.patchHoldings(data.list);
       $scope.holdings = items;
