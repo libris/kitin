@@ -527,16 +527,18 @@ var editutil = {
     function addPersonRoles(person) {
       roleMap[person['@id']] = [];
     }
-    if (work.creator) {
+    if (work && work.creator) {
       addPersonRoles(work.creator);
     }
-    if (work.contributorList) {
+    if (work && work.contributorList) {
       work.contributorList.forEach(function (person) {
         addPersonRoles(person);
       });
     }
 
     [instance, work].forEach(function (resource) {
+      if (typeof resource === 'undefined')
+        return;
       var objId = resource['@id'];
       _.forEach(resource, function (vals, key) {
         if (!vals)
