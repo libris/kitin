@@ -7,6 +7,7 @@ module.exports = (grunt) ->
   grunt.registerTask 'build', [
     'vendor'
     'app'
+    'cachebuster'
   ]
 
   grunt.registerTask 'vendor', [
@@ -90,6 +91,23 @@ module.exports = (grunt) ->
             'static/vendor/*/{,*/}*.js'
           ]
 
+    cachebuster:
+      build:
+        options:
+          formatter: (hashes) ->
+            '<!-- IMPORTANT: generated file; do not edit! -->\n' +
+            (for src, hash of hashes
+              if src.match /\.js$/ then "<script src='/#{src}?v=#{hash}'></script>"
+              else "<link rel='stylesheet' href='/#{src}?v=#{hash}' />").join("\n")
+        # NOTE: Scripts also placed at top since this is a one-page app
+        src: [
+          'static/build/*/*.min.css',
+          'static/css/main.css',
+          'static/build/*/*.min.js',
+          'static/js/{main,*locale*}.js'
+        ]
+        dest: 'templates/_media.html'
+
     watch:
       less:
         files: ['<%= less.src.src %>']
@@ -100,6 +118,9 @@ module.exports = (grunt) ->
       jshint:
         files: ['<%= jshint.app %>']
         tasks: ['jshint']
+      cachebuster:
+        files: ['<%= cachebuster.build.src %>']
+        tasks: ['cachebuster']
 
     clean: [
       'static/build'
