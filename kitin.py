@@ -127,7 +127,7 @@ def search_json():
         freq = ''
     b = request.args.get('b', '')
     boost = ("&boost=%s" % b) if b else ''
-    resp = requests.get("%s/kitin/bib/_search?q=%s%s%s" % (
+    resp = requests.get("%s/bib/_search?q=%s%s%s" % (
         app.config['WHELK_HOST'], q, freq, boost),
         headers=extract_x_forwarded_for_header(request))
     return raw_json_response(resp.text)
@@ -149,7 +149,7 @@ def search():
     b = request.args.get('b', '')
     boost = ("&boost=%s" % b) if b else ''
     if q:
-        resp = requests.get("%s/kitin/bib/_search?q=%s%s%s" % (
+        resp = requests.get("%s/bib/_search?q=%s%s%s" % (
             app.config['WHELK_HOST'], q, freq, boost), headers=search_headers)
     return render_template('index.html', partials = {"/partials/search" : "partials/search.html"})
 
@@ -158,7 +158,7 @@ def search():
 def get_holdings(record_type, record_id):
         #path = "%s/hold/_find?q=annotates.@id:%s" % (app.config['WHELK_HOST'], record_id)
         bibnr = record_id.split("/")[-1]
-        path = "%s/_find?q=%s&type=hold" % (app.config['WHELK_HOST'], bibnr)
+        path = "%s/hold/_search?q=*+about.annotates.@id:\/resource\/bib\/%s" % (app.config['WHELK_HOST'], bibnr)
         resp = requests.get(path)
         return raw_json_response(resp.text)
 
@@ -233,7 +233,7 @@ def split_facets(facet):
         else:
             dedupf.append(ftmp)
         facet = ' '.join(dedupf)
-    freq = "&f=%s" % facet
+    freq = "&facets=%s" % facet
     return freq
 
 def extract_x_forwarded_for_header(request):
@@ -582,7 +582,7 @@ def get_marcmap():
 @login_required
 def suggest_auth_completions():
     q = request.args.get('q')
-    response = requests.get("%s/_complete?name=%s" % (app.config['WHELK_HOST'], q))
+    response = requests.get("%s/person/_search?q=%s" % (app.config['WHELK_HOST'], q))
     if response.status_code >= 400:
         abort(response.status_code)
     return raw_json_response(response.text)
@@ -591,7 +591,7 @@ def suggest_auth_completions():
 @login_required
 def suggest_subject_completions():
     q = request.args.get('q')
-    response = requests.get("%s/_subjcomplete?concept=%s" % (app.config['WHELK_HOST'], q))
+    response = requests.get("%s/concept/_search?q=%s" % (app.config['WHELK_HOST'], q))
     if response.status_code >= 400:
         abort(response.status_code)
     return raw_json_response(response.text)
