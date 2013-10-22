@@ -201,6 +201,7 @@
           </label>
           <label class="col1 last" data-ng-hide="editable">
             <button class="btn-link on-hover" data-ng-click="removeObject(instance, 'publication', $index)"><i class="icon icon-remove"></i></button>
+          </label>
         </div>
         <button class="add-thing btn-link" data-ng-click="addObject(instance, 'publication', 'ProviderEvent')">{{ 'Lägg till utgivning' }} <i class="icon icon-plus-sign"></i></button>
       </div>
@@ -218,15 +219,17 @@
           </label>
         </div>
       </div>
+    </div>
 
+    <div class="cols">
       <div class="col3" data-ng-show="getTypeDef(instance).term == 'Audiobook'">
         <label>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.publisherNumber" placeholder="Utgivningsnummer">
           <span class="lbl">{{ "Utgivningsnummer" }}</span>
         </label>
       </div>
-
     </div>
+
     <!-- TODO: partially toggle digital details
     <div data-ng-show="getTypeDef(instance).subClassOf != 'DigitalResource'">
     -->
@@ -364,14 +367,22 @@
     <h3 class="inline_heading">{{userSigel}}</h3>
     <div class="cols">
       <div class="col6">
-        <label>
+
+
+        <div class="alert alert-block">
+    Bestånd tillfälligt avaktiverat.
+    </div>
+
+
+<!--        <label>
           <input data-inplace type="text" placeholder="Avdelning/Samling" data-ng-model="holding.shelvingLocation"/>
           <span class="lbl">{{ "Avdelning/Samling" }}</span>
         </label>
         <label>
           <input data-inplace type="text" placeholder="Hyllsignum/Klassifikation" data-ng-model="holding.classificationPart"/>
           <span class="lbl">{{ "Hyllsignum/Klassifikation" }}</span>
-        </label>
+        </label>-->
+        
         <!-- post beta:
         <div class="suggestion-classification">
           <ul>
@@ -381,7 +392,7 @@
         </div>
         -->
        </div>
-      <div class="col6">
+<!--     <div class="col6">
           <label>
           <input data-inplace type="text" placeholder="Löpnummer" data-ng-model="holding.shelvingControlNumber"/>
           <span class="lbl">{{ "Löpnummer" }}</span>
@@ -406,18 +417,19 @@
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" placeholder="Intern anmärkning" data-ng-model="holding.shelvingNonpublicNote"></textarea>
           <span class="lbl">{{ "Intern anmärkning" }}</span>
           </label>
-      </div>
+      </div>-->
     </div>
     <div class="foot">
       <!--not available in beta:<button disabled class="btn btn-purple" data-ng-click="addHolding(holdings)">Lägg till <i class="icon icon-white icon-chevron-down"></i></button>-->
     </div>
     </section>
     <section class="submit">
-      <button class="btn btn-purple  btn-submit" id="save-hld" data-ng-click="saveHolding(holding)">Spara bestånd</button>
+<!--       <button class="btn btn-purple  btn-submit" id="save-hld" data-ng-click="saveHolding(holding)">Spara bestånd</button> -->
       <!-- post beta:
       <button data-ng-show="holding['@id']"class="btn-link" id="delete-hld" data-ng-click="deleteHolding(holding['@id'])">Ta bort</button>
       -->
     </section>
+<!--
   <section class="holdings holdings-list">
     <h2>Allt Bestånd<i></i></h2>
     <div class="cols">
@@ -427,6 +439,7 @@
      </div>
     </div>
     </section>
+-->
   </div>
 </div>
 </form>

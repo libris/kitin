@@ -95,7 +95,6 @@ function SearchFormCtrl($scope, $location) {
 
 
 function SearchCtrl($scope, $http, $location, $routeParams, resources, searchService) {
-  console.time("search");
 
   resources.typedefs.then(function(data) {
     $scope.typeDefs = data.types;
@@ -159,7 +158,6 @@ function SearchCtrl($scope, $http, $location, $routeParams, resources, searchSer
     $scope.loading = false;
   });
 
-  console.timeEnd("search");
 }
 
 var searchutil = {
@@ -287,52 +285,56 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     };
   });
 
-  if (isNew) {
-    $http.get('/record/bib/new?type' + newType).success(function(data) {
-      $scope.record = data;
-    });
-  } else
-
-  records.get(recType, recId).then(function(data) {
-    var record = $scope.record = data['recdata'];
-    editutil.patchBibRecord(record);
-
-    bibid = record['controlNumber'];
-    $scope.etag = data['etag'];
-    $scope.userSigel = constants['user_sigel'];
-    $http.get("/record/" + recType + "/" + recId + "/holdings").success(function(data) {
-
-      $scope.personRoleMap = editutil.getPersonRoleMap(record, $scope.relatorsMap);
-      $scope.unifiedClassifications = editutil.getUnifiedClassifications(record);
+  function addRecordViewsToScope(record, scope) {
+      scope.personRoleMap = editutil.getPersonRoleMap(record, scope.relatorsMap);
+      scope.unifiedClassifications = editutil.getUnifiedClassifications(record);
       // FIXME: this is just a view object - add/remove must operate on source and refresh this
       // (or else this must be converted back into source form before save)
       var defaultSchemes = ['sao', 'saogf'];
-      $scope.schemeContainer = new editutil.SchemeContainer(record.about.instanceOf, defaultSchemes);
+      scope.schemeContainer = new editutil.SchemeContainer(record.about.instanceOf, defaultSchemes);
+  }
 
-      var holdingEtags = {};
-      var items = editutil.patchHoldings(data.list);
-      $scope.holdings = items;
-      var myHoldings = _.filter(items, function(i) { return i['location'] == constants['user_sigel']; });
-      if (myHoldings <= 0) {
-        $http.get("/holding/bib/new").success(function(data, status, headers) {
-          data.location = $scope.userSigel;
-          $scope.holding = data;
-          data._isNew = true; // TODO: don't do this when etag works
-        });
-      } else {
-        $scope.holding = myHoldings[0];
-      }
-      items.forEach(function (item) {
-        if (item['@id']) {
-          $http.get("/holding/"+ item['@id'].split("/").slice(-2)[1]).success(function (data, status, headers) {
-            holdingEtags[data['@id']] = headers('etag');
-          });
-        }
-      });
-      $scope.holdingEtags = holdingEtags;
+  if (isNew) {
+    $http.get('/record/bib/new?type' + newType).success(function(data) {
+      var record = $scope.record = data;
+      addRecordViewsToScope(record, $scope);
     });
+  } else {
+    records.get(recType, recId).then(function(data) {
+      var record = $scope.record = data['recdata'];
+      editutil.patchBibRecord(record);
 
-  });
+      addRecordViewsToScope(record, $scope);
+
+      $scope.etag = data['etag'];
+      $scope.userSigel = constants['user_sigel'];
+
+      $http.get("/record/" + recType + "/" + recId + "/holdings").success(function(data) {
+        var holdingEtags = {};
+        var items = editutil.patchHoldings(data.list);
+        $scope.holdings = items;
+        var myHoldings = _.filter(items, function(i) { return i['location'] == constants['user_sigel']; });
+        if (myHoldings <= 0) {
+          $http.get("/holding/bib/new").success(function(data, status, headers) {
+            data.location = $scope.userSigel;
+            $scope.holding = data;
+            data._isNew = true; // TODO: don't do this when etag works
+          });
+        } else {
+          $scope.holding = myHoldings[0];
+        }
+        items.forEach(function (item) {
+          if (item['@id']) {
+            $http.get("/holding/"+ item['@id'].split("/").slice(-2)[1]).success(function (data, status, headers) {
+              holdingEtags[data['@id']] = headers('etag');
+            });
+          }
+        });
+        $scope.holdingEtags = holdingEtags;
+      });
+
+    });
+  }
 
   $scope.modifications = {saved: true, published: true};
 
@@ -523,16 +525,18 @@ var editutil = {
     function addPersonRoles(person) {
       roleMap[person['@id']] = [];
     }
-    if (work.creator) {
+    if (work && work.creator) {
       addPersonRoles(work.creator);
     }
-    if (work.contributorList) {
+    if (work && work.contributorList) {
       work.contributorList.forEach(function (person) {
         addPersonRoles(person);
       });
     }
 
     [instance, work].forEach(function (resource) {
+      if (typeof resource === 'undefined')
+        return;
       var objId = resource['@id'];
       _.forEach(resource, function (vals, key) {
         if (!vals)
