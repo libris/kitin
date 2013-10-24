@@ -749,3 +749,22 @@ a.beta-blocker {text-decoration: none; cursor:default;} /*block unfinished eleme
 
 .modal {color:@very-dark-grey;text-transform: none;}
 
+
+/* JSON-LD View */
+
+.collapsed > code {
+  background-color: @grey2;
+}
+
+.entity {
+  transition: max-height 0.25s ease-in-out;
+  max-height: 2000em;
+}
+
+.collapsed > .entity {
+  max-height: 2em;
+  overflow: auto;
+  box-shadow: inset 0px 5px 10px @grey3;
+}
+
+

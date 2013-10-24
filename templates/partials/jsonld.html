@@ -25,8 +25,10 @@
 <script type="text/ng-template" id="render-object">
   <div data-ng-repeat="(key, obj) in object">
     <ng:switch on="typeOf(obj)">
-      <div data-ng-switch-when="object">
-        <code>{{ key }}</code>
+      <div data-ng-switch-when="object"
+           data-ng-init="collapsed=false"
+           data-ng-class="{collapsed: collapsed}">
+        <code data-ng-click="collapsed=!collapsed">{{ key }}</code>
         <section data-ng-repeat="object in [obj]"
             data-ng-include="'render-object'" class="entity"></section>
       </div>
