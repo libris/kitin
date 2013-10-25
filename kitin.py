@@ -119,39 +119,24 @@ def index():
 
 @app.route("/search.json")
 def search_json():
-    q = request.args.get('q')
-    facet = request.args.get('f', '').strip()
-    if facet:
-        freq = split_facets(facet)
-    else:
-        freq = ''
-    b = request.args.get('b', '')
-    boost = ("&boost=%s" % b) if b else ''
-    resp = requests.get("%s/bib/_search?q=%s%s%s" % (
-        app.config['WHELK_HOST'], q, freq, boost),
-        headers=extract_x_forwarded_for_header(request))
+    resp = do_search()
     return raw_json_response(resp.text)
 
 @app.route("/search")
 @login_required
 def search():
-    if not request.headers.getlist("X-Forwarded-For"):
-        remote_ip = request.remote_addr
-    else:
-        remote_ip = request.headers.getlist("X-Forwarded-For")[0]
-    search_headers = {"X-Forwarded-For":"%s" % remote_ip}
+    #if 'q' in request.args:
+    #    resp = do_search()
+    return render_template('index.html', partials = {"/partials/search" : "partials/search.html"})
+
+def do_search():
     q = request.args.get('q')
-    facet = request.args.get('f', '').strip()
-    if facet:
-        freq = split_facets(facet)
-    else:
-        freq = ''
+    f = request.args.get('f')
+    freq = "&f=%s" % f.strip() if f else ''
     b = request.args.get('b', '')
     boost = ("&boost=%s" % b) if b else ''
-    if q:
-        resp = requests.get("%s/bib/_search?q=%s%s%s" % (
-            app.config['WHELK_HOST'], q, freq, boost), headers=search_headers)
-    return render_template('index.html', partials = {"/partials/search" : "partials/search.html"})
+    search_url = "%s/bib/_search?q=%s%s%s" % (app.config['WHELK_HOST'], q, freq, boost)
+    return requests.get(search_url, headers=extract_x_forwarded_for_header(request))
 
 @app.route('/record/<record_type>/<record_id>/holdings')
 @login_required
@@ -224,17 +209,6 @@ def get_resource(path):
         content_type=remote_resp.headers['content-type'])
     resp.headers['Expires'] = '-1'
     return resp
-
-def split_facets(facet):
-    dedupf = []
-    for ftmp in facet.split(' '):
-        if ftmp in dedupf:
-            dedupf.remove(ftmp)
-        else:
-            dedupf.append(ftmp)
-        facet = ' '.join(dedupf)
-    freq = "&facets=%s" % facet
-    return freq
 
 def extract_x_forwarded_for_header(request):
     if not request.headers.getlist("X-Forwarded-For"):
