@@ -26,7 +26,7 @@
   <div data-ng-repeat="(key, obj) in object">
     <ng:switch on="typeOf(obj)">
       <div data-ng-switch-when="object"
-           data-ng-init="collapsed=false"
+           data-ng-init="collapsed = (key == 'unknown')"
            data-ng-class="{collapsed: collapsed}">
         <code data-ng-click="collapsed=!collapsed">{{ key }}</code>
         <section data-ng-repeat="object in [obj]"
