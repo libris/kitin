@@ -92,13 +92,14 @@
         </div>
         <div class="addon" data-ng-show="editable">
           <label>
-            <input data-inplace class="input-mini" type="text" placeholder="Egennamn" data-ng-model="person.givenName"
-            	data-kitin-autocomplete="person" />
-            <span class="lbl">{{ "Egennamn" }}</span>
+            <input data-inplace class="input-mini" type="text" placeholder="Förnamn"
+                   data-ng-model="person.givenName" data-kitin-autocomplete="person" />
+            <span class="lbl">{{ "Förnamn" }}</span>
           </label>
           <label>
-            <input data-inplace class="input-mini" type="text" placeholder="Familjenamn" data-kitin-autocomplete="person" data-ng-model="person.familyName" />
-            <span class="lbl">{{ "Familjenamn" }}</span>
+            <input data-inplace class="input-mini" type="text" placeholder="Släktnamn"
+                   data-ng-model="person.familyName" data-kitin-autocomplete="person" />
+            <span class="lbl">{{ "Släktnamn" }}</span>
           </label>
           </div>
         <div class="addon" data-ng-show="editable">
