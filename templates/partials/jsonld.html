@@ -36,7 +36,7 @@
         <code>{{ key }}</code>
         <ng:switch on="key">
           <span data-ng-switch-when="@id">
-            <a href="#{{ obj }}">&lt;{{ obj }}&gt;</a>
+            <a href="{{ toJsonLdLink(obj) }}">&lt;{{ obj }}&gt;</a>
           </span>
           <span data-ng-switch-when="@type">
             <span class="label label-info">{{ obj }}</span>

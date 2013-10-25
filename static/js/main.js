@@ -512,6 +512,10 @@ function EditCtrl($scope, $http, $routeParams, $timeout, records, resources, con
     obj['@type'] = typeCycle[typeIndex];
   };
 
+  $scope.toJsonLdLink = function (id) {
+    return id.replace(/^\/(resource\/)?/, '/jsonld/');
+  };
+
 }
 
 
