@@ -314,8 +314,11 @@ def create_record():
 @app.route('/marcmap.json')
 @login_required
 def get_marcmap():
-    with open(app.config['MARC_MAP']) as f:
-        return raw_json_response(f.read())
+    path = "%s/resource/_marcmap" % (app.config['WHELK_HOST'])
+    response = requests.get(path)
+    if response.status_code >= 400:
+        abort(response.status_code)
+    return raw_json_response(response.text)
 
 
 @app.route('/suggest/auth')
@@ -368,10 +371,7 @@ if __name__ == "__main__":
     oparser = OptionParser()
     oparser.add_option('-d', '--debug', action='store_true', default=False)
     oparser.add_option('-L', '--fakelogin', action='store_true', default=False)
-    oparser.add_option('-m', '--marcmap', type=str, default="marcmap.json")
     opts, args = oparser.parse_args()
     app.debug = opts.debug
     app.fakelogin = opts.fakelogin
-    app.config['MARC_MAP'] = opts.marcmap
     app.run(host='0.0.0.0')
-
