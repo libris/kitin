@@ -1541,14 +1541,14 @@ a.beta-blocker {
   font-size: 12px;
   color: #666;
 }
-#record code {
-  color: #999999;
-}
 .modal {
   color: #191919;
   text-transform: none;
 }
 /* JSON-LD View */
+#record code {
+  color: #999999;
+}
 .collapsed > code {
   background-color: #c7c7c7;
 }
