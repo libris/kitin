@@ -39,7 +39,7 @@ module.exports = (grunt) ->
 
     less:
       options:
-        compress: true
+        cleancss: true
       src:
         expand: true
         src:    'static/css/main.less'
