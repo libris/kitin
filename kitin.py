@@ -551,21 +551,12 @@ def get_marcmap():
     with open(app.config['MARC_MAP']) as f:
         return raw_json_response(f.read())
 
-
-@app.route('/suggest/auth')
+@app.route('/suggest/<indextype>')
 @login_required
-def suggest_auth_completions():
+def suggest_completions(indextype):
     q = request.args.get('q')
-    response = requests.get("%s/person/_search?q=%s" % (app.config['WHELK_HOST'], q))
-    if response.status_code >= 400:
-        abort(response.status_code)
-    return raw_json_response(response.text)
-
-@app.route('/suggest/subject')
-@login_required
-def suggest_subject_completions():
-    q = request.args.get('q')
-    response = requests.get("%s/concept/_search?q=%s" % (app.config['WHELK_HOST'], q))
+    q = append_star(q)
+    response = requests.get("%s/%s/_search?q=%s" % (app.config['WHELK_HOST'], indextype, q))
     if response.status_code >= 400:
         abort(response.status_code)
     return raw_json_response(response.text)
@@ -575,12 +566,29 @@ def suggest_subject_completions():
 def show_partial(name):
     return render_template('partials/%s.html' % name)
 
-
 def raw_json_response(s):
     resp = make_response(s)
     resp.headers['Content-Type'] = 'application/json'
     resp.headers['Expires'] = '-1'
     return resp
+
+def append_star(q):
+    queryItems = []
+    for item in q.split('+'):
+        if len(item) > 1 and item[-1] != ' ' and item[-1] != '*':
+            if ':' in item:
+                fieldName = item.split(':')[0]
+                lastPartOfFieldName = fieldName.split('.')[-1]
+                if lastPartOfFieldName != 'untouched':
+                    queryItems.append('%s*' % item)
+                else:
+                    queryItems.append(item)
+            else:
+                queryItems.append('%s*' % item)
+        else:
+            queryItems.append(item)
+    return ' '.join(queryItems)
+
 
 
 #def find_record_templates():
