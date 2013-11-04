@@ -140,14 +140,14 @@ kitin.service('editUtil', function() {
 kitin.factory('autoComplete', function() {
   return {
     person: {
-      serviceUrl: "/suggest/auth",
+      serviceUrl: "/suggest/person",
       templateId: "auth-completion-template",
       // TODO: remove scopeObjectKey and always use add callbacks
       scopeObjectKey: "person",
       objectKeys: ['controlledLabel', 'familyName', 'givenName', 'birthYear', 'deathYear']
     },
     subject: {
-      serviceUrl: "/suggest/subject",
+      serviceUrl: "/suggest/concept",
       templateId: "subject-completion-template",
       objectKeys: ['prefLabel', '@type', 'hiddenLabel', 'broader', 'narrower', '@id', 'scopeNote', 'historyNote' ]
     }  
