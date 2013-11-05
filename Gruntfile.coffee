@@ -77,7 +77,8 @@ module.exports = (grunt) ->
       app:
         files:
           'static/build/js/app.min.js': [
-            'static/js/*.js'
+            'static/js/*.js',
+            'static/js/**/*.js'
           ]
       vendor:
         options:
@@ -101,9 +102,10 @@ module.exports = (grunt) ->
               else "<link rel='stylesheet' href='/#{src}?v=#{hash}' />").join("\n")
         # NOTE: Scripts also placed at top since this is a one-page app
         src: [
-          'static/build/*/*.min.css',
-          'static/css/main.css',
-          'static/build/*/*.min.js',
+          'static/build/*/*.min.css'
+          'static/css/main.css'
+          'static/build/*/*.min.js'
+          'static/js/**/*.js'
           'static/js/{main,*locale*}.js'
         ]
         dest: 'templates/_media.html'
