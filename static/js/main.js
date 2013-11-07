@@ -3,7 +3,7 @@
  * app.js
  */
 
-var kitin = angular.module('kitin', ['kitin.controllers', 'kitin.filters', 'kitin.services', 'kitin.directives']);
+var kitin = angular.module('kitin', ['ui', 'kitin.controllers', 'kitin.filters', 'kitin.services', 'kitin.directives']);
 
 kitin.config(
   ['$locationProvider', '$routeProvider',
