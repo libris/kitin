@@ -67,81 +67,62 @@ kitin.directive('isbnvalidator', function(isbnTools) {
 });
 
 kitin.directive('kitinAutoselect', function(resources) {
+
+  var processDataset = function (langdata) {
+    var result = [];
+    for (var key in langdata) {
+      var label = langdata[key];
+      var repr = label + " (" + key + ")";
+      result.push({value: repr, data: {langCode: key, prefLabel: label}});
+    }
+    return result;
+  };
+
+  var filter = function (result, inputval) {
+    //var val = result.value.toLowerCase();
+    var name = result.data.prefLabel.toLowerCase();
+    var code = result.data.langCode.toLowerCase();
+    var sel = inputval.toLowerCase();
+    return name.indexOf(sel) === 0 || code.indexOf(sel) === 0 || name.indexOf('(' + sel) > -1;
+  };
+
+  var selectObject = function (scope, obj) {
+    // FIXME: configure target to set in directive
+    scope.record.about.instanceOf.language = obj;
+    scope.$apply();
+  };
+
   return {
     restrict: 'A',
     link: function(scope, elem, attrs) {
       var templateId = attrs.kitinTemplate;
       var template = _.template(jQuery('#' + templateId).html());
-      var ld = [{}];
+      var data = {};
 
-      resources.languages.then(function(langdata) {
-        ld['lang'] = langdata;
+      // TODO: configure source in directive
+      resources.languages.then(function(dataset) {
+        // TODO: this is called twice, check resources..
+        data.items = processDataset(dataset);
       });
 
       elem.autocomplete({
-        data: ld,
+        data: data,
+        minChars: 1,
         inputClass: null,
         remoteDataType: 'json',
         autoWidth: null,
         mustMatch: true,
-        filter: function (result) {
-          var tstr = result.value.toLowerCase();
-          var name = tstr.split("!")[0];
-          var code = tstr.split("!")[1].replace("(", "").replace(")", "");
-          var inputval = $(elem).val().toLowerCase(); // Is this value accessible some other way?
-          //console.log("name: ", name, ", code: ", code, ", tstr: ", tstr, ", inputval: ", inputval)
-          //return (haystack.substr(0, needle.length) == needle);
-          //if (tstr.substr(0, inputval.length) == inputval) {
-          //   return true;
-          //}
-          if (wordStartsWith(inputval, name) || wordStartsWith(inputval,code) || inWordStartsWith(inputval,name)) {
-              return true;
-          }
-          //if (tstr.indexOf(inputval) != -1) {
-          //    return true;
-          //}
-          function wordStartsWith(input,val){
-            if (val.substr(0, input.length) == input) {
-                return true;
-            }
-            return false;
-          }
-          function inWordStartsWith(input,val){
-            var wlist = val.split(" ");
-            if (wlist.length > 1){
-              for (i = 1; i < wlist.length; i++) {
-                var tmp = wlist[i].replace("(", "").replace(")", "");
-                if (tmp.substr(0, input.length) == input) {
-                  return true;
-                }
-              }
-            }
-            return false;
-          }
+        filter: filter,
+        processData: function (data) {
+          return data.items || [];
         },
         useCache: false,
-        maxItemsToShow: 0, // Means show all
-
-        processData: function (data) {
-          var tmp = [];
-          //var list = [{}];
-          for (var key in data['lang']){
-            var tmpstr = data['lang'][key] + "!(" + key + ")"; // Ugly, would like to build a json struct like in liststr example, but how grab the json in showresult?
-            tmp.push(tmpstr);
-            //var liststr = '{code:"' + key + '"},{name:"' + data["lang"][key] + '"}';
-            //list.push(liststr);
-          }
-          return tmp;
-        },
-        showResult: function (data, value) {
-          var dtmp = data;
-          var name = dtmp.split("!")[0]; // Yeah, I know.
-          var code = dtmp.split("!")[1];
-          return template({name: name, code: code});
+        maxItemsToShow: 0, // show all
+        showResult: function (value, data) {
+          return template(data);
         },
         onItemSelect: function(item) {
-          scope.record.about.instanceOf.language = item.value.split("!")[0] + " " + item.value.split("!")[1];
-          scope.$apply();
+          selectObject(scope, item.data);
         }
       });
     }

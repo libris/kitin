@@ -25,7 +25,11 @@
                 "familyName": "",
                 "givenName": ""
             },
-            "language": "swe",
+            "language": {
+              "@id": "/def/language/swe",
+              "langCode": "swe",
+              "prefLabel": "Svenska"
+            },
             "subject": []
         },
         "manufacture": [

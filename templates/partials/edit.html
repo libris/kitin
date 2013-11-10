@@ -58,19 +58,28 @@
     <div class="cols" data-ng-init="work = record.about.instanceOf">
       <div class="col5">
         <label class="ng-binding">
-          <!--<span class="fakeholder" data-fakeholder>Välj ett land</span>
-          <select class="selectpicker" data-selectpicker data-ng-model="work.language" data-ng-options="code as name for (code, name) in langlist">
-          </select>-->
-          <!--<select class="selectpicker" data-placeholder="Välj ett språk" data-ui-select2 data-ng-model="work.language" style="width:75%">
-             <option></option>
-             <option data-ng-repeat="(code, name) in langlist" value="{{ code }}">{{ name }} ({{ code }})</option>
-         </select>-->
-              <!--<input data-inplace class="input" type="text" placeholder="Personnamn" data-kitin-autocomplete="field" data-kitin-template="auth-completion-template" data-ng-model="person.authoritativeName" />-->
-              <input data-inplace class="input-large authdependant" type="text" placeholder="Språk" data-ng-model="work.language" data-kitin-autoselect="field" data-kitin-template="resource-list-template"/>
-              <span class="lbl">{{ "Språk" }}</span>
-         <!--<pre>Selected: {{ work.language | json }}</pre>
-         <input data-inplace ui-select2="langlist" ng-model="work.language" style="width:200px" />-->
+        <div data-ng-init="editable = !(work.language.langCode)">
+          <div data-ng-hide="editable">
+            <span data-ng-click="editable=!editable">
+              {{ work.language.prefLabel }}
+              <i data-ng-show="work.language.langCode">({{ work.language.langCode }})</i>
+            </span>
+          </div>
+          <div data-ng-show="editable">
+            <input data-inplace class="input-large authdependant" type="text" placeholder="Språk"
+                  data-kitin-autoselect="field"
+                  data-kitin-template="select-language-template" />
+          </div>
+        </div>
+         <span class="lbl">{{ "Språk" }}</span>
         </label>
+        <script type="text/html" id="select-language-template">
+          <div class="auth">
+            <h4>
+            <span class="name"><%= prefLabel %></span><span class="date"> <%= langCode %></span>
+            </h4>
+          </div>
+        </script>
       </div>
       <div class="col7">
         <div data-ng-show="work.creator"
@@ -451,14 +460,6 @@
   <ul>
     <li data-ng-show="holding.location"><a href="#" class="sigel beta-blocker">{{ holding.location }}<span class="pull-right"><!--<i class="fa fa-chevron-down"></i></span>--></a></li>
   </ul>
-</div>
-</script>
-
-<script type="text/html" id="resource-list-template">
-<div class="auth">
-    <h4>
-    <span class="name"><%= name %></span><span class="date"> <%= code %></span>
-    </h4>
 </div>
 </script>
 
