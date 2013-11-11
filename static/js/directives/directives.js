@@ -68,14 +68,8 @@ kitin.directive('isbnvalidator', function(isbnTools) {
 
 kitin.directive('kitinAutoselect', function(resources) {
 
-  var processDataset = function (langdata) {
-    var result = [];
-    for (var key in langdata) {
-      var label = langdata[key];
-      var repr = label + " (" + key + ")";
-      result.push({value: repr, data: {langCode: key, prefLabel: label}});
-    }
-    return result;
+  var getRepr = function (obj) {
+    return obj.prefLabel + " (" + obj.langCode + ")";
   };
 
   var filter = function (result, inputval) {
@@ -100,9 +94,11 @@ kitin.directive('kitinAutoselect', function(resources) {
       var data = {};
 
       // TODO: configure source in directive
-      resources.languages.then(function(dataset) {
+      resources.langIndex.then(function(index) {
         // TODO: this is called twice, check resources..
-        data.items = processDataset(dataset);
+        data.items = _.map(index.byId, function (obj, code) {
+          return {value: getRepr(obj), data: obj};
+        });
       });
 
       elem.autocomplete({
@@ -129,7 +125,7 @@ kitin.directive('kitinAutoselect', function(resources) {
   };
 });
 
-kitin.directive('kitinAutocomplete',[ 'autoComplete', function(autocompleteService) {
+kitin.directive('kitinAutocomplete', ['autoComplete', function(autocompleteService) {
   return {
     restrict: 'A',
     link: function(scope, elem, attrs) {

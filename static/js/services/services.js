@@ -1,8 +1,8 @@
 var kitin = angular.module('kitin.services', []);
 
-kitin.service('editUtil', function() {
+kitin.service('editUtil', function(resources) {
   var editutil = {
-    
+
     getPersonRoleMap: function (record, relatorsMap) {
       var instance = record.about;
       var work = instance.instanceOf;
@@ -123,6 +123,17 @@ kitin.service('editUtil', function() {
       var work = record.about.instanceOf;
       if (work && _.isArray(work.creator)) {
         work.creator = work.creator[0];
+      }
+      if (work && work.language) {
+        var langId = work.language['@id'];
+        if (!langId)
+          return;
+        resources.langIndex.then(function (index) {
+          var obj = index.byId[langId];
+          if (obj) {
+            work.language = obj;
+          }
+        });
       }
     },
 
@@ -301,15 +312,19 @@ kitin.factory('records', function ($http, $q) {
 
 
 kitin.factory('resources', function($http) {
-  function getResourceList(restype, part) {
+  function getResourceList(restype, modifier) {
     var url;
     if (restype === 'enums')
-      url = "/resource/_marcmap?part=bib.fixprops." + part;
+      url = "/resource/_marcmap?part=bib.fixprops." + modifier;
     else
       url = "/resource/_resourcelist?" + restype + "=all";
     
     var promise = $http.get(url).then(function(response) {
-      return response.data;
+      if (modifier && _.isFunction(modifier)) {
+        return modifier(response.data);
+      } else {
+        return response.data;
+      }
     });
     return promise;
   }
@@ -317,7 +332,16 @@ kitin.factory('resources', function($http) {
   var resources = {
     typedefs: getResourceList("typedef"),
     relators: getResourceList("relator"),
-    languages: getResourceList("lang"),
+    langIndex: getResourceList("lang", function (data) {
+      var index = {byId: {}};
+      for (var key in data) {
+        var label = data[key];
+        var id = "/def/languages/" + key;
+        var obj =  {"@id": id, langCode: key, prefLabel: label};
+        index.byId[id] = obj;
+      }
+      return index;
+    }),
     countries: getResourceList("country"),
     nationalities: getResourceList("nationality"),
     conceptSchemes: getResourceList("conceptscheme"),

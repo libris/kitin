@@ -59,8 +59,8 @@
       <div class="col5">
         <label class="ng-binding">
         <div data-ng-init="editable = !(work.language.langCode)">
-          <div data-ng-hide="editable">
-            <span data-ng-click="editable=!editable">
+          <div data-ng-hide="editable" data-ng-click="editable=!editable">
+            <span>
               {{ work.language.prefLabel }}
               <i data-ng-show="work.language.langCode">({{ work.language.langCode }})</i>
             </span>
