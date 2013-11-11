@@ -26,7 +26,7 @@
                 "givenName": ""
             },
             "language": {
-              "@id": "/def/language/swe",
+              "@id": "/def/languages/swe",
               "langCode": "swe",
               "prefLabel": "Svenska"
             },

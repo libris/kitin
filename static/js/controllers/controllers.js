@@ -113,16 +113,8 @@ kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, rec
     // TODO: fix this backend resource
     _.forEach(data, function (val, key) { map[val.term] = val; });
   });
-  resources.languages.then(function(data) {
-    /*$scope.langlist = [];
-    var obj;
-    for (var key in data) {
-        $scope.langlist.push({
-        "code" : key,
-        "name" : data[key]
-        });
-    }*/
-    $scope.langlist = data;
+  resources.langIndex.then(function(data) {
+    $scope.langIndex = data;
   });
   resources.countries.then(function(data) {
     $scope.countrylist = data;
