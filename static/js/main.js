@@ -18,6 +18,7 @@ kitin.config(
               {templateUrl: '/partials/edit'})
         .when('/jsonld/:recType/:recId',
               {templateUrl: '/partials/jsonld'})
+        
         ;//.otherwise({redirectTo: '/'});
 
     }]
@@ -62,4 +63,8 @@ $(document).on("click", "*", function (evt) {
     return;
   console.log($(evt.target).scope());
   evt.stopPropagation();
+}).on('keydown', function(e) {
+  if ( e.which == 192 ) {
+    $('#grid').toggle();
+  }
 });
