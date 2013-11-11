@@ -56,7 +56,7 @@
 
     <h3>Verk</h3>
     <div class="cols" data-ng-init="work = record.about.instanceOf">
-      <div class="col5">
+      <div class="col12">
         <label class="ng-binding">
         <div data-ng-init="editable = !(work.language.langCode)">
           <div data-ng-hide="editable" data-ng-click="editable=!editable">
@@ -81,7 +81,9 @@
           </div>
         </script>
       </div>
-      <div class="col7">
+      </div>
+    <div class="cols" data-ng-init="work = record.about.instanceOf">
+      <div class="col12">
         <div data-ng-show="work.creator"
              onload="subj = work; rel = 'creator'; person = work.creator"
              data-ng-include="'render-person'"></div>

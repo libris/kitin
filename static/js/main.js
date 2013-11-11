@@ -56,4 +56,10 @@ function openPrompt($event, promptSelect, innerMenuSelect) {
   prompt.find('select').focus();
 }
 
-
+// TODO only if debug=true
+$(document).on("click", "*", function (evt) {
+  if (!evt.altKey)
+    return;
+  console.log($(evt.target).scope());
+  evt.stopPropagation();
+});
