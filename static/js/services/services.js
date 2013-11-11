@@ -1,5 +1,93 @@
 var kitin = angular.module('kitin.services', []);
 
+kitin.factory('userData', function() {
+  return {
+    userSigel: null
+  };
+});
+
+kitin.factory('resources', function($http) {
+  function getResourceList(restype, modifier) {
+    var url;
+    if (restype === 'enums')
+      url = "/resource/_marcmap?part=bib.fixprops." + modifier;
+    else
+      url = "/resource/_resourcelist?" + restype + "=all";
+
+    var promise = $http.get(url).then(function(response) {
+      if (modifier && _.isFunction(modifier)) {
+        return modifier(response.data);
+      } else {
+        return response.data;
+      }
+    });
+    return promise;
+  }
+  // TODO: load cached aggregate, or lookup part on demand from backend?
+  var resources = {
+    typedefs: getResourceList("typedef"),
+    relators: getResourceList("relator"),
+    langIndex: getResourceList("lang", function (data) {
+      var index = {byId: {}};
+      for (var key in data) {
+        var label = data[key];
+        var id = "/def/languages/" + key;
+        var obj =  {"@id": id, langCode: key, prefLabel: label};
+        index.byId[id] = obj;
+      }
+      return index;
+    }),
+    countries: getResourceList("country"),
+    nationalities: getResourceList("nationality"),
+    conceptSchemes: getResourceList("conceptscheme"),
+    enums: {
+      bibLevel: getResourceList("enums", "bibLevel"),
+      encLevel: getResourceList("enums", "encLevel"),
+      catForm: getResourceList("enums", "catForm")
+    }
+  };
+  return resources;
+});
+
+kitin.factory('records', function ($http, $q) {
+  return {
+
+    get: function (type, id) {
+      var path = "/record/" + type + "/" + id;
+      var record = $q.defer();
+      $http.get(path).success(function (struct, status, headers) {
+        record['recdata'] = struct;
+        record['etag'] = headers('etag');
+        record.resolve(record);
+      });
+      return record.promise;
+    },
+
+    save: function(type, id, data, etag) {
+      var record = $q.defer();
+      $http.put("/record/" + type + "/" + id, data,
+                {headers: {"If-match":etag}}).success(function(data, status, headers) {
+        record['recdata'] = data;
+        record['etag'] = headers('etag');
+        record.resolve(record);
+        console.log("Saved record.");
+      }).error(function() {
+        console.log("FAILED to save record");
+      });
+      return record.promise;
+    },
+
+    create: function(type, data) {
+      var record = $q.defer();
+      $http.post("/record/" + type + "/create", data).success(function(data, status, headers) {
+        record.resolve(data);
+      });
+      return record.promise;
+    }
+
+  };
+});
+
 kitin.service('editUtil', function(resources) {
   var editutil = {
 
@@ -165,6 +253,39 @@ kitin.factory('autoComplete', function() {
   };
 });
 
+kitin.factory('isbnTools', function($http, $q) {
+  function doCheck(isbn) {
+    var deferred = $q.defer();
+    var url = "/resource/_isxntool?isbn=" + isbn;
+    $http.get(url).success(function(data) {
+      deferred.resolve(data);
+    });
+    return deferred.promise;
+  }
+
+  return {
+    checkIsbn: function(isbn) {
+      return doCheck(isbn);
+    }
+  };
+});
+
+kitin.factory('searchService', function($http, $q) {
+  function performSearch(url) {
+    var deferred = $q.defer();
+    $http.get(url).success(function(data) {
+      deferred.resolve(data);
+    });
+    return deferred.promise;
+  }
+
+  return {
+    search: function(url) {
+      return performSearch(url);
+    }
+  };
+});
+
 kitin.factory('searchUtil', function() {
 
   var searchUtil = {
@@ -238,126 +359,3 @@ kitin.factory('searchUtil', function() {
 
 });
 
-kitin.factory('searchService', function($http, $q) {
-  function performSearch(url) {
-    var deferred = $q.defer();
-    $http.get(url).success(function(data) {
-      deferred.resolve(data);
-    });
-    return deferred.promise;
-  }
-
-  return {
-    search: function(url) {
-      return performSearch(url);
-    }
-  };
-});
-
-kitin.factory('isbnTools', function($http, $q) {
-  function doCheck(isbn) {
-    var deferred = $q.defer();
-    var url = "/resource/_isxntool?isbn=" + isbn;
-    $http.get(url).success(function(data) {
-      deferred.resolve(data);
-    });
-    return deferred.promise;
-  }
-
-  return {
-    checkIsbn: function(isbn) {
-      return doCheck(isbn);
-    }
-  };
-});
-
-kitin.factory('records', function ($http, $q) {
-  return {
-
-    get: function (type, id) {
-      var path = "/record/" + type + "/" + id;
-      var record = $q.defer();
-      $http.get(path).success(function (struct, status, headers) {
-        record['recdata'] = struct;
-        record['etag'] = headers('etag');
-        record.resolve(record);
-      });
-      return record.promise;
-    },
-
-    save: function(type, id, data, etag) {
-      var record = $q.defer();
-      $http.put("/record/" + type + "/" + id, data,
-                {headers: {"If-match":etag}}).success(function(data, status, headers) {
-        record['recdata'] = data;
-        record['etag'] = headers('etag');
-        record.resolve(record);
-        console.log("Saved record.");
-      }).error(function() {
-        console.log("FAILED to save record");
-      });
-      return record.promise;
-    },
-
-    create: function(type, data) {
-      var record = $q.defer();
-      $http.post("/record/" + type + "/create", data).success(function(data, status, headers) {
-        record.resolve(data);
-      });
-      return record.promise;
-    }
-
-  };
-});
-
-
-kitin.factory('resources', function($http) {
-  function getResourceList(restype, modifier) {
-    var url;
-    if (restype === 'enums')
-      url = "/resource/_marcmap?part=bib.fixprops." + modifier;
-    else
-      url = "/resource/_resourcelist?" + restype + "=all";
-
-    var promise = $http.get(url).then(function(response) {
-      if (modifier && _.isFunction(modifier)) {
-        return modifier(response.data);
-      } else {
-        return response.data;
-      }
-    });
-    return promise;
-  }
-  // TODO: load cached aggregate, or lookup part on demand from backend?
-  var resources = {
-    typedefs: getResourceList("typedef"),
-    relators: getResourceList("relator"),
-    langIndex: getResourceList("lang", function (data) {
-      var index = {byId: {}};
-      for (var key in data) {
-        var label = data[key];
-        var id = "/def/languages/" + key;
-        var obj =  {"@id": id, langCode: key, prefLabel: label};
-        index.byId[id] = obj;
-      }
-      return index;
-    }),
-    countries: getResourceList("country"),
-    nationalities: getResourceList("nationality"),
-    conceptSchemes: getResourceList("conceptscheme"),
-    enums: {
-      bibLevel: getResourceList("enums", "bibLevel"),
-      encLevel: getResourceList("enums", "encLevel"),
-      catForm: getResourceList("enums", "catForm")
-    }
-  };
-  return resources;
-});
-
-
-kitin.factory('userData', function() {
-  // Declare default structure. Data is set with a run call in a script block.
-  return {
-    userSigel: null
-  };
-});
