@@ -40,8 +40,9 @@ module.exports = (grunt) ->
     less:
       options:
         sourceMap: true
-        sourceMapFilename: 'static/css/main.css.map'       
-        cleancss: true
+        sourceMapFilename: 'main.css.map'
+        sourceMapRootpath: '/static/css/'
+        #cleancss: true (disabled for less source maps to work properly)
       src:
         expand: true
         src:    'static/css/main.less'

@@ -1,17 +1,37 @@
 {% include "partials/_search_bar.html" %}
 
 {% raw %}
-<div class="content bib" id="prelude" data-ng-controller="EditCtrl">
-
+<div class="content bib">
+  <header><h1></h1></header>
   <form name="form" id="record" class="form-horizontal">
-
-
-
-<header>Auktoritetspost</header>
-  <section id="instance" name="instance" data-ng-repeat="instance in [record.about]">
-aukt
+  <section>
+    <h3>Auktoritetspost</h3>
+    <div class="cols">
+      <div class="col6" data-ng-init="title = instance.title">
+        <label>
+          <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false"></textarea>
+          <span class="lbl">{{ "Namn" }}</span>
+        </label>
+      <div class="col6 multifield">
+          <label><input data-inplace class="input-medium" type="text"></label>
+          <label><input data-inplace class="input-medium" type="text"></label>
+          <label><input data-inplace class="input-medium" type="text"></label>
+          <label><input data-inplace class="input-medium" type="text"></label>
+          <label><input data-inplace class="input-medium" type="text"></label>
+          <span class="lbl">{{ "Alternativt namn" }}</span>
+        </label>
+      </div>
+      <div class="col6">
+        <label>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false"></textarea>
+          <span class="lbl">{{ "Biografisk uppgift" }}</span>
+        </label>
+      </div>
+      <div class="bottom">
+        <button class="btn disabled">Uppdatera</button>
+        <span class="authorized"><i class="fa fa-check-circle-o"></i> Auktoriserad</span>
+    </div>
   </section>
-  
-  </form>
+</form>
 </div>
 {% endraw %}

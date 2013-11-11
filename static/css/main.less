@@ -21,8 +21,8 @@ body{font-family: 'Open Sans', arial, sans-serif; font-size:14px; line-height: 2
 
 h1,
 h2,
-h3{font-family: 'Droid Serif', georgia, serif;}
-h4{font-size:15px;}
+h3{font-family: 'Droid Serif', georgia, serif; }
+h4{font-size:15px; }
 
 a{color: @green3;}
 a:hover{color:@green4; background-color: @white;}
@@ -41,7 +41,7 @@ a:hover{color:@green4; background-color: @white;}
 #header > .logo > a { display: inline-block; }
 #header > .logo > a > h1 { background: url(/static/img/libris-stack.png) 0 4px no-repeat; width: 202px; height: 52px; display: inline-block; margin: 0; padding: 0 0 0 57px; font: normal 22px/1 "Open Sans", sans-serif; letter-spacing: 1px; color: @dark-grey; }
 #header > .logo a > h1 > strong { display: block; font-size: 32px; line-height: 27px; font-weight: normal; letter-spacing: -1px; text-transform: none; color: @green4; }
-#header .beta { font-size: 18px; color: red; float: right; margin-top: 17px; }
+#header .beta { font-size: 16px; color: @pink; float: right; margin: 17px 16px 0 0; }
 #header .kitin-updated { font-size: 11px; color: @dark-grey; padding: 0px; margin: 0px; } /*beta marker & date updated*/
 
 #header .searchfield{position:absolute;left:384px;top:82px;z-index:2;}
@@ -397,6 +397,10 @@ label select{width:468px;font-size:16px;padding:1px 0 0;height:22px;
 label textarea{line-height:22px;}
 label select{height:26px;}
 
+.multifield{margin-bottom:18px}
+.multifield label{margin-bottom:0}
+.multifield .lbl{padding-left:8px;border-left:2px solid #ddd;margin-top:0;padding-top:2px}
+
 .col6 label textarea,
 .col6 label input,
 .col6 label select{width:450px; padding-right:18px;}
@@ -437,6 +441,8 @@ label select{height:26px;}
 .entity label { border: none; margin-bottom: 0; }
 .entity .addon label,
 .entity .addon input { float: left; width: 74px;padding-right: 18px; }
+
+span.authorized{float:right;color:@green3}
 
 label ::-webkit-input-placeholder { color:#ccc; font-style:italic; font-size:14px; }
 input::-webkit-input-placeholder { color:#ccc; font-style:italic; font-size:14px; }
@@ -480,7 +486,7 @@ label select.ng-invalid {background-color:#ffd4db!important;border-color:#ffd4db
 label textarea{overflow:hidden;resize:none;color:#444;}
 label textarea.title{font-size:22px;height:28px;line-height:26px;font-weight:bold;}
 
-label .lbl{display:block;font-size:12px;color:@green3;margin-top:2px;line-height:16px;}
+.lbl{display:block;font-size:12px;color:@green3;margin-top:2px;line-height:16px;}
 .lbl-suggest{display:block;font-size:12px;color:@green3;margin-top:2px;line-height:16px;float:left;clear:both;}
 
 .holdings .lbl {color:@purple;}
@@ -569,7 +575,6 @@ div.loading > b { display: none; }
 .dropdown-menu li.my_template a { background-color: @white; }
 .dropdown-menu li.my_template a i { padding-right: 6px; }
 .disabled {background-color:#f7f3ee;}
-
 .dropdown .login span.meta { color: #000; }
 .dropdown .login span.username { text-transform:uppercase; }
 
@@ -616,6 +621,9 @@ div.loading > b { display: none; }
 .btn-purple:hover,
 .btn-purple:focus,
 .btn-purple:active{background-color:#573657;}
+
+.btn.disabled,
+.btn.disabled:hover {background-color:#ccc;}
 
 section.submit .btn-link {font-size: 14px; font-weight: bold;}
 
