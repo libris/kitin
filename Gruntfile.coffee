@@ -39,6 +39,8 @@ module.exports = (grunt) ->
 
     less:
       options:
+        sourceMap: true
+        sourceMapFilename: 'static/css/main.css.map'       
         cleancss: true
       src:
         expand: true
