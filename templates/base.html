@@ -67,10 +67,10 @@ Vi rekommenderar uppdaterade versioner av Google Chrome eller Mozilla Firefox f√
 </script>-->
 
     {% if current_user %}
-        <script type="text/javascript">
-        kitin.constant("flaskConstants", {
-        user_sigel: '{{ current_user.sigel }}'
-    });
+    <script type="text/javascript">
+      kitin.run(['userData', function (userData) {
+        userData.userSigel = '{{ current_user.sigel }}';
+      }]);
     </script>
     {% endif %}
 

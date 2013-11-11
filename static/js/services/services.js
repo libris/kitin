@@ -318,7 +318,7 @@ kitin.factory('resources', function($http) {
       url = "/resource/_marcmap?part=bib.fixprops." + modifier;
     else
       url = "/resource/_resourcelist?" + restype + "=all";
-    
+
     var promise = $http.get(url).then(function(response) {
       if (modifier && _.isFunction(modifier)) {
         return modifier(response.data);
@@ -350,15 +350,14 @@ kitin.factory('resources', function($http) {
       encLevel: getResourceList("enums", "encLevel"),
       catForm: getResourceList("enums", "catForm")
     }
-
   };
   return resources;
 });
 
 
-// Gather constants from angular or flask context
-kitin.factory('constants', function(flaskConstants) {
-  var constants = {};
-  angular.extend(constants, flaskConstants);
-  return constants;
+kitin.factory('userData', function() {
+  // Declare default structure. Data is set with a run call in a script block.
+  return {
+    userSigel: null
+  };
 });
