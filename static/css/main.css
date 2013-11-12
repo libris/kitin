@@ -1569,6 +1569,14 @@ body .modal.fade {
   top: 10%;
   transition: none;
 }
+body .modal.wide {
+  width: 900px;
+  margin-left: -450px;
+}
+h4.modal-title {
+  font: bold italic 16px/20px "Droid Serif", georgia, serif;
+  color: #1a8f72;
+}
 /* JSON-LD View */
 #record code {
   color: #999999;

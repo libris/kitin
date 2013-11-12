@@ -94,6 +94,54 @@
       </div>
     </div>
 
+    <script type='text/ng-template' id="modal-edit-auth"> 
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+           <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Auktoritetspost ({{ instance['@type'] }})</h4>
+          </div>
+          <div class="modal-body" data-ng-controller="EditCtrl">
+            <form name="form" id="record" class="form-horizontal">
+              <div id="instance" name="instance" data-ng-repeat="instance in [record.about]">
+                <ng-form name="subform">
+                <div class="cols">
+                  <div class="col6" data-ng-init="title = instance.title">
+                    <label>
+                      <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.controlledLabel">{{ instance.controlledLabel }}</textarea>
+                      <span class="lbl">{{ "Namn" }}</span>
+                    </label>
+                  </div>
+                  <div class="col6 multifield">
+                      <label data-ng-repeat="person in instance.hasVersion"><input data-inplace class="input-medium" type="text" data-ng-model="person.controlledLabel"></label>
+            <!--
+                      <label><input data-inplace class="input-medium" type="text"></label>
+                      <label><input data-inplace class="input-medium" type="text"></label>
+                      <label><input data-inplace class="input-medium" type="text"></label>
+                      <label><input data-inplace class="input-medium" type="text"></label>
+            -->
+                      <span class="lbl">{{ "Alternativt namn" }}</span>
+                    </label>
+                  </div>
+                  <div class="col6">
+                    <label>
+                      <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.note">{{ instance.note }}</textarea>
+                      <span class="lbl">{{ "Biografisk uppgift" }}</span>
+                    </label>
+                  </div>
+                </div>
+                </ng-form>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <span class="authorized" data-ng-show="data['@id']"><i class="fa fa-check-circle-o"></i> Auktoriserad</span>
+            <button type="button" class="btn btn-primary">Uppdatera</button>
+          </div>
+        </div>
+      </div>
+    </script> 
+
     <script type="text/ng-template" id="render-person">
       <div class="entity person" data-ng-init="editable = !(person.controlledLabel || person.givenName)">
         <div class="col3" data-ng-hide="editable">
