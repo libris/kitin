@@ -128,7 +128,7 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
 
 });
 
-kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, records, resources, constants, editUtil) {
+kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, records, resources, userData, editUtil) {
   var recType = $routeParams.recType, recId = $routeParams.recId;
   var path = "/record/" + recType + "/" + recId;
 
@@ -198,13 +198,13 @@ kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, rec
       addRecordViewsToScope(record, $scope);
 
       $scope.etag = data['etag'];
-      $scope.userSigel = constants['user_sigel'];
+      $scope.userSigel = userData.userSigel;
 
       $http.get("/record/" + recType + "/" + recId + "/holdings").success(function(data) {
         var holdingEtags = {};
         var items = editUtil.patchHoldings(data.list);
         $scope.holdings = items;
-        var myHoldings = _.filter(items, function(i) { return i['location'] == constants['user_sigel']; });
+        var myHoldings = _.filter(items, function(i) { return i['location'] == userData.userSigel; });
         if (myHoldings <= 0) {
           $http.get("/holding/bib/new").success(function(data, status, headers) {
             data.location = $scope.userSigel;
