@@ -14,7 +14,7 @@
           <span class="lbl">{{ "Namn" }}</span>
         </label>
       <div class="col6 multifield">
-          <label data-ng-repeat="hasVersion in instance.hasVersion"><input data-inplace class="input-medium" type="text" data-ng-model="instance.hasVersion.controlledLabel"></label>
+          <label data-ng-repeat="person in instance.hasVersion"><input data-inplace class="input-medium" type="text" data-ng-model="person.controlledLabel"></label>
 <!--
           <label><input data-inplace class="input-medium" type="text"></label>
           <label><input data-inplace class="input-medium" type="text"></label>
@@ -32,7 +32,7 @@
       </div>
       <div class="bottom">
         <button class="btn disabled">Uppdatera</button>
-        <span class="authorized" data-ng-show="data['@id]"><i class="fa fa-check-circle-o"></i> Auktoriserad</span>
+        <span class="authorized" data-ng-show="data['@id']"><i class="fa fa-check-circle-o"></i> Auktoriserad</span>
     </div>
     </ng-form>
   </section>
