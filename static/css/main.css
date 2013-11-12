@@ -1565,6 +1565,10 @@ a.beta-blocker {
   color: #191919;
   text-transform: none;
 }
+body .modal.fade {
+  top: 10%;
+  transition: none;
+}
 /* JSON-LD View */
 #record code {
   color: #999999;
