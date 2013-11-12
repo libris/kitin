@@ -1,36 +1,40 @@
 {% include "partials/_search_bar.html" %}
 
 {% raw %}
-<div class="content bib">
+<div class="content auth" data-ng-controller="EditCtrl">
   <header><h1></h1></header>
   <form name="form" id="record" class="form-horizontal">
-  <section>
-    <h3>Auktoritetspost</h3>
+  <section id="instance" name="instance" data-ng-repeat="instance in [record.about]">
+    <ng-form name="subform">
+    <h3>Auktoritetspost ({{ instance['@type'] }})</h3>
     <div class="cols">
       <div class="col6" data-ng-init="title = instance.title">
         <label>
-          <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false"></textarea>
+          <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.controlledLabel">{{ instance.controlledLabel }}</textarea>
           <span class="lbl">{{ "Namn" }}</span>
         </label>
       <div class="col6 multifield">
+          <label data-ng-repeat="hasVersion in instance.hasVersion"><input data-inplace class="input-medium" type="text" data-ng-model="instance.hasVersion.controlledLabel"></label>
+<!--
           <label><input data-inplace class="input-medium" type="text"></label>
           <label><input data-inplace class="input-medium" type="text"></label>
           <label><input data-inplace class="input-medium" type="text"></label>
           <label><input data-inplace class="input-medium" type="text"></label>
-          <label><input data-inplace class="input-medium" type="text"></label>
+-->
           <span class="lbl">{{ "Alternativt namn" }}</span>
         </label>
       </div>
       <div class="col6">
         <label>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false"></textarea>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.note">{{ instance.note }}</textarea>
           <span class="lbl">{{ "Biografisk uppgift" }}</span>
         </label>
       </div>
       <div class="bottom">
         <button class="btn disabled">Uppdatera</button>
-        <span class="authorized"><i class="fa fa-check-circle-o"></i> Auktoriserad</span>
+        <span class="authorized" data-ng-show="data['@id]"><i class="fa fa-check-circle-o"></i> Auktoriserad</span>
     </div>
+    </ng-form>
   </section>
 </form>
 </div>
