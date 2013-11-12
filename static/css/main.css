@@ -818,6 +818,7 @@ input[type="color"],
   font-size: 16px;
   line-height: 22px;
   color: #444;
+  background: #eee;
   vertical-align: middle;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -868,7 +869,7 @@ label select {
   font-size: 16px;
   padding: 1px 0 0;
   height: 22px;
-  -webkit-transition: background-color ease-out 0.02s;
+  -webkit-transition: background-color 0.02s ease-out;
   margin-left: -2px;
   padding-left: 2px;
 }
@@ -1571,8 +1572,8 @@ body .modal.fade {
   transition: none;
 }
 body .modal.wide {
-  width: 900px;
-  margin-left: -450px;
+  width: 1024px;
+  margin-left: -512px;
 }
 h4.modal-title {
   font: bold italic 16px/20px "Droid Serif", georgia, serif;

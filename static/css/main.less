@@ -347,6 +347,7 @@ input[type="color"],
   font-size: 16px;
   line-height: 22px;
   color: #444;
+  background:#eee;
   vertical-align: middle;
   -webkit-border-radius: 0;
      -moz-border-radius: 0;
@@ -392,7 +393,7 @@ label{margin-bottom:18px;border-left:2px solid #ddd;padding-left:8px;}
 label textarea,
 label input,
 label select{width:468px;font-size:16px;padding:1px 0 0;height:22px;
-  -webkit-transition:background-color ease-out 0.02s; margin-left:-2px; padding-left:2px;
+  -webkit-transition:background-color 0.02s ease-out; margin-left:-2px; padding-left:2px;
 }
 
 label textarea{line-height:22px;}
@@ -741,7 +742,7 @@ a.beta-blocker {text-decoration: none; cursor:default;} /*block unfinished eleme
 
 /* Popover */
 
-.popover{
+.popover { 
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   border-radius: 2px;
@@ -751,19 +752,19 @@ a.beta-blocker {text-decoration: none; cursor:default;} /*block unfinished eleme
   z-index: 1000;
 }
 
-.popover h3{font:bold 15px/18px "Open Sans", sans-serif;border:none;background:none;padding-bottom:0;}
+.popover h3 {font:bold 15px/18px "Open Sans", sans-serif; border:none; background:none;padding-bottom:0;}
 .popover .popover-content{padding-top:0;font-size:12px;color:#666;}
 
 .modal {color:@very-dark-grey;text-transform: none;}
 
 body .modal.fade{top:10%; transition:none}
-body .modal.wide{width:900px;margin-left:-450px}
+body .modal.wide{width:1024px;margin-left:-512px}
 
-h4.modal-title{font:bold italic 16px/20px "Droid Serif", georgia,serif; color:@green3; }
+h4.modal-title{font: bold italic 16px/20px "Droid Serif", georgia,serif; color:@green3; }
 
 /* JSON-LD View */
 
-#record code {color:@dark-grey;}
+#record code {color: @dark-grey;}
 
 .collapsed > code {
   background-color: @grey2;

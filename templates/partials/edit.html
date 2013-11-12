@@ -104,33 +104,60 @@
           <div class="modal-body" data-ng-controller="EditCtrl">
             <form name="form" id="record" class="form-horizontal">
               <div id="instance" name="instance" data-ng-repeat="instance in [record.about]">
-                <ng-form name="subform">
-                <div class="cols">
-                  <div class="col6" data-ng-init="title = instance.title">
-                    <label>
-                      <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.controlledLabel">{{ instance.controlledLabel }}</textarea>
-                      <span class="lbl">{{ "Namn" }}</span>
-                    </label>
-                  </div>
-                  <div class="col6 multifield">
-                      <label data-ng-repeat="person in instance.hasVersion"><input data-inplace class="input-medium" type="text" data-ng-model="person.controlledLabel"></label>
-            <!--
-                      <label><input data-inplace class="input-medium" type="text"></label>
-                      <label><input data-inplace class="input-medium" type="text"></label>
-                      <label><input data-inplace class="input-medium" type="text"></label>
-                      <label><input data-inplace class="input-medium" type="text"></label>
-            -->
-                      <span class="lbl">{{ "Alternativt namn" }}</span>
-                    </label>
-                  </div>
-                  <div class="col6">
-                    <label>
-                      <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.note">{{ instance.note }}</textarea>
-                      <span class="lbl">{{ "Biografisk uppgift" }}</span>
-                    </label>
-                  </div>
-                </div>
-                </ng-form>
+                  <ng-form name="subform">
+                    <div class="cols">
+                      <div class="col4" data-ng-init="title = instance.title">
+                        <label>
+                          <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.familyName">{{ instance.familyName }}</textarea>
+                          <span class="lbl">{{ "Efternamn" }}</span>
+                        </label>
+                      </div>
+                      <div class="col4" data-ng-init="title = instance.title">
+                        <label>
+                          <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.givenName">{{ instance.givenName }}</textarea>
+                          <span class="lbl">{{ "Fornamn" }}</span>
+                        </label>
+                      </div>
+                      <div class="col2" data-ng-init="title = instance.title">
+                        <label>
+                          <input data-inplace type="text" class="input-mini" data-ng-model="instance.birthYear"/>
+                          <span class="lbl">{{ "Fodelsear" }}</span>
+                        </label>
+                      </div>
+                       <div class="col2" data-ng-init="title = instance.title">     
+                        <label>
+                          <input data-inplace type="text" class="input-mini" data-ng-model="instance.deathYear"/>
+                          <span class="lbl">{{ "Dodsar" }}</span>
+                        </label>
+                      </div> 
+                    </div>
+                    <div class="cols">  
+                      <div class="col6 multifield">
+                          <label data-ng-repeat="person in instance.hasVersion"><input data-inplace class="input-medium" type="text" data-ng-model="person.controlledLabel"></label>
+                <!--
+                          <label><input data-inplace class="input-medium" type="text"></label>
+                          <label><input data-inplace class="input-medium" type="text"></label>
+                          <label><input data-inplace class="input-medium" type="text"></label>
+                          <label><input data-inplace class="input-medium" type="text"></label>
+                -->
+                          <span class="lbl">{{ "Alternativt namn" }}</span>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="cols">
+                      <div class="col6">
+                        <label>
+                          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.note">{{ instance.note }}</textarea>
+                          <span class="lbl">{{ "Biografisk uppgift" }}</span>
+                        </label>
+                      </div>
+                      <div class="col6 multifield">
+                          <label data-ng-repeat="source in instance.hasForm"><input data-inplace class="input-medium" type="text" data-ng-model="source.label"></label>
+                          <span class="lbl">{{ "Kalla" }}</span>
+
+                      </div>
+                    </div>
+                  </ng-form>
               </div>
             </form>
           </div>
