@@ -1,12 +1,10 @@
-
-
 {% raw %}
 <div class="content auth" data-ng-controller="EditCtrl">
   <header><h1></h1></header>
   <form name="form" id="record" class="form-horizontal">
   <section id="instance" name="instance" data-ng-repeat="instance in [record.about]">
     <ng-form name="subform">
-    <h3>Auktoritetspost ({{ instance['@type'] }})</h3>
+    <h3>Auktoriserad {{ instance['@type'] }}</h3>
     <div class="cols">
       <div class="col4" data-ng-init="title = instance.title">
         <label>
@@ -36,12 +34,6 @@
       <div class="cols">    
       <div class="col6 multifield">
           <label data-ng-repeat="person in instance.hasVersion"><input data-inplace class="input-medium" type="text" data-ng-model="person.controlledLabel"></label>
-<!--
-          <label><input data-inplace class="input-medium" type="text"></label>
-          <label><input data-inplace class="input-medium" type="text"></label>
-          <label><input data-inplace class="input-medium" type="text"></label>
-          <label><input data-inplace class="input-medium" type="text"></label>
--->
           <span class="lbl">{{ "Alternativt namn" }}</span>
         </label>
       </div>
