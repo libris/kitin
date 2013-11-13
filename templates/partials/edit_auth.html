@@ -6,25 +6,25 @@
     <ng-form name="subform">
     <h3>Auktoriserad {{ instance['@type'] }}</h3>
     <div class="cols">
-      <div class="col4" data-ng-init="title = instance.title">
+      <div class="col4">
         <label>
           <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.familyName">{{ instance.familyName }}</textarea>
           <span class="lbl">{{ "Efternamn" }}</span>
         </label>
       </div>
-      <div class="col4" data-ng-init="title = instance.title">
+      <div class="col4">
         <label>
           <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.givenName">{{ instance.givenName }}</textarea>
           <span class="lbl">{{ "Fornamn" }}</span>
         </label>
       </div>
-      <div class="col2" data-ng-init="title = instance.title">
+      <div class="col2">
         <label>
           <input data-inplace type="text" class="input-mini" data-ng-model="instance.birthYear"/>
           <span class="lbl">{{ "Fodelsear" }}</span>
         </label>
       </div>
-       <div class="col2" data-ng-init="title = instance.title">     
+       <div class="col2">     
         <label>
           <input data-inplace type="text" class="input-mini" data-ng-model="instance.deathYear"/>
           <span class="lbl">{{ "Dodsar" }}</span>

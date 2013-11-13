@@ -897,6 +897,12 @@ label select {
   width: 450px;
   padding-right: 18px;
 }
+.col4 label textarea,
+.col4 label input,
+.col4 label select {
+  width: 282px;
+  padding-right: 18px;
+}
 .col3 label textarea,
 .col3 label input,
 .col3 label select {
