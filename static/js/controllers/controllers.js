@@ -119,6 +119,8 @@ kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, rec
   var isNew = (recId === 'new');
   var newType = $routeParams.type;
 
+  $scope.recType = recType;
+
   document.body.className = isNew? 'edit new' : 'edit';
 
   // Fetch resources
