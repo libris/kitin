@@ -128,8 +128,8 @@ kitin.directive('kitinAutoselect', function(resources) {
 kitin.directive('kitinAutocomplete', ['autoComplete', function(autocompleteService) {
   return {
     restrict: 'A',
-    link: function(scope, elem, attrs) {
 
+    link: function(scope, elem, attrs) {
       var conf = autocompleteService[attrs.kitinAutocomplete];
       var filterParams = attrs.kitinFilter;
       var addTo = attrs.kitinAddTo;
@@ -196,11 +196,18 @@ kitin.directive('kitinAutocomplete', ['autoComplete', function(autocompleteServi
         },
 
         onNoMatch: function() {
+          var param = scope[conf.scopeObjectKey];
           if (conf.scopeObjectKey)
             delete scope[conf.scopeObjectKey]['@id'];
-          selected = false;
+          selected = true;
           isAuthorized = false;
-          toggleRelatedFieldsEditable(false);
+          toggleRelatedFieldsEditable(true);
+
+          // TODO: This works only for creator atm
+          scope.subj[attrs.kitinRel].familyName = param.familyName;
+          scope.editable = true;
+
+          scope.$apply();
         },
 
         onItemSelect: function(item, completer) {
@@ -214,12 +221,17 @@ kitin.directive('kitinAutocomplete', ['autoComplete', function(autocompleteServi
             conf.objectKeys.forEach(function (key) {
               obj[key] = item.data[key];
             });
+
+            // TODO: This works only for creator atm 
+            scope.subj[attrs.kitinRel] = obj;
+
           } else if (addTo) {
             var owner = scope.$apply(addTo);
             owner.addObject(item.data);
           }
+
           scope.triggerModified();
-          scope.$apply();
+          scope.$apply(); 
         }
       });
     }

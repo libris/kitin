@@ -82,19 +82,79 @@
         </script>
       </div>
       <div class="col7">
-        <div data-ng-show="work.creator"
-             onload="subj = work; rel = 'creator'; person = work.creator"
-             data-ng-include="'render-person'"></div>
-        <button class="add-thing btn-link" data-ng-click="newObject(work, 'creator', 'Person')">{{ 'Huvuduppslag' }}
-          <i data-ng-hide="work.creator" class="fa fa-plus-circle"></i></button>
+        <!-- START: Information -->
+        <div ng-switch="!!work.creator.familyName">
+          <div data-ng-include="'render-search-box'" onload="subj = work; rel = 'creator'; person = work.creator" ng-switch-when="false"></div>
+          <div data-ng-include="'render-person'" onload="subj = work; rel = 'creator'; person = work.creator" ng-switch-when="true"></div>
+        </div>
+          
         <hr />
         <div data-ng-repeat="person in work.contributorList"
-             onload="subj = work; rel = 'contributorList'" data-ng-include="'render-person'"></div>
-        <button class="add-thing btn-link" data-ng-click="addObject(work, 'contributorList', 'Person')">{{ 'Biuppslag' }} <i class="fa fa-plus-circle"></i></button>
+             onload="subj = work; rel = 'contributorList'" data-ng-include="'render-work-contrib'"></div>
+        <button class="add-thing btn-link" data-ng-click="addObject(work, 'contributorList', 'Person')">{{ 'Biuppslag' }} <i class="icon icon-plus-sign"></i></button> 
+
       </div>
+      <!--END: Information -->
     </div>
 
+    <script type="text/ng-template" id="render-search-box" data-ng-init="editable = !(person.controlledLabel || person.givenName)">
+      <label data-ng-hide="editable">
+        <input 
+          class="input-large"
+          type="text"
+          placeholder="Person"
+          data-inplace
+          data-ng-model="person.familyName" 
+          data-kitin-autocomplete="person"
+          data-kitin-owner="subj"
+          data-kitin-rel={{rel}}
+          data-kitin-type="Person" />
+      </label>
+      <button class="add-thing btn-link" data-ng-click="editable=!editable; newObject(subj, 'creator', 'Person')">{{ 'Upphov - person' }}
+            <i data-ng-hide="person.creator" class="fa fa-plus-circle" ></i></button>
+    </script>
+
     <script type="text/ng-template" id="render-person">
+      <div class="entity person" data-ng-init="editable = (person.controlledLabel || person.givenName)">
+        <div class="col3" data-ng-hide="editable">
+            <label data-ng-click="editable=!editable">
+              <span onload="subj = subj; rel = 'creator'; person = work.creator;" data-ng-include="'render-person-name'"></span> &nbsp;</label>
+        </div>
+        <div class="addon" data-ng-show="editable">
+          <label>
+            <input data-inplace class="input-mini" type="text" placeholder="Förnamn"
+                   data-ng-model="person.givenName" data-kitin-autocomplete="person" />
+            <span class="lbl">{{ "Förnamn" }}</span>
+          </label>
+          <label>
+            <input data-inplace class="input-mini" type="text" placeholder="Släktnamn"
+                   data-ng-model="person.familyName" data-kitin-autocomplete="person" />
+            <span class="lbl">{{ "Släktnamn" }}</span>
+          </label>
+        </div>
+        <div class="addon" data-ng-show="editable">
+          <label>
+            <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ" data-ng-model="person.birthYear" />
+            <span class="lbl">{{ "Född" }}</span>
+          </label>
+          <label>
+            <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ" data-ng-model="person.deathYear" />
+            <span class="lbl">{{ "Död" }}</span>
+          </label>
+        </div>
+        <div class="addon">
+          <label>
+            <span data-ng-repeat="role in personRoleMap[person['@id']]"><span data-ng-hide="$first">, </span>{{ role.label_sv }}</span>
+          </label>
+          <label data-ng-hide="editable">
+            <button class="btn-link on-hover" data-ng-click="removeObject(work, rel, $index)"><i class="fa fa-times"></i></button>
+          </label>
+          <button class="btn-link" data-ng-show="editable" data-ng-click="editable=false"><i class="fa fa-check"></i></button>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/ng-template" id="render-work-contrib">
       <div class="entity person" data-ng-init="editable = !(person.controlledLabel || person.givenName)">
         <div class="col3" data-ng-hide="editable">
           <label data-ng-click="editable=!editable">
