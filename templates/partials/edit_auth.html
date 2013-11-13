@@ -44,18 +44,22 @@
             <label><input type="text" placeholder="Lägg till alternativ namnform"/></label>
  
           <label data-ng-repeat="person in instance.hasVersion"><input data-inplace class="input-medium" type="text" data-ng-model="person.controlledLabel"></label>
-          <span class="lbl">{{ "Se även" }}</span>
+          <span class="lbl">{{ "Används för" }}</span>
         </label>
       </div>
       <div class="col6">
+              <label><textarea data-inplace data-ui-jq="autosize" placeholder="Sarskiljande tillägg"></textarea><span class="lbl">{{ "Särskiljande tillägg" }}</span></label> 
+
+           <label><input type="text" placeholder="Nationalitet"/><span class="lbl">{{ "Nationalitet" }}</span></label>
+
+
            <label data-ng-repeat="subject in instance.subject"><input class="input-mini" type="text" data-ng-model="subject.notation"/>
            <span class="lbl">Dewey <a href="{{ subject['@id'] }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
            </label>
           <label data-ng-repeat="sameAs in instance.sameAs"><a href="{{ sameAs['@id'] }}" target="_blank">{{ sameAs['@id'] }}</a>
            </label> 
       
-           <label><input type="text" placeholder="Nationalitet"/><span class="lbl">{{ "Nationalitet" }}</span></label>
-              <label><textarea data-inplace data-ui-jq="autosize" placeholder="Sarskiljande tillägg"></textarea><span class="lbl">{{ "Särskiljande tillägg" }}</span></label> 
+
            <label><textarea data-inplace data-ui-jq="autosize" placeholder="Allmän anmärkning"></textarea><span class="lbl">{{ "Allmän anmärkning" }}</span></label>           
       </div>
       </div>

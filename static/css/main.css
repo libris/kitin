@@ -973,8 +973,10 @@ label select {
   width: 74px;
   padding-right: 18px;
 }
+h3 .type {
+  text-transform: lowercase;
+}
 span.authorized {
-  float: right;
   color: #1a8f72;
 }
 label ::-webkit-input-placeholder {
