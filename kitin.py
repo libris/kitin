@@ -98,25 +98,23 @@ def logout():
 def index():
     return render_template('index.html', user=current_user, partials = {"/partials/index" : "partials/index.html"})
 
-@app.route("/search")
+@app.route("/search/<record_type>")
 @login_required
-def search():
-    #if 'q' in request.args:
-    #    resp = do_search()
+def search(record_type):
     return render_template('index.html', partials = {"/partials/search" : "partials/search.html"})
 
-@app.route("/search.json")
-def search_json():
-    resp = do_search()
+@app.route("/search/<record_type>.json")
+def search_json(record_type):
+    resp = do_search("%s/_search" % record_type)
     return raw_json_response(resp.text)
 
-def do_search():
+def do_search(service_path):
     q = request.args.get('q')
     f = request.args.get('f')
     freq = "&f=%s" % f.strip() if f else ''
     b = request.args.get('b', '')
     boost = ("&boost=%s" % b) if b else ''
-    search_url = "%s/bib/_search?q=%s%s%s" % (app.config['WHELK_HOST'], q, freq, boost)
+    search_url = "%s/%s?q=%s%s%s" % (app.config['WHELK_HOST'], service_path, q, freq, boost)
     return requests.get(search_url, headers=extract_x_forwarded_for_header(request))
 
 @app.route('/record/<record_type>/<record_id>/holdings')

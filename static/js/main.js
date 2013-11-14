@@ -12,7 +12,7 @@ kitin.config(
       $routeProvider
         .when('/',
               {templateUrl: '/partials/index'})
-        .when('/search',
+        .when('/search/:recType',
               {templateUrl: '/partials/search'})
         // .when('/edit/auth/:recId',
         //       {templateUrl: '/partials/edit_auth'}) 

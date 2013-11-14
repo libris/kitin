@@ -36,49 +36,61 @@
       </section>
     </div>
     <div class="col9">
-      <section data-ng-repeat="record in result.list" class="result record {{record.identifier}}">
-        <a class="bib-url" href="/edit{{ record.identifier }}" >
-        <div class="nest-cols">
-          <div class="col5">
-            <label class="title" title="{{ record.data.about.title.titleValue }} {{ record.data.about.title.subtitle }}">
-                {{ record.data.about.title.titleValue | chop }}
-              <span class="title title-remainder">{{ record.data.about.title.subtitle }} {{ record.data.about.responsibilityStatement }}</span>
-            </label>
-<!--
-          <label title="{{ record.data.about.responsibilityStatement }}">
-          <span>{{ record.data.about.responsibilityStatement }}</span>
-          </label>
--->
-            <label title="Upphovsman"
-                   data-ng-init="work = record.data.about.instanceOf; person = firstPerson(work)"
-                   data-ng-include="'render-person-name'"></label>
-          </div>
-          <div class="col4">
-            <label title="Utgivningsår" data-ng-repeat="publication in record.data.about.publication | limitTo:1"
-                data-ng-show="publication.providerDate">
-              {{ publication.providerDate }}
-              <!-- <span class="lbl">Utgivningsår</span> -->
-            </label>
-            <label title="{{ identifier.identifierScheme }}" data-ng-repeat="identifier in record.data.about.identifier | limitTo:1">
-              {{ identifier.identifierValue }}
-              <!-- <span class="lbl">{{ identifier.identifierScheme }}</span> -->
+      <section
+                data-ng-repeat="record in result.list"
+                class="result record {{record.identifier}}">
+        <a class="bib-url" href="/edit{{ record.identifier }}" data-ng-switch="recType">
+          <div data-ng-switch-when="auth">
+            <label class="title">
+              {{ record.data.about.controlledLabel }}
+              {{ record.data.about.prefLabel }}
+              {{ record.data.about.name }}
+              {{ record.data.about.uniformTitle }}
+              {{ record.data.about.label }}
             </label>
           </div>
-        </div>
-        <!--excerpt hidden until implemented
-        <div class="excerpt">
-          <label>
-            a <strong class="highlight">lorem</strong> Extreme (ipsum dore...
-            <span class="lbl">Utdrag ur: Innehållsförteckning</span>
-          </label>
-        </div>
-        -->
-        </a>
-        <div class="footer">
-            <span data-ng-show="typeDefs[record.data.about['@type']]">{{ typeDefs[record.data.about['@type']].label_sv }}</span>
-            <span data-ng-show="enums.bibLevel[record.data.bibLevel]">{{ enums.bibLevel[record.data.bibLevel].label_sv }}</span>
-            <span data-ng-show="enums.encLevel[record.data.encLevel]">{{ enums.encLevel[record.data.encLevel].label_sv }}</span>
-        </div>
+          <div data-ng-switch-when="bib" class="nest-cols">
+            <div class="col5">
+              <label class="title" title="{{ record.data.about.title.titleValue }} {{ record.data.about.title.subtitle }}">
+                  {{ record.data.about.title.titleValue | chop }}
+                <span class="title title-remainder">{{ record.data.about.title.subtitle }} {{ record.data.about.responsibilityStatement }}</span>
+              </label>
+  <!--
+            <label title="{{ record.data.about.responsibilityStatement }}">
+            <span>{{ record.data.about.responsibilityStatement }}</span>
+            </label>
+  -->
+              <label title="Upphovsman"
+                    data-ng-init="work = record.data.about.instanceOf; person = firstPerson(work)"
+                    data-ng-include="'render-person-name'"></label>
+            </div>
+            <div class="col4">
+              <label title="Utgivningsår" data-ng-repeat="publication in record.data.about.publication | limitTo:1"
+                  data-ng-show="publication.providerDate">
+                {{ publication.providerDate }}
+                <!-- <span class="lbl">Utgivningsår</span> -->
+              </label>
+              <label title="{{ identifier.identifierScheme }}" data-ng-repeat="identifier in record.data.about.identifier | limitTo:1">
+                {{ identifier.identifierValue }}
+                <!-- <span class="lbl">{{ identifier.identifierScheme }}</span> -->
+              </label>
+            </div>
+          </div>
+          <!--excerpt hidden until implemented
+          <div class="excerpt">
+            <label>
+              a <strong class="highlight">lorem</strong> Extreme (ipsum dore...
+              <span class="lbl">Utdrag ur: Innehållsförteckning</span>
+            </label>
+          </div>
+          -->
+          </ng:switch>
+          </a>
+          <div class="footer">
+              <span data-ng-show="typeDefs[record.data.about['@type']]">{{ typeDefs[record.data.about['@type']].label_sv }}</span>
+              <span data-ng-show="enums.bibLevel[record.data.bibLevel]">{{ enums.bibLevel[record.data.bibLevel].label_sv }}</span>
+              <span data-ng-show="enums.encLevel[record.data.encLevel]">{{ enums.encLevel[record.data.encLevel].label_sv }}</span>
+          </div>
       </section>
     </div>
   </div>
