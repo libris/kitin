@@ -31,10 +31,8 @@
     </div>
     
   </header>
-  
-    {% endraw %}
-      {% include "partials/edit_auth.html" %}
-    {% raw %}
+  <div ng-include="'/partials/edit_auth'"></div>
+
 </div>
     </span>
     <span ng-switch-when="bib">
@@ -52,10 +50,10 @@
       <a href="#" class="beta-blocker">MARC</a>
     </div>
   </header>
-    {% endraw %}
-      {% include "partials/edit_bib.html" %}
-    {% raw %}
+  
+  <div ng-include="'/partials/edit_bib'"></div>
 </div>
+  <div ng-include="'/partials/edit_hld'"></div>
     </span>
   </span>
 </div>

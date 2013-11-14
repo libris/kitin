@@ -3,7 +3,7 @@
   <form name="form" id="record" class="form-horizontal">
   <section id="instance" name="instance" data-ng-repeat="instance in [record.about]">
     <ng-form name="subform">
-    <h3>Auktoriserad <span class="type">{{ instance['@type'] }}</span></h3>
+    <h2>Auktoriserad <span class="type">{{ instance['@type'] }}</span><i></i></h2><span class="authorized fa fa-check-circle-o" data-ng-show="instance['@id']" title="{{ instance['@id'] }}"></span>
     <div class="cols">
       <div class="col4">
         <label>
@@ -40,7 +40,6 @@
         
       </div>
       <div ng-show="instance.hasPersona" class="multifield">
-            <label><input type="text" placeholder=""/></label>
           <label data-ng-repeat="persona in instance.hasPersona"><input data-inplace class="input-medium" type="text" data-ng-model="persona.controlledLabel"></label>
           <span class="lbl">{{ "Används för" }}</span>
         </label>
@@ -60,10 +59,6 @@
       
 
            <label><textarea data-inplace data-ui-jq="autosize" placeholder="Allmän anmärkning"></textarea><span class="lbl">{{ "Allmän anmärkning" }}</span></label>           
-        <label>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.note">{{ record.note }}</textarea>
-          <span class="lbl">{{ "Notering" }}</span>
-        </label>
       </div>
       </div>
       <div class="cols">
@@ -72,20 +67,23 @@
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.note">{{ instance.note }}</textarea>
           <span class="lbl">{{ "Biografisk uppgift" }}</span>
         </label>
+        <label>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.note">{{ record.note }}</textarea>
+          <span class="lbl">{{ "Notering" }}</span>
+        </label>        
       </div>
-      <div class="col6 multifield">
+      <div class="col6">
+        <div data-ng-show="record.source" class="multifield">
           <label data-ng-repeat="source in record.source"><input data-inplace class="input-medium" type="text" data-ng-model="source.label">{{ source.comment }}</label>
           <span class="lbl">{{ "Källa" }}</span>
-
+        </div>
       </div>
       </div>
       <div class="bottom">
         <button class="btn disabled">Uppdatera</button>
-<!--         <span class="authorized" data-ng-show="instance['@id']" title="{{ instance['@id'] }}"><i class="fa fa-check-circle-o"></i> Auktoriserad</span> -->
     </div>
     </ng-form>
   </section>
 
 </form>
-<!-- </div> -->
 {% endraw %}
