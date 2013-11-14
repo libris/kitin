@@ -12,13 +12,17 @@
     "jKey": "OscarGodson/jKey#d2b426b20a6f786b8bc2b0842e2b394dd0744a29",
     "dyve-jquery-autocomplete": "dyve/jquery-autocomplete#df032d1f3ec734c1415c09825578df336bec8272",
     "jquery-autosize": "~1.17.8",
-    "select2": "~3.4.3"
+    "select2": "~3.4.3",
+    "angular-route": "~1.2.0"
   },
   "exportsOverride": {
     "font-awesome": {
-      "css": ["css/*.css", "!css/*.min.css"],
+      "css": [
+        "css/*.css",
+        "!css/*.min.css"
+      ],
       "fonts": "fonts/*.*",
-      "less":  "less/*.*"
+      "less": "less/*.*"
     },
     "dyve-jquery-autocomplete": {
       "src/..": "src/jquery.autocomplete.js",
@@ -29,8 +33,14 @@
       "js/..": "jquery.jkey.js"
     },
     "angular-ui": {
-      "js/..": ["build/*.js", "!build/*.min.js"],
-      "css/..": ["build/*.css", "!build/*.min.css"]
+      "js/..": [
+        "build/*.js",
+        "!build/*.min.js"
+      ],
+      "css/..": [
+        "build/*.css",
+        "!build/*.min.css"
+      ]
     }
   }
 }
