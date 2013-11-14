@@ -31,15 +31,23 @@
       </div>
       
       <div class="cols">    
-      <div class="col6 multifield">
+      <div class="col6">
+      <div ng-show="instance.sameAs"  class="multifield">
             <label><input type="text" placeholder="Lägg till alternativ namnform"/></label>
- 
-          <label data-ng-repeat="person in instance.hasVersion"><input data-inplace class="input-medium" type="text" data-ng-model="person.controlledLabel"></label>
+          <label data-ng-repeat="person in instance.sameAs"><input data-inplace class="input-medium" type="text" data-ng-model="person.controlledLabel"></label>
+          <span class="lbl">{{ "Används för" }}</span>
+        </label>
+        
+      </div>
+      <div ng-show="instance.hasPersona" class="multifield">
+            <label><input type="text" placeholder=""/></label>
+          <label data-ng-repeat="persona in instance.hasPersona"><input data-inplace class="input-medium" type="text" data-ng-model="persona.controlledLabel"></label>
           <span class="lbl">{{ "Används för" }}</span>
         </label>
       </div>
+      </div>
       <div class="col6">
-              <label><textarea data-inplace data-ui-jq="autosize" placeholder="Sarskiljande tillägg"></textarea><span class="lbl">{{ "Särskiljande tillägg" }}</span></label> 
+              <label><textarea data-inplace data-ui-jq="autosize" placeholder="Särskiljande tillägg"></textarea><span class="lbl">{{ "Särskiljande tillägg" }}</span></label> 
 
            <label><input type="text" placeholder="Nationalitet"/><span class="lbl">{{ "Nationalitet" }}</span></label>
 
@@ -52,6 +60,10 @@
       
 
            <label><textarea data-inplace data-ui-jq="autosize" placeholder="Allmän anmärkning"></textarea><span class="lbl">{{ "Allmän anmärkning" }}</span></label>           
+        <label>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.note">{{ record.note }}</textarea>
+          <span class="lbl">{{ "Notering" }}</span>
+        </label>
       </div>
       </div>
       <div class="cols">
@@ -62,7 +74,7 @@
         </label>
       </div>
       <div class="col6 multifield">
-          <label data-ng-repeat="source in instance.hasForm"><input data-inplace class="input-medium" type="text" data-ng-model="source.label">{{ source.comment }}</label>
+          <label data-ng-repeat="source in record.source"><input data-inplace class="input-medium" type="text" data-ng-model="source.label">{{ source.comment }}</label>
           <span class="lbl">{{ "Källa" }}</span>
 
       </div>
