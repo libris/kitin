@@ -1,36 +1,4 @@
 {% raw %}
-
-<div id="confirmDeleteDraftDialog" data-ng-show="confirmDeleteDraft" class="popover show" data-ng-controller="EditCtrl">
-  <div class="popover-inner">
-    <button class="close" data-ng-click="confirmDeleteDraft.abort()">&times;</button></h3>
-</div>
-
-<div class="popover-content" data-ng-controller="EditCtrl">
-  <h4>Vill du verkligen ta bort utkastet?</h4>
-  <button class="btn btn-success" data-ng-click="confirmDeleteDraft.execute()">Ja</button></h3>
-  <button class="btn btn-warning" data-ng-click="confirmDeleteDraft.abort()">Nej</button></h3>
-  </div>
-</div>
-
-<div class="content bib" id="prelude" data-ng-controller="EditCtrl" >
-
-  <form name="form" id="record" class="form-horizontal">
-  <div id="grid"></div>
-    <!--<div data-ng-view></div>-->
-  <header>
-    <h1>Bibliografisk post</h1>
-    <div class="levels">
-      <span>{{ enums.bibLevel[record.bibLevel].label_sv }}</span>
-      <span>{{ enums.encLevel[record.encLevel].label_sv }}</span>
-      <span>{{ enums.catForm[record.catForm].label_sv }}</span>
-    </div>
-    <div class="modes">
-      <a href="#" class="active">LIBRIS</a>
-      <a href="/jsonld{{ record['@id'] }}">JSON-LD</a>
-      <a href="#" class="beta-blocker">MARC</a>
-    </div>
-  </header>
-
   <section id="instance" name="instance" data-ng-repeat="instance in [record.about]">
     <ng-form name="subform">
     <h2 data-ng-click="cycleType($event, instance)"> <span>{{ getTypeDef(instance).label_sv }}</span><i></i></h2>
@@ -101,6 +69,10 @@
             <h4 class="modal-title">Auktoritetspost ({{ instance['@type'] }})</h4>
           </div>
           <div class="modal-body" data-ng-controller="EditCtrl">
+              {% endraw %}
+                {% include "partials/edit_auth.html" %}
+              {% raw %}
+<!--
             <form name="form" id="record" class="form-horizontal">
               <div id="instance" name="instance" data-ng-repeat="instance in [record.about]">
                   <ng-form name="subform">
@@ -133,12 +105,6 @@
                     <div class="cols">  
                       <div class="col6 multifield">
                           <label data-ng-repeat="person in instance.hasVersion"><input data-inplace class="input-medium" type="text" data-ng-model="person.controlledLabel"></label>
-                <!--
-                          <label><input data-inplace class="input-medium" type="text"></label>
-                          <label><input data-inplace class="input-medium" type="text"></label>
-                          <label><input data-inplace class="input-medium" type="text"></label>
-                          <label><input data-inplace class="input-medium" type="text"></label>
-                -->
                           <span class="lbl">{{ "Alternativt namn" }}</span>
                         </label>
                       </div>
@@ -166,6 +132,7 @@
           </div>
         </div>
       </div>
+-->
     </script> 
 
     <script type="text/ng-template" id="render-person">
@@ -196,7 +163,7 @@
             <span class="lbl">{{ "Död" }}</span>
           </label>
           <div data-ng-controller="ModalCtrl">
-            <button class="btn btn-primary" data-ng-click="open()">Open Dialog</button>
+            <button class="btn btn-primary" data-ng-click="open()">Aukt.</button>
           </div>
         </div>
         <div class="addon">

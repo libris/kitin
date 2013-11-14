@@ -1,14 +1,5 @@
 {% raw %}
-<div class="content auth" data-ng-controller="EditCtrl">
-  <header><h1></h1>
-  
-      <div class="modes">
-      <a href="#" class="active">LIBRIS</a>
-      <a href="/jsonld{{ record['@id'] }}">JSON-LD</a>
-      <a href="#" class="beta-blocker">MARC</a>
-    </div>
-    
-  </header>
+
   <form name="form" id="record" class="form-horizontal">
   <section id="instance" name="instance" data-ng-repeat="instance in [record.about]">
     <ng-form name="subform">
@@ -84,5 +75,5 @@
   </section>
 
 </form>
-</div>
+<!-- </div> -->
 {% endraw %}
