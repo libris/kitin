@@ -3,7 +3,7 @@
  * app.js
  */
 
-var kitin = angular.module('kitin', ['ui', 'kitin.controllers', 'kitin.filters', 'kitin.services', 'kitin.directives']);
+var kitin = angular.module('kitin', ['ngRoute', 'ui', 'kitin.controllers', 'kitin.filters', 'kitin.services', 'kitin.directives']);
 
 kitin.config(
   ['$locationProvider', '$routeProvider',
@@ -12,10 +12,10 @@ kitin.config(
       $routeProvider
         .when('/',
               {templateUrl: '/partials/index'})
-        .when('/search',
+        .when('/search/:recType',
               {templateUrl: '/partials/search'})
-        .when('/edit/auth/:recId',
-              {templateUrl: '/partials/edit_auth'}) 
+        // .when('/edit/auth/:recId',
+        //       {templateUrl: '/partials/edit_auth'}) 
         .when('/edit/:recType/:recId',
               {templateUrl: '/partials/edit'})  
         .when('/jsonld/:recType/:recId',

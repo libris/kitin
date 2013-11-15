@@ -818,6 +818,7 @@ input[type="color"],
   font-size: 16px;
   line-height: 22px;
   color: #444;
+  background: #eee;
   vertical-align: middle;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -868,7 +869,7 @@ label select {
   font-size: 16px;
   padding: 1px 0 0;
   height: 22px;
-  -webkit-transition: background-color ease-out 0.02s;
+  -webkit-transition: background-color 0.02s ease-out;
   margin-left: -2px;
   padding-left: 2px;
 }
@@ -894,6 +895,12 @@ label select {
 .col6 label input,
 .col6 label select {
   width: 450px;
+  padding-right: 18px;
+}
+.col4 label textarea,
+.col4 label input,
+.col4 label select {
+  width: 282px;
   padding-right: 18px;
 }
 .col3 label textarea,
@@ -966,9 +973,14 @@ label select {
   width: 74px;
   padding-right: 18px;
 }
+h3 .type {
+  text-transform: lowercase;
+}
 span.authorized {
-  float: right;
+  margin-left: 10px;
+  margin-top: 10px;
   color: #1a8f72;
+  font-size: 24px;
 }
 label ::-webkit-input-placeholder {
   color: #ccc;
@@ -1569,6 +1581,14 @@ a.beta-blocker {
 body .modal.fade {
   top: 10%;
   transition: none;
+}
+body .modal.wide {
+  width: 1024px;
+  margin-left: -512px;
+}
+h4.modal-title {
+  font: bold italic 16px/20px "Droid Serif", georgia, serif;
+  color: #1a8f72;
 }
 /* JSON-LD View */
 #record code {
