@@ -168,12 +168,12 @@ kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, rec
   });
 
   function addRecordViewsToScope(record, scope) {
-      scope.personRoleMap = editUtil.getPersonRoleMap(record, scope.relatorsMap);
-      scope.unifiedClassifications = editUtil.getUnifiedClassifications(record);
-      // FIXME: this is just a view object - add/remove must operate on source and refresh this
-      // (or else this must be converted back into source form before save)
-      var defaultSchemes = ['sao', 'saogf'];
-      scope.schemeContainer = new editUtil.SchemeContainer(record.about.instanceOf, defaultSchemes);
+    scope.personRoleMap = editUtil.getPersonRoleMap(record, scope.relatorsMap);
+    scope.unifiedClassifications = editUtil.getUnifiedClassifications(record);
+    // FIXME: this is just a view object - add/remove must operate on source and refresh this
+    // (or else this must be converted back into source form before save)
+    var defaultSchemes = ['sao', 'saogf'];
+    scope.schemeContainer = new editUtil.SchemeContainer(record.about.instanceOf, defaultSchemes);
   }
 
   if (isNew) {
@@ -184,9 +184,11 @@ kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, rec
   } else {
     records.get(recType, recId).then(function(data) {
       var record = $scope.record = data['recdata'];
-      editUtil.patchBibRecord(record);
 
-      addRecordViewsToScope(record, $scope);
+      if (recType === 'bib') {
+        editUtil.patchBibRecord(record);
+        addRecordViewsToScope(record, $scope);
+      }
 
       $scope.etag = data['etag'];
       $scope.userSigel = userData.userSigel;
