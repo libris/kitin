@@ -56,13 +56,14 @@
           </div>
           <div ng-switch-when="true">
             <div data-ng-include="'render-person'" onload="subj = work; rel = 'creator'; person = work.creator"></div>
+            <span class="lbl">{{ 'Huvuduppslag' }}</span>
           </div>
         </div>
           
         <hr />
         <div data-ng-repeat="person in work.contributorList"
              onload="subj = work; rel = 'contributorList'" data-ng-include="'render-work-contrib'"></div>
-        <button class="add-thing btn-link" data-ng-click="addObject(work, 'contributorList', 'Person')">{{ 'Biuppslag' }} <i class="icon icon-plus-sign"></i></button> 
+        <button class="add-thing btn-link" data-ng-click="addObject(work, 'contributorList', 'Person')">{{ 'Biuppslag' }} <i class="fa fa-plus-circle"></i></button> 
 
       </div>
       <!--END: Information -->
@@ -92,7 +93,7 @@
           data-kitin-rel={{rel}}
           data-kitin-type="Person" />
       </label>
-      <button class="add-thing btn-link" data-ng-click="editable=!editable; newObject(subj, 'creator', 'Person')">{{ 'Upphov - person' }}
+      <button class="add-thing btn-link" data-ng-click="editable=!editable; newObject(subj, 'creator', 'Person')">{{ 'Huvuduppslag' }}
             <i data-ng-hide="person.creator" class="fa fa-plus-circle" ></i></button>
     </script>
 
