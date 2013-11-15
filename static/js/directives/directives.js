@@ -49,7 +49,7 @@ kitin.directive('isbnvalidator', function(isbnTools) {
            console.log("Frontend says wrong length");
         }
         else {*/
-          isbntools.checkIsbn(inputval).then(function(data) {
+          isbnTools.checkIsbn(inputval).then(function(data) {
             if (data.isbn) {
               var approved = data.isbn.valid;
               if (approved) {
