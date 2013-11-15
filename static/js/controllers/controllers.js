@@ -1,4 +1,4 @@
-var kitin = angular.module('kitin.controllers', ['ui.bootstrap']);
+var kitin = angular.module('kitin.controllers', []);
 
 kitin.controller('ModalCtrl', function($scope, $modal) {
   
