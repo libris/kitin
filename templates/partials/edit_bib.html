@@ -20,13 +20,11 @@
         </label>
       </div>
     </div>
-
-    <h3>Verk</h3>
     <div class="cols" data-ng-init="work = record.about.instanceOf">
-      <div class="col5">
+      <div class="col6">
         <label class="ng-binding">
         <div data-ng-init="editable = !(work.language.langCode)">
-          <div data-ng-hide="editable" data-ng-click="editable=!editable">
+          <div data-ng-hide="editable" data-ng-click="editable=!editable" class="fakeinput">
             <span>
               {{ work.language.prefLabel }}
               <i data-ng-show="work.language.langCode">({{ work.language.langCode }})</i>
@@ -48,7 +46,9 @@
           </div>
         </script>
       </div>
-      <div class="col7">
+    </div>
+    <div class="cols">
+      <div class="col12">
         <div data-ng-show="work.creator"
              onload="subj = work; rel = 'creator'; person = work.creator"
              data-ng-include="'render-person'"></div>
@@ -115,7 +115,7 @@
       </div>
     </script>
 
-    <h3>Utgivning och tillverkning</h3>
+    <h2>Utgivning och tillverkning<i></i></h2>
     <div class="cols">
       <div class="col6" data-ng-show="instance['@type'] != 'Book'">
         <label>
@@ -225,7 +225,7 @@
     <!-- TODO: partially toggle digital details
     <div data-ng-show="getTypeDef(instance).subClassOf != 'DigitalResource'">
     -->
-    <h3>Fysisk beskrivning</h3>
+    <h2>Fysisk beskrivning<i></i></h2>
     <div class="cols">
       <div class="col3">
         <label class="ng-binding">
@@ -266,7 +266,7 @@
         </label>
       </div>
     </div>
-  <h3>{{ "Anmärkningar" }}</h3>
+  <h2>{{ "Anmärkningar" }}<i></i></h2>
     <div class="cols">
       <div class="col6">
         <label>
@@ -298,7 +298,7 @@
          data-ng-include="'/partials/edit_subject'" onload="work = record.about.instanceOf">
     </div>
 
-    <h3>{{ "Anmärkningar" }}</h3>
+    <h2>{{ "Anmärkningar" }}<i></i></h2>
     <div class="cols">
       <div class="col6">
         <label>
