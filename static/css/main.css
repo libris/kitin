@@ -1239,8 +1239,6 @@ div.loading > b {
   border-radius: 3px 3px 3px 3px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   display: none;
-  float: left;
-  left: 1000px;
   list-style: none outside none;
   margin: 2px 0 0;
   min-width: 252px;
@@ -1285,6 +1283,7 @@ div.loading > b {
   border-top: 1px solid #ccc;
   color: #1a8f72;
 }
+.dropdown-menu li a.selected,
 .dropdown-menu li a:hover {
   color: #ffffff;
   background: #1a8f72;

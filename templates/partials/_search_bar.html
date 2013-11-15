@@ -25,14 +25,30 @@
   </div>
   <div class="kb"></div>
   {% if current_user and current_user.is_authenticated() %}
+    {% raw %}
     <div class="searchfield">
       <form data-ng-controller="SearchFormCtrl" data-ng-submit="search()" method="GET" name="search_form">
         <input id="search" name="q" type="text" autofocus
         value="{{ q }}" placeholder="ISBN, titel, författare etc"
         autocomplete="off" role="textbox"
         aria-autocomplete="list" aria-haspopup="true" data-ng-model="q">
-        <button type="submit">Sök</button>
+        <div class="btn-group">
+          <button class="btn" type="submit">Sök</button>
+          <a class="btn dropdown-toggle">
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li data-ng-repeat="opt in searchTypes">
+              <a data-ng-class="{selected: opt.key == searchType.key}"
+                 data-ng-click="setSearchType(opt.key)">{{ opt.label }}</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <em data-ng-show="searchType.key != 'bib'">{{ 'Söker bland' }} {{ searchType.label }}</em>
+        </div>
       </form>
     </div>
+    {% endraw %}
   {% endif %}
 </div>

@@ -40,10 +40,20 @@ kitin.controller('IndexCtrl', function($scope, $http) {
 
 
 kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams) {
-  var recType = $routeParams.recType || $scope.recType || "bib";
-  $scope.search = function() {
-    $location.url("/search/" + recType + "?q="+encodeURIComponent($scope.q));
+  var searchTypeIndex = {
+    bib: {key: "bib", label: "Bibliografiska poster"},
+    auth: {key: "auth", label: "Auktoritetsposter"}
   };
+  $scope.searchTypes = [searchTypeIndex.bib, searchTypeIndex.auth];
+  $scope.setSearchType = function (key) {
+    $scope.searchType = searchTypeIndex[key];
+  };
+  $scope.search = function() {
+    $location.url("/search/" + $scope.searchType.key + "?q="+encodeURIComponent($scope.q));
+  };
+  $scope.$on('$routeChangeSuccess', function () {
+    $scope.setSearchType($routeParams.recType || "bib");
+  });
 });
 
 
