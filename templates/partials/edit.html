@@ -1,7 +1,6 @@
-
-
 {% raw %}
 
+<!-- dialog -->
 <div id="confirmDeleteDraftDialog" data-ng-show="confirmDeleteDraft" class="popover show" data-ng-controller="EditCtrl">
   <div class="popover-inner">
     <button class="close" data-ng-click="confirmDeleteDraft.abort()">&times;</button></h3>
@@ -14,10 +13,30 @@
   </div>
 </div>
 
-<div class="content bib" id="prelude" data-ng-controller="EditCtrl">
   <form name="form" id="record" class="form-horizontal">
   <div id="grid"></div>
     <!--<div data-ng-view></div>-->
+
+<div class="" id="prelude" data-ng-controller="EditCtrl" >
+
+  <span class="" ng-switch on="recType">
+    <span ng-switch-when="auth"> 
+<div class="content auth" data-ng-controller="EditCtrl">
+  <header><h1></h1>
+  
+      <div class="modes">
+      <a href="#" class="active">LIBRIS</a>
+      <a href="/jsonld{{ record['@id'] }}">JSON-LD</a>
+      <a href="#" class="beta-blocker">MARC</a>
+    </div>
+    
+  </header>
+  <div ng-include="'/partials/edit_auth'"></div>
+
+</div>
+    </span>
+    <span ng-switch-when="bib">
+<div class="content bib" id="prelude" data-ng-controller="EditCtrl" >
   <header>
     <h1>Bibliografisk post</h1>
     <div class="levels">
@@ -31,421 +50,11 @@
       <a href="#" class="beta-blocker">MARC</a>
     </div>
   </header>
-
-  <section id="instance" name="instance" data-ng-repeat="instance in [record.about]">
-    <ng-form name="subform">
-    <h2 data-ng-click="cycleType($event, instance)"> <span>{{ getTypeDef(instance).label_sv }}</span><i></i></h2>
-    <div class="cols">
-      <div class="col6" data-ng-init="title = instance.title">
-        <label>
-          <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" placeholder="Huvudtitel" data-ng-model="title.titleValue"></textarea>
-          <span class="lbl">{{ "Huvudtitel" }}</span>
-        </label>
-        <label>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" placeholder="Övrig titelinformation" data-ng-model="title.subtitle">{{ title.subtitle }}</textarea>
-          <span class="lbl">{{ "Övrig titelinformation" }}</span>
-        </label>
-      </div>
-      <div class="col6">
-        <label class="error">
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.responsibilityStatement" placeholder="Upphov"></textarea>
-          <span class="lbl">{{ "Upphov" }}</span>
-        </label>
-      </div>
-    </div>
-
-    <h3>Verk</h3>
-    <div class="cols" data-ng-init="work = record.about.instanceOf">
-      <div class="col5">
-        <label class="ng-binding">
-        <div data-ng-init="editable = !(work.language.langCode)">
-          <div data-ng-hide="editable" data-ng-click="editable=!editable">
-            <span>
-              {{ work.language.prefLabel }}
-              <i data-ng-show="work.language.langCode">({{ work.language.langCode }})</i>
-            </span>
-          </div>
-          <div data-ng-show="editable">
-            <input data-inplace class="input-large authdependant" type="text" placeholder="Språk"
-                  data-kitin-autoselect="field"
-                  data-kitin-template="select-language-template" />
-          </div>
-        </div>
-         <span class="lbl">{{ "Språk" }}</span>
-        </label>
-        <script type="text/html" id="select-language-template">
-          <div class="auth">
-            <h4>
-            <span class="name"><%= prefLabel %></span><span class="date"> <%= langCode %></span>
-            </h4>
-          </div>
-        </script>
-      </div>
-      <div class="col7">
-        <div data-ng-show="work.creator"
-             onload="subj = work; rel = 'creator'; person = work.creator"
-             data-ng-include="'render-person'"></div>
-        <button class="add-thing btn-link" data-ng-click="newObject(work, 'creator', 'Person')">{{ 'Huvuduppslag' }}
-          <i data-ng-hide="work.creator" class="fa fa-plus-circle"></i></button>
-        <hr />
-        <div data-ng-repeat="person in work.contributorList"
-             onload="subj = work; rel = 'contributorList'" data-ng-include="'render-person'"></div>
-        <button class="add-thing btn-link" data-ng-click="addObject(work, 'contributorList', 'Person')">{{ 'Biuppslag' }} <i class="fa fa-plus-circle"></i></button>
-      </div>
-    </div>
-
-    <script type='text/ng-template' id="modal-edit-auth"> 
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-           <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Auktoritetspost ({{ instance['@type'] }})</h4>
-          </div>
-          <div class="modal-body" data-ng-controller="EditCtrl">
-            <form name="form" id="record" class="form-horizontal">
-              <div id="instance" name="instance" data-ng-repeat="instance in [record.about]">
-                  <ng-form name="subform">
-                    <div class="cols">
-                      <div class="col4" data-ng-init="title = instance.title">
-                        <label>
-                          <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.familyName">{{ instance.familyName }}</textarea>
-                          <span class="lbl">{{ "Efternamn" }}</span>
-                        </label>
-                      </div>
-                      <div class="col4" data-ng-init="title = instance.title">
-                        <label>
-                          <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.givenName">{{ instance.givenName }}</textarea>
-                          <span class="lbl">{{ "Fornamn" }}</span>
-                        </label>
-                      </div>
-                      <div class="col2" data-ng-init="title = instance.title">
-                        <label>
-                          <input data-inplace type="text" class="input-mini" data-ng-model="instance.birthYear"/>
-                          <span class="lbl">{{ "Fodelsear" }}</span>
-                        </label>
-                      </div>
-                       <div class="col2" data-ng-init="title = instance.title">     
-                        <label>
-                          <input data-inplace type="text" class="input-mini" data-ng-model="instance.deathYear"/>
-                          <span class="lbl">{{ "Dodsar" }}</span>
-                        </label>
-                      </div> 
-                    </div>
-                    <div class="cols">  
-                      <div class="col6 multifield">
-                          <label data-ng-repeat="person in instance.hasVersion"><input data-inplace class="input-medium" type="text" data-ng-model="person.controlledLabel"></label>
-                <!--
-                          <label><input data-inplace class="input-medium" type="text"></label>
-                          <label><input data-inplace class="input-medium" type="text"></label>
-                          <label><input data-inplace class="input-medium" type="text"></label>
-                          <label><input data-inplace class="input-medium" type="text"></label>
-                -->
-                          <span class="lbl">{{ "Alternativt namn" }}</span>
-                        </label>
-                      </div>
-                    </div>
-                    <div class="cols">
-                      <div class="col6">
-                        <label>
-                          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.note">{{ instance.note }}</textarea>
-                          <span class="lbl">{{ "Biografisk uppgift" }}</span>
-                        </label>
-                      </div>
-                      <div class="col6 multifield">
-                          <label data-ng-repeat="source in instance.hasForm"><input data-inplace class="input-medium" type="text" data-ng-model="source.label"></label>
-                          <span class="lbl">{{ "Kalla" }}</span>
-
-                      </div>
-                    </div>
-                  </ng-form>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <span class="authorized" data-ng-show="data['@id']"><i class="fa fa-check-circle-o"></i> Auktoriserad</span>
-            <button type="button" class="btn btn-primary">Uppdatera</button>
-          </div>
-        </div>
-      </div>
-    </script> 
-
-    <script type="text/ng-template" id="render-person">
-      <div class="entity person" data-ng-init="editable = !(person.controlledLabel || person.givenName)">
-        <div class="col3" data-ng-hide="editable">
-          <label data-ng-click="editable=!editable">
-            <span data-ng-include="'render-person-name'"></span> &nbsp;</label>
-        </div>
-        <div class="addon" data-ng-show="editable">
-          <label>
-            <input data-inplace class="input-mini" type="text" placeholder="Förnamn"
-                   data-ng-model="person.givenName" data-kitin-autocomplete="person" />
-            <span class="lbl">{{ "Förnamn" }}</span>
-          </label>
-          <label>
-            <input data-inplace class="input-mini" type="text" placeholder="Släktnamn"
-                   data-ng-model="person.familyName" data-kitin-autocomplete="person" />
-            <span class="lbl">{{ "Släktnamn" }}</span>
-          </label>
-        </div>
-        <div class="addon" data-ng-show="editable">
-          <label>
-            <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ" data-ng-model="person.birthYear" />
-            <span class="lbl">{{ "Född" }}</span>
-          </label>
-          <label>
-            <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ" data-ng-model="person.deathYear" />
-            <span class="lbl">{{ "Död" }}</span>
-          </label>
-          <div data-ng-controller="ModalCtrl">
-            <button class="btn btn-primary" data-ng-click="open()">Open Dialog</button>
-          </div>
-        </div>
-        <div class="addon">
-          <label>
-            <span data-ng-repeat="role in personRoleMap[person['@id']]"><span data-ng-hide="$first">, </span>{{ role.label_sv }}</span>
-          </label>
-          <label data-ng-hide="editable">
-            <button class="btn-link on-hover" data-ng-click="removeObject(subj, rel, $index)"><i class="fa fa-times"></i></button>
-          </label>
-          <button class="btn-link" data-ng-show="editable" data-ng-click="editable=false"><i class="fa fa-check"></i></button>
-        </div>
-      </div>
-    </script>
-
-    <h3>Utgivning och tillverkning</h3>
-    <div class="cols">
-      <div class="col6" data-ng-show="instance['@type'] != 'Book'">
-        <label>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.mediaTerm" placeholder="Allmän medieterm">
-          <span class="lbl">{{ "Allmän medieterm" }}</span>
-        </label>
-      </div>
-    </div>
-    <div class="cols">
-      <div class="col3">
-
-        <div data-ng-repeat="identifier in instance.identifier" class="entity">
-          <ng:switch on="identifier.identifierScheme">
-            <div data-ng-switch-when="ISBN">
-              <label>
-                <input data-inplace name="isbn_name" type="text" data-ng-model="identifier.identifierValue" placeholder="{{ identifier.identifierScheme }}"
-                      data-isbn-pattern="^$|^[0-9\-xX]*$" isbnvalidator/>
-                <span class="lbl_inline lbl"
-                      data-ng-hide="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length">{{ "ISBN" }}</span>
-                <span class="lbl_inline lbl error_label"
-                      data-ng-show="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length">{{ "ISBN" }}</span>
-                <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_value">(Fel numeriskt värde)</span>
-                <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_length">(Fel längd)</span>
-                <!--<input data-inplace name="isbn_name" type="text" required="true" data-ng-model="instance.isbn" placeholder="ISBN" data-isbn-pattern="^[0-9\-xX]*$" isbnvalidator/>
-                <span class="lbl_inline lbl" data-ng-hide="subform.isbn_name.$error.invalid_value">{{ "ISBN" }}</span>
-                <span class="lbl_inline lbl error_label" data-ng-show="subform.isbn_name.$error.invalid_value">{{ "ISBN" }}</span>
-                <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_value">(Fel numeriskt värde)</span>-->
-                <!--<span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_length">(Fel längd)</span>-->
-                <button class="btn-link on-hover" data-ng-click="removeObject(instance, 'identifier', $index)"><i class="fa fa-times"></i></button>
-              </label>
-              <label>
-                <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="identifier.identifierNote" placeholder="Notering">
-                <span class="lbl">{{ "ISBN-notering" }}</span>
-              </label>
-            </div>
-            <div data-ng-switch-default>
-              <label>
-                <input data-inplace type="text" data-ng-model="identifier.identifierValue" placeholder="{{ identifier.identifierScheme }}"/>
-                <span class="lbl">{{ identifier.identifierScheme }}</span>
-              </label>
-              <label>
-                <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="identifier.identifierNote" placeholder="Notering">
-                <span class="lbl">{{ "Notering" }}</span>
-              </label>
-            </div>
-          </ng:switch>
-        </div>
-        <button class="add-thing btn-link" data-ng-click="addObject(instance, 'identifier', 'ISBN')">{{ 'Lägg till ISBN' }} <i class="fa fa-plus-circle"></i></button>
-      </div>
-      <div class="col2">
-        <label>
-          <input data-inplace class="input-medium ng-pristine ng-valid" type="text" data-ng-model="instance.editionStatement.edition" placeholder="Upplaga">
-          <span class="lbl">{{ "Upplaga" }}</span>
-        </label>
-      </div>
-      <div class="col7">
-        <div data-ng-repeat="publication in instance.publication" class="entity">
-          <label class="col2">
-            <input data-inplace class="input-medium ng-pristine ng-valid" type="text" data-ng-model="publication.providerName" placeholder="Utgivare förlag">
-            <span class="lbl">{{ "Utgivare/förlag" }}</span>
-          </label>
-          <label class="col2">
-            <input data-inplace class="input-medium ng-pristine ng-valid" type="text" data-ng-model="publication.place.label" placeholder="Utgivningsort">
-            <span class="lbl">{{ "Utgivningsplats" }}</span>
-          </label>
-          <!-- TODO: specify type of place?
-          <label>
-            <... data-placeholder="Välj ett land" data-ng-model="record.about.instanceOf.country" ... >
-            <span class="lbl">{{ "Utgivningsland" }}</span>
-          </label>
-          -->
-          <label class="col1">
-            <input data-inplace class="input-small ng-pristine ng-valid" type="text" data-ng-model="publication.providerDate" placeholder="Utgivningsår">
-            <span class="lbl">{{ "Utgivningsår" }}</span>
-          </label>
-          <label class="col1 last" data-ng-hide="editable">
-            <button class="btn-link on-hover" data-ng-click="removeObject(instance, 'publication', $index)"><i class="fa fa-times"></i></button>
-          </label>
-        </div>
-        <button class="add-thing btn-link" data-ng-click="addObject(instance, 'publication', 'ProviderEvent')">{{ 'Lägg till utgivning' }} <i class="fa fa-plus-circle"></i></button>
-      </div>
-      <div class="col8">
-        <div data-ng-repeat="manufacture in instance.manufacture">
-          <label>
-            <input data-inplace class="input-medium authdependant" type="text" placeholder="Tryckort" data-ng-model="manufacture.place.label" />
-            <!--
-            <select data-placeholder="Välj ett land" data-ui-select2 data-ng-model="instance.placeOfManufacture.name" style="width:75%">
-              <option></option>
-              <option data-ng-repeat="(code, name) in countrylist" value="{{ code }}">{{ name }} ({{ code }})</option>
-            </select>
-            -->
-            <span class="lbl">{{ "Tryckplats" }}</span>
-          </label>
-        </div>
-      </div>
-    </div>
-
-    <div class="cols">
-      <div class="col3" data-ng-show="getTypeDef(instance).term == 'Audiobook'">
-        <label>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.publisherNumber" placeholder="Utgivningsnummer">
-          <span class="lbl">{{ "Utgivningsnummer" }}</span>
-        </label>
-      </div>
-    </div>
-
-    <!-- TODO: partially toggle digital details
-    <div data-ng-show="getTypeDef(instance).subClassOf != 'DigitalResource'">
-    -->
-    <h3>Fysisk beskrivning</h3>
-    <div class="cols">
-      <div class="col3">
-        <label class="ng-binding">
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.extent" placeholder="Omfång">
-          <span class="lbl">{{ "Omfång" }}</span>
-        </label>
-      </div>
-      <div class="col3">
-        <label>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.dimensions" placeholder="Mått">
-          <span class="lbl">{{ "Mått" }}</span>
-        </label>
-      </div>
-      <div class="col3">
-        <label>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.otherPhysicalDetails" placeholder="Fysiska detaljer">
-          <span class="lbl">{{ "Fysiska detaljer" }}</span>
-        </label>
-      </div>
-      <div class="col3">
-        <label>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.availability" placeholder="Pris">
-          <span class="lbl">{{ "Pris" }}</span>
-        </label>
-      </div>
-    </div>
-    <div class="cols" data-ng-show="getTypeDef(instance).subClassOf == 'DigitalResource'">
-      <div class="col3">
-        <label>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.fileType" placeholder="Filtyp">
-          <span class="lbl">{{ "Filtyp" }}</span>
-        </label>
-      </div>
-      <div class="col3">
-        <label>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.systemRequirements" placeholder="Systemkrav">
-          <span class="lbl">{{ "Systemkrav" }}</span>
-        </label>
-      </div>
-    </div>
-  <h3>{{ "Anmärkningar" }}</h3>
-    <div class="cols">
-      <div class="col6">
-        <label>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.listOfContents" placeholder="Formaterad innehållsförteckning"></textarea>
-          <span class="lbl">{{ "Formaterad innehållsförteckning" }}</span>
-        </label>
-      </div>
-      <div class="col6" data-ng-show="getTypeDef(instance).term == 'Audiobook'">
-        <label>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.contributorNote" placeholder="Medverkande">
-          <span class="lbl">{{ "Medverkande" }}</span>
-        </label>
-      </div>
-    </div>
-    <div class="cols">
-      <div class="col6">
-          <label>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.note" placeholder="Allmän anmärkning">
-          <span class="lbl">{{ "Allmän anmärkning" }}</span>
-        </label>
-      </div>
-      <div class="col6"></div>
-    </div>
-    </ng-form>
-  </section>
-
-  <section id="subject classification">
-    <div class="cols"
-         data-ng-include="'/partials/edit_subject'" onload="work = record.about.instanceOf">
-    </div>
-
-    <h3>{{ "Anmärkningar" }}</h3>
-    <div class="cols">
-      <div class="col6">
-        <label>
-            <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
-                      data-ng-model="work.summary" placeholder="Sammanfattning"></textarea>
-            <span class="lbl">{{ "Sammanfattning" }}</span>
-        </label>
-      </div>
-    </div>
-  </section> 
   
-  <section class="submit modificationinfo" data-ng-class="modifiedClasses()">
-<!--post beta:
-    <span class="removedraft" data-ng-show="draft" data-ng-click="promptConfirmDelete($event, draft.type, draft.id)">
-      <button class="btn-link" data-ng-click="somebutton.click()"><i class="fa fa-times"></i> Ta bort utkast</button>
-    </span>-->
-    <button class="btn-link" id="draft" data-ng-click="saveDraft()"
-      title="{{lastSavedLabel('Senast sparad: %s')}}">Spara utkast</button>
-    <button class="btn btn-dark btn-submit" id="publish" data-ng-disabled="form.$invalid" data-ng-click="save()"
-      title="{{lastPublishedLabel('Senast publicerad: %s')}}">Publicera</button>
-    <p class="message" data-ng-show="modifications.message">{{ modifications.message }}</p>
-  </section>
-</form></div>
-
-{% endraw %}
-{% include "partials/edit_hld.html" %}
-{% raw %}
-
-<!-- person completion presentation -->
-<script type="text/html" id="auth-completion-template">
-<div class="auth">
-  <h4>
-    <span class="name"><%= data['controlledLabel'] %></span>
-    <% if (data['authorized']) { %>
-      <span class="what"><i class="fa fa-bookmark"></i>Aukt.</span>
-    <% } %>
-  </h4>
-  <% if (data['hasAnnotation'] && data['hasAnnotation']['about']) { %>
-    <ul class="about">
-      <% if (Object.prototype.toString.call(data['hasAnnotation']['about']) === '[object Array]') { %> 
-        <% data['hasAnnotation']['about'].forEach(function(item) { %>
-          <li><%= item %></li>
-        <% }); %>
-      <% } else { %>
-        <li><%= data['hasAnnotation']['about'] %></li>
-      <% } %>
-    </ul>
-  <% } %>
+  <div ng-include="'/partials/edit_bib'"></div>
 </div>
-</script>
-
+  <div ng-include="'/partials/edit_hld'"></div>
+    </span>
+  </span>
+</div>
 {% endraw %}
-

@@ -39,14 +39,19 @@ kitin.controller('IndexCtrl', function($scope, $http) {
 });
 
 
-kitin.controller('SearchFormCtrl', function($scope, $location) {
+kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams) {
+  var recType = $routeParams.recType || $scope.recType || "bib";
   $scope.search = function() {
-    $location.url("/search?q="+encodeURIComponent($scope.q));
+    $location.url("/search/" + recType + "?q="+encodeURIComponent($scope.q));
   };
 });
 
 
 kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, resources, searchService, searchUtil) {
+
+  var recType = $routeParams.recType;
+
+  $scope.recType = recType;
 
   resources.typedefs.then(function(data) {
     $scope.typeDefs = data.types;
@@ -71,7 +76,7 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
 
   $scope.q = $routeParams.q;
   $scope.f = $routeParams.f;
-  var url = "/search.json?q=" + encodeURIComponent($scope.q);
+  var url = "/search/" + recType + ".json?q=" + encodeURIComponent($scope.q);
   if ($scope.f !== undefined) {
     url += "&f=" + $scope.f;
   }
@@ -99,8 +104,8 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
 
   $scope.loading = true;
   searchService.search(url).then(function(data) {
-    $scope.facetGroups = searchUtil.makeLinkedFacetGroups(data.facets, $scope.q, prevFacetsStr);
-    $scope.crumbs = searchUtil.bakeCrumbs($scope.q, prevFacetsStr);
+    $scope.facetGroups = searchUtil.makeLinkedFacetGroups(recType, data.facets, $scope.q, prevFacetsStr);
+    $scope.crumbs = searchUtil.bakeCrumbs(recType, $scope.q, prevFacetsStr);
     $scope.result = data;
     if (data.hits == 1) {
         $location.url("/edit" + data.list[0].identifier);
@@ -118,6 +123,8 @@ kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, rec
 
   var isNew = (recId === 'new');
   var newType = $routeParams.type;
+
+  $scope.recType = recType;
 
   document.body.className = isNew? 'edit new' : 'edit';
 
@@ -161,12 +168,12 @@ kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, rec
   });
 
   function addRecordViewsToScope(record, scope) {
-      scope.personRoleMap = editUtil.getPersonRoleMap(record, scope.relatorsMap);
-      scope.unifiedClassifications = editUtil.getUnifiedClassifications(record);
-      // FIXME: this is just a view object - add/remove must operate on source and refresh this
-      // (or else this must be converted back into source form before save)
-      var defaultSchemes = ['sao', 'saogf'];
-      scope.schemeContainer = new editUtil.SchemeContainer(record.about.instanceOf, defaultSchemes);
+    scope.personRoleMap = editUtil.getPersonRoleMap(record, scope.relatorsMap);
+    scope.unifiedClassifications = editUtil.getUnifiedClassifications(record);
+    // FIXME: this is just a view object - add/remove must operate on source and refresh this
+    // (or else this must be converted back into source form before save)
+    var defaultSchemes = ['sao', 'saogf'];
+    scope.schemeContainer = new editUtil.SchemeContainer(record.about.instanceOf, defaultSchemes);
   }
 
   if (isNew) {
@@ -177,9 +184,11 @@ kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, rec
   } else {
     records.get(recType, recId).then(function(data) {
       var record = $scope.record = data['recdata'];
-      editUtil.patchBibRecord(record);
 
-      addRecordViewsToScope(record, $scope);
+      if (recType === 'bib') {
+        editUtil.patchBibRecord(record);
+        addRecordViewsToScope(record, $scope);
+      }
 
       $scope.etag = data['etag'];
       $scope.userSigel = userData.userSigel;

@@ -290,7 +290,7 @@ kitin.factory('searchUtil', function() {
 
   var searchUtil = {
 
-    makeLinkedFacetGroups: function (facets, q, prevFacetsStr) {
+    makeLinkedFacetGroups: function (recType, facets, q, prevFacetsStr) {
       // iterate facets to add correct slug
       // if can do in angularistic fashion; then please do and remove this!
       var result = [];
@@ -302,7 +302,7 @@ kitin.factory('searchUtil', function() {
         _.each(facet, function (count, key) {
           var slug = encodeURIComponent([facetType, key].join(":"));
           var selected = $.inArray(slug, prevFacets) !== -1;
-          var searchUrl = "/search?q=" + encodeURIComponent(q) + "&f=" +
+          var searchUrl = "/search/" + recType + "?q=" + encodeURIComponent(q) + "&f=" +
             (selected? $.grep(prevFacets, function(val) {return val != slug;}) : slug + " " + prevFacetsStr);
           var item = {
             key: key,
@@ -317,13 +317,13 @@ kitin.factory('searchUtil', function() {
       return result;
     },
 
-    bakeCrumbs: function (q, prevFacetsStr) {
+    bakeCrumbs: function (recType, q, prevFacetsStr) {
       var facetlist = prevFacetsStr.split(" ").reverse();
       var crumblist = [];
       var tmpCrumb = {};
       tmpCrumb['term'] = q;
       if (prevFacetsStr.length > 0) {
-        tmpCrumb['urlpart'] = "/search?q=" + encodeURIComponent(q);
+        tmpCrumb['urlpart'] = "/search/" + recType + "?q=" + encodeURIComponent(q);
         crumblist.push(tmpCrumb);
         var urlPart = "";
         for (var i=0; i < facetlist.length; i++) {
@@ -337,7 +337,7 @@ kitin.factory('searchUtil', function() {
           }
           tmpCrumb["term"] = term;
           if (i < (facetlist.length - 1)) {
-            tmpCrumb['urlpart'] = "/search?q=" + encodeURIComponent(q) + "&f=" + urlPart;
+            tmpCrumb['urlpart'] = "/search/" + recType + "?q=" + encodeURIComponent(q) + "&f=" + urlPart;
           }
           if (i === 0) {
             tmpCrumb["bridge"] = " inom ";
