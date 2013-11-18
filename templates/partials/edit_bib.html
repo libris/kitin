@@ -1,7 +1,7 @@
 {% raw %}
   <section id="instance" name="instance" data-ng-repeat="instance in [record.about]">
     <ng-form name="subform">
-    <h2 data-ng-click="cycleType($event, instance)"> <span>{{ getTypeDef(instance).label_sv }}</span><i></i></h2>
+    <h2> <span>{{ 'Titel och upphov' }}</span><i></i></h2>
     <div class="cols">
       <div class="col6" data-ng-init="title = instance.title">
         <label>
@@ -292,7 +292,7 @@
       <div class="col6"></div>
     </div>
     </ng-form>
-  <div style="clear:both"></div>
+    <div style="clear:both"></div>
   </section>
 
   <section id="subject classification">
@@ -310,7 +310,7 @@
         </label>
       </div>
     </div>
-  <div style="clear:both"></div>
+    <div style="clear:both"></div>
   </section> 
   
   <section class="submit modificationinfo" data-ng-class="modifiedClasses()">
@@ -323,11 +323,8 @@
     <button class="btn btn-dark btn-submit" id="publish" data-ng-disabled="form.$invalid" data-ng-click="save()"
       title="{{lastPublishedLabel('Senast publicerad: %s')}}">Publicera</button>
     <p class="message" data-ng-show="modifications.message">{{ modifications.message }}</p>
-  <div style="clear:both"></div>
+    <div style="clear:both"></div>
   </section>
-</form></div>
-
-
 
 
 <!-- person completion presentation -->
@@ -354,4 +351,3 @@
 </script>
 
 {% endraw %}
-

@@ -1,60 +1,52 @@
 {% raw %}
 
-<!-- dialog -->
-<div id="confirmDeleteDraftDialog" data-ng-show="confirmDeleteDraft" class="popover show" data-ng-controller="EditCtrl">
-  <div class="popover-inner">
-    <button class="close" data-ng-click="confirmDeleteDraft.abort()">&times;</button></h3>
-</div>
-
-<div class="popover-content" data-ng-controller="EditCtrl">
-  <h4>Vill du verkligen ta bort utkastet?</h4>
-  <button class="btn btn-success" data-ng-click="confirmDeleteDraft.execute()">Ja</button></h3>
-  <button class="btn btn-warning" data-ng-click="confirmDeleteDraft.abort()">Nej</button></h3>
-  </div>
-</div>
-
-  <form name="form" id="record" class="form-horizontal">
+<form id="record" class="form-horizontal" data-ng-controller="EditCtrl">
   <div id="grid"></div>
-    <!--<div data-ng-view></div>-->
-
-<div class="" id="prelude" data-ng-controller="EditCtrl" >
-
-  <span class="" ng-switch on="recType">
-    <span ng-switch-when="auth"> 
-<div class="content auth" data-ng-controller="EditCtrl">
-  <header><h1></h1>
-  
-      <div class="modes">
-      <a href="#" class="active">LIBRIS</a>
-      <a href="/jsonld{{ record['@id'] }}">JSON-LD</a>
-      <a href="#" class="beta-blocker">MARC</a>
+  <div class="content {{recType}}">
+    <div>
+      <header>
+        <h1 data-ng-click="cycleType($event, record.about)">
+          <span data-ng-if="recType == 'auth'">Aukt.</span>
+          {{ getTypeLabel(record.about) }}
+          <!--(Bibliografiskt material)--></h1>
+        <div class="levels">
+          <span>{{ enums.bibLevel[record.bibLevel].label_sv }}</span>
+          <span>{{ enums.encLevel[record.encLevel].label_sv }}</span>
+          <span>{{ enums.catForm[record.catForm].label_sv }}</span>
+        </div>
+        <div class="modes">
+          <a href="#" class="active">LIBRIS</a>
+          <a href="/jsonld{{ record['@id'] }}">JSON-LD</a>
+          <a href="#" class="beta-blocker">MARC</a>
+        </div>
+      </header>
     </div>
-    
-  </header>
-  <div ng-include="'/partials/edit_auth'"></div>
+    <div ng-switch on="recType">
+      <div ng-switch-when="auth">
+        <div ng-include="'/partials/edit_auth'"></div>
+      </div>
+      <div ng-switch-when="bib">
+        <div>
+          <div ng-include="'/partials/edit_bib'"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div data-ng-if="recType == 'bib'"
+        data-ng-include="'/partials/edit_hld'"></div>
 
-</div>
-    </span>
-    <span ng-switch-when="bib">
-<div class="content bib" id="prelude" data-ng-controller="EditCtrl" >
-  <header>
-    <h1>Bibliografisk post</h1>
-    <div class="levels">
-      <span>{{ enums.bibLevel[record.bibLevel].label_sv }}</span>
-      <span>{{ enums.encLevel[record.encLevel].label_sv }}</span>
-      <span>{{ enums.catForm[record.catForm].label_sv }}</span>
+  <!-- dialog -->
+  <div id="confirmDeleteDraftDialog" data-ng-show="confirmDeleteDraft" class="popover show">
+    <div class="popover-inner">
+      <button class="close" data-ng-click="confirmDeleteDraft.abort()">&times;</button></h3>
     </div>
-    <div class="modes">
-      <a href="#" class="active">LIBRIS</a>
-      <a href="/jsonld{{ record['@id'] }}">JSON-LD</a>
-      <a href="#" class="beta-blocker">MARC</a>
+    <div class="popover-content">
+      <h4>Vill du verkligen ta bort utkastet?</h4>
+      <button class="btn btn-success" data-ng-click="confirmDeleteDraft.execute()">Ja</button></h3>
+      <button class="btn btn-warning" data-ng-click="confirmDeleteDraft.abort()">Nej</button></h3>
     </div>
-  </header>
-  
-  <div ng-include="'/partials/edit_bib'"></div>
-</div>
-  <div ng-include="'/partials/edit_hld'"></div>
-    </span>
-  </span>
-</div>
+  </div>
+
+</form>
+
 {% endraw %}

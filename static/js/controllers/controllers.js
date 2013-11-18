@@ -179,6 +179,13 @@ kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, rec
         return;
       return typedefs[obj['@type']];
     };
+    // TODO: merge with getLabel (defined in SearchCtrl)
+    $scope.getTypeLabel = function (obj) {
+      if (typeof obj === "undefined")
+        return;
+      var dfn = $scope.getTypeDef(obj);
+      return (dfn)? dfn.label_sv : obj['@type'];
+    };
   });
 
   function addRecordViewsToScope(record, scope) {
