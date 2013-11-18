@@ -29,7 +29,7 @@
     <div class="searchfield">
       <form data-ng-controller="SearchFormCtrl" data-ng-submit="search()" method="GET" name="search_form">
         <input id="search" name="q" type="text" autofocus
-        value="{{ q }}" placeholder="ISBN, titel, författare etc"
+               value="{{ q }}" placeholder="{{ placeholders[searchType.key] }}"
         autocomplete="off" role="textbox"
         aria-autocomplete="list" aria-haspopup="true" data-ng-model="q">
         <div class="btn-group">
@@ -45,7 +45,7 @@
           </ul>
         </div>
         <div>
-          <em data-ng-show="searchType.key != 'bib'">{{ 'Söker bland' }} {{ searchType.label }}</em>
+          <em data-ng-show="searchType.key != 'bib'">{{ searchType.label }}</em>
         </div>
       </form>
     </div>
