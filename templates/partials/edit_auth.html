@@ -1,9 +1,11 @@
 {% raw %}
-
+<div data-ng-repeat="instance in [record.about]"
+     data-ng-switch on="instance['@type']">{{ record.data.about['@type']}}
+<!--person-->
+<div data-ng-switch-when="Person">
   <form name="form" id="record" class="form-horizontal">
-  <section id="instance" name="instance" data-ng-repeat="instance in [record.about]">
+  <section id="instance" name="instance">
     <ng-form name="subform">
-    <h2>Auktoriserad <span class="type">{{ instance['@type'] }}</span><i></i></h2><!--<span class="authorized fa fa-check-circle-o" data-ng-show="instance['@id']" title="{{ instance['@id'] }}"></span>-->
     <div class="cols">
       <div class="col6">
         <label>
@@ -99,4 +101,97 @@
   </section>
 
 </form>
+</div>
+
+<!--concept-->
+<div data-ng-switch-when="Concept">
+  <section id="instance" name="instance">
+    <div class="cols">
+      <div class="col6" >
+      <strong class="subject-data">{{ instance.prefLabel }}</strong>
+      <span class="lbl">Allmän offentlig anmärkning</span>
+      <div class="subject-data" data-ng-repeat="note in instance.scopeNote">
+        <div class="" data-ng-model="instance.scopeNote">{{ note }}</div>
+      </div>
+      <div class="subject">
+        <span class="lbl" data-ng-show="instance.broader">Vidare term</span>
+        <ul class="subject-data" data-ng-repeat="broader in instance.broader">
+          <li data-ng-model="broader.prefLabel">{{ broader.prefLabel }}</li>
+        </ul>
+        <span class="lbl"  data-ng-show="instance.narrower">Snävare term</span>
+        <ul data-ng-repeat="narrower in instance.narrower">
+          <li data-ng-model="narrower.prefLabel">{{ narrower.prefLabel }}</li>
+        </ul>
+        <span class="lbl"  data-ng-show="instance.related">Se även</span>
+        <ul data-ng-repeat="related in instance.related">
+          <li data-ng-model="related.prefLabel">{{ related.prefLabel }}</li>
+        </ul>
+        <span class="lbl" data-ng-show="instance.closeMatch">Matchar</span>
+        <ul data-ng-repeat="closeMatch in instance.closeMatch">
+          <li data-ng-model="closeMatch.prefLabel">{{ closeMatch.prefLabel }}</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!--work-->
+<div data-ng-switch-when="Work">
+  <section id="instance" name="instance">
+    <div class="cols">
+      <div class="col6">
+       <label>
+          <span class="lbl">{{ "Uniform Titel" }}</span>
+          <input data-inplace type="text" class="" data-ng-model="instance.uniformTitle"/>
+        </label>
+        <div ng-show="instance.hasVersion"  class="multifield">
+          <span class="lbl">{{ "Alternativ titelform" }}</span>
+          <!-- <label><input type="text" placeholder="Lägg till alternativ namnform"/></label> -->
+            <label data-ng-repeat="hasVersion in instance.hasVersion">
+            <input data-inplace class="input-medium" type="text" data-ng-model="hasVersion.uniformTitle">
+          </label>
+        </div>       
+        <div ng-show="instance.hasVersion.creator"  class="multifield">
+          <span class="lbl">{{ "Upphov" }}</span>
+          <!-- <label><input type="text" placeholder="Lägg till alternativ namnform"/></label> -->
+            <label data-ng-repeat="creator in instance.hasVersion.creator">
+            <input data-inplace class="input-medium" type="text" data-ng-model="creator.controlledLabel">
+          </label>
+        </div>
+        <label>
+        <span class="lbl">{{ "Anmärkning" }}</span>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.note">{{ instance.note }}</textarea>
+        </label>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+<!--organization-->
+<div data-ng-switch-when="Organization">
+  <section id="instance" name="instance">
+    <div class="cols">
+      <div class="col6">
+        <label>
+          <span class="lbl">{{ "Label" }}</span>
+          <input data-inplace type="text" class="" data-ng-model="instance.label"/>
+        </label>
+        <div ng-show="instance.instanceOf"  class="multifield">
+          <span class="lbl">{{ "Används för" }}</span>
+          <!-- <label><input type="text" placeholder="Lägg till alternativ namnform"/></label> -->
+            <label data-ng-repeat="hasVersion in instance.instanceOf.hasVersion">
+            <input data-inplace class="input-medium" type="text" data-ng-model="hasVersion.label">
+          </label>
+        </div>
+        <label>
+        <span class="lbl">{{ "Anmärkning" }}</span>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.note">{{ instance.note }}</textarea>
+        </label>
+      </div>
+    </div>
+  </section>
+</div>
+
+</div>
 {% endraw %}
