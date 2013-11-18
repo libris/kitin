@@ -211,12 +211,19 @@
           </label>
         </div>
         <label>
-        <span class="lbl">{{ "Plats" }}</span>
+          <span class="lbl">{{ "Plats" }}</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.place.label">{{ instance.place.label }}</textarea>
         </label>
         <label>
-        <span class="lbl">{{ "Datum" }}</span>
+          <span class="lbl">{{ "Datum" }}</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.date">{{ instance.date }}</textarea>
+        </label>
+        <label>
+          <span class="lbl">{{ "Anmärkning" }}</span>
+          <div data-ng-repeat="note in instance.note">
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
+                    data-ng-model="note">{{ note }}</textarea>
+          </div>
         </label>
       </div>
     </div>
@@ -233,8 +240,11 @@
           <input data-inplace type="text" class="" data-ng-model="instance.prefLabel"/>
         </label>
         <label>
-        <span class="lbl">{{ "Anmärkning" }}</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.note">{{ instance.note }}</textarea>
+          <span class="lbl">{{ "Anmärkning" }}</span>
+          <div data-ng-repeat="note in instance.note">
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
+                    data-ng-model="note">{{ note }}</textarea>
+          </div>
         </label>
       </div>
     </div>
