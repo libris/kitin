@@ -69,6 +69,17 @@ a:hover{color:@green4; background-color: @white;}
 #header .searchfield :focus:-moz-placeholder:focus { color:#ddd; }/*FF18<*/
 #header .searchfield :focus::-moz-placeholder { color:#ddd; }/*FF19>*/
 
+#header .searchfield a.btn{height:24px;border:none;
+    background:@green3;width:15px;
+    -webkit-border-top-right-radius: 3px;
+    -webkit-border-bottom-right-radius: 3px;
+    -moz-border-radius-topright: 3px;
+    -moz-border-radius-bottomright: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    -webkit-transition:background ease-out 0.03s;
+}
+
 #header .searchfield button{text-indent:-10000px;height:38px;border:none;
     background:@green3 url(/static/img/search.png) no-repeat 50% 50%;width:50px;
     -webkit-border-top-right-radius: 3px;
@@ -80,6 +91,7 @@ a:hover{color:@green4; background-color: @white;}
     -webkit-transition:background ease-out 0.03s;
 }
 
+#header .searchfield a.btn:hover,
 #header .searchfield button:hover{background-color:#197961;}
 
 #header .searchfield button:hover{}  
@@ -88,6 +100,7 @@ a:hover{color:@green4; background-color: @white;}
 
 body.index #header .searchfield{left:248px;top:190px;}
 body.index #header .searchfield input[type="text"]{padding:10px 16px;}
+body.index #header .searchfield a.btn{height:32px;}
 body.index #header .searchfield button{height:46px;}
 
 body.login #header .searchfield{display:none;}
@@ -651,6 +664,8 @@ div.loading > b { display: none; }
 .btn.disabled:hover {background-color:#ccc;}
 
 section.submit .btn-link {font-size: 14px; font-weight: bold;}
+
+a btn {color: @green2;}
 
 .removedraft{float:left; vertical-align: none;}
 

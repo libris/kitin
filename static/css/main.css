@@ -252,6 +252,19 @@ a:hover {
   color: #ddd;
 }
 /*FF19>*/
+#header .searchfield a.btn {
+  height: 24px;
+  border: none;
+  background: #1a8f72;
+  width: 15px;
+  -webkit-border-top-right-radius: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  -moz-border-radius-topright: 3px;
+  -moz-border-radius-bottomright: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  -webkit-transition: background ease-out 0.03s;
+}
 #header .searchfield button {
   text-indent: -10000px;
   height: 38px;
@@ -266,6 +279,7 @@ a:hover {
   border-bottom-right-radius: 3px;
   -webkit-transition: background ease-out 0.03s;
 }
+#header .searchfield a.btn:hover,
 #header .searchfield button:hover {
   background-color: #197961;
 }
@@ -279,6 +293,9 @@ body.index #header .searchfield {
 }
 body.index #header .searchfield input[type="text"] {
   padding: 10px 16px;
+}
+body.index #header .searchfield a.btn {
+  height: 32px;
 }
 body.index #header .searchfield button {
   height: 46px;
@@ -1381,6 +1398,9 @@ div.loading > b {
 section.submit .btn-link {
   font-size: 14px;
   font-weight: bold;
+}
+a btn {
+  color: #27b492;
 }
 .removedraft {
   float: left;
