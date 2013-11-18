@@ -665,6 +665,7 @@ section.dash {
 }
 /* columns */
 .cols {
+  overflow: hidden;
   width: 1008px;
   clear: both;
 }
@@ -1649,4 +1650,3 @@ h4.modal-title {
 .clickable {
   cursor: pointer;
 }
-/*# sourceMappingURL=/static/css/main.css.map */
