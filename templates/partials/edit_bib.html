@@ -267,7 +267,17 @@
         </label>
       </div>
     </div>
-  <h2>{{ "Anmärkningar" }}<i></i></h2>
+
+    <h2>{{ "Anmärkningar" }}<i></i></h2>
+    <div class="cols">
+      <div class="col6">
+        <label>
+          <span class="lbl">{{ "Sammanfattning" }}</span>
+            <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
+                      data-ng-model="work.summary" placeholder="Sammanfattning"></textarea>
+        </label>
+      </div>
+    </div>
     <div class="cols">
       <div class="col6">
         <label>
@@ -291,27 +301,14 @@
       </div>
       <div class="col6"></div>
     </div>
-    </ng-form>
     <div style="clear:both"></div>
-  </section>
+    </ng-form>
 
-  <section id="subject classification">
+    <h2>{{ "Ämnesord och klassifikation" }}<i></i></h2>
     <div class="cols"
          data-ng-include="'/partials/edit_subject'" onload="work = record.about.instanceOf">
     </div>
-
-    <h2>{{ "Anmärkningar" }}<i></i></h2>
-    <div class="cols">
-      <div class="col6">
-        <label>
-          <span class="lbl">{{ "Sammanfattning" }}</span>
-            <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
-                      data-ng-model="work.summary" placeholder="Sammanfattning"></textarea>
-        </label>
-      </div>
-    </div>
-    <div style="clear:both"></div>
-  </section> 
+  </section>
   
   <section class="submit modificationinfo" data-ng-class="modifiedClasses()">
 <!--post beta:
