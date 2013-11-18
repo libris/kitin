@@ -1,6 +1,7 @@
 {% raw %}
 <div data-ng-repeat="instance in [record.about]"
      data-ng-switch on="instance['@type']">{{ record.data.about['@type']}}
+
 <!--person-->
 <div data-ng-switch-when="Person">
   <form name="form" id="record" class="form-horizontal">
@@ -184,6 +185,53 @@
             <input data-inplace class="input-medium" type="text" data-ng-model="hasVersion.label">
           </label>
         </div>
+        <label>
+        <span class="lbl">{{ "Anmärkning" }}</span>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.note">{{ instance.note }}</textarea>
+        </label>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!--meeting-->
+<div data-ng-switch-when="Meeting">
+  <section id="instance" name="instance">
+    <div class="cols">
+      <div class="col6">
+        <label>
+          <span class="lbl">{{ "Label" }}</span>
+          <input data-inplace type="text" class="" data-ng-model="instance.label"/>
+        </label>
+        <div ng-show="instance.instanceOf"  class="multifield">
+          <span class="lbl">{{ "Används för" }}</span>
+          <!-- <label><input type="text" placeholder="Lägg till alternativ namnform"/></label> -->
+            <label data-ng-repeat="hasVersion in instance.instanceOf.hasVersion">
+            <input data-inplace class="input-medium" type="text" data-ng-model="hasVersion.label">
+          </label>
+        </div>
+        <label>
+        <span class="lbl">{{ "Plats" }}</span>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.place.label">{{ instance.place.label }}</textarea>
+        </label>
+        <label>
+        <span class="lbl">{{ "Datum" }}</span>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.place.date">{{ instance.date }}</textarea>
+        </label>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!--place-->
+<div data-ng-switch-when="Place">
+  <section id="instance" name="instance">
+    <div class="cols">
+      <div class="col6">
+        <label>
+          <span class="lbl">{{ "Label" }}</span>
+          <input data-inplace type="text" class="" data-ng-model="instance.prefLabel"/>
+        </label>
         <label>
         <span class="lbl">{{ "Anmärkning" }}</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.note">{{ instance.note }}</textarea>
