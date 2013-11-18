@@ -11,42 +11,34 @@
              data-kitin-add-to="container"
              data-kitin-filter="{'inScheme.notation': scheme.notation}" />
     </label>
-    <div class="cols">
-      <div data-ng-repeat="subject in container.concepts" class="entity col6">
-        <ng:switch on="subject['@type']">
-          <div data-ng-switch-when="Person" class="col5">
-            <label>
-              {{ subject.controlledLabel }}
-            </label>
-          </div>
-          <div data-ng-switch-default>
-            <div data-ng-show="subject.prefLabel" class="col5">
-              <label>
-                {{ subject.prefLabel }}
-                <span class="lbl" data-ng-show="subject['@type'] == 'Place'">Geografiskt ämnesord</span>
-                <!--<span class="lbl">{{ subject.inScheme.notation }}</span>-->
-              </label>
-            </div>
-            <div data-ng-show="subject.broader" class="col5">
-              <label>
-                <!-- <em>Sammansättning: {{broader.['@id']}}</em> -->
-                <div>
-                  <span data-ng-repeat="broader in subject.broader">
-                    {{broader.prefLabel}}
-                    <span data-ng-show="broader.notation">({{ broader.notation }}) </span>
-                    <span class="subject-delimiter" data-ng-hide="$last">--</span>
-                  </span>
-                </div>
-              </label>
-            </div>
-          </div>
-        </ng:switch>
-        <div class="col1">
-          <label>
-            <button class="btn-link on-hover" data-ng-click="removeObject(container, 'concepts', $index)">
-              <i class="fa fa-times"></i></button>
-          </label>
+    <div data-ng-repeat="subject in container.concepts" class="entity col6">
+      <ng:switch on="subject['@type']">
+        <div data-ng-switch-when="Person" class="col4">
+          {{ subject.controlledLabel }}
         </div>
+        <div data-ng-switch-default>
+          <div data-ng-show="subject.prefLabel" class="col4">
+            {{ subject.prefLabel }}
+            <span class="lbl" data-ng-show="subject['@type'] == 'Place'">Geografiskt ämnesord</span>
+            <!--<span class="lbl">{{ subject.inScheme.notation }}</span>-->
+          </div>
+          <div data-ng-show="subject.broader" class="col4">
+            <!-- <em>Sammansättning: {{broader.['@id']}}</em> -->
+            <div>
+              <span data-ng-repeat="broader in subject.broader">
+                {{broader.prefLabel}}
+                <span data-ng-show="broader.notation">({{ broader.notation }}) </span>
+                <span class="subject-delimiter" data-ng-hide="$last">--</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </ng:switch>
+      <div class="addon">
+        <label>
+          <button class="btn-link on-hover" data-ng-click="removeObject(container, 'concepts', $index)">
+            <i class="fa fa-times"></i></button>
+        </label>
       </div>
     </div>
   </div>
