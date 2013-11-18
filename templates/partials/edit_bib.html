@@ -12,17 +12,7 @@
           <span class="lbl">{{ "Övrig titelinformation" }}</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" placeholder="Övrig titelinformation" data-ng-model="title.subtitle">{{ title.subtitle }}</textarea>
         </label>
-      </div>
-      <div class="col6">
-        <label class="error">
-          <span class="lbl">{{ "Upphov" }}</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.responsibilityStatement" placeholder="Upphov"></textarea>
-        </label>
-      </div>
-    </div>
-    <div class="cols" data-ng-init="work = record.about.instanceOf">
-      <div class="col6">
-        <label class="ng-binding">
+        <label class="ng-binding" data-ng-init="work = record.about.instanceOf">
           <span class="lbl">{{ "Språk" }}</span>
           <div data-ng-init="editable = !(work.language.langCode)">
             <div data-ng-hide="editable" data-ng-click="editable=!editable" class="fakeinput">
@@ -46,31 +36,30 @@
           </div>
         </script>
       </div>
-    </div>
-    <div class="cols">
-      <div class="col12">
-        <div data-ng-show="work.creator"
-             onload="subj = work; rel = 'creator'; person = work.creator"
-             data-ng-include="'render-person'"></div>
-        <button class="add-thing btn-link" data-ng-click="newObject(work, 'creator', 'Person')">{{ 'Huvuduppslag' }}
-          <i data-ng-hide="work.creator" class="fa fa-plus-circle"></i></button>
-        <hr />
-        <div data-ng-repeat="person in work.contributorList"
-             onload="subj = work; rel = 'contributorList'" data-ng-include="'render-person'"></div>
-        <button class="add-thing btn-link" data-ng-click="addObject(work, 'contributorList', 'Person')">{{ 'Biuppslag' }} <i class="fa fa-plus-circle"></i></button>
+      <div class="col6">
+        <label>
+          <span class="lbl">{{ "Upphov" }}</span>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.responsibilityStatement" placeholder="Upphov"></textarea>
+        </label>
+        <div>
+          <span class="lbl">{{ "Huvuduppslag" }}</span>
+          <div data-ng-show="work.creator"
+              onload="subj = work; rel = 'creator'; person = work.creator"
+              data-ng-include="'render-person'"></div>
+          <button data-ng-hide="work.creator"
+                  class="add-thing btn-link"
+                  data-ng-click="newObject(work, 'creator', 'Person')">{{ 'Huvuduppslag' }}
+            <i class="fa fa-plus-circle"></i></button>
+        </div>
+        <div>
+          <span class="lbl">{{ "Biuppslag" }}</span>
+          <div data-ng-repeat="person in work.contributorList"
+              onload="subj = work; rel = 'contributorList'" data-ng-include="'render-person'"></div>
+          <button class="add-thing btn-link" data-ng-click="addObject(work, 'contributorList', 'Person')">{{ 'Biuppslag' }}
+            <i class="fa fa-plus-circle"></i></button>
+        </div>
       </div>
     </div>
-
-    <script type='text/ng-template' id="modal-edit-auth"> 
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-           <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Auktoritetspost ({{ instance['@type'] }})</h4>
-          </div>
-          <div class="modal-body" data-ng-controller="EditCtrl">    
-          <div ng-include="'/partials/edit_auth'"></div>
-    </script> 
 
     <script type="text/ng-template" id="render-person">
       <div class="entity person" data-ng-init="editable = !(person.controlledLabel || person.givenName)">
@@ -99,9 +88,11 @@
             <span class="lbl">{{ "Död" }}</span>
             <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ" data-ng-model="person.deathYear" />
           </label>
+          <!--
           <div data-ng-controller="ModalCtrl">
             <button class="btn btn-primary" data-ng-click="open()">Aukt.</button>
           </div>
+          -->
         </div>
         <div class="addon">
           <label>
@@ -114,6 +105,17 @@
         </div>
       </div>
     </script>
+
+    <script type='text/ng-template' id="modal-edit-auth"> 
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+           <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Auktoritetspost ({{ instance['@type'] }})</h4>
+          </div>
+          <div class="modal-body" data-ng-controller="EditCtrl">    
+          <div ng-include="'/partials/edit_auth'"></div>
+    </script> 
 
     <h2>Utgivning och tillverkning<i></i></h2>
     <div class="cols">
