@@ -325,7 +325,7 @@ body.login #header .searchfield {
   position: relative;
   padding: 43px 36px 0;
   width: 1008px;
-  margin-left: -36px;
+  margin-left: -24px;
 }
 .content header h1 {
   height: 40px;
@@ -1495,6 +1495,11 @@ a.beta-blocker {
 }
 .subject-data {
   display: block;
+  padding-bottom: 7px;
+}
+.subject-head {
+  display: block;
+  font-size: 18px;
   padding-bottom: 7px;
 }
 /* Autocomplete */
