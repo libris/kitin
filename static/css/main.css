@@ -1066,7 +1066,6 @@ input[type="text"] :-moz-placeholder {
 .holdings :focus:-ms-input-placeholder:focus {
   color: #dda0dd;
 }
-label,
 label textarea,
 label input[type="text"],
 label select,
