@@ -15,12 +15,18 @@
     </div>
   </header>
 
-  <section data-ng-repeat="object in [record]"
+  <section data-ng-repeat="object in [record]" class="root"
       data-ng-include="'render-object'"></section>
 
 </form></div>
 
 <script type="text/ng-template" id="render-object">
+  <div class="header">
+    <span class="type" data-ng-if="object['@type']">{{ object['@type'] }}</span>
+    <span data-ng-if="object['@id']">
+      <a href="{{ toJsonLdLink(object['@id']) }}">&lt;{{ object['@id'] }}&gt;</a>
+    </span>
+  </div>
   <div data-ng-repeat="(key, obj) in object">
     <ng:switch on="typeOf(obj)">
       <div data-ng-switch-when="object"
@@ -31,18 +37,10 @@
             data-ng-include="'render-object'" class="entity"></section>
       </div>
       <span data-ng-switch-when="string">
-        <code>{{ key }}</code>
-        <ng:switch on="key">
-          <span data-ng-switch-when="@id">
-            <a href="{{ toJsonLdLink(obj) }}">&lt;{{ obj }}&gt;</a>
-          </span>
-          <span data-ng-switch-when="@type">
-            <span class="label label-info">{{ obj }}</span>
-          </span>
-          <span data-ng-switch-default>
-            <input data-ng-model="obj" type="text" class="input-xxlarge" />
-          </span>
-        </ng:switch>
+        <span data-ng-if="key[0] != '@'">
+          <code>{{ key }}</code>
+          <input data-ng-model="obj" type="text" class="input-xxlarge" />
+        </span>
       </span>
     </ng:switch>
   </div>
