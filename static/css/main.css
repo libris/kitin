@@ -1651,8 +1651,35 @@ h4.modal-title {
   color: #1a8f72;
 }
 /* JSON-LD View */
-#record code {
-  color: #999999;
+.root code {
+  font-family: 'Open Sans';
+  font-size: 10px;
+  color: #888;
+  margin-bottom: 0;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+}
+.root code {
+  background-color: none;
+  border: none;
+}
+/*code override*/
+.root input {
+  font-size: 12px;
+}
+.root .type {
+  font-size: 12px;
+  font-weight: 600;
+  color: #adadad;
+}
+.root .header {
+  font-size: 12px;
+}
+.root label {
+  font-size: 12px;
+  display: block;
+  background-color: #fff;
+  color: #adadad;
 }
 .collapsed > code {
   background-color: #c7c7c7;
@@ -1664,9 +1691,49 @@ h4.modal-title {
 .collapsed > .entity {
   max-height: 2em;
   overflow: auto;
-  box-shadow: inset 0px 5px 10px #adadad;
+  box-shadow: inset 0px 5px 10px #ffffff;
+  border-left: 1px dotted #c7c7c7;
 }
 .clickable {
   cursor: pointer;
+}
+.root code {
+  background-color: transparent;
+}
+section.entity {
+  background-color: #fff;
+  padding-top: 3px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 3px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+section.root {
+  background-color: #fff;
+}
+section.entity section.entity section.entity section.entity section.entity {
+  /*  background-color: @grey1; */
+  margin-left: 15px;
+}
+div.array,
+div.array > section.entity {
+  /*  background-color: @grey2 !important; */
+}
+div.array,
+div.array > section.entity {
+  background-color: #fdfdfd;
+  box-shadow: 0 25px 25px 0 #f7f7f7 inset;
+}
+section.entity section.entity section.entity {
+  background-color: #fff;
+}
+.array {
+  position: relative;
+}
+.array > section > div > * > div > label {
+  position: absolute;
+  left: 0;
+  display: none;
 }
 /*# sourceMappingURL=/static/css/main.css.map */
