@@ -27,7 +27,8 @@
       <a href="{{ toJsonLdLink(object['@id']) }}">&lt;{{ object['@id'] }}&gt;</a>
     </span>
   </div>
-  <div data-ng-repeat="(key, obj) in object">
+  <div data-ng-repeat="key in jsonLdKeys(object)"
+       data-ng-init="obj = object[key]">
     <ng:switch on="typeOf(obj)">
       <div data-ng-switch-when="object"
            data-ng-init="collapsed = (key == 'unknown')"
