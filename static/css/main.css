@@ -1666,6 +1666,7 @@ h4.modal-title {
 /*code override*/
 .root input {
   font-size: 12px;
+  border-bottom: 1px dashed #dadada;
 }
 .root .type {
   font-size: 12px;
@@ -1700,12 +1701,12 @@ h4.modal-title {
 .root code {
   background-color: transparent;
 }
-section.entity {
+.root section.entity {
   background-color: #fff;
   padding-top: 3px;
   padding-left: 15px;
   padding-right: 15px;
-  padding-bottom: 3px;
+  padding-bottom: 6px;
   margin-top: 3px;
   margin-bottom: 3px;
 }
