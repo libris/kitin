@@ -22,6 +22,12 @@ logger = logging.getLogger(__name__)
 mimetypes.add_type('application/font-woff', '.woff')
 
 
+#class SubFlask(Flask):
+#    jinja_options = dict(Flask.jinja_options,
+#            variable_start_string='{%=',
+#            variable_end_string='%}')
+
+#app = SubFlask(__name__)
 app = Flask(__name__)
 app.config.from_pyfile('config.cfg')
 app.config.from_envvar('SETTINGS', silent=True)
