@@ -25,9 +25,9 @@
     <ng:switch on="typeOf(obj)">
       <div data-ng-switch-when="object"
            data-ng-init="collapsed = (key == 'unknown')"
-           data-ng-class="{collapsed: collapsed}">
+           data-ng-class="{collapsed: collapsed, array: lodash.isArray(obj)}">
         <code data-ng-click="collapsed=!collapsed" class="clickable">{{ key }}</code>
-        <section data-ng-repeat="object in [obj]"
+        <section data-ng-init="object = obj"
             data-ng-include="'render-object'" class="entity"></section>
       </div>
       <span data-ng-switch-when="string">
