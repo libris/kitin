@@ -4,7 +4,7 @@
   "dependencies": {
     "lodash": "~2.1.0",
     "jquery": "~1.10.2",
-    "angular": "~1.2.0",
+    "angular": "~1.2.1",
     "angular-ui": "~0.4.0",
     "angular-bootstrap": "~0.6.0",
     "bootstrap": "~2.3.0",
@@ -13,7 +13,7 @@
     "dyve-jquery-autocomplete": "dyve/jquery-autocomplete#df032d1f3ec734c1415c09825578df336bec8272",
     "jquery-autosize": "~1.17.8",
     "select2": "~3.4.3",
-    "angular-route": "~1.2.0"
+    "angular-route": "~1.2.1"
   },
   "exportsOverride": {
     "font-awesome": {
