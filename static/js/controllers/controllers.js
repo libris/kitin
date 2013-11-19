@@ -1,4 +1,4 @@
-var kitin = angular.module('kitin.controllers', ['ui.bootstrap']);
+var kitin = angular.module('kitin.controllers', []);
 
 kitin.controller('ModalCtrl', function($scope, $modal) {
   
@@ -40,10 +40,24 @@ kitin.controller('IndexCtrl', function($scope, $http) {
 
 
 kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams) {
-  var recType = $routeParams.recType || $scope.recType || "bib";
-  $scope.search = function() {
-    $location.url("/search/" + recType + "?q="+encodeURIComponent($scope.q));
+  var searchTypeIndex = {
+    bib: {key: "bib", label: "Bibliografiskt material"},
+    auth: {key: "auth", label: "Auktoriteter"}
   };
+  $scope.searchTypes = [searchTypeIndex.bib, searchTypeIndex.auth];
+  $scope.setSearchType = function (key) {
+    $scope.searchType = searchTypeIndex[key];
+  };
+  $scope.placeholders = {
+    bib: "Sök bland bibliografiskt material (på ISBN, titel, författare etc.)",
+    auth: "Sök bland auktoriteter (personer, ämnen, verk etc.)"
+  };
+  $scope.search = function() {
+    $location.url("/search/" + $scope.searchType.key + "?q="+encodeURIComponent($scope.q));
+  };
+  $scope.$on('$routeChangeSuccess', function () {
+    $scope.setSearchType($routeParams.recType || "bib");
+  });
 });
 
 
@@ -166,6 +180,13 @@ kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, rec
       if (typeof obj === "undefined")
         return;
       return typedefs[obj['@type']];
+    };
+    // TODO: merge with getLabel (defined in SearchCtrl)
+    $scope.getTypeLabel = function (obj) {
+      if (typeof obj === "undefined")
+        return;
+      var dfn = $scope.getTypeDef(obj);
+      return (dfn)? dfn.label_sv : obj['@type'];
     };
   });
 

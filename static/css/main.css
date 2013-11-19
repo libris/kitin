@@ -211,7 +211,7 @@ a:hover {
   top: 82px;
   z-index: 2;
 }
-#header .searchfield input {
+#header .searchfield input[type="text"] {
   width: 500px;
   border: 1px solid #bbb;
   padding: 6px 10px 6px;
@@ -229,19 +229,19 @@ a:hover {
   border-right-width: 0;
   -webkit-transition: all ease-out 0.05s;
 }
-#header .searchfield input:focus {
+#header .searchfield input[type="text"]:focus {
   border-color: #777777 #ffffff #aaaaaa #777777;
 }
-#header .searchfield input:focus::-webkit-input-placeholder {
+#header .searchfield input[type="text"]:focus::-webkit-input-placeholder {
   color: #ddd;
 }
-#header .searchfield input:focus:-moz-placeholder:focus {
+#header .searchfield input[type="text"]:focus:-moz-placeholder:focus {
   color: #ddd;
 }
-#header .searchfield input:focus::-moz-placeholder:focus {
+#header .searchfield input[type="text"]:focus::-moz-placeholder:focus {
   color: #ddd;
 }
-#header .searchfield input:focus:-ms-input-placeholder:focus {
+#header .searchfield input[type="text"]:focus:-ms-input-placeholder:focus {
   color: #ddd;
 }
 #header .searchfield :focus:-moz-placeholder:focus {
@@ -252,6 +252,19 @@ a:hover {
   color: #ddd;
 }
 /*FF19>*/
+#header .searchfield a.btn {
+  height: 24px;
+  border: none;
+  background: #1a8f72;
+  width: 15px;
+  -webkit-border-top-right-radius: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  -moz-border-radius-topright: 3px;
+  -moz-border-radius-bottomright: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  -webkit-transition: background ease-out 0.03s;
+}
 #header .searchfield button {
   text-indent: -10000px;
   height: 38px;
@@ -266,10 +279,11 @@ a:hover {
   border-bottom-right-radius: 3px;
   -webkit-transition: background ease-out 0.03s;
 }
+#header .searchfield a.btn:hover,
 #header .searchfield button:hover {
   background-color: #197961;
 }
-#header .searchfield input,
+#header .searchfield input[type="text"],
 #header .searchfield button {
   float: left;
 }
@@ -277,8 +291,11 @@ body.index #header .searchfield {
   left: 248px;
   top: 190px;
 }
-body.index #header .searchfield input {
+body.index #header .searchfield input[type="text"] {
   padding: 10px 16px;
+}
+body.index #header .searchfield a.btn {
+  height: 32px;
 }
 body.index #header .searchfield button {
   height: 46px;
@@ -289,7 +306,7 @@ body.login #header .searchfield {
 .content {
   position: relative;
   background: url(/static/img/bg.png);
-  padding: 0 36px 24px 36px;
+  padding: 0 24px 24px 24px;
   overflow: hidden;
 }
 .content header {
@@ -298,7 +315,7 @@ body.login #header .searchfield {
   padding: 23px 36px 0;
   overflow: hidden;
   width: 1008px;
-  margin-left: -36px;
+  margin-left: -24px;
 }
 .content.footer {
   overflow: visible;
@@ -308,7 +325,7 @@ body.login #header .searchfield {
   position: relative;
   padding: 43px 36px 0;
   width: 1008px;
-  margin-left: -36px;
+  margin-left: -24px;
 }
 .content header h1 {
   height: 40px;
@@ -416,7 +433,7 @@ body.login .content.index header {
 .content section {
   background: #ffffff;
   margin: 0 0 12px;
-  padding: 12px;
+  padding: 12px 24px;
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
@@ -437,10 +454,19 @@ div.submit {
   text-align: right;
 }
 .content section h3 {
-  font: bold italic 16px/20px "Droid Serif", georgia, serif;
+  font: italic normal 14px/20px "Droid Serif", georgia, serif;
   color: #1a8f72;
-  border-bottom: 1px solid #1a8f72;
-  padding-bottom: 2px;
+  margin-bottom: 12px;
+  margin-top: 12px;
+  padding: 0 0;
+}
+.content section h3:before {
+  content: '\25A0';
+  font-style: normal;
+  font-size: 30px;
+  position: relative;
+  top: 4px;
+  margin-right: 4px;
 }
 .content section h2,
 section.nav dt {
@@ -455,8 +481,11 @@ section.nav dt {
   border-radius: 3px;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.08);
   -webkit-font-smoothing: antialiased;
-  margin-left: -24px;
+  margin-left: -36px;
+  min-height: 16px;
   position: relative;
+  margin-bottom: 24px;
+  margin-top: 24px;
 }
 .content section h2 i,
 section.nav dt i {
@@ -690,9 +719,7 @@ section.dash {
   float: left;
   margin-right: 24px;
 }
-.col1.last {
-  width: 72px;
-  float: left;
+.lastcol {
   margin-right: 0;
 }
 .content.search > .cols {
@@ -818,7 +845,6 @@ input[type="color"],
   font-size: 16px;
   line-height: 22px;
   color: #444;
-  background: #eee;
   vertical-align: middle;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -858,26 +884,10 @@ input[type="color"]:focus,
   box-shadow: none;
 }
 label {
-  margin-bottom: 18px;
-  border-left: 2px solid #ddd;
-  padding-left: 8px;
+  margin-bottom: 10px;
 }
-label textarea,
-label input,
-label select {
-  width: 468px;
-  font-size: 16px;
-  padding: 1px 0 0;
-  height: 22px;
-  -webkit-transition: background-color 0.02s ease-out;
-  margin-left: -2px;
-  padding-left: 2px;
-}
-label textarea {
-  line-height: 22px;
-}
-label select {
-  height: 26px;
+.todo {
+  display: none !important;
 }
 .multifield {
   margin-bottom: 18px;
@@ -886,40 +896,23 @@ label select {
   margin-bottom: 0;
 }
 .multifield .lbl {
-  padding-left: 8px;
-  border-left: 2px solid #ddd;
   margin-top: 0;
   padding-top: 2px;
 }
 .col6 label textarea,
-.col6 label input,
+.col6 label input[type="text"],
 .col6 label select {
-  width: 450px;
-  padding-right: 18px;
-}
-.col4 label textarea,
-.col4 label input,
-.col4 label select {
-  width: 282px;
-  padding-right: 18px;
+  width: 466px;
 }
 .col3 label textarea,
-.col3 label input,
+.col3 label input[type="text"],
 .col3 label select {
-  width: 198px;
-  padding-right: 18px;
-}
-.col3 label:hover textarea,
-.col3 label:hover input,
-.col3 label input:focus,
-.col3 label textarea:focus {
-  background-position: 97.5% 7px;
+  width: 214px;
 }
 .col2 label textarea,
-.col2 label input,
+.col2 label input[type="text"],
 .col2 label select {
-  width: 74px;
-  padding-right: 18px;
+  width: 130px;
 }
 .split {
   overflow: hidden;
@@ -934,10 +927,9 @@ label select {
   margin-left: 0;
 }
 .col3 .split label textarea,
-.col3 .split label input,
+.col3 .split label input[type="text"],
 .col3 .split label select {
   width: 74px;
-  padding-right: 18px;
 }
 .col6 .split label {
   float: left;
@@ -949,15 +941,25 @@ label select {
   margin-left: 0;
 }
 .col6 .split label textarea,
-.col6 .split label input,
+.col6 .split label input[type="text"],
 .col6 .split label select {
   width: 166px;
-  padding-right: 18px;
+}
+.col3 label.deletable .lbl {
+  display: block;
+}
+.col3 label.deletable input[type="text"] {
+  width: 160px;
+}
+.col2 label.deletable input[type="text"] {
+  width: 100px;
 }
 .entity {
-  border-left: 2px solid #ddd;
   margin-bottom: 18px;
   overflow: auto;
+}
+.entity.addmore {
+  margin-bottom: 4px;
 }
 .entity:hover,
 .entity.focus {
@@ -968,17 +970,38 @@ label select {
   margin-bottom: 0;
 }
 .entity .addon label,
-.entity .addon input {
+.entity .addon input[type="text"] {
   float: left;
   width: 74px;
-  padding-right: 18px;
 }
-h3 .type {
-  text-transform: lowercase;
+.datatable table {
+  width: 100%;
+}
+.datatable td {
+  padding: 0 0 0 6px;
+}
+.datatable td:first-child {
+  padding: 0;
+}
+.datatable label {
+  margin-bottom: 6px;
+}
+.datatable label input[type="text"] {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+}
+.datatable td.controls .btn-link {
+  padding: 0;
+  position: relative;
+  top: -3px;
 }
 span.authorized {
-  margin-left: 10px;
-  margin-top: 10px;
+  display: block;
+  margin-left: 15px;
+  padding-left: 5px;
+  margin-top: 25px;
   color: #1a8f72;
   font-size: 24px;
 }
@@ -987,7 +1010,7 @@ label ::-webkit-input-placeholder {
   font-style: italic;
   font-size: 14px;
 }
-input::-webkit-input-placeholder {
+input[type="text"]::-webkit-input-placeholder {
   color: #ccc;
   font-style: italic;
   font-size: 14px;
@@ -998,7 +1021,7 @@ label :-moz-placeholder {
   font-size: 14px;
 }
 /*FF18<*/
-input :-moz-placeholder {
+input[type="text"] :-moz-placeholder {
   color: #ccc;
   font-style: italic;
   font-size: 14px;
@@ -1016,18 +1039,18 @@ input :-moz-placeholder {
   font-size: 14px;
 }
 :focus::-webkit-input-placeholder {
-  color: #78ceba;
+  color: #eee;
 }
 :focus:-moz-placeholder:focus {
-  color: #78ceba;
+  color: #eee;
 }
 /*FF18<*/
 :focus::-moz-placeholder {
-  color: #78ceba;
+  color: #eee;
 }
 /*FF19>*/
 :focus:-ms-input-placeholder:focus {
-  color: #78ceba;
+  color: #eee;
 }
 .holdings :focus::-webkit-input-placeholder {
   color: #dda0dd;
@@ -1043,37 +1066,55 @@ input :-moz-placeholder {
 .holdings :focus:-ms-input-placeholder:focus {
   color: #dda0dd;
 }
-label:hover,
-label.focus {
-  border-left-color: #1a8f72;
+label textarea,
+label input[type="text"],
+label select,
+.fakeinput {
+  font-size: 15px;
+  padding: 2px 5px 0 5px;
+  height: 25px;
+  border-radius: 2px;
+}
+.fakeinput {
+  color: #444;
+  cursor: text;
+  padding-top: 3px;
+  height: 24px;
+}
+label input[type="text"] {
+  padding-top: 0;
+  height: 25px;
+  padding-bottom: 2px;
+}
+label textarea,
+label input[type="text"],
+.fakeinput {
+  border: 1px solid #ccc;
+}
+label textarea {
+  line-height: 22px;
+}
+label select {
+  height: 26px;
 }
 label:hover textarea,
-label:hover input {
-  background: #f8f8f8 url(/static/img/pen-grey.png) no-repeat 98.5% 7px;
+label:hover input[type="text"] {
   color: #000;
-  border-color: #f8f8f8;
+  border-color: #bbbbbb;
 }
-label input:focus,
+label input[type="text"]:focus,
 label textarea:focus {
-  background: #c0f1e6 url(/static/img/pen-black.png) no-repeat 98.5% 7px;
   color: #000;
-  border: 1px solid #c0f1e6;
+  border: 1px solid #888;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 0 2px;
+  outline: none;
 }
 .holdings label:hover,
 .holdings label.focus {
   border-left-color: #683568;
 }
-.holdings label input:focus,
-.holdings label textarea:focus {
-  background: #e0c4e0 url(/static/img/pen-black.png) no-repeat 98.5% 7px;
-  border: 1px solid #e0c4e0;
-}
-label:hover textarea.title,
-label textarea.title:focus {
-  background-position: 98% 9px;
-}
 label textarea.ng-invalid,
-label input.ng-invalid,
+label input[type="text"].ng-invalid,
 label select.ng-invalid {
   background-color: #ffd4db!important;
   border-color: #ffd4db!important;
@@ -1084,24 +1125,23 @@ label textarea {
   color: #444;
 }
 label textarea.title {
-  font-size: 22px;
-  height: 28px;
-  line-height: 26px;
   font-weight: bold;
 }
 .lbl {
   display: block;
-  font-size: 12px;
-  color: #1a8f72;
-  margin-top: 2px;
+  font-size: 10px;
+  color: #888;
+  margin-bottom: 0;
   line-height: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 .lbl-suggest {
   display: block;
   font-size: 12px;
   color: #1a8f72;
   margin-top: 2px;
-  line-height: 16px;
+  line-height: 14px;
   float: left;
   clear: both;
 }
@@ -1138,8 +1178,6 @@ label .lbl_inline {
   color: #c7c7c7;
 }
 .suggestion-subjects {
-  border-left: 2px solid #ddd;
-  padding-left: 8px;
   background: #f6f3ee url(/static/img/pat1.png);
   padding-top: 8px;
   padding-bottom: 8px;
@@ -1177,8 +1215,6 @@ div.loading > b {
 .holdings > label.dynamic-subjects em.subject .icon{color:@green3;}
 */
 .suggestion-classification {
-  border-left: 2px solid #ddd;
-  padding-left: 8px;
   background: #f6f3ee url(/static/img/pat1.png);
   padding-top: 8px;
   padding-bottom: 8px;
@@ -1205,14 +1241,14 @@ div.loading > b {
   visibility: visible;
 }
 .add-thing.btn-link {
-  color: #c7c7c7;
+  padding: 0;
+  font-size: 12px;
+  margin-top: 3px;
 }
-.cols:hover .add-thing.btn-link {
-  color: #1a8f72;
-}
-.cols:hover .add-thing.btn-link:hover {
-  color: #106351;
-}
+/*
+.cols:hover .add-thing.btn-link { color: @green3; }
+.cols:hover .add-thing.btn-link:hover { color: @green4; }
+*/
 /* bootstrap dropdown */
 .nav > li > a:hover,
 .nav > li > a:focus {
@@ -1225,8 +1261,6 @@ div.loading > b {
   border-radius: 3px 3px 3px 3px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   display: none;
-  float: left;
-  left: 1000px;
   list-style: none outside none;
   margin: 2px 0 0;
   min-width: 252px;
@@ -1271,6 +1305,7 @@ div.loading > b {
   border-top: 1px solid #ccc;
   color: #1a8f72;
 }
+.dropdown-menu li a.selected,
 .dropdown-menu li a:hover {
   color: #ffffff;
   background: #1a8f72;
@@ -1341,6 +1376,12 @@ div.loading > b {
 .btn-link:hover {
   color: #106351;
 }
+.btn-link.deleter {
+  color: #adadad;
+}
+.btn-link.deleter:hover {
+  color: #fa1963;
+}
 .holdings .btn-link {
   color: #683568;
 }
@@ -1362,6 +1403,9 @@ div.loading > b {
 section.submit .btn-link {
   font-size: 14px;
   font-weight: bold;
+}
+a btn {
+  color: #27b492;
 }
 .removedraft {
   float: left;
@@ -1443,16 +1487,31 @@ a.beta-blocker {
   cursor: default;
 }
 /*block unfinished elements, should not be in final release*/
+/* tmp auth view */
+.subject ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.subject-data {
+  display: block;
+  padding-bottom: 7px;
+}
+.subject-head {
+  display: block;
+  font-size: 18px;
+  padding-bottom: 7px;
+}
 /* Autocomplete */
 .acResults {
   width: 466px;
-  border: 1px solid #ccc;
+  border: 1px solid #aaa;
   border-top-width: 0;
   background: #ffffff;
-  -webkit-box-shadow: 0 0px 6px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 0px 6px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 0px 6px rgba(0, 0, 0, 0.2);
-  margin: -1px 0 0 1px;
+  -webkit-box-shadow: 0 0px 3px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 0px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0px 3px rgba(0, 0, 0, 0.1);
+  margin: -1px 0 0 0;
   z-index: 1000;
 }
 .acResults ul li {
@@ -1460,8 +1519,8 @@ a.beta-blocker {
   padding: 0;
 }
 .acResults > ul > li {
-  border-top: 1px solid #ddd;
-  padding: 10px 12px;
+  border-top: 1px solid #aaa;
+  padding: 6px 8px;
   margin: 0;
 }
 .acResults li {
@@ -1471,6 +1530,7 @@ a.beta-blocker {
   padding: 0 28px 0 0;
   margin: 0;
   position: relative;
+  font-size: 14px !important;
 }
 .acResults h4 .name {
   color: #191919;
