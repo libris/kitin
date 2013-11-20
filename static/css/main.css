@@ -1675,7 +1675,8 @@ h4.modal-title {
 .json-ld .type {
   font-size: 12px;
   font-weight: 600;
-  color: #adadad;
+  color: #191919;
+  padding-left: 3px;
 }
 .json-ld .header {
   font-size: 12px;
