@@ -38,7 +38,7 @@ kitin.config(
  */
 kitin.run(function($rootScope) {
 
-  $rootScope._ = _;
+  $rootScope.lodash = _;
 
   $rootScope.isEmpty = function(obj) { return angular.equals({},obj); };
   $rootScope.typeOf = function (o) { return o === null? 'null' : typeof o; };

@@ -1,5 +1,5 @@
 {% raw %}
-<div class="content bib"><form name="form" id="record" class="form-horizontal" data-ng-controller="EditCtrl">
+<div class="content bib"><form name="form" class="form-horizontal" data-ng-controller="EditCtrl">
   <header>
     <h1>JSON-LD</h1>
     <p>
@@ -15,34 +15,33 @@
     </div>
   </header>
 
-  <section data-ng-repeat="object in [record]"
+  <section data-ng-repeat="object in [record]" class="root"
       data-ng-include="'render-object'"></section>
 
 </form></div>
 
 <script type="text/ng-template" id="render-object">
-  <div data-ng-repeat="(key, obj) in object">
+  <div class="header" data-ng-if="object['@type'] || object['@id']">
+    <span class="type" data-ng-if="object['@type']">{{ object['@type'] }}</span>
+    <span data-ng-if="object['@id']">
+      <a href="{{ toJsonLdLink(object['@id']) }}">&lt;{{ object['@id'] }}&gt;</a>
+    </span>
+  </div>
+  <div data-ng-repeat="key in jsonLdKeys(object)"
+       data-ng-init="obj = object[key]">
     <ng:switch on="typeOf(obj)">
       <div data-ng-switch-when="object"
            data-ng-init="collapsed = (key == 'unknown')"
-           data-ng-class="{collapsed: collapsed}">
-        <code data-ng-click="collapsed=!collapsed" class="clickable">{{ key }}</code>
-        <section data-ng-repeat="object in [obj]"
+           data-ng-class="{collapsed: collapsed, array: lodash.isArray(obj)}">
+        <label data-ng-click="collapsed=!collapsed" class="entitylink">{{ key }}</label>
+        <section data-ng-init="object = obj"
             data-ng-include="'render-object'" class="entity"></section>
       </div>
       <span data-ng-switch-when="string">
-        <code>{{ key }}</code>
-        <ng:switch on="key">
-          <span data-ng-switch-when="@id">
-            <a href="{{ toJsonLdLink(obj) }}">&lt;{{ obj }}&gt;</a>
-          </span>
-          <span data-ng-switch-when="@type">
-            <span class="label label-info">{{ obj }}</span>
-          </span>
-          <span data-ng-switch-default>
-            <input data-ng-model="obj" type="text" class="input-xxlarge" />
-          </span>
-        </ng:switch>
+        <span data-ng-if="key[0] != '@'">
+          <code>{{ key }}</code>
+          <input data-ng-model="obj" type="text" />
+        </span>
       </span>
     </ng:switch>
   </div>
