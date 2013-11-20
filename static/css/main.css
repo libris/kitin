@@ -1667,9 +1667,10 @@ h4.modal-title {
 .root input {
   font-size: 12px;
   border-bottom: 1px dashed #dadada;
+  width: 72%;
 }
 .root input:focus {
-  border-bottom: 1px dashed #333;
+  border-bottom-color: #555;
 }
 .root .type {
   font-size: 12px;
@@ -1696,9 +1697,11 @@ h4.modal-title {
   max-height: 2em;
   overflow: auto;
   box-shadow: inset 0px 5px 10px #ffffff;
-  border-left: 1px dotted #c7c7c7;
+  border: 1px dotted #c7c7c7;
+  opacity: 0.4;
 }
-.clickable {
+.entitylink {
+  margin-top: 6px;
   cursor: pointer;
 }
 .root code {
@@ -1706,31 +1709,36 @@ h4.modal-title {
 }
 .root section.entity {
   background-color: #fff;
-  padding-top: 3px;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-bottom: 6px;
-  margin-top: 3px;
-  margin-bottom: 3px;
+  padding: 3px 15px 6px;
+  margin: 3px 9px;
+  border-radius: 5px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
 }
 section.root {
   background-color: #fff;
-}
-section.entity section.entity section.entity section.entity section.entity {
-  /*  background-color: @grey1; */
-  margin-left: 15px;
 }
 div.array,
 div.array > section.entity {
   /*  background-color: @grey2 !important; */
 }
-div.array,
 div.array > section.entity {
   background-color: #fdfdfd;
-  box-shadow: 0 25px 25px 0 #f7f7f7 inset;
+  box-shadow: 0 2px 10px 4px #eee inset;
+  border-radius: 5px;
+  padding: 9px 15px;
 }
-section.entity section.entity section.entity {
-  background-color: #fff;
+div.array {
+  overflow: hidden;
+}
+div.array > section.entity > div {
+  width: 50%;
+  float: left;
+  margin: 3px 0;
+  position: relative;
+}
+div.array > section.entity > div:nth-of-type(even) {
+  float: right;
+  margin-bottom: none;
 }
 .array {
   position: relative;
@@ -1740,4 +1748,3 @@ section.entity section.entity section.entity {
   left: 0;
   display: none;
 }
-/*# sourceMappingURL=/static/css/main.css.map */

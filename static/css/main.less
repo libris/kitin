@@ -811,8 +811,15 @@ h4.modal-title{font: bold italic 16px/20px "Droid Serif", georgia,serif; color:@
 
 .root code {font-family: 'Open Sans';font-size:10px;color:#888;margin-bottom:0;line-height:16px;letter-spacing:.5px}
 .root code { background-color:none; border: none;}/*code override*/
-.root input {font-size: 12px; border-bottom: 1px dashed #dadada;}
-.root input:focus {border-bottom: 1px dashed #333;}
+
+.root input {
+  font-size: 12px; border-bottom: 1px dashed #dadada;
+  width: 72%;
+}
+.root input:focus {
+  border-bottom-color: #555;
+}
+
 .root .type {font-size: 12px; font-weight:600;color:@grey3;}
 .root .header {font-size: 12px;}
 .root label {font-size: 12px;display: block;background-color:#fff;color:@grey3;}
@@ -830,43 +837,53 @@ h4.modal-title{font: bold italic 16px/20px "Droid Serif", georgia,serif; color:@
   max-height: 2em;
   overflow: auto;
   box-shadow: inset 0px 5px 10px @white;
-  border-left: 1px dotted @grey2;
+  border: 1px dotted @grey2;
+  opacity: 0.4;
 
 }
 
-.clickable { cursor: pointer}
+.entitylink {
+  margin-top: 6px;
+  cursor: pointer;
+}
 
 .root code {background-color: transparent;}
 
 .root section.entity {
- background-color: #fff;
-  padding-top: 3px;
-  padding-left:15px;
-  padding-right:15px;
-  padding-bottom:6px;
-  margin-top:3px;
-  margin-bottom: 3px;
+  background-color: #fff;
+  padding: 3px 15px 6px;
+  margin: 3px 9px;
+  border-radius: 5px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, .4);
 }
 
 
 section.root {background-color:#fff;}
 
-section.entity section.entity section.entity section.entity section.entity{
-/*  background-color: @grey1; */
-  margin-left:15px;
-}
-
 div.array,
 div.array > section.entity {
 /*  background-color: @grey2 !important; */
 }
-div.array, div.array > section.entity {
+div.array > section.entity {
     background-color: #fdfdfd;
-    box-shadow: 0 25px 25px 0 #f7f7f7 inset;
+    box-shadow: 0 2px 10px 4px #eee inset;
+    border-radius: 5px;
+    padding: 9px 15px;
 }
 
-section.entity section.entity section.entity {
- background-color: #fff;
+div.array {
+  overflow: hidden;
+}
+
+div.array > section.entity > div {
+  width: 50%;
+  float: left;
+  margin: 3px 0;
+  position: relative;
+}
+div.array > section.entity > div:nth-of-type(even) {
+  float: right;
+  margin-bottom: none;
 }
 
 .array {position: relative;}

@@ -21,7 +21,7 @@
 </form></div>
 
 <script type="text/ng-template" id="render-object">
-  <div class="header">
+  <div class="header" data-ng-if="object['@type'] || object['@id']">
     <span class="type" data-ng-if="object['@type']">{{ object['@type'] }}</span>
     <span data-ng-if="object['@id']">
       <a href="{{ toJsonLdLink(object['@id']) }}">&lt;{{ object['@id'] }}&gt;</a>
@@ -33,14 +33,14 @@
       <div data-ng-switch-when="object"
            data-ng-init="collapsed = (key == 'unknown')"
            data-ng-class="{collapsed: collapsed, array: lodash.isArray(obj)}">
-        <label data-ng-click="collapsed=!collapsed" class="clickable">{{ key }}</label>
+        <label data-ng-click="collapsed=!collapsed" class="entitylink">{{ key }}</label>
         <section data-ng-init="object = obj"
             data-ng-include="'render-object'" class="entity"></section>
       </div>
       <span data-ng-switch-when="string">
         <span data-ng-if="key[0] != '@'">
           <code>{{ key }}</code>
-          <input data-ng-model="obj" type="text" class="input-xxlarge" />
+          <input data-ng-model="obj" type="text" />
         </span>
       </span>
     </ng:switch>
