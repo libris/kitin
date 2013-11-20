@@ -51,9 +51,6 @@
       <label><input type="text" placeholder="Lägg till alternativ namnform"/></label>
       <div ng-show="instance.sameAs"  class="multifield">
           <label data-ng-repeat="person in instance.sameAs"><input data-inplace class="input-medium" type="text" data-ng-model="person.controlledLabel"></label>
-
-        </label>
-        
       </div>
       <div ng-show="instance.hasPersona" class="multifield">
           <span class="lbl">{{ "Används för" }}</span>
@@ -72,9 +69,9 @@
            </label>
           <label data-ng-repeat="sameAs in instance.sameAs"><a href="{{ sameAs['@id'] }}" target="_blank">{{ sameAs['@id'] }}</a>
            </label> 
-      
-
-           <label><span class="lbl">{{ "Allmän anmärkning" }}</span><textarea data-inplace data-ui-jq="autosize" placeholder="Allmän anmärkning"></textarea></label>           
+          <label><span class="lbl">{{ "Allmän anmärkning" }}</span>
+            <textarea data-inplace data-ui-jq="autosize" placeholder="Allmän anmärkning"></textarea>
+          </label>           
       </div>
       </div>
       <div class="cols">
@@ -88,10 +85,24 @@
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.note">{{ record.note }}</textarea>
         </label>        
       </div>
+      <div>
+      <div class="cols">
       <div class="col6">
         <div data-ng-show="record.source" class="multifield">
-          <span class="lbl">{{ "Källa" }}</span>
-          <label data-ng-repeat="source in record.source"><input data-inplace class="input-medium" type="text" data-ng-model="source.label">{{ source.comment }}</label>
+          <span class="lbl">{{ "Källa" }}</span>  
+          <label><input type="text" placeholder="Lägg till källa"/></label>
+            <label data-ng-repeat="source in record.source">
+              <textarea data-inplace type="text" data-ng-model="source.label"/>
+            </label>
+        </div>
+      </div>
+        <div class="col6">
+          <div data-ng-show="record.source" class="multifield"> 
+          <span class="lbl">{{ "Kommentar" }}</span>
+          <label><input type="text" placeholder="Lägg till kommentar"/></label>
+            <label data-ng-repeat="source in record.source">
+             <input data-inplace type="text" data-ng-model="source.comment"/>
+            </label>
         </div>
       </div>
       </div>
