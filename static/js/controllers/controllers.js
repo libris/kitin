@@ -332,22 +332,8 @@ kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, rec
     //console.log(status);
   });
 
-  function createObject(type) {
-    switch (type) {
-      case 'Person':
-        return {'@type': "Person", controlledLabel: "", birthYear: ""};
-      case 'ISBN':
-        return {'@type': "Identifier", identifierScheme: "ISBN", identifierValue: ""};
-      case 'ProviderEvent':
-        return {'@type': "ProviderEvent", providerName: "", providerDate: "",
-                place: {'@type': "Place", label: ""}};
-      default:
-        return {};
-    }
-  }
-
   $scope.newObject = function(subj, rel, type) {
-    var obj = subj[rel] = createObject(type);
+    var obj = subj[rel] = editUtil.createObject(type);
   };
 
   $scope.addObject = function(subj, rel, type) {
@@ -355,7 +341,7 @@ kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, rec
     if (typeof collection === 'undefined') {
       collection = subj[rel] = [];
     }
-    var obj = createObject(type);
+    var obj = editUtil.createObject(type);
     collection.push(obj);
   };
 

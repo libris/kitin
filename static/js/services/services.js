@@ -91,6 +91,23 @@ kitin.factory('records', function ($http, $q) {
 kitin.service('editUtil', function(resources) {
   var editutil = {
 
+    createObject: function (type) {
+      switch (type) {
+        case 'Person':
+          //objectKeys: ['controlledLabel', 'familyName', 'givenName', 'birthYear', 'deathYear']
+          return {'@type': "Person", controlledLabel: "", birthYear: ""};
+        //case 'Concept':
+        //  objectKeys: ['prefLabel', '@type', 'hiddenLabel', 'broader', 'narrower', '@id', 'scopeNote', 'historyNote' ]
+        case 'ISBN':
+          return {'@type': "Identifier", identifierScheme: "ISBN", identifierValue: ""};
+        case 'ProviderEvent':
+          return {'@type': "ProviderEvent", providerName: "", providerDate: "",
+                  place: {'@type': "Place", label: ""}};
+        default:
+          return {};
+      }
+    },
+
     getPersonRoleMap: function (record, relatorsMap) {
       var instance = record.about;
       var work = instance.instanceOf;
