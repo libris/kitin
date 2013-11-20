@@ -47,9 +47,9 @@
       
       <div class="cols">    
       <div class="col6">
+      <span class="lbl">{{ "Används för" }}</span>
+      <label><input type="text" placeholder="Lägg till alternativ namnform"/></label>
       <div ng-show="instance.sameAs"  class="multifield">
-          <span class="lbl">{{ "Används för" }}</span>
-            <label><input type="text" placeholder="Lägg till alternativ namnform"/></label>
           <label data-ng-repeat="person in instance.sameAs"><input data-inplace class="input-medium" type="text" data-ng-model="person.controlledLabel"></label>
 
         </label>
