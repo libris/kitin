@@ -1668,6 +1668,9 @@ h4.modal-title {
   font-size: 12px;
   border-bottom: 1px dashed #dadada;
 }
+.root input:focus {
+  border-bottom: 1px dashed #333;
+}
 .root .type {
   font-size: 12px;
   font-weight: 600;
