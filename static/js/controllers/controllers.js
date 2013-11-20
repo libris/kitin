@@ -184,7 +184,7 @@ kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, rec
       if (typeof obj === "undefined")
         return;
       var dfn = $scope.getTypeDef(obj);
-      return (dfn)? dfn.label_sv : obj['@type'];
+      return (dfn)? dfn['label_sv'] : obj['@type'];
     };
   });
 
@@ -428,7 +428,7 @@ kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, rec
           b2 = other.key;
       return 2 * (a1 > a2 ? 1 : a1 < a2 ? -1 : 0) +
         1 * (b1 > b2 ? 1 : b1 < b2 ? -1 : 0);
-    })
+    });
     return _.collect(result, 'key');
   };
 
