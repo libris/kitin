@@ -87,24 +87,28 @@
       </div>
       <div>
       <div class="cols">
-      <div class="col6">
-        <div data-ng-show="record.source" class="multifield">
-          <span class="lbl">{{ "Källa" }}</span>  
-          <label><input type="text" placeholder="Lägg till källa"/></label>
+        <div class="col6">
+          <div data-ng-show="record.source" class="multifield">
+            <span class="lbl">{{ "Källa" }}</span>  
+            <label>
+              <input type="text" placeholder="Lägg till källa"/>
+            </label>
             <label data-ng-repeat="source in record.source">
               <textarea data-inplace type="text" data-ng-model="source.label"/>
             </label>
+          </div>
         </div>
-      </div>
         <div class="col6">
           <div data-ng-show="record.source" class="multifield"> 
-          <span class="lbl">{{ "Kommentar" }}</span>
-          <label><input type="text" placeholder="Lägg till kommentar"/></label>
-            <label data-ng-repeat="source in record.source">
-             <input data-inplace type="text" data-ng-model="source.comment"/>
+            <span class="lbl">{{ "Kommentar" }}</span>
+            <label>
+              <input type="text" placeholder="Lägg till kommentar"/>
             </label>
+            <label data-ng-repeat="source in record.source">
+              <input data-inplace type="text" data-ng-model="source.comment"/>
+            </label>
+          </div>
         </div>
-      </div>
       </div>
       <div class="bottom">
         <button class="btn disabled">Uppdatera</button>
@@ -142,6 +146,10 @@
         <ul data-ng-repeat="closeMatch in instance.closeMatch">
           <li data-ng-model="closeMatch.prefLabel">{{ closeMatch.prefLabel }}</li>
         </ul>
+        <span class="lbl" data-ng-show="record.source">{{ "Källa/kommentar" }}</span>  
+        <ul data-ng-repeat="source in record.source">
+          <li>{{ source.label }} <span ng-if="source.comment">/ {{ source.comment }}</span></li>
+        </ul>
       </div>
     </div>
   </section>
@@ -174,9 +182,32 @@
         <span class="lbl">{{ "Anmärkning" }}</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.note">{{ instance.note }}</textarea>
         </label>
-
       </div>
     </div>
+      <div class="cols">
+        <div class="col6">
+          <div data-ng-show="record.source" class="multifield">
+            <span class="lbl">{{ "Källa" }}</span>  
+            <label>
+              <input type="text" placeholder="Lägg till källa"/>
+            </label>
+            <label data-ng-repeat="source in record.source">
+              <textarea data-inplace type="text" data-ng-model="source.label"/>
+            </label>
+          </div>
+        </div>
+        <div class="col6">
+          <div data-ng-show="record.source" class="multifield"> 
+            <span class="lbl">{{ "Kommentar" }}</span>
+            <label>
+              <input type="text" placeholder="Lägg till kommentar"/>
+            </label>
+            <label data-ng-repeat="source in record.source">
+              <input data-inplace type="text" data-ng-model="source.comment"/>
+            </label>
+          </div>
+        </div>
+      </div>
   </section>
 </div>
 
@@ -190,7 +221,7 @@
           <input data-inplace type="text" class="" data-ng-model="instance.label"/>
         </label>
         <div ng-show="instance.instanceOf"  class="multifield">
-          <span class="lbl">{{ "Används för" }}</span>
+          <span class="lbl">{{ "Används ej" }}</span>
           <!-- <label><input type="text" placeholder="Lägg till alternativ namnform"/></label> -->
             <label data-ng-repeat="hasVersion in instance.instanceOf.hasVersion">
             <input data-inplace class="input-medium" type="text" data-ng-model="hasVersion.label">
@@ -202,6 +233,30 @@
         </label>
       </div>
     </div>
+      <div class="cols">
+        <div class="col6">
+          <div data-ng-show="record.source" class="multifield">
+            <span class="lbl">{{ "Källa" }}</span>  
+            <label>
+              <input type="text" placeholder="Lägg till källa"/>
+            </label>
+            <label data-ng-repeat="source in record.source">
+              <textarea data-inplace type="text" data-ng-model="source.label"/>
+            </label>
+          </div>
+        </div>
+        <div class="col6">
+          <div data-ng-show="record.source" class="multifield"> 
+            <span class="lbl">{{ "Kommentar" }}</span>
+            <label>
+              <input type="text" placeholder="Lägg till kommentar"/>
+            </label>
+            <label data-ng-repeat="source in record.source">
+              <input data-inplace type="text" data-ng-model="source.comment"/>
+            </label>
+          </div>
+        </div>
+      </div>
   </section>
 </div>
 
@@ -238,6 +293,30 @@
         </label>
       </div>
     </div>
+      <div class="cols">
+        <div class="col6">
+          <div data-ng-show="record.source" class="multifield">
+            <span class="lbl">{{ "Källa" }}</span>  
+            <label>
+              <input type="text" placeholder="Lägg till källa"/>
+            </label>
+            <label data-ng-repeat="source in record.source">
+              <textarea data-inplace type="text" data-ng-model="source.label"/>
+            </label>
+          </div>
+        </div>
+        <div class="col6">
+          <div data-ng-show="record.source" class="multifield"> 
+            <span class="lbl">{{ "Kommentar" }}</span>
+            <label>
+              <input type="text" placeholder="Lägg till kommentar"/>
+            </label>
+            <label data-ng-repeat="source in record.source">
+              <input data-inplace type="text" data-ng-model="source.comment"/>
+            </label>
+          </div>
+        </div>
+      </div>
   </section>
 </div>
 
@@ -259,6 +338,30 @@
         </label>
       </div>
     </div>
+      <div class="cols">
+        <div class="col6">
+          <div data-ng-show="record.source" class="multifield">
+            <span class="lbl">{{ "Källa" }}</span>  
+            <label>
+              <input type="text" placeholder="Lägg till källa"/>
+            </label>
+            <label data-ng-repeat="source in record.source">
+              <textarea data-inplace type="text" data-ng-model="source.label"/>
+            </label>
+          </div>
+        </div>
+        <div class="col6">
+          <div data-ng-show="record.source" class="multifield"> 
+            <span class="lbl">{{ "Kommentar" }}</span>
+            <label>
+              <input type="text" placeholder="Lägg till kommentar"/>
+            </label>
+            <label data-ng-repeat="source in record.source">
+              <input data-inplace type="text" data-ng-model="source.comment"/>
+            </label>
+          </div>
+        </div>
+      </div>
   </section>
 </div>
 
