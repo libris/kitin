@@ -84,12 +84,28 @@ kitin.factory('records', function ($http, $q) {
       });
       return record.promise;
     }
-
   };
 });
 
 kitin.service('editUtil', function(resources) {
+  var addToContainer = function(subj, rel, type, obj) {
+    var collection = subj[rel];
+    if(typeof collection === 'undefined') {
+      collection = subj[rel] = [];
+    }
+
+    var res = obj ? obj : createObject(type);
+    collection.push(res);
+  };
+
   var editutil = {
+
+    addObject: function(subj, rel, type, multiple, obj) {
+      if(multiple)
+        addToContainer(subj, rel, type, obj);
+      else 
+        subj[rel] = obj ? obj : this.createObject(type);
+    },
 
     createObject: function (type) {
       switch (type) {
@@ -162,7 +178,7 @@ kitin.service('editUtil', function(resources) {
           concept.inScheme.notation : "N/A";
         var container = byScheme[schemeNotation];
         if (typeof container === "undefined") {
-          container = new editutil.ConceptContainer(work); /* Hmmm... */
+          container = new editutil.ConceptContainer(work); 
           byScheme[schemeNotation] = container;
         }
         container.concepts.push(concept);

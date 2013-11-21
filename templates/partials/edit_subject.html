@@ -7,11 +7,18 @@
        data-ng-init="scheme = conceptSchemes[notation] || {'label': schemeNotation}">
     <h4>{{ scheme.label }}</h4>
     <label>
-      <input type="text" placeholder="Nytt ämnesord" data-kitin-autocomplete="subject"
+      <input type="text" placeholder="Nytt ämnesord" 
+             data-kitin-autocomplete="subject"
              data-kitin-add-to="container"
-             data-kitin-filter="{'inScheme.notation': scheme.notation}" />
+             data-kitin-filter="{'inScheme.notation': scheme.notation}" 
+             data-kitin-rel="subject"
+             data-kitin-type="Subject" 
+             data-kitin-service-url="/suggest/concept"
+             data-kitin-template-id="subject-completion-template"
+             data-kitin-multiple />
     </label>
     <div data-ng-repeat="subject in container.concepts" class="entity col6">
+      {{subject}}
       <ng:switch on="subject['@type']">
         <div data-ng-switch-when="Person" class="col4">
           {{ subject.controlledLabel }}

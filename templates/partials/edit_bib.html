@@ -49,20 +49,19 @@
             </div>
             <div ng-switch-when="true">
               <div data-ng-include="'render-person'" onload="subj = work; rel = 'creator'; person = work.creator"></div>
-              <span class="lbl">{{ 'Huvuduppslag' }}</span>
             </div>
           </div>
         </div>
-        <div>
+        <div><!-- start -->
           <span class="lbl">{{ "Biuppslag" }}</span>
           <div data-ng-repeat="person in work.contributorList"
               onload="subj = work; rel = 'contributorList'" data-ng-include="'render-work-contrib'"></div>
           <button class="add-thing btn-link" data-ng-click="addObject(work, 'contributorList', 'Person')">{{ 'Biuppslag' }}
             <i class="fa fa-plus-circle"></i></button>
-        </div>
+        </div><!-- end -->
       </div>
     </div>
-    
+
     <script type='text/ng-template' id="modal-edit-auth"> 
       <div class="modal-dialog">
         <div class="modal-content">
@@ -74,7 +73,7 @@
           <div ng-include="'/partials/edit_auth'"></div>
     </script> 
 
-    <script type="text/ng-template" id="render-search-box" data-ng-init="editable = (person.controlledLabel || person.givenName)">
+    <script type="text/ng-template" id="render-search-box" data-ng-init="editable = !(person.controlledLabel || person.givenName)">
       <label data-ng-hide="editable">
         <input 
           class="input-large"
@@ -83,13 +82,16 @@
           data-inplace
           data-ng-model="person.familyName" 
           data-kitin-autocomplete="person"
-          data-kitin-owner="subj"
+          data-kitin-add-to="subj"
           data-kitin-rel={{rel}}
-          data-kitin-type="Person" />
+          data-kitin-type="Person" 
+          data-kitin-service-url="/suggest/person"
+          data-kitin-template-id="auth-completion-template" />
       </label>
-      <button class="add-thing btn-link" data-ng-click="editable=!editable; newObject(subj, 'creator', 'Person')">{{ 'Huvuduppslag' }}
+      <button class="add-thing btn-link" data-ng-click="editable=!editable;">{{ 'Huvuduppslag' }}
             <i data-ng-hide="person.creator" class="fa fa-plus-circle" ></i></button>
     </script>
+
     <script type="text/ng-template" id="render-person">
       <div class="entity person" data-ng-init="editable = (person.controlledLabel || person.givenName)">
         <div class="col3" data-ng-hide="editable">

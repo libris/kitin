@@ -125,7 +125,7 @@ kitin.directive('kitinAutoselect', function(resources) {
   };
 });
 
-kitin.directive('kitinAutocomplete', ['autoComplete', function(autocompleteService) {
+kitin.directive('kitinAutocomplete', ['autoComplete', 'editUtil', function(autocompleteService, editUtil) {
   return {
     restrict: 'A',
 
@@ -133,10 +133,12 @@ kitin.directive('kitinAutocomplete', ['autoComplete', function(autocompleteServi
       var conf = autocompleteService[attrs.kitinAutocomplete];
       var filterParams = attrs.kitinFilter;
       var addTo = attrs.kitinAddTo;
+      var autocompleteProp = attrs.kitinAutocomplete;
+      var templateId = attrs.kitinTemplateId;
 
       /* TODO: IMPROVE: replace current autocomplete mechanism and use angular
       templates ($compile) all the way.. If it is fast enough.. */
-      var template = _.template(jQuery('#' + conf.templateId).html());
+      var template = _.template(jQuery('#' + templateId).html());
       var selected = false;
       var isAuthorized = false;
 
@@ -144,7 +146,7 @@ kitin.directive('kitinAutocomplete', ['autoComplete', function(autocompleteServi
         $(elem).closest('.person').find('.authdependant').prop('disabled', val);
       }
 
-      elem.autocomplete(conf.serviceUrl, {
+      elem.autocomplete(attrs.kitinServiceUrl, {
         inputClass: null,
         remoteDataType: 'json',
         autoWidth: null,
@@ -178,7 +180,7 @@ kitin.directive('kitinAutocomplete', ['autoComplete', function(autocompleteServi
         },  
 
         showResult: function (value, data) {
-            return template({data: data});
+          return template({data: data});
         },
 
         onFinish: function() {
@@ -196,40 +198,34 @@ kitin.directive('kitinAutocomplete', ['autoComplete', function(autocompleteServi
         },
 
         onNoMatch: function() {
-          var param = scope[conf.scopeObjectKey];
-          if (conf.scopeObjectKey)
-            delete scope[conf.scopeObjectKey]['@id'];
           selected = true;
           isAuthorized = false;
           toggleRelatedFieldsEditable(true);
 
+          /*
           // TODO: This works only for creator atm
           scope.subj[attrs.kitinRel].familyName = param.familyName;
           scope.editable = true;
+          */
+          //scope.$apply();
 
-          scope.$apply();
+          editUtil.addObject(
+              scope.$apply(addTo), 
+              attrs.kitinRel, 
+              attrs.kitinType
+            );
         },
 
         onItemSelect: function(item, completer) {
           selected = true;
-          // TODO: do this (the isAuthorized part?) the angular way
-          isAuthorized = !!item.data.authorized;
-          // TODO: use add callbacks instead
-          if (conf.scopeObjectKey) {
-            var obj = scope[conf.scopeObjectKey];
-            obj['@id'] = item.data.identifier;
-            conf.objectKeys.forEach(function (key) {
-              obj[key] = item.data[key];
-            });
+          var multipleRows = attrs.kitinMultiple === "" ? true : false;
 
-            // TODO: This works only for creator atm 
-            scope.subj[attrs.kitinRel] = obj;
-
-          } else if (addTo) {
+          if (addTo) {
             var owner = scope.$apply(addTo);
-            owner.addObject(item.data);
+            editUtil.addObject(owner, attrs.kitinRel, attrs.kitinType, multipleRows, item.data);
           }
 
+          console.log(owner);
           scope.triggerModified();
           scope.$apply(); 
         }
