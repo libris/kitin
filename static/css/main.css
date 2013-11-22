@@ -1651,7 +1651,7 @@ h4.modal-title {
   color: #1a8f72;
 }
 /* JSON-LD View */
-.root code {
+.json-ld code {
   font-family: 'Open Sans';
   font-size: 10px;
   color: #888;
@@ -1659,28 +1659,29 @@ h4.modal-title {
   line-height: 16px;
   letter-spacing: 0.5px;
 }
-.root code {
+.json-ld code {
   background-color: none;
   border: none;
 }
 /*code override*/
-.root input {
+.json-ld input {
   font-size: 12px;
   border-bottom: 1px dashed #dadada;
   width: 72%;
 }
-.root input:focus {
+.json-ld input:focus {
   border-bottom-color: #555;
 }
-.root .type {
+.json-ld .type {
   font-size: 12px;
   font-weight: 600;
-  color: #adadad;
+  color: #191919;
+  padding-left: 3px;
 }
-.root .header {
+.json-ld .header {
   font-size: 12px;
 }
-.root label {
+.json-ld label {
   font-size: 12px;
   display: block;
   background-color: #fff;
@@ -1704,17 +1705,20 @@ h4.modal-title {
   margin-top: 6px;
   cursor: pointer;
 }
-.root code {
+.entitylink:hover {
+  color: #999999;
+}
+.json-ld code {
   background-color: transparent;
 }
-.root section.entity {
+.json-ld section.entity {
   background-color: #fff;
   padding: 3px 15px 6px;
   margin: 3px 9px;
   border-radius: 5px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
 }
-section.root {
+section.json-ld {
   background-color: #fff;
 }
 div.array,
@@ -1748,3 +1752,4 @@ div.array > section.entity > div:nth-of-type(even) {
   left: 0;
   display: none;
 }
+/*# sourceMappingURL=/static/css/main.css.map */

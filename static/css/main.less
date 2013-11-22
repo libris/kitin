@@ -809,20 +809,20 @@ h4.modal-title{font: bold italic 16px/20px "Droid Serif", georgia,serif; color:@
 
 /* JSON-LD View */
 
-.root code {font-family: 'Open Sans';font-size:10px;color:#888;margin-bottom:0;line-height:16px;letter-spacing:.5px}
-.root code { background-color:none; border: none;}/*code override*/
+.json-ld code {font-family: 'Open Sans';font-size:10px;color:#888;margin-bottom:0;line-height:16px;letter-spacing:.5px}
+.json-ld code { background-color:none; border: none;}/*code override*/
 
-.root input {
+.json-ld input {
   font-size: 12px; border-bottom: 1px dashed #dadada;
   width: 72%;
 }
-.root input:focus {
+.json-ld input:focus {
   border-bottom-color: #555;
 }
 
-.root .type {font-size: 12px; font-weight:600;color:@grey3;}
-.root .header {font-size: 12px;}
-.root label {font-size: 12px;display: block;background-color:#fff;color:@grey3;}
+.json-ld .type {font-size: 12px; font-weight:600;color:@very-dark-grey;padding-left: 3px;}
+.json-ld .header {font-size: 12px;}
+.json-ld label {font-size: 12px;display: block;background-color:#fff;color:@grey3;}
 
 .collapsed > code {
   background-color: @grey2;
@@ -846,10 +846,13 @@ h4.modal-title{font: bold italic 16px/20px "Droid Serif", georgia,serif; color:@
   margin-top: 6px;
   cursor: pointer;
 }
+.entitylink:hover {
+  color: @dark-grey; 
+}
 
-.root code {background-color: transparent;}
+.json-ld code {background-color: transparent;}
 
-.root section.entity {
+.json-ld section.entity {
   background-color: #fff;
   padding: 3px 15px 6px;
   margin: 3px 9px;
@@ -858,7 +861,7 @@ h4.modal-title{font: bold italic 16px/20px "Droid Serif", georgia,serif; color:@
 }
 
 
-section.root {background-color:#fff;}
+section.json-ld {background-color:#fff;}
 
 div.array,
 div.array > section.entity {
