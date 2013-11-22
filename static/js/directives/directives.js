@@ -125,15 +125,14 @@ kitin.directive('kitinAutoselect', function(resources) {
   };
 });
 
-kitin.directive('kitinAutocomplete', ['autoComplete', 'editUtil', function(autocompleteService, editUtil) {
+kitin.directive('kitinAutocomplete', ['editUtil', function(editUtil) {
   return {
     restrict: 'A',
 
     link: function(scope, elem, attrs) {
-      var conf = autocompleteService[attrs.kitinAutocomplete];
+      //attrs.kitinAutocomplete;
       var filterParams = attrs.kitinFilter;
       var addTo = attrs.kitinAddTo;
-      var autocompleteProp = attrs.kitinAutocomplete;
       var templateId = attrs.kitinTemplateId;
 
       /* TODO: IMPROVE: replace current autocomplete mechanism and use angular
@@ -225,7 +224,6 @@ kitin.directive('kitinAutocomplete', ['autoComplete', 'editUtil', function(autoc
             editUtil.addObject(owner, attrs.kitinRel, attrs.kitinType, multipleRows, item.data);
           }
 
-          console.log(owner);
           scope.triggerModified();
           scope.$apply(); 
         }

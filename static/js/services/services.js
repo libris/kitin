@@ -269,23 +269,6 @@ kitin.service('editUtil', function(resources) {
   return editutil;
 });
 
-kitin.factory('autoComplete', function() {
-  return {
-    person: {
-      serviceUrl: "/suggest/person",
-      templateId: "auth-completion-template",
-      // TODO: remove scopeObjectKey and always use add callbacks
-      scopeObjectKey: "person",
-      objectKeys: ['controlledLabel', 'familyName', 'givenName', 'birthYear', 'deathYear']
-    },
-    subject: {
-      serviceUrl: "/suggest/concept",
-      templateId: "subject-completion-template",
-      objectKeys: ['prefLabel', '@type', 'hiddenLabel', 'broader', 'narrower', '@id', 'scopeNote', 'historyNote' ]
-    }  
-  };
-});
-
 kitin.factory('isbnTools', function($http, $q) {
   function doCheck(isbn) {
     var deferred = $q.defer();
