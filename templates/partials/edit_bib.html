@@ -73,8 +73,8 @@
           <div ng-include="'/partials/edit_auth'"></div>
     </script> 
 
-    <script type="text/ng-template" id="render-search-box" data-ng-init="editable = !(person.controlledLabel || person.givenName)">
-      <label data-ng-hide="editable">
+    <script type="text/ng-template" id="render-search-box">
+      <label data-ng-hide="editable" data-ng-init="editable = !(person.controlledLabel || person.givenName)">
         <input 
           class="input-large"
           type="text"
