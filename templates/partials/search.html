@@ -47,9 +47,11 @@
               {{ record.data.about.uniformTitle }}
               {{ record.data.about.label }}
             </label>
-            <label>
-            {{ record.data.about.note }}
-            {{ record.data.about.scopeNote }}
+            <label data-ng-repeat="note in record.data.about.note">
+            {{ note }}
+            </label>
+            <label data-ng-repeat="scopeNote in record.data.about.scopeNote">
+            {{ scopeNote }}
             </label>
           </div>
           <div data-ng-switch-when="bib" class="nest-cols">
