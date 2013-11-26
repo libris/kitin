@@ -39,124 +39,70 @@
       <div class="col6">
         <label>
           <span class="lbl">{{ "Upphov" }}</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.responsibilityStatement" placeholder="Upphov"></textarea>
+          <textarea spellcheck="false" placeholder="Upphov"
+              data-inplace data-ui-jq="autosize"
+              data-ng-model="instance.responsibilityStatement"></textarea>
         </label>
         <div>
           <span class="lbl">{{ "Huvuduppslag" }}</span>
-          <div ng-switch="!!work.creator.familyName">
-            <div ng-switch-when="false">
-              <div data-ng-include="'render-search-box'" onload="subj = work; rel = 'creator'; person = work.creator"></div>
-            </div>
-            <div ng-switch-when="true">
-              <div data-ng-include="'render-person'" onload="subj = work; rel = 'creator'; person = work.creator"></div>
-            </div>
+          <div data-kitin-link-entity
+              data-label="Huvuduppslag"
+              data-subject="work" data-link="creator" data-type="Person"
+              data-view-template="render-person"
+              data-search-template="render-search-box">
           </div>
         </div>
-        <div><!-- start -->
+        <div>
           <span class="lbl">{{ "Biuppslag" }}</span>
-          <div data-ng-repeat="person in work.contributorList"
-              onload="subj = work; rel = 'contributorList'" data-ng-include="'render-work-contrib'"></div>
-          <button class="add-thing btn-link" data-ng-click="addObject(work, 'contributorList', 'Person')">{{ 'Biuppslag' }}
-            <i class="fa fa-plus-circle"></i></button>
-        </div><!-- end -->
+          <div data-kitin-link-entity
+              data-label="Biuppslag"
+              data-subject="work" data-link-multiple="contributorList" data-type="Person"
+              data-view-template="render-person"
+              data-search-template="render-search-box">
+          </div>
+        </div>
       </div>
     </div>
 
-    <script type='text/ng-template' id="modal-edit-auth"> 
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-           <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Auktoritetspost ({{ instance['@type'] }})</h4>
-          </div>
-          <div class="modal-body" data-ng-controller="EditCtrl">    
-          <div ng-include="'/partials/edit_auth'"></div>
-    </script> 
-
     <script type="text/ng-template" id="render-search-box">
-      <label data-ng-hide="editable" data-ng-init="editable = !(person.controlledLabel || person.givenName)">
-        <input 
-          class="input-large"
-          type="text"
-          placeholder="Person"
-          data-inplace
-          data-kitin-autocomplete
-          data-kitin-add-to="subj"
-          data-kitin-rel={{rel}}
-          data-kitin-type="Person" 
-          data-kitin-service-url="/suggest/person"
-          data-kitin-template-id="auth-completion-template" />
+      <label data-ng-show="dosearch">
+        <input class="input-large" type="text" placeholder="{{ label }}"
+              data-kitin-search-entity
+              data-service-url="/suggest/person"
+              data-completion-template="auth-completion-template" />
       </label>
-      <button class="add-thing btn-link" data-ng-click="editable=!editable;">{{ 'Huvuduppslag' }}
-            <i data-ng-hide="person.creator" class="fa fa-plus-circle" ></i></button>
+      <button class="add-thing btn-link" data-ng-click="startNew()">{{ label }}
+            <i data-ng-show="multiple" class="fa fa-plus-circle" ></i></button>
     </script>
 
     <script type="text/ng-template" id="render-person">
-      <div class="entity person" data-ng-init="editable = (person.controlledLabel || person.givenName)">
+      <div class="entity person" data-ng-init="editable = !(object.controlledLabel || object.givenName)">
         <div class="col3" data-ng-hide="editable">
             <label data-ng-click="editable=!editable">
-              <span onload="subj = subj; rel = 'creator'; person = work.creator;" data-ng-include="'render-person-name'"></span> &nbsp;</label>
+              <span onload="person = object" data-ng-include="'render-person-name'"></span> &nbsp;</label>
         </div>
         <div class="addon" data-ng-show="editable">
           <label>
             <input data-inplace class="input-mini" type="text" placeholder="Förnamn"
-                   data-ng-model="person.givenName" data-kitin-autocomplete="person" />
+                   data-ng-model="object.givenName" />
             <span class="lbl">{{ "Förnamn" }}</span>
           </label>
           <label>
             <input data-inplace class="input-mini" type="text" placeholder="Släktnamn"
-                   data-ng-model="person.familyName" data-kitin-autocomplete="person" />
+                   data-ng-model="object.familyName" />
             <span class="lbl">{{ "Släktnamn" }}</span>
           </label>
         </div>
         <div class="addon" data-ng-show="editable">
           <label>
-            <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ" data-ng-model="person.birthYear" />
+            <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ"
+                   data-ng-model="object.birthYear" />
             <span class="lbl">{{ "Född" }}</span>
           </label>
           <label>
-            <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ" data-ng-model="person.deathYear" />
+            <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ" 
+                   data-ng-model="object.deathYear" />
             <span class="lbl">{{ "Död" }}</span>
-          </label>
-        </div>
-        <div class="addon">
-          <label>
-            <span data-ng-repeat="role in personRoleMap[person['@id']]"><span data-ng-hide="$first">, </span>{{ role.label_sv }}</span>
-          </label>
-          <label data-ng-hide="editable">
-            <button class="btn-link on-hover" data-ng-click="removeObject(work, rel, $index)"><i class="fa fa-times"></i></button>
-          </label>
-          <button class="btn-link" data-ng-show="editable" data-ng-click="editable=false"><i class="fa fa-check"></i></button>
-        </div>
-      </div>
-    </script>
-
-    <script type="text/ng-template" id="render-work-contrib">
-      <div class="entity person" data-ng-init="editable = !(person.controlledLabel || person.givenName)">
-        <div class="col3" data-ng-hide="editable">
-          <label data-ng-click="editable=!editable">
-            <span data-ng-include="'render-person-name'"></span> &nbsp;</label>
-        </div>
-        <div class="addon" data-ng-show="editable">
-          <label>
-            <span class="lbl">{{ "Förnamn" }}</span>
-            <input data-inplace class="input-mini" type="text" placeholder="Förnamn"
-                   data-ng-model="person.givenName" data-kitin-autocomplete="person" />
-          </label>
-          <label>
-            <span class="lbl">{{ "Släktnamn" }}</span>
-            <input data-inplace class="input-mini" type="text" placeholder="Släktnamn"
-                   data-ng-model="person.familyName" data-kitin-autocomplete="person" />
-          </label>
-        </div>
-        <div class="addon" data-ng-show="editable">
-          <label>
-            <span class="lbl">{{ "Född" }}</span>
-            <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ" data-ng-model="person.birthYear" />
-          </label>
-          <label>
-            <span class="lbl">{{ "Död" }}</span>
-            <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ" data-ng-model="person.deathYear" />
           </label>
           <!--
           <div data-ng-controller="ModalCtrl">
@@ -166,10 +112,11 @@
         </div>
         <div class="addon">
           <label>
-            <span data-ng-repeat="role in personRoleMap[person['@id']]"><span data-ng-hide="$first">, </span>{{ role.label_sv }}</span>
+            <span data-ng-repeat="role in personRoleMap[object['@id']]"><span
+                  data-ng-hide="$first">, </span>{{ role.label_sv }}</span>
           </label>
           <label data-ng-hide="editable">
-            <button class="btn-link on-hover" data-ng-click="removeObject(subj, rel, $index)"><i class="fa fa-times"></i></button>
+            <button class="btn-link on-hover"  data-ng-click="doRemove($index)"><i class="fa fa-times"></i></button>
           </label>
           <button class="btn-link" data-ng-show="editable" data-ng-click="editable=false"><i class="fa fa-check"></i></button>
         </div>
@@ -184,7 +131,10 @@
             <h4 class="modal-title">Auktoritetspost ({{ instance['@type'] }})</h4>
           </div>
           <div class="modal-body" data-ng-controller="EditCtrl">    
-          <div ng-include="'/partials/edit_auth'"></div>
+            <div ng-include="'/partials/edit_auth'"></div>
+          </div>
+        </div>
+      </div>
     </script> 
 
     <h2>Utgivning och tillverkning<i></i></h2>

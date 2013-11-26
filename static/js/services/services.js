@@ -102,9 +102,9 @@ kitin.service('editUtil', function(resources) {
 
     addObject: function(subj, rel, type, multiple, obj) {
       if(multiple)
-        addToContainer(subj, rel, type, obj);
-      else 
-        subj[rel] = obj ? obj : this.createObject(type);
+        return addToContainer(subj, rel, type, obj);
+      else
+        return subj[rel] = obj ? obj : this.createObject(type);
     },
 
     createObject: function (type) {

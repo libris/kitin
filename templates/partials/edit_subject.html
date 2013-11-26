@@ -7,32 +7,41 @@
        data-ng-init="scheme = conceptSchemes[notation] || {'label': schemeNotation}">
     <h4>{{ scheme.label }}</h4>
     <label>
-      <input type="text" placeholder="Nytt ämnesord" 
-             data-kitin-autocomplete
-             data-kitin-add-to="container"
-             data-kitin-filter="{'inScheme.notation': scheme.notation}" 
-             data-kitin-rel="subject"
-             data-kitin-type="Subject" 
-             data-kitin-service-url="/suggest/concept"
-             data-kitin-template-id="subject-completion-template"
-             data-kitin-multiple />
+      <div label="Nytt ämnesord" 
+            data-kitin-link-entity
+            data-subject="container" data-link-multiple="concepts" data-type="Concept"
+            data-filter="{'inScheme.notation': scheme.notation}" 
+            data-view-template="view-subject"
+            data-search-template="search-subject">
+      </div>
     </label>
-    <div data-ng-repeat="subject in container.concepts" class="entity col6">
-      {{subject}}
-      <ng:switch on="subject['@type']">
+  </div>
+
+  <script type="text/ng-template" id="search-subject">
+    <label>
+      <input class="input-large" type="text" placeholder="{{ label }}"
+            data-kitin-search-entity
+            data-service-url="/suggest/concept"
+            data-completion-template="subject-completion-template" />
+    </label>
+  </script>
+
+  <script type="text/ng-template" id="view-subject">
+    <div class="entity col6">
+      <ng:switch on="object['@type']">
         <div data-ng-switch-when="Person" class="col4">
-          {{ subject.controlledLabel }}
+          {{ object.controlledLabel }}
         </div>
         <div data-ng-switch-default>
-          <div data-ng-show="subject.prefLabel" class="col4">
-            {{ subject.prefLabel }}
-            <span class="lbl" data-ng-show="subject['@type'] == 'Place'">Geografiskt ämnesord</span>
-            <!--<span class="lbl">{{ subject.inScheme.notation }}</span>-->
+          <div data-ng-show="object.prefLabel" class="col4">
+            {{ object.prefLabel }}
+            <span class="lbl" data-ng-show="object['@type'] == 'Place'">Geografiskt ämnesord</span>
+            <!--<span class="lbl">{{ object.inScheme.notation }}</span>-->
           </div>
-          <div data-ng-show="subject.broader" class="col4">
+          <div data-ng-show="object.broader" class="col4">
             <!-- <em>Sammansättning: {{broader.['@id']}}</em> -->
             <div>
-              <span data-ng-repeat="broader in subject.broader">
+              <span data-ng-repeat="broader in object.broader">
                 {{broader.prefLabel}}
                 <span data-ng-show="broader.notation">({{ broader.notation }}) </span>
                 <span class="subject-delimiter" data-ng-hide="$last">--</span>
@@ -48,7 +57,7 @@
         </label>
       </div>
     </div>
-  </div>
+  </script>
 
   <h4>Andra ämnesordssystem</h4>
   <div class="cols">
