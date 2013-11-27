@@ -170,17 +170,20 @@
             <label data-ng-repeat="hasVersion in instance.hasVersion">
             <input data-inplace class="input-medium" type="text" data-ng-model="hasVersion.uniformTitle">
           </label>
-        </div>       
-        <div ng-show="instance.hasVersion.creator"  class="multifield">
-          <span class="lbl">{{ "Upphov" }}</span>
-          <!-- <label><input type="text" placeholder="Lägg till alternativ namnform"/></label> -->
-            <label data-ng-repeat="creator in instance.hasVersion.creator">
-            <input data-inplace class="input-medium" type="text" data-ng-model="creator.controlledLabel">
-          </label>
         </div>
+      </div>
+      <div class="col6">      
+          <span class="lbl">{{ "Upphov" }}</span>
+            <label>
+            <input data-inplace class="input-medium" type="text" data-ng-model="instance.creator.controlledLabel">
+          </label>
+      </div>
+    </div>
+    <div class="cols">
+      <div class="col6">
         <label>
         <span class="lbl">{{ "Anmärkning" }}</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.note">{{ instance.note }}</textarea>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.editorialNote">{{ record.editorialNote }}</textarea>
         </label>
       </div>
     </div>
