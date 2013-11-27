@@ -182,7 +182,7 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
         $scope.$apply();
       };
 
-      $scope.doRemove = function(index) {
+      $scope.doRemove = function (index) {
         var removed = null;
         if (_.isArray(obj)) {
           removed = obj.splice(index, 1)[0];
@@ -213,7 +213,6 @@ kitin.directive('kitinSearchEntity', [function() {
       templates ($compile) all the way.. If it is fast enough.. */
       var filterParams = attrs.filter;
       var onSelect = attrs.onselect;
-      console.log(filterParams);
       var templateId = attrs.completionTemplate;
       var template = _.template(jQuery('#' + templateId).html());
       var selected = false;

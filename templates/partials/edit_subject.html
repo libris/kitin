@@ -6,14 +6,12 @@
   <div data-ng-repeat="(notation, container) in schemeContainer.byScheme" class="scheme"
        data-ng-init="scheme = conceptSchemes[notation] || {'label': schemeNotation}">
     <h4>{{ scheme.label }}</h4>
-    <label>
-      <div data-kitin-link-entity
-            data-bridge="scheme"
-            data-subject="container" data-link-multiple="concepts" data-type="Concept"
-            data-search-template="search-subject"
-            data-view-template="view-subject">
-      </div>
-    </label>
+    <div data-kitin-link-entity
+          data-bridge="scheme"
+          data-subject="container" data-link-multiple="concepts" data-type="Concept"
+          data-search-template="search-subject"
+          data-view-template="view-subject">
+    </div>
   </div>
 
   <script type="text/ng-template" id="search-subject">
@@ -52,7 +50,7 @@
       </ng:switch>
       <div class="addon">
         <label>
-          <button class="btn-link on-hover" data-ng-click="removeObject(container, 'concepts', $index)">
+          <button class="btn-link on-hover" data-ng-click="doRemove($index)">
             <i class="fa fa-times"></i></button>
         </label>
       </div>

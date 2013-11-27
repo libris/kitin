@@ -101,10 +101,14 @@ kitin.service('editUtil', function(resources) {
   var editutil = {
 
     addObject: function(subj, rel, type, multiple, obj) {
-      if(multiple)
-        return addToContainer(subj, rel, type, obj);
-      else
-        return subj[rel] = obj ? obj : this.createObject(type);
+      var added;
+      if (multiple) {
+        added = addToContainer(subj, rel, type, obj);
+      } else {
+        added = obj? obj : this.createObject(type);
+        subj[rel] = added;
+      }
+      return added;
     },
 
     createObject: function (type) {
@@ -217,7 +221,7 @@ kitin.service('editUtil', function(resources) {
         _.remove(work.subject, function (it) {
           return it['@id'] === removed['@id'];
         });
-        if (work.subject.length === 0)
+        if (work.subject && work.subject.length === 0)
           delete work.subject;
       };
     },
