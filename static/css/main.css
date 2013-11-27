@@ -300,6 +300,9 @@ body.index #header .searchfield a.btn {
 body.index #header .searchfield button {
   height: 46px;
 }
+body.index #header .searchfield a span {
+  margin-top: 8px;
+}
 body.login #header .searchfield {
   display: none;
 }
