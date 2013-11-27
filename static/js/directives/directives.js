@@ -128,20 +128,18 @@ kitin.directive('kitinAutoselect', function(resources) {
 
 kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
 
-  var singleTemplate = '<div ng-if="viewmode"><div ng-include="viewTemplate"></div></div>' +
-        '<div ng-if="!viewmode"><div ng-include="searchTemplate"></div></div>';
-  //var template = '<div ng-repeat="object in objects">' + singleTemplate + '</div>' +
-  //      '<div ng-if="multiple"><div ng-include="searchTemplate"></div></div>';
-  var template = '<div ng-if="multiple">' +
-          '<div ng-repeat="object in objects">' + singleTemplate + '</div>' +
-          '<div ng-include="searchTemplate"></div>' +
-        '</div>' +
-        '<div ng-if="!multiple">' + singleTemplate + '</div>';
+  var viewDiv = '<div ng-if="viewmode" ng-include="viewTemplate"></div>';
+  var template =
+      '<div ng-if="multiple">' +
+        '<div ng-repeat="object in objects">' + viewDiv + '</div>' +
+      '</div>' +
+      '<div ng-if="!multiple">' + viewDiv + '</div>' +
+      '<div ng-if="multiple || !viewmode" ng-include="searchTemplate"></div>';
 
   return {
     restrict: 'A',
     scope: {
-      label: '@',
+      bridge: '=',
       subject: '=',
       link: '@',
       linkMultiple: '@',
@@ -175,17 +173,12 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
 
       $scope.viewmode = !_.isEmpty(obj);
 
-      $scope.startNew = function () {
-        $scope.dosearch = true;
-      };
-
       this.doAdd = function (data) {
         var added = editUtil.addObject(subj, link, $scope.type, $scope.multiple, data);
         if (!$scope.multiple) {
           $scope.object = added;
         }
         $scope.viewmode = true;
-        $scope.dosearch = false;
         $scope.$apply();
       };
 
@@ -219,6 +212,7 @@ kitin.directive('kitinSearchEntity', [function() {
       /* TODO: IMPROVE: replace current autocomplete mechanism and use angular
       templates ($compile) all the way.. If it is fast enough.. */
       var filterParams = attrs.filter;
+      var onSelect = attrs.onselect;
       console.log(filterParams);
       var templateId = attrs.completionTemplate;
       var template = _.template(jQuery('#' + templateId).html());
@@ -288,6 +282,7 @@ kitin.directive('kitinSearchEntity', [function() {
           var owner = scope.subject;
           // TODO: if multiple, else set object (and *link*, not copy (embed copy in view?)...)
           linker.doAdd(item.data);
+          scope.$apply(onSelect);
           //scope.triggerModified();
         }
       });

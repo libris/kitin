@@ -44,18 +44,18 @@
               data-ng-model="instance.responsibilityStatement"></textarea>
         </label>
         <div>
-          <span class="lbl">{{ "Huvuduppslag" }}</span>
+          <span class="lbl">{{ 'Huvuduppslag' }}</span>
           <div data-kitin-link-entity
-              data-label="Huvuduppslag"
+              data-bridge="'Huvuduppslag'"
               data-subject="work" data-link="creator" data-type="Person"
               data-view-template="render-person"
               data-search-template="render-search-box">
           </div>
         </div>
         <div>
-          <span class="lbl">{{ "Biuppslag" }}</span>
+          <span class="lbl">{{ 'Biuppslag' }}</span>
           <div data-kitin-link-entity
-              data-label="Biuppslag"
+              data-bridge="'Biuppslag'"
               data-subject="work" data-link-multiple="contributorList" data-type="Person"
               data-view-template="render-person"
               data-search-template="render-search-box">
@@ -65,13 +65,14 @@
     </div>
 
     <script type="text/ng-template" id="render-search-box">
-      <label data-ng-show="dosearch">
-        <input class="input-large" type="text" placeholder="{{ label }}"
+      <label data-ng-show="dosearch" data-ng-init="dosearch = false">
+        <input class="input-large" type="text" placeholder="{{ bridge }}"
               data-kitin-search-entity
               data-service-url="/suggest/person"
+              data-onselect="dosearch = false"
               data-completion-template="auth-completion-template" />
       </label>
-      <button class="add-thing btn-link" data-ng-click="startNew()">{{ label }}
+      <button class="add-thing btn-link" data-ng-click="dosearch = true">{{ bridge }}
             <i data-ng-show="multiple" class="fa fa-plus-circle" ></i></button>
     </script>
 
