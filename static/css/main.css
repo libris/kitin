@@ -300,8 +300,16 @@ body.index #header .searchfield a.btn {
 body.index #header .searchfield button {
   height: 46px;
 }
+body.index #header .searchfield a span {
+  margin-top: 8px;
+}
 body.login #header .searchfield {
   display: none;
+}
+#header .searchfield .btn-group > .btn:first-child {
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px;
+  margin-left: 0;
 }
 .content {
   position: relative;
