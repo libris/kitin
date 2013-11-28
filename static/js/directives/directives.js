@@ -285,6 +285,12 @@ kitin.directive('kitinSearchEntity', [function() {
           //scope.triggerModified();
         }
       });
+
+      elem.jkey('enter', function () {
+        scope.$apply(onSelect);
+        elem.val("");
+      });
+
     }
   };
 }]);
