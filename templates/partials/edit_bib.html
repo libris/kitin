@@ -40,54 +40,71 @@
       <div class="col6">
         <label>
           <span class="lbl">{{ "Upphov" }}</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.responsibilityStatement" placeholder="Upphov"></textarea>
+          <textarea spellcheck="false" placeholder="Upphov"
+              data-inplace data-ui-jq="autosize"
+              data-ng-model="instance.responsibilityStatement"></textarea>
         </label>
         <div>
-          <span class="lbl">{{ "Huvuduppslag" }}</span>
-          <div data-ng-show="work.creator"
-              onload="subj = work; rel = 'creator'; person = work.creator"
-              data-ng-include="'render-person'"></div>
-          <button data-ng-hide="work.creator"
-                  class="add-thing btn-link"
-                  data-ng-click="newObject(work, 'creator', 'Person')">{{ 'Huvuduppslag' }}
-            <i class="fa fa-plus-circle"></i></button>
+          <span class="lbl">{{ 'Huvuduppslag' }}</span>
+          <div data-kitin-link-entity
+              data-bridge="'Huvuduppslag'"
+              data-subject="work" data-link="creator" data-type="Person"
+              data-view-template="render-person"
+              data-search-template="render-search-box">
+          </div>
         </div>
         <div>
-          <span class="lbl">{{ "Biuppslag" }}</span>
-          <div data-ng-repeat="person in work.contributorList"
-              onload="subj = work; rel = 'contributorList'" data-ng-include="'render-person'"></div>
-          <button class="add-thing btn-link" data-ng-click="addObject(work, 'contributorList', 'Person')">{{ 'Biuppslag' }}
-            <i class="fa fa-plus-circle"></i></button>
+          <span class="lbl">{{ 'Biuppslag' }}</span>
+          <div data-kitin-link-entity
+              data-bridge="'Biuppslag'"
+              data-subject="work" data-link-multiple="contributorList" data-type="Person"
+              data-view-template="render-person"
+              data-search-template="render-search-box">
+          </div>
         </div>
       </div>
     </div>
 
+    <script type="text/ng-template" id="render-search-box">
+      <label data-ng-show="dosearch" data-ng-init="dosearch = false">
+        <input class="input-large" type="text" placeholder="{{ bridge }}"
+              data-kitin-search-entity
+              data-service-url="/suggest/person"
+              data-onselect="dosearch = false"
+              data-completion-template="auth-completion-template" />
+      </label>
+      <button class="add-thing btn-link" data-ng-click="dosearch = true">{{ bridge }}
+            <i data-ng-show="multiple" class="fa fa-plus-circle" ></i></button>
+    </script>
+
     <script type="text/ng-template" id="render-person">
-      <div class="entity person" data-ng-init="editable = !(person.controlledLabel || person.givenName)">
+      <div class="entity person" data-ng-init="editable = !(object.controlledLabel || object.givenName)">
         <div class="col3" data-ng-hide="editable">
-          <label data-ng-click="editable=!editable">
-            <span data-ng-include="'render-person-name'"></span> &nbsp;</label>
+            <label data-ng-click="editable=!editable">
+              <span onload="person = object" data-ng-include="'render-person-name'"></span> &nbsp;</label>
         </div>
         <div class="addon" data-ng-show="editable">
           <label>
-            <span class="lbl">{{ "Förnamn" }}</span>
             <input data-inplace class="input-mini" type="text" placeholder="Förnamn"
-                   data-ng-model="person.givenName" data-kitin-autocomplete="person" />
+                   data-ng-model="object.givenName" />
+            <span class="lbl">{{ "Förnamn" }}</span>
           </label>
           <label>
-            <span class="lbl">{{ "Släktnamn" }}</span>
             <input data-inplace class="input-mini" type="text" placeholder="Släktnamn"
-                   data-ng-model="person.familyName" data-kitin-autocomplete="person" />
+                   data-ng-model="object.familyName" />
+            <span class="lbl">{{ "Släktnamn" }}</span>
           </label>
         </div>
         <div class="addon" data-ng-show="editable">
           <label>
+            <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ"
+                   data-ng-model="object.birthYear" />
             <span class="lbl">{{ "Född" }}</span>
-            <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ" data-ng-model="person.birthYear" />
           </label>
           <label>
+            <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ" 
+                   data-ng-model="object.deathYear" />
             <span class="lbl">{{ "Död" }}</span>
-            <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ" data-ng-model="person.deathYear" />
           </label>
           <!--
           <div data-ng-controller="ModalCtrl">
@@ -97,10 +114,11 @@
         </div>
         <div class="addon">
           <label>
-            <span data-ng-repeat="role in personRoleMap[person['@id']]"><span data-ng-hide="$first">, </span>{{ role.label_sv }}</span>
+            <span data-ng-repeat="role in personRoleMap[object['@id']]"><span
+                  data-ng-hide="$first">, </span>{{ role.label_sv }}</span>
           </label>
           <label data-ng-hide="editable">
-            <button class="btn-link on-hover" data-ng-click="removeObject(subj, rel, $index)"><i class="fa fa-times"></i></button>
+            <button class="btn-link on-hover"  data-ng-click="doRemove($index)"><i class="fa fa-times"></i></button>
           </label>
           <button class="btn-link" data-ng-show="editable" data-ng-click="editable=false"><i class="fa fa-check"></i></button>
         </div>
@@ -115,7 +133,10 @@
             <h4 class="modal-title">Auktoritetspost ({{ instance['@type'] }})</h4>
           </div>
           <div class="modal-body" data-ng-controller="EditCtrl">    
-          <div ng-include="'/partials/edit_auth'"></div>
+            <div ng-include="'/partials/edit_auth'"></div>
+          </div>
+        </div>
+      </div>
     </script> 
 
     <h2>Utgivning och tillverkning<i></i></h2>

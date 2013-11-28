@@ -84,12 +84,32 @@ kitin.factory('records', function ($http, $q) {
       });
       return record.promise;
     }
-
   };
 });
 
 kitin.service('editUtil', function(resources) {
+  var addToContainer = function(subj, rel, type, obj) {
+    var collection = subj[rel];
+    if(typeof collection === 'undefined') {
+      collection = subj[rel] = [];
+    }
+
+    var res = obj ? obj : createObject(type);
+    collection.push(res);
+  };
+
   var editutil = {
+
+    addObject: function(subj, rel, type, multiple, obj) {
+      var added;
+      if (multiple) {
+        added = addToContainer(subj, rel, type, obj);
+      } else {
+        added = obj? obj : this.createObject(type);
+        subj[rel] = added;
+      }
+      return added;
+    },
 
     createObject: function (type) {
       switch (type) {
@@ -162,7 +182,7 @@ kitin.service('editUtil', function(resources) {
           concept.inScheme.notation : "N/A";
         var container = byScheme[schemeNotation];
         if (typeof container === "undefined") {
-          container = new editutil.ConceptContainer(work); /* Hmmm... */
+          container = new editutil.ConceptContainer(work); 
           byScheme[schemeNotation] = container;
         }
         container.concepts.push(concept);
@@ -201,7 +221,7 @@ kitin.service('editUtil', function(resources) {
         _.remove(work.subject, function (it) {
           return it['@id'] === removed['@id'];
         });
-        if (work.subject.length === 0)
+        if (work.subject && work.subject.length === 0)
           delete work.subject;
       };
     },
@@ -251,23 +271,6 @@ kitin.service('editUtil', function(resources) {
   };
 
   return editutil;
-});
-
-kitin.factory('autoComplete', function() {
-  return {
-    person: {
-      serviceUrl: "/suggest/person",
-      templateId: "auth-completion-template",
-      // TODO: remove scopeObjectKey and always use add callbacks
-      scopeObjectKey: "person",
-      objectKeys: ['controlledLabel', 'familyName', 'givenName', 'birthYear', 'deathYear']
-    },
-    subject: {
-      serviceUrl: "/suggest/concept",
-      templateId: "subject-completion-template",
-      objectKeys: ['prefLabel', '@type', 'hiddenLabel', 'broader', 'narrower', '@id', 'scopeNote', 'historyNote' ]
-    }  
-  };
 });
 
 kitin.factory('isbnTools', function($http, $q) {

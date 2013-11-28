@@ -125,26 +125,100 @@ kitin.directive('kitinAutoselect', function(resources) {
   };
 });
 
-kitin.directive('kitinAutocomplete', ['autoComplete', function(autocompleteService) {
+
+kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
+
+  var viewDiv = '<div ng-if="viewmode" ng-include="viewTemplate"></div>';
+  var template =
+      '<div ng-if="multiple">' +
+        '<div ng-repeat="object in objects">' + viewDiv + '</div>' +
+      '</div>' +
+      '<div ng-if="!multiple">' + viewDiv + '</div>' +
+      '<div ng-if="multiple || !viewmode" ng-include="searchTemplate"></div>';
+
   return {
     restrict: 'A',
-    link: function(scope, elem, attrs) {
+    scope: {
+      bridge: '=',
+      subject: '=',
+      link: '@',
+      linkMultiple: '@',
+      viewTemplate: '@',
+      searchTemplate: '@',
+      type: '@'
+    },
 
-      var conf = autocompleteService[attrs.kitinAutocomplete];
-      var filterParams = attrs.kitinFilter;
-      var addTo = attrs.kitinAddTo;
+    template: template,
+
+    controller: function($scope) {
+
+      if ($scope.linkMultiple) {
+        $scope.link = $scope.linkMultiple;
+        $scope.multiple = true;
+      } else {
+        $scope.multiple = false;
+      }
+
+      var subj = $scope.subject;
+      var link = $scope.link;
+      var obj = subj[link];
+
+      if ($scope.multiple) {
+        $scope.objects = obj;
+        $scope.object = null;
+      } else {
+        $scope.objects = null;
+        $scope.object = obj;
+      }
+
+      $scope.viewmode = !_.isEmpty(obj);
+
+      this.doAdd = function (data) {
+        var added = editUtil.addObject(subj, link, $scope.type, $scope.multiple, data);
+        if (!$scope.multiple) {
+          $scope.object = added;
+        }
+        $scope.viewmode = true;
+        $scope.$apply();
+      };
+
+      $scope.doRemove = function (index) {
+        var removed = null;
+        if (_.isArray(obj)) {
+          removed = obj.splice(index, 1)[0];
+        } else {
+          removed = subj[link];
+          subj[link] = null;
+          $scope.object = null;
+          $scope.viewmode = false;
+        }
+        if (typeof subj.onRemove === 'function') {
+          subj.onRemove(link, removed, index);
+        }
+        //$scope.triggerModified();
+      };
+
+
+    }
+  };
+}]);
+
+kitin.directive('kitinSearchEntity', [function() {
+  return {
+    require: '^kitinLinkEntity',
+    link: function(scope, elem, attrs, kitinLinkEntity) {
+      var linker = kitinLinkEntity;
 
       /* TODO: IMPROVE: replace current autocomplete mechanism and use angular
       templates ($compile) all the way.. If it is fast enough.. */
-      var template = _.template(jQuery('#' + conf.templateId).html());
+      var filterParams = attrs.filter;
+      var onSelect = attrs.onselect;
+      var templateId = attrs.completionTemplate;
+      var template = _.template(jQuery('#' + templateId).html());
       var selected = false;
       var isAuthorized = false;
 
-      function toggleRelatedFieldsEditable(val) {
-        $(elem).closest('.person').find('.authdependant').prop('disabled', val);
-      }
-
-      elem.autocomplete(conf.serviceUrl, {
+      elem.autocomplete(attrs.serviceUrl, {
         inputClass: null,
         remoteDataType: 'json',
         autoWidth: null,
@@ -165,7 +239,6 @@ kitin.directive('kitinAutocomplete', ['autoComplete', function(autocompleteServi
           if (!doc|| !doc.list) {
             isAuthorized = false;
             selected = false;
-            toggleRelatedFieldsEditable(false);
             console.log("Found no results!"); // TODO: notify no match to user
             return [];
           }
@@ -178,50 +251,46 @@ kitin.directive('kitinAutocomplete', ['autoComplete', function(autocompleteServi
         },  
 
         showResult: function (value, data) {
-            return template({data: data});
+          return template({data: data});
         },
 
         onFinish: function() {
           if (selected && isAuthorized) {
-            toggleRelatedFieldsEditable(true);
-          } else {
-            toggleRelatedFieldsEditable(false);
+            // ...
           }
         },
 
         displayValue: function (value, data) {
-          if (addTo)
-            return "";
-          return value;
+          return "";
         },
 
         onNoMatch: function() {
-          if (conf.scopeObjectKey)
-            delete scope[conf.scopeObjectKey]['@id'];
-          selected = false;
+          selected = true;
           isAuthorized = false;
-          toggleRelatedFieldsEditable(false);
+          /*
+          // TODO: This works only for creator atm
+          scope.subj[attrs.kitinRel].familyName = param.familyName;
+          scope.editable = true;
+          */
+          //scope.$apply();
         },
 
         onItemSelect: function(item, completer) {
           selected = true;
-          // TODO: do this (the isAuthorized part?) the angular way
-          isAuthorized = !!item.data.authorized;
-          // TODO: use add callbacks instead
-          if (conf.scopeObjectKey) {
-            var obj = scope[conf.scopeObjectKey];
-            obj['@id'] = item.data.identifier;
-            conf.objectKeys.forEach(function (key) {
-              obj[key] = item.data[key];
-            });
-          } else if (addTo) {
-            var owner = scope.$apply(addTo);
-            owner.addObject(item.data);
-          }
-          scope.triggerModified();
-          scope.$apply();
+
+          var owner = scope.subject;
+          // TODO: if multiple, else set object (and *link*, not copy (embed copy in view?)...)
+          linker.doAdd(item.data);
+          scope.$apply(onSelect);
+          //scope.triggerModified();
         }
       });
+
+      elem.jkey('enter', function () {
+        scope.$apply(onSelect);
+        elem.val("");
+      });
+
     }
   };
 }]);

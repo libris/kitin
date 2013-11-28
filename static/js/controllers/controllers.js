@@ -131,7 +131,10 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
 
 });
 
-kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, records, resources, userData, editUtil) {
+
+kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, records, resources, userData, editUtil, $log) {
+  $scope.logger = $log;
+
   var recType = $routeParams.recType, recId = $routeParams.recId;
   var path = "/record/" + recType + "/" + recId;
 
@@ -143,7 +146,6 @@ kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, rec
   document.body.className = isNew? 'edit new' : 'edit';
 
   // Fetch resources
-
   $scope.enums = {};
   resources.enums.bibLevel.then(function(data) {
     $scope.enums.bibLevel = data;
