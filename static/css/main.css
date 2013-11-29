@@ -1705,7 +1705,7 @@ h4.modal-title {
 .collapsed > .entity {
   max-height: 2em;
   overflow: auto;
-  box-shadow: inset 0px 5px 10px #ffffff;
+  box-shadow: inset 0px 5px 8px #ffffff;
   border: 1px dotted #c7c7c7;
   opacity: 0.4;
 }
@@ -1715,6 +1715,15 @@ h4.modal-title {
 }
 .entitylink:hover {
   color: #999999;
+  /*   text-decoration: underline; */
+}
+.entitylink:after {
+  content: "\25BC";
+  font-size: 10px;
+}
+.collapsed > .entitylink:after {
+  content: " \25B6";
+  font-size: 9px;
 }
 .json-ld code {
   background-color: transparent;
@@ -1723,7 +1732,7 @@ h4.modal-title {
   background-color: #fff;
   padding: 3px 15px 6px;
   margin: 3px 9px;
-  border-radius: 5px;
+  border-radius: 1px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
 }
 section.json-ld {
@@ -1736,7 +1745,7 @@ div.array > section.entity {
 div.array > section.entity {
   background-color: #fdfdfd;
   box-shadow: 0 2px 10px 4px #eee inset;
-  border-radius: 5px;
+  border-radius: 1px;
   padding: 9px 15px;
 }
 div.array {

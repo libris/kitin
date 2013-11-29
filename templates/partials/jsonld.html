@@ -22,9 +22,9 @@
 
 <script type="text/ng-template" id="render-object">
   <div class="header" data-ng-if="object['@type'] || object['@id']">
-    <span class="type" data-ng-if="object['@type']">{{ object['@type'] }}</span>
+    <span class="type" data-ng-if="object['@type']">{{ object['@type'] }} </span>
     <span data-ng-if="object['@id']">
-      <a href="{{ toJsonLdLink(object['@id']) }}">&lt;{{ object['@id'] }}&gt;</a>
+      <a href="{{ toJsonLdLink(object['@id']) }}">&lt;{{ object['@id'] }}&gt; </a>
     </span>
   </div>
   <div data-ng-repeat="key in jsonLdKeys(object)"
