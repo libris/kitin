@@ -136,11 +136,11 @@ kitin.service('editUtil', function(resources) {
       function addPersonRoles(person) {
         roleMap[person['@id']] = [];
       }
-      if (work && work.creator) {
-        addPersonRoles(work.creator);
+      if (work && work.attributedTo) {
+        addPersonRoles(work.attributedTo);
       }
-      if (work && work.contributorList) {
-        work.contributorList.forEach(function (person) {
+      if (work && work.influencedBy) {
+        work.influencedBy.forEach(function (person) {
           addPersonRoles(person);
         });
       }
@@ -246,8 +246,8 @@ kitin.service('editUtil', function(resources) {
     // TODO: fix this in the backend service and remove this patch
     patchBibRecord: function (record) {
       var work = record.about.instanceOf;
-      if (work && _.isArray(work.creator)) {
-        work.creator = work.creator[0];
+      if (work && _.isArray(work.attributedTo)) {
+        work.attributedTo = work.attributedTo[0];
       }
       if (work && work.language) {
         var langId = work.language['@id'];

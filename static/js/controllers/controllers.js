@@ -106,7 +106,7 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
   };
 
   $scope.firstPerson = function (work) {
-    var candidate = work.creator || work.contributorList;
+    var candidate = work.attributedTo || work.influencedBy;
     return _.isArray(candidate)? candidate[0] : candidate;
   };
 
