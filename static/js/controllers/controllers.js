@@ -190,6 +190,11 @@ kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, rec
     };
   });
 
+  $scope.isLinked = function (thing) {
+    var id = thing['@id'];
+    return id && id.substring(0, 2) !== '_:';
+  };
+
   function addRecordViewsToScope(record, scope) {
     scope.personRoleMap = editUtil.getPersonRoleMap(record, scope.relatorsMap);
     scope.unifiedClassifications = editUtil.getUnifiedClassifications(record);

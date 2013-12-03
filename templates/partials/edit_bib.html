@@ -78,7 +78,7 @@
     </script>
 
     <script type="text/ng-template" id="render-person">
-      <div data-ng-if="object['@id']" class="entity person linked">
+      <div data-ng-if="isLinked(object)" class="entity person linked">
         <div class="col4">
           <span onload="person = object" data-ng-include="'render-person-name'"></span>
           &nbsp;
@@ -86,7 +86,7 @@
         </div>
         <div class="addon" data-ng-include="'roles-and-delete'"></div>
       </div>
-      <div data-ng-if="!object['@id']" class="entity person embedded"
+      <div data-ng-if="!isLinked(object)" class="entity person embedded"
             data-ng-init="editable = {on: !(object.controlledLabel || object.givenName)}">
         <div class="col4" data-ng-hide="editable.on">
             <label data-ng-click="editable.on = !editable.on">
