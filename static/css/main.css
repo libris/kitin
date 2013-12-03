@@ -963,9 +963,10 @@ label {
   width: 100px;
 }
 .edit .entity {
-  padding: 4px 6px;
+  padding: 8px 6px 2px;
   margin-bottom: 1em;
   overflow: auto;
+  border-radius: 2px;
 }
 .edit .entity.addmore {
   margin-bottom: 4px;
@@ -987,15 +988,14 @@ label {
   color: #27b492;
 }
 .edit .entity.linked {
+  background-color: #fafafa;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 .edit .entity.linked:hover {
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
 }
 .edit .entity.embedded {
-  border-radius: 2px;
-  background-color: #fafafa;
-  box-shadow: 0 2px 2px 2px #eaeaea inset;
+  box-shadow: 0 0px 0px 1px #eee inset;
 }
 .edit .entity.embedded:hover {
   box-shadow: 0 1px 2px 1px #eee inset;
