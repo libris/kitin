@@ -107,6 +107,7 @@ kitin.directive('kitinAutoselect', function(resources) {
         inputClass: null,
         remoteDataType: 'json',
         autoWidth: null,
+        selectFirst: true,
         mustMatch: true,
         filter: filter,
         processData: function (data) {
@@ -222,6 +223,7 @@ kitin.directive('kitinSearchEntity', [function() {
       elem.autocomplete(attrs.serviceUrl, {
         inputClass: null,
         remoteDataType: 'json',
+        selectFirst: true,
         autoWidth: null,
         filterResults: false,
         sortResults: false,
