@@ -7,7 +7,6 @@
        data-ng-init="scheme = conceptSchemes[notation] || {'label': schemeNotation}">
     <h4>{{ scheme.label }}</h4>
     <div data-kitin-link-entity
-          data-bridge="scheme"
           data-subject="container" data-link-multiple="concepts" data-type="Concept"
           data-search-template="search-subject"
           data-view-template="view-subject">
@@ -18,7 +17,7 @@
     <label>
       <input class="input-large" type="text" placeholder="Nytt ämnesord"
             data-kitin-search-entity
-            data-filter="{'inScheme.notation': bridge.notation}"
+            data-filter="{'inScheme.notation': scheme.notation}"
             data-service-url="/suggest/concept"
             data-completion-template="subject-completion-template" />
     </label>

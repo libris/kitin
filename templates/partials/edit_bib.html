@@ -47,7 +47,7 @@
         <div>
           <span class="lbl">{{ 'Huvuduppslag' }}</span>
           <div data-kitin-link-entity
-              data-bridge="'Huvuduppslag'"
+              data-ng-init="label = 'Huvuduppslag'"
               data-subject="work" data-link="attributedTo" data-type="Person"
               data-view-template="render-person"
               data-search-template="render-search-box">
@@ -56,7 +56,7 @@
         <div>
           <span class="lbl">{{ 'Biuppslag' }}</span>
           <div data-kitin-link-entity
-              data-bridge="'Biuppslag'"
+              data-ng-init="label = 'Biuppslag'"
               data-subject="work" data-link-multiple="influencedBy" data-type="Person"
               data-view-template="render-person"
               data-search-template="render-search-box">
@@ -67,13 +67,13 @@
 
     <script type="text/ng-template" id="render-search-box">
       <label data-ng-show="dosearch" data-ng-init="dosearch = false">
-        <input class="input-large" type="text" placeholder="{{ bridge }}"
+        <input class="input-large" type="text" placeholder="{{ label }}"
               data-kitin-search-entity
               data-service-url="/suggest/person"
               data-onselect="dosearch = false"
               data-completion-template="auth-completion-template" />
       </label>
-      <button class="add-thing btn-link" data-ng-click="dosearch = true">{{ bridge }}
+      <button class="add-thing btn-link" data-ng-click="dosearch = true">{{ label }}
             <i data-ng-show="multiple" class="fa fa-plus-circle" ></i></button>
     </script>
 

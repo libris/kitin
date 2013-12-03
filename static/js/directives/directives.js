@@ -138,30 +138,27 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
 
   return {
     restrict: 'A',
-    scope: {
-      bridge: '=',
-      subject: '=',
-      link: '@',
-      linkMultiple: '@',
-      viewTemplate: '@',
-      searchTemplate: '@',
-      type: '@'
-    },
 
     template: template,
 
-    controller: function($scope) {
+    scope: true,
 
-      if ($scope.linkMultiple) {
-        $scope.link = $scope.linkMultiple;
-        $scope.multiple = true;
-      } else {
-        $scope.multiple = false;
+    controller: function($scope, $attrs) {
+
+      $scope.viewTemplate = $attrs.viewTemplate;
+      $scope.searchTemplate = $attrs.searchTemplate;
+      $scope.type = $attrs.type;
+
+      var link = $attrs.link;
+      var multiple = false;
+      if ($attrs.linkMultiple) {
+        link = $attrs.linkMultiple;
+        multiple = true;
       }
-      var multiple = $scope.multiple;
+      $scope.link = link;
+      $scope.multiple = multiple;
 
-      var subj = $scope.subject;
-      var link = $scope.link;
+      var subj = $scope.$eval($attrs.subject);
       var obj = subj[link];
 
       $scope.viewmode = !_.isEmpty(obj);
