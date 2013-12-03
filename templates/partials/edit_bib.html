@@ -78,12 +78,22 @@
     </script>
 
     <script type="text/ng-template" id="render-person">
-      <div class="entity person" data-ng-init="editable = !(object.controlledLabel || object.givenName)">
-        <div class="col3" data-ng-hide="editable">
-            <label data-ng-click="editable=!editable">
-              <span onload="person = object" data-ng-include="'render-person-name'"></span> &nbsp;</label>
+      <div data-ng-if="object['@id']" class="entity person linked">
+        <div class="col4">
+          <span onload="person = object" data-ng-include="'render-person-name'"></span>
+          &nbsp;
+          <span class="what"><i class="fa fa-bookmark"></i></span>
         </div>
-        <div class="addon" data-ng-show="editable">
+        <div class="addon" data-ng-include="'roles-and-delete'"></div>
+      </div>
+      <div data-ng-if="!object['@id']" class="entity person embedded"
+            data-ng-init="editable = {on: !(object.controlledLabel || object.givenName)}">
+        <div class="col4" data-ng-hide="editable.on">
+            <label data-ng-click="editable.on = !editable.on">
+              <span onload="person = object" data-ng-include="'render-person-name'"></span>
+              &nbsp;</label>
+        </div>
+        <div class="addon" data-ng-show="editable.on">
           <label>
             <input data-inplace class="input-mini" type="text" placeholder="Förnamn"
                    data-ng-model="object.givenName" />
@@ -95,7 +105,7 @@
             <span class="lbl">{{ "Släktnamn" }}</span>
           </label>
         </div>
-        <div class="addon" data-ng-show="editable">
+        <div class="addon" data-ng-show="editable.on">
           <label>
             <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ"
                    data-ng-model="object.birthYear" />
@@ -112,17 +122,20 @@
           </div>
           -->
         </div>
-        <div class="addon">
-          <label>
-            <span data-ng-repeat="role in personRoleMap[object['@id']]"><span
-                  data-ng-hide="$first">, </span>{{ role.label_sv }}</span>
-          </label>
-          <label data-ng-hide="editable">
-            <button class="btn-link on-hover"  data-ng-click="doRemove($index)"><i class="fa fa-times"></i></button>
-          </label>
-          <button class="btn-link" data-ng-show="editable" data-ng-click="editable=false"><i class="fa fa-check"></i></button>
-        </div>
+        <div class="addon" data-ng-include="'roles-and-delete'"></div>
       </div>
+    </script>
+
+    <script type='text/ng-template' id="roles-and-delete">
+      <label>
+        <span data-ng-repeat="role in personRoleMap[object['@id']]"><span
+              data-ng-hide="$first">, </span>{{ role.label_sv }}</span>
+      </label>
+      <button class="btn-link" data-ng-show="editable.on"
+              data-ng-click="editable.on = false"><i class="fa fa-check"></i></button>
+      <label data-ng-hide="editable.on">
+        <button class="btn-link on-hover"  data-ng-click="doRemove($index)"><i class="fa fa-times"></i></button>
+      </label>
     </script>
 
     <script type='text/ng-template' id="modal-edit-auth"> 
