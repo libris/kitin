@@ -1,5 +1,5 @@
 {% raw %}
-  <section id="instance" name="instance" data-ng-repeat="instance in [record.about]">
+  <section data-ng-if="record" data-ng-init="instance = record.about">
     <ng-form name="subform">
     <h2> <span>{{ 'Titel och upphov' }}</span><i></i></h2>
     <div class="cols">
