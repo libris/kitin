@@ -158,12 +158,15 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
       } else {
         $scope.multiple = false;
       }
+      var multiple = $scope.multiple;
 
       var subj = $scope.subject;
       var link = $scope.link;
       var obj = subj[link];
 
-      if ($scope.multiple) {
+      $scope.viewmode = !_.isEmpty(obj);
+
+      if (multiple) {
         $scope.objects = obj;
         $scope.object = null;
       } else {
@@ -171,11 +174,12 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
         $scope.object = obj;
       }
 
-      $scope.viewmode = !_.isEmpty(obj);
-
       this.doAdd = function (data) {
-        var added = editUtil.addObject(subj, link, $scope.type, $scope.multiple, data);
-        if (!$scope.multiple) {
+        var added = editUtil.addObject(subj, link, $scope.type, multiple, data);
+        if (multiple) {
+          $scope.objects = added;
+          console.log(added);
+        } else {
           $scope.object = added;
         }
         $scope.viewmode = true;
@@ -184,11 +188,11 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
 
       $scope.doRemove = function (index) {
         var removed = null;
-        if (_.isArray(obj)) {
-          removed = obj.splice(index, 1)[0];
+        if (multiple && _.isNumber(index)) {
+          removed = subj[link].splice(index, 1)[0];
         } else {
           removed = subj[link];
-          subj[link] = null;
+          delete subj[link];
           $scope.object = null;
           $scope.viewmode = false;
         }

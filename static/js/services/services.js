@@ -93,9 +93,9 @@ kitin.service('editUtil', function(resources) {
     if(typeof collection === 'undefined') {
       collection = subj[rel] = [];
     }
-
     var res = obj ? obj : createObject(type);
     collection.push(res);
+    return collection;
   };
 
   var editutil = {
