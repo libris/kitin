@@ -178,12 +178,12 @@ kitin.service('editUtil', function(resources) {
       this.byScheme = byScheme;
 
       concepts.forEach(function (concept) {
-        var schemeNotation = (concept.inScheme && concept.inScheme.notation)?
-          concept.inScheme.notation : "N/A";
-        var container = byScheme[schemeNotation];
+        var key = (concept.inScheme && concept.inScheme.notation)?
+          concept.inScheme.notation : concept['@type'];
+        var container = byScheme[key];
         if (typeof container === "undefined") {
           container = new editutil.ConceptContainer(work); 
-          byScheme[schemeNotation] = container;
+          byScheme[key] = container;
         }
         container.concepts.push(concept);
       });

@@ -3,8 +3,8 @@
 <div class="col6">
   <h3>Ämnesord</h3>
 
-  <div data-ng-repeat="(notation, container) in schemeContainer.byScheme" class="scheme"
-       data-ng-init="scheme = conceptSchemes[notation] || {'label': schemeNotation}">
+  <div data-ng-repeat="(key, container) in schemeContainer.byScheme" class="scheme"
+       data-ng-init="scheme = conceptSchemes[key] || {'label': key}">
     <h4>{{ scheme.label }}</h4>
     <div data-kitin-link-entity
           data-subject="container" data-link-multiple="concepts" data-type="Concept"
