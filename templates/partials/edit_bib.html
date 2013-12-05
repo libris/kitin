@@ -164,8 +164,9 @@
       </div>
     </div>
 
-    <div class="cols">
+
         <div data-ng-repeat="identifier in instance.identifier" class="">
+    <div class="cols">
           <ng:switch on="identifier.identifierScheme">
             <span data-ng-switch-when="ISBN">
               <div class="col6">
@@ -175,7 +176,6 @@
                       data-ng-show="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length">
                   <span class="lbl error-message" data-ng-show="subform.isbn_name.$error.invalid_value">{{ "ISBN" }} (Fel numeriskt värde) </span>
                   <span class="lbl error-message" data-ng-show="subform.isbn_name.$error.invalid_length">{{ "ISBN" }} (Fel längd)</span>
-                
                 </span>
 
                 <!--<input data-inplace name="isbn_name" type="text" required="true" data-ng-model="instance.isbn" placeholder="ISBN" data-isbn-pattern="^[0-9\-xX]*$" isbnvalidator/>
@@ -187,17 +187,15 @@
                       data-isbn-pattern="^$|^[0-9\-xX]*$" isbnvalidator/>
               </label>
               </div>
-              <div class="col6">
+              <div class="col3">
                 <label>
                   <span class="lbl">{{ "ISBN-notering" }}</span>
                     <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="identifier.identifierNote" placeholder="Notering">
                 </label>
               </div>
-<!--
-              <div>
-          <button class="btn-link" data-ng-click="removeObject(instance, 'identifier', $index)"><i class="fa fa-times"></i></button>
+              <div class="col3">
+                <button class="remove-thing btn-link" data-ng-click="removeObject(instance, 'identifier', $index)">Ta bort <i class="fa fa-times"></i></button>
               </div>
--->
             </span>
             <span data-ng-switch-default>
             <div class="col6">
@@ -206,34 +204,40 @@
                 <input data-inplace type="text" data-ng-model="identifier.identifierValue" placeholder="{{ identifier.identifierScheme }}"/>
               </label>
             </div>
-            <div class="col6">
+            <div class="col3">
               <label>
                 <span class="lbl">{{ "Notering" }}</span>
                 <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="identifier.identifierNote" placeholder="Notering">
               </label>
             </div>
+              <div class="col3">
+                <button class="remove-thing btn-link" data-ng-click="removeObject(instance, 'identifier', $index)">Ta bort <i class="fa fa-times"></i></button>
+              </div>            
             </span>
           </ng:switch>
       </div>
-      <div class="input-controls">
-         <button class="add-thing btn-link" data-ng-click="addObject(instance, 'identifier', 'ISBN')">Lägg till {{ "ISBN" }} <i class="fa fa-plus-circle"></i></button>
-        <button class="remove-thing btn-link" data-ng-click="removeObject(instance, 'identifier', $index)"> Ta bort Identifierare <i class="fa fa-times"></i></button>
-      </div>
     </div>
-    <div class="cols">
+    <div class="cols input-controls">
+      <button class="add-thing btn-link" data-ng-click="addObject(instance, 'identifier', 'ISBN')">Lägg till {{ "ISBN" }} <i class="fa fa-plus-circle"></i></button>
+    </div>
+
+
         <div data-ng-repeat="publication in instance.publication" class="">
+    <div class="cols">
           <div class="col3">
             <label>
               <span class="lbl">{{ "Utgivningsplats" }}</span>
               <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="publication.place.label" placeholder="Utgivningsort">
             </label>
           </div>
-          <div class="col6">
+
+          <div class="col3">
             <label>
               <span class="lbl">{{ "Utgivare/förlag" }}</span>
               <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="publication.providerName" placeholder="Utgivare förlag">
             </label>
           </div>
+
             <!-- TODO: specify type of place?
             <label>
               <... data-placeholder="Välj ett land" data-ng-model="record.about.instanceOf.country" ... >
@@ -245,18 +249,21 @@
               <span class="lbl">{{ "Utgivningsår" }}</span>
               <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="publication.providerDate" placeholder="Utgivningsår">
             </label>
+          </div>
 <!--
             <label class="last" data-ng-hide="editable">
               <button class="btn-link on-hover" data-ng-click="removeObject(instance, 'publication', $index)"><i class="fa fa-times"></i></button>
             </label>
 -->
+          <div class="col3">
+            <button class="remove-thing btn-link" data-ng-click="removeObject(instance, 'publication', $index)"> {{' Ta bort' }} <i class="fa fa-times"></i></button> 
           </div>
-        </div>
-        <div class="input-controls">
-        <button class="add-thing btn-link" data-ng-click="addObject(instance, 'publication', 'ProviderEvent')">{{ 'Lägg till utgivning' }} <i class="fa fa-plus-circle"></i></button>  
-        <button class="remove-thing btn-link" data-ng-click="removeObject(instance, 'publication', $index)"> {{' Ta bort utgivning' }} <i class="fa fa-times"></i></button> 
-        </div>            
+       </div>          
     </div>
+    <div class="cols input-controls">
+      <label><button class="add-thing btn-link" data-ng-click="addObject(instance, 'publication', 'ProviderEvent')">{{ 'Lägg till utgivning' }} <i class="fa fa-plus-circle"></i></button></label>
+    </div> 
+
     <div class="cols">
       <div class="col3">
         <label>
@@ -264,7 +271,7 @@
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.editionStatement.edition" placeholder="Upplaga">
         </label>
       </div>
-        <div class="col6">
+        <div class="col3">
           <div data-ng-repeat="manufacture in instance.manufacture">
             <label>
               <span class="lbl">{{ "Tryckplats" }}</span>

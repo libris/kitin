@@ -1277,18 +1277,11 @@ div.loading > b {
   text-transform: uppercase;
 }
 .remove-thing.btn-link {
-  padding-left: 15px;
+  padding-top: 18px;
 }
 .input-controls {
+  display: block;
   margin: 0 26px 10px 0;
-  -webkit-transition: all 0, 2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-}
-.input-controls:hover {
-  background-color: #fafafa;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 /*
 .cols:hover .add-thing.btn-link { color: @green3; }
