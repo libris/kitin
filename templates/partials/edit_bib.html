@@ -24,8 +24,10 @@
             <div data-ng-show="editable">
               <input data-inplace class="input-large authdependant" type="text" placeholder="Språk"
                     value="{{ work.language.prefLabel }} ({{ work.language.langCode }})"
-                    data-kitin-autoselect="field"
-                    data-kitin-template="select-language-template" />
+                    data-kitin-autoselect
+                    data-subject="work"
+                    data-link="language"
+                    data-template="select-language-template" />
             </div>
           </div>
         </label>

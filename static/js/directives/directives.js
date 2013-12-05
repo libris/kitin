@@ -80,22 +80,17 @@ kitin.directive('kitinAutoselect', function(resources) {
     return name.indexOf(sel) === 0 || code.indexOf(sel) === 0 || name.indexOf('(' + sel) > -1;
   };
 
-  var selectObject = function (scope, obj) {
-    // FIXME: configure target to set in directive
-    scope.record.about.instanceOf.language = obj;
-    scope.$apply();
-  };
-
   return {
     restrict: 'A',
     link: function(scope, elem, attrs) {
-      var templateId = attrs.kitinTemplate;
+      var subj = scope.$eval(attrs.subject);
+      var link = attrs.link;
+      var templateId = attrs.template;
       var template = _.template(jQuery('#' + templateId).html());
       var data = {};
 
       // TODO: configure source in directive
       resources.langIndex.then(function(index) {
-        // TODO: this is called twice, check resources..
         data.items = _.map(index.byId, function (obj, code) {
           return {value: getRepr(obj), data: obj};
         });
@@ -119,7 +114,8 @@ kitin.directive('kitinAutoselect', function(resources) {
           return template(data);
         },
         onItemSelect: function(item) {
-          selectObject(scope, item.data);
+          subj[link] = item.data;
+          scope.$apply();
         }
       });
     }
