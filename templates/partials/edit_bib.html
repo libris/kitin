@@ -193,8 +193,11 @@
                     <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="identifier.identifierNote" placeholder="Notering">
                 </label>
               </div>
-<!--          <button class="btn-link on-hover" data-ng-click="removeObject(instance, 'identifier', $index)"><i class="fa fa-times"></i></button> -->
-
+<!--
+              <div>
+          <button class="btn-link" data-ng-click="removeObject(instance, 'identifier', $index)"><i class="fa fa-times"></i></button>
+              </div>
+-->
             </span>
             <span data-ng-switch-default>
             <div class="col6">
@@ -212,7 +215,10 @@
             </span>
           </ng:switch>
       </div>
+      <div class="input-controls">
          <button class="add-thing btn-link" data-ng-click="addObject(instance, 'identifier', 'ISBN')">Lägg till {{ "ISBN" }} <i class="fa fa-plus-circle"></i></button>
+        <button class="remove-thing btn-link" data-ng-click="removeObject(instance, 'identifier', $index)"> Ta bort Identifierare <i class="fa fa-times"></i></button>
+      </div>
     </div>
     <div class="cols">
         <div data-ng-repeat="publication in instance.publication" class="">
@@ -246,7 +252,10 @@
 -->
           </div>
         </div>
-        <button class="add-thing btn-link" data-ng-click="addObject(instance, 'publication', 'ProviderEvent')">{{ 'Lägg till utgivning' }} <i class="fa fa-plus-circle"></i></button>        
+        <div class="input-controls">
+        <button class="add-thing btn-link" data-ng-click="addObject(instance, 'publication', 'ProviderEvent')">{{ 'Lägg till utgivning' }} <i class="fa fa-plus-circle"></i></button>  
+        <button class="remove-thing btn-link" data-ng-click="removeObject(instance, 'publication', $index)"> {{' Ta bort utgivning' }} <i class="fa fa-times"></i></button> 
+        </div>            
     </div>
     <div class="cols">
       <div class="col3">
