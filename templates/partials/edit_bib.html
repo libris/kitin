@@ -15,7 +15,7 @@
         <label class="ng-binding" data-ng-init="work = record.about.instanceOf">
           <span class="lbl">{{ "Språk" }}</span>
           <div data-ng-init="editable = !(work.language.langCode)">
-            <div data-ng-hide="editable" data-ng-click="editable=!editable" class="fakeinput">
+            <div data-ng-hide="editable" data-ng-click="editable=!editable" class="entity linked">
               <span>
                 {{ work.language.prefLabel }}
                 <i data-ng-show="work.language.langCode">({{ work.language.langCode }})</i>
