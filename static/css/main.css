@@ -1184,15 +1184,13 @@ label textarea.title {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-span.error_label {
+span.error-label {
   color: red;
 }
-span.error_message {
-  font-size: 11px;
+span.error-message {
+  font-size: 10px;
   color: red;
-}
-label .lbl_inline {
-  display: inline;
+  float: left;
 }
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   body label select {

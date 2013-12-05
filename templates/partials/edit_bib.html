@@ -153,27 +153,31 @@
     </script> 
 
     <h2>Utgivning och tillverkning<i></i></h2>
-    <div class="cols">
-      <div class="col6" data-ng-show="instance['@type'] != 'Book'">
+    <div class="cols" data-ng-show="instance['@type'] != 'Book'">
+      <div class="col6">
         <label>
           <span class="lbl">{{ "Allmän medieterm" }}</span>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.mediaTerm" placeholder="Allmän medieterm">
         </label>
       </div>
+      <div class="col6">
+      </div>
     </div>
 
     <div class="cols">
-      <div class="col6">
         <div data-ng-repeat="identifier in instance.identifier" class="">
           <ng:switch on="identifier.identifierScheme">
-            <div data-ng-switch-when="ISBN">
+            <span data-ng-switch-when="ISBN">
+              <div class="col6">
               <label>
-                <span class="lbl_inline lbl"
-                      data-ng-hide="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length">{{ "ISBN" }}</span>
-                <span class="lbl_inline lbl error_label"
-                      data-ng-show="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length">{{ "ISBN" }}</span>
-                <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_value">(Fel numeriskt värde)</span>
-                <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_length">(Fel längd)</span>
+                <span class="lbl" data-ng-hide="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length">{{ "ISBN" }}</span>
+                <span class="lbl error-label"
+                      data-ng-show="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length">
+                  <span class="lbl error-message" data-ng-show="subform.isbn_name.$error.invalid_value">{{ "ISBN" }} (Fel numeriskt värde) </span>
+                  <span class="lbl error-message" data-ng-show="subform.isbn_name.$error.invalid_length">{{ "ISBN" }} (Fel längd)</span>
+                
+                </span>
+
                 <!--<input data-inplace name="isbn_name" type="text" required="true" data-ng-model="instance.isbn" placeholder="ISBN" data-isbn-pattern="^[0-9\-xX]*$" isbnvalidator/>
                 <span class="lbl_inline lbl" data-ng-hide="subform.isbn_name.$error.invalid_value">{{ "ISBN" }}</span>
                 <span class="lbl_inline lbl error_label" data-ng-show="subform.isbn_name.$error.invalid_value">{{ "ISBN" }}</span>
@@ -181,27 +185,34 @@
                 <!--<span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_length">(Fel längd)</span>-->
                 <input data-inplace name="isbn_name" type="text" data-ng-model="identifier.identifierValue" placeholder="{{ identifier.identifierScheme }}"
                       data-isbn-pattern="^$|^[0-9\-xX]*$" isbnvalidator/>
-                <button class="btn-link on-hover" data-ng-click="removeObject(instance, 'identifier', $index)"><i class="fa fa-times"></i></button>
               </label>
+              </div>
+              <div class="col6">
+                <label>
+                  <span class="lbl">{{ "ISBN-notering" }}</span>
+                    <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="identifier.identifierNote" placeholder="Notering">
+                </label>
+              </div>
+<!--          <button class="btn-link on-hover" data-ng-click="removeObject(instance, 'identifier', $index)"><i class="fa fa-times"></i></button> -->
+
+            </span>
+            <span data-ng-switch-default>
+            <div class="col6">
               <label>
-                <span class="lbl">{{ "ISBN-notering" }}</span>
-                <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="identifier.identifierNote" placeholder="Notering">
-              </label>
-            </div>
-            <div data-ng-switch-default>
-              <label>
-                <span class="lbl">{{ identifier.identifierScheme }}</span>
+                <span class="lbl"><span data-ng-if="!identifier.identifierScheme">Identifierare</span>{{ identifier.identifierScheme }}</span>
                 <input data-inplace type="text" data-ng-model="identifier.identifierValue" placeholder="{{ identifier.identifierScheme }}"/>
               </label>
+            </div>
+            <div class="col6">
               <label>
                 <span class="lbl">{{ "Notering" }}</span>
                 <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="identifier.identifierNote" placeholder="Notering">
               </label>
             </div>
+            </span>
           </ng:switch>
-        </div>
-        <button class="add-thing btn-link" data-ng-click="addObject(instance, 'identifier', 'ISBN')">{{ 'Lägg till ISBN' }} <i class="fa fa-plus-circle"></i></button>
       </div>
+         <button class="add-thing btn-link" data-ng-click="addObject(instance, 'identifier', 'ISBN')">Lägg till {{ "ISBN" }} <i class="fa fa-plus-circle"></i></button>
     </div>
     <div class="cols">
         <div data-ng-repeat="publication in instance.publication" class="">
@@ -228,9 +239,11 @@
               <span class="lbl">{{ "Utgivningsår" }}</span>
               <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="publication.providerDate" placeholder="Utgivningsår">
             </label>
+<!--
             <label class="last" data-ng-hide="editable">
               <button class="btn-link on-hover" data-ng-click="removeObject(instance, 'publication', $index)"><i class="fa fa-times"></i></button>
             </label>
+-->
           </div>
         </div>
         <button class="add-thing btn-link" data-ng-click="addObject(instance, 'publication', 'ProviderEvent')">{{ 'Lägg till utgivning' }} <i class="fa fa-plus-circle"></i></button>        
