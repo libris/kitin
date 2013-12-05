@@ -1161,6 +1161,9 @@ label textarea {
 label textarea.title {
   font-weight: bold;
 }
+label .required:after {
+  content: "*";
+}
 .lbl {
   display: block;
   font-size: 10px;
@@ -1187,11 +1190,11 @@ label textarea.title {
   text-overflow: ellipsis;
 }
 span.error-label {
-  color: red;
+  color: #fa1963;
 }
 span.error-message {
   font-size: 10px;
-  color: red;
+  color: #fa1963;
   float: left;
 }
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
@@ -1269,14 +1272,21 @@ div.loading > b {
 .remove-thing.btn-link,
 .add-thing.btn-link {
   padding: 0;
-  font-size: 12px;
+  font-size: 10px;
   margin-top: 0px;
+  text-transform: uppercase;
 }
 .remove-thing.btn-link {
   padding-left: 15px;
 }
 .input-controls {
   margin: 0 26px 10px 0;
+  -webkit-transition: all 0, 2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.input-controls:hover {
   background-color: #fafafa;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
@@ -1762,6 +1772,9 @@ h4.modal-title {
   box-shadow: inset 0px 5px 8px #ffffff;
   border: 1px dotted #c7c7c7;
   opacity: 0.4;
+}
+.entity .btn-link {
+  padding-left: 15px;
 }
 section.json-ld {
   background-color: #fff;
