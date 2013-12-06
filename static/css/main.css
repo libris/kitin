@@ -964,15 +964,14 @@ label {
 .col2 label.deletable input[type="text"] {
   width: 100px;
 }
-.entity,
-.addon {
+.entity {
   position: relative;
 }
 .addon .on-hover {
   float: right!important;
   position: absolute;
-  top: -5px;
-  right: 0;
+  top: 3px;
+  right: 3px;
   color: #999;
 }
 .entity:focus {
