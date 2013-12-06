@@ -1,11 +1,10 @@
 {% raw %}
 
 <div class="col6">
-  <h3>Ämnesord</h3>
 
   <div data-ng-repeat="(key, container) in schemeContainer.byScheme" class="scheme"
        data-ng-init="scheme = conceptSchemes[key] || {'label': key}">
-    <h4>{{ scheme.label }}</h4>
+    <h3>{{ scheme.label }}</h3>
     <div data-kitin-link-entity
           data-subject="container" data-link-multiple="concepts" data-type="Concept"
           data-search-template="search-subject"
@@ -56,7 +55,7 @@
     </div>
   </script>
 
-  <h4>Andra ämnesordssystem</h4>
+  <h3>Andra ämnesordssystem</h3>
   <div class="cols">
     <div class="col3">
       <label>
@@ -105,8 +104,8 @@
 
 <script type="text/html" id="subject-completion-template">
 <div class="auth">
-  <h4>
-    <span class="name" title="<%= data['@id']%>"><%= data['prefLabel']%></span></h4>
+  <h3>
+    <span class="name" title="<%= data['@id']%>"><%= data['prefLabel']%></span></h3>
     <% if (data['hiddenLabel']) { %>
       <div><span class="muted">Används ej: <%= data['hiddenLabel']%></span></div>
     <% } %>  
