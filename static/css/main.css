@@ -964,6 +964,17 @@ label {
 .col2 label.deletable input[type="text"] {
   width: 100px;
 }
+.entity,
+.addon {
+  position: relative;
+}
+.addon .on-hover {
+  float: right!important;
+  position: absolute;
+  top: -5px;
+  right: 0;
+  color: #999;
+}
 .edit .entity {
   padding: 8px 6px 2px;
   margin-bottom: 1em;
