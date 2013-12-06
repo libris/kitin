@@ -14,7 +14,7 @@
         </label>
         <label class="ng-binding" data-ng-init="work = record.about.instanceOf">
           <span class="lbl">{{ "Språk" }}</span>
-          <div data-ng-init="editable = !(work.language.langCode)">
+          <div data-ng-init="editable = !(work.language.langCode)" tabindex="0">
             <div data-ng-hide="editable" data-ng-click="editable=!editable" class="entity linked">
               <span>
                 {{ work.language.prefLabel }}
@@ -52,7 +52,7 @@
               data-ng-init="label = 'Huvuduppslag'"
               data-subject="work" data-link="attributedTo" data-type="Person"
               data-view-template="render-person"
-              data-search-template="render-search-box">
+              data-search-template="render-search-box" tabindex="0">
           </div>
         </div>
         <div>
@@ -61,7 +61,7 @@
               data-ng-init="label = 'Biuppslag'"
               data-subject="work" data-link-multiple="influencedBy" data-type="Person"
               data-view-template="render-person"
-              data-search-template="render-search-box">
+              data-search-template="render-search-box" tabindex="0">
           </div>
         </div>
       </div>
