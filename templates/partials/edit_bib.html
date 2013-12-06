@@ -84,7 +84,7 @@
         <div class="col4">
           <span onload="person = object" data-ng-include="'render-person-name'"></span>
           &nbsp;
-          <span class="what"><i class="fa fa-bookmark"></i></span>
+          <span class="what"><i class="fa fa-check-circle"></i></span>
         </div>
         <div class="addon" data-ng-include="'roles-and-delete'"></div>
       </div>
@@ -401,7 +401,7 @@
   <h4>
     <span class="name"><%= data['controlledLabel'] %></span>
     <% if (data['@id']) { %>
-      <span class="what"><i class="fa fa-bookmark"></i>Aukt.</span>
+      <span class="what"><i class="fa fa-check-circle"></i> Aukt.</span>
     <% } %>
   </h4>
   <% if (data['hasAnnotation'] && data['hasAnnotation']['about']) { %>
