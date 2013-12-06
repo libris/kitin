@@ -970,7 +970,7 @@ label {
 .addon .on-hover {
   float: right!important;
   position: absolute;
-  top: 3px;
+  top: 1px;
   right: 3px;
   color: #999;
 }
@@ -980,7 +980,7 @@ label {
 }
 .edit .entity {
   border: 1px solid transparent;
-  padding: 8px 6px 2px;
+  padding: 3px 6px;
   margin-bottom: 1em;
   overflow: auto;
   border-radius: 2px;
@@ -1837,4 +1837,3 @@ div.array > section.entity > div:nth-of-type(even) {
   left: 0;
   display: none;
 }
-/*# sourceMappingURL=/static/css/main.css.map */
