@@ -14,8 +14,8 @@
         </label>
         <label class="ng-binding" data-ng-init="work = record.about.instanceOf">
           <span class="lbl">{{ "Språk" }}</span>
-          <div data-ng-init="editable = !(work.language.langCode)" tabindex="0">
-            <div data-ng-hide="editable" data-ng-click="editable=!editable" class="entity linked">
+          <div data-ng-init="editable = !(work.language.langCode)" >
+            <div data-ng-hide="editable" data-ng-click="editable=!editable" class="entity linked" tabindex="0">
               <span>
                 {{ work.language.prefLabel }}
                 <i data-ng-show="work.language.langCode">({{ work.language.langCode }})</i>
@@ -61,7 +61,7 @@
               data-ng-init="label = 'Biuppslag'"
               data-subject="work" data-link-multiple="influencedBy" data-type="Person"
               data-view-template="render-person"
-              data-search-template="render-search-box" tabindex="0">
+              data-search-template="render-search-box" x>
           </div>
         </div>
       </div>
@@ -80,7 +80,7 @@
     </script>
 
     <script type="text/ng-template" id="render-person">
-      <div data-ng-if="isLinked(object)" class="entity person linked">
+      <div data-ng-if="isLinked(object)" class="entity person linked" tabindex="0">
         <div class="col4">
           <span onload="person = object" data-ng-include="'render-person-name'"></span>
           &nbsp;
@@ -89,7 +89,7 @@
         <div class="addon" data-ng-include="'roles-and-delete'"></div>
       </div>
       <div data-ng-if="!isLinked(object)" class="entity person embedded"
-            data-ng-init="editable = {on: !(object.controlledLabel || object.givenName)}">
+            data-ng-init="editable = {on: !(object.controlledLabel || object.givenName)}" tabindex="0">
         <div class="col4" data-ng-hide="editable.on">
             <label data-ng-click="editable.on = !editable.on">
               <span onload="person = object" data-ng-include="'render-person-name'"></span>

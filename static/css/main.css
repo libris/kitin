@@ -975,7 +975,12 @@ label {
   right: 0;
   color: #999;
 }
+.entity:focus {
+  border: 1px solid #777;
+  outline: 0;
+}
 .edit .entity {
+  border: 1px solid transparent;
   padding: 8px 6px 2px;
   margin-bottom: 1em;
   overflow: auto;
@@ -984,9 +989,9 @@ label {
 .edit .entity.addmore {
   margin-bottom: 4px;
 }
-.edit .entity:hover,
-.edit .entity.focus {
-  border-left-color: #1a8f72;
+.edit .entity:focus {
+  border: 1px solid #777;
+  outline: 0;
 }
 .edit .entity label {
   border: none;
