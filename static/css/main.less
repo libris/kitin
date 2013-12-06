@@ -502,7 +502,7 @@ label{margin-bottom:10px;}
   box-sizing: border-box;
   width:100%;
 }
-.datatable td.controls .btn-link{padding:0;position:relative;top:-3px}
+.datatable td.controls .btn-link{padding:0;position:relative;top:-3px;}
 
 span.authorized{display:block;margin-left:15px; padding-left:5px;margin-top:25px;color:@green3; font-size: 24px;}
 
@@ -596,12 +596,16 @@ div.loading > b { display: none; }
 .suggestion-classification li{margin: 0 4px 4px 0;float:left;padding:4px 8px;background:rgba(167, 86, 167, 0.35);}
 .suggestion-classification li .icon{color:@purple;}
 
+/*TODO:experimental and not optimized*/
+.remove-thing.btn-link {font-size:10px;margin-top:16px;text-transform: uppercase;}
+.add-thing.btn-link {font-size:10px;margin-top:0px;text-transform: uppercase;}
+.add-thing.btn-link, 
+.remove-thing.btn-link {height: 29px;padding-left: 5px;padding-right:5px;background-color: #fafafa;border: 1px solid #CCCCCC;border-radius: 2px;
+    &:hover {text-decoration: none; background-color: #eaeaea;}
+    &:focus {border-color: #777; background-color: #ececec;}
+    }
 
-.remove-thing.btn-link,
-.add-thing.btn-link {padding:0; font-size:10px;margin-top:0px;text-transform: uppercase;}
-.remove-thing.btn-link { padding-top: 18px;}
-
-.input-controls {display:block;margin: 0 26px 10px 0; }
+.input-controls {;margin: 0 26px 10px 0; }
 
 /*
 .cols:hover .add-thing.btn-link { color: @green3; }
