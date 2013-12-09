@@ -12,6 +12,12 @@
           <span class="lbl">{{ "Övrig titelinformation" }}</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" placeholder="Övrig titelinformation" data-ng-model="title.subtitle">{{ title.subtitle }}</textarea>
         </label>
+        <ng:switch on="instance['@type']">
+        <label data-ng-switch-when="Serial">
+           <span class="lbl">{{ "Nyckeltitel" }}</span>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" placeholder="Övrig titelinformation" data-ng-model="instance.keyTitle.titleValue">{{ instance.keyTitle.titleValue }}</textarea>       
+        </label>
+        </ng:switch>
         <label class="ng-binding" data-ng-init="work = record.about.instanceOf">
           <span class="lbl">{{ "Språk" }}</span>
           <div data-ng-init="editable = !(work.language.langCode)" >
