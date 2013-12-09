@@ -352,6 +352,22 @@ kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, rec
     collection.push(obj);
   };
 
+  $scope.addObject = function(subj, rel, type, target) {
+    var collection = subj[rel];
+    if (typeof collection === 'undefined') {
+      collection = subj[rel] = [];
+    }
+    var obj = editUtil.createObject(type);
+    collection.push(obj);
+    // Focus on added row
+    if (target) {
+      var $dataTable = angular.element('[data-ng-target='+target+']');
+      $timeout(function() {
+        $dataTable.find('tr:last input:first').focus();
+      });
+    }
+  };
+
   $scope.removeObject = function(subj, rel, index) {
     var obj = subj[rel];
     var removed = null;

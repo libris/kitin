@@ -501,8 +501,9 @@ label{margin-bottom:10px;}
 .on-hover { visibility: hidden; }
 .entity:hover .on-hover { visibility: visible; }
 
-.datatable table{width:100%}
-.datatable td{padding: 0 0 0 6px}
+.datatable{margin-bottom:10px}
+.datatable table{width:100%;}
+.datatable td{padding: 0}
 .datatable td:first-child{padding:0}
 .datatable label{margin-bottom:6px}
 .datatable label input[type="text"]{
@@ -510,7 +511,12 @@ label{margin-bottom:10px;}
   -webkit-box-sizing: border-box; 
   box-sizing: border-box;
   width:100%;
+  border-left-width:0;
+  border-radius:0
 }
+.datatable label input[type="text"]:focus{}
+.datatable td:first-child label input{border-left-width:1px;border-top-left-radius:2px;border-bottom-left-radius:2px}
+.datatable td.last label input{border-top-right-radius:2px;border-bottom-right-radius:2px}
 .datatable td.controls .btn-link{padding:0;position:relative;top:-3px;}
 
 span.authorized{display:block;margin-left:15px; padding-left:5px;margin-top:25px;color:@green3; font-size: 24px;}
@@ -552,7 +558,7 @@ label:hover textarea,
 label:hover input[type="text"]{color:#000;border-color:#bbb}
 
 label input[type="text"]:focus,
-label textarea:focus{color:#000;border: 1px solid #888; box-shadow:rgba(0,0,0,.3) 0 0 2px;outline:none}
+label textarea:focus{color:#000;border-color: #888; box-shadow:rgba(0,0,0,.3) 0 0 2px;outline:none}
 
 .holdings label:hover,
 .holdings label.focus{border-left-color:@purple;}
@@ -609,10 +615,12 @@ div.loading > b { display: none; }
 .remove-thing.btn-link {font-size:10px;margin-top:16px;text-transform: uppercase;}
 .add-thing.btn-link {font-size:10px;margin-top:0px;text-transform: uppercase;}
 .add-thing.btn-link, 
-.remove-thing.btn-link {height: 29px;padding-left: 5px;padding-right:5px;background-color: #fafafa;border: 1px solid #CCCCCC;border-radius: 2px;
-    &:hover {text-decoration: none; background-color: #eaeaea;}
-    &:focus {border-color: #777; background-color: #ececec;}
+.remove-thing.btn-link {height: 23px;padding: 0; line-height:23px;
+    &:hover {text-decoration: none;}
+    &:focus {color:#000}
     }
+.add-thing.btn-link i, 
+.remove-thing.btn-link i{font-size:14px;line-height:23px;position:relative;bottom:-1px;margin-right:1px}
 
 
 .input-controls {;margin: 0 26px 10px 0; }

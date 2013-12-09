@@ -220,7 +220,7 @@
       </div>
     </div>
     <div class="cols input-controls">
-      <button class="add-thing btn-link" data-ng-click="addObject(instance, 'identifier', 'ISBN')">Lägg till {{ "ISBN" }} <i class="fa fa-plus-circle"></i></button>
+      <button class="add-thing btn-link" data-ng-click="addObject(instance, 'identifier', 'ISBN')"><i class="fa fa-plus"></i> Lägg till {{ "ISBN" }}</button>
     </div>
 
     <div class="col12">
@@ -237,7 +237,7 @@
           <tfoot>
             <tr>
               <td colspan="4">
-                <button class="add-thing btn-link" data-ng-click="addObject(instance, 'publication', 'ProviderEvent', 'publisher')">{{ 'Lägg till utgivning' }} <i class="fa fa-plus-circle"></i></button>
+                <button class="add-thing btn-link" data-ng-click="addObject(instance, 'publication', 'ProviderEvent', 'publisher')"><i class="fa fa-plus"></i> {{ 'Lägg till utgivning' }} </button>
               </td>
             </tr>
           </tfoot>
@@ -259,7 +259,7 @@
                 <span class="lbl">{{ "Utgivningsland" }}</span>
               </label>
               -->
-              <td>
+              <td class="last">
                 <label>
                   <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="publication.providerDate" placeholder="Utgivningsår">
                 </label>
