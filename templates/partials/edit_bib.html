@@ -228,8 +228,8 @@
         <table>
           <thead>
             <tr>
-              <td><span class="lbl">{{ "Utgivare/förlag" }}</span></td>
               <td><span class="lbl">{{ "Utgivningsplats" }}</span></td>
+              <td><span class="lbl">{{ "Utgivare/förlag" }}</span></td>
               <td><span class="lbl">{{ "Utgivningsår" }}</span></td>
               <td></td>
             </tr>
@@ -237,7 +237,7 @@
           <tfoot>
             <tr>
               <td colspan="4">
-                <button class="add-thing btn-link" data-ng-click="addObject(instance, 'publication', 'ProviderEvent', 'publisher')"><i class="fa fa-plus"></i> {{ 'Lägg till utgivning' }} </button>
+                <button class="add-thing btn-link" data-ng-click="addObject(instance, 'publication', 'ProviderEvent', 'publisher')">{{ 'Lägg till utgivning' }} </button>
               </td>
             </tr>
           </tfoot>
@@ -265,7 +265,7 @@
                 </label>
               </td>
               <td class="controls">
-                <button class="btn-link on-hover" data-ng-click="removeObject(instance, 'publication', $index)">
+                <button class="btn-link deleter" data-ng-click="removeObject(instance, 'publication', $index)">
                   <i class="fa fa-times"></i>
                 </button>
               </td>

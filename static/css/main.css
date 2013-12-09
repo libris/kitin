@@ -1030,7 +1030,7 @@ label {
   width: 100%;
 }
 .datatable td {
-  padding: 0;
+  padding: 0 0 0 6px;
 }
 .datatable td:first-child {
   padding: 0;
@@ -1043,22 +1043,29 @@ label {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   width: 100%;
-  border-left-width: 0;
-  border-radius: 0;
+  /*
+  border-left-width:0;
+  border-radius:0
+  */
 }
-.datatable td:first-child label input {
-  border-left-width: 1px;
-  border-top-left-radius: 2px;
-  border-bottom-left-radius: 2px;
+.datatable td.controls {
+  width: 20px;
+  margin: 0;
 }
-.datatable td.last label input {
-  border-top-right-radius: 2px;
-  border-bottom-right-radius: 2px;
-}
+/*
+.datatable td:first-child label input{border-left-width:1px;border-top-left-radius:2px;border-bottom-left-radius:2px}
+.datatable td.last label input{border-top-right-radius:2px;border-bottom-right-radius:2px}
+*/
 .datatable td.controls .btn-link {
   padding: 0;
   position: relative;
   top: -3px;
+}
+.datatable tfoot button {
+  margin-top: -6px !important;
+  position: relative;
+  float: left;
+  margin-right: 18px;
 }
 span.authorized {
   display: block;
@@ -1299,21 +1306,14 @@ div.loading > b {
   color: #683568;
 }
 /*TODO:experimental and not optimized*/
-.remove-thing.btn-link {
-  font-size: 10px;
-  margin-top: 16px;
-  text-transform: uppercase;
-}
-.add-thing.btn-link {
-  font-size: 10px;
-  margin-top: 0px;
-  text-transform: uppercase;
-}
 .add-thing.btn-link,
 .remove-thing.btn-link {
+  color: #1a8f72;
   height: 23px;
-  padding: 0;
+  padding-top: 0;
   line-height: 23px;
+  font-size: 11px;
+  font-family: 'Open Sans', arial, sans-serif;
 }
 .add-thing.btn-link:hover,
 .remove-thing.btn-link:hover {
@@ -1323,13 +1323,28 @@ div.loading > b {
 .remove-thing.btn-link:focus {
   color: #000000;
 }
+.remove-thing.btn-link {
+  margin-top: 16px;
+}
+.add-thing.btn-link {
+  margin-top: 0px;
+  padding-left: 12px;
+  background: url(/static/img/plus.png) no-repeat 0 7px;
+}
 .add-thing.btn-link i,
 .remove-thing.btn-link i {
-  font-size: 14px;
+  font-size: 15px;
   line-height: 23px;
   position: relative;
   bottom: -1px;
   margin-right: 1px;
+  color: #1a8f72;
+}
+.btn-link.deleter {
+  color: #dddddd;
+}
+.btn-link.deleter:hover {
+  color: #cc4444;
 }
 .input-controls {
   margin: 0 26px 10px 0;
