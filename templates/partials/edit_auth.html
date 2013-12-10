@@ -8,7 +8,7 @@
   <section id="instance" name="instance">
     <ng-form name="subform">
     <div class="cols">
-<!--
+<!-- not properly mapped yet
       <div class="col6">
         <label>
           <span class="lbl">{{ "label" }}</span>
@@ -88,48 +88,7 @@
         </label>        
       </div>
       <div>
-  <div class="cols"
-    <div class="col12">
-      <div class="datatable" data-ng-target="source">
-        <table>
-          <thead>
-            <tr>
-              <td><span class="lbl">{{ "Källa" }}</span></td>
-              <td><span class="lbl">{{ "Källkommentar" }}</span></td>
-              <td></td>
-            </tr>
-          </thead>
-          <tfoot>
-            <tr>
-              <td colspan="4">
-                <button class="add-thing btn-link" data-ng-click="addObject(record, 'source', 'label', 'comment')">{{ 'Lägg till kommentar' }} </button>
-              </td>
-            </tr>
-          </tfoot>
-          <tbody>
-            <tr data-ng-repeat="source in record.source" class="">
-              <td>
-                <label>
-            <label>
-              <input data-inplace type="text" data-ng-model="source.label"/>
-            </label>
-              </td>
-
-              <td class="last">
-            <label>
-              <input data-inplace type="text" data-ng-model="source.comment"/>
-            </label>
-              </td>
-              <td class="controls">
-                <button class="btn-link deleter" data-ng-click="removeObject(record, 'source', $index)">
-                  <i class="fa fa-times"></i>
-                </button>
-              </td>
-            </tr>
-          </table>
-       </div>          
-    </div>
-    </div>
+      <div class="cols" data-ng-include="'source-comment-template'"></div>
       <div class="bottom">
         <button class="btn disabled">Uppdatera</button>
     </div>
@@ -186,7 +145,6 @@
         </label>
         <div ng-show="instance.hasVersion"  class="multifield">
           <span class="lbl">{{ "Alternativ titelform" }}</span>
-          <!-- <label><input type="text" placeholder="Lägg till alternativ namnform"/></label> -->
             <label data-ng-repeat="hasVersion in instance.hasVersion">
             <input data-inplace class="input-medium" type="text" data-ng-model="hasVersion.uniformTitle">
           </label>
@@ -207,7 +165,96 @@
         </label>
       </div>
     </div>
-  <div class="cols"
+    <div class="cols" data-ng-include="'source-comment-template'"></div>
+  </section>
+</div>
+
+<!--organization-->
+<div data-ng-switch-when="Organization">
+  <section id="instance" name="instance">
+    <div class="cols">
+      <div class="col6">
+        <label>
+          <span class="lbl">{{ "Label" }}</span>
+          <input data-inplace type="text" class="" data-ng-model="instance.label"/>
+        </label>
+        <div ng-show="instance.instanceOf"  class="multifield">
+          <span class="lbl">{{ "Används ej" }}</span>
+            <label data-ng-repeat="hasVersion in instance.instanceOf.hasVersion">
+            <input data-inplace class="input-medium" type="text" data-ng-model="hasVersion.label">
+          </label>
+        </div>
+        <label>
+        <span class="lbl">{{ "Anmärkning" }}</span>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.note">{{ instance.note }}</textarea>
+        </label>
+      </div>
+    </div>
+    <div class="cols" data-ng-include="'source-comment-template'"></div>
+  </section>
+</div>
+
+<!--meeting-->
+<div data-ng-switch-when="Meeting">
+  <section id="instance" name="instance">
+    <div class="cols">
+      <div class="col6">
+        <label>
+          <span class="lbl">{{ "Label" }}</span>
+          <input data-inplace type="text" class="" data-ng-model="instance.label"/>
+        </label>
+        <div ng-show="instance.instanceOf"  class="multifield">
+          <span class="lbl">{{ "Används för" }}</span>
+            <label data-ng-repeat="hasVersion in instance.instanceOf.hasVersion">
+            <input data-inplace class="input-medium" type="text" data-ng-model="hasVersion.label">
+          </label>
+        </div>
+        <label>
+          <span class="lbl">{{ "Plats" }}</span>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.place.label">{{ instance.place.label }}</textarea>
+        </label>
+        <label>
+          <span class="lbl">{{ "Datum" }}</span>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.date">{{ instance.date }}</textarea>
+        </label>
+        <label>
+          <span class="lbl">{{ "Anmärkning" }}</span>
+          <div data-ng-repeat="note in instance.note">
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
+                    data-ng-model="note">{{ note }}</textarea>
+          </div>
+        </label>
+      </div>
+    </div>
+    <div class="cols" data-ng-include="'source-comment-template'"></div>
+  </section>
+</div>
+
+<!--place-->
+<div data-ng-switch-when="Place">
+  <section id="instance" name="instance">
+    <div class="cols">
+      <div class="col6">
+        <label>
+          <span class="lbl">{{ "Label" }}</span>
+          <input data-inplace type="text" class="" data-ng-model="instance.prefLabel"/>
+        </label>
+        <label>
+          <span class="lbl">{{ "Anmärkning" }}</span>
+          <div data-ng-repeat="note in instance.note">
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
+                    data-ng-model="note">{{ note }}</textarea>
+          </div>
+        </label>
+      </div>
+    </div>
+    <div class="cols" data-ng-include="'source-comment-template'"></div>  </section>
+</div>
+
+</div>
+
+<!-- source and source comment fragment -->
+<script type="text/ng-template" id="source-comment-template">
     <div class="col12">
       <div class="datatable" data-ng-target="source">
         <table>
@@ -247,181 +294,5 @@
             </tr>
           </table>
        </div>          
-    </div>
-  </section>
-</div>
-
-<!--organization-->
-<div data-ng-switch-when="Organization">
-  <section id="instance" name="instance">
-    <div class="cols">
-      <div class="col6">
-        <label>
-          <span class="lbl">{{ "Label" }}</span>
-          <input data-inplace type="text" class="" data-ng-model="instance.label"/>
-        </label>
-        <div ng-show="instance.instanceOf"  class="multifield">
-          <span class="lbl">{{ "Används ej" }}</span>
-          <!-- <label><input type="text" placeholder="Lägg till alternativ namnform"/></label> -->
-            <label data-ng-repeat="hasVersion in instance.instanceOf.hasVersion">
-            <input data-inplace class="input-medium" type="text" data-ng-model="hasVersion.label">
-          </label>
-        </div>
-        <label>
-        <span class="lbl">{{ "Anmärkning" }}</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.note">{{ instance.note }}</textarea>
-        </label>
-      </div>
-    </div>
-  <div class="cols"
-    <div class="col12">
-      <div class="datatable" data-ng-target="publisher">
-        <table>
-          <thead>
-            <tr>
-              <td><span class="lbl">{{ "Källa" }}</span></td>
-              <td><span class="lbl">{{ "Källkommentar" }}</span></td>
-              <td></td>
-            </tr>
-          </thead>
-          <tfoot>
-            <tr>
-              <td colspan="4">
-                <button class="add-thing btn-link" data-ng-click="addObject(instance, 'publication', 'ProviderEvent', 'publisher')">{{ 'Lägg till kommentar' }} </button>
-              </td>
-            </tr>
-          </tfoot>
-          <tbody>
-            <tr data-ng-repeat="source in record.source" class="">
-              <td>
-                <label>
-            <label>
-              <input data-inplace type="text" data-ng-model="source.label"/>
-            </label>
-              </td>
-
-              <td class="last">
-            <label>
-              <input data-inplace type="text" data-ng-model="source.comment"/>
-            </label>
-              </td>
-              <td class="controls">
-                <button class="btn-link deleter" data-ng-click="removeObject(instance, 'publication', $index)">
-                  <i class="fa fa-times"></i>
-                </button>
-              </td>
-            </tr>
-          </table>
-       </div>          
-    </div>
-    </div>
-  </section>
-</div>
-
-<!--meeting-->
-<div data-ng-switch-when="Meeting">
-  <section id="instance" name="instance">
-    <div class="cols">
-      <div class="col6">
-        <label>
-          <span class="lbl">{{ "Label" }}</span>
-          <input data-inplace type="text" class="" data-ng-model="instance.label"/>
-        </label>
-        <div ng-show="instance.instanceOf"  class="multifield">
-          <span class="lbl">{{ "Används för" }}</span>
-          <!-- <label><input type="text" placeholder="Lägg till alternativ namnform"/></label> -->
-            <label data-ng-repeat="hasVersion in instance.instanceOf.hasVersion">
-            <input data-inplace class="input-medium" type="text" data-ng-model="hasVersion.label">
-          </label>
-        </div>
-        <label>
-          <span class="lbl">{{ "Plats" }}</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.place.label">{{ instance.place.label }}</textarea>
-        </label>
-        <label>
-          <span class="lbl">{{ "Datum" }}</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.date">{{ instance.date }}</textarea>
-        </label>
-        <label>
-          <span class="lbl">{{ "Anmärkning" }}</span>
-          <div data-ng-repeat="note in instance.note">
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
-                    data-ng-model="note">{{ note }}</textarea>
-          </div>
-        </label>
-      </div>
-    </div>
-      <div class="cols">
-        <div class="col6">
-          <div data-ng-show="record.source" class="multifield">
-            <span class="lbl">{{ "Källa" }}</span>  
-            <label>
-              <input type="text" placeholder="Lägg till källa"/>
-            </label>
-            <label data-ng-repeat="source in record.source">
-              <textarea data-inplace type="text" data-ng-model="source.label"/>
-            </label>
-          </div>
-        </div>
-        <div class="col6">
-          <div data-ng-show="record.source" class="multifield"> 
-            <span class="lbl">{{ "Kommentar" }}</span>
-            <label>
-              <input type="text" placeholder="Lägg till kommentar"/>
-            </label>
-            <label data-ng-repeat="source in record.source">
-              <input data-inplace type="text" data-ng-model="source.comment"/>
-            </label>
-          </div>
-        </div>
-      </div>
-  </section>
-</div>
-
-<!--place-->
-<div data-ng-switch-when="Place">
-  <section id="instance" name="instance">
-    <div class="cols">
-      <div class="col6">
-        <label>
-          <span class="lbl">{{ "Label" }}</span>
-          <input data-inplace type="text" class="" data-ng-model="instance.prefLabel"/>
-        </label>
-        <label>
-          <span class="lbl">{{ "Anmärkning" }}</span>
-          <div data-ng-repeat="note in instance.note">
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
-                    data-ng-model="note">{{ note }}</textarea>
-          </div>
-        </label>
-      </div>
-    </div>
-      <div class="cols">
-        <div class="col6">
-          <div data-ng-show="record.source" class="multifield">
-            <span class="lbl">{{ "Källa" }}</span>  
-            <label>
-              <input type="text" placeholder="Lägg till källa"/>
-            </label>
-            <label data-ng-repeat="source in record.source">
-              <textarea data-inplace type="text" data-ng-model="source.label"/>
-            </label>
-          </div>
-        </div>
-        <div class="col6">
-          <div data-ng-show="record.source" class="multifield"> 
-            <span class="lbl">{{ "Kommentar" }}</span>
-            <label>
-              <input type="text" placeholder="Lägg till kommentar"/>
-            </label>
-            <label data-ng-repeat="source in record.source">
-              <input data-inplace type="text" data-ng-model="source.comment"/>
-            </label>
-          </div>
-        </div>
-      </div>
-  </section>
-</div>
-
-</div>
+</script>
 {% endraw %}
