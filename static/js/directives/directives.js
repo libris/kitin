@@ -66,14 +66,17 @@ kitin.directive('isbnvalidator', function(isbnTools) {
   };
 });
 
-kitin.directive('kitinAutoselect', function(resources) {
+kitin.directive('kitinAutoselect', function(definitions) {
 
+  // TODO: getRepr by type
   var getRepr = function (obj) {
     return obj.prefLabel + " (" + obj.langCode + ")";
   };
 
   var filter = function (result, inputval) {
     //var val = result.value.toLowerCase();
+    if (result.data.prefLabel === undefined)
+      result.data.prefLabel = "";
     var name = result.data.prefLabel.toLowerCase();
     var code = result.data.langCode.toLowerCase();
     var sel = inputval.toLowerCase();
@@ -85,13 +88,13 @@ kitin.directive('kitinAutoselect', function(resources) {
     link: function(scope, elem, attrs) {
       var subj = scope.$eval(attrs.subject);
       var link = attrs.link;
+      var source = attrs.source;
       var templateId = attrs.template;
       var template = _.template(jQuery('#' + templateId).html());
       var data = {};
 
-      // TODO: configure source in directive
-      resources.langIndex.then(function(index) {
-        data.items = _.map(index.byId, function (obj, code) {
+      definitions[source].then(function (struct) {
+        data.items = _.map(struct.byCode, function (obj, code) {
           return {value: getRepr(obj), data: obj};
         });
       });

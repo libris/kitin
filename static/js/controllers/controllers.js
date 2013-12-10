@@ -61,23 +61,23 @@ kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams) {
 });
 
 
-kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, resources, searchService, searchUtil) {
+kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, definitions, searchService, searchUtil) {
 
   var recType = $routeParams.recType;
 
   $scope.recType = recType;
 
-  resources.typedefs.then(function(data) {
+  definitions.typedefs.then(function(data) {
     $scope.typeDefs = data.types;
   });
 
   $scope.enums = {};
 
-  resources.enums.bibLevel.then(function(data) {
+  definitions.enums.bibLevel.then(function(data) {
     $scope.enums.bibLevel = data;
   });
 
-  resources.enums.encLevel.then(function(data) {
+  definitions.enums.encLevel.then(function(data) {
     $scope.enums.encLevel = data;
   });
 
@@ -132,7 +132,7 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
 });
 
 
-kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, records, resources, userData, editUtil, $log) {
+kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, records, definitions, userData, editUtil, $log) {
   $scope.logger = $log;
 
   var recType = $routeParams.recType, recId = $routeParams.recId;
@@ -145,36 +145,32 @@ kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, rec
 
   document.body.className = isNew? 'edit new' : 'edit';
 
-  // Fetch resources
+  // Fetch definitions
+  // TODO: load cached aggregate, or lookup part on demand from backend?
   $scope.enums = {};
-  resources.enums.bibLevel.then(function(data) {
+  definitions.enums.bibLevel.then(function(data) {
     $scope.enums.bibLevel = data;
   });
-  resources.enums.encLevel.then(function(data) {
+  definitions.enums.encLevel.then(function(data) {
     $scope.enums.encLevel = data;
   });
-  resources.enums.catForm.then(function(data) {
+  definitions.enums.catForm.then(function(data) {
     $scope.enums.catForm = data;
   });
-  resources.relators.then(function(data) {
-    var map = $scope.relatorsMap = {};
-    // TODO: fix this backend resource
-    _.forEach(data, function (val, key) { map[val.term] = val; });
+  definitions.relators.then(function(data) {
+    $scope.relators = data;
   });
-  resources.langIndex.then(function(data) {
-    $scope.langIndex = data;
-  });
-  resources.countries.then(function(data) {
-    $scope.countrylist = data;
-  });
-  resources.nationalities.then(function(data) {
-    $scope.nationalitylist = data;
-  });
-  resources.conceptSchemes.then(function(data) {
+  //definitions.countries.then(function(data) {
+  //  $scope.countrylist = data;
+  //});
+  ////definitions.nationalities.then(function(data) {
+  ////  $scope.nationalitylist = data;
+  ////});
+  definitions.conceptSchemes.then(function(data) {
     $scope.conceptSchemes = data;
   });
 
-  resources.typedefs.then(function(data) {
+  definitions.typedefs.then(function(data) {
     var typedefs = data.types;
     $scope.getTypeDef = function (obj) {
       if (typeof obj === "undefined")
@@ -196,7 +192,7 @@ kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, rec
   };
 
   function addRecordViewsToScope(record, scope) {
-    scope.personRoleMap = editUtil.getPersonRoleMap(record, scope.relatorsMap);
+    scope.personRoleMap = editUtil.getPersonRoleMap(record, scope.relators);
     scope.unifiedClassifications = editUtil.getUnifiedClassifications(record);
     // FIXME: this is just a view object - add/remove must operate on source and refresh this
     // (or else this must be converted back into source form before save)

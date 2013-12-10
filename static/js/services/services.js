@@ -6,47 +6,31 @@ kitin.factory('userData', function() {
   };
 });
 
-kitin.factory('resources', function($http) {
-  function getResourceList(restype, modifier) {
-    var url;
-    if (restype === 'enums')
-      url = "/resource/_marcmap?part=bib.fixprops." + modifier;
-    else
-      url = "/resource/_resourcelist?" + restype + "=all";
-
-    var promise = $http.get(url).then(function(response) {
-      if (modifier && _.isFunction(modifier)) {
-        return modifier(response.data);
-      } else {
-        return response.data;
+kitin.factory('definitions', function($http) {
+  function getDataset(url) {
+    return {
+      then: function (f) {
+        $http.get(url).then(function(response) {
+          f(response.data);
+        });
       }
-    });
-    return promise;
+    };
   }
-  // TODO: load cached aggregate, or lookup part on demand from backend?
-  var resources = {
-    typedefs: getResourceList("typedef"),
-    relators: getResourceList("relator"),
-    langIndex: getResourceList("lang", function (data) {
-      var index = {byId: {}};
-      for (var key in data) {
-        var label = data[key];
-        var id = "/def/languages/" + key;
-        var obj =  {"@id": id, langCode: key, prefLabel: label};
-        index.byId[id] = obj;
-      }
-      return index;
-    }),
-    countries: getResourceList("country"),
-    nationalities: getResourceList("nationality"),
-    conceptSchemes: getResourceList("conceptscheme"),
+  var enumBase = "/resource/_marcmap?part=bib.fixprops.";
+  var definitions = {
+    typedefs: getDataset("/resource/_resourcelist?typedef=all"),
+    relators: getDataset("/def/relators"),
+    languages: getDataset("/def/languages"),
+    countries: getDataset("/def/countries"),
+    //nationalities: getDataset("/def/nationalities"),
+    conceptSchemes: getDataset("/def/schemes"),
     enums: {
-      bibLevel: getResourceList("enums", "bibLevel"),
-      encLevel: getResourceList("enums", "encLevel"),
-      catForm: getResourceList("enums", "catForm")
+      bibLevel: getDataset(enumBase + "bibLevel"),
+      encLevel: getDataset(enumBase + "encLevel"),
+      catForm: getDataset(enumBase + "catForm")
     }
   };
-  return resources;
+  return definitions;
 });
 
 kitin.factory('records', function ($http, $q) {
@@ -87,7 +71,7 @@ kitin.factory('records', function ($http, $q) {
   };
 });
 
-kitin.service('editUtil', function(resources) {
+kitin.service('editUtil', function(definitions) {
   var addToContainer = function(subj, rel, type, obj) {
     var collection = subj[rel];
     if(typeof collection === 'undefined') {
@@ -128,7 +112,7 @@ kitin.service('editUtil', function(resources) {
       }
     },
 
-    getPersonRoleMap: function (record, relatorsMap) {
+    getPersonRoleMap: function (record, relators) {
       var instance = record.about;
       var work = instance.instanceOf;
 
@@ -160,7 +144,7 @@ kitin.service('editUtil', function(resources) {
             var roles = roleMap[pid];
             if (!roles)
               return;
-            var role = relatorsMap[key];
+            var role = relators.byNotation[key];
             if (!role)
               return;
             if (!_.contains(roles, role))
@@ -253,8 +237,8 @@ kitin.service('editUtil', function(resources) {
         var langId = work.language['@id'];
         if (!langId)
           return;
-        resources.langIndex.then(function (index) {
-          var obj = index.byId[langId];
+        definitions.languages.then(function (index) {
+          var obj = index.byCode[langId];
           if (obj) {
             work.language = obj;
           }
