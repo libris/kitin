@@ -48,19 +48,19 @@
       </div>
       
       <div class="cols">    
-      <div class="col6">
-      <span class="lbl">{{ "Används för" }}</span>
-      <label><input type="text" placeholder="Lägg till alternativ namnform"/></label>
-      <div ng-show="instance.sameAs"  class="multifield">
-          <label data-ng-repeat="person in instance.sameAs"><input data-inplace class="input-medium" type="text" data-ng-model="person.controlledLabel"></label>
-      </div>
-      <div ng-show="instance.hasPersona" class="multifield">
+        <div class="col6">
           <span class="lbl">{{ "Används för" }}</span>
-          <label data-ng-repeat="persona in instance.hasPersona"><input data-inplace class="input-medium" type="text" data-ng-model="persona.controlledLabel"></label>
-        </label>
-      </div>
-      </div>
-      <div class="col6">
+          <label><input type="text" placeholder="Lägg till alternativ namnform"/></label>
+          <div ng-show="instance.sameAs"  class="multifield">
+            <label data-ng-repeat="person in instance.sameAs"><input data-inplace class="input-medium" type="text" data-ng-model="person.controlledLabel"></label>
+            </div>
+            <div ng-show="instance.hasPersona" class="multifield">
+            <span class="lbl">{{ "Används för" }}</span>
+            <label data-ng-repeat="persona in instance.hasPersona"><input data-inplace class="input-medium" type="text" data-ng-model="persona.controlledLabel"></label>
+          </label>
+          </div>
+        </div>
+        <div class="col6">
           <label><span class="lbl">{{ "Särskiljande tillägg" }}</span>
             <textarea data-inplace data-ui-jq="autosize" placeholder="Särskiljande tillägg"></textarea>
           </label> 
@@ -74,10 +74,10 @@
           <label><span class="lbl">{{ "Allmän anmärkning" }}</span>
             <textarea data-inplace data-ui-jq="autosize" placeholder="Allmän anmärkning"></textarea>
           </label>           
-      </div>
+        </div>
       </div>
       <div class="cols">
-      <div class="col6">
+        <div class="col6">
         <label>
           <span class="lbl">{{ "Biografisk uppgift" }}</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.note">{{ instance.note }}</textarea>
@@ -86,13 +86,12 @@
           <span class="lbl">{{ "Notering" }}</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.note">{{ record.note }}</textarea>
         </label>        
-      </div>
+        </div>
       <div>
       <div class="cols" data-ng-include="'source-comment-template'"></div>
       <div class="bottom" data-ng-include="'auth-updater-template'"></div>
     </ng-form>
   </section>
-
 </form>
 </div>
 
@@ -259,7 +258,8 @@
 <!-- source and source comment fragment -->
 <script type="text/ng-template" id="source-comment-template">
     <div class="col12">
-      <div class="datatable" data-ng-target="source">
+    <h4 data-ng-model="record.source"><a href="" ng-click="entry.showThis = !entry.showThis"> Källor ({{record.source.length}} st) <i class="fa fa-caret-right"></i></a></h4>
+      <div class="datatable" data-ng-target="source" data-ng-show="entry.showThis">
         <table>
           <thead>
             <tr>
