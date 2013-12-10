@@ -96,6 +96,7 @@
 }
 html {
   overflow-y: scroll;
+  -webkit-font-smoothing: antialiased;
 }
 body {
   font-family: 'Open Sans', arial, sans-serif;
@@ -155,48 +156,41 @@ a:hover {
 }
 #header .kb {
   width: 74px;
-  height: 77px;
+  height: 80px;
   position: absolute;
   right: 0;
   bottom: -10px;
-  background: url(/static/img/kb.png) no-repeat;
+  background: url(/static/img/kb.svg) no-repeat;
   z-index: 2;
+  background-size: 100%;
 }
 #header .logo {
   position: absolute;
   left: 0;
-  bottom: 4px;
+  bottom: 6px;
   color: #929395;
   text-transform: uppercase;
+  height: 72px;
 }
 #header > .logo > a {
-  display: inline-block;
-}
-#header > .logo > a > h1 {
-  background: url(/static/img/libris-stack.png) 0 4px no-repeat;
-  width: 202px;
-  height: 52px;
-  display: inline-block;
-  margin: 0;
-  padding: 0 0 0 57px;
-  font: normal 22px/1 "Open Sans", sans-serif;
-  letter-spacing: 1px;
-  color: #999999;
-}
-#header > .logo a > h1 > strong {
   display: block;
-  font-size: 32px;
-  line-height: 27px;
-  font-weight: normal;
-  letter-spacing: -1px;
-  text-transform: none;
-  color: #106351;
+  width: 260px;
+  height: 52px;
+  background: url(/static/img/logo.svg) no-repeat;
+  background-size: 100%;
+  text-indent: -10000px;
+}
+#header > .logo > a * {
+  position: absolute;
+  left: -10000px;
+  margin: 0;
 }
 #header .beta {
   font-size: 16px;
   color: #fa1963;
-  float: right;
-  margin: 17px 16px 0 0;
+  position: absolute;
+  right: 10px;
+  top: 16px;
 }
 #header .kitin-updated {
   font-size: 11px;
@@ -204,7 +198,12 @@ a:hover {
   padding: 0px;
   margin: 0px;
 }
-/*beta marker & date updated*/
+/*
+#header > .logo > a > h1 { background: url(/static/img/libris-stack.png) 0 4px no-repeat; width: 202px; height: 52px; display: inline-block; margin: 0; padding: 0 0 0 57px; font: normal 22px/1 "Open Sans", sans-serif; letter-spacing: 1px; color: @dark-grey; }
+#header > .logo a > h1 > strong { display: block; font-size: 32px; line-height: 27px; font-weight: normal; letter-spacing: -1px; text-transform: none; color: @green4; }
+#header .beta { font-size: 16px; color: @pink; float: right; margin: 17px 16px 0 0; }
+#header .kitin-updated { font-size: 11px; color: @dark-grey; padding: 0px; margin: 0px; }
+*/
 #header .searchfield {
   position: absolute;
   left: 384px;
@@ -228,6 +227,57 @@ a:hover {
   height: 24px;
   border-right-width: 0;
   -webkit-transition: all ease-out 0.05s;
+}
+body.edit #header,
+body.search #header {
+  height: 46px;
+}
+body.edit #header > .logo,
+body.search #header > .logo {
+  height: 30px;
+  bottom: auto;
+  top: 10px;
+}
+body.edit #header > .logo > a,
+body.search #header > .logo > a {
+  width: 152px;
+}
+body.edit #header .beta,
+body.edit #header .kitin-updated,
+body.search #header .beta,
+body.search #header .kitin-updated {
+  display: none;
+}
+body.edit #header .searchfield,
+body.search #header .searchfield {
+  top: 10px;
+  left: 174px;
+}
+body.edit #header .searchfield input[type="text"],
+body.search #header .searchfield input[type="text"] {
+  box-shadow: none;
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.05);
+  padding: 3px 8px;
+  font-size: 14px;
+  height: 20px;
+  width: 400px;
+}
+body.edit #header .searchfield button,
+body.search #header .searchfield button {
+  height: 28px;
+  background-size: 14px;
+  width: 36px;
+}
+body.edit #header .searchfield a.btn,
+body.search #header .searchfield a.btn {
+  height: 14px;
+  width: 12px;
+  line-height: 14px;
+}
+body.edit #header .kb,
+body.search #header .kb {
+  display: none;
 }
 #header .searchfield input[type="text"]:focus {
   border-color: #777777 #ffffff #aaaaaa #777777;
@@ -318,11 +368,11 @@ body.login #header .searchfield {
   overflow: hidden;
 }
 .content header {
-  background: url(/static/img/top.png) no-repeat;
+  background: url(/static/img/top-smaller.png) no-repeat;
   position: relative;
-  padding: 23px 36px 0;
+  padding: 20px 24px 0;
   overflow: hidden;
-  width: 1008px;
+  width: 1032px;
   margin-left: -24px;
 }
 .content.footer {
@@ -334,16 +384,6 @@ body.login #header .searchfield {
   padding: 43px 36px 0;
   width: 1008px;
   margin-left: -24px;
-}
-.content header h1 {
-  height: 40px;
-  background-repeat: no-repeat;
-  background-position: 8px 50%;
-  color: #106351;
-  text-transform: uppercase;
-  padding-left: 48px;
-  margin: 0 0 12px 9px;
-  font: bold 14px/40px "Open Sans", sans-serif;
 }
 .content footer h1 {
   height: 40px;
@@ -390,6 +430,7 @@ body.login .content.index header {
 }
 .content header .levels {
   float: left;
+  display: none;
 }
 .content header .levels span {
   float: left;
@@ -398,39 +439,65 @@ body.login .content.index header {
 }
 .content header .modes {
   float: right;
-  margin-top: 5px;
+  margin-top: 21px;
 }
 .content header .modes a {
   float: left;
-  font: bold 12px/1 "Open Sans", sans-serif;
-  color: #444;
-  padding: 8px 12px 6px;
+  font: 600 12px/1 "Open Sans", sans-serif;
+  color: #777;
+  padding: 8px 12px 8px;
   background: #ffffff;
-  margin-left: 6px;
+  margin-left: 2px;
   text-transform: uppercase;
-  opacity: .4;
-  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+  opacity: .6;
+}
+.content header .modes a[href^="/"]:hover {
+  opacity: 1;
+  color: #1a8f72;
+  text-decoration: none;
 }
 .content footer .modes a.active,
 .content header .modes a.active {
   opacity: 1;
+  color: #111111;
 }
+.content header .modes a.active:hover {
+  cursor: default;
+  text-decoration: none;
+}
+/*
 .content.auth header h1,
-.content.bib header h1 {
-  background-image: url(/static/img/icon-folder.png);
+.content.bib header h1{background-image:url(/static/img/icon-folder.png);}
+.content.search header h1{background-image:url(/static/img/icon-search.png);}
+.content.holdings header h1{background-image:url(/static/img/icon-holdings.png);color:@purple;}
+.content.footer footer h1{background-image:url(/static/img/libris-footer.png);color:@purple;}
+*/
+.content header h1 {
+  text-transform: uppercase;
+  margin: 0 0 12px;
+  height: 37px;
+  background: url(/static/img/circ.png) no-repeat;
+  padding: 0 0 0 10px;
+  font: 700 14px/37px "Open Sans", sans-serif;
+  float: left;
+  color: rgba(0, 0, 0, 0.8);
 }
-.content.search header h1 {
-  background-image: url(/static/img/icon-search.png);
+.content header h1:before {
+  display: inline-block;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 17px;
+  position: relative;
+  bottom: -1px;
+  margin-right: 16px;
+  color: rgba(0, 0, 0, 0.7);
 }
-.content.holdings header h1 {
-  background-image: url(/static/img/icon-holdings.png);
-  color: #683568;
-}
-.content.footer footer h1 {
-  background-image: url(/static/img/libris-footer.png);
-  color: #683568;
+.content.bib header h1:before {
+  content: "\f02d";
 }
 .content.holdings a {
   color: #683568;
@@ -442,9 +509,9 @@ body.login .content.index header {
   background: #ffffff;
   margin: 0 0 12px;
   padding: 12px 24px;
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 .content section .foot {
   text-align: right;
@@ -753,9 +820,9 @@ section.dash {
 }
 .content.search .summary {
   margin-left: 252px;
-  color: #666;
+  color: #222;
   font-size: 14px;
-  margin-bottom: 12px;
+  margin-top: 12px;
 }
 /* login */
 form.login {
@@ -1159,7 +1226,7 @@ label input[type="text"] {
 label textarea,
 label input[type="text"],
 .fakeinput {
-  border: 1px solid #ccc;
+  border: 1px solid #bbb;
 }
 label textarea {
   line-height: 22px;
@@ -1170,7 +1237,7 @@ label select {
 label:hover textarea,
 label:hover input[type="text"] {
   color: #000;
-  border-color: #bbbbbb;
+  border-color: #aaaaaa;
 }
 label input[type="text"]:focus,
 label textarea:focus {
@@ -1392,11 +1459,16 @@ div.loading > b {
   text-decoration: none;
   cursor: pointer;
 }
+#nav .nav-menu {
+  font-size: 13px;
+  float: none;
+  position: absolute;
+  right: 0;
+}
 #nav .nav-menu > li {
-  border-left: 1px solid #1a8f72;
-  padding: 3px;
-  margin: 5px;
-  padding-left: 15px;
+  border-left: 1px solid #ddd;
+  padding: 0 8px 0 10px;
+  margin: 10px 0;
 }
 #nav .nav-menu > li:first-child {
   border-left: none;

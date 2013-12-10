@@ -3,14 +3,12 @@
     <div class="content search" data-ng-switch-when="0">
        <div id="grid"></div>
           <header>
-             <h1></h1>
              <p class="summary">Din sökning på <strong>{{ q }}</strong> resulterade i 0 träffar.</p>
              </header>
          </div>
 <div data-ng-show="!loading" class="content search" data-ng-switch-default>
   <div id="grid"></div>
   <header>
-  <h1></h1>
   <!--<p class="summary"><span>{{ hitCount }} träffar för <strong>{{ q }}</strong></span></p>-->
   <p class="summary">
     {{ hitCount | chunk }} träffar för
