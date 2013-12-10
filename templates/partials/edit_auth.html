@@ -89,9 +89,7 @@
       </div>
       <div>
       <div class="cols" data-ng-include="'source-comment-template'"></div>
-      <div class="bottom">
-        <button class="btn disabled">Uppdatera</button>
-    </div>
+      <div class="bottom" data-ng-include="'auth-updater-template'"></div>
     </ng-form>
   </section>
 
@@ -166,6 +164,7 @@
       </div>
     </div>
     <div class="cols" data-ng-include="'source-comment-template'"></div>
+      <div class="bottom" data-ng-include="'auth-updater-template'"></div>
   </section>
 </div>
 
@@ -191,6 +190,7 @@
       </div>
     </div>
     <div class="cols" data-ng-include="'source-comment-template'"></div>
+    <div class="bottom" data-ng-include="'auth-updater-template'"></div>
   </section>
 </div>
 
@@ -227,6 +227,7 @@
       </div>
     </div>
     <div class="cols" data-ng-include="'source-comment-template'"></div>
+    <div class="bottom" data-ng-include="'auth-updater-template'"></div>
   </section>
 </div>
 
@@ -248,7 +249,9 @@
         </label>
       </div>
     </div>
-    <div class="cols" data-ng-include="'source-comment-template'"></div>  </section>
+    <div class="cols" data-ng-include="'source-comment-template'"></div> 
+    <div class="bottom" data-ng-include="'auth-updater-template'"></div>
+  </section>
 </div>
 
 </div>
@@ -261,14 +264,14 @@
           <thead>
             <tr>
               <td><span class="lbl">{{ "Källa" }}</span></td>
-              <td><span class="lbl">{{ "Källkommentar" }}</span></td>
+              <td><span class="lbl">{{ "Källtext" }}</span></td>
               <td></td>
             </tr>
           </thead>
           <tfoot>
             <tr>
               <td colspan="4">
-                <button class="add-thing btn-link" data-ng-click="addObject(record, 'source', 'label', 'comment')">{{ 'Lägg till kommentar' }} </button>
+                <button class="add-thing btn-link" data-ng-click="addObject(record, 'source', 'label', 'citation')">{{ 'Lägg till kommentar' }} </button>
               </td>
             </tr>
           </tfoot>
@@ -276,15 +279,14 @@
             <tr data-ng-repeat="source in record.source" class="">
               <td>
                 <label>
-            <label>
-              <input data-inplace type="text" data-ng-model="source.label"/>
-            </label>
+                <label>
+                  <input data-inplace type="text" data-ng-model="source.label"/>
+                </label>
               </td>
-
               <td class="last">
-            <label>
-              <input data-inplace type="text" data-ng-model="source.comment"/>
-            </label>
+                <label>
+                <input data-inplace type="text" data-ng-model="source.citation"/>
+              </label>
               </td>
               <td class="controls">
                 <button class="btn-link deleter" data-ng-click="removeObject(record, 'source', $index)">
@@ -294,5 +296,9 @@
             </tr>
           </table>
        </div>          
+</script>
+
+<script type="text/ng-template" id="auth-updater-template">
+    <button class="btn disabled">Uppdatera</button>
 </script>
 {% endraw %}
