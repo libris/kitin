@@ -1343,6 +1343,7 @@ div.loading > b {
 .btn-link.deleter {
   color: #dddddd;
 }
+.btn-link.deleter:focus,
 .btn-link.deleter:hover {
   color: #cc4444;
 }
