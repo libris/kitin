@@ -182,17 +182,24 @@ def delete_holding(holding_id):
     response = requests.delete(path)
     return make_response("success")
 
+@app.route("/def/<path:path>")
+@login_required
+def get_def(path):
+    return get_dataset("def/%s" % path)
+
 @app.route("/resource/<path:path>")
 @login_required
 def get_resource(path):
-    qs = request.query_string
-    url = "%s/resource/%s?%s" % (app.config['WHELK_HOST'], path, qs)
+    return get_dataset("resource/%s?%s" % (path, request.query_string))
+
+def get_dataset(path, cache=False):
+    url = "%s/%s" % (app.config['WHELK_HOST'], path)
     remote_resp = requests.get(url)
-    resp = Response(
-        remote_resp.text,
-        status=remote_resp.status_code,
-        content_type=remote_resp.headers['content-type'])
-    resp.headers['Expires'] = '-1'
+    resp = Response(remote_resp.text,
+            status=remote_resp.status_code,
+            content_type=remote_resp.headers['content-type'])
+    if not cache:
+        resp.headers['Expires'] = '-1'
     return resp
 
 @app.route('/edit/<rec_type>/<rec_id>')
