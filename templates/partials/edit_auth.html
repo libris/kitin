@@ -89,7 +89,6 @@
         </div>
       <div>
       <div class="cols" data-ng-include="'source-comment-template'"></div>
-      <div class="bottom" data-ng-include="'auth-updater-template'"></div>
     </ng-form>
   </section>
 </form>
@@ -163,7 +162,6 @@
       </div>
     </div>
     <div class="cols" data-ng-include="'source-comment-template'"></div>
-      <div class="bottom" data-ng-include="'auth-updater-template'"></div>
   </section>
 </div>
 
@@ -189,7 +187,6 @@
       </div>
     </div>
     <div class="cols" data-ng-include="'source-comment-template'"></div>
-    <div class="bottom" data-ng-include="'auth-updater-template'"></div>
   </section>
 </div>
 
@@ -226,7 +223,6 @@
       </div>
     </div>
     <div class="cols" data-ng-include="'source-comment-template'"></div>
-    <div class="bottom" data-ng-include="'auth-updater-template'"></div>
   </section>
 </div>
 
@@ -249,11 +245,12 @@
       </div>
     </div>
     <div class="cols" data-ng-include="'source-comment-template'"></div> 
-    <div class="bottom" data-ng-include="'auth-updater-template'"></div>
   </section>
 </div>
 
 </div>
+
+     <div class="bottom" data-ng-include="'auth-updater-template'"></div>
 
 <!-- source and source comment fragment -->
 <script type="text/ng-template" id="source-comment-template">
@@ -268,13 +265,6 @@
               <td></td>
             </tr>
           </thead>
-          <tfoot>
-            <tr>
-              <td colspan="4">
-                <button class="add-thing btn-link" data-ng-click="addObject(record, 'source', 'label', 'citation')">{{ 'Lägg till källa' }} </button>
-              </td>
-            </tr>
-          </tfoot>
           <tbody>
             <tr data-ng-repeat="source in record.source" class="">
               <td>
@@ -294,6 +284,13 @@
                 </button>
               </td>
             </tr>
+          <tfoot>
+            <tr>
+              <td colspan="2">
+                <button class="add-thing btn-link" data-ng-click="addObject(record, 'source', 'label', 'citation')">{{ 'Lägg till källa' }} </button>
+              </td>
+            </tr>
+          </tfoot>
           </table>
        </div>          
 </script>
