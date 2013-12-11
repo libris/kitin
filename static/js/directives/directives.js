@@ -1,4 +1,4 @@
-var DEB = 0
+var DEB = 0;
 
 var kitin = angular.module('kitin.directives', []);
 /**
