@@ -89,6 +89,9 @@
           <label><span class="lbl">{{ "Särskiljande tillägg" }}</span>
             <textarea data-ng-model="instance.personTitle" data-inplace data-ui-jq="autosize" placeholder="Särskiljande tillägg"></textarea>
           </label> 
+          <label><span class="lbl">{{ "Risk för sammanblandning" }}</span>
+            <textarea data-ng-model="instance.scopeNote" data-inplace data-ui-jq="autosize" placeholder="Särskiljande tillägg"></textarea>
+          </label> 
           <label><span class="lbl">{{ "Nationalitet" }}</span>
           <input type="text" placeholder="Nationalitet"/></label>
            <label data-ng-repeat="subject in instance.subject"><span class="lbl">Dewey <a href="{{ subject['@id'] }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
@@ -97,7 +100,7 @@
           <label data-ng-repeat="sameAs in instance.sameAs"><a href="{{ sameAs['@id'] }}" target="_blank">{{ sameAs['@id'] }}</a>
            </label> 
           <label><span class="lbl">{{ "Allmän anmärkning" }}</span>
-            <textarea data-inplace data-ui-jq="autosize" placeholder="Allmän anmärkning"></textarea>
+            <textarea data-inplace data-ui-jq="autosize" data-ng-model="record.comment" placeholder="Allmän anmärkning"></textarea>
           </label>           
         </div>
       </div>
