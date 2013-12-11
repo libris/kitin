@@ -48,6 +48,45 @@
       </div>
       
       <div class="cols">    
+      <div class="col6 datatable" data-ng-target="names">
+        <table>
+          <thead>
+            <tr>
+              <td><span class="lbl">{{ "Förnamn" }}</span></td>
+              <td><span class="lbl">{{ "Efternamn" }}</span></td>
+              <td></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-ng-repeat="person in instance.sameAs" class="">
+              <td>
+                <label>
+                <label>
+                  <input data-inplace type="text" data-ng-model="person.familyName"/>
+                </label>
+              </td>
+              <td class="last">
+                <label>
+                <input data-inplace type="text" data-ng-model="person.givenName"/>
+              </label>
+              </td>
+              <td class="controls">
+                <button class="btn-link deleter" data-ng-click="removeObject(instance, 'sameAs', $index)">
+                  <i class="fa fa-times"></i>
+                </button>
+              </td>
+            </tr>
+          <tfoot>
+            <tr>
+              <td colspan="2">
+                <button class="add-thing btn-link" data-ng-click="addObject(instance, 'sameAs', 'familyName', 'givenName')">{{ 'Lägg till namnform "Används för"' }} </button>
+              </td>
+            </tr>
+          </tfoot>
+          </table>
+       </div>          
+
+<!--
         <div class="col6">
           <span class="lbl">{{ "Används för" }}</span>
           <label><input type="text" placeholder="Lägg till alternativ namnform"/></label>
@@ -60,6 +99,7 @@
           </label>
           </div>
         </div>
+-->
         <div class="col6">
           <label><span class="lbl">{{ "Särskiljande tillägg" }}</span>
             <textarea data-inplace data-ui-jq="autosize" placeholder="Särskiljande tillägg"></textarea>

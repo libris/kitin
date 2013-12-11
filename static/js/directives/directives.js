@@ -1,3 +1,5 @@
+var DEB = 0;
+
 var kitin = angular.module('kitin.directives', []);
 /**
  * directives.js
@@ -293,6 +295,12 @@ kitin.directive('kitinSearchEntity', [function() {
         elem.val("");
       });
 
+      if ( !DEB ) {
+        DEB = 1
+        setTimeout(function() {
+          elem.focus().val('to').trigger('keydown');
+        },1000);
+      }
     }
   };
 }]);
