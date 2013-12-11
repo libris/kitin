@@ -292,6 +292,13 @@ body.search #header .searchfield a.btn {
   width: 12px;
   line-height: 14px;
 }
+body #header .searchfield em {
+  float: right;
+}
+body.edit #header .searchfield em,
+body.search #header .searchfield em {
+  font-size: 12px;
+}
 body.edit #header .kb,
 body.search #header .kb {
   display: none;
