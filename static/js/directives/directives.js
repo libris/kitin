@@ -177,7 +177,6 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
         var added = editUtil.addObject(subj, link, $scope.type, multiple, data);
         if (multiple) {
           $scope.objects = added;
-          console.log(added);
         } else {
           $scope.object = added;
         }
@@ -295,12 +294,22 @@ kitin.directive('kitinSearchEntity', [function() {
         elem.val("");
       });
 
+      /*
+
       if ( !DEB ) {
         DEB = 1
         setTimeout(function() {
           elem.focus().val('to').trigger('keydown');
         },1000);
       }
+
+      elem.data('autocompleter').dom.$results.find('li').on('click', function(e) {
+        e.stopImmediatePropagation();
+        e.stopPropagation();
+        console.log('auto');
+      });
+
+      */
     }
   };
 }]);
