@@ -52,8 +52,8 @@
         <table>
           <thead>
             <tr>
-              <td><span class="lbl">{{ "Förnamn" }}</span></td>
               <td><span class="lbl">{{ "Efternamn" }}</span></td>
+              <td><span class="lbl">{{ "Förnamn" }}</span></td>
               <td></td>
             </tr>
           </thead>
@@ -84,25 +84,13 @@
             </tr>
           </tfoot>
           </table>
-       </div>          
-
-<!--
-        <div class="col6">
-          <span class="lbl">{{ "Används för" }}</span>
-          <label><input type="text" placeholder="Lägg till alternativ namnform"/></label>
-          <div ng-show="instance.sameAs"  class="multifield">
-            <label data-ng-repeat="person in instance.sameAs"><input data-inplace class="input-medium" type="text" data-ng-model="person.controlledLabel"></label>
-            </div>
-            <div ng-show="instance.hasPersona" class="multifield">
-            <span class="lbl">{{ "Används för" }}</span>
-            <label data-ng-repeat="persona in instance.hasPersona"><input data-inplace class="input-medium" type="text" data-ng-model="persona.controlledLabel"></label>
-          </label>
-          </div>
-        </div>
--->
-        <div class="col6">
+       </div>
+       <div class="col6">
           <label><span class="lbl">{{ "Särskiljande tillägg" }}</span>
-            <textarea data-inplace data-ui-jq="autosize" placeholder="Särskiljande tillägg"></textarea>
+            <textarea data-ng-model="instance.personTitle" data-inplace data-ui-jq="autosize" placeholder="Särskiljande tillägg"></textarea>
+          </label> 
+          <label><span class="lbl">{{ "Risk för sammanblandning" }}</span>
+            <textarea data-ng-model="instance.scopeNote" data-inplace data-ui-jq="autosize" placeholder="Särskiljande tillägg"></textarea>
           </label> 
           <label><span class="lbl">{{ "Nationalitet" }}</span>
           <input type="text" placeholder="Nationalitet"/></label>
@@ -112,7 +100,7 @@
           <label data-ng-repeat="sameAs in instance.sameAs"><a href="{{ sameAs['@id'] }}" target="_blank">{{ sameAs['@id'] }}</a>
            </label> 
           <label><span class="lbl">{{ "Allmän anmärkning" }}</span>
-            <textarea data-inplace data-ui-jq="autosize" placeholder="Allmän anmärkning"></textarea>
+            <textarea data-inplace data-ui-jq="autosize" data-ng-model="record.comment" placeholder="Allmän anmärkning"></textarea>
           </label>           
         </div>
       </div>
