@@ -187,7 +187,13 @@ body.login #header .searchfield{display:none;}
 .content footer a {color:@grey3; padding-left: 10px;padding-right: 5px;}
 .content footer a:hover {color:@dark-grey;background-color: transparent;}
 
-footer li {border-left:2px solid @grey3; line-height: 14px;}
+.footer footer {margin-bottom:24px;overflow:hidden}
+.footer footer ul{margin:8px 0 0 0;padding:0;float:left}
+.footer footer img{float:right;margin-top:8px;width:44px}
+.footer footer li {font:11px/14px "Open Sans", sans-serif;display:inline-block;text-transform:uppercase;margin-left:5px;}
+.footer footer li:before{content:"\2022";margin-right:8px}
+.footer footer li:first-child{margin-left:0;padding-left:0;border:none}
+.footer footer li:first-child:before{content:'';margin:0}
 
 .content.index header{background-image:url(/static/img/top-index.png);margin-bottom:130px;min-height:80px}
 .content.index > .cols{margin-left:12px;overflow:visible;}
