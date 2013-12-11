@@ -45,6 +45,11 @@ kitin.run(function($rootScope) {
 
 });
 
+// Davids preloads
+['top-small.png'].forEach(function(img) {
+    new Image().src = '/static/img/'+img;
+});
+
 
 // TODO: turn into promptService?
 function openPrompt($event, promptSelect, innerMenuSelect) {

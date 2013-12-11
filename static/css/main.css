@@ -117,7 +117,6 @@ a {
 }
 a:hover {
   color: #106351;
-  background-color: #ffffff;
 }
 #wrap {
   width: 1080px;
@@ -135,6 +134,7 @@ a:hover {
 #header {
   height: 130px;
   position: relative;
+  -webkit-transition: height 100ms ease-out;
 }
 #header .user {
   float: right;
@@ -230,7 +230,7 @@ a:hover {
 }
 body.edit #header,
 body.search #header {
-  height: 46px;
+  height: 52px;
 }
 body.edit #header > .logo,
 body.search #header > .logo {
@@ -262,6 +262,23 @@ body.search #header .searchfield input[type="text"] {
   font-size: 14px;
   height: 20px;
   width: 400px;
+  border-color: #cccccc;
+}
+body.edit #header .searchfield input[type="text"]:focus,
+body.search #header .searchfield input[type="text"]:focus {
+  border-color: #aaaaaa;
+}
+body.edit #header .searchfield input[type="text"]::-webkit-input-placeholder,
+body.search #header .searchfield input[type="text"]::-webkit-input-placeholder {
+  color: #fff;
+  font-style: italic;
+  font-size: 14px;
+}
+body.edit #header .searchfield input[type="text"]:-moz-input-placeholder,
+body.search #header .searchfield input[type="text"]:-moz-input-placeholder {
+  color: #fff;
+  font-style: italic;
+  font-size: 14px;
 }
 body.edit #header .searchfield button,
 body.search #header .searchfield button {
@@ -339,7 +356,7 @@ body.search #header .kb {
 }
 body.index #header .searchfield {
   left: 248px;
-  top: 190px;
+  top: 220px;
 }
 body.index #header .searchfield input[type="text"] {
   padding: 10px 16px;
@@ -367,10 +384,13 @@ body.login #header .searchfield {
   padding: 0 24px 24px 24px;
   overflow: hidden;
 }
+.content:not(.footer) {
+  min-height: 500px;
+}
 .content header {
-  background: url(/static/img/top-smaller.png) no-repeat;
+  background: url(/static/img/top-small.png) no-repeat;
   position: relative;
-  padding: 20px 24px 0;
+  padding: 12px 24px 0;
   overflow: hidden;
   width: 1032px;
   margin-left: -24px;
@@ -384,6 +404,11 @@ body.login #header .searchfield {
   padding: 43px 36px 0;
   width: 1008px;
   margin-left: -24px;
+}
+.content header p {
+  clear: both;
+  float: left;
+  font-size: 13px;
 }
 .content footer h1 {
   height: 40px;
@@ -420,6 +445,7 @@ footer li {
 .content.index header {
   background-image: url(/static/img/top-index.png);
   margin-bottom: 130px;
+  min-height: 80px;
 }
 .content.index > .cols {
   margin-left: 12px;
@@ -585,7 +611,8 @@ section.nav dt i {
   border-right-color: #666;
 }
 section.nav {
-  background-color: #f6f3ee;
+  background-color: #fff;
+  padding-top: 1px;
 }
 section.nav dt {
   background: #adadad;
@@ -614,20 +641,24 @@ section.nav dd a.active:hover {
 }
 section.result {
   position: relative;
-  border: 1px solid #ffffff;
+  border: 1px solid transparent;
   padding: 23px 11px 41px;
   -webkit-transition: border ease-out 0.05s;
   cursor: pointer;
+  box-sizing: border-box;
 }
 section.result .footer {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  bottom: -1px;
+  left: -1px;
+  right: -1px;
   padding: 6px 12px;
-  background: #f6f3ee;
+  -webkit-transition: border ease-out 0.05s;
+  background: #f6f6f6;
   color: #666;
   font-size: 12px;
+  border: 1px solid #f6f6f6;
+  border-top-color: #e6e6e6;
 }
 section.result .footer span:first-child,
 section.result .footer span.level {
@@ -648,6 +679,10 @@ section.result a:hover {
 }
 section.result:hover {
   border-color: #aaa;
+}
+section.result:hover .footer {
+  border-color: #aaa;
+  border-top-color: #e6e6e6;
 }
 section.result label {
   cursor: pointer;

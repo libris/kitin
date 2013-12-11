@@ -7,7 +7,7 @@
 @green2: #27b492; /*buttons, headers*/
 @green3: #1a8f72; /*links, backgrounds*/
 @green4: #106351; /*link and button hovers*/
-@grey1: #e7e7e7; /*unused?*/
+@grey1: #f6f6f6; /*unused?*/
 @grey2: #c7c7c7; /*delimiters*/
 @grey3: #adadad; /*backgrounds, footer*/
 @dark-grey: #999999; /*lighter text color*/
@@ -26,12 +26,12 @@ h3{font-family: 'Droid Serif', georgia, serif; }
 h4{font-size:15px; }
 
 a{color: @green3;}
-a:hover{color:@green4; background-color: @white;}
+a:hover{color:@green4;}
 
 #wrap{width:1080px;margin: 0 auto;}
 #grid{display:none; width:984px;min-height:800px;background:url(/static/img/grid.png);position:absolute;top:0;left:48px;}
 
-#header{ height: 130px; position: relative; }
+#header{ height: 130px; position: relative; -webkit-transition:height 100ms ease-out }
 #header .user{float:right;font-size:12px;margin-top:6px;}
 #header .user span{padding-left:10px;margin-left:8px;border-left:1px solid #ccc;}
 #header .user span:first-child{margin-left:0;padding-left:0;border:none;}
@@ -68,7 +68,7 @@ a:hover{color:@green4; background-color: @white;}
 }
 
 body.edit #header,
-body.search #header{height:46px}
+body.search #header{height:52px}
 
 body.edit #header > .logo,
 body.search #header > .logo{height:30px;bottom:auto;top:10px}
@@ -93,8 +93,16 @@ body.search #header .searchfield input[type="text"]{
   font-size:14px;
   height:20px;
   width:400px;
-
+  border-color:#ccc
 }
+
+body.edit #header .searchfield input[type="text"]:focus,
+body.search #header .searchfield input[type="text"]:focus{border-color:#aaa}
+
+body.edit #header .searchfield input[type="text"]::-webkit-input-placeholder,
+body.search #header .searchfield input[type="text"]::-webkit-input-placeholder { color:#fff; font-style:italic; font-size:14px; }
+body.edit #header .searchfield input[type="text"]:-moz-input-placeholder,
+body.search #header .searchfield input[type="text"]:-moz-input-placeholder { color:#fff; font-style:italic; font-size:14px; }
 
 body.edit #header .searchfield button,
 body.search #header .searchfield button{height:28px;background-size:14px;width:36px}
@@ -144,7 +152,7 @@ body.search #header .kb{display:none}
 #header .searchfield input[type="text"],
 #header .searchfield button{float:left;}
 
-body.index #header .searchfield{left:248px;top:190px;}
+body.index #header .searchfield{left:248px;top:220px;}
 body.index #header .searchfield input[type="text"]{padding:10px 16px;}
 body.index #header .searchfield a.btn{height:32px;}
 body.index #header .searchfield button{height:46px;}
@@ -159,8 +167,9 @@ body.login #header .searchfield{display:none;}
 }
 
 .content{position:relative;background:url(/static/img/bg.png);padding:0 24px 24px 24px;overflow:hidden;}
+.content:not(.footer){min-height:500px}
 
-.content header{background:url(/static/img/top-smaller.png) no-repeat;position:relative;padding:20px 24px 0;overflow:hidden;width:1032px;margin-left:-24px;}
+.content header{background:url(/static/img/top-small.png) no-repeat;position:relative;padding:12px 24px 0;overflow:hidden;width:1032px;margin-left:-24px;}
 .content.footer { overflow: visible; }
 .content footer {
   background:url(/static/img/bottom.png) no-repeat;
@@ -170,6 +179,8 @@ body.login #header .searchfield{display:none;}
   margin-left:-24px;
 }
 
+.content header p{clear:both;float:left;font-size:13px}
+
 .content footer h1{height:40px;background-repeat:no-repeat;background-position: 8px 50%;color:grey;text-transform:uppercase;padding-left:170px;margin:0 0 12px 9px;font:bold 14px/40px "Open Sans", sans-serif;}
 .content footer ul{position:absolute; top: 48px;text-transform:uppercase;padding-left:180px;padding-bottom:12px;margin:0 0 12px 9px;font:bold 14px/40px "Open Sans", sans-serif;}
 
@@ -178,7 +189,7 @@ body.login #header .searchfield{display:none;}
 
 footer li {border-left:2px solid @grey3; line-height: 14px;}
 
-.content.index header{background-image:url(/static/img/top-index.png);margin-bottom:130px;}
+.content.index header{background-image:url(/static/img/top-index.png);margin-bottom:130px;min-height:80px}
 .content.index > .cols{margin-left:12px;overflow:visible;}
 
 body.login .content.index header{margin-bottom:60px;}
@@ -291,16 +302,17 @@ section.nav dt i{
 
 section.nav dt i{border-right-color:#666;}
 
-section.nav{background-color:#f6f3ee;}
+section.nav{background-color:#fff;padding-top:1px}
 section.nav dt{background:@grey3;margin-bottom:12px;}
 section.nav dd{clear:both;margin: 0 0;line-height:1;font-size:13px;}
 section.nav dd a{color:#666;padding:6px 0 6px 18px;background:url(/static/img/dot.png) no-repeat 4px 9px;display:inline-block;}
 section.nav dd a.active{font-weight:bold;color:#000;background:url(/static/img/check.png) no-repeat 0 5px;cursor:default;}
 section.nav dd a.active:hover{text-decoration: none}
 
-section.result{position:relative;border:1px solid @white;padding:23px 11px 41px;
-  -webkit-transition:border ease-out 0.05s; cursor:pointer;}
-section.result .footer{position: absolute; bottom:0; left:0; right:0;padding: 6px 12px; background:#f6f3ee;color:#666;font-size:12px;}
+section.result{position:relative;border:1px solid transparent;padding:23px 11px 41px;
+  -webkit-transition:border ease-out 0.05s; cursor:pointer; box-sizing:border-box}
+section.result .footer{position: absolute; bottom:-1px; left:-1px; right:-1px;padding: 6px 12px; -webkit-transition:border ease-out 0.05s; 
+  background:@grey1;color:#666;font-size:12px;border:1px solid @grey1;border-top-color:#e6e6e6}
 section.result .footer span:first-child,
 section.result .footer span.level{margin-left:0;padding-left:0;border-left:none;}
 section.result .footer span.level{float:right;}
@@ -311,6 +323,7 @@ section.result a,
 section.result a:hover{color:#444;text-decoration:none;}
 
 section.result:hover{border-color:#aaa;}
+section.result:hover .footer{border-color:#aaa;border-top-color:#e6e6e6}
 
 section.result label{cursor:pointer;}
 section.result label:hover{border-color:#ddd;}
