@@ -237,6 +237,10 @@ kitin.service('editUtil', function(definitions) {
         var langId = work.language['@id'];
         if (!langId)
           return;
+        // TODO: change language data index to use URIs
+        var langBase = "/def/languages/";
+        if (langId.indexOf(langBase) === 0)
+          langId = langId.substring(langBase.length);
         definitions.languages.then(function (index) {
           var obj = index.byCode[langId];
           if (obj) {
