@@ -3,8 +3,8 @@
 <div class="col6">
 
   <div data-ng-repeat="(key, container) in schemeContainer.byScheme" class="scheme"
-       data-ng-init="scheme = conceptSchemes[key] || {'label': key}">
-    <h3>{{ scheme.label }}</h3>
+       data-ng-init="scheme = conceptSchemes.byNotation[key] || {'title': key}">
+    <h3>{{ scheme.alternative || scheme.title || scheme.title_en }}</h3>
     <div data-kitin-link-entity
           data-subject="container" data-link-multiple="concepts" data-type="Concept"
           data-search-template="search-subject"
@@ -67,7 +67,8 @@
     <div class="col3">
       <label>
         <select data-ng-model="chosenScheme"
-          data-ng-options="code as scheme.label for (code, scheme) in conceptSchemes">
+          data-ng-options="code as (scheme.alternative || scheme.title || scheme.title_en)
+                           for (code, scheme) in conceptSchemes.byNotation">
         </select>
       </label>
     </div>
