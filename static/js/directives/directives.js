@@ -1,5 +1,3 @@
-var DEB = 0;
-
 var kitin = angular.module('kitin.directives', []);
 /**
  * directives.js
@@ -254,7 +252,22 @@ kitin.directive('kitinSearchEntity', [function() {
         },  
 
         showResult: function (value, data) {
-          return template({data: data});
+
+          var maxChars = 70; // max chars
+          
+          // David’s temporary parsers
+          var parsed = {
+            name:  data.name || [data.familyName, data.givenName].join(', '),
+            dob:   [data.birthYear, data.deathYear].join('–'),
+            title: data.personTitle || 'Bibliotekarie',
+            about: data.note && data.note.length ? data.note.map(function(note) {
+                return note.length > maxChars ? note.substr(0, maxChars) + '...' : note
+              }) : ['Lorem ipsum dorem'],
+          };
+
+          console.log(parsed)
+
+          return template({data: data, parsed: parsed});
         },
 
         onFinish: function() {
@@ -294,22 +307,12 @@ kitin.directive('kitinSearchEntity', [function() {
         elem.val("");
       });
 
-      /*
-
-      if ( !DEB ) {
-        DEB = 1
-        setTimeout(function() {
-          elem.focus().val('to').trigger('keydown');
-        },1000);
-      }
-
-      elem.data('autocompleter').dom.$results.find('li').on('click', function(e) {
-        e.stopImmediatePropagation();
-        e.stopPropagation();
-        console.log('auto');
-      });
-
-      */
+      elem.data('autocompleter').dom.$results[0].addEventListener('click', function(e) {
+        if ( e.target.className == 'what' ) {
+          e.stopPropagation();
+          window.open('http://google.com');
+        }
+      }, true);
     }
   };
 }]);

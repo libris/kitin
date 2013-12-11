@@ -427,22 +427,23 @@
 <script type="text/html" id="auth-completion-template">
 <div class="auth">
   <h4>
-    <span class="name"><%= data['controlledLabel'] %></span>
+    <span class="name"><%= parsed['name'] %></span>
+    <span class="date"><%= parsed['dob'] %></span>
+
     <% if (data['@id']) { %>
-      <span class="what"><i class="fa fa-check-circle"></i> Aukt.</span>
+      <span class="what">Se aukt. post <i class="fa fa-sign-out"></i></span>
     <% } %>
   </h4>
-  <% if (data['hasAnnotation'] && data['hasAnnotation']['about']) { %>
-    <ul class="about">
-      <% if (Object.prototype.toString.call(data['hasAnnotation']['about']) === '[object Array]') { %> 
-        <% data['hasAnnotation']['about'].forEach(function(item) { %>
-          <li><%= item %></li>
-        <% }); %>
-      <% } else { %>
-        <li><%= data['hasAnnotation']['about'] %></li>
-      <% } %>
-    </ul>
+  <span class="title"><%= parsed['title'] %></span>
+
+  <% if (parsed['about'].length) { %>
+  <ul class="about">
+    <% for(var i=0; parsed['about'][i]; i++ ) { %>
+    <li><%= parsed['about'][i] %></li>
+    <% } %>
+  </ul>
   <% } %>
+
 </div>
 </script>
 
