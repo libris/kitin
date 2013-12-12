@@ -10,7 +10,7 @@ kitin.factory('definitions', function($http) {
   function getDataset(url) {
     return {
       then: function (f) {
-        $http.get(url).then(function(response) {
+        $http.get(url, {cache: true}).then(function(response) {
           f(response.data);
         });
       }
