@@ -179,6 +179,7 @@ a:hover {
   background: url(/static/img/logo.svg) no-repeat;
   background-size: 100%;
   text-indent: -10000px;
+  padding-bottom: 1px;
 }
 #header > .logo > a * {
   position: absolute;
