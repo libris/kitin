@@ -256,16 +256,22 @@ kitin.directive('kitinSearchEntity', [function() {
           var maxChars = 70; // max chars
           
           // David’s temporary parsers
-          var parsed = {
-            name:  data.name || [data.familyName, data.givenName].join(', '),
-            dob:   [data.birthYear, data.deathYear].join('–'),
-            title: data.personTitle || 'Bibliotekarie',
-            about: data.note && data.note.length ? data.note.map(function(note) {
-                return note.length > maxChars ? note.substr(0, maxChars) + '...' : note
-              }) : ['Lorem ipsum dorem'],
+
+          var parseName = function(d) {
+            return d.name || [d.familyName, d.givenName].join(', ')
           };
 
-          console.log(parsed)
+          var parsed = {
+            name:  parseName(data),
+            dob:   [data.birthYear, data.deathYear].join('–'),
+            title: data.personTitle || '',
+            about: data.note && data.note.length ? data.note.map(function(note) {
+                return note.length > maxChars ? note.substr(0, maxChars) + '...' : note
+              }) : [],
+            persona: data.hasPersona && data.hasPersona.length ? data.hasPersona.map(function(persona) {
+                return parseName(persona);
+              }) : []
+          };
 
           return template({data: data, parsed: parsed});
         },

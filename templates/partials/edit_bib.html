@@ -436,11 +436,13 @@
   </h4>
   <span class="title"><%= parsed['title'] %></span>
 
+  <% if (parsed['persona'].length) { %>
+  <span class="persona">Se även: <b><%= parsed['persona'].join('</b>, <b>') %></b></span>
+  <% } %>
+
   <% if (parsed['about'].length) { %>
   <ul class="about">
-    <% for(var i=0; parsed['about'][i]; i++ ) { %>
-    <li><%= parsed['about'][i] %></li>
-    <% } %>
+    <li><%= parsed['about'].join('</li><li>') %></li>
   </ul>
   <% } %>
 
