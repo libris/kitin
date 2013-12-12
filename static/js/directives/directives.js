@@ -258,7 +258,7 @@ kitin.directive('kitinSearchEntity', [function() {
           // David’s temporary parsers
 
           var parseName = function(d) {
-            return d.name || [d.familyName, d.givenName].join(', ')
+            return d.name || [d.familyName, d.givenName].join(', ');
           };
 
           var parsed = {
@@ -266,7 +266,7 @@ kitin.directive('kitinSearchEntity', [function() {
             dob:   [data.birthYear, data.deathYear].join('–'),
             title: data.personTitle || '',
             about: data.note && data.note.length ? data.note.map(function(note) {
-                return note.length > maxChars ? note.substr(0, maxChars) + '...' : note
+                return note.length > maxChars ? note.substr(0, maxChars) + '...' : note;
               }) : [],
             persona: data.hasPersona && data.hasPersona.length ? data.hasPersona.map(function(persona) {
                 return parseName(persona);
