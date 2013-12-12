@@ -20,7 +20,7 @@
         </ng:switch>
         <label class="ng-binding" data-ng-init="work = record.about.instanceOf">
           <span class="lbl">{{ "Språk" }}</span>
-          <div data-ng-init="editable = !(work.language.langCode)" >
+          <div data-ng-init="editable = !(work.language['@id'])" >
             <div data-ng-hide="editable" data-ng-click="editable=!editable" class="entity linked" tabindex="0">
               <span>
                 {{ work.language.prefLabel }}
@@ -159,13 +159,29 @@
     <script type='text/ng-template' id="roles-and-delete">
       <label>
         <span data-ng-repeat="role in personRoleMap[object['@id']]"><span
-              data-ng-hide="$first">, </span>{{ role.label_sv }}</span>
+              data-ng-hide="$first">, </span>{{ role.label }}</span>
+      </label>
+      <label>
+        <input data-inplace class="input-large authdependant" type="text" placeholder="Roll"
+              data-kitin-autoselect
+              data-subject="personRoleMap"
+              data-link="object['@id']"
+              data-source="relators"
+              data-template="select-role-template" />
       </label>
       <button class="btn-link" data-ng-show="editable.on"
               data-ng-click="editable.on = false"><i class="fa fa-check"></i></button>
       <label data-ng-hide="editable.on">
         <button class="btn-link on-hover"  data-ng-click="doRemove($index)"><i class="fa fa-times"></i></button>
       </label>
+    </script>
+
+    <script type="text/html" id="select-role-template">
+      <div class="auth">
+        <h4>
+        <span class="name"><%= label %></span><span class="date"> <%= notation %></span>
+        </h4>
+      </div>
     </script>
 
     <script type='text/ng-template' id="modal-edit-auth"> 
