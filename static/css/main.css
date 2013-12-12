@@ -1078,6 +1078,11 @@ label {
 .col6 label select {
   width: 466px;
 }
+.col4 label textarea,
+.col4 label input[type="text"],
+.col4 label select {
+  width: 298px;
+}
 .col3 label textarea,
 .col3 label input[type="text"],
 .col3 label select {
