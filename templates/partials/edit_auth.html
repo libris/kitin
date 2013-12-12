@@ -8,30 +8,29 @@
   <section id="instance" name="instance">
     <ng-form name="subform">
     <div class="cols">
-<!-- not properly mapped yet
-      <div class="col6">
-        <label>
-          <span class="lbl">{{ "label" }}</span>
-          <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.label">{{ instance.label }}</textarea>
-        </label>
-      </div>
-      <div class="col6">
-        <label>
-          <span class="lbl">{{ "controlledLabel" }}</span>
-          <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.controlledLabel">{{ instance.controlledlabel }}</textarea>
-        </label>
-      </div>
--->
-      <div class="col4">
+<!-- TODO: be sure what nameforms is possible on a person this ng-show will break if more than two exists. -->
+      <div class="col4" ng-show="instance.familyName">
         <label>
           <span class="lbl">{{ "Efternamn" }}</span>
           <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.familyName">{{ instance.familyName }}</textarea>
         </label>
       </div>
-      <div class="col4">
+      <div class="col4" ng-show="instance.name">
+        <label>
+          <span class="lbl">{{ "Namn" }}</span>
+          <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.name">{{ instance.name }}</textarea>
+        </label>
+      </div>
+      <div class="col4" ng-show="instance.givenName">
         <label>
           <span class="lbl">{{ "Förnamn" }}</span>
           <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.givenName">{{ instance.givenName }}</textarea>
+        </label>
+      </div>
+      <div class="col4" ng-show="instance.numeration">
+        <label>
+          <span class="lbl">{{ "Ordningstal och därpå följande del av namn" }}</span>
+          <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.numeration">{{ instance.numeration }}</textarea>
         </label>
       </div>
       <div class="col2">

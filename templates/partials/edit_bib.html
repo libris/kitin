@@ -202,13 +202,6 @@
                 <td></td>
               </tr>
             </thead>
-            <tfoot>
-              <tr>
-                <td colspan="3">
-                  <button class="add-thing btn-link" data-ng-click="addObject(instance, 'identifier', 'ISBN', 'isbnTable')">{{ 'Lägg till ISBN' }} </button>
-                </td>
-              </tr>
-            </tfoot>
             <tbody>
               <tr data-ng-repeat="identifier in instance.identifier">
                 <td>
@@ -238,6 +231,13 @@
                 </td>
               </tr>
             </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3">
+                  <button class="add-thing btn-link" data-ng-click="addObject(instance, 'identifier', 'ISBN', 'isbnTable')">{{ 'Lägg till ISBN' }} </button>
+                </td>
+              </tr>
+            </tfoot>
           </table>
         </div>
       </div>
