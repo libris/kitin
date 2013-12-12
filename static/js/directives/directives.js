@@ -66,6 +66,7 @@ kitin.directive('isbnvalidator', function(isbnTools) {
   };
 });
 
+
 kitin.directive('kitinAutoselect', function(definitions) {
 
   // TODO: getRepr by type
@@ -124,8 +125,6 @@ kitin.directive('kitinAutoselect', function(definitions) {
     }
   };
 });
-
-
 kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
 
   var viewDiv = '<div ng-if="viewmode" ng-include="viewTemplate"></div>';
@@ -204,19 +203,27 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
 }]);
 
 kitin.directive('kitinSearchEntity', [function() {
+
+  function nameRepr(d) {
+    return d.name || [d.familyName, d.givenName].join(', ');
+  }
+
+  function truncate(s, maxChars) {
+    maxChars = maxChars || 70;
+    return s.length > maxChars ? s.substr(0, maxChars) + '...' : s;
+  }
+
   return {
     require: '^kitinLinkEntity',
     link: function(scope, elem, attrs, kitinLinkEntity) {
       var linker = kitinLinkEntity;
 
-      /* TODO: IMPROVE: replace current autocomplete mechanism and use angular
-      templates ($compile) all the way.. If it is fast enough.. */
+      // TODO: IMPROVE: replace current autocomplete mechanism and use angular
+      // templates ($compile).. If that is fast enough..
       var filterParams = attrs.filter;
       var onSelect = attrs.onselect;
       var templateId = attrs.completionTemplate;
       var template = _.template(jQuery('#' + templateId).html());
-      var selected = false;
-      var isAuthorized = false;
 
       elem.autocomplete(attrs.serviceUrl, {
         inputClass: null,
@@ -238,48 +245,16 @@ kitin.directive('kitinSearchEntity', [function() {
 
         processData: function (doc) {
           if (!doc|| !doc.list) {
-            isAuthorized = false;
-            selected = false;
             console.log("Found no results!"); // TODO: notify no match to user
             return [];
           }
           return doc.list.map(function(item) {
-            result = item.data;
-            result['authorized'] = item.authorized;
-            result['identifier'] = item.identifier;
-            return {value: item.data.controlledLabel, data: result};
+            return {value: item.data.controlledLabel, data: item.data};
           });
-        },  
-
-        showResult: function (value, data) {
-
-          var maxChars = 70; // max chars
-          
-          // David’s temporary parsers
-
-          var parseName = function(d) {
-            return d.name || [d.familyName, d.givenName].join(', ');
-          };
-
-          var parsed = {
-            name:  parseName(data),
-            dob:   [data.birthYear, data.deathYear].join('–'),
-            title: data.personTitle || '',
-            about: data.note && data.note.length ? data.note.map(function(note) {
-                return note.length > maxChars ? note.substr(0, maxChars) + '...' : note;
-              }) : [],
-            persona: data.hasPersona && data.hasPersona.length ? data.hasPersona.map(function(persona) {
-                return parseName(persona);
-              }) : []
-          };
-
-          return template({data: data, parsed: parsed});
         },
 
-        onFinish: function() {
-          if (selected && isAuthorized) {
-            // ...
-          }
+        showResult: function (value, data) {
+          return template({data: data, nameRepr: nameRepr, truncate: truncate});
         },
 
         displayValue: function (value, data) {
@@ -287,19 +262,10 @@ kitin.directive('kitinSearchEntity', [function() {
         },
 
         onNoMatch: function() {
-          selected = true;
-          isAuthorized = false;
-          /*
-          // TODO: This works only for creator atm
-          scope.subj[attrs.kitinRel].familyName = param.familyName;
-          scope.editable = true;
-          */
-          //scope.$apply();
+          // TODO: create new?
         },
 
         onItemSelect: function(item, completer) {
-          selected = true;
-
           var owner = scope.subject;
           // TODO: if multiple, else set object (and *link*, not copy (embed copy in view?)...)
           linker.doAdd(item.data);
@@ -316,7 +282,7 @@ kitin.directive('kitinSearchEntity', [function() {
       elem.data('autocompleter').dom.$results[0].addEventListener('click', function(e) {
         if ( e.target.className == 'what' ) {
           e.stopPropagation();
-          window.open('http://google.com');
+          //window.open('http://google.com');
         }
       }, true);
     }

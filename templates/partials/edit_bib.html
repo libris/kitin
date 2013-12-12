@@ -447,28 +447,26 @@
 
 <!-- person completion presentation -->
 <script type="text/html" id="auth-completion-template">
-<div class="auth">
-  <h4>
-    <span class="name"><%= parsed['name'] %></span>
-    <span class="date"><%= parsed['dob'] %></span>
-
-    <% if (data['@id']) { %>
-      <span class="what">Se aukt. post <i class="fa fa-sign-out"></i></span>
+  <div class="auth">
+    <h4>
+      <span class="name"><%= nameRepr(data) %></span>
+      <span class="date"><%= [data.birthYear, data.deathYear].join('–') %></span>
+      <% if (data['@id']) { %>
+        <span class="what">Se aukt. post <i class="fa fa-sign-out"></i></span>
+      <% } %>
+    </h4>
+    <span class="title"><%= data.personTitle %></span>
+    <% if (data.hasPersona && data.hasPersona.length) { %>
+      <span class="persona">Se även:
+        <b><%= data.hasPersona.map(nameRepr).join('</b>, <b>') %></b>
+      </span>
     <% } %>
-  </h4>
-  <span class="title"><%= parsed['title'] %></span>
-
-  <% if (parsed['persona'].length) { %>
-  <span class="persona">Se även: <b><%= parsed['persona'].join('</b>, <b>') %></b></span>
-  <% } %>
-
-  <% if (parsed['about'].length) { %>
-  <ul class="about">
-    <li><%= parsed['about'].join('</li><li>') %></li>
-  </ul>
-  <% } %>
-
-</div>
+    <% if (data.note && data.note.length) { %>
+      <ul class="about">
+        <li><%= data.note.map(truncate).join('</li><li>') %></li>
+      </ul>
+    <% } %>
+  </div>
 </script>
 
 {% endraw %}
