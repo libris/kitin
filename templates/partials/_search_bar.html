@@ -34,6 +34,7 @@
         aria-autocomplete="list" aria-haspopup="true" data-ng-model="q">
         <div class="btn-group">
           <button class="btn" type="submit">Sök</button>
+
           <a class="btn dropdown-toggle">
             <span class="fa fa-caret-down fa-inverse"></span>
           </a>
@@ -43,6 +44,7 @@
                  data-ng-click="setSearchType(opt.key)">{{ opt.label }}</a>
             </li>
           </ul>
+          
         </div>
         <div>
           <em data-ng-show="searchType.key != 'bib'">{{ searchType.label }}</em>

@@ -46,7 +46,7 @@ kitin.run(function($rootScope) {
 });
 
 // Davids preloads
-['top-small.png'].forEach(function(img) {
+['top-small.png', 'bg.png'].forEach(function(img) {
     new Image().src = '/static/img/'+img;
 });
 
