@@ -74,6 +74,28 @@
       </div>
     </div>
 
+    <div class="cols">
+      <div class="col6">
+        <div class="tagsinput enforced">
+          <span class="lbl">Ämnesord</span>
+          <ul class="tags">
+            <li><a href="#"><i class="fa fa-check"></i> Apa</a> <i class="no">&times;</i></li>
+            <li><a href="#"><i class="fa fa-check"></i> Lejon</a> <i class="no">&times;</i></li>
+            <li><a href="#"><i class="fa fa-check"></i> Orangutang</a> <i class="no">&times;</i></li>
+            <li><a href="#"><i class="fa fa-check"></i> Komododrake</a> <i class="no">&times;</i></li>
+            <li><a href="#"><i class="fa fa-check"></i> Bofink</a> <i class="no">&times;</i></li>
+            <li><a href="#"><i class="fa fa-check"></i> Burhöna</a> <i class="no">&times;</i></li>
+            <li class="add"><i class="fa fa-search"></i> <input type="text" placeholder="Lägg till ämnesord"></li>
+          </ul>
+          <ul class="tags suggestions">
+            <li class="title">Förslag:</li>
+            <li><a href="#">Gorilla <i class="fa fa-arrow-circle-up"></i></a></li>
+            <li><a href="#">Papegoja <i class="fa fa-arrow-circle-up"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
     <script type="text/ng-template" id="render-search-box">
       <label data-ng-show="dosearch" data-ng-init="dosearch = true"> <!-- TODO true/false -->
         <input class="input-large" type="text" placeholder="{{ label }}"

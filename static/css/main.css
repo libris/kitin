@@ -501,26 +501,27 @@ body.login .content.index header {
 .content header .levelselect {
   position: absolute;
   right: 554px;
-  bottom: 6px;
+  bottom: 2px;
   z-index: 10;
 }
 .content header .levelselect .dropdown-toggle {
   display: inline-block;
-  background: #fff;
   padding: 3px 8px;
   font-size: 12px;
+  font-weight: bold;
   cursor: pointer;
+  text-shadow: #ffffff 1px 1px 0;
 }
 .content header .levelselect .dropdown-toggle:hover {
   text-decoration: none;
   color: #106351;
 }
 .content header .levelselect .dropdown-toggle .fa-caret-down {
-  border-left: 1px solid #ddd;
+  border-left: 1px solid #bbb;
   padding: 0 2px 0 8px;
   margin-left: 8px;
   line-height: 16px;
-  color: #bbbbbb;
+  color: #222222;
 }
 .content header .levelselect .dropdown-toggle:hover .fa-caret-down {
   color: #111111;
@@ -561,14 +562,14 @@ body.login .content.index header {
 .content.footer footer h1{background-image:url(/static/img/libris-footer.png);color:@purple;}
 */
 .content header h1 {
-  text-transform: uppercase;
   margin: 0 0 12px;
   height: 37px;
-  background: url(/static/img/circ-bl.png) no-repeat;
+  background: url(/static/img/circ.png) no-repeat;
   padding: 0 0 0 10px;
-  font: 900 14px/37px "Open Sans", sans-serif;
+  color: #666;
+  text-shadow: #fff 1px 1px 0;
+  font: bold 16px/39px "Droid serif", sans-serif;
   float: left;
-  color: rgba(0, 0, 0, 0.8);
 }
 .content header h1:before {
   display: inline-block;
@@ -580,9 +581,8 @@ body.login .content.index header {
   -moz-osx-font-smoothing: grayscale;
   font-size: 17px;
   position: relative;
-  bottom: -1px;
   margin-right: 16px;
-  color: #fff;
+  color: #bbb;
 }
 .content.bib header h1:before {
   content: "\f02d";
@@ -992,6 +992,106 @@ li.draft a:hover {
 }
 .break {
   clear: both;
+}
+/* tags */
+.tagsinput {
+  margin-bottom: 12px;
+}
+ul.tags {
+  list-style: none;
+  margin: 3px 0 0 0;
+  padding: 0;
+}
+ul.tags li {
+  display: inline-block;
+  margin: 0 1px 5px 0;
+  font-size: 12px;
+  padding: 0;
+  padding: 3px 8px 3px 10px;
+  background: #eee;
+  color: #111;
+  border-radius: 2px;
+}
+ul.tags li i.no {
+  margin-left: 6px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  font-size: 14px;
+}
+ul.tags li i.no:hover {
+  color: #000000;
+}
+ul.tags li a {
+  color: #111111;
+}
+ul.tags li a .fa-check {
+  color: #27b492;
+  font-size: 11px;
+  margin-right: 0;
+  font-weight: 100;
+}
+ul.tags li.add {
+  background: none;
+  border: 1px solid #ccc;
+  padding: 1px 6px 1px 0;
+  position: relative;
+  top: -1px;
+}
+ul.tags li.add i {
+  color: #aaa;
+  font-size: 12px;
+  margin: 0 2px 0 6px;
+}
+ul.tags li.add input {
+  width: 100px;
+  font-size: 12px;
+  height: 22px;
+  margin: 0;
+  padding: 0 8px 0 0;
+}
+ul.tags li.add input::-webkit-input-placeholder {
+  font-size: 12px;
+  color: #dddddd;
+}
+ul.tags li.add input:-moz-input-placeholder {
+  font-size: 12px;
+  color: #dddddd;
+}
+ul.tags li.add :focus::-webkit-input-placeholder {
+  color: #ffffff;
+}
+ul.tags li.add :focus:-moz-input-placeholder {
+  color: #ffffff;
+}
+.tagsinput .suggestions {
+  border-top: 1px solid #ddd;
+  padding-top: 6px;
+  margin-top: 4px;
+}
+ul.tags.suggestions li {
+  padding: 0px 10px 0 7px;
+  border-right: 1px solid #ddd;
+  background: none;
+  margin: 0;
+}
+ul.tags.suggestions li.title {
+  padding: 0;
+  background: none;
+  font-weight: bold;
+  border: none;
+}
+ul.tags.suggestions li:last-child {
+  border: none;
+}
+ul.tags.suggestions li i {
+  font-size: 12px;
+  font-weight: normal;
+  margin-left: 0;
+  color: #27b492;
+}
+ul.tags.suggestions li a {
+  color: #27b492;
 }
 /* Override bootstrap forms */
 select,
