@@ -4,14 +4,29 @@
   <div id="grid"></div>
   <div class="edit content {{recType}}">
     <div>
-      <header>
+      <header class="clearfix">
         <h1 data-ng-click="cycleType($event, record.about)"><span data-ng-if="recType == 'auth'">Aukt.</span>{{ getTypeLabel(record.about) }}
           <!--(Bibliografiskt material)--></h1>
+
+        <div class="levelselect">
+          <div class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-check"></i> Minimal nivå <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Minimal nivå</a></li>
+              <li><a href="#">Bibliografisk nivå</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!--
         <div class="levels">
           <span>{{ enums.bibLevel[record.bibLevel].label_sv }}</span>
           <span>{{ enums.encLevel[record.encLevel].label_sv }}</span>
           <span>{{ enums.catForm[record.catForm].label_sv }}</span>
         </div>
+        -->
         <div class="modes">
           <a href="#" class="active">LIBRIS</a>
           <a href="/jsonld{{ record['@id'] }}">JSON-LD</a>
