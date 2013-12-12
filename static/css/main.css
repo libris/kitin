@@ -179,6 +179,7 @@ a:hover {
   background: url(/static/img/logo.svg) no-repeat;
   background-size: 100%;
   text-indent: -10000px;
+  padding-bottom: 1px;
 }
 #header > .logo > a * {
   position: absolute;
@@ -583,6 +584,12 @@ body.login .content.index header {
   position: relative;
   margin-right: 16px;
   color: #bbb;
+}
+.content.holdings header h1:before {
+  content: "\f0ca";
+}
+.content.auth header h1:before {
+  content: "\f0fc";
 }
 .content.bib header h1:before {
   content: "\f02d";
@@ -1177,6 +1184,11 @@ label {
 .col6 label input[type="text"],
 .col6 label select {
   width: 466px;
+}
+.col4 label textarea,
+.col4 label input[type="text"],
+.col4 label select {
+  width: 298px;
 }
 .col3 label textarea,
 .col3 label input[type="text"],
