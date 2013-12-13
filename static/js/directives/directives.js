@@ -67,102 +67,6 @@ kitin.directive('isbnvalidator', function(isbnTools) {
 });
 
 
-kitin.directive('kitinAutoselect', function(definitions) {
-
-  var sourceConfiguration = {
-    relators: {
-      labelKey: 'label',
-      codeKey: 'notation',
-      indexKey: 'byNotation',
-      repr: function (obj) {
-        return obj.label + " (" + obj.notation + ")";
-      }
-    },
-    languages: {
-      labelKey: 'prefLabel',
-      codeKey: 'langCode',
-      indexKey: 'byCode',
-      repr: function (obj) {
-        return obj.prefLabel + " (" + obj.langCode + ")";
-      }
-    }
-  };
-
-  function getItems(source, struct) {
-    var sourceCfg = sourceConfiguration[source];
-    return _.map(struct[sourceCfg.indexKey], function (obj, code) {
-      if (obj[sourceCfg.labelKey] === undefined)
-        obj[sourceCfg.labelKey] = "";
-      if (obj[sourceCfg.codeKey] === undefined)
-        obj[sourceCfg.codeKey] = "";
-      return {value: sourceCfg.repr(obj), data: obj};
-    });
-  }
-
-  var itemsCache = {};
-
-  return {
-    restrict: 'A',
-    link: function(scope, elem, attrs) {
-      var subj = scope.$eval(attrs.subject);
-      var link = attrs.link;
-      var source = attrs.source;
-      var templateId = attrs.template;
-      var template = _.template(jQuery('#' + templateId).html());
-
-      var data = {items: []};
-
-      var sourceCfg = sourceConfiguration[source];
-
-      elem.autocomplete({
-        data: data,
-        minChars: 1,
-        inputClass: null,
-        remoteDataType: 'json',
-        autoWidth: null,
-        selectFirst: true,
-        mustMatch: true,
-        useCache: true,
-        filter: function (result, inputval) {
-          //var val = result.value.toLowerCase();
-          var data = result.data;
-          var label = data[sourceCfg.labelKey].toLowerCase();
-          var code = data[sourceCfg.codeKey].toLowerCase();
-          var sel = inputval.toLowerCase();
-          return label.indexOf(sel) === 0 || code.indexOf(sel) === 0 || label.indexOf('(' + sel) > -1;
-        },
-        processData: function (data) {
-          return data.items;
-        },
-        maxItemsToShow: 0, // show all
-        showResult: function (value, data) {
-          return template(data);
-        },
-        onItemSelect: function(item) {
-          subj[link] = item.data;
-          scope.$apply();
-        }
-      });
-
-      elem.on('focus', function () {
-        var items = itemsCache[source];
-        if (typeof items === 'undefined') {
-          var loadingClass = elem.data('autocompleter').options.loadingClass;
-          elem.addClass(loadingClass);
-          definitions[source].then(function (struct) {
-            elem.removeClass(loadingClass);
-            data.items = itemsCache[source] = getItems(source, struct);
-          });
-        } else {
-          data.items = items;
-        }
-      });
-
-    }
-  };
-});
-
-
 kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
 
   var viewDiv = '<div ng-if="viewmode" ng-include="viewTemplate"></div>';
@@ -186,12 +90,13 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
       $scope.searchTemplate = $attrs.searchTemplate;
       $scope.type = $attrs.type;
 
-      var link = $attrs.link;
+      var linkKey = $attrs.link;
       var multiple = false;
       if ($attrs.linkMultiple) {
-        link = $attrs.linkMultiple;
+        linkKey = $attrs.linkMultiple;
         multiple = true;
       }
+      var link = $scope.$eval(linkKey);
       $scope.link = link;
       $scope.multiple = multiple;
 
@@ -202,9 +107,7 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
 
       if (multiple) {
         $scope.objects = obj;
-        $scope.object = null;
       } else {
-        $scope.objects = null;
         $scope.object = obj;
       }
 
@@ -235,12 +138,42 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
         //$scope.triggerModified();
       };
 
-
     }
   };
 }]);
 
-kitin.directive('kitinSearchEntity', [function() {
+kitin.directive('kitinSearchEntity', ['definitions', function(definitions) {
+
+  var sourceConfiguration = {
+    relators: {
+      labelKey: 'label',
+      codeKey: 'notation',
+      indexKey: 'byNotation',
+      repr: function (obj) {
+        return obj.label + " (" + obj.notation + ")";
+      }
+    },
+    languages: {
+      labelKey: 'prefLabel',
+      codeKey: 'langCode',
+      indexKey: 'byCode',
+      repr: function (obj) {
+        return obj.prefLabel + " (" + obj.langCode + ")";
+      }
+    }
+  };
+
+  function getItems(sourceCfg, struct) {
+    return _.map(struct[sourceCfg.indexKey], function (obj, code) {
+      if (obj[sourceCfg.labelKey] === undefined)
+        obj[sourceCfg.labelKey] = "";
+      if (obj[sourceCfg.codeKey] === undefined)
+        obj[sourceCfg.codeKey] = "";
+      return {value: sourceCfg.repr(obj), data: obj};
+    });
+  }
+
+  var itemsCache = {};
 
   function nameRepr(d) {
     return d.name || [d.familyName, d.givenName].join(', ');
@@ -263,33 +196,11 @@ kitin.directive('kitinSearchEntity', [function() {
       var templateId = attrs.completionTemplate;
       var template = _.template(jQuery('#' + templateId).html());
 
-      elem.autocomplete(attrs.serviceUrl, {
+      options = {
         inputClass: null,
         remoteDataType: 'json',
         selectFirst: true,
         autoWidth: null,
-        filterResults: false,
-        sortResults: false,
-        useCache: false,
-
-        beforeUseConverter: function (value) {
-          // TODO: set extraParams: filterParams instead once backend supports that
-          var params = scope.$apply(filterParams);
-          var result = _.reduce(params, function (res, v, k) {
-            return v? res +"+"+ k +":" + v : res;
-          }, value);
-          return result;
-        },
-
-        processData: function (doc) {
-          if (!doc|| !doc.list) {
-            console.log("Found no results!"); // TODO: notify no match to user
-            return [];
-          }
-          return doc.list.map(function(item) {
-            return {value: item.data.controlledLabel, data: item.data};
-          });
-        },
 
         showResult: function (value, data) {
           return template({data: data, nameRepr: nameRepr, truncate: truncate});
@@ -310,7 +221,66 @@ kitin.directive('kitinSearchEntity', [function() {
           scope.$apply(onSelect);
           //scope.triggerModified();
         }
-      });
+      };
+
+      if (attrs.serviceUrl) {
+
+        options.filterResults = false;
+        options.sortResults = false;
+        options.useCache = false;
+
+        options.beforeUseConverter = function (value) {
+          // TODO: set extraParams: filterParams instead once backend supports that
+          var params = scope.$apply(filterParams);
+          var result = _.reduce(params, function (res, v, k) {
+            return v? res +"+"+ k +":" + v : res;
+          }, value);
+          return result;
+        };
+
+        options.processData = function (doc) {
+          if (!doc|| !doc.list) {
+            console.log("Found no results!"); // TODO: notify no match to user
+            return [];
+          }
+          return doc.list.map(function(item) {
+            return {value: item.data.controlledLabel, data: item.data};
+          });
+        };
+
+        elem.autocomplete(attrs.serviceUrl, options);
+
+      } else {
+        var source = attrs.source;
+        var data = {items: []};
+        var sourceCfg = sourceConfiguration[source];
+
+        options.data = data;
+        options.minChars = 1;
+        options.mustMatch = true;
+        options.useCache = true;
+        options.maxItemsToShow = 0; // show all
+
+        options.processData = function (doc) {
+          return data.items;
+        };
+
+        elem.autocomplete(options);
+        elem.on('focus', function () {
+          var items = itemsCache[source];
+          if (typeof items === 'undefined') {
+            var loadingClass = elem.data('autocompleter').options.loadingClass;
+            elem.addClass(loadingClass);
+            definitions[source].then(function (struct) {
+              elem.removeClass(loadingClass);
+              data.items = itemsCache[source] = getItems(sourceCfg, struct);
+            });
+          } else {
+            data.items = items;
+          }
+        });
+
+      }
 
       elem.jkey('enter', function () {
         scope.$apply(onSelect);
@@ -323,6 +293,8 @@ kitin.directive('kitinSearchEntity', [function() {
           //window.open('http://google.com');
         }
       }, true);
+
     }
   };
+
 }]);

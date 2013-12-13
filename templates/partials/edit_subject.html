@@ -6,7 +6,7 @@
        data-ng-init="scheme = conceptSchemes.byNotation[key] || {'title': key}">
     <h3>{{ scheme.alternative || scheme.title || scheme.title_en }}</h3>
     <div data-kitin-link-entity
-          data-subject="container" data-link-multiple="concepts" data-type="Concept"
+          data-subject="container" data-link-multiple="'concepts'" data-type="Concept"
           data-search-template="search-subject"
           data-view-template="view-subject">
     </div>

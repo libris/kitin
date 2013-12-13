@@ -1,5 +1,5 @@
 {% raw %}
-  <section data-ng-if="record" data-ng-init="instance = record.about">
+  <section data-ng-if="record" data-ng-init="instance = record.about; work = instance.instanceOf">
     <ng-form name="subform">
     <h2> <span>{{ 'Titel och upphov' }}</span><i></i></h2>
     <div class="cols">
@@ -18,30 +18,32 @@
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" placeholder="Övrig titelinformation" data-ng-model="instance.keyTitle.titleValue">{{ instance.keyTitle.titleValue }}</textarea>       
         </label>
         </ng:switch>
-        <label class="ng-binding" data-ng-init="work = record.about.instanceOf">
+        <label class="ng-binding">
           <span class="lbl">{{ "Språk" }}</span>
-          <div data-ng-init="editable = !(work.language['@id'])" >
-            <div data-ng-hide="editable" data-ng-click="editable=!editable" class="entity linked" tabindex="0">
-              <span>
-                {{ work.language.prefLabel }}
-                <i data-ng-show="work.language.langCode">({{ work.language.langCode }})</i>
-              </span>
-            </div>
-            <div data-ng-show="editable">
-              <input data-inplace class="input-large authdependant" type="text" placeholder="Språk"
-                    value="{{ work.language.prefLabel }} ({{ work.language.langCode }})"
-                    data-kitin-autoselect
-                    data-subject="work"
-                    data-link="language"
-                    data-source="languages"
-                    data-template="select-language-template" />
-            </div>
+          <div data-kitin-link-entity tabindex="0"
+              data-subject="instance.instanceOf"
+              data-link="'language'" data-type="Language"
+              data-view-template="render-language"
+              data-search-template="render-search-language">
           </div>
         </label>
+        <script type="text/ng-template" id="render-language">
+          <div class="entity linked">
+            {{ object.prefLabel }}
+            <i data-ng-show="object.langCode">({{ object.langCode }})</i>
+            <button class="btn-link on-hover" data-ng-click="doRemove($index)"><i class="fa fa-times"></i></button>
+          </div>
+        </script>
+        <script type="text/ng-template" id="render-search-language">
+          <input data-inplace class="input-large authdependant" type="text" placeholder="Språk"
+                data-no-value="{{ object.prefLabel }} ({{ object.langCode }})"
+                data-kitin-search-entity data-source="languages"
+                data-completion-template="select-language-template" />
+        </script>
         <script type="text/html" id="select-language-template">
           <div class="auth">
             <h4>
-            <span class="name"><%= prefLabel %></span><span class="date"> <%= langCode %></span>
+            <span class="name"><%= data.prefLabel %></span><span class="date"> <%= data.langCode %></span>
             </h4>
           </div>
         </script>
@@ -57,7 +59,7 @@
           <span class="lbl">{{ 'Huvuduppslag' }}</span>
           <div data-kitin-link-entity
               data-ng-init="label = 'Huvuduppslag'"
-              data-subject="work" data-link="attributedTo" data-type="Person"
+              data-subject="work" data-link="'attributedTo'" data-type="Person"
               data-view-template="render-person"
               data-search-template="render-search-box" tabindex="0">
           </div>
@@ -66,9 +68,9 @@
           <span class="lbl">{{ 'Biuppslag' }}</span>
           <div data-kitin-link-entity
               data-ng-init="label = 'Lägg till biuppslag'"
-              data-subject="work" data-link-multiple="influencedBy" data-type="Person"
+              data-subject="work" data-link-multiple="'influencedBy'" data-type="Person"
               data-view-template="render-person"
-              data-search-template="render-search-box" x>
+              data-search-template="render-search-box">
           </div>
         </div>
       </div>
@@ -97,7 +99,7 @@
     </div>
 
     <script type="text/ng-template" id="render-search-box">
-      <label data-ng-show="dosearch" data-ng-init="dosearch = true"> <!-- TODO true/false -->
+      <label data-ng-show="dosearch" data-ng-init="dosearch = false">
         <input class="input-large" type="text" placeholder="{{ label }}"
               data-kitin-search-entity
               data-service-url="/suggest/person"
@@ -157,29 +159,39 @@
     </script>
 
     <script type='text/ng-template' id="roles-and-delete">
-      <label>
-        <span data-ng-repeat="role in personRoleMap[object['@id']]"><span
-              data-ng-hide="$first">, </span>{{ role.label }}</span>
-      </label>
-      <label>
-        <input data-inplace class="input-large authdependant" type="text" placeholder="Roll"
-              data-kitin-autoselect
-              data-subject="personRoleMap"
-              data-link="object['@id']"
-              data-source="relators"
-              data-template="select-role-template" />
-      </label>
+      <div data-kitin-link-entity
+          data-subject="personRoleMap"
+          data-link-multiple="object['@id']" data-type="ObjectProperty"
+          data-view-template="render-role"
+          data-search-template="render-search-role">
+      </div>
       <button class="btn-link" data-ng-show="editable.on"
               data-ng-click="editable.on = false"><i class="fa fa-check"></i></button>
       <label data-ng-hide="editable.on">
-        <button class="btn-link on-hover"  data-ng-click="doRemove($index)"><i class="fa fa-times"></i></button>
+        <button class="btn-link on-hover" data-ng-click="doRemove($index)">
+            <i class="fa fa-times"></i></button>
+      </label>
+    </script>
+
+    <script type='text/ng-template' id="render-role">
+      <span class="tag">
+        {{ object.label }} <em>({{ object.notation }})</em>
+        <button class="btn-link" data-ng-click="doRemove($index)"
+                ><i class="fa fa-times"></i></button>
+      </span>
+    </script>
+    <script type='text/ng-template' id="render-search-role">
+      <label>
+        <input data-inplace class="input-large authdependant" type="text" placeholder="Roll"
+              data-kitin-search-entity data-source="relators"
+              data-completion-template="select-role-template" />
       </label>
     </script>
 
     <script type="text/html" id="select-role-template">
       <div class="auth">
         <h4>
-        <span class="name"><%= label %></span><span class="date"> <%= notation %></span>
+        <span class="name"><%= data.label %></span><span class="date"> <%= data.notation %></span>
         </h4>
       </div>
     </script>

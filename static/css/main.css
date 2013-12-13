@@ -1009,11 +1009,11 @@ ul.tags {
   margin: 3px 0 0 0;
   padding: 0;
 }
+.tag,
 ul.tags li {
   display: inline-block;
   margin: 0 1px 5px 0;
   font-size: 12px;
-  padding: 0;
   padding: 3px 8px 3px 10px;
   background: #eee;
   color: #111;
