@@ -313,13 +313,6 @@
               <td></td>
             </tr>
           </thead>
-          <tfoot>
-            <tr>
-              <td colspan="4">
-                <button class="add-thing btn-link" data-ng-click="addObject(instance, 'publication', 'ProviderEvent', 'publisher')">{{ 'Lägg till utgivning' }} </button>
-              </td>
-            </tr>
-          </tfoot>
           <tbody>
             <tr data-ng-repeat="publication in instance.publication" class="">
               <td>
@@ -349,6 +342,13 @@
                 </button>
               </td>
             </tr>
+          <tfoot>
+            <tr>
+              <td colspan="4">
+                <button class="add-thing btn-link" data-ng-click="addObject(instance, 'publication', 'ProviderEvent', 'publisher')">{{ 'Lägg till utgivning' }} </button>
+              </td>
+            </tr>
+          </tfoot>
           </table>
        </div>          
     </div>
