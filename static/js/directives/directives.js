@@ -66,22 +66,40 @@ kitin.directive('isbnvalidator', function(isbnTools) {
   };
 });
 
+
 kitin.directive('kitinAutoselect', function(definitions) {
 
-  // TODO: getRepr by type
-  var getRepr = function (obj) {
-    return obj.prefLabel + " (" + obj.langCode + ")";
+  var sourceConfiguration = {
+    relators: {
+      labelKey: 'label',
+      codeKey: 'notation',
+      indexKey: 'byNotation',
+      repr: function (obj) {
+        return obj.label + " (" + obj.notation + ")";
+      }
+    },
+    languages: {
+      labelKey: 'prefLabel',
+      codeKey: 'langCode',
+      indexKey: 'byCode',
+      repr: function (obj) {
+        return obj.prefLabel + " (" + obj.langCode + ")";
+      }
+    }
   };
 
-  var filter = function (result, inputval) {
-    //var val = result.value.toLowerCase();
-    if (result.data.prefLabel === undefined)
-      result.data.prefLabel = "";
-    var name = result.data.prefLabel.toLowerCase();
-    var code = result.data.langCode.toLowerCase();
-    var sel = inputval.toLowerCase();
-    return name.indexOf(sel) === 0 || code.indexOf(sel) === 0 || name.indexOf('(' + sel) > -1;
-  };
+  function getItems(source, struct) {
+    var sourceCfg = sourceConfiguration[source];
+    return _.map(struct[sourceCfg.indexKey], function (obj, code) {
+      if (obj[sourceCfg.labelKey] === undefined)
+        obj[sourceCfg.labelKey] = "";
+      if (obj[sourceCfg.codeKey] === undefined)
+        obj[sourceCfg.codeKey] = "";
+      return {value: sourceCfg.repr(obj), data: obj};
+    });
+  }
+
+  var itemsCache = {};
 
   return {
     restrict: 'A',
@@ -91,13 +109,10 @@ kitin.directive('kitinAutoselect', function(definitions) {
       var source = attrs.source;
       var templateId = attrs.template;
       var template = _.template(jQuery('#' + templateId).html());
-      var data = {};
 
-      definitions[source].then(function (struct) {
-        data.items = _.map(struct.byCode, function (obj, code) {
-          return {value: getRepr(obj), data: obj};
-        });
-      });
+      var data = {items: []};
+
+      var sourceCfg = sourceConfiguration[source];
 
       elem.autocomplete({
         data: data,
@@ -107,11 +122,18 @@ kitin.directive('kitinAutoselect', function(definitions) {
         autoWidth: null,
         selectFirst: true,
         mustMatch: true,
-        filter: filter,
-        processData: function (data) {
-          return data.items || [];
+        useCache: true,
+        filter: function (result, inputval) {
+          //var val = result.value.toLowerCase();
+          var data = result.data;
+          var label = data[sourceCfg.labelKey].toLowerCase();
+          var code = data[sourceCfg.codeKey].toLowerCase();
+          var sel = inputval.toLowerCase();
+          return label.indexOf(sel) === 0 || code.indexOf(sel) === 0 || label.indexOf('(' + sel) > -1;
         },
-        useCache: false,
+        processData: function (data) {
+          return data.items;
+        },
         maxItemsToShow: 0, // show all
         showResult: function (value, data) {
           return template(data);
@@ -121,6 +143,21 @@ kitin.directive('kitinAutoselect', function(definitions) {
           scope.$apply();
         }
       });
+
+      elem.on('focus', function () {
+        var items = itemsCache[source];
+        if (typeof items === 'undefined') {
+          var loadingClass = elem.data('autocompleter').options.loadingClass;
+          elem.addClass(loadingClass);
+          definitions[source].then(function (struct) {
+            elem.removeClass(loadingClass);
+            data.items = itemsCache[source] = getItems(source, struct);
+          });
+        } else {
+          data.items = items;
+        }
+      });
+
     }
   };
 });
@@ -204,19 +241,27 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
 }]);
 
 kitin.directive('kitinSearchEntity', [function() {
+
+  function nameRepr(d) {
+    return d.name || [d.familyName, d.givenName].join(', ');
+  }
+
+  function truncate(s, maxChars) {
+    maxChars = maxChars || 70;
+    return s.length > maxChars ? s.substr(0, maxChars) + '...' : s;
+  }
+
   return {
     require: '^kitinLinkEntity',
     link: function(scope, elem, attrs, kitinLinkEntity) {
       var linker = kitinLinkEntity;
 
-      /* TODO: IMPROVE: replace current autocomplete mechanism and use angular
-      templates ($compile) all the way.. If it is fast enough.. */
+      // TODO: IMPROVE: replace current autocomplete mechanism and use angular
+      // templates ($compile).. If that is fast enough..
       var filterParams = attrs.filter;
       var onSelect = attrs.onselect;
       var templateId = attrs.completionTemplate;
       var template = _.template(jQuery('#' + templateId).html());
-      var selected = false;
-      var isAuthorized = false;
 
       elem.autocomplete(attrs.serviceUrl, {
         inputClass: null,
@@ -238,48 +283,16 @@ kitin.directive('kitinSearchEntity', [function() {
 
         processData: function (doc) {
           if (!doc|| !doc.list) {
-            isAuthorized = false;
-            selected = false;
             console.log("Found no results!"); // TODO: notify no match to user
             return [];
           }
           return doc.list.map(function(item) {
-            result = item.data;
-            result['authorized'] = item.authorized;
-            result['identifier'] = item.identifier;
-            return {value: item.data.controlledLabel, data: result};
+            return {value: item.data.controlledLabel, data: item.data};
           });
-        },  
-
-        showResult: function (value, data) {
-
-          var maxChars = 70; // max chars
-          
-          // David’s temporary parsers
-
-          var parseName = function(d) {
-            return d.name || [d.familyName, d.givenName].join(', ');
-          };
-
-          var parsed = {
-            name:  parseName(data),
-            dob:   [data.birthYear, data.deathYear].join('–'),
-            title: data.personTitle || '',
-            about: data.note && data.note.length ? data.note.map(function(note) {
-                return note.length > maxChars ? note.substr(0, maxChars) + '...' : note;
-              }) : [],
-            persona: data.hasPersona && data.hasPersona.length ? data.hasPersona.map(function(persona) {
-                return parseName(persona);
-              }) : []
-          };
-
-          return template({data: data, parsed: parsed});
         },
 
-        onFinish: function() {
-          if (selected && isAuthorized) {
-            // ...
-          }
+        showResult: function (value, data) {
+          return template({data: data, nameRepr: nameRepr, truncate: truncate});
         },
 
         displayValue: function (value, data) {
@@ -287,19 +300,10 @@ kitin.directive('kitinSearchEntity', [function() {
         },
 
         onNoMatch: function() {
-          selected = true;
-          isAuthorized = false;
-          /*
-          // TODO: This works only for creator atm
-          scope.subj[attrs.kitinRel].familyName = param.familyName;
-          scope.editable = true;
-          */
-          //scope.$apply();
+          // TODO: create new?
         },
 
         onItemSelect: function(item, completer) {
-          selected = true;
-
           var owner = scope.subject;
           // TODO: if multiple, else set object (and *link*, not copy (embed copy in view?)...)
           linker.doAdd(item.data);
@@ -316,7 +320,7 @@ kitin.directive('kitinSearchEntity', [function() {
       elem.data('autocompleter').dom.$results[0].addEventListener('click', function(e) {
         if ( e.target.className == 'what' ) {
           e.stopPropagation();
-          window.open('http://google.com');
+          //window.open('http://google.com');
         }
       }, true);
     }
