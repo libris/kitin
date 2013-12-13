@@ -45,16 +45,15 @@
 
 <div class="cols">
   <div class="col6">
-
-  <div data-ng-repeat="(key, container) in schemeContainer.byScheme" class="scheme"
+    <div data-ng-repeat="(key, container) in schemeContainer.byScheme" class="scheme"
        data-ng-init="scheme = conceptSchemes.byNotation[key] || {'title': key}">
-    <h3>{{ scheme.alternative || scheme.title || scheme.title_en }}</h3>
-    <div data-kitin-link-entity
+      <h3>{{ scheme.alternative || scheme.title || scheme.title_en }}</h3>
+      <div data-kitin-link-entity
           data-subject="container" data-link-multiple="concepts" data-type="Concept"
           data-search-template="search-subject"
           data-view-template="view-subject">
+      </div>
     </div>
-  </div>
 
   <script type="text/ng-template" id="search-subject">
     <label>
@@ -98,10 +97,12 @@
       </div>
     </div>
   </script>
-
-  <h3>Andra ämnesordssystem</h3>
+  </div>
+</div>
+  
   <div class="cols">
-    <div class="col3">
+  <h3>Andra ämnesordssystem</h3>
+    <div class="col3">  
       <label>
         <input type="text" placeholder="Nytt ämnesord" data-kitin-autocomplete="subject"
               data-kitin-add-to="schemeContainer"
@@ -128,8 +129,9 @@
   <!--<ul class="inline">
   <li data-ng-repeat="topic in work.subject"><a class="btn btn-small" href="{{ topic['@id'] }}"><i class="icon-tag"></i> {{ topic['@id'] }}</a></li>
   </ul>-->
-</div>
+<!-- </div> -->
 
+<div class="cols">
 <div class="col6">
   <h3>Klassifikation</h3>
   <!--
@@ -146,11 +148,10 @@
 
   </label>
 </div>
-
+</div>
 <script type="text/html" id="subject-completion-template">
 <div class="auth">
-  <h3>
-    <span class="name" title="<%= data['@id']%>"><%= data['prefLabel']%></span></h3>
+  <h3><span class="name" title="<%= data['@id']%>"><%= data['prefLabel']%></span></h3>
     <% if (data['hiddenLabel']) { %>
       <div><span class="muted">Används ej: <%= data['hiddenLabel']%></span></div>
     <% } %>  
@@ -167,9 +168,8 @@
     <% if (data['authorized']) { %>
       <span class="what"><i class="fa fa-bookmark"></i>Aukt.</span>
     <% } %>
-  
 </div>
 </script>
-</div>
+
 
 {% endraw %}
