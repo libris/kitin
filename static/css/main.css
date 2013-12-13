@@ -1117,6 +1117,65 @@ ul.tags.suggestions li a {
 .tagsinput.free ul.tags li.add input {
   padding-left: 0;
 }
+/* person suggest */
+.person-suggest label i {
+  position: absolute;
+  color: #aaa;
+  margin: 6px 0 0 6px;
+}
+.person-suggest label input[type="text"] {
+  padding-left: 26px;
+}
+.col6 .person-suggest label input[type="text"] {
+  width: 445px;
+}
+.persons {
+  list-style: none;
+  margin: -6px 0 12px;
+  padding: 0;
+}
+.persons > li {
+  position: relative;
+  border-bottom: 1px dotted #ccc;
+  padding-top: 6px;
+}
+.persons > li .check {
+  color: #aaa;
+  margin-right: 2px;
+  cursor: pointer;
+}
+.persons > li .check:hover {
+  color: #222222;
+}
+.persons > li.main .check {
+  color: #222;
+  cursor: default;
+}
+.persons > li .name {
+  display: inline-block;
+}
+.persons > li .delete {
+  position: absolute;
+  right: 0;
+  top: 6px;
+  display: none;
+}
+.persons > li:hover .delete {
+  display: inline-block;
+  color: #bbbbbb;
+}
+.persons > li .delete:hover {
+  color: #fa1963;
+}
+.persons > li .auth {
+  padding-left: 6px;
+  margin-left: 3px;
+  border-left: 1px solid #ddd;
+  font-size: 11px;
+}
+.persons > li .tagsinput {
+  margin-bottom: 2px;
+}
 /* Override bootstrap forms */
 select,
 textarea,
