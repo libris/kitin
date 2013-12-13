@@ -301,15 +301,15 @@
             <thead data-ng-if="instance.identifier.length">
               <tr>
                 <td>
-                  <!-- TODO move error handing
-                  <span class="lbl_inline lbl"
-                        data-ng-hide="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length">{{ "ISBN" }}</span>
-                  <span class="lbl_inline lbl error_label"
-                        data-ng-show="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length">{{ "ISBN" }}</span>
+                  <span class="lbl-inline lbl"
+                        data-ng-hide="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length">{{ "ISBN" }}                        
+                  </span>
+                        
+                  <span class="lbl-inline lbl error-label"
+                        data-ng-show="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length">{{ "ISBN" }} 
                   <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_value">(Fel numeriskt värde)</span>
                   <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_length">(Fel längd)</span>
-                  -->
-                  <span class="lbl">{{ "ISBN" }}</span>
+                  </span>
                 </td>
                 <td>
                   <span class="lbl">{{ "ISBN-notering" }}</span>
@@ -375,13 +375,6 @@
               <td></td>
             </tr>
           </thead>
-          <tfoot>
-            <tr>
-              <td colspan="4">
-                <button class="add-thing btn-link" data-ng-click="addObject(instance, 'publication', 'ProviderEvent', 'publisher')">{{ 'Lägg till utgivning' }} </button>
-              </td>
-            </tr>
-          </tfoot>
           <tbody>
             <tr data-ng-repeat="publication in instance.publication" class="">
               <td>
@@ -411,6 +404,13 @@
                 </button>
               </td>
             </tr>
+          <tfoot>
+            <tr>
+              <td colspan="4">
+                <button class="add-thing btn-link" data-ng-click="addObject(instance, 'publication', 'ProviderEvent', 'publisher')">{{ 'Lägg till utgivning' }} </button>
+              </td>
+            </tr>
+          </tfoot>
           </table>
        </div>          
     </div>
@@ -525,7 +525,7 @@
     </ng-form>
 
     <h2>{{ "Ämnesord och klassifikation" }}<i></i></h2>
-    <div class="cols"
+    <div
          data-ng-include="'/partials/edit_subject'" onload="work = record.about.instanceOf">
     </div>
   </section>
