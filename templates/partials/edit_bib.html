@@ -197,15 +197,15 @@
             <thead data-ng-if="instance.identifier.length">
               <tr>
                 <td>
-                  <!-- TODO move error handing
-                  <span class="lbl_inline lbl"
-                        data-ng-hide="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length">{{ "ISBN" }}</span>
-                  <span class="lbl_inline lbl error_label"
-                        data-ng-show="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length">{{ "ISBN" }}</span>
+                  <span class="lbl-inline lbl"
+                        data-ng-hide="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length">{{ "ISBN" }}                        
+                  </span>
+                        
+                  <span class="lbl-inline lbl error-label"
+                        data-ng-show="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length">{{ "ISBN" }} 
                   <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_value">(Fel numeriskt värde)</span>
                   <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_length">(Fel längd)</span>
-                  -->
-                  <span class="lbl">{{ "ISBN" }}</span>
+                  </span>
                 </td>
                 <td>
                   <span class="lbl">{{ "ISBN-notering" }}</span>
