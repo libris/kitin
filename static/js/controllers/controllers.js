@@ -359,7 +359,7 @@ kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, rec
     if (target) {
       var $dataTable = angular.element('[data-ng-target='+target+']');
       $timeout(function() {
-        $dataTable.find('tr:last input:first').focus();
+        $dataTable.find('tbody tr:last input:first').focus();
       });
     }
   };

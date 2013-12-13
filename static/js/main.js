@@ -86,3 +86,36 @@ $(document).on("click", function (evt) {
     $('#grid').toggle();
   }
 });
+
+
+var rand = function(min, max) {
+  return min + Math.floor(Math.random()*(max-min));
+};
+
+$(function() {
+  $.easing.libris = function (x, t, b, c, d) {
+    return -c * ((t=t/d-1)*t*t*t - 1) + b;
+  };
+  var c = function() {
+    return $('<i>').text('❄').css({
+      fontStyle: 'normal',
+      zIndex: 100,
+      position: 'fixed',
+      top:-100,
+      left: rand(0, $(window).width()),
+      fontSize: rand(20,40)+'px',
+      fontFamily: 'sans-serif',
+      color:'rgb(' + [rand(100,200), rand(100,200), rand(0,200)].join(',') + ')'
+    }).animate({
+      top: $(window).height()+100
+    }, rand(4000,12000), 'libris', function() {
+      $(this).remove();
+    }).appendTo(document.body);
+  };
+  $(document).on('keyup', function snow(e) {
+    if ( e.ctrlKey && e.which == 83 ) {
+      setInterval(c, 100);
+      $(document).off('keyup', snow);
+    }
+  });
+});

@@ -1013,8 +1013,8 @@ ul.tags {
 ul.tags li {
   display: inline-block;
   margin: 0 1px 5px 0;
+  padding: 2px 8px 3px 8px;
   font-size: 12px;
-  padding: 3px 8px 3px 10px;
   background: #eee;
   color: #111;
   border-radius: 2px;
@@ -1051,11 +1051,12 @@ ul.tags li.add i {
   margin: 0 2px 0 6px;
 }
 ul.tags li.add input {
-  width: 100px;
+  width: 110px;
   font-size: 12px;
-  height: 22px;
+  height: 20px;
   margin: 0;
   padding: 0 8px 0 0;
+  line-height: 16px;
 }
 ul.tags li.add input::-webkit-input-placeholder {
   font-size: 12px;
@@ -1099,6 +1100,82 @@ ul.tags.suggestions li i {
 }
 ul.tags.suggestions li a {
   color: #27b492;
+}
+.tagsinput.free ul.tags {
+  border: 1px solid #bbb;
+  border-radius: 3px;
+  padding: 7px 7px 0 7px;
+}
+.tagsinput.free ul.tags.suggestions {
+  border-radius: 0;
+  border: none;
+  padding: 4px 0 0 0;
+}
+.tagsinput.free ul.tags li.add {
+  border: none;
+  padding: 2px 6px 2px 0;
+}
+.tagsinput.free ul.tags li.add input {
+  padding-left: 0;
+}
+/* person suggest */
+.person-suggest label i {
+  position: absolute;
+  color: #aaa;
+  margin: 6px 0 0 6px;
+}
+.person-suggest label input[type="text"] {
+  padding-left: 26px;
+}
+.col6 .person-suggest label input[type="text"] {
+  width: 445px;
+}
+.persons {
+  list-style: none;
+  margin: 4px 0;
+  padding: 0;
+}
+.persons > li {
+  position: relative;
+  border-top: 1px dotted #ccc;
+  padding-top: 6px;
+}
+.persons > li .check {
+  color: #aaa;
+  margin-right: 2px;
+  cursor: pointer;
+}
+.persons > li .check:hover {
+  color: #222222;
+}
+.persons > li.main .check {
+  color: #222;
+  cursor: default;
+}
+.persons > li .name {
+  display: inline-block;
+}
+.persons > li .delete {
+  position: absolute;
+  right: 0;
+  top: 6px;
+  display: none;
+}
+.persons > li:hover .delete {
+  display: inline-block;
+  color: #bbbbbb;
+}
+.persons > li .delete:hover {
+  color: #fa1963;
+}
+.persons > li .auth {
+  padding-left: 6px;
+  margin-left: 3px;
+  border-left: 1px solid #ddd;
+  font-size: 11px;
+}
+.persons > li .tagsinput {
+  margin-bottom: 2px;
 }
 /* Override bootstrap forms */
 select,
@@ -2138,3 +2215,4 @@ div.array > section.entity > div:nth-of-type(even) {
   left: 0;
   display: none;
 }
+/*# sourceMappingURL=/static/css/main.css.map */
