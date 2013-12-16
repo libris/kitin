@@ -58,7 +58,7 @@
         <div>
           <span class="lbl">{{ 'Huvuduppslag' }}</span>
           <div data-kitin-link-entity
-              data-ng-init="label = 'Huvuduppslag'"
+              data-ng-init="label = 'Lägg till huvuduppslag'"
               data-subject="work" data-link="'attributedTo'" data-type="Person"
               data-view-template="render-person"
               data-search-template="render-search-box" tabindex="0">
@@ -76,7 +76,7 @@
       </div>
     </div>
 
-    <!-- FIXME: dummy example; implement and remove -->
+    <!-- TODO: dummy example; implement and remove
     <hr>
     <div class="cols">
       <div class="col6">
@@ -86,9 +86,9 @@
           <ul class="persons">
             <li class="main">
               <i class="fa fa-check-square-o check"></i>
-              <div class="name">
-                <strong>Jansson, Tove</strong>
-                <span class="dob">1921-1870</span>
+              <div class="main">
+                <span class="name">Jansson, Tove</span>
+                <span class="timeSpan">1921-1870</span>
                 <a class="auth" href="#"><i class="fa fa-check"></i> Aukt.</a>
               </div>
               <div class="tagsinput">
@@ -102,9 +102,9 @@
             </li>
             <li>
               <i class="fa fa-square-o check"></i>
-              <div class="name">
-                <strong>Karlsson, Owe</strong>
-                <span class="dob">1811-1972</span>
+              <div class="main">
+                <span class="name">Karlsson, Owe</span>
+                <span class="timeSpan">1811-1972</span>
               </div>
               <div class="tagsinput">
                 <ul class="tags">
@@ -115,9 +115,9 @@
             </li>
             <li>
               <i class="fa fa-square-o check"></i>
-              <div class="name">
-                <strong>Karlsson, Owe</strong>
-                <span class="dob">1811-1972</span>
+              <div class="main">
+                <span class="name">Karlsson, Owe</span>
+                <span class="timeSpan">1811-1972</span>
                 <a class="auth" href="#"><i class="fa fa-check"></i> Aukt.</a>
               </div>
               <div class="tagsinput">
@@ -129,63 +129,64 @@
               <a class="delete" href="#"><i class="fa fa-times"></i></a>
             </li>
           </ul>
-          <label>
+          <label class="find-entity">
             <i class="fa fa-search"></i>
             <input type="text" placeholder="Lägg till person">
           </label>
         </div>
       </div>
     </div>
+    -->
 
     <hr>
 
     <script type="text/ng-template" id="render-search-box">
-      <label data-ng-show="dosearch" data-ng-init="dosearch = false">
+      <label class="find-entity">
+        <i class="fa fa-search"></i>
         <input class="input-large" type="text" placeholder="{{ label }}"
               data-kitin-search-entity
               data-service-url="/suggest/person"
-              data-onselect="dosearch = false"
               data-completion-template="auth-completion-template" />
       </label>
-      <button class="add-thing btn-link" data-ng-click="dosearch = true">{{ label }}</button>
     </script>
 
     <script type="text/ng-template" id="render-person">
       <div data-ng-if="isLinked(object)" class="entity person linked" tabindex="0">
-        <div class="col4">
+        <div class="main">
           <span onload="person = object" data-ng-include="'render-person-name'"></span>
-          &nbsp;
-          <span class="what"><i class="fa fa-check-circle"></i></span>
+          <a class="auth" href="#"><i class="fa fa-check"></i> Aukt.</a>
         </div>
-        <div class="addon" data-ng-include="'roles-and-delete'"></div>
+        <div data-ng-include="'roles'"></div>
+        <a data-ng-if="!editable.on" class="delete" href="#"
+           data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a>
       </div>
       <div data-ng-if="!isLinked(object)" class="entity person embedded"
-            data-ng-init="editable = {on: !(object.controlledLabel || object.givenName)}" tabindex="0">
-        <div class="col4" data-ng-hide="editable.on">
+            data-ng-init="editable = {on: !(object.controlledLabel || object.givenName || object.name)}" tabindex="0">
+        <div data-ng-hide="editable.on">
             <label data-ng-click="editable.on = !editable.on">
               <span onload="person = object" data-ng-include="'render-person-name'"></span>
-              &nbsp;</label>
+            </label>
         </div>
-        <div class="addon" data-ng-show="editable.on">
+        <div data-ng-show="editable.on">
           <label>
-            <input data-inplace class="input-mini" type="text" placeholder="Förnamn"
+            <input data-inplace class="" type="text" placeholder="Förnamn"
                    data-ng-model="object.givenName" />
             <span class="lbl">{{ "Förnamn" }}</span>
           </label>
           <label>
-            <input data-inplace class="input-mini" type="text" placeholder="Släktnamn"
+            <input data-inplace class="" type="text" placeholder="Släktnamn"
                    data-ng-model="object.familyName" />
             <span class="lbl">{{ "Släktnamn" }}</span>
           </label>
         </div>
-        <div class="addon" data-ng-show="editable.on">
+        <div data-ng-show="editable.on">
           <label>
-            <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ"
+            <input data-inplace class="authdependant" type="text" placeholder="ÅÅÅÅ"
                    data-ng-model="object.birthYear" />
             <span class="lbl">{{ "Född" }}</span>
           </label>
           <label>
-            <input data-inplace class="input-mini authdependant" type="text" placeholder="ÅÅÅÅ" 
+            <input data-inplace class="authdependant" type="text" placeholder="ÅÅÅÅ" 
                    data-ng-model="object.deathYear" />
             <span class="lbl">{{ "Död" }}</span>
           </label>
@@ -195,35 +196,32 @@
           </div>
           -->
         </div>
-        <div class="addon" data-ng-include="'roles-and-delete'"></div>
+        <div data-ng-include="'roles'"></div>
+        <a data-ng-if="!editable.on" class="delete" href="#"
+           data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a>
       </div>
     </script>
 
-    <script type='text/ng-template' id="roles-and-delete">
-      <div data-kitin-link-entity
+    <script type='text/ng-template' id="roles">
+      <ul data-kitin-link-entity
+          class="tags"
           data-subject="personRoleMap"
           data-link-multiple="object['@id']" data-type="ObjectProperty"
           data-view-template="render-role"
           data-search-template="render-search-role">
-      </div>
-      <button class="btn-link" data-ng-show="editable.on"
+      </ul>
+      <button class="btn-link" data-ng-if="editable.on"
               data-ng-click="editable.on = false"><i class="fa fa-check"></i></button>
-      <label data-ng-hide="editable.on">
-        <button class="btn-link on-hover" data-ng-click="doRemove($index)">
-            <i class="fa fa-times"></i></button>
-      </label>
     </script>
 
     <script type='text/ng-template' id="render-role">
-      <span class="tag">
-        {{ object.label }} <em>({{ object.notation }})</em>
-        <button class="btn-link" data-ng-click="doRemove($index)"
-                ><i class="fa fa-times"></i></button>
-      </span>
+      {{ object.label }} <em>({{ object.notation }})</em>
+      <a href="#" data-ng-click="doRemove($index)"><i class="no">&times;</i></a>
     </script>
     <script type='text/ng-template' id="render-search-role">
-      <label>
-        <input data-inplace class="input-large authdependant" type="text" placeholder="Roll"
+      <label class="add">
+        <i class="fa fa-search"></i>
+        <input data-inplace type="text" placeholder="Roll"
               data-kitin-search-entity data-source="relators"
               data-completion-template="select-role-template" />
       </label>

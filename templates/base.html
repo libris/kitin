@@ -77,9 +77,13 @@ Vi rekommenderar uppdaterade versioner av Google Chrome eller Mozilla Firefox f√
     <!-- shared AngularJS templates -->
 
     <script type="text/ng-template" id="render-person-name">
-      {{ person.givenName }}
-      {{ person.familyName }}<span data-ng-show="person.birthYear || person.deathYear">,
-        <span class="muted">{{ person.birthYear }}-{{ person.deathYear }}</span></span>
+      <span data-ng-if="person.givenName || person.familyName" class="name">
+        {{ person.givenName }} {{ person.familyName }}
+      </span>
+      <span data-ng-if="person.name" class="name">{{ person.name }}</span>
+      <span data-ng-if="person.personTitle">({{ person.personTitle }})</span>
+      <span data-ng-if="person.birthYear || person.deathYear">
+        <span class="timeSpan">{{ person.birthYear }}-{{ person.deathYear }}</span></span>
     </script>
 
     {% endraw %}

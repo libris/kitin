@@ -1009,10 +1009,9 @@ ul.tags {
   margin: 3px 0 0 0;
   padding: 0;
 }
-.tag,
 ul.tags li {
   display: inline-block;
-  margin: 0 1px 5px 0;
+  margin: 0 1px 5px 5px;
   padding: 2px 8px 3px 8px;
   font-size: 12px;
   background: #eee;
@@ -1032,25 +1031,36 @@ ul.tags li i.no:hover {
 ul.tags li a {
   color: #111111;
 }
+ul.tags li a:hover {
+  text-decoration: none;
+}
+ul.tags li a:hover > i.no {
+  color: #fa1963;
+}
 ul.tags li a .fa-check {
   color: #27b492;
   font-size: 11px;
   margin-right: 0;
   font-weight: 100;
 }
-ul.tags li.add {
+ul.tags li:last-child {
   background: none;
   border: 1px solid #ccc;
   padding: 1px 6px 1px 0;
   position: relative;
-  top: -1px;
+  top: 1px;
 }
-ul.tags li.add i {
+ul.tags li:last-child label > input[type="text"],
+ul.tags li:last-child label > input[type="text"]:focus {
+  border: none;
+  box-shadow: none;
+}
+ul.tags li:last-child i {
   color: #aaa;
   font-size: 12px;
   margin: 0 2px 0 6px;
 }
-ul.tags li.add input {
+ul.tags li:last-child input[type="text"] {
   width: 110px;
   font-size: 12px;
   height: 20px;
@@ -1058,18 +1068,13 @@ ul.tags li.add input {
   padding: 0 8px 0 0;
   line-height: 16px;
 }
-ul.tags li.add input::-webkit-input-placeholder {
+ul.tags li:last-child input[type="text"]::-webkit-input-placeholder,
+ul.tags li:last-child input[type="text"]:-moz-input-placeholder {
   font-size: 12px;
   color: #dddddd;
 }
-ul.tags li.add input:-moz-input-placeholder {
-  font-size: 12px;
-  color: #dddddd;
-}
-ul.tags li.add :focus::-webkit-input-placeholder {
-  color: #ffffff;
-}
-ul.tags li.add :focus:-moz-input-placeholder {
+ul.tags li:last-child input[type="text"]:focus::-webkit-input-placeholder,
+ul.tags li:last-child input[type="text"]:focus:-moz-input-placeholder {
   color: #ffffff;
 }
 .tagsinput .suggestions {
@@ -1092,13 +1097,13 @@ ul.tags.suggestions li.title {
 ul.tags.suggestions li:last-child {
   border: none;
 }
-ul.tags.suggestions li i {
+ul.tags.suggestions li li i {
   font-size: 12px;
   font-weight: normal;
   margin-left: 0;
   color: #27b492;
 }
-ul.tags.suggestions li a {
+ul.tags.suggestions li li a {
   color: #27b492;
 }
 .tagsinput.free ul.tags {
@@ -1119,15 +1124,16 @@ ul.tags.suggestions li a {
   padding-left: 0;
 }
 /* person suggest */
-.person-suggest label i {
+label.find-entity i {
   position: absolute;
   color: #aaa;
   margin: 6px 0 0 6px;
 }
-.person-suggest label input[type="text"] {
+label.find-entity input[type="text"] {
   padding-left: 26px;
 }
-.col6 .person-suggest label input[type="text"] {
+.col6 .entity input[type="text"],
+.col6 label.find-entity input[type="text"] {
   width: 445px;
 }
 .persons {
@@ -1152,22 +1158,30 @@ ul.tags.suggestions li a {
   color: #222;
   cursor: default;
 }
-.persons > li .name {
+.persons > li div.main {
   display: inline-block;
 }
+.entity .name,
+.persons > li .name {
+  font-weight: bold;
+}
+.entity .delete,
 .persons > li .delete {
   position: absolute;
   right: 0;
   top: 6px;
   display: none;
 }
+.entity:hover .delete,
 .persons > li:hover .delete {
   display: inline-block;
   color: #bbbbbb;
 }
+.entity .delete:hover,
 .persons > li .delete:hover {
   color: #fa1963;
 }
+.entity .auth,
 .persons > li .auth {
   padding-left: 6px;
   margin-left: 3px;

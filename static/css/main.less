@@ -446,31 +446,53 @@ li.draft a:hover {background-color: #efefef;}
 
 /* tags */
 .tagsinput{margin-bottom:12px}
-ul.tags{list-style:none;margin:3px 0 0 0;padding:0}
-.tag,
-ul.tags li{
-  display: inline-block; margin: 0 1px 5px 0; padding: 2px 8px 3px 8px;
+ul.tags { list-style:none;margin:3px 0 0 0;padding:0; }
+ul.tags li {
+  display: inline-block; margin: 0 1px 5px 5px; padding: 2px 8px 3px 8px;
   font-size:12px;
   background: #eee; color: #111;
   border-radius:2px;
+
+  i.no {margin-left:6px;font-weight:700;color:rgba(0,0,0,.4);cursor:pointer;font-size:14px}
+  i.no:hover {color:#000}
+  a {color:#111}
+  a:hover {
+    text-decoration: none;
+    > i.no { color: @red; }
+  }
+  a .fa-check {color:@green2;font-size:11px;margin-right:0;font-weight:100}
+
+  &:last-child {
+    background: none;
+    border: 1px solid #ccc;
+    padding: 1px 6px 1px 0;
+    position: relative; top: 1px;
+
+    label > input[type="text"],
+    label > input[type="text"]:focus { border: none; box-shadow: none; }
+
+    i {color:#aaa;font-size:12px;margin:0 2px 0 6px}
+    input[type="text"] {
+      width: 110px;
+      font-size:12px;height:20px;margin:0;padding:0 8px 0 0;line-height:16px;
+
+      &::-webkit-input-placeholder,
+      &:-moz-input-placeholder {font-size:12px;color:#ddd}
+      &:focus::-webkit-input-placeholder,
+      &:focus:-moz-input-placeholder {color:#fff}
+    }
+  }
 }
-ul.tags li i.no{margin-left:6px;font-weight:700;color:rgba(0,0,0,.4);cursor:pointer;font-size:14px}
-ul.tags li i.no:hover{color:#000}
-ul.tags li a{color:#111}
-ul.tags li a .fa-check{color:@green2;font-size:11px;margin-right:0;font-weight:100}
-ul.tags li.add{background:none;border:1px solid #ccc;padding:1px 6px 1px 0;position:relative;top:-1px}
-ul.tags li.add i{color:#aaa;font-size:12px;margin:0 2px 0 6px}
-ul.tags li.add input{width:110px;font-size:12px;height:20px;margin:0;padding:0 8px 0 0;line-height:16px}
-ul.tags li.add input::-webkit-input-placeholder{font-size:12px;color:#ddd}
-ul.tags li.add input:-moz-input-placeholder{font-size:12px;color:#ddd}
-ul.tags li.add :focus::-webkit-input-placeholder{color:#fff}
-ul.tags li.add :focus:-moz-input-placeholder{color:#fff}
+
 .tagsinput .suggestions{border-top:1px solid #ddd;padding-top:6px;margin-top:4px}
-ul.tags.suggestions li{padding:0px 10px 0 7px;border-right:1px solid #ddd;background:none;margin:0}
-ul.tags.suggestions li.title{padding:0;background:none;font-weight:bold;border:none}
-ul.tags.suggestions li:last-child{border:none}
-ul.tags.suggestions li i{font-size:12px;font-weight:normal;margin-left:0;color:@green2}
-ul.tags.suggestions li a{color:@green2}
+ul.tags.suggestions li {
+  padding:0px 10px 0 7px;border-right:1px solid #ddd;background:none;margin:0;
+
+  &.title{padding:0;background:none;font-weight:bold;border:none}
+  &:last-child{border:none}
+  li i{font-size:12px;font-weight:normal;margin-left:0;color:@green2}
+  li a{color:@green2}
+}
 
 .tagsinput.free ul.tags{border:1px solid #bbb;border-radius:3px;padding:7px 7px 0 7px}
 .tagsinput.free ul.tags.suggestions{border:none;border-radius:0;border:none;padding:4px 0 0 0}
@@ -478,18 +500,26 @@ ul.tags.suggestions li a{color:@green2}
 .tagsinput.free ul.tags li.add input{padding-left:0}
 
 /* person suggest */
-.person-suggest label i{position:absolute;color:#aaa;margin:6px 0 0 6px}
-.person-suggest label input[type="text"]{padding-left:26px;}
-.col6 .person-suggest label input[type="text"]{width:445px}
+label.find-entity i { position: absolute; color: #aaa; margin:6px 0 0 6px }
+label.find-entity input[type="text"] { padding-left: 26px; }
+.col6 .entity input[type="text"],
+.col6 label.find-entity input[type="text"] { width: 445px; }
+
 .persons{list-style:none;margin:4px 0;padding:0}
 .persons>li{position:relative;border-top:1px dotted #ccc;padding-top:6px}
 .persons>li .check{color:#aaa;margin-right:2px;cursor:pointer}
 .persons>li .check:hover{color:#222}
 .persons>li.main .check{color:#222;cursor:default}
-.persons>li .name{display:inline-block}
+.persons>li div.main {display:inline-block}
+.entity .name,
+.persons>li .name { font-weight: bold; }
+.entity .delete,
 .persons>li .delete{position:absolute;right:0;top:6px;display:none;}
+.entity:hover .delete,
 .persons>li:hover .delete{display:inline-block;color:#bbb}
+.entity .delete:hover,
 .persons>li .delete:hover{color:@red}
+.entity .auth,
 .persons>li .auth{padding-left:6px;margin-left:3px;border-left:1px solid #ddd;font-size:11px}
 .persons>li .tagsinput{margin-bottom:2px}
 
