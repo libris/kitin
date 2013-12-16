@@ -115,6 +115,9 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
         $scope.objects = obj;
       } else {
         $scope.object = obj;
+        $scope.$watch($attrs.subject +'.'+ link, function (newVal, oldVal) {
+          $scope.object = newVal;
+        });
       }
 
       this.doAdd = function (data) {
