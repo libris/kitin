@@ -108,22 +108,22 @@
 </div>
 <script type="text/html" id="subject-completion-template">
 <div class="auth">
-  <h3><span class="name" title="<%= data['@id']%>"><%= data['prefLabel']%></span></h3>
+  <h4>
+    <span class="name" title="<%= data['@id']%>"><%= data['prefLabel']%></span>
+      <% if (data['@id']) { %>
+        <span class="what">Se aukt. post <i class="fa fa-sign-out"></i></span>
+      <% } %>
+  </h4>
+    <% if (data['historyNote']) { %>
+      <div><em><%= data['historyNote']%></em></div>
+    <% } %>
     <% if (data['hiddenLabel']) { %>
       <div><span class="muted">Används ej: <%= data['hiddenLabel']%></span></div>
     <% } %>  
     <% if (data['scopeNote']) { %>
-      <div>
-      <label><%= data['scopeNote']%>
-      <span class="lbl">Notering</span>
-      </label>
-      </div>
-    <% } %>
-    <% if (data['historyNote']) { %>
-      <div><em><%= data['historyNote']%></em></div>
-    <% } %>  
-    <% if (data['authorized']) { %>
-      <span class="what"><i class="fa fa-bookmark"></i>Aukt.</span>
+    <ul class="about">
+      <li><%= data['scopeNote']%></li>
+    </ul>
     <% } %>
 </div>
 </script>
