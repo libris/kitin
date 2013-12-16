@@ -18,27 +18,30 @@
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" placeholder="Övrig titelinformation" data-ng-model="instance.keyTitle.titleValue">{{ instance.keyTitle.titleValue }}</textarea>       
         </label>
         </ng:switch>
-        <label class="ng-binding">
-          <span class="lbl">{{ "Språk" }}</span>
-          <div data-kitin-link-entity tabindex="0"
-              data-subject="instance.instanceOf"
-              data-link="'language'" data-type="Language"
-              data-view-template="render-language"
-              data-search-template="render-search-language">
-          </div>
-        </label>
+        <span class="lbl">{{ "Språk" }}</span>
+        <div data-kitin-link-entity
+            data-subject="instance.instanceOf"
+            data-link="'language'" data-type="Language"
+            data-view-template="render-language"
+            data-search-template="render-search-language">
+        </div>
         <script type="text/ng-template" id="render-language">
-          <div class="entity linked">
+          <div class="entity linked" tabindex="0">
             {{ object.prefLabel }}
             <i data-ng-show="object.langCode">({{ object.langCode }})</i>
-            <button class="btn-link on-hover" data-ng-click="doRemove($index)"><i class="fa fa-times"></i></button>
+            <a data-ng-if="!editable.on" class="delete" href="#"
+              data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a>
           </div>
         </script>
         <script type="text/ng-template" id="render-search-language">
-          <input data-inplace class="input-large authdependant" type="text" placeholder="Språk"
-                data-no-value="{{ object.prefLabel }} ({{ object.langCode }})"
-                data-kitin-search-entity data-source="languages"
-                data-completion-template="select-language-template" />
+          <label class="find-entity">
+            <i class="fa fa-search"></i>
+            <input data-inplace class="input-large authdependant" type="text"
+                  placeholder="Lägg till språk"
+                  data-no-value="{{ object.prefLabel }} ({{ object.langCode }})"
+                  data-kitin-search-entity data-source="languages"
+                  data-completion-template="select-language-template" />
+          </label>
         </script>
         <script type="text/html" id="select-language-template">
           <div class="auth">
@@ -61,7 +64,7 @@
               data-ng-init="label = 'Lägg till huvuduppslag'"
               data-subject="work" data-link="'attributedTo'" data-type="Person"
               data-view-template="render-person"
-              data-search-template="render-search-box" tabindex="0">
+              data-search-template="render-search-box">
           </div>
         </div>
         <div>
