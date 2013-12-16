@@ -69,22 +69,28 @@ kitin.directive('isbnvalidator', function(isbnTools) {
 
 kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
 
-  var viewDiv = '<div ng-if="viewmode" ng-include="viewTemplate"></div>';
-  var template =
-      '<div ng-if="multiple">' +
-        '<div ng-repeat="object in objects">' + viewDiv + '</div>' +
-      '</div>' +
-      '<div ng-if="!multiple">' + viewDiv + '</div>' +
-      '<div ng-if="multiple || !viewmode" ng-include="searchTemplate"></div>';
-
   return {
     restrict: 'A',
 
-    template: template,
-
     scope: true,
 
-    controller: function($scope, $attrs) {
+    compile: function(element, attrs) {
+      var multiple = !!(attrs.linkMultiple);
+      var itemTag = element.is('ul, ol')? 'li' : 'div';
+      var viewDiv = '<div ng-if="viewmode" ng-include="viewTemplate"></div>';
+      var template;
+      if (multiple) {
+        template = '<'+ itemTag+' ng-if="objects" ng-repeat="object in objects"> ' +
+            viewDiv + '</'+ itemTag +'>' +
+          '<'+ itemTag +' ng-include="searchTemplate"></'+ itemTag +'>';
+      } else {
+        template = viewDiv +
+          '<div ng-if="!viewmode" ng-include="searchTemplate"></div>';
+      }
+      element.html(template);
+    },
+
+    controller: function($element, $scope, $attrs) {
 
       $scope.viewTemplate = $attrs.viewTemplate;
       $scope.searchTemplate = $attrs.searchTemplate;
