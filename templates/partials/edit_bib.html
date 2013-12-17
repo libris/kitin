@@ -264,16 +264,14 @@
       </div>
     </div>
     <div class="cols">
-
-      <!-- -->
-      <div class="col12">
+      <div class="col6">
         <div class="datatable" data-ng-target="isbnTable">
           <table>
             <thead data-ng-if="instance.identifier.length">
               <tr>
-                <td>
+                <td><!--TODO fix labels and error messages for identifiers-->
                   <span class="lbl-inline lbl"
-                        data-ng-hide="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length">{{ "ISBN" }}                        
+                        data-ng-hide="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length"><span data-ng-repeat="identifier in instance.identifier" data-ng-show="$first">{{ identifier.identifierScheme}}</span>                      
                   </span>
                         
                   <span class="lbl-inline lbl error-label"
@@ -283,19 +281,14 @@
                   </span>
                 </td>
                 <td>
-                  <span class="lbl">{{ "ISBN-notering" }}</span>
-                </td>
-                <td>
-                  <span class="lbl">Identifierare</span>
-                </td>
-                <td>
                   <span class="lbl">{{ "Notering" }}</span>
                 </td>
+
                 <td></td>
               </tr>
             </thead>
             <tbody>
-              <tr data-ng-repeat="identifier in instance.identifier">
+              <tr data-ng-repeat="identifier in instance.identifier"> 
                 <td>
                   <label>
                     <input type="text" data-inplace name="isbn_name" data-ng-model="identifier.identifierValue" placeholder="{{ identifier.identifierScheme }}" data-isbn-pattern="^$|^[0-9\-xX]*$" isbnvalidator/>
@@ -306,6 +299,7 @@
                     <input type="text" data-inplace class="ng-pristine ng-valid" data-ng-model="identifier.identifierNote" placeholder="ISBN Notering"/>
                   </label>
                 </td>
+<!--TODO make switch for other types of identifiers
                 <td>
                   <label>
                     <input data-inplace type="text" data-ng-model="identifier.identifierValue" placeholder="{{ identifier.identifierScheme }}"/>
@@ -316,6 +310,7 @@
                     <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="identifier.identifierNote" placeholder="Notering">
                   </label>
                 </td>
+-->
                 <td class="controls">
                   <button class="btn-link deleter" data-ng-click="removeObject(instance, 'identifier', $index)">
                     <i class="fa fa-times"></i>
@@ -325,8 +320,9 @@
             </tbody>
             <tfoot>
               <tr>
-                <td colspan="3">
-                  <button class="add-thing btn-link" data-ng-click="addObject(instance, 'identifier', 'ISBN', 'isbnTable')">{{ 'Lägg till ISBN' }} </button>
+                <td colspan="3"><!--TODO button for adding different identifiers -->
+                <span data-ng-repeat="identifier in instance.identifier" data-ng-show="$first">
+                  <button data-ng-if="identifier.identifierScheme == 'ISBN'" class="add-thing btn-link" data-ng-click="addObject(instance, 'identifier', 'ISBN', 'isbnTable')">{{ 'Lägg till ISBN' }} </button></span>
                 </td>
               </tr>
             </tfoot>
