@@ -274,6 +274,14 @@ kitin.directive('kitinSearchEntity', ['definitions', function(definitions) {
           return data.items;
         };
 
+        options.filter = function (result, inputval) {
+          var data = result.data;
+          var label = data[sourceCfg.labelKey].toLowerCase();
+          var code = data[sourceCfg.codeKey].toLowerCase();
+          var sel = inputval.toLowerCase();
+          return label.indexOf(sel) === 0 || code.indexOf(sel) === 0;
+        };
+
         elem.autocomplete(options);
         elem.on('focus', function () {
           var items = itemsCache[source];
