@@ -301,10 +301,9 @@
                   </label>
                 </td>
                 <td class="controls">
-                <span data-ng-repeat="identifier in instance.identifier" data-ng-show="$first">
-                  <button data-ng-if="identifier.identifierScheme == 'ISBN'" class="btn-link deleter" data-ng-click="removeObject(instance, 'identifier', $index)">
+                  <button class="btn-link deleter" data-ng-click="removeObject(instance, 'identifier', $index)">
                     <i class="fa fa-times"></i>
-                  </button></span>
+                  </button>
                 </td>
               </tr>
             </tbody>
@@ -345,10 +344,9 @@
                   </label>
                 </td>
                 <td class="controls">
-                <span data-ng-repeat="identifier in instance.identifier" data-ng-show="$first">
                   <button class="btn-link deleter" data-ng-click="removeObject(instance, 'identifier', $index)">
                     <i class="fa fa-times"></i>
-                  </button></span>
+                  </button>
                 </td>
               </tr>
             </tbody>
