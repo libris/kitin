@@ -1,14 +1,18 @@
 <h4>2013-12-18</h4>
 <p>Gränssnitt</p>
 <ul>
-  <li>Förbättrad complete för personer och ämnen. Semifunktionell prototyp av personhantering med tillägg av roller från definitionslista (förändingar av roller påverkar dock inte data som sparas).</li>
-  <li>Språk hämtas från definitionslista.</li>
-  <li>Header och marginaler i sök och editeringsvy förminskade för att ge en mer kompakt arbetsyta.</li>
-  <li>Förbättrad JSON-LD vy med tydligare entiteter.</li>
+  <li>Semifunktionell prototyp av personhantering med tillägg av roller (förändringar av roller påverkar ännu inte den data som sparas).</li>
+  <li>Ny hantering av definitionslistor (för t.ex. språk-, lands- och roll-/funktionskoder), med uppdaterad data.</li>
+  <li>Enhetlig teknik för sökning av auktoriteter och definitioner.</li>
+  <li>Förbättringar av sökning på personer och ämnen (ännu inget stöd för att skapa lokal definition av ett ämne).</li>
+  <li>Minskade marginaler i sidhuvud och marginaler för att ge en mer kompakt arbetsyta.</li>
+  <li>Förbättrat utseende i JSON-LD-vyn.</li>
 </ul>
-<p>Backend</p>
+<p>Libris XL</p>
 <ul>
-  <li>?</li>
+  <li>Fortsatt arbete med att hitta och skapa länkar till extraherade entiteter, nu inklusive  Organization och Work</li>
+  <li>ElasticSearch, tokenisering i index och möjlighet att ställa in konfigurering specifikt per indextyp</li>
+  <li>Förberedelse inför möjlighet att göra sökning mot externa kataloger via Z39.50. API som gör sökning mot metaproxy (där en testinstans i ett första steg söker mot LC Library of Congress, ESTER Estland och NLE Spanien) och returnerar metadata i JSON-LD.</li>
 </ul>
 <h4>2013-11-18</h4>
 <p>Gränssnitt</p>
@@ -16,7 +20,7 @@
   <li>Omstrukturerad layout efter användartester för att förbättra arbetsflöde och översikt</li>
   <li>Auktoritetssök, med grundläggande vy för att se aukt. post, fler detaljer finns under JSON-LD fliken.</li>
 </ul>
-<p>Backend</p>
+<p>Libris XL</p>
 <ul>
   <li>Vi har förbättrat katalogsystemets infrastruktur för inläsning, lagring, bearbetning och indexering av metadata samt arbetat med optimering av APIer och uppslag för relaterat metadata baserat på länkar.</li>
 </ul>
@@ -28,7 +32,7 @@
   <li>Länkar från bib-data till auth-data</li>
   <li>Uttryck namn+titel som verksentitet med huvuduppslag</li>
 </ul>
-<p>Backend</p>
+<p>Libris XL</p>
 <ul>
   <li>Interpunktion rensas i vanligt förekommande fält</li>
   <li>Förbättrad infrastruktur (sök-API, dokumenthantering, OAI-PMH-import)</li>
