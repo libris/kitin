@@ -2,25 +2,27 @@ var kitin = angular.module('kitin.controllers', []);
 
 kitin.controller('ModalCtrl', function($scope, $modal) {
   
-  $scope.opts = {
-    backdrop: true,
-    keyboard: true,
-    backdropClick: true,
-    // template:  t, // OR: templateUrl: 'path/to/view.html',
-    templateUrl: 'modal-edit-auth',
-    controller: 'OpenModalCtrl',
-    backdropFade: true,
-    dialogFade:false,
-    windowClass: 'wide'
-  };
-
-  $scope.open = function() {
-    var i = $modal.open($scope.opts);
+  
+  $scope.open = function(record) {
+    var opts = {
+      backdrop: 'static', // Shows backdrop but doesn't close dialog on click outside.
+      keyboard: true,
+      backdropClick: true,
+      templateUrl: 'modal-edit-auth',
+      controller: 'OpenModalCtrl',
+      backdropFade: true,
+      dialogFade:false,
+      windowClass: 'wide'
+    };
+    var i = $modal.open(opts);
   };
 });
 
-kitin.controller('OpenModalCtrl', function($scope, $modal) {
+kitin.controller('OpenModalCtrl', function($scope, $modal, $rootScope, $location) {
   $scope.close = function() {
+    $rootScope.path = $rootScope.recType = $rootScope.recId = "";
+    $rootScope.modalMode = false;
+    $location.search('m',null);
     $scope.$close();
   };
 });
@@ -132,11 +134,22 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
 });
 
 
-kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, records, definitions, userData, editUtil, $log) {
-  $scope.logger = $log;
+kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $timeout, $rootScope, $location, records, definitions, userData, editUtil) {
 
-  var recType = $routeParams.recType, recId = $routeParams.recId;
-  var path = "/record/" + recType + "/" + recId;
+  var recType = $rootScope.recType ? $rootScope.recType : $routeParams.recType;
+  var recId = $rootScope.recId ? $rootScope.recId : $routeParams.recId;
+  var path = $rootScope.path ? $rootScope.path : ["/record",recType,recId].join('/');
+  
+  $scope.$on('$routeUpdate', function() {
+    var modalParams = $location.$$search.m;
+    if(modalParams) {
+      $rootScope.modalMode = true;
+      var params = modalParams.split('\/').splice(1);
+      $rootScope.recType = recType = params[1];
+      $rootScope.recId = recId = params[2];
+      $rootScope.path = ['/record',recType, recId].join('/');
+    }
+  });
 
   var isNew = (recId === 'new');
   var newType = $routeParams.type;

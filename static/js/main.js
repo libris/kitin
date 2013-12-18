@@ -19,8 +19,11 @@ kitin.config(
               {templateUrl: '/partials/search'})
         // .when('/edit/auth/:recId',
         //       {templateUrl: '/partials/edit_auth'}) 
-        .when('/edit/:recType/:recId',
-              {templateUrl: '/partials/edit'})  
+        .when('/edit/:recType/:recId',{
+            templateUrl: '/partials/edit',
+            reloadOnSearch: false
+          }
+        )  
         .when('/jsonld/:recType/:recId',
               {templateUrl: '/partials/jsonld'})
         
