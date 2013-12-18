@@ -176,26 +176,27 @@
         </div>
         <div data-ng-show="editable.on">
           <label>
+            <span class="lbl">{{ "Förnamn" }}</span>
             <input data-inplace class="" type="text" placeholder="Förnamn"
                    data-ng-model="object.givenName" />
-            <span class="lbl">{{ "Förnamn" }}</span>
           </label>
           <label>
+            <span class="lbl">{{ "Släktnamn" }}</span>
             <input data-inplace class="" type="text" placeholder="Släktnamn"
                    data-ng-model="object.familyName" />
-            <span class="lbl">{{ "Släktnamn" }}</span>
           </label>
         </div>
         <div data-ng-show="editable.on">
           <label>
+            <span class="lbl">{{ "Född" }}</span>
             <input data-inplace class="authdependant" type="text" placeholder="ÅÅÅÅ"
                    data-ng-model="object.birthYear" />
-            <span class="lbl">{{ "Född" }}</span>
+
           </label>
           <label>
+            <span class="lbl">{{ "Död" }}</span>
             <input data-inplace class="authdependant" type="text" placeholder="ÅÅÅÅ" 
                    data-ng-model="object.deathYear" />
-            <span class="lbl">{{ "Död" }}</span>
           </label>
           <!--
           <div data-ng-controller="ModalCtrl">
