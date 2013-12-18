@@ -316,9 +316,10 @@
             </tfoot>
           </table>
         </div>
-      <!-- other identifiers (ISSN etc.)-->
+      </div>
+      <!-- ISSN -->
       <div data-ng-repeat="identifier in instance.identifier" ng-show="$first">
-        <div data-ng-if="identifier.identifierScheme != 'ISBN'" class="datatable" data-ng-target="identifierTable">
+        <div data-ng-if="identifier.identifierScheme == 'ISSN'" class="datatable" data-ng-target="identifierTable">
           <table>
             <thead data-ng-if="instance.identifier.length">
               <tr>
@@ -359,8 +360,52 @@
             </tfoot>
           </table>
         </div>
-        
+      </div>
+       <!-- other unidentified identifiers etc.)-->
+      <div data-ng-repeat="identifier in instance.identifier" ng-show="$first">
+        <div data-ng-if="identifier.identifierScheme == undefined" class="datatable" data-ng-target="identifierTable">
+          <table>
+            <thead data-ng-if="instance.identifier.length">
+              <tr>
+                <td><!--TODO fix labels and error messages for identifiers-->
+                  <span class="lbl-inline lbl" data-ng-repeat="identifier in instance.identifier" data-ng-show="$first">{{ 'Identifierare' }}</span>
+                </td>
+                <td>
+                  <span class="lbl">{{ "Notering" }}</span>
+                </td>
+                <td></td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-ng-repeat="identifier in instance.identifier"> 
+                <td>
+                  <label>
+                    <input data-inplace type="text" data-ng-model="identifier.identifierValue" placeholder="{{ identifier.identifierScheme }}"/>
+                  </label>
+                </td>
+                <td>
+                  <label>
+                    <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="identifier.identifierNote" placeholder="Notering">
+                  </label>
+                </td>
+                <td class="controls">
+                  <button ng-show="!$first" class="btn-link deleter" data-ng-click="removeObject(instance, 'identifier', $index)">
+                    <i class="fa fa-times"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3">
+                  <button class="add-thing btn-link" data-ng-click="addObject(instance, 'identifier', 'identifierScheme',  'identifierTable')">{{ 'Lägg till Identifierare' }}</button>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
         </div>
+        </div>
+        
       </div>
     </div>
 
