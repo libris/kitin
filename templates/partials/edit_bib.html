@@ -10,16 +10,16 @@
       <div class="col6" data-ng-init="title = instance.title">
         <label>
           <span class="lbl required">{{ "Huvudtitel" }}</span>
-          <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" placeholder="Huvudtitel" data-ng-model="title.titleValue"></textarea>
+          <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="title.titleValue"></textarea>
         </label>
         <label>
           <span class="lbl">{{ "Övrig titelinformation" }}</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" placeholder="Övrig titelinformation" data-ng-model="title.subtitle">{{ title.subtitle }}</textarea>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="title.subtitle">{{ title.subtitle }}</textarea>
         </label>
         <ng:switch on="instance['@type']">
         <label data-ng-switch-when="Serial">
            <span class="lbl">{{ "Nyckeltitel" }}</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" placeholder="Övrig titelinformation" data-ng-model="instance.keyTitle.titleValue">{{ instance.keyTitle.titleValue }}</textarea>       
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.keyTitle.titleValue">{{ instance.keyTitle.titleValue }}</textarea>       
         </label>
         </ng:switch>
         <span class="lbl">{{ "Språk" }}</span>
@@ -58,7 +58,7 @@
       <div class="col6">
         <label>
           <span class="lbl">{{ "Upphov" }}</span>
-          <textarea spellcheck="false" placeholder="Upphov"
+          <textarea spellcheck="false"
               data-inplace data-ui-jq="autosize"
               data-ng-model="instance.responsibilityStatement"></textarea>
         </label>
@@ -261,7 +261,7 @@
       <div class="col6">
         <label>
           <span class="lbl">{{ "Allmän medieterm" }}</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.mediaTerm" placeholder="Allmän medieterm">
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.mediaTerm">
         </label>
       </div>
       <div class="col6">
@@ -296,12 +296,12 @@
               <tr data-ng-repeat="identifier in instance.identifier"> 
                 <td>
                   <label>
-                    <input type="text" data-inplace name="isbn_name" data-ng-model="identifier.identifierValue" placeholder="{{ identifier.identifierScheme }}" data-isbn-pattern="^$|^[0-9\-xX]*$" isbnvalidator/>
+                    <input type="text" data-inplace name="isbn_name" data-ng-model="identifier.identifierValue" data-isbn-pattern="^$|^[0-9\-xX]*$" isbnvalidator/>
                   </label>
                 </td>
                 <td>
                   <label>
-                    <input type="text" data-inplace class="ng-pristine ng-valid" data-ng-model="identifier.identifierNote" placeholder="ISBN Notering"/>
+                    <input type="text" data-inplace class="ng-pristine ng-valid" data-ng-model="identifier.identifierNote"/>
                   </label>
                 </td>
                 <td class="controls">
@@ -340,12 +340,12 @@
               <tr data-ng-repeat="identifier in instance.identifier"> 
                 <td>
                   <label>
-                    <input data-inplace type="text" data-ng-model="identifier.identifierValue" placeholder="{{ identifier.identifierScheme }}"/>
+                    <input data-inplace type="text" data-ng-model="identifier.identifierValue" />
                   </label>
                 </td>
                 <td>
                   <label>
-                    <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="identifier.identifierNote" placeholder="Notering">
+                    <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="identifier.identifierNote" >
                   </label>
                 </td>
                 <td class="controls">
@@ -384,12 +384,12 @@
               <tr data-ng-repeat="identifier in instance.identifier"> 
                 <td>
                   <label>
-                    <input data-inplace type="text" data-ng-model="identifier.identifierValue" placeholder="{{ identifier.identifierScheme }}"/>
+                    <input data-inplace type="text" data-ng-model="identifier.identifierValue" />
                   </label>
                 </td>
                 <td>
                   <label>
-                    <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="identifier.identifierNote" placeholder="Notering">
+                    <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="identifier.identifierNote" >
                   </label>
                 </td>
                 <td class="controls">
@@ -428,12 +428,12 @@
             <tr data-ng-repeat="publication in instance.publication" class="">
               <td>
                 <label>
-                  <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="publication.place.label" placeholder="Utgivningsort">
+                  <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="publication.place.label">
                 </label>
               </td>
               <td>
                 <label>
-                  <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="publication.providerName" placeholder="Utgivare förlag">
+                  <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="publication.providerName">
                 </label>
               </td>
               <!-- TODO: specify type of place?
@@ -444,7 +444,7 @@
               -->
               <td class="last">
                 <label>
-                  <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="publication.providerDate" placeholder="Utgivningsår">
+                  <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="publication.providerDate">
                 </label>
               </td>
               <td class="controls">
@@ -468,14 +468,14 @@
       <div class="col3">
         <label>
           <span class="lbl">{{ "Upplaga" }}</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.editionStatement.edition" placeholder="Upplaga">
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.editionStatement.edition" >
         </label>
       </div>
         <div class="col3">
           <div data-ng-repeat="manufacture in instance.manufacture">
             <label>
               <span class="lbl">{{ "Tryckplats" }}</span>
-              <input data-inplace class="authdependant" type="text" placeholder="Tryckort" data-ng-model="manufacture.place.label" />
+              <input data-inplace class="authdependant" type="text" data-ng-model="manufacture.place.label" />
             </label>
           </div>
         </div>
@@ -485,7 +485,7 @@
       <div class="col3" data-ng-show="getTypeDef(instance).term == 'Audiobook'">
         <label>
           <span class="lbl">{{ "Utgivningsnummer" }}</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.publisherNumber" placeholder="Utgivningsnummer">
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.publisherNumber" >
         </label>
       </div>
     </div>
@@ -498,19 +498,19 @@
       <div class="col3">
         <label class="ng-binding">
           <span class="lbl">{{ "Omfång" }}</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.extent" placeholder="Omfång">
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.extent" >
         </label>
       </div>
       <div class="col3">
         <label>
           <span class="lbl">{{ "Mått" }}</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.dimensions" placeholder="Mått">
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.dimensions" >
         </label>
       </div>
       <div class="col3">
         <label>
           <span class="lbl">{{ "Fysiska detaljer" }}</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.otherPhysicalDetails" placeholder="Fysiska detaljer">
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.otherPhysicalDetails" >
         </label>
       </div>
       <div class="col3">
@@ -543,7 +543,7 @@
         <label>
           <span class="lbl">{{ "Sammanfattning" }}</span>
             <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
-                      data-ng-model="work.summary" placeholder="Sammanfattning"></textarea>
+                      data-ng-model="work.summary" ></textarea>
         </label>
       </div>
     </div>
@@ -551,13 +551,13 @@
       <div class="col6">
         <label>
           <span class="lbl">{{ "Formaterad innehållsförteckning" }}</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.listOfContents" placeholder="Formaterad innehållsförteckning"></textarea>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.listOfContents" ></textarea>
         </label>
       </div>
       <div class="col6" data-ng-show="getTypeDef(instance).term == 'Audiobook'">
         <label>
           <span class="lbl">{{ "Medverkande" }}</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.contributorNote" placeholder="Medverkande">
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="instance.contributorNote" >
         </label>
       </div>
     </div>
@@ -565,7 +565,7 @@
       <div class="col6">
           <label>
             <span class="lbl">{{ "Allmän anmärkning" }}</span>
-          <textarea data-inplace class="ng-pristine ng-valid" data-inplace data-ui-jq="autosize" type="text" data-ng-model="instance.note" placeholder="Allmän anmärkning"></textarea>
+          <textarea data-inplace class="ng-pristine ng-valid" data-inplace data-ui-jq="autosize" type="text" data-ng-model="instance.note" ></textarea>
         </label>
       </div>
       <div class="col6"></div>
