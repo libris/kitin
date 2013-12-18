@@ -131,6 +131,8 @@ kitin.service('editUtil', function(definitions) {
         });
       }
 
+      var self = this;
+
       // TODO: coordinate terms, JSON-LD context and relators dataset instead
       relators.then(function (relators) {
 
@@ -153,8 +155,9 @@ kitin.service('editUtil', function(definitions) {
             if (!_.isArray(vals)) vals = [vals];
             _.forEach(vals, function (agent) {
               var pid = agent['@id'];
-              if (!pid)
-                return;
+              if (!pid) {
+                pid = agent['@id'] = self.genBNodeId();
+              }
               var roles = roleMap[pid];
               if (!roles)
                 return;
@@ -171,6 +174,12 @@ kitin.service('editUtil', function(definitions) {
       });
 
       return roleMap;
+    },
+
+    counter: 0,
+
+    genBNodeId: function () {
+      return "_:t-" + (new Date().getTime()) + "-" + this.counter++;
     },
 
     SchemeContainer: function (work, defaultSchemes) {
