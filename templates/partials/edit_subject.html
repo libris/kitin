@@ -110,8 +110,11 @@
 <div class="auth">
   <h4>
     <span class="name" title="<%= data['@id']%>"><%= data['prefLabel']%></span>
-      <% if (data['@id']) { %>
+      <% if (isLinked(data)) { %>
+        <!--
         <span class="what">Se aukt. post <i class="fa fa-sign-out"></i></span>
+        -->
+        <span class="what"><i class="fa fa-check"></i> Aukt.</span>
       <% } %>
   </h4>
     <% if (data['historyNote']) { %>
