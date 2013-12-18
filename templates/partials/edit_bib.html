@@ -1,6 +1,6 @@
 {% raw %}
-  <div ng-switch on="modalMode" data-ng-controller="ModalCtrl">
-    <div ng-switch-when="true" data-ng-init="open()" />
+  <div data-ng-if="modalRecord" data-ng-controller="ModalCtrl">
+    <div data-ng-init="openModal()" />
   </div>
 
   <section data-ng-if="record" data-ng-init="instance = record.about; work = instance.instanceOf">
@@ -246,7 +246,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-           <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
+           <button type="button" class="close" ng-click="closeModal()" aria-hidden="true">&times;</button>
             <h4 class="modal-title">Auktoritetspost ({{ instance['@type'] }})</h4>
           </div>
           <div class="modal-body" data-ng-controller="EditCtrl">    
