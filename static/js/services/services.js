@@ -119,7 +119,14 @@ kitin.service('editUtil', function(definitions) {
       var work = instance.instanceOf;
 
       var roleMap = {};
+
+      var self = this;
+
       function addPersonRoles(person) {
+        var pid = person['@id'];
+        if (!pid) {
+          pid = person['@id'] = self.genBNodeId();
+        }
         roleMap[person['@id']] = [];
       }
       if (work && work.attributedTo) {
@@ -130,8 +137,6 @@ kitin.service('editUtil', function(definitions) {
           addPersonRoles(person);
         });
       }
-
-      var self = this;
 
       // TODO: coordinate terms, JSON-LD context and relators dataset instead
       relators.then(function (relators) {
@@ -156,7 +161,7 @@ kitin.service('editUtil', function(definitions) {
             _.forEach(vals, function (agent) {
               var pid = agent['@id'];
               if (!pid) {
-                pid = agent['@id'] = self.genBNodeId();
+                return;
               }
               var roles = roleMap[pid];
               if (!roles)
