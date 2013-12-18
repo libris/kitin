@@ -212,7 +212,9 @@ kitin.directive('kitinSearchEntity', ['definitions', function(definitions) {
         autoWidth: null,
 
         showResult: function (value, data) {
-          return template({data: data, nameRepr: nameRepr, truncate: truncate});
+          return template({
+            data: data, nameRepr: nameRepr, truncate: truncate, isLinked: scope.isLinked
+          });
         },
 
         displayValue: function (value, data) {
