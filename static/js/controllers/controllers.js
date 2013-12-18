@@ -156,7 +156,9 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   document.body.className = isNew? 'edit new' : 'edit';
 
   // Fetch definitions
-  // TODO: load cached aggregate, or lookup part on demand from backend?
+  // TODO:
+  // - load cached aggregate, or lookup part on demand from backend?
+  // - Do not load just to set in scope; use where needed in services instead.
   $scope.enums = {};
   definitions.enums.bibLevel.then(function(data) {
     $scope.enums.bibLevel = data;
@@ -202,7 +204,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   };
 
   function addRecordViewsToScope(record, scope) {
-    scope.personRoleMap = editUtil.getPersonRoleMap(record, scope.relators);
+    scope.personRoleMap = editUtil.getPersonRoleMap(record, definitions.relators);
     scope.unifiedClassifications = editUtil.getUnifiedClassifications(record);
     // FIXME: this is just a view object - add/remove must operate on source and refresh this
     // (or else this must be converted back into source form before save)
