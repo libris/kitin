@@ -104,6 +104,8 @@ kitin.service('editUtil', function(definitions) {
         //  objectKeys: ['prefLabel', '@type', 'hiddenLabel', 'broader', 'narrower', '@id', 'scopeNote', 'historyNote' ]
         case 'ISBN':
           return {'@type': "Identifier", identifierScheme: "ISBN", identifierValue: ""};
+        case 'ISSN':
+          return {'@type': "Identifier", identifierScheme: "ISSN", identifierValue: ""};
         case 'ProviderEvent':
           return {'@type': "ProviderEvent", providerName: "", providerDate: "",
                   place: {'@type': "Place", label: ""}};
