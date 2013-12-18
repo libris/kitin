@@ -114,11 +114,9 @@ kitin.service('editUtil', function(definitions) {
       }
     },
 
-    getPersonRoleMap: function (record, relators) {
+    populatePersonRoleMap: function (roleMap, record, relators) {
       var instance = record.about;
       var work = instance.instanceOf;
-
-      var roleMap = {};
 
       var self = this;
 
@@ -139,43 +137,39 @@ kitin.service('editUtil', function(definitions) {
       }
 
       // TODO: coordinate terms, JSON-LD context and relators dataset instead
-      relators.then(function (relators) {
+      if (relators.byTerm === undefined) {
+        var index = relators.byTerm = {};
+        _.each(relators.byNotation, function (obj) {
+          var id = obj['@id'];
+          var key = id.substring(id.lastIndexOf('/') + 1);
+          index[key] = obj;
+        });
+      }
 
-        if (relators.byTerm === undefined) {
-          var index = relators.byTerm = {};
-          _.each(relators.byNotation, function (obj) {
-            var id = obj['@id'];
-            var key = id.substring(id.lastIndexOf('/') + 1);
-            index[key] = obj;
-          });
-        }
-
-        [instance, work].forEach(function (resource) {
-          if (typeof resource === 'undefined')
+      [instance, work].forEach(function (resource) {
+        if (typeof resource === 'undefined')
+          return;
+        var objId = resource['@id'];
+        _.forEach(resource, function (vals, key) {
+          if (!vals)
             return;
-          var objId = resource['@id'];
-          _.forEach(resource, function (vals, key) {
-            if (!vals)
+          if (!_.isArray(vals)) vals = [vals];
+          _.forEach(vals, function (agent) {
+            var pid = agent['@id'];
+            if (!pid) {
               return;
-            if (!_.isArray(vals)) vals = [vals];
-            _.forEach(vals, function (agent) {
-              var pid = agent['@id'];
-              if (!pid) {
-                return;
-              }
-              var roles = roleMap[pid];
-              if (!roles)
-                return;
-              var role = relators.byTerm[key];
-              if (!role)
-                return;
-              if (!_.contains(roles, role))
-                roles.push(role);
-              //pr.roles[role] = objId;
-            });
+            }
+            var roles = roleMap[pid];
+            if (!roles)
+              return;
+            var role = relators.byTerm[key];
+            if (!role)
+              return;
+            if (!_.contains(roles, role))
+              roles.push(role);
+            //pr.roles[role] = objId;
           });
         });
-
       });
 
       return roleMap;

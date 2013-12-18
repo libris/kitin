@@ -159,28 +159,16 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   // TODO:
   // - load cached aggregate, or lookup part on demand from backend?
   // - Do not load just to set in scope; use where needed in services instead.
-  $scope.enums = {};
-  definitions.enums.bibLevel.then(function(data) {
-    $scope.enums.bibLevel = data;
-  });
-  definitions.enums.encLevel.then(function(data) {
-    $scope.enums.encLevel = data;
-  });
-  definitions.enums.catForm.then(function(data) {
-    $scope.enums.catForm = data;
-  });
-  definitions.relators.then(function(data) {
-    $scope.relators = data;
-  });
-  //definitions.countries.then(function(data) {
-  //  $scope.countrylist = data;
+  //$scope.enums = {};
+  //definitions.enums.bibLevel.then(function(data) {
+  //  $scope.enums.bibLevel = data;
   //});
-  ////definitions.nationalities.then(function(data) {
-  ////  $scope.nationalitylist = data;
-  ////});
-  definitions.conceptSchemes.then(function(data) {
-    $scope.conceptSchemes = data;
-  });
+  //definitions.enums.encLevel.then(function(data) {
+  //  $scope.enums.encLevel = data;
+  //});
+  //definitions.enums.catForm.then(function(data) {
+  //  $scope.enums.catForm = data;
+  //});
 
   definitions.typedefs.then(function(data) {
     var typedefs = data.types;
@@ -204,12 +192,21 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   };
 
   function addRecordViewsToScope(record, scope) {
-    scope.personRoleMap = editUtil.getPersonRoleMap(record, definitions.relators);
-    scope.unifiedClassifications = editUtil.getUnifiedClassifications(record);
     // FIXME: this is just a view object - add/remove must operate on source and refresh this
     // (or else this must be converted back into source form before save)
+    definitions.relators.then(function (relators) {
+      var roleMap = {};
+      editUtil.populatePersonRoleMap(roleMap, record, relators);
+      scope.personRoleMap = roleMap;
+    });
+
+    scope.unifiedClassifications = editUtil.getUnifiedClassifications(record);
     var defaultSchemes = ['sao', 'saogf'];
-    scope.schemeContainer = new editUtil.SchemeContainer(record.about.instanceOf, defaultSchemes);
+    definitions.conceptSchemes.then(function(data) {
+      scope.conceptSchemes = data;
+      scope.schemeContainer = new editUtil.SchemeContainer(
+          record.about.instanceOf, defaultSchemes);
+    });
   }
 
   if (isNew) {

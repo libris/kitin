@@ -213,6 +213,7 @@
     <script type='text/ng-template' id="roles">
       <ul data-kitin-link-entity
           class="tags"
+          data-ng-if="personRoleMap"
           data-subject="personRoleMap"
           data-link-multiple="object['@id']" data-type="ObjectProperty"
           data-view-template="render-role"
