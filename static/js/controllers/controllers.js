@@ -1,26 +1,23 @@
 var kitin = angular.module('kitin.controllers', []);
 
 kitin.controller('ModalCtrl', function($scope, $modal) {
-  
-  $scope.opts = {
-    backdrop: true,
-    keyboard: true,
-    backdropClick: true,
-    // template:  t, // OR: templateUrl: 'path/to/view.html',
-    templateUrl: 'modal-edit-auth',
-    controller: 'OpenModalCtrl',
-    backdropFade: true,
-    dialogFade:false,
-    windowClass: 'wide'
-  };
-
-  $scope.open = function() {
-    var i = $modal.open($scope.opts);
+  $scope.openModal = function() {
+    var opts = {
+      backdrop: 'static', // Shows backdrop but doesn't close dialog on click outside.
+      keyboard: true,
+      templateUrl: 'modal-edit-auth',
+      controller: 'OpenModalCtrl',
+      backdropFade: true,
+      dialogFade:false,
+      windowClass: 'wide'
+    };
+    var i = $modal.open(opts);
   };
 });
 
-kitin.controller('OpenModalCtrl', function($scope, $modal) {
-  $scope.close = function() {
+kitin.controller('OpenModalCtrl', function($scope, $modal, $location) {
+  $scope.closeModal = function() {
+    $location.search('m',null);
     $scope.$close();
   };
 });
@@ -132,11 +129,24 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
 });
 
 
-kitin.controller('EditCtrl', function($scope, $http, $routeParams, $timeout, records, definitions, userData, editUtil, $log) {
-  $scope.logger = $log;
+kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $timeout, $rootScope, $location, records, definitions, userData, editUtil) {
 
-  var recType = $routeParams.recType, recId = $routeParams.recId;
-  var path = "/record/" + recType + "/" + recId;
+  var modalRecord = $rootScope.modalRecord;
+  var recType = modalRecord? modalRecord.recType : $routeParams.recType;
+  var recId = modalRecord? modalRecord.recId : $routeParams.recId;
+
+  $scope.$on('$routeUpdate', function() {
+    var modalParams = $location.$$search.m;
+    if(modalParams) {
+      var params = modalParams.split('/').splice(1);
+      $rootScope.modalRecord = {
+        recType: recType = params[1],
+        recId: recId = params[2],
+      };
+    } else {
+      $rootScope.modalRecord = null;
+    }
+  });
 
   var isNew = (recId === 'new');
   var newType = $routeParams.type;

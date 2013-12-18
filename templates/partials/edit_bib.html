@@ -1,4 +1,8 @@
 {% raw %}
+  <div data-ng-if="modalRecord" data-ng-controller="ModalCtrl">
+    <div data-ng-init="openModal()" />
+  </div>
+
   <section data-ng-if="record" data-ng-init="instance = record.about; work = instance.instanceOf">
     <ng-form name="subform">
     <h2> <span>{{ 'Titel och upphov' }}</span><i></i></h2>
@@ -157,7 +161,7 @@
       <div data-ng-if="isLinked(object)" class="entity person linked" tabindex="0">
         <div class="main">
           <span onload="person = object" data-ng-include="'render-person-name'"></span>
-          <a class="auth" href="#"><i class="fa fa-check"></i> Aukt.</a>
+            <a data-ng-if="isLinked(object)" class="auth" href="?m={{person['@id']}}"><i class="fa fa-check"></i> Aukt.</a>
         </div>
         <div data-ng-include="'roles'"></div>
         <a data-ng-if="!editable.on" class="delete" href="#"
@@ -242,7 +246,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-           <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
+           <button type="button" class="close" ng-click="closeModal()" aria-hidden="true">&times;</button>
             <h4 class="modal-title">Auktoritetspost ({{ instance['@type'] }})</h4>
           </div>
           <div class="modal-body" data-ng-controller="EditCtrl">    
