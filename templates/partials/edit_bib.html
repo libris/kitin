@@ -301,7 +301,7 @@
                   </label>
                 </td>
                 <td class="controls">
-                  <button class="btn-link deleter" data-ng-click="removeObject(instance, 'identifier', $index)">
+                  <button ng-show="!$first" class="btn-link deleter" data-ng-click="removeObject(instance, 'identifier', $index)">
                     <i class="fa fa-times"></i>
                   </button>
                 </td>
@@ -344,7 +344,7 @@
                   </label>
                 </td>
                 <td class="controls">
-                  <button class="btn-link deleter" data-ng-click="removeObject(instance, 'identifier', $index)">
+                  <button ng-show="!$first" class="btn-link deleter" data-ng-click="removeObject(instance, 'identifier', $index)">
                     <i class="fa fa-times"></i>
                   </button>
                 </td>
@@ -399,7 +399,7 @@
                 </label>
               </td>
               <td class="controls">
-                <button class="btn-link deleter" data-ng-click="removeObject(instance, 'publication', $index)">
+                <button ng-show="!$first" class="btn-link deleter" data-ng-click="removeObject(instance, 'publication', $index)">
                   <i class="fa fa-times"></i>
                 </button>
               </td>
