@@ -46,7 +46,7 @@ Make a local copy of the config file.
 
 In it, set `WHELK_HOST` to point to localhost:
 
-    WHELK_HOST = 'http://localhost:8080/whelk-webapi'
+    WHELK_HOST = 'http://localhost:8180/whelk-webapi'
 
 Set `BIBDB_API` and `BIBDB_API_KEY`. (Ask your colleagues..)
 
