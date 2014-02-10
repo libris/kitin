@@ -34,48 +34,63 @@
       </section>
     </div>
     <div class="col9">
-      <section data-ng-repeat="record in result.list"
-               class="result record {{record.identifier}}">
+      <section data-ng-repeat="record in result.list" data-ng-class="{'result-pre': record.data.encLevel == 8}" class="result record {{record.identifier}}">
         <a class="bib-url" href="/edit{{ record.identifier }}" data-ng-switch="recType">
           <div data-ng-switch-when="auth">
-            <label class="title">
-              {{ record.data.about.controlledLabel }}
-              {{ record.data.about.prefLabel }}
-              {{ record.data.about.name }}
-              {{ record.data.about.uniformTitle }}
-              {{ record.data.about.label }}
-            </label>
-            <label data-ng-repeat="note in record.data.about.note">
-            {{ note }}
-            </label>
-            <label data-ng-repeat="scopeNote in record.data.about.scopeNote">
-            {{ scopeNote }}
-            </label>
+            <div class="col5">
+              <label class="title">
+                {{ record.data.about.controlledLabel }}
+                {{ record.data.about.prefLabel }}
+                {{ record.data.about.name }}
+                {{ record.data.about.uniformTitle }}
+                {{ record.data.about.label }}
+              </label>
+              <label data-ng-repeat="note in record.data.about.note">
+                {{ note }}
+              </label>
+              <label data-ng-repeat="scopeNote in record.data.about.scopeNote">
+                {{ scopeNote }}
+              </label>
+            </div>
           </div>
+
           <div data-ng-switch-when="bib" class="nest-cols">
             <div class="col5">
               <label class="title" title="{{ record.data.about.title.titleValue }} {{ record.data.about.title.subtitle }}">
-                  {{ record.data.about.title.titleValue | chop }}
-                <span class="title title-remainder">{{ record.data.about.title.subtitle }} {{ record.data.about.responsibilityStatement }}</span>
+                  <strong>{{ record.data.about.title.titleValue | chop }}</strong>
+                <span class="title title-remainder">{{ record.data.about.title.subtitle }}</span>
+                <span class="uppslag">{{ record.data.about.responsibilityStatement }}</span>
               </label>
-  <!--
-            <label title="{{ record.data.about.responsibilityStatement }}">
-            <span>{{ record.data.about.responsibilityStatement }}</span>
-            </label>
-  -->
-              <label title="Upphovsman"
-                    data-ng-init="work = record.data.about.instanceOf; person = firstPerson(work)"
-                    data-ng-include="'render-person-name'"></label>
+
+              <label title="Upphov" class="upphov">
+                <ul title="" data-ng-repeat="attributedTo in record.data.about.instanceOf.attributedTo"
+                  data-ng-show="attributedTo.controlledLabel"><li><strong>{{ attributedTo.controlledLabel }}</strong></li></ul> 
+                <ul title="" data-ng-repeat="influencedBy in record.data.about.instanceOf.influencedBy"
+                  data-ng-show="influencedBy.controlledLabel"><li>{{ influencedBy.controlledLabel }}</li></ul> 
+              </label>
+            
+<!--               <label title="Upphovsman" data-ng-init="work = record.data.about.instanceOf; person = firstPerson(work)" data-ng-include="'render-person-name'"></label> -->
             </div>
-            <div class="col4">
-              <label title="Utgivningsår" data-ng-repeat="publication in record.data.about.publication | limitTo:1"
-                  data-ng-show="publication.providerDate">
-                {{ publication.providerDate }}
-                <!-- <span class="lbl">Utgivningsår</span> -->
-              </label>
-              <label title="{{ identifier.identifierScheme }}" data-ng-repeat="identifier in record.data.about.identifier | limitTo:1">
-                {{ identifier.identifierValue }}
-                <!-- <span class="lbl">{{ identifier.identifierScheme }}</span> -->
+            <div class="f bottom">
+              <span>
+              
+                <span data-ng-show="record.data.about['@type'] == 'Book'"><i class="fa fa-book fa-fw"></i></span>
+                <span data-ng-show="record.data.about['@type'] == 'MusicCD'"><i class="fa fa-volume-up fa-fw"></i></span>
+                <span data-ng-show="record.data.about['@type'] == 'EBook'"><i class="fa fa-file fa-fw"></i></span>
+                <span data-ng-show="record.data.about['@type'] == 'Serial'"><i class="fa fa-calendar fa-fw"></i></span>
+                <span title="Utgivningsår" data-ng-repeat="publication in record.data.about.publication | limitTo:1"
+                  data-ng-show="publication.providerDate">{{publication.providerDate}}</span>
+                <span title="Utgivare" data-ng-repeat="publication in record.data.about.publication | limitTo:1"
+                  data-ng-show="publication.providerName">{{publication.providerName}}</span>
+                <span data-ng-show="record.data.about.extent">{{ record.data.about.extent }}</span>
+              </span>
+
+              <span class="ng-binding ng-hide" data-ng-show="enums.bibLevel[record.data.bibLevel]"></span>
+              <span class="ng-binding ng-hide" data-ng-show="enums.encLevel[record.data.encLevel]"></span>
+            </div>
+
+            <div class="col2">
+              <label title="{{ identifier.identifierScheme }}" data-ng-repeat="identifier in record.data.about.identifier | limitTo:1"><strong>{{ identifier.identifierValue }}</strong>
               </label>
             </div>
           </div>
@@ -87,13 +102,53 @@
             </label>
           </div>
           -->
+            <div class="widget">
+              <label class="enc-level">
+              <span data-ng-if="record.data.encLevel == 3 ">
+               <i class="fa fa-circle"></i>
+               <i class="fa fa-circle-o"></i>
+               <i class="fa fa-circle-o"></i>
+               Miniminivå
+              </span>
+              <span data-ng-if="record.data.encLevel == 7 ">
+               <i class="fa fa-circle"></i>
+               <i class="fa fa-circle"></i>
+               <i class="fa fa-circle-o"></i>
+               Biblioteksnivå
+              </span>
+               <span data-ng-if="record.data.encLevel == null ">
+               <i class="fa fa-circle"></i>
+               <i class="fa fa-circle"></i>
+               <i class="fa fa-circle"></i>
+               NB-nivå
+              </span>
+               <span data-ng-if="record.data.encLevel == 8 ">
+               <i class="fa fa-circle-o"></i>
+               <i class="fa fa-circle-o"></i>
+               <i class="fa fa-circle-o"></i>
+              Förhandspost
+              </span>
+              <span data-ng-if="record.data.encLevel == 'I' ">
+               <i class="fa fa-circle-o"></i>
+               <i class="fa fa-circle-o"></i>
+               <i class="fa fa-circle-o"></i>
+              Full-level input by OCLC participants (LOCAL)
+              </span>
+
+               <p class="holding">
+               <i class="fa fa-thumb-tack"></i> {x} bibliotek 
+               </p>
+                </label>
+            </div>
           </ng:switch>
           
+<!--
           <div class="footer">
             <span data-ng-show="record.data.about['@type']">{{ getLabel(record.data.about['@type']) }} <span data-ng-if="record.data.about.inScheme['@type'] == 'ConceptScheme'">({{ record.data.about.inScheme.notation }})</span></span>
             <span data-ng-show="enums.bibLevel[record.data.bibLevel]">{{ enums.bibLevel[record.data.bibLevel].label_sv }}</span>
             <span data-ng-show="enums.encLevel[record.data.encLevel]">{{ enums.encLevel[record.data.encLevel].label_sv }}</span>
           </div>
+-->
           </a>
       </section>
     </div>
