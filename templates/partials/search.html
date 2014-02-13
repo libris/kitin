@@ -59,24 +59,27 @@
               <label class="title" title="{{ record.data.about.title.titleValue }} {{ record.data.about.title.subtitle }}">
                 <span class="title-key">{{ record.data.about.title.titleValue | chop }}</span>
                 <span class="title-subtitle">{{ record.data.about.title.subtitle }}</span>
+              </label>
+              <label>
                 <span class="title-creator">{{ record.data.about.responsibilityStatement }}</span>
               </label>
-
               <label title="contributors" class="contributors">
                 <ul title="" data-ng-repeat="attributedTo in record.data.about.instanceOf.attributedTo"
-                  data-ng-show="attributedTo.controlledLabel"><li class="primary-attribution">{{ attributedTo.controlledLabel }}</li></ul> 
+                  data-ng-show="attributedTo.controlledLabel"><li class="primary-attribution">{{ attributedTo.controlledLabel }}</li>
+                </ul> 
                 <ul title="" data-ng-repeat="influencedBy in record.data.about.instanceOf.influencedBy | limitTo:3"
-                  data-ng-show="influencedBy.controlledLabel"><li>{{ influencedBy.controlledLabel }}</li></ul> 
+                  data-ng-show="influencedBy.controlledLabel"><li>{{ influencedBy.controlledLabel }}</li>
+                </ul> 
               </label>
             
 <!--               <label title="Upphovsman" data-ng-init="work = record.data.about.instanceOf; person = firstPerson(work)" data-ng-include="'render-person-name'"></label> -->
             </div>
             <div class="f bottom">
               <span>  
-                <span data-ng-show="record.data.about['@type'] == 'Book'"><i class="fa fa-book fa-fw"></i></span>
-                <span data-ng-show="record.data.about['@type'] == 'MusicCD'"><i class="fa fa-volume-up fa-fw"></i></span>
-                <span data-ng-show="record.data.about['@type'] == 'EBook'"><i class="fa fa-file fa-fw"></i></span>
-                <span data-ng-show="record.data.about['@type'] == 'Serial'"><i class="fa fa-calendar fa-fw"></i></span>
+                <span data-ng-show="record.data.about['@type'] == 'Book'"><i class="fa fa-square fa-fw"></i></span>
+                <span data-ng-show="record.data.about['@type'] == 'MusicCD'"><i class="fa fa-square fa-fw"></i></span>
+                <span data-ng-show="record.data.about['@type'] == 'EBook'"><i class="fa fa-square fa-fw"></i></span>
+                <span data-ng-show="record.data.about['@type'] == 'Serial'"><i class="fa fa-square fa-fw"></i></span>
                 <span title="Utgivningsår" data-ng-repeat="publication in record.data.about.publication | limitTo:1"
                   data-ng-show="publication.providerDate">{{publication.providerDate}}</span>
                 <span title="Utgivare" data-ng-repeat="publication in record.data.about.publication | limitTo:1"
