@@ -863,7 +863,6 @@ section.result .widget label {
 }
 section.result-pre {
   border-style: dashed;
-  opacity: 0.5;
 }
 section.result-pre .widget label {
   color: #996262;
