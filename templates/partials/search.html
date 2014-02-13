@@ -39,11 +39,13 @@
           <div data-ng-switch-when="auth">
             <div class="col5">
               <label class="title">
+              <span class="title-key">
                 {{ record.data.about.controlledLabel }}
                 {{ record.data.about.prefLabel }}
                 {{ record.data.about.name }}
                 {{ record.data.about.uniformTitle }}
                 {{ record.data.about.label }}
+              </span>
               </label>
               <label data-ng-repeat="note in record.data.about.note">
                 {{ note }}
@@ -51,7 +53,11 @@
               <label data-ng-repeat="scopeNote in record.data.about.scopeNote">
                 {{ scopeNote }}
               </label>
+              <div class="f bottom">
+              {{ record.data.about['@type'] }}
+              </div>
             </div>
+
           </div>
 
           <div data-ng-switch-when="bib" class="nest-cols">
@@ -71,6 +77,7 @@
                   data-ng-show="influencedBy.controlledLabel"><li>{{ influencedBy.controlledLabel }}</li>
                 </ul> 
               </label>
+
             
 <!--               <label title="Upphovsman" data-ng-init="work = record.data.about.instanceOf; person = firstPerson(work)" data-ng-include="'render-person-name'"></label> -->
             </div>
@@ -105,6 +112,21 @@
           </div>
           -->
             <div class="widget">
+            <div data-ng-switch-when="auth">
+               <label class="enc-level">
+              <span data-ng-if="record.data.encLevel == 'c' ">
+               <i class="fa fa-pencil-square"></i>
+              Rättad/Reviderad
+              </span>
+              <span data-ng-if="record.data.encLevel == 'n' ">
+               <i class="fa fa-circle-o"></i>
+               <i class="fa fa-circle-o"></i>
+               <i class="fa fa-circle-o"></i>
+              Ny post
+              </span> 
+               </label>           
+            </div>
+            <div data-ng-switch-when="bib">
               <label class="enc-level">
               <span data-ng-if="record.data.encLevel == 3 ">
                <i class="fa fa-circle"></i>
@@ -146,6 +168,7 @@
                </span>
                </p>
                 </label>
+            </div>
             </div>
           </ng:switch>
           
