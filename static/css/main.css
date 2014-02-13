@@ -789,7 +789,7 @@ section.result label.title .title-subtitle {
   line-height: 18px;
   display: block;
 }
-section.result label.title .title-creator {
+section.result label .title-creator {
   color: #777;
   font-size: 14px;
   line-height: 18px;
