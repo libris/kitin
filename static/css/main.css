@@ -847,7 +847,8 @@ section.result .widget {
   position: absolute;
   top: 0px;
   bottom: 0px;
-  right: 12px;
+  right: 0;
+  /*   right: 12px; */
   padding: 6px 12px;
   width: 98px;
   -webkit-transition: border ease-out 0.05s;
@@ -856,7 +857,7 @@ section.result .widget {
   font-size: 10px;
   border: 1px solid #f6f6f6;
   border-left-color: #e6e6e6;
-  border-right-color: #e6e6e6;
+  /* border-right-color: #e6e6e6; */
 }
 section.result .widget label {
   color: #777;
