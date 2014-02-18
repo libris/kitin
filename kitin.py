@@ -111,16 +111,22 @@ def search(record_type):
 
 @app.route("/search/<record_type>.json")
 def search_json(record_type):
-    resp = do_search("%s/_search" % record_type)
+    search_path = "%s/_search" % record_type
+    if(record_type == "remotesearch"):
+        search_path = "_%s" % record_type
+        
+    resp = do_search(search_path)
     return raw_json_response(resp.text)
 
 def do_search(service_path):
     q = request.args.get('q')
     f = request.args.get('f')
+    start = request.args.get('start')
+    n = request.args.get('n')
     freq = "&f=%s" % f.strip() if f else ''
     b = request.args.get('b', '')
     boost = ("&boost=%s" % b) if b else ''
-    search_url = "%s/%s?q=%s%s%s" % (app.config['WHELK_HOST'], service_path, q, freq, boost)
+    search_url = "%s/%s?q=%s%s%s&start=%s&n=%s" % (app.config['WHELK_HOST'], service_path, q, freq, boost, start, n)
     return requests.get(search_url, headers=extract_x_forwarded_for_header(request))
 
 @app.route('/record/<record_type>/<record_id>/holdings')

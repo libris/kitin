@@ -304,18 +304,16 @@ kitin.factory('isbnTools', function($http, $q) {
 });
 
 kitin.factory('searchService', function($http, $q) {
-  function performSearch(url) {
+  function performSearch(url, params) {
     var deferred = $q.defer();
-    $http.get(url).success(function(data) {
+    $http.get(url, { params: params }).success(function(data) {
       deferred.resolve(data);
     });
     return deferred.promise;
   }
 
   return {
-    search: function(url) {
-      return performSearch(url);
-    }
+    search: performSearch
   };
 });
 

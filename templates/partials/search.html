@@ -33,11 +33,12 @@
         </dl>
       </section>
     </div>
-    <div class="col9">
+    <div class="col9" infinite-scroll="scroll()" infinite-scroll-distance="0" infinite-scroll-immediate-check="true">
       <section data-ng-repeat="record in result.list" data-ng-class="{'result-pre': record.data.encLevel == 8}" class="result record {{record.identifier}}">
         <a class="bib-url" href="/edit{{ record.identifier }}" data-ng-switch="recType">
           <div data-ng-switch-when="auth">
             <div class="col5">
+              {{ $index + 1 }}
               <label class="title">
               <span class="title-key">
                 {{ record.data.about.controlledLabel }}
@@ -60,8 +61,9 @@
 
           </div>
 
-          <div data-ng-switch-when="bib" class="nest-cols">
+          <div data-ng-switch-default class="nest-cols">
             <div class="col5">
+              {{ $index + 1 }}
               <label class="title" title="{{ record.data.about.title.titleValue }} {{ record.data.about.title.subtitle }}">
                 <span class="title-key">{{ record.data.about.title.titleValue | chop }}</span>
                 <span class="title-subtitle">{{ record.data.about.title.subtitle }}</span>
@@ -126,7 +128,7 @@
               </span> 
                </label>           
             </div>
-            <div data-ng-switch-when="bib">
+            <div data-ng-switch-default>
               <label class="enc-level">
               <span data-ng-if="record.data.encLevel == 3 ">
                <i class="fa fa-circle"></i>

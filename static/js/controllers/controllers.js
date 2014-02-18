@@ -39,15 +39,17 @@ kitin.controller('IndexCtrl', function($scope, $http) {
 kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams) {
   var searchTypeIndex = {
     bib: {key: "bib", label: "Bibliografiskt material"},
-    auth: {key: "auth", label: "Auktoriteter"}
+    auth: {key: "auth", label: "Auktoriteter"},
+    remotesearch: {key: "remotesearch", label: "Remote"}
   };
-  $scope.searchTypes = [searchTypeIndex.bib, searchTypeIndex.auth];
+  $scope.searchTypes = [searchTypeIndex.bib, searchTypeIndex.auth, searchTypeIndex.remotesearch];
   $scope.setSearchType = function (key) {
     $scope.searchType = searchTypeIndex[key];
   };
   $scope.placeholders = {
     bib: "Sök bland bibliografiskt material (på ISBN, titel, författare etc.)",
-    auth: "Sök bland auktoriteter (personer, ämnen, verk etc.)"
+    auth: "Sök bland auktoriteter (personer, ämnen, verk etc.)",
+    remotesearch: ""
   };
   $scope.search = function() {
     $location.url("/search/" + $scope.searchType.key + "?q="+encodeURIComponent($scope.q));
@@ -57,12 +59,13 @@ kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams) {
   });
 });
 
-
 kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, definitions, searchService, searchUtil) {
 
   var recType = $routeParams.recType;
 
   $scope.recType = recType;
+
+  $scope.url = '/search/' + $scope.recType + '.json';
 
   definitions.typedefs.then(function(data) {
     $scope.typeDefs = data.types;
@@ -87,10 +90,11 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
 
   $scope.q = $routeParams.q;
   $scope.f = $routeParams.f;
-  var url = "/search/" + recType + ".json?q=" + encodeURIComponent($scope.q);
-  if ($scope.f !== undefined) {
-    url += "&f=" + $scope.f;
-  }
+  $scope.pageSize = 10;
+  $scope.page = {
+    start: -$scope.pageSize,
+    n: $scope.pageSize
+  };
 
   $scope.search = function() {
     $location.url(url);
@@ -107,25 +111,69 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
     return _.isArray(candidate)? candidate[0] : candidate;
   };
 
+  $scope.getScrollStart = function() {
+    var start = $scope.page.start + $scope.page.n;
+    return (start > $scope.hitCount) ? $scope.page.start : start;
+  };
+
+  $scope.scroll = function() {
+    // Get current scroll start
+    var start = $scope.getScrollStart();
+    // Skip load if already scrolling or if page end is reached
+    if($scope.scrolled || start === $scope.page.start) return;
+
+    $scope.scrolled = true;
+    // Set page start
+    $scope.page.start = start; 
+    // Do search request
+    $scope.doSearch($scope.url, $scope.getSearchParams());
+
+    console.log('scroll', $scope.page.start, $scope.page.n);
+  };
+
   var prevFacetsStr = $routeParams.f || "";
 
   if (!$routeParams.q) {
     return;
   }
 
-  $scope.loading = true;
-  searchService.search(url).then(function(data) {
-    $scope.facetGroups = searchUtil.makeLinkedFacetGroups(recType, data.facets, $scope.q, prevFacetsStr);
-    $scope.crumbs = searchUtil.bakeCrumbs(recType, $scope.q, prevFacetsStr);
-    $scope.result = data;
-    if (data.hits == 1) {
-        $location.url("/edit" + data.list[0].identifier);
-        $location.replace();
-    }
-    $scope.hitCount = data.hits.toString();
-    $scope.loading = false;
-  });
 
+  $scope.getSearchParams = function() {
+    var params = {
+      q: encodeURIComponent(this.q),
+      start: this.page.start,
+      n: this.page.n
+    };
+    if (this.f !== undefined) {
+      params.f = this.f;
+    }
+    return params;
+  };
+
+  $scope.loading = true;
+  $scope.doSearch = function(url, params) {
+
+    searchService.search(url, params).then(function(data) {
+      
+      if($scope.result) {
+        data.list.forEach(function(element) {
+          $scope.result.list.push(element);
+        });
+      } else {
+        $scope.facetGroups = searchUtil.makeLinkedFacetGroups(recType, data.facets, $scope.q, prevFacetsStr);
+        $scope.crumbs = searchUtil.bakeCrumbs(recType, $scope.q, prevFacetsStr);
+        $scope.result = data;
+        if (data.hits == 1) {
+            $location.url("/edit" + data.list[0].identifier);
+            $location.replace();
+        }
+        $scope.hitCount = data.hits.toString();
+      }
+      console.log($scope.result.list.length);
+      $scope.scrolled = false;
+      $scope.loading = false;
+    });
+  };
 });
 
 
