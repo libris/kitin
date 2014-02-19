@@ -38,7 +38,7 @@
         <a class="bib-url" href="/edit{{ record.identifier }}" data-ng-switch="recType">
           <div data-ng-switch-when="auth">
             <div class="col5">
-              {{ $index + 1 }}
+              <span class="hit-count">{{ $index + 1 }}</span>
               <label class="title">
               <span class="title-key">
                 {{ record.data.about.controlledLabel }}
@@ -63,7 +63,7 @@
 
           <div data-ng-switch-default class="nest-cols">
             <div class="col5">
-              {{ $index + 1 }}
+              <span class="hit-count">{{ $index + 1 }}</span>
               <label class="title" title="{{ record.data.about.title.titleValue }} {{ record.data.about.title.subtitle }}">
                 <span class="title-key">{{ record.data.about.title.titleValue | chop }}</span>
                 <span class="title-subtitle">{{ record.data.about.title.subtitle }}</span>

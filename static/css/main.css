@@ -843,6 +843,13 @@ section.result .highlight {
   padding: 0 2px;
   background: rgba(40, 180, 146, 0.4);
 }
+section.result span.hit-count {
+  position: absolute;
+  top: -4px;
+  left: -18px;
+  font-size: 12px;
+  color: #c7c7c7;
+}
 section.result .widget {
   position: absolute;
   top: 0px;
