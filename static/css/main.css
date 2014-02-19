@@ -850,6 +850,14 @@ section.result span.hit-count {
   font-size: 12px;
   color: #c7c7c7;
 }
+section.result span.page-indicator {
+  background-color: #106351;
+  color: white;
+  position: absolute;
+  left: -96px;
+  top: -24px;
+  padding: 6px;
+}
 section.result .widget {
   position: absolute;
   top: 0px;

@@ -36,9 +36,11 @@
     <div class="col9" infinite-scroll="onScroll()" infinite-scroll-distance="0" infinite-scroll-immediate-check="true">
       <section data-ng-repeat="record in result.list" data-ng-class="{'result-pre': record.data.encLevel == 8}" class="result record {{record.identifier}}">
         <a class="bib-url" href="/edit{{ record.identifier }}" data-ng-switch="recType">
+              <span class="hit-count">{{ $index + 1 }}</span>
+              <span class="page-indicator" data-ng-if="$index == 0+20">PAGE2</span>
           <div data-ng-switch-when="auth">
             <div class="col5">
-              <span class="hit-count">{{ $index + 1 }}</span>
+
               <label class="title">
               <span class="title-key">
                 {{ record.data.about.controlledLabel }}
@@ -63,7 +65,7 @@
 
           <div data-ng-switch-default class="nest-cols">
             <div class="col5">
-              <span class="hit-count">{{ $index + 1 }}</span>
+              
               <label class="title" title="{{ record.data.about.title.titleValue }} {{ record.data.about.title.subtitle }}">
                 <span class="title-key">{{ record.data.about.title.titleValue | chop }}</span>
                 <span class="title-subtitle">{{ record.data.about.title.subtitle }}</span>
