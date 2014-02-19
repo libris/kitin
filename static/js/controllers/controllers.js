@@ -116,7 +116,7 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
     return (start > $scope.hitCount) ? $scope.page.start : start;
   };
 
-  $scope.scroll = function() {
+  $scope.onScroll = function() {
     // Get current scroll start
     var start = $scope.getScrollStart();
     // Skip load if already scrolling or if page end is reached
