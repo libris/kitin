@@ -782,6 +782,7 @@ section.result label.title .title-key {
   line-height: 22px;
   font-weight: 600;
   display: block;
+  padding-bottom: 4px;
 }
 section.result label.title .title-subtitle {
   color: #106351;
@@ -793,7 +794,6 @@ section.result label .title-creator {
   color: #777;
   font-size: 14px;
   line-height: 18px;
-  display: block;
 }
 section.result label.title .icon {
   font-size: 16px;
@@ -801,6 +801,7 @@ section.result label.title .icon {
 }
 section.result label.identifier-code {
   font-weight: 600;
+  text-align: right;
 }
 section.result label.title .lbl {
   margin-top: 4px;
