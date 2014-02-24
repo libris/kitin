@@ -38,6 +38,7 @@
         <a class="bib-url" href="/edit{{ record.identifier }}" data-ng-switch="recType">
               <span class="hit-count">{{ $index + 1 }}</span>
               <span class="page-indicator" data-ng-if="$index == 0+20">PAGE2</span>
+          <!--auth result list-->
           <div data-ng-switch-when="auth">
             <div class="col5">
 
@@ -62,17 +63,19 @@
             </div>
 
           </div>
-
+					<!-- bib and remote switch, needs refactor--> 
           <div data-ng-switch-default class="nest-cols">
             <div class="col5">
               
               <label class="title" title="{{ record.data.about.title.titleValue }} {{ record.data.about.title.subtitle }}">
                 <span class="title-key">{{ record.data.about.title.titleValue | chop }}</span>
-                <span class="title-subtitle">{{ record.data.about.title.subtitle }}</span>
+                <span class="title-subtitle">{{ record.data.about.title.subtitle | chop }}<span class="title-creator"> {{ record.data.about.responsibilityStatement | chop }}</span></span>
               </label>
+<!-- testing different layout, delete this if creator and subtitle should span in the same section.
               <label>
                 <span class="title-creator">{{ record.data.about.responsibilityStatement }}</span>
               </label>
+-->
               <label title="contributors" class="contributors">
                 <ul title="" data-ng-repeat="attributedTo in record.data.about.instanceOf.attributedTo"
                   data-ng-show="attributedTo.controlledLabel"><li class="primary-attribution">{{ attributedTo.controlledLabel }}</li>
@@ -93,8 +96,7 @@
                 <span data-ng-show="record.data.about['@type'] == 'Serial'"><i class="fa fa-square fa-fw"></i></span>
                 <span title="Utgivningsår" data-ng-repeat="publication in record.data.about.publication | limitTo:1"
                   data-ng-show="publication.providerDate">{{publication.providerDate}}</span>
-                <span title="Utgivare" data-ng-repeat="publication in record.data.about.publication | limitTo:1"
-                  data-ng-show="publication.providerName">{{publication.providerName}}</span>
+                <span title="Utgivare" data-ng-repeat="publication in record.data.about.publication | limitTo:1"> {{publication.place.label}} {{publication.providerName}}</span>
                 <span data-ng-show="record.data.about.extent">{{ record.data.about.extent }}</span>
               </span>
 
@@ -170,6 +172,7 @@
                <span data-ng-if="record.data.encLevel != 8 ">
                <i class="fa fa-thumb-tack"></i> {x} bibliotek 
                </span>
+               <span data-ng-repeat="comment in record.data.comment">{{comment}}</span>
                </p>
                 </label>
             </div>
