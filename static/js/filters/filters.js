@@ -16,10 +16,10 @@ kitin.filter('chop', function() {
     if (!victim) {
       victim = "";
     }
-    if (victim.length < 70) {
+    if (victim.length < 99) {
       return victim;
     } else {
-      return String(victim).substring(0, 67) + "...";
+      return String(victim).substring(0, 93) + " [...]";
     }
   };
 });
