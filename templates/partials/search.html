@@ -17,7 +17,15 @@
       <span data-ng-hide="crumb.urlpart"><strong>{{ getLabel(crumb.term) }}</strong></span>
       <a data-ng-show="crumb.urlpart" href="{{ crumb.urlpart }}">{{ getLabel(crumb.term) }}</a>
     </span>
-  </p>
+   </p>
+   <span class="sort-option">Sortering: 
+   <select>
+   		<option>Relevans</option>
+			<option>Nyast först</option>
+			<option>Äldst först</option>
+    </select>
+   </span>
+  
   <!--<p class="summary"><span>{{ hitCount }} träffar <span data-ng-repeat="crumb in crumbs">{{ crumb.term }}</span></span></p>-->
   </header>
   <div class="cols">
