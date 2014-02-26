@@ -119,17 +119,18 @@ def search_json(record_type):
     return raw_json_response(resp.text)
 
 def do_search(service_path):
-    q = request.args.get('q')
-    f = request.args.get('f')
-    start = request.args.get('start')
-    n = request.args.get('n')
-    sort = request.args.get('sort')
-    sort = "&sort=%s" % sort if sort else ''
-    freq = "&f=%s" % f.strip() if f else ''
-    b = request.args.get('b', '')
-    boost = ("&boost=%s" % b) if b else ''
-    search_url = "%s/%s?q=%s%s%s&start=%s&n=%s%s" % (app.config['WHELK_HOST'], service_path, q, freq, boost, start, n, sort)
-    return requests.get(search_url, headers=extract_x_forwarded_for_header(request))
+    args = request.args.copy()
+    # Special handle some parameters.
+    if args.get('b'):
+        args.add('boost', args.get('b'))
+        args.pop('b')
+    if args.get('f'):
+        f = args.get('f').strip()
+        args.pop('f')
+        args.add('f', f)
+
+    search_url = "%s/%s" % (app.config['WHELK_HOST'], service_path)
+    return requests.get(search_url, params= request.args, headers=extract_x_forwarded_for_header(request))
 
 @app.route('/record/<record_type>/<record_id>/holdings')
 @login_required
