@@ -123,10 +123,12 @@ def do_search(service_path):
     f = request.args.get('f')
     start = request.args.get('start')
     n = request.args.get('n')
+    sort = request.args.get('sort')
+    sort = "&sort=%s" % sort if sort else ''
     freq = "&f=%s" % f.strip() if f else ''
     b = request.args.get('b', '')
     boost = ("&boost=%s" % b) if b else ''
-    search_url = "%s/%s?q=%s%s%s&start=%s&n=%s" % (app.config['WHELK_HOST'], service_path, q, freq, boost, start, n)
+    search_url = "%s/%s?q=%s%s%s&start=%s&n=%s%s" % (app.config['WHELK_HOST'], service_path, q, freq, boost, start, n, sort)
     return requests.get(search_url, headers=extract_x_forwarded_for_header(request))
 
 @app.route('/record/<record_type>/<record_id>/holdings')

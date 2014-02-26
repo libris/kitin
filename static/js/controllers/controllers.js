@@ -96,6 +96,21 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
     n: $scope.pageSize
   };
 
+
+  // Sort
+  // ----------
+  $scope.sortables = [
+    { text: 'Relevans',     value: 'relevans' },
+    { text: 'Nyast först',  value: '-about.publication.providerDate' },
+    { text: 'Äldst först',  value: 'about.publication.providerDate' }
+  ];
+  $scope.selectedSort = $routeParams.sort ? $scope.sortables[_.findIndex($scope.sortables, { 'value': $routeParams.sort })] : $scope.sortables[0];
+
+  $scope.sortChanged = function(item) {
+    $location.search('sort', item.value);
+  };
+  // ----------
+
   $scope.search = function() {
     $location.url(url);
   };
@@ -142,7 +157,8 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
     var params = {
       q: encodeURIComponent(this.q),
       start: this.page.start,
-      n: this.page.n
+      n: this.page.n,
+      sort: this.selectedSort.value
     };
     if (this.f !== undefined) {
       params.f = this.f;

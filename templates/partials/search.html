@@ -10,21 +10,17 @@
   <div id="grid"></div>
   <header>
   <!--<p class="summary"><span>{{ hitCount }} träffar för <strong>{{ q }}</strong></span></p>-->
-  <p class="summary">
-    {{ hitCount | chunk }} träffar för
-    <span data-ng-repeat="crumb in crumbs">
-      <span data-ng-show="crumb.bridge">{{ crumb.bridge }}</span>
-      <span data-ng-hide="crumb.urlpart"><strong>{{ getLabel(crumb.term) }}</strong></span>
-      <a data-ng-show="crumb.urlpart" href="{{ crumb.urlpart }}">{{ getLabel(crumb.term) }}</a>
+    <p class="summary">
+      {{ hitCount | chunk }} träffar för
+      <span data-ng-repeat="crumb in crumbs">
+        <span data-ng-show="crumb.bridge">{{ crumb.bridge }}</span>
+        <span data-ng-hide="crumb.urlpart"><strong>{{ getLabel(crumb.term) }}</strong></span>
+        <a data-ng-show="crumb.urlpart" href="{{ crumb.urlpart }}">{{ getLabel(crumb.term) }}</a>
+      </span>
+    </p>
+    <span class="sort-option">Sortering: 
+      <select ng-model="selectedSort" ng-options="item as item.text for item in sortables" ng-change="sortChanged(selectedSort)"></select>
     </span>
-   </p>
-   <span class="sort-option">Sortering: 
-   <select>
-   		<option>Relevans</option>
-			<option>Nyast först</option>
-			<option>Äldst först</option>
-    </select>
-   </span>
   
   <!--<p class="summary"><span>{{ hitCount }} träffar <span data-ng-repeat="crumb in crumbs">{{ crumb.term }}</span></span></p>-->
   </header>
