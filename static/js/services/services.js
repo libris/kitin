@@ -331,10 +331,11 @@ kitin.factory('searchUtil', function() {
         newFacet.items = [];
         var prevFacets = prevFacetsStr.split(" ");
         _.each(facet, function (count, key) {
-          var slug = encodeURIComponent([facetType, key].join(":"));
-          var selected = $.inArray(slug, prevFacets) !== -1;
-          var searchUrl = "/search/" + recType + "?q=" + encodeURIComponent(q) + "&f=" +
-            (selected? $.grep(prevFacets, function(val) {return val != slug;}) : slug + " " + prevFacetsStr);
+          var slug = [facetType, key].join(":");
+          var selected = _.indexOf(prevFacets, slug) !== -1;
+          var searchUrl = "/search/" + recType + "?q=" + encodeURIComponent(q) + 
+            (selected ? (prevFacets.length > 1 ? "&f=" + _.filter(prevFacets, function(val) {return val != slug;}) : '') : "&f=" + slug + " " + prevFacetsStr);
+          
           var item = {
             key: key,
             count: count,
