@@ -155,7 +155,7 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
 
   $scope.getSearchParams = function() {
     var params = {
-      q: encodeURIComponent(this.q),
+      q: this.q,
       start: this.page.start,
       n: this.page.n,
       sort: this.selectedSort.value
@@ -163,6 +163,7 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
     if (this.f !== undefined) {
       params.f = this.f;
     }
+    console.log(params);
     return params;
   };
 
