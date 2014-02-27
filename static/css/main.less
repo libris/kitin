@@ -368,8 +368,18 @@ section.result .excerpt{margin-bottom:-14px;}
 section.result .excerpt label{background:#f6f3ee url(/static/img/pat1.png);padding-top:4px;padding-bottom:4px;}
 
 section.result .highlight{padding:0 2px;background:rgba(40,180,146,.4);}
-section.result span.hit-count {position:absolute; top:-4px;left:-18px; font-size: 12px;color:@grey2;}
-section.result span.page-indicator {background-color: @green4;color:white;position:absolute; left:-96px;top:-24px; padding:6px;}
+section.result span.hit-count {position:absolute; top:-4px;left:-18px; font-size: 12px;color:@dark-grey;}
+section.result span.page-indicator {
+  color: @dark-grey;
+  position: absolute;
+  right: -50px;
+  bottom: -7px;
+  padding: 0px 0px 0px 4px;
+  width: 45px;
+  font-size: 10px;
+  word-spacing: -1.0px;;
+/*background-color: @green4;color:white;position:absolute; left:-96px;top:-24px; padding:6px;*/
+}
 section.result .widget {
   position: absolute;
   top: 0px;
@@ -434,7 +444,7 @@ section.dash {margin-bottom: 30px;}
 .content.search .col4:last-child {margin-right:0px;}
 .content.search .col3{overflow:visible;}
 
-.content.search .summary {margin-left:252px;color:#222;font-size:14px;margin-top:12px}
+.content.search .summary {margin-left:252px;color:@dark-grey;font-size:14px;margin-top:12px}
 .content.search .sort-option {margin-left:12px;margin-right:24px;margin-top:12px;float:right;font-size:10px;}
 .content.search select {margin-left:4px!important;font-size:10px!important; width:124px!important;background: transparent!important;}
 

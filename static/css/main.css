@@ -849,15 +849,18 @@ section.result span.hit-count {
   top: -4px;
   left: -18px;
   font-size: 12px;
-  color: #c7c7c7;
+  color: #999999;
 }
 section.result span.page-indicator {
-  background-color: #106351;
-  color: white;
+  color: #999999;
   position: absolute;
-  left: -96px;
-  top: -24px;
-  padding: 6px;
+  right: -50px;
+  bottom: -7px;
+  padding: 0px 0px 0px 4px;
+  width: 45px;
+  font-size: 10px;
+  word-spacing: -1px;
+  /*background-color: @green4;color:white;position:absolute; left:-96px;top:-24px; padding:6px;*/
 }
 section.result .widget {
   position: absolute;
@@ -1019,7 +1022,7 @@ section.dash {
 }
 .content.search .summary {
   margin-left: 252px;
-  color: #222;
+  color: #999999;
   font-size: 14px;
   margin-top: 12px;
 }

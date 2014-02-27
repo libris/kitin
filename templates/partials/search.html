@@ -41,7 +41,7 @@
       <section data-ng-repeat="record in result.list" data-ng-class="{'result-pre': record.data.encLevel == 8}" class="result record {{record.identifier}}">
         <a class="bib-url" href="/edit{{ record.identifier }}" data-ng-switch="recType">
               <span class="hit-count">{{ $index + 1 }}</span>
-              <span class="page-indicator" data-ng-if="$index == 0+20">PAGE2</span>
+              <span class="page-indicator" data-ng-if="($index > 0 && ($index + 1) % 10 == 0) || ($index+1) == hitCount">{{ $index + 1 }} / {{ hitCount }}</span>
           <!--auth result list-->
           <div data-ng-switch-when="auth">
             <div class="col5">
