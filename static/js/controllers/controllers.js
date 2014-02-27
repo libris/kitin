@@ -142,8 +142,6 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
     $scope.page.start = start; 
     // Do search request
     $scope.doSearch($scope.url, $scope.getSearchParams());
-
-    console.log('scroll', $scope.page.start, $scope.page.n);
   };
 
   var prevFacetsStr = $routeParams.f || "";
@@ -163,7 +161,6 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
     if (this.f !== undefined) {
       params.f = this.f;
     }
-    console.log(params);
     return params;
   };
 
@@ -197,7 +194,6 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
         }
         $scope.hitCount = data.hits.toString();
       }
-      console.log($scope.result.list.length);
       $scope.scrolled = false;
       $scope.loading = false;
     });
