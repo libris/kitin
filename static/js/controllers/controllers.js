@@ -166,18 +166,29 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
     return params;
   };
 
+  $scope.$watch('result.list.length', function(newLength, oldLength) {
+    for (var i = oldLength ? oldLength: 0; i < newLength; i++) {
+        var record = $scope.result.list[i];
+        $http.get("/record"  + record.identifier + "/holdings", {record: record}).success(function(data, status, headers, config) {
+          if(data) {
+            config.record.holdings = data
+          }
+        });
+    };
+  });
+
   $scope.loading = true;
   $scope.doSearch = function(url, params) {
 
     searchService.search(url, params).then(function(data) {
-      
+      $scope.facetGroups = searchUtil.makeLinkedFacetGroups(recType, data.facets, $scope.q, prevFacetsStr);
+      $scope.crumbs = searchUtil.bakeCrumbs(recType, $scope.q, prevFacetsStr);
+
       if($scope.result) {
         data.list.forEach(function(element) {
           $scope.result.list.push(element);
         });
       } else {
-        $scope.facetGroups = searchUtil.makeLinkedFacetGroups(recType, data.facets, $scope.q, prevFacetsStr);
-        $scope.crumbs = searchUtil.bakeCrumbs(recType, $scope.q, prevFacetsStr);
         $scope.result = data;
         if (data.hits == 1) {
             $location.url("/edit" + data.list[0].identifier);

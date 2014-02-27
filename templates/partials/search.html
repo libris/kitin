@@ -173,8 +173,8 @@
                <span data-ng-if="record.data.encLevel == 8 ">
                Beståndsinformation ej tillgänglig
                </span>
-               <span data-ng-if="record.data.encLevel != 8 ">
-               <i class="fa fa-thumb-tack"></i> {x} bibliotek 
+               <span data-ng-if="record.data.encLevel != 8 && record.holdings.hits != null">
+               <i class="fa fa-thumb-tack"></i> {{record.holdings.hits}} bibliotek 
                </span>
                <span data-ng-repeat="comment in record.data.comment">{{comment}}</span>
                </p>
