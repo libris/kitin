@@ -33,7 +33,7 @@
         <div class="modal-body">
             <input ng-model="remoteDatabaseFilterQuery">
             <button class="btn" ng-click="remoteDatabaseFilterQuery = ''">Clear</button>
-            <div data-ng-repeat="database in remoteDatabases | orderBy:'country' | groupBy:['country']">
+            <div data-ng-repeat="database in remoteDatabases | filter:remoteDatabaseFilterQuery | orderBy:'country' | groupBy:['country']">
               <h4 ng-show="database.group_by_CHANGED">{{ database.country }}</h4>
               <ul>
                 <li><input type="checkbox" /> {{ database.alternateName }}</li>
