@@ -9,21 +9,30 @@
      
     <!-- Modal -->
     <div id="rlModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="rlModalLabel" aria-hidden="true">
-    <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h2 id="rlModalLabel">Release Notes</h2>
-    </div>
-    <div class="modal-body">
+    	<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h2 id="rlModalLabel">Release Notes</h2>
+			</div>
+    	<div class="modal-body">
       {% include "partials/_release_notes.html" %}
-    </div>
+			</div>
 <!--
     <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Stäng</button>
     </div>
 -->
     </div>
+     <!-- REMOTEModal -->
+    <div id="remoteModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="remoteModalLabel" aria-hidden="true">
+    	<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h2 id="remoteModalLabel">Remotekällor</h2>
+			</div>
+			<div class="modal-body">Källor</div>
+    </div>
   </div>
-  <div class="kb"></div>
+  <div class="kb">
+  </div>
   {% if current_user and current_user.is_authenticated() %}
     {% raw %}
     <div class="searchfield">
@@ -49,8 +58,12 @@
         <div>
           <em data-ng-show="searchType.key != 'bib'">{{ searchType.label }}</em>
         </div>
+			<span data-ng-show="searchType.key = 'remote'">
+			<a href="#" data-target="#remoteModal" data-toggle="modal">Remotekällor</a></span>
       </form>
     </div>
+
+
     {% endraw %}
   {% endif %}
 </div>
