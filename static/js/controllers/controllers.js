@@ -59,7 +59,7 @@ kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams) {
   });
 });
 
-kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, definitions, searchService, searchUtil) {
+kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, definitions, searchService, searchUtil, editUtil) {
 
   var recType = $routeParams.recType;
 
@@ -80,6 +80,13 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
   definitions.enums.encLevel.then(function(data) {
     $scope.enums.encLevel = data;
   });
+  
+  // TODO: localization
+  $scope.facetLabels = [ 
+    { 'about.@type': 'Typer' },
+    { 'about.dateOfPublication': 'Datum' },
+    { 'about.instanceOf.language': 'Språk' }
+  ];
 
   var facetLabels = []; // TODO: localization
   facetLabels['about.@type'] = "Typer";
@@ -95,6 +102,14 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
     start: -$scope.pageSize,
     n: $scope.pageSize
   };
+
+  // TODO - remove
+  $scope.editPost = function(recType, record) {
+    if(recType === 'remotesearch') {
+      editUtil.setRecord(record);
+    }
+    $location.url('/edit' + record.identifier)
+  }
 
 
   // Sort
@@ -156,7 +171,7 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
       q: this.q,
       start: this.page.start,
       n: this.page.n,
-      sort: this.selectedSort.value
+      sort: $routeParams.sort
     };
     if (this.f !== undefined) {
       params.f = this.f;
@@ -287,6 +302,12 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
       addRecordViewsToScope(record, $scope);
     });
   } else {
+    var record = editUtil.getRecord();
+    if(recType === 'external' && record) {
+      record = $scope.record = record.data;
+      editUtil.patchBibRecord(record);
+      addRecordViewsToScope(record, $scope);
+    } else {
     records.get(recType, recId).then(function(data) {
       var record = $scope.record = data['recdata'];
 
@@ -323,6 +344,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
       });
 
     });
+}
   }
 
   $scope.modifications = {saved: true, published: true};
