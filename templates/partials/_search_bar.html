@@ -16,11 +16,6 @@
     	<div class="modal-body">
       {% include "partials/_release_notes.html" %}
 			</div>
-<!--
-    <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Stäng</button>
-    </div>
--->
     </div>
      <!-- REMOTEModal -->
     <div id="remoteModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="remoteModalLabel" aria-hidden="true">
@@ -29,6 +24,10 @@
 				<h2 id="remoteModalLabel">Remotekällor</h2>
 			</div>
 			<div class="modal-body">Källor</div>
+			    <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">OK</button>
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Stäng</button>
+    </div>
     </div>
   </div>
   <div class="kb">
@@ -58,8 +57,10 @@
         <div>
           <em data-ng-show="searchType.key != 'bib'">{{ searchType.label }}</em>
         </div>
-			<span data-ng-show="searchType.key = 'remote'">
-			<a href="#" data-target="#remoteModal" data-toggle="modal">Remotekällor</a></span>
+
+			<span data-ng-show="searchType.key == 'remotesearch'">
+			<a href="#" data-target="#remoteModal" data-toggle="modal">{{ "Remotekällor" }}</a></span>
+
       </form>
     </div>
 
