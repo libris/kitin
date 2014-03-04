@@ -16,53 +16,60 @@
     	<div class="modal-body">
       {% include "partials/_release_notes.html" %}
 			</div>
-<!--
-    <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Stäng</button>
     </div>
--->
-    </div>
-     <!-- REMOTEModal -->
-    <div id="remoteModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="remoteModalLabel" aria-hidden="true">
-    	<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h2 id="remoteModalLabel">Remotekällor</h2>
-			</div>
-			<div class="modal-body">Källor</div>
-    </div>
+
   </div>
   <div class="kb">
   </div>
   {% if current_user and current_user.is_authenticated() %}
     {% raw %}
-    <div class="searchfield">
-      <form data-ng-controller="SearchFormCtrl" data-ng-submit="search()" method="GET" name="search_form">
-        <input id="search" name="q" type="text" autofocus
-               value="{{ q }}" placeholder="{{ placeholders[searchType.key] }}"
-        autocomplete="off" role="textbox"
-        aria-autocomplete="list" aria-haspopup="true" data-ng-model="q">
-        <div class="btn-group">
-          <button class="btn" type="submit">Sök</button>
+    <div data-ng-controller="SearchFormCtrl">
+      <!-- REMOTEModal -->
+      <div id="remoteModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="remoteModalLabel" aria-hidden="true">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 id="remoteModalLabel">Remotekällor</h3>
+        </div>
+        <div class="modal-body">
+            <input ng-model="remoteDatabaseFilterQuery">
+            <button class="btn" ng-click="remoteDatabaseFilterQuery = ''">Clear</button>
+            <div data-ng-repeat="database in remoteDatabases | orderBy:'country' | groupBy:['country']">
+              <h4 ng-show="database.group_by_CHANGED">{{ database.country }}</h4>
+              <ul>
+                <li><input type="checkbox" /> {{ database.alternateName }}</li>
+              </ul>
+            </div>
+        </div>
+      </div>
 
-          <a class="btn dropdown-toggle">
-            <span class="fa fa-caret-down fa-inverse"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li data-ng-repeat="opt in searchTypes">
-              <a data-ng-class="{selected: opt.key == searchType.key}"
-                 data-ng-click="setSearchType(opt.key)">{{ opt.label }}</a>
-            </li>
-          </ul>
-          
-        </div>
-        <div>
-          <em data-ng-show="searchType.key != 'bib'">{{ searchType.label }}</em>
-        </div>
-			<span data-ng-show="searchType.key = 'remote'">
-			<a href="#" data-target="#remoteModal" data-toggle="modal">Remotekällor</a></span>
-      </form>
+      <div class="searchfield">
+        <form data-ng-submit="search()" method="GET" name="search_form">
+          <input id="search" name="q" type="text" autofocus
+                 value="{{ q }}" placeholder="{{ placeholders[searchType.key] }}"
+          autocomplete="off" role="textbox"
+          aria-autocomplete="list" aria-haspopup="true" data-ng-model="q">
+          <div class="btn-group">
+            <button class="btn" type="submit">Sök</button>
+
+            <a class="btn dropdown-toggle">
+              <span class="fa fa-caret-down fa-inverse"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li data-ng-repeat="opt in searchTypes">
+                <a data-ng-class="{selected: opt.key == searchType.key}"
+                   data-ng-click="setSearchType(opt.key)">{{ opt.label }}</a>
+              </li>
+            </ul>
+            
+          </div>
+          <div>
+            <em data-ng-show="searchType.key != 'bib'">{{ searchType.label }}</em>
+          </div>
+  			<span data-ng-show="searchType.key == 'remotesearch'">
+  			<a href="#" data-target="#remoteModal" data-toggle="modal">Remotekällor</a></span>
+        </form>
+      </div>
     </div>
-
 
     {% endraw %}
   {% endif %}

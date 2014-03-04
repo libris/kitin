@@ -48,6 +48,7 @@ kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, def
   $scope.searchTypes = [searchTypeIndex.bib, searchTypeIndex.auth, searchTypeIndex.remotesearch];
   $scope.setSearchType = function (key) {
     $scope.searchType = searchTypeIndex[key];
+    // For remote search, load remote database definitions
     if(key === searchTypeIndex.remotesearch.key) {
       definitions.remotedatabases.then(function(data){
         $scope.remoteDatabases = data;
