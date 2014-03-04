@@ -24,6 +24,9 @@ kitin.controller('OpenModalCtrl', function($scope, $modal, $location) {
 
 kitin.controller('IndexCtrl', function($scope, $http) {
   document.body.className = 'index';
+
+
+
   $scope.drafts = $http.get("/drafts").success(function(data) {
     $scope.drafts = data.drafts;
   });
@@ -36,7 +39,7 @@ kitin.controller('IndexCtrl', function($scope, $http) {
 });
 
 
-kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams) {
+kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, definitions) {
   var searchTypeIndex = {
     bib: {key: "bib", label: "Bibliografiskt material"},
     auth: {key: "auth", label: "Auktoriteter"},
@@ -45,6 +48,11 @@ kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams) {
   $scope.searchTypes = [searchTypeIndex.bib, searchTypeIndex.auth, searchTypeIndex.remotesearch];
   $scope.setSearchType = function (key) {
     $scope.searchType = searchTypeIndex[key];
+    if(key === searchTypeIndex.remotesearch.key) {
+      definitions.remotedatabases.then(function(data){
+        $scope.remoteDatabases = data;
+      });
+    }
   };
   $scope.placeholders = {
     bib: "Sök bland bibliografiskt material (på ISBN, titel, författare etc.)",

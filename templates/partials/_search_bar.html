@@ -49,6 +49,11 @@
         <div>
           <em data-ng-show="searchType.key != 'bib'">{{ searchType.label }}</em>
         </div>
+        <div>
+          <ul data-ng-repeat="database in remoteDatabases">
+            <li>{{ database.name }}</li>
+          </ul>
+        </div>
       </form>
     </div>
     {% endraw %}

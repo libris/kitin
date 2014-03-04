@@ -18,6 +18,7 @@ kitin.factory('definitions', function($http) {
   }
   var enumBase = "/resource/_marcmap?part=bib.fixprops.";
   var definitions = {
+    remotedatabases: getDataset("/search/remotesearch.json?databases"),
     typedefs: getDataset("/resource/_resourcelist?typedef=all"),
     relators: getDataset("/def/relators"),
     languages: getDataset("/def/languages"),
