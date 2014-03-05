@@ -16,6 +16,7 @@ kitin.factory('definitions', function($http) {
       }
     };
   }
+
   var enumBase = "/resource/_marcmap?part=bib.fixprops.";
   var definitions = {
     remotedatabases: getDataset("/search/remotesearch.json?databases"),
@@ -319,8 +320,11 @@ kitin.factory('searchService', function($http, $q) {
 });
 
 kitin.factory('searchUtil', function() {
+  return {
 
-  var searchUtil = {
+    groupRemoteDatabases: function (databaseList, sortParam) {
+      return _.groupBy(_.sortBy(databaseList, sortParam), sortParam);
+    },
 
     makeLinkedFacetGroups: function (recType, facets, q, prevFacetsStr) {
       // iterate facets to add correct slug
@@ -387,8 +391,5 @@ kitin.factory('searchUtil', function() {
       return crumblist;
     }
   };
-
-  return searchUtil;
-
 });
 

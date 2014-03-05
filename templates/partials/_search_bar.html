@@ -25,19 +25,26 @@
   {% if current_user and current_user.is_authenticated() %}
     {% raw %}
     <div data-ng-controller="SearchFormCtrl">
+      
       <!-- REMOTEModal -->
       <div id="remoteModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="remoteModalLabel" aria-hidden="true">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
           <h3 id="remoteModalLabel">Remotekällor</h3>
+          <input ng-model="remoteDatabaseFilterQuery">
+            <button class="btn" ng-click="remoteDatabaseFilterQuery = ''">Clear</button>
         </div>
         <div class="modal-body">
-            <input ng-model="remoteDatabaseFilterQuery">
-            <button class="btn" ng-click="remoteDatabaseFilterQuery = ''">Clear</button>
-            <div data-ng-repeat="database in remoteDatabases | filter:remoteDatabaseFilterQuery | orderBy:'country' | groupBy:['country']">
-              <h4 ng-if="database.group_by_CHANGED">{{ database.country }}</h4>
+            <div data-ng-repeat="(databaseGroupName, databaseGroup) in remoteDatabases">
+              <h4 ng-if="(databaseGroup|filter:remoteDatabaseFilterQuery).length > 0">{{ databaseGroupName }}</h4>
               <ul>
-                <li><input type="checkbox" /> {{ database.alternateName }}</li>
+                <li data-ng-repeat="database in databaseGroup | filter:remoteDatabaseFilterQuery">
+                  <input type="checkbox" ng-model="database.selected"/> {{ database.alternativtnamn }}
+                  <p>
+                    <i>{{ database.kommentar }}</i>
+                    <a href="{{ database.adress }}" target="_blank">{{ database.adress }}</a>
+                  </p>
+                </li>
               </ul>
             </div>
         </div>
@@ -70,8 +77,15 @@
           <div>
             <em data-ng-show="searchType.key != 'bib'">{{ searchType.label }}</em>
           </div>
-  			<span data-ng-show="searchType.key == 'remotesearch'">
-  			<a href="#" data-target="#remoteModal" data-toggle="modal">Remotekällor</a></span>
+    			<span data-ng-show="searchType.key == 'remotesearch'">
+      			<a href="#" data-target="#remoteModal" data-toggle="modal">Remotekällor</a>
+            <!-- List seleceted remote databases -->
+            <ul data-ng-repeat="(databaseGroupName, databaseGroup) in remoteDatabases">
+              <li data-ng-repeat="database in databaseGroup" ng-if="database.selected">
+                <input type="checkbox" ng-model="database.selected"/> {{ database.alternativtnamn }}
+              </li>
+            </ul>
+          </span>
         </form>
       </div>
     </div>

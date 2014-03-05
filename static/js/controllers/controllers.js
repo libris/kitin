@@ -38,8 +38,7 @@ kitin.controller('IndexCtrl', function($scope, $http) {
   };
 });
 
-
-kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, definitions) {
+kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, definitions, searchUtil) {
   var searchTypeIndex = {
     bib: {key: "bib", label: "Bibliografiskt material"},
     auth: {key: "auth", label: "Auktoriteter"},
@@ -48,13 +47,14 @@ kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, def
   $scope.searchTypes = [searchTypeIndex.bib, searchTypeIndex.auth, searchTypeIndex.remotesearch];
   $scope.setSearchType = function (key) {
     $scope.searchType = searchTypeIndex[key];
-    // For remote search, load remote database definitions
+    // For remote search, load list of remote database definitions
     if(key === searchTypeIndex.remotesearch.key) {
       definitions.remotedatabases.then(function(data){
-        $scope.remoteDatabases = data;
+        $scope.remoteDatabases = searchUtil.groupRemoteDatabases(data, 'land');
       });
     }
   };
+
   $scope.placeholders = {
     bib: "Sök bland bibliografiskt material (på ISBN, titel, författare etc.)",
     auth: "Sök bland auktoriteter (personer, ämnen, verk etc.)",
@@ -174,14 +174,15 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
   };
 
   $scope.$watch('result.list.length', function(newLength, oldLength) {
+    var updateHoldings = function(data, status, headers, config) {
+      if(data) {
+            config.record.holdings = data;
+          }
+    };
     for (var i = oldLength ? oldLength: 0; i < newLength; i++) {
         var record = $scope.result.list[i];
-        $http.get("/record"  + record.identifier + "/holdings", {record: record}).success(function(data, status, headers, config) {
-          if(data) {
-            config.record.holdings = data
-          }
-        });
-    };
+        $http.get("/record"  + record.identifier + "/holdings", {record: record}).success(updateHoldings);
+    }
   });
 
   $scope.loading = true;
