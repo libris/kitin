@@ -327,6 +327,22 @@ body.search #header .kb {
   color: #ddd;
 }
 /*FF19>*/
+/* body.edit #header .searchfield .remotesearch {width:400px; display: block;background-color: green;} */
+.remote-search {
+  width: 400px;
+  display: block;
+  background-color: white;
+  -moz-box-shadow: 3px 3px 5px #888;
+  -webkit-box-shadow: 3px 3px 5px #888;
+  box-shadow: 3px 3px 5px #888;
+}
+#header .searchfield .remote-search ul.remotesource {
+  list-style: none;
+  display: inline;
+}
+#header .searchfield .remote-search ul.remotesource li {
+  display: inline;
+}
 #header .searchfield a.btn {
   height: 24px;
   border: none;

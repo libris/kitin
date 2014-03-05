@@ -77,12 +77,12 @@
           <div>
             <em data-ng-show="searchType.key != 'bib'">{{ searchType.label }}</em>
           </div>
-    			<span data-ng-show="searchType.key == 'remotesearch'">
+    			<span class="remote-search" data-ng-show="searchType.key == 'remotesearch'">
       			<a href="#" data-target="#remoteModal" data-toggle="modal">Remotekällor</a>
             <!-- List seleceted remote databases -->
-            <ul data-ng-repeat="(databaseGroupName, databaseGroup) in remoteDatabases">
+            <ul class="remotesource" data-ng-repeat="(databaseGroupName, databaseGroup) in remoteDatabases">
               <li data-ng-repeat="database in databaseGroup" ng-if="database.selected">
-                <input type="checkbox" ng-model="database.selected"/> {{ database.alternativtnamn }}
+                <!-- <input type="checkbox" ng-model="database.selected"/> --> {{ database.alternativtnamn }}
               </li>
             </ul>
           </span>
