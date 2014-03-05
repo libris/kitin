@@ -79,7 +79,7 @@ kitin.filter('groupBy', ['$parse', function ($parse) {
             prev_item = item;
 
         });
-        console.log('GROUP BY',filtered);
+
         return filtered;
     };
 }]);
