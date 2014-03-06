@@ -2257,6 +2257,18 @@ h4.modal-title {
 #remoteModal .modal-body ul {
   list-style: none;
 }
+#remoteModal a.database-name {
+  display: inline-block;
+  color: #666;
+  padding: 6px 0 6px 18px;
+  background: url(/static/img/dot.png) no-repeat 4px 9px;
+}
+#remoteModal dd {
+  clear: both;
+  margin: 0 0;
+  line-height: 1;
+  font-size: 13px;
+}
 /* JSON-LD View */
 .json-ld code {
   font-family: 'Open Sans';

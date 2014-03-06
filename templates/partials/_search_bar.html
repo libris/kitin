@@ -36,16 +36,15 @@
         </div>
         <div class="modal-body">
             <div>
-              <ul>
-                <li data-ng-repeat="database in orderedRemoteDatabases = (remoteDatabases | orderBy:'country') | filter:remoteDatabaseFilterQuery">
+            <dl>
+                <dd data-ng-repeat="database in orderedRemoteDatabases = (remoteDatabases | orderBy:'country') | filter:remoteDatabaseFilterQuery">
                   <h4 ng-if="orderedRemoteDatabases[$index-1].country !== database.country">{{database.country}}</h4>
-                  <input type="checkbox" ng-model="database.selected"/> {{ database.alternativeName }} <a href="{{database.address}}" target="_blank"><i class="fa fa-external-link"></i></a>
+                  <a href="" class="database-name" ng-model="database.selected"/> {{ database.alternativeName }}</a> <a href="{{database.address}}" target="_blank"><i class="fa fa-external-link"></i></a>
                   <p>
                     <i>{{ database.comment }}</i>
-                    
                   </p>
-                </li>
-              </ul>
+                </dd>
+            </dl>
             </div>
         </div>
         <div class="modal-footer">
