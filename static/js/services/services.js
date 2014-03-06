@@ -322,8 +322,8 @@ kitin.factory('searchService', function($http, $q) {
 kitin.factory('searchUtil', function() {
   return {
 
-    groupRemoteDatabases: function (databaseList, sortParam) {
-      return _.indexBy(databaseList, sortParam);
+    parseSelected: function (remoteDatabases) {
+      return _.map(_.filter(remoteDatabases, 'selected'), 'database').join(',');
     },
 
     makeLinkedFacetGroups: function (recType, facets, q, prevFacetsStr) {
