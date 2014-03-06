@@ -186,7 +186,10 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
     };
     for (var i = oldLength ? oldLength: 0; i < newLength; i++) {
         var record = $scope.result.list[i];
-        $http.get("/record"  + record.identifier + "/holdings", {record: record}).success(updateHoldings);
+        if(record.identifier) {
+          $http.get("/record"  + record.identifier + "/holdings", {record: record}).success(updateHoldings);
+        }
+
     }
   });
 
