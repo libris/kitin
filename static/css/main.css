@@ -327,14 +327,21 @@ body.search #header .kb {
   color: #ddd;
 }
 /*FF19>*/
-/* body.edit #header .searchfield .remotesearch {width:400px; display: block;background-color: green;} */
+body #header .searchfield .remote-search {
+  width: 415px;
+}
+body.index #header .searchfield .remote-search {
+  width: 531px;
+}
 .remote-search {
-  width: 400px;
   display: block;
   background-color: white;
-  -moz-box-shadow: 3px 3px 5px #888;
-  -webkit-box-shadow: 3px 3px 5px #888;
-  box-shadow: 3px 3px 5px #888;
+  -moz-box-shadow: 3px 3px 1px #888;
+  -webkit-box-shadow: 3px 3px 1px #888;
+  box-shadow: 3px 3px 1px #888;
+  border-top-left-radius: 3px;
+  border-color: #888;
+  border: 1px solid #efefef;
 }
 #header .searchfield .remote-search ul.remotesource {
   list-style: none;
@@ -2239,6 +2246,16 @@ body .modal.wide {
 h4.modal-title {
   font: bold italic 16px/20px "Droid Serif", georgia, serif;
   color: #1a8f72;
+}
+.modal-large {
+  width: 780px;
+  margin-left: -390px;
+}
+.modal-body {
+  max-width: 732px;
+}
+#remoteModal .modal-body ul {
+  list-style: none;
 }
 /* JSON-LD View */
 .json-ld code {

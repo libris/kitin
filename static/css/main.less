@@ -126,10 +126,16 @@ body.search #header .kb{display:none}
 #header .searchfield :focus:-moz-placeholder:focus { color:#ddd; }/*FF18<*/
 #header .searchfield :focus::-moz-placeholder { color:#ddd; }/*FF19>*/
 
-/* body.edit #header .searchfield .remotesearch {width:400px; display: block;background-color: green;} */
-.remote-search {width:400px; display:block; background-color: white;-moz-box-shadow: 3px 3px 5px #888;
--webkit-box-shadow: 3px 3px 5px #888;
-box-shadow: 3px 3px 5px #888;}
+body #header .searchfield .remote-search {width:415px;}
+body.index #header .searchfield .remote-search {width:531px;}
+.remote-search {display:block; background-color: white;
+	   -moz-box-shadow: 3px 3px 1px #888;
+	-webkit-box-shadow: 3px 3px 1px #888;
+	        box-shadow: 3px 3px 1px #888;
+	        border-top-left-radius: 3px;
+					border-color: #888;
+					border: 1px solid #efefef;
+}
 #header .searchfield .remote-search ul.remotesource {list-style: none; display: inline;}
 #header .searchfield .remote-search ul.remotesource li {display: inline;}
 
@@ -1082,6 +1088,11 @@ body .modal.fade{top:10%; transition:none}
 body .modal.wide{width:1024px;margin-left:-512px}
 
 h4.modal-title{font: bold italic 16px/20px "Droid Serif", georgia,serif; color:@green3; }
+
+
+.modal-large { width: 780px; margin-left: -390px; }
+.modal-body {max-width: 732px;}
+#remoteModal .modal-body ul{list-style: none;}
 
 /* JSON-LD View */
 
