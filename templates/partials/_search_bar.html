@@ -27,7 +27,7 @@
     <div data-ng-controller="SearchFormCtrl">
       
       <!-- REMOTEModal -->
-      <div id="remoteModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="remoteModalLabel" aria-hidden="true">
+      <div id="remoteModal" class="modal modal-large hide fade" tabindex="-1" role="dialog" aria-labelledby="remoteModalLabel" aria-hidden="true">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
           <h3 id="remoteModalLabel">Remotekällor</h3>
@@ -39,10 +39,10 @@
               <ul>
                 <li data-ng-repeat="database in orderedRemoteDatabases = (remoteDatabases | orderBy:'country') | filter:remoteDatabaseFilterQuery">
                   <h4 ng-if="orderedRemoteDatabases[$index-1].country !== database.country">{{database.country}}</h4>
-                  <input type="checkbox" ng-model="database.selected"/> {{ database.alternativeName }}
+                  <input type="checkbox" ng-model="database.selected"/> {{ database.alternativeName }} <a href="{{database.address}}" target="_blank"><i class="fa fa-external-link"></i></a>
                   <p>
                     <i>{{ database.comment }}</i>
-                    <a href="{{database.address}}" target="_blank">{{ database.address }}</a>
+                    
                   </p>
                 </li>
               </ul>

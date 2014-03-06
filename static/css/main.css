@@ -2247,6 +2247,16 @@ h4.modal-title {
   font: bold italic 16px/20px "Droid Serif", georgia, serif;
   color: #1a8f72;
 }
+.modal-large {
+  width: 780px;
+  margin-left: -390px;
+}
+.modal-body {
+  max-width: 732px;
+}
+#remoteModal .modal-body ul {
+  list-style: none;
+}
 /* JSON-LD View */
 .json-ld code {
   font-family: 'Open Sans';
