@@ -61,12 +61,9 @@ kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, def
     remotesearch: ""
   };
   $scope.search = function() {
-    var selectRemoteDatabases = '&database=' + _.forEach($scope.remoteDatabases, function(group){
-      var k = _.filter(group, function(db) { 
-        return db.selected === true ? db.namn : false;
-      });
-      return k ? _.pluck(k,'namn') : false;
-    });
+    var selectRemoteDatabases = _.map(_.filter($scope.remoteDatabases, 'selected'), 'database').join(',');
+    var selectRemoteDatabases = selectRemoteDatabases.length > 0 ? '&database=' + selectRemoteDatabases : '';
+      
     $location.url("/search/" + $scope.searchType.key + "?q="+encodeURIComponent($scope.q) + selectRemoteDatabases);
   };
   $scope.$on('$routeChangeSuccess', function () {
