@@ -35,17 +35,23 @@
             <button class="btn" ng-click="remoteDatabaseFilterQuery = ''">Clear</button>
         </div>
         <div class="modal-body">
-            <div>
-            <dl>
-                <dd data-ng-repeat="database in orderedRemoteDatabases = (remoteDatabases | orderBy:'country') | filter:remoteDatabaseFilterQuery">
-                  <h4 ng-if="orderedRemoteDatabases[$index-1].country !== database.country">{{database.country}}</h4>
-                  <a href="" class="database-name" ng-model="database.selected"/> {{ database.alternativeName }}</a> <a href="{{database.address}}" target="_blank"><i class="fa fa-external-link"></i></a>
-                  <p>
-                    <i>{{ database.comment }}</i>
-                  </p>
-                </dd>
-            </dl>
-            </div>
+          <div>
+            Sortera:
+            <ul>
+              <li ng-click="orderRemoteDatabases = 'alternativeName'; groupRemoteDatabases = false;">Bokstavsordning</li>
+              <li ng-click="orderRemoteDatabases = 'country'; groupRemoteDatabases = true;">Länder</li>
+            <ul>
+          </div>
+          <ul>
+            <li data-ng-repeat="database in orderedRemoteDatabases = (remoteDatabases | orderBy: orderRemoteDatabases) | filter:remoteDatabaseFilterQuery">
+              <h4 ng-if="groupRemoteDatabases && orderedRemoteDatabases[$index-1][orderRemoteDatabases] !== database[orderRemoteDatabases]">{{database.country}}</h4>
+              <input type="checkbox" ng-model="database.selected"/> {{ database.alternativeName }} <a href="{{database.address}}" target="_blank"><i class="fa fa-external-link"></i></a>
+              <p>
+                <i>{{ database.comment }}</i>
+                
+              </p>
+            </li>
+          </ul>
         </div>
         <div class="modal-footer">
           <button class="btn" data-dismiss="modal" aria-hidden="true">OK</button>
