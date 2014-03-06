@@ -35,14 +35,14 @@
             <button class="btn" ng-click="remoteDatabaseFilterQuery = ''">Clear</button>
         </div>
         <div class="modal-body">
-            <div data-ng-repeat="(databaseGroupName, databaseGroup) in remoteDatabases">
-              <h4 ng-if="(databaseGroup|filter:remoteDatabaseFilterQuery).length > 0">{{ databaseGroupName }}</h4>
+            <div>
               <ul>
-                <li data-ng-repeat="database in databaseGroup | filter:remoteDatabaseFilterQuery">
-                  <input type="checkbox" ng-model="database.selected"/> {{ database.alternativtnamn }}
+                <li data-ng-repeat="database in orderedRemoteDatabases = (remoteDatabases | orderBy:'country') | filter:remoteDatabaseFilterQuery">
+                  <h4 ng-if="orderedRemoteDatabases[$index-1].country !== database.country">{{database.country}}</h4>
+                  <input type="checkbox" ng-model="database.selected"/> {{ database.alternativeName }}
                   <p>
-                    <i>{{ database.kommentar }}</i>
-                    <a href="{{ database.adress }}" target="_blank">{{ database.adress }}</a>
+                    <i>{{ database.comment }}</i>
+                    <a href="{{database.address}}" target="_blank">{{ database.address }}</a>
                   </p>
                 </li>
               </ul>

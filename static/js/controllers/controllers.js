@@ -50,7 +50,7 @@ kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, def
     // For remote search, load list of remote database definitions
     if(key === searchTypeIndex.remotesearch.key) {
       definitions.remotedatabases.then(function(data){
-        $scope.remoteDatabases = searchUtil.groupRemoteDatabases(data, 'land');
+        $scope.remoteDatabases = data;
       });
     }
   };
@@ -61,7 +61,13 @@ kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, def
     remotesearch: ""
   };
   $scope.search = function() {
-    $location.url("/search/" + $scope.searchType.key + "?q="+encodeURIComponent($scope.q));
+    var selectRemoteDatabases = '&database=' + _.forEach($scope.remoteDatabases, function(group){
+      var k = _.filter(group, function(db) { 
+        return db.selected === true ? db.namn : false;
+      });
+      return k ? _.pluck(k,'namn') : false;
+    });
+    $location.url("/search/" + $scope.searchType.key + "?q="+encodeURIComponent($scope.q) + selectRemoteDatabases);
   };
   $scope.$on('$routeChangeSuccess', function () {
     $scope.setSearchType($routeParams.recType || "bib");

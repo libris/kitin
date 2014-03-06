@@ -323,7 +323,7 @@ kitin.factory('searchUtil', function() {
   return {
 
     groupRemoteDatabases: function (databaseList, sortParam) {
-      return _.groupBy(_.sortBy(databaseList, sortParam), sortParam);
+      return _.indexBy(databaseList, sortParam);
     },
 
     makeLinkedFacetGroups: function (recType, facets, q, prevFacetsStr) {
