@@ -50,6 +50,11 @@ kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, def
     // For remote search, load list of remote database definitions
     if(key === searchTypeIndex.remotesearch.key) {
       definitions.remotedatabases.then(function(data){
+        // Debug, set LC (Library of Congress) to default
+        var i = _.findIndex(data, { 'database': 'LC' });
+        if(i) {
+          data[i].selected = true;
+        }
         $scope.remoteDatabases = data;
       });
     }
@@ -180,9 +185,9 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
 
   $scope.$watch('result.list.length', function(newLength, oldLength) {
     var updateHoldings = function(data, status, headers, config) {
-      if(data) {
-            config.record.holdings = data;
-          }
+    if(data) {
+          config.record.holdings = data;
+        }
     };
     for (var i = oldLength ? oldLength: 0; i < newLength; i++) {
         var record = $scope.result.list[i];
