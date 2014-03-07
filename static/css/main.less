@@ -79,7 +79,7 @@ a:hover{color:@green4;}
 
 body.edit #header,
 body.search #header{
-  height: 52px
+  height: 70px
 }
 
 body.edit #header > .logo,
@@ -157,11 +157,21 @@ body.search #header .kb{display:none}
 #header .searchfield :focus::-moz-placeholder { color:#ddd; }/*FF19>*/
 
 body #header .searchfield .remote-search {width:415px;}
-body.index #header .searchfield .remote-search {width:531px;}
-.remote-search {
+body.index #header .searchfield .remote-search ul.remotesource {
+  max-width: 529px;
 }
-#header .searchfield .remote-search ul.remotesource {list-style: none; display: inline;}
+
+#header .searchfield .remote-search ul.remotesource {
+  max-width: 369px;
+  font-size: 13px;
+  margin: 0px;
+  float: left;
+  list-style: none; 
+  display: inline;
+}
+
 #header .searchfield .remote-search ul.remotesource li {display: inline;}
+#header .searchfield .remote-search a { float: right;}
 
 #header .searchfield a.btn{height:24px;border:none;
     background:@green3;width:15px;
@@ -214,7 +224,16 @@ body.login #header .searchfield{display:none;}
 .content{position:relative;background:url(/static/img/bg.png);padding:0 24px 24px 24px;overflow:hidden;}
 .content:not(.footer){min-height:500px}
 
-.content header{background:url(/static/img/top-small.png) no-repeat;position:relative;padding:12px 24px 0;width:1032px;margin-left:-24px;}
+body.index .content header {
+  background: url(/static/img/top-small.png) no-repeat;
+}
+
+.content header{
+  position: relative;
+  padding: 12px 24px 0;
+  width: 1032px;
+  margin-left: -24px;
+}
 .content.footer { overflow: visible; }
 .content footer {
   background:url(/static/img/bottom.png) no-repeat;
@@ -1120,14 +1139,16 @@ body .modal.wide{width:1024px;margin-left:-512px}
 h4.modal-title{font: bold italic 16px/20px "Droid Serif", georgia,serif; color:@green3; }
 
 
-.modal-large { width: 780px; margin-left: -390px; }
-.modal-body {max-width: 732px;}
-#remoteModal .modal-body ul{list-style: none;}
+.modal-large { width: 870px; margin-left: -435px; }
+.modal-body {}
+#remoteModal .modal-body .cols { width: 840px;}
 #remoteModal a.database-name{display:inline-block;color: @grey-darker;padding: 6px 0 6px 18px;background: url(/static/img/dot.png) no-repeat 4px 9px;}
 #remoteModal dd{clear: both;
 margin: 0 0;
 line-height: 1;
 font-size: 13px;}
+
+#remoteModal i.database-comment {color:#ccc;}
 
 #remoteModal span.remote-input-filter {width:242px;border-radius:2px; box-shadow:none; display: block;padding:5px; background:none; margin: 0;border:1px solid #ccc; line-height: 20px;}
 #remoteModal span.remote-input-filter:focus {border:1px solid #888;box-shadow:none;}

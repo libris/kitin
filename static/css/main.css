@@ -231,7 +231,7 @@ a:hover {
 }
 body.edit #header,
 body.search #header {
-  height: 52px;
+  height: 70px;
 }
 body.edit #header > .logo,
 body.search #header > .logo {
@@ -332,15 +332,22 @@ body.search #header .kb {
 body #header .searchfield .remote-search {
   width: 415px;
 }
-body.index #header .searchfield .remote-search {
-  width: 531px;
+body.index #header .searchfield .remote-search ul.remotesource {
+  max-width: 529px;
 }
 #header .searchfield .remote-search ul.remotesource {
+  max-width: 369px;
+  font-size: 13px;
+  margin: 0px;
+  float: left;
   list-style: none;
   display: inline;
 }
 #header .searchfield .remote-search ul.remotesource li {
   display: inline;
+}
+#header .searchfield .remote-search a {
+  float: right;
 }
 #header .searchfield a.btn {
   height: 24px;
@@ -417,8 +424,10 @@ body.login #header .searchfield {
 .content:not(.footer) {
   min-height: 500px;
 }
-.content header {
+body.index .content header {
   background: url(/static/img/top-small.png) no-repeat;
+}
+.content header {
   position: relative;
   padding: 12px 24px 0;
   width: 1032px;
@@ -2248,14 +2257,11 @@ h4.modal-title {
   color: #1a8f72;
 }
 .modal-large {
-  width: 780px;
-  margin-left: -390px;
+  width: 870px;
+  margin-left: -435px;
 }
-.modal-body {
-  max-width: 732px;
-}
-#remoteModal .modal-body ul {
-  list-style: none;
+#remoteModal .modal-body .cols {
+  width: 840px;
 }
 #remoteModal a.database-name {
   display: inline-block;
@@ -2268,6 +2274,9 @@ h4.modal-title {
   margin: 0 0;
   line-height: 1;
   font-size: 13px;
+}
+#remoteModal i.database-comment {
+  color: #ccc;
 }
 #remoteModal span.remote-input-filter {
   width: 242px;

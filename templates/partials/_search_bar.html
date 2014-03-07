@@ -51,13 +51,13 @@
             </ul>
           </div>
     			<span class="remote-search" data-ng-show="searchType.key == 'remotesearch'">
-      			<a href="#" data-target="#remoteModal" data-toggle="modal">Remotekällor</a>
             <!-- List seleceted remote databases -->
             <ul class="remotesource">
               <li data-ng-repeat="database in remoteDatabases | filter:{selected: true} | orderBy:'alternativeName'">
                 <!-- <input type="checkbox" ng-model="database.selected"/> --> {{ database.alternativeName }}
               </li>
             </ul>
+            <a href="#" data-target="#remoteModal" data-toggle="modal">Remotekällor</a>
           </span>
         </form>
       </div>
