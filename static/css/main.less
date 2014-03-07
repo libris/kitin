@@ -1100,6 +1100,25 @@ margin: 0 0;
 line-height: 1;
 font-size: 13px;}
 
+#remoteModal span.remote-input-filter {width:242px;border-radius:2px; box-shadow:none; display: block;padding:5px; background:none; margin: 0;border:1px solid #ccc; line-height: 20px;}
+#remoteModal span.remote-input-filter:focus {border:1px solid #888;box-shadow:none;}
+#remoteModal .remote-input-filter button,
+#remoteModal .remote-input-filter input {box-shadow:none;padding:0; background:none; margin: 0;border:none; line-height: 20px;}
+
+/* Remove button padding in FF */
+button::-moz--focus-inner {
+    border:0 none !important;
+    padding:0 !important;
+}
+
+#remoteModal h3 {font: bold 18px "Open Sans",sans-serif;}
+#remoteModal h4 {font: bold 12px/16px "Open Sans",sans-serif;text-transform: uppercase;}
+#remoteModal .remote-input-filter input {width:198;padding:5px;}
+/* #remoteModal .remote-input-filter input:focus {border:1px solid #888;box-shadow:none;padding:4px;} */
+#remoteModal .remote-input-filter button {color:#666;float:right;padding:5px;}
+#remoteModal .remote-input-filter button:hover,
+#remoteModal .remote-input-filter button:focus {color:#333;}
+
 /* JSON-LD View */
 
 .json-ld code {font-family: 'Open Sans';font-size:10px;color:#888;margin-bottom:0;line-height:16px;letter-spacing:.5px}
