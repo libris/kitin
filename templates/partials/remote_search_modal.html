@@ -22,7 +22,7 @@
     <dl ng-init="orderRemoteDatabases = 'alternativeName'; groupRemoteDatabases = false;">
       <dd data-ng-repeat="database in orderedRemoteDatabases = (remoteDatabases | orderBy: orderRemoteDatabases) | filter:remoteDatabaseFilterQuery">
         <h4 ng-if="groupRemoteDatabases && orderedRemoteDatabases[$index-1][orderRemoteDatabases] !== database[orderRemoteDatabases]">{{database.country}}</h4>
-        <a href="" class="database-name" title="{{ database.comment }}" ng-class="{'active':database.selected}" ng-click="database.selected = !database.selected"/> {{ database.alternativeName }}</a> <a href="{{database.address}}" target="_blank"><i class="fa fa-external-link"></i></a>
+        <a href="" class="database-name"  ng-class="{'active':database.selected}" ng-click="database.selected = !database.selected"/> {{ database.alternativeName }}</a> <a href="{{database.address}}" target="_blank"><i class="fa fa-external-link"></i></a> <i data-ng-show="database.comment" class="fa fa-info-circle database-comment" title="{{ database.comment }}"></i>
       </dd>
     </dl>
   </div>

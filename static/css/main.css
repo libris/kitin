@@ -2270,6 +2270,9 @@ h4.modal-title {
   line-height: 1;
   font-size: 13px;
 }
+#remoteModal i.database-comment {
+  color: #ccc;
+}
 #remoteModal span.remote-input-filter {
   width: 242px;
   border-radius: 2px;
