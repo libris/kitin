@@ -2,7 +2,7 @@
 <html lang="sv">
   <head>
   <!--[if lt IE 9]>
-Vi rekommenderar uppdaterade versioner av Google Chrome eller Mozilla Firefox för att testa betaversionen av Libris katalogisering.
+    Vi rekommenderar uppdaterade versioner av Google Chrome eller Mozilla Firefox för att testa betaversionen av Libris katalogisering.
   <![endif]-->
     <meta charset="utf-8">
     <title>LIBRIS katalogisering</title>
@@ -12,58 +12,55 @@ Vi rekommenderar uppdaterade versioner av Google Chrome eller Mozilla Firefox f�
     {% include "_media.html" %}
 
   </head>
-  <body data-ng-app="kitin" class="{% block bodyclass %}{% endblock %}">
-      <div id="wrap">
-        {% if current_user and current_user.is_authenticated() %}
-        <div id="nav">
-            <ul class="inline nav-menu pull-right">
-             <li class="active"><a href="http://feedback.kat.libris.kb.se/" target="_blank" title="Feedback forum">Tyck till <i class="icon fa fa-external-link"></i></a></li>  
-              <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" title="Skapa ny post">Skapa ny <i class="icon fa fa-caret-down"></i></a>
-                  <ul class="dropdown-menu pull-right">
-                     <li class="disabled my_template"><a href="#"><i class="fa fa-heart"></i>Min egen mall 1</a></li>
-                     <li class="disabled my_template"><a href="#"><i class="fa fa-heart"></i>Min egen mall 2</a></li>
-                     <li><a href="/edit/bib/new">Monografi</a></li>
-                     <li class="disabled"><a href="#">Seriell publikation</a></li>
-                     <li class="disabled"><a href="#">Ljudbok</a></li>
-                     <li class="disabled"><a href="#">Lorem Ipsum</a></li>
-                     <li class="disabled"><a href="#">Lorem Ipsum</a></li>
-                     <li class="disabled"><a href="#">Tom mall</a></li>
-                  </ul>
-              </li>
-             <li class="dropdown">
-             <a class="dropdown-toggle login" data-toggle="dropdown" title="Logga ut - inställningar">
-               <!-- <span class="meta">Inloggad som: </span> -->
-               <span class="username">{{current_user.username}} ({{current_user.sigel}})</span>
-               <i class="fa fa-caret-down"></i>
-             </a>
-                 <ul class="dropdown-menu pull-right">
-                    <li class="disabled"><a href="#"> Mitt konto</a></li>
-                    <li><a href="/signout" target="_self">Logga ut</a></li>
-                 </ul>
-              </li>       
+  <body data-ng-app="kitin" class="{% block bodyclass %}{% endblock %}" data-ng-controller="AppCtrl">
+    <div id="wrap">
+      {% if current_user and current_user.is_authenticated() %}
+      <div id="nav">
+          <ul class="inline nav-menu pull-right">
+           <li class="active"><a href="http://feedback.kat.libris.kb.se/" target="_blank" title="Feedback forum">Tyck till <i class="icon fa fa-external-link"></i></a></li>  
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" title="Skapa ny post">Skapa ny <i class="icon fa fa-caret-down"></i></a>
+                <ul class="dropdown-menu pull-right">
+                   <li class="disabled my_template"><a href="#"><i class="fa fa-heart"></i>Min egen mall 1</a></li>
+                   <li class="disabled my_template"><a href="#"><i class="fa fa-heart"></i>Min egen mall 2</a></li>
+                   <li><a href="/edit/bib/new">Monografi</a></li>
+                   <li class="disabled"><a href="#">Seriell publikation</a></li>
+                   <li class="disabled"><a href="#">Ljudbok</a></li>
+                   <li class="disabled"><a href="#">Lorem Ipsum</a></li>
+                   <li class="disabled"><a href="#">Lorem Ipsum</a></li>
+                   <li class="disabled"><a href="#">Tom mall</a></li>
+                </ul>
+            </li>
+           <li class="dropdown">
+           <a class="dropdown-toggle login" data-toggle="dropdown" title="Logga ut - inställningar">
+             <!-- <span class="meta">Inloggad som: </span> -->
+             <span class="username">{{current_user.username}} ({{current_user.sigel}})</span>
+             <i class="fa fa-caret-down"></i>
+           </a>
+               <ul class="dropdown-menu pull-right">
+                  <li class="disabled"><a href="#"> Mitt konto</a></li>
+                  <li><a href="/signout" target="_self">Logga ut</a></li>
+               </ul>
+            </li>       
+        </ul>
+      </div>
+      {% endif %}
+      
+      {% include "partials/_search_bar.html" %}
+      
+      {% block content %}
+      {% endblock content %}
+      
+      <div class="footer">
+        <footer>
+          <img src="/static/img/kb.svg">
+          <ul>
+              <li><a href="#" id="contact" title="Information om cookies: Libris katalogisering använder sig av cookies. Cookies är små filer som lagras på besökarens dator för att webbservern ska kunna upprätthålla information om användaren inom en viss tidsperiod. Libris katalogisering använder sig av s.k. sessionscookies som sparar information om den inloggade användaren temporärt, så länge som webbläsarsessionen varar. Informationen som lagras ser till att tjänsten vet vilken användare som är inloggad och vilka bibliotek som han/hon katalogiserar för. Funktionen &quote;håll mig inloggad&quote; sparar en permanent cookie som är aktiv i 31 dagar.Post- och telestyrelsen, som är tillsynsmyndighet på området, lämnar ytterligare information om Cookies på sin webbplats, www.pts.se">Om kakor</a></li>
+              <li><a href="http://feedback.kat.libris.kb.se/" target="_blank" title="Feedback forum">Tyck till <i class="icon fa fa-external-link"></i></a></li>
           </ul>
-        </div>
-        {% endif %}
-{% include "partials/_search_bar.html" %}
-      {% block content %}{% endblock content %}
-<div class="footer">
-  <footer>
-    <img src="/static/img/kb.svg">
-    <ul>
-        <li><a href="#" id="contact" title="Information om cookies: Libris katalogisering använder sig av cookies. Cookies är små filer som lagras på besökarens dator för att webbservern ska kunna upprätthålla information om användaren inom en viss tidsperiod. Libris katalogisering använder sig av s.k. sessionscookies som sparar information om den inloggade användaren temporärt, så länge som webbläsarsessionen varar. Informationen som lagras ser till att tjänsten vet vilken användare som är inloggad och vilka bibliotek som han/hon katalogiserar för. Funktionen &quote;håll mig inloggad&quote; sparar en permanent cookie som är aktiv i 31 dagar.Post- och telestyrelsen, som är tillsynsmyndighet på området, lämnar ytterligare information om Cookies på sin webbplats, www.pts.se">Om kakor</a></li>
-        <li><a href="http://feedback.kat.libris.kb.se/" target="_blank" title="Feedback forum">Tyck till <i class="icon fa fa-external-link"></i></a></li>
-    </ul>
-  </footer>
-</div>
+        </footer>
+      </div>
     </div>
-
-    <!-- <script src="{{ url_for('static', filename='vendor/jquery/jquery.autogrowinput.js') }}"></script> -->
-    <!--<script type="text/javascript">
-    $(function ()
-    { $("#contact").popover();
-    });
-</script>-->
 
     {% if current_user %}
     <script type="text/javascript">
@@ -75,7 +72,6 @@ Vi rekommenderar uppdaterade versioner av Google Chrome eller Mozilla Firefox f�
 
     {% raw %}
     <!-- shared AngularJS templates -->
-
     <script type="text/ng-template" id="render-person-name">
       <span data-ng-if="person.givenName || person.familyName" class="name">
         {{ person.givenName }} {{ person.familyName }}
@@ -85,7 +81,6 @@ Vi rekommenderar uppdaterade versioner av Google Chrome eller Mozilla Firefox f�
       <span data-ng-if="person.birthYear || person.deathYear">
         <span class="timeSpan">{{ person.birthYear }}-{{ person.deathYear }}</span></span>
     </script>
-
     {% endraw %}
 
   </body>

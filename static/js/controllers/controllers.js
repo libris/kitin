@@ -1,5 +1,13 @@
 var kitin = angular.module('kitin.controllers', []);
 
+kitin.controller('AppCtrl', function($scope, $modal) {
+  $scope.state = {
+    searchType: null,
+    remoteDatabases: []
+  };
+
+});
+
 kitin.controller('ModalCtrl', function($scope, $modal) {
   $scope.openModal = function() {
     var opts = {
@@ -25,8 +33,6 @@ kitin.controller('OpenModalCtrl', function($scope, $modal, $location) {
 kitin.controller('IndexCtrl', function($scope, $http) {
   document.body.className = 'index';
 
-
-
   $scope.drafts = $http.get("/drafts").success(function(data) {
     $scope.drafts = data.drafts;
   });
@@ -38,45 +44,41 @@ kitin.controller('IndexCtrl', function($scope, $http) {
   };
 });
 
-kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, definitions, searchUtil) {
-  var searchTypeIndex = {
-    bib: {key: "bib", label: "Bibliografiskt material"},
-    auth: {key: "auth", label: "Auktoriteter"},
-    remotesearch: {key: "remotesearch", label: "Remote"}
-  };
-  $scope.searchTypes = [searchTypeIndex.bib, searchTypeIndex.auth, searchTypeIndex.remotesearch];
-  $scope.setSearchType = function (key) {
-    $scope.searchType = searchTypeIndex[key];
-    // For remote search, load list of remote database definitions
-    if(key === searchTypeIndex.remotesearch.key) {
-      definitions.remotedatabases.then(function(data){
-        // Debug, set LC (Library of Congress) to default
-        var i = _.findIndex(data, { 'database': 'LC' });
-        if(i) {
-          data[i].selected = true;
-        }
-        $scope.remoteDatabases = data;
-      });
-    }
-  };
+kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, definitions, searchService, searchUtil) {
 
-  $scope.placeholders = {
-    bib: "Sök bland bibliografiskt material (på ISBN, titel, författare etc.)",
-    auth: "Sök bland auktoriteter (personer, ämnen, verk etc.)",
-    remotesearch: ""
+  $scope.searchTypes = [searchService.searchTypeIndex.bib, searchService.searchTypeIndex.auth, searchService.searchTypeIndex.remotesearch];
+  $scope.setSearchType = function (key) {
+    $scope.state.searchType = searchService.searchTypeIndex[key];
   };
+  
   $scope.search = function() {
-    var selectRemoteDatabases = searchUtil.parseSelected($scope.remoteDatabases);
+    var selectRemoteDatabases = searchUtil.parseSelected($scope.state.remoteDatabases);
     selectRemoteDatabases = selectRemoteDatabases.length > 0 ? '&database=' + selectRemoteDatabases : '';
       
-    $location.url("/search/" + $scope.searchType.key + "?q="+encodeURIComponent($scope.q) + selectRemoteDatabases);
+    $location.url("/search/" + $scope.state.searchType.key + "?q="+encodeURIComponent($scope.q) + selectRemoteDatabases);
   };
   $scope.$on('$routeChangeSuccess', function () {
     $scope.setSearchType($routeParams.recType || "bib");
   });
 });
 
-kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, definitions, searchService, searchUtil) {
+kitin.controller('RemoteSearchCtrl', function($scope, definitions, searchService) {
+  // For remote search, load list of remote database definitions
+  $scope.$watch('state.searchType', function(newSearchType, oldSearchType) {
+    if(newSearchType && newSearchType.key === searchService.searchTypeIndex.remotesearch.key) {
+      definitions.remotedatabases.then(function(data){
+        // Debug, set LC (Library of Congress) to default
+        var i = _.findIndex(data, { 'database': 'LC' });
+        if(i) {
+          data[i].selected = true;
+        }
+        $scope.state.remoteDatabases = data;
+      });
+    }
+  });
+});
+
+kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routeParams, definitions, searchService, searchUtil) {
 
   var recType = $routeParams.recType;
 
@@ -122,7 +124,7 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
     { text: 'Nyast först',  value: '-about.publication.providerDate' },
     { text: 'Äldst först',  value: 'about.publication.providerDate' }
   ];
-  $scope.selectedSort = $routeParams.sort ? $scope.sortables[_.findIndex($scope.sortables, { 'value': $routeParams.sort })] : $scope.sortables[0];
+  $scope.selectedSort = $routeParams.sort ? _.find($scope.sortables, { 'value': $routeParams.sort }) : $scope.sortables[0];
 
   $scope.sortChanged = function(item) {
     $location.search('sort', item.value);
