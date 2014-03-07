@@ -200,10 +200,10 @@ a:hover {
   margin: 0px;
 }
 /*
-#header > .logo > a > h1 { background: url(/static/img/libris-stack.png) 0 4px no-repeat; width: 202px; height: 52px; display: inline-block; margin: 0; padding: 0 0 0 57px; font: normal 22px/1 "Open Sans", sans-serif; letter-spacing: 1px; color: @dark-grey; }
+#header > .logo > a > h1 { background: url(/static/img/libris-stack.png) 0 4px no-repeat; width: 202px; height: 52px; display: inline-block; margin: 0; padding: 0 0 0 57px; font: normal 22px/1 "Open Sans", sans-serif; letter-spacing: 1px; color: @grey-dark; }
 #header > .logo a > h1 > strong { display: block; font-size: 32px; line-height: 27px; font-weight: normal; letter-spacing: -1px; text-transform: none; color: @green4; }
 #header .beta { font-size: 16px; color: @pink; float: right; margin: 17px 16px 0 0; }
-#header .kitin-updated { font-size: 11px; color: @dark-grey; padding: 0px; margin: 0px; }
+#header .kitin-updated { font-size: 11px; color: @grey-dark; padding: 0px; margin: 0px; }
 */
 #header .searchfield {
   position: absolute;
@@ -251,8 +251,8 @@ body.search #header .kitin-updated {
 }
 body.edit #header .searchfield,
 body.search #header .searchfield {
-  top: 10px;
-  left: 174px;
+  top: 4px;
+  left: 276px;
 }
 body.edit #header .searchfield input[type="text"],
 body.search #header .searchfield input[type="text"] {
@@ -287,17 +287,19 @@ body.search #header .searchfield button {
   background-size: 14px;
   width: 36px;
 }
+body.edit #header .searchfield .btn-group,
+body.search #header .searchfield .btn-group {
+  float: right;
+}
 body.edit #header .searchfield a.btn,
 body.search #header .searchfield a.btn {
   height: 14px;
   width: 12px;
   line-height: 14px;
 }
-body #header .searchfield em {
-  float: right;
-}
 body.edit #header .searchfield em,
 body.search #header .searchfield em {
+  color: #666666;
   font-size: 12px;
 }
 body.edit #header .kb,
@@ -332,16 +334,6 @@ body #header .searchfield .remote-search {
 }
 body.index #header .searchfield .remote-search {
   width: 531px;
-}
-.remote-search {
-  display: block;
-  background-color: white;
-  -moz-box-shadow: 3px 3px 1px #888;
-  -webkit-box-shadow: 3px 3px 1px #888;
-  box-shadow: 3px 3px 1px #888;
-  border-top-left-radius: 3px;
-  border-color: #888;
-  border: 1px solid #efefef;
 }
 #header .searchfield .remote-search ul.remotesource {
   list-style: none;
@@ -390,16 +382,23 @@ body.index #header .searchfield {
   top: 220px;
 }
 body.index #header .searchfield input[type="text"] {
-  padding: 10px 16px;
+  padding: 11px 16px;
+}
+body.index #header .searchfield .btn-group {
+  float: right;
 }
 body.index #header .searchfield a.btn {
-  height: 32px;
+  height: 33px;
 }
 body.index #header .searchfield button {
-  height: 46px;
+  height: 47px;
 }
 body.index #header .searchfield a span {
   margin-top: 8px;
+}
+body.index #header .searchfield em {
+  color: #666666;
+  font-size: 13px;
 }
 body.login #header .searchfield {
   display: none;
@@ -593,7 +592,7 @@ body.login .content.index header {
   height: 37px;
   background: url(/static/img/circ.png) no-repeat;
   padding: 0 0 0 10px;
-  color: #666;
+  color: #666666;
   text-shadow: #fff 1px 1px 0;
   font: bold 16px/39px "Droid serif", sans-serif;
   float: left;
@@ -697,13 +696,13 @@ section.nav dt i {
   border-color: transparent #106351 transparent transparent;
 }
 .content section h4 {
-  color: #1a8f72;
+  color: #666666;
   font-style: italic;
   font-weight: 400;
 }
 /* hitlist */
 section.nav dt i {
-  border-right-color: #666;
+  border-right-color: #666666;
 }
 section.nav {
   background-color: #fff;
@@ -720,7 +719,7 @@ section.nav dd {
   font-size: 13px;
 }
 section.nav dd a {
-  color: #666;
+  color: #666666;
   padding: 6px 0 6px 18px;
   background: url(/static/img/dot.png) no-repeat 4px 9px;
   display: inline-block;
@@ -754,7 +753,7 @@ section.result .footer {
   padding: 6px 12px;
   -webkit-transition: border ease-out 0.05s;
   background: #f6f6f6;
-  color: #666;
+  color: #666666;
   font-size: 12px;
   border: 1px solid #f6f6f6;
   border-top-color: #e6e6e6;
@@ -1047,7 +1046,7 @@ section.dash {
 .content.search .summary {
   margin-left: 252px;
   color: #999999;
-  font-size: 14px;
+  font-size: 12px;
   margin-top: 12px;
 }
 .content.search .sort-option {
@@ -1905,7 +1904,7 @@ div.loading > b {
 #nav .nav-menu > li {
   border-left: 1px solid #ddd;
   padding: 0 8px 0 10px;
-  margin: 10px 0;
+  margin: 6px 0;
 }
 #nav .nav-menu > li:first-child {
   border-left: none;
@@ -2057,7 +2056,7 @@ section.holdings-list {
   background: #f7f3ee;
   padding: 12px;
   border-top: 1px solid #ccc;
-  color: #666;
+  color: #666666;
 }
 .holdings-list li:first-child a {
   border-top: none;
@@ -2069,7 +2068,7 @@ section.holdings-list {
 .holdings-list a.sigel {
   font-weight: bold;
   font-size: 14px;
-  color: #666;
+  color: #666666;
 }
 .holdings-list a.sigel i {
   opacity: .60;
@@ -2198,7 +2197,7 @@ a.beta-blocker {
 .acResults .about {
   font-size: 13px;
   line-height: 20px;
-  color: #666;
+  color: #666666;
 }
 .acSelect {
   background: #c8f4ea;
@@ -2230,7 +2229,7 @@ a.beta-blocker {
 .popover .popover-content {
   padding-top: 0;
   font-size: 12px;
-  color: #666;
+  color: #666666;
 }
 .modal {
   color: #191919;
@@ -2260,7 +2259,7 @@ h4.modal-title {
 }
 #remoteModal a.database-name {
   display: inline-block;
-  color: #666;
+  color: #666666;
   padding: 6px 0 6px 18px;
   background: url(/static/img/dot.png) no-repeat 4px 9px;
 }
@@ -2312,7 +2311,7 @@ button::-moz--focus-inner {
 }
 /* #remoteModal .remote-input-filter input:focus {border:1px solid #888;box-shadow:none;padding:4px;} */
 #remoteModal .remote-input-filter button {
-  color: #666;
+  color: #666666;
   float: right;
   padding: 5px;
 }

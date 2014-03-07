@@ -30,6 +30,9 @@
       {% raw %}
       <div class="searchfield">
         <form data-ng-submit="search()" method="GET" name="search_form">
+          <div>
+            <em>{{ searchType.label }}</em>
+          </div>
           <input id="search" name="q" type="text" autofocus
                  value="{{ q }}" placeholder="{{ placeholders[searchType.key] }}"
           autocomplete="off" role="textbox"
@@ -46,17 +49,13 @@
                    data-ng-click="setSearchType(opt.key)">{{ opt.label }}</a>
               </li>
             </ul>
-            
-          </div>
-          <div>
-            <em data-ng-show="searchType.key != 'bib'">{{ searchType.label }}</em>
           </div>
     			<span class="remote-search" data-ng-show="searchType.key == 'remotesearch'">
       			<a href="#" data-target="#remoteModal" data-toggle="modal">Remotekällor</a>
             <!-- List seleceted remote databases -->
             <ul class="remotesource">
-              <li data-ng-repeat="database in remoteDatabases | filter:{selected: true} | orderBy:'database'">
-                <!-- <input type="checkbox" ng-model="database.selected"/> --> {{ database.database }}
+              <li data-ng-repeat="database in remoteDatabases | filter:{selected: true} | orderBy:'alternativeName'">
+                <!-- <input type="checkbox" ng-model="database.selected"/> --> {{ database.alternativeName }}
               </li>
             </ul>
           </span>
