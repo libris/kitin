@@ -124,9 +124,10 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
   // TODO - remove
   $scope.editPost = function(recType, record) {
     if(recType === 'remotesearch') {
+      record.identifier = '/external/NN';
       editUtil.setRecord(record);
     }
-    $location.url('/edit' + record.identifier)
+    $location.url('/edit' + record.identifier);
   }
 
 
