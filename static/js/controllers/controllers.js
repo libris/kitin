@@ -83,22 +83,24 @@ kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, def
 kitin.controller('RemoteSearchCtrl', function($scope, definitions, searchService) {
   // For remote search, load list of remote database definitions
   $scope.$watch('state.searchType', function(newSearchType, oldSearchType) {
-    if(newSearchType && newSearchType.key === searchService.searchTypeIndex.remotesearch.key && _.isEmpty($scope.state.remoteDatabases)) {
-      definitions.remotedatabases.then(function(databases){
-        // Debug, set LC (Library of Congress) to default        
-        var searchedDatabases = ['LC'];
-        if($scope.state.search.database) {
-          searchedDatabases = $scope.state.search.database.split(',');
-        }
-        _.forEach(searchedDatabases, function(dbName) {
-          var i = _.findIndex(databases, { 'database': dbName });
-          if(i) {
-            databases[i].selected = true;
+    if(newSearchType && newSearchType.key === searchService.searchTypeIndex.remotesearch.key) {
+      if(_.isEmpty($scope.state.remoteDatabases)) {
+        definitions.remotedatabases.then(function(databases){
+          // Debug, set LC (Library of Congress) to default        
+          var searchedDatabases = ['LC'];
+          if($scope.state.search.database) {
+            searchedDatabases = $scope.state.search.database.split(',');
           }
-        });      
+          _.forEach(searchedDatabases, function(dbName) {
+            var i = _.findIndex(databases, { 'database': dbName });
+            if(i > 0) {
+              databases[i].selected = true;
+            }
+          });      
 
-        $scope.state.remoteDatabases = databases;
-      });
+          $scope.state.remoteDatabases = databases;
+        });
+      }
     }
   });
 });
@@ -136,6 +138,9 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
     n: searchService.pageSize
   };
   $scope.sortables = searchService.sortables;
+  
+  // Reset remote search hit count 
+  _.map($scope.state.remoteDatabases, function(remoteDB) { delete remoteDB.hitCount; });
 
   // TODO - remove
   $scope.editPost = function(recType, record) {
@@ -228,6 +233,15 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
           $scope.result = data;
           
           var hitCount = searchUtil.countTotalHits(data.hits);
+          if(_.isObject(data.hits)) {
+            _.forEach(data.hits, function(count, dbName) {
+
+              var i = _.findIndex($scope.state.remoteDatabases, { database: dbName } );
+              if(i > 0) {
+                $scope.state.remoteDatabases[i].hitCount = count;
+              }
+            });
+          }
 
           // Only one hit
           if (hitCount == 1) {
