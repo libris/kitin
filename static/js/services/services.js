@@ -336,7 +336,7 @@ kitin.factory('searchService', function($http, $q) {
       remotesearch: {
         key: 'remotesearch', 
         label: 'Remote',
-        placeholder: ''
+        placeholder: 'Sök remote'
       }
     },
     sortables: [
