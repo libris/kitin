@@ -1,11 +1,5 @@
 var kitin = angular.module('kitin.services', []);
 
-kitin.factory('appSettings', function() {
-  return {
-    
-  };
-});
-
 kitin.factory('userData', function() {
   return {
     userSigel: null
@@ -313,6 +307,29 @@ kitin.factory('isbnTools', function($http, $q) {
 
 kitin.factory('searchService', function($http, $q) {
   return {
+    pageSize: 10,
+    searchTypeIndex: {
+      bib: {
+        key: 'bib', 
+        label: 'Bibliografiskt material',
+        placeholder: 'Sök bland bibliografiskt material (på ISBN, titel, författare etc.)'
+      },
+      auth: {
+        key: 'auth', 
+        label: 'Auktoriteter',
+        placeholder: 'Sök bland auktoriteter (personer, ämnen, verk etc.)'
+      },
+      remotesearch: {
+        key: 'remotesearch', 
+        label: 'Remote',
+        placeholder: ''
+      }
+    },
+    sortables: [
+      { text: 'Relevans',     value: 'relevans' },
+      { text: 'Nyast först',  value: '-about.publication.providerDate' },
+      { text: 'Äldst först',  value: 'about.publication.providerDate' }
+    ],
     search: function(url, params) {
       var deferred = $q.defer();
       $http.get(url, { params: params }).success(function(data) {
