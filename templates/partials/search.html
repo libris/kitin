@@ -18,7 +18,7 @@
         <a data-ng-show="crumb.urlpart" href="{{ crumb.urlpart }}">{{ getLabel(crumb.term) }}</a>
       </span>
     </p>
-    <span class="sort-option">Sortering: 
+    <span data-ng-show="state.searchType.key != 'remotesearch'" class="sort-option">Sortering: 
       <select ng-model="selectedSort" ng-options="item as item.text for item in sortables" ng-change="sortChanged(selectedSort)"></select>
     </span>
   
@@ -26,7 +26,7 @@
   </header>
   <div class="cols">
     <div class="col3">
-      <section class="nav">
+      <section data-ng-class="{hidden: facetGroups.length < 1}" class="nav">
         <dl data-ng-repeat="facet in facetGroups">
           <dt><i></i>{{facetLabels[facet.type]}}</dt>
           <dd data-ng-repeat="item in facet.items">

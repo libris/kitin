@@ -2444,6 +2444,9 @@ div.array > section.entity > div:nth-of-type(even) {
   display: none;
 }
 /*hitlist crude overrides needs to integrate with previous styles*/
+.hidden {
+  visibility: hidden;
+}
 /* section.result label.title {color:#0a6b72; font-size: 18px; line-height: 22px;} */
 /* section.result label.title .title-remainder {color:#0a6b72; font-size: 14px; line-height: 18px;} */
 /* section.result label.title .creator {color:#777;font-size: 14px; line-height: 18px;} */
