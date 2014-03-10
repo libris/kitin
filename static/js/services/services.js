@@ -1,5 +1,11 @@
 var kitin = angular.module('kitin.services', []);
 
+kitin.factory('appSettings', function() {
+  return {
+    
+  };
+});
+
 kitin.factory('userData', function() {
   return {
     userSigel: null
@@ -16,8 +22,10 @@ kitin.factory('definitions', function($http) {
       }
     };
   }
+
   var enumBase = "/resource/_marcmap?part=bib.fixprops.";
   var definitions = {
+    remotedatabases: getDataset("/search/remotesearch.json?databases"),
     typedefs: getDataset("/resource/_resourcelist?typedef=all"),
     relators: getDataset("/def/relators"),
     languages: getDataset("/def/languages"),
@@ -313,22 +321,23 @@ kitin.factory('isbnTools', function($http, $q) {
 });
 
 kitin.factory('searchService', function($http, $q) {
-  function performSearch(url, params) {
-    var deferred = $q.defer();
-    $http.get(url, { params: params }).success(function(data) {
-      deferred.resolve(data);
-    });
-    return deferred.promise;
-  }
-
   return {
-    search: performSearch
+    search: function(url, params) {
+      var deferred = $q.defer();
+      $http.get(url, { params: params }).success(function(data) {
+        deferred.resolve(data);
+      });
+      return deferred.promise;
+    }
   };
 });
 
 kitin.factory('searchUtil', function() {
+  return {
 
-  var searchUtil = {
+    parseSelected: function (remoteDatabases) {
+      return _.map(_.filter(remoteDatabases, 'selected'), 'database').join(',');
+    },
 
     makeLinkedFacetGroups: function (recType, facets, q, prevFacetsStr) {
       // iterate facets to add correct slug
@@ -395,8 +404,5 @@ kitin.factory('searchUtil', function() {
       return crumblist;
     }
   };
-
-  return searchUtil;
-
 });
 

@@ -24,6 +24,9 @@ kitin.controller('OpenModalCtrl', function($scope, $modal, $location) {
 
 kitin.controller('IndexCtrl', function($scope, $http) {
   document.body.className = 'index';
+
+
+
   $scope.drafts = $http.get("/drafts").success(function(data) {
     $scope.drafts = data.drafts;
   });
@@ -35,8 +38,7 @@ kitin.controller('IndexCtrl', function($scope, $http) {
   };
 });
 
-
-kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams) {
+kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, definitions, searchUtil) {
   var searchTypeIndex = {
     bib: {key: "bib", label: "Bibliografiskt material"},
     auth: {key: "auth", label: "Auktoriteter"},
@@ -45,14 +47,29 @@ kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams) {
   $scope.searchTypes = [searchTypeIndex.bib, searchTypeIndex.auth, searchTypeIndex.remotesearch];
   $scope.setSearchType = function (key) {
     $scope.searchType = searchTypeIndex[key];
+    // For remote search, load list of remote database definitions
+    if(key === searchTypeIndex.remotesearch.key) {
+      definitions.remotedatabases.then(function(data){
+        // Debug, set LC (Library of Congress) to default
+        var i = _.findIndex(data, { 'database': 'LC' });
+        if(i) {
+          data[i].selected = true;
+        }
+        $scope.remoteDatabases = data;
+      });
+    }
   };
+
   $scope.placeholders = {
     bib: "Sök bland bibliografiskt material (på ISBN, titel, författare etc.)",
     auth: "Sök bland auktoriteter (personer, ämnen, verk etc.)",
     remotesearch: ""
   };
   $scope.search = function() {
-    $location.url("/search/" + $scope.searchType.key + "?q="+encodeURIComponent($scope.q));
+    var selectRemoteDatabases = searchUtil.parseSelected($scope.remoteDatabases);
+    selectRemoteDatabases = selectRemoteDatabases.length > 0 ? '&database=' + selectRemoteDatabases : '';
+      
+    $location.url("/search/" + $scope.searchType.key + "?q="+encodeURIComponent($scope.q) + selectRemoteDatabases);
   };
   $scope.$on('$routeChangeSuccess', function () {
     $scope.setSearchType($routeParams.recType || "bib");
@@ -97,6 +114,7 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
 
   $scope.q = $routeParams.q;
   $scope.f = $routeParams.f;
+  $scope.database = $routeParams.database;
   $scope.pageSize = 10;
   $scope.page = {
     start: -$scope.pageSize,
@@ -171,7 +189,8 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
       q: this.q,
       start: this.page.start,
       n: this.page.n,
-      sort: $routeParams.sort
+      sort: this.selectedSort.value,
+      database: this.database
     };
     if (this.f !== undefined) {
       params.f = this.f;
@@ -180,14 +199,18 @@ kitin.controller('SearchCtrl', function($scope, $http, $location, $routeParams, 
   };
 
   $scope.$watch('result.list.length', function(newLength, oldLength) {
+    var updateHoldings = function(data, status, headers, config) {
+    if(data) {
+          config.record.holdings = data;
+        }
+    };
     for (var i = oldLength ? oldLength: 0; i < newLength; i++) {
         var record = $scope.result.list[i];
-        $http.get("/record"  + record.identifier + "/holdings", {record: record}).success(function(data, status, headers, config) {
-          if(data) {
-            config.record.holdings = data
-          }
-        });
-    };
+        if(record.identifier) {
+          $http.get("/record"  + record.identifier + "/holdings", {record: record}).success(updateHoldings);
+        }
+
+    }
   });
 
   $scope.loading = true;
