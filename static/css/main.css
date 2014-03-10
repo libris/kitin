@@ -733,7 +733,7 @@ section.nav dd a {
   background: url(/static/img/dot.png) no-repeat 4px 9px;
   display: inline-block;
 }
-#remoteModal dd a.active,
+#remoteModal div a.active,
 section.nav dd a.active {
   font-weight: bold;
   color: #000;

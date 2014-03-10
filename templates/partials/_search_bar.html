@@ -50,7 +50,7 @@
               </li>
             </ul>
           </div>
-    			<span class="remote-search" data-ng-show="searchType.key == 'remotesearch'">
+    			<div class="remote-search" data-ng-show="searchType.key == 'remotesearch'">
             <!-- List seleceted remote databases -->
             <ul class="remotesource">
               <li data-ng-repeat="database in remoteDatabases | filter:{selected: true} | orderBy:'alternativeName'">
@@ -58,7 +58,7 @@
               </li>
             </ul>
             <a href="#" data-target="#remoteModal" data-toggle="modal">Remotekällor</a>
-          </span>
+          </div>
         </form>
       </div>
     </div>
