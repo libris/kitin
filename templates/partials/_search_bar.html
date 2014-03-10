@@ -16,8 +16,10 @@
     	<div class="modal-body">
       {% include "partials/_release_notes.html" %}
 			</div>
-
     </div>
+
+    <!-- Remote modal -->
+    {% include "partials/remote_search_modal.html" %}
 
   </div>
   <div class="kb">
@@ -25,18 +27,15 @@
   {% if current_user and current_user.is_authenticated() %}
     {% raw %}
     <div data-ng-controller="SearchFormCtrl">
-      {% endraw %}
-      {% include "partials/remote_search_modal.html" %}
-      {% raw %}
       <div class="searchfield">
         <form data-ng-submit="search()" method="GET" name="search_form">
           <div>
             <em>{{ state.searchType.label }}</em>
           </div>
           <input id="search" name="q" type="text" autofocus
-                 value="{{ state.q }}" placeholder="{{ placeholders[state.searchType.key] }}"
+                 value="{{ state.search.q }}" placeholder="{{ placeholders[state.searchType.key] }}"
           autocomplete="off" role="textbox"
-          aria-autocomplete="list" aria-haspopup="true" data-ng-model="q">
+          aria-autocomplete="list" aria-haspopup="true" data-ng-model="state.search.q">
           <div class="btn-group">
             <button class="btn" type="submit">Sök</button>
 

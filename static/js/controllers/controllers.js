@@ -73,7 +73,7 @@ kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, def
       selectRemoteDatabases = selectRemoteDatabases.length > 0 ? '&database=' + selectRemoteDatabases : '';
     }
     
-    $location.url("/search/" + $scope.state.searchType.key + "?q="+encodeURIComponent($scope.q) + selectRemoteDatabases);
+    $location.url("/search/" + $scope.state.searchType.key + "?q="+encodeURIComponent($scope.state.search.q) + selectRemoteDatabases);
   };
   $scope.$on('$routeChangeSuccess', function () {
     $scope.setSearchType($routeParams.recType || "bib");
@@ -83,14 +83,21 @@ kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, def
 kitin.controller('RemoteSearchCtrl', function($scope, definitions, searchService) {
   // For remote search, load list of remote database definitions
   $scope.$watch('state.searchType', function(newSearchType, oldSearchType) {
-    if(newSearchType && newSearchType.key === searchService.searchTypeIndex.remotesearch.key) {
-      definitions.remotedatabases.then(function(data){
-        // Debug, set LC (Library of Congress) to default
-        var i = _.findIndex(data, { 'database': 'LC' });
-        if(i) {
-          data[i].selected = true;
+    if(newSearchType && newSearchType.key === searchService.searchTypeIndex.remotesearch.key && _.isEmpty($scope.state.remoteDatabases)) {
+      definitions.remotedatabases.then(function(databases){
+        // Debug, set LC (Library of Congress) to default        
+        var searchedDatabases = ['LC'];
+        if($scope.state.search.database) {
+          searchedDatabases = $scope.state.search.database.split(',');
         }
-        $scope.state.remoteDatabases = data;
+        _.forEach(searchedDatabases, function(dbName) {
+          var i = _.findIndex(databases, { 'database': dbName });
+          if(i) {
+            databases[i].selected = true;
+          }
+        });      
+
+        $scope.state.remoteDatabases = databases;
       });
     }
   });
@@ -98,9 +105,7 @@ kitin.controller('RemoteSearchCtrl', function($scope, definitions, searchService
 
 kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routeParams, definitions, searchService, searchUtil, editUtil) {
 
-  var recType = $routeParams.recType;
-
-  $scope.recType = recType;
+  $scope.recType = $routeParams.recType;
 
   $scope.url = '/search/' + $scope.recType + '.json';
 
@@ -119,16 +124,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
   });
   
   // TODO: localization
-  $scope.facetLabels = [ 
-    { 'about.@type': 'Typer' },
-    { 'about.dateOfPublication': 'Datum' },
-    { 'about.instanceOf.language': 'Språk' }
-  ];
-
-  var facetLabels = []; // TODO: localization
-  facetLabels['about.@type'] = "Typer";
-  facetLabels['about.dateOfPublication'] = "Datum";
-  $scope.facetLabels = facetLabels;
+  $scope.facetLabels = searchService.facetLabels;
 
   document.body.className = 'search';
 
@@ -139,6 +135,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
     start: -searchService.pageSize,
     n: searchService.pageSize
   };
+  $scope.sortables = searchService.sortables;
 
   // TODO - remove
   $scope.editPost = function(recType, record) {
@@ -147,7 +144,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
       editUtil.setRecord(record);
     }
     $location.url('/edit' + record.identifier);
-  }
+  };
 
 
   // Sort
@@ -198,9 +195,6 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
     return;
   }
 
-
-  
-
   $scope.$watch('result.list.length', function(newLength, oldLength) {
     var updateHoldings = function(data, status, headers, config) {
     if(data) {
@@ -220,8 +214,8 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
   $scope.doSearch = function(url, params) {
 
     searchService.search(url, params).then(function(data) {
-      $scope.facetGroups = searchUtil.makeLinkedFacetGroups(recType, data.facets, $scope.q, prevFacetsStr);
-      $scope.crumbs = searchUtil.bakeCrumbs(recType, $scope.q, prevFacetsStr);
+      $scope.facetGroups = searchUtil.makeLinkedFacetGroups($scope.recType, data.facets, $scope.state.search.q, prevFacetsStr);
+      $scope.crumbs = searchUtil.bakeCrumbs($scope.recType, $scope.state.search.q, prevFacetsStr);
       if(data && data.hits) {
         // New page load
         if($scope.result) {
@@ -232,16 +226,19 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
         // Initial load
         } else {
           $scope.result = data;
+          
+          var hitCount = searchUtil.countTotalHits(data.hits);
+
           // Only one hit
-          if (data.hits == 1) {
+          if (hitCount == 1) {
               $location.url("/edit" + data.list[0].identifier);
               $location.replace();
-          }
-          $scope.hitCount = data.hits.toString();
+          }   
+
+          $scope.hitCount = hitCount.toString();       
         }
       } else {
-        $scope.result = { list: [] };
-        $scope.hitCount = '0';
+        $scope.result = { hits: 0 };
       }
       $scope.scrolled = false;
       $scope.loading = false;

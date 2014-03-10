@@ -3,7 +3,7 @@
     <div class="content search" data-ng-switch-when="0">
        <div id="grid"></div>
           <header>
-             <p class="summary">Din sökning på <strong>{{ q }}</strong> resulterade i 0 träffar.</p>
+             <p class="summary">Din sökning på <strong>{{ state.search.q }}</strong> resulterade i 0 träffar.</p>
              </header>
          </div>
 <div data-ng-show="!loading" class="content search" data-ng-switch-default>

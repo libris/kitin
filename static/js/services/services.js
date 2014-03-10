@@ -317,6 +317,11 @@ kitin.factory('isbnTools', function($http, $q) {
 kitin.factory('searchService', function($http, $q) {
   return {
     pageSize: 10,
+    facetLabels: { 
+     'about.@type': 'Typer',
+     'about.dateOfPublication': 'Datum',
+     'about.instanceOf.language': 'Språk'
+    },
     searchTypeIndex: {
       bib: {
         key: 'bib', 
@@ -351,6 +356,16 @@ kitin.factory('searchService', function($http, $q) {
 
 kitin.factory('searchUtil', function() {
   return {
+
+    countTotalHits: function(hits) {
+      if(_.isObject(hits)) {
+        return _.reduce(hits, function(sum, num) {
+          return sum + num;
+        });
+      } else {
+        return hits;
+      }
+    },
 
     parseSelected: function (remoteDatabases) {
       return _.map(_.filter(remoteDatabases, 'selected'), 'database').join(',');
