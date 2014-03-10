@@ -16,9 +16,8 @@
     	<div class="modal-body">
       {% include "partials/_release_notes.html" %}
 			</div>
-    </div>
 
-    {% include "partials/remote_search_modal.html" %}
+    </div>
 
   </div>
   <div class="kb">
@@ -26,11 +25,16 @@
   {% if current_user and current_user.is_authenticated() %}
     {% raw %}
     <div data-ng-controller="SearchFormCtrl">
-
+      {% endraw %}
+      {% include "partials/remote_search_modal.html" %}
+      {% raw %}
       <div class="searchfield">
         <form data-ng-submit="search()" method="GET" name="search_form">
+          <div>
+            <em>{{ searchType.label }}</em>
+          </div>
           <input id="search" name="q" type="text" autofocus
-                 value="{{ q }}" placeholder="{{ placeholders[state.searchType.key] }}"
+                 value="{{ q }}" placeholder="{{ placeholders[searchType.key] }}"
           autocomplete="off" role="textbox"
           aria-autocomplete="list" aria-haspopup="true" data-ng-model="q">
           <div class="btn-group">
@@ -41,24 +45,20 @@
             </a>
             <ul class="dropdown-menu">
               <li data-ng-repeat="opt in searchTypes">
-                <a data-ng-class="{selected: opt.key == state.searchType.key}"
+                <a data-ng-class="{selected: opt.key == searchType.key}"
                    data-ng-click="setSearchType(opt.key)">{{ opt.label }}</a>
               </li>
             </ul>
-            
           </div>
-          <div>
-            <em data-ng-show="state.searchType.key != 'bib'">{{ state.searchType.label }}</em>
-          </div>
-    			<span class="remote-search" data-ng-show="state.searchType.key == 'remotesearch'">
-      			<a href="#" data-target="#remoteModal" data-toggle="modal">Remotekällor</a>
+    			<div class="remote-search" data-ng-show="searchType.key == 'remotesearch'">
             <!-- List seleceted remote databases -->
             <ul class="remotesource">
-              <li data-ng-repeat="database in state.remoteDatabases | filter:{selected: true} | orderBy:'database'">
-                <!-- <input type="checkbox" ng-model="database.selected"/> --> {{ database.database }}
+              <li data-ng-repeat="database in remoteDatabases | filter:{selected: true} | orderBy:'alternativeName'">
+                <!-- <input type="checkbox" ng-model="database.selected"/> --> {{ database.alternativeName }}
               </li>
             </ul>
-          </span>
+            <a href="#" data-target="#remoteModal" data-toggle="modal">Remotekällor</a>
+          </div>
         </form>
       </div>
     </div>
