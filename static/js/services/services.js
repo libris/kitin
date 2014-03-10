@@ -74,6 +74,7 @@ kitin.factory('records', function ($http, $q) {
 });
 
 kitin.service('editUtil', function(definitions) {
+  
   var addToContainer = function(subj, rel, type, obj) {
     var collection = subj[rel];
     if(typeof collection === 'undefined') {
@@ -85,6 +86,14 @@ kitin.service('editUtil', function(definitions) {
   };
 
   var editutil = {
+    record: null,
+    setRecord: function(record) {
+      this.record = record;
+    },
+
+    getRecord: function() {
+      return this.record;
+    },
 
     addObject: function(subj, rel, type, multiple, obj) {
       var added;
