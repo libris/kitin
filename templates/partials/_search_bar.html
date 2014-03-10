@@ -54,7 +54,7 @@
             <!-- List seleceted remote databases -->
             <ul class="remotesource">
               <li data-ng-repeat="database in remoteDatabases | filter:{selected: true} | orderBy:'alternativeName'">
-                <!-- <input type="checkbox" ng-model="database.selected"/> --> {{ database.alternativeName }}
+                <!-- <input type="checkbox" ng-model="database.selected"/> --> {{ database.database }}<span data-ng-show=" ! $last ">,</span>
               </li>
             </ul>
             <a href="#" data-target="#remoteModal" data-toggle="modal">Remotekällor</a>
