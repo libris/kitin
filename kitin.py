@@ -315,13 +315,15 @@ def update_document(rec_type, rec_id):
 @login_required
 def create_record():
     h = {'content-type': JSON_LD_MIME_TYPE, 'format': 'jsonld'}
-    path = "%s/bib/" % (app.config['WHELK_HOST'])
+    path = "%s/" % (app.config['WHELK_HOST'])
+    print path
     response = requests.post(path, data=json.dumps(request.json), headers=h, allow_redirects=False)
+    print response
     if response.status_code == 200:
         resp = raw_json_response(response.text)
         resp.headers['etag'] = response.headers['etag'].replace('"', '')
         return resp
-    elif response.status_code == 303:
+    elif response.status_code == 303 or response.status_code == 302:
         data = {}
         data['document'] = json.loads(response.text)
         data['document_id'] = urlparse(response.headers['Location']).path.rsplit("/")[-1]

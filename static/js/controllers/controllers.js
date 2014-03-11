@@ -145,7 +145,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
   // TODO - remove
   $scope.editPost = function(recType, record) {
     if(recType === 'remotesearch') {
-      record.identifier = '/external/NN';
+      record.identifier = '/remote/new';
       editUtil.setRecord(record);
     }
     $location.url('/edit' + record.identifier);
@@ -341,14 +341,14 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     });
   }
 
-  if (isNew) {
+  if (isNew && recType !== 'remote') {
     $http.get('/record/bib/new?type' + newType).success(function(data) {
       var record = $scope.record = data;
       addRecordViewsToScope(record, $scope);
     });
   } else {
     var record = editUtil.getRecord();
-    if(recType === 'external' && record) {
+    if(recType === 'remote' && record) {
       record = $scope.record = record.data;
       editUtil.patchBibRecord(record);
       addRecordViewsToScope(record, $scope);
@@ -360,7 +360,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
         editUtil.patchBibRecord(record);
         addRecordViewsToScope(record, $scope);
       }
-
+      
       $scope.etag = data['etag'];
       $scope.userSigel = userData.userSigel;
 
@@ -447,7 +447,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
 
   if (isNew) {
     $scope.save = function() {
-      records.create(recType, $scope.record).then(function(data) {
+      records.create('bib', $scope.record).then(function(data) {
         $location.url('/edit/bib/' + data['document_id']);
       });
     };
@@ -462,9 +462,12 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   };
 
   $scope.saveDraft = function() {
-    $http.post("/record/"+ $routeParams.recType +"/"+ $routeParams.recId +"/draft",
+    var recType = $routeParams.recType === 'remote' ? 'bib' : $routeParams.recType;
+    var recId = $routeParams.recId !== 'new' ? $routeParams.recId : 'draft-xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {var r = Math.random()*16|0,v=c=='x'?r:r&0x3|0x8;return v.toString(16);});
+
+    $http.post("/record/"+ recType +"/"+ recId +"/draft",
       $scope.record,
-      {headers: {"If-match":$scope.etag}}
+      {headers: {"If-match": $scope.etag ? $scope.etag : recId}}
     ).success(function(data, status) {
       $scope.draft = data;
       $scope.draft.type = data['@id'].split("/").slice(-2)[0];
