@@ -5,9 +5,58 @@
   <div class="edit content {{recType}}">
     <div>
       {{recType}}
+      <span data-nf-if="record.originalCatalogingAgency.name">
+      - Skapad av: <strong>{{record.originalCatalogingAgency.name}}</strong>
+			</span>
+      <span data-ng-if="record.modified">
+       - Senast ändrad: <em>{{record.modified | date:'yyyy-MM-dd HH:mm'}}</em> av: <strong>{{ record.modifyingAgency.name }}</strong>
+      </span>
+      <span>
+      - Publicerad: <em>{{record['@id']}}</em>
+      </span>
+      <span>
+      - Språk: {{record.language}}
+      </span>
+                  <span>
+              <label class="enc-level">
+              <span data-ng-if="record.encLevel == 3 ">
+               <i class="fa fa-circle"></i>
+               <i class="fa fa-circle-o"></i>
+               <i class="fa fa-circle-o"></i>
+               Miniminivå
+              </span>
+              <span data-ng-if="record.encLevel == 7 ">
+               <i class="fa fa-circle"></i>
+               <i class="fa fa-circle"></i>
+               <i class="fa fa-circle-o"></i>
+               Biblioteksnivå
+              </span>
+               <span data-ng-if="record.encLevel == null ">
+               <i class="fa fa-circle"></i>
+               <i class="fa fa-circle"></i>
+               <i class="fa fa-circle"></i>
+               NB-nivå
+              </span>
+               <span data-ng-if="record.encLevel == 8 ">
+               <i class="fa fa-circle-o"></i>
+               <i class="fa fa-circle-o"></i>
+               <i class="fa fa-circle-o"></i>
+              Förhandspost
+              </span>
+              <span data-ng-if="record.encLevel == 'I' ">
+               <i class="fa fa-circle-o"></i>
+               <i class="fa fa-circle-o"></i>
+               <i class="fa fa-circle-o"></i>
+              Full-level input by OCLC participants (LOCAL)
+              </span>
+              </label>
+                  </span>
+
+
       <header class="clearfix">
         <h1 data-ng-click="cycleType($event, record.about)"><span data-ng-if="recType == 'auth'">Aukt.</span>{{ getTypeLabel(record.about) }} 
           <!--(Bibliografiskt material)--></h1>
+
 
 <!--TODO: make this designsuggestion functional in template
         <div class="levelselect">
