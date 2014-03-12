@@ -8,6 +8,7 @@ import json
 import urllib2
 from urlparse import urlparse
 import mimetypes
+import uuid
 from flask import (Flask, render_template, request, make_response, Response,
         abort, redirect, url_for, Markup, session)
 from flask_login import LoginManager, login_required, login_user, flash, current_user, logout_user
@@ -63,6 +64,12 @@ def global_view_variables():
     return {'modified': datetime.fromtimestamp(mtime)}
 
 
+@app.route("/")
+@login_required
+def index():
+    return render_template('index.html', user=current_user, partials = {"/partials/index" : "partials/index.html"})
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     msg = None
@@ -99,10 +106,10 @@ def logout():
     session.pop('sigel', None)
     return redirect("/login")
 
-@app.route("/")
-@login_required
-def index():
-    return render_template('index.html', user=current_user, partials = {"/partials/index" : "partials/index.html"})
+
+
+# SEARCH START
+# ----------------------------
 
 @app.route("/search/<record_type>")
 @login_required
@@ -132,7 +139,39 @@ def do_search(service_path):
     search_url = "%s/%s" % (app.config['WHELK_HOST'], service_path)
     return requests.get(search_url, params= request.args, headers=extract_x_forwarded_for_header(request))
 
-@app.route('/record/<record_type>/<record_id>/holdings')
+# ----------------------------
+# SEARCH END
+
+
+
+# RECORD START
+# ----------------------------
+
+@app.route("/record/", methods=["GET"])
+@login_required
+def get_template():
+    """Returns a template object"""
+    return raw_json_response(open(os.path.join(here, "examples/templates/monografi.json"), 'r').read())
+
+
+@app.route('/record/<rec_type>/<rec_id>', methods=["GET"])
+@login_required
+def get_bib_data(rec_type, rec_id):
+    # TODO: How check if user is logged in?
+    whelk_url = "%s/%s/%s" % (app.config['WHELK_HOST'], rec_type, rec_id)
+    response = requests.get(whelk_url)
+    if response.status_code >= 400:
+        app.logger.warning("Error response %s on GET <%s>" % (response.status_code, whelk_url))
+        abort(response.status_code)
+    else:
+        document = response.text
+        etag = response.headers['etag']
+
+    resp = raw_json_response(document)
+    resp.headers['etag'] = etag
+    return resp
+
+@app.route('/record/<record_type>/<record_id>/holdings', methods=["GET"])
 @login_required
 def get_holdings(record_type, record_id):
         #path = "%s/hold/_find?q=annotates.@id:%s" % (app.config['WHELK_HOST'], record_id)
@@ -140,159 +179,6 @@ def get_holdings(record_type, record_id):
         path = "%s/hold/_search?q=*+about.annotates.@id:\/resource\/bib\/%s" % (app.config['WHELK_HOST'], bibnr)
         resp = requests.get(path)
         return raw_json_response(resp.text)
-
-@app.route('/holding/<holding_id>', methods=['GET'])
-@login_required
-def get_holding(holding_id):
-    response = requests.get("%s/hold/%s" % (app.config['WHELK_HOST'], holding_id))
-    if response.status_code == 200:
-        resp = raw_json_response(response.text)
-        resp.headers['etag'] = response.headers['etag'].replace('"', '')
-        return resp
-    else:
-        abort(response.status_code)
-
-@app.route('/holding', methods=['POST'])
-@login_required
-def create_holding():
-    path = "%s/hold/" % (app.config['WHELK_HOST'])
-    response = requests.post(path, data=request.data, allow_redirects=False)
-    if response.status_code == 200:
-        resp = raw_json_response(response.text)
-        resp.headers['etag'] = response.headers['etag'].replace('"', '')
-    elif response.status_code == 303:
-        data = {}
-        data['document'] = json.loads(response.text)
-        data['document_id'] = urlparse(response.headers['Location']).path.rsplit("/")[-1]
-        resp = raw_json_response(json.dumps(data))
-        resp.headers['etag'] = response.headers['etag'].replace('"', '')
-        return resp
-    else:
-        abort(response.status_code)
-
-@app.route('/holding/<holding_id>', methods=['PUT'])
-@login_required
-def save_holding(holding_id):
-    if_match = request.headers.get('If-match')
-    h = {'content-type': JSON_LD_MIME_TYPE, 'If-match': if_match}
-    path = "%s/hold/%s" % (app.config['WHELK_HOST'], holding_id)
-    response = requests.put(path, data=request.data, headers=h, allow_redirects=True)
-    if response.status_code == 200:
-        resp = raw_json_response(response.text)
-        resp.headers['etag'] = response.headers['etag'].replace('"', '')
-        return resp
-    else:
-        abort(response.status_code)
-
-@app.route('/holding/<holding_id>', methods=['DELETE'])
-@login_required
-def delete_holding(holding_id):
-    path = "%s/hold/%s" % (app.config['WHELK_HOST'], holding_id)
-    response = requests.delete(path)
-    return make_response("success")
-
-@app.route("/def/<path:path>")
-@login_required
-def get_def(path):
-    return get_dataset("def/%s" % path)
-
-@app.route("/resource/<path:path>")
-@login_required
-def get_resource(path):
-    return get_dataset("resource/%s?%s" % (path, request.query_string))
-
-def get_dataset(path, cache=False):
-    url = "%s/%s" % (app.config['WHELK_HOST'], path)
-    remote_resp = requests.get(url)
-    resp = Response(remote_resp.text,
-            status=remote_resp.status_code,
-            content_type=remote_resp.headers['content-type'])
-    if not cache:
-        resp.headers['Expires'] = '-1'
-    return resp
-
-@app.route('/edit/<rec_type>/<rec_id>')
-@login_required
-def show_edit_record(rec_type, rec_id):
-    return index()
-
-@app.route('/marc/<rec_type>/<rec_id>')
-@login_required
-def show_marc_record(rec_type, rec_id):
-    return index()
-    #return render_template('index.html', partials = {"/partials/frbr" : "partials/frbr.html"})
-
-@app.route('/jsonld/<rec_type>/<rec_id>')
-@login_required
-def show_jsonld_record(rec_type, rec_id):
-    return index()
-
-@app.route('/record/<rec_type>/<rec_id>')
-@login_required
-def get_bib_data(rec_type, rec_id):
-    # TODO: How check if user is logged in?
-    draft = storage.get_draft(current_user.get_id(), rec_type, rec_id)
-    if draft == None:
-        whelk_url = "%s/%s/%s" % (app.config['WHELK_HOST'], rec_type, rec_id)
-        response = requests.get(whelk_url)
-        if response.status_code >= 400:
-            app.logger.warning("Error response %s on GET <%s>" % (response.status_code, whelk_url))
-            abort(response.status_code)
-        else:
-            document = response.text
-            etag = response.headers['etag']
-    else:
-        json_data = json.loads(draft)
-        document = json.dumps(json_data['document'])
-        etag = json_data['etag']
-
-    resp = raw_json_response(document)
-    resp.headers['etag'] = etag
-    return resp
-
-## TODO: Add middleware to support DELETE method instead of POST
-@app.route('/record/bib/<id>/draft/delete', methods=['POST'])
-@login_required
-def delete_draft(id):
-    storage.delete_draft(current_user.get_id(), "bib", id)
-    return redirect("/drafts")
-
-@app.route('/record/bib/<id>/draft', methods=['POST'])
-@login_required
-def save_draft(id):
-    """Save draft to kitin, called by form"""
-    json_data = request.data
-    storage.save_draft(current_user.get_id(), "bib", id, json_data, request.headers['If-match'])
-    return json.dumps(request.json)
-
-@app.route('/draft/<rec_type>/<rec_id>')
-@login_required
-def get_draft(rec_type, rec_id):
-    draft = storage.get_draft(current_user.get_id(), rec_type, rec_id)
-    if(draft):
-        json_data = json.loads(draft)
-        resp = raw_json_response(json.dumps(json_data['document']))
-        resp.headers['etag'] = json_data['etag']
-        return resp
-    else:
-        abort(404)
-
-@app.route('/drafts')
-@login_required
-def get_drafts():
-    drafts = storage.get_drafts_as_json(current_user.get_id())
-    return raw_json_response(drafts)
-
-@app.route("/record/bib/new", methods=["GET"])
-@login_required
-def get_template():
-    """Returns a template object"""
-    return raw_json_response(open(os.path.join(here, "examples/templates/monografi.json"), 'r').read())
-
-@app.route("/holding/bib/new", methods=["GET"])
-@login_required
-def get_holding_template():
-    return raw_json_response(open(os.path.join(here, "examples/templates/holding.json"), 'r').read())
 
 @app.route('/record/<rec_type>/<rec_id>', methods=['PUT'])
 @login_required
@@ -333,6 +219,156 @@ def create_record():
     else:
         abort(response.status_code)
 
+# ----------------------------
+# RECORD END
+
+
+
+# HOLDING START
+# ----------------------------
+
+@app.route('/holding/<holding_id>', methods=['GET'])
+@login_required
+def get_holding(holding_id):
+    response = requests.get("%s/hold/%s" % (app.config['WHELK_HOST'], holding_id))
+    if response.status_code == 200:
+        resp = raw_json_response(response.text)
+        resp.headers['etag'] = response.headers['etag'].replace('"', '')
+        return resp
+    else:
+        abort(response.status_code)
+
+@app.route("/holding/bib/new", methods=["GET"])
+@login_required
+def get_holding_template():
+    return raw_json_response(open(os.path.join(here, "examples/templates/holding.json"), 'r').read())
+
+@app.route('/holding', methods=['POST'])
+@login_required
+def create_holding():
+    path = "%s/hold/" % (app.config['WHELK_HOST'])
+    response = requests.post(path, data=request.data, allow_redirects=False)
+    if response.status_code == 200:
+        resp = raw_json_response(response.text)
+        resp.headers['etag'] = response.headers['etag'].replace('"', '')
+    elif response.status_code == 303:
+        data = {}
+        data['document'] = json.loads(response.text)
+        data['document_id'] = urlparse(response.headers['Location']).path.rsplit("/")[-1]
+        resp = raw_json_response(json.dumps(data))
+        resp.headers['etag'] = response.headers['etag'].replace('"', '')
+        return resp
+    else:
+        abort(response.status_code)
+
+@app.route('/holding/<holding_id>', methods=['PUT'])
+@login_required
+def save_holding(holding_id):
+    if_match = request.headers.get('If-match')
+    h = {'content-type': JSON_LD_MIME_TYPE, 'If-match': if_match}
+    path = "%s/hold/%s" % (app.config['WHELK_HOST'], holding_id)
+    response = requests.put(path, data=request.data, headers=h, allow_redirects=True)
+    if response.status_code == 200:
+        resp = raw_json_response(response.text)
+        resp.headers['etag'] = response.headers['etag'].replace('"', '')
+        return resp
+    else:
+        abort(response.status_code)
+
+@app.route('/holding/<holding_id>', methods=['DELETE'])
+@login_required
+def delete_holding(holding_id):
+    path = "%s/hold/%s" % (app.config['WHELK_HOST'], holding_id)
+    response = requests.delete(path)
+    return make_response("success")
+
+# ----------------------------
+# HOLDING END
+
+
+# DRAFT START
+# ----------------------------
+
+@app.route('/drafts', methods=['GET'])
+@login_required
+def get_drafts():
+    drafts = storage.get_drafts_as_json(current_user.get_id())
+    return raw_json_response(drafts)
+
+@app.route('/draft/<rec_type>/<draft_id>', methods=['GET'])
+@login_required
+def get_draft(rec_type, draft_id):
+    draft = storage.get_draft(current_user.get_id(), rec_type, draft_id)
+    if(draft):
+        json_data = json.loads(draft)
+        resp = raw_json_response(json.dumps(json_data['document']))
+        resp.headers['etag'] = json_data['etag']
+        return resp
+    else:
+        abort(404)
+
+@app.route('/draft/<rec_type>', methods=['POST'])
+@login_required
+def create_draft(rec_type):
+    #Remember that this is a draft
+    draft_id =  'draft-'  + str(uuid.uuid4())
+    json_data = json.dumps({
+      'isDraft': True,
+      'document_id': rec_type + '/' + draft_id,
+      'document': json.loads(request.data)
+    });
+    storage.save_draft(current_user.get_id(), rec_type, draft_id, json_data,'')#, request.headers['If-match'])
+    return json_data
+
+@app.route('/draft/<rec_type>/<draft_id>', methods=['PUT'])
+@login_required
+def save_draft(rec_type, draft_id):
+    """Save draft to kitin, called by form"""
+    json_data = json.dumps({
+      'isDraft': True,
+      'document_id': rec_type + '/' + draft_id,
+      'document': json.loads(request.data)
+    });
+    storage.update_draft(current_user.get_id(), rec_type, draft_id, json_data,'')#, request.headers['If-match'])
+    return json.dumps(request.json)
+
+@app.route('/draft/<rec_type>/<draft_id>', methods=['DELETE'])
+@login_required
+def delete_draft(rec_type, draft_id):
+    storage.delete_draft(current_user.get_id(), rec_type, draft_id)
+    return redirect("/drafts", code=303)
+
+# ----------------------------
+# DRAFT END
+
+
+
+@app.route("/def/<path:path>")
+@login_required
+def get_def(path):
+    return get_dataset("def/%s" % path)
+
+@app.route("/resource/<path:path>")
+@login_required
+def get_resource(path):
+    return get_dataset("resource/%s?%s" % (path, request.query_string))
+
+@app.route('/edit/<rec_type>/<rec_id>')
+@login_required
+def show_edit_record(rec_type, rec_id):
+    return index()
+
+@app.route('/marc/<rec_type>/<rec_id>')
+@login_required
+def show_marc_record(rec_type, rec_id):
+    return index()
+    #return render_template('index.html', partials = {"/partials/frbr" : "partials/frbr.html"})
+
+@app.route('/jsonld/<rec_type>/<rec_id>')
+@login_required
+def show_jsonld_record(rec_type, rec_id):
+    return index()
+
 @app.route('/marcmap.json')
 @login_required
 def get_marcmap():
@@ -356,6 +392,21 @@ def suggest_completions(indextype):
 @login_required
 def show_partial(name):
     return render_template('partials/%s.html' % name)
+
+
+
+# UTILS 
+# -------------------
+
+def get_dataset(path, cache=False):
+    url = "%s/%s" % (app.config['WHELK_HOST'], path)
+    remote_resp = requests.get(url)
+    resp = Response(remote_resp.text,
+            status=remote_resp.status_code,
+            content_type=remote_resp.headers['content-type'])
+    if not cache:
+        resp.headers['Expires'] = '-1'
+    return resp
 
 def extract_x_forwarded_for_header(request):
     if not request.headers.getlist("X-Forwarded-For"):

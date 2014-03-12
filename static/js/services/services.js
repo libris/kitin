@@ -35,41 +35,109 @@ kitin.factory('definitions', function($http) {
   return definitions;
 });
 
-kitin.factory('records', function ($http, $q) {
+kitin.factory('dataService', function ($http, $q) {
   return {
 
-    get: function (type, id) {
-      var path = "/record/" + type + "/" + id;
-      var record = $q.defer();
-      $http.get(path).success(function (struct, status, headers) {
-        record['recdata'] = struct;
-        record['etag'] = headers('etag');
-        record.resolve(record);
-      });
-      return record.promise;
+    record: {
+      get: function (type, id) {
+        var record = $q.defer();
+        $http.get("/record/" + type + "/" + id).success(function (struct, status, headers) {
+          record['recdata'] = struct;
+          record['etag'] = headers('etag');
+          record.resolve(record);
+        });
+        return record.promise;
+      },
+
+      save: function(type, id, data, etag) {
+        var record = $q.defer();
+        $http.put("/record/" + type + "/" + id, data,
+                  {headers: {"If-match":etag}}).success(function(data, status, headers) {
+          record['recdata'] = data;
+          record['etag'] = headers('etag');
+          record.resolve(record);
+          console.log("Saved record.");
+        }).error(function() {
+          console.log("FAILED to save record");
+        });
+        return record.promise;
+      },
+
+      create: function(type, data) {
+        var record = $q.defer();
+        $http.post("/record/" + type + "/create", data).success(function(data, status, headers) {
+          record.resolve(data);
+        });
+        return record.promise;
+      }
     },
 
-    save: function(type, id, data, etag) {
-      var record = $q.defer();
-      $http.put("/record/" + type + "/" + id, data,
-                {headers: {"If-match":etag}}).success(function(data, status, headers) {
-        record['recdata'] = data;
-        record['etag'] = headers('etag');
-        record.resolve(record);
-        console.log("Saved record.");
-      }).error(function() {
-        console.log("FAILED to save record");
-      });
-      return record.promise;
+    draft: {
+      get: function (draftId) {
+        var record = $q.defer();
+        $http.get("/draft/" + draftId).success(function (data, status, headers) {
+          record['recdata'] = data;
+          record['etag'] = headers('etag');
+          record.resolve(record);
+        });
+        return record.promise;
+      },
+
+      save: function(type, draftId, post, etag) {
+        var record = $q.defer();
+        $http.put("/draft/" + type + '/' + draftId, post, {headers: {"If-match":etag } })
+          .success(function(data, status, headers) {
+            record['recdata'] = data;
+            record['etag'] = headers('etag');
+            record.resolve(record);
+            console.log("Saved record.");
+          })
+          .error(function() {
+            console.log("FAILED to save record");
+          });
+        return record.promise;
+      },
+
+      create: function(type, post) {
+        var record = $q.defer();
+        $http.post("/draft/" + type, post).success(function(data, status, headers) {
+          record.resolve(data);
+        });
+        return record.promise;
+      },
+
+      delete: function(type, draftId) {
+        var record = $q.defer();
+        $http.delete("/draft/" + type + '/' + draftId).success(function(data, status, headers) {
+          record.resolve(data);
+        });
+        return record.promise;
+      }
     },
 
-    create: function(type, data) {
-      var record = $q.defer();
-      $http.post("/record/" + type + "/create", data).success(function(data, status, headers) {
-        record.resolve(data);
-      });
-      return record.promise;
+    drafts: {
+      get: function() {
+        var record = $q.defer();
+        $http.get('/drafts').success(function(data, status, headers) {
+          record.resolve(data);
+        });
+        return record.promise;
+      }
+    },
+
+    holding: {
+      get: function() {}
     }
+  };
+});
+
+
+kitin.factory('draft', function ($http, $q) {
+  return {
+
+    
+
+
   };
 });
 

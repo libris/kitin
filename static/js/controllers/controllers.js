@@ -45,15 +45,15 @@ kitin.controller('OpenModalCtrl', function($scope, $modal, $location) {
   };
 });
 
-kitin.controller('IndexCtrl', function($scope, $http) {
+kitin.controller('IndexCtrl', function($scope, $http, dataService) {
   document.body.className = 'index';
 
-  $scope.drafts = $http.get("/drafts").success(function(data) {
+  dataService.drafts.get().then(function(data) {
     $scope.drafts = data.drafts;
   });
 
   $scope['delete'] = function(type, id) {
-    $http.post("/record" + "/" + type + "/" + id + "/draft/delete").success(function(data, status) {
+    dataService.draft.delete(type, id).then(function(data) {
       $scope.drafts = data.drafts;
     });
   };
@@ -261,7 +261,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
 });
 
 
-kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $timeout, $rootScope, $location, records, definitions, userData, editUtil) {
+kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $timeout, $rootScope, $location, dataService, definitions, userData, editUtil) {
 
   var modalRecord = $rootScope.modalRecord;
   var recType = modalRecord? modalRecord.recType : $routeParams.recType;
@@ -347,49 +347,61 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
       addRecordViewsToScope(record, $scope);
     });
   } else {
-    var record = editUtil.getRecord();
+    record = editUtil.getRecord();
     if(recType === 'remote' && record) {
       record = $scope.record = record.data;
       editUtil.patchBibRecord(record);
       addRecordViewsToScope(record, $scope);
     } else {
-    records.get(recType, recId).then(function(data) {
-      var record = $scope.record = data['recdata'];
-
-      if (recType === 'bib') {
-        editUtil.patchBibRecord(record);
-        addRecordViewsToScope(record, $scope);
-      }
-      
-      $scope.etag = data['etag'];
-      $scope.userSigel = userData.userSigel;
-
-      $http.get("/record/" + recType + "/" + recId + "/holdings").success(function(data) {
-        var holdingEtags = {};
-        var items = editUtil.patchHoldings(data.list);
-        $scope.holdings = items;
-        var myHoldings = _.filter(items, function(i) { return i['location'] == userData.userSigel; });
-        if (myHoldings <= 0) {
-          $http.get("/holding/bib/new").success(function(data, status, headers) {
-            data.location = $scope.userSigel;
-            $scope.holding = data;
-            data._isNew = true; // TODO: don't do this when etag works
-          });
-        } else {
-          $scope.holding = myHoldings[0];
-        }
-        items.forEach(function (item) {
-          if (item['@id']) {
-            $http.get("/holding/"+ item['@id'].split("/").slice(-2)[1]).success(function (data, status, headers) {
-              holdingEtags[data['@id']] = headers('etag');
-            });
+      if(recId.indexOf('draft') > -1) {
+        dataService.draft.get(recType + '/' + recId).then(function(data) {
+          $scope.record = data['recdata']['document'];
+          $scope.isDraft = true;
+          if(data['recdata']['document']['@id']) {
+            $scope.record.type = data['recdata']['document']['@id'].split("/").slice(-2)[0];
+            $scope.record.id = data['recdata']['document']['@id'].split("/").slice(-2)[1];
           }
+          $scope.etag = data['etag'];
         });
-        $scope.holdingEtags = holdingEtags;
-      });
+      } else {
+        dataService.record.get(recType, recId).then(function(data) {
+          var record = $scope.record = data['recdata'];
 
-    });
-}
+          if (recType === 'bib') {
+            editUtil.patchBibRecord(record);
+            addRecordViewsToScope(record, $scope);
+          }
+          
+          $scope.etag = data['etag'];
+          $scope.userSigel = userData.userSigel;
+
+          $http.get("/record/" + recType + "/" + recId + "/holdings").success(function(data) {
+            var holdingEtags = {};
+            var items = editUtil.patchHoldings(data.list);
+            $scope.holdings = items;
+            var myHoldings = _.filter(items, function(i) { return i['location'] == userData.userSigel; });
+            if (myHoldings <= 0) {
+              $http.get("/holding/bib/new").success(function(data, status, headers) {
+                data.location = $scope.userSigel;
+                $scope.holding = data;
+                data._isNew = true; // TODO: don't do this when etag works
+              });
+            } else {
+              $scope.holding = myHoldings[0];
+            }
+            items.forEach(function (item) {
+              if (item['@id']) {
+                $http.get("/holding/"+ item['@id'].split("/").slice(-2)[1]).success(function (data, status, headers) {
+                  holdingEtags[data['@id']] = headers('etag');
+                });
+              }
+            });
+            $scope.holdingEtags = holdingEtags;
+          });
+
+        });
+      }
+    }
   }
 
   $scope.modifications = {saved: true, published: true};
@@ -431,7 +443,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   $scope.promptConfirmDelete = function($event, type, id) {
     $scope.confirmDeleteDraft = {
       execute: function() {
-        $http.post("/record" + "/" + type + "/" + id + "/draft/delete").success(function(data, status) {
+        dataService.draft.delete(type, id).then(function(data) {
           $scope.draft = null;
           $scope.confirmDeleteDraft = null;
         });
@@ -447,45 +459,48 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
 
   if (isNew) {
     $scope.save = function() {
-      records.create('bib', $scope.record).then(function(data) {
+      dataService.record.create('bib', $scope.record).then(function(data) {
         $location.url('/edit/bib/' + data['document_id']);
       });
     };
   } else
   $scope.save = function() {
     var ifMatchHeader = $scope.etag.replace(/["']/g, "");
-    records.save(recType, recId, $scope.record, ifMatchHeader).then(function(data) {
+    dataService.record.save(recType, recId, $scope.record, ifMatchHeader).then(function(data) {
       $scope.record = data['recdata'];
       $scope.etag = data['etag'];
-            onPublishState();
+      onPublishState();
     });
   };
 
   $scope.saveDraft = function() {
     var recType = $routeParams.recType === 'remote' ? 'bib' : $routeParams.recType;
-    var recId = $routeParams.recId !== 'new' ? $routeParams.recId : 'draft-xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {var r = Math.random()*16|0,v=c=='x'?r:r&0x3|0x8;return v.toString(16);});
 
-    $http.post("/record/"+ recType +"/"+ recId +"/draft",
-      $scope.record,
-      {headers: {"If-match": $scope.etag ? $scope.etag : recId}}
-    ).success(function(data, status) {
-      $scope.draft = data;
-      $scope.draft.type = data['@id'].split("/").slice(-2)[0];
-      $scope.draft.id = data['@id'].split("/").slice(-2)[1];
-      onSaveState();
-      //$('.flash_message').text("Utkast sparat!");
-    });
+    if(!$scope.isDraft) {
+      dataService.draft.create(recType, $scope.record).then(function(data) {
+        $location.url('/edit/' + data['document_id']);
+      });
+    } else {
+      dataService.draft.save(recType, recId, $scope.record, $scope.etag).then(function(data) {
+        $scope.draft = data['recdata'];
+        $scope.draft.type = data['recdata']['@id'].split("/").slice(-2)[0];
+        $scope.draft.id = data['recdata']['@id'].split("/").slice(-2)[1];
+        onSaveState();
+        //$('.flash_message').text("Utkast sparat!");
+      });
+    }
   };
-
-  $http.get("/draft/"+recType+"/"+recId).success(function(data, status, headers) {
-    $scope.draft = data;
-    $scope.draft.type = data['@id'].split("/").slice(-2)[0];
-    $scope.draft.id = data['@id'].split("/").slice(-2)[1];
-    $scope.etag = headers('etag');
-  }).error(function(data, status) {
-    //console.log(status);
+/*
+  dataService.draft.get(recId).then(function(data, status, headers) {
+    $scope.draft = data['recdata'];
+    $scope.isDraft = true;
+    if(data['recdata']['@id']) {
+      $scope.draft.type = data['recdata']['@id'].split("/").slice(-2)[0];
+      $scope.draft.id = data['recdata']['@id'].split("/").slice(-2)[1];
+    }
+    $scope.etag = data['etag'];
   });
-
+*/
   $scope.newObject = function(subj, rel, type) {
     var obj = subj[rel] = editUtil.createObject(type);
   };
