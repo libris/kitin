@@ -460,7 +460,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   if (isNew) {
     $scope.save = function() {
       dataService.record.create('bib', $scope.record).then(function(data) {
-        $location.url('/edit/bib/' + data['document_id']);
+        $location.url('/edit/bib/' + data['draft_id']);
       });
     };
   } else
@@ -478,7 +478,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
 
     if(!$scope.isDraft) {
       dataService.draft.create(recType, $scope.record).then(function(data) {
-        $location.url('/edit/' + data['document_id']);
+        $location.url('/edit/' + data['draft_id']);
       });
     } else {
       dataService.draft.save(recType, recId, $scope.record, $scope.etag).then(function(data) {

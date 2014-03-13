@@ -85,6 +85,7 @@ kitin.factory('dataService', function ($http, $q) {
 
       save: function(type, draftId, post, etag) {
         var record = $q.defer();
+        etag = etag ? etag : '';
         $http.put("/draft/" + type + '/' + draftId, post, {headers: {"If-match":etag } })
           .success(function(data, status, headers) {
             record['recdata'] = data;
@@ -98,11 +99,13 @@ kitin.factory('dataService', function ($http, $q) {
         return record.promise;
       },
 
-      create: function(type, post) {
+      create: function(type, post, etag) {
         var record = $q.defer();
-        $http.post("/draft/" + type, post).success(function(data, status, headers) {
-          record.resolve(data);
-        });
+        etag = etag ? etag : '';
+        $http.post("/draft/" + type, post, {headers: {"If-match":etag } })
+          .success(function(data, status, headers) {
+            record.resolve(data);
+          });
         return record.promise;
       },
 

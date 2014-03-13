@@ -301,7 +301,7 @@ def get_draft(rec_type, draft_id):
     draft = storage.get_draft(current_user.get_id(), rec_type, draft_id)
     if(draft):
         json_data = json.loads(draft)
-        resp = raw_json_response(json.dumps(json_data['document']))
+        resp = raw_json_response(json.dumps(json_data))
         resp.headers['etag'] = json_data['etag']
         return resp
     else:
@@ -314,10 +314,11 @@ def create_draft(rec_type):
     draft_id =  'draft-'  + str(uuid.uuid4())
     json_data = json.dumps({
       'isDraft': True,
-      'document_id': rec_type + '/' + draft_id,
-      'document': json.loads(request.data)
+      'draft_id': rec_type + '/' + draft_id,
+      'document': json.loads(request.data),
+      'etag': request.headers['If-match']
     });
-    storage.save_draft(current_user.get_id(), rec_type, draft_id, json_data,'')#, request.headers['If-match'])
+    storage.save_draft(current_user.get_id(), rec_type, draft_id, json_data,'')
     return json_data
 
 @app.route('/draft/<rec_type>/<draft_id>', methods=['PUT'])
@@ -326,10 +327,11 @@ def save_draft(rec_type, draft_id):
     """Save draft to kitin, called by form"""
     json_data = json.dumps({
       'isDraft': True,
-      'document_id': rec_type + '/' + draft_id,
-      'document': json.loads(request.data)
+      'draft_id': rec_type + '/' + draft_id,
+      'document': json.loads(request.data),
+      'etag': request.headers['If-match']
     });
-    storage.update_draft(current_user.get_id(), rec_type, draft_id, json_data,'')#, request.headers['If-match'])
+    storage.update_draft(current_user.get_id(), rec_type, draft_id, json_data,'')
     return json.dumps(request.json)
 
 @app.route('/draft/<rec_type>/<draft_id>', methods=['DELETE'])
