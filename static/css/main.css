@@ -231,7 +231,7 @@ a:hover {
 }
 body.edit #header,
 body.search #header {
-  height: 70px;
+  height: 90px;
 }
 body.edit #header > .logo,
 body.search #header > .logo {
@@ -432,6 +432,10 @@ body.index .content header {
   padding: 12px 24px 0;
   width: 1032px;
   margin-left: -24px;
+}
+body.search .content header {
+  padding: 0 24px 0;
+  border-top: 1px solid #c7c7c7;
 }
 .content.footer {
   overflow: visible;

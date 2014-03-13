@@ -390,8 +390,8 @@ kitin.factory('searchService', function($http, $q) {
     pageSize: 10,
     facetLabels: { 
      'about.@type': 'Typer',
-     'about.dateOfPublication': 'Datum',
-     'about.instanceOf.language': 'Språk'
+     'about.instanceOf.language.@id': 'Språk',
+     'encLevel': 'Beskrivningsnivå'
     },
     searchTypeIndex: {
       bib: {
@@ -455,7 +455,7 @@ kitin.factory('searchUtil', function() {
           var slug = [facetType, key].join(":");
           var selected = _.indexOf(prevFacets, slug) !== -1;
           var searchUrl = "/search/" + recType + "?q=" + encodeURIComponent(q) + 
-            (selected ? (prevFacets.length > 1 ? "&f=" + _.filter(prevFacets, function(val) {return val != slug;}) : '') : "&f=" + slug + " " + prevFacetsStr);
+            (selected ? (prevFacets.length > 1 ? "&f=" + _.filter(prevFacets, function(val) {return val != slug;}).join(' ') : '') : "&f=" + slug + " " + prevFacetsStr);
           
           var item = {
             key: key,
@@ -482,13 +482,16 @@ kitin.factory('searchUtil', function() {
         for (var i=0; i < facetlist.length; i++) {
           tmpCrumb = {};
           var facet = facetlist[i];
-          var term = facet.substring(facet.indexOf(":") + 1);
+          var f = facet.split(':');
+          var term = f[1];
+          var type = f[0];
           if (urlPart === "") {
             urlPart = urlPart + facet;
           } else {
             urlPart = urlPart + " " + facet;
           }
           tmpCrumb["term"] = term;
+          tmpCrumb["type"] = type;
           if (i < (facetlist.length - 1)) {
             tmpCrumb['urlpart'] = "/search/" + recType + "?q=" + encodeURIComponent(q) + "&f=" + urlPart;
           }

@@ -4,7 +4,9 @@
   <div id="grid"></div>
   <div class="edit content {{recType}}">
     <div>
-      {{recType}}
+    <!--save for history function and type presentation
+      <div class="record-metadata">
+      <span class="record-type">{{recType}}</span>
       <span data-nf-if="record.originalCatalogingAgency.name">
       - Skapad av: <strong>{{record.originalCatalogingAgency.name}}</strong>
 			</span>
@@ -51,8 +53,8 @@
               </span>
               </label>
                   </span>
-
-
+      </div>
+			-->
       <header class="clearfix">
         <h1 data-ng-click="cycleType($event, record.about)"><span data-ng-if="recType == 'auth'">Aukt.</span>{{ getTypeLabel(record.about) }} 
           <!--(Bibliografiskt material)--></h1>
