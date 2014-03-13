@@ -125,12 +125,11 @@ def do_search(service_path):
         args.add('boost', args.get('b'))
         args.pop('b')
     if args.get('f'):
-        f = args.get('f').strip()
-        args.pop('f')
+        f = args.get('f').replace('/','\\/').strip()
+        del args['f']
         args.add('f', f)
-
     search_url = "%s/%s" % (app.config['WHELK_HOST'], service_path)
-    return requests.get(search_url, params= request.args, headers=extract_x_forwarded_for_header(request))
+    return requests.get(search_url, params= args, headers=extract_x_forwarded_for_header(request))
 
 @app.route('/record/<record_type>/<record_id>/holdings')
 @login_required

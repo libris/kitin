@@ -125,6 +125,11 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
     $scope.enums.encLevel = data;
   });
   
+  definitions.languages.then(function(data) {
+    $scope.languages = data;
+  });
+  
+
   // TODO: localization
   $scope.facetLabels = searchService.facetLabels;
 
@@ -165,10 +170,48 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
     $location.url(url);
   };
 
-  $scope.getLabel = function (term) {
+  $scope.getLabel = function (term, termType) {
     var dfn = $scope.typeDefs[term];
-    if (!dfn) return term;
-    return dfn['label_sv'] || term;
+    
+    if (dfn && dfn['label_sv']) return dfn['label_sv']; 
+
+    // !TODO fix propper linking
+    if(termType && termType.indexOf('language') > 0) {
+      var lang = _.find($scope.languages['byCode'],{'@id': term});
+      if(lang) {
+        return lang['prefLabel'];
+      }
+    }
+    if(termType && termType.indexOf('encLevel') > -1) {
+      return $scope.parseEncLevel(term);
+    }
+    
+    return term;
+  };
+
+  $scope.parseEncLevel = function(encLevel) {
+    switch(encLevel) {
+      case '3':
+        return 'Miniminivå';
+      case '7':
+        return 'Biblioteksnivå';
+      case '8':
+        return 'Förhandspost';
+      case null:
+      case 'null':
+        return 'NB-nivå';
+      case 'i':
+      case 'I':
+        return 'Full-level input by OCLC participants (LOCAL)';
+      case 'n':
+      case 'N':
+        return 'Ny post';
+      case 'c':
+      case 'C':
+        return 'Rättad/Reviderad';
+      default:
+        return encLevel;
+    }
   };
 
   $scope.firstPerson = function (work) {
@@ -241,13 +284,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
                 $scope.state.remoteDatabases[i].hitCount = count;
               }
             });
-          }
-
-          // Only one hit
-          if (hitCount == 1) {
-              $location.url("/edit" + data.list[0].identifier);
-              $location.replace();
-          }   
+          }  
 
           $scope.hitCount = hitCount.toString();       
         }

@@ -14,8 +14,8 @@
       {{ hitCount | chunk }} träffar för
       <span data-ng-repeat="crumb in crumbs">
         <span data-ng-show="crumb.bridge">{{ crumb.bridge }}</span>
-        <span data-ng-hide="crumb.urlpart"><strong>{{ getLabel(crumb.term) }}</strong></span>
-        <a data-ng-show="crumb.urlpart" href="{{ crumb.urlpart }}">{{ getLabel(crumb.term) }}</a>
+        <span data-ng-hide="crumb.urlpart"><strong>{{ getLabel(crumb.term,crumb.type) }}</strong></span>
+        <a data-ng-show="crumb.urlpart" href="{{ crumb.urlpart }}">{{ getLabel(crumb.term, crumb.type) }}</a>
       </span>
     </p>
     <span data-ng-show="state.searchType.key != 'remotesearch'" class="sort-option">Sortering: 
@@ -27,12 +27,20 @@
   <div class="cols">
     <div class="col3">
       <section data-ng-class="{hidden: facetGroups.length < 1}" class="nav">
-        <dl data-ng-repeat="facet in facetGroups">
+        <dl data-ng-repeat="facet in facetGroups" data-ng-if="facet.items.length > 0">
           <dt><i></i>{{facetLabels[facet.type]}}</dt>
           <dd data-ng-repeat="item in facet.items">
             <a data-ng-class="{active: item.selected}"
                data-ng-href="{{item.searchUrl}}">
-              <span>{{getLabel(item.key)}} ({{item.count | chunk}})</span></a>
+              <span>{{getLabel(item.key, facet.type)}} ({{item.count | chunk}})</span></a>
+          </dd>
+        </dl>
+        <dl>
+          <dt><i></i>Utgivningstid</dt>
+          <dd>
+            <div class="alert alert-block">
+              Ej aktiverad
+            </div>
           </dd>
         </dl>
       </section>
@@ -126,13 +134,13 @@
                <label class="enc-level">
               <span data-ng-if="record.data.encLevel == 'c' ">
                <i class="fa fa-pencil-square"></i>
-              Rättad/Reviderad
+              {{parseEncLevel(record.data.encLevel)}}
               </span>
               <span data-ng-if="record.data.encLevel == 'n' ">
                <i class="fa fa-circle-o"></i>
                <i class="fa fa-circle-o"></i>
                <i class="fa fa-circle-o"></i>
-              Ny post
+              {{parseEncLevel(record.data.encLevel)}}
               </span> 
                </label>           
             </div>
@@ -142,31 +150,31 @@
                <i class="fa fa-circle"></i>
                <i class="fa fa-circle-o"></i>
                <i class="fa fa-circle-o"></i>
-               Miniminivå
+               {{parseEncLevel(record.data.encLevel)}}
               </span>
               <span data-ng-if="record.data.encLevel == 7 ">
                <i class="fa fa-circle"></i>
                <i class="fa fa-circle"></i>
                <i class="fa fa-circle-o"></i>
-               Biblioteksnivå
+               {{parseEncLevel(record.data.encLevel)}}
               </span>
                <span data-ng-if="record.data.encLevel == null ">
                <i class="fa fa-circle"></i>
                <i class="fa fa-circle"></i>
                <i class="fa fa-circle"></i>
-               NB-nivå
+               {{parseEncLevel(record.data.encLevel)}}
               </span>
                <span data-ng-if="record.data.encLevel == 8 ">
                <i class="fa fa-circle-o"></i>
                <i class="fa fa-circle-o"></i>
                <i class="fa fa-circle-o"></i>
-              Förhandspost
+              {{parseEncLevel(record.data.encLevel)}}
               </span>
               <span data-ng-if="record.data.encLevel == 'I' ">
                <i class="fa fa-circle-o"></i>
                <i class="fa fa-circle-o"></i>
                <i class="fa fa-circle-o"></i>
-              Full-level input by OCLC participants (LOCAL)
+              {{parseEncLevel(record.data.encLevel)}}
               </span>
 
                <p class="holding">
