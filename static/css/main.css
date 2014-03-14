@@ -233,6 +233,17 @@ body.edit #header,
 body.search #header {
   height: 90px;
 }
+body.search #header {
+  position: fixed;
+  top: 0;
+  width: 1080px;
+  background-color: #ffffff;
+  z-index: 1000;
+  border-bottom: 1px solid #c7c7c7;
+}
+body.search .content {
+  margin-top: 90px;
+}
 body.edit #header > .logo,
 body.search #header > .logo {
   height: 30px;
@@ -435,7 +446,6 @@ body.index .content header {
 }
 body.search .content header {
   padding: 0 24px 0;
-  border-top: 1px solid #c7c7c7;
 }
 .content.footer {
   overflow: visible;

@@ -10,11 +10,14 @@
     <link rel="shortcut icon" type="image/x-icon" href="/static/img/favicon.ico">
 
     {% include "_media.html" %}
-
+    <!-- Remote modal -->
+    {% include "partials/remote_search_modal.html" %}
+    
   </head>
   <body data-ng-app="kitin" class="{% block bodyclass %}{% endblock %}" data-ng-controller="AppCtrl">
     <div id="wrap">
-      {% if current_user and current_user.is_authenticated() %}
+      <div id="header">
+            {% if current_user and current_user.is_authenticated() %}
       <div id="nav">
           <ul class="inline nav-menu pull-right">
            <li class="active"><a href="http://feedback.kat.libris.kb.se/" target="_blank" title="Feedback forum">Tyck till <i class="icon fa fa-external-link"></i></a></li>  
@@ -45,9 +48,8 @@
         </ul>
       </div>
       {% endif %}
-      
       {% include "partials/_search_bar.html" %}
-      
+      </div>
       {% block content %}
       {% endblock content %}
       
