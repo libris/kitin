@@ -147,16 +147,17 @@ def do_search(service_path):
 # RECORD START
 # ----------------------------
 
-@app.route("/record/", methods=["GET"])
+@app.route("/record/<rec_type>", methods=["GET"])
 @login_required
-def get_template():
+def get_template(rec_type):
     """Returns a template object"""
-    return raw_json_response(open(os.path.join(here, "examples/templates/monografi.json"), 'r').read())
-
+    if rec_type == 'bib':
+        return raw_json_response(open(os.path.join(here, "examples/templates/monografi.json"), 'r').read())
 
 @app.route('/record/<rec_type>/<rec_id>', methods=["GET"])
 @login_required
 def get_bib_data(rec_type, rec_id):
+
     # TODO: How check if user is logged in?
     whelk_url = "%s/%s/%s" % (app.config['WHELK_HOST'], rec_type, rec_id)
     response = requests.get(whelk_url)

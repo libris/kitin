@@ -318,8 +318,6 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   });
 
   var isNew = (recId === 'new');
-  var newType = $routeParams.type;
-
   $scope.recType = recType;
 
   document.body.className = isNew? 'edit new' : 'edit';
@@ -379,7 +377,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   }
 
   if (isNew && recType !== 'remote') {
-    $http.get('/record/bib/new?type' + newType).success(function(data) {
+    $http.get('/record/' + recType).success(function(data) {
       var record = $scope.record = data;
       addRecordViewsToScope(record, $scope);
     });
