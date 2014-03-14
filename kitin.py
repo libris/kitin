@@ -310,13 +310,18 @@ def get_draft(rec_type, draft_id):
 @app.route('/draft/<rec_type>', methods=['POST'])
 @login_required
 def create_draft(rec_type):
+    #!TODO handle etag properly
+    etag = ''
+    if('If-match' in request.headers):
+        etag = request.headers['If-match']
+
     #Remember that this is a draft
     draft_id =  'draft-'  + str(uuid.uuid4())
     json_data = json.dumps({
       'isDraft': True,
       'draft_id': rec_type + '/' + draft_id,
       'document': json.loads(request.data),
-      'etag': request.headers['If-match']
+      'etag': etag
     });
     storage.save_draft(current_user.get_id(), rec_type, draft_id, json_data,'')
     return json_data
@@ -325,11 +330,16 @@ def create_draft(rec_type):
 @login_required
 def save_draft(rec_type, draft_id):
     """Save draft to kitin, called by form"""
+    #!TODO handle etag properly
+    etag = ''
+    if('If-match' in request.headers):
+        etag = request.headers['If-match']
+
     json_data = json.dumps({
       'isDraft': True,
       'draft_id': rec_type + '/' + draft_id,
       'document': json.loads(request.data),
-      'etag': request.headers['If-match']
+      'etag': etag
     });
     storage.update_draft(current_user.get_id(), rec_type, draft_id, json_data,'')
     return json.dumps(request.json)
