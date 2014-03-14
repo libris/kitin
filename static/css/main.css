@@ -353,6 +353,9 @@ body.index #header .searchfield .remote-search ul.remotesource {
   list-style: none;
   display: inline;
 }
+#header .searchfield .remotesource .hitcount {
+  color: #adadad;
+}
 #header .searchfield .remote-search ul.remotesource li {
   display: inline;
 }
