@@ -119,8 +119,8 @@ def search(record_type):
 @app.route("/search/<record_type>.json")
 def search_json(record_type):
     search_path = "%s/_search" % record_type
-    if(record_type == "remotesearch"):
-        search_path = "_%s" % record_type
+    if(record_type == "remote"):
+        search_path = '_remotesearch'
         
     resp = do_search(search_path)
     return raw_json_response(resp.text)
@@ -136,6 +136,7 @@ def do_search(service_path):
         del args['f']
         args.add('f', f)
     search_url = "%s/%s" % (app.config['WHELK_HOST'], service_path)
+    print search_url, args
     return requests.get(search_url, params= args, headers=extract_x_forwarded_for_header(request))
 
 # ----------------------------

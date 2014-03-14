@@ -12,7 +12,7 @@ kitin.controller('AppCtrl', function($scope, $modal, searchService) {
         start: $scope.state.search.page.start,
         n: $scope.state.search.page.n,
         sort: $scope.state.search.sort,
-        database: $scope.state.searchType.key === searchService.searchTypeIndex.remotesearch.key ? $scope.state.search.database : undefined
+        database: $scope.state.searchType.key === searchService.searchTypeIndex.remote.key ? $scope.state.search.database : undefined
       };
       if ($scope.state.search.f !== undefined) {
         params.f = $scope.state.search.f;
@@ -61,14 +61,14 @@ kitin.controller('IndexCtrl', function($scope, $http, dataService) {
 
 kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, definitions, searchService, searchUtil) {
 
-  $scope.searchTypes = [searchService.searchTypeIndex.bib, searchService.searchTypeIndex.auth, searchService.searchTypeIndex.remotesearch];
+  $scope.searchTypes = [searchService.searchTypeIndex.bib, searchService.searchTypeIndex.auth, searchService.searchTypeIndex.remote];
   $scope.setSearchType = function (key) {
     $scope.state.searchType = searchService.searchTypeIndex[key];
   };
   
   $scope.search = function() {
     var selectRemoteDatabases = '';
-    if($scope.state.searchType.key === searchService.searchTypeIndex.remotesearch.key) {
+    if($scope.state.searchType.key === searchService.searchTypeIndex.remote.key) {
       selectRemoteDatabases = searchUtil.parseSelected($scope.state.remoteDatabases);
       selectRemoteDatabases = selectRemoteDatabases.length > 0 ? '&database=' + selectRemoteDatabases : '';
     }
@@ -83,7 +83,7 @@ kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, def
 kitin.controller('RemoteSearchCtrl', function($scope, definitions, searchService) {
   // For remote search, load list of remote database definitions
   $scope.$watch('state.searchType', function(newSearchType, oldSearchType) {
-    if(newSearchType && newSearchType.key === searchService.searchTypeIndex.remotesearch.key) {
+    if(newSearchType && newSearchType.key === searchService.searchTypeIndex.remote.key) {
       if(_.isEmpty($scope.state.remoteDatabases)) {
         definitions.remotedatabases.then(function(databases){
           // Debug, set LC (Library of Congress) to default        
@@ -149,7 +149,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
 
   // TODO - remove
   $scope.editPost = function(recType, record) {
-    if(recType === 'remotesearch') {
+    if(recType === 'remote') {
       record.identifier = '/remote/new';
       editUtil.setRecord(record);
     }
@@ -441,7 +441,10 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     }
   }
 
-  $scope.modifications = {saved: true, published: true};
+  $scope.modifications = {
+    saved:     recType === 'remote' ? false : true, 
+    published: recType === 'remote' ? false : true
+  };
 
   function onSaveState() {
     $scope.modifications.saved = true;

@@ -19,7 +19,7 @@ kitin.factory('definitions', function($http) {
 
   var enumBase = "/resource/_marcmap?part=bib.fixprops.";
   var definitions = {
-    remotedatabases: getDataset("/search/remotesearch.json?databases"),
+    remotedatabases: getDataset("/search/remote.json?databases"),
     typedefs: getDataset("/resource/_resourcelist?typedef=all"),
     relators: getDataset("/def/relators"),
     languages: getDataset("/def/languages"),
@@ -404,8 +404,8 @@ kitin.factory('searchService', function($http, $q) {
         label: 'Auktoriteter',
         placeholder: 'Sök bland auktoriteter (personer, ämnen, verk etc.)'
       },
-      remotesearch: {
-        key: 'remotesearch', 
+      remote: {
+        key: 'remote', 
         label: 'Remote',
         placeholder: 'Sök remote'
       }

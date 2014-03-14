@@ -156,13 +156,14 @@ body.search #header .kb{display:none}
 #header .searchfield :focus:-moz-placeholder:focus { color:#ddd; }/*FF18<*/
 #header .searchfield :focus::-moz-placeholder { color:#ddd; }/*FF19>*/
 
-body #header .searchfield .remote-search {width:415px;}
 body.index #header .searchfield .remote-search ul.remotesource {
-  max-width: 529px;
+  max-width: 520px;
+  width: 100%;
 }
 
 #header .searchfield .remote-search ul.remotesource {
   max-width: 369px;
+  width: 100%;
   font-size: 13px;
   margin: 0px;
   float: left;
@@ -171,7 +172,10 @@ body.index #header .searchfield .remote-search ul.remotesource {
 }
 
 #header .searchfield .remote-search ul.remotesource li {display: inline;}
-#header .searchfield .remote-search a { float: right;}
+#header .searchfield .remote-search a { 
+  float: right;
+  width: 85px;
+}
 
 #header .searchfield a.btn{height:24px;border:none;
     background:@green3;width:15px;
