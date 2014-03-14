@@ -398,7 +398,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
             $scope.record.type = data['recdata']['document']['@id'].split("/").slice(-2)[0];
             $scope.record.id = data['recdata']['document']['@id'].split("/").slice(-2)[1];
           }
-          $scope.etag = data['etag'];
+          $scope.etag = data['recdata']['etag'];
         });
       } else {
         dataService.record.get(recType, recId).then(function(data) {
@@ -497,21 +497,26 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     });
   };
 
-  if (isNew) {
-    $scope.save = function() {
-      dataService.record.create('bib', $scope.record).then(function(data) {
-        $location.url('/edit/bib/' + data['draft_id']);
-      });
-    };
-  } else
+  
   $scope.save = function() {
-    var ifMatchHeader = $scope.etag.replace(/["']/g, "");
-    dataService.record.save(recType, recId, $scope.record, ifMatchHeader).then(function(data) {
-      $scope.record = data['recdata'];
-      $scope.etag = data['etag'];
-      onPublishState();
-    });
+    var recType = $routeParams.recType === 'remote' ? 'bib' : $routeParams.recType;
+    if(!$scope.isDraft && !isNew) {
+      var ifMatchHeader = $scope.etag.replace(/["']/g, "");
+      dataService.record.save(recType, recId, $scope.record, ifMatchHeader).then(function(data) {
+        $scope.record = data['recdata'];
+        $scope.etag = data['etag'];
+        onPublishState();
+      });
+    } else {
+      dataService.record.create(recType, $scope.record).then(function(data) {
+        if($scope.isDraft) {
+          dataService.draft.delete(recType, recId);
+        }
+        $location.url('/edit/' + recType + '/' + data['document_id']);
+      });
+    }
   };
+  
 
   $scope.saveDraft = function() {
     var recType = $routeParams.recType === 'remote' ? 'bib' : $routeParams.recType;
