@@ -50,7 +50,7 @@
             <ul class="remotesource">
               <li data-ng-repeat="database in state.remoteDatabases | filter:{selected: true} | orderBy:'alternativeName'">
                 <!-- <input type="checkbox" ng-model="database.selected"/> --> {{ database.database }}
-                <span data-ng-show="database.hitCount">({{ database.hitCount }})</span>
+                <span class="hitcount" data-ng-show="database.hitCount">({{ database.hitCount }})</span>
                 <span data-ng-show=" ! $last ">,</span>
               </li>
             </ul>
