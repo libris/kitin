@@ -225,7 +225,7 @@ a:hover {
   -moz-border-radius-bottomleft: 3px;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
-  height: 24px;
+  height: 47px;
   border-right-width: 0;
   -webkit-transition: all ease-out 0.05s;
 }
@@ -272,9 +272,11 @@ body.search #header .searchfield input[type="text"] {
   -webkit-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.05);
   padding: 3px 8px;
   font-size: 14px;
-  height: 20px;
+  height: 28px;
   width: 400px;
-  border-color: #cccccc;
+  border-color: #ccc;
+  font-weight: 400;
+  margin-left: 0;
 }
 body.edit #header .searchfield input[type="text"]:focus,
 body.search #header .searchfield input[type="text"]:focus {
@@ -304,8 +306,8 @@ body.search #header .searchfield .btn-group {
 }
 body.edit #header .searchfield a.btn,
 body.search #header .searchfield a.btn {
-  height: 14px;
-  width: 12px;
+  height: 28px;
+  width: 28px;
   line-height: 14px;
 }
 body.edit #header .searchfield em,
@@ -365,10 +367,10 @@ body.index #header .searchfield .remote-search ul.remotesource {
   font-size: 13px;
 }
 #header .searchfield a.btn {
-  height: 24px;
+  height: 47px;
   border: none;
   background: #1a8f72;
-  width: 15px;
+  width: 47px;
   -webkit-border-top-right-radius: 3px;
   -webkit-border-bottom-right-radius: 3px;
   -moz-border-radius-topright: 3px;
@@ -410,7 +412,7 @@ body.index #header .searchfield .btn-group {
   float: right;
 }
 body.index #header .searchfield a.btn {
-  height: 33px;
+  height: 47px;
 }
 body.index #header .searchfield button {
   height: 47px;
@@ -1078,7 +1080,7 @@ section.dash {
 }
 .content.search .sort-option {
   margin-left: 12px;
-  margin-right: 24px;
+  margin-right: -24px;
   margin-top: 12px;
   float: right;
   font-size: 10px;
@@ -1930,11 +1932,13 @@ div.loading > b {
   float: none;
   position: absolute;
   right: 0;
+  list-style: none outside none;
 }
 #nav .nav-menu > li {
   border-left: 1px solid #ddd;
   padding: 0 8px 0 10px;
   margin: 6px 0;
+  display: inline-block;
 }
 #nav .nav-menu > li:first-child {
   border-left: none;

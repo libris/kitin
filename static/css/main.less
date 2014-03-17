@@ -72,7 +72,7 @@ a:hover{color:@green4;}
   -moz-border-radius-bottomleft: 3px;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
-  height:24px;
+  height:47px;
   border-right-width:0;
   -webkit-transition:all ease-out 0.05s;
 }
@@ -117,9 +117,11 @@ body.search #header .searchfield input[type="text"]{
   -webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0,.05);
   padding:3px 8px;
   font-size:14px;
-  height:20px;
+  height:28px;
   width:400px;
-  border-color:#ccc
+  border-color:#ccc;
+  font-weight: 400;
+  margin-left:0;
 }
 
 body.edit #header .searchfield input[type="text"]:focus,
@@ -139,7 +141,7 @@ body.search #header .searchfield .btn-group {
 }
 
 body.edit #header .searchfield a.btn,
-body.search #header .searchfield a.btn{height:14px;width:12px;line-height:14px}
+body.search #header .searchfield a.btn{height:28px;width:28px;line-height:14px}
 
 body.edit #header .searchfield em,
 body.search #header .searchfield em {
@@ -181,8 +183,8 @@ body.index #header .searchfield .remote-search ul.remotesource {
   font-size: 13px;
 }
 
-#header .searchfield a.btn{height:24px;border:none;
-    background:@green3;width:15px;
+#header .searchfield a.btn{height:47px;border:none;
+    background:@green3;width:47px;
     -webkit-border-top-right-radius: 3px;
     -webkit-border-bottom-right-radius: 3px;
     -moz-border-radius-topright: 3px;
@@ -213,7 +215,7 @@ body.index #header .searchfield .remote-search ul.remotesource {
 body.index #header .searchfield{left:248px;top:220px;}
 body.index #header .searchfield input[type="text"]{padding:11px 16px;}
 body.index #header .searchfield .btn-group { float: right; }
-body.index #header .searchfield a.btn{height:33px;}
+body.index #header .searchfield a.btn{height:47px;}
 body.index #header .searchfield button{height:47px;}
 body.index #header .searchfield a span {margin-top: 8px;}
 body.index #header .searchfield em {
@@ -516,7 +518,7 @@ section.dash {margin-bottom: 30px;}
 .content.search .col3{overflow:visible;}
 
 .content.search .summary { margin-left:252px; color:@grey-dark; font-size:12px; margin-top:12px; }
-.content.search .sort-option {margin-left:12px;margin-right:24px;margin-top:12px;float:right;font-size:10px;}
+.content.search .sort-option {margin-left:12px;margin-right:-24px;margin-top:12px;float:right;font-size:10px;}
 .content.search select {margin-left:4px!important;font-size:10px!important; width:124px!important;background: transparent!important;}
 
 /* login */
@@ -971,8 +973,8 @@ div.loading > b { display: none; }
 #nav a:focus {text-decoration: none; cursor: pointer; }
 
 
-#nav .nav-menu{ font-size:13px; float:none; position:absolute; right:0 }
-#nav .nav-menu > li {border-left:1px solid #ddd; padding:0 8px 0 10px; margin: 6px 0; }
+#nav .nav-menu{ font-size:13px; float:none; position:absolute; right:0; list-style: none outside none;}
+#nav .nav-menu > li {border-left:1px solid #ddd; padding:0 8px 0 10px; margin: 6px 0; display:inline-block; }
 #nav .nav-menu > li:first-child {border-left:none; padding-left:0px;}
 
 .dropdown-menu li a { font-size:13px; display:block; background:#fff;padding:6px 8px;border-top:1px solid #eee;color:@green3;}
