@@ -118,6 +118,9 @@ a {
 a:hover {
   color: #106351;
 }
+label {
+  font-weight: 400;
+}
 #wrap {
   width: 1080px;
   margin: 0 auto;
