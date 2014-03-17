@@ -5,7 +5,7 @@
 
 var kitin = angular.module('kitin', [
     'ngRoute', 'infinite-scroll',
-    'ui', 'ui.bootstrap',
+    'ui.utils', 'ui.bootstrap',
     'kitin.controllers', 'kitin.filters', 'kitin.services', 'kitin.directives']);
 
 kitin.config(

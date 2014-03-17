@@ -1,4 +1,4 @@
-.ui-resetwrap{position:relative;display:inline-block}.ui-reset{position:absolute;top:0;right:0;z-index:2;display:none;height:100%;cursor:pointer}.ui-resetwrap:hover .ui-reset{display:block}.ui-currency-pos{color:green}.ui-currency-neg{color:red}.ui-currency-zero{color:#00f}.ui-currency-pos.ui-bignum,.ui-currency-neg.ui-smallnum{font-size:110%}.ui-match{background:#ff0}/*!
+/*!
  * Bootstrap v3.1.1 (http://getbootstrap.com)
  * Copyright 2011-2014 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
