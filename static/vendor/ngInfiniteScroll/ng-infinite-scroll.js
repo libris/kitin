@@ -59,4 +59,3 @@ mod.directive('infiniteScroll', [
     };
   }
 ]);
-2
