@@ -200,7 +200,7 @@
           </label>
           <!--
           <div data-ng-controller="ModalCtrl">
-            <button class="btn btn-primary" data-ng-click="open()">Aukt.</button>
+            <button class="btn btn-primary" data-ng-click="openAuthModal()">Aukt.</button>
           </div>
           -->
         </div>
@@ -243,20 +243,6 @@
         </h4>
       </div>
     </script>
-
-    <script type='text/ng-template' id="modal-edit-auth"> 
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-           <button type="button" class="close" ng-click="closeModal()" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Auktoritetspost ({{ instance['@type'] }})</h4>
-          </div>
-          <div class="modal-body" data-ng-controller="EditCtrl">    
-            <div ng-include="'/partials/edit_auth'"></div>
-          </div>
-        </div>
-      </div>
-    </script> 
 
     <h2>Utgivning och tillverkning<i></i></h2>
     <div class="cols" data-ng-show="instance['@type'] != 'Book'">

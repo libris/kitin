@@ -10,8 +10,6 @@
     <link rel="shortcut icon" type="image/x-icon" href="/static/img/favicon.ico">
 
     {% include "_media.html" %}
-    <!-- Remote modal -->
-    {% include "partials/remote_search_modal.html" %}
     
   </head>
   <body data-ng-app="kitin" class="{% block bodyclass %}{% endblock %}" data-ng-controller="AppCtrl">
@@ -63,6 +61,9 @@
         </footer>
       </div>
     </div>
+
+    <!-- Remote modal -->
+    {% include "partials/remote_search_modal.html" %}
 
     {% if current_user %}
     <script type="text/javascript">

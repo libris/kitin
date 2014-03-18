@@ -24,24 +24,70 @@ kitin.controller('AppCtrl', function($scope, $modal, searchService) {
 });
 
 kitin.controller('ModalCtrl', function($scope, $modal) {
-  $scope.openModal = function() {
-    var opts = {
-      backdrop: 'static', // Shows backdrop but doesn't close dialog on click outside.
-      keyboard: true,
-      templateUrl: 'modal-edit-auth',
-      controller: 'OpenModalCtrl',
-      backdropFade: true,
-      dialogFade:false,
-      windowClass: 'wide'
-    };
-    var i = $modal.open(opts);
+  var defaultModalOptions = {
+    backdrop: 'static', // Shows backdrop but doesn't close dialog on click outside.
+    keyboard: true,
+    controller: 'OpenModalCtrl',
+    backdropFade: true,
+    dialogFade: false,
+
+  };
+
+  $scope.openAuthModal = function() {
+    var opts = angular.extend(
+                defaultModalOptions,
+                {
+                  templateUrl: 'modal-edit-auth',
+                  controller: 'AuthModalCtrl',
+                  windowClass: 'modal-large auth-modal'
+                });
+    $scope.authModal = $modal.open(opts);
+  };
+
+  $scope.openRemoteModal = function() {
+    var opts = angular.extend(
+                  defaultModalOptions,
+                  {
+                  templateUrl: 'modal-remote',
+                  controller: 'RemoteModalCtrl',
+                  scope: $scope,
+                  windowClass: 'modal-large remote-modal'
+                  });
+    console.log(opts);
+    $scope.remoteModal = $modal.open(opts);
+  };
+
+});
+
+kitin.controller('AuthModalCtrl', function($scope, $modalInstance, $location) {
+  $scope.closeAuthModal = function() {
+    $location.search('m',null);
+    $modalInstance.close();
   };
 });
 
-kitin.controller('OpenModalCtrl', function($scope, $modal, $location) {
-  $scope.closeModal = function() {
-    $location.search('m',null);
-    $scope.$close();
+kitin.controller('RemoteModalCtrl', function($scope, $modalInstance, definitions, searchService) {
+  // For remote search, load list of remote database definitions
+  if(_.isEmpty($scope.state.remoteDatabases)) {
+    definitions.remotedatabases.then(function(databases){
+      // Debug, set LC (Library of Congress) to default        
+      var searchedDatabases = ['LC'];
+      if($scope.state.search.database) {
+        searchedDatabases = $scope.state.search.database.split(',');
+      }
+      _.forEach(searchedDatabases, function(dbName) {
+        var i = _.findIndex(databases, { 'database': dbName });
+        if(i > 0) {
+          databases[i].selected = true;
+        }
+      });      
+
+      $scope.state.remoteDatabases = databases;
+    });
+  }
+
+  $scope.close = function() {
+    $modalInstance.close();
   };
 });
 
@@ -80,30 +126,7 @@ kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, def
   });
 });
 
-kitin.controller('RemoteSearchCtrl', function($scope, definitions, searchService) {
-  // For remote search, load list of remote database definitions
-  $scope.$watch('state.searchType', function(newSearchType, oldSearchType) {
-    if(newSearchType && newSearchType.key === searchService.searchTypeIndex.remote.key) {
-      if(_.isEmpty($scope.state.remoteDatabases)) {
-        definitions.remotedatabases.then(function(databases){
-          // Debug, set LC (Library of Congress) to default        
-          var searchedDatabases = ['LC'];
-          if($scope.state.search.database) {
-            searchedDatabases = $scope.state.search.database.split(',');
-          }
-          _.forEach(searchedDatabases, function(dbName) {
-            var i = _.findIndex(databases, { 'database': dbName });
-            if(i > 0) {
-              databases[i].selected = true;
-            }
-          });      
 
-          $scope.state.remoteDatabases = databases;
-        });
-      }
-    }
-  });
-});
 
 kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routeParams, definitions, searchService, searchUtil, editUtil) {
 
