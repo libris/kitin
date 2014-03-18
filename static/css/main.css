@@ -1,3 +1,4 @@
+/* colors */
 /*background*/
 /*holdings*/
 /*holdings link etc */
@@ -11,7 +12,7 @@
 /*backgrounds, footer*/
 /*lighter text color*/
 /*font-color*/
-/* columns */
+/* grid */
 .cols {
   overflow: hidden;
   width: 1008px;
@@ -70,6 +71,7 @@
 .lastcol {
   margin-right: 0;
 }
+/* forms & labels */
 .col6 label textarea,
 .col6 label input[type="text"],
 .col6 label select {
@@ -204,6 +206,7 @@ input[type="color"]:focus,
   -moz-box-shadow: none;
   box-shadow: none;
 }
+/* modals */
 /*
 @font-face {
     .font-face('Open Sans', 'OpenSans-Light-webfont', 'OpenSansLight', light, normal);
@@ -308,7 +311,7 @@ h4 {
 a {
   color: #1a8f72;
 }
-a:hover {
+a :hover {
   color: #106351;
 }
 label {
@@ -343,12 +346,12 @@ label {
   margin-left: 8px;
   border-left: 1px solid #ccc;
 }
-#header .user span:first-child {
+#header .user span :first-child {
   margin-left: 0;
   padding-left: 0;
   border: none;
 }
-#header .user span:first-child a {
+#header .user span :first-child a {
   text-transform: uppercase;
 }
 #header .kb {
@@ -360,28 +363,6 @@ label {
   background: url(/static/img/kb.svg) no-repeat;
   z-index: 2;
   background-size: 100%;
-}
-#header .logo {
-  position: absolute;
-  left: 0;
-  bottom: 6px;
-  color: #929395;
-  text-transform: uppercase;
-  height: 72px;
-}
-#header > .logo > a {
-  display: block;
-  width: 260px;
-  height: 52px;
-  background: url(/static/img/logo.svg) no-repeat;
-  background-size: 100%;
-  text-indent: -10000px;
-  padding-bottom: 1px;
-}
-#header > .logo > a * {
-  position: absolute;
-  left: -10000px;
-  margin: 0;
 }
 #header .beta {
   font-size: 16px;
@@ -395,6 +376,28 @@ label {
   color: #999999;
   padding: 0px;
   margin: 0px;
+}
+#header .logo {
+  position: absolute;
+  left: 0;
+  bottom: 6px;
+  color: #929395;
+  text-transform: uppercase;
+  height: 72px;
+}
+#header .logo > a {
+  display: block;
+  width: 260px;
+  height: 52px;
+  background: url(/static/img/logo.svg) no-repeat;
+  background-size: 100%;
+  text-indent: -10000px;
+  padding-bottom: 1px;
+}
+#header .logo > a * {
+  position: absolute;
+  left: -10000px;
+  margin: 0;
 }
 #header .searchfield {
   position: absolute;
@@ -2377,7 +2380,7 @@ section.json-ld {
 }
 div.array,
 div.array > section.entity {
-  /*  background-color: @grey2 !important; */
+  /*  background-color: @grey-light !important; */
 }
 div.array > section.entity {
   background-color: #fdfdfd;
