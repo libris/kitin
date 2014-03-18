@@ -308,7 +308,7 @@ h4 {
 a {
   color: #1a8f72;
 }
-a:hover {
+a :hover {
   color: #106351;
 }
 label {
@@ -343,12 +343,12 @@ label {
   margin-left: 8px;
   border-left: 1px solid #ccc;
 }
-#header .user span:first-child {
+#header .user span :first-child {
   margin-left: 0;
   padding-left: 0;
   border: none;
 }
-#header .user span:first-child a {
+#header .user span :first-child a {
   text-transform: uppercase;
 }
 #header .kb {
@@ -360,6 +360,19 @@ label {
   background: url(/static/img/kb.svg) no-repeat;
   z-index: 2;
   background-size: 100%;
+}
+#header .beta {
+  font-size: 16px;
+  color: #fa1963;
+  position: absolute;
+  right: 10px;
+  top: 16px;
+}
+#header .kitin-updated {
+  font-size: 11px;
+  color: #999999;
+  padding: 0px;
+  margin: 0px;
 }
 #header .logo {
   position: absolute;
@@ -382,19 +395,6 @@ label {
   position: absolute;
   left: -10000px;
   margin: 0;
-}
-#header .beta {
-  font-size: 16px;
-  color: #fa1963;
-  position: absolute;
-  right: 10px;
-  top: 16px;
-}
-#header .kitin-updated {
-  font-size: 11px;
-  color: #999999;
-  padding: 0px;
-  margin: 0px;
 }
 #header .searchfield {
   position: absolute;
@@ -2377,7 +2377,7 @@ section.json-ld {
 }
 div.array,
 div.array > section.entity {
-  /*  background-color: @grey2 !important; */
+  /*  background-color: @grey-light !important; */
 }
 div.array > section.entity {
   background-color: #fdfdfd;
