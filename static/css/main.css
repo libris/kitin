@@ -420,10 +420,6 @@ label {
   border-right-width: 0;
   -webkit-transition: all ease-out 0.05s;
 }
-body.edit #header,
-body.search #header {
-  height: 90px;
-}
 body.search #header {
   position: fixed;
   top: 0;
@@ -435,19 +431,23 @@ body.search #header {
 body.search .content {
   margin-top: 90px;
 }
-body.edit #header > .logo,
-body.search #header > .logo {
+body.edit #header,
+body.search #header {
+  height: 90px;
+}
+body.edit #header .logo,
+body.search #header .logo {
   height: 30px;
   bottom: auto;
   top: 10px;
 }
-body.edit #header > .logo > a,
-body.search #header > .logo > a {
+body.edit #header .logo a,
+body.search #header .logo a {
   width: 152px;
 }
 body.edit #header .beta,
-body.edit #header .kitin-updated,
 body.search #header .beta,
+body.edit #header .kitin-updated,
 body.search #header .kitin-updated {
   display: none;
 }
@@ -469,31 +469,31 @@ body.search #header .searchfield input[type="text"] {
   font-weight: 400;
   margin-left: 0;
 }
-body.edit #header .searchfield input[type="text"]:focus,
-body.search #header .searchfield input[type="text"]:focus {
-  border-color: #aaaaaa;
+body.edit #header .searchfield input[type="text"] :focus,
+body.search #header .searchfield input[type="text"] :focus {
+  border-color: #aaa;
 }
-body.edit #header .searchfield input[type="text"]::-webkit-input-placeholder,
-body.search #header .searchfield input[type="text"]::-webkit-input-placeholder {
+body.edit #header .searchfield input[type="text"] ::-webkit-input-placeholder,
+body.search #header .searchfield input[type="text"] ::-webkit-input-placeholder,
+body.edit #header .searchfield input[type="text"] ::-moz-input-placeholder,
+body.search #header .searchfield input[type="text"] ::-moz-input-placeholder,
+body.edit #header .searchfield input[type="text"] :-moz-input-placeholder,
+body.search #header .searchfield input[type="text"] :-moz-input-placeholder,
+body.edit #header .searchfield input[type="text"] :-ms-input-placeholder,
+body.search #header .searchfield input[type="text"] :-ms-input-placeholder {
   color: #fff;
   font-style: italic;
   font-size: 14px;
 }
-body.edit #header .searchfield input[type="text"]:-moz-input-placeholder,
-body.search #header .searchfield input[type="text"]:-moz-input-placeholder {
-  color: #fff;
-  font-style: italic;
-  font-size: 14px;
+body.edit #header .searchfield .btn-group,
+body.search #header .searchfield .btn-group {
+  float: right;
 }
 body.edit #header .searchfield button,
 body.search #header .searchfield button {
   height: 28px;
   background-size: 14px;
   width: 36px;
-}
-body.edit #header .searchfield .btn-group,
-body.search #header .searchfield .btn-group {
-  float: right;
 }
 body.edit #header .searchfield a.btn,
 body.search #header .searchfield a.btn {
