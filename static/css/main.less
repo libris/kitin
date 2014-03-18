@@ -19,10 +19,19 @@ label {font-weight: 400;margin-bottom: 10px;}
 #grid{display:none; width:984px;min-height:800px;background:url(/static/img/grid.png);position:absolute;top:0;left:48px;}
 
 #header{ height: 130px; position: relative; -webkit-transition:height 100ms ease-out }
-#header .user{float:right;font-size:12px;margin-top:6px;}
-#header .user span{padding-left:10px;margin-left:8px;border-left:1px solid #ccc;}
-#header .user span:first-child{margin-left:0;padding-left:0;border:none;}
-#header .user span:first-child a{text-transform: uppercase}
+#header .user{
+  float:right;font-size:12px;margin-top:6px;
+  span {
+    padding-left:10px;margin-left:8px;border-left:1px solid #ccc;
+    :first-child {
+      margin-left:0;padding-left:0;border:none;
+      a{
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+
 #header .kb{width:74px;height:80px;position:absolute;right:0;bottom:-10px;background:url(/static/img/kb.svg) no-repeat;z-index:2;background-size:100%}
 
 #header .logo { 
@@ -33,6 +42,7 @@ label {font-weight: 400;margin-bottom: 10px;}
       position:absolute;left:-10000px;margin:0
     }
   }
+}
 
 #header .beta { font-size: 16px; color: @pink; position: absolute;right:10px;top:16px}
 #header .kitin-updated { font-size: 11px; color: @grey-dark; padding: 0px; margin: 0px; }

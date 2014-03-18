@@ -343,12 +343,12 @@ label {
   margin-left: 8px;
   border-left: 1px solid #ccc;
 }
-#header .user span:first-child {
+#header .user span :first-child {
   margin-left: 0;
   padding-left: 0;
   border: none;
 }
-#header .user span:first-child a {
+#header .user span :first-child a {
   text-transform: uppercase;
 }
 #header .kb {
@@ -369,7 +369,7 @@ label {
   text-transform: uppercase;
   height: 72px;
 }
-#header > .logo > a {
+#header .logo a {
   display: block;
   width: 260px;
   height: 52px;
@@ -378,7 +378,7 @@ label {
   text-indent: -10000px;
   padding-bottom: 1px;
 }
-#header > .logo > a * {
+#header .logo a * {
   position: absolute;
   left: -10000px;
   margin: 0;
