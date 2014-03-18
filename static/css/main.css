@@ -70,6 +70,140 @@
 .lastcol {
   margin-right: 0;
 }
+.col6 label textarea,
+.col6 label input[type="text"],
+.col6 label select {
+  width: 466px;
+}
+.col4 label textarea,
+.col4 label input[type="text"],
+.col4 label select {
+  width: 298px;
+}
+.col3 label textarea,
+.col3 label input[type="text"],
+.col3 label select {
+  width: 214px;
+}
+.col2 label textarea,
+.col2 label input[type="text"],
+.col2 label select {
+  width: 130px;
+}
+.split {
+  overflow: hidden;
+}
+.col3 .split label {
+  float: left;
+  margin-left: 24px;
+  overflow: hidden;
+  width: 92px;
+}
+.col3 .split label:first-child {
+  margin-left: 0;
+}
+.col3 .split label textarea,
+.col3 .split label input[type="text"],
+.col3 .split label select {
+  width: 74px;
+}
+.col6 .split label {
+  float: left;
+  margin-left: 24px;
+  overflow: hidden;
+  width: 184px;
+}
+.col6 .split label:first-child {
+  margin-left: 0;
+}
+.col6 .split label textarea,
+.col6 .split label input[type="text"],
+.col6 .split label select {
+  width: 166px;
+}
+.col3 label.deletable .lbl {
+  display: block;
+}
+.col3 label.deletable input[type="text"] {
+  width: 160px;
+}
+.col2 label.deletable input[type="text"] {
+  width: 100px;
+}
+.multifield {
+  margin-bottom: 18px;
+}
+.multifield label {
+  margin-bottom: 0;
+}
+.multifield .lbl {
+  margin-top: 0;
+  padding-top: 2px;
+}
+/* Override bootstrap forms */
+select,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+  font-family: 'Open Sans', arial, sans-serif;
+  display: inline-block;
+  height: 22px;
+  padding: 1px 0 0 0;
+  margin-bottom: 0;
+  font-size: 16px;
+  line-height: 22px;
+  color: #444;
+  vertical-align: middle;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  background-color: #ffffff;
+  border: 1px solid #ffffff;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+textarea:focus,
+select:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+  border-color: #ffffff;
+  outline: 0;
+  outline: thin dotted \9;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
 /*
 @font-face {
     .font-face('Open Sans', 'OpenSans-Light-webfont', 'OpenSansLight', light, normal);
@@ -1358,142 +1492,8 @@ label.find-entity input[type="text"] {
 .persons > li .tagsinput {
   margin-bottom: 2px;
 }
-/* Override bootstrap forms */
-select,
-textarea,
-input[type="text"],
-input[type="password"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="date"],
-input[type="month"],
-input[type="time"],
-input[type="week"],
-input[type="number"],
-input[type="email"],
-input[type="url"],
-input[type="search"],
-input[type="tel"],
-input[type="color"],
-.uneditable-input {
-  font-family: 'Open Sans', arial, sans-serif;
-  display: inline-block;
-  height: 22px;
-  padding: 1px 0 0 0;
-  margin-bottom: 0;
-  font-size: 16px;
-  line-height: 22px;
-  color: #444;
-  vertical-align: middle;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
-  background-color: #ffffff;
-  border: 1px solid #ffffff;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  -webkit-transition: none;
-  -moz-transition: none;
-  -o-transition: none;
-  transition: none;
-}
-textarea:focus,
-select:focus,
-input[type="text"]:focus,
-input[type="password"]:focus,
-input[type="datetime"]:focus,
-input[type="datetime-local"]:focus,
-input[type="date"]:focus,
-input[type="month"]:focus,
-input[type="time"]:focus,
-input[type="week"]:focus,
-input[type="number"]:focus,
-input[type="email"]:focus,
-input[type="url"]:focus,
-input[type="search"]:focus,
-input[type="tel"]:focus,
-input[type="color"]:focus,
-.uneditable-input:focus {
-  border-color: #ffffff;
-  outline: 0;
-  outline: thin dotted \9;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-}
 .todo {
   display: none !important;
-}
-.multifield {
-  margin-bottom: 18px;
-}
-.multifield label {
-  margin-bottom: 0;
-}
-.multifield .lbl {
-  margin-top: 0;
-  padding-top: 2px;
-}
-.col6 label textarea,
-.col6 label input[type="text"],
-.col6 label select {
-  width: 466px;
-}
-.col4 label textarea,
-.col4 label input[type="text"],
-.col4 label select {
-  width: 298px;
-}
-.col3 label textarea,
-.col3 label input[type="text"],
-.col3 label select {
-  width: 214px;
-}
-.col2 label textarea,
-.col2 label input[type="text"],
-.col2 label select {
-  width: 130px;
-}
-.split {
-  overflow: hidden;
-}
-.col3 .split label {
-  float: left;
-  margin-left: 24px;
-  overflow: hidden;
-  width: 92px;
-}
-.col3 .split label:first-child {
-  margin-left: 0;
-}
-.col3 .split label textarea,
-.col3 .split label input[type="text"],
-.col3 .split label select {
-  width: 74px;
-}
-.col6 .split label {
-  float: left;
-  margin-left: 24px;
-  overflow: hidden;
-  width: 184px;
-}
-.col6 .split label:first-child {
-  margin-left: 0;
-}
-.col6 .split label textarea,
-.col6 .split label input[type="text"],
-.col6 .split label select {
-  width: 166px;
-}
-.col3 label.deletable .lbl {
-  display: block;
-}
-.col3 label.deletable input[type="text"] {
-  width: 160px;
-}
-.col2 label.deletable input[type="text"] {
-  width: 100px;
 }
 .entity {
   position: relative;
