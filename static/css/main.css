@@ -11,6 +11,65 @@
 /*backgrounds, footer*/
 /*lighter text color*/
 /*font-color*/
+/* columns */
+.cols {
+  overflow: hidden;
+  width: 1008px;
+  clear: both;
+}
+.col12 {
+  width: 984px;
+  float: left;
+  margin-right: 24px;
+}
+.col9 {
+  width: 732px;
+  float: left;
+  margin-right: 24px;
+}
+.col8 {
+  width: 648px;
+  float: left;
+  margin-right: 24px;
+}
+.col7 {
+  width: 552px;
+  float: left;
+  margin-right: 24px;
+}
+.col6 {
+  width: 480px;
+  float: left;
+  margin-right: 24px;
+}
+.col5 {
+  width: 396px;
+  float: left;
+  margin-right: 24px;
+}
+.col4 {
+  width: 312px;
+  float: left;
+  margin-right: 24px;
+}
+.col3 {
+  width: 228px;
+  float: left;
+  margin-right: 24px;
+}
+.col2 {
+  width: 144px;
+  float: left;
+  margin-right: 24px;
+}
+.col1 {
+  width: 72px;
+  float: left;
+  margin-right: 24px;
+}
+.lastcol {
+  margin-right: 0;
+}
 /*
 @font-face {
     .font-face('Open Sans', 'OpenSans-Light-webfont', 'OpenSansLight', light, normal);
@@ -120,6 +179,7 @@ a:hover {
 }
 label {
   font-weight: 400;
+  margin-bottom: 10px;
 }
 #wrap {
   width: 1080px;
@@ -202,12 +262,6 @@ label {
   padding: 0px;
   margin: 0px;
 }
-/*
-#header > .logo > a > h1 { background: url(/static/img/libris-stack.png) 0 4px no-repeat; width: 202px; height: 52px; display: inline-block; margin: 0; padding: 0 0 0 57px; font: normal 22px/1 "Open Sans", sans-serif; letter-spacing: 1px; color: @grey-dark; }
-#header > .logo a > h1 > strong { display: block; font-size: 32px; line-height: 27px; font-weight: normal; letter-spacing: -1px; text-transform: none; color: @green4; }
-#header .beta { font-size: 16px; color: @pink; float: right; margin: 17px 16px 0 0; }
-#header .kitin-updated { font-size: 11px; color: @grey-dark; padding: 0px; margin: 0px; }
-*/
 #header .searchfield {
   position: absolute;
   left: 384px;
@@ -997,65 +1051,6 @@ section.dash.grey .circle {
 section.dash {
   margin-bottom: 30px;
 }
-/* columns */
-.cols {
-  overflow: hidden;
-  width: 1008px;
-  clear: both;
-}
-.col12 {
-  width: 984px;
-  float: left;
-  margin-right: 24px;
-}
-.col9 {
-  width: 732px;
-  float: left;
-  margin-right: 24px;
-}
-.col8 {
-  width: 648px;
-  float: left;
-  margin-right: 24px;
-}
-.col7 {
-  width: 552px;
-  float: left;
-  margin-right: 24px;
-}
-.col6 {
-  width: 480px;
-  float: left;
-  margin-right: 24px;
-}
-.col5 {
-  width: 396px;
-  float: left;
-  margin-right: 24px;
-}
-.col4 {
-  width: 312px;
-  float: left;
-  margin-right: 24px;
-}
-.col3 {
-  width: 228px;
-  float: left;
-  margin-right: 24px;
-}
-.col2 {
-  width: 144px;
-  float: left;
-  margin-right: 24px;
-}
-.col1 {
-  width: 72px;
-  float: left;
-  margin-right: 24px;
-}
-.lastcol {
-  margin-right: 0;
-}
 .content.search > .cols {
   width: 1036px;
   overflow: visible;
@@ -1426,9 +1421,6 @@ input[type="color"]:focus,
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
-}
-label {
-  margin-bottom: 10px;
 }
 .todo {
   display: none !important;
