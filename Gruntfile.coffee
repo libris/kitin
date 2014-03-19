@@ -117,6 +117,7 @@ module.exports = (grunt) ->
       less:
         files: ['<%= less.src.src %>']
         tasks: ['less']
+        options: {livereload: true}
       coffee:
         files: ['<%= coffee.src.src %>']
         tasks: ['coffee']
