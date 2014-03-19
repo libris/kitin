@@ -722,9 +722,10 @@ body.search #header .logo a {
 }
 body.edit #header .beta,
 body.search #header .beta,
-body.edit #header .kitin-updated,
-body.search #header .kitin-updated {
+body.edit #header .system-updated,
+body.search #header .system-updated {
   display: none;
+  /*show only on start page*/
 }
 body.edit #header .searchfield,
 body.search #header .searchfield {
@@ -825,7 +826,7 @@ body.search #header .kb {
   right: 10px;
   top: 16px;
 }
-#header .kitin-updated {
+#header .system-updated {
   font-size: 11px;
   color: #999999;
   padding: 0px;
