@@ -338,6 +338,9 @@ a.beta-blocker {
   cursor: default;
 }
 /*block unfinished elements, should not be in final release*/
+.todo {
+  display: none !important;
+}
 .hidden {
   visibility: hidden;
 }
@@ -1432,7 +1435,7 @@ section.result .widget {
   bottom: 0px;
   right: 0;
   padding: 6px 12px;
-  width: 98px;
+  width: 122px;
   -webkit-transition: border ease-out 0.05s;
   background: #f6f6f6;
   color: #777;
@@ -1817,9 +1820,6 @@ label.find-entity input[type="text"] {
   margin-bottom: 2px;
 }
 /* PERSON SUGGEST END ------------------------- */
-.todo {
-  display: none !important;
-}
 .entity {
   position: relative;
 }
