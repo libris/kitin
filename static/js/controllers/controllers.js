@@ -34,7 +34,6 @@ kitin.controller('ModalCtrl', function($scope, $modal) {
   };
 
   $scope.openAuthModal = function() {
-    debugger;
     var opts = angular.extend(
                 defaultModalOptions,
                 {
@@ -244,7 +243,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
   };
 
   $scope.getScrollStart = function() {
-    var start = $scope.rootScope.search.page.start + $rootScope.state.search.page.n;
+    var start = $rootScope.state.search.page.start + $rootScope.state.search.page.n;
     return (start > $scope.hitCount) ? $scope.rootScope.search.page.start : start;
   };
 
