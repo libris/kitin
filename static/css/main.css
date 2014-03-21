@@ -320,9 +320,11 @@ label {
   font-weight: 400;
   margin-bottom: 10px;
 }
-#wrap {
+.container {
   width: 1080px;
   margin: 0 auto;
+  padding: 0;
+  /*padding override bootstrap grid*/
 }
 #grid {
   display: none;
