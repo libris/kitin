@@ -870,7 +870,7 @@ body.search #header .kb {
   color: #ddd;
 }
 #header .searchfield input[type="text"] {
-  width: 500px;
+  width: 533px;
   border: 1px solid #bbb;
   padding: 6px 10px 6px;
   border-color: #aaaaaa #ffffff #cccccc #aaaaaa;
@@ -920,7 +920,7 @@ body.search #header .kb {
   height: 47px;
   border: none;
   background: #1a8f72;
-  width: 47px;
+  width: 31px;
   -webkit-border-top-right-radius: 3px;
   -webkit-border-bottom-right-radius: 3px;
   -moz-border-radius-topright: 3px;
