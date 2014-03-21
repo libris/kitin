@@ -320,9 +320,11 @@ label {
   font-weight: 400;
   margin-bottom: 10px;
 }
-#wrap {
+.container {
   width: 1080px;
   margin: 0 auto;
+  padding: 0;
+  /*padding override bootstrap grid*/
 }
 #grid {
   display: none;
@@ -870,7 +872,7 @@ body.search #header .kb {
   color: #ddd;
 }
 #header .searchfield input[type="text"] {
-  width: 500px;
+  width: 533px;
   border: 1px solid #bbb;
   padding: 6px 10px 6px;
   border-color: #aaaaaa #ffffff #cccccc #aaaaaa;
@@ -920,7 +922,7 @@ body.search #header .kb {
   height: 47px;
   border: none;
   background: #1a8f72;
-  width: 47px;
+  width: 31px;
   -webkit-border-top-right-radius: 3px;
   -webkit-border-bottom-right-radius: 3px;
   -moz-border-radius-topright: 3px;
@@ -1253,7 +1255,7 @@ section.nav dt i {
 }
 section.nav {
   background-color: #ffffff;
-  padding-top: 1px;
+  padding-top: 12px;
 }
 section.nav dt {
   background: #adadad;

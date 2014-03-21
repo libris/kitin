@@ -21,7 +21,7 @@ a{
 
 label {font-weight: 400;margin-bottom: 10px;}
 
-#wrap{width:1080px;margin: 0 auto;}
+.container{width:1080px;margin: 0 auto;padding:0;/*padding override bootstrap grid*/}
 #grid{display:none; width:984px;min-height:800px;background:url(/static/img/grid.png);position:absolute;top:0;left:48px;}
 
 
@@ -367,7 +367,7 @@ body.search #header {
 }
 
 #header .searchfield input[type="text"]{
-  width: 500px;
+  width: 533px;
   border: 1px solid #bbb; 
   padding: 6px 10px 6px;
   border-color: #aaa @white #ccc #aaa;
@@ -414,7 +414,7 @@ body.search #header {
 }
 
 #header .searchfield a.btn{height:47px;border:none;
-    background:@green;width:47px;
+    background:@green;width:31px;
     -webkit-border-top-right-radius: 3px;
     -webkit-border-bottom-right-radius: 3px;
     -moz-border-radius-topright: 3px;
@@ -609,7 +609,7 @@ section.nav dt i{
 
 section.nav dt i{border-right-color:@grey-darker;}
 
-section.nav{background-color:@white;padding-top:1px}
+section.nav{background-color:@white;padding-top:12px}
 section.nav dt{background:@grey;margin-bottom:12px;}
 section.nav dd{clear:both;margin: 3px 0px;line-height:1;font-size:13px;}
 section.nav dd a{color:@grey-darker;padding:4px 0 6px 18px;background:url(/static/img/dot.png) no-repeat 4px 9px;display:inline-block;}
