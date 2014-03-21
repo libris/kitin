@@ -291,6 +291,9 @@ input[type="color"]:focus,
   font-weight: bold;
   font-style: italic;
 }
+.btn-default {
+  background-color: #000;
+}
 /* GENERAL START ------------------------- */
 html {
   overflow-y: scroll;

@@ -45,8 +45,9 @@ module.exports = (grunt) ->
         #cleancss: true (disabled for less source maps to work properly)
       src:
         expand: true
-        src:    'static/css/main.less'
+        src:    ['static/css/main.less', 'static/css/bootstrap.less']
         ext:    '.css'
+
 
     cssmin:
       vendor:
@@ -106,6 +107,7 @@ module.exports = (grunt) ->
         # NOTE: Scripts also placed at top since this is a one-page app
         src: [
           'static/build/*/*.min.css'
+          'static/css/bootstrap.css'
           'static/css/main.css'
           'static/build/*/*.min.js'
           'static/js/**/*.js'

@@ -17,6 +17,11 @@
     "spin.js": "~2.0.0"
   },
   "exportsOverride": {
+    "bootstrap": {
+      "fonts": "fonts/*.*",
+      "less": "less/*.*",
+      "dist/js": "dist/js/*.*"
+    },
     "font-awesome": {
       "css": [
         "css/*.css",
