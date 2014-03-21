@@ -656,7 +656,7 @@ button::-moz--focus-inner {
   transition: none;
 }
 .modal-large > .modal-dialog {
-  width: 900px;
+  width: 1008px;
 }
 h4.modal-title {
   font: bold italic 16px/20px 'Droid Serif', georgia, serif;

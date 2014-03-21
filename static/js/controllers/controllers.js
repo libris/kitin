@@ -1,21 +1,21 @@
 var kitin = angular.module('kitin.controllers', []);
 
-kitin.controller('AppCtrl', function($scope, $modal, searchService) {
-  $scope.state = {
+kitin.controller('AppCtrl', function($scope, $rootScope, $modal, searchService) {
+  $rootScope.state = {
     searchType: {},
     remoteDatabases: [],
     search: {},
 
     getSearchParams : function() {
       var params = {
-        q: $scope.state.search.q,
-        start: $scope.state.search.page.start,
-        n: $scope.state.search.page.n,
-        sort: $scope.state.search.sort,
-        database: $scope.state.searchType.key === searchService.searchTypeIndex.remote.key ? $scope.state.search.database : undefined
+        q: $rootScope.state.search.q,
+        start: $rootScope.state.search.page.start,
+        n: $rootScope.state.search.page.n,
+        sort: $rootScope.state.search.sort,
+        database: $rootScope.state.searchType.key === searchService.searchTypeIndex.remote.key ? $rootScope.state.search.database : undefined
       };
-      if ($scope.state.search.f !== undefined) {
-        params.f = $scope.state.search.f;
+      if ($rootScope.state.search.f !== undefined) {
+        params.f = $rootScope.state.search.f;
       }
       return params;
     }
@@ -34,6 +34,7 @@ kitin.controller('ModalCtrl', function($scope, $modal) {
   };
 
   $scope.openAuthModal = function() {
+    debugger;
     var opts = angular.extend(
                 defaultModalOptions,
                 {
@@ -60,20 +61,20 @@ kitin.controller('ModalCtrl', function($scope, $modal) {
 });
 
 kitin.controller('AuthModalCtrl', function($scope, $modalInstance, $location) {
-  $scope.closeAuthModal = function() {
+  $scope.close = function() {
     $location.search('m',null);
     $modalInstance.close();
   };
 });
 
-kitin.controller('RemoteModalCtrl', function($scope, $modalInstance, definitions, searchService) {
+kitin.controller('RemoteModalCtrl', function($scope, $rootScope, $modalInstance, definitions, searchService) {
   // For remote search, load list of remote database definitions
-  if(_.isEmpty($scope.state.remoteDatabases)) {
+  if(_.isEmpty($rootScope.state.remoteDatabases)) {
     definitions.remotedatabases.then(function(databases){
       // Debug, set LC (Library of Congress) to default        
       var searchedDatabases = ['LC'];
-      if($scope.state.search.database) {
-        searchedDatabases = $scope.state.search.database.split(',');
+      if($rootScope.state.search.database) {
+        searchedDatabases = $rootScope.state.search.database.split(',');
       }
       _.forEach(searchedDatabases, function(dbName) {
         var i = _.findIndex(databases, { 'database': dbName });
@@ -82,7 +83,7 @@ kitin.controller('RemoteModalCtrl', function($scope, $modalInstance, definitions
         }
       });      
 
-      $scope.state.remoteDatabases = databases;
+      $rootScope.state.remoteDatabases = databases;
     });
   }
 
@@ -105,21 +106,21 @@ kitin.controller('IndexCtrl', function($scope, $http, dataService) {
   };
 });
 
-kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, definitions, searchService, searchUtil) {
+kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, $rootScope, definitions, searchService, searchUtil) {
 
   $scope.searchTypes = [searchService.searchTypeIndex.bib, searchService.searchTypeIndex.auth, searchService.searchTypeIndex.remote];
   $scope.setSearchType = function (key) {
-    $scope.state.searchType = searchService.searchTypeIndex[key];
+    $rootScope.state.searchType = searchService.searchTypeIndex[key];
   };
   
   $scope.search = function() {
     var selectRemoteDatabases = '';
-    if($scope.state.searchType.key === searchService.searchTypeIndex.remote.key) {
-      selectRemoteDatabases = searchUtil.parseSelected($scope.state.remoteDatabases);
+    if($rootScope.state.searchType.key === searchService.searchTypeIndex.remote.key) {
+      selectRemoteDatabases = searchUtil.parseSelected($rootScope.state.remoteDatabases);
       selectRemoteDatabases = selectRemoteDatabases.length > 0 ? '&database=' + selectRemoteDatabases : '';
     }
     
-    $location.url("/search/" + $scope.state.searchType.key + "?q="+encodeURIComponent($scope.state.search.q) + selectRemoteDatabases);
+    $location.url("/search/" + $rootScope.state.searchType.key + "?q="+encodeURIComponent($rootScope.state.search.q) + selectRemoteDatabases);
   };
   $scope.$on('$routeChangeSuccess', function () {
     $scope.setSearchType($routeParams.recType || "bib");
@@ -128,7 +129,7 @@ kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, def
 
 
 
-kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routeParams, definitions, searchService, searchUtil, editUtil) {
+kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routeParams, $rootScope, definitions, searchService, searchUtil, editUtil) {
 
   $scope.recType = $routeParams.recType;
 
@@ -158,17 +159,17 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
 
   document.body.className = 'search';
 
-  $scope.state.search.q = $routeParams.q;
-  $scope.state.search.f = $routeParams.f;
-  $scope.state.search.database = $routeParams.database;
-  $scope.state.search.page = {
+  $rootScope.state.search.q = $routeParams.q;
+  $rootScope.state.search.f = $routeParams.f;
+  $rootScope.state.search.database = $routeParams.database;
+  $rootScope.state.search.page = {
     start: -searchService.pageSize,
     n: searchService.pageSize
   };
   $scope.sortables = searchService.sortables;
   
   // Reset remote search hit count 
-  _.map($scope.state.remoteDatabases, function(remoteDB) { delete remoteDB.hitCount; });
+  _.map($rootScope.state.remoteDatabases, function(remoteDB) { delete remoteDB.hitCount; });
 
   // TODO - remove
   $scope.editPost = function(recType, record) {
@@ -183,7 +184,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
   // Sort
   // ----------
   $scope.selectedSort = $routeParams.sort ? _.find(searchService.sortables, { 'value': $routeParams.sort }) : searchService.sortables[0];
-  $scope.state.search.sort = $scope.selectedSort.value;
+  $rootScope.state.search.sort = $scope.selectedSort.value;
   $scope.sortChanged = function(item) {
     $location.search('sort', item.value);
   };
@@ -243,21 +244,21 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
   };
 
   $scope.getScrollStart = function() {
-    var start = $scope.state.search.page.start + $scope.state.search.page.n;
-    return (start > $scope.hitCount) ? $scope.state.search.page.start : start;
+    var start = $scope.rootScope.search.page.start + $rootScope.state.search.page.n;
+    return (start > $scope.hitCount) ? $scope.rootScope.search.page.start : start;
   };
 
   $scope.onScroll = function() {
     // Get current scroll start
     var start = $scope.getScrollStart();
     // Skip load if already scrolling or if page end is reached
-    if($scope.scrolled || start === $scope.state.search.page.start) return;
+    if($scope.scrolled || start === $rootScope.state.search.page.start) return;
 
     $scope.scrolled = true;
     // Set page start
-    $scope.state.search.page.start = start; 
+    $rootScope.state.search.page.start = start; 
     // Do search request
-    $scope.doSearch($scope.url, $scope.state.getSearchParams());
+    $scope.doSearch($scope.url, $rootScope.state.getSearchParams());
   };
 
   var prevFacetsStr = $routeParams.f || "";
@@ -285,8 +286,8 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
   $scope.doSearch = function(url, params) {
 
     searchService.search(url, params).then(function(data) {
-      $scope.facetGroups = searchUtil.makeLinkedFacetGroups($scope.recType, data.facets, $scope.state.search.q, prevFacetsStr);
-      $scope.crumbs = searchUtil.bakeCrumbs($scope.recType, $scope.state.search.q, prevFacetsStr);
+      $scope.facetGroups = searchUtil.makeLinkedFacetGroups($scope.recType, data.facets, $rootScope.state.search.q, prevFacetsStr);
+      $scope.crumbs = searchUtil.bakeCrumbs($scope.recType, $rootScope.state.search.q, prevFacetsStr);
       if(data && data.hits) {
         // New page load
         if($scope.result) {
@@ -302,9 +303,9 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
           if(_.isObject(data.hits)) {
             _.forEach(data.hits, function(count, dbName) {
 
-              var i = _.findIndex($scope.state.remoteDatabases, { database: dbName } );
+              var i = _.findIndex($rootScope.state.remoteDatabases, { database: dbName } );
               if(i > 0) {
-                $scope.state.remoteDatabases[i].hitCount = count;
+                $rootScope.state.remoteDatabases[i].hitCount = count;
               }
             });
           }  

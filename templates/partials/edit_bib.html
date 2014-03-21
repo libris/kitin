@@ -1,6 +1,6 @@
 {% raw %}
   <div data-ng-if="modalRecord" data-ng-controller="ModalCtrl">
-    <div data-ng-init="openModal()" />
+    <div data-ng-init="openAuthModal()" />
   </div>
 
   <section data-ng-if="record" data-ng-init="instance = record.about; work = instance.instanceOf">
@@ -243,6 +243,16 @@
         </h4>
       </div>
     </script>
+
+    <script type='text/ng-template' id="modal-edit-auth"> 
+          <div class="modal-header">
+           <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Auktoritetspost ({{ instance['@type'] }})</h4>
+          </div>
+          <div class="modal-body" data-ng-controller="EditCtrl">    
+            <div ng-include="'/partials/edit_auth'"></div>
+          </div>
+    </script> 
 
     <h2>Utgivning och tillverkning<i></i></h2>
     <div class="cols" data-ng-show="instance['@type'] != 'Book'">
