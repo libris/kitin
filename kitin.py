@@ -401,11 +401,10 @@ def suggest_completions(indextype):
         abort(response.status_code)
     return raw_json_response(response.text)
 
-@app.route("/partials/<name>")
+@app.route("/partials/<path:path>")
 @login_required
-def show_partial(name):
-    return render_template('partials/%s.html' % name)
-
+def show_partial(path):
+    return render_template('partials/%s.html' % path)
 
 
 # UTILS 

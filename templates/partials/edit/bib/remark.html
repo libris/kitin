@@ -1,0 +1,37 @@
+ {% raw %}
+<h2>{{ "Anmärkningar" }}<i></i></h2>
+    <div class="cols">
+      <div class="col6">
+        <label>
+          <span class="lbl">{{ "Sammanfattning" }}</span>
+            <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
+                      data-ng-model="record.about.instanceOf.summary" ></textarea>
+        </label>
+      </div>
+    </div>
+    <div class="cols">
+      <div class="col6">
+        <label>
+          <span class="lbl">{{ "Formaterad innehållsförteckning" }}</span>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.listOfContents" ></textarea>
+        </label>
+      </div>
+      <div class="col6" data-ng-show="getTypeDef(instance).term == 'Audiobook'">
+        <label>
+          <span class="lbl">{{ "Medverkande" }}</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.contributorNote" >
+        </label>
+      </div>
+    </div>
+    <div class="cols">
+      <div class="col6">
+          <label>
+            <span class="lbl">{{ "Allmän anmärkning" }}</span>
+          <textarea data-inplace class="ng-pristine ng-valid" data-inplace data-ui-jq="autosize" type="text" data-ng-model="record.about.note" ></textarea>
+        </label>
+      </div>
+      <div class="col6"></div>
+    </div>
+    <div style="clear:both"></div>
+    </ng-form>
+ {% endraw %}

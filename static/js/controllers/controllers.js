@@ -407,7 +407,8 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   } else {
     record = editUtil.getRecord();
     if(recType === 'remote' && record) {
-      record = $scope.record = record.data;
+      record = record.data;
+      $scope.record = record.data;
       editUtil.patchBibRecord(record);
       addRecordViewsToScope(record, $scope);
     } else {
@@ -423,7 +424,8 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
         });
       } else {
         dataService.record.get(recType, recId).then(function(data) {
-          var record = $scope.record = data['recdata'];
+          var record = data['recdata'];
+          $scope.record = record;
 
           if (recType === 'bib') {
             editUtil.patchBibRecord(record);
@@ -695,5 +697,4 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
       return 0;
     }
   }
-
 });

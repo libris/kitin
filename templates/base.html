@@ -48,8 +48,10 @@
       {% endif %}
       {% include "partials/_search_bar.html" %}
       </div>
+
       {% block content %}
       {% endblock content %}
+      <div ui-view></div>
       
       <div class="footer">
         <footer>

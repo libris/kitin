@@ -13,6 +13,10 @@
 /*lighter text color*/
 /*font-color*/
 /* fonts */
+/* BUTTONS START ------------------------- */
+/*@btn-default-color: @green;
+@btn-default-bg: @green-light;*/
+/* BUTTONS END ------------------------- */
 /* grid */
 .cols {
   overflow: hidden;

@@ -11,8 +11,68 @@ kitin.directive('popover', function(expression, compiledElement) {
 });
 */
 
+kitin.directive('titleAndMainEntry', function(){
+    return {
+        restrict: 'C',
+        templateUrl: '/partials/edit/bib/title_and_main_entry',
+        controller: function($scope) {
+            //controller for your sub area.
+        }
+    };
+});
+
+kitin.directive('publicationAndProduction', function(){
+    return {
+        restrict: 'C',
+        templateUrl: '/partials/edit/bib/publication_and_production',
+        controller: function($scope) {
+            //controller for your sub area.
+        }
+    };
+});
+
+kitin.directive('physcialDescription', function(){
+    return {
+        restrict: 'C',
+        templateUrl: '/partials/edit/bib/physical_description',
+        controller: function($scope) {
+            //controller for your sub area.
+        }
+    };
+});
+
+kitin.directive('remark', function(){
+    return {
+        restrict: 'C',
+        templateUrl: '/partials/edit/bib/remark',
+        controller: function($scope) {
+            //controller for your sub area.
+        }
+    };
+});
+
+kitin.directive('editSubject', function(){
+    return {
+        restrict: 'C',
+        templateUrl: '/partials/edit/bib/subject',
+        controller: function($scope) {
+            //controller for your sub area.
+        }
+    };
+});
+
+kitin.directive('unknown', function(){
+    return {
+        restrict: 'C',
+        templateUrl: '/partials/edit/bib/unknown',
+        controller: function($scope) {
+            //controller for your sub area.
+        }
+    };
+});
+
 kitin.directive('inplace', function () {
-  return function(scope, elm, attrs) {
+  return function(scope, elm, attrs) {    
     elm.keyup(function () { // or change (when leaving)
       scope.triggerModified();
       scope.$apply();

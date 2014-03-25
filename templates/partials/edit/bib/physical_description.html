@@ -1,0 +1,48 @@
+ {% raw %}
+<!-- TODO: partially toggle digital details
+    <div data-ng-show="getTypeDef(instance).subClassOf != 'DigitalResource'">
+    -->
+    <h2>Fysisk beskrivning<i></i></h2>
+    <div class="cols">
+      <div class="col3">
+        <label class="ng-binding">
+          <span class="lbl">{{ "Omfång" }}</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.extent" >
+        </label>
+      </div>
+      <div class="col3">
+        <label>
+          <span class="lbl">{{ "Mått" }}</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.dimensions" >
+        </label>
+      </div>
+      <div class="col3">
+        <label>
+          <span class="lbl">{{ "Fysiska detaljer" }}</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.otherPhysicalDetails" >
+        </label>
+      </div>
+      <div class="col3">
+<!-- from 02x:c should not be part of the template?
+        <label>
+          <span class="lbl">{{ "Anskaffningsvillkor" }}</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.availability" placeholder="Anskaffningsvillkor">
+        </label>
+-->
+      </div>
+    </div>
+    <div class="cols" data-ng-show="getTypeDef(instance).subClassOf == 'DigitalResource'">
+      <div class="col3">
+        <label>
+          <span class="lbl">{{ "Filtyp" }}</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.fileType" placeholder="Filtyp">
+        </label>
+      </div>
+      <div class="col3">
+        <label>
+          <span class="lbl">{{ "Systemkrav" }}</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.systemRequirements" placeholder="Systemkrav">
+        </label>
+      </div>
+    </div>
+ {% endraw %}
