@@ -3,7 +3,7 @@
     <div class="content search" data-ng-switch-when="0">
        <div id="grid"></div>
           <header>
-             <p class="summary">Din sökning på <strong>{{ state.search.q }}</strong> resulterade i 0 träffar.</p>
+             <p class="summary">Din sökning på <strong data-ng-bind="state.search.q"></strong> resulterade i 0 träffar.</p>
              </header>
          </div>
 <div data-ng-show="!loading" class="content search" data-ng-switch-default>
@@ -81,6 +81,7 @@
               <label class="title" title="{{ record.data.about.instanceTitle.titleValue }} {{ record.data.about.instanceTitle.subtitle }}">
                 <span class="title-key">{{ record.data.about.instanceTitle.titleValue | chop }}</span>
                 <span class="title-subtitle">{{ record.data.about.instanceTitle.subtitle | chop }}
+                <span class="title-variation">{{ record.data.about.titleVariation.titleValue | chop }}</span>
                 <span class="title-creator"> {{ record.data.about.responsibilityStatement | chop }}</span></span>
               </label>
 <!-- testing different layout, delete this if creator and subtitle should span in the same section.
