@@ -78,10 +78,10 @@
 					<!-- bib and remote switch, needs refactor--> 
           <div data-ng-switch-default class="nest-cols">
             <div class="col5">
-              
-              <label class="title" title="{{ record.data.about.title.titleValue }} {{ record.data.about.title.subtitle }}">
-                <span class="title-key">{{ record.data.about.title.titleValue | chop }}</span>
-                <span class="title-subtitle">{{ record.data.about.title.subtitle | chop }}<span class="title-creator"> {{ record.data.about.responsibilityStatement | chop }}</span></span>
+              <label class="title" title="{{ record.data.about.instanceTitle.titleValue }} {{ record.data.about.instanceTitle.subtitle }}">
+                <span class="title-key">{{ record.data.about.instanceTitle.titleValue | chop }}</span>
+                <span class="title-subtitle">{{ record.data.about.instanceTitle.subtitle | chop }}
+                <span class="title-creator"> {{ record.data.about.responsibilityStatement | chop }}</span></span>
               </label>
 <!-- testing different layout, delete this if creator and subtitle should span in the same section.
               <label>
