@@ -1,6 +1,6 @@
 {% raw %}
 <h2>{{ "Ämnesord och klassifikation" }}<i></i></h2>
-<div class="cols" onload="work = record.about.instanceOf">
+<div class="cols" onload="work = record.about">
   <div class="col6">
     <div data-ng-repeat="(key, container) in schemeContainer.byScheme" class="scheme"
        data-ng-init="scheme = conceptSchemes.byNotation[key] || {'title': key}">

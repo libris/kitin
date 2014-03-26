@@ -4,11 +4,11 @@
       <div class="col6">
         <label>
           <span class="lbl required">{{ "Huvudtitel" }}</span>
-          <textarea data-inplace class="title" ="autosize" spellcheck="false" data-ng-model="record.about.title.titleValue"></textarea>
+          <textarea data-inplace class="title" ="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.titleValue"></textarea>
         </label>
         <label>
           <span class="lbl">{{ "Övrig titelinformation" }}</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.title.subtitle"></textarea>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.subtitle"></textarea>
         </label>
         <ng:switch on="instance['@type']">
         <label data-ng-switch-when="Serial">
@@ -18,7 +18,7 @@
         </ng:switch>
         <span class="lbl">{{ "Språk" }}</span>
         <div data-kitin-link-entity
-            data-subject="record.about.instanceOf"
+            data-subject="record.about"
             data-link="'language'" data-type="Language"
             data-view-template="render-language"
             data-search-template="render-search-language">
@@ -60,7 +60,7 @@
           <span class="lbl">{{ 'Huvuduppslag' }}</span>
           <div data-kitin-link-entity
               data-ng-init="label = 'Lägg till huvuduppslag'"
-              data-subject="record.about.instanceOf" data-link="'attributedTo'" data-type="Person"
+              data-subject="record.about" data-link="'attributedTo'" data-type="Person"
               data-view-template="render-person"
               data-search-template="render-search-box">
           </div>
@@ -69,7 +69,7 @@
           <span class="lbl">{{ 'Biuppslag' }}</span>
           <div data-kitin-link-entity
               data-ng-init="label = 'Lägg till biuppslag'"
-              data-subject="record.about.instanceOf" data-link-multiple="'influencedBy'" data-type="Person"
+              data-subject="record.about" data-link-multiple="'influencedBy'" data-type="Person"
               data-view-template="render-person"
               data-search-template="render-search-box">
           </div>

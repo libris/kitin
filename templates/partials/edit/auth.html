@@ -201,9 +201,9 @@
           <span class="lbl">{{ "Label" }}</span>
           <input data-inplace type="text" class="" data-ng-model="instance.label"/>
         </label>
-        <div ng-show="instance.instanceOf"  class="multifield">
+        <div ng-show="instance"  class="multifield">
           <span class="lbl">{{ "Används ej" }}</span>
-            <label data-ng-repeat="hasVersion in instance.instanceOf.hasVersion">
+            <label data-ng-repeat="hasVersion in instance.hasVersion">
             <input data-inplace class="input-medium" type="text" data-ng-model="hasVersion.label">
           </label>
         </div>
