@@ -31,7 +31,7 @@ kitin.directive('publicationAndProduction', function(){
     };
 });
 
-kitin.directive('physcialDescription', function(){
+kitin.directive('physicalDescription', function(){
     return {
         restrict: 'C',
         templateUrl: '/partials/edit/bib/physical_description',
