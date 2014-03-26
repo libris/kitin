@@ -394,7 +394,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     definitions.conceptSchemes.then(function(data) {
       scope.conceptSchemes = data;
       scope.schemeContainer = new editUtil.SchemeContainer(
-          record.about.instanceOf, defaultSchemes);
+          record.about, defaultSchemes);
     });
   }
 

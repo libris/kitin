@@ -319,7 +319,7 @@ kitin.service('editUtil', function(definitions) {
 
     // TODO: this will be unified in the backend mapping and thus not needed here
     getUnifiedClassifications: function (record) {
-      var thing = record.about.instanceOf;
+      var thing = record.about;
       var classes = [];
       if (thing.class) {
         classes.push.apply(thing.class);
@@ -336,7 +336,7 @@ kitin.service('editUtil', function(definitions) {
 
     // TODO: fix this in the backend service and remove this patch
     patchBibRecord: function (record) {
-      var work = record.about.instanceOf;
+      var work = record.about;
       if (work && _.isArray(work.attributedTo)) {
         work.attributedTo = work.attributedTo[0];
       }
