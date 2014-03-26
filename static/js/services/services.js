@@ -390,8 +390,8 @@ kitin.factory('searchService', function($http, $q) {
     pageSize: 10,
     facetLabels: { 
      'about.@type': 'Typer',
-     'about.instanceOf.language.@id': 'Språk',
-     'encLevel': 'Beskrivningsnivå'
+     'about.language.@id': 'Språk',
+     'encLevel.@id': 'Beskrivningsnivå'
     },
     searchTypeIndex: {
       bib: {

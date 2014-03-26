@@ -214,17 +214,16 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
 
   $scope.parseEncLevel = function(encLevel) {
     switch(encLevel) {
-      case '3':
+      case 'trec:MinimalLevel':
         return 'Miniminivå';
-      case '7':
+      case 'trec:AbbreviatedLevel':
         return 'Biblioteksnivå';
-      case '8':
+      case 'trec:PrepublicationLevel':
         return 'Förhandspost';
       case null:
       case 'null':
         return 'NB-nivå';
-      case 'i':
-      case 'I':
+      case 'trec:FullLevelInputByOclcParticipantsLocal':
         return 'Full-level input by OCLC participants (LOCAL)';
       case 'n':
       case 'N':
