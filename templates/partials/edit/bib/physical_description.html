@@ -1,48 +1,151 @@
  {% raw %}
-<!-- TODO: partially toggle digital details
-    <div data-ng-show="getTypeDef(instance).subClassOf != 'DigitalResource'">
-    -->
+  <div ng-init="hasFormat = record.about.hasFormat;">
     <h2>Fysisk beskrivning<i></i></h2>
-    <div class="cols">
-      <div class="col3">
-        <label class="ng-binding">
-          <span class="lbl">{{ "Omfång" }}</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.extent" >
-        </label>
+    <div class="cols" data-ng-repeat="format in hasFormat" ng-switch on="format['@type']">
+
+      <!-- Type header -->
+      <h3 class="ng-binding" ng-if="hasFormat[$index-1]['@type'][0] !== format['@type'][0]">{{format['@type']}}</h3>
+
+
+      
+      <div ng-switch-when="Electronic">
+        <div class="col3">
+          <label>
+            <span class="lbl">carrierType</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.carrierType[0]['@id']" placeholder="">
+          </label>
+        </div>
+        <div class="col3">
+          <label>
+            <span class="lbl">color</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.color['@id']" placeholder="">
+          </label>
+        </div>
+        <div class="col3">
+          <label>
+            <span class="lbl">dimensions</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.dimensions['@id']" placeholder="">
+          </label>
+        </div>
       </div>
-      <div class="col3">
-        <label>
-          <span class="lbl">{{ "Mått" }}</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.dimensions" >
-        </label>
+
+
+
+      <div ng-switch-when="MovingImage">
+        <div class="col2">
+          <label class="ng-binding">
+            <span class="lbl">carrierType</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.carrierType[0]['@id']" placeholder="">
+          </label>
+        </div>
+        <div class="col2">
+          <label>
+            <span class="lbl">motionPicFormat</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.motionPicFormat['@id']" placeholder="">
+          </label>
+        </div>
+        <div class="col2">
+          <label>
+            <span class="lbl">motionPicSound</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.motionPicSound['@id']" placeholder="">
+          </label>
+        </div>
+        <div class="col2">
+          <label>
+            <span class="lbl">motionPicMedium</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.motionPicMedium['@id']" placeholder="">
+          </label>
+        </div>
+        <div class="col2">
+          <label>
+            <span class="lbl">motionPicDimensions</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.motionPicDimensions['@id']" placeholder="">
+          </label>
+        </div>
       </div>
-      <div class="col3">
-        <label>
-          <span class="lbl">{{ "Fysiska detaljer" }}</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.otherPhysicalDetails" >
-        </label>
+
+
+
+      <div ng-switch-when="Product">
+        <div class="col3">
+          <label class="ng-binding">
+            <span class="lbl">Omfång</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.extent" placeholder="">
+          </label>
+        </div>
+        <div class="col3">
+          <label>
+            <span class="lbl">Mått</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.dimensions.label" placeholder="">
+          </label>
+        </div>
+        <div class="col3">
+          <label>
+            <span class="lbl">Fysiska detaljer</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.otherPhysicalDetails" placeholder="">
+          </label>
+        </div>
+        <div class="col3">
+          <label>
+            <span class="lbl">accompanyingMaterial</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.accompanyingMaterial" placeholder="">
+          </label>
+        </div>
       </div>
-      <div class="col3">
-<!-- from 02x:c should not be part of the template?
-        <label>
-          <span class="lbl">{{ "Anskaffningsvillkor" }}</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.availability" placeholder="Anskaffningsvillkor">
-        </label>
--->
+
+
+
+      <div ng-switch-when="SoundRecording">
+        <div class="col2">
+          <label class="ng-binding">
+            <span class="lbl">carrierType</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.carrierType[0]['@id']" placeholder="">
+          </label>
+        </div>
+         <div class="col2">
+          <label>
+            <span class="lbl">soundSpeed</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.soundSpeed['@id']" placeholder="">
+          </label>
+        </div>
+         <div class="col2">
+          <label>
+            <span class="lbl">soundDimensions</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.soundDimensions['@id']" placeholder="">
+          </label>
+        </div>
+         <div class="col2">
+          <label>
+            <span class="lbl">soundKindOfDisc</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.soundKindOfDisc['@id']" placeholder="">
+          </label>
+        </div>
+        <div class="col2">
+          <label>
+            <span class="lbl">soundKindOfMaterial</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.soundKindOfMaterial['@id']" placeholder="">
+          </label>
+        </div>
+        <div class="col2">
+          <label>
+            <span class="lbl">soundPlaybackCharacter</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.soundPlaybackCharacter['@id']" placeholder="">
+          </label>
+        </div>
       </div>
+
+
+      <div ng-switch-default>
+        <div class="col2" data-ng-repeat="(key, value) in format">
+          <label ng-if="key !== '@type'">
+            <span class="lbl">{{key}}</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="value" placeholder="">
+          </label>
+        </div>
+      </div>
+
+
+
     </div>
-    <div class="cols" data-ng-show="getTypeDef(instance).subClassOf == 'DigitalResource'">
-      <div class="col3">
-        <label>
-          <span class="lbl">{{ "Filtyp" }}</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.fileType" placeholder="Filtyp">
-        </label>
-      </div>
-      <div class="col3">
-        <label>
-          <span class="lbl">{{ "Systemkrav" }}</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.systemRequirements" placeholder="Systemkrav">
-        </label>
-      </div>
-    </div>
+  </div>
  {% endraw %}

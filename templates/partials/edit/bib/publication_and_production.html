@@ -1,6 +1,6 @@
  {% raw %}
 <h2>Utgivning och tillverkning<i></i></h2>
-    <div class="cols" data-ng-show="instance['@type'] != 'Book'">
+    <div class="cols" data-ng-show="record.about['@type'] != 'Book'">
       <div class="col6">
         <label>
           <span class="lbl">{{ "Allmän medieterm" }}</span>
@@ -48,7 +48,7 @@
                   </label>
                 </td>
                 <td class="controls">
-                  <button ng-show="!$first" class="btn-link deleter" data-ng-click="removeObject(instance, 'identifier', $index)">
+                  <button ng-show="!$first" class="btn-link deleter" data-ng-click="removeObject(record.about, 'identifier', $index)">
                     <i class="fa fa-times"></i>
                   </button>
                 </td>
@@ -57,7 +57,7 @@
             <tfoot>
               <tr>
                 <td colspan="3">
-                  <button class="add-thing btn-link" data-ng-click="addObject(instance, 'identifier', 'ISBN', 'isbnTable')">{{ 'Lägg till ISBN' }}</button>
+                  <button class="add-thing btn-link" data-ng-click="addObject(record.about, 'identifier', 'ISBN', 'isbnTable')">{{ 'Lägg till ISBN' }}</button>
                 </td>
               </tr>
             </tfoot>
@@ -92,7 +92,7 @@
                   </label>
                 </td>
                 <td class="controls">
-                  <button ng-show="!$first" class="btn-link deleter" data-ng-click="removeObject(instance, 'identifier', $index)">
+                  <button ng-show="!$first" class="btn-link deleter" data-ng-click="removeObject(record.about, 'identifier', $index)">
                     <i class="fa fa-times"></i>
                   </button>
                 </td>
@@ -101,7 +101,7 @@
             <tfoot>
               <tr>
                 <td colspan="3">
-                  <button class="add-thing btn-link" data-ng-click="addObject(instance, 'identifier', 'ISSN',  'identifierTable')">{{ 'Lägg till ISSN' }}</button>
+                  <button class="add-thing btn-link" data-ng-click="addObject(record.about, 'identifier', 'ISSN',  'identifierTable')">{{ 'Lägg till ISSN' }}</button>
                 </td>
               </tr>
             </tfoot>
@@ -136,7 +136,7 @@
                   </label>
                 </td>
                 <td class="controls">
-                  <button ng-show="!$first" class="btn-link deleter" data-ng-click="removeObject(instance, 'identifier', $index)">
+                  <button ng-show="!$first" class="btn-link deleter" data-ng-click="removeObject(record.about, 'identifier', $index)">
                     <i class="fa fa-times"></i>
                   </button>
                 </td>
@@ -145,7 +145,7 @@
             <tfoot>
               <tr>
                 <td colspan="3">
-                  <button class="add-thing btn-link" data-ng-click="addObject(instance, 'identifier', 'identifierScheme',  'identifierTable')">{{ 'Lägg till Identifierare' }}</button>
+                  <button class="add-thing btn-link" data-ng-click="addObject(record.about, 'identifier', 'identifierScheme',  'identifierTable')">{{ 'Lägg till Identifierare' }}</button>
                 </td>
               </tr>
             </tfoot>
@@ -191,7 +191,7 @@
                 </label>
               </td>
               <td class="controls">
-                <button ng-show="!$first" class="btn-link deleter" data-ng-click="removeObject(instance, 'publication', $index)">
+                <button ng-show="!$first" class="btn-link deleter" data-ng-click="removeObject(record.about, 'publication', $index)">
                   <i class="fa fa-times"></i>
                 </button>
               </td>
@@ -199,7 +199,7 @@
           <tfoot>
             <tr>
               <td colspan="4">
-                <button class="add-thing btn-link" data-ng-click="addObject(instance, 'publication', 'ProviderEvent', 'publisher')">{{ 'Lägg till utgivning' }} </button>
+                <button class="add-thing btn-link" data-ng-click="addObject(record.about, 'publication', 'ProviderEvent', 'publisher')">{{ 'Lägg till utgivning' }} </button>
               </td>
             </tr>
           </tfoot>
@@ -225,7 +225,7 @@
       </div>
     </div>
     <div class="cols">
-      <div class="col3" data-ng-show="getTypeDef(instance).term == 'Audiobook'">
+      <div class="col3" data-ng-show="getTypeDef(record.about).term == 'Audiobook'">
         <label>
           <span class="lbl">{{ "Utgivningsnummer" }}</span>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.publisherNumber" >

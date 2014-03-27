@@ -51,7 +51,6 @@
 
       {% block content %}
       {% endblock content %}
-      <div ui-view></div>
       
       <div class="footer">
         <footer>
@@ -82,7 +81,8 @@
         {{ person.givenName }} {{ person.familyName }}
       </span>
       <span data-ng-if="person.name" class="name">{{ person.name }}</span>
-      <span data-ng-if="person.personTitle">({{ person.personTitle }})</span>
+      <span data-ng-if="person.personTitle">
+        ( <span ng-repeat="personTitle in person.personTitle">{{ personTitle }} </span>)</span>
       <span data-ng-if="person.birthYear || person.deathYear">
         <span class="timeSpan">{{ person.birthYear }}-{{ person.deathYear }}</span></span>
     </script>

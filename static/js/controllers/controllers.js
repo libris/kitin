@@ -243,7 +243,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
 
   $scope.getScrollStart = function() {
     var start = $rootScope.state.search.page.start + $rootScope.state.search.page.n;
-    return (start > $scope.hitCount) ? $scope.rootScope.search.page.start : start;
+    return (start > $scope.hitCount) ? $rootScope.state.search.page.start : start;
   };
 
   $scope.onScroll = function() {
@@ -325,6 +325,10 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   var modalRecord = $rootScope.modalRecord;
   var recType = modalRecord? modalRecord.recType : $routeParams.recType;
   var recId = modalRecord? modalRecord.recId : $routeParams.recId;
+  var isNew = (recId === 'new');
+  $scope.recType = recType;
+
+  document.body.className = isNew ? 'edit new' : 'edit';
 
   $scope.$on('$routeUpdate', function() {
     var modalParams = $location.$$search.m;
@@ -339,10 +343,6 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     }
   });
 
-  var isNew = (recId === 'new');
-  $scope.recType = recType;
-
-  document.body.className = isNew? 'edit new' : 'edit';
 
   // Fetch definitions
   // TODO:

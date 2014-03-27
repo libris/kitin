@@ -8,29 +8,18 @@ var kitin = angular.module('kitin', [
     'ui.utils', 'ui.bootstrap',
     'kitin.controllers', 'kitin.filters', 'kitin.services', 'kitin.directives']);
 
-kitin.config(
-  ['$locationProvider', '$routeProvider',
-    function($locationProvider, $routeProvider) {
+kitin.config(function($locationProvider, $routeProvider) {
+  
       $locationProvider.html5Mode(true).hashPrefix('!');
+
       $routeProvider
-        .when('/',
-              {templateUrl: '/partials/index'})
-        .when('/search/:recType',
-              {templateUrl: '/partials/search'})
-        // .when('/edit/auth/:recId',
-        //       {templateUrl: '/partials/edit_auth'}) 
-        .when('/edit/:recType/:recId',{
-            templateUrl: '/partials/edit',
-            reloadOnSearch: false
-          }
-        )  
-        .when('/jsonld/:recType/:recId',
-              {templateUrl: '/partials/jsonld'})
-        
+        .when('/',                        { templateUrl: '/partials/index' })
+        .when('/search/:recType',         { templateUrl: '/partials/search' })
+        .when('/edit/:recType/:recId',    { templateUrl: '/partials/edit', reloadOnSearch: false })
+        .when('/jsonld/:recType/:recId',  { templateUrl: '/partials/jsonld' })
         ;//.otherwise({redirectTo: '/'});
 
-    }]
-);
+});
 
 // TODO: window.onunload or $routeProvider / $locationChangeStart
 //if (ajaxInProgress)
