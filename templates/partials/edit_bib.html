@@ -10,15 +10,15 @@
       <div class="col6" data-ng-init="title = instance.instanceTitle">
         <label>
           <span class="lbl required">{{ "Huvudtitel" }}</span>
-          <textarea data-inplace class="title" ="autosize" spellcheck="false" data-ng-model="title.titleValue"></textarea>
+          <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="title.titleValue"></textarea>
         </label>
         <label>
           <span class="lbl">{{ "Övrig titelinformation" }}</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="title.subtitle">{{ title.subtitle }}</textarea>
         </label>
         <label>
-          <span class="lbl required">{{ "Titelvariant" }}</span>
-          <textarea data-inplace class="title" ="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.titleValue"></textarea>
+          <span class="lbl">{{ "Titelvariant" }}</span>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.titleValue"></textarea>
         </label>        
         <ng:switch on="instance['@type']">
         <label data-ng-switch-when="Serial">
