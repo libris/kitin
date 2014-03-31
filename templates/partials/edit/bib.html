@@ -2,28 +2,27 @@
   <div data-ng-if="modalRecord" data-ng-controller="ModalCtrl">
     <div data-ng-init="openAuthModal()" />
   </div>
-  <ng-form name="subform">
-    <section data-ng-if="record" ng-init="type = record['about']['@type'];">
-      
-      <div class="title-and-main-entry" ></div>
-      <div class="publication-and-production"></div>
-      <div class="physical-description"></div>
-      <div class="remark"></div>
-      <div class="edit-subject"></div>
-    </section>
 
-    <section class="">
-      <div class="unknown"></div>
-    </section>
-       
-    <section class="submit modificationinfo" data-ng-class="modifiedClasses()">
-      <button class="btn-link" id="draft" data-ng-click="saveDraft()"
-        title="{{lastSavedLabel('Senast sparad: %s')}}">Spara utkast</button>
-      <button class="btn btn-dark btn-submit" id="publish" data-ng-disabled="form.$invalid" data-ng-click="save()"
-        title="{{lastPublishedLabel('Senast publicerad: %s')}}">Publicera</button>
-      <p class="message" data-ng-show="modifications.message">{{ modifications.message }}</p>
-      <div style="clear:both"></div>
-    </section>
-  </ng-form>
+  <section data-ng-if="record" ng-init="type = record['about']['@type'];">
+    <ng-form name="subform">
+    <div class="title-and-main-entry" ></div>
+    <div class="publication-and-production"></div>
+    <div class="physical-description"></div>
+    <div class="remark"></div>
+    <div class="edit-subject"></div>
+  </section>
+
+  <section class="">
+    <div class="unknown"></div>
+  </section>
+  
+  <section class="submit modificationinfo" data-ng-class="modifiedClasses()">
+    <button class="btn-link" id="draft" data-ng-click="saveDraft()"
+      title="{{lastSavedLabel('Senast sparad: %s')}}">Spara utkast</button>
+    <button class="btn btn-dark btn-submit" id="publish" data-ng-disabled="form.$invalid" data-ng-click="save()"
+      title="{{lastPublishedLabel('Senast publicerad: %s')}}">Publicera</button>
+    <p class="message" data-ng-show="modifications.message">{{ modifications.message }}</p>
+    <div style="clear:both"></div>
+  </section>
 
 {% endraw %}

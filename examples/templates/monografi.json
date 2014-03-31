@@ -2,11 +2,6 @@
     "@type": "Record",
     "about": {
         "@type": "Book",
-        "hasFormat": [
-            {
-                "@type": "Product"
-            }
-        ],
         "availability": "",
         "dimensions": "",
         "edition": null,

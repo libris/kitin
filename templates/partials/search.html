@@ -1,5 +1,5 @@
 {% raw %}
-<div data-ng-switch on="state.search.result.hits" data-ng-controller="SearchResultCtrl">
+<div data-ng-switch on="result.hits" data-ng-controller="SearchResultCtrl">
     <div class="content search" data-ng-switch-when="0">
        <div id="grid"></div>
           <header>
@@ -11,7 +11,7 @@
   <header>
   <!--<p class="summary"><span>{{ hitCount }} träffar för <strong>{{ q }}</strong></span></p>-->
     <p class="summary">
-      {{ state.search.hitCount | chunk }} träffar för
+      {{ hitCount | chunk }} träffar för
       <span data-ng-repeat="crumb in crumbs">
         <span data-ng-show="crumb.bridge">{{ crumb.bridge }}</span>
         <span data-ng-hide="crumb.urlpart"><strong>{{ getLabel(crumb.term,crumb.type) }}</strong></span>
@@ -46,10 +46,10 @@
       </section>
     </div>
     <div class="col9" infinite-scroll="onScroll()" infinite-scroll-distance="0" infinite-scroll-immediate-check="true">
-      <section data-ng-repeat="record in state.search.result.list" data-ng-class="{'result-pre': record.data.encLevel == 8}" class="result record {{record.identifier}}">
+      <section data-ng-repeat="record in result.list" data-ng-class="{'result-pre': record.data.encLevel == 8}" class="result record {{record.identifier}}">
 
         <a class="bib-url" href="" ng-click="editPost(recType, record)" data-ng-switch="recType">
-        <span class="page-indicator" data-ng-if="($index > 0 && ($index + 1) % 10 == 0) || ($index+1) == hitCount">{{ $index + 1 }} / {{ state.search.hitCount }}</span>
+        <span class="page-indicator" data-ng-if="($index > 0 && ($index + 1) % 10 == 0) || ($index+1) == hitCount">{{ $index + 1 }} / {{ hitCount }}</span>
           <!--auth result list-->
           <div data-ng-switch-when="auth">
             <div class="col5">
