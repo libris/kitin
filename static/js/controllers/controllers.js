@@ -128,7 +128,9 @@ kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, $ro
 
 
 
-kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routeParams, $rootScope, definitions, searchService, searchUtil, editUtil) {
+kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routeParams, $rootScope, $anchorScroll, definitions, searchService, searchUtil, editUtil) {
+
+  
 
   $scope.recType = $routeParams.recType;
 
@@ -243,7 +245,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
 
   $scope.getScrollStart = function() {
     var start = $rootScope.state.search.page.start + $rootScope.state.search.page.n;
-    return (start > $scope.hitCount) ? $rootScope.state.search.page.start : start;
+    return (start > $rootScope.state.search.hitCount) ? $rootScope.state.search.page.start : start;
   };
 
   $scope.onScroll = function() {
@@ -265,14 +267,14 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
     return;
   }
 
-  $scope.$watch('result.list.length', function(newLength, oldLength) {
+  $scope.$watch('state.search.result.list.length', function(newLength, oldLength) {
     var updateHoldings = function(data, status, headers, config) {
     if(data) {
           config.record.holdings = data;
         }
     };
     for (var i = oldLength ? oldLength: 0; i < newLength; i++) {
-        var record = $scope.result.list[i];
+        var record = $rootScope.state.search.result.list[i];
         if(record.identifier) {
           $http.get("/record"  + record.identifier + "/holdings", {record: record}).success(updateHoldings);
         }
@@ -288,14 +290,14 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
       $scope.crumbs = searchUtil.bakeCrumbs($scope.recType, $rootScope.state.search.q, prevFacetsStr);
       if(data && data.hits) {
         // New page load
-        if($scope.result) {
+        if($rootScope.state.search.result) {
           data.list.forEach(function(element) {
-            $scope.result.list.push(element);
+            $rootScope.state.search.result.list.push(element);
           });
 
         // Initial load
         } else {
-          $scope.result = data;
+          $rootScope.state.search.result = data;
           
           var hitCount = searchUtil.countTotalHits(data.hits);
           if(_.isObject(data.hits)) {
@@ -308,10 +310,10 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
             });
           }  
 
-          $scope.hitCount = hitCount.toString();       
+          $rootScope.state.search.hitCount = hitCount.toString();       
         }
       } else {
-        $scope.result = { hits: 0 };
+        $rootScope.state.search.result = { hits: 0 };
       }
       $scope.scrolled = false;
       $scope.loading = false;
@@ -320,7 +322,9 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
 });
 
 
-kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $timeout, $rootScope, $location, dataService, definitions, userData, editUtil) {
+kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $timeout, $rootScope, $location, $anchorScroll, dataService, definitions, userData, editUtil) {
+
+  $anchorScroll();
 
   var modalRecord = $rootScope.modalRecord;
   var recType = modalRecord? modalRecord.recType : $routeParams.recType;
@@ -518,7 +522,6 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
       openPrompt($event, "#confirmDeleteDraftDialog");
     });
   };
-
   
   $scope.save = function() {
     var recType = $routeParams.recType === 'remote' ? 'bib' : $routeParams.recType;
