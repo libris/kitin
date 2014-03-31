@@ -31,6 +31,29 @@
 
 
 
+      <div ng-switch-when="Map">
+        <div class="col3">
+          <label>
+            <span class="lbl">carrierType</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.carrierType[0]['@id']" placeholder="">
+          </label>
+        </div>
+        <div class="col3">
+          <label>
+            <span class="lbl">color</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.color['@id']" placeholder="">
+          </label>
+        </div>
+        <div class="col3">
+          <label>
+            <span class="lbl">medium</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.medium['@id']" placeholder="">
+          </label>
+        </div>
+      </div>
+
+
+
       <div ng-switch-when="MovingImage">
         <div class="col2">
           <label class="ng-binding">
@@ -133,6 +156,24 @@
           </label>
         </div>
       </div>
+
+
+
+      <div ng-switch-when="VideoRecording">
+        <div class="col3">
+          <label>
+            <span class="lbl">carrierType</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.carrierType[0]['@id']" placeholder="">
+          </label>
+        </div>
+        <div class="col3">
+          <label>
+            <span class="lbl">videoformat</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.videoFormat['@id']" placeholder="">
+          </label>
+        </div>
+      </div>
+
 
 
       <div ng-switch-default>

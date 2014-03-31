@@ -198,7 +198,6 @@ kitin.service('editUtil', function(definitions) {
 
     populatePersonRoleMap: function (roleMap, record, relators) {
       var instance = record.about;
-      var work = instance.instanceOf;
 
       var self = this;
 
@@ -209,11 +208,11 @@ kitin.service('editUtil', function(definitions) {
         }
         roleMap[person['@id']] = [];
       }
-      if (work && work.attributedTo) {
-        addPersonRoles(work.attributedTo);
+      if (instance && instance.attributedTo) {
+        addPersonRoles(instance.attributedTo);
       }
-      if (work && work.influencedBy) {
-        work.influencedBy.forEach(function (person) {
+      if (instance && instance.influencedBy) {
+        instance.influencedBy.forEach(function (person) {
           addPersonRoles(person);
         });
       }
@@ -228,7 +227,7 @@ kitin.service('editUtil', function(definitions) {
         });
       }
 
-      [instance, work].forEach(function (resource) {
+      [instance].forEach(function (resource) {
         if (typeof resource === 'undefined')
           return;
         var objId = resource['@id'];
@@ -264,7 +263,7 @@ kitin.service('editUtil', function(definitions) {
     },
 
     SchemeContainer: function (work, defaultSchemes) {
-      var concepts = work.subject || [];
+      var concepts = work && work.subject || [];
       var byScheme = {};
       this.byScheme = byScheme;
 
@@ -319,18 +318,19 @@ kitin.service('editUtil', function(definitions) {
 
     // TODO: this will be unified in the backend mapping and thus not needed here
     getUnifiedClassifications: function (record) {
-      var thing = record.about;
       var classes = [];
-      if (thing.class) {
-        classes.push.apply(thing.class);
-      }
-      ['class-lcc', 'class-ddc'].forEach(function (key) {
-        var cls = thing[key];
-        if (cls) {
-          classes.push({prefLabel: cls});
+      if(record && record.about) {
+        var thing = record.about;
+        if (thing.class) {
+          classes.push.apply(thing.class);
         }
-      });
-
+        ['class-lcc', 'class-ddc'].forEach(function (key) {
+          var cls = thing[key];
+          if (cls) {
+            classes.push({prefLabel: cls});
+          }
+        });
+      }
       return classes;
     },
 
