@@ -15,6 +15,13 @@
   <section class="">
     <div class="unknown"></div>
   </section>
+
+  <section class="debug">
+    <h2> <span>Debug record</span><i></i></h2>
+    <div class="cols">
+      <pre data-ng-bind="debugRecord"></pre>
+    </div>
+  </section>
   
   <section class="submit modificationinfo" data-ng-class="modifiedClasses()">
     <button class="btn-link" id="draft" data-ng-click="saveDraft()"

@@ -2,6 +2,7 @@ var kitin = angular.module('kitin.controllers', []);
 
 var debug = null;
 
+
 kitin.controller('AppCtrl', function($scope, $rootScope, $modal, searchService) {
   $rootScope.state = {
     searchType: {},
@@ -22,6 +23,7 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, searchService) 
       return params;
     }
   };
+
 
 });
 
@@ -703,7 +705,6 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     }
   }
 
-
   /** debug
   * Function for debug purposes, !TODO REMOVE
   * Finds data bindings and prints record to console.log
@@ -745,13 +746,17 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
       });
     };
 
-    var suffix = ' ***PRINTED';
+    var suffix = ' ***EDITABLE';
     // Add suffix
     updatePrinted(suffix);
     // Print
-    console.debug(JSON.stringify($scope.record, null, 4));
+    $scope.debugRecord = JSON.stringify(angular.copy($scope.record), null, 4);
     // Remove suffix
     updatePrinted(suffix, true);
   };
-
+  // Could not get $viewContentLoading to work. Using timeout as a temporary solution
+  $timeout(function() {
+    debug();
+  }, 1000);
+    
 });
