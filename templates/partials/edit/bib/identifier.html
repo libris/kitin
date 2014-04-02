@@ -9,7 +9,7 @@
               <tr>
                 <td><!--TODO fix labels and error messages for identifiers-->
                   <span class="lbl-inline lbl"
-                        data-ng-hide="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length"><span data-ng-repeat="identifier in record.about.identifier">{{ identifier.identifierScheme['@id']}}</span>                      
+                        data-ng-hide="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length"><span data-ng-repeat="identifier in record.about.identifier">{{ identifier.identifierScheme['@id'] || "Identifier"}}</span>                      
                   </span>
                         
                   <span class="lbl-inline lbl error-label"

@@ -1,8 +1,5 @@
 var kitin = angular.module('kitin.controllers', []);
 
-var debug = null;
-
-
 kitin.controller('AppCtrl', function($scope, $rootScope, $modal, searchService) {
   $rootScope.state = {
     searchType: {},
@@ -705,18 +702,28 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     }
   }
 
-  /** debug
+  /** debugRecord
   * Function for debug purposes, !TODO REMOVE
   * Finds data bindings and prints record to console.log
   */
-  debug = function() {
-    updatePrinted = function(suffix, remove) {
+  function debugRecord() {
 
-      updateValue = function(value, suffix, remove) {
+    var updatePrinted = function(suffix, remove) {
+
+      var updateValue = function(value, suffix, remove) {
         // remove or add suffix
         v = (remove === true) ? value.replace(suffix,'') : value + '' + suffix;
         return v === 'undefined' ? null : v;
+      };
 
+      var iterateObject = function(obj, suffix, remove) {
+        for(var i in obj) {
+          if(_.isObject(obj[i])){
+            iterateObject(obj[i], suffix, remove);
+          } else {
+            obj[i] = updateValue(obj[i], suffix, remove);
+          }
+        }
       };
 
       // Select all mapped elements
@@ -728,14 +735,10 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
             dataRefCtrl.$setViewValue(updateValue(dataRefCtrl.$viewValue, suffix, remove));  
           } else if(dataRef.$scope) {
             // Special handle data-kitin-link-entity
+            
             // Multiple links
             if(dataRef.$scope['objects']) {
-              objs = dataRef.$scope['objects'];
-              for(var i in objs) {
-                for(var key in objs[i]) {
-                  objs[i][key] = updateValue(objs[i][key], suffix, remove);
-                }
-              }
+              iterateObject(dataRef.$scope['objects'], suffix, remove);
             // Single link
             } else if(dataRef.$scope['object']) {
               obj = dataRef.$scope['object'];
@@ -755,10 +758,10 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     $scope.debugRecord = JSON.stringify(angular.copy($scope.record), null, 4);
     // Remove suffix
     updatePrinted(suffix, true);
-  };
+  }
   // Could not get $viewContentLoading to work. Using timeout as a temporary solution
   $timeout(function() {
-    debug();
+    debugRecord();
   }, 1000);
     
 });
