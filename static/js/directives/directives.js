@@ -31,6 +31,16 @@ kitin.directive('publicationAndProduction', function(){
     };
 });
 
+kitin.directive('identifier2', function(){
+    return {
+        restrict: 'C',
+        templateUrl: '/partials/edit/bib/identifier',
+        controller: function($scope) {
+            //controller for your sub area.
+        }
+    };
+});
+
 kitin.directive('physicalDescription', function(){
     return {
         restrict: 'C',
