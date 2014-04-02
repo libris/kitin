@@ -33,5 +33,16 @@
       <div class="col6"></div>
     </div>
     <div style="clear:both"></div>
+
+    <div class="cols">
+      <div class="col6">
+          <label data-ng-repeat="audience in record.about.audience">
+            <span class="lbl">{{ "Målgrupp" }}</span>
+          <textarea data-inplace class="ng-pristine ng-valid" data-inplace data-ui-jq="autosize" type="text" data-ng-model="audience.label" ></textarea>
+        </label>
+      </div>
+      <div class="col6"></div>
+    </div>
+    <div style="clear:both"></div>    
     </ng-form>
  {% endraw %}
