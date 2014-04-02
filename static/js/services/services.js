@@ -184,9 +184,9 @@ kitin.service('editUtil', function(definitions) {
           return {'@type': "Person", controlledLabel: "", birthYear: ""};
         //case 'Concept':
         //  objectKeys: ['prefLabel', '@type', 'hiddenLabel', 'broader', 'narrower', '@id', 'scopeNote', 'historyNote' ]
-        case 'ISBN':
+        case '/def/identifiers/ISBN':
           return {'@type': "Identifier", identifierScheme: "ISBN", identifierValue: ""};
-        case 'ISSN':
+        case '/def/identifiers/ISSN':
           return {'@type': "Identifier", identifierScheme: "ISSN", identifierValue: ""};
         case 'ProviderEvent':
           return {'@type': "ProviderEvent", providerName: "", providerDate: "",
