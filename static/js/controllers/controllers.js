@@ -714,7 +714,9 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
 
       updateValue = function(value, suffix, remove) {
         // remove or add suffix
-        return (remove === true) ? value.replace(suffix,'') : value + '' + suffix;
+        v = (remove === true) ? value.replace(suffix,'') : value + '' + suffix;
+        return v === 'undefined' ? null : v;
+
       };
 
       // Select all mapped elements
