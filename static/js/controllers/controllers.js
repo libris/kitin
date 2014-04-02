@@ -1,5 +1,7 @@
 var kitin = angular.module('kitin.controllers', []);
 
+var showPrinted = null;
+
 kitin.controller('AppCtrl', function($scope, $rootScope, $modal, searchService) {
   $rootScope.state = {
     searchType: {},
@@ -700,4 +702,56 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
       return 0;
     }
   }
+
+
+  /** showPrinted
+  * Function for debug purposes, !TODO REMOVE
+  * Finds data bindings and prints record to console.log
+  */
+  showPrinted = function() {
+    updatePrinted = function(suffix, remove) {
+
+      updateValue = function(value, suffix, remove) {
+        // remove or add suffix
+        return (remove === true) ? value.replace(suffix,'') : value + '' + suffix;
+      };
+
+      // Select all mapped elements
+      $('[data-ng-model],[ng-model],input,textarea,[data-kitin-link-entity]').each(function() {
+        var dataRef = $(this).data();
+        if(dataRef) {
+          if(dataRef.$ngModelController) {
+            dataRefCtrl = dataRef.$ngModelController;
+            dataRefCtrl.$setViewValue(updateValue(dataRefCtrl.$viewValue, suffix, remove));  
+          } else if(dataRef.$scope) {
+            // Special handle data-kitin-link-entity
+            // Multiple links
+            if(dataRef.$scope['objects']) {
+              objs = dataRef.$scope['objects'];
+              for(var i in objs) {
+                for(var key in objs[i]) {
+                  objs[i][key] = updateValue(objs[i][key], suffix, remove);
+                }
+              }
+            // Single link
+            } else if(dataRef.$scope['object']) {
+              obj = dataRef.$scope['object'];
+              for(var objkey in obj) {
+                obj[objkey] = updateValue(obj[objkey], suffix, remove);
+              }
+            }
+          }
+        }
+      });
+    };
+
+    var suffix = ' ***PRINTED';
+    // Add suffix
+    updatePrinted(suffix);
+    // Print
+    console.debug(JSON.stringify($scope.record, null, 4));
+    // Remove suffix
+    updatePrinted(suffix, true);
+  };
+
 });
