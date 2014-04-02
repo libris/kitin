@@ -1,6 +1,6 @@
 var kitin = angular.module('kitin.controllers', []);
 
-var showPrinted = null;
+var debug = null;
 
 kitin.controller('AppCtrl', function($scope, $rootScope, $modal, searchService) {
   $rootScope.state = {
@@ -704,11 +704,11 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   }
 
 
-  /** showPrinted
+  /** debug
   * Function for debug purposes, !TODO REMOVE
   * Finds data bindings and prints record to console.log
   */
-  showPrinted = function() {
+  debug = function() {
     updatePrinted = function(suffix, remove) {
 
       updateValue = function(value, suffix, remove) {
