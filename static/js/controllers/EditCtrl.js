@@ -402,13 +402,19 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
       };
 
       // Select all mapped elements
-      $('[data-ng-model],[ng-model],input,textarea,[data-kitin-link-entity]').each(function() {
+      var cssSelector = '[data-ng-model],[ng-model],input,textarea,[data-kitin-link-entity]';
+      $(cssSelector).each(function() {
         var dataRef = $(this).data();
         if(dataRef) {
           if(dataRef.$ngModelController) {
             dataRefCtrl = dataRef.$ngModelController;
             if(dataRefCtrl.$viewValue) {
               dataRefCtrl.$setViewValue(updateValue(dataRefCtrl.$viewValue, suffix, remove));  
+              if(remove) {
+                // Set binding to non dirty and pristine, aka user has not interacted with the control.
+                dataRefCtrl.dirty = false;
+                dataRefCtrl.$setPristine();
+              }
             }
           } else if(dataRef.$scope) {
             // Special handle data-kitin-link-entity

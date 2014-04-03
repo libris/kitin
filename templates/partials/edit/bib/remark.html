@@ -34,13 +34,13 @@
       <div class="col6">
           <label>
             <span class="lbl">{{ "Allmän anmärkning" }}</span>
-          <textarea data-inplace class="ng-pristine ng-valid" data-inplace data-ui-jq="autosize" type="text" data-ng-model="record.about.note" ></textarea>
+          <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="record.about.note" ></textarea>
         </label>
       </div>
       <div class="col6">
           <label>
             <span class="lbl">{{ "SystemRequirements" }}</span>
-          <textarea data-inplace class="ng-pristine ng-valid" data-inplace data-ui-jq="autosize" type="text" data-ng-model="record.about.systemRequirements" ></textarea>
+          <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="record.about.systemRequirements" ></textarea>
         </label>
       </div>
     </div>
@@ -49,13 +49,13 @@
 			<div class="col6">
 	        <label data-ng-repeat="comment in record.about.comment">
             <span class="lbl">{{ "comment" }}</span>
-          <textarea data-inplace class="ng-pristine ng-valid" data-inplace data-ui-jq="autosize" type="text" data-ng-model="comment" ></textarea>
+            <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="record.about.comment[$index]" ></textarea>
         </label>
 			</div>
 			<div class="col6">
 	        <label data-ng-repeat="topic in record.about.isPrimaryTopicOf">
             <span class="lbl">{{ "isPrimaryTopicOf type: " + topic['@type'] }}</span>
-          <textarea data-inplace class="ng-pristine ng-valid" data-inplace data-ui-jq="autosize" type="text" data-ng-model="topic['@id']" ></textarea>
+          <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="topic['@id']" ></textarea>
         </label>
 			</div>		
 		</div>
@@ -64,7 +64,7 @@
       <div class="col6">
           <label data-ng-repeat="audience in record.about.audience">
             <span class="lbl">{{ "Målgrupp" }}</span>
-          <textarea data-inplace class="ng-pristine ng-valid" data-inplace data-ui-jq="autosize" type="text" data-ng-model="audience.label" ></textarea>
+          <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="audience.label" ></textarea>
         </label>
       </div>
       <div class="col6"></div>
