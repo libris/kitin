@@ -15,12 +15,12 @@
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.publicationStatus['@id']">
         </label>
         <label>
-          <span class="lbl">{{ "publishedYear" }}</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.publishedYear">
+          <span class="lbl">{{ "publicationYear" }}</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.publicationYear">
         </label>
-        <label>
-          <span class="lbl">{{ "country" }}</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.country['@id']">
+        <label data-ng-repeat="publicationCountry in record.about.publicationCountry">
+          <span class="lbl">{{ "publicationCountry" }}</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="publicationCountry['@id']">
         </label>
       </div>
       <div class="col6">
