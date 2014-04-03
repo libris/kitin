@@ -407,7 +407,9 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
         if(dataRef) {
           if(dataRef.$ngModelController) {
             dataRefCtrl = dataRef.$ngModelController;
-            dataRefCtrl.$setViewValue(updateValue(dataRefCtrl.$viewValue, suffix, remove));  
+            if(dataRefCtrl.$viewValue) {
+              dataRefCtrl.$setViewValue(updateValue(dataRefCtrl.$viewValue, suffix, remove));  
+            }
           } else if(dataRef.$scope) {
             // Special handle data-kitin-link-entity
             
