@@ -63,8 +63,12 @@
     <div class="cols">
       <div class="col6">
           <label data-ng-repeat="audience in record.about.audience">
-            <span class="lbl">{{ "Målgrupp" }}</span>
-          <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="audience.label" ></textarea>
+            <span class="lbl">{{ "Audience Label" }}</span>
+          <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="audience.label" ></textarea>        
+        </label>
+          <label data-ng-repeat="audience in record.about.audience">
+            <span class="lbl">{{ "Audience ID" }}</span>
+          <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="audience" ></textarea>          
         </label>
       </div>
       <div class="col6"></div>
