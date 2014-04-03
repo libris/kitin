@@ -70,13 +70,16 @@
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.editionStatement.edition" >
         </label>
       </div>
-        <div class="col3">
+        <div class="col6">
           <div data-ng-repeat="manufacture in record.about.manufacture">
             <label>
               <span class="lbl">{{ "Tryckplats" }}</span>
               <input data-inplace class="authdependant" type="text" data-ng-model="manufacture.place.label" />
             </label>
-          </div>
+            <label>
+              <span class="lbl">{{ "Tryckeri" }}</span>
+              <input data-inplace class="authdependant" type="text" data-ng-model="manufacture.providerName" />
+            </label>
         </div>
       </div>
     </div>

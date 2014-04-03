@@ -18,10 +18,18 @@
           <span class="lbl">{{ "Övrig titelinformation" }}</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.subtitle"></textarea>
         </label>
+        <label>
+          <span class="lbl">{{ "titleVariation" }}</span>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.titleValue"></textarea>
+        </label>
         <ng:switch on="instance['@type']">
         <label data-ng-switch-when="Serial">
            <span class="lbl">{{ "Nyckeltitel" }}</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.keyTitle.titleValue"></textarea>       
+        </label>
+        <label data-ng-repeat="uniformTitle in record.about.relation">
+          <span class="lbl">{{ "Relation:work uniformTitle" }}</span>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="uniformTitle.uniformTitle"></textarea>
         </label>
         </ng:switch>
         <span class="lbl">{{ "Språk" }}</span>
