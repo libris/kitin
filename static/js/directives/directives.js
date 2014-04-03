@@ -46,9 +46,6 @@ kitin.directive('physicalDescription', function(){
         restrict: 'C',
         templateUrl: '/partials/edit/bib/physical_description',
         controller: function($scope) {
-          if($scope.record && $scope.record.about && $scope.record.about.hasFormat) {
-            $scope.record.about.hasFormat = _.sortBy($scope.record.about.hasFormat, '@type');
-          }
         }
     };
 });

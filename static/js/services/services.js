@@ -35,14 +35,89 @@ kitin.factory('definitions', function($http) {
   return definitions;
 });
 
-kitin.factory('dataService', function ($http, $q) {
+
+kitin.factory('recordUtil', function() {
+  return {
+
+    decorators: {
+      identifier: {
+        update: function(record, func, un) {
+          if(!_.isEmpty(record.about.identifier)) {
+            var updateEntity = func(record.about.identifier);
+            if(!un) {
+              record.about.identifierByIdentifierScheme = updateEntity;
+              delete record.about.identifier;
+            } else {
+              record.about.identifier = updateEntity;
+              delete record.about.identifierByIdentifierScheme;
+            }
+          }
+        },
+        decorate: function(entity) {
+          return _.groupBy(entity, function(entity) { return entity.identifierScheme["@id"]; });
+        },
+        undecorate: function(entity) {
+          return _.flatten(entity, function(entityGroup) { return entityGroup; });
+        }
+      },
+
+      hasFormat: {
+        update: function(record, func, un) {
+          if(!_.isEmpty(record.about.hasFormat)) {
+            var updateEntity = func(record.about.hasFormat);
+            if(!un) {
+              record.about.hasFormatByType = updateEntity;
+              delete record.about.hasFormat;
+            } else {
+              record.about.hasFormat = updateEntity;
+              delete record.about.hasFormatByType;
+            }
+          }
+        },
+        decorate: function(entity) {
+          return _.groupBy(entity, function(entity) { return entity["@type"]; });
+        },
+        undecorate: function(entity) {
+          return _.flatten(entity, function(entityGroup) { return entityGroup; });
+        }
+      }
+
+    },
+
+    decorate: function(record) {
+      return this.doDecorate(record);
+    },
+
+    undecorate: function(record) {
+      return this.doDecorate(record, true);
+    },
+
+    doDecorate: function(record, un) {
+      // Decorate or undecorate
+      var decoratorFunc = un ? 'undecorate' : 'decorate';
+      if(!_.isEmpty(record)) {
+        // Get all decorators
+        for(var decoratorName in this.decorators) {
+          var decorator = this.decorators[decoratorName];
+          // Pass function to decorate or undecorate entity
+          decorator.update(record, decorator[decoratorFunc], un);
+        }
+      }
+      return record;
+    }
+
+  };
+});
+
+
+kitin.factory('dataService', function ($http, $q, recordUtil) {
   return {
 
     record: {
       get: function (type, id) {
         var record = $q.defer();
         $http.get("/record/" + type + "/" + id).success(function (struct, status, headers) {
-          record['recdata'] = struct;
+          record['recdata'] = recordUtil.decorate(struct);
           record['etag'] = headers('etag');
           record.resolve(record);
         });
@@ -53,7 +128,7 @@ kitin.factory('dataService', function ($http, $q) {
         var record = $q.defer();
         $http.put("/record/" + type + "/" + id, data,
                   {headers: {"If-match":etag}}).success(function(data, status, headers) {
-          record['recdata'] = data;
+          record['recdata'] = recordUtil.undecorate(data);
           record['etag'] = headers('etag');
           record.resolve(record);
           console.log("Saved record.");
@@ -66,7 +141,7 @@ kitin.factory('dataService', function ($http, $q) {
       create: function(type, data) {
         var record = $q.defer();
         $http.post("/record/" + type + "/create", data).success(function(data, status, headers) {
-          record.resolve(data);
+          record.resolve(recordUtil.decorate(data));
         });
         return record.promise;
       }
@@ -76,7 +151,7 @@ kitin.factory('dataService', function ($http, $q) {
       get: function (draftId) {
         var record = $q.defer();
         $http.get("/draft/" + draftId).success(function (data, status, headers) {
-          record['recdata'] = data;
+          record['recdata'] = recordUtil.decorate(data);
           record['etag'] = headers('etag');
           record.resolve(record);
         });
@@ -86,9 +161,9 @@ kitin.factory('dataService', function ($http, $q) {
       save: function(type, draftId, post, etag) {
         var record = $q.defer();
         etag = etag ? etag : '';
-        $http.put("/draft/" + type + '/' + draftId, post, {headers: {"If-match":etag } })
+        $http.put("/draft/" + type + '/' + draftId, recordUtil.undecorate(post), {headers: {"If-match":etag } })
           .success(function(data, status, headers) {
-            record['recdata'] = data;
+            record['recdata'] = recordUtil.decorate(data);
             record['etag'] = headers('etag');
             record.resolve(record);
             console.log("Saved record.");
@@ -102,9 +177,9 @@ kitin.factory('dataService', function ($http, $q) {
       create: function(type, post, etag) {
         var record = $q.defer();
         etag = etag ? etag : '';
-        $http.post("/draft/" + type, post, {headers: {"If-match":etag } })
+        $http.post("/draft/" + type, recordUtil.undecorate(post), {headers: {"If-match":etag } })
           .success(function(data, status, headers) {
-            record.resolve(data);
+            record.resolve(recordUtil.decorate(data));
           });
         return record.promise;
       },
@@ -184,10 +259,10 @@ kitin.service('editUtil', function(definitions) {
           return {'@type': "Person", controlledLabel: "", birthYear: ""};
         //case 'Concept':
         //  objectKeys: ['prefLabel', '@type', 'hiddenLabel', 'broader', 'narrower', '@id', 'scopeNote', 'historyNote' ]
-        case '/def/identifiers/ISBN':
-          return {'@type': "Identifier", identifierScheme: "ISBN", identifierValue: ""};
-        case '/def/identifiers/ISSN':
-          return {'@type': "Identifier", identifierScheme: "ISSN", identifierValue: ""};
+        case 'ISBN':
+          return {'@type': "Identifier", identifierScheme: { '@id': "/def/identifiers/isbn" }, identifierValue: ""};
+        case 'ISSN':
+          return {'@type': "Identifier", identifierScheme: { '@id': "/def/identifiers/issn" }, identifierValue: ""};
         case 'ProviderEvent':
           return {'@type': "ProviderEvent", providerName: "", providerDate: "",
                   place: {'@type': "Place", label: ""}};
