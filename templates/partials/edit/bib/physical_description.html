@@ -1,6 +1,14 @@
  {% raw %}
   <div ng-init="hasFormat = record.about.hasFormat;">
     <h2>Fysisk beskrivning<i></i></h2>
+    <div class="cols">
+    	<div class="col6">
+	      <label>
+          <span class="lbl">filetype</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.fileType" placeholder="">
+         </label>
+			</div>
+    </div>
     <div class="cols" data-ng-repeat="format in hasFormat" ng-switch on="format['@type']">
 
       <!-- Type header -->
