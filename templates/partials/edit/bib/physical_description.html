@@ -1,33 +1,31 @@
  {% raw %}
-  <div ng-init="hasFormat = record.about.hasFormat;">
+  <div ng-init="hasFormat = record.about.hasFormatByType;">
     <h2>Fysisk beskrivning<i></i></h2>
-    <div class="cols" data-ng-repeat="format in hasFormat" ng-switch on="format['@type']">
+    <div class="cols"data-ng-repeat="(formatType, subFormat) in hasFormat">
+              <!-- Type header -->
+      <h3 class="ng-binding">{{formatType}}</h3>
+      <div  data-ng-repeat="format in subFormat" ng-switch on="formatType">
 
-      <!-- Type header -->
-      <h3 class="ng-binding" ng-if="hasFormat[$index-1]['@type'][0] !== format['@type'][0]">{{format['@type']}}</h3>
-
-
-      
-      <div ng-switch-when="Electronic">
-        <div class="col3">
-          <label>
-            <span class="lbl">carrierType</span>
-            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.carrierType[0]['@id']" placeholder="">
-          </label>
+        <div ng-switch-when="Electronic">
+          <div class="col3">
+            <label>
+              <span class="lbl">carrierType</span>
+              <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.carrierType[0]['@id']" placeholder="">
+            </label>
+          </div>
+          <div class="col3">
+            <label>
+              <span class="lbl">color</span>
+              <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.color['@id']" placeholder="">
+            </label>
+          </div>
+          <div class="col3">
+            <label>
+              <span class="lbl">dimensions</span>
+              <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.dimensions['@id']" placeholder="">
+            </label>
+          </div>
         </div>
-        <div class="col3">
-          <label>
-            <span class="lbl">color</span>
-            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.color['@id']" placeholder="">
-          </label>
-        </div>
-        <div class="col3">
-          <label>
-            <span class="lbl">dimensions</span>
-            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.dimensions['@id']" placeholder="">
-          </label>
-        </div>
-      </div>
 
 
 
