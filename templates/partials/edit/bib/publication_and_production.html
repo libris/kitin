@@ -6,6 +6,22 @@
           <span class="lbl">{{ "Allmän medieterm" }}</span>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.mediaTerm">
         </label>
+        <label>
+          <span class="lbl">{{ "date" }}</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.date">
+        </label>
+        <label>
+          <span class="lbl">{{ "publicationStatus" }}</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.publicationStatus['@id']">
+        </label>
+        <label>
+          <span class="lbl">{{ "publishedYear" }}</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.publishedYear">
+        </label>
+        <label>
+          <span class="lbl">{{ "country" }}</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.country['@id']">
+        </label>
       </div>
       <div class="col6">
       </div>
