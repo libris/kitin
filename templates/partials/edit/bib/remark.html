@@ -9,7 +9,7 @@
         </label>
       </div>
       <div class="col6">
-        <label >
+        <label>
           <span class="lbl">{{ "LanguageNote" }}</span>
             <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
                       data-ng-model="record.about.languageNote" ></textarea>
@@ -23,7 +23,7 @@
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.listOfContents" ></textarea>
         </label>
       </div>
-      <div class="col6" data-ng-show="getTypeDef(instance).term == 'Audiobook'">
+      <div class="col6"> <!-- data-ng-show="getTypeDef(instance).term == 'Audiobook'" ?-->
         <label>
           <span class="lbl">{{ "Medverkande" }}</span>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.contributorNote" >
@@ -37,9 +37,28 @@
           <textarea data-inplace class="ng-pristine ng-valid" data-inplace data-ui-jq="autosize" type="text" data-ng-model="record.about.note" ></textarea>
         </label>
       </div>
-      <div class="col6"></div>
+      <div class="col6">
+          <label>
+            <span class="lbl">{{ "SystemRequirements" }}</span>
+          <textarea data-inplace class="ng-pristine ng-valid" data-inplace data-ui-jq="autosize" type="text" data-ng-model="record.about.systemRequirements" ></textarea>
+        </label>
+      </div>
     </div>
     <div style="clear:both"></div>
+		<div class="cols">
+			<div class="col6">
+	        <label data-ng-repeat="comment in record.about.comment">
+            <span class="lbl">{{ "comment" }}</span>
+          <textarea data-inplace class="ng-pristine ng-valid" data-inplace data-ui-jq="autosize" type="text" data-ng-model="comment" ></textarea>
+        </label>
+			</div>
+			<div class="col6">
+	        <label data-ng-repeat="topic in record.about.isPrimaryTopicOf">
+            <span class="lbl">{{ "isPrimaryTopicOf type: " + topic['@type'] }}</span>
+          <textarea data-inplace class="ng-pristine ng-valid" data-inplace data-ui-jq="autosize" type="text" data-ng-model="topic['@id']" ></textarea>
+        </label>
+			</div>		
+		</div>
 
     <div class="cols">
       <div class="col6">
