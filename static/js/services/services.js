@@ -39,72 +39,52 @@ kitin.factory('definitions', function($http) {
 kitin.factory('recordUtil', function() {
   return {
 
-    decorators: {
+    indexes: {
       identifier: {
-        update: function(record, func, un) {
-          if(!_.isEmpty(record.about.identifier)) {
-            var updateEntity = func(record.about.identifier);
-            if(!un) {
-              record.about.identifierByIdentifierScheme = updateEntity;
-              delete record.about.identifier;
-            } else {
-              record.about.identifier = updateEntity;
-              delete record.about.identifierByIdentifierScheme;
-            }
-          }
-        },
-        decorate: function(entity) {
-          return _.groupBy(entity, function(entity) { return entity.identifierScheme["@id"]; });
-        },
-        undecorate: function(entity) {
-          return _.flatten(entity, function(entityGroup) { return entityGroup; });
+        indexName: "identifierByIdentifierScheme",
+        getIndexKey: function (entity) {
+          return entity.identifierScheme["@id"];
         }
       },
-
       hasFormat: {
-        update: function(record, func, un) {
-          if(!_.isEmpty(record.about.hasFormat)) {
-            var updateEntity = func(record.about.hasFormat);
-            if(!un) {
-              record.about.hasFormatByType = updateEntity;
-              delete record.about.hasFormat;
-            } else {
-              record.about.hasFormat = updateEntity;
-              delete record.about.hasFormatByType;
-            }
-          }
-        },
-        decorate: function(entity) {
-          return _.groupBy(entity, function(entity) { return entity["@type"]; });
-        },
-        undecorate: function(entity) {
-          return _.flatten(entity, function(entityGroup) { return entityGroup; });
+        indexName: "hasFormatByType",
+        getIndexKey: function (entity) {
+          return entity["@type"];
         }
       }
-
     },
 
     decorate: function(record) {
-      return this.doDecorate(record);
+      function doIndex (entity, key, cfg) {
+        var items = entity[key];
+        if(_.isEmpty(items)) {
+          return;
+        }
+        entity[cfg.indexName] = _.groupBy(items, cfg.getIndexKey);
+        delete entity[key];
+      }
+      this.mutateObject(record.about, doIndex);
+      return record;
     },
 
     undecorate: function(record) {
-      return this.doDecorate(record, true);
+      function doUnindex (entity, key, cfg) {
+        entity[key] = _.flatten(entity[cfg.indexName], function(it) { return it; });
+        delete entity[cfg.indexName];
+      }
+      this.mutateObject(record.about, doUnindex);
+      return record;
     },
 
-    doDecorate: function(record, un) {
-      // Decorate or undecorate
-      var decoratorFunc = un ? 'undecorate' : 'decorate';
-      if(!_.isEmpty(record)) {
-        // Get all decorators
-        for(var decoratorName in this.decorators) {
-          var decorator = this.decorators[decoratorName];
-          // Pass function to decorate or undecorate entity
-          decorator.update(record, decorator[decoratorFunc], un);
+    mutateObject: function(entity, mutator) {
+      if(!_.isEmpty(entity)) {
+        for (var key in this.indexes) {
+          var cfg = this.indexes[key];
+          mutator(entity, key, cfg);
         }
       }
-      return record;
-    }
+      return entity;
+    },
 
   };
 });
