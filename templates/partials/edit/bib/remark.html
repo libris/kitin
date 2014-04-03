@@ -28,6 +28,10 @@
           <span class="lbl">{{ "Medverkande" }}</span>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.contributorNote" >
         </label>
+        <label>
+          <span class="lbl">{{ "performerNote" }}</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.performerNote" >
+        </label>
       </div>
     </div>
     <div class="cols">
@@ -56,6 +60,10 @@
 	        <label data-ng-repeat="topic in record.about.isPrimaryTopicOf">
             <span class="lbl">{{ "isPrimaryTopicOf type: " + topic['@type'] }}</span>
           <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="topic['@id']" ></textarea>
+        </label>
+	        <label data-ng-repeat="topic in record.about.isPrimaryTopicOf">
+            <span class="lbl">{{ "isPrimaryTopicOf comment" }}</span>
+          <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="topic.comment" ></textarea>
         </label>
 			</div>		
 		</div>
