@@ -43,7 +43,7 @@ kitin.factory('recordUtil', function() {
       identifier: {
         indexName: "identifierByIdentifierScheme",
         getIndexKey: function (entity) {
-          return entity.identifierScheme["@id"];
+          return entity.identifierScheme ? entity.identifierScheme["@id"] : 'identifier';
         }
       },
       hasFormat: {
@@ -243,6 +243,8 @@ kitin.service('editUtil', function(definitions) {
           return {'@type': "Identifier", identifierScheme: { '@id': "/def/identifiers/isbn" }, identifierValue: ""};
         case 'ISSN':
           return {'@type': "Identifier", identifierScheme: { '@id': "/def/identifiers/issn" }, identifierValue: ""};
+        case 'Identifier':
+          return {'@type': "Identifier", identifierValue: ""};
         case 'ProviderEvent':
           return {'@type': "ProviderEvent", providerName: "", providerDate: "",
                   place: {'@type': "Place", label: ""}};

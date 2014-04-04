@@ -1,17 +1,17 @@
  {% raw %}
-    <div class="cols">
-      <div class="col6">
-      <!--ISBN-->
-      <div data-ng-repeat="identifier in record.about.identifier">
-        <div class="datatable" data-ng-target="isbnTable">
+  <div class="cols">
+    <div class="col6">
+    
+      <div data-ng-repeat="(identifierSchemeName, identifierScheme) in record.about.identifierByIdentifierScheme" ng-switch on="identifierSchemeName">
+        <!-- ISBN START -->
+        <div ng-switch-when="/def/identifiers/isbn" class="datatable" data-ng-target="isbnTable">
           <table>
-            <thead data-ng-if="record.about.identifier.length">
+            <thead>
               <tr>
                 <td><!--TODO fix labels and error messages for identifiers-->
                   <span class="lbl-inline lbl"
-                        data-ng-hide="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length"><span data-ng-repeat="identifier in record.about.identifier">{{ identifier.identifierScheme['@id'] || "Identifier"}}</span>                      
+                        data-ng-hide="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length"><span>{{ identifier.identifierScheme['@id'] || "ISBN"}}</span>                      
                   </span>
-                        
                   <span class="lbl-inline lbl error-label"
                         data-ng-show="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length">{{ "ISBN" }} 
                   <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_value">(Fel numeriskt värde)</span>
@@ -25,7 +25,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr data-ng-repeat="identifier in record.about.identifier"> 
+              <tr data-ng-repeat="identifier in identifierScheme"> 
                 <td>
                   <label>
                     <input type="text" data-inplace name="isbn_name" data-ng-model="identifier.identifierValue" data-isbn-pattern="^$|^[0-9\-xX]*$" isbnvalidator/>
@@ -37,7 +37,7 @@
                   </label>
                 </td>
                 <td class="controls">
-                  <button ng-show="!$first" class="btn-link deleter" data-ng-click="removeObject(record.about, 'identifier', $index)">
+                  <button ng-show="!$first" class="btn-link deleter" data-ng-click="removeObject(record.about.identifierByIdentifierScheme, identifierSchemeName, $index)">
                     <i class="fa fa-times"></i>
                   </button>
                 </td>
@@ -46,22 +46,22 @@
             <tfoot>
               <tr>
                 <td colspan="3">
-                  <button class="add-thing btn-link" data-ng-click="addObject(record.about, 'identifier', 'ISBN', 'isbnTable')">{{ 'Lägg till ISBN' }}</button>
+                  <button class="add-thing btn-link" data-ng-click="addObject(record.about.identifierByIdentifierScheme, identifierSchemeName, 'ISBN', 'isbnTable')">{{ 'Lägg till ISBN' }}</button>
                 </td>
               </tr>
             </tfoot>
           </table>
         </div>
-      </div>
-      <!-- ISSN -->
-<!--
-      <div data-ng-repeat="identifier in record.about.identifier">
-        <div class="datatable" data-ng-target="identifierTable">
+        <!-- ISBN END -->
+
+
+        <!-- ISSN START -->
+        <div ng-switch-when="/def/identifiers/issn" class="datatable" data-ng-target="issnTable">
           <table>
-            <thead data-ng-if="record.about.identifier.length">
+            <thead>
               <tr>
                 <td>
-                  <span class="lbl-inline lbl" data-ng-repeat="identifier in record.about.identifier" data-ng-show="$first">{{ identifier.identifierScheme}}</span>
+                  <span class="lbl-inline lbl">{{ "ISSN" }}</span>
                 </td>
                 <td>
                   <span class="lbl">{{ "Notering" }}</span>
@@ -70,7 +70,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr data-ng-repeat="identifier in record.about.identifier"> 
+              <tr data-ng-repeat="identifier in identifierScheme"> 
                 <td>
                   <label>
                     <input data-inplace type="text" data-ng-model="identifier.identifierValue" />
@@ -82,7 +82,7 @@
                   </label>
                 </td>
                 <td class="controls">
-                  <button ng-show="!$first" class="btn-link deleter" data-ng-click="removeObject(record.about, 'identifier', $index)">
+                  <button ng-show="!$first" class="btn-link deleter" data-ng-click="removeObject(record.about.identifierByIdentifierScheme, identifierSchemeName, $index)">
                     <i class="fa fa-times"></i>
                   </button>
                 </td>
@@ -91,22 +91,22 @@
             <tfoot>
               <tr>
                 <td colspan="3">
-                  <button class="add-thing btn-link" data-ng-click="addObject(record.about, 'identifier', 'ISSN',  'identifierTable')">{{ 'Lägg till ISSN' }}</button>
+                  <button class="add-thing btn-link" data-ng-click="addObject(record.about.identifierByIdentifierScheme, identifierSchemeName, 'ISSN',  'issnTable')">{{ 'Lägg till ISSN' }}</button>
                 </td>
               </tr>
             </tfoot>
           </table>
         </div>
-      </div>
--->
-       <!-- other unidentified identifiers etc.)-->
-      <!--
-<div data-ng-repeat="identifier in record.about.identifier" >
-        <div class="datatable" data-ng-target="identifierTable">
+        <!-- ISSN END -->
+
+
+        <!-- OTHER IDENTIFIER START -->
+        <div ng-switch-default class="datatable" data-ng-target="identifierTable">
           <table>
-            <thead data-ng-if="record.about.identifier.length">
+            <thead>
               <tr>
-                <td>                  <span class="lbl-inline lbl" data-ng-repeat="identifier in record.about.identifier" data-ng-show="$first">{{ 'Identifierare' }}</span>
+                <td>
+                  <span class="lbl-inline lbl">{{ 'Identifierare' }}</span>
                 </td>
                 <td>
                   <span class="lbl">{{ "Notering" }}</span>
@@ -115,7 +115,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr data-ng-repeat="identifier in record.about.identifier"> 
+              <tr data-ng-repeat="identifier in identifierScheme"> 
                 <td>
                   <label>
                     <input data-inplace type="text" data-ng-model="identifier.identifierValue" />
@@ -127,7 +127,7 @@
                   </label>
                 </td>
                 <td class="controls">
-                  <button ng-show="!$first" class="btn-link deleter" data-ng-click="removeObject(record.about, 'identifier', $index)">
+                  <button ng-show="!$first" class="btn-link deleter" data-ng-click="removeObject(record.about.identifierByIdentifierScheme, identifierSchemeName, $index)">
                     <i class="fa fa-times"></i>
                   </button>
                 </td>
@@ -136,14 +136,16 @@
             <tfoot>
               <tr>
                 <td colspan="3">
-                  <button class="add-thing btn-link" data-ng-click="addObject(record.about, 'identifier', 'identifierScheme',  'identifierTable')">{{ 'Lägg till Identifierare' }}</button>
+                  <button class="add-thing btn-link" data-ng-click="addObject(record.about.identifierByIdentifierScheme, 'identifier', identifierSchemeName,  'identifierTable')">{{ 'Lägg till Identifierare' }}</button>
                 </td>
               </tr>
             </tfoot>
           </table>
         </div>
-        </div>
--->
+        <!-- OTHER IDENTIFIER END -->
+
       </div>
+    
     </div>
+  </div>
  {% endraw %}
