@@ -375,7 +375,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
       if (typeof obj === "undefined")
         return;
       var dfn = $scope.getTypeDef(obj);
-      return (dfn)? dfn['label_sv'] : obj['@type'];
+      return (dfn)? dfn['label_sv'] : obj['@type'].join(', ');
     };
   });
 
