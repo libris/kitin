@@ -4,7 +4,6 @@
   <div id="grid"></div>
   <div class="edit content {{recType}}">
     <div>
-    <!--save for history function and type presentation
       <div class="record-metadata">
       <span class="record-type">{{recType}}</span>
       <span data-nf-if="record.originalCatalogingAgency.name">
@@ -54,9 +53,12 @@
               </label>
                   </span>
       </div>
-			-->
+
       <header class="clearfix">
-        <h1 data-ng-click="cycleType($event, record.about)"><span data-ng-if="recType == 'auth'">Aukt.</span>{{ getTypeLabel(record.about) }} 
+        <h1 data-ng-click="cycleType($event, record.about)">
+        <span data-ng-if="recType == 'auth'">Aukt.</span>{{ getTypeLabel(record.about) }}
+        <span data-ng-repeat="contentType in record.about.contentType">{{contentType['@id']}}</span>
+        <span>{{ record.about.text['@id'] }}</span>
           <!--(Bibliografiskt material)--></h1>
 
 
@@ -72,8 +74,7 @@
             </ul>
           </div>
         </div>
--->
-        <!--
+
         <div class="levels">
           <span>{{ enums.bibLevel[record.bibLevel].label_sv }}</span>
           <span>{{ enums.encLevel[record.encLevel].label_sv }}</span>
@@ -89,17 +90,18 @@
     </div>
     <div ng-switch on="recType">
       <div ng-switch-when="auth">
-        <div ng-include="'/partials/edit_auth'"></div>
+        <div ng-include="'/partials/edit/auth'"></div>
       </div>
       <div ng-switch-default>
         <div>
-          <div ng-include="'/partials/edit_bib'"></div>
+          <div ng-include="'/partials/edit/bib'"></div>
         </div>
       </div>
     </div>
   </div>
+  
   <div data-ng-if="recType == 'bib' || recType == 'external'"
-        data-ng-include="'/partials/edit_hld'"></div>
+        data-ng-include="'/partials/edit/hld'"></div>
 
   <!-- dialog -->
   <div id="confirmDeleteDraftDialog" data-ng-show="confirmDeleteDraft" class="popover">

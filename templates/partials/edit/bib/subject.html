@@ -1,6 +1,6 @@
 {% raw %}
-
-<div class="cols">
+<h2>{{ "Ämnesord och klassifikation" }}<i></i></h2>
+<div class="cols" onload="work = record.about">
   <div class="col6">
     <div data-ng-repeat="(key, container) in schemeContainer.byScheme" class="scheme"
        data-ng-init="scheme = conceptSchemes.byNotation[key] || {'title': key}">
@@ -35,7 +35,7 @@
             <!--<span class="lbl">{{ object.inScheme.notation }}</span>-->
           </div>
           <div data-ng-show="object.broader" class="col4">
-            <!-- <em>Sammansättning: {{broader.['@id']}}</em> -->
+            <!-- <em>Sammansättning: {{broader['@id']}}</em> -->
             <div>
               <span data-ng-repeat="broader in object.broader">
                 {{broader.prefLabel}}

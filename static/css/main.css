@@ -13,6 +13,10 @@
 /*lighter text color*/
 /*font-color*/
 /* fonts */
+/* BUTTONS START ------------------------- */
+/*@btn-default-color: @green;
+@btn-default-bg: @green-light;*/
+/* BUTTONS END ------------------------- */
 /* grid */
 .cols {
   overflow: hidden;
@@ -290,9 +294,6 @@ input[type="color"]:focus,
   src: url('../fonts/DroidSerif-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/DroidSerif-BoldItalic-webfont.woff') format('woff'), url('../fonts/DroidSerif-BoldItalic-webfont.ttf') format('truetype'), url('../fonts/DroidSerif-BoldItalic-webfont.svg#DroidSerifBoldItalic') format('svg');
   font-weight: bold;
   font-style: italic;
-}
-.btn-default {
-  background-color: #000;
 }
 /* GENERAL START ------------------------- */
 html {

@@ -1,0 +1,14 @@
+ {% raw %}
+<h2>{{ "Omappade" }}<i></i></h2>
+    <div class="cols">
+      <div class="col12" data-ng-repeat="item in record.unknown">
+        <div data-ng-repeat="(k, subitem) in item">
+        <label>
+          <span class="lbl">{{ k }}</span>
+          <label data-ng-repeat="(subfield_label, subfield) in subitem.subfields">
+            <input data-inplace class="authdependant" type="text" data-ng-repeat="(k, v) in subfield" data-ng-model="v"/>
+          </label>
+        </label>
+      </div>
+    </div>
+ {% endraw %}

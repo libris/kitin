@@ -35,14 +35,69 @@ kitin.factory('definitions', function($http) {
   return definitions;
 });
 
-kitin.factory('dataService', function ($http, $q) {
+
+kitin.factory('recordUtil', function() {
+  return {
+
+    indexes: {
+      identifier: {
+        indexName: "identifierByIdentifierScheme",
+        getIndexKey: function (entity) {
+          return entity.identifierScheme ? entity.identifierScheme["@id"] : 'identifier';
+        }
+      },
+      hasFormat: {
+        indexName: "hasFormatByType",
+        getIndexKey: function (entity) {
+          return entity["@type"];
+        }
+      }
+    },
+
+    decorate: function(record) {
+      function doIndex (entity, key, cfg) {
+        var items = entity[key];
+        if(_.isEmpty(items)) {
+          return;
+        }
+        entity[cfg.indexName] = _.groupBy(items, cfg.getIndexKey);
+        delete entity[key];
+      }
+      this.mutateObject(record.about, doIndex);
+      return record;
+    },
+
+    undecorate: function(record) {
+      function doUnindex (entity, key, cfg) {
+        entity[key] = _.flatten(entity[cfg.indexName], function(it) { return it; });
+        delete entity[cfg.indexName];
+      }
+      this.mutateObject(record.about, doUnindex);
+      return record;
+    },
+
+    mutateObject: function(entity, mutator) {
+      if(!_.isEmpty(entity)) {
+        for (var key in this.indexes) {
+          var cfg = this.indexes[key];
+          mutator(entity, key, cfg);
+        }
+      }
+      return entity;
+    },
+
+  };
+});
+
+
+kitin.factory('dataService', function ($http, $q, recordUtil) {
   return {
 
     record: {
       get: function (type, id) {
         var record = $q.defer();
         $http.get("/record/" + type + "/" + id).success(function (struct, status, headers) {
-          record['recdata'] = struct;
+          record['recdata'] = recordUtil.decorate(struct);
           record['etag'] = headers('etag');
           record.resolve(record);
         });
@@ -53,7 +108,7 @@ kitin.factory('dataService', function ($http, $q) {
         var record = $q.defer();
         $http.put("/record/" + type + "/" + id, data,
                   {headers: {"If-match":etag}}).success(function(data, status, headers) {
-          record['recdata'] = data;
+          record['recdata'] = recordUtil.undecorate(data);
           record['etag'] = headers('etag');
           record.resolve(record);
           console.log("Saved record.");
@@ -66,7 +121,7 @@ kitin.factory('dataService', function ($http, $q) {
       create: function(type, data) {
         var record = $q.defer();
         $http.post("/record/" + type + "/create", data).success(function(data, status, headers) {
-          record.resolve(data);
+          record.resolve(recordUtil.decorate(data));
         });
         return record.promise;
       }
@@ -76,7 +131,7 @@ kitin.factory('dataService', function ($http, $q) {
       get: function (draftId) {
         var record = $q.defer();
         $http.get("/draft/" + draftId).success(function (data, status, headers) {
-          record['recdata'] = data;
+          record['recdata'] = recordUtil.decorate(data);
           record['etag'] = headers('etag');
           record.resolve(record);
         });
@@ -86,9 +141,9 @@ kitin.factory('dataService', function ($http, $q) {
       save: function(type, draftId, post, etag) {
         var record = $q.defer();
         etag = etag ? etag : '';
-        $http.put("/draft/" + type + '/' + draftId, post, {headers: {"If-match":etag } })
+        $http.put("/draft/" + type + '/' + draftId, recordUtil.undecorate(post), {headers: {"If-match":etag } })
           .success(function(data, status, headers) {
-            record['recdata'] = data;
+            record['recdata'] = recordUtil.decorate(data);
             record['etag'] = headers('etag');
             record.resolve(record);
             console.log("Saved record.");
@@ -102,9 +157,9 @@ kitin.factory('dataService', function ($http, $q) {
       create: function(type, post, etag) {
         var record = $q.defer();
         etag = etag ? etag : '';
-        $http.post("/draft/" + type, post, {headers: {"If-match":etag } })
+        $http.post("/draft/" + type, recordUtil.undecorate(post), {headers: {"If-match":etag } })
           .success(function(data, status, headers) {
-            record.resolve(data);
+            record.resolve(recordUtil.decorate(data));
           });
         return record.promise;
       },
@@ -185,9 +240,11 @@ kitin.service('editUtil', function(definitions) {
         //case 'Concept':
         //  objectKeys: ['prefLabel', '@type', 'hiddenLabel', 'broader', 'narrower', '@id', 'scopeNote', 'historyNote' ]
         case 'ISBN':
-          return {'@type': "Identifier", identifierScheme: "ISBN", identifierValue: ""};
+          return {'@type': "Identifier", identifierScheme: { '@id': "/def/identifiers/isbn" }, identifierValue: ""};
         case 'ISSN':
-          return {'@type': "Identifier", identifierScheme: "ISSN", identifierValue: ""};
+          return {'@type': "Identifier", identifierScheme: { '@id': "/def/identifiers/issn" }, identifierValue: ""};
+        case 'Identifier':
+          return {'@type': "Identifier", identifierValue: ""};
         case 'ProviderEvent':
           return {'@type': "ProviderEvent", providerName: "", providerDate: "",
                   place: {'@type': "Place", label: ""}};
@@ -198,7 +255,6 @@ kitin.service('editUtil', function(definitions) {
 
     populatePersonRoleMap: function (roleMap, record, relators) {
       var instance = record.about;
-      var work = instance.instanceOf;
 
       var self = this;
 
@@ -209,11 +265,11 @@ kitin.service('editUtil', function(definitions) {
         }
         roleMap[person['@id']] = [];
       }
-      if (work && work.attributedTo) {
-        addPersonRoles(work.attributedTo);
+      if (instance && instance.attributedTo) {
+        addPersonRoles(instance.attributedTo);
       }
-      if (work && work.influencedBy) {
-        work.influencedBy.forEach(function (person) {
+      if (instance && instance.influencedBy) {
+        instance.influencedBy.forEach(function (person) {
           addPersonRoles(person);
         });
       }
@@ -228,7 +284,7 @@ kitin.service('editUtil', function(definitions) {
         });
       }
 
-      [instance, work].forEach(function (resource) {
+      [instance].forEach(function (resource) {
         if (typeof resource === 'undefined')
           return;
         var objId = resource['@id'];
@@ -264,7 +320,7 @@ kitin.service('editUtil', function(definitions) {
     },
 
     SchemeContainer: function (work, defaultSchemes) {
-      var concepts = work.subject || [];
+      var concepts = work && work.subject || [];
       var byScheme = {};
       this.byScheme = byScheme;
 
@@ -319,18 +375,19 @@ kitin.service('editUtil', function(definitions) {
 
     // TODO: this will be unified in the backend mapping and thus not needed here
     getUnifiedClassifications: function (record) {
-      var thing = record.about;
       var classes = [];
-      if (thing.class) {
-        classes.push.apply(thing.class);
-      }
-      ['class-lcc', 'class-ddc'].forEach(function (key) {
-        var cls = thing[key];
-        if (cls) {
-          classes.push({prefLabel: cls});
+      if(record && record.about) {
+        var thing = record.about;
+        if (thing.class) {
+          classes.push.apply(thing.class);
         }
-      });
-
+        ['class-lcc', 'class-ddc'].forEach(function (key) {
+          var cls = thing[key];
+          if (cls) {
+            classes.push({prefLabel: cls});
+          }
+        });
+      }
       return classes;
     },
 

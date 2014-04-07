@@ -11,8 +11,77 @@ kitin.directive('popover', function(expression, compiledElement) {
 });
 */
 
+kitin.directive('titleAndMainEntry', function(){
+    return {
+        restrict: 'C',
+        templateUrl: '/partials/edit/bib/title_and_main_entry',
+        controller: function($scope) {
+            //controller for your sub area.
+        }
+    };
+});
+
+kitin.directive('publicationAndProduction', function(){
+    return {
+        restrict: 'C',
+        templateUrl: '/partials/edit/bib/publication_and_production',
+        controller: function($scope) {
+            //controller for your sub area.
+        }
+    };
+});
+
+kitin.directive('identifier2', function(){
+    return {
+        restrict: 'C',
+        templateUrl: '/partials/edit/bib/identifier',
+        controller: function($scope) {
+            //controller for your sub area.
+        }
+    };
+});
+
+kitin.directive('physicalDescription', function(){
+    return {
+        restrict: 'C',
+        templateUrl: '/partials/edit/bib/physical_description',
+        controller: function($scope) {
+        }
+    };
+});
+
+kitin.directive('remark', function(){
+    return {
+        restrict: 'C',
+        templateUrl: '/partials/edit/bib/remark',
+        controller: function($scope) {
+            //controller for your sub area.
+        }
+    };
+});
+
+kitin.directive('editSubject', function(){
+    return {
+        restrict: 'C',
+        templateUrl: '/partials/edit/bib/subject',
+        controller: function($scope) {
+            //controller for your sub area.
+        }
+    };
+});
+
+kitin.directive('unknown', function(){
+    return {
+        restrict: 'C',
+        templateUrl: '/partials/edit/bib/unknown',
+        controller: function($scope) {
+            //controller for your sub area.
+        }
+    };
+});
+
 kitin.directive('inplace', function () {
-  return function(scope, elm, attrs) {
+  return function(scope, elm, attrs) {    
     elm.keyup(function () { // or change (when leaving)
       scope.triggerModified();
       scope.$apply();
@@ -65,7 +134,64 @@ kitin.directive('isbnvalidator', function(isbnTools) {
     }
   };
 });
+kitin.directive('kitinDataTable', function(editUtil) {
 
+  return {
+    restrict: 'A',
+
+    scope: true,
+
+    compile: function(element, attrs) {
+      // Parse headers
+      var headers = attrs.tableHeaders.split(',');
+      var headerTemplate = '';
+      for (var i = 0; i < headers.length; i++) {
+        headerTemplate += '<td><span class="lbl">' + headers[i] + '</span></td>';
+      }
+
+      // Parse columns
+      var columns = attrs.tableColumns.split(',');
+      var columnTemplate = '';
+      for (var j = 0; j < columns.length; j++) {
+        columnTemplate += '<td><label><input ng-model="object.' + columns[j] + '" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>';
+      }
+      if(columnTemplate) {
+        columnTemplate += '<td class="controls">' +
+                  '<button ng-show="!$first" class="btn-link deleter" data-ng-click="removeObject(' + attrs.tableModel + ', null, $index)">' +
+                    '<i class="fa fa-times"></i>' +
+                  '</button>' +
+                '</td>';
+      }
+
+      // Add a add link
+      var footerTemplate = '';
+      if(attrs.tableAddable) {
+         footerTemplate = '<tfoot>' +
+              '<tr>' +
+                '<td colspan="3">' +
+                  '<button class="add-thing btn-link" data-ng-click="' + attrs.tableAddable + '">Lägg till</button>' +
+                '</td>' +
+              '</tr>' +
+            '</tfoot>';
+      }
+
+      // Create table template
+      var template = '<table>' +
+          '<tbody>' +
+            '<tr>' + headerTemplate + '</tr>' +
+            '<tr ng-repeat="object in ' + attrs.tableModel + '">' +
+              columnTemplate + 
+            '</tr>' +
+          '</tbody>' +
+          footerTemplate + 
+        '</table>';
+
+      element.html(template);
+    },
+    controller: function($element, $scope, $attrs) {
+    }
+  };
+});     
 
 kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
 
@@ -107,7 +233,7 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
       $scope.multiple = multiple;
 
       var subj = $scope.$eval($attrs.subject);
-      var obj = subj[link];
+      var obj = subj ? subj[link] : null;
 
       $scope.viewmode = !_.isEmpty(obj);
 

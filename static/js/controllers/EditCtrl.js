@@ -1,327 +1,3 @@
-var kitin = angular.module('kitin.controllers', []);
-
-kitin.controller('AppCtrl', function($scope, $rootScope, $modal, searchService) {
-  $rootScope.state = {
-    searchType: {},
-    remoteDatabases: [],
-    search: {},
-
-    getSearchParams : function() {
-      var params = {
-        q: $rootScope.state.search.q,
-        start: $rootScope.state.search.page.start,
-        n: $rootScope.state.search.page.n,
-        sort: $rootScope.state.search.sort,
-        database: $rootScope.state.searchType.key === searchService.searchTypeIndex.remote.key ? $rootScope.state.search.database : undefined
-      };
-      if ($rootScope.state.search.f !== undefined) {
-        params.f = $rootScope.state.search.f;
-      }
-      return params;
-    }
-  };
-
-});
-
-kitin.controller('ModalCtrl', function($scope, $modal) {
-  var defaultModalOptions = {
-    backdrop: 'static', // Shows backdrop but doesn't close dialog on click outside.
-    keyboard: true,
-    controller: 'OpenModalCtrl',
-    backdropFade: true,
-    dialogFade: false,
-
-  };
-
-  $scope.openAuthModal = function() {
-    var opts = angular.extend(
-                defaultModalOptions,
-                {
-                  templateUrl: 'modal-edit-auth',
-                  controller: 'AuthModalCtrl',
-                  windowClass: 'modal-large auth-modal'
-                });
-    $scope.authModal = $modal.open(opts);
-  };
-
-  $scope.openRemoteModal = function() {
-    var opts = angular.extend(
-                  defaultModalOptions,
-                  {
-                  templateUrl: 'modal-remote',
-                  controller: 'RemoteModalCtrl',
-                  scope: $scope,
-                  windowClass: 'modal-large remote-modal'
-                  });
-    console.log(opts);
-    $scope.remoteModal = $modal.open(opts);
-  };
-
-});
-
-kitin.controller('AuthModalCtrl', function($scope, $modalInstance, $location) {
-  $scope.close = function() {
-    $location.search('m',null);
-    $modalInstance.close();
-  };
-});
-
-kitin.controller('RemoteModalCtrl', function($scope, $rootScope, $modalInstance, definitions, searchService) {
-  // For remote search, load list of remote database definitions
-  if(_.isEmpty($rootScope.state.remoteDatabases)) {
-    definitions.remotedatabases.then(function(databases){
-      // Debug, set LC (Library of Congress) to default        
-      var searchedDatabases = ['LC'];
-      if($rootScope.state.search.database) {
-        searchedDatabases = $rootScope.state.search.database.split(',');
-      }
-      _.forEach(searchedDatabases, function(dbName) {
-        var i = _.findIndex(databases, { 'database': dbName });
-        if(i > 0) {
-          databases[i].selected = true;
-        }
-      });      
-
-      $rootScope.state.remoteDatabases = databases;
-    });
-  }
-
-  $scope.close = function() {
-    $modalInstance.close();
-  };
-});
-
-kitin.controller('IndexCtrl', function($scope, $http, dataService) {
-  document.body.className = 'index';
-
-  dataService.drafts.get().then(function(data) {
-    $scope.drafts = data.drafts;
-  });
-
-  $scope['delete'] = function(type, id) {
-    dataService.draft.delete(type, id).then(function(data) {
-      $scope.drafts = data.drafts;
-    });
-  };
-});
-
-kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, $rootScope, definitions, searchService, searchUtil) {
-
-  $scope.searchTypes = [searchService.searchTypeIndex.bib, searchService.searchTypeIndex.auth, searchService.searchTypeIndex.remote];
-  $scope.setSearchType = function (key) {
-    $rootScope.state.searchType = searchService.searchTypeIndex[key];
-  };
-  
-  $scope.search = function() {
-    var selectRemoteDatabases = '';
-    if($rootScope.state.searchType.key === searchService.searchTypeIndex.remote.key) {
-      selectRemoteDatabases = searchUtil.parseSelected($rootScope.state.remoteDatabases);
-      selectRemoteDatabases = selectRemoteDatabases.length > 0 ? '&database=' + selectRemoteDatabases : '';
-    }
-    
-    $location.url("/search/" + $rootScope.state.searchType.key + "?q="+encodeURIComponent($rootScope.state.search.q) + selectRemoteDatabases);
-  };
-  $scope.$on('$routeChangeSuccess', function () {
-    $scope.setSearchType($routeParams.recType || "bib");
-  });
-});
-
-
-
-kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routeParams, $rootScope, $anchorScroll, definitions, searchService, searchUtil, editUtil) {
-
-  
-
-  $scope.recType = $routeParams.recType;
-
-  $scope.url = '/search/' + $scope.recType + '.json';
-
-  definitions.typedefs.then(function(data) {
-    $scope.typeDefs = data.types;
-  });
-
-  $scope.enums = {};
-
-  definitions.enums.bibLevel.then(function(data) {
-    $scope.enums.bibLevel = data;
-  });
-
-  definitions.enums.encLevel.then(function(data) {
-    $scope.enums.encLevel = data;
-  });
-  
-  definitions.languages.then(function(data) {
-    $scope.languages = data;
-  });
-  
-
-  // TODO: localization
-  $scope.facetLabels = searchService.facetLabels;
-
-  document.body.className = 'search';
-  $rootScope.state.search = {};
-  $rootScope.state.search.q = $routeParams.q;
-  $rootScope.state.search.f = $routeParams.f;
-  $rootScope.state.search.database = $routeParams.database;
-  $rootScope.state.search.page = {
-    start: -searchService.pageSize,
-    n: searchService.pageSize
-  };
-  $scope.sortables = searchService.sortables;
-  
-  // Reset remote search hit count 
-  _.map($rootScope.state.remoteDatabases, function(remoteDB) { delete remoteDB.hitCount; });
-
-  // TODO - remove
-  $scope.editPost = function(recType, record) {
-    if(recType === 'remote') {
-      record.identifier = '/remote/new';
-      editUtil.setRecord(record);
-    }
-    $location.url('/edit' + record.identifier);
-  };
-
-
-  // Sort
-  // ----------
-  $scope.selectedSort = $routeParams.sort ? _.find(searchService.sortables, { 'value': $routeParams.sort }) : searchService.sortables[0];
-  $rootScope.state.search.sort = $scope.selectedSort.value;
-  $scope.sortChanged = function(item) {
-    $location.search('sort', item.value);
-  };
-  // ----------
-
-  $scope.search = function() {
-    $location.url(url);
-  };
-
-  $scope.getLabel = function (term, termType) {
-    var dfn = $scope.typeDefs[term];
-    
-    if (dfn && dfn['label_sv']) return dfn['label_sv']; 
-
-    // !TODO fix propper linking
-    if(termType && termType.indexOf('language') > 0) {
-      var lang = _.find($scope.languages['byCode'],{'@id': term});
-      if(lang) {
-        return lang['prefLabel'];
-      }
-    }
-    if(termType && termType.indexOf('encLevel') > -1) {
-      return $scope.parseEncLevel(term);
-    }
-    
-    return term;
-  };
-
-  $scope.parseEncLevel = function(encLevel) {
-    switch(encLevel) {
-      case 'trec:MinimalLevel':
-        return 'Miniminivå';
-      case 'trec:AbbreviatedLevel':
-        return 'Biblioteksnivå';
-      case 'trec:PrepublicationLevel':
-        return 'Förhandspost';
-      case null:
-      case 'null':
-        return 'NB-nivå';
-      case 'trec:FullLevelInputByOclcParticipantsLocal':
-        return 'Full-level input by OCLC participants (LOCAL)';
-      case 'n':
-      case 'N':
-        return 'Ny post';
-      case 'c':
-      case 'C':
-        return 'Rättad/Reviderad';
-      default:
-        return encLevel;
-    }
-  };
-
-  $scope.firstPerson = function (work) {
-    var candidate = work.attributedTo || work.influencedBy;
-    return _.isArray(candidate)? candidate[0] : candidate;
-  };
-
-  $scope.getScrollStart = function() {
-    var start = $rootScope.state.search.page.start + $rootScope.state.search.page.n;
-    return (start > $rootScope.state.search.hitCount) ? $rootScope.state.search.page.start : start;
-  };
-
-  $scope.onScroll = function() {
-    // Get current scroll start
-    var start = $scope.getScrollStart();
-    // Skip load if already scrolling or if page end is reached
-    if($scope.scrolled || start === $rootScope.state.search.page.start) return;
-
-    $scope.scrolled = true;
-    // Set page start
-    $rootScope.state.search.page.start = start; 
-    // Do search request
-    $scope.doSearch($scope.url, $rootScope.state.getSearchParams());
-  };
-
-  var prevFacetsStr = $routeParams.f || "";
-
-  if (!$routeParams.q) {
-    return;
-  }
-
-  $rootScope.$watch('state.search.result.list.length', function(newLength, oldLength) {
-    var updateHoldings = function(data, status, headers, config) {
-    if(data) {
-          config.record.holdings = data;
-        }
-    };
-    for (var i = oldLength ? oldLength: 0; i < newLength; i++) {
-        var record = $rootScope.state.search.result.list[i];
-        if(record.identifier) {
-          $http.get("/record"  + record.identifier + "/holdings", {record: record}).success(updateHoldings);
-        }
-
-    }
-  });
-
-  $scope.loading = true;
-  $scope.doSearch = function(url, params) {
-
-    searchService.search(url, params).then(function(data) {
-      $scope.facetGroups = searchUtil.makeLinkedFacetGroups($scope.recType, data.facets, $rootScope.state.search.q, prevFacetsStr);
-      $scope.crumbs = searchUtil.bakeCrumbs($scope.recType, $rootScope.state.search.q, prevFacetsStr);
-      if(data && data.hits) {
-        // New page load
-        if($rootScope.state.search.result) {
-          data.list.forEach(function(element) {
-            $rootScope.state.search.result.list.push(element);
-          });
-
-        // Initial load
-        } else {
-          $rootScope.state.search.result = data;
-          
-          var hitCount = searchUtil.countTotalHits(data.hits);
-          if(_.isObject(data.hits)) {
-            _.forEach(data.hits, function(count, dbName) {
-
-              var i = _.findIndex($rootScope.state.remoteDatabases, { database: dbName } );
-              if(i > 0) {
-                $rootScope.state.remoteDatabases[i].hitCount = count;
-              }
-            });
-          }  
-
-          $rootScope.state.search.hitCount = hitCount.toString();       
-        }
-      } else {
-        $rootScope.state.search.result = { hits: 0 };
-      }
-      $scope.scrolled = false;
-      $scope.loading = false;
-    });
-  };
-});
-
-
 kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $timeout, $rootScope, $location, $anchorScroll, dataService, definitions, userData, editUtil) {
 
   $anchorScroll();
@@ -329,6 +5,10 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   var modalRecord = $rootScope.modalRecord;
   var recType = modalRecord? modalRecord.recType : $routeParams.recType;
   var recId = modalRecord? modalRecord.recId : $routeParams.recId;
+  var isNew = (recId === 'new');
+  $scope.recType = recType;
+
+  document.body.className = isNew ? 'edit new' : 'edit';
 
   $scope.$on('$routeUpdate', function() {
     var modalParams = $location.$$search.m;
@@ -343,10 +23,6 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     }
   });
 
-  var isNew = (recId === 'new');
-  $scope.recType = recType;
-
-  document.body.className = isNew? 'edit new' : 'edit';
 
   // Fetch definitions
   // TODO:
@@ -375,7 +51,8 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
       if (typeof obj === "undefined")
         return;
       var dfn = $scope.getTypeDef(obj);
-      return (dfn)? dfn['label_sv'] : obj['@type'].join(', ');
+      var typeLabel = (dfn) ? dfn['label_sv'] : obj['@type'];
+      return _.isArray(typeLabel) ? typeLabel.join(', ') : typeLabel;
     };
   });
 
@@ -410,7 +87,8 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   } else {
     record = editUtil.getRecord();
     if(recType === 'remote' && record) {
-      record = $scope.record = record.data;
+      record = record.data;
+      $scope.record = record.data;
       editUtil.patchBibRecord(record);
       addRecordViewsToScope(record, $scope);
     } else {
@@ -426,7 +104,8 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
         });
       } else {
         dataService.record.get(recType, recId).then(function(data) {
-          var record = $scope.record = data['recdata'];
+          var record = data['recdata'];
+          $scope.record = record;
 
           if (recType === 'bib') {
             editUtil.patchBibRecord(record);
@@ -599,7 +278,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   };
 
   $scope.removeObject = function(subj, rel, index) {
-    var obj = subj[rel];
+    var obj = _.isArray(subj) && !rel ? subj : subj[rel];
     var removed = null;
     if (_.isArray(obj)) {
       removed = obj.splice(index,1)[0];
@@ -698,4 +377,74 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     }
   }
 
+  /** debugRecord
+  * Function for debug purposes, !TODO REMOVE
+  * Finds data bindings and prints record to console.log
+  */
+  function debugRecord() {
+
+    var updatePrinted = function(suffix, remove) {
+
+      var updateValue = function(value, suffix, remove) {
+        // remove or add suffix
+        v = (remove === true) ? value.replace(suffix,'') : value + '' + suffix;
+        return v === 'undefined' ? null : v;
+      };
+
+      var iterateObject = function(obj, suffix, remove) {
+        for(var i in obj) {
+          if(_.isObject(obj[i])){
+            iterateObject(obj[i], suffix, remove);
+          } else {
+            obj[i] = updateValue(obj[i], suffix, remove);
+          }
+        }
+      };
+
+      // Select all mapped elements
+      var cssSelector = '[data-ng-model],[ng-model],input,textarea,[data-kitin-link-entity]';
+      $(cssSelector).each(function() {
+        var dataRef = $(this).data();
+        if(dataRef) {
+          if(dataRef.$ngModelController) {
+            dataRefCtrl = dataRef.$ngModelController;
+            if(dataRefCtrl.$viewValue) {
+              dataRefCtrl.$setViewValue(updateValue(dataRefCtrl.$viewValue, suffix, remove));  
+              if(remove) {
+                // Set binding to non dirty and pristine, aka user has not interacted with the control.
+                dataRefCtrl.dirty = false;
+                dataRefCtrl.$setPristine();
+              }
+            }
+          } else if(dataRef.$scope) {
+            // Special handle data-kitin-link-entity
+            
+            // Multiple links
+            if(dataRef.$scope['objects']) {
+              iterateObject(dataRef.$scope['objects'], suffix, remove);
+            // Single link
+            } else if(dataRef.$scope['object']) {
+              obj = dataRef.$scope['object'];
+              for(var objkey in obj) {
+                obj[objkey] = updateValue(obj[objkey], suffix, remove);
+              }
+            }
+          }
+        }
+      });
+    };
+
+    var suffix = ' ***EDITABLE';
+    // Add suffix
+    updatePrinted(suffix);
+    // Print
+    $scope.debugRecord = JSON.stringify(angular.copy($scope.record), null, 4);
+    // Remove suffix
+    updatePrinted(suffix, true);
+  }
+  // Could not get $viewContentLoading to work. Using timeout as a temporary solution
+  $timeout(function() {
+    debugRecord();
+  }, 1000);
+    
 });

@@ -1,0 +1,86 @@
+ {% raw %}
+<h2>{{ "Anmärkningar" }}<i></i></h2>
+    <div class="cols">
+      <div class="col6">
+        <label>
+          <span class="lbl">{{ "Sammanfattning" }}</span>
+            <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
+                      data-ng-model="record.about.summary" ></textarea>
+        </label>
+      </div>
+      <div class="col6">
+        <label>
+          <span class="lbl">{{ "LanguageNote" }}</span>
+            <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
+                      data-ng-model="record.about.languageNote" ></textarea>
+        </label>
+      </div>
+    </div>
+    <div class="cols">
+      <div class="col6">
+        <label>
+          <span class="lbl">{{ "Formaterad innehållsförteckning" }}</span>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.listOfContents" ></textarea>
+        </label>
+      </div>
+      <div class="col6"> <!-- data-ng-show="getTypeDef(instance).term == 'Audiobook'" ?-->
+        <label>
+          <span class="lbl">{{ "Medverkande" }}</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.contributorNote" >
+        </label>
+        <label>
+          <span class="lbl">{{ "performerNote" }}</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.performerNote" >
+        </label>
+      </div>
+    </div>
+    <div class="cols">
+      <div class="col6">
+          <label>
+            <span class="lbl">{{ "Allmän anmärkning" }}</span>
+          <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="record.about.note" ></textarea>
+        </label>
+      </div>
+      <div class="col6">
+          <label>
+            <span class="lbl">{{ "SystemRequirements" }}</span>
+          <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="record.about.systemRequirements" ></textarea>
+        </label>
+      </div>
+    </div>
+    <div style="clear:both"></div>
+		<div class="cols">
+			<div class="col6">
+	        <label data-ng-repeat="comment in record.about.comment track by $index">
+            <span class="lbl">{{ "comment" }}</span>
+            <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="record.about.comment[$index]" ></textarea>
+        </label>
+			</div>
+			<div class="col6">
+	        <label data-ng-repeat="topic in record.about.isPrimaryTopicOf">
+            <span class="lbl">{{ "isPrimaryTopicOf type: " + topic['@type'] }}</span>
+          <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="topic['@id']" ></textarea>
+        </label>
+	        <label data-ng-repeat="topic in record.about.isPrimaryTopicOf">
+            <span class="lbl">{{ "isPrimaryTopicOf comment" }}</span>
+          <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="topic.comment" ></textarea>
+        </label>
+			</div>		
+		</div>
+
+    <div class="cols">
+      <div class="col6">
+          <label data-ng-repeat="audience in record.about.audience">
+            <span class="lbl">{{ "Audience Label" }}</span>
+          <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="audience.label" ></textarea>        
+        </label>
+          <label data-ng-repeat="audience in record.about.audience">
+            <span class="lbl">{{ "Audience ID" }}</span>
+          <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="audience" ></textarea>          
+        </label>
+      </div>
+      <div class="col6"></div>
+    </div>
+    <div style="clear:both"></div>    
+    </ng-form>
+ {% endraw %}

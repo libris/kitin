@@ -1,0 +1,71 @@
+ {% raw %}
+<h2>Utgivning och tillverkning<i></i></h2>
+    <div class="cols" data-ng-show="record.about['@type'] != 'Book'">
+      <div class="col6">
+        <label>
+          <span class="lbl">{{ "Allmän medieterm" }}</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.mediaTerm">
+        </label>
+        <label>
+          <span class="lbl">{{ "date" }}</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.date">
+        </label>
+        <label>
+          <span class="lbl">{{ "publicationStatus" }}</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.publicationStatus['@id']">
+        </label>
+        <label>
+          <span class="lbl">{{ "publicationYear" }}</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.publicationYear">
+        </label>
+        <label data-ng-repeat="publicationCountry in record.about.publicationCountry">
+          <span class="lbl">{{ "publicationCountry" }}</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="publicationCountry['@id']">
+        </label>
+      </div>
+      <div class="col6">
+      </div>
+    </div>
+
+		<div class="cols">
+    <div class="col12">
+      <div class="datatable" data-ng-target="publisher" 
+        kitin-data-table 
+        table-model="record.about.publication" 
+        table-headers="Utgivningsplats,Utgivare/förlag,Utgivningsår"
+        table-columns="place.label,providerName,providerDate"
+        table-addable="addObject(record.about, 'publication', 'ProviderEvent', 'publisher')">
+      </div>   
+    </div>
+
+    <div class="cols">
+      <div class="col3">
+        <label>
+          <span class="lbl">{{ "Upplaga" }}</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.editionStatement.edition" >
+        </label>
+      </div>
+        <div class="col6">
+          <div data-ng-repeat="manufacture in record.about.manufacture">
+            <label>
+              <span class="lbl">{{ "Tryckplats" }}</span>
+              <input data-inplace class="authdependant" type="text" data-ng-model="manufacture.place.label" />
+            </label>
+            <label>
+              <span class="lbl">{{ "Tryckeri" }}</span>
+              <input data-inplace class="authdependant" type="text" data-ng-model="manufacture.providerName" />
+            </label>
+        </div>
+      </div>
+    </div>
+    <div class="cols">
+      <div class="col3" ><!-- data-ng-show="getTypeDef(record.about).term == 'Audiobook'" -->
+        <label>
+          <span class="lbl">{{ "Utgivningsnummer" }}</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.publisherNumber" >
+        </label>
+      </div>
+    </div>
+    </div>
+
+ {% endraw %}
