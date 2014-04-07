@@ -56,46 +56,12 @@
 
 
         <!-- ISSN START -->
-        <div ng-switch-when="/def/identifiers/issn" class="datatable" data-ng-target="issnTable">
-          <table>
-            <thead>
-              <tr>
-                <td>
-                  <span class="lbl-inline lbl">{{ "ISSN" }}</span>
-                </td>
-                <td>
-                  <span class="lbl">{{ "Notering" }}</span>
-                </td>
-                <td></td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr data-ng-repeat="identifier in identifierScheme"> 
-                <td>
-                  <label>
-                    <input data-inplace type="text" data-ng-model="identifier.identifierValue" />
-                  </label>
-                </td>
-                <td>
-                  <label>
-                    <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="identifier.identifierNote" >
-                  </label>
-                </td>
-                <td class="controls">
-                  <button ng-show="!$first" class="btn-link deleter" data-ng-click="removeObject(record.about.identifierByIdentifierScheme, identifierSchemeName, $index)">
-                    <i class="fa fa-times"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-            <tfoot>
-              <tr>
-                <td colspan="3">
-                  <button class="add-thing btn-link" data-ng-click="addObject(record.about.identifierByIdentifierScheme, identifierSchemeName, 'ISSN',  'issnTable')">{{ 'Lägg till ISSN' }}</button>
-                </td>
-              </tr>
-            </tfoot>
-          </table>
+        <div ng-switch-when="/def/identifiers/issn" class="datatable" data-ng-target="issnTable" 
+          kitin-data-table 
+          table-model="subFormat" 
+          table-headers="ISSN,Notering"
+          table-columns="identifierValue,identifierNote"
+          table-addable="addObject(record.about.identifierByIdentifierScheme, identifierSchemeName, 'ISSN', 'issnTable')">
         </div>
         <!-- ISSN END -->
 
@@ -111,6 +77,9 @@
                 <td>
                   <span class="lbl">{{ "Notering" }}</span>
                 </td>
+                <td>
+                  <span class="lbl">{{ "Scheme" }}</span>
+                </td>
                 <td></td>
               </tr>
             </thead>
@@ -126,6 +95,11 @@
                     <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="identifier.identifierNote" >
                   </label>
                 </td>
+                <td>
+                  <label>
+                    <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="identifier.identifierScheme['@id']" >
+                  </label>
+                </td>
                 <td class="controls">
                   <button ng-show="!$first" class="btn-link deleter" data-ng-click="removeObject(record.about.identifierByIdentifierScheme, identifierSchemeName, $index)">
                     <i class="fa fa-times"></i>
@@ -136,7 +110,7 @@
             <tfoot>
               <tr>
                 <td colspan="3">
-                  <button class="add-thing btn-link" data-ng-click="addObject(record.about.identifierByIdentifierScheme, 'identifier', identifierSchemeName,  'identifierTable')">{{ 'Lägg till Identifierare' }}</button>
+                  <button class="add-thing btn-link" data-ng-click="addObject(record.about.identifierByIdentifierScheme, (identifierSchemeName ? identifierSchemeName : 'identifier'), identifierSchemeName,  'identifierTable')">{{ 'Lägg till Identifierare' }}</button>
                 </td>
               </tr>
             </tfoot>

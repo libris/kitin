@@ -134,7 +134,64 @@ kitin.directive('isbnvalidator', function(isbnTools) {
     }
   };
 });
+kitin.directive('kitinDataTable', function(editUtil) {
 
+  return {
+    restrict: 'A',
+
+    scope: true,
+
+    compile: function(element, attrs) {
+      // Parse headers
+      var headers = attrs.tableHeaders.split(',');
+      var headerTemplate = '';
+      for (var i = 0; i < headers.length; i++) {
+        headerTemplate += '<td><span class="lbl">' + headers[i] + '</span></td>';
+      }
+
+      // Parse columns
+      var columns = attrs.tableColumns.split(',');
+      var columnTemplate = '';
+      for (var j = 0; j < columns.length; j++) {
+        columnTemplate += '<td><label><input ng-model="object.' + columns[j] + '" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>';
+      }
+      if(columnTemplate) {
+        columnTemplate += '<td class="controls">' +
+                  '<button ng-show="!$first" class="btn-link deleter" data-ng-click="removeObject(' + attrs.tableModel + ', null, $index)">' +
+                    '<i class="fa fa-times"></i>' +
+                  '</button>' +
+                '</td>';
+      }
+
+      // Add a add link
+      var footerTemplate = '';
+      if(attrs.tableAddable) {
+         footerTemplate = '<tfoot>' +
+              '<tr>' +
+                '<td colspan="3">' +
+                  '<button class="add-thing btn-link" data-ng-click="' + attrs.tableAddable + '">Lägg till</button>' +
+                '</td>' +
+              '</tr>' +
+            '</tfoot>';
+      }
+
+      // Create table template
+      var template = '<table>' +
+          '<tbody>' +
+            '<tr>' + headerTemplate + '</tr>' +
+            '<tr ng-repeat="object in ' + attrs.tableModel + '">' +
+              columnTemplate + 
+            '</tr>' +
+          '</tbody>' +
+          footerTemplate + 
+        '</table>';
+
+      element.html(template);
+    },
+    controller: function($element, $scope, $attrs) {
+    }
+  };
+});     
 
 kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
 

@@ -1,5 +1,5 @@
  {% raw %}
-  <div ng-init="hasFormat = record.about.hasFormatByType;">
+  <div>
     <h2>Fysisk beskrivning<i></i></h2>
     <div class="cols">
       <div class="col6">
@@ -9,190 +9,92 @@
          </label>
       </div>
     </div>
-    <div class="cols"data-ng-repeat="(formatType, subFormat) in hasFormat">
-              <!-- Type header -->
+
+    <div class="cols" data-ng-repeat="(formatType, subFormat) in record.about.hasFormatByType">
+
       <h3 class="ng-binding">{{formatType}}</h3>
-      <div  data-ng-repeat="format in subFormat" ng-switch on="formatType">
-
-        <div ng-switch-when="Electronic">
-          <div class="col3">
-            <label>
-              <span class="lbl">carrierType</span>
-              <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.carrierType[0]['@id']" placeholder="">
-            </label>
-          </div>
-          <div class="col3">
-            <label>
-              <span class="lbl">color</span>
-              <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.color['@id']" placeholder="">
-            </label>
-          </div>
-          <div class="col3">
-            <label>
-              <span class="lbl">dimensions</span>
-              <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.dimensions['@id']" placeholder="">
-            </label>
-          </div>
-        </div>
+      <div ng-switch on="formatType">
 
 
+        <!-- Electronic START -->
+        <div ng-switch-when="Electronic" class="datatable" data-ng-target="electronicTable" 
+          kitin-data-table 
+          table-model="subFormat" 
+          table-headers="carrierType,color,dimension"
+          table-columns="carrierType[0]['@id'],color['@id'],dimensions['@id']"
+          table-addable="addObject(record.about.hasFormatByType, formatType, null, 'electronicTable')">
+        </div>
+        <!-- Electronic END -->
 
-      <div ng-switch-when="Map">
-        <div class="col3">
-          <label>
-            <span class="lbl">carrierType</span>
-            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.carrierType[0]['@id']" placeholder="">
-          </label>
+        <!-- Map START -->
+        <div ng-switch-when="Map" class="datatable" data-ng-target="movingImageTable" 
+          kitin-data-table 
+          table-model="subFormat" 
+          table-headers="carrierType,color,medium"
+          table-columns="carrierType[0]['@id'],color['@id'],medium['@id']"
+          table-addable="addObject(record.about.hasFormatByType, formatType, null, 'movingImageTable')">
         </div>
-        <div class="col3">
-          <label>
-            <span class="lbl">color</span>
-            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.color['@id']" placeholder="">
-          </label>
-        </div>
-        <div class="col3">
-          <label>
-            <span class="lbl">medium</span>
-            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.medium['@id']" placeholder="">
-          </label>
-        </div>
-      </div>
+        <!-- Map END -->
 
-
-
-      <div ng-switch-when="MovingImage">
-        <div class="col2">
-          <label class="ng-binding">
-            <span class="lbl">carrierType</span>
-            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.carrierType[0]['@id']" placeholder="">
-          </label>
+        <!-- MovingImage START -->
+        <div ng-switch-when="MovingImage" class="datatable" data-ng-target="movingImageTable" 
+          kitin-data-table 
+          table-model="subFormat" 
+          table-headers="carrierType,motionPicFormat,motionPicSound,motionPicMedium,motionPicDimensions"
+          table-columns="carrierType[0]['@id'],motionPicFormat['@id'],motionPicSound['@id'],motionPicMedium['@id'],motionPicDimensions['@id']"
+          table-addable="addObject(record.about.hasFormatByType, formatType, null, 'movingImageTable')">
         </div>
-        <div class="col2">
-          <label>
-            <span class="lbl">motionPicFormat</span>
-            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.motionPicFormat['@id']" placeholder="">
-          </label>
-        </div>
-        <div class="col2">
-          <label>
-            <span class="lbl">motionPicSound</span>
-            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.motionPicSound['@id']" placeholder="">
-          </label>
-        </div>
-        <div class="col2">
-          <label>
-            <span class="lbl">motionPicMedium</span>
-            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.motionPicMedium['@id']" placeholder="">
-          </label>
-        </div>
-        <div class="col2">
-          <label>
-            <span class="lbl">motionPicDimensions</span>
-            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.motionPicDimensions['@id']" placeholder="">
-          </label>
-        </div>
-      </div>
+        <!-- MovingImage END -->
 
 
+        <!-- Product START -->
+        <div ng-switch-when="Product" class="datatable" data-ng-target="productTable" 
+          kitin-data-table 
+          table-model="subFormat" 
+          table-headers="Omfång,Mått,Fysiska detaljer,accompanyingMaterial"
+          table-columns="extent,dimensions,otherPhysicalDetails,accompanyingMaterial"
+          table-addable="addObject(record.about.hasFormatByType, formatType, null, 'productTable')">
+        </div>
+        <!-- Product END -->
 
-      <div ng-switch-when="Product">
-        <div class="col3">
-          <label class="ng-binding">
-            <span class="lbl">Omfång</span>
-            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.extent" placeholder="">
-          </label>
+        <!-- SoundRecording START -->
+        <div ng-switch-when="SoundRecording" class="datatable" data-ng-target="soundRecordingTable" 
+          kitin-data-table 
+          table-model="subFormat" 
+          table-headers="carrierType,soundSpeed,soundDimensions,soundKindOfDisc,soundKindOfMaterial,soundPlaybackCharacter"
+          table-columns="carrierType[0]['@id'],soundSpeed['@id'],soundDimensions['@id'],soundKindOfDisc['@id'],soundKindOfMaterial['@id'],soundPlaybackCharacter['@id']"
+          table-addable="addObject(record.about.hasFormatByType, formatType, null, 'soundRecordingTable')">
         </div>
-        <div class="col3">
-          <label>
-            <span class="lbl">Mått</span>
-            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.dimensions" placeholder="">
-          </label>
-        </div>
-        <div class="col3">
-          <label>
-            <span class="lbl">Fysiska detaljer</span>
-            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.otherPhysicalDetails" placeholder="">
-          </label>
-        </div>
-        <div class="col3">
-          <label>
-            <span class="lbl">accompanyingMaterial</span>
-            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.accompanyingMaterial" placeholder="">
-          </label>
-        </div>
-      </div>
+        <!-- SoundRecording END -->
 
-
-
-      <div ng-switch-when="SoundRecording">
-        <div class="col2">
-          <label class="ng-binding">
-            <span class="lbl">carrierType</span>
-            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.carrierType[0]['@id']" placeholder="">
-          </label>
+        <!-- VideoRecording START -->
+        <div ng-switch-when="VideoRecording" class="datatable" data-ng-target="videoRecordingTable" 
+          kitin-data-table 
+          table-model="subFormat" 
+          table-headers="carrierType,videoformat"
+          table-columns="carrierType[0]['@id'],videoFormat['@id']"
+          table-addable="addObject(record.about.hasFormatByType, formatType, null, 'videoRecordingTable')">
         </div>
-         <div class="col2">
-          <label>
-            <span class="lbl">soundSpeed</span>
-            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.soundSpeed['@id']" placeholder="">
-          </label>
-        </div>
-         <div class="col2">
-          <label>
-            <span class="lbl">soundDimensions</span>
-            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.soundDimensions['@id']" placeholder="">
-          </label>
-        </div>
-         <div class="col2">
-          <label>
-            <span class="lbl">soundKindOfDisc</span>
-            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.soundKindOfDisc['@id']" placeholder="">
-          </label>
-        </div>
-        <div class="col2">
-          <label>
-            <span class="lbl">soundKindOfMaterial</span>
-            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.soundKindOfMaterial['@id']" placeholder="">
-          </label>
-        </div>
-        <div class="col2">
-          <label>
-            <span class="lbl">soundPlaybackCharacter</span>
-            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.soundPlaybackCharacter['@id']" placeholder="">
-          </label>
-        </div>
-      </div>
+        <!-- VideoRecording END -->
 
-
-
-      <div ng-switch-when="VideoRecording">
-        <div class="col3">
-          <label>
-            <span class="lbl">carrierType</span>
-            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.carrierType[0]['@id']" placeholder="">
-          </label>
+        <!-- Rest START -->
+        <div ng-switch-default class="datatable">
+          <table>
+            <tbody>
+              <tr ng-repeat="format in subFormat">
+                <td ng-repeat="(key, value) in format">
+                  <span class="lbl">{{key}}</span>
+                  <label>
+                    <input data-inplace class="ng-pristine ng-valid" type="text" ng-model="value"/>
+                  </label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="col3">
-          <label>
-            <span class="lbl">videoformat</span>
-            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="format.videoFormat['@id']" placeholder="">
-          </label>
-        </div>
-      </div>
-
-
-
-      <div ng-switch-default>
-        <div class="col2" data-ng-repeat="(key, value) in format">
-          <label ng-if="key !== '@type'">
-            <span class="lbl">{{key}}</span>
-            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="value" placeholder="">
-          </label>
-        </div>
-      </div>
-
-
+        <!-- Rest END -->
 
     </div>
   </div>
+</div>
  {% endraw %}

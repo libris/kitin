@@ -278,7 +278,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   };
 
   $scope.removeObject = function(subj, rel, index) {
-    var obj = subj[rel];
+    var obj = _.isArray(subj) && !rel ? subj : subj[rel];
     var removed = null;
     if (_.isArray(obj)) {
       removed = obj.splice(index,1)[0];
