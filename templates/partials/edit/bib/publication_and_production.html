@@ -29,54 +29,13 @@
 
 		<div class="cols">
     <div class="col12">
-      <div class="datatable" data-ng-target="publisher">
-        <table>
-          <thead>
-            <tr>
-              <td><span class="lbl">{{ "Utgivningsplats" }}</span></td>
-              <td><span class="lbl">{{ "Utgivare/förlag" }}</span></td>
-              <td><span class="lbl">{{ "Utgivningsår" }}</span></td>
-              <td></td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr data-ng-repeat="publication in record.about.publication" class="">
-              <td>
-                <label>
-                  <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="publication.place.label">
-                </label>
-              </td>
-              <td>
-                <label>
-                  <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="publication.providerName">
-                </label>
-              </td>
-              <!-- TODO: specify type of place?
-              <label>
-                <... data-placeholder="Välj ett land" data-ng-model="record.about.country" ... >
-                <span class="lbl">{{ "Utgivningsland" }}</span>
-              </label>
-              -->
-              <td class="last">
-                <label>
-                  <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="publication.providerDate">
-                </label>
-              </td>
-              <td class="controls">
-                <button ng-show="!$first" class="btn-link deleter" data-ng-click="removeObject(record.about, 'publication', $index)">
-                  <i class="fa fa-times"></i>
-                </button>
-              </td>
-            </tr>
-          <tfoot>
-            <tr>
-              <td colspan="4">
-                <button class="add-thing btn-link" data-ng-click="addObject(record.about, 'publication', 'ProviderEvent', 'publisher')">{{ 'Lägg till utgivning' }} </button>
-              </td>
-            </tr>
-          </tfoot>
-          </table>
-       </div>          
+      <div class="datatable" data-ng-target="publisher" 
+        kitin-data-table 
+        table-model="record.about.publication" 
+        table-headers="Utgivningsplats,Utgivare/förlag,Utgivningsår"
+        table-columns="place.label,providerName,providerDate"
+        table-addable="addObject(record.about, 'publication', 'ProviderEvent', 'publisher')">
+      </div>   
     </div>
 
     <div class="cols">
