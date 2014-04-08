@@ -1828,6 +1828,12 @@ label.find-entity input[type="text"] {
   margin-bottom: 2px;
 }
 /* PERSON SUGGEST END ------------------------- */
+.element-adder {
+  text-align: right;
+}
+.element-adder > div {
+  text-align: left;
+}
 .entity {
   position: relative;
 }

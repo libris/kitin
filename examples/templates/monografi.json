@@ -1,76 +1,26 @@
 {
-    "@type": "Record",
     "about": {
-        "@type": "Book",
-        "availability": "",
-        "dimensions": "",
-        "edition": null,
-        "extent": "",
         "identifier": [
-            {
-                "@type": "Identifier",
-                "identifierNote": "",
-                "identifierScheme": "ISBN",
-                "identifierValue": ""
-            }
         ],
         "instanceOf": {
-            "@type": "Book",
-            "contributorList": [],
             "creator": {
-                "@type": "Person",
-                "birthYear": "",
-                "controlledLabel": "",
-                "deathYear": "",
-                "familyName": "",
-                "givenName": ""
             },
             "language": {
-              "@id": "/def/languages/swe",
-              "langCode": "swe",
-              "prefLabel": "Svenska"
             },
             "subject": []
         },
         "manufacture": [
-            {
-                "@type": "ProviderEvent",
-                "place": {
-                    "@type": "Place",
-                    "label": ""
-                }
-            }
+
         ],
         "note": "",
         "otherPhysicalDetails": "",
         "publication": [
-            {
-                "@type": "ProviderEvent",
-                "place": {
-                    "@type": "Place",
-                    "label": ""
-                },
-                "providerDate": "",
-                "providerName": ""
-            }
+
         ],
         "responsibilityStatement": "",
         "title": {
-            "@type": "TitleEntity",
-            "titleValue": ""
         }
     },
-    "bibLevel": "m",
-    "catForm": "a",
-    "characterCoding": "a",
-    "comment": "",
-    "controlNumber": "",
-    "librisIII-number": "",
-    "modified": "",
     "originalCatalogingAgency": {
-        "@type": "Organization",
-        "name": ""
-    },
-    "status": "c",
-    "typeOfRecord": "a"
+    }
 }

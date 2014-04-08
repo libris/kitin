@@ -80,8 +80,8 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   }
 
   if (isNew && recType !== 'remote') {
-    $http.get('/record/' + recType).success(function(data) {
-      var record = $scope.record = data;
+    dataService.record.get(recType).then(function(data) {
+      var record = $scope.record = data['recdata'];
       addRecordViewsToScope(record, $scope);
     });
   } else {
@@ -261,10 +261,17 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     collection.push(obj);
   };
 
-  $scope.addObject = function(subj, rel, type, target) {
+  $scope.addObject = function(subj, rel, type, target, subCollection) {
     var collection = subj[rel];
     if (typeof collection === 'undefined') {
-      collection = subj[rel] = [];
+      collection = subj[rel] = subCollection ? {} : [];
+    }
+    //!TODO clean up, subCollections is needed when hasFormat and identifier is undefined
+    if(subCollection) {
+      collection = subj[rel][subCollection];
+      if(typeof collection === 'undefined') {
+        collection = subj[rel][subCollection] = [];
+      }
     }
     var obj = editUtil.createObject(type);
     collection.push(obj);

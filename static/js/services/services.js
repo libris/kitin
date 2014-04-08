@@ -96,7 +96,7 @@ kitin.factory('dataService', function ($http, $q, recordUtil) {
     record: {
       get: function (type, id) {
         var record = $q.defer();
-        $http.get("/record/" + type + "/" + id).success(function (struct, status, headers) {
+        $http.get("/record/" + type + (id ? "/" + id : '')).success(function (struct, status, headers) {
           record['recdata'] = recordUtil.decorate(struct);
           record['etag'] = headers('etag');
           record.resolve(record);
@@ -212,6 +212,7 @@ kitin.service('editUtil', function(definitions) {
   };
 
   var editutil = {
+    addableElements: [],
     record: null,
     setRecord: function(record) {
       this.record = record;
@@ -245,6 +246,8 @@ kitin.service('editUtil', function(definitions) {
           return {'@type': "Identifier", identifierScheme: { '@id': "/def/identifiers/issn" }, identifierValue: ""};
         case 'Identifier':
           return {'@type': "Identifier", identifierValue: ""};
+        case 'VideoRecording':
+          return {'@type': "VideoRecording"};
         case 'ProviderEvent':
           return {'@type': "ProviderEvent", providerName: "", providerDate: "",
                   place: {'@type': "Place", label: ""}};

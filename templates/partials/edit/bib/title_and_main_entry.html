@@ -4,15 +4,15 @@
       <div class="col6">
         <label>
           <span class="lbl required">{{ "Huvudtitel" }}</span>
-          <textarea data-inplace class="title" ="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.titleValue"></textarea>
+          <textarea data-inplace class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.titleValue"></textarea>
         </label>
         <label>
           <span class="lbl required">{{ "Enumeration" }}</span>
-          <textarea data-inplace class="title" ="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.partEnumeration"></textarea>
+          <textarea data-inplace class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.partEnumeration"></textarea>
         </label>
         <label>
           <span class="lbl required">{{ "partTitle" }}</span>
-          <textarea data-inplace class="title" ="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.partTitle"></textarea>
+          <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.partTitle"></textarea>
         </label>
         <label>
           <span class="lbl">{{ "Övrig titelinformation" }}</span>
@@ -93,6 +93,8 @@
         </div>
       </div>
     </div>
+
+    <div class="element-adder"></div>
 
     <!-- TODO: dummy example; implement and remove
     <hr>

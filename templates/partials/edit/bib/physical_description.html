@@ -9,7 +9,6 @@
          </label>
       </div>
     </div>
-
     <div class="cols" data-ng-repeat="(formatType, subFormat) in record.about.hasFormatByType">
 
       <h3 class="ng-binding">{{formatType}}</h3>
@@ -22,7 +21,8 @@
           table-model="subFormat" 
           table-headers="carrierType,color,dimension"
           table-columns="carrierType[0]['@id'],color['@id'],dimensions['@id']"
-          table-addable="addObject(record.about.hasFormatByType, formatType, null, 'electronicTable')">
+          data-subject="record.about" data-link-multiple="hasFormatByType"
+          addable>
         </div>
         <!-- Electronic END -->
 
@@ -32,7 +32,8 @@
           table-model="subFormat" 
           table-headers="carrierType,color,medium"
           table-columns="carrierType[0]['@id'],color['@id'],medium['@id']"
-          table-addable="addObject(record.about.hasFormatByType, formatType, null, 'movingImageTable')">
+          data-subject="record.about" data-link-multiple="hasFormatByType"
+          addable>
         </div>
         <!-- Map END -->
 
@@ -42,7 +43,8 @@
           table-model="subFormat" 
           table-headers="carrierType,motionPicFormat,motionPicSound,motionPicMedium,motionPicDimensions"
           table-columns="carrierType[0]['@id'],motionPicFormat['@id'],motionPicSound['@id'],motionPicMedium['@id'],motionPicDimensions['@id']"
-          table-addable="addObject(record.about.hasFormatByType, formatType, null, 'movingImageTable')">
+          data-subject="record.about" data-link-multiple="hasFormatByType"
+          addable>
         </div>
         <!-- MovingImage END -->
 
@@ -53,7 +55,8 @@
           table-model="subFormat" 
           table-headers="Omfång,Mått,Fysiska detaljer,accompanyingMaterial"
           table-columns="extent,dimensions,otherPhysicalDetails,accompanyingMaterial"
-          table-addable="addObject(record.about.hasFormatByType, formatType, null, 'productTable')">
+          data-subject="record.about" data-link-multiple="hasFormatByType"
+          addable>
         </div>
         <!-- Product END -->
 
@@ -63,7 +66,8 @@
           table-model="subFormat" 
           table-headers="carrierType,soundSpeed,soundDimensions,soundKindOfDisc,soundKindOfMaterial,soundPlaybackCharacter"
           table-columns="carrierType[0]['@id'],soundSpeed['@id'],soundDimensions['@id'],soundKindOfDisc['@id'],soundKindOfMaterial['@id'],soundPlaybackCharacter['@id']"
-          table-addable="addObject(record.about.hasFormatByType, formatType, null, 'soundRecordingTable')">
+          data-subject="record.about" data-link="hasFormatByType"
+          addable>
         </div>
         <!-- SoundRecording END -->
 
@@ -73,7 +77,8 @@
           table-model="subFormat" 
           table-headers="carrierType,videoformat"
           table-columns="carrierType[0]['@id'],videoFormat['@id']"
-          table-addable="addObject(record.about.hasFormatByType, formatType, null, 'videoRecordingTable')">
+          data-subject="record.about" data-link-multiple="hasFormatByType"
+          addable>
         </div>
         <!-- VideoRecording END -->
 
@@ -96,5 +101,6 @@
 
     </div>
   </div>
+  <div class="element-adder"></div>
 </div>
  {% endraw %}

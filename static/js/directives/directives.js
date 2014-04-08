@@ -31,7 +31,7 @@ kitin.directive('publicationAndProduction', function(){
     };
 });
 
-kitin.directive('identifier2', function(){
+kitin.directive('identifier', function(){
     return {
         restrict: 'C',
         templateUrl: '/partials/edit/bib/identifier',
@@ -134,6 +134,8 @@ kitin.directive('isbnvalidator', function(isbnTools) {
     }
   };
 });
+
+// !TODO merge into linkedEntity?
 kitin.directive('kitinDataTable', function(editUtil) {
 
   return {
@@ -157,7 +159,7 @@ kitin.directive('kitinDataTable', function(editUtil) {
       }
       if(columnTemplate) {
         columnTemplate += '<td class="controls">' +
-                  '<button ng-show="!$first" class="btn-link deleter" data-ng-click="removeObject(' + attrs.tableModel + ', null, $index)">' +
+                  '<button class="btn-link deleter" data-ng-click="removeObject(' + attrs.tableModel + ', null, $index)">' +
                     '<i class="fa fa-times"></i>' +
                   '</button>' +
                 '</td>';
@@ -165,11 +167,11 @@ kitin.directive('kitinDataTable', function(editUtil) {
 
       // Add a add link
       var footerTemplate = '';
-      if(attrs.tableAddable) {
+      if(typeof attrs.addable !== 'undefined') {
          footerTemplate = '<tfoot>' +
               '<tr>' +
-                '<td colspan="3">' +
-                  '<button class="add-thing btn-link" data-ng-click="' + attrs.tableAddable + '">Lägg till</button>' +
+                '<td colspan="' + columns.length + '">' +
+                  '<button class="add-thing btn-link" data-ng-click="addObject(record.about, \'' +  attrs.linkMultiple + '\',\'' + attrs.ngSwitchWhen + '\',\'' + attrs.ngTarget + '\',\'' + attrs.ngSwitchWhen + '\')">Lägg till</button>' +
                 '</td>' +
               '</tr>' +
             '</tfoot>';
@@ -192,6 +194,33 @@ kitin.directive('kitinDataTable', function(editUtil) {
     }
   };
 });     
+
+kitin.directive('addable', function(editUtil){
+  return {
+      restrict: 'A',
+      scope: true,
+      compile: function(element, attrs) {
+        editUtil.addableElements.push(attrs);
+      }
+  };
+});
+
+kitin.directive('elementAdder', function(editUtil) {
+  return {
+    restrict: 'C',
+    require: 'editCtrl',
+    scope: true,
+    template: '<select ng-model="elementToAdd" ng-change="change()" ng-options="(element.linkMultiple+\',\'+element.ngSwitchWhen) for element in addableElements"></select>',
+    controller: function($element, $scope, $attrs) {
+      $scope.addableElements = editUtil.addableElements;
+      
+      $scope.change = function() {
+        $scope.$parent.addObject($scope.$parent.record.about, $scope.elementToAdd.linkMultiple, $scope.elementToAdd.ngSwitchWhen, $scope.elementToAdd.ngTarget, $scope.elementToAdd.ngSwitchWhen);
+        $scope.elementToAdd = null;
+      };
+    }
+  };
+});
 
 kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
 
