@@ -242,12 +242,10 @@ kitin.service('editUtil', function(definitions) {
         //  objectKeys: ['prefLabel', '@type', 'hiddenLabel', 'broader', 'narrower', '@id', 'scopeNote', 'historyNote' ]
         case 'ISBN':
           return {'@type': "Identifier", identifierScheme: { '@id': "/def/identifiers/isbn" }, identifierValue: ""};
-        case 'ISSN':
+        case '/def/identifiers/issn':
           return {'@type': "Identifier", identifierScheme: { '@id': "/def/identifiers/issn" }, identifierValue: ""};
         case 'Identifier':
           return {'@type': "Identifier", identifierValue: ""};
-        case 'VideoRecording':
-          return {'@type': "VideoRecording"};
         case 'ProviderEvent':
           return {'@type': "ProviderEvent", providerName: "", providerDate: "",
                   place: {'@type': "Place", label: ""}};

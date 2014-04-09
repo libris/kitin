@@ -210,12 +210,13 @@ kitin.directive('elementAdder', function(editUtil) {
     restrict: 'C',
     require: 'editCtrl',
     scope: true,
-    template: '<select ng-model="elementToAdd" ng-change="change()" ng-options="(element.linkMultiple+\',\'+element.ngSwitchWhen) for element in addableElements"></select>',
+    template: '<select ng-model="elementToAdd" ng-change="change()" ng-options="(element.linkMultiple+\',\'+(element.defaultType ? element.defaultType : element.ngSwitchWhen)) for element in addableElements"></select>',
     controller: function($element, $scope, $attrs) {
       $scope.addableElements = editUtil.addableElements;
       
       $scope.change = function() {
-        $scope.$parent.addObject($scope.$parent.record.about, $scope.elementToAdd.linkMultiple, $scope.elementToAdd.ngSwitchWhen, $scope.elementToAdd.ngTarget, $scope.elementToAdd.ngSwitchWhen);
+        var type = ($scope.elementToAdd.defaultType ? $scope.elementToAdd.defaultType : $scope.elementToAdd.ngSwitchWhen);
+        $scope.$parent.addObject($scope.$parent.record.about, $scope.elementToAdd.linkMultiple, type, $scope.elementToAdd.ngTarget, type);
         $scope.elementToAdd = null;
       };
     }

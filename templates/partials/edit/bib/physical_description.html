@@ -68,7 +68,6 @@
         </div>
         <!-- MovingImage END -->
 
-
         <!-- Product START -->
         <div ng-switch-when="Product" class="datatable" data-ng-target="productTable" 
           kitin-data-table 
@@ -86,7 +85,7 @@
           table-model="subFormat" 
           table-headers="carrierType,soundSpeed,soundDimensions,soundKindOfDisc,soundKindOfMaterial,soundPlaybackCharacter"
           table-columns="carrierType[0]['@id'],soundSpeed['@id'],soundDimensions['@id'],soundKindOfDisc['@id'],soundKindOfMaterial['@id'],soundPlaybackCharacter['@id']"
-          data-subject="record.about" data-link="hasFormatByType"
+          data-subject="record.about" data-link-multiple="hasFormatByType"
           addable>
         </div>
         <!-- SoundRecording END -->

@@ -2,6 +2,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
 
   $anchorScroll();
 
+  editUtil.addableElements = [];
   var modalRecord = $rootScope.modalRecord;
   var recType = modalRecord? modalRecord.recType : $routeParams.recType;
   var recId = modalRecord? modalRecord.recId : $routeParams.recId;
@@ -267,7 +268,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
       collection = subj[rel] = subCollection ? {} : [];
     }
     //!TODO clean up, subCollections is needed when hasFormat and identifier is undefined
-    if(subCollection) {
+    if(typeof subCollection !== 'undefined' && subCollection !== 'undefined') {
       collection = subj[rel][subCollection];
       if(typeof collection === 'undefined') {
         collection = subj[rel][subCollection] = [];

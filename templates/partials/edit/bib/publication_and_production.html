@@ -1,6 +1,6 @@
  {% raw %}
 <h2>Utgivning och tillverkning<i></i></h2>
-    <div class="cols" data-ng-show="record.about['@type'] != 'Book'">
+    <div class="cols"> <!-- data-ng-show="record.about['@type'] != 'Book'">-->
       <div class="col6">
         <label>
           <span class="lbl">{{ "Allmän medieterm" }}</span>
@@ -34,7 +34,8 @@
         table-model="record.about.publication" 
         table-headers="Utgivningsplats,Utgivare/förlag,Utgivningsår"
         table-columns="place.label,providerName,providerDate"
-        table-addable="addObject(record.about, 'publication', 'ProviderEvent', 'publisher')">
+        data-subject="record.about" data-link-multiple="publication"
+          addable>
       </div>   
     </div>
 
