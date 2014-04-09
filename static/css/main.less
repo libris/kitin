@@ -345,7 +345,7 @@ body.search #header {
   }
 }
 
-#header .kb{width:74px;height:80px;position:absolute;right:0;bottom:-10px;background:url(/static/img/kb.svg) no-repeat;z-index:2;background-size:100%}
+#header .kb{width:74px;height:80px;position:absolute;right:0;bottom:10px;background:url(/static/img/kb.svg) no-repeat;z-index:2;background-size:100%}
 #header .beta { font-size: 16px; color: @pink; position: absolute;right:10px;top:16px}
 #header .system-updated { font-size: 11px; color: @grey-dark; padding: 0px; margin: 0px; }
 
@@ -498,7 +498,7 @@ body.edit .footer footer {margin-top:0px;}
 .footer footer li:first-child{margin-left:0;padding-left:0;border:none}
 .footer footer li:first-child:before{content:'';margin:0}
 
-.content.index header{background-image:url(/static/img/top-index.png);margin-bottom:130px;min-height:80px}
+.content.index header{ background-image:url(/static/img/top-index.png);margin-bottom:130px;min-height:80px;background-repeat: no-repeat;}
 .content.index > .cols{margin-left:12px;overflow:visible;}
 
 body.login .content.index header{margin-bottom:60px;}
@@ -737,7 +737,7 @@ form.login label{border-left:none;padding-left:0;}
 form.login .inp input,
 form.login .inp input:hover,
 form.login label.inp:hover input,
-form.login .inp input:focus{width:294px;border:1px solid #bbb; padding: 6px 10px 6px;border-color: #aaa #ccc #ccc #aaa;
+form.login .inp input:focus{width:312px;border:1px solid #bbb; padding: 6px 10px 6px;border-color: #aaa #ccc #ccc #aaa;
   background:@white;
   box-shadow: inset 1px 1px 1px rgba(0,0,0,.1);
   -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0,.1);
@@ -748,7 +748,7 @@ form.login .inp input:focus{width:294px;border:1px solid #bbb; padding: 6px 10px
   -moz-border-radius-bottomleft: 3px;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
-  height:24px;
+  height:36px;
   -webkit-transition:all ease-out 0.05s;
 }
 form.login .inp input:hover,

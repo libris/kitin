@@ -820,7 +820,7 @@ body.search #header .kb {
   height: 80px;
   position: absolute;
   right: 0;
-  bottom: -10px;
+  bottom: 10px;
   background: url(/static/img/kb.svg) no-repeat;
   z-index: 2;
   background-size: 100%;
@@ -1070,6 +1070,7 @@ body.edit .footer footer {
   background-image: url(/static/img/top-index.png);
   margin-bottom: 130px;
   min-height: 80px;
+  background-repeat: no-repeat;
 }
 .content.index > .cols {
   margin-left: 12px;
@@ -1576,7 +1577,7 @@ form.login .inp input,
 form.login .inp input:hover,
 form.login label.inp:hover input,
 form.login .inp input:focus {
-  width: 294px;
+  width: 312px;
   border: 1px solid #bbb;
   padding: 6px 10px 6px;
   border-color: #aaa #ccc #ccc #aaa;
@@ -1590,7 +1591,7 @@ form.login .inp input:focus {
   -moz-border-radius-bottomleft: 3px;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
-  height: 24px;
+  height: 36px;
   -webkit-transition: all ease-out 0.05s;
 }
 form.login .inp input:hover,
