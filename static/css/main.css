@@ -1093,6 +1093,12 @@ body.login .content.index header {
   bottom: 2px;
   z-index: 10;
 }
+.content header .catform {
+  position: absolute;
+  right: 354px;
+  bottom: 2px;
+  z-index: 10;
+}
 .content header .levelselect .dropdown-toggle {
   display: inline-block;
   padding: 3px 8px;

@@ -4,19 +4,25 @@
   <div id="grid"></div>
   <div class="edit content {{recType}}">
     <div>
-      <div class="record-metadata">
+      <div class="record-data">
       <span class="record-type">{{recType}}</span>
       <span data-nf-if="record.originalCatalogingAgency.name">
-      - Skapad av: <strong>{{record.originalCatalogingAgency.name}}</strong>
+      - Skapad av: <strong data-ng-model="record.originalCatalogingAgency.name">{{record.originalCatalogingAgency.name}}</strong>
+			</span>
+			<span>
+			 {{record.status['@id']}}
 			</span>
       <span data-ng-if="record.modified">
-       - Senast ändrad: <em>{{record.modified | date:'yyyy-MM-dd HH:mm'}}</em> av: <strong>{{ record.modifyingAgency.name }}</strong>
+        <em data-ng-model="record.modified">{{record.modified | date:'yyyy-MM-dd HH:mm'}}</em> av: <strong>{{ record.modifyingAgency.name }}</strong>
       </span>
       <span>
       - Publicerad: <em>{{record['@id']}}</em>
       </span>
       <span>
-      - Språk: {{record.language}}
+      - Encoding <em>{{ record.characterCoding['@id']}}</em>
+      </span>
+      <span>
+      - Språk: <em>{{record.language}}</em>
       </span>
                   <span>
               <label class="enc-level">
@@ -62,11 +68,11 @@
           <!--(Bibliografiskt material)--></h1>
 
 
-<!--TODO: make this designsuggestion functional in template
+
         <div class="levelselect">
           <div class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-check"></i> Minimi nivå <i class="fa fa-caret-down"></i>
+              <i class="fa fa-check"></i> <span data-ng-model="record.encLevel['@id']"  >{{record.encLevel['@id']}}</span><i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu">
               <li><a href="#">Minimal nivå</a></li>
@@ -75,12 +81,26 @@
           </div>
         </div>
 
+
+        <div class="levelselect catform">
+          <div class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-check"></i> <span data-ng-model="record.catForm['@id']"  >{{record.catForm['@id']}}</span</i>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Minimal nivå</a></li>
+              <li><a href="#">Bibliografisk nivå</a></li>
+            </ul>
+          </div>
+        </div>
+
+
         <div class="levels">
           <span>{{ enums.bibLevel[record.bibLevel].label_sv }}</span>
           <span>{{ enums.encLevel[record.encLevel].label_sv }}</span>
           <span>{{ enums.catForm[record.catForm].label_sv }}</span>
         </div>
-        -->
+        
         <div class="modes">
           <a href="#" class="active">LIBRIS</a>
           <a href="/jsonld{{ record['@id'] }}">JSON-LD</a>

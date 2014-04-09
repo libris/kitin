@@ -50,10 +50,10 @@ kitin.directive('physicalDescription', function(){
     };
 });
 
-kitin.directive('remark', function(){
+kitin.directive('notes', function(){
     return {
         restrict: 'C',
-        templateUrl: '/partials/edit/bib/remark',
+        templateUrl: '/partials/edit/bib/notes',
         controller: function($scope) {
             //controller for your sub area.
         }
