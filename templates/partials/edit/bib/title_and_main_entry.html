@@ -3,37 +3,37 @@
     <div class="cols">
       <div class="col6">
         <label>
-          <span class="lbl required" translate>LABEL.record.about.instanceTitle.titleValue</span>
+          <span class="lbl" translate>LABEL.record.about.instanceTitle.titleValue</span>
           <textarea data-inplace class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.titleValue"></textarea>
         </label>
         <label>
-          <span class="lbl required">{{ "Enumeration" }}</span>
+          <span class="lbl" translate>LABEL.record.about.instanceTitle.partEnumeration</span>
           <textarea data-inplace class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.partEnumeration"></textarea>
         </label>
         <label>
-          <span class="lbl required">{{ "partTitle" }}</span>
+          <span class="lbl" translate>LABEL.record.about.instanceTitle.partTitle</span>
           <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.partTitle"></textarea>
         </label>
         <label>
-          <span class="lbl">{{ "Övrig titelinformation" }}</span>
+          <span class="lbl" translate>LABEL.record.about.instanceTitle.subtitle</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.subtitle"></textarea>
         </label>
         <label>
-          <span class="lbl">{{ "titleVariation" }}</span>
+          <span class="lbl" translate>LABEL.record.about.titleVariation.titleValue</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.titleValue"></textarea>
         </label>
         <ng:switch on="instance['@type']">
         <label data-ng-switch-when="Serial">
-           <span class="lbl">{{ "Nyckeltitel" }}</span>
+           <span class="lbl" translate>LABEL.record.about.keyTitle.titleValue</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.keyTitle.titleValue"></textarea>       
         </label>
         <label data-ng-repeat="uniformTitle in record.about.relation">
-          <span class="lbl">{{ "Relation:work uniformTitle" }}</span>
+          <span class="lbl" translate>LABEL.uniformTitle in record.about.relation</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="uniformTitle.uniformTitle"></textarea>
         </label>
         </ng:switch>
         <hr>
-        <span class="lbl">{{ "Språk" }}</span>
+        <span class="lbl" translate>LABEL.record.about.language</span>
         <div data-kitin-link-entity
             data-subject="record.about"
             data-link="'language'" data-type="Language"
@@ -68,13 +68,13 @@
       </div>
       <div class="col6">
         <label>
-          <span class="lbl">{{ "Upphov" }}</span>
+          <span class="lbl" translate>LABEL.record.about.responsibilityStatement</span>
           <textarea spellcheck="false"
               data-inplace data-ui-jq="autosize"
               data-ng-model="record.about.responsibilityStatement"></textarea>
         </label>
         <div>
-          <span class="lbl">{{ 'Huvuduppslag' }}</span>
+          <span class="lbl" translate>LABEL.record.about.attributedTo</span>
           <div data-kitin-link-entity
               data-ng-init="label = 'Lägg till huvuduppslag'"
               data-subject="record.about" data-link="'attributedTo'" data-type="Person"
@@ -83,7 +83,7 @@
           </div>
         </div>
         <div>
-          <span class="lbl">{{ 'Biuppslag' }}</span>
+          <span class="lbl" translate>LABEL.record.about.influencedBy</span>
           <div data-kitin-link-entity
               data-ng-init="label = 'Lägg till biuppslag'"
               data-subject="record.about" data-link-multiple="'influencedBy'" data-type="Person"
