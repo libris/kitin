@@ -1,12 +1,25 @@
 var kitin = angular.module('kitin.services', []);
 
+/**
+ * userData
+ */
 kitin.factory('userData', function() {
   return {
     userSigel: null
   };
 });
 
+/**
+ * definitions
+ * Get definitions lists from backend
+ */
 kitin.factory('definitions', function($http) {
+  
+  /**
+  * getDataset
+  * @param    url       {Servicetring}    URL to dataset
+  * @return   promise   {Object}          Angular JS promise, $q
+  */
   function getDataset(url) {
     return {
       then: function (f) {
@@ -17,25 +30,29 @@ kitin.factory('definitions', function($http) {
     };
   }
 
+  // Defined definitions
   var enumBase = "/resource/_marcmap?part=bib.fixprops.";
   var definitions = {
-    remotedatabases: getDataset("/search/remote.json?databases"),
-    typedefs: getDataset("/resource/_resourcelist?typedef=all"),
-    relators: getDataset("/def/relators"),
-    languages: getDataset("/def/languages"),
-    countries: getDataset("/def/countries"),
-    //nationalities: getDataset("/def/nationalities"),
-    conceptSchemes: getDataset("/def/schemes"),
+    remotedatabases:  getDataset("/search/remote.json?databases"),
+    typedefs:         getDataset("/resource/_resourcelist?typedef=all"),
+    relators:         getDataset("/def/relators"),
+    languages:        getDataset("/def/languages"),
+    countries:        getDataset("/def/countries"),
+    //nationalities:  getDataset("/def/nationalities"),
+    conceptSchemes:   getDataset("/def/schemes"),
     enums: {
-      bibLevel: getDataset(enumBase + "bibLevel"),
-      encLevel: getDataset(enumBase + "encLevel"),
-      catForm: getDataset(enumBase + "catForm")
+      bibLevel:       getDataset(enumBase + "bibLevel"),
+      encLevel:       getDataset(enumBase + "encLevel"),
+      catForm:        getDataset(enumBase + "catForm")
     }
   };
   return definitions;
 });
 
-
+/**
+ * recordUtil
+ * Service to modify a record. Typically decorate/undecorate
+ */
 kitin.factory('recordUtil', function() {
   return {
 
@@ -90,6 +107,11 @@ kitin.factory('recordUtil', function() {
 });
 
 
+/**
+ * dataService
+ * Service to handle communcation with backend.
+ * Currently used for records and drafts
+ */
 kitin.factory('dataService', function ($http, $q, recordUtil) {
   return {
 
@@ -190,30 +212,24 @@ kitin.factory('dataService', function ($http, $q, recordUtil) {
 });
 
 
-kitin.factory('draft', function ($http, $q) {
-  return {
-
-    
-
-
-  };
-});
-
+/**
+ * editUtil
+ *
+ */
 kitin.service('editUtil', function(definitions) {
-  
-  var addToContainer = function(subj, rel, type, obj) {
-    var collection = subj[rel];
-    if(typeof collection === 'undefined') {
-      collection = subj[rel] = [];
-    }
-    var res = obj ? obj : createObject(type);
-    collection.push(res);
-    return collection;
-  };
-
   var editutil = {
+
+    RECORD_TYPES: {
+      NEW: 'new',
+      DRAFT: 'draft',
+      REMOTE: 'remote',
+      BIB: 'bib',
+      AUTH: 'auth'
+    },
+
     addableElements: [],
     record: null,
+    
     setRecord: function(record) {
       this.record = record;
     },
@@ -223,6 +239,17 @@ kitin.service('editUtil', function(definitions) {
     },
 
     addObject: function(subj, rel, type, multiple, obj) {
+
+      var addToContainer = function(subj, rel, type, obj) {
+        var collection = subj[rel];
+        if(typeof collection === 'undefined') {
+          collection = subj[rel] = [];
+        }
+        var res = obj ? obj : createObject(type);
+        collection.push(res);
+        return collection;
+      };
+
       var added;
       if (multiple) {
         added = addToContainer(subj, rel, type, obj);
@@ -422,10 +449,13 @@ kitin.service('editUtil', function(definitions) {
       });
     }
   };
-
   return editutil;
 });
 
+/**
+ * isbnTools
+ *
+ */
 kitin.factory('isbnTools', function($http, $q) {
   function doCheck(isbn) {
     var deferred = $q.defer();
@@ -443,6 +473,10 @@ kitin.factory('isbnTools', function($http, $q) {
   };
 });
 
+/**
+ * searchService
+ *
+ */
 kitin.factory('searchService', function($http, $q) {
   return {
     pageSize: 10,
@@ -483,6 +517,11 @@ kitin.factory('searchService', function($http, $q) {
   };
 });
 
+
+/**
+ * searchUtil
+ *
+ */
 kitin.factory('searchUtil', function() {
   return {
 
