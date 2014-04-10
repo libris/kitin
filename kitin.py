@@ -67,7 +67,7 @@ def global_view_variables():
 @app.route("/")
 @login_required
 def index():
-    return render_template('index.html', user=current_user, partials = {"/partials/index" : "partials/index.html"})
+    return render_template('index.html', user=current_user, partials = {"/partials/index" : "partials/index.html"}, debug = app.debug)
 
 
 @app.route("/login", methods=["GET", "POST"])

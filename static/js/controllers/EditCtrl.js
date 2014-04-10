@@ -451,7 +451,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     updatePrinted(suffix, true);
   }
   // Could not get $viewContentLoading to work. Using timeout as a temporary solution
-  if(recType === 'bib') {
+  if($scope.debug && recType === 'bib') {
   $timeout(function() {
     debugRecord();
   }, 1000);

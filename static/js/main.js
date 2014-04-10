@@ -37,6 +37,8 @@ kitin.run(function($rootScope) {
 
   $rootScope.lodash = _;
 
+  $rootScope.debug = (debug === true) || false;
+
   $rootScope.isEmpty = function(obj) { return angular.equals({},obj); };
   $rootScope.typeOf = function (o) { return o === null? 'null' : typeof o; };
 
@@ -72,17 +74,19 @@ function openPrompt($event, promptSelect, innerMenuSelect) {
   prompt.find('select').focus();
 }
 
-// TODO only if debug=true
-$(document).on("click", function (evt) {
-  if (!evt.altKey)
-    return;
-  console.log($(evt.target).scope());
-  evt.stopPropagation();
-}).on('keydown', function(e) {
-  if ( e.which == 192 ) {
-    $('#grid').toggle();
-  }
-});
+if(debug) {
+  // Get click event log and layout grid toggle
+  $(document).on("click", function (evt) {
+    if (!evt.altKey)
+      return;
+    console.log($(evt.target).scope());
+    evt.stopPropagation();
+  }).on('keydown', function(e) {
+    if ( e.which == 192 ) {
+      $('#grid').toggle();
+    }
+  });
+}
 
 
 var rand = function(min, max) {
