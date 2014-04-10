@@ -57,7 +57,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr data-ng-repeat="person in instance.sameAs" class="">
+            <tr data-ng-repeat="person in instance.sameAs track by $index" class="">
               <td>
                 <label>
                 <label>
@@ -149,7 +149,7 @@
           <li data-ng-model="closeMatch.prefLabel">{{ closeMatch.prefLabel }}</li>
         </ul>
         <span class="lbl" data-ng-show="record.source">{{ "Källa/kommentar" }}</span>  
-        <ul data-ng-repeat="source in record.source">
+        <ul data-ng-repeat="source in record.source track by $index">
           <li>{{ source.label }} <span ng-if="source.comment">/ {{ source.comment }}</span></li>
         </ul>
       </div>
@@ -293,7 +293,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr data-ng-repeat="source in record.source" class="">
+            <tr data-ng-repeat="source in record.source track by $index" class="">
               <td>
                 <label>
                 <label>

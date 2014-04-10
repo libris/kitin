@@ -210,7 +210,7 @@ kitin.directive('elementAdder', function(editUtil) {
     restrict: 'C',
     require: 'editCtrl',
     scope: true,
-    template: '<select ng-model="elementToAdd" ng-change="change()" ng-options="(element.linkMultiple+\',\'+(element.defaultType ? element.defaultType : element.ngSwitchWhen)) for element in addableElements"></select>',
+    template: '<select ng-model="elementToAdd" ng-change="change()" ng-options="(element.linkMultiple+\',\'+(element.defaultType ? element.defaultType : element.ngSwitchWhen)) for element in addableElements"><option value="" selected>Lägg till</option></select>',
     controller: function($element, $scope, $attrs) {
       $scope.addableElements = editUtil.addableElements;
       
