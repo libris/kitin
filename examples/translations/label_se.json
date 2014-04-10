@@ -72,6 +72,23 @@
             "about.publicationCountry": "Utgivningsland",
             "about.editionStatement.edition": "Upplaga",
             "about.relation.uniformTitle": "Okontrollerad titel"
+        },
+
+        "gui": {
+            "index": {
+                "headers": {
+                    "ABOUT_THE_PROJECT": "Om projektet",
+                    "CHANGE_MESSAGES": "Ändringsmeddelanden (fd CXZ-listan)",
+                    "MY_SAVED_DRAFTS": "Mina sparade utkast",
+                    "DISCUSSION_FORUM": "Diskussionsforum (fd Marc21-listan)"
+                }
+            },
+            "search": {
+
+            },
+            "edit": {
+
+            }
         }
     }
 
