@@ -1,7 +1,8 @@
 {
     "LABEL": {
         "record": {
-            "about.instanceTitle.titleValue": "Huvudtitel"
+            "about.instanceTitle.titleValue": "Huvudtitel",
+            "about.hasFormat.Product": "Produkt"
         }
     }
 

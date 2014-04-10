@@ -31,7 +31,7 @@
     </div>
     <div class="cols" data-ng-repeat="(formatType, subFormat) in record.about.hasFormatByType">
 
-      <h3 class="ng-binding">{{formatType}}</h3>
+      <h3 class="ng-binding" translate>{{ 'LABEL.record.about.hasFormat.' + formatType }}</h3>
       <div class="col12" ng-switch on="formatType">
 
 
