@@ -10,7 +10,45 @@
             "about.responsibilityStatement": "Upphov",
             "about.attributedTo": "Huvuduppslag",
             "about.influencedBy": "Biuppslag",
-            "about.hasFormat.Product": "Produkt"
+
+
+            "about.hasFormat.Electronic": "",
+            "about.hasFormat.Electronic.carrierType": "",
+            "about.hasFormat.Electronic.color": "Färg",
+            "about.hasFormat.Electronic.dimensions": "",
+            
+            "about.hasFormat.Map": "Karta",
+            "about.hasFormat.Map.carrierType": "",
+            "about.hasFormat.Map.color": "Färg",
+            "about.hasFormat.Map.medium": "",
+            "about.cartographicScale": "",
+            "about.cartographicCoordinates": "",
+
+            "about.hasFormat.MovingImage": "Film",
+            "about.hasFormat.MovingImage.carrierType": "",
+            "about.hasFormat.MovingImage.motionPicFormat": "",
+            "about.hasFormat.MovingImage.motionPicSound": "",
+            "about.hasFormat.MovingImage.motionPicMedium": "",
+            "about.hasFormat.MovingImage.motionPicDimensions": "",
+            
+            "about.hasFormat.Product": "Produkt",
+            "about.hasFormat.Product.extent": "Omfång",
+            "about.hasFormat.Product.dimensions": "Mått",
+            "about.hasFormat.Product.otherPhysicalDetails": "Fysiska detaljer",
+            "about.hasFormat.Product.accompanyingMaterial": "Produkt",
+
+            "about.hasFormat.SoundRecording": "",
+            "about.hasFormat.SoundRecording.carrierType": "",
+            "about.hasFormat.SoundRecording.soundSpeed": "",
+            "about.hasFormat.SoundRecording.soundDimensions": "",
+            "about.hasFormat.SoundRecording.soundKindOfDisc": "",
+            "about.hasFormat.SoundRecording.soundKindOfMaterial": "",
+            "about.hasFormat.SoundRecording.soundPlaybackCharacter": "",
+
+            "about.hasFormat.VideoRecording": "",
+            "about.hasFormat.VideoRecording.carrierType": "",
+            "about.hasFormat.VideoRecording.videoFormat": ""
+
         }
     }
 

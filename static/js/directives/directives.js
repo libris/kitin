@@ -144,18 +144,18 @@ kitin.directive('kitinDataTable', function(editUtil) {
     scope: true,
 
     compile: function(element, attrs) {
-      // Parse headers
-      var headers = attrs.tableHeaders.split(',');
-      var headerTemplate = '';
-      for (var i = 0; i < headers.length; i++) {
-        headerTemplate += '<td><span class="lbl">' + headers[i] + '</span></td>';
-      }
-
-      // Parse columns
+      var headers = attrs.tableHeaders ? attrs.tableHeaders.split(',') : [];
       var columns = attrs.tableColumns.split(',');
+
+      // Parse columns and headers
+      var headerTemplate = '';
+      var translate = (typeof attrs.tableHeaderTranslate !== 'undefined' ? ' translate' : '');
       var columnTemplate = '';
-      for (var j = 0; j < columns.length; j++) {
-        columnTemplate += '<td><label><input ng-model="object.' + columns[j] + '" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>';
+      for (var i = 0; i < columns.length; i++) {
+        // Join header to prefix, if no header, use column name and remove 
+        columnHeader = (attrs.tableHeaderTranslatePrefix ? attrs.tableHeaderTranslatePrefix + '.' : '') + (headers[i] || columns[i].replace(/\[.*?\]\s?/g,''));
+        headerTemplate += '<td><span class="lbl"' + translate + '>' + columnHeader + '</span></td>';
+        columnTemplate += '<td><label><input ng-model="object.' + columns[i] + '" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>';
       }
       if(columnTemplate) {
         columnTemplate += '<td class="controls">' +
