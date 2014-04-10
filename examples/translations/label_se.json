@@ -2,6 +2,14 @@
     "LABEL": {
         "record": {
             "about.instanceTitle.titleValue": "Huvudtitel",
+            "about.instanceTitle.subtitle": "Övrig titelinformation",
+            "about.instanceTitle.partTitle": "Deltitel",
+            "about.instanceTitle.partEnumeration": "Delnummer",
+            "about.titleVariation.titleValue": "Varianttitel",
+            "about.language": "Språk",
+            "about.responsibilityStatement": "Upphov",
+            "about.attributedTo": "Huvuduppslag",
+            "about.influencedBy": "Biuppslag",
             "about.hasFormat.Product": "Produkt"
         }
     }
