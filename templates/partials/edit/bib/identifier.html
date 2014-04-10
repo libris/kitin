@@ -12,16 +12,16 @@
               <tr>
                 <td><!--TODO fix labels and error messages for identifiers-->
                   <span class="lbl-inline lbl"
-                        data-ng-hide="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length"><span>{{ identifier.identifierScheme['@id'] || "ISBN"}}</span>                      
+                        data-ng-hide="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length"><span translate>LABEL.record.about.identifers.isbn.identifierValue</span>                      
                   </span>
                   <span class="lbl-inline lbl error-label"
-                        data-ng-show="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length">{{ "ISBN" }} 
+                        data-ng-show="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length" translate>LABEL.record.about.identifers.isbn.identifierValue 
                   <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_value">(Fel numeriskt värde)</span>
                   <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_length">(Fel längd)</span>
                   </span>
                 </td>
                 <td>
-                  <span class="lbl">{{ "Notering" }}</span>
+                  <span class="lbl" translate>LABEL.record.about.identifers.isbn.identifierNote</span>
                 </td>
                 <td></td>
               </tr>
@@ -61,7 +61,7 @@
         <div ng-switch-when="/def/identifiers/issn" class="datatable" data-ng-target="issnTable" 
           kitin-data-table 
           table-model="identifierScheme" 
-          table-headers="ISSN,Notering"
+          table-header-translate table-header-translate-prefix= "LABEL.record.about.identifers.issn"
           table-columns="identifierValue,identifierNote"
           data-subject="record.about" data-link-multiple="identifierByIdentifierScheme"
           addable>
@@ -73,7 +73,7 @@
         <div ng-switch-default class="datatable" data-ng-target="identifierTable" 
           kitin-data-table 
           table-model="identifierScheme" 
-          table-headers="Identifierare,Notering,Scheme"
+          table-header-translate table-header-translate-prefix= "LABEL.record.about.identifers.generalIdentifier"
           table-columns="identifierValue,identifierNote,identifierScheme['@id']"
           data-subject="record.about" data-link-multiple="identifierByIdentifierScheme" data-default-type="identifier"
           addable>

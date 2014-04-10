@@ -11,6 +11,18 @@
             "about.attributedTo": "Huvuduppslag",
             "about.influencedBy": "Biuppslag",
 
+            "about.publication.place.label": "Utgivningsplats",
+            "about.publication.providerName": "Utgivare/förlag",
+            "about.publication.providerDate": "Utgivningsår",
+
+            "about.identifers.isbn.identifierValue": "ISBN",
+            "about.identifers.isbn.identifierNote": "Notering",
+            "about.identifers.issn.identifierValue": "ISSN",
+            "about.identifers.issn.identifierNote": "Notering",
+            "about.identifers.generalIdentifier.identifierValue": "Identifierare",
+            "about.identifers.generalIdentifier.identifierNote": "Notering",
+            "about.identifers.generalIdentifier.identifierScheme": "identifierScheme",
+            
             "about.hasFormat.Electronic": "",
             "about.hasFormat.Electronic.carrierType": "",
             "about.hasFormat.Electronic.color": "Färg",
