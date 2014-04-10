@@ -4,13 +4,18 @@
  */
 
 var kitin = angular.module('kitin', [
-    'ngRoute', 'infinite-scroll',
+    'ngRoute', 'infinite-scroll', 'pascalprecht.translate',
     'ui.utils', 'ui.bootstrap',
     'kitin.controllers', 'kitin.filters', 'kitin.services', 'kitin.directives']);
 
-kitin.config(function($locationProvider, $routeProvider) {
+kitin.config(function($locationProvider, $routeProvider, $translateProvider) {
   
       $locationProvider.html5Mode(true).hashPrefix('!');
+
+       // add translation table
+      $translateProvider
+        .useUrlLoader('/translation')
+        .preferredLanguage('se');
 
       $routeProvider
         .when('/',                        { templateUrl: '/partials/index' })

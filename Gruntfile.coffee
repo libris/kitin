@@ -93,6 +93,8 @@ module.exports = (grunt) ->
           'static/build/js/vendor.min.js': [
             'static/vendor/jquery/*.js'
             'static/vendor/angular/*.js'
+            'static/vendor/angular-translate/*.js'
+            'static/vendor/angular-translate-loader-url/*.js'
             'static/vendor/*/{,*/}*.js'
           ]
 

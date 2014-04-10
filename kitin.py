@@ -142,8 +142,6 @@ def do_search(service_path):
 # ----------------------------
 # SEARCH END
 
-
-
 # RECORD START
 # ----------------------------
 
@@ -354,6 +352,20 @@ def delete_draft(rec_type, draft_id):
 # ----------------------------
 # DRAFT END
 
+
+
+# TRANSLATION START
+# ----------------------------
+# MOVE INTO DEF?
+@app.route("/translation/", methods=["GET"])
+@login_required
+def get_labels():
+    language = request.args.get('lang')
+    if(language == 'se'):
+        return raw_json_response(open(os.path.join(here, "examples/translations/label_%s.json" % language), 'r').read())
+
+# ----------------------------
+# TRANSLATION END
 
 
 @app.route("/def/<path:path>")
