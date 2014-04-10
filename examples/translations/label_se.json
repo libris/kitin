@@ -3,14 +3,13 @@
         "record": {
             "about.instanceTitle.titleValue": "Huvudtitel",
             "about.instanceTitle.subtitle": "Övrig titelinformation",
+            "about.instanceTitle.partEnumeration": "Delbeteckning",
             "about.instanceTitle.partTitle": "Deltitel",
-            "about.instanceTitle.partEnumeration": "Delnummer",
             "about.titleVariation.titleValue": "Varianttitel",
             "about.language": "Språk",
             "about.responsibilityStatement": "Upphov",
             "about.attributedTo": "Huvuduppslag",
             "about.influencedBy": "Biuppslag",
-
 
             "about.hasFormat.Electronic": "",
             "about.hasFormat.Electronic.carrierType": "",
@@ -47,8 +46,15 @@
 
             "about.hasFormat.VideoRecording": "",
             "about.hasFormat.VideoRecording.carrierType": "",
-            "about.hasFormat.VideoRecording.videoFormat": ""
+            "about.hasFormat.VideoRecording.videoFormat": "",
 
+            "about.material": "Material",
+            "about.mediaTerm": "Allmän medieterm",
+            "about.date": "Datum då posten upprättades",
+            "about.publicationStatus": "Typ av utgivningsdatum. Utgivningsstatus.",
+            "about.publicationYear": "Årtal",
+            "about.publicationCountry": "Utgivningsland",
+            "about.relation.uniformTitle": "Okontrollerad titel"
         }
     }
 
