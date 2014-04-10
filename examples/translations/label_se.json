@@ -1,12 +1,16 @@
 {
     "LABEL": {
         "record": {
+            "about.fileType": "Filtyp",
+            "about.language": "Språk",
+            "about.relief": "Relief",            
+            "about.index": "Index",
+            
             "about.instanceTitle.titleValue": "Huvudtitel",
             "about.instanceTitle.subtitle": "Övrig titelinformation",
             "about.instanceTitle.partEnumeration": "Delbeteckning",
             "about.instanceTitle.partTitle": "Deltitel",
             "about.titleVariation.titleValue": "Varianttitel",
-            "about.language": "Språk",
             "about.responsibilityStatement": "Upphov",
             "about.attributedTo": "Huvuduppslag",
             "about.influencedBy": "Biuppslag",
@@ -66,6 +70,7 @@
             "about.publicationStatus": "Typ av utgivningsdatum. Utgivningsstatus.",
             "about.publicationYear": "Årtal",
             "about.publicationCountry": "Utgivningsland",
+            "about.editionStatement.edition": "Upplaga",
             "about.relation.uniformTitle": "Okontrollerad titel"
         }
     }
