@@ -167,11 +167,12 @@ kitin.directive('kitinDataTable', function(editUtil) {
 
       // Add a add link
       var footerTemplate = '';
+      var type = (attrs.defaultType ? attrs.defaultType : attrs.ngSwitchWhen);
       if(typeof attrs.addable !== 'undefined') {
          footerTemplate = '<tfoot>' +
               '<tr>' +
                 '<td colspan="' + columns.length + '">' +
-                  '<button class="add-thing btn-link" data-ng-click="addObject(record.about, \'' +  attrs.linkMultiple + '\',\'' + attrs.ngSwitchWhen + '\',\'' + attrs.ngTarget + '\',\'' + attrs.ngSwitchWhen + '\')">Lägg till</button>' +
+                  '<button class="add-thing btn-link" data-ng-click="addObject(record.about, \'' +  attrs.linkMultiple + '\',\'' + type + '\',\'' + attrs.ngTarget + '\',\'' + type + '\')">Lägg till</button>' +
                 '</td>' +
               '</tr>' +
             '</tfoot>';
