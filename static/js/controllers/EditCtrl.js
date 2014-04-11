@@ -298,14 +298,18 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   };
 
   $scope.addObject = function(subj, rel, type, target, subCollection) {
+    var isDefined = function(collection) {
+      return typeof collection !== 'undefined' && collection !== 'undefined';
+    };
+
     var collection = subj[rel];
-    if (typeof collection === 'undefined') {
-      collection = subj[rel] = subCollection ? {} : [];
+    if (!isDefined(collection)) {
+      collection = subj[rel] = isDefined(subCollection) ? {} : [];
     }
     //!TODO clean up, subCollections is needed when hasFormat and identifier is undefined
-    if(typeof subCollection !== 'undefined' && subCollection !== 'undefined') {
+    if(isDefined(subCollection)) {
       collection = subj[rel][subCollection];
-      if(typeof collection === 'undefined') {
+      if(!isDefined(collection)) {
         collection = subj[rel][subCollection] = [];
       }
     }

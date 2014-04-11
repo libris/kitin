@@ -178,7 +178,7 @@ kitin.directive('kitinDataTable', function(editUtil) {
       }
 
       // Create table template
-      var template = '<table>' +
+      var template = '<table ng-if="' + attrs.tableModel + '.length > 0">' +
           '<tbody>' +
             '<tr>' + headerTemplate + '</tr>' +
             '<tr ng-repeat="object in ' + attrs.tableModel + '">' +
@@ -191,6 +191,12 @@ kitin.directive('kitinDataTable', function(editUtil) {
       element.html(template);
     },
     controller: function($element, $scope, $attrs) {
+      // Add first row
+      if(typeof $attrs.addFirst !== 'undefined' && !$scope.$first) {
+        var type = ($attrs.defaultType ? $attrs.defaultType : $attrs.ngSwitchWhen);
+        $scope.addObject($scope.record.about, $attrs.linkMultiple, type, $attrs.ngTarget, type);
+      }
+
     }
   };
 });     
