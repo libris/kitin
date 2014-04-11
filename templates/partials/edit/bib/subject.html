@@ -12,69 +12,44 @@
       </div>
     </div>
 
-  <script type="text/ng-template" id="search-subject">
-    <label>
-      <input class="input-large" type="text" placeholder="Nytt ämnesord"
-            data-kitin-search-entity
-            data-filter="{'inScheme.notation': scheme.notation}"
-            data-service-url="/suggest/concept"
-            data-completion-template="subject-completion-template" />
-    </label>
-  </script>
-
-  <script type="text/ng-template" id="view-subject">
-    <div class="entity linked" tabindex="0">
-      <ng:switch on="object['@type']">
-        <div data-ng-switch-when="Person" class="col4">
-          {{ object.controlledLabel }}
-        </div>
-        <div data-ng-switch-default>
-          <div data-ng-show="object.prefLabel" class="col4">
-            {{ object.prefLabel }}
-            <span class="lbl" data-ng-show="object['@type'] == 'Place'">Geografiskt ämnesord</span>
-            <!--<span class="lbl">{{ object.inScheme.notation }}</span>-->
-          </div>
-          <div data-ng-show="object.broader" class="col4">
-            <!-- <em>Sammansättning: {{broader['@id']}}</em> -->
-            <div>
-              <span data-ng-repeat="broader in object.broader">
-                {{broader.prefLabel}}
-                <span data-ng-show="broader.notation">({{ broader.notation }}) </span>
-                <span class="subject-delimiter" data-ng-hide="$last">--</span>
-              </span>
-            </div>
-          </div>
-        </div>
-      </ng:switch>
-      <div class="addon">
+    <div class="cols">
+      <h3>Andra ämnesordssystem</h3>
+      <div class="col3">  
         <label>
-          <button class="btn-link on-hover" data-ng-click="doRemove($index)">
-            <i class="fa fa-times"></i></button>
+          <input type="text" placeholder="Nytt ämnesord" data-kitin-autocomplete="subject"
+                data-kitin-add-to="schemeContainer"
+                data-kitin-filter="{'inScheme.notation': chosenScheme}" />
+        </label>
+      </div>
+      <div class="col3">
+        <label>
+          <select data-ng-model="chosenScheme"
+            data-ng-options="code as (scheme.alternative || scheme.title || scheme.title_en)
+                             for (code, scheme) in conceptSchemes.byNotation">
+          </select>
         </label>
       </div>
     </div>
-  </script>
+  </div>
+  <div class="col6">
+    <h3>Klassifikation</h3>
+    <!--
+    <ul class="inline">
+    <li data-ng-repeat="topicalTerm in record.topicalTerm"><a class="btn btn-small" href="{{ topicalTerm }}"><i class="icon-tag"></i> {{ topicalTerm }}</a></li>
+    </ul>
+        -->
+    <label class="dynamic-subjects">
+        <div class="subjects" data-ng-repeat="classification in unifiedClassifications">
+          <em class="subject">{{classification.prefLabel}}</em>
+        </div>
+        <span class="lbl">Klassifikation</span>
+        <textarea data-inplace placeholder="Klassifikation" disabled></textarea>
+
+    </label>
   </div>
 </div>
   
-  <div class="cols">
-  <h3>Andra ämnesordssystem</h3>
-    <div class="col3">  
-      <label>
-        <input type="text" placeholder="Nytt ämnesord" data-kitin-autocomplete="subject"
-              data-kitin-add-to="schemeContainer"
-              data-kitin-filter="{'inScheme.notation': chosenScheme}" />
-      </label>
-    </div>
-    <div class="col3">
-      <label>
-        <select data-ng-model="chosenScheme"
-          data-ng-options="code as (scheme.alternative || scheme.title || scheme.title_en)
-                           for (code, scheme) in conceptSchemes.byNotation">
-        </select>
-      </label>
-    </div>
-  </div>
+
 
   <!-- TODO add dynamic suggestions for subjects
   <div class="suggestion-subjects">
@@ -88,24 +63,48 @@
   </ul>-->
 <!-- </div> -->
 
-<div class="cols">
-<div class="col6">
-  <h3>Klassifikation</h3>
-  <!--
-  <ul class="inline">
-  <li data-ng-repeat="topicalTerm in record.topicalTerm"><a class="btn btn-small" href="{{ topicalTerm }}"><i class="icon-tag"></i> {{ topicalTerm }}</a></li>
-  </ul>
-      -->
-  <label class="dynamic-subjects">
-      <div class="subjects" data-ng-repeat="classification in unifiedClassifications">
-        <em class="subject">{{classification.prefLabel}}</em>
-      </div>
-      <span class="lbl">Klassifikation</span>
-      <textarea data-inplace placeholder="Klassifikation" disabled></textarea>
-
+<script type="text/ng-template" id="search-subject">
+  <label>
+    <input class="input-large" type="text" placeholder="Nytt ämnesord"
+          data-kitin-search-entity
+          data-filter="{'inScheme.notation': scheme.notation}"
+          data-service-url="/suggest/concept"
+          data-completion-template="subject-completion-template" />
   </label>
-</div>
-</div>
+</script>
+
+<script type="text/ng-template" id="view-subject">
+  <div class="entity linked" tabindex="0">
+    <ng:switch on="object['@type']">
+      <div data-ng-switch-when="Person" class="col4">
+        {{ object.controlledLabel }}
+      </div>
+      <div data-ng-switch-default>
+        <div data-ng-show="object.prefLabel" class="col4">
+          {{ object.prefLabel }}
+          <span class="lbl" data-ng-show="object['@type'] == 'Place'">Geografiskt ämnesord</span>
+          <!--<span class="lbl">{{ object.inScheme.notation }}</span>-->
+        </div>
+        <div data-ng-show="object.broader" class="col4">
+          <!-- <em>Sammansättning: {{broader['@id']}}</em> -->
+          <div>
+            <span data-ng-repeat="broader in object.broader">
+              {{broader.prefLabel}}
+              <span data-ng-show="broader.notation">({{ broader.notation }}) </span>
+              <span class="subject-delimiter" data-ng-hide="$last">--</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </ng:switch>
+    <div class="addon">
+      <label>
+        <button class="btn-link on-hover" data-ng-click="doRemove($index)">
+          <i class="fa fa-times"></i></button>
+      </label>
+    </div>
+  </div>
+</script>
 
 <script type="text/html" id="subject-completion-template">
 <div class="auth">
