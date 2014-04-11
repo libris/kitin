@@ -85,7 +85,7 @@
             "about.performerNote": "performerNote",
             "about.contributorNote": "contributorNote",            
             "about.note": "note",
-            "about.comment": "comment",
+            "about.comment": "Kommentar",
             "about.systemRequirements": "systemRequirements",
             "about.audience.label": "audience.label"
         },
