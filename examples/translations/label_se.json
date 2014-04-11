@@ -61,12 +61,12 @@
             "about.hasFormat.SoundRecording.soundPlaybackCharacter": "soundPlaybackCharacter",
 
             "about.hasFormat.VideoRecording": "Videoinspelning",
-            "about.hasFormat.VideoRecording.carrierType": "carrierType",
-            "about.hasFormat.VideoRecording.videoFormat": "videoFormat",
+            "about.hasFormat.VideoRecording.carrierType": "Bärartyp",
+            "about.hasFormat.VideoRecording.videoFormat": "Videoformat",
 
             "about.material": "Material",
             "about.mediaTerm": "Allmän medieterm",
-            "about.date": "Datum då posten upprättades",
+            "about.date": "Datum då posten skapades",
             "about.publicationStatus": "Typ av utgivningsdatum. Utgivningsstatus.",
             "about.publicationYear": "Årtal",
             "about.publicationCountry": "Utgivningsland",
