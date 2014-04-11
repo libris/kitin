@@ -677,6 +677,7 @@ body.login #header .searchfield {
 body.index #header .searchfield {
   left: 248px;
   top: 220px;
+  min-width: 613px;
 }
 body.index #header .searchfield input[type="text"] {
   padding: 11px 16px;
@@ -737,6 +738,7 @@ body.edit #header .searchfield,
 body.search #header .searchfield {
   top: 4px;
   left: 276px;
+  min-width: 463px;
 }
 body.edit #header .searchfield input[type="text"],
 body.search #header .searchfield input[type="text"] {
