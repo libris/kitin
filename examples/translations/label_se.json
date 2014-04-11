@@ -78,7 +78,16 @@
             "about.hasFormat.VideoRecording.carrierType": "Bärartyp",
             "about.hasFormat.VideoRecording.videoFormat": "Videoformat",
 
-            
+            "about.summary": "Innehållsbeskrivning, sammanfattning",
+            "about.languageNote": "Språk",
+            "about.technicalNote": "Intern anmärkning av systemteknisk karaktär",
+            "about.listOfContents": "Formaterad innehållsförteckning",
+            "about.performerNote": "",
+            "about.contributorNote": "",            
+            "about.note": "",
+            "about.comment": "",
+            "about.systemRequirements": "",
+            "about.audience.label": ""
         },
 
         "gui": {
@@ -96,6 +105,7 @@
             "edit": {
 
             }
+
         }
     }
 
