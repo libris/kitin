@@ -1,23 +1,26 @@
 {
     "LABEL": {
         "record": {
-            "about.fileType": "Filtyp",
-            "about.language": "Språk",
-            "about.relief": "Relief",            
-            "about.index": "Index",
             
             "about.instanceTitle.titleValue": "Huvudtitel",
             "about.instanceTitle.subtitle": "Övrig titelinformation",
             "about.instanceTitle.partEnumeration": "Delbeteckning",
             "about.instanceTitle.partTitle": "Deltitel",
             "about.titleVariation.titleValue": "Varianttitel",
+            "about.keyTitle.titleValue": "titleValue",
+            "about.relation.uniformTitle": "Okontrollerad titel",
+            "about.language": "Språk",
             "about.responsibilityStatement": "Upphov",
+
             "about.attributedTo": "Huvuduppslag",
             "about.influencedBy": "Biuppslag",
 
             "about.publication.place.label": "Utgivningsplats",
             "about.publication.providerName": "Utgivare/förlag",
             "about.publication.providerDate": "Utgivningsår",
+
+            "about.editionStatement.edition": "Upplaga",
+            "about.publisherNumber": "Utgivningsnummer",
 
             "about.identifers.isbn.identifierValue": "ISBN",
             "about.identifers.isbn.identifierNote": "Notering",
@@ -27,6 +30,17 @@
             "about.identifers.generalIdentifier.identifierNote": "Notering",
             "about.identifers.generalIdentifier.identifierScheme": "identifierScheme",
             
+            "about.mediaTerm": "Allmän medieterm",
+            "about.date": "Datum då posten skapades",
+            "about.publicationStatus": "Typ av utgivningsdatum. Utgivningsstatus.",
+            "about.publicationYear": "Utgivningsår",
+            "about.publicationCountry": "Utgivningsland",
+            
+            "about.material": "Material",
+            "about.fileType": "Filtyp",
+            "about.relief": "Relief",            
+            "about.index": "Index",
+
             "about.hasFormat.Electronic": "Elektronisk",
             "about.hasFormat.Electronic.carrierType": "Bärartyp",
             "about.hasFormat.Electronic.color": "Färg",
@@ -64,14 +78,7 @@
             "about.hasFormat.VideoRecording.carrierType": "Bärartyp",
             "about.hasFormat.VideoRecording.videoFormat": "Videoformat",
 
-            "about.material": "Material",
-            "about.mediaTerm": "Allmän medieterm",
-            "about.date": "Datum då posten skapades",
-            "about.publicationStatus": "Typ av utgivningsdatum. Utgivningsstatus.",
-            "about.publicationYear": "Utgivningsår",
-            "about.publicationCountry": "Utgivningsland",
-            "about.editionStatement.edition": "Upplaga",
-            "about.relation.uniformTitle": "Okontrollerad titel"
+            
         },
 
         "gui": {

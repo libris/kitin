@@ -36,7 +36,7 @@
         table-columns="place.label,providerName,providerDate"
         data-subject="record.about" data-link-multiple="publication"
         add-first
-          addable>
+        addable>
       </div>   
     </div>
 
@@ -50,11 +50,11 @@
         <div class="col6">
           <div data-ng-repeat="manufacture in record.about.manufacture">
             <label>
-              <span class="lbl">LABEL.record.about.manufacture.place.label</span>
+              <span class="lbl" translate>LABEL.record.about.manufacture.place.label</span>
               <input data-inplace class="authdependant" type="text" data-ng-model="manufacture.place.label" />
             </label>
             <label>
-              <span class="lbl">LABEL.record.about.manufacture.providerName</span>
+              <span class="lbl" translate>LABEL.record.about.manufacture.providerName</span>
               <input data-inplace class="authdependant" type="text" data-ng-model="manufacture.providerName" />
             </label>
         </div>
@@ -63,7 +63,7 @@
     <div class="cols">
       <div class="col3" ><!-- data-ng-show="getTypeDef(record.about).term == 'Audiobook'" -->
         <label>
-          <span class="lbl">{{ "Utgivningsnummer" }}</span>
+          <span class="lbl" translate>LABEL.record.about.publisherNumber</span>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.publisherNumber" >
         </label>
       </div>
