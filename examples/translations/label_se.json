@@ -82,12 +82,12 @@
             "about.languageNote": "Språk",
             "about.technicalNote": "Intern anmärkning av systemteknisk karaktär",
             "about.listOfContents": "Formaterad innehållsförteckning",
-            "about.performerNote": "",
-            "about.contributorNote": "",            
-            "about.note": "",
-            "about.comment": "",
-            "about.systemRequirements": "",
-            "about.audience.label": ""
+            "about.performerNote": "performerNote",
+            "about.contributorNote": "contributorNote",            
+            "about.note": "note",
+            "about.comment": "comment",
+            "about.systemRequirements": "systemRequirements",
+            "about.audience.label": "audience.label"
         },
 
         "gui": {
