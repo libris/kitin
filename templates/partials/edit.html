@@ -5,59 +5,58 @@
     <div id="grid"></div>
     <div>
       <div class="record-data">
-      <span class="record-type">{{recType}}</span>
-      <span data-nf-if="record.originalCatalogingAgency.name">
-      - Skapad av: <strong data-ng-model="record.originalCatalogingAgency.name">{{record.originalCatalogingAgency.name}}</strong>
-			</span>
-			<span>
-			 {{record.status['@id']}}
-			</span>
-      <span data-ng-if="record.modified">
-        <em data-ng-model="record.modified">{{record.modified | date:'yyyy-MM-dd HH:mm'}}</em> av: <strong>{{ record.modifyingAgency.name }}</strong>
-      </span>
-      <span>
-      - Publicerad: <em>{{record['@id']}}</em>
-      </span>
-      <span>
-      - Encoding <em>{{ record.characterCoding['@id']}}</em>
-      </span>
-      <span>
-      - Språk: <em>{{record.language}}</em>
-      </span>
-                  <span>
-              <label class="enc-level">
-              <span data-ng-if="record.encLevel == 3 ">
-               <i class="fa fa-circle"></i>
-               <i class="fa fa-circle-o"></i>
-               <i class="fa fa-circle-o"></i>
-               Miniminivå
-              </span>
-              <span data-ng-if="record.encLevel == 7 ">
-               <i class="fa fa-circle"></i>
-               <i class="fa fa-circle"></i>
-               <i class="fa fa-circle-o"></i>
-               Biblioteksnivå
-              </span>
-               <span data-ng-if="record.encLevel == null ">
-               <i class="fa fa-circle"></i>
-               <i class="fa fa-circle"></i>
-               <i class="fa fa-circle"></i>
-               NB-nivå
-              </span>
-               <span data-ng-if="record.encLevel == 8 ">
-               <i class="fa fa-circle-o"></i>
-               <i class="fa fa-circle-o"></i>
-               <i class="fa fa-circle-o"></i>
+        <span data-nf-if="record.originalCatalogingAgency.name">
+          <strong>Ändrad:</strong> 
+          <span data-ng-if="record.modified">
+            <em data-ng-model="record.modified">{{record.modified | date:'yyyy-MM-dd HH:mm'}}</em> av 
+          </span>
+          <span data-ng-model="record.originalCatalogingAgency.name">{{record.originalCatalogingAgency.name}}</span>
+           {{ record.modifyingAgency.name }}
+  			</span>
+  			<span>
+  			 <strong>Status:</strong> {{record.status['@id']}}
+  			</span>
+        <span>
+          <strong>Publicerad:</strong> <em>{{record['@id']}}</em>
+        </span>
+        <span>
+          <strong>Encoding:</strong> <em>{{ record.characterCoding['@id']}}</em>
+        </span>
+        
+        <span>
+          <label class="enc-level">
+            <span data-ng-if="record.encLevel == 3 ">
+              <i class="fa fa-circle"></i>
+              <i class="fa fa-circle-o"></i>
+              <i class="fa fa-circle-o"></i>
+              Miniminivå
+            </span>
+            <span data-ng-if="record.encLevel == 7 ">
+              <i class="fa fa-circle"></i>
+              <i class="fa fa-circle"></i>
+              <i class="fa fa-circle-o"></i>
+              Biblioteksnivå
+            </span>
+            <span data-ng-if="record.encLevel == null ">
+              <i class="fa fa-circle"></i>
+              <i class="fa fa-circle"></i>
+              <i class="fa fa-circle"></i>
+              NB-nivå
+            </span>
+            <span data-ng-if="record.encLevel == 8 ">
+              <i class="fa fa-circle-o"></i>
+              <i class="fa fa-circle-o"></i>
+              <i class="fa fa-circle-o"></i>
               Förhandspost
-              </span>
-              <span data-ng-if="record.encLevel == 'I' ">
-               <i class="fa fa-circle-o"></i>
-               <i class="fa fa-circle-o"></i>
-               <i class="fa fa-circle-o"></i>
+            </span>
+            <span data-ng-if="record.encLevel == 'I' ">
+              <i class="fa fa-circle-o"></i>
+              <i class="fa fa-circle-o"></i>
+              <i class="fa fa-circle-o"></i>
               Full-level input by OCLC participants (LOCAL)
-              </span>
-              </label>
-                  </span>
+            </span>
+          </label>
+        </span>
       </div>
 
       <header class="clearfix">
