@@ -27,7 +27,7 @@
             "about.identifers.generalIdentifier.identifierNote": "Notering",
             "about.identifers.generalIdentifier.identifierScheme": "identifierScheme",
             
-            "about.hasFormat.Electronic": "Elektronisk,
+            "about.hasFormat.Electronic": "Elektronisk",
             "about.hasFormat.Electronic.carrierType": "Bärartyp",
             "about.hasFormat.Electronic.color": "Färg",
             "about.hasFormat.Electronic.dimensions": "Mått",
