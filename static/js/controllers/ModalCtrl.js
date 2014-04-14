@@ -13,10 +13,21 @@ kitin.controller('ModalCtrl', function($scope, $modal) {
                 defaultModalOptions,
                 {
                   templateUrl: 'modal-edit-auth',
-                  controller: 'ModalAuthCtrl',
+                  controller: 'ModalOpenCtrl',
                   windowClass: 'modal-large auth-modal'
                 });
     $scope.authModal = $modal.open(opts);
+  };
+
+  $scope.openReleaseModal = function() {
+    var opts = angular.extend(
+                defaultModalOptions,
+                {
+                  templateUrl: 'modal-release',
+                  controller: 'ModalOpenCtrl',
+                  windowClass: 'modal-large release-modal'
+                });
+    $scope.releaseModal = $modal.open(opts);
   };
 
   $scope.openRemoteModal = function() {

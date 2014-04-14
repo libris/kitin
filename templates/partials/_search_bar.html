@@ -3,19 +3,20 @@
     <span class="beta">BETA</span>
     
     <span class="system-updated" title="{{ modified.strftime('%Y-%m-%d %H:%m') }}"
-      >Uppdaterad {{ modified.strftime('%d %b') }} - <a href="#" data-target="#rlModal" data-toggle="modal">Release notes</a> | <a href="https://docs.google.com/presentation/d/1Q4Abhn1t5ThQoAhm_wNYrNrs6nvGEUTDSCC7gf8O4U0/pub?start=false&loop=false&delayms=3000#slide=id.p" target="_blank">Testanvisningar</a></span>
+      >Uppdaterad {{ modified.strftime('%d %b') }} - 
+              <a href="#" data-ng-controller="ModalCtrl" data-ng-click="openReleaseModal()">Release notes</a> | <a href="https://docs.google.com/presentation/d/1Q4Abhn1t5ThQoAhm_wNYrNrs6nvGEUTDSCC7gf8O4U0/pub?start=false&loop=false&delayms=3000#slide=id.p" target="_blank">Testanvisningar</a></span>
     
      
     <!-- Modal -->
-    <div id="modal-remote" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="rlModalLabel" aria-hidden="true">
+    <script type="text/ng-template" id="modal-release">  
     	<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
 				<h2 id="rlModalLabel">Release Notes</h2>
 			</div>
     	<div class="modal-body">
       {% include "partials/_release_notes.html" %}
 			</div>
-    </div>
+    </script>
 
   </div>
   <div class="kb">
