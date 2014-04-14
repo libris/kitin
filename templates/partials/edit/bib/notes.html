@@ -1,53 +1,46 @@
  {% raw %}
 <h2>{{ "Anmärkningar" }}<i></i></h2>
+
     <div class="cols">
-      <div class="col6">
+      <div class="col6" data-ng-show="record.about.summary">
         <label>
           <span class="lbl" translate>LABEL.record.about.summary</span>
             <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
                       data-ng-model="record.about.summary" ></textarea>
         </label>
       </div>
-      <div class="col6">
-        <label>
-          <span class="lbl" translate>LABEL.record.about.languageNote</span>
-            <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
-                      data-ng-model="record.about.languageNote" ></textarea>
-        </label>
-        <label>
-          <span class="lbl" translate>LABEL.record.about.technicalNote</span>
-            <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
-                      data-ng-model="record.about.technicalNote" ></textarea>
-        </label>
-
-      </div>
-    </div>
-    <div class="cols">
-      <div class="col6">
+      <div class="col6" data-ng-show="record.about.listOfContents">
         <label>
           <span class="lbl" translate>LABEL.record.about.listOfContents</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.listOfContents" ></textarea>
         </label>
       </div>
-      <div class="col6"> <!-- data-ng-show="getTypeDef(instance).term == 'Audiobook'" ?-->
-        <label>
-          <span class="lbl" translate>LABEL.record.about.contributorNote</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.contributorNote" >
-        </label>
+    </div>
+
+    <div class="cols">
+      <div class="col6" data-ng-show="record.about.performerNote">
         <label>
           <span class="lbl" translate>LABEL.record.about.performerNote</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.performerNote" >
+          <textarea data-inplace data-ui-jq="autosize" class="ng-pristine ng-valid" type="text" data-ng-model="record.about.performerNote" ></textarea>
+        </label>
+      </div>
+      <div class="col6" data-ng-show="record.about.contributorNote"> <!-- data-ng-show="getTypeDef(instance).term == 'Audiobook'" ?-->
+        <label>
+          <span class="lbl" translate>LABEL.record.about.contributorNote</span>
+          <textarea data-inplace data-ui-jq="autosize" class="ng-pristine ng-valid" type="text" data-ng-model="record.about.contributorNote" ></textarea>
         </label>
       </div>
     </div>
+
     <div class="cols">
-      <div class="col6">
-          <label>
-            <span class="lbl" translate>LABEL.record.about.note</span>
-          <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="record.about.note" ></textarea>
+      <div class="col6" data-ng-show="record.about.technicalNote">
+        <label>
+          <span class="lbl" translate>LABEL.record.about.technicalNote</span>
+            <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
+                      data-ng-model="record.about.technicalNote" ></textarea>
         </label>
       </div>
-      <div class="col6">
+      <div class="col6" data-ng-show="record.about.systemRequirements">
           <label>
             <span class="lbl" translate>LABEL.record.about.systemRequirements</span>
           <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="record.about.systemRequirements" ></textarea>
@@ -87,7 +80,12 @@
         </label>
 -->
       </div>
-      <div class="col6"></div>
+      <div class="col6" data-ng-show="record.about.note">
+       <label>
+            <span class="lbl" translate>LABEL.record.about.note</span>
+          <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="record.about.note" ></textarea>
+        </label>	      
+      </div>
     </div>
     <div style="clear:both"></div>    
 
