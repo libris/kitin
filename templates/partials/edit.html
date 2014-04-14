@@ -1,7 +1,7 @@
 {% raw %}
 
 <form class="form-horizontal" data-ng-controller="EditCtrl">
-  <div class="edit content {{recType}}">
+  <div class="edit content {{recType}}" data-ng-if="record"><!-- Do not remove ng-if="record", needed to ensure record loaded -->
     <div id="grid"></div>
     <div>
       <div class="record-data">
