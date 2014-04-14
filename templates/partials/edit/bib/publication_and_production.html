@@ -52,6 +52,12 @@
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.editionStatement.edition" >
         </label>
       </div>
+     <div class="col3" ><!-- data-ng-show="getTypeDef(record.about).term == 'Audiobook'" -->
+        <label>
+          <span class="lbl" translate>LABEL.record.about.publisherNumber</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.publisherNumber" >
+        </label>
+      </div>
     </div>
     <div class="cols" data-ng-repeat="manufacture in record.about.manufacture">
         <div class="col6">
@@ -68,12 +74,7 @@
       </div>
     </div>
     <div class="cols">
-      <div class="col3" ><!-- data-ng-show="getTypeDef(record.about).term == 'Audiobook'" -->
-        <label>
-          <span class="lbl" translate>LABEL.record.about.publisherNumber</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.publisherNumber" >
-        </label>
-      </div>
+ 
     </div>
     </div>
     <div class="identifier"></div>
