@@ -8,7 +8,7 @@
             "about.instanceTitle.partTitle": "Deltitel",
             "about.titleVariation.titleValue": "Varianttitel",
             "about.keyTitle.titleValue": "titleValue",
-            "about.relation.uniformTitle": "Okontrollerad titel",
+            "about.relation.uniformTitle": "Uniform titel",
             "about.language": "Språk",
             "about.responsibilityStatement": "Upphov",
 
@@ -18,6 +18,8 @@
             "about.publication.place.label": "Utgivningsplats",
             "about.publication.providerName": "Utgivare/förlag",
             "about.publication.providerDate": "Utgivningsår",
+            "about.manufacture.place.label": "Tryckort",
+            "about.manufacture.providerName": "Tryckeriets namn",
 
             "about.editionStatement.edition": "Upplaga",
             "about.publisherNumber": "Utgivningsnummer",
@@ -79,10 +81,10 @@
             "about.hasFormat.VideoRecording.videoFormat": "Videoformat",
 
             "about.summary": "Innehållsbeskrivning, sammanfattning",
-            "about.languageNote": "Språk",
+            "about.languageNote": "Språkanmärkning",
             "about.technicalNote": "Intern anmärkning av systemteknisk karaktär",
             "about.listOfContents": "Formaterad innehållsförteckning",
-            "about.performerNote": "performerNote",
+            "about.performerNote": "Medverkande",
             "about.contributorNote": "contributorNote",            
             "about.note": "note",
             "about.comment": "Kommentar",
