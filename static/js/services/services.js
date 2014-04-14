@@ -549,7 +549,7 @@ kitin.factory('searchUtil', function() {
         newFacet.items = [];
         var prevFacets = prevFacetsStr.split(" ");
         _.each(facet, function (count, key) {
-          var slug = [facetType, key].join(":");
+          var slug = [facetType, key.replace(/:/g, '\\:')].join(":");
           var selected = _.indexOf(prevFacets, slug) !== -1;
           var searchUrl = "/search/" + recType + "?q=" + encodeURIComponent(q) + 
             (selected ? (prevFacets.length > 1 ? "&f=" + _.filter(prevFacets, function(val) {return val != slug;}).join(' ') : '') : "&f=" + slug + " " + prevFacetsStr);
