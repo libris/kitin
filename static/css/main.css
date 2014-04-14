@@ -1787,7 +1787,7 @@ label.find-entity input[type="text"] {
 }
 .col6 .entity input[type="text"],
 .col6 label.find-entity input[type="text"] {
-  width: 445px;
+  width: 466px;
 }
 .persons {
   list-style: none;
@@ -1828,7 +1828,10 @@ label.find-entity input[type="text"] {
 .entity:hover .delete,
 .persons > li:hover .delete {
   display: inline-block;
-  color: #bbbbbb;
+  color: #bbb;
+  position: absolute;
+  top: 3px;
+  right: 6px;
 }
 .entity .delete:hover,
 .persons > li .delete:hover {
@@ -1875,6 +1878,7 @@ label.find-entity input[type="text"] {
   margin-bottom: 1em;
   overflow: auto;
   border-radius: 2px;
+  width: 466px;
 }
 .edit .entity.addmore {
   margin-bottom: 4px;
