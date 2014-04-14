@@ -6,19 +6,19 @@
           <span class="lbl" translate>LABEL.record.about.instanceTitle.titleValue</span>
           <textarea data-inplace class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.titleValue"></textarea>
         </label>
-        <label>
+        <label data-ng-show="record.about.instanceTitle.partEnumeration">
           <span class="lbl" translate>LABEL.record.about.instanceTitle.partEnumeration</span>
           <textarea data-inplace class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.partEnumeration"></textarea>
         </label>
-        <label>
+        <label data-ng-show="record.about.instanceTitle.partTitle">
           <span class="lbl" translate>LABEL.record.about.instanceTitle.partTitle</span>
           <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.partTitle"></textarea>
         </label>
-        <label>
+        <label data-ng-show="record.about.instanceTitle.subtitle">
           <span class="lbl" translate>LABEL.record.about.instanceTitle.subtitle</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.subtitle"></textarea>
         </label>
-        <label>
+        <label data-ng-show="record.about.titleVariation.titleValue">
           <span class="lbl" translate>LABEL.record.about.titleVariation.titleValue</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.titleValue"></textarea>
         </label>
@@ -30,7 +30,7 @@
         <label data-ng-repeat="uniformTitle in record.about.relation">
           <span class="lbl" translate>LABEL.record.about.relation.uniformTitle</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="uniformTitle.uniformTitle"></textarea>
-        </label>
+        </label>       
         </ng:switch>
         <hr>
         <span class="lbl" translate>LABEL.record.about.language</span>
@@ -65,6 +65,11 @@
             </h4>
           </div>
         </script>
+        <label data-ng-show="record.about.languageNote">
+          <span class="lbl" translate>LABEL.record.about.languageNote</span>
+            <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
+                      data-ng-model="record.about.languageNote" ></textarea>
+        </label> 
       </div>
       <div class="col6">
         <label>
