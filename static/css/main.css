@@ -913,6 +913,7 @@ body.search #header .kb {
   float: left;
   list-style: none;
   display: inline;
+  padding-left: 3px;
 }
 #header .searchfield .remotesource .hitcount {
   color: #adadad;
