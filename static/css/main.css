@@ -701,6 +701,7 @@ body.index #header .searchfield em {
 body.index #header .searchfield .remote-search ul.remotesource {
   max-width: 520px;
   width: 100%;
+  padding-left: 6px;
 }
 body.search #header {
   position: fixed;
