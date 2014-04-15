@@ -1281,6 +1281,7 @@ section.nav dd {
   margin: 3px 0px;
   line-height: 1;
   font-size: 13px;
+  word-break: break-all;
 }
 section.nav dd a {
   color: #666666;
