@@ -195,7 +195,7 @@ kitin.directive('kitinDataTable', function(editUtil) {
       // Add first row
       if($scope.record && typeof $attrs.addFirst !== 'undefined' && !$scope.$first) {
         var type = ($attrs.defaultType ? $attrs.defaultType : $attrs.ngSwitchWhen);
-        $scope.addObject($scope.record.about, $attrs.linkMultiple, type, $attrs.ngTarget, type);
+        $scope.addObject($scope.record.about, $attrs.linkMultiple, type, null, type);
       }
 
     }

@@ -20,13 +20,13 @@
       <div class="edit-subject"></div>
     </section>
 
-<!-- unknown marc debug
+<!-- unknown marc debug -->
     <section ng-if="debug && record.unknown" class="">
       <div class="unknown"></div>
     </section>
--->
 
-<!-- debug printed fields
+
+<!-- debug printed fields -->
     <section ng-if="debug" class="debug">
       <h2> <span>Debug record</span><i></i></h2>
       <div class="cols">
@@ -35,7 +35,6 @@
       	</div>
       </div>
     </section>
--->
   
     <section class="submit modificationinfo" data-ng-class="modifiedClasses()">
       <button class="btn-link" id="draft" data-ng-click="saveDraft()"
