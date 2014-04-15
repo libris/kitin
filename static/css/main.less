@@ -886,13 +886,14 @@ label.find-entity input[type="text"] { padding-left: 26px; }
 
 .entity:focus {border: 1px solid #777;outline:0; }
 
+.edit .col6 .entity {width:466px;}
 .edit .entity {
   border: 1px solid transparent;
   padding: 3px 6px;
   margin-bottom: 1em;
   overflow: auto;
   border-radius: 2px;
-  width: 466px;
+
 
   &.addmore { margin-bottom: 4px; }
   &:focus {border: 1px solid #777;outline:0; }
@@ -921,7 +922,6 @@ label.find-entity input[type="text"] { padding-left: 26px; }
   }
 
 }
-
 
 .on-hover { visibility: hidden; }
 .entity:hover .on-hover { visibility: visible; }
@@ -1129,7 +1129,11 @@ section.holdings ul li { list-style: none; }
 .json-ld code { background-color:none; border: none;}/*code override*/
 
 .json-ld input {
-  font-size: 12px; border-bottom: 1px dashed #dadada;
+  font-size: 12px;
+  border-bottom: 1px dashed #dadada;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0; 
   width: 72%;
 }
 .json-ld input:focus {
