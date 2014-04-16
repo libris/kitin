@@ -182,7 +182,7 @@ kitin.directive('kitinDataTable', function(editUtil) {
       var template = '<table ng-if="' + attrs.tableModel + '.length > 0">' +
           '<tbody>' +
             '<tr>' + headerTemplate + '</tr>' +
-            '<tr ng-repeat="object in ' + attrs.tableModel + '">' +
+            '<tr ng-repeat="object in ' + attrs.tableModel + ' track by $index">' +
               columnTemplate + 
             '</tr>' +
           '</tbody>' +
@@ -243,7 +243,7 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
       var viewDiv = '<div ng-if="viewmode" ng-include="viewTemplate"></div>';
       var template;
       if (multiple) {
-        template = '<'+ itemTag+' ng-if="objects" ng-repeat="object in objects"> ' +
+        template = '<'+ itemTag+' ng-if="objects" ng-repeat="object in objects track by $index"> ' +
             viewDiv + '</'+ itemTag +'>' +
           '<'+ itemTag +' ng-include="searchTemplate"></'+ itemTag +'>';
       } else {
