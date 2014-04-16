@@ -1792,6 +1792,9 @@ label.find-entity input[type="text"] {
 .col6 label.find-entity input[type="text"] {
   width: 466px;
 }
+.col6 label.find-entity input[type="text"].embedded {
+  width: 452px;
+}
 .persons {
   list-style: none;
   margin: 4px 0;
@@ -1877,6 +1880,9 @@ label.find-entity input[type="text"] {
 }
 .edit .col6 .entity {
   width: 466px;
+}
+.edit .col6 .entity .embedded input {
+  width: 456px;
 }
 .edit .entity {
   border: 1px solid transparent;
