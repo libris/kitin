@@ -38,7 +38,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   //});
 
   definitions.terms.then(function(data) {
-    var terms = data.types;
+    var terms = data.index;
     $scope.getTypeDef = function (obj) {
       if (typeof obj === "undefined")
         return;
