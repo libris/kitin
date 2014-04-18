@@ -4,8 +4,8 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
 
   $scope.url = '/search/' + $scope.recType + '.json';
 
-  definitions.typedefs.then(function(data) {
-    $scope.typeDefs = data.types;
+  definitions.terms.then(function(data) {
+    $scope.terms = data.index;
   });
 
   $scope.enums = {};
@@ -64,7 +64,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
   };
 
   $scope.getLabel = function (term, termType) {
-    var dfn = $scope.typeDefs[term];
+    var dfn = $scope.terms[term];
     
     if (dfn && dfn['label_sv']) return dfn['label_sv']; 
 

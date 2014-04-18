@@ -31,19 +31,17 @@ kitin.factory('definitions', function($http) {
   }
 
   // Defined definitions
-  var enumBase = "/resource/_marcmap?part=bib.fixprops.";
   var definitions = {
     remotedatabases:  getDataset("/search/remote.json?databases"),
-    typedefs:         getDataset("/resource/_resourcelist?typedef=all"),
+    terms:         getDataset("/def/terms"),
     relators:         getDataset("/def/relators"),
     languages:        getDataset("/def/languages"),
     countries:        getDataset("/def/countries"),
-    //nationalities:  getDataset("/def/nationalities"),
+    nationalities:  getDataset("/def/nationalities"),
     conceptSchemes:   getDataset("/def/schemes"),
     enums: {
-      bibLevel:       getDataset(enumBase + "bibLevel"),
-      encLevel:       getDataset(enumBase + "encLevel"),
-      catForm:        getDataset(enumBase + "catForm")
+      encLevel:       getDataset("/def/enum/encLevel"),
+      catForm:        getDataset("/def/enum/catForm")
     }
   };
   return definitions;
@@ -459,7 +457,7 @@ kitin.service('editUtil', function(definitions) {
 kitin.factory('isbnTools', function($http, $q) {
   function doCheck(isbn) {
     var deferred = $q.defer();
-    var url = "/resource/_isxntool?isbn=" + isbn;
+    var url = "/_isxntool?isbn=" + isbn;
     $http.get(url).success(function(data) {
       deferred.resolve(data);
     });

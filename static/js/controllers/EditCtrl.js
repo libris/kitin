@@ -30,9 +30,6 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   // - load cached aggregate, or lookup part on demand from backend?
   // - Do not load just to set in scope; use where needed in services instead.
   //$scope.enums = {};
-  //definitions.enums.bibLevel.then(function(data) {
-  //  $scope.enums.bibLevel = data;
-  //});
   //definitions.enums.encLevel.then(function(data) {
   //  $scope.enums.encLevel = data;
   //});
@@ -40,12 +37,12 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   //  $scope.enums.catForm = data;
   //});
 
-  definitions.typedefs.then(function(data) {
-    var typedefs = data.types;
+  definitions.terms.then(function(data) {
+    var terms = data.types;
     $scope.getTypeDef = function (obj) {
       if (typeof obj === "undefined")
         return;
-      return typedefs[obj['@type']];
+      return terms[obj['@type']];
     };
     // TODO: merge with getLabel (defined in SearchCtrl)
     $scope.getTypeLabel = function (obj) {
