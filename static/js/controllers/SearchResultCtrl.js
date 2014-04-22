@@ -8,20 +8,9 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
     $scope.terms = data.index;
   });
 
-  $scope.enums = {};
-
-  definitions.enums.bibLevel.then(function(data) {
-    $scope.enums.bibLevel = data;
-  });
-
-  definitions.enums.encLevel.then(function(data) {
-    $scope.enums.encLevel = data;
-  });
-  
   definitions.languages.then(function(data) {
     $scope.languages = data;
   });
-  
 
   // TODO: localization
   $scope.facetLabels = searchService.facetLabels;
