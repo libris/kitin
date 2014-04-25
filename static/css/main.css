@@ -671,7 +671,8 @@ h4.modal-title {
 /* MODAL END ------------------------- */
 /* GENERAL END ------------------------- */
 /* HEADER START ------------------------- */
-body.login #header .searchfield {
+body.login #header .searchfield,
+body.styleguide #header .searchfield {
   display: none;
 }
 body.index #header .searchfield {

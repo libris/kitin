@@ -418,6 +418,11 @@ def suggest_completions(indextype):
 def show_partial(path):
     return render_template('partials/%s.html' % path)
 
+@app.route("/styleguide/")
+@login_required
+def show_styleguide():
+    return render_template('styleguide/style.html' )
+
 
 # UTILS 
 # -------------------
