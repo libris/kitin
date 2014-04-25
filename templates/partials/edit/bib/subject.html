@@ -2,9 +2,9 @@
 <h2>{{ "Ämnesord och klassifikation" }}<i></i></h2>
 <div class="cols" onload="work = record.about">
   <div class="col6">
-    <div data-ng-repeat="(key, container) in schemeContainer.byScheme" class="scheme"
+    <div data-ng-repeat="(key, container) in schemeContainer.byScheme" class="scheme tagsinput"
        data-ng-init="scheme = conceptSchemes.byNotation[key] || {'title': key}">
-      <h3>{{ scheme.alternative || scheme.title || scheme.title_en }}</h3>
+      <span class="lbl">{{ scheme.alternative || scheme.title || scheme.title_en }}</span>
       <div data-kitin-link-entity
           data-subject="container" data-link-multiple="'concepts'" data-type="Concept"
           data-search-template="search-subject"
@@ -13,7 +13,7 @@
     </div>
 
     <div class="cols">
-      <h3>Andra ämnesordssystem</h3>
+      <span class="lbl">Andra ämnesordssystem {{chosenScheme}}</span>
       <div class="col3">  
         <label>
           <input type="text" placeholder="Nytt ämnesord" data-kitin-autocomplete="subject"
@@ -50,20 +50,15 @@
 </div>
   
 
-
-  <!-- TODO add dynamic suggestions for subjects
-  <div class="suggestion-subjects">
-      <ul>
-      <li><i class="fa fa-circle-arrow-up"></i>...</li>
-      </ul>
-  </div>
-  -->
-  <!--<ul class="inline">
-  <li data-ng-repeat="topic in work.subject"><a class="btn btn-small" href="{{ topic['@id'] }}"><i class="icon-tag"></i> {{ topic['@id'] }}</a></li>
-  </ul>-->
-<!-- </div> -->
-
+<!-- subject search -->
 <script type="text/ng-template" id="search-subject">
+<ul class="tags">
+	<li class="add-item"><i class="fa fa-search"></i> <input data-kitin-search-entity
+          data-filter="{'inScheme.notation': scheme.notation}"
+          data-service-url="/suggest/concept"
+          data-completion-template="subject-completion-template" type="text" placeholder="Sök ämnesord"></li>
+</ul>
+<!--
   <label>
     <input class="input-large" type="text" placeholder="Nytt ämnesord"
           data-kitin-search-entity
@@ -71,47 +66,43 @@
           data-service-url="/suggest/concept"
           data-completion-template="subject-completion-template" />
   </label>
+-->
 </script>
 
+<!-- subject list -->
 <script type="text/ng-template" id="view-subject">
-  <div class="entity linked" tabindex="0">
+  <!-- <div class="entity linked" tabindex="0"> -->
     <ng:switch on="object['@type']">
-      <div data-ng-switch-when="Person" class="col4">
-        {{ object.controlledLabel }}
-      </div>
+      <ul data-ng-switch-when="Person" class="tags">
+        <li ><a href="#"><i class="fa fa-check"></i> {{ object.controlledLabel }}</a> <i data-ng-click="doRemove($index)" class="no">&times;</i></li>
+				<li class="add-item"><input type="text" placeholder="+ Lägg till ämnesord"></li>
+      </ul>
       <div data-ng-switch-default>
-        <div data-ng-show="object.prefLabel" class="col4">
-          {{ object.prefLabel }}
+        <ul data-ng-show="object.prefLabel" class="tags">
+        <li  tabindex="0"><a href="#"><i class="fa fa-check"></i> {{ object.prefLabel }}</a> <i data-ng-click="doRemove($index)" class="no">&times;</i></li>
           <span class="lbl" data-ng-show="object['@type'] == 'Place'">Geografiskt ämnesord</span>
           <!--<span class="lbl">{{ object.inScheme.notation }}</span>-->
-        </div>
-        <div data-ng-show="object.broader" class="col4">
+        </ul>
+        <ul data-ng-show="object.broader" class="tags">
           <!-- <em>Sammansättning: {{broader['@id']}}</em> -->
-          <div>
-            <span data-ng-repeat="broader in object.broader">
+            <li  tabindex="0"><a data-ng-repeat="broader in object.broader" href="#">
               {{broader.prefLabel}}
               <span data-ng-show="broader.notation">({{ broader.notation }}) </span>
               <span class="subject-delimiter" data-ng-hide="$last">--</span>
-            </span>
-          </div>
-        </div>
+            </a> <i data-ng-click="doRemove($index)" class="no">&times;</i>
+            </li>
+						<li class="add-item"><input type="text" placeholder="+ Lägg till ämnesord"></li>
+          </ul>
       </div>
-    </ng:switch>
-    <div class="addon">
-      <label>
-        <button class="btn-link on-hover" data-ng-click="doRemove($index)">
-          <i class="fa fa-times"></i></button>
-      </label>
-    </div>
-  </div>
-</script>
+    </ng:switch>    
 
+<!-- subject suggest -->
 <script type="text/html" id="subject-completion-template">
 <div class="auth">
   <h4>
     <span class="name" title="<%= data['@id']%>"><%= data['prefLabel']%></span>
       <% if (isLinked(data)) { %>
-        <!--
+        <!-- TODO: fix auth
         <span class="what">Se aukt. post <i class="fa fa-sign-out"></i></span>
         -->
         <span class="what"><i class="fa fa-check"></i> Aukt.</span>
@@ -131,50 +122,6 @@
 </div>
 </script>
 
-<!-- FIXME: dummy example; implement and remove 
-<hr>
 
-<div class="cols">
-  <div class="col6">
-    <div class="alert alert-block">Designförslag</div>
-    <div class="tagsinput">
-      <span class="lbl">Ämnesord</span>
-      <ul class="tags">
-        <li><a href="#"><i class="fa fa-check"></i> Apa</a> <i class="no">&times;</i></li>
-        <li><a href="#"><i class="fa fa-check"></i> Lejon</a> <i class="no">&times;</i></li>
-        <li><a href="#"><i class="fa fa-check"></i> Orangutang</a> <i class="no">&times;</i></li>
-        <li><a href="#"><i class="fa fa-check"></i> Komododrake</a> <i class="no">&times;</i></li>
-        <li><a href="#"><i class="fa fa-check"></i> Bofink</a> <i class="no">&times;</i></li>
-        <li><a href="#"><i class="fa fa-check"></i> Burhöna</a> <i class="no">&times;</i></li>
-        <li class="add"><i class="fa fa-search"></i> <input type="text" placeholder="Sök ämnesord"></li>
-      </ul>
-      <ul class="tags suggestions">
-        <li class="title">Förslag:</li>
-        <li><a href="#">Gorilla <i class="fa fa-arrow-circle-up"></i></a></li>
-        <li><a href="#">Papegoja <i class="fa fa-arrow-circle-up"></i></a></li>
-      </ul>
-    </div>
-  </div>
-</div>
-<div class="cols">
-  <div class="col6">
-    <div class="alert alert-block">Designförslag</div>
-    <div class="tagsinput free">
-      <span class="lbl">Ämnesord</span>
-      <ul class="tags">
-        <li><a href="#"><i class="fa fa-check"></i> Apa</a> <i class="no">&times;</i></li>
-        <li><a href="#"><i class="fa fa-check"></i> Lejon</a> <i class="no">&times;</i></li>
-        <li><a href="#"><i class="fa fa-check"></i> Orangutang</a> <i class="no">&times;</i></li>
-        <li class="add"><input type="text" placeholder="+ Lägg till ämnesord"></li>
-      </ul>
-      <ul class="tags suggestions">
-        <li class="title">Förslag:</li>
-        <li><a href="#">Gorilla <i class="fa fa-arrow-circle-up"></i></a></li>
-        <li><a href="#">Papegoja <i class="fa fa-arrow-circle-up"></i></a></li>
-      </ul>
-    </div>
-  </div>
-</div>
--->
 
 {% endraw %}

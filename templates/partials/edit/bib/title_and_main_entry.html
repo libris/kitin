@@ -41,13 +41,14 @@
             data-search-template="render-search-language">
         </div>
         <script type="text/ng-template" id="render-language">
-          <div class="entity linked" tabindex="0">
-            {{ object.prefLabel }}
-            <i data-ng-show="object.langCode">({{ object.langCode }})</i>
-            <a data-ng-if="!editable.on" class="delete" href="#"
-              data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a>
-          </div>
+          
+          <ul class="tags">
+						<li><a href="#">{{ object.prefLabel }} <i data-ng-show="object.langCode">({{ object.langCode }})</i></a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i></li>
+							<li class="add-item"><input type="text" placeholder="+ Lägg till språk"></li>
+							</ul
+          
         </script>
+
         <script type="text/ng-template" id="render-search-language">
           <label class="find-entity">
             <i class="fa fa-search"></i>
@@ -98,69 +99,6 @@
         </div>
       </div>
     </div>
-
-    <!-- TODO: dummy example; implement and remove
-    <hr>
-    <div class="cols">
-      <div class="col6">
-        <div class="alert alert-block">Designförslag</div>
-        <div class="person-suggest">
-          <span class="lbl">Personer</span>
-          <ul class="persons">
-            <li class="main">
-              <i class="fa fa-check-square-o check"></i>
-              <div class="main">
-                <span class="name">Jansson, Tove</span>
-                <span class="timeSpan">1921-1870</span>
-                <a class="auth" href="#"><i class="fa fa-check"></i> Aukt.</a>
-              </div>
-              <div class="tagsinput">
-                <ul class="tags">
-                  <li>Bibliotekarie <i class="no">&times;</i></li>
-                  <li>Författare <i class="no">&times;</i></li>
-                  <li class="add"><i class="fa fa-search"></i> <input type="text" placeholder="Lägg till roll"></li>
-                </ul>
-              </div>
-              <a class="delete" href="#"><i class="fa fa-times"></i></a>
-            </li>
-            <li>
-              <i class="fa fa-square-o check"></i>
-              <div class="main">
-                <span class="name">Karlsson, Owe</span>
-                <span class="timeSpan">1811-1972</span>
-              </div>
-              <div class="tagsinput">
-                <ul class="tags">
-                  <li class="add"><i class="fa fa-search"></i> <input type="text" placeholder="Lägg till roll"></li>
-                </ul>
-              </div>
-              <a class="delete" href="#"><i class="fa fa-times"></i></a>
-            </li>
-            <li>
-              <i class="fa fa-square-o check"></i>
-              <div class="main">
-                <span class="name">Karlsson, Owe</span>
-                <span class="timeSpan">1811-1972</span>
-                <a class="auth" href="#"><i class="fa fa-check"></i> Aukt.</a>
-              </div>
-              <div class="tagsinput">
-                <ul class="tags">
-                  <li>Kåkfarare <i class="no">&times;</i></li>
-                  <li class="add"><i class="fa fa-search"></i> <input type="text" placeholder="Lägg till roll"></li>
-                </ul>
-              </div>
-              <a class="delete" href="#"><i class="fa fa-times"></i></a>
-            </li>
-          </ul>
-          <label class="find-entity">
-            <i class="fa fa-search"></i>
-            <input type="text" placeholder="Lägg till person">
-          </label>
-        </div>
-      </div>
-    </div>
-    -->
-
 
     <script type="text/ng-template" id="render-search-box">
       <label class="find-entity">
@@ -235,7 +173,7 @@
           data-search-template="render-search-role">
       </ul>
       <button class="btn-link" data-ng-if="editable.on"
-              data-ng-click="editable.on = false"><i class="fa fa-check"></i></button>
+              data-ng-click="editable.on = false"><i class="fa fa-check">ok</i></button>
     </script>
 
     <script type='text/ng-template' id="render-role">
@@ -243,7 +181,7 @@
       <a href="#" data-ng-click="doRemove($index)"><i class="no">&times;</i></a>
     </script>
     <script type='text/ng-template' id="render-search-role">
-      <label class="add">
+      <label class="add-item">
         <i class="fa fa-search"></i>
         <input data-inplace type="text" placeholder="Roll"
               data-kitin-search-entity data-source="relators"
