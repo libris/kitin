@@ -217,14 +217,34 @@ kitin.directive('elementAdder', function(editUtil) {
     restrict: 'C',
     require: 'editCtrl',
     scope: true,
-    template: '<select ng-model="elementToAdd" ng-change="change()" ng-options="(element.linkMultiple+\',\'+(element.defaultType ? element.defaultType : element.ngSwitchWhen)) for element in addableElements"><option value="" selected>Lägg till</option></select>',
-    controller: function($element, $scope, $attrs) {
+    template: '<select ng-model="elementToAdd" ng-change="change()" ng-options="getElementLabel(element) for element in addableElements"><option value="" selected>Lägg till</option></select>',
+    controller: function($element, $scope, $attrs, $translate) {
       $scope.addableElements = editUtil.addableElements;
       
       $scope.change = function() {
         var type = ($scope.elementToAdd.defaultType ? $scope.elementToAdd.defaultType : $scope.elementToAdd.ngSwitchWhen);
         $scope.$parent.addObject($scope.$parent.record.about, $scope.elementToAdd.linkMultiple, type, $scope.elementToAdd.ngTarget, type);
         $scope.elementToAdd = null;
+      };
+
+      $scope.getElementLabel = function(element) {
+        var label = element.linkMultiple + ' ' || '';
+        // Translated header
+        if(element.tableHeaderTranslatePrefix) {
+          var translation = $translate.instant(element.tableHeaderTranslatePrefix);
+          if(translation !== element.tableHeaderTranslatePrefix) {
+            return label + translation;
+          }
+        } 
+        // Ng switch value
+        if(element.ngSwitchWhen){
+          return label + element.ngSwitchWhen;
+        }
+        // Default type
+        if(element.defaultType) {
+          return label + element.defaultType;
+        } 
+        return label;
       };
     }
   };
