@@ -79,6 +79,9 @@
             "about.hasFormat.VideoRecording": "Videoinspelning",
             "about.hasFormat.VideoRecording.carrierType": "Bärartyp",
             "about.hasFormat.VideoRecording.videoFormat": "Videoformat",
+            
+            "about.isPartOf": "Del av",
+            "about.isPartOf.title": "isPartOfTitle",
 
             "about.summary": "Innehållsbeskrivning, sammanfattning",
             "about.languageNote": "Språkanmärkning",

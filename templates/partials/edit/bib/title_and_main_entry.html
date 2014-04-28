@@ -32,6 +32,10 @@
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="uniformTitle.uniformTitle"></textarea>
         </label>       
         </ng:switch>
+        <label data-ng-repeat="isPartOf in record.about.isPartOf">
+          <span class="lbl" translate>LABEL.record.about.isPartOf</span>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="isPartOf.title"></textarea>
+        </label>
         <hr>
         <span class="lbl" translate>LABEL.record.about.language</span>
         <div data-kitin-link-entity
