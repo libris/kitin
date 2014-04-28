@@ -295,7 +295,6 @@ input[type="color"]:focus,
   font-weight: bold;
   font-style: italic;
 }
-/* GENERAL START ------------------------- */
 html {
   overflow-y: scroll;
   -webkit-font-smoothing: antialiased;
@@ -328,7 +327,6 @@ label {
   width: 1080px;
   margin: 0 auto;
   padding: 0;
-  /*padding override bootstrap grid*/
 }
 #grid {
   display: none;
@@ -343,14 +341,12 @@ a.beta-blocker {
   text-decoration: none;
   cursor: default;
 }
-/*block unfinished elements, should not be in final release*/
 .todo {
   display: none !important;
 }
 .hidden {
   visibility: hidden;
 }
-/* NAV START ------------------------- */
 #nav {
   position: relative;
   z-index: 200;

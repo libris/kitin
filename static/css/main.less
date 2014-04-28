@@ -1,18 +1,50 @@
+//Styleguide
+// 
+//Webcat
+// 
+//Markup: <some markup with a specific {$modifier} like class or a pseudo class >
+// 
+//.class      - description of the class state
+//:pseudo     - description of the pseudo state
+// 
+//Styleguide 0 (digit number to increment eg chapter)
 
 @import "variables.less"; 
 @import "fonts.less";
 
-/* GENERAL START ------------------------- */
+// GENERAL START -------------------------
 
 html {overflow-y: scroll; -webkit-font-smoothing:antialiased; }
 
 body{font-family: @paragraph-font, arial, sans-serif; font-size:14px; line-height: 20px; color:@grey-very-dark;}
-
+//
+// 
+//Headings
+// 
+//Markup: <h1>Some text, preferrably anything but Lorem ipsum in there</h1>
+//Markup: <h2>Some text, preferrably anything but Lorem ipsum in there</h2>
+//Markup: <h3>Some text, preferrably anything but Lorem ipsum in there</h3>
+//Markup: <h4>Some text, preferrably anything but Lorem ipsum in there</h4>
+// 
+//h1  - h1
+//h2        - h2
+//h3     - h3
+//h4      - h4
+// 
+//Styleguide 1
 h1,
 h2,
 h3{font-family: @header-font, georgia, serif; }
 h4{font-size:15px; }
 
+
+//links
+//
+//Markup: <a href="">Some text, preferrably anything but Lorem ipsum in there</a>
+//
+//a - link
+//
+//Styleguide 2
 a{
     color: @green;
     :hover{ 
@@ -20,17 +52,33 @@ a{
     }
 }
 
+//label
+//
+//Markup: <label><span class="lbl">This is the look of a label</span></label>
+//
+//label - label
+//
+//Styleguide 3
 label {font-weight: 400;margin-bottom: 10px;}
 
-.container{width:1080px;margin: 0 auto;padding:0;/*padding override bootstrap grid*/}
+//padding override bootstrap grid
+.container{width:1080px;margin: 0 auto;padding:0;}
 #grid{display:none; width:984px;min-height:800px;background:url(/static/img/grid.png);position:absolute;top:0;left:48px;}
 
-
-a.beta-blocker {text-decoration: none; cursor:default;} /*block unfinished elements, should not be in final release*/
+//block unfinished elements, should not be in final release
+a.beta-blocker {text-decoration: none; cursor:default;}
 .todo{display:none!important}
 .hidden {visibility:hidden}
 
-/* NAV START ------------------------- */
+// NAV START ------------------------- 
+
+//navigation
+//
+//Markup: <div id="nav"><span class="nav-menu"><a href="">testing nav</a><a href="">testing nav</a></span></div>
+//
+//#nav	-	navigation
+//
+//Styleguide 4
 
 #nav { position: relative; z-index: 200; overflow: visible; }
 #nav a:hover,
@@ -82,6 +130,9 @@ a.beta-blocker {text-decoration: none; cursor:default;} /*block unfinished eleme
 /* BUTTONS START ------------------------- */
 /* !TODO Remove and use boostrap buttons instead */
 /* bootstrap buttons */
+
+
+
 
 .btn {
   -webkit-border-radius:3px;
