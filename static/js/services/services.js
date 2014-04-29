@@ -33,7 +33,7 @@ kitin.factory('definitions', function($http) {
   // Defined definitions
   var definitions = {
     remotedatabases:  getDataset("/search/remote.json?databases"),
-    terms:         getDataset("/def/terms"),
+    terms:         getDataset("/deflist/terms/terms"),
     relators:         getDataset("/def/relators"),
     languages:        getDataset("/def/languages"),
     countries:        getDataset("/def/countries"),

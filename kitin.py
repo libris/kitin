@@ -367,8 +367,18 @@ def get_labels():
 # ----------------------------
 # TRANSLATION END
 
+@app.route("/def/<indextype>")
+@login_required
+def def_completions(indextype):
+    q = request.args.get('q')
+    q = append_star(q)
+    response = requests.get("%s/def/%s/_search?q=%s" % (app.config['WHELK_HOST'], indextype, q))
+    if response.status_code >= 400:
+        abort(response.status_code)
+    return raw_json_response(response.text)
 
-@app.route("/def/<path:path>")
+
+@app.route("/deflist/<path:path>")
 @login_required
 def get_def(path):
     return get_dataset("def/%s" % path)
@@ -429,6 +439,7 @@ def show_styleguide():
 
 def get_dataset(path, cache=False):
     url = "%s/%s" % (app.config['WHELK_HOST'], path)
+    print url
     remote_resp = requests.get(url)
     resp = Response(remote_resp.text,
             status=remote_resp.status_code,
