@@ -33,15 +33,16 @@ kitin.factory('definitions', function($http) {
   // Defined definitions
   var definitions = {
     remotedatabases:  getDataset("/search/remote.json?databases"),
-    terms:         getDataset("/deflist/terms/terms"),
-    relators:         getDataset("/def/relators"),
-    languages:        getDataset("/def/languages"),
-    countries:        getDataset("/def/countries"),
-    nationalities:  getDataset("/def/nationalities"),
-    conceptSchemes:   getDataset("/def/schemes"),
+    terms:            getDataset("/deflist/terms/terms"),
+  // !TODO Remove definitions below when the "index expander" is implemented in backend
+    relators:         getDataset("/deflist/terms/relators"),
+    languages:        getDataset("/deflist/terms/languages"),
+    countries:        getDataset("/deflist/terms/countries"),
+    nationalities:    getDataset("/deflist/terms/nationalities"),
+    conceptSchemes:   getDataset("/deflist/terms/schemes"),
     enums: {
-      encLevel:       getDataset("/def/enum/encLevel"),
-      catForm:        getDataset("/def/enum/catForm")
+      encLevel:       getDataset("/deflist/terms/enum/encLevel"),
+      catForm:        getDataset("/deflist/terms/enum/catForm")
     }
   };
   return definitions;
@@ -214,7 +215,7 @@ kitin.factory('dataService', function ($http, $q, recordUtil) {
  * editUtil
  *
  */
-kitin.service('editUtil', function(definitions) {
+kitin.service('editUtil', function(definitions, $http) {
   var editutil = {
 
     RECORD_TYPES: {
@@ -428,13 +429,9 @@ kitin.service('editUtil', function(definitions) {
         if (!langId)
           return;
         // TODO: change language data index to use URIs
-        var langBase = "/def/languages/";
-        if (langId.indexOf(langBase) === 0)
-          langId = langId.substring(langBase.length);
-        definitions.languages.then(function (index) {
-          var obj = index.byCode[langId];
-          if (obj) {
-            work.language = obj;
+        $http.get("/deflist/" + langId.replace(/\/def\//,''), {cache: true}).then(function(response) {
+          if (response.data) {
+            work.language = response.data;
           }
         });
       }
