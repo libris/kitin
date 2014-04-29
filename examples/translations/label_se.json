@@ -6,6 +6,7 @@
             "about.instanceTitle.subtitle": "Övrig titelinformation",
             "about.instanceTitle.partEnumeration": "Delbeteckning",
             "about.instanceTitle.partTitle": "Deltitel",
+            "about.titleVariation.titleType": "Titelanmärkning",
             "about.titleVariation.titleValue": "Varianttitel",
             "about.keyTitle.titleValue": "titleValue",
             "about.relation.uniformTitle": "Uniform titel",
@@ -79,6 +80,9 @@
             "about.hasFormat.VideoRecording": "Videoinspelning",
             "about.hasFormat.VideoRecording.carrierType": "Bärartyp",
             "about.hasFormat.VideoRecording.videoFormat": "Videoformat",
+            
+            "about.isPartOf": "Del av",
+            "about.isPartOf.title": "isPartOfTitle",
 
             "about.summary": "Innehållsbeskrivning, sammanfattning",
             "about.languageNote": "Språkanmärkning",

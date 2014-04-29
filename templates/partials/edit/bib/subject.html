@@ -32,18 +32,16 @@
     </div>
   </div>
   <div class="col6">
-    <h3>Klassifikation</h3>
     <!--
+    <h3>Klassifikation</h3>
+
     <ul class="inline">
     <li data-ng-repeat="topicalTerm in record.topicalTerm"><a class="btn btn-small" href="{{ topicalTerm }}"><i class="icon-tag"></i> {{ topicalTerm }}</a></li>
     </ul>
-        -->
-    <label class="dynamic-subjects">
-        <div class="subjects" data-ng-repeat="classification in unifiedClassifications">
-          <em class="subject">{{classification.prefLabel}}</em>
-        </div>
-        <span class="lbl">Klassifikation</span>
-        <textarea data-inplace placeholder="Klassifikation" disabled></textarea>
+        -->     
+    <label class="dynamic-subjects" data-ng-repeat="classification in record.about.classification">
+        <span class="lbl">Klassifikation {{classification.inScheme.notation}}</span>
+        <textarea data-inplace placeholder="Klassifikation" data-ng-model="classification.notation"></textarea>
 
     </label>
   </div>
