@@ -52,8 +52,13 @@
           
           <ul class="tags">
 						<li><a href="#">{{ object.prefLabel }} <i data-ng-show="object.langCode">({{ object.langCode }})</i></a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i></li>
-							<li class="add-item"><input type="text" placeholder="+ Lägg till språk"></li>
-							</ul
+							<li class="add-item"><input data-inplace class="input-large authdependant embedded" type="text"
+                  placeholder="Lägg till språk"
+                  data-no-value="{{ object.prefLabel }} ({{ object.langCode }})"
+                  data-kitin-search-entity
+                  data-service-url="/def/languages"
+                  data-completion-template="select-language-template" placeholder="+ Lägg till språk"></li>
+							</ul>
           
         </script>
 
@@ -63,7 +68,8 @@
             <input data-inplace class="input-large authdependant embedded" type="text"
                   placeholder="Lägg till språk"
                   data-no-value="{{ object.prefLabel }} ({{ object.langCode }})"
-                  data-kitin-search-entity data-source="languages"
+                  data-kitin-search-entity
+                  data-service-url="/def/languages"
                   data-completion-template="select-language-template" />
           </label>
         </script>
@@ -74,6 +80,7 @@
             </h4>
           </div>
         </script>
+
         <label data-ng-show="record.about.languageNote">
           <span class="lbl" translate>LABEL.record.about.languageNote</span>
             <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
