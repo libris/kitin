@@ -217,13 +217,24 @@ kitin.directive('elementAdder', function(editUtil) {
     restrict: 'C',
     require: 'editCtrl',
     scope: true,
-    template: '<select ng-model="elementToAdd" ng-change="change()" ng-options="getElementLabel(element) for element in addableElements"><option value="" selected>Lägg till</option></select>',
+    template: '<li class="dropdown">' +
+                '<a class="btn dropdown-toggle" title="Lägg till">' +
+                  'Lägg till ' +
+                  '<i class="icon fa fa-caret-down"></i>' +
+                '</a>' +
+                '<ul class="dropdown-menu pull-right">' +
+                  '<li ng-repeat="element in addableElements">' +
+                    '<a ng-click="change(element)" href="">{{getElementLabel(element)}}</a>' +
+                  '</li>' +
+                '</ul>' +
+              '</li>',
+    //<select class="form-control" ng-model="elementToAdd" ng-change="change()" ng-options="getElementLabel(element) for element in addableElements"><option value="" selected>Lägg till</option></select>',
     controller: function($element, $scope, $attrs, $translate) {
       $scope.addableElements = editUtil.addableElements;
       
-      $scope.change = function() {
-        var type = ($scope.elementToAdd.defaultType ? $scope.elementToAdd.defaultType : $scope.elementToAdd.ngSwitchWhen);
-        $scope.$parent.addObject($scope.$parent.record.about, $scope.elementToAdd.linkMultiple, type, $scope.elementToAdd.ngTarget, type);
+      $scope.change = function(element) {
+        var type = (element.defaultType ? element.defaultType : element.ngSwitchWhen);
+        $scope.$parent.addObject($scope.$parent.record.about, element.linkMultiple, type, element.ngTarget, type);
         $scope.elementToAdd = null;
       };
 
