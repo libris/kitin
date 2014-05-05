@@ -119,7 +119,7 @@ module.exports = (grunt) ->
 
     watch:
       less:
-        files: ['<%= less.src.src %>']
+        files: ['static/css/*.less']
         tasks: ['less']
         options: {livereload: true}
       coffee:
