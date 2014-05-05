@@ -6,6 +6,36 @@
 
 <header>styleguide/pattern library</header>
 <section>
+  <h2>Colors</h2>
+  <div class="cols">
+    <table width="500px;">
+      <thead>
+        <tr><th>Example</th><th>RGB</th><th>HEX</th><th>LESS</th></tr>
+      </thead>
+      <tbody id="color-boxes" class="white pink red black purple-light purple green-lighter green-light green green-dark grey-warm grey-lighter grey-light grey grey-dark grey-darker grey-very-dark">
+      </tbody>
+    </table>
+    <script type="text/javascript">
+      $(function() {
+        function rgb2hex(rgb){
+         rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+         return (rgb && rgb.length === 4) ? "#" + ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) + ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) + ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
+        }
+
+        var $colorBox = $('#color-boxes');
+        var colors = $colorBox.attr('class').split(' ');
+        for (i in colors) {
+          // Append row
+          $colorBox.append('<tr><td><div class="color-box ' + colors[i] + '"></div></td><td>@' + colors[i] + '<td><td class="color-text ' + colors[i] + '">' + '</td></tr>');
+          // Add color codes
+          $('.color-box.' + colors[i]).parent().after('<td>' + rgb2hex($('.color-box.' + colors[i]).css("background-color")) + '</td><td>' + $('.color-box.' + colors[i]).css("background-color") + '</td>');
+        };
+      });
+    </script>
+  </div>
+</section>
+
+<section>
 <!-- person suggest -->
     <hr>
     <div class="cols">

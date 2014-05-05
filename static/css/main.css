@@ -1,22 +1,64 @@
-/*background*/
-/*holdings*/
-/*holdings placeholder*/
-/*holdings link etc */
-/*dropdowns select*/
-/*buttons, headers*/
-/*links, backgrounds*/
-/*link and button hovers*/
-/*unused?*/
-/*delimiters*/
-/*backgrounds, footer*/
-/*lighter text color*/
-/*font-color*/
-/* fonts */
-/* BUTTONS START ------------------------- */
-/*@btn-default-color: @green;
-@btn-default-bg: @green-light;*/
-/* BUTTONS END ------------------------- */
-/* grid */
+.color-box {
+  width: 100px;
+  height: 50px;
+}
+.color-box.white {
+  background-color: #ffffff;
+}
+.color-box.pink {
+  background-color: #fa1963;
+}
+.color-box.red {
+  background-color: #fa1963;
+}
+.color-box.black {
+  background-color: #000000;
+}
+.color-box.purple-light {
+  background-color: #dda0dd;
+}
+.color-box.purple {
+  background-color: #683568;
+}
+.color-box.green-lighter {
+  background-color: #c8f4ea;
+}
+.color-box.green-light {
+  background-color: #27b492;
+}
+.color-box.green {
+  background-color: #1a8f72;
+}
+.color-box.green-dark {
+  background-color: #106351;
+}
+.color-box.grey-warm {
+  background-color: #f7f3ee;
+}
+.color-box.grey-lighter {
+  background-color: #f6f6f6;
+}
+.color-box.grey-light {
+  background-color: #c7c7c7;
+}
+.color-box.grey {
+  background-color: #adadad;
+}
+.color-box.grey-dark {
+  background-color: #999999;
+}
+.color-box.grey-darker {
+  background-color: #666666;
+}
+.color-box.grey-very-dark {
+  background-color: #191919;
+}
+/* fonts
+*/
+/*
+@btn-default-color: @green;
+@btn-default-bg: @green-light;
+*/
 .cols {
   overflow: hidden;
   width: 1008px;
@@ -75,7 +117,6 @@
 .lastcol {
   margin-right: 0;
 }
-/* forms & labels */
 .col6 label textarea,
 .col6 label input[type="text"],
 .col6 label select {
@@ -146,7 +187,6 @@
   margin-top: 0;
   padding-top: 2px;
 }
-/* Override bootstrap forms */
 select,
 textarea,
 input[type="text"],
@@ -210,7 +250,6 @@ input[type="color"]:focus,
   -moz-box-shadow: none;
   box-shadow: none;
 }
-/* modals */
 /*
 @font-face {
     .font-face('Open Sans', 'OpenSans-Light-webfont', 'OpenSansLight', light, normal);
@@ -512,7 +551,7 @@ button::-moz--focus-inner {
   padding-right: 6px;
 }
 .disabled {
-  background-color: @grey-warm;
+  background-color: #f7f3ee;
 }
 .dropdown .login span.meta {
   color: #000000;
@@ -1170,8 +1209,8 @@ ul.tags li {
   margin: 0 1px 5px 5px;
   padding: 2px 8px 3px 8px;
   font-size: 12px;
-  background: #eee;
-  color: #111;
+  background: #f6f6f6;
+  color: #191919;
   border-radius: 2px;
 }
 ul.tags li i.no {
@@ -1185,7 +1224,7 @@ ul.tags li i.no:hover {
   color: #000000;
 }
 ul.tags li a {
-  color: #111111;
+  color: #191919;
 }
 ul.tags li a:hover {
   text-decoration: none;
@@ -1201,7 +1240,7 @@ ul.tags li a .fa-check {
 }
 ul.tags li:last-child {
   background: none;
-  border: 1px solid #ccc;
+  border: 1px solid #c7c7c7;
   padding: 1px 6px 1px 0;
   position: relative;
   top: 1px;
@@ -1283,7 +1322,7 @@ ul.tags.suggestions li li a {
 /* AUTOCOMPLETE START ------------------------- */
 .acResults {
   width: 476px;
-  border: 1px solid #aaa;
+  border: 1px solid #999999;
   border-top-width: 0;
   background: #ffffff;
   -webkit-box-shadow: 0 0px 3px rgba(0, 0, 0, 0.1);
@@ -1297,7 +1336,7 @@ ul.tags.suggestions li li a {
   padding: 0;
 }
 .acResults > ul > li {
-  border-top: 1px solid #aaa;
+  border-top: 1px solid #999999;
   padding: 6px 8px;
   margin: 0;
 }
@@ -1314,7 +1353,7 @@ ul.tags.suggestions li li a {
   color: #191919;
 }
 .acResults h4 .date {
-  color: #aaa;
+  color: #999999;
   color: rgba(0, 0, 0, 0.4);
   margin-left: 4px;
 }
@@ -1333,19 +1372,19 @@ ul.tags.suggestions li li a {
   margin-left: 2px;
 }
 .acResults h4 .what:hover {
-  color: #111111;
+  color: #191919;
 }
 .acResults .title {
-  color: #111111;
+  color: #191919;
 }
 .acResults .persona {
   margin-top: 8px;
-  color: #aaa;
+  color: #999999;
   font-style: italic;
 }
 .acResults .persona b {
   font-weight: normal;
-  color: #111111;
+  color: #191919;
 }
 .acResults > ul > li ul {
   margin-top: 8px;
@@ -1353,7 +1392,7 @@ ul.tags.suggestions li li a {
 }
 .acResults > ul > li li {
   margin: 0;
-  color: #777;
+  color: #666666;
 }
 .acResults > ul > li li:before {
   content: "\2022";
@@ -1368,6 +1407,61 @@ ul.tags.suggestions li li a {
   background: #c8f4ea;
 }
 /* AUTOCOMPLETE END ------------------------- */
+.color-box {
+  width: 100px;
+  height: 50px;
+}
+.color-box.white {
+  background-color: #ffffff;
+}
+.color-box.pink {
+  background-color: #fa1963;
+}
+.color-box.red {
+  background-color: #fa1963;
+}
+.color-box.black {
+  background-color: #000000;
+}
+.color-box.purple-light {
+  background-color: #dda0dd;
+}
+.color-box.purple {
+  background-color: #683568;
+}
+.color-box.green-lighter {
+  background-color: #c8f4ea;
+}
+.color-box.green-light {
+  background-color: #27b492;
+}
+.color-box.green {
+  background-color: #1a8f72;
+}
+.color-box.green-dark {
+  background-color: #106351;
+}
+.color-box.grey-warm {
+  background-color: #f7f3ee;
+}
+.color-box.grey-lighter {
+  background-color: #f6f6f6;
+}
+.color-box.grey-light {
+  background-color: #c7c7c7;
+}
+.color-box.grey {
+  background-color: #adadad;
+}
+.color-box.grey-dark {
+  background-color: #999999;
+}
+.color-box.grey-darker {
+  background-color: #666666;
+}
+.color-box.grey-very-dark {
+  background-color: #191919;
+}
 /*hitlist crude overrides needs to integrate with previous styles*/
 section.result p.holding {
   font-size: 11px;
@@ -1491,7 +1585,6 @@ div.loading {
 div.loading > b {
   display: none;
 }
-/* testing only */
 html {
   overflow-y: scroll;
   -webkit-font-smoothing: antialiased;
@@ -2439,7 +2532,7 @@ span.error-message {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 section.holdings-list {
-  background: @grey-warm;
+  background: #f7f3ee;
 }
 .holdings-list ul {
   list-style: none;
@@ -2451,7 +2544,7 @@ section.holdings-list {
 }
 .holdings-list a {
   display: block;
-  background: @grey-warm;
+  background: #f7f3ee;
   padding: 12px;
   border-top: 1px solid #ccc;
   color: #666666;
