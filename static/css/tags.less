@@ -1,0 +1,56 @@
+/* TAGS START ------------------------- */
+.tagsinput{margin-bottom:12px}
+ul.tags { list-style:none;margin:3px 0 0 0;padding:0; }
+ul.tags li {
+  display: inline-block; margin: 0 1px 5px 5px; padding: 2px 8px 3px 8px;
+  font-size:12px;
+  background: #eee; color: #111;
+  border-radius:2px;
+
+  i.no {margin-left:6px;font-weight:700;color:rgba(0,0,0,.4);cursor:pointer;font-size:14px}
+  i.no:hover {color:@black}
+  a {color:#111}
+  a:hover {
+    text-decoration: none;
+    > i.no { color: @red; }
+  }
+  a .fa-check {color:@green-light;font-size:11px;margin-right:0;font-weight:100}
+
+  &:last-child {
+    background: none;
+    border: 1px solid #ccc;
+    padding: 1px 6px 1px 0;
+    position: relative; top: 1px;
+
+    input[type="text"],
+    input[type="text"]:focus { border: none; box-shadow: none; }
+
+    i {color:#aaa;font-size:12px;margin:0 2px 0 6px}
+    input[type="text"] {
+      width: 110px;
+      font-size:12px;height:20px;margin:0;padding:0 8px 0 0;line-height:16px;
+
+      &::-webkit-input-placeholder,
+      &:-moz-input-placeholder {font-size:12px;color:#ddd}
+      &:focus::-webkit-input-placeholder,
+      &:focus:-moz-input-placeholder {color:@white}
+    }
+  }
+}
+
+.tagsinput .suggestions{border-top:1px solid #ddd;padding-top:6px;margin-top:4px}
+ul.tags.suggestions li {
+  padding:0px 10px 0 7px;border-right:1px solid #ddd;background:none;margin:0;
+
+  &.title{padding:0;background:none;font-weight:bold;border:none}
+  &:last-child{border:none}
+  li i{font-size:12px;font-weight:normal;margin-left:0;color:@green-light}
+  li a{color:@green-light}
+}
+
+.tagsinput.free ul.tags{border:1px solid #bbb;border-radius:3px;padding:7px 7px 0 7px}
+.tagsinput.free ul.tags.suggestions{border:none;border-radius:0;border:none;padding:4px 0 0 0}
+.tagsinput.free ul.tags li.add-item{border:none;padding: 2px 6px 2px 0;}
+.tagsinput.free ul.tags li.add-item input{padding-left:0}
+
+/* TAGS END ------------------------- */

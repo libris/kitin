@@ -1,0 +1,56 @@
+// NAV START ------------------------- 
+
+//navigation
+//
+//Markup: <div id="nav"><span class="nav-menu"><a href="">testing nav</a><a href="">testing nav</a></span></div>
+//
+//#nav	-	navigation
+//
+//Styleguide 4
+
+#nav { position: relative; z-index: 200; overflow: visible; }
+#nav a:hover,
+#nav a:focus {text-decoration: none; cursor: pointer; }
+
+
+#nav .nav-menu{ font-size:13px; float:none; position:absolute; right:0; list-style: none outside none;}
+#nav .nav-menu > li {border-left:1px solid #ddd; padding:0 8px 0 10px; margin: 6px 0; display:inline-block; }
+#nav .nav-menu > li:first-child {border-left:none; padding-left:0px;}
+
+/* bootstrap dropdown */
+
+.nav > li > a:hover,
+.nav > li > a:focus {background-color: transparent;}
+
+.dropdown-menu {
+    background-color: @white;
+    border: 1px solid #ccc;
+    -webkit-box-shadow: 0 0px 3px rgba(0,0,0,.1);
+    -moz-box-shadow: 0 0px 3px rgba(0,0,0,.1);
+    box-shadow: 0 0px 3px rgba(0,0,0,.1);
+    display: none;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    list-style: none outside none;
+    margin: 2px 0 0;
+    min-width: 252px;
+    padding: 0;
+    margin-right:-16px;
+    position: absolute;
+    top: 100%;
+    z-index: 1000;
+}
+
+.dropdown-menu li a { font-size:13px; display:block; background:@white;padding:6px 8px;border-top:1px solid #eee;color:@green;}
+.dropdown-menu li a.selected,
+.dropdown-menu li a:hover {color:@white;background:@green;}
+.dropdown-menu li:first-child a{border-top:none;}
+.dropdown-menu li.active a{background:@white;color:@black;}
+.dropdown-menu li.my_template a { background-color: @white; }
+.dropdown-menu li.my_template a i { padding-right: 6px; }
+.disabled {background-color:#f7f3ee;}
+.dropdown .login span.meta { color: @black; }
+.dropdown .login span.username { text-transform:uppercase; }
+
+/* NAV END ------------------------- */
+

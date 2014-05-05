@@ -1,0 +1,85 @@
+/* BUTTONS START ------------------------- */
+/* !TODO Remove and use boostrap buttons instead */
+/* bootstrap buttons */
+
+
+
+
+.btn {
+  -webkit-border-radius:3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background: @green-light;
+  filter: none;
+  border:none;
+  color: @white !important;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.08);
+  -webkit-font-smoothing: antialiased;
+  -webkit-box-shadow: inset -1px -1px 1px rgba(0,0,0,.2);
+  -moz-box-shadow: inset -5px -5px 5px 0 #888;
+  box-shadow: inset -1px -1px 2px rgba(0,0,0,.2), inset 1px 1px 1px rgba(255,255,255,.2);
+  -webkit-transition:background ease-out 0.03s;
+  padding: 7px 16px;
+  font-family:@header-font, georgia, serif;
+  font-weight:bold;
+}
+
+.btn:hover,
+.btn:focus,
+.btn:active{background:@green;}
+
+
+.btn-dark{background:@green-dark;}
+
+.btn-dark:hover,
+.btn-dark:focus,
+.btn-dark:active{background-color:#0a5041;} 
+.btn-submit{padding: 12px 28px;font-size:16px;}
+
+.btn-link{color:@green; outline: none; border:0;}
+.btn-link:hover{color:@green-dark;}
+
+.btn-link.deleter{color:@grey}
+.btn-link.deleter:hover{color:@pink}
+
+.holdings .btn-link{color:@purple;}
+.holdings .btn-link:hover{color:#573657;}
+
+.btn-purple{background-color:@purple;}
+
+.btn-purple:hover,
+.btn-purple:focus,
+.btn-purple:active{background-color:#573657;}
+
+.btn.disabled,
+.btn.disabled:hover {background-color:#ccc;}
+
+section.submit .btn-link {font-size: 14px; font-weight: bold;}
+
+a btn {color: @green-light;}
+section.result .btn-group button.btn {
+    background: none repeat scroll 0 0 #27B492;
+    margin-bottom: 5px;
+    border: medium none;
+    border-radius: 0px;
+    box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.2) inset, 1px 1px 1px rgba(255, 255, 255, 0.2) inset;
+    color: @white !important;
+    filter: none;
+    font-family: @paragraph-font,georgia,serif;
+    font-size: 12px;
+    font-weight:400;
+    padding: 2px 6px;
+    display: block;
+    min-width: 68px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.08);
+}
+section.result .btn-group button.btn-hold {background-color: #683568;}
+section.result .btn-group button.hold-check {opacity: 0.3;}
+
+/* Remove button padding in FF */
+button::-moz--focus-inner {
+    border:0 none !important;
+    padding:0 !important;
+}
+/* BUTTONS END ------------------------- */
+
