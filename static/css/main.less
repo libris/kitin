@@ -23,7 +23,8 @@
 @import "tags.less";
 //override
 @import "autocomplete.less";
-@import "experimental.less"; /* testing only */
+@import "experimental.less"; // testing only 
+
 
 // GENERAL START -------------------------
 
@@ -244,7 +245,7 @@ section.result{position:relative;border:1px solid transparent;/* padding:23px 11
   -webkit-transition:border ease-out 0.05s; cursor:pointer; box-sizing:border-box;border-color: #e6e6e6; padding:12px; min-height: 160px;}
 
 section.result .footer{position: absolute; bottom:-1px; left:-1px; right:-1px;padding: 6px 12px; -webkit-transition:border ease-out 0.05s; 
-  background:@grey-lighter;color:@grey-darker;font-size:12px;border:1px solid @grey-lighter;border-top-color:#e6e6e6}
+  background:@grey-lightest;color:@grey-darker;font-size:12px;border:1px solid @grey-lightest;border-top-color:#e6e6e6}
 section.result .footer span:first-child,
 section.result .footer span.level{margin-left:0;padding-left:0;border-left:none;}
 section.result .footer span.level{float:right;}
@@ -259,7 +260,7 @@ section.result:hover .footer{border-color:#aaa;border-top-color:#e6e6e6}
 
 section.result label{cursor:pointer;padding-left: 1px;}
 section.result label{/* overflow:hidden; */text-overflow:ellipsis;}
-section.result label:hover{border-color:#ddd;}
+section.result label:hover{border-color:@grey-lighter;}
 section.result label .lbl{color:@grey-dark;}
 
 section.result label.title{display:block;}
@@ -348,7 +349,7 @@ label.find-entity input[type="text"] { padding-left: 26px; }
 .entity .delete:hover,
 .persons>li .delete:hover{color:@red}
 .entity .auth,
-.persons>li .auth{padding-left:6px;margin-left:3px;border-left:1px solid #ddd;font-size:11px}
+.persons>li .auth{padding-left:6px;margin-left:3px;border-left:1px solid @grey-lighter;font-size:11px}
 .persons>li .tagsinput{margin-bottom:2px}
 
 /* PERSON SUGGEST END ------------------------- */

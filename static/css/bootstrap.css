@@ -1,22 +1,9 @@
-/*background*/
-/*holdings*/
-/*holdings placeholder*/
-/*holdings link etc */
-/*dropdowns select*/
-/*buttons, headers*/
-/*links, backgrounds*/
-/*link and button hovers*/
-/*unused?*/
-/*delimiters*/
-/*backgrounds, footer*/
-/*lighter text color*/
-/*font-color*/
-/* fonts */
-/* BUTTONS START ------------------------- */
-/*@btn-default-color: @green;
-@btn-default-bg: @green-light;*/
-/* BUTTONS END ------------------------- */
-/* grid */
+/* fonts
+*/
+/*
+@btn-default-color: @green;
+@btn-default-bg: @green-light;
+*/
 .cols {
   overflow: hidden;
   width: 1008px;
@@ -75,7 +62,6 @@
 .lastcol {
   margin-right: 0;
 }
-/* forms & labels */
 .col6 label textarea,
 .col6 label input[type="text"],
 .col6 label select {
@@ -146,7 +132,6 @@
   margin-top: 0;
   padding-top: 2px;
 }
-/* Override bootstrap forms */
 select,
 textarea,
 input[type="text"],
@@ -210,7 +195,6 @@ input[type="color"]:focus,
   -moz-box-shadow: none;
   box-shadow: none;
 }
-/* modals */
 /*! normalize.css v3.0.0 | MIT License | git.io/normalize */
 html {
   font-family: sans-serif;
