@@ -294,6 +294,42 @@ input[type="color"]:focus,
   font-weight: bold;
   font-style: italic;
 }
+.footer footer {
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+.footer footer ul {
+  margin: 8px 0 0 0;
+  padding: 0;
+  float: left;
+}
+.footer footer img {
+  float: right;
+  margin-top: 8px;
+  width: 44px;
+}
+.footer footer li {
+  font: 11px/14px 'Open Sans', sans-serif;
+  display: inline-block;
+  text-transform: uppercase;
+  margin-left: 5px;
+}
+.footer footer li:before {
+  content: "\2022";
+  margin-right: 8px;
+}
+.footer footer li:first-child {
+  margin-left: 0;
+  padding-left: 0;
+  border: none;
+}
+.footer footer li:first-child:before {
+  content: '';
+  margin: 0;
+}
+body.edit .footer footer {
+  margin-top: 0px;
+}
 /* BUTTONS START ------------------------- */
 /* !TODO Remove and use boostrap buttons instead */
 /* bootstrap buttons */
@@ -485,6 +521,305 @@ button::-moz--focus-inner {
   text-transform: uppercase;
 }
 /* NAV END ------------------------- */
+/* HEADER START ------------------------- */
+body.login #header .searchfield,
+body.styleguide #header .searchfield {
+  display: none;
+}
+body.index #header .searchfield {
+  left: 248px;
+  top: 220px;
+  min-width: 613px;
+}
+body.index #header .searchfield input[type="text"] {
+  padding: 11px 16px;
+}
+body.index #header .searchfield .btn-group {
+  float: right;
+}
+body.index #header .searchfield a.btn {
+  height: 47px;
+}
+body.index #header .searchfield button {
+  height: 47px;
+}
+body.index #header .searchfield a span {
+  margin-top: 8px;
+}
+body.index #header .searchfield em {
+  color: #666666;
+  font-size: 13px;
+}
+body.index #header .searchfield .remote-search ul.remotesource {
+  max-width: 520px;
+  width: 100%;
+  padding-left: 6px;
+}
+body.search #header {
+  position: fixed;
+  top: 0;
+  width: 1080px;
+  background-color: #ffffff;
+  z-index: 1000;
+  border-bottom: 1px solid #c7c7c7;
+}
+body.search .content {
+  margin-top: 90px;
+}
+body.edit #header,
+body.search #header {
+  height: 90px;
+}
+body.edit #header .logo,
+body.search #header .logo {
+  height: 30px;
+  bottom: auto;
+  top: 10px;
+}
+body.edit #header .logo a,
+body.search #header .logo a {
+  width: 152px;
+}
+body.edit #header .beta,
+body.search #header .beta,
+body.edit #header .system-updated,
+body.search #header .system-updated {
+  display: none;
+  /*show only on start page*/
+}
+body.edit #header .searchfield,
+body.search #header .searchfield {
+  top: 4px;
+  left: 276px;
+  min-width: 463px;
+}
+body.edit #header .searchfield input[type="text"],
+body.search #header .searchfield input[type="text"] {
+  box-shadow: none;
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.05);
+  padding: 3px 8px;
+  font-size: 14px;
+  height: 28px;
+  width: 400px;
+  border-color: #ccc;
+  font-weight: 400;
+  margin-left: 0;
+}
+body.edit #header .searchfield input[type="text"] :focus,
+body.search #header .searchfield input[type="text"] :focus {
+  border-color: #aaa;
+}
+body.edit #header .searchfield input[type="text"] ::-webkit-input-placeholder,
+body.search #header .searchfield input[type="text"] ::-webkit-input-placeholder,
+body.edit #header .searchfield input[type="text"] ::-moz-input-placeholder,
+body.search #header .searchfield input[type="text"] ::-moz-input-placeholder,
+body.edit #header .searchfield input[type="text"] :-moz-input-placeholder,
+body.search #header .searchfield input[type="text"] :-moz-input-placeholder,
+body.edit #header .searchfield input[type="text"] :-ms-input-placeholder,
+body.search #header .searchfield input[type="text"] :-ms-input-placeholder {
+  color: #ffffff;
+  font-style: italic;
+  font-size: 14px;
+}
+body.edit #header .searchfield .btn-group,
+body.search #header .searchfield .btn-group {
+  float: right;
+}
+body.edit #header .searchfield button,
+body.search #header .searchfield button {
+  height: 28px;
+  background-size: 14px;
+  width: 36px;
+}
+body.edit #header .searchfield a.btn,
+body.search #header .searchfield a.btn {
+  height: 28px;
+  width: 28px;
+  line-height: 14px;
+}
+body.edit #header .searchfield em,
+body.search #header .searchfield em {
+  color: #666666;
+  font-size: 12px;
+}
+body.edit #header .kb,
+body.search #header .kb {
+  display: none;
+}
+#header {
+  height: 130px;
+  position: relative;
+  -webkit-transition: height 100ms ease-out;
+}
+#header .user {
+  float: right;
+  font-size: 12px;
+  margin-top: 6px;
+}
+#header .user span {
+  padding-left: 10px;
+  margin-left: 8px;
+  border-left: 1px solid #ccc;
+}
+#header .user span :first-child {
+  margin-left: 0;
+  padding-left: 0;
+  border: none;
+}
+#header .user span :first-child a {
+  text-transform: uppercase;
+}
+#header .kb {
+  width: 74px;
+  height: 80px;
+  position: absolute;
+  right: 0;
+  bottom: 10px;
+  background: url(/static/img/kb.svg) no-repeat;
+  z-index: 2;
+  background-size: 100%;
+}
+#header .beta {
+  font-size: 16px;
+  color: #fa1963;
+  position: absolute;
+  right: 10px;
+  top: 16px;
+}
+#header .system-updated {
+  font-size: 11px;
+  color: #999999;
+  padding: 0px;
+  margin: 0px;
+}
+#header .logo {
+  position: absolute;
+  left: 0;
+  bottom: 6px;
+  color: #929395;
+  text-transform: uppercase;
+  height: 72px;
+}
+#header .logo > a {
+  display: block;
+  width: 260px;
+  height: 52px;
+  background: url(/static/img/logo.svg) no-repeat;
+  background-size: 100%;
+  text-indent: -10000px;
+  padding-bottom: 1px;
+}
+#header .logo > a * {
+  position: absolute;
+  left: -10000px;
+  margin: 0;
+}
+/* HEADER SEARCHFIELD START ------------------------- */
+#header .searchfield {
+  position: absolute;
+  left: 384px;
+  top: 82px;
+  z-index: 2;
+  /*FF18<*/
+  /*FF19>*/
+}
+#header .searchfield :focus:-moz-placeholder:focus {
+  color: #ddd;
+}
+#header .searchfield :focus::-moz-placeholder {
+  color: #ddd;
+}
+#header .searchfield input[type="text"] {
+  width: 533px;
+  border: 1px solid #bbb;
+  padding: 6px 10px 6px;
+  border-color: #aaaaaa #ffffff #cccccc #aaaaaa;
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2);
+  -webkit-border-top-left-radius: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  -moz-border-radius-topleft: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  height: 47px;
+  border-right-width: 0;
+  -webkit-transition: all ease-out 0.05s;
+}
+#header .searchfield input[type="text"] :focus {
+  border-color: #777777 #ffffff #aaaaaa #777777;
+}
+#header .searchfield input[type="text"] :focus ::-webkit-input-placeholder,
+#header .searchfield input[type="text"] :focus :-moz-placeholder:focus,
+#header .searchfield input[type="text"] :focus :-moz-placeholder:focus,
+#header .searchfield input[type="text"] :focus :-ms-input-placeholder:focus {
+  color: #ddd;
+}
+#header .searchfield .remote-search ul.remotesource {
+  max-width: 369px;
+  width: 100%;
+  font-size: 13px;
+  margin: 0px;
+  float: left;
+  list-style: none;
+  display: inline;
+  padding-left: 3px;
+}
+#header .searchfield .remotesource .hitcount {
+  color: #adadad;
+}
+#header .searchfield .remote-search ul.remotesource li {
+  display: inline;
+}
+#header .searchfield .remote-search a {
+  float: right;
+  width: 80px;
+  font-size: 13px;
+}
+#header .searchfield a.btn {
+  height: 47px;
+  border: none;
+  background: #1a8f72;
+  width: 31px;
+  -webkit-border-top-right-radius: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  -moz-border-radius-topright: 3px;
+  -moz-border-radius-bottomright: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  -webkit-transition: background ease-out 0.03s;
+}
+#header .searchfield button {
+  text-indent: -10000px;
+  height: 38px;
+  border: none;
+  background: #1a8f72 url(/static/img/search.png) no-repeat 50% 50%;
+  width: 50px;
+  -webkit-border-top-right-radius: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  -moz-border-radius-topright: 3px;
+  -moz-border-radius-bottomright: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  -webkit-transition: background ease-out 0.03s;
+}
+#header .searchfield a.btn:hover,
+#header .searchfield button:hover {
+  background-color: #197961;
+}
+#header .searchfield input[type="text"],
+#header .searchfield button {
+  float: left;
+}
+#header .searchfield .btn-group > .btn:first-child {
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px;
+  margin-left: 0;
+}
+/* HEADER SEARCHFIELD END ------------------------- */
+/* HEADER END ------------------------- */
 /* JSON-LD VIEW START ------------------------- */
 .json-ld code {
   font-family: 'Open Sans';
@@ -1057,6 +1392,105 @@ section.result p.holding {
   bottom: -100px;
   right: 20px;
 }
+/*TODO:experimental and not optimized*/
+.add-thing.btn-link,
+.remove-thing.btn-link {
+  color: #1a8f72;
+  height: 23px;
+  padding-top: 0;
+  line-height: 23px;
+  font-size: 11px;
+  font-family: 'Open Sans', arial, sans-serif;
+}
+.add-thing.btn-link:hover,
+.remove-thing.btn-link:hover {
+  text-decoration: none;
+}
+.add-thing.btn-link:focus,
+.remove-thing.btn-link:focus {
+  color: #000000;
+}
+.remove-thing.btn-link {
+  margin-top: 16px;
+}
+.add-thing.btn-link {
+  margin-top: 0px;
+  padding-left: 12px;
+  background: url(/static/img/plus.png) no-repeat 0 7px;
+}
+.add-thing.btn-link i,
+.remove-thing.btn-link i {
+  font-size: 15px;
+  line-height: 23px;
+  position: relative;
+  bottom: -1px;
+  margin-right: 1px;
+  color: #1a8f72;
+}
+.btn-link.deleter {
+  color: #dddddd;
+}
+.btn-link.deleter:focus,
+.btn-link.deleter:hover {
+  color: #cc4444;
+}
+.input-controls {
+  margin: 0 26px 10px 0;
+}
+.removedraft {
+  float: left;
+  vertical-align: none;
+}
+.saved #draft,
+.published #publish {
+  opacity: 0.4;
+}
+#draft,
+#publish {
+  opacity: 1;
+}
+/* tmp auth view */
+.subject ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.subject-data {
+  display: block;
+  padding-bottom: 7px;
+}
+.subject-head {
+  display: block;
+  font-size: 18px;
+  padding-bottom: 7px;
+}
+/*?*/
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  body label select {
+    -webkit-appearance: none;
+  }
+  body label select:hover {
+    background: #f8f8f8 url(/static/img/select-arrow.png) no-repeat 98% -2px;
+  }
+  body label select:focus {
+    background-color: red;
+    background: #c8f4ea url(/static/img/select-arrow.png) no-repeat 98% -92px;
+  }
+}
+/*TODO switch for spin.js*/
+div.loading {
+  position: relative;
+  left: 80%;
+  float: left;
+  z-index: 10000;
+  margin-top: -40px;
+  background-image: url(/static/img/loading.gif);
+  width: 24px;
+  height: 24px;
+}
+div.loading > b {
+  display: none;
+}
 /* testing only */
 html {
   overflow-y: scroll;
@@ -1111,305 +1545,6 @@ a.beta-blocker {
   visibility: hidden;
 }
 /* GENERAL END ------------------------- */
-/* HEADER START ------------------------- */
-body.login #header .searchfield,
-body.styleguide #header .searchfield {
-  display: none;
-}
-body.index #header .searchfield {
-  left: 248px;
-  top: 220px;
-  min-width: 613px;
-}
-body.index #header .searchfield input[type="text"] {
-  padding: 11px 16px;
-}
-body.index #header .searchfield .btn-group {
-  float: right;
-}
-body.index #header .searchfield a.btn {
-  height: 47px;
-}
-body.index #header .searchfield button {
-  height: 47px;
-}
-body.index #header .searchfield a span {
-  margin-top: 8px;
-}
-body.index #header .searchfield em {
-  color: #666666;
-  font-size: 13px;
-}
-body.index #header .searchfield .remote-search ul.remotesource {
-  max-width: 520px;
-  width: 100%;
-  padding-left: 6px;
-}
-body.search #header {
-  position: fixed;
-  top: 0;
-  width: 1080px;
-  background-color: #ffffff;
-  z-index: 1000;
-  border-bottom: 1px solid #c7c7c7;
-}
-body.search .content {
-  margin-top: 90px;
-}
-body.edit #header,
-body.search #header {
-  height: 90px;
-}
-body.edit #header .logo,
-body.search #header .logo {
-  height: 30px;
-  bottom: auto;
-  top: 10px;
-}
-body.edit #header .logo a,
-body.search #header .logo a {
-  width: 152px;
-}
-body.edit #header .beta,
-body.search #header .beta,
-body.edit #header .system-updated,
-body.search #header .system-updated {
-  display: none;
-  /*show only on start page*/
-}
-body.edit #header .searchfield,
-body.search #header .searchfield {
-  top: 4px;
-  left: 276px;
-  min-width: 463px;
-}
-body.edit #header .searchfield input[type="text"],
-body.search #header .searchfield input[type="text"] {
-  box-shadow: none;
-  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.05);
-  -webkit-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.05);
-  padding: 3px 8px;
-  font-size: 14px;
-  height: 28px;
-  width: 400px;
-  border-color: #ccc;
-  font-weight: 400;
-  margin-left: 0;
-}
-body.edit #header .searchfield input[type="text"] :focus,
-body.search #header .searchfield input[type="text"] :focus {
-  border-color: #aaa;
-}
-body.edit #header .searchfield input[type="text"] ::-webkit-input-placeholder,
-body.search #header .searchfield input[type="text"] ::-webkit-input-placeholder,
-body.edit #header .searchfield input[type="text"] ::-moz-input-placeholder,
-body.search #header .searchfield input[type="text"] ::-moz-input-placeholder,
-body.edit #header .searchfield input[type="text"] :-moz-input-placeholder,
-body.search #header .searchfield input[type="text"] :-moz-input-placeholder,
-body.edit #header .searchfield input[type="text"] :-ms-input-placeholder,
-body.search #header .searchfield input[type="text"] :-ms-input-placeholder {
-  color: #ffffff;
-  font-style: italic;
-  font-size: 14px;
-}
-body.edit #header .searchfield .btn-group,
-body.search #header .searchfield .btn-group {
-  float: right;
-}
-body.edit #header .searchfield button,
-body.search #header .searchfield button {
-  height: 28px;
-  background-size: 14px;
-  width: 36px;
-}
-body.edit #header .searchfield a.btn,
-body.search #header .searchfield a.btn {
-  height: 28px;
-  width: 28px;
-  line-height: 14px;
-}
-body.edit #header .searchfield em,
-body.search #header .searchfield em {
-  color: #666666;
-  font-size: 12px;
-}
-body.edit #header .kb,
-body.search #header .kb {
-  display: none;
-}
-#header {
-  height: 130px;
-  position: relative;
-  -webkit-transition: height 100ms ease-out;
-}
-#header .user {
-  float: right;
-  font-size: 12px;
-  margin-top: 6px;
-}
-#header .user span {
-  padding-left: 10px;
-  margin-left: 8px;
-  border-left: 1px solid #ccc;
-}
-#header .user span :first-child {
-  margin-left: 0;
-  padding-left: 0;
-  border: none;
-}
-#header .user span :first-child a {
-  text-transform: uppercase;
-}
-#header .kb {
-  width: 74px;
-  height: 80px;
-  position: absolute;
-  right: 0;
-  bottom: 10px;
-  background: url(/static/img/kb.svg) no-repeat;
-  z-index: 2;
-  background-size: 100%;
-}
-#header .beta {
-  font-size: 16px;
-  color: #fa1963;
-  position: absolute;
-  right: 10px;
-  top: 16px;
-}
-#header .system-updated {
-  font-size: 11px;
-  color: #999999;
-  padding: 0px;
-  margin: 0px;
-}
-#header .logo {
-  position: absolute;
-  left: 0;
-  bottom: 6px;
-  color: #929395;
-  text-transform: uppercase;
-  height: 72px;
-}
-#header .logo > a {
-  display: block;
-  width: 260px;
-  height: 52px;
-  background: url(/static/img/logo.svg) no-repeat;
-  background-size: 100%;
-  text-indent: -10000px;
-  padding-bottom: 1px;
-}
-#header .logo > a * {
-  position: absolute;
-  left: -10000px;
-  margin: 0;
-}
-/* HEADER SEARCHFIELD START ------------------------- */
-#header .searchfield {
-  position: absolute;
-  left: 384px;
-  top: 82px;
-  z-index: 2;
-  /*FF18<*/
-  /*FF19>*/
-}
-#header .searchfield :focus:-moz-placeholder:focus {
-  color: #ddd;
-}
-#header .searchfield :focus::-moz-placeholder {
-  color: #ddd;
-}
-#header .searchfield input[type="text"] {
-  width: 533px;
-  border: 1px solid #bbb;
-  padding: 6px 10px 6px;
-  border-color: #aaaaaa #ffffff #cccccc #aaaaaa;
-  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2);
-  -webkit-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2);
-  -webkit-border-top-left-radius: 3px;
-  -webkit-border-bottom-left-radius: 3px;
-  -moz-border-radius-topleft: 3px;
-  -moz-border-radius-bottomleft: 3px;
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-  height: 47px;
-  border-right-width: 0;
-  -webkit-transition: all ease-out 0.05s;
-}
-#header .searchfield input[type="text"] :focus {
-  border-color: #777777 #ffffff #aaaaaa #777777;
-}
-#header .searchfield input[type="text"] :focus ::-webkit-input-placeholder,
-#header .searchfield input[type="text"] :focus :-moz-placeholder:focus,
-#header .searchfield input[type="text"] :focus :-moz-placeholder:focus,
-#header .searchfield input[type="text"] :focus :-ms-input-placeholder:focus {
-  color: #ddd;
-}
-#header .searchfield .remote-search ul.remotesource {
-  max-width: 369px;
-  width: 100%;
-  font-size: 13px;
-  margin: 0px;
-  float: left;
-  list-style: none;
-  display: inline;
-  padding-left: 3px;
-}
-#header .searchfield .remotesource .hitcount {
-  color: #adadad;
-}
-#header .searchfield .remote-search ul.remotesource li {
-  display: inline;
-}
-#header .searchfield .remote-search a {
-  float: right;
-  width: 80px;
-  font-size: 13px;
-}
-#header .searchfield a.btn {
-  height: 47px;
-  border: none;
-  background: #1a8f72;
-  width: 31px;
-  -webkit-border-top-right-radius: 3px;
-  -webkit-border-bottom-right-radius: 3px;
-  -moz-border-radius-topright: 3px;
-  -moz-border-radius-bottomright: 3px;
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-  -webkit-transition: background ease-out 0.03s;
-}
-#header .searchfield button {
-  text-indent: -10000px;
-  height: 38px;
-  border: none;
-  background: #1a8f72 url(/static/img/search.png) no-repeat 50% 50%;
-  width: 50px;
-  -webkit-border-top-right-radius: 3px;
-  -webkit-border-bottom-right-radius: 3px;
-  -moz-border-radius-topright: 3px;
-  -moz-border-radius-bottomright: 3px;
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-  -webkit-transition: background ease-out 0.03s;
-}
-#header .searchfield a.btn:hover,
-#header .searchfield button:hover {
-  background-color: #197961;
-}
-#header .searchfield input[type="text"],
-#header .searchfield button {
-  float: left;
-}
-#header .searchfield .btn-group > .btn:first-child {
-  border-bottom-left-radius: 0px;
-  border-top-left-radius: 0px;
-  margin-left: 0;
-}
-/* HEADER SEARCHFIELD END ------------------------- */
-/* HEADER END ------------------------- */
 /* CONTENT START ------------------------- */
 .content {
   position: relative;
@@ -1475,42 +1610,6 @@ body.search .content header {
 .content footer a:hover {
   color: #999999;
   background-color: transparent;
-}
-.footer footer {
-  margin-bottom: 24px;
-  overflow: hidden;
-}
-body.edit .footer footer {
-  margin-top: 0px;
-}
-.footer footer ul {
-  margin: 8px 0 0 0;
-  padding: 0;
-  float: left;
-}
-.footer footer img {
-  float: right;
-  margin-top: 8px;
-  width: 44px;
-}
-.footer footer li {
-  font: 11px/14px 'Open Sans', sans-serif;
-  display: inline-block;
-  text-transform: uppercase;
-  margin-left: 5px;
-}
-.footer footer li:before {
-  content: "\2022";
-  margin-right: 8px;
-}
-.footer footer li:first-child {
-  margin-left: 0;
-  padding-left: 0;
-  border: none;
-}
-.footer footer li:first-child:before {
-  content: '';
-  margin: 0;
 }
 .content.index header {
   background-image: url(/static/img/top-index.png);
@@ -1652,9 +1751,6 @@ body.login .content.index header {
   box-shadow: none;
   padding: 12px 0;
   width: 1008px;
-  text-align: right;
-}
-div.submit {
   text-align: right;
 }
 .content section h3 {
@@ -2227,10 +2323,6 @@ label textarea:focus {
   box-shadow: rgba(0, 0, 0, 0.3) 0 0 2px;
   outline: none;
 }
-.holdings label:hover,
-.holdings label.focus {
-  border-left-color: #683568;
-}
 label textarea.ng-invalid,
 label input[type="text"].ng-invalid,
 label select.ng-invalid {
@@ -2244,9 +2336,6 @@ label textarea {
 }
 label textarea.title {
   font-weight: bold;
-}
-label .required:after {
-  content: "*";
 }
 .lbl {
   display: block;
@@ -2266,9 +2355,6 @@ label .required:after {
   float: left;
   clear: both;
 }
-.holdings .lbl {
-  color: #683568;
-}
 span.error-label {
   color: #fa1963;
 }
@@ -2277,18 +2363,7 @@ span.error-message {
   color: #fa1963;
   float: left;
 }
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-  body label select {
-    -webkit-appearance: none;
-  }
-  body label select:hover {
-    background: #f8f8f8 url(/static/img/select-arrow.png) no-repeat 98% -2px;
-  }
-  body label select:focus {
-    background-color: red;
-    background: #c8f4ea url(/static/img/select-arrow.png) no-repeat 98% -92px;
-  }
-}
+/*SUGGEST*/
 .subject-delimiter {
   color: #c7c7c7;
 }
@@ -2312,19 +2387,6 @@ span.error-message {
 .suggestion-subjects li .icon {
   color: #1a8f72;
 }
-div.loading {
-  position: relative;
-  left: 80%;
-  float: left;
-  z-index: 10000;
-  margin-top: -40px;
-  background-image: url(/static/img/loading.gif);
-  width: 24px;
-  height: 24px;
-}
-div.loading > b {
-  display: none;
-}
 .suggestion-classification {
   background: #f6f3ee url(/static/img/pat1.png);
   padding-top: 8px;
@@ -2345,79 +2407,14 @@ div.loading > b {
 .suggestion-classification li .icon {
   color: #683568;
 }
-/*TODO:experimental and not optimized*/
-.add-thing.btn-link,
-.remove-thing.btn-link {
-  color: #1a8f72;
-  height: 23px;
-  padding-top: 0;
-  line-height: 23px;
-  font-size: 11px;
-  font-family: 'Open Sans', arial, sans-serif;
-}
-.add-thing.btn-link:hover,
-.remove-thing.btn-link:hover {
-  text-decoration: none;
-}
-.add-thing.btn-link:focus,
-.remove-thing.btn-link:focus {
-  color: #000000;
-}
-.remove-thing.btn-link {
-  margin-top: 16px;
-}
-.add-thing.btn-link {
-  margin-top: 0px;
-  padding-left: 12px;
-  background: url(/static/img/plus.png) no-repeat 0 7px;
-}
-.add-thing.btn-link i,
-.remove-thing.btn-link i {
-  font-size: 15px;
-  line-height: 23px;
-  position: relative;
-  bottom: -1px;
-  margin-right: 1px;
-  color: #1a8f72;
-}
-.btn-link.deleter {
-  color: #dddddd;
-}
-.btn-link.deleter:focus,
-.btn-link.deleter:hover {
-  color: #cc4444;
-}
-.input-controls {
-  margin: 0 26px 10px 0;
-}
-.removedraft {
-  float: left;
-  vertical-align: none;
-}
-.saved #draft,
-.published #publish {
-  opacity: 0.4;
-}
-#draft,
-#publish {
-  opacity: 1;
-}
-/* tmp auth view */
-.subject ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.subject-data {
-  display: block;
-  padding-bottom: 7px;
-}
-.subject-head {
-  display: block;
-  font-size: 18px;
-  padding-bottom: 7px;
-}
 /* HOLDINGS START ------------------------- */
+.holdings label:hover,
+.holdings label.focus {
+  border-left-color: #683568;
+}
+.holdings .lbl {
+  color: #683568;
+}
 .holdings-list ul {
   list-style: none;
   margin: 0;

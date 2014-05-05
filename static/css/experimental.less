@@ -7,3 +7,45 @@ section.result p.holding {font-size:11px; color:#aaa;padding-top:0px; display: b
 .pages {position:absolute; bottom:23px; padding-left:3px;}
 
 .copy {position:absolute; bottom:-100px; right:20px;}
+
+/*TODO:experimental and not optimized*/
+.add-thing.btn-link, 
+.remove-thing.btn-link {color:@green;height:23px;padding-top:0;line-height:23px;font-size:11px;font-family:@paragraph-font, arial, sans-serif;
+    &:hover {text-decoration: none;}
+    &:focus {color:@black}
+  }
+.remove-thing.btn-link {margin-top:16px;}
+.add-thing.btn-link {margin-top:0px;padding-left:12px;background:url(/static/img/plus.png) no-repeat 0 7px}
+
+.add-thing.btn-link i, 
+.remove-thing.btn-link i{font-size:15px;line-height:23px;position:relative;bottom:-1px;margin-right:1px;color:@green}
+
+.btn-link.deleter{color:#ddd}
+.btn-link.deleter:focus,
+.btn-link.deleter:hover{color:#c44}
+
+.input-controls {;margin: 0 26px 10px 0; }
+
+.removedraft{float:left; vertical-align: none;}
+
+.saved #draft, .published #publish { opacity: 0.4; }
+#draft, #publish { opacity: 1; }
+
+/* tmp auth view */
+
+.subject ul {list-style:none;margin:0;padding:0;}
+.subject-data {display:block; padding-bottom:7px;}
+.subject-head {display:block; font-size: 18px; padding-bottom:7px;}
+
+/*?*/
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    body label select{
+        -webkit-appearance: none;
+    }
+    body label select:hover{background:#f8f8f8 url(/static/img/select-arrow.png) no-repeat 98% -2px;}
+    body label select:focus{background-color:red;background:#c8f4ea url(/static/img/select-arrow.png) no-repeat 98% -92px;}
+}
+
+/*TODO switch for spin.js*/
+div.loading { position: relative; left: 80%; float: left; z-index: 10000; margin-top: -40px; background-image: url(/static/img/loading.gif); width: 24px; height: 24px; }
+div.loading > b { display: none; }
