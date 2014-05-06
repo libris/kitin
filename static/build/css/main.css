@@ -1889,7 +1889,7 @@ section.nav dt i {
   border-right-color: #666666;
 }
 section.nav {
-  background-color: #ffffff;
+  background-color: #f7f3ee;
   padding-top: 12px;
 }
 section.nav dt {
@@ -1972,7 +1972,6 @@ section.result label {
   padding-left: 1px;
 }
 section.result label {
-  /* overflow:hidden; */
   text-overflow: ellipsis;
 }
 section.result label:hover {
