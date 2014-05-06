@@ -206,15 +206,15 @@ input[type="color"]:focus,
 */
 @font-face {
   font-family: 'Open Sans';
-  src: url('../fonts/OpenSans-Regular-webfont.eot');
-  src: url('../fonts/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Regular-webfont.woff') format('woff'), url('../fonts/OpenSans-Regular-webfont.ttf') format('truetype'), url('../fonts/OpenSans-Regular-webfont.svg#OpenSansRegular') format('svg');
+  src: url('../../fonts/OpenSans-Regular-webfont.eot');
+  src: url('../../fonts/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/OpenSans-Regular-webfont.woff') format('woff'), url('../../fonts/OpenSans-Regular-webfont.ttf') format('truetype'), url('../../fonts/OpenSans-Regular-webfont.svg#OpenSansRegular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'Open Sans';
-  src: url('../fonts/OpenSans-Italic-webfont.eot');
-  src: url('../fonts/OpenSans-Italic-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Italic-webfont.woff') format('woff'), url('../fonts/OpenSans-Italic-webfont.ttf') format('truetype'), url('../fonts/OpenSans-Italic-webfont.svg#OpenSansItalic') format('svg');
+  src: url('../../fonts/OpenSans-Italic-webfont.eot');
+  src: url('../../fonts/OpenSans-Italic-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/OpenSans-Italic-webfont.woff') format('woff'), url('../../fonts/OpenSans-Italic-webfont.ttf') format('truetype'), url('../../fonts/OpenSans-Italic-webfont.svg#OpenSansItalic') format('svg');
   font-weight: normal;
   font-style: italic;
 }
@@ -229,15 +229,15 @@ input[type="color"]:focus,
 */
 @font-face {
   font-family: 'Open Sans';
-  src: url('../fonts/OpenSans-Bold-webfont.eot');
-  src: url('../fonts/OpenSans-Bold-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Bold-webfont.woff') format('woff'), url('../fonts/OpenSans-Bold-webfont.ttf') format('truetype'), url('../fonts/OpenSans-Bold-webfont.svg#OpenSansBold') format('svg');
+  src: url('../../fonts/OpenSans-Bold-webfont.eot');
+  src: url('../../fonts/OpenSans-Bold-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/OpenSans-Bold-webfont.woff') format('woff'), url('../../fonts/OpenSans-Bold-webfont.ttf') format('truetype'), url('../../fonts/OpenSans-Bold-webfont.svg#OpenSansBold') format('svg');
   font-weight: bold;
   font-style: normal;
 }
 @font-face {
   font-family: 'Open Sans';
-  src: url('../fonts/OpenSans-BoldItalic-webfont.eot');
-  src: url('../fonts/OpenSans-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/OpenSans-BoldItalic-webfont.woff') format('woff'), url('../fonts/OpenSans-BoldItalic-webfont.ttf') format('truetype'), url('../fonts/OpenSans-BoldItalic-webfont.svg#OpenSansBoldItalic') format('svg');
+  src: url('../../fonts/OpenSans-BoldItalic-webfont.eot');
+  src: url('../../fonts/OpenSans-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/OpenSans-BoldItalic-webfont.woff') format('woff'), url('../../fonts/OpenSans-BoldItalic-webfont.ttf') format('truetype'), url('../../fonts/OpenSans-BoldItalic-webfont.svg#OpenSansBoldItalic') format('svg');
   font-weight: bold;
   font-style: italic;
 }
@@ -252,29 +252,29 @@ input[type="color"]:focus,
 */
 @font-face {
   font-family: 'Droid Serif';
-  src: url('../fonts/DroidSerif-Regular-webfont.eot');
-  src: url('../fonts/DroidSerif-Regular-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/DroidSerif-Regular-webfont.woff') format('woff'), url('../fonts/DroidSerif-Regular-webfont.ttf') format('truetype'), url('../fonts/DroidSerif-Regular-webfont.svg#DroidSerifRegular') format('svg');
+  src: url('../../fonts/DroidSerif-Regular-webfont.eot');
+  src: url('../../fonts/DroidSerif-Regular-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/DroidSerif-Regular-webfont.woff') format('woff'), url('../../fonts/DroidSerif-Regular-webfont.ttf') format('truetype'), url('../../fonts/DroidSerif-Regular-webfont.svg#DroidSerifRegular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'Droid Serif';
-  src: url('../fonts/DroidSerif-Italic-webfont.eot');
-  src: url('../fonts/DroidSerif-Italic-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/DroidSerif-Italic-webfont.woff') format('woff'), url('../fonts/DroidSerif-Italic-webfont.ttf') format('truetype'), url('../fonts/DroidSerif-Italic-webfont.svg#DroidSerifItalic') format('svg');
+  src: url('../../fonts/DroidSerif-Italic-webfont.eot');
+  src: url('../../fonts/DroidSerif-Italic-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/DroidSerif-Italic-webfont.woff') format('woff'), url('../../fonts/DroidSerif-Italic-webfont.ttf') format('truetype'), url('../../fonts/DroidSerif-Italic-webfont.svg#DroidSerifItalic') format('svg');
   font-weight: normal;
   font-style: italic;
 }
 @font-face {
   font-family: 'Droid Serif';
-  src: url('../fonts/DroidSerif-Bold-webfont.eot');
-  src: url('../fonts/DroidSerif-Bold-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/DroidSerif-Bold-webfont.woff') format('woff'), url('../fonts/DroidSerif-Bold-webfont.ttf') format('truetype'), url('../fonts/DroidSerif-Bold-webfont.svg#DroidSerifBold') format('svg');
+  src: url('../../fonts/DroidSerif-Bold-webfont.eot');
+  src: url('../../fonts/DroidSerif-Bold-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/DroidSerif-Bold-webfont.woff') format('woff'), url('../../fonts/DroidSerif-Bold-webfont.ttf') format('truetype'), url('../../fonts/DroidSerif-Bold-webfont.svg#DroidSerifBold') format('svg');
   font-weight: bold;
   font-style: normal;
 }
 @font-face {
   font-family: 'Droid Serif';
-  src: url('../fonts/DroidSerif-BoldItalic-webfont.eot');
-  src: url('../fonts/DroidSerif-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/DroidSerif-BoldItalic-webfont.woff') format('woff'), url('../fonts/DroidSerif-BoldItalic-webfont.ttf') format('truetype'), url('../fonts/DroidSerif-BoldItalic-webfont.svg#DroidSerifBoldItalic') format('svg');
+  src: url('../../fonts/DroidSerif-BoldItalic-webfont.eot');
+  src: url('../../fonts/DroidSerif-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/DroidSerif-BoldItalic-webfont.woff') format('woff'), url('../../fonts/DroidSerif-BoldItalic-webfont.ttf') format('truetype'), url('../../fonts/DroidSerif-BoldItalic-webfont.svg#DroidSerifBoldItalic') format('svg');
   font-weight: bold;
   font-style: italic;
 }
@@ -506,6 +506,10 @@ button::-moz--focus-inner {
 }
 /* NAV END ------------------------- */
 /* HEADER START ------------------------- */
+.header-wrapper {
+  width: 100%;
+  height: 100%;
+}
 body.login #header .searchfield,
 body.styleguide #header .searchfield {
   display: none;
@@ -539,13 +543,16 @@ body.index #header .searchfield .remote-search ul.remotesource {
   width: 100%;
   padding-left: 6px;
 }
-body.search #header {
+body.search #header-wrapper {
   position: fixed;
   top: 0;
-  width: 1080px;
+  width: 100%;
   background-color: #ffffff;
   z-index: 1000;
   border-bottom: 1px solid #c7c7c7;
+}
+body.search #header {
+  width: 1080px;
 }
 body.search .content {
   margin-top: 90px;
@@ -2548,4 +2555,4 @@ section.holdings ul li {
 }
 /* HOLDINGS END ------------------------- */
 /* EDIT FORM END ------------------------- */
-/*# sourceMappingURL=/static/css/main.css.map */
+/*# sourceMappingURL=static/build/css/main.css.map */

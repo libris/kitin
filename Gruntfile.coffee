@@ -40,13 +40,14 @@ module.exports = (grunt) ->
     less:
       options:
         sourceMap: true
-        sourceMapFilename: 'static/css/main.css.map'
-        sourceMapRootpath: '/'
+        sourceMapFilename: 'static/build/css/main.css.map'
         #cleancss: true (disabled for less source maps to work properly)
       src:
         expand: true
-        src:    ['static/css/main.less', 'static/css/bootstrap.less']
+        cwd:    'static/less'
+        src:    ['main.less', 'bootstrap.less']
         ext:    '.css'
+        dest:   'static/build/css/'
 
 
     cssmin:
@@ -108,9 +109,7 @@ module.exports = (grunt) ->
               else "<link rel='stylesheet' href='/#{src}?v=#{hash}' />").join("\n")
         # NOTE: Scripts also placed at top since this is a one-page app
         src: [
-          'static/build/*/*.min.css'
-          'static/css/bootstrap.css'
-          'static/css/main.css'
+          'static/build/*/*.css'
           'static/build/*/*.min.js'
           'static/js/**/*.js'
           'static/js/{main,*locale*}.js'
@@ -119,7 +118,7 @@ module.exports = (grunt) ->
 
     watch:
       less:
-        files: ['static/css/*.less']
+        files: ['static/less/*.less']
         tasks: ['less']
         options: {livereload: true}
       coffee:
