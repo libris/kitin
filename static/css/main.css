@@ -1368,6 +1368,12 @@ ul.tags.suggestions li li a {
 .color-box.red {
   background-color: #ff0000;
 }
+.color-box.yellow-lighter {
+  background-color: #f7ecb9;
+}
+.color-box.yellow {
+  background-color: #d6ab00;
+}
 .color-box.purple-light {
   background-color: #a756a7;
 }
@@ -2012,7 +2018,7 @@ section.result .excerpt {
   margin-bottom: -14px;
 }
 section.result .excerpt label {
-  background: #f6f3ee url(/static/img/pat1.png);
+  background: #f7f3ee url(/static/img/pat1.png);
   padding-top: 4px;
   padding-bottom: 4px;
 }
@@ -2056,9 +2062,6 @@ section.result .widget label {
 }
 section.result-pre {
   border-style: dashed;
-}
-section.result-pre .widget label {
-  color: #996262;
 }
 .nav .selected {
   font-weight: bold;
