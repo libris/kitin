@@ -487,7 +487,7 @@ button::-moz--focus-inner {
 }
 .dropdown-menu li.active a {
   background: #ffffff;
-  color: #000000;
+  color: #191919;
 }
 .dropdown-menu li.my_template a {
   background-color: #ffffff;
@@ -499,7 +499,7 @@ button::-moz--focus-inner {
   background-color: #f7f3ee;
 }
 .dropdown .login span.meta {
-  color: #000000;
+  color: #191919;
 }
 .dropdown .login span.username {
   text-transform: uppercase;
@@ -1166,7 +1166,7 @@ ul.tags li i.no {
   font-size: 14px;
 }
 ul.tags li i.no:hover {
-  color: #000000;
+  color: #191919;
 }
 ul.tags li a {
   color: #191919;
@@ -1196,7 +1196,7 @@ ul.tags li:last-child input[type="text"]:focus {
   box-shadow: none;
 }
 ul.tags li:last-child i {
-  color: #aaa;
+  color: #adadad;
   font-size: 12px;
   margin: 0 2px 0 6px;
 }
@@ -1368,9 +1368,6 @@ ul.tags.suggestions li li a {
 .color-box.red {
   background-color: #ff0000;
 }
-.color-box.black {
-  background-color: #000000;
-}
 .color-box.purple-light {
   background-color: #a756a7;
 }
@@ -1462,7 +1459,7 @@ section.result p.holding {
 }
 .add-thing.btn-link:focus,
 .remove-thing.btn-link:focus {
-  color: #000000;
+  color: #191919;
 }
 .remove-thing.btn-link {
   margin-top: 16px;
@@ -1883,7 +1880,7 @@ section.nav dd a {
 .remote-modal div a.active,
 section.nav dd a.active {
   font-weight: bold;
-  color: #000000;
+  color: #191919;
   background: url(/static/img/check.png) no-repeat 0 5px;
   cursor: default;
 }
@@ -2366,12 +2363,12 @@ label select {
 }
 label:hover textarea,
 label:hover input[type="text"] {
-  color: #000000;
+  color: #191919;
   border-color: #adadad;
 }
 label input[type="text"]:focus,
 label textarea:focus {
-  color: #000000;
+  color: #191919;
   border-color: #999999;
   box-shadow: rgba(0, 0, 0, 0.3) 0 0 2px;
   outline: none;
@@ -2514,7 +2511,7 @@ section.holdings-list {
 }
 .holdings-list li.active a {
   background: #ffffff;
-  color: #000000;
+  color: #191919;
 }
 .holdings-list a.sigel {
   font-weight: bold;
