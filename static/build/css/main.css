@@ -324,7 +324,7 @@ body.edit .footer footer {
   background: #27b492;
   filter: none;
   border: none;
-  color: #ffffff !important;
+  color: #ffffff;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.08);
   -webkit-font-smoothing: antialiased;
   -webkit-box-shadow: inset -1px -1px 1px rgba(0, 0, 0, 0.2);
@@ -391,13 +391,14 @@ section.submit .btn-link {
 a btn {
   color: #27b492;
 }
-section.result .btn-group button.btn {
+section.result .btn-group button.btn,
+.search-source {
   background: none repeat scroll 0 0 #27b492;
   margin-bottom: 5px;
   border: medium none;
   border-radius: 0px;
   box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.2) inset, 1px 1px 1px rgba(255, 255, 255, 0.2) inset;
-  color: #ffffff !important;
+  color: #ffffff;
   filter: none;
   font-family: 'Open Sans', georgia, serif;
   font-size: 12px;
@@ -592,7 +593,7 @@ body.search #header .searchfield input[type="text"] {
   padding: 3px 8px;
   font-size: 14px;
   height: 28px;
-  width: 400px;
+  width: 300px;
   border-color: #c7c7c7;
   font-weight: 400;
   margin-left: 0;
@@ -628,6 +629,17 @@ body.search #header .searchfield a.btn {
   height: 28px;
   width: 28px;
   line-height: 14px;
+}
+body.edit #header .searchfield a.search-source,
+body.search #header .searchfield a.search-source {
+  background-color: #dddddd;
+  height: 28px;
+  width: 156px;
+  line-height: 14px;
+  color: #191919;
+  padding: 7px 16px;
+  display: block;
+  border-radius: none;
 }
 body.edit #header .searchfield em,
 body.search #header .searchfield em {

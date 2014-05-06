@@ -27,16 +27,15 @@
       <div class="searchfield">
         <form data-ng-submit="search()" method="GET" name="search_form">
           <div>
-            <em>{{ state.searchType.label }}</em>
+ <!--            <em></em> -->
           </div>
           <input id="search" name="q" type="text" autofocus
                  value="{{ state.search.q }}" placeholder="{{ state.searchType.placeholder }}"
           autocomplete="off" role="textbox"
           aria-autocomplete="list" aria-haspopup="true" data-ng-model="state.search.q">
           <div class="btn-group">
-            <button class="btn" type="submit">Sök</button>
-
-            <a class="btn dropdown-toggle">
+						<a class="btn search-source dropdown-toggle">
+						{{ state.searchType.label }}
               <span class="fa fa-caret-down fa-inverse"></span>
             </a>
             <ul class="dropdown-menu">
@@ -45,6 +44,7 @@
                    data-ng-click="setSearchType(opt.key)">{{ opt.label }}</a>
               </li>
             </ul>
+            <button class="btn" type="submit">Sök</button>
           </div>
     			<div class="remote-search" data-ng-show="state.searchType.key == 'remote'">
             <!-- List seleceted remote databases -->

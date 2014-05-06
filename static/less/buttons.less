@@ -12,7 +12,7 @@
   background: @green-light;
   filter: none;
   border:none;
-  color: @white !important;
+  color: @white;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.08);
   -webkit-font-smoothing: antialiased;
   -webkit-box-shadow: inset -1px -1px 1px rgba(0,0,0,.2);
@@ -57,13 +57,14 @@
 section.submit .btn-link {font-size: 14px; font-weight: bold;}
 
 a btn {color: @green-light;}
-section.result .btn-group button.btn {
+section.result .btn-group button.btn,
+.search-source {
     background: none repeat scroll 0 0 @green-light;
     margin-bottom: 5px;
     border: medium none;
     border-radius: 0px;
     box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.2) inset, 1px 1px 1px rgba(255, 255, 255, 0.2) inset;
-    color: @white !important;
+    color: @white;
     filter: none;
     font-family: @paragraph-font,georgia,serif;
     font-size: 12px;
