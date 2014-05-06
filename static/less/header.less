@@ -60,7 +60,7 @@ body.search #header {
   .searchfield {
     top: 4px;
     left: 276px;
-    min-width: 463px;
+    min-width: 464px;
 
     input[type="text"] {
       box-shadow:none;
@@ -99,10 +99,11 @@ body.search #header {
     }
     
     a.search-source {
-	    background-color: @grey-lighter;height:28px;width:156px;line-height:14px;color:@grey-very-dark;
+	    background-color: @grey-lightest;height:28px;width:126px;line-height:14px;color:@grey-very-dark;
 			padding: 7px 16px;
 			display:block;
 			border-radius:none;
+			text-align: none;
     }
 
     em {
@@ -116,6 +117,7 @@ body.search #header {
   }
 
 }
+
 
 
 #header{ height: 130px; position: relative; -webkit-transition:height 100ms ease-out }
@@ -163,7 +165,7 @@ body.search #header {
 }
 
 #header .searchfield input[type="text"]{
-  width: 533px;
+  width: 433px;
   border: 1px solid @grey; 
   padding: 6px 10px 6px;
   border-color: @grey @white @grey-light @grey;
@@ -192,6 +194,7 @@ body.search #header {
   } 
 }
 
+.searchfield .remote-search {background-color:@grey-lightest;}
 #header .searchfield .remote-search ul.remotesource {
   max-width: 369px;
   width: 100%;
@@ -220,6 +223,7 @@ body.search #header {
     border-bottom-right-radius: 3px;
     -webkit-transition:background ease-out 0.03s;
 }
+#header .searchfield a.search-source {width:128px;background:@grey-lightest;border-radius:0px;color:@grey-very-dark;}
 
 #header .searchfield button{text-indent:-10000px;height:38px;border:none;
     background:@green url(/static/img/search.png) no-repeat 50% 50%;width:50px;
