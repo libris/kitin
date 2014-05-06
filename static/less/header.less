@@ -35,12 +35,12 @@ body.search #header-wrapper{
   box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.2);
 }
 body.search #header { width:1080px; }
-body.search .content{margin-top:90px;}
+body.search .content{margin-top:70px;}
 
 body.edit #header,
 body.search #header {
 
-  height: 90px;
+  height: 70px;
 
   .logo {
     height: 30px;
@@ -54,13 +54,13 @@ body.search #header {
 
   .beta,
   .system-updated {
-    display: none;/*show only on start page*/
+    display: none; /*show only on start page*/
   }
 
   .searchfield {
-    top: 4px;
+    top: 12px;
     left: 276px;
-    min-width: 464px;
+    min-width: 462px;
 
     input[type="text"] {
       box-shadow:none;
@@ -87,7 +87,7 @@ body.search #header {
     }
 
     .btn-group {
-      float: right;      
+      float: right;    
     }
    
     button {
@@ -100,10 +100,19 @@ body.search #header {
     
     a.search-source {
 	    background-color: @grey-warm;height:28px;width:126px;line-height:14px;color:@grey-very-dark;
-			padding: 7px 16px;
+			padding: 6px 16px;
 			display:block;
 			border-radius:none;
-			text-align: none;
+			text-align: left;
+			border-top: 1px solid @grey-light;
+			border-bottom: 1px solid @grey-light;
+			box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05) inset;
+			font-size: 14px;			
+			.fa-caret-down {
+				position: absolute;
+				right: 6px;	
+				color:@green;
+				}
     }
 
     em {

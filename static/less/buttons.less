@@ -9,10 +9,8 @@
   -webkit-border-radius:3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  background: @green-light;
   filter: none;
   border:none;
-  color: @white;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.08);
   -webkit-font-smoothing: antialiased;
   -webkit-box-shadow: inset -1px -1px 1px rgba(0,0,0,.2);
@@ -24,9 +22,14 @@
   font-weight:bold;
 }
 
-.btn:hover,
-.btn:focus,
-.btn:active{background:@green;}
+.btn-green {
+  background: @green-light;	
+  color: @white;	
+}
+
+.btn-green:hover,
+.btn-green:focus,
+.btn-green:active{background:@green;}
 
 
 .btn-dark{background:@green-dark;}
@@ -34,6 +37,13 @@
 .btn-dark:hover,
 .btn-dark:focus,
 .btn-dark:active{background-color:@green-darker;} 
+
+.btn-purple{background-color:@purple;}
+
+.btn-purple:hover,
+.btn-purple:focus,
+.btn-purple:active{background-color:@purple-dark;}
+
 .btn-submit{padding: 12px 28px;font-size:16px;}
 
 .btn-link{color:@green; outline: none; border:0;}
@@ -44,12 +54,6 @@
 
 .holdings .btn-link{color:@purple;}
 .holdings .btn-link:hover{color:@purple-dark;}
-
-.btn-purple{background-color:@purple;}
-
-.btn-purple:hover,
-.btn-purple:focus,
-.btn-purple:active{background-color:@purple-dark;}
 
 .btn.disabled,
 .btn.disabled:hover {background-color:@grey-light;}
