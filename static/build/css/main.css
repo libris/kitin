@@ -475,7 +475,7 @@ button::-moz--focus-inner {
   display: block;
   background: #ffffff;
   padding: 6px 8px;
-  border-top: 1px solid #f6f6f6;
+  border-top: 1px solid #f7f3ee;
   color: #1a8f72;
 }
 .dropdown-menu li a.selected,
@@ -629,7 +629,7 @@ body.search #header .searchfield a.btn {
 }
 body.edit #header .searchfield a.search-source,
 body.search #header .searchfield a.search-source {
-  background-color: #f6f6f6;
+  background-color: #f7f3ee;
   height: 28px;
   width: 126px;
   line-height: 14px;
@@ -759,7 +759,7 @@ body.search #header .kb {
   color: #dddddd;
 }
 .searchfield .remote-search {
-  background-color: #f6f6f6;
+  background-color: #f7f3ee;
 }
 #header .searchfield .remote-search ul.remotesource {
   max-width: 369px;
@@ -797,7 +797,7 @@ body.search #header .kb {
 }
 #header .searchfield a.search-source {
   width: 128px;
-  background: #f6f6f6;
+  background: #f7f3ee;
   border-radius: 0px;
   color: #191919;
 }
@@ -918,7 +918,7 @@ section.json-ld {
 }
 div.array > section.entity {
   background-color: #fdfdfd;
-  box-shadow: 0 2px 10px 4px #f6f6f6 inset;
+  box-shadow: 0 2px 10px 4px #f7f3ee inset;
   border-radius: 3px;
   padding: 9px 15px;
 }
@@ -1014,7 +1014,7 @@ ul.drafts {
 }
 li.draft:hover,
 li.draft a:hover {
-  background-color: #f6f6f6;
+  background-color: #f7f3ee;
 }
 li.draft form {
   margin: 0 0 6px;
@@ -1180,7 +1180,7 @@ ul.tags li {
   margin: 0 1px 5px 5px;
   padding: 2px 8px 3px 8px;
   font-size: 12px;
-  background: #f6f6f6;
+  background: #f7f3ee;
   color: #191919;
   border-radius: 2px;
 }
@@ -1429,9 +1429,6 @@ ul.tags.suggestions li li a {
 }
 .color-box.grey-warm {
   background-color: #f7f3ee;
-}
-.color-box.grey-lightest {
-  background-color: #f6f6f6;
 }
 .color-box.grey-lighter {
   background-color: #dddddd;
@@ -1926,7 +1923,7 @@ section.result {
   -webkit-transition: border ease-out 0.05s;
   cursor: pointer;
   box-sizing: border-box;
-  border-color: #f6f6f6;
+  border-color: #f7f3ee;
   padding: 12px;
   min-height: 160px;
 }
@@ -1937,11 +1934,11 @@ section.result .footer {
   right: -1px;
   padding: 6px 12px;
   -webkit-transition: border ease-out 0.05s;
-  background: #f6f6f6;
+  background: #f7f3ee;
   color: #666666;
   font-size: 12px;
-  border: 1px solid #f6f6f6;
-  border-top-color: #f6f6f6;
+  border: 1px solid #f7f3ee;
+  border-top-color: #f7f3ee;
 }
 section.result .footer span:first-child,
 section.result .footer span.level {
@@ -1965,7 +1962,7 @@ section.result:hover {
 }
 section.result:hover .footer {
   border-color: #adadad;
-  border-top-color: #f6f6f6;
+  border-top-color: #f7f3ee;
 }
 section.result label {
   cursor: pointer;
@@ -2076,11 +2073,11 @@ section.result .widget {
   padding: 6px 12px;
   width: 122px;
   -webkit-transition: border ease-out 0.05s;
-  background: #f6f6f6;
+  background: #f7f3ee;
   color: #666666;
   font-size: 10px;
-  border: 1px solid #f6f6f6;
-  border-left-color: #f6f6f6;
+  border: 1px solid #f7f3ee;
+  border-left-color: #f7f3ee;
 }
 section.result .widget label {
   color: #666666;
@@ -2178,7 +2175,7 @@ label.find-entity input[type="text"] {
 /* PERSON SUGGEST END ------------------------- */
 .element-adder {
   text-align: right;
-  background-color: #f6f6f6;
+  background-color: #f7f3ee;
   padding: 6px;
 }
 .element-adder > div {
@@ -2235,17 +2232,17 @@ label.find-entity input[type="text"] {
   color: #27b492;
 }
 .edit .entity.linked {
-  background-color: #f6f6f6;
+  background-color: #f7f3ee;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 .edit .entity.linked:hover {
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
 }
 .edit .entity.embedded {
-  box-shadow: 0 0px 0px 1px #f6f6f6 inset;
+  box-shadow: 0 0px 0px 1px #f7f3ee inset;
 }
 .edit .entity.embedded:hover {
-  box-shadow: 0 1px 2px 1px #f6f6f6 inset;
+  box-shadow: 0 1px 2px 1px #f7f3ee inset;
 }
 .on-hover {
   visibility: hidden;
@@ -2331,18 +2328,18 @@ input[type="text"] :-moz-placeholder {
   font-size: 14px;
 }
 :focus::-webkit-input-placeholder {
-  color: #f6f6f6;
+  color: #f7f3ee;
 }
 :focus:-moz-placeholder:focus {
-  color: #f6f6f6;
+  color: #f7f3ee;
 }
 /*FF18<*/
 :focus::-moz-placeholder {
-  color: #f6f6f6;
+  color: #f7f3ee;
 }
 /*FF19>*/
 :focus:-ms-input-placeholder:focus {
-  color: #f6f6f6;
+  color: #f7f3ee;
 }
 .holdings :focus::-webkit-input-placeholder {
   color: #dda0dd;
