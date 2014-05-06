@@ -483,7 +483,7 @@ kitin.factory('searchService', function($http, $q) {
     searchTypeIndex: {
       bib: {
         key: 'bib', 
-        label: 'Bibliografiskt material',
+        label: 'Libris',
         placeholder: 'Sök bland bibliografiskt material (på ISBN, titel, författare etc.)'
       },
       auth: {
