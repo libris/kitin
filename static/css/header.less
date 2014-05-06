@@ -61,12 +61,12 @@ body.search #header {
       font-size:14px;
       height:28px;
       width:400px;
-      border-color:#ccc;
+      border-color: @grey-light;
       font-weight: 400;
       margin-left:0;
 
       :focus {
-        border-color: #aaa;
+        border-color: @grey;
       }
 
       ::-webkit-input-placeholder,
@@ -111,7 +111,7 @@ body.search #header {
   span {
     padding-left:10px;
     margin-left:8px;
-    border-left:1px solid #ccc;
+    border-left:1px solid @grey-light;
 
     :first-child {
       margin-left:0;padding-left:0;border:none;
@@ -127,7 +127,7 @@ body.search #header {
 #header .beta { font-size: 16px; color: @pink; position: absolute;right:10px;top:16px}
 #header .system-updated { font-size: 11px; color: @grey-dark; padding: 0px; margin: 0px; }
 
-#header .logo { position: absolute; left: 0; bottom: 6px; color: #929395; text-transform: uppercase; height:72px;
+#header .logo { position: absolute; left: 0; bottom: 6px; color: @grey-dark; text-transform: uppercase; height:72px;
   >a { 
     display: block; width: 260px; height:52px; background:url(/static/img/logo.svg) no-repeat;background-size:100%; text-indent:-10000px; padding-bottom:1px;
     * { position:absolute;left:-10000px;margin:0}
@@ -148,9 +148,9 @@ body.search #header {
 
 #header .searchfield input[type="text"]{
   width: 533px;
-  border: 1px solid #bbb; 
+  border: 1px solid @grey; 
   padding: 6px 10px 6px;
-  border-color: #aaa @white #ccc #aaa;
+  border-color: @grey @white @grey-light @grey;
   box-shadow: inset 1px 1px 1px rgba(0,0,0,.2);
   -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0,.2);
   -webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0,.2);
@@ -165,7 +165,7 @@ body.search #header {
   -webkit-transition:all ease-out 0.05s;
 
   :focus{
-    border-color: #777 @white #aaa #777;
+    border-color: @grey-darker @white @grey @grey-darker;
 
     ::-webkit-input-placeholder,
     :-moz-placeholder:focus,
@@ -217,7 +217,7 @@ body.search #header {
 }
 
 #header .searchfield a.btn:hover,
-#header .searchfield button:hover{background-color:#197961;}
+#header .searchfield button:hover{background-color:@green-dark;}
 
 #header .searchfield button:hover{}  
 #header .searchfield input[type="text"],

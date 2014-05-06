@@ -5,7 +5,7 @@ form.login label{border-left:none;padding-left:0;}
 form.login .inp input,
 form.login .inp input:hover,
 form.login label.inp:hover input,
-form.login .inp input:focus{width:312px;border:1px solid #bbb; padding: 6px 10px 6px;border-color: #aaa #ccc #ccc #aaa;
+form.login .inp input:focus{width:312px;border:1px solid @grey; padding: 6px 10px 6px;border-color: @grey @grey-light @grey-light @grey;
   background:@white;
   box-shadow: inset 1px 1px 1px rgba(0,0,0,.1);
   -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0,.1);
@@ -22,9 +22,9 @@ form.login .inp input:focus{width:312px;border:1px solid #bbb; padding: 6px 10px
 form.login .inp input:hover,
 form.login .inp input:focus{background:@white;}
 form.login .inp input:focus,
-form.login .inp input:focus:hover{border-color: #777 #aaa #aaa #777;}
+form.login .inp input:focus:hover{border-color: @grey-darker @grey @grey @grey-darker;}
 
-form.login label .lbl{color:#444;}
+form.login label .lbl{color:@grey-very-dark;}
 
 form.login .checks{position:absolute; left:336px;bottom:14px;width: 300px;}
 form.login .checks label{overflow:hidden;margin-bottom:14px;}
@@ -36,7 +36,7 @@ form.login label .lbl-login {text-transform: lowercase;}
 ul.drafts {list-style: none;}
 
 li.draft:hover,
-li.draft a:hover {background-color: #efefef;}
+li.draft a:hover {background-color: @grey-lightest;}
 li.draft form { margin: 0 0 6px;}
 
 .break{clear:both;}

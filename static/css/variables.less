@@ -2,14 +2,18 @@
 
 @white: #ffffff;          // background
 @pink: #fa1963;           // holdings
-@red: #FA1963;
+@red-lighter: #ffd4db;      // error background
+@red: #FF0000;
 @black: #000000;
-@purple-light: #dda0dd;   // holdings placeholder
+@purple-lighter: #dda0dd; // holdings placeholder
+@purple-light: #a756a7;   // holdings headers
 @purple: #683568;         // holdings link etc
+@purple-dark: #573657;    // holdings button dark
 @green-lighter: #c8f4ea;  // dropdowns select
 @green-light: #27b492;    // buttons, headers
 @green: #1a8f72;          // links, backgrounds
 @green-dark: #106351;     // link and button hovers
+@green-darker: #0a5041;   // dark button hover
 @grey-warm: #f7f3ee;      // dropdown disabled selection
 @grey-lightest: #f6f6f6;  // unused? 
 @grey-lighter: #dddddd;   // unused? 
@@ -116,7 +120,7 @@ input[type="color"],
   margin-bottom: 0;
   font-size: 16px;
   line-height: 22px;
-  color: #444;
+  color: @grey-very-dark;
   vertical-align: middle;
   -webkit-border-radius: 0;
      -moz-border-radius: 0;
