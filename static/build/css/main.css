@@ -1160,9 +1160,11 @@ section.dash {
 }
 .content.search .summary {
   margin-left: 252px;
-  color: #999999;
+  color: #666666;
   font-size: 12px;
   margin-top: 12px;
+  background-color: #F4F4F4;
+  padding: 0px 13px;
 }
 .content.search .sort-option {
   margin-left: 12px;
@@ -1826,7 +1828,7 @@ body.login .content.index header {
 }
 .content section {
   background: #ffffff;
-  margin: 0 0 0;
+  margin: 0px 0px 10px 0px;
   padding: 12px 24px;
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
