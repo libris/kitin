@@ -6,13 +6,31 @@ body.styleguide #header .searchfield{display:none;}
 body.index #header .searchfield{
   left:248px;
   top:220px;
-  min-width: 613px;
+  min-width: 611px;
 
   input[type="text"]{padding:11px 16px;}
   .btn-group { float: right; }
   a.btn{height:47px;}
+	a.search-source {
+	   background-color: @grey-warm;color:@grey-very-dark;
+		 padding: 8px 16px;
+		 display:block;
+		 border-radius:none;
+		 text-align: left;
+		 border-top: 1px solid @grey-light;
+		 border-bottom: 1px solid @grey-light;
+		 box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05) inset;
+		 font-size: 14px;
+	 	.fa-caret-down {
+	 		position: absolute;
+	 		right: 12px;	
+	 		color:@green;
+	 		}
+	 }  
+  
   button{height:47px;}
   a span {margin-top: 8px;}
+	a .btn-label {position:relative;top:5px;}
   em {
     color: @grey-darker;
     font-size:13px;
@@ -24,7 +42,7 @@ body.index #header .searchfield{
     padding-left: 6px;
   }
 }
-
+ 
 body.search #header-wrapper{
   position: fixed;
   top: 0;

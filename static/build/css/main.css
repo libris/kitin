@@ -516,7 +516,7 @@ body.styleguide #header .searchfield {
 body.index #header .searchfield {
   left: 248px;
   top: 220px;
-  min-width: 613px;
+  min-width: 611px;
 }
 body.index #header .searchfield input[type="text"] {
   padding: 11px 16px;
@@ -527,11 +527,32 @@ body.index #header .searchfield .btn-group {
 body.index #header .searchfield a.btn {
   height: 47px;
 }
+body.index #header .searchfield a.search-source {
+  background-color: #f7f3ee;
+  color: #191919;
+  padding: 8px 16px;
+  display: block;
+  border-radius: none;
+  text-align: left;
+  border-top: 1px solid #c7c7c7;
+  border-bottom: 1px solid #c7c7c7;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05) inset;
+  font-size: 14px;
+}
+body.index #header .searchfield a.search-source .fa-caret-down {
+  position: absolute;
+  right: 12px;
+  color: #1a8f72;
+}
 body.index #header .searchfield button {
   height: 47px;
 }
 body.index #header .searchfield a span {
   margin-top: 8px;
+}
+body.index #header .searchfield a .btn-label {
+  position: relative;
+  top: 5px;
 }
 body.index #header .searchfield em {
   color: #666666;
