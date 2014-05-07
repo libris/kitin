@@ -1661,14 +1661,10 @@ a.beta-blocker {
 .content:not(.footer) {
   min-height: 500px;
 }
-body.index .content header {
-  background: url(/static/img/top-small.png) no-repeat;
-  width: 1080px;
-}
 .content header {
   position: relative;
   padding: 12px 24px 0;
-  width: 1032px;
+  width: 1080px;
   margin-left: -24px;
 }
 body.search .content header {
