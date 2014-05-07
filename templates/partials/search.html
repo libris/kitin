@@ -18,7 +18,7 @@
         <a data-ng-show="crumb.urlpart" href="{{ crumb.urlpart }}">{{ getLabel(crumb.term, crumb.type) }}</a>
       </span>
     </p>
-    <span data-ng-show="state.searchType.key != 'remote'" class="sort-option">Sortering: 
+    <span data-ng-show="state.searchType.key != 'remote'" class="sort-option">
       <select ng-model="selectedSort" ng-options="item as item.text for item in sortables" ng-change="sortChanged(selectedSort)"></select>
     </span>
   
