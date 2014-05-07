@@ -36,6 +36,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
       editUtil.setRecord(record);
     }
     $location.url('/edit' + record.identifier);
+    return false;
   };
 
 

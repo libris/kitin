@@ -52,20 +52,6 @@ h3{font-family: @header-font, georgia, serif; }
 h4{font-size:15px; }
 
 
-//links
-//
-//Markup: <a href="">Some text, preferrably anything but Lorem ipsum in there</a>
-//
-//a - link
-//
-//Styleguide 2
-a{
-    color: @green;
-    :hover{ 
-      color:@green-dark;
-    }
-}
-
 //label
 //
 //Markup: <label><span class="lbl">This is the look of a label</span></label>
@@ -244,7 +230,7 @@ section.nav dd a.active{font-weight:bold;color:@grey-very-dark;background:url(/s
 section.nav dd a.active:hover{text-decoration: none}
 
 section.result{position:relative;border:1px solid transparent;/* padding:23px 11px 41px; */
-  -webkit-transition:border ease-out 0.05s; cursor:pointer; box-sizing:border-box;border-color: @grey-warm; padding:12px; min-height: 160px;}
+  -webkit-transition:border ease-out 0.05s; box-sizing:border-box;border-color: @grey-warm; padding:12px; min-height: 160px;}
 
 section.result .footer{position: absolute; bottom:-1px; left:-1px; right:-1px;padding: 6px 12px; -webkit-transition:border ease-out 0.05s; 
   background:@grey-warm;color:@grey-darker;font-size:12px;border:1px solid @grey-warm;border-top-color:@grey-warm}
@@ -254,10 +240,13 @@ section.result .footer span.level{float:right;}
 
 section.result .footer span {padding-right: 12px;}
 
-section.result a,
-section.result a:hover{color:@grey-very-dark;text-decoration:none;}
+section.result a {
+    &:visited {  color: @green-light; }
+    &:hover label.title .title-key { text-decoration: underline; };
+    &:active {   color: @green-light; }
+}
 
-section.result:hover{border-color:@grey;}
+section.result:hover{ border-color:@grey;}
 section.result:hover .footer{border-color:@grey;border-top-color:@grey-warm}
 
 section.result label{cursor:pointer;padding-left: 1px;}
@@ -266,11 +255,11 @@ section.result label:hover{border-color:@grey-lighter;}
 section.result label .lbl{color:@grey-dark;}
 
 section.result label.title{display:block;}
-section.result label.title .title-key {color:@green-dark;font-size:18px;line-height:22px;display:block;font-weight: 600;display:block;padding-bottom: 4px;}
+section.result label.title .title-key {font-size:18px;line-height:22px;display:block;font-weight: 600;display:block;padding-bottom: 4px;}
 section.result label.title .title-subtitle {color:@green-dark; font-size: 14px; line-height: 18px;display: block;}
 section.result label .title-creator {color:@grey-darker;font-size: 14px; line-height: 18px;}
 section.result label.title .icon{font-size:16px;color:@green-light;}
-section.result label.identifier-code {font-weight: 600;text-align: right;}
+section.result label.identifier-code {color: @grey-very-dark; font-weight: 600;text-align: right;}
 section.result label.title .lbl{margin-top:4px;}
 section.result label.contributors {padding-bottom: 0px; margin-bottom:18px;}
 section.result .contributors ul {list-style: none;padding:0;margin:0;}
