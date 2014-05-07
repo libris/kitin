@@ -1290,7 +1290,7 @@ ul.tags li:last-child input[type="text"]:focus:-moz-input-placeholder {
 ul.tags.suggestions li {
   padding: 0px 10px 0 7px;
   border-right: 1px solid #dddddd;
-  background: none;
+  background-color: #f7ecb9;
   margin: 0;
 }
 ul.tags.suggestions li.title {
@@ -1329,6 +1329,50 @@ ul.tags.suggestions li li a {
   padding-left: 0;
 }
 /* TAGS END ------------------------- */
+/*SUGGEST*/
+.subject-delimiter {
+  color: #c7c7c7;
+}
+.suggestion-subjects {
+  background: #f7f3ee url(/static/img/pat1.png);
+  padding-top: 8px;
+  padding-bottom: 8px;
+  overflow: hidden;
+}
+.suggestion-subjects ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.suggestion-subjects li {
+  margin: 0 4px 4px 0;
+  float: left;
+  padding: 4px 8px;
+  background: rgba(20, 200, 160, 0.35);
+}
+.suggestion-subjects li .icon {
+  color: #1a8f72;
+}
+.suggestion-classification {
+  background: #f7f3ee url(/static/img/pat1.png);
+  padding-top: 8px;
+  padding-bottom: 8px;
+  overflow: hidden;
+}
+.suggestion-classification ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.suggestion-classification li {
+  margin: 0 4px 4px 0;
+  float: left;
+  padding: 4px 8px;
+  background: rgba(167, 86, 167, 0.35);
+}
+.suggestion-classification li .icon {
+  color: #683568;
+}
 /* AUTOCOMPLETE START ------------------------- */
 .acResults {
   width: 476px;
