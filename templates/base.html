@@ -33,44 +33,7 @@
    
   </head>
   <body data-ng-app="kitin" class="{% block bodyclass %}{% endblock %}" data-ng-controller="AppCtrl">
-    <div id="header-wrapper">
-      <div class="container">
-        <div id="header">
-          {% if current_user and current_user.is_authenticated() %}
-          <div id="nav">
-              <ul class="inline nav-menu pull-right">
-               <li class="active"><a href="http://feedback.kat.libris.kb.se/" target="_blank" title="Feedback forum">Tyck till <i class="icon fa fa-external-link"></i></a></li>  
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" title="Skapa ny post">Skapa ny <i class="icon fa fa-caret-down"></i></a>
-                    <ul class="dropdown-menu col-sm-pull-*">
-                       <li class="disabled my_template"><a href="#"><i class="fa fa-heart"></i>Min egen mall 1</a></li>
-                       <li class="disabled my_template"><a href="#"><i class="fa fa-heart"></i>Min egen mall 2</a></li>
-                       <li><a href="/edit/bib/new">Monografi</a></li>
-                       <li class="disabled"><a href="#">Seriell publikation</a></li>
-                       <li class="disabled"><a href="#">Ljudbok</a></li>
-                       <li class="disabled"><a href="#">Lorem Ipsum</a></li>
-                       <li class="disabled"><a href="#">Lorem Ipsum</a></li>
-                       <li class="disabled"><a href="#">Tom mall</a></li>
-                    </ul>
-                </li>
-               <li class="dropdown">
-               <a class="dropdown-toggle login" data-toggle="dropdown" title="Logga ut - inställningar">
-                 <!-- <span class="meta">Inloggad som: </span> -->
-                 <span class="username">{{current_user.username}} ({{current_user.sigel}})</span>
-                 <i class="fa fa-caret-down"></i>
-               </a>
-                   <ul class="dropdown-menu pull-right">
-                      <li class="disabled"><a href="#"> Mitt konto</a></li>
-                      <li><a href="/signout" target="_self">Logga ut</a></li>
-                   </ul>
-                </li>       
-            </ul>
-          </div>
-          {% endif %}
-          {% include "partials/_search_bar.html" %}
-        </div>
-      </div>
-    </div>
+      {% include "_header.html" %}
     <div class="container">
       
       {% block content %}
