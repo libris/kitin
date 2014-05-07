@@ -424,6 +424,8 @@ input[type="text"] :-moz-placeholder { color:@grey-light; font-style:italic; fon
 ::-moz-placeholder { color:@grey-light; font-style:italic; font-size:14px; }/*FF19>*/
 :-ms-input-placeholder { color:@grey-light; font-style:italic; font-size:14px; }
 
+
+
 :focus::-webkit-input-placeholder { color:@grey-warm; }
 :focus:-moz-placeholder:focus { color:@grey-warm; }/*FF18<*/
 :focus::-moz-placeholder { color:@grey-warm; }/*FF19>*/
@@ -456,7 +458,7 @@ label:hover input[type="text"]{color:@grey-very-dark;border-color:@grey}
 label input[type="text"]:focus,
 label textarea:focus{color:@grey-very-dark;border-color:@grey-dark; box-shadow:rgba(0,0,0,.3) 0 0 2px;outline:none}
 
-
+//WARNINGS AND ERRORS IN FORM
 label textarea.ng-invalid,
 label input[type="text"].ng-invalid,
 label select.ng-invalid {background-color:@red-lighter!important;border-color:@red-lighter!important;}
@@ -467,24 +469,16 @@ label textarea.title{font-weight:bold;}
 .lbl{ display:block; font-size:10px; color:@grey-dark; margin-bottom:0; line-height:16px; text-transform:uppercase; letter-spacing:.5px; }
 .lbl-suggest{display:block;font-size:12px;color:@green;margin-top:2px;line-height:14px;float:left;clear:both;}
 
+
 span.error-label { color: @red; }
 span.error-message { font-size: 10px; color: @red; float:left; }
 
-/*SUGGEST*/
+//warning styleguide only implemented:
+label.warning input[type="text"] {border-color: @yellow;}
 
-.subject-delimiter {color:@grey-light;}
+label.warning-action input[type="text"] {background-color:@yellow-lighter;}
 
-.suggestion-subjects{background:@grey-warm url(/static/img/pat1.png);padding-top:8px;padding-bottom:8px;overflow:hidden;}
-.suggestion-subjects ul{list-style:none;margin:0;padding:0;}
-.suggestion-subjects li{margin: 0 4px 4px 0;float:left;padding:4px 8px;background:rgba(20,200,160,.35);}
-.suggestion-subjects li .icon{color:@green;}
-
-
-
-.suggestion-classification{background:@grey-warm url(/static/img/pat1.png);padding-top:8px;padding-bottom:8px;overflow:hidden;}
-.suggestion-classification ul{list-style:none;margin:0;padding:0;}
-.suggestion-classification li{margin: 0 4px 4px 0;float:left;padding:4px 8px;background:rgba(167, 86, 167, 0.35);}
-.suggestion-classification li .icon{color:@purple;}
+label.warning .lbl i {color:@yellow;}
 
 
 
