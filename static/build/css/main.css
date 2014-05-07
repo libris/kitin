@@ -554,8 +554,28 @@ body.index #header .searchfield em {
 }
 body.index #header .searchfield .remote-search ul.remotesource {
   max-width: 520px;
-  width: 100%;
+  /*     width: 100%; */
   padding-left: 6px;
+  margin: 0px;
+}
+#header .remote-search {
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: 28px;
+  background-color: #f7f3ee;
+  clear: both;
+  height: 20px;
+  padding: 0px;
+}
+body.index #header .remote-search {
+  top: 47px;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+#header .remote-search a {
+  margin-right: 3px;
 }
 body.search #header-wrapper {
   position: fixed;
