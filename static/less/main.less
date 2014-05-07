@@ -435,6 +435,8 @@ input[type="text"] :-moz-placeholder { color:@grey-light; font-style:italic; fon
 ::-moz-placeholder { color:@grey-light; font-style:italic; font-size:14px; }/*FF19>*/
 :-ms-input-placeholder { color:@grey-light; font-style:italic; font-size:14px; }
 
+
+
 :focus::-webkit-input-placeholder { color:@grey-warm; }
 :focus:-moz-placeholder:focus { color:@grey-warm; }/*FF18<*/
 :focus::-moz-placeholder { color:@grey-warm; }/*FF19>*/
@@ -467,7 +469,7 @@ label:hover input[type="text"]{color:@grey-very-dark;border-color:@grey}
 label input[type="text"]:focus,
 label textarea:focus{color:@grey-very-dark;border-color:@grey-dark; box-shadow:rgba(0,0,0,.3) 0 0 2px;outline:none}
 
-
+//WARNINGS AND ERRORS IN FORM
 label textarea.ng-invalid,
 label input[type="text"].ng-invalid,
 label select.ng-invalid {background-color:@red-lighter!important;border-color:@red-lighter!important;}
@@ -478,8 +480,13 @@ label textarea.title{font-weight:bold;}
 .lbl{ display:block; font-size:10px; color:@grey-dark; margin-bottom:0; line-height:16px; text-transform:uppercase; letter-spacing:.5px; }
 .lbl-suggest{display:block;font-size:12px;color:@green;margin-top:2px;line-height:14px;float:left;clear:both;}
 
+
 span.error-label { color: @red; }
 span.error-message { font-size: 10px; color: @red; float:left; }
+
+//warning styleguide only implemented:
+label.warning input[type="text"] {border-color: @yellow;}
+label.warning-action input[type="text"] {border-color:@yellow; background-color:@yellow-lighter;}
 
 /*SUGGEST*/
 

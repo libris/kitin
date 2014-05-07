@@ -2475,6 +2475,13 @@ span.error-message {
   color: #ff0000;
   float: left;
 }
+label.warning input[type="text"] {
+  border-color: #d6ab00;
+}
+label.warning-action input[type="text"] {
+  border-color: #d6ab00;
+  background-color: #f7ecb9;
+}
 /*SUGGEST*/
 .subject-delimiter {
   color: #c7c7c7;
