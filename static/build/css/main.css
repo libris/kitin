@@ -375,8 +375,10 @@ body.edit .footer footer {
   color: #573657;
 }
 .btn.disabled,
-.btn.disabled:hover {
-  background-color: #c7c7c7;
+.btn.disabled:hover,
+button[disabled=disabled],
+button:disabled {
+  background-color: #c7c7c7 !important;
 }
 section.submit .btn-link {
   font-size: 14px;
@@ -1538,14 +1540,6 @@ section.result p.holding {
   float: left;
   vertical-align: none;
 }
-.saved #draft,
-.published #publish {
-  opacity: 0.4;
-}
-#draft,
-#publish {
-  opacity: 1;
-}
 /* tmp auth view */
 .subject ul {
   list-style: none;
@@ -1650,6 +1644,16 @@ a.beta-blocker {
 }
 .content:not(.footer) {
   min-height: 500px;
+}
+.saved #draft,
+.published #publish {
+  opacity: 0.4;
+  pointer-events: none;
+  cursor: default;
+}
+#draft,
+#publish {
+  opacity: 1;
 }
 .content header {
   position: relative;

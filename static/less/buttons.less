@@ -25,13 +25,11 @@
 
 
 .btn-dark{background:@green-dark;}
-
 .btn-dark:hover,
 .btn-dark:focus,
 .btn-dark:active{background-color:@green-darker;} 
 
 .btn-purple{background-color:@purple;}
-
 .btn-purple:hover,
 .btn-purple:focus,
 .btn-purple:active{background-color:@purple-dark;}
@@ -40,7 +38,6 @@
 
 .btn-link{color:@green; outline: none; border:0;}
 .btn-link:hover{color:@green-dark;}
-
 .btn-link.deleter{color:@grey}
 .btn-link.deleter:hover{color:@pink}
 
@@ -48,7 +45,11 @@
 .holdings .btn-link:hover{color:@purple-dark;}
 
 .btn.disabled,
-.btn.disabled:hover {background-color:@grey-light;}
+.btn.disabled:hover,
+button[disabled=disabled], 
+button:disabled {
+  background-color:@grey-light !important;
+}
 
 section.submit .btn-link {font-size: 14px; font-weight: bold;}
 
