@@ -2479,8 +2479,10 @@ label.warning input[type="text"] {
   border-color: #d6ab00;
 }
 label.warning-action input[type="text"] {
-  border-color: #d6ab00;
   background-color: #f7ecb9;
+}
+label.warning .lbl i {
+  color: #d6ab00;
 }
 /*SUGGEST*/
 .subject-delimiter {
