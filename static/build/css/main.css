@@ -430,7 +430,6 @@ button::-moz--focus-inner {
   float: none;
   position: absolute;
   right: 0;
-  list-style: none outside none;
 }
 #nav .nav-menu > li {
   border-left: 1px solid #dddddd;
@@ -465,6 +464,9 @@ button::-moz--focus-inner {
   top: 100%;
   z-index: 1000;
 }
+.dropdown {
+  list-style: none outside none;
+}
 .dropdown-menu li a {
   font-size: 13px;
   display: block;
@@ -472,6 +474,7 @@ button::-moz--focus-inner {
   padding: 6px 8px;
   border-top: 1px solid #f7f3ee;
   color: #1a8f72;
+  text-align: left;
 }
 .dropdown-menu li a.selected,
 .dropdown-menu li a:hover {

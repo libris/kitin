@@ -12,8 +12,7 @@
 #nav a:hover,
 #nav a:focus { cursor: pointer; }
 
-
-#nav .nav-menu{ font-size:13px; float:none; position:absolute; right:0; list-style: none outside none;}
+#nav .nav-menu{ font-size:13px; float:none; position:absolute; right:0;}
 #nav .nav-menu > li {border-left:1px solid @grey-lighter; padding:0 8px 0 10px; margin: 6px 0; display:inline-block; }
 #nav .nav-menu > li:first-child {border-left:none; padding-left:0px;}
 
@@ -41,7 +40,11 @@
     z-index: 1000;
 }
 
-.dropdown-menu li a { font-size:13px; display:block; background:@white;padding:6px 8px;border-top:1px solid @grey-warm;color:@green;}
+.dropdown {
+    list-style: none outside none;   
+}
+
+.dropdown-menu li a { font-size:13px; display:block; background:@white;padding:6px 8px;border-top:1px solid @grey-warm;color:@green; text-align: left;}
 .dropdown-menu li a.selected,
 .dropdown-menu li a:hover {color:@white;background:@green;}
 .dropdown-menu li:first-child a{border-top:none;}
