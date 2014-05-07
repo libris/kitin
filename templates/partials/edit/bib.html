@@ -24,10 +24,10 @@
       </div>
     </section>
   
-    <section class="submit modificationinfo" data-ng-class="modifiedClasses()">
+    <section class="submit modificationinfo" data-ng-class="modifiedClasses()" data-ng-init="disableButtons = (subform.$invalid || modifiedClasses())">
       <button class="btn-link" id="draft" data-ng-click="saveDraft()"
         title="{{lastSavedLabel('Senast sparad: %s')}}">Spara utkast</button>
-      <button class="btn btn-dark btn-submit" id="publish" data-ng-disabled="{{subform.$invalid || modifiedClasses()}}" data-ng-click="save()"
+      <button class="btn btn-dark btn-submit" id="publish" data-ng-disabled="disableButtons" data-ng-click="save()"
         title="{{lastPublishedLabel('Senast publicerad: %s')}}">Publicera</button>
       <p class="message" data-ng-show="modifications.message">{{ modifications.message }}</p>
       <div style="clear:both"></div>

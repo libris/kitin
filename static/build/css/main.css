@@ -378,7 +378,7 @@ body.edit .footer footer {
 .btn.disabled:hover,
 button[disabled=disabled],
 button:disabled {
-  background-color: #c7c7c7 !important;
+  background-color: #c7c7c7;
 }
 section.submit .btn-link {
   font-size: 14px;
