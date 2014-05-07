@@ -564,15 +564,15 @@ body.search #header-wrapper {
   border-bottom: 1px solid #c7c7c7;
   box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
 }
-body.search #header {
-  width: 1080px;
-}
 body.search .content {
   margin-top: 70px;
 }
-body.edit #header,
+body.edit #header {
+  height: 50px;
+}
 body.search #header {
   height: 70px;
+  width: 1080px;
 }
 body.edit #header .logo,
 body.search #header .logo {
@@ -590,84 +590,6 @@ body.edit #header .system-updated,
 body.search #header .system-updated {
   display: none;
   /*show only on start page*/
-}
-body.edit #header .searchfield,
-body.search #header .searchfield {
-  top: 12px;
-  left: 276px;
-  min-width: 462px;
-}
-body.edit #header .searchfield input[type="text"],
-body.search #header .searchfield input[type="text"] {
-  box-shadow: none;
-  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.05);
-  -webkit-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.05);
-  padding: 3px 8px;
-  font-size: 14px;
-  height: 28px;
-  width: 300px;
-  border-color: #c7c7c7;
-  font-weight: 400;
-  margin-left: 0;
-}
-body.edit #header .searchfield input[type="text"] :focus,
-body.search #header .searchfield input[type="text"] :focus {
-  border-color: #adadad;
-}
-body.edit #header .searchfield input[type="text"] ::-webkit-input-placeholder,
-body.search #header .searchfield input[type="text"] ::-webkit-input-placeholder,
-body.edit #header .searchfield input[type="text"] ::-moz-input-placeholder,
-body.search #header .searchfield input[type="text"] ::-moz-input-placeholder,
-body.edit #header .searchfield input[type="text"] :-moz-input-placeholder,
-body.search #header .searchfield input[type="text"] :-moz-input-placeholder,
-body.edit #header .searchfield input[type="text"] :-ms-input-placeholder,
-body.search #header .searchfield input[type="text"] :-ms-input-placeholder {
-  color: #ffffff;
-  font-style: italic;
-  font-size: 14px;
-}
-body.edit #header .searchfield .btn-group,
-body.search #header .searchfield .btn-group {
-  float: right;
-}
-body.edit #header .searchfield button,
-body.search #header .searchfield button {
-  height: 28px;
-  background-size: 14px;
-  width: 36px;
-}
-body.edit #header .searchfield a.btn,
-body.search #header .searchfield a.btn {
-  height: 28px;
-  width: 28px;
-  line-height: 14px;
-}
-body.edit #header .searchfield a.search-source,
-body.search #header .searchfield a.search-source {
-  background-color: #f7f3ee;
-  height: 28px;
-  width: 126px;
-  line-height: 14px;
-  color: #191919;
-  padding: 6px 16px;
-  display: block;
-  border-radius: none;
-  text-align: left;
-  border-top: 1px solid #c7c7c7;
-  border-bottom: 1px solid #c7c7c7;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05) inset;
-  font-size: 14px;
-}
-body.edit #header .searchfield a.search-source .fa-caret-down,
-body.search #header .searchfield a.search-source .fa-caret-down {
-  position: absolute;
-  right: 6px;
-  color: #1a8f72;
-}
-body.edit #header .searchfield em,
-body.search #header .searchfield em {
-  color: #666666;
-  font-size: 12px;
 }
 body.edit #header .kb,
 body.search #header .kb {
@@ -782,6 +704,74 @@ body.search #header .kb {
 #header .searchfield input[type="text"] :focus :-moz-placeholder:focus,
 #header .searchfield input[type="text"] :focus :-ms-input-placeholder:focus {
   color: #dddddd;
+}
+body.edit #header .searchfield {
+  display: none;
+}
+body.search #header .searchfield {
+  top: 12px;
+  left: 276px;
+  min-width: 462px;
+}
+body.search #header .searchfield input[type="text"] {
+  box-shadow: none;
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.05);
+  padding: 3px 8px;
+  font-size: 14px;
+  height: 28px;
+  width: 300px;
+  border-color: #c7c7c7;
+  font-weight: 400;
+  margin-left: 0;
+}
+body.search #header .searchfield input[type="text"] :focus {
+  border-color: #adadad;
+}
+body.search #header .searchfield input[type="text"] ::-webkit-input-placeholder,
+body.search #header .searchfield input[type="text"] ::-moz-input-placeholder,
+body.search #header .searchfield input[type="text"] :-moz-input-placeholder,
+body.search #header .searchfield input[type="text"] :-ms-input-placeholder {
+  color: #ffffff;
+  font-style: italic;
+  font-size: 14px;
+}
+body.search #header .searchfield .btn-group {
+  float: right;
+}
+body.search #header .searchfield button {
+  height: 28px;
+  background-size: 14px;
+  width: 36px;
+}
+body.search #header .searchfield a.btn {
+  height: 28px;
+  width: 28px;
+  line-height: 14px;
+}
+body.search #header .searchfield a.search-source {
+  background-color: #f7f3ee;
+  height: 28px;
+  width: 126px;
+  line-height: 14px;
+  color: #191919;
+  padding: 6px 16px;
+  display: block;
+  border-radius: none;
+  text-align: left;
+  border-top: 1px solid #c7c7c7;
+  border-bottom: 1px solid #c7c7c7;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05) inset;
+  font-size: 14px;
+}
+body.search #header .searchfield a.search-source .fa-caret-down {
+  position: absolute;
+  right: 6px;
+  color: #1a8f72;
+}
+body.search #header .searchfield em {
+  color: #666666;
+  font-size: 12px;
 }
 .searchfield .remote-search {
   background-color: #f7f3ee;
