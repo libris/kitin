@@ -49,7 +49,7 @@
     			<div class="remote-search" data-ng-show="state.searchType.key == 'remote'">
             <!-- List seleceted remote databases -->
             <ul class="remotesource">
-              <li data-ng-repeat="database in state.remoteDatabases | filter:{selected: true} | orderBy:'alternativeName'">
+              <li data-ng-repeat="database in state.remoteDatabases | filter:{selected: true} | orderBy:'alternativeName'"><i class="fa fa-check"> </i>
                {{ database.database }}
                 <span class="hitcount" data-ng-show="database.hitCount">({{ database.hitCount }})</span>
                 <span data-ng-show=" ! $last ">,</span>

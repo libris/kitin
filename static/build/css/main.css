@@ -560,6 +560,9 @@ body.index #header .searchfield .remote-search ul.remotesource {
   padding-left: 6px;
   margin: 0px;
 }
+body.index #header .searchfield .remote-search ul.remotesource i {
+  color: #666666;
+}
 #header .remote-search {
   display: block;
   width: 100%;
