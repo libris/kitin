@@ -723,6 +723,25 @@ body.search #header .kb {
   left: -10000px;
   margin: 0;
 }
+#header .nav-back {
+  display: none;
+}
+body.edit #header .nav-back {
+  display: initial;
+  position: absolute;
+  top: 12px;
+  left: 200px;
+  z-index: 2;
+  font-size: 16px;
+  /*FF18<*/
+  /*FF19>*/
+}
+body.edit #header .nav-back :focus:-moz-placeholder:focus {
+  color: #dddddd;
+}
+body.edit #header .nav-back :focus::-moz-placeholder {
+  color: #dddddd;
+}
 /* HEADER SEARCHFIELD START ------------------------- */
 #header .searchfield {
   position: absolute;
@@ -1275,6 +1294,9 @@ ul.tags li i.no:hover {
 ul.tags li a {
   color: #191919;
 }
+ul.tags li a i {
+  color: #1a8f72;
+}
 ul.tags li a:hover {
   text-decoration: none;
 }
@@ -1336,6 +1358,9 @@ ul.tags.suggestions li {
   border-right: 1px solid #dddddd;
   background-color: #f7ecb9;
   margin: 0;
+}
+ul.tags.suggestions li:hover {
+  background-color: #e6dba8;
 }
 ul.tags.suggestions li.title {
   padding: 0;
@@ -1603,6 +1628,7 @@ section.result p.holding {
   right: 20px;
 }
 /*TODO:experimental and not optimized*/
+.show-more.btn-link,
 .add-thing.btn-link,
 .remove-thing.btn-link {
   color: #1a8f72;
@@ -1612,10 +1638,12 @@ section.result p.holding {
   font-size: 11px;
   font-family: 'Open Sans', arial, sans-serif;
 }
+.show-more.btn-link:hover,
 .add-thing.btn-link:hover,
 .remove-thing.btn-link:hover {
   text-decoration: none;
 }
+.show-more.btn-link:focus,
 .add-thing.btn-link:focus,
 .remove-thing.btn-link:focus {
   color: #191919;
@@ -1636,6 +1664,19 @@ section.result p.holding {
   bottom: -1px;
   margin-right: 1px;
   color: #1a8f72;
+}
+.more-details {
+  border-radius: 1px;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: bold;
+  height: 12px;
+  line-height: 6px;
+  padding: 0 5px;
+  text-decoration: none;
+  vertical-align: middle;
+  color: #adadad;
+  background-color: #dddddd;
 }
 .btn-link.deleter {
   color: #dddddd;
@@ -1738,6 +1779,33 @@ a.beta-blocker {
 }
 .hidden {
   visibility: hidden;
+}
+div.notification {
+  width: 318px;
+  border: 1px solid #c7c7c7;
+  padding: 12px 24px 12px 36px;
+  margin: 6px;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+div.notification i {
+  float: left;
+  margin-left: -18px;
+}
+div.notification-warning {
+  background-color: #f7ecb9;
+  border-color: #d6ab00;
+}
+div.notification-warning i {
+  color: #d6ab00;
+}
+div.notification-error {
+  background-color: #ffd4db;
+  border-color: #ff0000;
+}
+div.notification-error i {
+  color: #ff0000;
 }
 /* GENERAL END ------------------------- */
 /* CONTENT START ------------------------- */
@@ -2571,6 +2639,22 @@ label.warning-action input[type="text"] {
 }
 label.warning .lbl i {
   color: #d6ab00;
+}
+label.error input[type="text"] {
+  border-color: #ff0000;
+}
+label.error-action input[type="text"] {
+  background-color: #ffd4db;
+}
+label.error .lbl i {
+  color: #ff0000;
+}
+label.error i {
+  color: #ff0000;
+  font-size: 16px;
+  margin-left: -20px;
+  position: relative;
+  top: 3px;
 }
 /* HOLDINGS START ------------------------- */
 .holdings label:hover,
