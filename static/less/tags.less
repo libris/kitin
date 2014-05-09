@@ -15,7 +15,7 @@ ul.tags li {
     > i.no { color: @red; }
   }
   a .fa-check {color:@green-light;font-size:11px;margin-right:0;font-weight:100}
-
+	&.non-auth {border: 1px dashed @grey-light;background: none;padding: 1px 7px 2px 7px;}	
   &:last-child {
     background: none;
     border: 1px solid @grey-light;
@@ -38,13 +38,16 @@ ul.tags li {
   }
 }
 
+
 .tagsinput .suggestions{border-top:1px solid @grey-lighter;padding-top:6px;margin-top:4px}
 ul.tags.suggestions li {
   padding:0px 10px 0 7px;border-right:1px solid @grey-lighter;background-color:@yellow-lighter;margin:0;
 
   &.title{padding:0;background:none;font-weight:bold;border:none}
   &:last-child{border:none}
-  li i{font-size:12px;font-weight:normal;margin-left:0;color:@green-light}
+  i {color:@yellow;}
+
+  li i{font-size:12px;font-weight:normal;margin-left:0;color:@yellow;}
   li a{color:@green-light}
 }
 

@@ -1254,6 +1254,11 @@ ul.tags li a .fa-check {
   margin-right: 0;
   font-weight: 100;
 }
+ul.tags li.non-auth {
+  border: 1px dashed #c7c7c7;
+  background: none;
+  padding: 1px 7px 2px 7px;
+}
 ul.tags li:last-child {
   background: none;
   border: 1px solid #c7c7c7;
@@ -1308,11 +1313,14 @@ ul.tags.suggestions li.title {
 ul.tags.suggestions li:last-child {
   border: none;
 }
+ul.tags.suggestions li i {
+  color: #d6ab00;
+}
 ul.tags.suggestions li li i {
   font-size: 12px;
   font-weight: normal;
   margin-left: 0;
-  color: #27b492;
+  color: #d6ab00;
 }
 ul.tags.suggestions li li a {
   color: #27b492;
