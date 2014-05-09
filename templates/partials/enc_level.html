@@ -1,0 +1,40 @@
+ {% raw %}
+  <div class="enc-level" data-ng-switch="recType">
+    <div data-ng-switch-when="auth">
+        <span data-ng-if="record.data.encLevel == 'c' ">
+          <i class="fa fa-pencil-square"></i>
+          {{parseEncLevel(record.data.encLevel)}}
+        </span>
+        <span data-ng-if="record.data.encLevel == 'n' ">
+          <i class="fa fa-circle-o"></i>
+          <i class="fa fa-circle-o"></i>
+          <i class="fa fa-circle-o"></i>
+          {{parseEncLevel(record.data.encLevel)}}
+        </span> 
+      </label>           
+    </div>
+    <div data-ng-switch-default>
+      <label class="enc-level">
+        <span data-ng-if="encLevel['@id'] == '/def/enum/record/MinimalLevel'">
+          <i class="fa fa-circle"></i>
+          <i class="fa fa-circle-o"></i>
+          <i class="fa fa-circle-o"></i>
+        </span>
+        <span data-ng-if="encLevel['@id'] == '/def/enum/record/PrepublicationLevel' ">
+          <i class="fa fa-circle"></i>
+          <i class="fa fa-circle"></i>
+          <i class="fa fa-circle-o"></i>
+        </span>
+        <span data-ng-if="encLevel['@id'] == null || encLevel['@id'] == '/def/enum/record/FullLevel'">
+          <i class="fa fa-circle"></i>
+          <i class="fa fa-circle"></i>
+          <i class="fa fa-circle"></i>
+        </span>
+        <span data-ng-if="encLevel['@id'] == '/def/enum/record/AbbreviatedLevel' || encLevel['@id'] == '/def/enum/record/FullLevelInputByOclcParticipantsLocal'">
+          <i class="fa fa-circle-o"></i>
+          <i class="fa fa-circle-o"></i>
+          <i class="fa fa-circle-o"></i>
+        </span>
+    </div>
+  </div>
+{% endraw %}

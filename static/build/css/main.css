@@ -314,6 +314,38 @@ input[type="color"]:focus,
 body.edit .footer footer {
   margin-top: 0px;
 }
+.footer-sticky {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10000;
+  height: 50px;
+  font-size: 13px;
+  background: rgba(255, 255, 255, 0.7);
+  text-align: center;
+}
+.footer-sticky section {
+  margin: 0px !important;
+  padding: 7px 7px 11px 7px !important;
+  background-color: transparent !important;
+}
+.footer-sticky .left {
+  padding-left: 25px;
+}
+.footer-sticky .left > div {
+  float: left;
+}
+.footer-sticky .left .levelselect {
+  margin-left: 15px;
+}
+.footer-sticky .right {
+  text-align: right;
+}
+.footer-sticky .btn {
+  font-size: inherit;
+  padding: 6px 12px;
+}
 /* BUTTONS START ------------------------- */
 /* !TODO Remove and use boostrap buttons instead */
 /* bootstrap buttons */
@@ -447,6 +479,7 @@ button::-moz--focus-inner {
   background-color: transparent;
 }
 .dropdown-menu {
+  left: auto;
   background-color: #ffffff;
   border: 1px solid #c7c7c7;
   -webkit-box-shadow: 0 0px 3px rgba(0, 0, 0, 0.1);
@@ -1949,7 +1982,7 @@ section.nav dt {
   border-radius: 3px;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.08);
   -webkit-font-smoothing: antialiased;
-  margin-left: -36px;
+  margin: 0 0 10px -36px;
   min-height: 16px;
   position: relative;
 }

@@ -23,42 +23,6 @@
           <strong>Encoding:</strong> <em>{{ record.characterCoding['@id']}}</em>
         </span>
         
-<!-- encLevel needs overhaul
-        <span>
-          <label class="enc-level">
-            <span data-ng-if="record.encLevel == 3 ">
-              <i class="fa fa-circle"></i>
-              <i class="fa fa-circle-o"></i>
-              <i class="fa fa-circle-o"></i>
-              Miniminivå
-            </span>
-            <span data-ng-if="record.encLevel == 7 ">
-              <i class="fa fa-circle"></i>
-              <i class="fa fa-circle"></i>
-              <i class="fa fa-circle-o"></i>
-              Biblioteksnivå
-            </span>
-            <span data-ng-if="record.encLevel == null ">
-              <i class="fa fa-circle"></i>
-              <i class="fa fa-circle"></i>
-              <i class="fa fa-circle"></i>
-              NB-nivå
-            </span>
-            <span data-ng-if="record.encLevel == 8 ">
-              <i class="fa fa-circle-o"></i>
-              <i class="fa fa-circle-o"></i>
-              <i class="fa fa-circle-o"></i>
-              Förhandspost
-            </span>
-            <span data-ng-if="record.encLevel == 'I' ">
-              <i class="fa fa-circle-o"></i>
-              <i class="fa fa-circle-o"></i>
-              <i class="fa fa-circle-o"></i>
-              Full-level input by OCLC participants (LOCAL)
-            </span>
-          </label>
-        </span>
--->
       </div>
 
       <header class="clearfix">
@@ -67,33 +31,6 @@
         <span data-ng-repeat="contentType in record.about.contentType">{{contentType['@id']}}</span>
         <span>{{ record.about.text['@id'] }}</span>
           <!--(Bibliografiskt material)--></h1>
-
-
-
-        <!--<div class="levelselect">
-          <div class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-check"></i> <span data-ng-model="record.encLevel['@id']"  >{{record.encLevel['@id']}}</span><i class="fa fa-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Minimal nivå</a></li>
-              <li><a href="#">Bibliografisk nivå</a></li>
-            </ul>
-          </div>
-        </div>
-
-
-        <div class="levelselect catform">
-          <div class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-check"></i> <span data-ng-model="record.catForm['@id']"  >{{record.catForm['@id']}}</span</i>
-            </a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Minimal nivå</a></li>
-              <li><a href="#">Bibliografisk nivå</a></li>
-            </ul>
-          </div>
-        </div>-->
 
 
         <div class="levels">

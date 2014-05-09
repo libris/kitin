@@ -8,3 +8,32 @@
 
 body.edit .footer footer {margin-top:0px;}
 
+.footer-sticky {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10000;
+    height: 50px;
+
+    font-size: 13px;
+    background: rgba(255, 255, 255, .7);
+    
+    text-align: center;
+    section { 
+        margin: 0px !important;
+        padding: 7px 7px 11px 7px !important;
+        background-color: transparent !important;
+    }
+    .left { 
+        padding-left: 25px;
+        >div { float: left; } 
+        .levelselect { margin-left: 15px;}
+    }
+    .right { text-align: right; }
+    .btn { 
+        font-size: inherit;
+        padding: 6px 12px;
+        
+    }
+}

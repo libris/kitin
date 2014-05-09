@@ -50,7 +50,7 @@
         <span class="page-indicator" data-ng-if="($index > 0 && ($index + 1) % 10 == 0) || ($index+1) == hitCount">{{ $index + 1 }} / {{ state.search.hitCount }}</span>
         
         <a class="bib-url" href="/edit{{record.identifier || record.data['@id']}}" ng-click="editPost(recType, record)" data-ng-switch="recType">
-          
+
           <!--auth result list-->
           <div data-ng-switch-when="auth">
             <div class="col5">
@@ -132,64 +132,18 @@
           </div>
           -->
             <div class="widget">
-            <div data-ng-switch-when="auth">
-               <label class="enc-level">
-              <span data-ng-if="record.data.encLevel == 'c' ">
-               <i class="fa fa-pencil-square"></i>
-              {{parseEncLevel(record.data.encLevel)}}
-              </span>
-              <span data-ng-if="record.data.encLevel == 'n' ">
-               <i class="fa fa-circle-o"></i>
-               <i class="fa fa-circle-o"></i>
-               <i class="fa fa-circle-o"></i>
-              {{parseEncLevel(record.data.encLevel)}}
-              </span> 
-               </label>           
-            </div>
-            <div data-ng-switch-default>
               <label class="enc-level">
-              <span data-ng-if="record.data.encLevel == 3 ">
-               <i class="fa fa-circle"></i>
-               <i class="fa fa-circle-o"></i>
-               <i class="fa fa-circle-o"></i>
-               {{parseEncLevel(record.data.encLevel)}}
-              </span>
-              <span data-ng-if="record.data.encLevel == 7 ">
-               <i class="fa fa-circle"></i>
-               <i class="fa fa-circle"></i>
-               <i class="fa fa-circle-o"></i>
-               {{parseEncLevel(record.data.encLevel)}}
-              </span>
-               <span data-ng-if="record.data.encLevel == null ">
-               <i class="fa fa-circle"></i>
-               <i class="fa fa-circle"></i>
-               <i class="fa fa-circle"></i>
-               {{parseEncLevel(record.data.encLevel)}}
-              </span>
-               <span data-ng-if="record.data.encLevel == 8 ">
-               <i class="fa fa-circle-o"></i>
-               <i class="fa fa-circle-o"></i>
-               <i class="fa fa-circle-o"></i>
-              {{parseEncLevel(record.data.encLevel)}}
-              </span>
-              <span data-ng-if="record.data.encLevel == 'I' ">
-               <i class="fa fa-circle-o"></i>
-               <i class="fa fa-circle-o"></i>
-               <i class="fa fa-circle-o"></i>
-              {{parseEncLevel(record.data.encLevel)}}
-              </span>
-
-               <p class="holding">
-               <span data-ng-if="record.data.encLevel == 8 ">
-               Beståndsinformation ej tillgänglig
-               </span>
-               <span data-ng-if="record.data.encLevel != 8 && record.holdings.hits != null">
-               <i class="fa fa-thumb-tack"></i> {{record.holdings.hits}} bibliotek 
-               </span>
-               <span data-ng-repeat="comment in record.data.comment">{{comment}}</span>
-               </p>
-                </label>
-            </div>
+                <div data-ng-include="'/partials/enc_level'" ng-init="encLevel = record.data.encLevel"></div>
+                <p class="holding">
+                  <span data-ng-if="record.data.encLevel == 8 ">
+                    Beståndsinformation ej tillgänglig
+                  </span>
+                  <span data-ng-if="record.data.encLevel != 8 && record.holdings.hits != null">
+                    <i class="fa fa-thumb-tack"></i> {{record.holdings.hits}} bibliotek 
+                  </span>
+                  <span data-ng-repeat="comment in record.data.comment">{{comment}}</span>
+                </p>
+              </label>
             </div>
           </ng:switch>
           

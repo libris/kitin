@@ -33,16 +33,16 @@ kitin.factory('definitions', function($http) {
   // Defined definitions
   var definitions = {
     remotedatabases:  getDataset("/search/remote.json?databases"),
-    terms:            getDataset("/deflist/terms/terms"),
+    terms:            getDataset("/deflist/terms"),
   // !TODO Remove definitions below when the "index expander" is implemented in backend
-    relators:         getDataset("/deflist/terms/relators"),
-    languages:        getDataset("/deflist/terms/languages"),
-    countries:        getDataset("/deflist/terms/countries"),
-    nationalities:    getDataset("/deflist/terms/nationalities"),
-    conceptSchemes:   getDataset("/deflist/terms/schemes"),
+    relators:         getDataset("/deflist/relators"),
+    languages:        getDataset("/deflist/languages"),
+    countries:        getDataset("/deflist/countries"),
+    nationalities:    getDataset("/deflist/nationalities"),
+    conceptSchemes:   getDataset("/deflist/schemes"),
     enums: {
-      encLevel:       getDataset("/deflist/terms/enum/encLevel"),
-      catForm:        getDataset("/deflist/terms/enum/catForm")
+      encLevel:       getDataset("/deflist/enum/encLevel"),
+      catForm:        getDataset("/deflist/enum/catForm")
     }
   };
   return definitions;
@@ -424,7 +424,7 @@ kitin.service('editUtil', function(definitions, $http) {
       if (work && _.isArray(work.attributedTo)) {
         work.attributedTo = work.attributedTo[0];
       }
-      if (work && work.language) {
+     /* if (work && work.language) {
         var langId = work.language['@id'];
         if (!langId)
           return;
@@ -434,7 +434,7 @@ kitin.service('editUtil', function(definitions, $http) {
             work.language = response.data;
           }
         });
-      }
+      }*/
     },
 
     // TODO: fix this in the backend service and remove this patch

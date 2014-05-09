@@ -25,13 +25,61 @@
     </section>
   
     <section class="submit modificationinfo" data-ng-class="modifiedClasses()" data-ng-init="disableButtons = (subform.$invalid || modifiedClasses())">
+      <div data-ng-include="'save-buttons'"></div>
+    </section>
+
+    <div class="footer footer-sticky">
+      <div class="container">
+        <section>
+          <div class="cols">
+            <div class="col6 left">
+              <div data-ng-include="'/partials/enc_level'" ng-init="encLevel = record.encLevel"></div>
+              <div class="levelselect">
+                <div class="dropup">
+                  <a class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-check"></i> <span data-ng-model="record.encLevel['@id']"  >{{record.encLevel['@id']}}</span><i class="fa fa-caret-down"></i>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Minimal nivå</a></li>
+                    <li><a href="#">Bibliografisk nivå</a></li>
+                  </ul>
+                </div>
+              </div>
+
+
+
+              <!--<div class="levelselect catform">
+                <div class="dropup">
+                  <a class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-check"></i> <span data-ng-model="record.catForm['@id']"  >{{record.catForm['@id']}}</span</i>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Minimal nivå</a></li>
+                    <li><a href="#">Bibliografisk nivå</a></li>
+                  </ul>
+                </div>
+
+              </div>-->
+              <div style="clear:both"></div>
+            </div>
+            <div class="col6 right">
+              <div data-ng-include="'save-buttons'"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </ng-form>
+
+  
+
+    <script type="text/ng-template" id="save-buttons">
       <button class="btn-link" id="draft" data-ng-click="saveDraft()"
         title="{{lastSavedLabel('Senast sparad: %s')}}">Spara utkast</button>
       <button class="btn btn-dark btn-submit" id="publish" data-ng-disabled="disableButtons" data-ng-click="save()"
         title="{{lastPublishedLabel('Senast publicerad: %s')}}">Publicera</button>
       <p class="message" data-ng-show="modifications.message">{{ modifications.message }}</p>
       <div style="clear:both"></div>
-    </section>
-  </ng-form>
+    </script>
 
 {% endraw %}
