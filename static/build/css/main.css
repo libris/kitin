@@ -1632,6 +1632,19 @@ section.result p.holding {
   margin-right: 1px;
   color: #1a8f72;
 }
+.more-details {
+  border-radius: 1px;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: bold;
+  height: 12px;
+  line-height: 6px;
+  padding: 0 5px;
+  text-decoration: none;
+  vertical-align: middle;
+  color: #adadad;
+  background-color: #dddddd;
+}
 .btn-link.deleter {
   color: #dddddd;
 }
