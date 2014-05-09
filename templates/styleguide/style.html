@@ -161,24 +161,66 @@
 	</div>
 	
 	<div class="notification">
-	<i class="fa fa-asterisk"></i>
-	<p>Fält har lagts till som behövs för att uppgradera posten till en Aukt.post. </p>
+		<i class="fa fa-asterisk"></i>
+		<p>Fält har lagts till som behövs för att uppgradera posten till en Aukt.post. </p>
 	</div>
-	
+
+	<div class="notification notification-warning">
+		<i class="fa fa-asterisk"></i>
+		<p>Fält har lagts till som behövs för att uppgradera posten till en Aukt.post. </p>
+	</div>	
+
+	<div class="notification notification-error">
+		<i class="fa fa-asterisk"></i>
+		<p>Fält har lagts till som behövs för att uppgradera posten till en Aukt.post. </p>
+	</div>		
+
 </section>
 
 <section>
 	<h2>Inputs <i></i></h2>
 	<div class="cols">
 	<div class="col6">
+		<label class="">
+			<span class="lbl">Regular input</i></span>
+			<input type="text">
+		</label>
+
+		<label class="">
+			<span class="lbl">Regular input</i></span>
+			<input type="text">
+			<button class="show-more btn-link" ng-click="isCollapsed = !isCollapsed">Kommentarer om språk <i class="fa fa-chevron-right"></i> </button>
+		</label>
+
+
+
+
+
+
+		<label class="">
+			<span class="lbl">Regular input</i></span>
+			<input type="text">
+			<button class="add-thing btn-link ng-binding">Lägg till</button>
+		</label>
+
 		<label class="warning">
-		<span class="lbl">Warning/informational input <i class="fa fa-asterisk"></i></span>
-		<input type="text">
+			<span class="lbl">Warning informational input <i class="fa fa-asterisk"></i></span>
+			<input type="text">
 		</label>
 
 		<label class="warning warning-action">
-		<span class="lbl">Warning/informational input <i class="fa fa-asterisk"></i></span>
-		<input type="text">
+			<span class="lbl">Warning action input <i class="fa fa-asterisk"></i></span>
+			<input type="text">
+		</label>
+		
+		<label class="error">
+			<span class="lbl">Error informational input</span>
+			<input type="text">
+		</label>
+
+		<label class="error error-action">
+			<span class="lbl">Error warning input </span>
+			<input type="text"><i class="fa fa-info-circle"></i>
 		</label>
 		
 	</div>
