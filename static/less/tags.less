@@ -8,8 +8,10 @@ ul.tags li {
   border-radius:2px;
 
   i.no {margin-left:6px;font-weight:700;color:rgba(0,0,0,.4);cursor:pointer;font-size:14px}
-  i.no:hover {color:@grey-very-dark}
-  a {color: @grey-very-dark}
+  i.no:hover {color:@grey-very-dark;}
+  a {color: @grey-very-dark;
+	  i {color:@green;}
+  }
   a:hover {
     text-decoration: none;
     > i.no { color: @red; }
@@ -42,7 +44,7 @@ ul.tags li {
 .tagsinput .suggestions{border-top:1px solid @grey-lighter;padding-top:6px;margin-top:4px}
 ul.tags.suggestions li {
   padding:0px 10px 0 7px;border-right:1px solid @grey-lighter;background-color:@yellow-lighter;margin:0;
-
+	&:hover {background-color:@yellow-lighter-hover;}
   &.title{padding:0;background:none;font-weight:bold;border:none}
   &:last-child{border:none}
   i {color:@yellow;}

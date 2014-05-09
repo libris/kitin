@@ -1242,6 +1242,9 @@ ul.tags li i.no:hover {
 ul.tags li a {
   color: #191919;
 }
+ul.tags li a i {
+  color: #1a8f72;
+}
 ul.tags li a:hover {
   text-decoration: none;
 }
@@ -1303,6 +1306,9 @@ ul.tags.suggestions li {
   border-right: 1px solid #dddddd;
   background-color: #f7ecb9;
   margin: 0;
+}
+ul.tags.suggestions li:hover {
+  background-color: #e6dba8;
 }
 ul.tags.suggestions li.title {
   padding: 0;
