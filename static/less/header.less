@@ -146,7 +146,17 @@ body.search #header {
     * { position:absolute;left:-10000px;margin:0}
   }
 }
-
+#header .nav-back {display:none;}
+body.edit #header .nav-back {
+	display:initial;
+  position: absolute;
+  top: 12px;
+  left: 200px;
+  z-index: 2;
+  font-size:16px;
+  :focus:-moz-placeholder:focus { color:@grey-lighter; }/*FF18<*/
+  :focus::-moz-placeholder { color:@grey-lighter; }/*FF19>*/
+}
 
 /* HEADER SEARCHFIELD START ------------------------- */
 
@@ -256,6 +266,7 @@ body.search #header .searchfield {
       font-size: 12px;
     }
   }
+
 
 .searchfield .remote-search {background-color:@grey-warm;}
 #header .searchfield .remote-search ul.remotesource {

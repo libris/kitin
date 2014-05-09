@@ -690,6 +690,25 @@ body.search #header .kb {
   left: -10000px;
   margin: 0;
 }
+#header .nav-back {
+  display: none;
+}
+body.edit #header .nav-back {
+  display: initial;
+  position: absolute;
+  top: 12px;
+  left: 200px;
+  z-index: 2;
+  font-size: 16px;
+  /*FF18<*/
+  /*FF19>*/
+}
+body.edit #header .nav-back :focus:-moz-placeholder:focus {
+  color: #dddddd;
+}
+body.edit #header .nav-back :focus::-moz-placeholder {
+  color: #dddddd;
+}
 /* HEADER SEARCHFIELD START ------------------------- */
 #header .searchfield {
   position: absolute;
@@ -1714,21 +1733,22 @@ a.beta-blocker {
 }
 div.notification {
   width: 318px;
-  background-color: #f7ecb9;
-  border: 1px solid #d6ab00;
+  border: 1px solid #c7c7c7;
+  padding: 12px 24px 12px 36px;
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
-div.notification p {
-  padding: 12px 24px 12px 36px;
-}
 div.notification i {
-  color: #d6ab00;
   float: left;
-  position: relative;
-  top: 14px;
-  left: 16px;
+  margin-left: -18px;
+}
+div.notification-warning {
+  background-color: #f7ecb9;
+  border-color: #d6ab00;
+}
+div.notification-warning i {
+  color: #d6ab00;
 }
 /* GENERAL END ------------------------- */
 /* CONTENT START ------------------------- */
