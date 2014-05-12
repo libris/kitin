@@ -331,6 +331,7 @@ body.edit .footer footer {
   background-color: transparent !important;
 }
 .footer-sticky .left {
+  padding-top: 5px;
   padding-left: 25px;
 }
 .footer-sticky .left > div {
@@ -338,6 +339,9 @@ body.edit .footer footer {
 }
 .footer-sticky .left .levelselect {
   margin-left: 15px;
+}
+.footer-sticky .record-status {
+  margin-top: 5px;
 }
 .footer-sticky .right {
   text-align: right;
@@ -499,6 +503,9 @@ button::-moz--focus-inner {
 }
 .dropdown {
   list-style: none outside none;
+}
+.dropdown-toggle {
+  cursor: pointer;
 }
 .dropdown-menu li a {
   font-size: 13px;
@@ -1919,7 +1926,6 @@ body.login .content.index header {
   padding: 3px 8px;
   font-size: 12px;
   font-weight: bold;
-  cursor: pointer;
   text-shadow: #ffffff 1px 1px 0;
 }
 .content header .levelselect .dropdown-toggle:hover {
