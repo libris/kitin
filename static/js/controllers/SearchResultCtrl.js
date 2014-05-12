@@ -60,9 +60,12 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
 
     // !TODO fix propper linking
     if(termType && termType.indexOf('language') > 0) {
-      var lang = _.find($scope.languages['byCode'],{'@id': term});
+      var lang = _.find($scope.languages.list, function(lang) { 
+        if(lang.identifier === term) { 
+        return true; 
+      }});
       if(lang) {
-        return lang['prefLabel'];
+        return lang.data.about['prefLabel'];
       }
     }
     if(termType && termType.indexOf('encLevel') > -1) {

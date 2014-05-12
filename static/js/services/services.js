@@ -23,7 +23,7 @@ kitin.factory('definitions', function($http) {
   function getDataset(url) {
     return {
       then: function (f) {
-        $http.get(url, {cache: true}).then(function(response) {
+        $http.get(encodeURI(url), {cache: true}).then(function(response) {
           f(response.data);
         });
       }
@@ -36,7 +36,7 @@ kitin.factory('definitions', function($http) {
     terms:            getDataset("/deflist/terms"),
   // !TODO Remove definitions below when the "index expander" is implemented in backend
     relators:         getDataset("/deflist/relators"),
-    languages:        getDataset("/deflist/languages"),
+    languages:        getDataset("/def?q=*+@type:Language&n=10000"),
     countries:        getDataset("/deflist/countries"),
     nationalities:    getDataset("/deflist/nationalities"),
     conceptSchemes:   getDataset("/deflist/schemes"),

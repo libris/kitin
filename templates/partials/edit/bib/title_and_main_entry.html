@@ -42,8 +42,8 @@
         </label>
         <span class="lbl" translate>LABEL.record.about.language</span>
         <div data-kitin-link-entity
-            data-subject="record.about"
-            data-link="'language'" data-type="Language"
+            data-subject="record.about.language"
+            data-link="'about'" data-type="Language"
             data-view-template="render-language"
             data-search-template="render-search-language">
         </div>
@@ -55,7 +55,8 @@
                   placeholder="Lägg till språk"
                   data-no-value="{{ object.prefLabel }} ({{ object.langCode }})"
                   data-kitin-search-entity
-                  data-service-url="/def/languages"
+                  data-service-url="/def"
+                  data-filter="{'about.@type': 'Language'}"
                   data-completion-template="select-language-template" placeholder="+ Lägg till språk"></li>
 							</ul>
           
@@ -68,7 +69,8 @@
                   placeholder="Lägg till språk"
                   data-no-value="{{ object.prefLabel }} ({{ object.langCode }})"
                   data-kitin-search-entity
-                  data-service-url="/def/languages"
+                  data-service-url="/def"
+                  data-filter="{'about.@type': 'Language'}"
                   data-completion-template="select-language-template" />
           </label>
         </script>

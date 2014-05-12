@@ -302,16 +302,17 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
 
       var subj = $scope.$eval($attrs.subject);
       var obj = subj ? subj[link] : null;
+      if(!_.isEmpty(obj)) {
+        $scope.viewmode = !_.isEmpty(obj);
 
-      $scope.viewmode = !_.isEmpty(obj);
-
-      if (multiple) {
-        $scope.objects = obj;
-      } else {
-        $scope.object = obj;
-        $scope.$watch($attrs.subject +'.'+ link, function (newVal, oldVal) {
-          $scope.object = newVal;
-        });
+        if (multiple) {
+          $scope.objects = obj;
+        } else {
+          $scope.object = obj;
+          $scope.$watch($attrs.subject +'.'+ link, function (newVal, oldVal) {
+            $scope.object = newVal;
+          });
+        }
       }
 
       this.doAdd = function (data) {
@@ -438,6 +439,7 @@ kitin.directive('kitinSearchEntity', ['definitions', function(definitions) {
           // TODO: set extraParams: filterParams instead once backend supports that
           var params = scope.$apply(filterParams);
           var result = _.reduce(params, function (res, v, k) {
+            res += '*';
             return v? res +"+"+ k +":" + v : res;
           }, value);
           return result;
@@ -449,7 +451,7 @@ kitin.directive('kitinSearchEntity', ['definitions', function(definitions) {
             return [];
           }
           return doc.list.map(function(item) {
-            return {value: item.data.controlledLabel, data: item.data};
+            return {value: item.data.about.prefLabel, data: item.data.about};
           });
         };
 

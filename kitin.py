@@ -367,16 +367,16 @@ def get_labels():
 # ----------------------------
 # TRANSLATION END
 
-@app.route("/def/<indextype>")
+@app.route("/def")
 @login_required
-def def_completions(indextype):
+def def_completions():
     q = request.args.get('q')
-    q = append_star(q)
-    response = requests.get("%s/def/%s/_search?q=%s" % (app.config['WHELK_HOST'], indextype, q))
+    n = ''
+    if request.args.get('n'): n = '&n=' + request.args.get('n')
+    response = requests.get("%s/def/_search?q=%s%s" % (app.config['WHELK_HOST'], q, n))
     if response.status_code >= 400:
         abort(response.status_code)
     return raw_json_response(response.text)
-
 
 @app.route("/deflist/<path:path>")
 @login_required
