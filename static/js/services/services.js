@@ -32,7 +32,7 @@ kitin.factory('definitions', function($http) {
 
   // Defined definitions
   var definitions = {
-    remotedatabases:  getDataset("/search/remote.json?databases"),
+    remotedatabases:  getDataset("/search/remote.json?databases=list"),
     terms:            getDataset("/deflist/terms"),
   // !TODO Remove definitions below when the "index expander" is implemented in backend
     relators:         getDataset("/deflist/relators"),
