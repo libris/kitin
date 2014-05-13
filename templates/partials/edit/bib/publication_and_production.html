@@ -22,10 +22,46 @@
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.publicationYear">
         </label>
 -->
-        <label data-ng-repeat="publicationCountry in record.about.publicationCountry">
+        <!--<label data-ng-repeat="publicationCountry in record.about.publicationCountry">
           <span class="lbl" translate>LABEL.record.about.publicationCountry</span>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="publicationCountry['@id']">
-        </label>
+        </label>-->
+
+        <div data-kitin-link-entity
+            data-subject="record.about"
+            data-link-multiple  ="'publicationCountry'" data-type="Country"
+            data-view-template="render-country"
+            data-search-template="render-search-country">
+        </div>
+        <script type="text/ng-template" id="render-country">
+          
+          <ul class="tags">
+            <li><a href="#">{{ object.prefLabel }} <i data-ng-show="object.notation">({{ object.notation }})</i></a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i></li>
+              
+              </ul>
+          
+        </script>
+
+        <script type="text/ng-template" id="render-search-country">
+          <label class="find-entity">
+            <i class="fa fa-search"></i>
+            <input data-inplace class="input-large authdependant embedded" type="text"
+                  placeholder="Lägg till land"
+                  data-no-value="{{ object.prefLabel }} ({{ object.notation }})"
+                  data-kitin-search-entity
+                  data-service-url="/def"
+                  data-filter="{'about.@type': 'Country'}]"
+                  data-completion-template="select-country-template" />
+          </label>
+        </script>
+        <script type="text/html" id="select-country-template">
+          <div class="auth">
+            <h4>
+            <span class="name"><%= data.prefLabel %></span><span class="date"> <%= data.notation %></span>
+            </h4>
+          </div>
+        </script>
+
       </div>
       <div class="col6">
       </div>
