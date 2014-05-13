@@ -27,32 +27,24 @@
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="publicationCountry['@id']">
         </label>-->
 
-        <div data-kitin-link-entity
+        <ul class="tags" data-kitin-link-entity
             data-subject="record.about"
             data-link-multiple  ="'publicationCountry'" data-type="Country"
             data-view-template="render-country"
             data-search-template="render-search-country">
-        </div>
+        </ul>
         <script type="text/ng-template" id="render-country">
-          
-          <ul class="tags">
-            <li><a href="#">{{ object.prefLabel }} <i data-ng-show="object.notation">({{ object.notation }})</i></a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i></li>
-              
-              </ul>
-          
+            <a href="#">{{ object.prefLabel }} <i data-ng-show="object.notation">({{ object.notation }})</i></a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
         </script>
 
         <script type="text/ng-template" id="render-search-country">
-          <label class="find-entity">
-            <i class="fa fa-search"></i>
-            <input data-inplace class="input-large authdependant embedded" type="text"
+          <i class="fa fa-search"></i> <input data-inplace class="input-large authdependant embedded" type="text"
                   placeholder="Lägg till land"
                   data-no-value="{{ object.prefLabel }} ({{ object.notation }})"
                   data-kitin-search-entity
                   data-service-url="/def"
-                  data-filter="{'about.@type': 'Country'}]"
-                  data-completion-template="select-country-template" />
-          </label>
+                  data-filter="{'about.@type': 'Country'}"
+                  data-completion-template="select-country-template" placeholder="+ Lägg till land">
         </script>
         <script type="text/html" id="select-country-template">
           <div class="auth">
