@@ -1800,6 +1800,12 @@ div.notification i {
   float: left;
   margin-left: -18px;
 }
+div.notification-info {
+  background-color: #f7f3ee;
+}
+div.notification-info i {
+  color: #999999;
+}
 div.notification-warning {
   background-color: #f7ecb9;
   border-color: #d6ab00;
