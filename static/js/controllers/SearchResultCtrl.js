@@ -104,6 +104,10 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
     return _.isArray(candidate)? candidate[0] : candidate;
   };
 
+  $scope.gotoTop = function() {
+    $anchorScroll();
+  };
+
   $scope.getScrollStart = function() {
     var start = $rootScope.state.search.page.start + $rootScope.state.search.page.n;
     return (start > $rootScope.state.search.hitCount) ? $rootScope.state.search.page.start : start;
