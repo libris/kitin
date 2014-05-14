@@ -48,7 +48,7 @@
       </div>
       <div class="col9" infinite-scroll="onScroll()" infinite-scroll-distance="0" infinite-scroll-immediate-check="true">
         <section data-ng-repeat="record in state.search.result.list" data-ng-class="{'result-pre': record.data.encLevel == 8}" class="result record">
-          <span class="page-indicator" data-ng-if="($index > 0 && ($index + 1) % 10 == 0) || ($index+1) == hitCount">{{ $index + 1 }} / {{ state.search.hitCount }}</span>
+          <span class="page-indicator" data-ng-if="($index > 0 && ($index + 1) % 10 == 0) || ($index+1) == hitCount">{{ $index + 1 }} träffar av {{ state.search.hitCount }}</span>
           
           <a class="bib-url" href="/edit{{record.identifier || record.data['@id']}}" ng-click="editPost(recType, record)" data-ng-switch="recType">
 

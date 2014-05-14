@@ -2137,6 +2137,9 @@ section.result {
   padding: 12px;
   min-height: 160px;
 }
+section.result:nth-child(10n+10) {
+  margin-bottom: 25px;
+}
 section.result .footer {
   position: absolute;
   bottom: -1px;
@@ -2270,13 +2273,12 @@ section.result span.hit-count {
   color: #999999;
 }
 section.result span.page-indicator {
-  color: #999999;
+  color: #666666;
   position: absolute;
-  right: -50px;
-  bottom: -7px;
+  right: 21px;
+  bottom: -24px;
   padding: 0px 0px 0px 4px;
-  width: 45px;
-  font-size: 10px;
+  font-size: 12px;
   word-spacing: -1px;
 }
 section.result .widget {
