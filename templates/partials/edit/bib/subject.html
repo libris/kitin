@@ -59,11 +59,11 @@
 
 <!-- subject list -->
 <script type="text/ng-template" id="view-subject">
-  <a href="#"><i class="fa fa-check"></i> {{ object.prefLabel || object.uniformTitle }}</a> <i data-ng-click="doRemove($index)" class="no">&times;</i>
+  <a href="#"><i class="fa fa-bookmark"></i> {{ object.prefLabel || object.uniformTitle }}</a> <i data-ng-click="doRemove($index)" class="no">&times;</i>
 	
   <ul data-ng-show="object.prefLabel" class="tags">
     <li  tabindex="0">
-      <a href="#"><i class="fa fa-check"></i> {{ object.prefLabel }}</a> <i data-ng-click="doRemove($index)" class="no">&times;</i>
+      <a href="#"><i class="fa fa-bookmark"></i> {{ object.prefLabel }}</a> <i data-ng-click="doRemove($index)" class="no">&times;</i>
     </li>
     <span class="lbl" data-ng-show="object['@type'] == 'Place'">Geografiskt ämnesord</span>
   </ul>
@@ -89,7 +89,7 @@
           <!-- TODO: fix auth
           <span class="what">Se aukt. post <i class="fa fa-sign-out"></i></span>
           -->
-          <span class="what"><i class="fa fa-check"></i> Aukt.</span>
+          <span class="what"><i class="fa fa-bookmark"></i> Aukt.</span>
         <% } %>
     </h4>
     <% if (data['historyNote']) { %>
