@@ -316,6 +316,7 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
       }
 
       this.doAdd = function (data) {
+
         var added = editUtil.addObject(subj, link, $scope.type, multiple, data);
         if (multiple) {
           $scope.objects = added;
@@ -323,6 +324,7 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
           $scope.object = added;
         }
         $scope.viewmode = true;
+        if($scope.searchTemplate) { angular.element($scope.searchTemplate).focus(); }
         $scope.$apply();
       };
 
