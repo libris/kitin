@@ -326,8 +326,7 @@ body.edit .footer footer {
   text-align: center;
 }
 .footer-sticky section {
-  margin: 0px !important;
-  padding: 7px 7px 11px 7px !important;
+  padding-top: 7px !important;
   background-color: transparent !important;
 }
 .footer-sticky .left {
@@ -341,6 +340,8 @@ body.edit .footer footer {
   margin-left: 15px;
 }
 .footer-sticky .record-status {
+  float: left;
+  margin-left: 160px;
   margin-top: 5px;
 }
 .footer-sticky .right {
