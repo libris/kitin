@@ -417,7 +417,6 @@ def get_marcmap():
 @login_required
 def suggest_completions(indextype):
     q = request.args.get('q')
-    q = append_star(q)
     response = requests.get("%s/%s/_search?q=%s" % (app.config['WHELK_HOST'], indextype, q))
     if response.status_code >= 400:
         abort(response.status_code)

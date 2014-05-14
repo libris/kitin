@@ -121,7 +121,8 @@
         <i class="fa fa-search"></i>
         <input class="input-large" type="text" placeholder="{{ label }}"
               data-kitin-search-entity
-              data-service-url="/suggest/person"
+              data-service-url="/suggest/auth"
+              data-filter="{ 'about.@type': 'Person' }"
               data-completion-template="auth-completion-template" />
       </label>
     </script>

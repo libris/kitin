@@ -35,7 +35,7 @@ kitin.factory('definitions', function($http) {
     remotedatabases:  getDataset("/search/remote.json?databases=list"),
     terms:            getDataset("/deflist/terms"),
   // !TODO Remove definitions below when the "index expander" is implemented in backend
-    relators:         getDataset("/deflist/relators"),
+    relators:         getDataset("/def?q=*+@type:ObjectProperty&n=10000"),
     languages:        getDataset("/def?q=*+@type:Language&n=10000"),
     countries:        getDataset("/deflist/countries"),
     nationalities:    getDataset("/deflist/nationalities"),
@@ -304,8 +304,8 @@ kitin.service('editUtil', function(definitions, $http) {
       // TODO: coordinate terms, JSON-LD context and relators dataset instead
       if (relators.byTerm === undefined) {
         var index = relators.byTerm = {};
-        _.each(relators.byNotation, function (obj) {
-          var id = obj['@id'];
+        _.each(relators.list, function (obj) {
+          var id = obj['data']['about']['@id'];
           var key = id.substring(id.lastIndexOf('/') + 1);
           index[key] = obj;
         });
@@ -331,12 +331,11 @@ kitin.service('editUtil', function(definitions, $http) {
             if (!role)
               return;
             if (!_.contains(roles, role))
-              roles.push(role);
+              roles.push(role['data']['about']);
             //pr.roles[role] = objId;
           });
         });
       });
-
       return roleMap;
     },
 

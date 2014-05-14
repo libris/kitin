@@ -5,11 +5,11 @@
     <div data-ng-repeat="(key, container) in schemeContainer.byScheme" class="scheme tagsinput"
        data-ng-init="scheme = conceptSchemes.byNotation[key] || {'title': key}">
       <span class="lbl">{{ scheme.alternative || scheme.title || scheme.title_en }}</span>
-      <div data-kitin-link-entity
+      <ul class="tags" data-kitin-link-entity
           data-subject="container" data-link-multiple="'concepts'" data-type="Concept"
           data-search-template="search-subject"
           data-view-template="view-subject">
-      </div>
+      </ul>
     </div>
 
     <div class="cols">
@@ -18,7 +18,7 @@
         <label>
           <input type="text" placeholder="Nytt ämnesord" data-kitin-autocomplete="subject"
                 data-kitin-add-to="schemeContainer"
-                data-kitin-filter="{'inScheme.notation': chosenScheme}" />
+                data-kitin-filter="{'about.subject.inScheme.notation': chosenScheme}" />
         </label>
       </div>
       <div class="col3">
@@ -50,62 +50,48 @@
 
 <!-- subject search -->
 <script type="text/ng-template" id="search-subject">
-<ul class="tags">
-	<li class="add-item"><i class="fa fa-search"></i> <input data-kitin-search-entity
-          data-filter="{'inScheme.notation': scheme.notation}"
-          data-service-url="/suggest/concept"
-          data-completion-template="subject-completion-template" type="text" placeholder="Sök ämnesord"></li>
-</ul>
-<!--
-  <label>
-    <input class="input-large" type="text" placeholder="Nytt ämnesord"
-          data-kitin-search-entity
-          data-filter="{'inScheme.notation': scheme.notation}"
-          data-service-url="/suggest/concept"
-          data-completion-template="subject-completion-template" />
-  </label>
--->
+  <i class="fa fa-search"></i> 
+  <input data-kitin-search-entity
+        data-filter="{'about.subject.inScheme.notation': scheme.notation}"
+        data-service-url="/suggest/auth"
+        data-completion-template="subject-completion-template" type="text" placeholder="Sök ämnesord">
 </script>
 
 <!-- subject list -->
 <script type="text/ng-template" id="view-subject">
-  <!-- <div class="entity linked" tabindex="0"> -->
-    <ng:switch on="object['@type']">
-      <ul data-ng-switch-when="Person" class="tags">
-        <li ><a href="#"><i class="fa fa-check"></i> {{ object.controlledLabel }}</a> <i data-ng-click="doRemove($index)" class="no">&times;</i></li>
-				<li class="add-item"><input type="text" placeholder="+ Lägg till ämnesord"></li>
-      </ul>
-      <div data-ng-switch-default>
-        <ul data-ng-show="object.prefLabel" class="tags">
-        <li  tabindex="0"><a href="#"><i class="fa fa-check"></i> {{ object.prefLabel }}</a> <i data-ng-click="doRemove($index)" class="no">&times;</i></li>
-          <span class="lbl" data-ng-show="object['@type'] == 'Place'">Geografiskt ämnesord</span>
-          <!--<span class="lbl">{{ object.inScheme.notation }}</span>-->
-        </ul>
-        <ul data-ng-show="object.broader" class="tags">
-          <!-- <em>Sammansättning: {{broader['@id']}}</em> -->
-            <li  tabindex="0"><a data-ng-repeat="broader in object.broader" href="#">
-              {{broader.prefLabel}}
-              <span data-ng-show="broader.notation">({{ broader.notation }}) </span>
-              <span class="subject-delimiter" data-ng-hide="$last">--</span>
-            </a> <i data-ng-click="doRemove($index)" class="no">&times;</i>
-            </li>
-						<li class="add-item"><input type="text" placeholder="+ Lägg till ämnesord"></li>
-          </ul>
-      </div>
-    </ng:switch>    
+  <a href="#"><i class="fa fa-check"></i> {{ object.prefLabel || object.uniformTitle }}</a> <i data-ng-click="doRemove($index)" class="no">&times;</i>
+	
+  <ul data-ng-show="object.prefLabel" class="tags">
+    <li  tabindex="0">
+      <a href="#"><i class="fa fa-check"></i> {{ object.prefLabel }}</a> <i data-ng-click="doRemove($index)" class="no">&times;</i>
+    </li>
+    <span class="lbl" data-ng-show="object['@type'] == 'Place'">Geografiskt ämnesord</span>
+  </ul>
+  <ul data-ng-show="object.broader" class="tags">
+    <li tabindex="0">
+      <a data-ng-repeat="broader in object.broader" href="#">
+        {{broader.prefLabel}}
+        <span data-ng-show="broader.notation">({{ broader.notation }}) </span>
+        <span class="subject-delimiter" data-ng-hide="$last">--</span>
+      </a> 
+      <i data-ng-click="doRemove($index)" class="no">&times;</i>
+    </li>
+		<li class="add-item"><input type="text" placeholder="+ Lägg till ämnesord"></li>
+  </ul>
+</script>
 
 <!-- subject suggest -->
 <script type="text/html" id="subject-completion-template">
-<div class="auth">
-  <h4>
-    <span class="name" title="<%= data['@id']%>"><%= data['prefLabel']%></span>
-      <% if (isLinked(data)) { %>
-        <!-- TODO: fix auth
-        <span class="what">Se aukt. post <i class="fa fa-sign-out"></i></span>
-        -->
-        <span class="what"><i class="fa fa-check"></i> Aukt.</span>
-      <% } %>
-  </h4>
+  <div class="auth">
+    <h4>
+      <span class="name" title="<%= data['@id']%>"><%= data['prefLabel']%></span>
+        <% if (isLinked(data)) { %>
+          <!-- TODO: fix auth
+          <span class="what">Se aukt. post <i class="fa fa-sign-out"></i></span>
+          -->
+          <span class="what"><i class="fa fa-check"></i> Aukt.</span>
+        <% } %>
+    </h4>
     <% if (data['historyNote']) { %>
       <div><em><%= data['historyNote']%></em></div>
     <% } %>
@@ -117,7 +103,7 @@
       <li><%= data['scopeNote']%></li>
     </ul>
     <% } %>
-</div>
+  </div>
 </script>
 
 
