@@ -60,7 +60,7 @@
 
 <!-- subject list -->
 <script type="text/ng-template" id="view-subject">
-  <a ng-show="object.prefLabel" href="#"><i class="fa fa-bookmark"></i> {{ object.prefLabel || object.uniformTitle }}</a> 
+  <a ng-show="object.prefLabel || object.uniformTitle" href="#"><i class="fa fa-bookmark"></i> {{ object.prefLabel || object.uniformTitle }}</a> 
 
   <a data-ng-repeat="broader in object.broader" href="#"> 
     {{broader.prefLabel}}
