@@ -370,14 +370,17 @@ body.edit .footer footer {
 .btn-green:focus,
 .btn-green:active {
   background: #1a8f72;
+  color: #ffffff;
 }
 .btn-dark {
   background: #106351;
+  color: #ffffff;
 }
 .btn-dark:hover,
 .btn-dark:focus,
 .btn-dark:active {
   background-color: #0a5041;
+  color: #ffffff;
 }
 .btn-purple {
   background-color: #683568;
@@ -765,6 +768,9 @@ body.edit #header .nav-back :focus::-moz-placeholder {
 #header .searchfield :focus::-moz-placeholder {
   color: #dddddd;
 }
+#header .searchfield .dropdown-menu {
+  margin-top: -5px;
+}
 #header .searchfield input[type="text"] {
   width: 433px;
   border: 1px solid #adadad;
@@ -1130,12 +1136,13 @@ li.draft form {
   color: #191919;
   text-transform: none;
 }
-.modal.fade {
-  top: 10%;
-  transition: none;
-}
 .modal-large > .modal-dialog {
   width: 1008px;
+  height: 80%;
+}
+.modal-body {
+  max-height: 500px;
+  overflow: auto;
 }
 h4.modal-title {
   font: bold italic 16px/20px 'Droid Serif', georgia, serif;
