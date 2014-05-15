@@ -321,21 +321,22 @@ kitin.service('editUtil', function(definitions, $http) {
           if (!_.isArray(vals)) vals = [vals];
           _.forEach(vals, function (agent) {
             var pid = agent['@id'];
-            if (!pid) {
-              return;
-            }
+            if (!pid) { return; }
+
             var roles = roleMap[pid];
-            if (!roles)
-              return;
+            if (!roles) { return; }
+
             var role = relators.byTerm[key];
-            if (!role)
-              return;
-            if (!_.contains(roles, role))
+            if (!role) {  return; }
+
+            if (!_.contains(roles, role)) {
               roles.push(role['data']['about']);
+            }
             //pr.roles[role] = objId;
           });
         });
       });
+
       return roleMap;
     },
 

@@ -1,4 +1,5 @@
 {% raw %}
+
 <h2>{{ "Ämnesord och klassifikation" }}<i></i></h2>
 <div class="cols" onload="work = record.about">
   <div class="col6">
@@ -54,30 +55,19 @@
   <input data-kitin-search-entity
         data-filter="{'about.subject.inScheme.notation': scheme.notation}"
         data-service-url="/suggest/auth"
-        data-completion-template="subject-completion-template" type="text" placeholder="Sök ämnesord">
+        data-completion-template="subject-completion-template" type="text" placeholder="Lägg till ämnesord">
 </script>
 
 <!-- subject list -->
 <script type="text/ng-template" id="view-subject">
-  <a href="#"><i class="fa fa-bookmark"></i> {{ object.prefLabel || object.uniformTitle }}</a> <i data-ng-click="doRemove($index)" class="no">&times;</i>
-	
-  <ul data-ng-show="object.prefLabel" class="tags">
-    <li  tabindex="0">
-      <a href="#"><i class="fa fa-bookmark"></i> {{ object.prefLabel }}</a> <i data-ng-click="doRemove($index)" class="no">&times;</i>
-    </li>
-    <span class="lbl" data-ng-show="object['@type'] == 'Place'">Geografiskt ämnesord</span>
-  </ul>
-  <ul data-ng-show="object.broader" class="tags">
-    <li tabindex="0">
-      <a data-ng-repeat="broader in object.broader" href="#">
-        {{broader.prefLabel}}
-        <span data-ng-show="broader.notation">({{ broader.notation }}) </span>
-        <span class="subject-delimiter" data-ng-hide="$last">--</span>
-      </a> 
-      <i data-ng-click="doRemove($index)" class="no">&times;</i>
-    </li>
-		<li class="add-item"><input type="text" placeholder="+ Lägg till ämnesord"></li>
-  </ul>
+  <a ng-show="object.prefLabel" href="#"><i class="fa fa-bookmark"></i> {{ object.prefLabel || object.uniformTitle }}</a> 
+
+  <a data-ng-repeat="broader in object.broader" href="#"> 
+    {{broader.prefLabel}}
+    <span data-ng-show="broader.notation">({{ broader.notation }}) </span>
+    <span class="subject-delimiter" data-ng-hide="$last">--</span>
+  </a> 
+  <i data-ng-click="doRemove($index)" class="no">&times;</i>
 </script>
 
 <!-- subject suggest -->

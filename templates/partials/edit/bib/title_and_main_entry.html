@@ -131,7 +131,7 @@
       <div data-ng-if="isLinked(object)" class="entity person linked" tabindex="0">
         <div class="main">
           <span onload="person = object" data-ng-include="'render-person-name'"></span>
-            <a data-ng-if="isLinked(object)" class="auth" href="?m={{person['@id']}}"><i class="fa fa-check"></i> Aukt.</a>
+            <a data-ng-if="isLinked(object)" class="auth" href="?m={{person['@id']}}"><i class="fa fa-bookmark"></i> Aukt.</a>
         </div>
         <div data-ng-include="'roles'"></div>
         <a data-ng-if="!editable.on" class="delete" href="#"
@@ -184,7 +184,8 @@
       <ul data-kitin-link-entity
           class="tags"
           data-ng-if="personRoleMap"
-          data-subject="personRoleMap"
+          data-service-url="/suggest/auth"
+          data-filter="{ 'about.@type': 'ObjectProperty' }"
           data-link-multiple="object['@id']" data-type="ObjectProperty"
           data-view-template="render-role"
           data-search-template="render-search-role">
@@ -201,7 +202,9 @@
       <label class="add-item">
         <i class="fa fa-search"></i>
         <input data-inplace type="text" placeholder="Roll"
-              data-kitin-search-entity data-source="relators"
+              data-service-url="/def"
+              data-filter="{ '@type': 'ObjectProperty' }"
+              data-kitin-search-entity
               data-completion-template="select-role-template" />
       </label>
     </script>
