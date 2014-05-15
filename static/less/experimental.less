@@ -92,3 +92,16 @@ section.result p.holding {font-size:11px; color:@grey;padding-top:0px; display: 
 /*TODO switch for spin.js*/
 div.loading { position: relative; left: 80%; float: left; z-index: 10000; margin-top: -40px; background-image: url(/static/img/loading.gif); width: 24px; height: 24px; }
 div.loading > b { display: none; }
+
+section.test .input-container {
+	border: 1px solid @grey;
+	height: 27px;
+	padding-top: 0px;
+    padding-bottom: 2px;
+    width:466px;
+	input { border:none;width:430px;background: none;
+		&:focus {border:none;box-shadow: none;}
+	}
+	i {padding-left:3px;padding-right:3px;position:relative;top:2px;}
+	
+}
