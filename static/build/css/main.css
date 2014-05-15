@@ -1735,6 +1735,28 @@ div.loading {
 div.loading > b {
   display: none;
 }
+section.test .input-container {
+  border: 1px solid #adadad;
+  height: 27px;
+  padding-top: 0px;
+  padding-bottom: 2px;
+  width: 466px;
+}
+section.test .input-container input {
+  border: none;
+  width: 430px;
+  background: none;
+}
+section.test .input-container input:focus {
+  border: none;
+  box-shadow: none;
+}
+section.test .input-container i {
+  padding-left: 3px;
+  padding-right: 3px;
+  position: relative;
+  top: 2px;
+}
 html {
   overflow-y: scroll;
   -webkit-font-smoothing: antialiased;
@@ -2670,30 +2692,32 @@ span.error-message {
   color: #ff0000;
   float: left;
 }
-label.warning input[type="text"] {
+label.warning .input-container {
   border-color: #d6ab00;
 }
-label.warning-action input[type="text"] {
+label.warning .input-container i {
+  color: #d6ab00;
+}
+label.warning-action .input-container {
   background-color: #f7ecb9;
 }
 label.warning .lbl i {
   color: #d6ab00;
 }
-label.error input[type="text"] {
+label.error .input-container {
   border-color: #ff0000;
 }
-label.error-action input[type="text"] {
+label.error .input-container i {
+  color: #ff0000;
+}
+label.error-action .input-container {
   background-color: #ffd4db;
 }
 label.error .lbl i {
   color: #ff0000;
 }
-label.error i {
+label.error .lbl i {
   color: #ff0000;
-  font-size: 16px;
-  margin-left: -20px;
-  position: relative;
-  top: 3px;
 }
 /* HOLDINGS START ------------------------- */
 .holdings label:hover,
