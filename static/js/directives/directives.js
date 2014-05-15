@@ -328,6 +328,8 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
             $scope.object = newVal;
           });
         }
+      } else {
+        $scope.objects = null;
       }
 
       this.doAdd = function (data) {
