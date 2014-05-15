@@ -50,7 +50,7 @@
         <script type="text/ng-template" id="render-language">
           
           <ul class="tags">
-						<li><a href="#">{{ object.prefLabel }} <i data-ng-show="object.langCode">({{ object.langCode }})</i></a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i></li>
+						<li><a href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.prefLabel }} <i data-ng-show="object.langCode">({{ object.langCode }})</i></a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i></li>
 							<li class="add-item"><i class="fa fa-search"></i> <input data-inplace class="input-large authdependant embedded" type="text"
                   placeholder="Lägg till språk"
                   data-no-value="{{ object.prefLabel }} ({{ object.langCode }})"
@@ -235,10 +235,7 @@
           <span class="name"><%= nameRepr(data) %></span>
           <span class="date"><%= [data.birthYear, data.deathYear].join('–') %></span>
           <% if (isLinked(data)) { %>
-            <!--
-            <span class="what">Se aukt. post <i class="fa fa-sign-out"></i></span>
-            -->
-            <span class="what"><i class="fa fa-bookmark"></i> Aukt.</span>
+            <span class="what" data-ng-if="isAuth(object)"><i class="fa fa-bookmark"></i> Aukt.</span>
           <% } %>
         </h4>
         <span class="title"><%= data.personTitle %></span>

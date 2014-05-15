@@ -60,8 +60,7 @@
 
 <!-- subject list -->
 <script type="text/ng-template" id="view-subject" >
-  
-  <a ng-init="subjectLabel = (object.prefLabel || object.uniformTitle || object.controlledLabel)" ng-show="subjectLabel" href="#"><i class="fa fa-bookmark"></i> {{ subjectLabel }}</a> 
+  <a ng-init="subjectLabel = (object.prefLabel || object.uniformTitle || object.controlledLabel)" ng-show="subjectLabel" href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ subjectLabel }}</a> 
 
   <a data-ng-repeat="broader in object.broader" href="#"> 
     {{broader.prefLabel}}
@@ -80,7 +79,7 @@
           <!-- TODO: fix auth
           <span class="what">Se aukt. post <i class="fa fa-sign-out"></i></span>
           -->
-          <span class="what"><i class="fa fa-bookmark"></i> Aukt.</span>
+          <span class="what"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> Aukt.</span>
         <% } %>
     </h4>
     <% if (data['historyNote']) { %>

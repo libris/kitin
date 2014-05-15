@@ -34,7 +34,7 @@
             data-search-template="render-search-country">
         </ul>
         <script type="text/ng-template" id="render-country">
-            <a href="#">{{ object.prefLabel }} <i data-ng-show="object.notation">({{ object.notation }})</i></a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
+            <a href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.prefLabel }} <i data-ng-show="object.notation">({{ object.notation }})</i></a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
         </script>
 
         <script type="text/ng-template" id="render-search-country">

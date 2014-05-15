@@ -182,6 +182,10 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     published: recType === editUtil.RECORD_TYPES.REMOTE ? false : true
   };
 
+  $scope.isAuth = function(obj) {
+    return (!_.isEmpty(obj['@id']) && obj['@id'].substr(0,6) === '/auth/');
+  };
+
   function onSaveState() {
     $scope.modifications.saved = true;
     $scope.modifications.lastSaved = new Date();
