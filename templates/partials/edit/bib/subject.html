@@ -59,8 +59,9 @@
 </script>
 
 <!-- subject list -->
-<script type="text/ng-template" id="view-subject">
-  <a ng-show="object.prefLabel || object.uniformTitle" href="#"><i class="fa fa-bookmark"></i> {{ object.prefLabel || object.uniformTitle }}</a> 
+<script type="text/ng-template" id="view-subject" >
+  
+  <a ng-init="subjectLabel = (object.prefLabel || object.uniformTitle || object.controlledLabel)" ng-show="subjectLabel" href="#"><i class="fa fa-bookmark"></i> {{ subjectLabel }}</a> 
 
   <a data-ng-repeat="broader in object.broader" href="#"> 
     {{broader.prefLabel}}
@@ -87,7 +88,7 @@
     <% } %>
     <% if (data['hiddenLabel']) { %>
       <div><span class="muted">Används ej: <%= data['hiddenLabel']%></span></div>
-    <% } %>  
+    <% } %>   
     <% if (data['scopeNote']) { %>
     <ul class="about">
       <li><%= data['scopeNote']%></li>
