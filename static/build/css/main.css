@@ -2711,6 +2711,7 @@ label.error .lbl i {
   color: #ff0000;
 }
 label.error i {
+  color: #ff0000;
   font-size: 16px;
   margin-left: -20px;
   position: relative;

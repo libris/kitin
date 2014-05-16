@@ -50,7 +50,7 @@
         <script type="text/ng-template" id="render-language">
           
           <ul class="tags">
-						<li><a href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.prefLabel }} <i data-ng-show="object.langCode">({{ object.langCode }})</i></a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i></li>
+						<li><a href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.prefLabel }} <span data-ng-show="object.langCode">({{ object.langCode }})</span></a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i></li>
 							<li class="add-item"><i class="fa fa-search"></i> <input data-inplace class="input-large authdependant embedded" type="text"
                   placeholder="Lägg till språk"
                   data-no-value="{{ object.prefLabel }} ({{ object.langCode }})"
