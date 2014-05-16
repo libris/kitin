@@ -27,7 +27,7 @@
     </header>
     <div class="cols">
       <div class="col3">
-        <section data-ng-class="{hidden: facetGroups.length < 1}" class="nav">
+        <section data-ng-class="{remote: facetGroups.length < 1}" class="nav">
           <dl data-ng-repeat="facet in facetGroups" data-ng-if="facet.items.length > 0">
             <dt><i></i>{{facetLabels[facet.type]}}</dt>
             <dd data-ng-repeat="item in facet.items">
