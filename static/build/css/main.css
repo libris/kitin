@@ -2686,13 +2686,13 @@ span.error-message {
   color: #ff0000;
   float: left;
 }
-label.warning .input-container {
+label.warning input {
   border-color: #d6ab00;
 }
-label.warning .input-container i {
+label.warning input i {
   color: #d6ab00;
 }
-label.warning-action .input-container {
+label.warning-action input {
   background-color: #f7ecb9;
 }
 label.warning .lbl i {
@@ -2704,7 +2704,7 @@ label.error input {
 label.error input i {
   color: #ff0000;
 }
-label.error-action .input-container {
+label.error-action input {
   background-color: #ffd4db;
 }
 label.error .lbl i {
