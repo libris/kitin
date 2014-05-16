@@ -17,4 +17,26 @@ kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, $ro
   $scope.$on('$routeChangeSuccess', function () {
     $scope.setSearchType($routeParams.recType || "bib");
   });
+  $scope.$watch('state.searchType.key', function(newValue, oldValue) {
+    if(newValue == 'remote') {
+      // For remote search, load list of remote database definitions
+      if(_.isEmpty($rootScope.state.remoteDatabases)) {
+        definitions.remotedatabases.then(function(databases){
+          var searchedDatabases = ['LC']; // Debug, set LC (Library of Congress) to default
+          if($rootScope.state.search.database) {
+            searchedDatabases = $rootScope.state.search.database.split(',');
+          }
+          _.forEach(searchedDatabases, function(dbName) {
+            var i = _.findIndex(databases, { 'database': dbName });
+            if(i > 0) {
+              databases[i].selected = true;
+            }
+          });      
+
+          $rootScope.state.remoteDatabases = databases;
+        });
+      }
+    }
+    
+  });
 });

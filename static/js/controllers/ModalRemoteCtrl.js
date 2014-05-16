@@ -2,8 +2,8 @@ kitin.controller('ModalRemoteCtrl', function($scope, $rootScope, $modalInstance,
   // For remote search, load list of remote database definitions
   if(_.isEmpty($rootScope.state.remoteDatabases)) {
     definitions.remotedatabases.then(function(databases){
-      // Debug, set LC (Library of Congress) to default        
-      var searchedDatabases = ['LC'];
+      
+      var searchedDatabases = [];
       if($rootScope.state.search.database) {
         searchedDatabases = $rootScope.state.search.database.split(',');
       }

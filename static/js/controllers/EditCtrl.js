@@ -236,7 +236,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
       openPrompt($event, "#confirmDeleteDraftDialog");
     });
   };
-  
+
   $scope.save = function() {
     var recType = $routeParams.recType === editUtil.RECORD_TYPES.REMOTE ? editUtil.RECORD_TYPES.BIB : $routeParams.recType;
     if(!$scope.isDraft && !isNew) {
@@ -258,7 +258,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   
 
   $scope.saveDraft = function() {
-    var recType = $routeParams.recType === 'remote' ? 'bib' : $routeParams.recType;
+    var recType = $routeParams.recType === editUtil.RECORD_TYPES.REMOTE ? editUtil.RECORD_TYPES.BIB : $routeParams.recType;
 
     if(!$scope.isDraft) {
       dataService.draft.create(recType, $scope.record).then(function(data) {
