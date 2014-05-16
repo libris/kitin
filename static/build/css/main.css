@@ -2421,7 +2421,6 @@ label.find-entity input[type="text"] {
 /* PERSON SUGGEST END ------------------------- */
 .element-adder {
   text-align: right;
-  background-color: #f7f3ee;
   padding: 6px;
 }
 .element-adder > div {
