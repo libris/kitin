@@ -18,10 +18,12 @@
         </span>
       </p>
       <span data-ng-show="state.searchType.key != 'remote'" class="sort-option">
+<!-- hitlist controller for lighter hitlist
       	<span class="hitlist-viewswitch">
          	<i class="fa fa-th-list fa-border"></i>
       		<i class="fa fa-th-large fa-border"></i>
       	</span>
+-->
         <select ng-model="selectedSort" ng-options="item as item.text for item in sortables" ng-change="sortChanged(selectedSort)"></select>
       </span>
     </header>
