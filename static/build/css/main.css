@@ -887,7 +887,7 @@ body.search #header .searchfield em {
 }
 #header .searchfield .remote-search a {
   float: right;
-  width: 80px;
+  width: 60px;
   font-size: 13px;
 }
 #header .searchfield a.btn {
