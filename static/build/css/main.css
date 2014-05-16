@@ -2156,6 +2156,9 @@ section.nav dd a.active {
 section.nav dd a.active:hover {
   text-decoration: none;
 }
+section.nav.remote {
+  visibility: hidden;
+}
 section.result {
   position: relative;
   border: 1px solid transparent;
