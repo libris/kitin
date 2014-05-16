@@ -2023,6 +2023,13 @@ body.login .content.index header {
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
+body.edit .content section {
+  margin: 0px 0px 10px 0px;
+  padding: 12px 24px;
+}
+body.index .content section {
+  margin-top: 12px;
+}
 .content section .foot {
   text-align: right;
 }
