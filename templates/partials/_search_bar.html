@@ -29,7 +29,7 @@
 		
     <div data-ng-controller="SearchFormCtrl">
       <div class="searchfield">
-        <form data-ng-submit="search()" method="GET" name="search_form">
+        <form data-ng-submit="state.search.q ? search() : false" method="GET" name="search_form">
           <input id="search" name="q" type="text" autofocus
                  value="{{ state.search.q }}" placeholder="{{ state.searchType.placeholder }}"
           autocomplete="off" role="textbox"
