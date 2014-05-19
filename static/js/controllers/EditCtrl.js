@@ -251,7 +251,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
         if($scope.isDraft) {
           dataService.draft.delete(recType, recId);
         }
-        $location.url('/edit/' + recType + '/' + data['document_id']);
+        $location.url('/edit' + data['@id']);
       });
     }
   };
@@ -267,8 +267,10 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     } else {
       dataService.draft.save(recType, recId, $scope.record, $scope.etag).then(function(data) {
         $scope.draft = data['recdata'];
-        $scope.draft.type = data['recdata']['@id'].split("/").slice(-2)[0];
-        $scope.draft.id = data['recdata']['@id'].split("/").slice(-2)[1];
+        if(data['recdata']['@id']) { // Undefined if new record
+          $scope.draft.type = data['recdata']['@id'].split("/").slice(-2)[0];
+          $scope.draft.id = data['recdata']['@id'].split("/").slice(-2)[1];
+        }
         onSaveState();
         //$('.flash_message').text("Utkast sparat!");
       });
