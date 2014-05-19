@@ -118,7 +118,7 @@ def search(record_type):
 
 @app.route("/search/<record_type>.json")
 def search_json(record_type):
-    search_path = "%s/_search" % record_type
+    search_path = "/%s/_search" % record_type
     if(record_type == "remote"):
         search_path = '_remotesearch'
         
@@ -135,9 +135,12 @@ def do_search(service_path):
         f = args.get('f').replace('/','\\/').strip()
         del args['f']
         args.add('f', f)
-    search_url = "%s/%s" % (app.config['WHELK_HOST'], service_path)
-    print search_url, args
-    return requests.get(search_url, params= args, headers=extract_x_forwarded_for_header(request))
+
+    return  do_request(
+                service_path, 
+                params=args, 
+                headers=extract_x_forwarded_for_header(request)
+            )
 
 # ----------------------------
 # SEARCH END
@@ -157,66 +160,52 @@ def get_template(rec_type):
 def get_bib_data(rec_type, rec_id):
 
     # TODO: How check if user is logged in?
-    whelk_url = "%s/%s/%s" % (app.config['WHELK_HOST'], rec_type, rec_id)
-    response = requests.get(whelk_url)
-    if response.status_code >= 400:
-        app.logger.warning("Error response %s on GET <%s>" % (response.status_code, whelk_url))
-        abort(response.status_code)
-    else:
-        document = response.text
-        etag = response.headers['etag']
-
-    resp = raw_json_response(document)
-    resp.headers['etag'] = etag
+    response = do_request("/%s/%s" % (rec_type, rec_id))
+    resp = raw_json_response(response.text)
+    resp.headers['etag'] = response.headers['etag']
     return resp
 
 @app.route('/record/<record_type>/<record_id>/holdings', methods=["GET"])
 @login_required
 def get_holdings(record_type, record_id):
-        #path = "%s/hold/_find?q=annotates.@id:%s" % (app.config['WHELK_HOST'], record_id)
         bibnr = record_id.split("/")[-1]
-        path = "%s/hold/_search?q=*+about.annotates.@id:\/resource\/bib\/%s" % (app.config['WHELK_HOST'], bibnr)
-        resp = requests.get(path)
+        resp = do_request("/hold/_search?q=*+about.annotates.@id:\/resource\/bib\/%s" % bibnr)
         return raw_json_response(resp.text)
 
 @app.route('/record/<rec_type>/<rec_id>', methods=['PUT'])
 @login_required
 def update_document(rec_type, rec_id):
-    """Saves updated records to whelk"""
+    #Saves updated records to whelk
     json_string = json.dumps(request.json)
     if_match = request.headers['If-match']
     h = {'content-type': JSON_LD_MIME_TYPE, 'If-match': if_match}
-    path = "%s/bib/%s" % (app.config['WHELK_HOST'], rec_id)
-    response = requests.put(path, data=json_string, headers=h, allow_redirects=True)
-    if response.status_code == 200:
-        storage.delete_draft(current_user.get_id(), "bib", rec_id)
-        resp = raw_json_response(response.text)
-        resp.headers['etag'] = response.headers['etag'].replace('"', '')
-        return resp
-    else:
-        abort(response.status_code)
+    response = do_request(
+        path="/bib/%s" % rec_id, 
+        method='PUT', 
+        data=json_string, 
+        headers=h, 
+        allow_redirects=True
+    )
+    # Delete draft
+    storage.delete_draft(current_user.get_id(), "bib", rec_id)
+
+    resp = raw_json_response(response.text)
+    resp.headers['etag'] = response.headers['etag'].replace('"', '')
+    return resp
 
 @app.route('/record/bib/create', methods=['POST'])
 @login_required
 def create_record():
-    h = {'content-type': JSON_LD_MIME_TYPE, 'format': 'jsonld'}
-    path = "%s/" % (app.config['WHELK_HOST'])
-    print path
-    response = requests.post(path, data=json.dumps(request.json), headers=h, allow_redirects=False)
-    print response
-    if response.status_code == 200:
-        resp = raw_json_response(response.text)
-        resp.headers['etag'] = response.headers['etag'].replace('"', '')
-        return resp
-    elif response.status_code == 303 or response.status_code == 302:
-        data = {}
-        data['document'] = json.loads(response.text)
-        data['document_id'] = urlparse(response.headers['Location']).path.rsplit("/")[-1]
-        resp = raw_json_response(json.dumps(data))
-        resp.headers['etag'] = response.headers['etag'].replace('"', '')
-        return resp
-    else:
-        abort(response.status_code)
+    response = do_request(
+        path='/', 
+        method='POST', 
+        data=json.dumps(request.json), 
+        headers={'content-type': JSON_LD_MIME_TYPE, 'format': 'jsonld'}, 
+        allow_redirects=False
+    )
+    resp = raw_json_response(response.text)
+    resp.headers['etag'] = response.headers['etag'].replace('"', '')
+    return resp
 
 # ----------------------------
 # RECORD END
@@ -229,13 +218,10 @@ def create_record():
 @app.route('/holding/<holding_id>', methods=['GET'])
 @login_required
 def get_holding(holding_id):
-    response = requests.get("%s/hold/%s" % (app.config['WHELK_HOST'], holding_id))
-    if response.status_code == 200:
-        resp = raw_json_response(response.text)
-        resp.headers['etag'] = response.headers['etag'].replace('"', '')
-        return resp
-    else:
-        abort(response.status_code)
+    response = do_request("/hold/%s" % holding_id)
+    resp = raw_json_response(response.text)
+    resp.headers['etag'] = response.headers['etag'].replace('"', '')
+    return resp
 
 @app.route("/holding/bib/new", methods=["GET"])
 @login_required
@@ -245,40 +231,36 @@ def get_holding_template():
 @app.route('/holding', methods=['POST'])
 @login_required
 def create_holding():
-    path = "%s/hold/" % (app.config['WHELK_HOST'])
-    response = requests.post(path, data=request.data, allow_redirects=False)
-    if response.status_code == 200:
-        resp = raw_json_response(response.text)
-        resp.headers['etag'] = response.headers['etag'].replace('"', '')
-    elif response.status_code == 303:
-        data = {}
-        data['document'] = json.loads(response.text)
-        data['document_id'] = urlparse(response.headers['Location']).path.rsplit("/")[-1]
-        resp = raw_json_response(json.dumps(data))
-        resp.headers['etag'] = response.headers['etag'].replace('"', '')
-        return resp
-    else:
-        abort(response.status_code)
+    response = do_request(
+        path="/hold/", 
+        method='POST', 
+        data=request.data, 
+        allow_redirects=False
+    )
+    resp = raw_json_response(response.text)
+    resp.headers['etag'] = response.headers['etag'].replace('"', '')
+    return resp
 
 @app.route('/holding/<holding_id>', methods=['PUT'])
 @login_required
 def save_holding(holding_id):
     if_match = request.headers.get('If-match')
-    h = {'content-type': JSON_LD_MIME_TYPE, 'If-match': if_match}
-    path = "%s/hold/%s" % (app.config['WHELK_HOST'], holding_id)
-    response = requests.put(path, data=request.data, headers=h, allow_redirects=True)
-    if response.status_code == 200:
-        resp = raw_json_response(response.text)
-        resp.headers['etag'] = response.headers['etag'].replace('"', '')
-        return resp
-    else:
-        abort(response.status_code)
-
+    response = do_request(
+        path="/hold/%s" % holding_id, 
+        method='PUT', 
+        data=request.data, 
+        headers={'content-type': JSON_LD_MIME_TYPE, 'If-match': if_match}, 
+        allow_redirects=True
+    )
+    
+    resp = raw_json_response(response.text)
+    resp.headers['etag'] = response.headers['etag'].replace('"', '')
+    return resp
+    
 @app.route('/holding/<holding_id>', methods=['DELETE'])
 @login_required
 def delete_holding(holding_id):
-    path = "%s/hold/%s" % (app.config['WHELK_HOST'], holding_id)
-    response = requests.delete(path)
+    response = do_request("/hold/%s" % holding_id, method='DELETE')
     return make_response("success")
 
 # ----------------------------
@@ -370,12 +352,10 @@ def get_labels():
 @app.route("/def")
 @login_required
 def def_completions():
-    q = request.args.get('q')
-    n = ''
-    if request.args.get('n'): n = '&n=' + request.args.get('n')
-    response = requests.get("%s/def/_search?q=%s%s" % (app.config['WHELK_HOST'], q, n))
-    if response.status_code >= 400:
-        abort(response.status_code)
+    response = do_request(
+        path="/def/_search",
+        params=request.args
+    )
     return raw_json_response(response.text)
 
 @app.route("/deflist/<path:path>")
@@ -407,19 +387,15 @@ def show_jsonld_record(rec_type, rec_id):
 @app.route('/marcmap.json')
 @login_required
 def get_marcmap():
-    path = "%s/resource/_marcmap" % (app.config['WHELK_HOST'])
-    response = requests.get(path)
-    if response.status_code >= 400:
-        abort(response.status_code)
+    path = "/resource/_marcmap"
+    response = do_request(path)
     return raw_json_response(response.text)
 
 @app.route('/suggest/<indextype>')
 @login_required
 def suggest_completions(indextype):
     q = request.args.get('q')
-    response = requests.get("%s/%s/_search?q=%s" % (app.config['WHELK_HOST'], indextype, q))
-    if response.status_code >= 400:
-        abort(response.status_code)
+    response = do_request("/%s/_search?q=%s" % (indextype, q))
     return raw_json_response(response.text)
 
 @app.route("/partials/<path:path>")
@@ -433,13 +409,49 @@ def show_styleguide():
     return render_template('styleguide/style.html' )
 
 
+
 # UTILS 
 # -------------------
 
+def do_request(path, params=None, method='GET', headers=None, data=None, allow_redirects=False, host=app.config['WHELK_HOST']):
+    url = '%s%s' % (host,path)
+    app.logger.debug('Sending request %s to: %s' % (method, url));
+    
+    try:
+        if method == 'POST':
+            response = requests.post(url, params=params, headers=headers, data=data)
+        elif method == 'PUT':
+            response = requests.put(url, params=params, headers=headers, data=data, allow_redirects=allow_redirects)
+        elif method == 'DELETE':
+            response = requests.delete(url, headers=headers, allow_redirects=allow_redirects)
+        else:
+            response = requests.get(url, params=params, headers=headers, allow_redirects=allow_redirects)
+
+    except requests.exceptions.RequestException as e:
+        app.logger.warning(e)
+        if response:
+            app.logger.warning("Error response %s on %s <%s>" % (response.status_code, method, url))
+            abort(response.status_code)
+
+    app.logger.debug('Got response: %s' % response.status_code);
+    
+    # OK
+    if response.status_code == 200:
+        return response
+    # Updated/Created
+    elif response.status_code == 201:
+        if 'Location' in response.headers:
+            return do_request(response.headers['Location'],host='')
+        else:
+            app.logger.warning('Error status code 201 but no Location header, %s', (method))
+
+    # Error
+    else:
+        app.logger.warning('Error response %s on %s <%s>' % (response.status_code, method, url))
+        abort(response.status_code)
+
 def get_dataset(path, cache=False):
-    url = "%s/%s" % (app.config['WHELK_HOST'], path)
-    print url
-    remote_resp = requests.get(url)
+    remote_resp = do_request('/%s' % path)
     resp = Response(remote_resp.text,
             status=remote_resp.status_code,
             content_type=remote_resp.headers['content-type'])
