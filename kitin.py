@@ -120,7 +120,7 @@ def search(record_type):
 def search_json(record_type):
     search_path = "/%s/_search" % record_type
     if(record_type == "remote"):
-        search_path = '_remotesearch'
+        search_path = '/_remotesearch'
         
     resp = do_search(search_path)
     return raw_json_response(resp.text)
@@ -416,7 +416,7 @@ def show_styleguide():
 def do_request(path, params=None, method='GET', headers=None, data=None, allow_redirects=False, host=app.config['WHELK_HOST']):
     url = '%s%s' % (host,path)
     app.logger.debug('Sending request %s to: %s' % (method, url));
-    
+
     try:
         if method == 'POST':
             response = requests.post(url, params=params, headers=headers, data=data)
