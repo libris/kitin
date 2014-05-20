@@ -9,7 +9,6 @@
         "publicationCountry": [],
         "language": {},
         "literaryForm": {},
-        "attributedTo": {},
         "originalLanguage": {},
         "classificationDdc": "",
         "classification": [],
@@ -25,8 +24,6 @@
         "comment": [],
         "genre": [],
         "influencedBy": [],
-        "translator": [],
-        "@id": "/resource/bib/14744539",
         "identifier": [
             {
                 "@type": "Identifier",
