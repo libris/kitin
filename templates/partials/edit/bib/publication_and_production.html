@@ -29,7 +29,7 @@
 
         <ul class="tags" data-kitin-link-entity
             data-subject="record.about"
-            data-link-multiple  ="'publicationCountry'" data-type="Country"
+            data-link-multiple="'publicationCountry'" data-type="Country"
             data-view-template="render-country"
             data-search-template="render-search-country">
         </ul>
@@ -42,7 +42,7 @@
                   placeholder="Lägg till land"
                   data-no-value="{{ object.prefLabel }} ({{ object.notation }})"
                   data-kitin-search-entity
-                  data-service-url="/def"
+                  data-service-url="{{API_PATH}}/def/_search"
                   data-filter="{'about.@type': 'Country'}"
                   data-completion-template="select-country-template" placeholder="+ Lägg till land">
         </script>

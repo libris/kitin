@@ -459,7 +459,7 @@ kitin.directive('kitinSearchEntity', ['definitions', function(definitions) {
           var params = scope.$apply(filterParams);
           var result = _.reduce(params, function (res, v, k) {
             res += '*';
-            return v? res +"+"+ k +":" + v : res;
+            return v? res + ' ' + k +':' + v : res; // TODO: Change space back to + when backend supports url-encoding
           }, value);
           return result;
         };

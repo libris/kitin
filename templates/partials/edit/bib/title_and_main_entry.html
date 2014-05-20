@@ -125,7 +125,7 @@
         <i class="fa fa-search"></i>
         <input class="input-large" type="text" placeholder="{{ label }}"
               data-kitin-search-entity
-              data-service-url="/suggest/auth"
+              data-service-url="{{API_PATH}}/auth"
               data-filter="{ 'about.@type': 'Person' }"
               data-completion-template="auth-completion-template" />
       </label>
@@ -188,7 +188,7 @@
       <ul data-kitin-link-entity
           class="tags"
           data-ng-if="personRoleMap"
-          data-service-url="/suggest/auth"
+          data-service-url="{{API_PATH}}/auth"
           data-filter="{ 'about.@type': 'ObjectProperty' }"
           data-subject="personRoleMap"
           data-link-multiple="object['@id']" data-type="ObjectProperty"
@@ -207,7 +207,7 @@
       <label class="add-item">
         <i class="fa fa-search"></i>
         <input data-inplace type="text" placeholder="Roll"
-              data-service-url="/def"
+              data-service-url="{{API_PATH}}/def/_search"
               data-filter="{ '@type': 'ObjectProperty' }"
               data-kitin-search-entity
               data-completion-template="select-role-template" />
