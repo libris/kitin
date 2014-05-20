@@ -5,27 +5,40 @@
             "Text",
             "Monograph"
         ],
-        "identifier": [
-        ],
-        "instanceOf": {
-            "creator": {
-            },
-            "language": {
-            },
-            "subject": []
+        "publicationYear": "",
+        "publicationCountry": [],
+        "language": {},
+        "literaryForm": {},
+        "attributedTo": {},
+        "originalLanguage": {},
+        "classificationDdc": "",
+        "classification": [],
+        "uniformTitle": "",
+        "instanceTitle": {
+            "@type": "Title",
+            "titleValue": "",
+            "subtitle": ""
         },
-        "manufacture": [
-
-        ],
-        "note": "",
-        "otherPhysicalDetails": "",
-        "publication": [
-
-        ],
         "responsibilityStatement": "",
-        "title": {
-        }
-    },
-    "originalCatalogingAgency": {
+        "publication": [],
+        "manufacture": [],
+        "comment": [],
+        "genre": [],
+        "influencedBy": [],
+        "translator": [],
+        "@id": "/resource/bib/14744539",
+        "identifier": [
+            {
+                "@type": "Identifier",
+                "identifierScheme": {
+                    "@id": "/def/identifiers/isbn"
+                }
+            }
+        ],
+        "hasFormat": [
+            {
+                "@type": "Product"
+            }
+        ]
     }
 }
