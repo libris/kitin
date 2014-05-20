@@ -47,8 +47,8 @@ JSON_LD_MIME_TYPE = 'application/ld+json'
 
 @login_manager.user_loader
 def _load_user(uid):
-    print "Loading user %s " % uid
-    print "Sigel in session %s" % session.get('sigel')
+    app.logger.debug("Loading user %s " % uid)
+    app.logger.debug("Sigel in session %s" % session.get('sigel'))
     if not 'sigel' in session:
         return None
     return User(uid, sigel=session.get('sigel'))
@@ -79,7 +79,7 @@ def login():
         password = request.form["password"]
         if "remember" in request.form:
             remember = True
-        print "remember %s" % remember
+        app.logger.debug("remember %s" % remember)
         user = User(username)
         if getattr(app, 'fakelogin', False):
             sigel = "NONE"
@@ -93,8 +93,7 @@ def login():
             session['sigel'] = sigel
             login_user(user, remember)
             session.permanent = remember
-            print "User logged in"
-            print "User %s logged in with sigel %s" % (user.username, user.sigel)
+            app.logger.debug("User %s logged in with sigel %s" % (user.username, user.sigel))
             return redirect("/")
     return render_template("partials/login.html", msg = msg, remember = remember)
 
@@ -121,11 +120,7 @@ def search_json(record_type):
     search_path = "/%s/_search" % record_type
     if(record_type == "remote"):
         search_path = '/_remotesearch'
-        
-    resp = do_search(search_path)
-    return raw_json_response(resp.text)
-
-def do_search(service_path):
+    
     args = request.args.copy()
     # Special handle some parameters.
     if args.get('b'):
@@ -137,10 +132,11 @@ def do_search(service_path):
         args.add('f', f)
 
     return  do_request(
-                service_path, 
+                path=search_path, 
                 params=args, 
                 headers=extract_x_forwarded_for_header(request)
             )
+    
 
 # ----------------------------
 # SEARCH END
@@ -160,52 +156,46 @@ def get_template(rec_type):
 def get_bib_data(rec_type, rec_id):
 
     # TODO: How check if user is logged in?
-    response = do_request("/%s/%s" % (rec_type, rec_id))
-    resp = raw_json_response(response.text)
-    resp.headers['etag'] = response.headers['etag']
-    return resp
+    return do_request("/%s/%s" % (rec_type, rec_id))
 
 @app.route('/record/<record_type>/<record_id>/holdings', methods=["GET"])
 @login_required
 def get_holdings(record_type, record_id):
-        bibnr = record_id.split("/")[-1]
-        resp = do_request("/hold/_search?q=*+about.annotates.@id:\/resource\/bib\/%s" % bibnr)
-        return raw_json_response(resp.text)
+    bibnr = record_id.split("/")[-1]
+    return do_request("/hold/_search?q=*+about.annotates.@id:\/resource\/bib\/%s" % bibnr)
 
 @app.route('/record/<rec_type>/<rec_id>', methods=['PUT'])
 @login_required
 def update_document(rec_type, rec_id):
     #Saves updated records to whelk
-    json_string = json.dumps(request.json)
-    if_match = request.headers['If-match']
-    h = {'content-type': JSON_LD_MIME_TYPE, 'If-match': if_match}
     response = do_request(
         path="/bib/%s" % rec_id, 
         method='PUT', 
-        data=json_string, 
-        headers=h, 
+        data=json.dumps(request.json), 
+        headers={
+            'content-type': JSON_LD_MIME_TYPE, 
+            'If-match': request.headers['If-match']
+        },
         allow_redirects=True
     )
     # Delete draft
     storage.delete_draft(current_user.get_id(), "bib", rec_id)
 
-    resp = raw_json_response(response.text)
-    resp.headers['etag'] = response.headers['etag'].replace('"', '')
-    return resp
+    return response
 
 @app.route('/record/bib/create', methods=['POST'])
 @login_required
 def create_record():
-    response = do_request(
+    return do_request(
         path='/', 
         method='POST', 
         data=json.dumps(request.json), 
-        headers={'content-type': JSON_LD_MIME_TYPE, 'format': 'jsonld'}, 
+        headers={
+            'content-type': JSON_LD_MIME_TYPE, 
+            'format': 'jsonld'
+        }, 
         allow_redirects=False
     )
-    resp = raw_json_response(response.text)
-    resp.headers['etag'] = response.headers['etag'].replace('"', '')
-    return resp
 
 # ----------------------------
 # RECORD END
@@ -218,10 +208,7 @@ def create_record():
 @app.route('/holding/<holding_id>', methods=['GET'])
 @login_required
 def get_holding(holding_id):
-    response = do_request("/hold/%s" % holding_id)
-    resp = raw_json_response(response.text)
-    resp.headers['etag'] = response.headers['etag'].replace('"', '')
-    return resp
+    return do_request("/hold/%s" % holding_id)
 
 @app.route("/holding/bib/new", methods=["GET"])
 @login_required
@@ -231,31 +218,27 @@ def get_holding_template():
 @app.route('/holding', methods=['POST'])
 @login_required
 def create_holding():
-    response = do_request(
+    return do_request(
         path="/hold/", 
         method='POST', 
         data=request.data, 
         allow_redirects=False
     )
-    resp = raw_json_response(response.text)
-    resp.headers['etag'] = response.headers['etag'].replace('"', '')
-    return resp
 
 @app.route('/holding/<holding_id>', methods=['PUT'])
 @login_required
 def save_holding(holding_id):
-    if_match = request.headers.get('If-match')
-    response = do_request(
+    return do_request(
         path="/hold/%s" % holding_id, 
         method='PUT', 
         data=request.data, 
-        headers={'content-type': JSON_LD_MIME_TYPE, 'If-match': if_match}, 
+        headers= {
+            'content-type': JSON_LD_MIME_TYPE, 
+            'If-match': request.headers.get('If-match')
+        }, 
         allow_redirects=True
     )
     
-    resp = raw_json_response(response.text)
-    resp.headers['etag'] = response.headers['etag'].replace('"', '')
-    return resp
     
 @app.route('/holding/<holding_id>', methods=['DELETE'])
 @login_required
@@ -352,11 +335,10 @@ def get_labels():
 @app.route("/def")
 @login_required
 def def_completions():
-    response = do_request(
+    return do_request(
         path="/def/_search",
         params=request.args
     )
-    return raw_json_response(response.text)
 
 @app.route("/deflist/<path:path>")
 @login_required
@@ -387,16 +369,14 @@ def show_jsonld_record(rec_type, rec_id):
 @app.route('/marcmap.json')
 @login_required
 def get_marcmap():
-    path = "/resource/_marcmap"
-    response = do_request(path)
-    return raw_json_response(response.text)
+    return do_request("/resource/_marcmap")
 
 @app.route('/suggest/<indextype>')
 @login_required
 def suggest_completions(indextype):
-    q = request.args.get('q')
-    response = do_request("/%s/_search?q=%s" % (indextype, q))
-    return raw_json_response(response.text)
+    return do_request(
+            path="/%s/_search" % indextype,
+            params=request.args)
 
 @app.route("/partials/<path:path>")
 @login_required
@@ -413,7 +393,7 @@ def show_styleguide():
 # UTILS 
 # -------------------
 
-def do_request(path, params=None, method='GET', headers=None, data=None, allow_redirects=False, host=app.config['WHELK_HOST']):
+def do_request(path, params=None, method='GET', headers=None, data=None, allow_redirects=False, host=app.config['WHELK_HOST'], json_response=True):
     url = '%s%s' % (host,path)
     app.logger.debug('Sending request %s to: %s' % (method, url));
 
@@ -437,7 +417,15 @@ def do_request(path, params=None, method='GET', headers=None, data=None, allow_r
     
     # OK
     if response.status_code == 200:
-        return response
+        # Convert to propper json
+        if json_response:
+            resp = raw_json_response(response.text)
+        else:
+            resp = response
+        # Preserve etag header
+        if 'etag' in response.headers:
+            resp.headers['etag'] = response.headers['etag'].replace('"', '')
+        return resp
     # Updated/Created
     elif response.status_code == 201:
         if 'Location' in response.headers:
@@ -451,7 +439,7 @@ def do_request(path, params=None, method='GET', headers=None, data=None, allow_r
         abort(response.status_code)
 
 def get_dataset(path, cache=False):
-    remote_resp = do_request('/%s' % path)
+    remote_resp = do_request('/%s' % path, json_response=False)
     resp = Response(remote_resp.text,
             status=remote_resp.status_code,
             content_type=remote_resp.headers['content-type'])
