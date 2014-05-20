@@ -10,9 +10,13 @@
             "about.titleVariation.titleValue": "Varianttitel",
             "about.keyTitle.titleValue": "titleValue",
             "about.relation.uniformTitle": "Uniform titel",
+            "about.uniformTitle": "Uniform titel",           
             "about.language": "Språk",
             "about.originalLanguage": "Originalspråk",
             "about.responsibilityStatement": "Upphov",
+            
+            "about.literaryForm": "Litterär genre",
+            "about.biography": "Innehåller biografisk information",
 
             "about.attributedTo": "Huvuduppslag",
             "about.influencedBy": "Biuppslag",
