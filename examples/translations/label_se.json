@@ -26,6 +26,7 @@
             "about.publication.providerDate": "Utgivningsår",
             "about.manufacture.place.label": "Tryckort",
             "about.manufacture.providerName": "Tryckeriets namn",
+            "about.manufacture.providerDate": "Tryckår",
 
             "about.editionStatement.edition": "Upplaga",
             "about.publisherNumber": "Utgivningsnummer",
