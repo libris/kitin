@@ -41,6 +41,7 @@ kitin.run(function($rootScope) {
 
   $rootScope.isEmpty = function(obj) { return angular.equals({},obj); };
   $rootScope.typeOf = function (o) { return o === null? 'null' : typeof o; };
+  $rootScope.exists = function(o) { return typeof o !== 'undefined'; };
 
 });
 

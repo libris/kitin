@@ -6,27 +6,27 @@
           <span class="lbl" translate>LABEL.record.about.instanceTitle.titleValue</span>
           <textarea data-inplace class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.titleValue"></textarea>
         </label>
-        <label data-ng-show="record.about.instanceTitle.partEnumeration">
+        <label data-ng-show="exists(record.about.instanceTitle.partEnumeration)">
           <span class="lbl" translate>LABEL.record.about.instanceTitle.partEnumeration</span>
           <textarea data-inplace class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.partEnumeration"></textarea>
         </label>
-        <label data-ng-show="record.about.instanceTitle.partTitle">
+        <label data-ng-show="exists(record.about.instanceTitle.partTitle)">
           <span class="lbl" translate>LABEL.record.about.instanceTitle.partTitle</span>
           <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.partTitle"></textarea>
         </label>
-        <label data-ng-show="record.about.instanceTitle.subtitle">
+        <label data-ng-show="exists(record.about.instanceTitle.subtitle)">
           <span class="lbl" translate>LABEL.record.about.instanceTitle.subtitle</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.subtitle"></textarea>
         </label>
-        <label data-ng-show="record.about.titleVariation.titleType">
+        <label data-ng-show="exists(record.about.titleVariation.titleType)">
           <span class="lbl" translate>LABEL.record.about.titleVariation.titleType</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.titleType"></textarea>
         </label>
-        <label data-ng-show="record.about.titleVariation.titleValue">
+        <label data-ng-show="exists(record.about.titleVariation.titleValue)">
           <span class="lbl" translate>LABEL.record.about.titleVariation.titleValue</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.titleValue"></textarea>
         </label>
-        <label>
+        <label data-ng-show="exists(record.about.uniformTitle)">
           <span class="lbl" translate>LABEL.record.about.uniformTitle</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.uniformTitle"></textarea>
         </label> 
