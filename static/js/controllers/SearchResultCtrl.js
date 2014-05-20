@@ -2,7 +2,14 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
 
   $scope.recType = $routeParams.recType;
 
-  $scope.url = '/search/' + $scope.recType + '.json';
+  function getSearchURL() {
+    var url = $rootScope.API_PATH + '/' + $scope.recType + '/_search';
+    if($scope.recType === 'remote') {
+      url = $rootScope.API_PATH + '/_remotesearch';
+    }
+    return url;
+  }
+  $scope.url = getSearchURL();
 
   definitions.terms.then(function(data) {
     $scope.terms = data.index;
@@ -141,7 +148,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
     for (var i = oldLength ? oldLength: 0; i < newLength; i++) {
         var record = $rootScope.state.search.result.list[i];
         if(record.identifier) {
-          $http.get("/record"  + record.identifier + "/holdings", {record: record}).success(updateHoldings);
+          $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.annotates.@id:' + record.identifier.replace('/','\/'), {record: record}).success(updateHoldings);
         }
 
     }

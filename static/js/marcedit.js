@@ -1,7 +1,7 @@
 
 kitin.factory('conf', function ($http, $q) {
   var marcmap = $q.defer();
-  $http.get("/marcmap.json").success(function (o) {
+  $http.get('/resource/_marcmap').success(function (o) {
     marcmap.resolve(o);
   });
   return {

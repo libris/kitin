@@ -1,5 +1,6 @@
 var kitin = angular.module('kitin.controllers', []);
 kitin.controller('AppCtrl', function($scope, $rootScope, $modal, searchService) {
+  $rootScope.API_PATH = '/whelk-webapi';
   $rootScope.state = {
     searchType: {},
     remoteDatabases: [],

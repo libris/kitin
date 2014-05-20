@@ -13,7 +13,7 @@ kitin.factory('userData', function() {
  * definitions
  * Get definitions lists from backend
  */
-kitin.factory('definitions', function($http) {
+kitin.factory('definitions', function($http, $rootScope) {
   
   /**
   * getDataset
@@ -32,14 +32,14 @@ kitin.factory('definitions', function($http) {
 
   // Defined definitions
   var definitions = {
-    remotedatabases:  getDataset("/search/remote.json?databases=list"),
-    terms:            getDataset("/deflist/terms"),
+    remotedatabases:  getDataset($rootScope.API_PATH + "/_remotesearch?databases=list"),
+    terms:            getDataset($rootScope.API_PATH + "/def/terms"),
   // !TODO Remove definitions below when the "index expander" is implemented in backend
-    relators:         getDataset("/def?q=*+@type:ObjectProperty&n=10000"),
-    languages:        getDataset("/def?q=*+@type:Language&n=10000"),
+    relators:         getDataset($rootScope.API_PATH + "/def/_search?q=*+@type:ObjectProperty&n=10000"),
+    languages:        getDataset($rootScope.API_PATH + "/def/_search?q=*+@type:Language&n=10000"),
     countries:        getDataset("/deflist/countries"),
     nationalities:    getDataset("/deflist/nationalities"),
-    conceptSchemes:   getDataset("/deflist/schemes"),
+    conceptSchemes:   getDataset($rootScope.API_PATH + "/def/schemes"),
     enums: {
       encLevel:       getDataset("/deflist/enum/encLevel"),
       catForm:        getDataset("/deflist/enum/catForm")
@@ -111,13 +111,17 @@ kitin.factory('recordUtil', function() {
  * Service to handle communcation with backend.
  * Currently used for records and drafts
  */
-kitin.factory('dataService', function ($http, $q, recordUtil) {
+kitin.factory('dataService', function ($http, $q, recordUtil, $rootScope) {
   return {
 
     record: {
       get: function (type, id) {
         var record = $q.defer();
-        $http.get("/record/" + type + (id ? "/" + id : '')).success(function (struct, status, headers) {
+        var path = '/record/' + type; // new record
+        if(id) {
+          path = $rootScope.API_PATH + '/' + type + '/' + id;
+        }
+        $http.get(path).success(function (struct, status, headers) {
           record['recdata'] = recordUtil.decorate(struct);
           record['etag'] = headers('etag');
           record.resolve(record);
@@ -127,7 +131,7 @@ kitin.factory('dataService', function ($http, $q, recordUtil) {
 
       save: function(type, id, data, etag) {
         var record = $q.defer();
-        $http.put("/record/" + type + "/" + id, data,
+        $http.put($rootScope.API_PATH + '/' + type + "/" + id, data,
                   {headers: {"If-match":etag}}).success(function(data, status, headers) {
           record['recdata'] = recordUtil.undecorate(data);
           record['etag'] = headers('etag');
@@ -141,7 +145,7 @@ kitin.factory('dataService', function ($http, $q, recordUtil) {
 
       create: function(type, data) {
         var record = $q.defer();
-        $http.post("/record/" + type + "/create", data).success(function(data, status, headers) {
+        $http.post($rootScope.API_PATH, data).success(function(data, status, headers) {
           record.resolve(recordUtil.decorate(data));
         });
         return record.promise;

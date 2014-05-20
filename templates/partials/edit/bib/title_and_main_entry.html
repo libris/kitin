@@ -55,7 +55,7 @@
                   placeholder="Lägg till språk"
                   data-no-value="{{ object.prefLabel }} ({{ object.langCode }})"
                   data-kitin-search-entity
-                  data-service-url="/def"
+                  data-service-url="{{API_PATH}}/def/_search"
                   data-filter="{'about.@type': 'Language'}"
                   data-completion-template="select-language-template" placeholder="+ Lägg till språk"></li>
 							</ul>
@@ -69,7 +69,7 @@
                   placeholder="Lägg till språk"
                   data-no-value="{{ object.prefLabel }} ({{ object.langCode }})"
                   data-kitin-search-entity
-                  data-service-url="/def"
+                  data-service-url="{{API_PATH}}/def/_search"
                   data-filter="{'about.@type': 'Language'}]"
                   data-completion-template="select-language-template" />
           </label>

@@ -43,6 +43,11 @@ storage = Storage(app.config.get("DRAFTS_DIR"))
 
 JSON_LD_MIME_TYPE = 'application/ld+json'
 
+@app.context_processor
+def global_view_variables():
+    mtime = os.stat(here).st_mtime
+    return {'modified': datetime.fromtimestamp(mtime)}
+
 
 
 @login_manager.user_loader
@@ -58,17 +63,8 @@ def _handle_unauthorized():
     return redirect("/login")
 
 
-@app.context_processor
-def global_view_variables():
-    mtime = os.stat(here).st_mtime
-    return {'modified': datetime.fromtimestamp(mtime)}
-
-
-@app.route("/")
-@login_required
-def index():
-    return render_template('index.html', user=current_user, partials = {"/partials/index" : "partials/index.html"}, debug = app.debug)
-
+# LOGIN START
+# ----------------------------
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -105,45 +101,36 @@ def logout():
     session.pop('sigel', None)
     return redirect("/login")
 
-
-
-# SEARCH START
+# LOGIN END
 # ----------------------------
 
+
+
+# STATIC CONTENT START
+# ----------------------------
+
+# START PAGE
+@app.route("/")
+@app.route('/edit/<rec_type>/<rec_id>')   # Edit start template
+@app.route('/jsonld/<rec_type>/<rec_id>') # JSON-LD start template
+@app.route('/marc/<rec_type>/<rec_id>')   # Marc start template
+@login_required
+def index(rec_type=None, rec_id=None):
+    return render_template('index.html', user=current_user, partials = {"/partials/index" : "partials/index.html"}, debug = app.debug)
+
+# SEARCH TEMPLATE 
 @app.route("/search/<record_type>")
 @login_required
 def search(record_type):
     return render_template('index.html', partials = {"/partials/search" : "partials/search.html"})
 
-@app.route("/search/<record_type>.json")
-def search_json(record_type):
-    search_path = "/%s/_search" % record_type
-    if(record_type == "remote"):
-        search_path = '/_remotesearch'
-    
-    args = request.args.copy()
-    # Special handle some parameters.
-    if args.get('b'):
-        args.add('boost', args.get('b'))
-        args.pop('b')
-    if args.get('f'):
-        f = args.get('f').replace('/','\\/').strip()
-        del args['f']
-        args.add('f', f)
+# PARTIAL TEMPLATES
+@app.route("/partials/<path:path>")
+@login_required
+def show_partial(path):
+    return render_template('partials/%s.html' % path)
 
-    return  do_request(
-                path=search_path, 
-                params=args, 
-                headers=extract_x_forwarded_for_header(request)
-            )
-    
-
-# ----------------------------
-# SEARCH END
-
-# RECORD START
-# ----------------------------
-
+# INITIAL STATIC RECORD
 @app.route("/record/<rec_type>", methods=["GET"])
 @login_required
 def get_template(rec_type):
@@ -151,114 +138,80 @@ def get_template(rec_type):
     if rec_type == 'bib':
         return raw_json_response(open(os.path.join(here, "examples/templates/monografi.json"), 'r').read())
 
-@app.route('/record/<rec_type>/<rec_id>', methods=["GET"])
-@login_required
-def get_bib_data(rec_type, rec_id):
-
-    # TODO: How check if user is logged in?
-    return do_request("/%s/%s" % (rec_type, rec_id))
-
-@app.route('/record/<record_type>/<record_id>/holdings', methods=["GET"])
-@login_required
-def get_holdings(record_type, record_id):
-    bibnr = record_id.split("/")[-1]
-    return do_request("/hold/_search?q=*+about.annotates.@id:\/resource\/bib\/%s" % bibnr)
-
-@app.route('/record/<rec_type>/<rec_id>', methods=['PUT'])
-@login_required
-def update_document(rec_type, rec_id):
-    #Saves updated records to whelk
-    response = do_request(
-        path="/bib/%s" % rec_id, 
-        method='PUT', 
-        data=json.dumps(request.json), 
-        headers={
-            'content-type': JSON_LD_MIME_TYPE, 
-            'If-match': request.headers['If-match']
-        },
-        allow_redirects=True
-    )
-    # Delete draft
-    storage.delete_draft(current_user.get_id(), "bib", rec_id)
-
-    return response
-
-@app.route('/record/bib/create', methods=['POST'])
-@login_required
-def create_record():
-    return do_request(
-        path='/', 
-        method='POST', 
-        data=json.dumps(request.json), 
-        headers={
-            'content-type': JSON_LD_MIME_TYPE, 
-            'format': 'jsonld'
-        }, 
-        allow_redirects=False
-    )
-
-# ----------------------------
-# RECORD END
-
-
-
-# HOLDING START
-# ----------------------------
-
-@app.route('/holding/<holding_id>', methods=['GET'])
-@login_required
-def get_holding(holding_id):
-    return do_request("/hold/%s" % holding_id)
-
+# INITIAL HOLDINGS TEMPLATE
 @app.route("/holding/bib/new", methods=["GET"])
 @login_required
 def get_holding_template():
     return raw_json_response(open(os.path.join(here, "examples/templates/holding.json"), 'r').read())
 
-@app.route('/holding', methods=['POST'])
+# RESOURCES
+@app.route("/resource/<path:path>")
 @login_required
-def create_holding():
-    return do_request(
-        path="/hold/", 
-        method='POST', 
-        data=request.data, 
-        allow_redirects=False
-    )
+def get_resource(path):
+    if path == 'translation':
+        language = request.args.get('lang')
+        if(language == 'se'):
+            return raw_json_response(open(os.path.join(here, "examples/translations/label_%s.json" % language), 'r').read())    
+    else:
+        return get_dataset("resource/%s?%s" % (path, request.query_string))
 
-@app.route('/holding/<holding_id>', methods=['PUT'])
+# STYLEGUIDE
+@app.route("/styleguide/")
 @login_required
-def save_holding(holding_id):
-    return do_request(
-        path="/hold/%s" % holding_id, 
-        method='PUT', 
-        data=request.data, 
-        headers= {
-            'content-type': JSON_LD_MIME_TYPE, 
-            'If-match': request.headers.get('If-match')
-        }, 
-        allow_redirects=True
-    )
-    
-    
-@app.route('/holding/<holding_id>', methods=['DELETE'])
-@login_required
-def delete_holding(holding_id):
-    response = do_request("/hold/%s" % holding_id, method='DELETE')
-    return make_response("success")
+def show_styleguide():
+    return render_template('styleguide/style.html' )
 
 # ----------------------------
-# HOLDING END
+# STATIC CONTENT END
+
+
+
+# WHELK API PROXY START
+# ----------------------------
+
+@app.route("/whelk-webapi", methods=['GET', 'PUT', 'POST', 'DELETE'])
+@app.route("/whelk-webapi/<path:path>", methods=['GET', 'PUT', 'POST', 'DELETE'])
+@login_required
+def proxy_request(path=''):
+
+    # Modify headers
+    headers = extract_x_forwarded_for_header(request)
+    headers['content-type'] = JSON_LD_MIME_TYPE
+    if 'If-match' in request.headers:
+        headers['If-match'] = request.headers['If-match']
+
+    # Handle PUT/POST data
+    data = None
+    allow_redirects=False
+    if request.method == 'PUT' or request.method == 'POST':
+        data = json.dumps(request.json)
+        allow_redirects=True # needed?
+
+    # Send request to whelk
+    return  do_request(
+                path='/%s' % path, 
+                params=request.args, 
+                headers=headers,
+                method=request.method,
+                data=data,
+                allow_redirects=allow_redirects
+            )
+
+# ----------------------------
+# WHELK API PROXY END
 
 
 # DRAFT START
 # ----------------------------
 
+# NEW
 @app.route('/drafts', methods=['GET'])
 @login_required
 def get_drafts():
     drafts = storage.get_drafts_as_json(current_user.get_id())
     return raw_json_response(drafts)
 
+# GET
 @app.route('/draft/<rec_type>/<draft_id>', methods=['GET'])
 @login_required
 def get_draft(rec_type, draft_id):
@@ -271,6 +224,7 @@ def get_draft(rec_type, draft_id):
     else:
         abort(404)
 
+# CREATE
 @app.route('/draft/<rec_type>', methods=['POST'])
 @login_required
 def create_draft(rec_type):
@@ -290,6 +244,7 @@ def create_draft(rec_type):
     storage.save_draft(current_user.get_id(), rec_type, draft_id, json_data,'')
     return json_data
 
+# UPDATE
 @app.route('/draft/<rec_type>/<draft_id>', methods=['PUT'])
 @login_required
 def save_draft(rec_type, draft_id):
@@ -308,6 +263,7 @@ def save_draft(rec_type, draft_id):
     storage.update_draft(current_user.get_id(), rec_type, draft_id, json_data,'')
     return json.dumps(request.json)
 
+# DELETE
 @app.route('/draft/<rec_type>/<draft_id>', methods=['DELETE'])
 @login_required
 def delete_draft(rec_type, draft_id):
@@ -317,76 +273,6 @@ def delete_draft(rec_type, draft_id):
 # ----------------------------
 # DRAFT END
 
-
-
-# TRANSLATION START
-# ----------------------------
-# MOVE INTO DEF?
-@app.route("/translation/", methods=["GET"])
-@login_required
-def get_labels():
-    language = request.args.get('lang')
-    if(language == 'se'):
-        return raw_json_response(open(os.path.join(here, "examples/translations/label_%s.json" % language), 'r').read())
-
-# ----------------------------
-# TRANSLATION END
-
-@app.route("/def")
-@login_required
-def def_completions():
-    return do_request(
-        path="/def/_search",
-        params=request.args
-    )
-
-@app.route("/deflist/<path:path>")
-@login_required
-def get_def(path):
-    return get_dataset("def/%s" % path)
-
-@app.route("/resource/<path:path>")
-@login_required
-def get_resource(path):
-    return get_dataset("resource/%s?%s" % (path, request.query_string))
-
-@app.route('/edit/<rec_type>/<rec_id>')
-@login_required
-def show_edit_record(rec_type, rec_id):
-    return index()
-
-@app.route('/marc/<rec_type>/<rec_id>')
-@login_required
-def show_marc_record(rec_type, rec_id):
-    return index()
-    #return render_template('index.html', partials = {"/partials/frbr" : "partials/frbr.html"})
-
-@app.route('/jsonld/<rec_type>/<rec_id>')
-@login_required
-def show_jsonld_record(rec_type, rec_id):
-    return index()
-
-@app.route('/marcmap.json')
-@login_required
-def get_marcmap():
-    return do_request("/resource/_marcmap")
-
-@app.route('/suggest/<indextype>')
-@login_required
-def suggest_completions(indextype):
-    return do_request(
-            path="/%s/_search" % indextype,
-            params=request.args)
-
-@app.route("/partials/<path:path>")
-@login_required
-def show_partial(path):
-    return render_template('partials/%s.html' % path)
-
-@app.route("/styleguide/")
-@login_required
-def show_styleguide():
-    return render_template('styleguide/style.html' )
 
 
 

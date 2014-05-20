@@ -148,7 +148,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
         }
         
         // HOLDINGS
-        $http.get("/record/" + recType + "/" + recId + "/holdings").success(function(data) {
+        $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.annotates.@id:' + recType + '\\/' + recId).success(function(data) {
           var holdingEtags = {};
           var items = editUtil.patchHoldings(data.list);
           $scope.holdings = items;
