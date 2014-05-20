@@ -40,6 +40,11 @@
     <li data-ng-repeat="topicalTerm in record.topicalTerm"><a class="btn btn-small" href="{{ topicalTerm }}"><i class="icon-tag"></i> {{ topicalTerm }}</a></li>
     </ul>
         -->     
+    <label class="dynamic-subjects">
+        <span class="lbl">Dewey</span>
+        <textarea data-inplace placeholder="Dewey Klassifikation" data-ng-model="record.about.classificationDdc"></textarea>
+
+    </label>
     <label class="dynamic-subjects" data-ng-repeat="classification in record.about.classification">
         <span class="lbl">Klassifikation {{classification.inScheme.notation}}</span>
         <textarea data-inplace placeholder="Klassifikation" data-ng-model="classification.notation"></textarea>
