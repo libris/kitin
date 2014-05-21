@@ -1,0 +1,112 @@
+/* HITLIST START ------------------------- */
+
+section.nav dt i{border-right-color:@grey-darker;}
+
+section.nav{background-color:@grey-warm;padding-top:12px}
+section.nav dt{background:@grey;margin-bottom:12px;}
+section.nav dd{clear:both;margin: 3px 0px;line-height:1;font-size:13px;word-break:break-all;}
+section.nav dd a{color:@grey-darker;padding:4px 0 6px 18px;background:url(/static/img/dot.png) no-repeat 4px 9px;display:inline-block;}
+.remote-modal div a.active,
+section.nav dd a.active{font-weight:bold;color:@grey-very-dark;background:url(/static/img/check.png) no-repeat 0 5px;cursor:default;}
+section.nav dd a.active:hover{text-decoration: none}
+
+section.nav.remote { visibility: hidden; } // Hide facets container if in remote
+
+section.result{
+  position:relative;
+  border:1px solid transparent;/* padding:23px 11px 41px; */
+  -webkit-transition:border ease-out 0.05s; 
+  box-sizing:border-box;
+  border-color: @grey-warm; 
+  padding:12px; 
+  min-height: 160px;
+  &:nth-child(10n+10) { margin-bottom: 25px; };
+}
+
+section.result .footer{position: absolute; bottom:-1px; left:-1px; right:-1px;padding: 6px 12px; -webkit-transition:border ease-out 0.05s; 
+  background:@grey-warm;color:@grey-darker;font-size:12px;border:1px solid @grey-warm;border-top-color:@grey-warm}
+section.result .footer span:first-child,
+section.result .footer span.level{margin-left:0;padding-left:0;border-left:none;}
+section.result .footer span.level{float:right;}
+
+section.result .footer span {padding-right: 12px;}
+
+section.result a {
+    &:visited {  color: @green-light; }
+    &:hover label.title .title-key { text-decoration: underline; }
+    &:active {   color: @green-light; }
+}
+
+section.result:hover{ border-color:@grey;}
+section.result:hover .footer{border-color:@grey;border-top-color:@grey-warm}
+
+section.result label{cursor:pointer;padding-left: 1px;}
+section.result label{text-overflow:ellipsis;}
+section.result label:hover{border-color:@grey-lighter;}
+section.result label .lbl{color:@grey-dark;}
+
+section.result label.title{display:block;}
+section.result label.title .title-key {font-size:18px;line-height:22px;display:block;font-weight: 600;display:block;padding-bottom: 4px;}
+section.result label.title .title-subtitle {color:@green-dark; font-size: 14px; line-height: 18px;display: block;}
+section.result label .title-creator {color:@grey-darker;font-size: 14px; line-height: 18px;}
+section.result label.title .icon{font-size:16px;color:@green-light;}
+section.result label.identifier-code {color: @grey-very-dark; font-weight: 600;text-align: right;}
+section.result label.title .lbl{margin-top:4px;}
+section.result label.contributors {padding-bottom: 0px; margin-bottom:18px;}
+section.result .contributors ul {list-style: none;padding:0;margin:0;}
+section.result .contributors ul li .primary-attribution {font-weight: 600;}
+section.result .bottom {color:@grey-dark; font-size:14px;background: @white;position: absolute;left:12px;bottom: 6px;}
+section.result .bottom i {font-size: 16px;padding-right: 6px; margin-left: -2px;padding-left: 0;}
+
+section.result .excerpt{margin-bottom:-14px;}
+section.result .excerpt label{background:@grey-warm url(/static/img/pat1.png);padding-top:4px;padding-bottom:4px;}
+
+section.result .highlight{padding:0 2px;background:rgba(40,180,146,.4);}
+section.result span.hit-count {position:absolute; top:-4px;left:-18px; font-size: 12px;color:@grey-dark;}
+section.result span.page-indicator {
+  color: @grey-darker;
+  position: absolute;
+  right: 21px;
+  bottom: -24px;
+  padding: 0px 0px 0px 4px;
+  font-size: 12px;
+  word-spacing: -1px;
+}
+section.result .widget {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  right:0;
+  padding: 6px 12px;
+  width: 122px;
+   -webkit-transition: border ease-out 0.05s; 
+  background: @grey-warm;
+  color: @grey-darker;
+  font-size: 10px;
+  border: 1px solid @grey-warm; 
+  border-left-color: @grey-warm;
+}
+section.result .widget label {color: @grey-darker;}
+
+section.result-pre {border-style: dashed;}
+
+.nav .selected { font-weight: bold; }
+
+.to-top-link {
+  cursor: pointer;
+  position: fixed;
+  bottom: 0;
+  background: #FFF;
+  z-index: 10000;
+  height: 30px;
+  width: 107px;
+  padding: 5px 9px;
+  margin-left: 130px;
+  color: @green-dark;
+  box-shadow: 0px 0px 11px 0px rgba(50, 50, 50, 0.5);
+  >i {
+    margin-left: 4px;
+  }
+}
+
+/* HITLIST END ------------------------- */
