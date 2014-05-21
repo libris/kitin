@@ -18,12 +18,12 @@
         </span>
       </p>
       <span data-ng-show="state.searchType.key != 'remote'" class="sort-option">
-<!-- hitlist controller for lighter hitlist
+
       	<span class="hitlist-viewswitch">
          	<i class="fa fa-th-list fa-border"></i>
-      		<i class="fa fa-th-large fa-border"></i>
+      		<i class="fa fa-list fa-border"></i>
       	</span>
--->
+
         <select ng-model="selectedSort" ng-options="item as item.text for item in sortables" ng-change="sortChanged(selectedSort)"></select>
       </span>
     </header>
@@ -48,8 +48,9 @@
           </dl>
         </section>
       </div>
-      <div class="col9" infinite-scroll="onScroll()" infinite-scroll-distance="0" infinite-scroll-immediate-check="true">
-        <section data-ng-repeat="record in state.search.result.list" data-ng-class="{'result-pre': record.data.encLevel == 8}" class="result record">
+      <div class="col9" infinite-scroll="onScroll()" infinite-scroll-distance="0" infinite-scroll-immediate-check="true" data-ng-switch-on="hitlist">
+		  <!-- detailed hitlist -->
+        <section data-ng-repeat="record in state.search.result.list" data-ng-class="{'result-pre': record.data.encLevel == 8}" class="result record" data-ng-switch-default>
           <span class="page-indicator" data-ng-if="($index > 0 && ($index + 1) % 10 == 0) || ($index+1) == hitCount">{{ $index + 1 }} träffar av {{ state.search.hitCount }}</span>
           
           <a class="bib-url" href="/edit{{record.identifier || record.data['@id']}}" ng-click="editPost(recType, record)" data-ng-switch="recType">
@@ -158,6 +159,21 @@
             </div>
   -->
             </a>
+        </section>
+        
+        <!-- minified hitlist -->
+        <section class="minified-hitlist" data-ng-switch when="minified">
+			<table class="table table-striped">
+				<thead></thead>
+				<tbody>
+					<tr data-ng-repeat="record in state.search.result.list">
+					<td class="number">{{ $index+1 }}.</td>
+					<td class="title"><a class="bib-url" href="/edit{{record.identifier || record.data['@id']}}" ng-click="editPost(recType, record)" data-ng-switch="recType">{{ record.data.about.instanceTitle.titleValue | chop }}</a></td>
+					<td class="creator">{{ record.data.about.responsibilityStatement | chop }}</td>
+					<td class="date"><span title="Utgivningsår" data-ng-repeat="publication in record.data.about.publication | limitTo:1" data-ng-show="publication.providerDate">{{publication.providerDate}}</td>
+					</tr>
+				</tbody>
+			</table>
         </section>
       </div>
       <div class="to-top-link" data-ng-class="{hidden: (state.search.page.start < state.search.page.n)}" data-ng-click="gotoTop()">

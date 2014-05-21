@@ -1968,6 +1968,29 @@ section.result-pre {
 .to-top-link > i {
   margin-left: 4px;
 }
+section.minified-hitlist {
+  padding: 12px;
+}
+section.minified-hitlist table {
+  width: 100%;
+  font-size: 12px;
+}
+section.minified-hitlist table td {
+  padding: 3px;
+}
+section.minified-hitlist table td.number {
+  width: 5%;
+  color: #c7c7c7;
+}
+section.minified-hitlist table td.title {
+  width: 40%;
+}
+section.minified-hitlist table td.creator {
+  width: 45%;
+}
+section.minified-hitlist table td.date {
+  width: 10%;
+}
 /* HITLIST END ------------------------- */
 /* EDIT FORM START ------------------------- */
 /* PERSON SUGGEST START ------------------------- */
