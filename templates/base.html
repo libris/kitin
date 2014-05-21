@@ -24,30 +24,18 @@
 		
 		 ga('create', 'UA-49207050-1', 'kb.se');
 		 ga('send', 'pageview');
-		
-		</script> 
+	</script> 
 
-		<!-- for troubleshooting run 'HTMLInspector.inspect()' TODO: if useful setup grunt task -->
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/html-inspector/0.8.0/html-inspector.js"></script>
-
-   
+	<!-- for troubleshooting run 'HTMLInspector.inspect()' TODO: if useful setup grunt task -->
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/html-inspector/0.8.0/html-inspector.js"></script>
   </head>
+
   <body data-ng-app="kitin" class="{% block bodyclass %}{% endblock %}" data-ng-controller="AppCtrl">
       {% include "_header.html" %}
-    <div class="container">
-      
+    <div class="container">     
       {% block content %}
       {% endblock content %}
-      
-      <div class="footer">
-        <footer>
-          <img src="/static/img/kb.svg">
-          <ul>
-              <li><a href="#" id="contact" title="Information om cookies: Libris katalogisering använder sig av cookies. Cookies är små filer som lagras på besökarens dator för att webbservern ska kunna upprätthålla information om användaren inom en viss tidsperiod. Libris katalogisering använder sig av s.k. sessionscookies som sparar information om den inloggade användaren temporärt, så länge som webbläsarsessionen varar. Informationen som lagras ser till att tjänsten vet vilken användare som är inloggad och vilka bibliotek som han/hon katalogiserar för. Funktionen &quote;håll mig inloggad&quote; sparar en permanent cookie som är aktiv i 31 dagar.Post- och telestyrelsen, som är tillsynsmyndighet på området, lämnar ytterligare information om Cookies på sin webbplats, www.pts.se">Om kakor</a></li>
-              <li><a href="http://feedback.kat.libris.kb.se/" target="_blank" title="Feedback forum">Tyck till <i class="icon fa fa-external-link"></i></a></li>
-          </ul>
-        </footer>
-      </div>
+      {% include "_footer.html" %}      
     </div>
 
     <!-- Remote modal -->
@@ -74,6 +62,5 @@
         <span class="timeSpan">{{ person.birthYear }}-{{ person.deathYear }}</span></span>
     </script>
     {% endraw %}
-
   </body>
 </html>
