@@ -2018,9 +2018,6 @@ label.find-entity input[type="text"] {
 .col6 label.find-entity input[type="text"] {
   width: 466px;
 }
-.col6 label.find-entity input[type="text"].embedded {
-  width: 452px;
-}
 .persons {
   list-style: none;
   margin: 4px 0;
