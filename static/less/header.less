@@ -21,6 +21,9 @@ body.index #header .searchfield{
 		 border-bottom: 1px solid @grey-light;
 		 box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05) inset;
 		 font-size: 14px;
+		 &:hover {
+  		 background-color: @grey-darker;
+		 }
 	 	.fa-caret-down {
 	 		position: absolute;
 	 		right: 12px;	
@@ -258,10 +261,14 @@ body.search #header .searchfield {
       border-bottom: 1px solid @grey-light;
       box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05) inset;
       font-size: 14px;      
+  		 &:hover .fa-caret-down {
+  		  color:@green-dark;
+		 }
       .fa-caret-down {
         position: absolute;
         right: 6px; 
         color:@green;
+
         }
     }
 
