@@ -5,6 +5,10 @@
     <div id="grid"></div>
     <div>
       <div class="record-data">
+        <strong>Skapad:</strong>
+        <span data-ng-if="record.about.date">
+        <em data-ng-model="record.about.date">{{record.about.date}}</em>
+        </span>
         <span data-nf-if="record.originalCatalogingAgency.name">
           <strong>Ändrad:</strong> 
           <span data-ng-if="record.modified">
