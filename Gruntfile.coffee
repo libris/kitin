@@ -109,7 +109,9 @@ module.exports = (grunt) ->
               else "<link rel='stylesheet' href='/#{src}?v=#{hash}' />").join("\n")
         # NOTE: Scripts also placed at top since this is a one-page app
         src: [
-          'static/build/*/*.css'
+          'static/build/css/bootstrap.css'
+          'static/build/css/vendor.min.css'
+          'static/build/css/main.css'
           'static/build/*/*.min.js'
           'static/js/**/*.js'
           'static/js/{main,*locale*}.js'
