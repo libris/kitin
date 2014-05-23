@@ -1764,7 +1764,7 @@ section.nav dd {
 }
 section.nav dd a {
   color: #666666;
-  padding: 4px 0 6px 18px;
+  padding: 4px 0 3px 18px;
   background: url(/static/img/dot.png) no-repeat 4px 9px;
   display: inline-block;
 }
