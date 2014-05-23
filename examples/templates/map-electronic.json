@@ -1,0 +1,88 @@
+{
+    "@type": "Record",
+    "about": {
+        "@type": [
+            "Cartography",
+            "Monograph"
+        ],
+        "hasPart": [
+            {
+                "@type": [
+                    "Digital"
+                ],
+                "contentType": []
+            }
+        ],
+        "publicationYear": "",
+        "publicationCountry": [],
+        "language": {},
+        "relief": {},
+        "projection": {},
+        "material": {},
+        "additionalCarrierType": {},
+        "index": {},
+        "attributedTo": {},
+        "cartographer": [],
+        "cartographicAscensionAndDeclination": [
+            {
+                "@type": "CartographyCoordinates",
+                "cartographicScale": "",
+                "constantRatioLinearHorizontalScale": [],
+                "westernmostLongitudeCoordinates": "",
+                "easternmostLongitudeCoordinates": "",
+                "northernmostLatitudeCoordinates": ""
+            }
+        ],
+        "classification": [],
+        "instanceTitle": {
+            "@type": "Title",
+            "titleValue": "",
+            "partTitle": "",
+            "subtitle": ""
+        },
+        "mediaTerm": "Elektronisk resurs",
+        "responsibilityStatement": "",
+        "cartographicScale": "",
+        "cartographicCoordinates": "",
+        "fileType": "",
+        "publication": [],
+        "comment": [],
+        "listOfContents": "",
+        "systemRequirements": "",
+        "subject": [],
+        "genre": [],
+        "relation": [],
+        "isPrimaryTopicOf": [],
+        "identifierByIdentifierScheme": {
+            "/def/identifiers/isbn": []
+        },
+        "hasFormatByType": {
+            "Electronic": [
+                {
+                    "@type": [
+                        "Electronic"
+                    ],
+                    "carrierType": [],
+                    "color": {},
+                    "dimensionsCategory": {}
+                }
+            ],
+            "Product": [
+                {
+                    "@type": "Product",
+                    "extent": "",
+                    "otherPhysicalDetails": "",
+                    "dimensions": "",
+                    "accompanyingMaterial": ""
+                }
+            ]
+        },
+        "manufacture": [
+            {}
+        ]
+    },
+    "technicalNote": [],
+            }
+        }
+    ]
+}
