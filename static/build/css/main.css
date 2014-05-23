@@ -390,10 +390,6 @@ body.edit .footer footer {
 .btn-purple:active {
   background-color: #573657;
 }
-.btn-submit {
-  padding: 12px 28px;
-  font-size: 16px;
-}
 .btn-link {
   color: #1a8f72;
   outline: none;
@@ -420,12 +416,16 @@ button[disabled=disabled],
 button:disabled {
   background-color: #c7c7c7;
 }
+a btn {
+  color: #27b492;
+}
 section.submit .btn-link {
   font-size: 14px;
   font-weight: bold;
 }
-a btn {
-  color: #27b492;
+.btn-submit {
+  padding: 12px 28px;
+  font-size: 16px;
 }
 section.result .btn-group button.btn,
 .search-source {
