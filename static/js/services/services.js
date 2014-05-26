@@ -131,12 +131,11 @@ kitin.factory('dataService', function ($http, $q, recordUtil, $rootScope) {
 
       save: function(type, id, data, etag) {
         var record = $q.defer();
-        $http.put($rootScope.API_PATH + '/' + type + "/" + id, data,
+        $http.put($rootScope.API_PATH + '/' + type + "/" + id, recordUtil.undecorate(data),
                   {headers: {"If-match":etag}}).success(function(data, status, headers) {
-          record['recdata'] = recordUtil.undecorate(data);
+          record['recdata'] = recordUtil.decorate(data);
           record['etag'] = headers('etag');
           record.resolve(record);
-          console.log("Saved record.");
         }).error(function() {
           console.log("FAILED to save record");
         });
@@ -145,8 +144,10 @@ kitin.factory('dataService', function ($http, $q, recordUtil, $rootScope) {
 
       create: function(type, data) {
         var record = $q.defer();
-        $http.post($rootScope.API_PATH, data).success(function(data, status, headers) {
-          record.resolve(recordUtil.decorate(data));
+        $http.post($rootScope.API_PATH, recordUtil.undecorate(data)).success(function(data, status, headers) {
+          record['recdata'] = recordUtil.decorate(data);
+          record['etag'] = headers('etag');
+          record.resolve(record);
         });
         return record.promise;
       }
@@ -156,17 +157,18 @@ kitin.factory('dataService', function ($http, $q, recordUtil, $rootScope) {
       get: function (draftId) {
         var record = $q.defer();
         $http.get("/draft/" + draftId).success(function (data, status, headers) {
-          record['recdata'] = recordUtil.decorate(data);
+          data.document = recordUtil.decorate(data.document);
+          record['recdata'] = data;
           record['etag'] = headers('etag');
           record.resolve(record);
         });
         return record.promise;
       },
 
-      save: function(type, draftId, post, etag) {
+      save: function(type, draftId, data, etag) {
         var record = $q.defer();
         etag = etag ? etag : '';
-        $http.put("/draft/" + type + '/' + draftId, recordUtil.undecorate(post), {headers: {"If-match":etag } })
+        $http.put("/draft/" + type + '/' + draftId, recordUtil.undecorate(data), {headers: {"If-match":etag } })
           .success(function(data, status, headers) {
             record['recdata'] = recordUtil.decorate(data);
             record['etag'] = headers('etag');
@@ -179,12 +181,13 @@ kitin.factory('dataService', function ($http, $q, recordUtil, $rootScope) {
         return record.promise;
       },
 
-      create: function(type, post, etag) {
+      create: function(type, data, etag) {
         var record = $q.defer();
         etag = etag ? etag : '';
-        $http.post("/draft/" + type, recordUtil.undecorate(post), {headers: {"If-match":etag } })
+        $http.post("/draft/" + type, recordUtil.undecorate(data), {headers: {"If-match":etag } })
           .success(function(data, status, headers) {
-            record.resolve(recordUtil.decorate(data));
+            data.document = recordUtil.decorate(data.document); 
+            record.resolve(data);
           });
         return record.promise;
       },
