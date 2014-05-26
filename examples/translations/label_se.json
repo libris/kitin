@@ -21,12 +21,12 @@
             "about.attributedTo": "Huvuduppslag",
             "about.influencedBy": "Biuppslag",
 
-            "about.publication.place.label": "Utgivningsplats",
+            "about.publication.place.label": "Utgivningstid",
             "about.publication.providerName": "Utgivare/förlag",
             "about.publication.providerDate": "Utgivningsår",
             "about.manufacture.place.label": "Tryckort",
             "about.manufacture.providerName": "Tryckeriets namn",
-            "about.manufacture.providerDate": "Tryckår",
+            "about.manufacture.providerDate": "Tryckningstid",
 
             "about.editionStatement.edition": "Upplaga",
             "about.publisherNumber": "Utgivningsnummer",
