@@ -131,12 +131,10 @@ def show_partial(path):
     return render_template('partials/%s.html' % path)
 
 # INITIAL STATIC RECORD
-@app.route("/record/<rec_type>", methods=["GET"])
+@app.route("/record/template/<type>", methods=["GET"])
 @login_required
-def get_template(rec_type):
-    """Returns a template object"""
-    if rec_type == 'bib':
-        return raw_json_response(open(os.path.join(here, "examples/templates/monografi.json"), 'r').read())
+def get_template(type):
+    return raw_json_response(open(os.path.join(here, "examples/templates/%s.json" % type), 'r').read())
 
 # INITIAL HOLDINGS TEMPLATE
 @app.route("/holding/bib/new", methods=["GET"])

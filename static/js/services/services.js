@@ -53,6 +53,60 @@ kitin.factory('definitions', function($http, $rootScope) {
  * Service to modify a record. Typically decorate/undecorate
  */
 kitin.factory('recordUtil', function() {
+
+
+  function mergeProperties(propertyKey, firstObject, secondObject) {
+    var propertyValue = firstObject[propertyKey];
+      if (_.isObject(propertyValue) || _.isArray(propertyValue)) {
+        // Second object is missing a node, return first objects node
+        if(typeof secondObject[propertyKey] === 'undefined' || _.isEmpty(secondObject[propertyKey])) {
+          return propertyValue;
+        }
+          return doMergeRecordAndTemplate(firstObject[propertyKey], secondObject[propertyKey]);
+      } else if (typeof secondObject[propertyKey] === 'undefined' || _.isEmpty(secondObject[propertyKey])) {
+        // Second object is missing a leaf, return first objects leaf
+        return firstObject[propertyKey];
+      }
+      // Leaf in second object has a value, return second objects leaf (even if its empty)
+      return secondObject[propertyKey];
+  }
+
+  function doMergeRecordAndTemplate(firstObject, secondObject) {
+      var finalObject = firstObject;
+
+      // Merge first object and its properties.
+      for (var propertyKey in firstObject) {
+          finalObject[propertyKey] = mergeProperties(propertyKey, firstObject, secondObject);
+      }
+
+      // Merge second object and its properties, to add missing properties from second to first object.
+      for (var propertyKey in secondObject) {
+          finalObject[propertyKey] = mergeProperties(propertyKey, secondObject, firstObject);
+      }
+
+      return finalObject;
+  } 
+
+
+  function doRemoveEmptyEntities(obj) {
+    for(var key in obj) {
+      if(_.isObject(obj[key]) || _.isArray(obj[key])) { 
+        // Node
+        doRemoveEmptyEntities(obj[key]);
+      } else { 
+        // Leaf
+        if(_.isEmpty(obj[key])) {
+          // Leaf has no value
+          delete obj[key];
+          if(_.isEmpty(obj)) {
+            // Parent has no value
+            delete obj;
+          }
+        }
+      }
+    }
+  }
+
   return {
 
     indexes: {
@@ -102,6 +156,11 @@ kitin.factory('recordUtil', function() {
       return entity;
     },
 
+    mergeRecordAndTemplate: doMergeRecordAndTemplate,
+
+    removeEmptyEntities: doRemoveEmptyEntities
+
+    
   };
 });
 
@@ -121,10 +180,14 @@ kitin.factory('dataService', function ($http, $q, recordUtil, $rootScope) {
         if(id) {
           path = $rootScope.API_PATH + '/' + type + '/' + id;
         }
+        var me = this;
         $http.get(path).success(function (struct, status, headers) {
           record['recdata'] = recordUtil.decorate(struct);
           record['etag'] = headers('etag');
-          record.resolve(record);
+          $http.get('/record/bib').success(function (struct, status, headers) {
+            recordUtil.mergeRecordAndTemplate(record['recdata'], struct);
+            record.resolve(record);
+          });
         });
         return record.promise;
       },

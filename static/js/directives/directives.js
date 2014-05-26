@@ -307,7 +307,7 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
 
       var linkKey = $attrs.link;
       var multiple = false;
-      if ($attrs.linkMultiple) {
+      if($attrs.linkMultiple) {
         linkKey = $attrs.linkMultiple;
         multiple = true;
       }
