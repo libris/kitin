@@ -21,9 +21,9 @@
             "about.attributedTo": "Huvuduppslag",
             "about.influencedBy": "Biuppslag",
 
-            "about.publication.place.label": "Utgivningstid",
+            "about.publication.place.label": "Utgivningsort",
             "about.publication.providerName": "Utgivare/förlag",
-            "about.publication.providerDate": "Utgivningsår",
+            "about.publication.providerDate": "Utgivningstid",
             "about.manufacture.place.label": "Tryckort",
             "about.manufacture.providerName": "Tryckeriets namn",
             "about.manufacture.providerDate": "Tryckningstid",
