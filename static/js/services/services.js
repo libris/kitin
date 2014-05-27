@@ -241,6 +241,12 @@ kitin.service('editUtil', function(definitions, $http) {
         getIndexKey: function (entity) {
           return entity["@type"];
         }
+      },
+      subject: {
+        indexName: "subjectByInSchemeOrType",
+        getIndexKey: function (entity) {
+          return (entity.inScheme && entity.inScheme['@id']) ? entity.inScheme['@id'] : entity['@type'];
+        }
       }
     },
 
