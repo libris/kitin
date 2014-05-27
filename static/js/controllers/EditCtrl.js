@@ -60,15 +60,8 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     return id && id.substring(0, 2) !== '_:';
   };
 
+  // TODO: move each part of this into editUtil.decorate, then remove this function
   function addRecordViewsToScope(record, scope) {
-    // FIXME: this is just a view object - add/remove must operate on source and refresh this
-    // (or else this must be converted back into source form before save)
-    definitions.relators.then(function (relators) {
-      var roleMap = {};
-      editUtil.populatePersonRoleMap(roleMap, record, relators);
-      scope.personRoleMap = roleMap;
-    });
-    
     scope.unifiedClassifications = editUtil.getUnifiedClassifications(record);
 
     definitions.conceptSchemes.then(function(data) {
@@ -125,7 +118,6 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
       var record = editUtil.getRecord();
       if(record) {
         $scope.record = record.data;
-        editUtil.patchBibRecord(record);
         addRecordViewsToScope(record, $scope);
       }
 
@@ -143,7 +135,6 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
 
         // BIB
         if (recType === editUtil.RECORD_TYPES.BIB) {
-          editUtil.patchBibRecord(record);
           addRecordViewsToScope(record, $scope);
         }
         

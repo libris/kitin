@@ -260,6 +260,14 @@ kitin.service('editUtil', function(definitions, $http) {
         delete entity[key];
       }
       this.mutateObject(record.about, doIndex);
+
+      definitions.relators.then(function (relators) {
+        var roleMap = {};
+        this.reifyAgentRoles(record, relators);
+      }.bind(this));
+
+      this.patchBibRecord(record);
+
       return record;
     },
 
@@ -269,6 +277,9 @@ kitin.service('editUtil', function(definitions, $http) {
         delete entity[cfg.indexName];
       }
       this.mutateObject(record.about, doUnindex);
+
+      this.unreifyAgentRoles(record);
+
       return record;
     },
 
@@ -283,72 +294,105 @@ kitin.service('editUtil', function(definitions, $http) {
     },
 
 
-    // TODO: move all usage of functions below to decorate/undecorate above
-
-    populatePersonRoleMap: function (roleMap, record, relators) {
+    reifyAgentRoles: function (record, relators) {
       var instance = record.about;
+      if (!instance)
+        return;
 
-      var self = this;
-
-      function addPersonRoles(person) {
-        var pid = person['@id'];
-        if (!pid) {
-          pid = person['@id'] = self.genBNodeId();
-        }
-        roleMap[person['@id']] = [];
-      }
-      if (instance && instance.attributedTo) {
-        addPersonRoles(instance.attributedTo);
-      }
-      if (instance && instance.influencedBy) {
-        instance.influencedBy.forEach(function (person) {
-          addPersonRoles(person);
-        });
-      }
-
+      // add index to relator terms object
       // TODO: coordinate terms, JSON-LD context and relators dataset instead
+      // FIXME: use '@id' directly
       if (relators.byTerm === undefined) {
         var index = relators.byTerm = {};
         _.each(relators.list, function (obj) {
           var id = obj['data']['about']['@id'];
+          index[id] = obj;
           var key = id.substring(id.lastIndexOf('/') + 1);
           index[key] = obj;
         });
       }
 
-      [instance].forEach(function (resource) {
-        if (typeof resource === 'undefined')
+      // add _reifiedRoles key to each person
+      var personMap = {};
+      var prepareAgent = function (agent) {
+        if (!agent)
           return;
-        var objId = resource['@id'];
-        _.forEach(resource, function (vals, key) {
-          if (!vals)
+
+        if (agent['@id']) {
+          personMap[agent['@id']] = agent;
+        }
+        var l = [];
+        l.toJSON = function () { };
+        agent._reifiedRoles = l;
+      }.bind(this);
+
+      prepareAgent(instance.attributedTo);
+      if (instance.influencedBy) {
+        instance.influencedBy.forEach(prepareAgent);
+      }
+
+      _.forEach(instance, function (values, key) {
+        if (!values)
+          return;
+
+        if (!_.isArray(values))
+          values = [values];
+        _.forEach(values, function (agent) {
+          if (agent['@id']) {
+            agent = personMap[agent['@id']];
+          }
+          if (!agent)
             return;
-          if (!_.isArray(vals)) vals = [vals];
-          _.forEach(vals, function (agent) {
-            var pid = agent['@id'];
-            if (!pid) { return; }
 
-            var roles = roleMap[pid];
-            if (!roles) { return; }
+          var roles = agent._reifiedRoles;
+          if (!roles)
+            return;
 
-            var role = relators.byTerm[key];
-            if (!role) {  return; }
+          var role = relators.byTerm[key];
+          if (!role) {  return; }
 
-            if (!_.contains(roles, role)) {
-              roles.push(role['data']['about']);
-            }
-            //pr.roles[role] = objId;
-          });
+          if (!_.contains(roles, role)) {
+            roles.push(role['data']['about']);
+            delete instance[key];
+          }
         });
       });
-
-      return roleMap;
     },
 
-    counter: 0,
+    unreifyAgentRoles: function (record) {
+      var instance = record.about;
+      if (!instance)
+        return;
 
-    genBNodeId: function () {
-      return "_:t-" + (new Date().getTime()) + "-" + this.counter++;
+      var unreifyRoles = function (agent) {
+        if (!agent)
+          return;
+        var roles = agent._reifiedRoles;
+        if (!roles)
+          return;
+        roles.forEach(function (role) {
+          var id = role['@id'];
+          // FIXME: use @id
+          var key = id.substring(id.lastIndexOf('/') + 1);
+          var linked = instance[key];
+          if (typeof linked === 'undefined') {
+            linked = instance[key] = [];
+          } else if (!_.isArray(linked)) {
+            linked = instance[key] = [linked];
+          }
+          // TODO: use agentRef after first occurrence..
+          if (!_.find(linked, function (o) { return o['@id'] === agent['@id']; }) ) {
+            linked.push(agent);
+          }
+        });
+
+        //delete agent._reifiedRoles;
+      }.bind(this);
+
+      unreifyRoles(instance.attributedTo);
+      if (instance.influencedBy) {
+        instance.influencedBy.forEach(unreifyRoles);
+      }
     },
 
     // TODO: this will be unified in the backend mapping and thus not needed here
