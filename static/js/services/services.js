@@ -49,75 +49,11 @@ kitin.factory('definitions', function($http, $rootScope) {
 });
 
 /**
- * recordUtil
- * Service to modify a record. Typically decorate/undecorate
- */
-kitin.factory('recordUtil', function() {
-  return {
-
-    indexes: {
-      identifier: {
-        indexName: "identifierByIdentifierScheme",
-        getIndexKey: function (entity) {
-          return entity.identifierScheme ? entity.identifierScheme["@id"] : 'identifier';
-        }
-      },
-      hasFormat: {
-        indexName: "hasFormatByType",
-        getIndexKey: function (entity) {
-          return entity["@type"];
-        }
-      },
-      subject: {
-        indexName: "subjectByInSchemeOrType",
-        getIndexKey: function (entity) {
-          return (entity.inScheme && entity.inScheme['@id']) ? entity.inScheme['@id'] : entity['@type'];
-        }
-      }
-    },
-
-    decorate: function(record) {
-      function doIndex (entity, key, cfg) {
-        var items = entity[key];
-        if(_.isEmpty(items)) {
-          return;
-        }
-        entity[cfg.indexName] = _.groupBy(items, cfg.getIndexKey);
-        delete entity[key];
-      }
-      this.mutateObject(record.about, doIndex);
-      return record;
-    },
-
-    undecorate: function(record) {
-      function doUnindex (entity, key, cfg) {
-        entity[key] = _.flatten(entity[cfg.indexName], function(it) { return it; });
-        delete entity[cfg.indexName];
-      }
-      this.mutateObject(record.about, doUnindex);
-      return record;
-    },
-
-    mutateObject: function(entity, mutator) {
-      if(!_.isEmpty(entity)) {
-        for (var key in this.indexes) {
-          var cfg = this.indexes[key];
-          mutator(entity, key, cfg);
-        }
-      }
-      return entity;
-    },
-
-  };
-});
-
-
-/**
  * dataService
  * Service to handle communcation with backend.
  * Currently used for records and drafts
  */
-kitin.factory('dataService', function ($http, $q, recordUtil, $rootScope) {
+kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
   return {
 
     record: {
@@ -128,7 +64,7 @@ kitin.factory('dataService', function ($http, $q, recordUtil, $rootScope) {
           path = $rootScope.API_PATH + '/' + type + '/' + id;
         }
         $http.get(path).success(function (struct, status, headers) {
-          record['recdata'] = recordUtil.decorate(struct);
+          record['recdata'] = editUtil.decorate(struct);
           record['etag'] = headers('etag');
           record.resolve(record);
         });
@@ -137,9 +73,9 @@ kitin.factory('dataService', function ($http, $q, recordUtil, $rootScope) {
 
       save: function(type, id, data, etag) {
         var record = $q.defer();
-        $http.put($rootScope.API_PATH + '/' + type + "/" + id, recordUtil.undecorate(data),
+        $http.put($rootScope.API_PATH + '/' + type + "/" + id, editUtil.undecorate(data),
                   {headers: {"If-match":etag}}).success(function(data, status, headers) {
-          record['recdata'] = recordUtil.decorate(data);
+          record['recdata'] = editUtil.decorate(data);
           record['etag'] = headers('etag');
           record.resolve(record);
         }).error(function() {
@@ -150,8 +86,8 @@ kitin.factory('dataService', function ($http, $q, recordUtil, $rootScope) {
 
       create: function(type, data) {
         var record = $q.defer();
-        $http.post($rootScope.API_PATH, recordUtil.undecorate(data)).success(function(data, status, headers) {
-          record['recdata'] = recordUtil.decorate(data);
+        $http.post($rootScope.API_PATH, editUtil.undecorate(data)).success(function(data, status, headers) {
+          record['recdata'] = editUtil.decorate(data);
           record['etag'] = headers('etag');
           record.resolve(record);
         });
@@ -163,7 +99,7 @@ kitin.factory('dataService', function ($http, $q, recordUtil, $rootScope) {
       get: function (draftId) {
         var record = $q.defer();
         $http.get("/draft/" + draftId).success(function (data, status, headers) {
-          data.document = recordUtil.decorate(data.document);
+          data.document = editUtil.decorate(data.document);
           record['recdata'] = data;
           record['etag'] = headers('etag');
           record.resolve(record);
@@ -174,9 +110,9 @@ kitin.factory('dataService', function ($http, $q, recordUtil, $rootScope) {
       save: function(type, draftId, data, etag) {
         var record = $q.defer();
         etag = etag ? etag : '';
-        $http.put("/draft/" + type + '/' + draftId, recordUtil.undecorate(data), {headers: {"If-match":etag } })
+        $http.put("/draft/" + type + '/' + draftId, editUtil.undecorate(data), {headers: {"If-match":etag } })
           .success(function(data, status, headers) {
-            record['recdata'] = recordUtil.decorate(data);
+            record['recdata'] = editUtil.decorate(data);
             record['etag'] = headers('etag');
             record.resolve(record);
             console.log("Saved record.");
@@ -190,9 +126,9 @@ kitin.factory('dataService', function ($http, $q, recordUtil, $rootScope) {
       create: function(type, data, etag) {
         var record = $q.defer();
         etag = etag ? etag : '';
-        $http.post("/draft/" + type, recordUtil.undecorate(data), {headers: {"If-match":etag } })
+        $http.post("/draft/" + type, editUtil.undecorate(data), {headers: {"If-match":etag } })
           .success(function(data, status, headers) {
-            data.document = recordUtil.decorate(data.document); 
+            data.document = editUtil.decorate(data.document); 
             record.resolve(data);
           });
         return record.promise;
@@ -226,7 +162,7 @@ kitin.factory('dataService', function ($http, $q, recordUtil, $rootScope) {
 
 /**
  * editUtil
- *
+ * Service to modify a record. Typically decorate/undecorate
  */
 kitin.service('editUtil', function(definitions, $http) {
   var editutil = {
@@ -292,6 +228,56 @@ kitin.service('editUtil', function(definitions, $http) {
           return {};
       }
     },
+
+    indexes: {
+      identifier: {
+        indexName: "identifierByIdentifierScheme",
+        getIndexKey: function (entity) {
+          return entity.identifierScheme ? entity.identifierScheme["@id"] : 'identifier';
+        }
+      },
+      hasFormat: {
+        indexName: "hasFormatByType",
+        getIndexKey: function (entity) {
+          return entity["@type"];
+        }
+      }
+    },
+
+    decorate: function(record) {
+      function doIndex (entity, key, cfg) {
+        var items = entity[key];
+        if(_.isEmpty(items)) {
+          return;
+        }
+        entity[cfg.indexName] = _.groupBy(items, cfg.getIndexKey);
+        delete entity[key];
+      }
+      this.mutateObject(record.about, doIndex);
+      return record;
+    },
+
+    undecorate: function(record) {
+      function doUnindex (entity, key, cfg) {
+        entity[key] = _.flatten(entity[cfg.indexName], function(it) { return it; });
+        delete entity[cfg.indexName];
+      }
+      this.mutateObject(record.about, doUnindex);
+      return record;
+    },
+
+    mutateObject: function(entity, mutator) {
+      if(!_.isEmpty(entity)) {
+        for (var key in this.indexes) {
+          var cfg = this.indexes[key];
+          mutator(entity, key, cfg);
+        }
+      }
+      return entity;
+    },
+
+
+    // TODO: move all usage of functions below to decorate/undecorate above
 
     populatePersonRoleMap: function (roleMap, record, relators) {
       var instance = record.about;
