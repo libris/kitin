@@ -174,7 +174,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   };
 
   $scope.isAuth = function(obj) {
-    return (!_.isEmpty(obj['@id']) && obj['@id'].substr(0,6) === '/auth/');
+    return (obj && !_.isEmpty(obj['@id']) && obj['@id'].substr(0,6) === '/auth/');
   };
 
   function onSaveState() {
