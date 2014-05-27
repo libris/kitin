@@ -78,7 +78,7 @@
         </label>
       </div>
      <div class="col3" ><!-- data-ng-show="getTypeDef(record.about).term == 'Audiobook'" -->
-        <label>
+        <label data-ng-show="record.about.publisherNumber">
           <span class="lbl" translate>LABEL.record.about.publisherNumber</span>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.publisherNumber" >
         </label>
