@@ -13,11 +13,11 @@
         data-search-template="search-subject">
     </ul>
 
-    <div data-ng-repeat="(key, container) in schemeContainer.byScheme" class="scheme tagsinput"
-       data-ng-init="scheme = conceptSchemes.byNotation[key] || {'title': key}">
+    <div data-ng-repeat="(key, container) in record.about.subjectByInSchemeOrType" class="scheme tagsinput"
+       data-ng-init="scheme = conceptSchemes.byNotation[key.replace('/topic/','')] || {'title': key, 'notation': container[0].inScheme.notation}">
       <span class="lbl">{{ scheme.alternative || scheme.title || scheme.title_en }}</span>
       <ul class="tags" data-kitin-link-entity
-          data-subject="container" data-link-multiple="'concepts'" data-type="Concept"
+          data-subject="record.about.subjectByInSchemeOrType" data-link-multiple="key" data-type="Concept"
           data-search-template="search-subject"
           data-view-template="view-subject">
       </ul>

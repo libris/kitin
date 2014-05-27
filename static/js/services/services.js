@@ -67,6 +67,12 @@ kitin.factory('recordUtil', function() {
         getIndexKey: function (entity) {
           return entity["@type"];
         }
+      },
+      subject: {
+        indexName: "subjectByInSchemeOrType",
+        getIndexKey: function (entity) {
+          return (entity.inScheme && entity.inScheme['@id']) ? entity.inScheme['@id'] : entity['@type'];
+        }
       }
     },
 
@@ -351,60 +357,6 @@ kitin.service('editUtil', function(definitions, $http) {
 
     genBNodeId: function () {
       return "_:t-" + (new Date().getTime()) + "-" + this.counter++;
-    },
-
-    SchemeContainer: function (work, defaultSchemes) {
-      var concepts = work && work.subject || [];
-      var byScheme = {};
-      this.byScheme = byScheme;
-
-      concepts.forEach(function (concept) {
-        var key = (concept.inScheme && concept.inScheme.notation)?
-          concept.inScheme.notation : concept['@type'];
-        var container = byScheme[key];
-        if (typeof container === "undefined") {
-          container = new editutil.ConceptContainer(work); 
-          byScheme[key] = container;
-        }
-        container.concepts.push(concept);
-      });
-      defaultSchemes.forEach(function (key) {
-        if (!byScheme[key])
-            byScheme[key] = new editutil.ConceptContainer(work);
-      });
-
-      this.addObject = function (obj) {
-        var schemeKey = obj.inScheme.notation;
-        container = byScheme[schemeKey];
-        if (container === undefined) {
-          container = byScheme[schemeKey] = new editutil.ConceptContainer(work);
-        }
-        container.addObject(obj);
-      };
-    },
-
-    ConceptContainer: function (work) {
-
-      this.concepts = [];
-
-      this.addObject = function (obj) {
-        // TODO: copy data? Unify with addObject and createObject..
-        if (obj.prefLabel) {
-          delete obj.broader;
-        }
-        if (typeof work.subject === 'undefined')
-          work.subject = [];
-        work.subject.push(obj);
-        this.concepts.unshift(obj);
-      };
-
-      this.onRemove = function (rel, removed, index) {
-        _.remove(work.subject, function (it) {
-          return it['@id'] === removed['@id'];
-        });
-        if (work.subject && work.subject.length === 0)
-          delete work.subject;
-      };
     },
 
     // TODO: this will be unified in the backend mapping and thus not needed here

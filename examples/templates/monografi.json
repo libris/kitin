@@ -36,6 +36,24 @@
             {
                 "@type": "Product"
             }
+        ],
+        "subject": [
+            {
+                "@type": "Concept",
+                "inScheme": {
+                    "@type": "ConceptScheme",
+                    "@id": "/topic/sao",
+                    "notation": "sao"
+                }
+            },
+            {
+                "@type": "Concept",
+                "inScheme": {
+                    "@type": "ConceptScheme",
+                    "@id": "/topic/saogf",
+                    "notation": "saogf"
+                }
+            }
         ]
     }
 }
