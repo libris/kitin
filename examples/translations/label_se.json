@@ -72,7 +72,7 @@
             "about.hasFormat.Product": "Produkt",
             "about.hasFormat.Product.extent": "Omfång",
             "about.hasFormat.Product.dimensions": "Mått",
-            "about.hasFormat.Product.otherPhysicalDetails": "Fysiska detaljer",
+            "about.hasFormat.Product.otherPhysicalDetails": "Övriga fysiska detaljer",
             "about.hasFormat.Product.accompanyingMaterial": "Produkt",
 
             "about.hasFormat.SoundRecording": "Ljudinspelning",
@@ -97,7 +97,7 @@
             "about.performerNote": "Medverkande",
             "about.contributorNote": "contributorNote",            
             "about.note": "note",
-            "about.comment": "Kommentar",
+            "about.comment": "Allmän anmärkning",
             "about.systemRequirements": "Systemkrav",
             "about.audience.label": "audience.label",
 
