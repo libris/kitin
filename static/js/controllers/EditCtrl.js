@@ -108,6 +108,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     case editUtil.RECORD_TYPES.DRAFT:
       dataService.draft.get(recType + '/' + recId).then(function(data) {
         $scope.record = data['recdata']['document'];
+        addRecordViewsToScope($scope.record, $scope);
         $scope.isDraft = true;
         if(data['recdata']['document']['@id']) {
           $scope.record.type = data['recdata']['document']['@id'].split("/").slice(-2)[0];
@@ -268,8 +269,8 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
       dataService.draft.save(recType, recId, $scope.record, $scope.etag).then(function(data) {
         $scope.record = data['recdata'];
         if(data['recdata']['@id']) { // Undefined if new record
-          $scope.draft.type = data['recdata']['@id'].split("/").slice(-2)[0];
-          $scope.draft.id = data['recdata']['@id'].split("/").slice(-2)[1];
+          $scope.record.type = data['recdata']['@id'].split("/").slice(-2)[0];
+          $scope.record.id = data['recdata']['@id'].split("/").slice(-2)[1];
         }
         onSaveState();
         //$('.flash_message').text("Utkast sparat!");
