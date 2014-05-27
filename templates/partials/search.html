@@ -48,9 +48,9 @@
           </dl>
         </section>
       </div>
-      <div class="col9" infinite-scroll="onScroll()" infinite-scroll-distance="0" infinite-scroll-immediate-check="true" data-ng-switch-on="hitlist">
+      <div class="col9" infinite-scroll="onScroll()" infinite-scroll-distance="0" infinite-scroll-immediate-check="true">
 		  <!-- detailed hitlist -->
-        <section data-ng-repeat="record in state.search.result.list" data-ng-class="{'result-pre': record.data.encLevel == 8}" class="result record" data-ng-switch-default>
+        <section data-ng-repeat="record in state.search.result.list" data-ng-class="{'result-pre': record.data.encLevel == 8}" class="result record">
           <span class="page-indicator" data-ng-if="($index > 0 && ($index + 1) % 10 == 0) || ($index+1) == hitCount">{{ $index + 1 }} träffar av {{ state.search.hitCount }}</span>
           
           <a class="bib-url" href="/edit{{record.identifier || record.data['@id']}}" ng-click="editPost(recType, record)" data-ng-switch="recType">
@@ -112,9 +112,9 @@
                   <span data-ng-show="record.data.about['@type'] == 'MusicCD'"><i class="fa fa-square fa-fw"></i></span>
                   <span data-ng-show="record.data.about['@type'] == 'EBook'"><i class="fa fa-square fa-fw"></i></span>
                   <span data-ng-show="record.data.about['@type'] == 'Serial'"><i class="fa fa-square fa-fw"></i></span>
-                  <span title="Utgivningsår" data-ng-repeat="publication in record.data.about.publication | limitTo:1"
+                  <span title="provider-date" data-ng-repeat="publication in record.data.about.publication | limitTo:1"
                     data-ng-show="publication.providerDate">{{publication.providerDate}}</span>
-                  <span title="Utgivare" data-ng-repeat="publication in record.data.about.publication | limitTo:1"> {{publication.place.label}} {{publication.providerName}}</span>
+                  <span title="provider" data-ng-repeat="publication in record.data.about.publication | limitTo:1"> {{publication.place.label}} {{publication.providerName}}</span>
                   <span data-ng-show="record.data.about.extent">{{ record.data.about.extent }}</span>
                 </span>
 
@@ -161,20 +161,7 @@
             </a>
         </section>
         
-        <!-- minified hitlist -->
-        <section class="minified-hitlist" data-ng-switch when="minified">
-			<table class="table table-striped">
-				<thead></thead>
-				<tbody>
-					<tr data-ng-repeat="record in state.search.result.list">
-					<td class="number">{{ $index+1 }}.</td>
-					<td class="title"><a class="bib-url" href="/edit{{record.identifier || record.data['@id']}}" ng-click="editPost(recType, record)" data-ng-switch="recType">{{ record.data.about.instanceTitle.titleValue | chop }}</a></td>
-					<td class="creator">{{ record.data.about.responsibilityStatement | chop }}</td>
-					<td class="date"><span title="Utgivningsår" data-ng-repeat="publication in record.data.about.publication | limitTo:1" data-ng-show="publication.providerDate">{{publication.providerDate}}</td>
-					</tr>
-				</tbody>
-			</table>
-        </section>
+
       </div>
       <div class="to-top-link" data-ng-class="{hidden: (state.search.page.start < state.search.page.n)}" data-ng-click="gotoTop()">
         <span>Till toppen</span><i class="fa fa-chevron-up"></i> 
