@@ -2,14 +2,14 @@
 <h2>{{ "Anmärkningar" }}<i></i></h2>
 
     <div class="cols">
-      <div class="col6">
+      <div class="col6" data-ng-show="record.about.literaryForm">
         <label>
           <span class="lbl" translate>LABEL.record.about.literaryForm</span>
             <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
                       data-ng-model="record.about.literaryForm['@id']" ></textarea>
         </label>
       </div>
-      <div class="col6">
+      <div class="col6" data-ng-show="record.about.biography">
         <label>
           <span class="lbl" translate>LABEL.record.about.biography</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.biography['@id']" ></textarea>
@@ -18,14 +18,14 @@
     </div>
 
     <div class="cols">
-      <div class="col6">
+      <div class="col6" data-ng-show="record.about.summary">
         <label>
           <span class="lbl" translate>LABEL.record.about.summary</span>
             <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
                       data-ng-model="record.about.summary" ></textarea>
         </label>
       </div>
-      <div class="col6">
+      <div class="col6" data-ng-show="record.about.listOfContents">
         <label>
           <span class="lbl" translate>LABEL.record.about.listOfContents</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.listOfContents" ></textarea>
