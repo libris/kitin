@@ -136,7 +136,7 @@ kitin.directive('isbnvalidator', function(isbnTools) {
 });
 
 // !TODO merge into linkedEntity?
-kitin.directive('kitinDataTable', function(editUtil) {
+kitin.directive('kitinDataTable', function() {
 
   return {
     restrict: 'A',
