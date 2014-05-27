@@ -62,12 +62,18 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   // TODO: move each part of this into editUtil.decorate, then remove this function
   function addRecordViewsToScope(record, scope) {
     scope.unifiedClassifications = editUtil.getUnifiedClassifications(record);
-    var defaultSchemes = ['sao', 'saogf'];
+    definitions.conceptSchemes.then(function(data) {
+      scope.conceptSchemes = data;
+    });
+    /*var defaultSchemes = ['sao', 'saogf'];
     definitions.conceptSchemes.then(function(data) {
       scope.conceptSchemes = data;
       scope.schemeContainer = new editUtil.SchemeContainer(
           record.about, defaultSchemes);
-    });
+      console.log(scope.schemeContainer);
+    console.log(record);
+    });*/
+
   }
 
   // Needed? Set update recType instead?
