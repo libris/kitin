@@ -205,6 +205,10 @@ kitin.service('editUtil', function(definitions, $http) {
         added = obj? obj : this.createObject(type);
         subj[rel] = added;
       }
+      // TODO: make decorate per object type
+      if (_.contains(['Person', 'Organization'], added['@type'])) {
+        added._reifiedRoles = this.makeVolatileArray();
+      }
       return added;
     },
 
@@ -293,6 +297,11 @@ kitin.service('editUtil', function(definitions, $http) {
       return entity;
     },
 
+    makeVolatileArray: function () {
+        var l = [];
+        l.toJSON = function () { };
+        return l;
+    },
 
     reifyAgentRoles: function (record, relators) {
       var instance = record.about;
@@ -321,9 +330,7 @@ kitin.service('editUtil', function(definitions, $http) {
         if (agent['@id']) {
           personMap[agent['@id']] = agent;
         }
-        var l = [];
-        l.toJSON = function () { };
-        agent._reifiedRoles = l;
+        agent._reifiedRoles = this.makeVolatileArray();
       }.bind(this);
 
       prepareAgent(instance.attributedTo);
