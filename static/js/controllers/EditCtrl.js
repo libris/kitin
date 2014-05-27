@@ -6,6 +6,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   var recId = modalRecord? modalRecord.recId : $routeParams.recId;
   var isNew = (recId === 'new');
   $scope.recType = recType;
+  $scope.recId = recId;
 
   document.body.className = isNew ? 'edit new' : 'edit';
   $anchorScroll();
@@ -62,18 +63,10 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   // TODO: move each part of this into editUtil.decorate, then remove this function
   function addRecordViewsToScope(record, scope) {
     scope.unifiedClassifications = editUtil.getUnifiedClassifications(record);
+
     definitions.conceptSchemes.then(function(data) {
       scope.conceptSchemes = data;
     });
-    /*var defaultSchemes = ['sao', 'saogf'];
-    definitions.conceptSchemes.then(function(data) {
-      scope.conceptSchemes = data;
-      scope.schemeContainer = new editUtil.SchemeContainer(
-          record.about, defaultSchemes);
-      console.log(scope.schemeContainer);
-    console.log(record);
-    });*/
-
   }
 
   // Needed? Set update recType instead?
