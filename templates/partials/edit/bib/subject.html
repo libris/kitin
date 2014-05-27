@@ -3,6 +3,16 @@
 <h2>{{ "Ämnesord och klassifikation" }}<i></i></h2>
 <div class="cols" onload="work = record.about">
   <div class="col6">
+
+    <span class="lbl" translate>LABEL.record.about.genre</span>
+    <ul class="tags" data-kitin-link-entity
+        data-ng-init="scheme = { notation: 'saogf'}"
+        data-subject="record.about"
+        data-link-multiple="'genre'"
+        data-view-template="view-subject"
+        data-search-template="search-subject">
+    </ul>
+
     <div data-ng-repeat="(key, container) in schemeContainer.byScheme" class="scheme tagsinput"
        data-ng-init="scheme = conceptSchemes.byNotation[key] || {'title': key}">
       <span class="lbl">{{ scheme.alternative || scheme.title || scheme.title_en }}</span>

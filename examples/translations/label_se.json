@@ -99,7 +99,9 @@
             "about.note": "note",
             "about.comment": "Kommentar",
             "about.systemRequirements": "Systemkrav",
-            "about.audience.label": "audience.label"
+            "about.audience.label": "audience.label",
+
+            "about.genre": "Genre"
         },
 
         "gui": {
