@@ -5,12 +5,12 @@
     <div id="grid"></div>
     <div>
       <div class="record-data">
-        <strong>Skapad:</strong>
+        <strong translate>LABEL.gui.edit.DATE_CREATED</strong>
         <span data-ng-if="record.about.date">
         <em data-ng-model="record.about.date">{{record.about.date}}</em>
         </span>
         <span data-nf-if="record.originalCatalogingAgency.name">
-          <strong>Ändrad:</strong> 
+          <strong translate>LABEL.gui.edit.MODIFIED</strong> 
           <span data-ng-if="record.modified">
             <em data-ng-model="record.modified">{{record.modified | date:'yyyy-MM-dd HH:mm'}}</em> av 
           </span>
@@ -18,13 +18,13 @@
            {{ record.modifyingAgency.name }}
   			</span>
   			<span>
-  			 <strong>Status:</strong> {{record.status['@id']}}
+  			 <strong translate>LABEL.gui.edit.STATUS</strong> {{record.status['@id']}}
   			</span>
         <span>
-          <strong>Publicerad:</strong> <em>{{record['@id']}}</em>
+          <strong translate>LABEL.gui.edit.ID</strong> <em>{{record['@id']}}</em>
         </span>
         <span>
-          <strong>Encoding:</strong> <em>{{ record.characterCoding['@id']}}</em>
+          <strong translate>LABEL.gui.edit.ENCODING</strong> <em>{{ record.characterCoding['@id']}}</em>
         </span>
         
       </div>
@@ -45,7 +45,7 @@
         
         <div class="modes">
           <a href="#" class="active">LIBRIS</a>
-          <a href="/jsonld{{ record['@id'] }}">JSON-LD</a>
+          <a href="/jsonld{{ record['@id'] || '/' + recType + '/' + recId }}">JSON-LD</a>
           <a href="#" class="beta-blocker">MARC</a>
         </div>
       </header>

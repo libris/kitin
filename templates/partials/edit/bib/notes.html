@@ -5,17 +5,62 @@
       <div class="col6">
         <label>
           <span class="lbl" translate>LABEL.record.about.literaryForm</span>
-            <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
-                      data-ng-model="record.about.literaryForm['@id']" ></textarea>
+          <div data-kitin-link-entity
+              data-subject="record.about"
+              data-link="'literaryForm'"
+              data-view-template="render-tag-view"
+              data-search-template="render-tag-search"
+              data-search-placeholder="Lägg till litterär genre"
+              data-search-service-url="{{API_PATH}}def/_search"
+              data-search-filter="{'about.inCollection.@id': '\\/def\\/enum\\/content\\/literaryForm-collection'}"
+              ng-init=" placeholder='Lägg till litterär genre'; 
+                        search_service_url=API_PATH+'/def/_search'; 
+                        search_filter={'about.inCollection.@id': '\\/def\\/enum\\/content\\/literaryForm-collection'}; ">
+          </div>
         </label>
       </div>
       <div class="col6">
         <label>
           <span class="lbl" translate>LABEL.record.about.biography</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.biography['@id']" ></textarea>
+          <div data-kitin-link-entity
+              data-subject="record.about"
+              data-link="'biography'"
+              data-view-template="render-tag-view"
+              data-search-template="render-tag-search"
+              ng-init=" placeholder='Lägg till'; 
+                        search_service_url=API_PATH+'/def/_search'; 
+                        search_filter={'about.inCollection.@id': '\\/def\\/enum\\/content\\/biography-collection'}; ">
+          </div>
         </label>
       </div>
     </div>
+
+    <!-- GENERAL TAG TEMPLATES -->
+    <script type="text/ng-template" id="render-tag-view">
+      <ul class="tags">
+        <li><a href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.prefLabel }}</a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i></li>
+      </ul>
+    </script>
+
+    <script type="text/ng-template" id="render-tag-search">
+      <label class="find-entity">
+        <i class="fa fa-search"></i>
+        <input data-inplace class="input-large authdependant embedded" type="text"
+              placeholder="{{ search_placeholder }}"
+              data-no-value="{{ object.prefLabel }}"
+              data-kitin-search-entity
+              data-service-url="{{ search_service_url }}"
+              data-filter="{{ search_filter }}"
+              data-completion-template="select-tag-template" />
+      </label>
+    </script>
+    <script type="text/html" id="select-tag-template">
+      <div class="auth">
+        <h4>
+          <span class="name"><%= data.prefLabel %></span>
+        </h4>
+      </div>
+    </script>
 
     <div class="cols">
       <div class="col6">

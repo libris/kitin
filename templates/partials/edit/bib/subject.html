@@ -3,11 +3,21 @@
 <h2>{{ "Ämnesord och klassifikation" }}<i></i></h2>
 <div class="cols" onload="work = record.about">
   <div class="col6">
-    <div data-ng-repeat="(key, container) in schemeContainer.byScheme" class="scheme tagsinput"
-       data-ng-init="scheme = conceptSchemes.byNotation[key] || {'title': key}">
+
+    <span class="lbl" translate>LABEL.record.about.genre</span>
+    <ul class="tags" data-kitin-link-entity
+        data-ng-init="scheme = { notation: 'saogf'}"
+        data-subject="record.about"
+        data-link-multiple="'genre'"
+        data-view-template="view-subject"
+        data-search-template="search-subject">
+    </ul>
+
+    <div data-ng-repeat="(key, container) in record.about.subjectByInSchemeOrType" class="scheme tagsinput"
+       data-ng-init="scheme = conceptSchemes.byNotation[key.replace('/topic/','')] || {'title': key, 'notation': container[0].inScheme.notation}">
       <span class="lbl">{{ scheme.alternative || scheme.title || scheme.title_en }}</span>
       <ul class="tags" data-kitin-link-entity
-          data-subject="container" data-link-multiple="'concepts'" data-type="Concept"
+          data-subject="record.about.subjectByInSchemeOrType" data-link-multiple="key" data-type="Concept"
           data-search-template="search-subject"
           data-view-template="view-subject">
       </ul>
@@ -58,7 +68,8 @@
 <script type="text/ng-template" id="search-subject">
   <i class="fa fa-search"></i> 
   <input data-kitin-search-entity
-        data-service-url="{{API_PATH}}/def/_search"
+        data-filter="{'about.inScheme.notation': scheme.notation}"
+        data-service-url="{{API_PATH}}/auth/_search"
         data-completion-template="subject-completion-template" type="text" placeholder="Lägg till ämnesord">
 </script>
 

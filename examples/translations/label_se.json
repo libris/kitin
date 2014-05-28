@@ -21,12 +21,12 @@
             "about.attributedTo": "Huvuduppslag",
             "about.influencedBy": "Biuppslag",
 
-            "about.publication.place.label": "Utgivningsplats",
+            "about.publication.place.label": "Utgivningsort",
             "about.publication.providerName": "Utgivare/förlag",
-            "about.publication.providerDate": "Utgivningsår",
+            "about.publication.providerDate": "Utgivningstid",
             "about.manufacture.place.label": "Tryckort",
             "about.manufacture.providerName": "Tryckeriets namn",
-            "about.manufacture.providerDate": "Tryckår",
+            "about.manufacture.providerDate": "Tryckningstid",
 
             "about.editionStatement.edition": "Upplaga",
             "about.publisherNumber": "Utgivningsnummer",
@@ -72,7 +72,7 @@
             "about.hasFormat.Product": "Produkt",
             "about.hasFormat.Product.extent": "Omfång",
             "about.hasFormat.Product.dimensions": "Mått",
-            "about.hasFormat.Product.otherPhysicalDetails": "Fysiska detaljer",
+            "about.hasFormat.Product.otherPhysicalDetails": "Övriga fysiska detaljer",
             "about.hasFormat.Product.accompanyingMaterial": "Produkt",
 
             "about.hasFormat.SoundRecording": "Ljudinspelning",
@@ -97,9 +97,11 @@
             "about.performerNote": "Medverkande",
             "about.contributorNote": "contributorNote",            
             "about.note": "note",
-            "about.comment": "Kommentar",
+            "about.comment": "Allmän anmärkning",
             "about.systemRequirements": "Systemkrav",
-            "about.audience.label": "audience.label"
+            "about.audience.label": "audience.label",
+
+            "about.genre": "Genre"
         },
 
         "gui": {
@@ -115,6 +117,11 @@
 
             },
             "edit": {
+            		"DATE_CREATED": "Skapad",
+            		"MODIFIED": "Ändrad",
+            		"STATUS": "Status",
+            		"ID": "Id",
+            		"ENCODING": "Encoding"
 
             }
 

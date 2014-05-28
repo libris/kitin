@@ -35,8 +35,8 @@ kitin.factory('definitions', function($http, $rootScope) {
     remotedatabases:  getDataset($rootScope.API_PATH + "/_remotesearch?databases=list"),
     terms:            getDataset($rootScope.API_PATH + "/def/terms"),
   // !TODO Remove definitions below when the "index expander" is implemented in backend
-    relators:         getDataset($rootScope.API_PATH + "/def/_search?q=*+@type:ObjectProperty&n=10000"),
-    languages:        getDataset($rootScope.API_PATH + "/def/_search?q=*+@type:Language&n=10000"),
+    relators:         getDataset($rootScope.API_PATH + "/def/_search?q=*+about.@type:ObjectProperty&n=10000"),
+    languages:        getDataset($rootScope.API_PATH + "/def/_search?q=*+about.@type:Language&n=10000"),
     countries:        getDataset("/deflist/countries"),
     nationalities:    getDataset("/deflist/nationalities"),
     conceptSchemes:   getDataset($rootScope.API_PATH + "/def/schemes"),
@@ -49,128 +49,11 @@ kitin.factory('definitions', function($http, $rootScope) {
 });
 
 /**
- * recordUtil
- * Service to modify a record. Typically decorate/undecorate
- */
-kitin.factory('recordUtil', function() {
-
-
-  function mergeProperties(propertyKey, firstObject, secondObject) {
-    var propertyValue = firstObject[propertyKey];
-      if (_.isObject(propertyValue) || _.isArray(propertyValue)) {
-        // Second object is missing a node, return first objects node
-        if(typeof secondObject[propertyKey] === 'undefined' || _.isEmpty(secondObject[propertyKey])) {
-          return propertyValue;
-        }
-          return doMergeRecordAndTemplate(firstObject[propertyKey], secondObject[propertyKey]);
-      } else if (typeof secondObject[propertyKey] === 'undefined' || _.isEmpty(secondObject[propertyKey])) {
-        // Second object is missing a leaf, return first objects leaf
-        return firstObject[propertyKey];
-      }
-      // Leaf in second object has a value, return second objects leaf (even if its empty)
-      return secondObject[propertyKey];
-  }
-
-  function doMergeRecordAndTemplate(firstObject, secondObject) {
-      var finalObject = firstObject;
-
-      // Merge first object and its properties.
-      for (var propertyKey in firstObject) {
-          finalObject[propertyKey] = mergeProperties(propertyKey, firstObject, secondObject);
-      }
-
-      // Merge second object and its properties, to add missing properties from second to first object.
-      for (var propertyKey in secondObject) {
-          finalObject[propertyKey] = mergeProperties(propertyKey, secondObject, firstObject);
-      }
-
-      return finalObject;
-  } 
-
-
-  function doRemoveEmptyEntities(obj) {
-    for(var key in obj) {
-      if(_.isObject(obj[key]) || _.isArray(obj[key])) { 
-        // Node
-        doRemoveEmptyEntities(obj[key]);
-      } else { 
-        // Leaf
-        if(_.isEmpty(obj[key])) {
-          // Leaf has no value
-          delete obj[key];
-          if(_.isEmpty(obj)) {
-            // Parent has no value
-            delete obj;
-          }
-        }
-      }
-    }
-  }
-
-  return {
-
-    indexes: {
-      identifier: {
-        indexName: "identifierByIdentifierScheme",
-        getIndexKey: function (entity) {
-          return entity.identifierScheme ? entity.identifierScheme["@id"] : 'identifier';
-        }
-      },
-      hasFormat: {
-        indexName: "hasFormatByType",
-        getIndexKey: function (entity) {
-          return entity["@type"];
-        }
-      }
-    },
-
-    decorate: function(record) {
-      function doIndex (entity, key, cfg) {
-        var items = entity[key];
-        if(_.isEmpty(items)) {
-          return;
-        }
-        entity[cfg.indexName] = _.groupBy(items, cfg.getIndexKey);
-        delete entity[key];
-      }
-      this.mutateObject(record.about, doIndex);
-      return record;
-    },
-
-    undecorate: function(record) {
-      function doUnindex (entity, key, cfg) {
-        entity[key] = _.flatten(entity[cfg.indexName], function(it) { return it; });
-        delete entity[cfg.indexName];
-      }
-      this.mutateObject(record.about, doUnindex);
-      return record;
-    },
-
-    mutateObject: function(entity, mutator) {
-      if(!_.isEmpty(entity)) {
-        for (var key in this.indexes) {
-          var cfg = this.indexes[key];
-          mutator(entity, key, cfg);
-        }
-      }
-      return entity;
-    },
-
-    mergeRecordAndTemplate: doMergeRecordAndTemplate,
-
-    removeEmptyEntities: doRemoveEmptyEntities
-
-    
-  };
-});
-
-
-/**
  * dataService
  * Service to handle communcation with backend.
  * Currently used for records and drafts
  */
-kitin.factory('dataService', function ($http, $q, recordUtil, $rootScope) {
+kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
   return {
 
     record: {
@@ -182,10 +65,10 @@ kitin.factory('dataService', function ($http, $q, recordUtil, $rootScope) {
         }
         var me = this;
         $http.get(path).success(function (struct, status, headers) {
-          record['recdata'] = recordUtil.decorate(struct);
+          record['recdata'] = editUtil.decorate(struct);
           record['etag'] = headers('etag');
-          $http.get('/record/bib').success(function (struct, status, headers) {
-            recordUtil.mergeRecordAndTemplate(record['recdata'], struct);
+          $http.get('/record/template/monografi').success(function (struct, status, headers) {
+            editUtil.mergeRecordAndTemplate(record['recdata'], struct);
             record.resolve(record);
           });
         });
@@ -194,12 +77,11 @@ kitin.factory('dataService', function ($http, $q, recordUtil, $rootScope) {
 
       save: function(type, id, data, etag) {
         var record = $q.defer();
-        $http.put($rootScope.API_PATH + '/' + type + "/" + id, data,
+        $http.put($rootScope.API_PATH + '/' + type + "/" + id, editUtil.undecorate(data),
                   {headers: {"If-match":etag}}).success(function(data, status, headers) {
-          record['recdata'] = recordUtil.undecorate(data);
+          record['recdata'] = editUtil.decorate(data);
           record['etag'] = headers('etag');
           record.resolve(record);
-          console.log("Saved record.");
         }).error(function() {
           console.log("FAILED to save record");
         });
@@ -208,8 +90,10 @@ kitin.factory('dataService', function ($http, $q, recordUtil, $rootScope) {
 
       create: function(type, data) {
         var record = $q.defer();
-        $http.post($rootScope.API_PATH, data).success(function(data, status, headers) {
-          record.resolve(recordUtil.decorate(data));
+        $http.post($rootScope.API_PATH, editUtil.undecorate(data)).success(function(data, status, headers) {
+          record['recdata'] = editUtil.decorate(data);
+          record['etag'] = headers('etag');
+          record.resolve(record);
         });
         return record.promise;
       }
@@ -219,19 +103,20 @@ kitin.factory('dataService', function ($http, $q, recordUtil, $rootScope) {
       get: function (draftId) {
         var record = $q.defer();
         $http.get("/draft/" + draftId).success(function (data, status, headers) {
-          record['recdata'] = recordUtil.decorate(data);
+          data.document = editUtil.decorate(data.document);
+          record['recdata'] = data;
           record['etag'] = headers('etag');
           record.resolve(record);
         });
         return record.promise;
       },
 
-      save: function(type, draftId, post, etag) {
+      save: function(type, draftId, data, etag) {
         var record = $q.defer();
         etag = etag ? etag : '';
-        $http.put("/draft/" + type + '/' + draftId, recordUtil.undecorate(post), {headers: {"If-match":etag } })
+        $http.put("/draft/" + type + '/' + draftId, editUtil.undecorate(data), {headers: {"If-match":etag } })
           .success(function(data, status, headers) {
-            record['recdata'] = recordUtil.decorate(data);
+            record['recdata'] = editUtil.decorate(data);
             record['etag'] = headers('etag');
             record.resolve(record);
             console.log("Saved record.");
@@ -242,12 +127,13 @@ kitin.factory('dataService', function ($http, $q, recordUtil, $rootScope) {
         return record.promise;
       },
 
-      create: function(type, post, etag) {
+      create: function(type, data, etag) {
         var record = $q.defer();
         etag = etag ? etag : '';
-        $http.post("/draft/" + type, recordUtil.undecorate(post), {headers: {"If-match":etag } })
+        $http.post("/draft/" + type, editUtil.undecorate(data), {headers: {"If-match":etag } })
           .success(function(data, status, headers) {
-            record.resolve(recordUtil.decorate(data));
+            data.document = editUtil.decorate(data.document); 
+            record.resolve(data);
           });
         return record.promise;
       },
@@ -280,9 +166,62 @@ kitin.factory('dataService', function ($http, $q, recordUtil, $rootScope) {
 
 /**
  * editUtil
- *
+ * Service to modify a record. Typically decorate/undecorate
  */
 kitin.service('editUtil', function(definitions, $http) {
+
+  function mergeProperties(propertyKey, firstObject, secondObject) {
+    var propertyValue = firstObject[propertyKey];
+      if (_.isObject(propertyValue) || _.isArray(propertyValue)) {
+        // Second object is missing a node, return first objects node
+        if(typeof secondObject[propertyKey] === 'undefined' || _.isEmpty(secondObject[propertyKey])) {
+          return propertyValue;
+        }
+          return doMergeRecordAndTemplate(firstObject[propertyKey], secondObject[propertyKey]);
+      } else if (typeof secondObject[propertyKey] === 'undefined' || _.isEmpty(secondObject[propertyKey])) {
+        // Second object is missing a leaf, return first objects leaf
+        return firstObject[propertyKey];
+      }
+      // Leaf in second object has a value, return second objects leaf (even if its empty)
+      return secondObject[propertyKey];
+  }
+
+  function doMergeRecordAndTemplate(firstObject, secondObject) {
+      var finalObject = firstObject;
+
+      // Merge first object and its properties.
+      for (var propertyKey in firstObject) {
+          finalObject[propertyKey] = mergeProperties(propertyKey, firstObject, secondObject);
+      }
+
+      // Merge second object and its properties, to add missing properties from second to first object.
+      for (propertyKey in secondObject) {
+          finalObject[propertyKey] = mergeProperties(propertyKey, secondObject, firstObject);
+      }
+
+      return finalObject;
+  } 
+
+
+  function doRemoveEmptyEntities(obj) {
+    for(var key in obj) {
+      if(_.isObject(obj[key]) || _.isArray(obj[key])) { 
+        // Node
+        doRemoveEmptyEntities(obj[key]);
+      } else { 
+        // Leaf
+        if(_.isEmpty(obj[key])) {
+          // Leaf has no value
+          delete obj[key];
+          if(_.isEmpty(obj)) {
+            // Parent has no value
+            //delete obj;
+          }
+        }
+      }
+    }
+  }
+
   var editutil = {
 
     RECORD_TYPES: {
@@ -323,6 +262,10 @@ kitin.service('editUtil', function(definitions, $http) {
         added = obj? obj : this.createObject(type);
         subj[rel] = added;
       }
+      // TODO: make decorate per object type
+      if (_.contains(['Person', 'Organization'], added['@type'])) {
+        added._reifiedRoles = this.makeVolatileArray();
+      }
       return added;
     },
 
@@ -347,124 +290,177 @@ kitin.service('editUtil', function(definitions, $http) {
       }
     },
 
-    populatePersonRoleMap: function (roleMap, record, relators) {
-      var instance = record.about;
-
-      var self = this;
-
-      function addPersonRoles(person) {
-        var pid = person['@id'];
-        if (!pid) {
-          pid = person['@id'] = self.genBNodeId();
+    indexes: {
+      identifier: {
+        indexName: "identifierByIdentifierScheme",
+        getIndexKey: function (entity) {
+          return entity.identifierScheme ? entity.identifierScheme["@id"] : 'identifier';
         }
-        roleMap[person['@id']] = [];
+      },
+      hasFormat: {
+        indexName: "hasFormatByType",
+        getIndexKey: function (entity) {
+          return entity["@type"];
+        }
+      },
+      subject: {
+        indexName: "subjectByInSchemeOrType",
+        getIndexKey: function (entity) {
+          return (entity.inScheme && entity.inScheme['@id']) ? entity.inScheme['@id'] : entity['@type'];
+        }
       }
-      if (instance && instance.attributedTo) {
-        addPersonRoles(instance.attributedTo);
-      }
-      if (instance && instance.influencedBy) {
-        instance.influencedBy.forEach(function (person) {
-          addPersonRoles(person);
-        });
-      }
+    },
 
+    decorate: function(record) {
+      function doIndex (entity, key, cfg) {
+        var items = entity[key];
+        if(_.isEmpty(items)) {
+          return;
+        }
+        entity[cfg.indexName] = _.groupBy(items, cfg.getIndexKey);
+        delete entity[key];
+      }
+      this.mutateObject(record.about, doIndex);
+
+      definitions.relators.then(function (relators) {
+        var roleMap = {};
+        this.reifyAgentRoles(record, relators);
+      }.bind(this));
+
+      this.patchBibRecord(record);
+
+      return record;
+    },
+
+    undecorate: function(record) {
+      function doUnindex (entity, key, cfg) {
+        entity[key] = _.flatten(entity[cfg.indexName], function(it) { return it; });
+        delete entity[cfg.indexName];
+      }
+      this.mutateObject(record.about, doUnindex);
+
+      this.unreifyAgentRoles(record);
+
+      return record;
+    },
+
+    mutateObject: function(entity, mutator) {
+      if(!_.isEmpty(entity)) {
+        for (var key in this.indexes) {
+          var cfg = this.indexes[key];
+          mutator(entity, key, cfg);
+        }
+      }
+      return entity;
+    },
+
+    mergeRecordAndTemplate: doMergeRecordAndTemplate,
+
+    removeEmptyEntities: doRemoveEmptyEntities,
+
+    makeVolatileArray: function () {
+        var l = [];
+        l.toJSON = function () { };
+        return l;
+    },
+
+    reifyAgentRoles: function (record, relators) {
+      var instance = record.about;
+      if (!instance)
+        return;
+
+      // add index to relator terms object
       // TODO: coordinate terms, JSON-LD context and relators dataset instead
+      // FIXME: use '@id' directly
       if (relators.byTerm === undefined) {
         var index = relators.byTerm = {};
         _.each(relators.list, function (obj) {
           var id = obj['data']['about']['@id'];
+          index[id] = obj;
           var key = id.substring(id.lastIndexOf('/') + 1);
           index[key] = obj;
         });
       }
 
-      [instance].forEach(function (resource) {
-        if (typeof resource === 'undefined')
+      // add _reifiedRoles key to each person
+      var personMap = {};
+      var prepareAgent = function (agent) {
+        if (!agent)
           return;
-        var objId = resource['@id'];
-        _.forEach(resource, function (vals, key) {
-          if (!vals)
+
+        if (agent['@id']) {
+          personMap[agent['@id']] = agent;
+        }
+        agent._reifiedRoles = this.makeVolatileArray();
+      }.bind(this);
+
+      prepareAgent(instance.attributedTo);
+      if (instance.influencedBy) {
+        instance.influencedBy.forEach(prepareAgent);
+      }
+
+      _.forEach(instance, function (values, key) {
+        if (!values)
+          return;
+
+        if (!_.isArray(values))
+          values = [values];
+        _.forEach(values, function (agent) {
+          if (agent['@id']) {
+            agent = personMap[agent['@id']];
+          }
+          if (!agent)
             return;
-          if (!_.isArray(vals)) vals = [vals];
-          _.forEach(vals, function (agent) {
-            var pid = agent['@id'];
-            if (!pid) { return; }
 
-            var roles = roleMap[pid];
-            if (!roles) { return; }
+          var roles = agent._reifiedRoles;
+          if (!roles)
+            return;
 
-            var role = relators.byTerm[key];
-            if (!role) {  return; }
+          var role = relators.byTerm[key];
+          if (!role) {  return; }
 
-            if (!_.contains(roles, role)) {
-              roles.push(role['data']['about']);
-            }
-            //pr.roles[role] = objId;
-          });
+          if (!_.contains(roles, role)) {
+            roles.push(role['data']['about']);
+            delete instance[key];
+          }
         });
       });
-
-      return roleMap;
     },
 
-    counter: 0,
+    unreifyAgentRoles: function (record) {
+      var instance = record.about;
+      if (!instance)
+        return;
 
-    genBNodeId: function () {
-      return "_:t-" + (new Date().getTime()) + "-" + this.counter++;
-    },
-
-    SchemeContainer: function (work, defaultSchemes) {
-      var concepts = work && work.subject || [];
-      var byScheme = {};
-      this.byScheme = byScheme;
-
-      concepts.forEach(function (concept) {
-        var key = (concept.inScheme && concept.inScheme.notation)?
-          concept.inScheme.notation : concept['@type'];
-        var container = byScheme[key];
-        if (typeof container === "undefined") {
-          container = new editutil.ConceptContainer(work); 
-          byScheme[key] = container;
-        }
-        container.concepts.push(concept);
-      });
-      defaultSchemes.forEach(function (key) {
-        if (!byScheme[key])
-            byScheme[key] = new editutil.ConceptContainer(work);
-      });
-
-      this.addObject = function (obj) {
-        var schemeKey = obj.inScheme.notation;
-        container = byScheme[schemeKey];
-        if (container === undefined) {
-          container = byScheme[schemeKey] = new editutil.ConceptContainer(work);
-        }
-        container.addObject(obj);
-      };
-    },
-
-    ConceptContainer: function (work) {
-
-      this.concepts = [];
-
-      this.addObject = function (obj) {
-        // TODO: copy data? Unify with addObject and createObject..
-        if (obj.prefLabel) {
-          delete obj.broader;
-        }
-        if (typeof work.subject === 'undefined')
-          work.subject = [];
-        work.subject.push(obj);
-        this.concepts.unshift(obj);
-      };
-
-      this.onRemove = function (rel, removed, index) {
-        _.remove(work.subject, function (it) {
-          return it['@id'] === removed['@id'];
+      var unreifyRoles = function (agent) {
+        if (!agent)
+          return;
+        var roles = agent._reifiedRoles;
+        if (!roles)
+          return;
+        roles.forEach(function (role) {
+          var id = role['@id'];
+          // FIXME: use @id
+          var key = id.substring(id.lastIndexOf('/') + 1);
+          var linked = instance[key];
+          if (typeof linked === 'undefined') {
+            linked = instance[key] = [];
+          } else if (!_.isArray(linked)) {
+            linked = instance[key] = [linked];
+          }
+          // TODO: use agentRef after first occurrence..
+          if (!_.find(linked, function (o) { return o['@id'] === agent['@id']; }) ) {
+            linked.push(agent);
+          }
         });
-        if (work.subject && work.subject.length === 0)
-          delete work.subject;
-      };
+
+        //delete agent._reifiedRoles;
+      }.bind(this);
+
+      unreifyRoles(instance.attributedTo);
+      if (instance.influencedBy) {
+        instance.influencedBy.forEach(unreifyRoles);
+      }
     },
 
     // TODO: this will be unified in the backend mapping and thus not needed here

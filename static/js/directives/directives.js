@@ -136,7 +136,7 @@ kitin.directive('isbnvalidator', function(isbnTools) {
 });
 
 // !TODO merge into linkedEntity?
-kitin.directive('kitinDataTable', function(editUtil) {
+kitin.directive('kitinDataTable', function() {
 
   return {
     restrict: 'A',
@@ -194,8 +194,11 @@ kitin.directive('kitinDataTable', function(editUtil) {
     controller: function($element, $scope, $attrs) {
       // Add first row
       if($scope.record && typeof $attrs.addFirst !== 'undefined' && !$scope.$first) {
-        var type = ($attrs.defaultType ? $attrs.defaultType : $attrs.ngSwitchWhen);
-        $scope.addObject($scope.record.about, $attrs.linkMultiple, type, null, type);
+        var dataEntity = $scope.record.about[$attrs.linkMultiple];
+        if(dataEntity && dataEntity.length === 0) {
+          var type = ($attrs.defaultType ? $attrs.defaultType : $attrs.ngSwitchWhen);
+          $scope.addObject($scope.record.about, $attrs.linkMultiple, type, null, type);
+        }
       }
 
     }
@@ -291,11 +294,12 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
       if (multiple) {
         template = '<'+ itemTag+' ng-if="objects" ng-repeat="object in objects track by $index"> ' +
             viewDiv + '</'+ itemTag +'>' +
-          '<'+ itemTag +' ng-include="searchTemplate"></'+ itemTag +'>';
+          '<'+ itemTag +' class="search" ng-include="searchTemplate"></'+ itemTag +'>';
       } else {
         template = viewDiv +
-          '<div ng-if="!viewmode" ng-include="searchTemplate"></div>';
+          '<div ng-if="!viewmode" class="search" ng-include="searchTemplate"></div>';
       }
+
       element.html(template);
     },
 
@@ -317,9 +321,8 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
 
       var subj = $scope.$eval($attrs.subject);
       var obj = subj ? subj[link] : null;
-      if(!_.isEmpty(obj)) {
-        $scope.viewmode = !_.isEmpty(obj);
-
+      $scope.viewmode = !_.isEmpty(obj);
+      if(!_.isEmpty(obj)) {        
         if (multiple) {
           $scope.objects = obj;
         } else {
