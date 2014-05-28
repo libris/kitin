@@ -13,7 +13,7 @@
               data-search-placeholder="Lägg till litterär genre"
               data-search-service-url="{{API_PATH}}def/_search"
               data-search-filter="{'about.inCollection.@id': '\\/def\\/enum\\/content\\/literaryForm-collection'}"
-              ng-init="placeholder='Lägg till litterär genre'; search_service_url='/def/_search'; search_filter={'about.inCollection.@id': '\\/def\\/enum\\/content\\/literaryForm-collection'}; ">
+              ng-init="placeholder='Lägg till litterär genre'; search_service_url=API_PATH+'/def/_search'; search_filter={'about.inCollection.@id': '\\/def\\/enum\\/content\\/literaryForm-collection'}; ">
           </div>
         </label>
       </div>
@@ -25,7 +25,7 @@
               data-link="'biography'"
               data-view-template="render-tag-view"
               data-search-template="render-tag-search"
-              ng-init="placeholder='Lägg till'; search_service_url='/def/_search'; search_filter={'about.inCollection.@id': '\\/def\\/enum\\/content\\/biography-collection'}; ">
+              ng-init="placeholder='Lägg till'; search_service_url=API_PATH+'/def/_search'; search_filter={'about.inCollection.@id': '\\/def\\/enum\\/content\\/biography-collection'}; ">
           </div>
         </label>
       </div>
