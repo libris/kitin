@@ -35,8 +35,8 @@ kitin.factory('definitions', function($http, $rootScope) {
     remotedatabases:  getDataset($rootScope.API_PATH + "/_remotesearch?databases=list"),
     terms:            getDataset($rootScope.API_PATH + "/def/terms"),
   // !TODO Remove definitions below when the "index expander" is implemented in backend
-    relators:         getDataset($rootScope.API_PATH + "/def/_search?q=*+@type:ObjectProperty&n=10000"),
-    languages:        getDataset($rootScope.API_PATH + "/def/_search?q=*+@type:Language&n=10000"),
+    relators:         getDataset($rootScope.API_PATH + "/def/_search?q=*+about.@type:ObjectProperty&n=10000"),
+    languages:        getDataset($rootScope.API_PATH + "/def/_search?q=*+about.@type:Language&n=10000"),
     countries:        getDataset("/deflist/countries"),
     nationalities:    getDataset("/deflist/nationalities"),
     conceptSchemes:   getDataset($rootScope.API_PATH + "/def/schemes"),
