@@ -292,9 +292,10 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
       var multiple = !!(attrs.linkMultiple);
       var itemTag = element.is('ul, ol')? 'li' : 'div';
       var viewDiv = '<div ng-if="viewmode" ng-include="viewTemplate"></div>';
+      var nonAuth = 'ng-class="{\'non-auth\' : !isLinked(object) && !isInScheme(object)}"';
       var template;
       if (multiple) {
-        template = '<'+ itemTag+' ng-if="objects" ng-repeat="object in objects track by $index"> ' +
+        template = '<'+ itemTag+' ng-if="objects" ng-repeat="object in objects track by $index" ' + nonAuth + '> ' +
             viewDiv + '</'+ itemTag +'>' +
           '<'+ itemTag +' class="search" ng-include="searchTemplate"></'+ itemTag +'>';
       } else {
@@ -423,6 +424,7 @@ kitin.directive('kitinSearchEntity', ['definitions', function(definitions) {
       var onSelect = attrs.onselect;
       var templateId = attrs.completionTemplate;
       var template = _.template(jQuery('#' + templateId).html());
+      var searchedValue = null;
 
       options = {
         inputClass: null,
@@ -460,6 +462,7 @@ kitin.directive('kitinSearchEntity', ['definitions', function(definitions) {
         options.useCache = false;
 
         options.beforeUseConverter = function (value) {
+          searchedValue = value;
           // TODO: set extraParams: filterParams instead once backend supports that
           var params = scope.$apply(filterParams);
           var result = _.reduce(params, function (res, v, k) {
@@ -470,13 +473,17 @@ kitin.directive('kitinSearchEntity', ['definitions', function(definitions) {
         };
 
         options.processData = function (doc) {
-          if (!doc|| !doc.list) {
-            console.log("Found no results!"); // TODO: notify no match to user
-            return [];
+          var result = [];
+          if (doc && doc.list) {
+            result = doc.list.map(function(item) {
+              return {value: item.data.about.prefLabel, data: item.data.about};
+            });
           }
-          return doc.list.map(function(item) {
-            return {value: item.data.about.prefLabel, data: item.data.about};
-          });
+          if(attrs.allowNonAuth === 'true') {
+            // !TODO Add propper lookup against entity definitions
+            result.unshift({value: searchedValue, data: { prefLabel: searchedValue, '@type': scope.$parent.link }});
+          }
+          return result;
         };
 
         elem.autocomplete(attrs.serviceUrl, options);

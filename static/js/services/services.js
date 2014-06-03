@@ -344,7 +344,9 @@ kitin.service('editUtil', function(definitions, $http) {
       hasFormat: {
         indexName: "hasFormatByType",
         getIndexKey: function (entity) {
-          return entity["@type"];
+          if(entity) {
+            return entity["@type"];
+          }
         }
       },
       subject: {

@@ -3,16 +3,8 @@
 <h2>{{ "Ämnesord och klassifikation" }}<i></i></h2>
 <div class="cols" onload="work = record.about">
   <div class="col6">
-
-    <span class="lbl" translate>LABEL.record.about.genre</span>
-    <ul class="tags" data-kitin-link-entity
-        data-ng-init="scheme = { notation: 'saogf'}"
-        data-subject="record.about"
-        data-link-multiple="'genre'"
-        data-view-template="view-subject"
-        data-search-template="search-subject">
-    </ul>
-
+    <h3>{{ "Svenska ämnesord" }}</h3>
+    
     <div data-ng-repeat="(key, container) in record.about.subjectByInSchemeOrType" class="scheme tagsinput"
        data-ng-init="scheme = conceptSchemes.byNotation[key.replace('/topic/','')] || {'title': key, 'notation': container[0].inScheme.notation}">
       <span class="lbl">{{ scheme.alternative || scheme.title || scheme.title_en }}</span>
@@ -43,13 +35,8 @@
     </div>
   </div>
   <div class="col6">
-    <!--
-    <h3>Klassifikation</h3>
 
-    <ul class="inline">
-    <li data-ng-repeat="topicalTerm in record.topicalTerm"><a class="btn btn-small" href="{{ topicalTerm }}"><i class="icon-tag"></i> {{ topicalTerm }}</a></li>
-    </ul>
-        -->     
+    <h3>Klassifikationer</h3>
     <label class="dynamic-subjects">
         <span class="lbl">Dewey</span>
         <textarea data-inplace placeholder="Dewey Klassifikation" data-ng-model="record.about.classificationDdc"></textarea>
@@ -63,8 +50,18 @@
     <label class="dynamic-subjects">
         <span class="lbl">NLM-klassifikation (National Library of Medicine)</span>
         <textarea data-inplace placeholder="Klassifikation" data-ng-model="record.about.classificationNlm"></textarea>
-
     </label>
+
+
+    <h3 translate>LABEL.record.about.genre</h3>
+      <span class="lbl" translate>LABEL.record.about.genresao</span>
+      <ul class="tags" data-kitin-link-entity
+          data-ng-init="scheme = { notation: 'saogf'}"
+          data-subject="record.about"
+          data-link-multiple="'genre'"
+          data-view-template="view-subject"
+          data-search-template="search-subject">
+      </ul>
   </div>
 </div>
   
@@ -75,14 +72,15 @@
   <input data-kitin-search-entity
         data-filter="{'about.inScheme.notation': scheme.notation}"
         data-service-url="{{API_PATH}}/auth/_search"
-        data-completion-template="subject-completion-template" type="text" placeholder="Lägg till ämnesord">
+        data-completion-template="subject-completion-template" type="text" placeholder="Lägg till ämnesord"
+        data-allow-non-auth="{{scheme.title === 'Place'}}">
 </script>
 
 <!-- subject list -->
 <script type="text/ng-template" id="view-subject" >
   <a ng-init="subjectLabel = (object.prefLabel || object.uniformTitle || object.controlledLabel  || object.notation)" ng-show="subjectLabel" href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ subjectLabel }}</a> 
 
-  <a data-ng-repeat="broader in object.broader" href="#"> 
+  <a data-ng-repeat="broader in object.broader" href="#">
     {{broader.prefLabel}}
     <span data-ng-show="broader.notation">({{ broader.notation }}) </span>
     <span class="subject-delimiter" data-ng-hide="$last">--</span>

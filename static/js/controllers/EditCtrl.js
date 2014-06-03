@@ -60,6 +60,14 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     return id && id.substring(0, 2) !== '_:';
   };
 
+  $scope.isAuth = function(obj) {
+    return (obj && !_.isEmpty(obj['@id']) && obj['@id'].substr(0,6) === '/auth/');
+  };
+
+  $scope.isInScheme = function(obj) {
+    return (obj && !_.isEmpty(obj['inScheme']));
+  };
+
   // TODO: move each part of this into editUtil.decorate, then remove this function
   function addRecordViewsToScope(record, scope) {
     scope.unifiedClassifications = editUtil.getUnifiedClassifications(record);
@@ -171,10 +179,6 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   $scope.modifications = {
     saved:     recType === editUtil.RECORD_TYPES.REMOTE ? false : true, 
     published: recType === editUtil.RECORD_TYPES.REMOTE ? false : true
-  };
-
-  $scope.isAuth = function(obj) {
-    return (obj && !_.isEmpty(obj['@id']) && obj['@id'].substr(0,6) === '/auth/');
   };
 
   function onSaveState() {
