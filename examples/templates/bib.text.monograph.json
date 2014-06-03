@@ -32,7 +32,11 @@
         },
         "subjectByInSchemeOrType": {
             "/topic/sao": [],
-            "/topic/saogf": []
+            "/topic/saogf": [],
+            "/topic/chronological": [],
+            "Person": [],
+            "Barn": [],
+            "Place": []
         }
     }
 }
