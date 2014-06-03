@@ -43,7 +43,8 @@ kitin.factory('definitions', function($http, $rootScope) {
     enums: {
       encLevel:       getDataset("/deflist/enum/encLevel"),
       catForm:        getDataset("/deflist/enum/catForm")
-    }
+    },
+    recordTemplate: function(recordType) { return getDataset("/record/template/" + recordType); }
   };
   return definitions;
 });
@@ -59,7 +60,7 @@ kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
     record: {
       get: function (type, id) {
         var record = $q.defer();
-        var path = '/record/' + type; // new record
+        var path = '/record/template/' + type; // new record
         if(id) {
           path = $rootScope.API_PATH + '/' + type + '/' + id;
         }
@@ -165,6 +166,96 @@ kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
  * Service to modify a record. Typically decorate/undecorate
  */
 kitin.service('editUtil', function(definitions, $http) {
+
+
+  /** mergeProperties
+  *   Helper function for doMergeObjects
+  *
+  *   @param  propertyKey   {String}    Key to property in firstObject to merge
+  *   @param  firstObject   {Object}    Javascript object
+  *   @param  secondObject  {Object}    Javascript object
+  *   @return               {Object}    Merged object
+  *   
+  */
+  function mergeProperties(propertyKey, firstObject, secondObject) {
+    var propertyValue = firstObject[propertyKey];
+      if (_.isObject(propertyValue) || _.isArray(propertyValue)) {
+        // Second object is missing a node, return first objects node
+        if(typeof secondObject[propertyKey] === 'undefined' || _.isEmpty(secondObject[propertyKey])) {
+          return propertyValue;
+        }
+          return doMergeObjects(firstObject[propertyKey], secondObject[propertyKey]);
+      } else if (typeof secondObject[propertyKey] === 'undefined' || _.isEmpty(secondObject[propertyKey])) {
+        // Second object is missing a leaf, return first objects leaf
+        return firstObject[propertyKey];
+      }
+      // Leaf in second object has a value, return second objects leaf (even if its empty)
+      return secondObject[propertyKey];
+  }
+
+  /** doMergeObjects
+  *   Merges secondObject into firstObject
+  *
+  *   @param  firstObject   {Object}    Javascript object
+  *   @param  secondObject  {Object}    Javascript object
+  *   @return               {Object}    Merged object
+  *   
+  */
+  function doMergeObjects(firstObject, secondObject) {
+      var finalObject = firstObject;
+
+      // Merge first object and its properties.
+      for (var propertyKey in firstObject) {
+          finalObject[propertyKey] = mergeProperties(propertyKey, firstObject, secondObject);
+      }
+
+      // Merge second object and its properties, to add missing properties from second to first object.
+      for (propertyKey in secondObject) {
+          finalObject[propertyKey] = mergeProperties(propertyKey, secondObject, firstObject);
+      }
+
+      return finalObject;
+  } 
+
+  /** doCleanObject
+  *   Removes empty entities from an javascript object
+  *
+  *   @param    obj       {Object}    Javascript object to clean
+  *   @param    cleanObj  {Object}    (Optional) New object used by the iterator
+  *   @return             {Object}    Cleaned-up object
+  */
+  function doCleanObject(obj, cleanObj) {
+    // Initial creation of clean object
+    if(!cleanObj) { cleanObj = {}; }
+
+    // Iterate all trough the object
+    for(var key in obj) {
+      // Node
+      if(_.isObject(obj[key])) {
+        // Pass empty array or object
+        var childObj = doCleanObject(obj[key], _.isArray(obj[key]) ? [] : {});
+        // Empty child, skip add
+        if(!_.isEmpty(childObj)) {
+          cleanObj[key] = childObj;
+        }
+      // Leaf
+      } else { 
+        if(!_.isEmpty(obj[key])) {
+          // If Array push value else set the value
+          if(_.isArray(cleanObj)) {
+            cleanObj.push(obj[key]);
+          } else {
+            cleanObj[key] = obj[key];
+          }
+        } else {
+          // If empty jump to next leaf
+          continue;
+        }
+      }
+    }
+    return cleanObj;
+  }
+
   var editutil = {
 
     RECORD_TYPES: {
@@ -178,12 +269,22 @@ kitin.service('editUtil', function(definitions, $http) {
     addableElements: [],
     record: null,
     
+    /*
+    *  Used in remote search, to store record on switch from search to edit mode
+    */
     setRecord: function(record) {
       this.record = record;
     },
 
+    /*
+    *  Used in remote search, to store record on switch from search to edit mode
+    */
     getRecord: function() {
       return this.record;
+    },
+
+    getMaterialType: function(record) {
+      return 'bib.' + record.about['@type'].join('.').toLowerCase();
     },
 
     addObject: function(subj, rel, type, multiple, obj) {
@@ -263,8 +364,9 @@ kitin.service('editUtil', function(definitions, $http) {
         entity[cfg.indexName] = _.groupBy(items, cfg.getIndexKey);
         delete entity[key];
       }
+      // Rearrange Array elements into display groups
       this.mutateObject(record.about, doIndex);
-
+      // Rearrange Person roles
       definitions.relators.then(function (relators) {
         var roleMap = {};
         this.reifyAgentRoles(record, relators);
@@ -272,6 +374,14 @@ kitin.service('editUtil', function(definitions, $http) {
 
       this.patchBibRecord(record);
 
+      // Decorate record with template json
+      definitions.recordTemplate(this.getMaterialType(record)).then(function(recordTemplate) {
+        if(recordTemplate) {
+          this.mergeRecordAndTemplate(record, recordTemplate);
+        }
+      }.bind(this));
+
+      
       return record;
     },
 
@@ -280,10 +390,12 @@ kitin.service('editUtil', function(definitions, $http) {
         entity[key] = _.flatten(entity[cfg.indexName], function(it) { return it; });
         delete entity[cfg.indexName];
       }
+      // Rearrange grouped Arrays
       this.mutateObject(record.about, doUnindex);
-
+      // Rearrange Person roles
       this.unreifyAgentRoles(record);
-
+      // Remove empty entities 
+      record = this.cleanRecord(record);
       return record;
     },
 
@@ -296,6 +408,10 @@ kitin.service('editUtil', function(definitions, $http) {
       }
       return entity;
     },
+
+    mergeRecordAndTemplate: doMergeObjects,
+
+    cleanRecord: doCleanObject,
 
     makeVolatileArray: function () {
         var l = [];

@@ -1,0 +1,40 @@
+{
+    "@type": "Record",
+    "about": {
+        "@type": [
+            "ProjectedImage",
+            "Monograph"
+        ],
+        "date": "",
+        "publicationStatus": {},
+        "publicationYear": "",
+        "publicationCountry": [],
+        "language": {},
+        "runningTime": "",
+        "contentType": [],
+        "classification": [],
+        "instanceTitle": {
+            "@type": "Title",
+            "titleValue": ""
+        },
+        "mediaTerm": "",
+        "responsibilityStatement": "",
+        "publication": [],
+        "comment": [],
+        "performerNote": "",
+        "languageNote": "",
+        "genre": [],
+        "influencedBy": [],
+        "isPrimaryTopicOf": [],
+        "identifierByIdentifierScheme": {
+            "identifier": []
+        },
+        "hasFormatByType": {
+            "VideoRecording": [],
+            "Product": []
+        },
+        "subjectByInSchemeOrType": {
+            "Work": []
+        }
+    }
+}
