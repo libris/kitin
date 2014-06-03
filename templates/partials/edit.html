@@ -5,10 +5,10 @@
     <div id="grid"></div>
     <div>
       <div class="record-data">
+      <span data-ng-if="record.date">
         <strong translate>LABEL.gui.edit.DATE_CREATED</strong>
-        <span data-ng-if="record.about.date">
-        <em data-ng-model="record.about.date">{{record.about.date}}</em>
-        </span>
+            <em data-ng-model="record.date">{{record.date}}</em>
+          </span>
         <span data-nf-if="record.originalCatalogingAgency.name">
           <strong translate>LABEL.gui.edit.MODIFIED</strong> 
           <span data-ng-if="record.modified">
