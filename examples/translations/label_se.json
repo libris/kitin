@@ -73,7 +73,7 @@
             "about.hasFormat.Product.extent": "Omfång",
             "about.hasFormat.Product.dimensions": "Mått",
             "about.hasFormat.Product.otherPhysicalDetails": "Övriga fysiska detaljer",
-            "about.hasFormat.Product.accompanyingMaterial": "Produkt",
+            "about.hasFormat.Product.accompanyingMaterial": "Bilaga",
 
             "about.hasFormat.SoundRecording": "Ljudinspelning",
             "about.hasFormat.SoundRecording.carrierType": "Bärartyp",
