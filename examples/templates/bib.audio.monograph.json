@@ -1,0 +1,36 @@
+{
+    "@type": "Record",
+    "about": {
+        "@type": [
+            "Audio",
+            "Monograph"
+        ],
+        "date": "",
+        "publicationStatus": {},
+        "publicationYear": "",
+        "publicationCountry": [],
+        "language": {},
+        "text": {},
+        "attributedTo": {},
+        "publisherNumber": "",
+        "classification": [],
+        "instanceTitle": {
+            "@type": "Title",
+            "titleValue": ""
+        },
+        "mediaTerm": "",
+        "responsibilityStatement": "",
+        "publication": [],
+        "performerNote": "",
+        "keyword": "",
+        "genre": [],
+        "isPrimaryTopicOf": [],
+        "identifierByIdentifierScheme": {
+            "/def/identifiers/isbn": []
+        },
+        "hasFormatByType": {
+            "SoundRecording": [],
+            "Product": []
+        }
+    }
+}

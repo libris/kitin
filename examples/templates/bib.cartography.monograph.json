@@ -57,32 +57,10 @@
             "/def/identifiers/isbn": []
         },
         "hasFormatByType": {
-            "Electronic": [
-                {
-                    "@type": [
-                        "Electronic"
-                    ],
-                    "carrierType": [],
-                    "color": {},
-                    "dimensionsCategory": {}
-                }
-            ],
-            "Product": [
-                {
-                    "@type": "Product",
-                    "extent": "",
-                    "otherPhysicalDetails": "",
-                    "dimensions": "",
-                    "accompanyingMaterial": ""
-                }
-            ]
+            "Electronic": [],
+            "Product": []
         },
-        "manufacture": [
-            {}
-        ]
+        "manufacture": []
     },
-    "technicalNote": [],
-            }
-        }
-    ]
+    "technicalNote": []
 }
