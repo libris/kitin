@@ -8,11 +8,7 @@
     <p>
       Denna struktur är under utveckling. Kom gärna med synpunkter om något saknas eller ser feltolkat ut.
     </p>
-    <div class="modes">
-      <a href="/edit{{ record['@id'] || '/'+recType+'/'+recId }}">LIBRIS</a>
-      <a href="#" class="active">JSON-LD</a>
-      <a href="#" class="beta-blocker">MARC</a>
-    </div>
+    <div data-ng-include="'/partials/_mode_menu'" onload="mode = 'JSON-LD'"></div>
   </header>
 
   <section data-ng-repeat="object in [record]" class="json-ld"

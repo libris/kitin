@@ -1342,6 +1342,16 @@ div.array > section.entity > div:nth-of-type(even) {
   display: none;
 }
 /* JSON-LD VIEW END ------------------------- */
+.marc,
+.marc code {
+  font-family: 'Comic Sans MS';
+  font-size: 105%;
+  line-height: 140%;
+}
+.marc code {
+  color: #fa1963;
+  background-color: #c8f4ea;
+}
 /* LOGIN START ------------------------- */
 form.login {
   width: 312px;

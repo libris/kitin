@@ -1,0 +1,7 @@
+{% raw %}
+    <div class="modes" data-ng-init="recId = record['@id'] || '/'+recType+'/'+recId;">
+      <a href="/edit{{recId}}"   data-ng-class="{active: (mode == 'EDIT')}">LIBRIS</a>
+      <a href="/jsonld{{recId}}" data-ng-class="{active: (mode == 'JSON-LD')}">JSON-LD</a>
+      <a href="{{debug ? '/marc' + recId : '#'}}"   data-ng-class="{active: (mode == 'MARC'), 'beta-blocker': !debug}">MARC</a>
+    </div>
+{% endraw %}

@@ -22,6 +22,7 @@ kitin.config(function($locationProvider, $routeProvider, $translateProvider) {
         .when('/search/:recType',         { templateUrl: '/partials/search' })
         .when('/edit/:recType/:recId',    { templateUrl: '/partials/edit', reloadOnSearch: false })
         .when('/jsonld/:recType/:recId',  { templateUrl: '/partials/jsonld' })
+        .when('/marc/:recType/:recId',    { templateUrl: '/partials/marc', isMarc: true })
         ;//.otherwise({redirectTo: '/'});
 
 });

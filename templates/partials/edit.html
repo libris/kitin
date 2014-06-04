@@ -43,11 +43,7 @@
           <span>{{ enums.catForm[record.catForm].label_sv }}</span>
         </div>
         
-        <div class="modes">
-          <a href="#" class="active">LIBRIS</a>
-          <a href="/jsonld{{ record['@id'] || '/' + recType + '/' + recId }}">JSON-LD</a>
-          <a href="#" class="beta-blocker">MARC</a>
-        </div>
+        <div data-ng-include="'/partials/_mode_menu'" onload="mode = 'EDIT'"></div>
       </header>
     </div>
     <div ng-switch on="recType">
