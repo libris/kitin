@@ -47,7 +47,7 @@
         <textarea data-inplace placeholder="Klassifikation" data-ng-model="classification.notation"></textarea>
 
     </label>
-    <label class="dynamic-subjects">
+    <label class="dynamic-subjects" data-ng-show="record.about.classificationNlm">
         <span class="lbl">NLM-klassifikation (National Library of Medicine)</span>
         <textarea data-inplace placeholder="Klassifikation" data-ng-model="record.about.classificationNlm"></textarea>
     </label>
