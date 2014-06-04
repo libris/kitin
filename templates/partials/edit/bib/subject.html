@@ -4,7 +4,6 @@
 <div class="cols" onload="work = record.about">
   <div class="col6">
     <h3>{{ "Svenska ämnesord" }}</h3>
-    
     <div data-ng-repeat="(key, container) in record.about.subjectByInSchemeOrType" class="scheme tagsinput"
        data-ng-init="scheme = conceptSchemes.byNotation[key.replace('/topic/','')] || {'title': key, 'notation': container[0].inScheme.notation}">
       <span class="lbl">{{ scheme.alternative || scheme.title || scheme.title_en }}</span>
@@ -62,6 +61,23 @@
           data-view-template="view-subject"
           data-search-template="search-subject">
       </ul>
+        <label>
+          <span class="lbl" translate>LABEL.record.about.literaryForm</span>
+          <div data-kitin-link-entity
+              data-subject="record.about"
+              data-link="'literaryForm'"
+              data-view-template="render-tag-view"
+              data-search-template="render-tag-search"
+              data-search-placeholder="Lägg till litterär genre"
+              data-search-service-url="{{API_PATH}}def/_search"
+              data-search-filter="{'about.inCollection.@id': '\\/def\\/enum\\/content\\/literaryForm-collection'}"
+              ng-init=" placeholder='Lägg till litterär genre'; 
+                        search_service_url=API_PATH+'/def/_search'; 
+                        search_filter={'about.inCollection.@id': '\\/def\\/enum\\/content\\/literaryForm-collection'}; ">
+          </div>
+        </label>
+
+
   </div>
 </div>
   
