@@ -294,7 +294,12 @@ kitin.service('editUtil', function(definitions, $http) {
     },
 
     getMaterialType: function(record) {
-      return 'bib.' + record.about['@type'].join('.').toLowerCase();
+      if(_.isArray(record.about['@type'])) {
+        return record.about['@type'].join('.').toLowerCase();
+      } else {
+        return record.about['@type'];
+      }
+      
     },
 
     addObject: function(subj, rel, type, multiple, obj) {
