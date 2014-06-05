@@ -34,6 +34,17 @@
       <h3 class="ng-binding" translate>{{ 'LABEL.record.about.hasFormat.' + formatType }}</h3>
       <div class="col12" ng-switch on="formatType">
 
+        <!-- Product START -->
+        <div ng-switch-when="Product" class="datatable" data-ng-target="productTable" 
+          kitin-data-table 
+          table-model="subFormat" 
+          table-header-translate table-header-translate-prefix= "LABEL.record.about.hasFormat.Product"
+          table-columns="extent,dimensions,otherPhysicalDetails,accompanyingMaterial"
+          data-subject="record.about" data-link-multiple="hasFormatByType"
+          add-first
+          addable>
+        </div>
+        <!-- Product END -->
 
         <!-- Electronic START -->
         <div ng-switch-when="Electronic" class="datatable" data-ng-target="electronicTable" 
@@ -70,18 +81,6 @@
           addable>
         </div>
         <!-- MovingImage END -->
-
-        <!-- Product START -->
-        <div ng-switch-when="Product" class="datatable" data-ng-target="productTable" 
-          kitin-data-table 
-          table-model="subFormat" 
-          table-header-translate table-header-translate-prefix= "LABEL.record.about.hasFormat.Product"
-          table-columns="extent,dimensions,otherPhysicalDetails,accompanyingMaterial"
-          data-subject="record.about" data-link-multiple="hasFormatByType"
-          add-first
-          addable>
-        </div>
-        <!-- Product END -->
 
         <!-- SoundRecording START -->
         <div ng-switch-when="SoundRecording" class="datatable" data-ng-target="soundRecordingTable" 

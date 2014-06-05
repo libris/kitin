@@ -69,7 +69,7 @@
             "about.hasFormat.MovingImage.motionPicMedium": "motionPicMedium",
             "about.hasFormat.MovingImage.motionPicDimensions": "motionPicDimensions",
             
-            "about.hasFormat.Product": "Produkt",
+            "about.hasFormat.Product": "Fysisk beskrivning",
             "about.hasFormat.Product.extent": "Omfång",
             "about.hasFormat.Product.dimensions": "Mått",
             "about.hasFormat.Product.otherPhysicalDetails": "Övriga fysiska detaljer",
