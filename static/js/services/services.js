@@ -421,8 +421,6 @@ kitin.service('editUtil', function(definitions, $http) {
         } else {
           entity[key] = _.union(flattened, entity[key]);
         }
-        
-        console.log(entity[key], reset);
         delete entity[cfg.indexName];
       }
       // Rearrange grouped Arrays
