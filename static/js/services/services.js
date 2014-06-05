@@ -364,12 +364,22 @@ kitin.service('editUtil', function(definitions, $http) {
           }
         }
       },
-      subject: {
-        indexName: "subjectByInSchemeOrType",
-        getIndexKey: function (entity) {
-          return (entity.inScheme && entity.inScheme['@id']) ? entity.inScheme['@id'] : entity['@type'];
+      subject: [
+        {
+          indexName: "subjectByInScheme",
+          getIndexKey: function (entity) {
+            if((entity.inScheme && entity.inScheme['@id'])) {
+              return  entity.inScheme['@id'];
+            }
+          }
+        },
+        {
+          indexName: "subjectByType",
+          getIndexKey: function (entity) {
+            return entity['@type'];
+          }
         }
-      }
+      ]
     },
 
     decorate: function(record) {
@@ -403,8 +413,16 @@ kitin.service('editUtil', function(definitions, $http) {
     },
 
     undecorate: function(record) {
-      function doUnindex (entity, key, cfg) {
-        entity[key] = _.flatten(entity[cfg.indexName], function(it) { return it; });
+      function doUnindex (entity, key, cfg, reset) {
+        var flattened = _.flatten(entity[cfg.indexName], function(it) { return it; });
+        // Reset boolean to handle undecoration of multiple decorators for single entity
+        if(reset !== false) {
+          entity[key] = flattened;  
+        } else {
+          entity[key] = _.union(flattened, entity[key]);
+        }
+        
+        console.log(entity[key], reset);
         delete entity[cfg.indexName];
       }
       // Rearrange grouped Arrays
@@ -419,8 +437,14 @@ kitin.service('editUtil', function(definitions, $http) {
     mutateObject: function(entity, mutator) {
       if(!_.isEmpty(entity)) {
         for (var key in this.indexes) {
-          var cfg = this.indexes[key];
-          mutator(entity, key, cfg);
+          var cfgs = this.indexes[key];
+          // Handle multiple mutators for single entity
+          cfgs = _.isArray(cfgs) ? cfgs : [cfgs];
+          for (var i = 0; i < cfgs.length; i++) {
+            var cfg = cfgs[i];
+            var reset = i > 0 ? false : true;
+            mutator(entity, key, cfg, reset);
+          }
         }
       }
       return entity;

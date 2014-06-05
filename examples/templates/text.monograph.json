@@ -31,10 +31,12 @@
         "hasFormatByType": {
             "Product": []
         },
-        "subjectByInSchemeOrType": {
-            "sao": [],
-            "saogf": [],
-            "barn": [],
+        "subjectByInScheme": {
+            "/topic/sao": [],
+            "/topic/saogf": [],
+            "barn": []
+        },
+        "subjectByType": {
             "/topic/chronological": [],
             "Person": [],
             "Place": []

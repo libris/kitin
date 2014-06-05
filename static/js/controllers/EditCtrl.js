@@ -75,6 +75,18 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     definitions.conceptSchemes.then(function(data) {
       scope.conceptSchemes = data;
     });
+    scope.subjectByType = {
+      'Place': {
+        title: 'Geografiska ämnesord',
+        allowNonAuth: true
+      },
+      'Person': {
+        title: 'Personer'
+      },
+      '/topic/chronological': {
+        title: 'Kronologiska ämnesord'
+      }
+    };
   }
 
   // Needed? Set update recType instead?
@@ -127,7 +139,6 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
         $scope.record = record.data;
         addRecordViewsToScope(record, $scope);
       }
-
       break;
 
 

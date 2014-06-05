@@ -4,11 +4,25 @@
 <div class="cols" onload="work = record.about">
   <div class="col6">
     <h3>{{ "Ämnesord" }}</h3>
-    <div data-ng-repeat="(key, container) in record.about.subjectByInSchemeOrType" class="scheme tagsinput"
-       data-ng-init="scheme = conceptSchemes.byNotation[key.replace('/topic/','')] || {'title': key, 'notation': container[0].inScheme.notation}">
+    <div data-ng-repeat="(key, container) in record.about.subjectByInScheme" class="scheme tagsinput"
+       data-ng-init="scheme = conceptSchemes.byNotation[key.replace('/topic/','')] || {'title': key, 'notation': container[0].inScheme.notation}; 
+                    search_filter = {'about.inScheme.notation': scheme.notation};
+                    search_completion_template = 'subject-completion-template';">
       <span class="lbl">{{ scheme.alternative || scheme.title || scheme.title_en }}</span>
       <ul class="tags" data-kitin-link-entity
-          data-subject="record.about.subjectByInSchemeOrType" data-link-multiple="key" data-type="Concept"
+          data-subject="record.about.subjectByInScheme" data-link-multiple="key" data-type="Concept"
+          data-search-template="search-subject"
+          data-view-template="view-subject">
+      </ul>
+    </div>
+
+    <div data-ng-repeat="(key, container) in record.about.subjectByType" class="scheme tagsinput"
+       data-ng-init="scheme = subjectByType[key];
+                     search_filter = (key === '/topic/chronological') ? {'about.inCollection.@id': '\\/topic\\/chronological\\/'} : {'about.@type': key};
+                     search_completion_template = key === 'Person' ? 'auth-completion-template' : 'subject-completion-template';">
+      <span class="lbl">{{ scheme.alternative || scheme.title || scheme.title_en }}</span>
+      <ul class="tags" data-kitin-link-entity
+          data-subject="record.about.subjectByType" data-link-multiple="key" data-type="Concept"
           data-search-template="search-subject"
           data-view-template="view-subject">
       </ul>
@@ -19,7 +33,7 @@
       <div class="col3">  
         <label>
           <input type="text" placeholder="Nytt ämnesord" data-kitin-autocomplete="subject"
-                data-kitin-add-to="schemeContainer"
+              data-kitin-add-to="schemeContainer"
                 data-kitin-filter="{'about.subject.inScheme.notation': chosenScheme}" />
         </label>
       </div>
@@ -53,14 +67,6 @@
 
 
     <h3 translate>LABEL.record.about.genre</h3>
-      <span class="lbl" translate>LABEL.record.about.genresao</span>
-      <ul class="tags" data-kitin-link-entity
-          data-ng-init="scheme = { notation: 'saogf'}"
-          data-subject="record.about"
-          data-link-multiple="'genre'"
-          data-view-template="view-subject"
-          data-search-template="search-subject">
-      </ul>
         <label>
           <span class="lbl" translate>LABEL.record.about.literaryForm</span>
           <div data-kitin-link-entity
@@ -98,10 +104,10 @@
 <script type="text/ng-template" id="search-subject">
   <i class="fa fa-search"></i> 
   <input data-kitin-search-entity
-        data-filter="{'about.inScheme.notation': scheme.notation}"
+        data-filter="{{search_filter}}"
         data-service-url="{{API_PATH}}/auth/_search"
-        data-completion-template="subject-completion-template" type="text" placeholder="Lägg till ämnesord"
-        data-allow-non-auth="{{scheme.title === 'Place'}}">
+        data-completion-template="{{search_completion_template}}" type="text" placeholder="Lägg till ämnesord"
+        data-allow-non-auth="{{scheme.allowNonAuth}}">
 </script>
 
 <!-- subject list -->
