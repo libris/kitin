@@ -76,6 +76,18 @@
                         search_filter={'about.inCollection.@id': '\\/def\\/enum\\/content\\/literaryForm-collection'}; ">
           </div>
         </label>
+        <label>
+          <span class="lbl" translate>LABEL.record.about.biography</span>
+          <div data-kitin-link-entity
+              data-subject="record.about"
+              data-link="'biography'"
+              data-view-template="render-tag-view"
+              data-search-template="render-tag-search"
+              ng-init=" placeholder='Lägg till'; 
+                        search_service_url=API_PATH+'/def/_search'; 
+                        search_filter={'about.inCollection.@id': '\\/def\\/enum\\/content\\/biography-collection'}; ">
+          </div>
+        </label>
 
 
   </div>
