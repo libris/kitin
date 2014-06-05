@@ -136,6 +136,8 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     default:
       dataService.record.get(recType, recId).then(function(data) {
         var record = data['recdata'];
+        // MARC
+        // !TODO create a cleaner way to detect data format and sperate from bib
         if($location.$$path.indexOf('/marc/') !== -1) {
           delete record.about.publicationCountry;
           dataService.record.convertToMarc(record).then(function(data) {
