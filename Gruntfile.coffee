@@ -122,6 +122,8 @@ module.exports = (grunt) ->
       less:
         files: ['static/less/*.less']
         tasks: ['less']
+      css:
+        files: ['static/build/css/main.css']
         options: {livereload: true}
       coffee:
         files: ['<%= coffee.src.src %>']
