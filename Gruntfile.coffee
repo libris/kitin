@@ -38,16 +38,17 @@ module.exports = (grunt) ->
     #          'http://www.fontsquirrel.com/fonts/Open-Sans']
 
     less:
-      options:
-        sourceMap: true
-        sourceMapFilename: 'static/build/css/main.css.map'
-        #cleancss: true (disabled for less source maps to work properly)
-      src:
-        expand: true
-        cwd:    'static/less'
-        src:    ['main.less', 'bootstrap.less']
-        ext:    '.css'
-        dest:   'static/build/css/'
+      maincss:
+        files:
+          "static/build/css/main.css": "static/less/main.less"
+        options:
+          sourceMap: true
+          sourceMapFilename: 'static/build/css/main.css.map'
+          sourceMapURL: 'main.css.map'
+          #cleancss: true (disabled for less source maps to work properly)
+      bootstrapcss:
+        files:
+          "static/build/css/bootstrap.css": "static/less/bootstrap.less"
 
 
     cssmin:
