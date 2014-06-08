@@ -1273,20 +1273,23 @@ section.nav dt i {
 }
 .entitylink {
   margin-top: 6px;
-  cursor: pointer;
 }
 .entitylink:hover {
   color: #999999;
 }
-.entitylink:after {
+.entitylink > i {
+  display: inline-block;
+  width: 12px;
+  cursor: pointer;
+}
+.entitylink > i:after {
   content: " \f0d7";
   font-size: 12px;
   font-family: FontAwesome;
+  padding-left: 4px;
 }
-.collapsed > .entitylink:after {
+.collapsed > .entitylink > i:after {
   content: " \f0da";
-  font-size: 12px;
-  font-family: FontAwesome;
 }
 .json-ld code {
   background-color: transparent;
@@ -2845,4 +2848,4 @@ div.notification-error i {
   color: #ff0000;
 }
 /* GENERAL END ------------------------- */
-/*# sourceMappingURL=static/build/css/main.css.map */
+/*# sourceMappingURL=main.css.map */
