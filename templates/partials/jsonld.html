@@ -17,27 +17,30 @@
 </form></div>
 
 <script type="text/ng-template" id="render-object">
-  <div class="header" data-ng-if="object['@type'] || object['@id']">
-    <span class="type" data-ng-if="object['@type']">{{ object['@type'] }} </span>
-    <span data-ng-if="object['@id']">
-      <a href="{{ toJsonLdLink(object['@id']) }}">&lt;{{ object['@id'] }}&gt; </a>
+  <div class="header" data-ng-if="object[TYPE] || object[ID]">
+    <span class="type" data-ng-if="object[TYPE]"
+          data-ng-repeat="typekey in ensureArray(object[TYPE])"
+          data-ng-click="openTermDef(typekey)">{{ typekey }} </span>
+    <span data-ng-if="object[ID]">
+      <a href="{{ toJsonLdLink(object[ID]) }}">&lt;{{ object[ID] }}&gt; </a>
     </span>
   </div>
   <div data-ng-repeat="key in jsonLdKeys(object)"
-       data-ng-init="obj = object[key]">
+       data-ng-init="obj = object[key]" data-ng-if="key[0] != '@'">
     <ng:switch on="typeOf(obj)">
       <div data-ng-switch-when="object"
            data-ng-init="collapsed = (key == 'unknown')"
            data-ng-class="{collapsed: collapsed, array: lodash.isArray(obj)}">
-        <label data-ng-click="collapsed=!collapsed" class="entitylink">{{ key }}</label>
+        <label class="entitylink">
+          <span data-ng-click="openTermDef(key)">{{ key }}</span>
+          <i data-ng-click="collapsed=!collapsed"> </i>
+        </label>
         <section data-ng-init="object = obj"
             data-ng-include="'render-object'" class="entity"></section>
       </div>
       <span data-ng-switch-when="string">
-        <span data-ng-if="key[0] != '@'">
-          <code>{{ key }}</code>
-          <input data-ng-model="obj" type="text" />
-        </span>
+        <code data-ng-click="openTermDef(key)">{{ key }}</code>
+        <input data-ng-model="obj" type="text" />
       </span>
     </ng:switch>
   </div>

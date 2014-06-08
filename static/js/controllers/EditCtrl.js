@@ -40,6 +40,12 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
 
   definitions.terms.then(function(data) {
     var terms = data.index;
+
+    var items = []; for (var key in data.index) items.push(data.index[key]);
+    $scope.termIndex = Gild.buildIndex(items);
+    $scope.ID = '@id';
+    $scope.TYPE = '@type';
+
     $scope.getTypeDef = function (obj) {
       if (typeof obj === "undefined")
         return;
@@ -392,6 +398,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     });
   };
 
+
   var typeCycle = ['Book', 'EBook', 'Audiobook', 'Serial', 'ESerial'], typeIndex = 0;
   $scope.cycleType = function (evt, obj) {
     if (!obj || !evt.altKey) return;
@@ -399,13 +406,39 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     obj['@type'] = typeCycle[typeIndex];
   };
 
+  $scope.getLeaf = function (uri) {
+    return uri.replace(/.*?([^\/#]+)$/, "$1");
+  };
+
+  $scope.ensureArray = function (obj) {
+    return _.isArray(obj)? obj : [obj];
+  };
+
+  $scope.openTermDef = function (key) {
+    var opts = {
+      backdrop: true,
+      keyboard: true,
+      templateUrl: '/partials/modal_vocabview',
+      //controller: 'ModalVocabBrowserCtrl',
+      scope: $scope,
+      resolve: {key: function () { return key; }},
+      controller: function ModalVocabBrowserCtrl($scope, $modalInstance, key) {
+        $scope.viewTerm = function (key) {
+          $scope.term = $scope.termIndex.byTerm[key];
+        };
+        $scope.viewTerm(key);
+      },
+      windowClass: ''
+    };
+    $scope.browseVocabModal = $modal.open(opts);
+  };
+
   $scope.toJsonLdLink = function (id) {
     return id.replace(/^\/(resource\/)?/, '/jsonld/');
   };
 
-
   $scope.jsonLdKeys = function(obj) {
-    if (angular.isArray(obj))
+    if (_.isArray(obj))
       return _.keys(obj);
     var result = [];
     for (var key in obj) {

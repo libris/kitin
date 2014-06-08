@@ -25,20 +25,25 @@
 
 .entitylink {
   margin-top: 6px;
-  cursor: pointer;
 }
 .entitylink:hover {
   color: @grey-dark; 
 }
 
-.entitylink:after {
-  content: " \f0d7"; font-size: 12px;
-  font-family: FontAwesome;
-}
+.entitylink > i {
+  display: inline-block;
+  width: 12px;
+  cursor: pointer;
 
-.collapsed > .entitylink:after {
-  content: " \f0da"; font-size: 12px;
-  font-family: FontAwesome;
+  &:after {
+    content: " \f0d7"; font-size: 12px;
+    font-family: FontAwesome;
+    padding-left: 4px;
+  }
+
+  .collapsed > &:after {
+    content: " \f0da";
+  }
 }
 
 .json-ld code {background-color: transparent;}
