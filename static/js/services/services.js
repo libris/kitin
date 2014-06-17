@@ -479,7 +479,7 @@ kitin.service('editUtil', function(definitions, $http) {
       // add _reifiedRoles key to each person
       var personMap = {};
       var prepareAgent = function (agent) {
-        if (!agent)
+        if (!agent || _.isEmpty(agent))
           return;
 
         if (agent['@id']) {

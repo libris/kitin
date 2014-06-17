@@ -324,7 +324,7 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
 
       var subj = $scope.$eval($attrs.subject);
       var obj = subj ? subj[link] : null;
-      $scope.viewmode = !_.isEmpty(obj);
+      //$scope.viewmode = !_.isEmpty(obj);
       if(!_.isEmpty(obj)) {        
         if (multiple) {
           $scope.objects = obj;

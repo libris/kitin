@@ -62,6 +62,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   });
 
   $scope.isLinked = function (thing) {
+    if(!thing) { return; }
     var id = thing['@id'];
     return id && id.substring(0, 2) !== '_:';
   };
