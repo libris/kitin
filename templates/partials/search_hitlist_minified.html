@@ -5,7 +5,7 @@
 				<thead></thead>
 				<tbody>
 					<tr data-ng-repeat="record in state.search.result.list">
-					<td class="number">{{ $index+1 }}.</td>
+					<!-- <td class="number">{{ $index+1 }}.</td> -->
 					<td class="title"><a class="bib-url" href="/edit{{record.identifier || record.data['@id']}}" ng-click="editPost(recType, record)" data-ng-switch="recType">{{ record.data.about.instanceTitle.titleValue | chop }}</a></td>
 					<td class="creator">{{ record.data.about.responsibilityStatement | chop }}</td>
 					<td class="date"><span title="Utgivningsår" data-ng-repeat="publication in record.data.about.publication | limitTo:1" data-ng-show="publication.providerDate">{{publication.providerDate}}</td>
