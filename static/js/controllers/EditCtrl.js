@@ -92,6 +92,9 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
       },
       '/topic/chronological': {
         title: 'Kronologiska ämnesord'
+      },
+      'Organization': {
+        title: 'Organisation'
       }
     };
   }

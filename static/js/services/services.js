@@ -328,13 +328,14 @@ kitin.service('editUtil', function(definitions, $http) {
       return added;
     },
 
-    createObject: function (type) {
+    createObject: function (type, initalValue) {
       switch (type) {
         case 'Person':
           //objectKeys: ['controlledLabel', 'familyName', 'givenName', 'birthYear', 'deathYear']
           return {'@type': "Person", controlledLabel: "", birthYear: ""};
-        //case 'Concept':
-        //  objectKeys: ['prefLabel', '@type', 'hiddenLabel', 'broader', 'narrower', '@id', 'scopeNote', 'historyNote' ]
+        case 'Concept':
+          // !TODO Handle multiple Concept types
+          return {'@type': 'Place', prefLabel: initalValue };
         case 'ISBN':
           return {'@type': "Identifier", identifierScheme: { '@id': "/def/identifiers/isbn" }, identifierValue: ""};
         case '/def/identifiers/issn':
@@ -376,20 +377,30 @@ kitin.service('editUtil', function(definitions, $http) {
         {
           indexName: "subjectByType",
           getIndexKey: function (entity) {
-            return entity['@type'];
+            if(entity['@type'] && !(entity.inScheme && entity.inScheme['@id'])) {
+              return entity['@type'];
+            }
           }
         }
       ]
     },
 
     decorate: function(record) {
-      function doIndex (entity, key, cfg) {
+      function doIndex (entity, key, cfg, reset) {
         var items = entity[key];
         if(_.isEmpty(items)) {
           return;
         }
-        entity[cfg.indexName] = _.groupBy(items, cfg.getIndexKey);
-        delete entity[key];
+        var groupedItem = _.groupBy(items, cfg.getIndexKey);
+        // Remove non matching group.
+        if(groupedItem['undefined']) {
+          delete groupedItem['undefined'];
+        }
+        entity[cfg.indexName] = groupedItem;
+        if(reset === false) {
+          delete entity[key];
+        }
+        
       }
       // Rearrange Array elements into display groups
       this.mutateObject(record.about, doIndex);

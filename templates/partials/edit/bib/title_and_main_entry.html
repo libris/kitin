@@ -126,12 +126,13 @@
               data-kitin-search-entity
               data-service-url="{{API_PATH}}/auth/_search"
               data-filter="{ 'about.@type': 'Person' }"
-              data-completion-template="auth-completion-template" />
+              data-completion-template="auth-completion-template" 
+              data-allow-non-auth="true"/>
       </label>
     </script>
 
     <script type="text/ng-template" id="render-person">
-      <div data-ng-if="isLinked(object) || isEmpty(object)" class="entity person linked" tabindex="0">
+      <div data-ng-if="isLinked(object) && !isEmpty(object)" class="entity person linked" tabindex="0">
         <div class="main">
           <span onload="person = object" data-ng-include="'render-person-name'"></span>
             <a data-ng-if="isLinked(object)" class="auth" href="?m={{person['@id']}}"><i class="fa fa-bookmark"></i> Aukt.</a>
@@ -140,16 +141,15 @@
         <a data-ng-if="!editable.on" class="delete" href="#"
            data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a>
       </div>
-      <div data-ng-if="!isLinked(object) || isEmpty(object)" class="entity person embedded"
-             tabindex="0">
-        <a class="delete" href="#"
-           data-ng-click="doRemove($index); viewmode = !viewmode; editable.on = !editable.on;"><i class="fa fa-times"></i></a>
+      <div data-ng-if="!isLinked(object)" class="entity person embedded"
+            data-ng-init="editable = {on: !(object.controlledLabel || object.givenName || object.name)}" tabindex="0">
         <div data-ng-hide="editable.on">
-            <label data-ng-click="editable.on = !editable.on">
-              <span onload="person = object" data-ng-include="'render-person-name'"></span>
+            <label >
+              <span onload="person = object" data-ng-include="'render-person-name'"></span><a class="auth" href="#" data-ng-click="editable.on = !editable.on">Ändra</a>
             </label>
         </div>
         <div data-ng-show="editable.on">
+          <a class="delete" href="#" data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a>
           <label>
             <span class="lbl">{{ "Förnamn" }}</span>
             <input data-inplace class="" type="text" placeholder="Förnamn"
@@ -234,6 +234,7 @@
     <!-- person completion presentation -->
     <script type="text/html" id="auth-completion-template">
       <div class="auth">
+      <% if (nameRepr(data) !== ", ") { %>
         <h4>
           <span class="name"><%= nameRepr(data) %></span>
           <span class="date"><%= [data.birthYear, data.deathYear].join('–') %></span>
@@ -251,6 +252,11 @@
           <ul class="about">
             <li><%= data.note.map(truncate).join('</li><li>') %></li>
           </ul>
+        <% } %>
+        <% } else { %>
+          <h4>
+            Ny icke auktoriserad person
+          </h4>
         <% } %>
       </div>
     </script>

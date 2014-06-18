@@ -307,7 +307,6 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
     },
 
     controller: function($element, $scope, $attrs) {
-
       $scope.viewTemplate = $attrs.viewTemplate;
       $scope.searchTemplate = $attrs.searchTemplate;
       $scope.type = $attrs.type;
@@ -324,7 +323,7 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
 
       var subj = $scope.$eval($attrs.subject);
       var obj = subj ? subj[link] : null;
-      //$scope.viewmode = !_.isEmpty(obj);
+      $scope.viewmode = !_.isEmpty(obj);
       if(!_.isEmpty(obj)) {        
         if (multiple) {
           $scope.objects = obj;
@@ -371,7 +370,7 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
   };
 }]);
 
-kitin.directive('kitinSearchEntity', ['definitions', function(definitions) {
+kitin.directive('kitinSearchEntity', ['definitions', 'editUtil', function(definitions, editUtil) {
 
   var sourceConfiguration = {
     relators: {
@@ -434,7 +433,7 @@ kitin.directive('kitinSearchEntity', ['definitions', function(definitions) {
 
         showResult: function (value, data) {
           return template({
-            data: data, nameRepr: nameRepr, truncate: truncate, isLinked: scope.isLinked
+            data: data, value: value, nameRepr: nameRepr, truncate: truncate, isLinked: scope.isLinked
           });
         },
 
@@ -481,7 +480,10 @@ kitin.directive('kitinSearchEntity', ['definitions', function(definitions) {
           }
           if(attrs.allowNonAuth === 'true') {
             // !TODO Add propper lookup against entity definitions
-            result.unshift({value: searchedValue, data: { prefLabel: searchedValue, '@type': scope.$parent.link }});
+            result.unshift({ 
+              value: searchedValue, 
+              data: editUtil.createObject(scope.$parent.type, searchedValue)
+            });
           }
           return result;
         };
