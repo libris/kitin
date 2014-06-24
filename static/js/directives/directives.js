@@ -167,7 +167,8 @@ kitin.directive('kitinDataTable', function() {
       element.html(template);
     },
     controller: function($element, $scope, $attrs) {
-      $.extend($scope, $attrs);
+      $scope.tableHeaderRowTemplate = $attrs.tableHeaderRowTemplate;
+      $scope.tableRowTemplate = $attrs.tableRowTemplate;
 
       // Add first row
       if($scope.record && typeof $attrs.addFirst !== 'undefined') {
