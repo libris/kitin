@@ -459,16 +459,10 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editUtil', function(defini
         options.filterResults = false;
         options.sortResults = false;
         options.useCache = false;
+        options.extraParams = scope.$eval(filterParams);
 
         options.beforeUseConverter = function (value) {
-          searchedValue = value;
-          // TODO: set extraParams: filterParams instead once backend supports that
-          var params = scope.$apply(filterParams);
-          var result = _.reduce(params, function (res, v, k) {
-            res += '*';
-            return v? res + ' ' + k +':' + v : res; // TODO: Change space back to + when backend supports url-encoding
-          }, value);
-          return result;
+          return value + '*';
         };
 
         options.processData = function (doc) {
