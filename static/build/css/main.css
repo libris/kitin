@@ -1226,6 +1226,7 @@ section.nav dt i {
 }
 .content.search .sort-option .hitlist-viewswitch i {
   padding: 3px;
+  color: #666666;
 }
 /* CONTENT END ------------------------- */
 /* JSON-LD VIEW START ------------------------- */
