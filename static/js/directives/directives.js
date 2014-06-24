@@ -144,54 +144,31 @@ kitin.directive('kitinDataTable', function() {
     scope: true,
 
     compile: function(element, attrs) {
-      var headers = attrs.tableHeaders ? attrs.tableHeaders.split(',') : [];
-      var columns = attrs.tableColumns.split(',');
-
-      // Parse columns and headers
-      var headerTemplate = '';
-      var translate = (typeof attrs.tableHeaderTranslate !== 'undefined' ? ' translate' : '');
-      var columnTemplate = '';
-      for (var i = 0; i < columns.length; i++) {
-        // Join header to prefix, if no header, use column name and remove 
-        columnHeader = (attrs.tableHeaderTranslatePrefix ? attrs.tableHeaderTranslatePrefix + '.' : '') + (headers[i] || columns[i].replace(/\[.*?\]\s?/g,''));
-        headerTemplate += '<td><span class="lbl"' + translate + '>' + columnHeader + '</span></td>';
-        columnTemplate += '<td><label><input ng-model="object.' + columns[i] + '" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>';
-      }
-      if(columnTemplate) {
-        columnTemplate += '<td class="controls">' +
-                  '<button class="btn-link deleter" data-ng-click="removeObject(' + attrs.tableModel + ', null, $index)">' +
-                    '<i class="fa fa-times"></i>' +
-                  '</button>' +
-                '</td>';
-      }
-
-      // Add a add link
-      var footerTemplate = '';
       var type = (attrs.defaultType ? attrs.defaultType : attrs.ngSwitchWhen);
-      if(typeof attrs.addable !== 'undefined') {
-         footerTemplate = '<tfoot>' +
-              '<tr>' +
-                '<td colspan="' + columns.length + '">' +
-                  '<button class="add-thing btn-link" data-ng-click="addObject(record.about, \'' +  attrs.linkMultiple + '\',\'' + type + '\',\'' + attrs.ngTarget + '\',\'' + type + '\')">Lägg till</button>' +
-                '</td>' +
-              '</tr>' +
-            '</tfoot>';
-      }
 
       // Create table template
       var template = '<table ng-if="' + attrs.tableModel + '.length > 0">' +
-          '<tbody>' +
-            '<tr>' + headerTemplate + '</tr>' +
-            '<tr ng-repeat="object in ' + attrs.tableModel + ' track by $index">' +
-              columnTemplate + 
+          '<thead>' +
+            '<tr ng-include="tableHeaderRowTemplate"></tr>' +
+          '</thead>' +
+          '<tbody ng-init="objects = ' + attrs.tableModel + '">' +
+            '<tr ng-repeat="object in objects track by $index" ng-include="tableRowTemplate">' +
             '</tr>' +
           '</tbody>' +
-          footerTemplate + 
+          '<tfoot ng-if="' + (typeof attrs.addable !== 'undefined') + '">' +
+              '<tr>' +
+                '<td>' +
+                  '<button class="add-thing btn-link" data-ng-click="addObject(record.about, \'' +  attrs.linkMultiple + '\',\'' + type + '\',\'' + attrs.ngTarget + '\',\'' + attrs.ngSwitchWhen + '\')">Lägg till</button>' +
+                '</td>' +
+              '</tr>' +
+            '</tfoot>' +
         '</table>';
 
       element.html(template);
     },
     controller: function($element, $scope, $attrs) {
+      $.extend($scope, $attrs);
+
       // Add first row
       if($scope.record && typeof $attrs.addFirst !== 'undefined') {
         var dataEntity = $scope.record.about[$attrs.linkMultiple];
@@ -202,6 +179,10 @@ kitin.directive('kitinDataTable', function() {
           }
         }
       }
+
+      $scope.removeTableRow = function(index) {
+        $scope.removeObject($scope.$eval($attrs.tableModel), null, index);
+      };
 
     }
   };

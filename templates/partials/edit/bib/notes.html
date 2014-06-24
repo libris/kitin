@@ -77,17 +77,42 @@
     <div style="clear:both"></div>
 		<div class="cols">
 			<div class="col6">
-	        <label data-ng-repeat="comment in record.about.comment track by $index">
-            <span class="lbl" translate>LABEL.record.about.comment</span>
-            <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="record.about.comment[$index]" ></textarea>
+        <label class="datatable" data-ng-target="commentTable" 
+          data-kitin-data-table 
+          data-table-model="record.about.comment" 
+          data-table-header-row-template="comment-header-row-template"
+          data-table-row-template="comment-row-template"
+          data-subject="record.about" data-link-multiple="comment"
+          data-default-type="Comment"
+          data-add-first
+          data-addable>
         </label>
+
+        <script type="text/ng-template" id="comment-header-row-template">
+          <td>
+              <span class="lbl" translate>LABEL.record.about.comment</span>
+          </td>
+        </script>
+        <script type="text/ng-template" id="comment-row-template">
+          <td>
+            <label>
+              <textarea ng-model="objects[$index]" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
+            </label>
+          </td>
+          <td class="controls">
+            <button class="btn-link deleter" data-ng-click="removeObject(tableModel, null, $index)">
+              <i class="fa fa-times"></i>
+            </button>
+          </td>
+        </script>
+
 			</div>
 			<div class="col6">
-	        <label data-ng-repeat="topic in record.about.isPrimaryTopicOf">
+	      <label data-ng-repeat="topic in record.about.isPrimaryTopicOf">
             <span class="lbl" translate>{{ "isPrimaryTopicOf type: " + topic['@type'] }}</span>
           <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="topic['@id']" ></textarea>
         </label>
-	        <label data-ng-repeat="topic in record.about.isPrimaryTopicOf">
+	      <label data-ng-repeat="topic in record.about.isPrimaryTopicOf">
             <span class="lbl" translate>LABEL.record.about.isPrimaryTopicOf</span>
           <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="topic.comment" ></textarea>
         </label>

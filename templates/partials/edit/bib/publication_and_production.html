@@ -59,14 +59,20 @@
 		<div class="cols">
 	    <div class="col12">
 	      <div class="datatable" data-ng-target="publisher" 
-	        kitin-data-table 
-	        table-model="record.about.publication" 
-	        table-header-translate table-header-translate-prefix="LABEL.record.about.publication"
-	        table-columns="place.label,providerName,providerDate"
+	        data-kitin-data-table 
+	        data-table-model="record.about.publication" 
+          data-table-header-row-template="publisher-recording-header-row-template"
+          data-table-row-template="manufacture-publisher-recording-row-template"
 	        data-subject="record.about" data-link-multiple="publication"
-	        add-first
-	        addable>
-	      </div>   
+          data-default-type="Publisher"
+	        data-add-first
+	        data-addable>
+	      </div>
+        <script type="text/ng-template" id="publisher-recording-header-row-template">
+          <td><span class="lbl" translate>LABEL.record.about.publication.place.label</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.publication.providerName</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.publication.providerDate</span></td>
+        </script>
 	    </div>
 		</div>
 		
@@ -88,14 +94,20 @@
 		<div class="cols">
 	    <div class="col12">
 	      <div class="datatable" data-ng-target="manufacture" 
-	        kitin-data-table 
-	        table-model="record.about.manufacture" 
-	        table-header-translate table-header-translate-prefix="LABEL.record.about.manufacture"
-	        table-columns="place.label,providerName,providerDate"
+	        data-kitin-data-table 
+	        data-table-model="record.about.manufacture" 
+          data-table-header-row-template="manufacture-recording-header-row-template"
+          data-table-row-template="manufacture-publisher-recording-row-template"
 	        data-subject="record.about" data-link-multiple="manufacture"
-	        add-first
-	        addable>
-	      </div>   
+          data-default-type="Publisher"
+	        data-add-first
+	        data-addable>
+	      </div>
+        <script type="text/ng-template" id="manufacture-recording-header-row-template">
+          <td><span class="lbl" translate>LABEL.record.about.manufacture.place.label</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.manufacture.providerName</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.publication.providerDate</span></td>
+        </script>
 	    </div>
 		</div>
 
@@ -105,4 +117,14 @@
     </div>
     <div class="identifier"></div>
     <div class="element-adder"></div>
+
+
+    <script type="text/ng-template" id="manufacture-publisher-recording-row-template">
+      <td><label><input ng-model="object['place']['label']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+      <td><label><input ng-model="object['providerName']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+      <td><label><input ng-model="object['providerDate']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+      <td class="controls">
+        <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
+      </td>
+    </script>
  {% endraw %}

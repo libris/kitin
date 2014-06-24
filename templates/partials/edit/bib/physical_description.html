@@ -36,74 +36,162 @@
 
         <!-- Product START -->
         <div ng-switch-when="Product" class="datatable" data-ng-target="productTable" 
-          kitin-data-table 
-          table-model="subFormat" 
-          table-header-translate table-header-translate-prefix= "LABEL.record.about.hasFormat.Product"
-          table-columns="extent,dimensions,otherPhysicalDetails,accompanyingMaterial"
+          data-kitin-data-table 
+          data-table-model="subFormat" 
+          data-table-header-row-template="product-header-row-template"
+          data-table-row-template="product-row-template"
           data-subject="record.about" data-link-multiple="hasFormatByType"
-          add-first
-          addable>
+          data-add-first
+          data-addable>
         </div>
+        <script type="text/ng-template" id="product-header-row-template">
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.Product.extent</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.Product.dimensions</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.Product.otherPhysicalDetails</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.Product.accompanyingMaterial</span></td>
+        </script>
+        <script type="text/ng-template" id="product-row-template">
+          <td><label><input ng-model="object['extent']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><label><input ng-model="object['dimensions']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><label><input ng-model="object['otherPhysicalDetails']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><label><input ng-model="object['accompanyingMaterial']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td class="controls">
+            <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
+          </td>
+        </script>
         <!-- Product END -->
 
         <!-- Electronic START -->
         <div ng-switch-when="Electronic" class="datatable" data-ng-target="electronicTable" 
-          kitin-data-table 
-          table-model="subFormat" 
-          table-header-translate table-header-translate-prefix= "LABEL.record.about.hasFormat.Electronic"
-          table-columns="carrierType[0]['@id'],color['@id'],dimensions['@id']"
+          data-kitin-data-table 
+          data-table-model="subFormat" 
+          data-table-header-row-template="electronic-header-row-template"
+          data-table-row-template="electronic-row-template"
           data-subject="record.about" data-link-multiple="hasFormatByType"
-          add-first
-          addable>
+          data-add-first
+          data-addable>
         </div>
+        <script type="text/ng-template" id="electronic-header-row-template">
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.Electronic.carrierType</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.Electronic.color</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.Electronic.dimensions</span></td>
+        </script>
+        <script type="text/ng-template" id="electronic-row-template">
+          <td><label><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><label><input ng-model="object['color']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><label><input ng-model="object['dimensions']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td class="controls">
+            <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
+          </td>
+        </script>
         <!-- Electronic END -->
 
         <!-- Map START -->
         <div ng-switch-when="Map" class="datatable" data-ng-target="movingImageTable" 
-          kitin-data-table 
-          table-model="subFormat" 
-          table-header-translate table-header-translate-prefix= "LABEL.record.about.hasFormat.Map"
-           table-columns="carrierType[0]['@id'],color['@id'],medium['@id']"
+          data-kitin-data-table 
+          data-table-model="subFormat" 
+          data-table-header-row-template="map-header-row-template"
+          data-table-row-template="map-row-template"
           data-subject="record.about" data-link-multiple="hasFormatByType"
-          add-first
-          addable>
+          data-add-first
+          data-addable>
         </div>
+        <script type="text/ng-template" id="map-header-row-template">
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.Map.carrierType</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.Map.color</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.Map.medium</span></td>
+        </script>
+        <script type="text/ng-template" id="map-row-template">
+          <td><label><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><label><input ng-model="object['color']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><label><input ng-model="object['medium']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td class="controls">
+            <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
+          </td>
+        </script>
         <!-- Map END -->
 
         <!-- MovingImage START -->
         <div ng-switch-when="MovingImage" class="datatable" data-ng-target="movingImageTable" 
-          kitin-data-table 
-          table-model="subFormat" 
-          table-header-translate table-header-translate-prefix= "LABEL.record.about.hasFormat.MovingImage"
-          table-columns="carrierType[0]['@id'],motionPicFormat['@id'],motionPicSound['@id'],motionPicMedium['@id'],motionPicDimensions['@id']"
+          data-kitin-data-table 
+          data-table-model="subFormat" 
+          data-table-header-row-template="moving-image-header-row-template"
+          data-table-row-template="moving-image-row-template"
           data-subject="record.about" data-link-multiple="hasFormatByType"
-          add-first
-          addable>
+          data-add-first
+          data-addable>
         </div>
+        <script type="text/ng-template" id="moving-image-header-row-template">
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.carrierType</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.motionPicFormat</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.motionPicSound</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.motionPicMedium</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.motionPicDimensions</span></td>
+        </script>
+        <script type="text/ng-template" id="moving-image-row-template">
+          <td><label><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><label><input ng-model="object['motionPicFormat']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><label><input ng-model="object['motionPicSound']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><label><input ng-model="object['motionPicMedium']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><label><input ng-model="object['motionPicDimensions']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td class="controls">
+            <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
+          </td>
+        </script>
         <!-- MovingImage END -->
 
         <!-- SoundRecording START -->
         <div ng-switch-when="SoundRecording" class="datatable" data-ng-target="soundRecordingTable" 
-          kitin-data-table 
-          table-model="subFormat" 
-          table-header-translate table-header-translate-prefix= "LABEL.record.about.hasFormat.SoundRecording"
-          table-columns="carrierType[0]['@id'],soundSpeed['@id'],soundDimensions['@id'],soundKindOfDisc['@id'],soundKindOfMaterial['@id'],soundPlaybackCharacter['@id']"
+          data-kitin-data-table 
+          data-table-model="subFormat" 
+          data-table-header-row-template="sound-recording-header-row-template"
+          data-table-row-template="sound-recording-row-template"
           data-subject="record.about" data-link-multiple="hasFormatByType"
-          add-first
-          addable>
+          data-add-first
+          data-addable>
         </div>
+        <script type="text/ng-template" id="sound-recording-header-row-template">
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.carrierType</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.soundSpeed</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.soundDimensions</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.soundKindOfDisc</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.soundKindOfMaterial</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.soundPlaybackCharacter</span></td>
+        </script>
+        <script type="text/ng-template" id="sound-recording-row-template">
+          <td><label><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><label><input ng-model="object['soundSpeed']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><label><input ng-model="object['soundDimensions']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><label><input ng-model="object['soundKindOfDisc']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><label><input ng-model="object['soundKindOfMaterial']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><label><input ng-model="object['soundPlaybackCharacter']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td class="controls">
+            <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
+          </td>
+        </script>
         <!-- SoundRecording END -->
 
         <!-- VideoRecording START -->
         <div ng-switch-when="VideoRecording" class="datatable" data-ng-target="videoRecordingTable" 
-          kitin-data-table 
-          table-model="subFormat" 
-          table-header-translate table-header-translate-prefix= "LABEL.record.about.hasFormat.VideoRecording"
-          table-columns="carrierType[0]['@id'],videoFormat['@id']"
+          data-kitin-data-table 
+          data-table-model="subFormat" 
+          data-table-header-row-template="video-recording-header-row-template"
+          data-table-row-template="video-recording-row-template"
           data-subject="record.about" data-link-multiple="hasFormatByType"
-          add-first
-          addable>
+          data-add-first
+          data-addable>
         </div>
+        <script type="text/ng-template" id="video-recording-header-row-template">
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.VideoRecording.carrierType</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.VideoRecording.videoFormat</span></td>
+        </script>
+        <script type="text/ng-template" id="video-recording-row-template">
+          <td><label><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><label><input ng-model="object['videoFormat']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td class="controls">
+            <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
+          </td>
+        </script>
         <!-- VideoRecording END -->
 
         <!-- Rest START -->
