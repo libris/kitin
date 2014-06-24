@@ -444,6 +444,7 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editUtil', function(defini
         options.extraParams = scope.$eval(filterParams);
 
         options.beforeUseConverter = function (value) {
+          searchedValue = value; // Store searched value
           return value + '*';
         };
 
