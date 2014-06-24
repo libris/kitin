@@ -72,7 +72,7 @@
                   data-no-value="{{ object.prefLabel }} ({{ object.langCode }})"
                   data-kitin-search-entity
                   data-service-url="{{API_PATH}}/def/_search"
-                  data-filter="{'about.@type': 'Language'}"
+                  data-filter="{ filter: 'about.@type:Language'}"
                   data-completion-template="select-language-template" placeholder="+ Lägg till språk">
         </script>
         <script type="text/html" id="select-language-template">
@@ -188,7 +188,7 @@
       <ul data-kitin-link-entity
           class="tags"
           data-service-url="{{API_PATH}}/auth"
-          data-filter="{ 'about.@type': 'ObjectProperty' }"
+          data-filter="{ filter: 'about.@type:ObjectProperty' }"
           data-subject="object"
           data-link-multiple="'_reifiedRoles'" data-type="ObjectProperty"
           data-view-template="render-role"

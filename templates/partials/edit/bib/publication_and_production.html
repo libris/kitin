@@ -40,7 +40,7 @@
                   data-no-value="{{ object.prefLabel }} ({{ object.notation }})"
                   data-kitin-search-entity
                   data-service-url="{{API_PATH}}/def/_search"
-                  data-filter="{'about.@type': 'Country'}"
+                  data-filter="{ filter: 'about.@type:Country'}"
                   data-completion-template="select-country-template" placeholder="+ Lägg till land">
         </script>
         <script type="text/html" id="select-country-template">

@@ -6,7 +6,7 @@
     <h3>{{ "Ämnesord" }}</h3>
     <div data-ng-repeat="(key, container) in record.about.subjectByInScheme" class="scheme tagsinput"
        data-ng-init="scheme = conceptSchemes.byNotation[key.replace('/topic/','')] || {'title': key, 'notation': container[0].inScheme.notation}; 
-                    search_filter = {'about.inScheme.notation': scheme.notation};
+                    search_filter = {filter: 'about.inScheme.notation:' + scheme.notation};
                     search_completion_template = 'subject-completion-template';">
       <span class="lbl">{{ scheme.alternative || scheme.title || scheme.title_en }}</span>
       <ul class="tags" data-kitin-link-entity
@@ -18,7 +18,7 @@
 
     <div data-ng-repeat="(key, container) in record.about.subjectByType" class="scheme tagsinput"
        data-ng-init="scheme = subjectByType[key];
-                     search_filter = (key === '/topic/chronological') ? {'about.inCollection.@id': '\\/topic\\/chronological\\/'} : {'about.@type': key};
+                     search_filter = (key === '/topic/chronological') ? { filter: 'about.inCollection.@id:\\/topic\\/chronological\\/'} : { filter: 'about.@type:' + key};
                      search_completion_template = key === 'Person' ? 'auth-completion-template' : 'subject-completion-template';">
       <span class="lbl">{{ scheme.alternative || scheme.title || scheme.title_en }}</span>
       <ul class="tags" data-kitin-link-entity
