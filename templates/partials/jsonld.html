@@ -3,7 +3,7 @@
   <header class="clearfix">
     <h1>JSON-LD</h1>
     <p>
-      Den underliggande datastrukturen representerad som ett träd av entiteter, på formatet <a href="http://json-ld.org/" target="_blank">JSON-LD <i class="fa fa-external-link"></i></a>. Här visas all data som är lyft ur MARC-posten, samt de delar som ännu inte mappats (då placerade i fältet "unknown"). 
+      Den underliggande datastrukturen representerad som ett träd av entiteter, på formatet <a href="http://json-ld.org/" target="_blank">JSON-LD <i class="fa fa-external-link"></i></a>. Här visas all data som är lyft ur MARC-posten (samt de delar som ännu inte mappats klart, placerade i block prefixade med '_marc').
     </p>
     <p>
       Denna struktur är under utveckling. Kom gärna med synpunkter om något saknas eller ser feltolkat ut.
@@ -29,7 +29,7 @@
        data-ng-init="obj = object[key]" data-ng-if="key[0] != '@'">
     <ng:switch on="typeOf(obj)">
       <div data-ng-switch-when="object"
-           data-ng-init="collapsed = (key == 'unknown')"
+           data-ng-init="collapsed = (key == '_marcUncompleted')"
            data-ng-class="{collapsed: collapsed, array: lodash.isArray(obj)}">
         <label class="entitylink">
           <span data-ng-click="openTermDef(key)">{{ key }}</span>
