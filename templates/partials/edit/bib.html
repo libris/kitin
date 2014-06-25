@@ -4,14 +4,14 @@
   </div>
 
   <ng-form name="subform">
-    <section class="title-and-main-entry"></section>
-    <section class="publication-and-production"></section>
-    <section class="physical-description"></section>
-    <section class="notes"></section>
-    <section class="edit-subject"></section>
+    <section class="title-and-main-entry"       ng-include="'/partials/edit/bib/title_and_main_entry'"></section>
+    <section class="publication-and-production" ng-include="'/partials/edit/bib/publication_and_production'"></section>
+    <section class="physical-description"       ng-include="'/partials/edit/bib/physical_description'"></section>
+    <section class="notes"                      ng-include="'/partials/edit/bib/notes'"></section>
+    <section class="edit-subject"               ng-include="'/partials/edit/bib/subject'"></section>
 
 <!-- uncompleted marc debug -->
-    <section ng-if="debug && record._marcUncompleted" class="unknown"></section>
+    <section ng-if="debug && record._marcUncompleted" class="unknown" ng-include="'/partials/edit/bib/unknown'"></section>
 
 
 <!-- debug printed fields -->
