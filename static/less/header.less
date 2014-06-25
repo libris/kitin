@@ -12,7 +12,7 @@ body.index #header .searchfield{
   .btn-group { float: right; }
   a.btn{height:47px;}
 	a.search-source {
-	   background-color: @grey-warm;color:@grey-very-dark;
+	   color:@grey-very-dark;
 		 padding: 8px 16px;
 		 display:block;
 		 border-radius:none;
@@ -31,7 +31,6 @@ body.index #header .searchfield{
 	 		}
 	 }  
   
-  button{height:47px;}
   a span {margin-top: 8px;}
 	a .btn-label {position:relative;top:5px;}
   em {
@@ -244,15 +243,19 @@ body.search #header .searchfield {
     }
    
     button {
-      height:28px;background-size:14px;width:36px
+      height:28px;
+      width:36px;
+      font-size: 1em;
+      line-height: 1;
     }
 
     a.btn {
       height:28px;width:28px;line-height:14px;
     }
     
+    
     a.search-source {
-      background-color: @grey-warm;height:28px;width:126px;line-height:14px;color:@grey-very-dark;
+      height:28px;width:126px;line-height:14px;color:@grey-very-dark;
       padding: 6px 16px;
       display:block;
       border-radius:none;
@@ -298,40 +301,29 @@ body.search #header .searchfield {
   font-size: 13px;
 }
 
-#header .searchfield a.btn{height:47px;border:none;
-    background:@green;width:31px;
-    -webkit-border-top-right-radius: 3px;
-    -webkit-border-bottom-right-radius: 3px;
-    -moz-border-radius-topright: 3px;
-    -moz-border-radius-bottomright: 3px;
+#header .searchfield a.search-source {
+  width:128px;
+  border-radius:0px;color:@grey-very-dark;}
+
+#header .searchfield button {
+    font-size: 1.6em;
+    height: 47px;
+    width: 50px;
+    border:none;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
     -webkit-transition:background ease-out 0.03s;
-}
-#header .searchfield a.search-source {width:128px;background:@grey-warm;border-radius:0px;color:@grey-very-dark;}
-
-#header .searchfield button{text-indent:-10000px;height:38px;border:none;
-    background:@green url(/static/img/search.png) no-repeat 50% 50%;width:50px;
-    -webkit-border-top-right-radius: 3px;
-    -webkit-border-bottom-right-radius: 3px;
-    -moz-border-radius-topright: 3px;
-    -moz-border-radius-bottomright: 3px;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-    -webkit-transition:background ease-out 0.03s;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+    border-left: 0;
+    margin-left: 0;
 }
 
-#header .searchfield a.btn:hover,
-#header .searchfield button:hover{background-color:@green-dark;}
-
-#header .searchfield button:hover{}  
 #header .searchfield input[type="text"],
 #header .searchfield button{float:left;}
 
 #header .searchfield .btn-group > .btn:first-child {
-    border-bottom-left-radius: 0px;
-    border-top-left-radius: 0px;
-    margin-left: 0;
+
 }
 
 /* HEADER SEARCHFIELD END ------------------------- */

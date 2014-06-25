@@ -195,6 +195,9 @@ input[type="color"]:focus,
   -moz-box-shadow: none;
   box-shadow: none;
 }
+.fa-caret-down {
+  margin-left: 4px;
+}
 /*
 @font-face {
     .font-face('Open Sans', 'OpenSans-Light-webfont', 'OpenSansLight', light, normal);
@@ -362,14 +365,17 @@ body.edit .footer footer {
   box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.2), inset 1px 1px 1px rgba(255, 255, 255, 0.2);
   -webkit-transition: background ease-out 0.03s;
 }
-.btn-green {
+.btn-light {
   background: #27b492;
+}
+.btn-green,
+.btn-green:focus {
+  background: #1a8f72;
   color: #ffffff;
 }
 .btn-green:hover,
-.btn-green:focus,
 .btn-green:active {
-  background: #1a8f72;
+  background: #106351;
   color: #ffffff;
 }
 .btn-dark {
@@ -381,6 +387,9 @@ body.edit .footer footer {
 .btn-dark:active {
   background-color: #0a5041;
   color: #ffffff;
+}
+.btn-grey {
+  background: #f7f3ee;
 }
 .btn-purple {
   background-color: #683568;
@@ -426,23 +435,6 @@ section.submit .btn-link {
 .btn-submit {
   padding: 12px 28px;
   font-size: 16px;
-}
-section.result .btn-group button.btn,
-.search-source {
-  background: none repeat scroll 0 0 #27b492;
-  margin-bottom: 5px;
-  border: medium none;
-  border-radius: 0px;
-  box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.2) inset, 1px 1px 1px rgba(255, 255, 255, 0.2) inset;
-  color: #ffffff;
-  filter: none;
-  font-family: 'Open Sans', georgia, serif;
-  font-size: 12px;
-  font-weight: 400;
-  padding: 2px 6px;
-  display: block;
-  min-width: 68px;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.08);
 }
 section.result .btn-group button.btn-hold {
   background-color: #683568;
@@ -568,7 +560,6 @@ body.index #header .searchfield a.btn {
   height: 47px;
 }
 body.index #header .searchfield a.search-source {
-  background-color: #f7f3ee;
   color: #191919;
   padding: 8px 16px;
   display: block;
@@ -586,9 +577,6 @@ body.index #header .searchfield a.search-source .fa-caret-down {
   position: absolute;
   right: 12px;
   color: #1a8f72;
-}
-body.index #header .searchfield button {
-  height: 47px;
 }
 body.index #header .searchfield a span {
   margin-top: 8px;
@@ -837,8 +825,9 @@ body.search #header .searchfield .btn-group {
 }
 body.search #header .searchfield button {
   height: 28px;
-  background-size: 14px;
   width: 36px;
+  font-size: 1em;
+  line-height: 1;
 }
 body.search #header .searchfield a.btn {
   height: 28px;
@@ -846,7 +835,6 @@ body.search #header .searchfield a.btn {
   line-height: 14px;
 }
 body.search #header .searchfield a.search-source {
-  background-color: #f7f3ee;
   height: 28px;
   width: 126px;
   line-height: 14px;
@@ -896,51 +884,27 @@ body.search #header .searchfield em {
   width: 60px;
   font-size: 13px;
 }
-#header .searchfield a.btn {
-  height: 47px;
-  border: none;
-  background: #1a8f72;
-  width: 31px;
-  -webkit-border-top-right-radius: 3px;
-  -webkit-border-bottom-right-radius: 3px;
-  -moz-border-radius-topright: 3px;
-  -moz-border-radius-bottomright: 3px;
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-  -webkit-transition: background ease-out 0.03s;
-}
 #header .searchfield a.search-source {
   width: 128px;
-  background: #f7f3ee;
   border-radius: 0px;
   color: #191919;
 }
 #header .searchfield button {
-  text-indent: -10000px;
-  height: 38px;
-  border: none;
-  background: #1a8f72 url(/static/img/search.png) no-repeat 50% 50%;
+  font-size: 1.6em;
+  height: 47px;
   width: 50px;
-  -webkit-border-top-right-radius: 3px;
-  -webkit-border-bottom-right-radius: 3px;
-  -moz-border-radius-topright: 3px;
-  -moz-border-radius-bottomright: 3px;
+  border: none;
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
   -webkit-transition: background ease-out 0.03s;
-}
-#header .searchfield a.btn:hover,
-#header .searchfield button:hover {
-  background-color: #106351;
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px;
+  border-left: 0;
+  margin-left: 0;
 }
 #header .searchfield input[type="text"],
 #header .searchfield button {
   float: left;
-}
-#header .searchfield .btn-group > .btn:first-child {
-  border-bottom-left-radius: 0px;
-  border-top-left-radius: 0px;
-  margin-left: 0;
 }
 /* HEADER SEARCHFIELD END ------------------------- */
 /* HEADER END ------------------------- */

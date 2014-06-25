@@ -227,7 +227,7 @@ kitin.directive('elementAdder', function(editUtil) {
     require: 'editCtrl',
     scope: true,
     template: '<li class="dropdown">' +
-                '<a class="btn btn-green dropdown-toggle" title="Lägg till fält">' +
+                '<a class="btn btn-grey dropdown-toggle" title="Lägg till fält">' +
                   'Lägg till fält' +
                   '<i class="icon fa fa-caret-down"></i>' +
                 '</a>' +

@@ -11,19 +11,30 @@
   -webkit-transition:background ease-out 0.03s;
 }
 
-.btn-green {
-  background: @green-light;	
-  color: @white;	
+
+.btn-light {
+  background: @green-light; 
 }
 
+
+.btn-green,
+.btn-green:focus {
+  background: @green; 
+  color: @white;	
+}
 .btn-green:hover,
-.btn-green:focus,
-.btn-green:active{background:@green; color: @white;}
+.btn-green:active{
+  background:@green-dark; color: @white;
+}
 
 .btn-dark{background:@green-dark; color: @white;}
 .btn-dark:hover,
 .btn-dark:focus,
 .btn-dark:active{background-color:@green-darker; color: @white;} 
+
+.btn-grey {
+  background: @grey-warm;     
+}
 
 .btn-purple{background-color:@purple;}
 .btn-purple:hover,
@@ -50,23 +61,7 @@ a btn {color: @green-light;}
 section.submit .btn-link {font-size: 14px; font-weight: bold;}
 .btn-submit{padding: 12px 28px;font-size:16px;}
 
-section.result .btn-group button.btn,
-.search-source {
-    background: none repeat scroll 0 0 @green-light;
-    margin-bottom: 5px;
-    border: medium none;
-    border-radius: 0px;
-    box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.2) inset, 1px 1px 1px rgba(255, 255, 255, 0.2) inset;
-    color: @white;
-    filter: none;
-    font-family: @paragraph-font,georgia,serif;
-    font-size: 12px;
-    font-weight:400;
-    padding: 2px 6px;
-    display: block;
-    min-width: 68px;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.08);
-}
+
 section.result .btn-group button.btn-hold {background-color: @purple;}
 section.result .btn-group button.hold-check {opacity: 0.3;}
 

@@ -35,7 +35,7 @@
           autocomplete="off" role="textbox"
           aria-autocomplete="list" aria-haspopup="true" data-ng-model="state.search.q">
           <div class="btn-group">
-						<a class="btn search-source dropdown-toggle">
+						<a class="btn btn-grey search-source dropdown-toggle">
 							<span class="btn-label">{{ state.searchType.label }}</span>
               <span class="fa fa-caret-down"></span>
             </a>
@@ -45,7 +45,7 @@
                    data-ng-click="setSearchType(opt.key)">{{ opt.label }}</a>
               </li>
             </ul>
-            <button class="btn" type="submit">Sök</button>
+            <button class="btn btn-green" type="submit"><i class="fa fa-search"></i></button>
           </div>
     			<div class="remote-search" data-ng-show="state.searchType.key == 'remote'">
             <!-- List seleceted remote databases -->

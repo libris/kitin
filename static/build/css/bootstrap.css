@@ -195,6 +195,9 @@ input[type="color"]:focus,
   -moz-box-shadow: none;
   box-shadow: none;
 }
+.fa-caret-down {
+  margin-left: 4px;
+}
 /*! normalize.css v3.0.0 | MIT License | git.io/normalize */
 html {
   font-family: sans-serif;
