@@ -122,3 +122,9 @@ $(function() {
     }
   });
 });
+
+
+var kitin = angular.module('kitin.directives', []);
+var kitin = angular.module('kitin.filters', []);
+var kitin = angular.module('kitin.services', []);
+
