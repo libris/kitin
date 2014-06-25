@@ -194,7 +194,14 @@ kitin.directive('addable', function(editUtil){
       restrict: 'A',
       scope: true,
       compile: function(element, attrs) {
-        editUtil.addableElements.push(attrs);
+        if(attrs.addable !== '') {
+          if(typeof editUtil.addableElements[attrs.addable] === 'undefined') {
+            editUtil.addableElements[attrs.addable] = [];
+          }
+          editUtil.addableElements[attrs.addable].push(attrs);
+        } else {
+          editUtil.addableElements.push(attrs);
+        }
       }
   };
 });
@@ -216,12 +223,12 @@ kitin.directive('navBack', function(){
 
 kitin.directive('elementAdder', function(editUtil) {
   return {
-    restrict: 'C',
+    restrict: 'A',
     require: 'editCtrl',
     scope: true,
     template: '<li class="dropdown">' +
-                '<a class="btn btn-green dropdown-toggle" title="Lägg till">' +
-                  'Lägg till ' +
+                '<a class="btn btn-green dropdown-toggle" title="Lägg till fält">' +
+                  'Lägg till fält' +
                   '<i class="icon fa fa-caret-down"></i>' +
                 '</a>' +
                 '<ul class="dropdown-menu pull-right">' +
@@ -232,11 +239,10 @@ kitin.directive('elementAdder', function(editUtil) {
               '</li>',
     //<select class="form-control" ng-model="elementToAdd" ng-change="change()" ng-options="getElementLabel(element) for element in addableElements"><option value="" selected>Lägg till</option></select>',
     controller: function($element, $scope, $attrs, $translate) {
-      $scope.addableElements = editUtil.addableElements;
-      
+      $scope.addableElements = $attrs.elementAdder !== '' ? editUtil.addableElements[$attrs.elementAdder] : editUtil.addableElements;
       $scope.change = function(element) {
         var type = (element.defaultType ? element.defaultType : element.ngSwitchWhen);
-        $scope.$parent.addObject($scope.$parent.record.about, element.linkMultiple, type, element.ngTarget, type);
+        $scope.$parent.addObject($scope.$parent.record.about, element.linkMultiple, type, element.ngTarget, element.ngSwitchWhen);
         $scope.elementToAdd = null;
       };
 

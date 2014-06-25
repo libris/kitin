@@ -31,7 +31,7 @@
     </div>
     <div class="cols" data-ng-repeat="(formatType, subFormat) in record.about.hasFormatByType">
 
-      <h3 class="ng-binding" translate>{{ 'LABEL.record.about.hasFormat.' + formatType }}</h3>
+      <h3 ng-if="subFormat.length > 0" class="ng-binding" translate>{{ 'LABEL.record.about.hasFormat.' + formatType }}</h3>
       <div class="col12" ng-switch on="formatType">
 
         <!-- Product START -->
@@ -42,7 +42,7 @@
           data-table-row-template="product-row-template"
           data-subject="record.about" data-link-multiple="hasFormatByType"
           data-add-first
-          data-addable>
+          data-addable="physical_description">
         </div>
         <script type="text/ng-template" id="product-header-row-template">
           <td><span class="lbl" translate>LABEL.record.about.hasFormat.Product.extent</span></td>
@@ -69,7 +69,7 @@
           data-table-row-template="electronic-row-template"
           data-subject="record.about" data-link-multiple="hasFormatByType"
           data-add-first
-          data-addable>
+          data-addable="physical_description">
         </div>
         <script type="text/ng-template" id="electronic-header-row-template">
           <td><span class="lbl" translate>LABEL.record.about.hasFormat.Electronic.carrierType</span></td>
@@ -94,7 +94,7 @@
           data-table-row-template="map-row-template"
           data-subject="record.about" data-link-multiple="hasFormatByType"
           data-add-first
-          data-addable>
+          data-addable="physical_description">
         </div>
         <script type="text/ng-template" id="map-header-row-template">
           <td><span class="lbl" translate>LABEL.record.about.hasFormat.Map.carrierType</span></td>
@@ -119,7 +119,7 @@
           data-table-row-template="moving-image-row-template"
           data-subject="record.about" data-link-multiple="hasFormatByType"
           data-add-first
-          data-addable>
+          data-addable="physical_description">
         </div>
         <script type="text/ng-template" id="moving-image-header-row-template">
           <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.carrierType</span></td>
@@ -148,7 +148,7 @@
           data-table-row-template="sound-recording-row-template"
           data-subject="record.about" data-link-multiple="hasFormatByType"
           data-add-first
-          data-addable>
+          data-addable="physical_description">
         </div>
         <script type="text/ng-template" id="sound-recording-header-row-template">
           <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.carrierType</span></td>
@@ -179,7 +179,7 @@
           data-table-row-template="video-recording-row-template"
           data-subject="record.about" data-link-multiple="hasFormatByType"
           data-add-first
-          data-addable>
+          data-addable="physical_description">
         </div>
         <script type="text/ng-template" id="video-recording-header-row-template">
           <td><span class="lbl" translate>LABEL.record.about.hasFormat.VideoRecording.carrierType</span></td>
@@ -230,6 +230,6 @@
 	</div>
 
   </div>
-  <div class="element-adder"></div>
+  <div class="element-adder" data-element-adder="physical_description"></div>
 </div>
  {% endraw %}

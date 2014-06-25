@@ -66,7 +66,7 @@
 	        data-subject="record.about" data-link-multiple="publication"
           data-default-type="Publisher"
 	        data-add-first
-	        data-addable>
+	        data-addable="publication_and_production">
 	      </div>
         <script type="text/ng-template" id="publisher-recording-header-row-template">
           <td><span class="lbl" translate>LABEL.record.about.publication.place.label</span></td>
@@ -101,7 +101,7 @@
 	        data-subject="record.about" data-link-multiple="manufacture"
           data-default-type="Publisher"
 	        data-add-first
-	        data-addable>
+	        data-addable="publication_and_production">
 	      </div>
         <script type="text/ng-template" id="manufacture-recording-header-row-template">
           <td><span class="lbl" translate>LABEL.record.about.manufacture.place.label</span></td>
@@ -116,7 +116,7 @@
     </div>
     </div>
     <div class="identifier"></div>
-    <div class="element-adder"></div>
+    <div class="element-adder" data-element-adder="publication_and_production"></div>
 
 
     <script type="text/ng-template" id="manufacture-publisher-recording-row-template">
