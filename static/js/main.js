@@ -8,7 +8,7 @@ var kitin = angular.module('kitin', [
     'ui.utils', 'ui.bootstrap',
     'kitin.controllers', 'kitin.filters', 'kitin.services', 'kitin.directives']);
 
-kitin.config(function($locationProvider, $routeProvider, $translateProvider) {
+kitin.config(function($locationProvider, $routeProvider, $translateProvider, $httpProvider) {
   
       $locationProvider.html5Mode(true).hashPrefix('!');
 
@@ -25,6 +25,7 @@ kitin.config(function($locationProvider, $routeProvider, $translateProvider) {
         .when('/marc/:recType/:recId',    { templateUrl: '/partials/marc', isMarc: true })
         ;//.otherwise({redirectTo: '/'});
 
+      $httpProvider.interceptors.push('HttpInterceptor');
 });
 
 // TODO: window.onunload or $routeProvider / $locationChangeStart
