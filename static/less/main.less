@@ -44,26 +44,66 @@ a.beta-blocker {text-decoration: none; cursor:default;}
 .todo{display:none!important}
 .hidden {visibility:hidden}
 
-div.notification  {
-	width:318px;border:1px solid @grey-light; padding:12px 24px 12px 36px; margin:6px;
-	  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.1);
-     -moz-box-shadow: 0 1px 2px rgba(0,0,0,.1);
-      box-shadow: 0 1px 2px rgba(0,0,0,.1);
-	i {float:left; margin-left:-18px;}
-	}
 
-div.notification-info {
+#system-message-container {
+	z-index: 1001;
+	position: absolute;
+	margin: auto;
+	width: 100%;
+	.alert {
+		width: 420px;
+	}
+}
+
+.alert  {
+	  border: 1px solid @grey-light;
+	  padding:12px 24px 12px 36px; 
+	  margin: 6px auto 6px auto;
+	  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.1);
+      -moz-box-shadow: 0 1px 2px rgba(0,0,0,.1);
+      box-shadow: 0 1px 2px rgba(0,0,0,.1);
+      border-radius: 0px;
+    span { 
+    	display:block; 
+    	white-space: pre-line; 
+   	}
+	i {
+		float:left; 
+		margin-left:-18px;
+	}
+}
+
+.alert-info {
 	background-color: @grey-warm;
+	color: @grey-very-dark;
 	i {color:@grey-dark;}
 }
+
+.alert-loading {
+	position: absolute;  
+	z-index: 10000; 
+	top: 100px;
+	left: 40%;
+	height: 120px;
+	width: 310px;
+	border: 5px solid @grey-warm;
+	background-color: @white;
+	color: @grey-very-dark;
+	.loading-text {
+		margin-top: 75px;
+		text-align: center;
+	}
+}
 	
-div.notification-warning {
-	background-color: @yellow-lighter; border-color:@yellow;
+.alert-warning {
+	background-color: @yellow-lighter; 
+	border-color:@yellow;
 	i {color:@yellow;}
 }
 
-div.notification-error {
-	background-color: @red-lighter; border-color:@red;
+.alert-error {
+	background-color: @red-lighter; 
+	border-color:@red;
 	i {color:@red;}
 }
 
