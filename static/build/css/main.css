@@ -2779,37 +2779,66 @@ a.beta-blocker {
 .hidden {
   visibility: hidden;
 }
-div.notification {
-  width: 318px;
+#system-message-container {
+  z-index: 1001;
+  position: absolute;
+  margin: auto;
+  width: 100%;
+}
+#system-message-container .alert {
+  width: 420px;
+}
+.alert {
   border: 1px solid #c7c7c7;
   padding: 12px 24px 12px 36px;
-  margin: 6px;
+  margin: 6px auto 6px auto;
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 0px;
 }
-div.notification i {
+.alert span {
+  display: block;
+  white-space: pre-line;
+}
+.alert i {
   float: left;
   margin-left: -18px;
 }
-div.notification-info {
+.alert-info {
   background-color: #f7f3ee;
+  color: #191919;
 }
-div.notification-info i {
+.alert-info i {
   color: #999999;
 }
-div.notification-warning {
+.alert-loading {
+  position: absolute;
+  z-index: 10000;
+  top: 100px;
+  left: 40%;
+  height: 120px;
+  width: 310px;
+  border: 5px solid #f7f3ee;
+  background-color: #ffffff;
+  color: #191919;
+}
+.alert-loading .loading-text {
+  margin-top: 75px;
+  text-align: center;
+}
+.alert-warning {
   background-color: #f7ecb9;
   border-color: #d6ab00;
 }
-div.notification-warning i {
+.alert-warning i {
   color: #d6ab00;
 }
-div.notification-error {
+.alert-error {
   background-color: #ffd4db;
   border-color: #ff0000;
 }
-div.notification-error i {
+.alert-error i {
   color: #ff0000;
 }
 /* GENERAL END ------------------------- */

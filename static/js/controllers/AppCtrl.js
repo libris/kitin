@@ -1,5 +1,5 @@
 var kitin = angular.module('kitin.controllers', []);
-kitin.controller('AppCtrl', function($scope, $rootScope, $modal, searchService) {
+kitin.controller('AppCtrl', function($scope, $rootScope, $modal, searchService, $timeout) {
   $rootScope.API_PATH = '/whelk-webapi';
   $rootScope.state = {
     searchType: {},
@@ -21,5 +21,19 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, searchService) 
     }
   };
 
+  $rootScope.systemMessages = [];
+  
+  $rootScope.addSystemMessage = function(msgObj) {
+    $rootScope.systemMessages.push(msgObj);
+    if(msgObj.timeout) {
+      $timeout(function() {
+        $rootScope.closeSystemMessage($rootScope.systemMessages.length-1);
+      }, msgObj.timeout);
+    }
+  };
+
+  $rootScope.closeSystemMessage = function(index) {
+    $rootScope.systemMessages.splice(index, 1);
+  };
 
 });
