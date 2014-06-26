@@ -2768,7 +2768,7 @@ a.beta-blocker {
 #system-message-container {
   z-index: 1001;
   position: absolute;
-  margin: auto;
+  margin: 90px auto;
   width: 100%;
 }
 #system-message-container .alert {
@@ -2802,7 +2802,7 @@ a.beta-blocker {
   position: absolute;
   z-index: 10000;
   top: 100px;
-  left: 40%;
+  left: 35%;
   height: 120px;
   width: 310px;
   border: 5px solid #f7f3ee;
