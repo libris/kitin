@@ -1,4 +1,6 @@
 {% raw %}
+<div class="loading alert alert-loading" data-loading-message="Sökresultatet laddas!" ng-show="loading"></div>
+
 <div data-ng-switch on="state.search.result.hits" data-ng-controller="SearchResultCtrl">
   <div class="content search" data-ng-switch-when="0">
     <div id="grid"></div>
@@ -64,6 +66,6 @@
     </div>
   </div>
 </div>
-<div class="loading" data-ng-show="loading"><b>...</b></div>
+
 
 {% endraw %}

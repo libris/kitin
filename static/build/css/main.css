@@ -2719,20 +2719,6 @@ section.result p.holding {
     background: #c8f4ea url(/static/img/select-arrow.png) no-repeat 98% -92px;
   }
 }
-/*TODO switch for spin.js*/
-div.loading {
-  position: relative;
-  left: 80%;
-  float: left;
-  z-index: 10000;
-  margin-top: -40px;
-  background-image: url(/static/img/loading.gif);
-  width: 24px;
-  height: 24px;
-}
-div.loading > b {
-  display: none;
-}
 html {
   overflow-y: scroll;
   -webkit-font-smoothing: antialiased;
