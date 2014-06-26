@@ -5,6 +5,7 @@
     "lodash": "~2.1.0",
     "jquery": "~1.10.2",
     "angular": "~1.2.1",
+    "angular-route": "~1.2.1",
     "angular-ui-utils": "~0.1.0",
     "angular-bootstrap": "~0.10.0",
     "angular-translate": "~2.1.0",
@@ -14,7 +15,6 @@
     "jKey": "OscarGodson/jKey#d2b426b20a6f786b8bc2b0842e2b394dd0744a29",
     "dyve-jquery-autocomplete": "dyve/jquery-autocomplete#df032d1f3ec734c1415c09825578df336bec8272",
     "jquery-autosize": "~1.17.8",
-    "angular-route": "~1.2.1",
     "ngInfiniteScroll": "1.0.0",
     "spin.js": "~2.0.0"
   },
