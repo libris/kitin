@@ -35,26 +35,28 @@ kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
       /*  save
       *   
       */
-      save: function(type, id, recordData, etag) {
+      save: function(type, id, recordData, recordEtag) {
         var deferer = $q.defer();
-
-        $http.put($rootScope.API_PATH + '/' + type + "/" + id, editUtil.undecorate(recordData),
+        var recordDataCopy = angular.copy(recordData);
+        $http.put($rootScope.API_PATH + '/' + type + "/" + id, editUtil.undecorate(recordDataCopy),
             {
               headers: {"If-match":etag}
             })
           .success(function(savedRecord, status, headers) {
             deferer.resolve({
               recdata: editUtil.decorate(savedRecord),
-              etag: headers('etag')  
+              etag: headers('etag')
             });
         });
         return deferer.promise;
       },
 
-      create: function(type, data) {
+      create: function(type, recordData) {
         var deferer = $q.defer();
-        $http.post($rootScope.API_PATH, editUtil.undecorate(data)).success(function(createdRecord, status, headers) {
-          deferer.resolve({
+        var recordDataCopy = angular.copy(recordData);
+        $http.post($rootScope.API_PATH, editUtil.undecorate(recordDataCopy))
+          .success(function(createdRecord, status, headers) {
+            deferer.resolve({
               recdata: editUtil.decorate(createdRecord),
               etag: headers('etag')  
             });
@@ -84,10 +86,11 @@ kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
         return deferer.promise;
       },
 
-      save: function(type, draftId, data, etag) {
+      save: function(type, draftId, draftData, etag) {
         var deferer = $q.defer();
         etag = etag ? etag : '';
-        $http.put("/draft/" + type + '/' + draftId, editUtil.undecorate(data), {headers: {"If-match":etag } })
+        var draftDataCopy = angular.copy(draftData);
+        $http.put("/draft/" + type + '/' + draftId, editUtil.undecorate(draftDataCopy), {headers: {"If-match":etag } })
           .success(function(data, status, headers) {
             deferer.resolve({
               recdata: editUtil.decorate(data),
@@ -97,10 +100,11 @@ kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
         return deferer.promise;
       },
 
-      create: function(type, data, etag) {
+      create: function(type, draftData, etag) {
         var deferer = $q.defer();
         etag = etag ? etag : '';
-        $http.post("/draft/" + type, editUtil.undecorate(data), {headers: {"If-match":etag } })
+        var draftDataCopy = angular.copy(draftData);
+        $http.post("/draft/" + type, editUtil.undecorate(draftDataCopy), {headers: {"If-match":etag } })
           .success(function(data, status, headers) {
             data.document = editUtil.decorate(data.document); 
             deferer.resolve(data);
