@@ -2086,9 +2086,6 @@ label.find-entity input[type="text"] {
   border: 1px solid #666666;
   outline: 0;
 }
-.edit .col6 .entity {
-  width: 466px;
-}
 .edit .col6 .entity .embedded input {
   width: 456px;
 }
