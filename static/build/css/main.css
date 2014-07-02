@@ -325,7 +325,8 @@ body.edit .footer footer {
   z-index: 10000;
   height: 50px;
   font-size: 13px;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
   text-align: center;
 }
 .footer-sticky section {
