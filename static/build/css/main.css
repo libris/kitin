@@ -2064,13 +2064,14 @@ label.find-entity input[type="text"] {
 /* PERSON SUGGEST END ------------------------- */
 .element-adder {
   text-align: right;
-  padding: 6px;
+  padding: 0;
+  font-size: 13px;
 }
 .element-adder > div {
   text-align: left;
 }
 .element-adder select {
-  font-size: 14px;
+  font-size: 13px;
   height: 25px;
 }
 .entity {
