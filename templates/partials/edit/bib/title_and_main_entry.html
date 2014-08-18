@@ -30,16 +30,15 @@
           <span class="lbl" translate>LABEL.record.about.uniformTitle</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.uniformTitle"></textarea>
         </label> 
-        <ng:switch on="instance['@type']">
-        <label data-ng-switch-when="Serial">
-           <span class="lbl" translate>LABEL.record.about.keyTitle.titleValue</span>
+        <label data-ng-show="exists(record.about.keyTitle.titleValue)">
+           <span class="lbl" translate>LABEL.record.about.keyTitle</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.keyTitle.titleValue"></textarea>       
         </label>
         <label data-ng-repeat="uniformTitle in record.about.relation">
           <span class="lbl" translate>LABEL.record.about.relation.uniformTitle</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="uniformTitle.uniformTitle"></textarea>
         </label>       
-        </ng:switch>
+        
         <label data-ng-repeat="isPartOf in record.about.isPartOf">
           <span class="lbl" translate>LABEL.record.about.isPartOf</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="isPartOf.title"></textarea>
