@@ -22,10 +22,6 @@
           <span class="lbl" translate>LABEL.record.about.titleVariation.titleType</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.titleType"></textarea>
         </label>
-        <label data-ng-show="exists(record.about.titleVariation.titleValue)">
-          <span class="lbl" translate>LABEL.record.about.titleVariation.titleValue</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.titleValue"></textarea>
-        </label>
         <label data-ng-show="exists(record.about.uniformTitle)">
           <span class="lbl" translate>LABEL.record.about.uniformTitle</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.uniformTitle"></textarea>
@@ -33,6 +29,10 @@
         <label data-ng-show="exists(record.about.keyTitle.titleValue)">
            <span class="lbl" translate>LABEL.record.about.keyTitle</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.keyTitle.titleValue"></textarea>       
+        </label>
+        <label data-ng-show="exists(record.about.titleVariation.titleValue)">
+          <span class="lbl" translate>LABEL.record.about.titleVariation.titleValue</span>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.titleValue"></textarea>
         </label>
         <label data-ng-repeat="uniformTitle in record.about.relation">
           <span class="lbl" translate>LABEL.record.about.relation.uniformTitle</span>
