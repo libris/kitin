@@ -53,8 +53,42 @@
 
       </div>
       <div class="col6">
+        <label>
+          <span class="lbl" translate>LABEL.record.about.frequencyCategory</span>
+          <input type="text" data-ng-model="record.about.frequencyCategory['@id']">
+        </label>      
+        <label>
+          <span class="lbl" translate>LABEL.record.about.frequency</span>
+          <input type="text" data-ng-model="record.about.frequency">
+        </label>    
+<label data-ng-repeat="replaces in record.about.replaces">
+	          <span class="lbl" translate>LABEL.record.about.relation.replaces</span>
+	          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="replaces.frequency"></textarea>
+	        </label>   	 	 
+        <label>
+          <span class="lbl" translate>LABEL.record.about.regularity</span>
+          <input type="text" data-ng-model="record.about.regularity['@id']">
+        </label>  
       </div>
     </div>
+
+
+	<div class="cols">
+	    <div class="col6">
+	        <label data-ng-repeat="precededBy in record.about.precededBy">
+	          <span class="lbl" translate>LABEL.record.about.relation.precededBy</span>
+	          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="precededBy.title"></textarea>
+	        </label>   	    
+	    </div>
+	    <div class="col6">
+	        <label data-ng-repeat="succeededBy in record.about.succeededBy">
+	          <span class="lbl" translate>LABEL.record.about.relation.succeededBy</span>
+	          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="succeededBy.title"></textarea>
+	        </label>   	    
+	    </div>
+	   </div>
+
+
 
 		<div class="cols">
 	    <div class="col12">
