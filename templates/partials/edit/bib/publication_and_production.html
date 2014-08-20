@@ -62,20 +62,10 @@
           <ul class="tags" data-kitin-link-entity
               data-subject="record.about"
               data-link="'frequencyCategory'" data-type="frequencyCategory"
-              data-view-template="frequency-category"
-              data-search-template="render-select-frequency-category">
+              data-view-template="render-generic-linked-entity"
+              data-search-template="render-generic-select-category"
+              ng-init="selectDataSource=frequencies">
           </ul>
-          <script type="text/ng-template" id="frequency-category">
-            <a href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.prefLabel }} </a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
-          </script>
-
-          <script type="text/ng-template" id="render-select-frequency-category">
-              <select 
-                data-kitin-select-entity
-                data-selected-item-variable="selectedItem.data.about"
-                ng-options="(frequency.data.about.prefLabel || frequency.data.about.prefLabel_en) for frequency in frequencies">
-              </select>
-          </script>
         </label>   
         <label>
           <span class="lbl" translate>LABEL.record.about.frequency</span>
@@ -90,20 +80,10 @@
           <ul class="tags" data-kitin-link-entity
               data-subject="record.about"
               data-link="'regularity'" data-type="Regularity"
-              data-view-template="render-regularity"
-              data-search-template="render-select-regularity-category">
+              data-view-template="render-generic-linked-entity"
+              data-search-template="render-generic-select-category"
+              ng-init="selectDataSource=regularities">
           </ul>
-          <script type="text/ng-template" id="render-regularity">
-            <a href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.prefLabel }} </a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
-          </script>
-
-          <script type="text/ng-template" id="render-select-regularity-category">
-              <select 
-                data-kitin-select-entity
-                data-selected-item-variable="selectedItem.data.about"
-                ng-options="(item.data.about.prefLabel || item.data.about.prefLabel_en) for item in regularities">
-              </select>
-          </script>
         </label>
 
         <label>
@@ -111,20 +91,10 @@
           <ul class="tags" data-kitin-link-entity
               data-subject="record.about"
               data-link="'publicationStatus'" data-type="PublicationStatus"
-              data-view-template="render-publication-status"
-              data-search-template="render-select-publication-status-category">
+              data-view-template="render-generic-linked-entity"
+              data-search-template="render-generic-select-category"
+              ng-init="selectDataSource=publicationStatus">
           </ul>
-          <script type="text/ng-template" id="render-publication-status">
-            <a href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.prefLabel }} </a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
-          </script>
-
-          <script type="text/ng-template" id="render-select-publication-status-category">
-              <select 
-                data-kitin-select-entity
-                data-selected-item-variable="selectedItem.data.about"
-                ng-options="(item.data.about.prefLabel || item.data.about.prefLabel_en) for item in publicationStatus">
-              </select>
-          </script>
         </label>
       </div>
     </div>
