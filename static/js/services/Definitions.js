@@ -43,7 +43,9 @@ kitin.factory('definitions', function($http, $rootScope) {
       frequencies:    getEnumDefinition('frequency'),
       regularities:   getEnumDefinition('regularity'),
       encLevel:       getEnumDefinition('encLevel'),
-      catForm:        getEnumDefinition('catForm')
+      catForm:        getEnumDefinition('catForm'),
+      literaryForm:   getEnumDefinition('literaryForm'),
+      biography:   getEnumDefinition('biography')
     },
     recordTemplate: function(recordType) { return getDataset("/record/template/" + recordType); }
   };

@@ -15,7 +15,7 @@ kitin.directive('kitinSelectEntity', ['definitions', 'editUtil', '$compile', fun
       // Remove the attribute to avoid indefinite loop
       elem.removeAttr("kitin-select-entity"); 
       elem.removeAttr("data-kitin-select-entity");
-
+      
       // On selection chaned add item and reset
       scope.onSelected = function() {
         linker.doAdd(scope.$eval(attrs.selectedItemVariable));

@@ -61,6 +61,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     };
   });
 
+  // !TODO: change to load on-demand 
   definitions.enums.contentType.then(function(data) { 
     $scope.contentTypes = data.list;
   });
@@ -77,6 +78,13 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     $scope.publicationStatus = data.list;
   });
 
+  definitions.enums.literaryForm.then(function(data) { 
+    $scope.literaryForm = data.list;
+  });
+
+  definitions.enums.biography.then(function(data) { 
+    $scope.biography = data.list;
+  });
 
   $scope.isLinked = function (thing) {
     if(!thing) { return; }
