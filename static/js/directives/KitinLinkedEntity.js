@@ -16,8 +16,8 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
             viewDiv + '</'+ itemTag +'>' +
           '<'+ itemTag +' class="search" ng-include="searchTemplate"></'+ itemTag +'>';
       } else {
-        template = viewDiv +
-          '<div ng-if="!viewmode" class="search" ng-include="searchTemplate"></div>';
+        template = '<'+itemTag+' ng-if="object">' + viewDiv + '</'+itemTag+'>' +
+          '<'+itemTag+' ng-if="!viewmode" class="search" ng-include="searchTemplate"></'+ itemTag +'>'
       }
 
       element.html(template);
