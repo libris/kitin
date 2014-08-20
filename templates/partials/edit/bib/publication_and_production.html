@@ -55,24 +55,73 @@
       <div class="col6">
         <label>
           <span class="lbl" translate>LABEL.record.about.frequencyCategory</span>
-          <input type="text" data-ng-model="record.about.frequencyCategory['@id']">
-        </label>      
+          <ul class="tags" data-kitin-link-entity
+              data-subject="record.about"
+              data-link="'frequencyCategory'" data-type="frequencyCategory"
+              data-view-template="frequency-category"
+              data-search-template="render-select-frequency-category">
+          </ul>
+          <script type="text/ng-template" id="frequency-category">
+            <a href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.prefLabel }} </a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
+          </script>
+
+          <script type="text/ng-template" id="render-select-frequency-category">
+              <select 
+                data-kitin-select-entity
+                data-selected-item-variable="selectedItem.data.about"
+                ng-options="(frequency.data.about.prefLabel || frequency.data.about.prefLabel_en) for frequency in frequencies">
+              </select>
+          </script>
+        </label>   
         <label>
           <span class="lbl" translate>LABEL.record.about.frequency</span>
           <input type="text" data-ng-model="record.about.frequency">
         </label>    
-<label data-ng-repeat="replaces in record.about.replaces">
+        <label data-ng-repeat="replaces in record.about.replaces">
 	          <span class="lbl" translate>LABEL.record.about.replaces.frequency</span>
 	          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="replaces.frequency"></textarea>
-	        </label>   	 	 
+	        </label>   
         <label>
           <span class="lbl" translate>LABEL.record.about.regularity</span>
-          <input type="text" data-ng-model="record.about.regularity['@id']">
+          <ul class="tags" data-kitin-link-entity
+              data-subject="record.about"
+              data-link="'regularity'" data-type="Regularity"
+              data-view-template="render-regularity"
+              data-search-template="render-select-regularity-category">
+          </ul>
+          <script type="text/ng-template" id="render-regularity">
+            <a href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.prefLabel }} </a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
+          </script>
+
+          <script type="text/ng-template" id="render-select-regularity-category">
+              <select 
+                data-kitin-select-entity
+                data-selected-item-variable="selectedItem.data.about"
+                ng-options="(item.data.about.prefLabel || item.data.about.prefLabel_en) for item in regularities">
+              </select>
+          </script>
         </label>
+
         <label>
           <span class="lbl" translate>LABEL.record.about.publicationStatus</span>
-          <input type="text" data-ng-model="record.about.publicationStatus['@id']">
-        </label>   
+          <ul class="tags" data-kitin-link-entity
+              data-subject="record.about"
+              data-link="'publicationStatus'" data-type="PublicationStatus"
+              data-view-template="render-publication-status"
+              data-search-template="render-select-publication-status-category">
+          </ul>
+          <script type="text/ng-template" id="render-publication-status">
+            <a href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.prefLabel }} </a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
+          </script>
+
+          <script type="text/ng-template" id="render-select-publication-status-category">
+              <select 
+                data-kitin-select-entity
+                data-selected-item-variable="selectedItem.data.about"
+                ng-options="(item.data.about.prefLabel || item.data.about.prefLabel_en) for item in publicationStatus">
+              </select>
+          </script>
+        </label>
       </div>
     </div>
 

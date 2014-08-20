@@ -43,20 +43,26 @@
           <span class="lbl" translate>LABEL.record.about.isPartOf</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="isPartOf.title"></textarea>
         </label>
-        <span class="lbl" translate>LABEL.record.about.language</span>
-        <ul class="tags" data-kitin-link-entity
-            data-subject="record.about"
-            data-link-multiple="'language'" data-type="Language"
-            data-view-template="render-language"
-            data-search-template="render-search-language">
-        </ul>
-        <span class="lbl" translate>LABEL.record.about.originalLanguage</span>
-        <ul class="tags" data-kitin-link-entity
-            data-subject="record.about"
-            data-link-multiple="'originalLanguage'" data-type="Language"
-            data-view-template="render-language"
-            data-search-template="render-search-language">
-        </ul>
+
+        <label>
+          <span class="lbl" translate>LABEL.record.about.language</span>
+          <ul class="tags" data-kitin-link-entity
+              data-subject="record.about"
+              data-link-multiple="'language'" data-type="Language"
+              data-view-template="render-language"
+              data-search-template="render-search-language">
+          </ul>
+        </label>
+
+        <label>
+          <span class="lbl" translate>LABEL.record.about.originalLanguage</span>
+          <ul class="tags" data-kitin-link-entity
+              data-subject="record.about"
+              data-link-multiple="'originalLanguage'" data-type="Language"
+              data-view-template="render-language"
+              data-search-template="render-search-language">
+          </ul>
+        </label>
         <script type="text/ng-template" id="render-language">
               <a href="#">
                 <i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.prefLabel }} <span data-ng-show="object.langCode">({{ object.langCode }})</span>

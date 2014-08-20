@@ -65,6 +65,19 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     $scope.contentTypes = data.list;
   });
 
+  definitions.enums.frequencies.then(function(data) { 
+    $scope.frequencies = data.list;
+  });
+
+  definitions.enums.regularities.then(function(data) { 
+    $scope.regularities = data.list;
+  });
+
+  definitions.enums.publicationStatus.then(function(data) { 
+    $scope.publicationStatus = data.list;
+  });
+
+
   $scope.isLinked = function (thing) {
     if(!thing) { return; }
     var id = thing['@id'];
@@ -78,7 +91,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   $scope.isInScheme = function(obj) {
     return (obj && !_.isEmpty(obj['inScheme']));
   };
-  
+
   // TODO: move each part of this into editUtil.decorate, then remove this function
   function addRecordViewsToScope(record, scope) {
     scope.unifiedClassifications = editUtil.getUnifiedClassifications(record);

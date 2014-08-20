@@ -19,20 +19,31 @@ kitin.factory('definitions', function($http, $rootScope) {
     };
   }
 
+  function getDefinition(filter) {
+    return getDataset($rootScope.API_PATH + '/def/_search?q=*+' + filter + '&n=10000');
+  }
+
+  function getEnumDefinition(collectionName) {
+    return getDefinition('about.inCollection.@id:\\/def\\/enum\\/content\\/' + collectionName + '\\-collection');
+  } 
+
   // Defined definitions
   var definitions = {
     remotedatabases:  getDataset($rootScope.API_PATH + "/_remotesearch?databases=list"),
     terms:            getDataset($rootScope.API_PATH + "/def/terms"),
-  // !TODO Remove definitions below when the "index expander" is implemented in backend
-    relators:         getDataset($rootScope.API_PATH + "/def/_search?q=*+about.@type:ObjectProperty&n=10000"),
-    languages:        getDataset($rootScope.API_PATH + "/def/_search?q=*+about.@type:Language&n=10000"),
-    countries:        getDataset($rootScope.API_PATH + "/def/_search?q=*+about.@type:Country&n=10000"),
-    nationalities:    getDataset($rootScope.API_PATH + "/def/_search?q=*+about.@type:Nationality&n=10000"),
     conceptSchemes:   getDataset($rootScope.API_PATH + "/def/schemes"),
+  // !TODO Remove definitions below when the "index expander" is implemented in backend
+    relators:         getDefinition('about.@type:ObjectProperty'),
+    languages:        getDefinition('about.@type:Language'),
+    countries:        getDefinition('about.@type:Country'),
+    nationalities:    getDefinition('about.@type:Nationality'),
     enums: {
-      contentType:    getDataset($rootScope.API_PATH + "/def/_search?q=*+about.inCollection.@id:\\/def\\/enum\\/content\\/contentType\\-collection&n=10000"),
-      encLevel:       getDataset($rootScope.API_PATH + "/def/_search?q=*+about.inCollection.@id:\\/def\\/enum\\/record\\/encLevel\\-collection&n=10000"),
-      catForm:        getDataset($rootScope.API_PATH + "/def/_search?q=*+about.inCollection.@id:\\/def\\/enum\\/record\\/catForm\\-collection&n=10000")
+      publicationStatus: getEnumDefinition('publicationStatus'), 
+      contentType:    getEnumDefinition('contentType'),
+      frequencies:    getEnumDefinition('frequency'),
+      regularities:   getEnumDefinition('regularity'),
+      encLevel:       getEnumDefinition('encLevel'),
+      catForm:        getEnumDefinition('catForm')
     },
     recordTemplate: function(recordType) { return getDataset("/record/template/" + recordType); }
   };
