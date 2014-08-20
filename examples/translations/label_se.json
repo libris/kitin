@@ -32,7 +32,7 @@
             "about.publisherNumber": "Utgivningsnummer",
 
 			"about.frequencyCategory": "Frekvens",
-			"about.frequency": "Frekvens (används ej from 2010)",
+			"about.frequency": "Frekvens (Ej normaliserad)",
 			"about.replaces.frequency": "Tidigare utgivningsfrekvens",
 			"about.regularity": "Regelbundenhet",
 			"about.relation.precededBy": "Föregående titel",
