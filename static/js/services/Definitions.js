@@ -26,12 +26,13 @@ kitin.factory('definitions', function($http, $rootScope) {
   // !TODO Remove definitions below when the "index expander" is implemented in backend
     relators:         getDataset($rootScope.API_PATH + "/def/_search?q=*+about.@type:ObjectProperty&n=10000"),
     languages:        getDataset($rootScope.API_PATH + "/def/_search?q=*+about.@type:Language&n=10000"),
-    countries:        getDataset("/deflist/countries"),
-    nationalities:    getDataset("/deflist/nationalities"),
+    countries:        getDataset($rootScope.API_PATH + "/def/_search?q=*+about.@type:Country&n=10000"),
+    nationalities:    getDataset($rootScope.API_PATH + "/def/_search?q=*+about.@type:Nationality&n=10000"),
     conceptSchemes:   getDataset($rootScope.API_PATH + "/def/schemes"),
     enums: {
-      encLevel:       getDataset("/deflist/enum/encLevel"),
-      catForm:        getDataset("/deflist/enum/catForm")
+      contentType:    getDataset($rootScope.API_PATH + "/def/_search?q=*+about.inCollection.@id:\\/def\\/enum\\/content\\/contentType\\-collection&n=10000"),
+      encLevel:       getDataset($rootScope.API_PATH + "/def/_search?q=*+about.inCollection.@id:\\/def\\/enum\\/record\\/encLevel\\-collection&n=10000"),
+      catForm:        getDataset($rootScope.API_PATH + "/def/_search?q=*+about.inCollection.@id:\\/def\\/enum\\/record\\/catForm\\-collection&n=10000")
     },
     recordTemplate: function(recordType) { return getDataset("/record/template/" + recordType); }
   };

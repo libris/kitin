@@ -87,6 +87,32 @@
             <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
                       data-ng-model="record.about.languageNote" ></textarea>
         </label> 
+
+        <label>
+        <span class="lbl" translate>LABEL.record.about.contentType</span>
+          <ul class="tags" data-kitin-link-entity
+              data-subject="record.about"
+              data-link-multiple="'contentType'" data-type="contentType"
+              data-view-template="render-contentType"
+              data-search-template="render-select-contentType">
+          </ul>
+          <script type="text/ng-template" id="render-contentType">
+                <a href="#">
+                  <i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.prefLabel || object['@id'] }} <span data-ng-show="object.langCode">({{ object.langCode }})</span>
+                </a> 
+                <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
+            
+          </script>
+
+          <script type="text/ng-template" id="render-select-contentType">
+              <select 
+                data-kitin-select-entity
+                data-selected-item-variable="selectedItem.data.about"
+                ng-options="contentType.data.about.prefLabel for contentType in contentTypes">
+              </select>
+          </script>
+        </label>
+
       </div>
       <div class="col6">
         <label>

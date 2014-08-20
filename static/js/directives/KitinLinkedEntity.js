@@ -64,7 +64,6 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
         }
         $scope.viewmode = true;
         if($scope.searchTemplate) { angular.element($scope.searchTemplate).focus(); }
-        $scope.$apply();
       };
 
       $scope.doRemove = function (index) {

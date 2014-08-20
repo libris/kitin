@@ -20,6 +20,7 @@ from user import User
 
 here = os.path.dirname(os.path.abspath(__file__))
 logger = logging.getLogger(__name__)
+logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]')
 mimetypes.add_type('application/font-woff', '.woff')
 
 
@@ -186,7 +187,7 @@ def proxy_request(path=''):
         allow_redirects=True # needed?
 
     # Send request to whelk
-    return  do_request(
+    resp = do_request(
                 path='/%s' % path, 
                 params=request.args, 
                 headers=headers,
@@ -194,6 +195,7 @@ def proxy_request(path=''):
                 data=data,
                 allow_redirects=allow_redirects
             )
+    return resp
 
 # ----------------------------
 # WHELK API PROXY END
@@ -309,6 +311,7 @@ def do_request(path, params=None, method='GET', headers=None, data=None, allow_r
         # Preserve etag header
         if 'etag' in response.headers:
             resp.headers['etag'] = response.headers['etag'].replace('"', '')
+        app.logger.debug('Request done');
         return resp
     # Updated/Created
     elif response.status_code == 201:
@@ -321,6 +324,8 @@ def do_request(path, params=None, method='GET', headers=None, data=None, allow_r
     else:
         app.logger.warning('Error response %s on %s <%s>' % (response.status_code, method, url))
         abort(response.status_code)
+
+
 
 def get_dataset(path, cache=False):
     remote_resp = do_request('/%s' % path, json_response=False)
