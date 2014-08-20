@@ -10,15 +10,12 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
       var itemTag = element.is('ul, ol')? 'li' : 'div';
       var viewDiv = '<div ng-if="viewmode" ng-include="viewTemplate"></div>';
       var nonAuth = 'ng-class="{\'non-auth\' : !isLinked(object) && !isInScheme(object)}"';
-      var template;
-      if (multiple) {
-        template = '<'+ itemTag+' ng-if="objects" ng-repeat="object in objects track by $index" ' + nonAuth + '> ' +
-            viewDiv + '</'+ itemTag +'>' +
-          '<'+ itemTag +' class="search" ng-include="searchTemplate"></'+ itemTag +'>';
-      } else {
-        template = '<'+itemTag+' ng-if="object">' + viewDiv + '</'+itemTag+'>' +
-          '<'+itemTag+' ng-if="!viewmode" class="search" ng-include="searchTemplate"></'+ itemTag +'>'
-      }
+      var repeater = multiple ? 'ng-if="objects" ng-repeat="object in objects track by $index"' : 'ng-if="object"';
+      var template =  '<'+ itemTag + ' ' + repeater + ' ' + nonAuth + '> ' +
+                        viewDiv + 
+                      '</'+ itemTag +'>' +
+                      '<'+ itemTag +' ' + (multiple ? '' : 'ng-if="!viewmode"') + ' class="search" ng-include="searchTemplate"></'+ itemTag +'>';
+      
 
       element.html(template);
     },
