@@ -18,6 +18,11 @@
         </label>
 
         <label>
+          <span class="lbl" translate>LABEL.record.about.scopeNote</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.scopeNote">
+        </label>
+
+        <label>
           <span class="lbl" translate>LABEL.record.about.publicationYear</span>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.publicationYear">
         </label>
@@ -71,10 +76,22 @@
           <span class="lbl" translate>LABEL.record.about.frequency</span>
           <input type="text" data-ng-model="record.about.frequency">
         </label>    
-        <label data-ng-repeat="replaces in record.about.replaces">
-	          <span class="lbl" translate>LABEL.record.about.replaces.frequency</span>
-	          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="replaces.frequency"></textarea>
-	        </label>   
+<!-- freq-->
+	      <div class="datatable" data-ng-target="replaces" 
+	        data-kitin-data-table 
+	        data-table-model="record.about.replaces" 
+          data-table-header-row-template="replaces-frequency-header-row-template"
+          data-table-row-template="replaces-frequency-row-template"
+	        data-subject="record.about" data-link-multiple="replaces"
+          data-default-type="frequency"
+	        data-add-first
+	        data-addable="publication_and_production">
+	      </div>
+        <script type="text/ng-template" id="replaces-frequency-header-row-template">
+          <td><span class="lbl" translate>LABEL.record.about.replaces.frequency</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.replaces.date</span></td>
+        </script>
+
         <label>
           <span class="lbl" translate>LABEL.record.about.regularity</span>
           <ul class="tags" data-kitin-link-entity
@@ -85,7 +102,10 @@
               ng-init="select_data_source=regularities;">
           </ul>
         </label>
-
+        <label>
+          <span class="lbl" translate>LABEL.record.sourceNote</span>
+          <textarea data-inplace data-ui-jq="autosize" class="ng-pristine ng-valid" type="text" data-ng-model="record.sourceNote" ></textarea>
+        </label>
         <label>
           <span class="lbl" translate>LABEL.record.about.publicationStatus</span>
           <ul class="tags" data-kitin-link-entity
@@ -187,4 +207,13 @@
         <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
       </td>
     </script>
+
+    <script type="text/ng-template" id="replaces-frequency-row-template">
+      <td><label><input ng-model="object['frequency']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+      <td><label><input ng-model="object['date']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+      <td class="controls">
+        <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
+      </td>
+    </script>
+    
  {% endraw %}

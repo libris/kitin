@@ -29,7 +29,7 @@
       <header class="clearfix">
         <h1 data-ng-click="cycleType($event, record.about)">
         <span data-ng-if="recType == 'auth'">Aukt.</span>{{ getTypeLabel(record.about) }}
-        <span data-ng-repeat="contentType in record.about.contentType">{{contentType['@id']}}</span>
+        <span data-ng-repeat="contentType in record.about.contentType">| {{ contentType.prefLabel }} </span>
         <span>{{ record.about.text['@id'] }}</span>
           <!--(Bibliografiskt material)--></h1>
 
