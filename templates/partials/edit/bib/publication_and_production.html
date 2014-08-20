@@ -62,13 +62,17 @@
           <input type="text" data-ng-model="record.about.frequency">
         </label>    
 <label data-ng-repeat="replaces in record.about.replaces">
-	          <span class="lbl" translate>LABEL.record.about.relation.replaces</span>
+	          <span class="lbl" translate>LABEL.record.about.replaces.frequency</span>
 	          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="replaces.frequency"></textarea>
 	        </label>   	 	 
         <label>
           <span class="lbl" translate>LABEL.record.about.regularity</span>
           <input type="text" data-ng-model="record.about.regularity['@id']">
-        </label>  
+        </label>
+        <label>
+          <span class="lbl" translate>LABEL.record.about.publicationStatus</span>
+          <input type="text" data-ng-model="record.about.publicationStatus['@id']">
+        </label>   
       </div>
     </div>
 
@@ -87,7 +91,6 @@
 	        </label>   	    
 	    </div>
 	   </div>
-
 
 
 		<div class="cols">

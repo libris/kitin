@@ -31,6 +31,13 @@
             "about.editionStatement.edition": "Upplaga",
             "about.publisherNumber": "Utgivningsnummer",
 
+			"about.frequencyCategory": "Frekvens",
+			"about.frequency": "Frekvens (används ej from 2010)",
+			"about.replaces.frequency": "Tidigare utgivningsfrekvens",
+			"about.regularity": "Regelbundenhet",
+			"about.relation.precededBy": "Föregående titel",
+			"about.relation.succeededBy": "Efterföljande titel",			
+
             "about.identifers.isbn.identifierValue": "ISBN",
             "about.identifers.isbn.identifierNote": "Notering",
             "about.identifers.issn.identifierValue": "ISSN",
