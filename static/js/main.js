@@ -32,21 +32,6 @@ kitin.config(function($locationProvider, $routeProvider, $translateProvider, $ht
 //if (ajaxInProgress)
 //  confirm('ajaxInProgress; break and leave?')
 
-/**
- * Global scope functions
- */
-kitin.run(function($rootScope) {
-
-  $rootScope.lodash = _;
-
-  $rootScope.debug = (debug === true) || false;
-
-  $rootScope.isEmpty = function(obj) { return angular.equals({},obj); };
-  $rootScope.typeOf = function (o) { return o === null? 'null' : typeof o; };
-  $rootScope.exists = function(o) { return typeof o !== 'undefined'; };
-
-});
-
 // Davids preloads
 ['top-small.png', 'bg.png'].forEach(function(img) {
     new Image().src = '/static/img/'+img;
