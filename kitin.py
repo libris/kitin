@@ -117,7 +117,7 @@ def logout():
 @app.route('/marc/<rec_type>/<rec_id>')   # Marc start template
 @login_required
 def index(rec_type=None, rec_id=None):
-    return render_template('index.html', user=current_user, partials = {"/partials/index" : "partials/index.html"}, debug = app.debug)
+    return render_template('index.html', user=current_user, partials = {"/partials/index" : "partials/index.html"}, debug = app.debug, WHELK_HOST = app.config['WHELK_HOST'])
 
 # SEARCH TEMPLATE 
 @app.route("/search/<record_type>")
