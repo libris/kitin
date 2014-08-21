@@ -73,13 +73,10 @@
               data-subject="record.about"
               data-link="'literaryForm'"
               data-view-template="render-tag-view"
-              data-search-template="render-tag-search"
+              data-search-template="render-generic-select-category"
               data-search-placeholder="Lägg till litterär genre"
-              data-search-service-url="{{API_PATH}}def/_search"
-              data-search-filter="{'about.inCollection.@id': '\\/def\\/enum\\/content\\/literaryForm-collection'}"
               ng-init=" placeholder='Lägg till litterär genre'; 
-                        search_service_url=API_PATH+'/def/_search'; 
-                        search_filter={'about.inCollection.@id': '\\/def\\/enum\\/content\\/literaryForm-collection'}; ">
+                        select_data_source=literaryForm; ">
           </div>
         </label>
         <label>
@@ -88,10 +85,10 @@
               data-subject="record.about"
               data-link="'biography'"
               data-view-template="render-tag-view"
-              data-search-template="render-tag-search"
+              data-search-template="render-generic-select-category"
               ng-init=" placeholder='Lägg till'; 
                         search_service_url=API_PATH+'/def/_search'; 
-                        search_filter={'about.inCollection.@id': '\\/def\\/enum\\/content\\/biography-collection'}; ">
+                        select_data_source=biography; ">
           </div>
         </label>
 

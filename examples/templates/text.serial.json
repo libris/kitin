@@ -1,0 +1,45 @@
+{
+    "@type": "Record",
+    "about": {
+        "@type": [
+            "Text",
+            "Monograph"
+        ],
+        "publicationYear": "",
+        "publicationCountry": [],
+        "attributedTo": {},
+        "language": [],
+        "literaryForm": {},
+        "originalLanguage": [],
+        "classificationDdc": "",
+        "classification": [],
+        "uniformTitle": "",
+        "instanceTitle": {
+            "@type": "Title",
+            "titleValue": "",
+            "subtitle": ""
+        },
+        "responsibilityStatement": "",
+        "publication": [],
+        "manufacture": [],
+        "comment": [],
+        "genre": [],
+        "influencedBy": [],
+        "identifierByIdentifierScheme": {
+            "/def/identifiers/isbn": []
+        },
+        "hasFormatByType": {
+            "Product": []
+        },
+        "subjectByInScheme": {
+            "/topic/sao": [],
+            "/topic/saogf": [],
+            "barn": []
+        },
+        "subjectByType": {
+            "/topic/chronological": [],
+            "Person": [],
+            "Place": []
+        }
+    }
+}
