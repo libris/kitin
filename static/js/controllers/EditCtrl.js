@@ -1,3 +1,4 @@
+
 kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $timeout, $rootScope, $location, $anchorScroll, dataService, definitions, userData, editUtil) {
 
   editUtil.addableElements = [];
