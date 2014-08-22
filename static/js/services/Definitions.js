@@ -6,7 +6,7 @@ kitin.factory('definitions', function($http, $rootScope) {
   
   /**
   * getDataset
-  * @param    url       {Servicetring}    URL to dataset
+  * @param    url       {String}    URL to dataset
   * @return   promise   {Object}          Angular JS promise, $q
   */
   function getDataset(url) {
@@ -25,7 +25,7 @@ kitin.factory('definitions', function($http, $rootScope) {
 
   function getEnumDefinition(collectionName) {
     return getDefinition('about.inCollection.@id:\\/def\\/enum\\/content\\/' + collectionName + '\\-collection');
-  } 
+  }
 
   // Defined definitions
   var definitions = {
@@ -49,5 +49,6 @@ kitin.factory('definitions', function($http, $rootScope) {
     },
     recordTemplate: function(recordType) { return getDataset("/record/template/" + recordType); }
   };
+
   return definitions;
 });
