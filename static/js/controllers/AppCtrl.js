@@ -1,8 +1,5 @@
 var kitin = angular.module('kitin.controllers', []);
-kitin.controller('AppCtrl', function($scope, $rootScope, $modal, searchService, $timeout) {
-
-  // Constants
-  $rootScope.API_PATH = WHELK_HOST;
+kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, definitions, searchService) {
 
   // Core Utilities
   $rootScope.lodash = _;
@@ -34,6 +31,8 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, searchService, 
     }
   };
 
+  // System Messages
+
   $rootScope.systemMessages = [];
 
   $rootScope.addSystemMessage = function(msgObj) {
@@ -48,5 +47,39 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, searchService, 
   $rootScope.closeSystemMessage = function(index) {
     $rootScope.systemMessages.splice(index, 1);
   };
+
+  // Data Model Utilities
+
+  definitions.terms.then(function(data) {
+    $rootScope.ID = '@id';
+    $rootScope.TYPE = '@type';
+    $rootScope.TERMS = 'http://libris.kb.se/def/terms#';
+
+    var terms = data.index;
+    var items = []; for (var key in data.index) items.push(data.index[key]);
+    $rootScope.termIndex = Gild.buildIndex(items);
+
+    $rootScope.getTermToken = function (obj) {
+      var id = obj['@id'];
+      if (typeof id !== 'string')
+        return null;
+      return id.substring(id.indexOf('#') + 1);
+    }
+
+    $rootScope.getTypeDef = function (obj) {
+      if (typeof obj === "undefined")
+        return;
+      return terms[obj['@type']];
+    };
+    // TODO: merge with getLabel (defined in SearchCtrl)
+    $rootScope.getTypeLabel = function (obj) {
+      if (typeof obj === "undefined")
+        return;
+      var dfn = $rootScope.getTypeDef(obj);
+      var typeLabel = (dfn) ? dfn['label_sv'] : obj['@type'];
+      return _.isArray(typeLabel) ? typeLabel.join(', ') : typeLabel;
+    };
+  });
+
 
 });

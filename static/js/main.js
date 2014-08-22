@@ -32,6 +32,14 @@ kitin.config(function($locationProvider, $routeProvider, $translateProvider, $ht
 //if (ajaxInProgress)
 //  confirm('ajaxInProgress; break and leave?')
 
+/**
+ * Global Constants
+ * (TODO: move to service and depend on in required places instead)
+ */
+kitin.run(function($rootScope) {
+  $rootScope.API_PATH = WHELK_HOST;
+});
+
 // Davids preloads
 ['top-small.png', 'bg.png'].forEach(function(img) {
     new Image().src = '/static/img/'+img;

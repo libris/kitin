@@ -28,39 +28,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
 
 
   // Fetch definitions
-  // TODO:
-  // - load cached aggregate, or lookup part on demand from backend?
-  // - Do not load just to set in scope; use where needed in services instead.
-  //$scope.enums = {};
-  //definitions.enums.encLevel.then(function(data) {
-  //  $scope.enums.encLevel = data;
-  //});
-  //definitions.enums.catForm.then(function(data) {
-  //  $scope.enums.catForm = data;
-  //});
-
-  definitions.terms.then(function(data) {
-    var terms = data.index;
-
-    var items = []; for (var key in data.index) items.push(data.index[key]);
-    $scope.termIndex = Gild.buildIndex(items);
-    $scope.ID = '@id';
-    $scope.TYPE = '@type';
-
-    $scope.getTypeDef = function (obj) {
-      if (typeof obj === "undefined")
-        return;
-      return terms[obj['@type']];
-    };
-    // TODO: merge with getLabel (defined in SearchCtrl)
-    $scope.getTypeLabel = function (obj) {
-      if (typeof obj === "undefined")
-        return;
-      var dfn = $scope.getTypeDef(obj);
-      var typeLabel = (dfn) ? dfn['label_sv'] : obj['@type'];
-      return _.isArray(typeLabel) ? typeLabel.join(', ') : typeLabel;
-    };
-  });
+  // TODO: Don't load just to set in scope; load on demand in directives (see e.g. language selector)
 
   // !TODO: change to load on-demand 
   definitions.enums.contentType.then(function(data) { 
