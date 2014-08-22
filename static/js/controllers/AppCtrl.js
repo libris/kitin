@@ -64,7 +64,7 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
       if (typeof id !== 'string')
         return null;
       return id.substring(id.indexOf('#') + 1);
-    }
+    };
 
     $rootScope.getTypeDef = function (obj) {
       if (typeof obj === "undefined")
