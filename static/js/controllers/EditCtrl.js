@@ -397,13 +397,6 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   };
 
 
-  var typeCycle = ['Book', 'EBook', 'Audiobook', 'Serial', 'ESerial'], typeIndex = 0;
-  $scope.cycleType = function (evt, obj) {
-    if (!obj || !evt.altKey) return;
-    if (typeIndex++ >= typeCycle.length - 1) typeIndex = 0;
-    obj['@type'] = typeCycle[typeIndex];
-  };
-
   $scope.getLeaf = function (uri) {
     return uri.replace(/.*?([^\/#]+)$/, "$1");
   };

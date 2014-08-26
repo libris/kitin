@@ -16,13 +16,13 @@ kitin.service('editUtil', function(definitions, $http) {
   */
   function mergeProperties(propertyKey, firstObject, secondObject) {
     var propertyValue = firstObject[propertyKey];
-      if (_.isObject(propertyValue) || _.isArray(propertyValue)) {
+      if (_.isObject(propertyValue) || _.isArray(propertyValue)) {
         // Second object is missing a node, return first objects node
-        if(typeof secondObject[propertyKey] === 'undefined' || _.isEmpty(secondObject[propertyKey])) {
+        if(typeof secondObject[propertyKey] === 'undefined' || _.isEmpty(secondObject[propertyKey])) {
           return propertyValue;
         }
           return doMergeObjects(firstObject[propertyKey], secondObject[propertyKey]);
-      } else if (typeof secondObject[propertyKey] === 'undefined' || _.isEmpty(secondObject[propertyKey])) {
+      } else if (typeof secondObject[propertyKey] === 'undefined' || _.isEmpty(secondObject[propertyKey])) {
         // Second object is missing a leaf, return first objects leaf
         return firstObject[propertyKey];
       }
