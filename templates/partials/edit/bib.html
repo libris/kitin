@@ -70,7 +70,7 @@
     </script>
 
     <script type="text/ng-template" id="render-generic-linked-entity">
-      <a href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.prefLabel }} </a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
+      <a href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ (object.prefLabel || object.prefLabel_en) }} </a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
     </script>
 
     <script type="text/ng-template" id="render-generic-select-category">
