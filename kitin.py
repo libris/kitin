@@ -123,7 +123,7 @@ def index(rec_type=None, rec_id=None):
 @app.route("/search/<record_type>")
 @login_required
 def search(record_type):
-    return render_template('index.html', partials = {"/partials/search" : "partials/search.html"})
+    return render_template('index.html', partials = {"/partials/search" : "partials/search.html"}, debug = app.debug, WHELK_HOST = app.config['WHELK_HOST'])
 
 # PARTIAL TEMPLATES
 @app.route("/partials/<path:path>")
