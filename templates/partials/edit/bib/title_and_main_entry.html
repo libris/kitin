@@ -88,14 +88,16 @@
           </div>
         </script>
 
-        <label data-ng-show="record.about.languageNote">
+        <label>
+          <div data-ng-show="record.about.languageNote">
           <span class="lbl" translate>LABEL.record.about.languageNote</span>
             <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
                       data-ng-model="record.about.languageNote" ></textarea>
+          </div>
         </label> 
 
         <label>
-        <span class="lbl" translate>LABEL.record.about.contentType</span>
+          <span class="lbl" translate>LABEL.record.about.contentType</span>
           <ul class="tags" data-kitin-link-entity
               data-subject="record.about"
               data-link-multiple="'contentType'" data-type="contentType"
@@ -113,7 +115,7 @@
               data-inplace data-ui-jq="autosize"
               data-ng-model="record.about.responsibilityStatement"></textarea>
         </label>
-        <div>
+        <label>
           <span class="lbl" translate>LABEL.record.about.attributedTo</span>
           <div data-kitin-link-entity
               data-ng-init="label = 'Lägg till huvuduppslag'"
@@ -121,8 +123,8 @@
               data-view-template="render-person"
               data-search-template="render-search-box">
           </div>
-        </div>
-        <div>
+        </label>
+        <label>
           <span class="lbl" translate>LABEL.record.about.influencedBy</span>
           <a ng-click="showInfluencedBy = !showInfluencedBy">Dölj <i class="icon fa fa-caret-up"></i></a>
           <div data-kitin-link-entity
@@ -132,7 +134,7 @@
               data-view-template="render-person"
               data-search-template="render-search-box">
           </div>
-        </div>
+        </label>
       </div>
     </div>
 

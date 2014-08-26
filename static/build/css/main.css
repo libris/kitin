@@ -1509,10 +1509,11 @@ ul.tags li.search {
   border: 1px solid #c7c7c7;
   padding: 1px 6px 1px 0;
   position: relative;
-  top: 1px;
 }
 ul.tags li.search input[type="text"],
-ul.tags li.search input[type="text"]:focus {
+ul.tags li.search input[type="text"]:focus,
+ul.tags li.search select,
+ul.tags li.search select:focus {
   border: none;
   box-shadow: none;
 }
@@ -1521,7 +1522,8 @@ ul.tags li.search i {
   font-size: 12px;
   margin: 0 2px 0 6px;
 }
-ul.tags li.search input[type="text"] {
+ul.tags li.search input[type="text"],
+ul.tags li.search select {
   width: 110px;
   font-size: 12px;
   height: 20px;
@@ -1530,12 +1532,16 @@ ul.tags li.search input[type="text"] {
   line-height: 16px;
 }
 ul.tags li.search input[type="text"]::-webkit-input-placeholder,
-ul.tags li.search input[type="text"]:-moz-input-placeholder {
+ul.tags li.search select::-webkit-input-placeholder,
+ul.tags li.search input[type="text"]:-moz-input-placeholder,
+ul.tags li.search select:-moz-input-placeholder {
   font-size: 12px;
   color: #dddddd;
 }
 ul.tags li.search input[type="text"]:focus::-webkit-input-placeholder,
-ul.tags li.search input[type="text"]:focus:-moz-input-placeholder {
+ul.tags li.search select:focus::-webkit-input-placeholder,
+ul.tags li.search input[type="text"]:focus:-moz-input-placeholder,
+ul.tags li.search select:focus:-moz-input-placeholder {
   color: #ffffff;
 }
 .tagsinput .suggestions {
@@ -2709,13 +2715,14 @@ section.result p.holding {
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   body label select {
     -webkit-appearance: none;
+    background: #ffffff url(/static/img/select-arrow.png) no-repeat 98% -2px;
   }
   body label select:hover {
-    background: #f8f8f8 url(/static/img/select-arrow.png) no-repeat 98% -2px;
+    background: #ffffff url(/static/img/select-arrow.png) no-repeat 98% -92px;
   }
   body label select:focus {
-    background-color: red;
-    background: #c8f4ea url(/static/img/select-arrow.png) no-repeat 98% -92px;
+    border: 1px solid #adadad;
+    background: #ffffff url(/static/img/select-arrow.png) no-repeat 98% -2px;
   }
 }
 html {
