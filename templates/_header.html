@@ -3,35 +3,93 @@
       <div class="container">
         <div id="header">
           {% if current_user and current_user.is_authenticated() %}
+          {% raw %}
           <div id="nav">
-              <ul class="nav-menu pull-right">
-               <li class="active"><a href="http://feedback.kat.libris.kb.se/" target="_blank" title="Feedback forum">Tyck till <i class="icon fa fa-external-link"></i></a></li>  
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" title="Skapa ny post">Skapa ny<i class="icon fa fa-caret-down"></i></a>
-                    <ul class="dropdown-menu">
-                       <!--<li class="disabled my_template"><a href="#"><i class="fa fa-heart"></i>Min egen mall 1</a></li>
-                       <li class="disabled my_template"><a href="#"><i class="fa fa-heart"></i>Min egen mall 2</a></li>-->
-                       <li><a href="/edit/bib/new?type=text.monograph">Monografi</a></li>
-                       <li><a href="/edit/bib/new?type=audio.monograph">Ljudbok</a></li>
-                       <li><a href="/edit/bib/new?type=cartography.monograph">Karta</a></li>
-                       <li><a href="/edit/bib/new?type=projectedimage.monograph">Film</a></li>                       
-                       <li class="disabled"><a href="#">Seriell publikation</a></li>
-                    </ul>
-                </li>
-               <li class="dropdown">
-               <a class="dropdown-toggle login" data-toggle="dropdown" title="Logga ut - inställningar">
-                 <!-- <span class="meta">Inloggad som: </span> -->
-                 <span class="username">{{current_user.username}} ({{current_user.sigel}})</span><i class="fa fa-caret-down"></i>
-               </a>
-                   <ul class="dropdown-menu pull-right">
-                      <li class="disabled"><a href="#"> Mitt konto</a></li>
-                      <li><a href="/signout" target="_self">Logga ut</a></li>
-                   </ul>
-                </li>       
+            <ul class="nav-menu pull-right">
+              <li class="active"><a href="http://feedback.kat.libris.kb.se/" target="_blank" title="Feedback forum">Tyck till <i class="icon fa fa-external-link"></i></a></li>
+              <li data-ng-controller="ModalCtrl">
+                  <a title="Skapa ny post" href="#" data-ng-click="openCreateNewModal()"
+                    >Skapa ny <i class="icon fa fa-plus-circle"></i></a>
+              </li>
+              <li class="dropdown">
+              <a class="dropdown-toggle login" data-toggle="dropdown" title="Logga ut - inställningar">
+                <!-- <span class="meta">Inloggad som: </span> -->
+                <span class="username">{{current_user.username}} ({{current_user.sigel}})</span><i class="fa fa-caret-down"></i>
+              </a>
+                  <ul class="dropdown-menu pull-right">
+                    <li class="disabled"><a href="#"> Mitt konto</a></li>
+                    <li><a href="/signout" target="_self">Logga ut</a></li>
+                  </ul>
+              </li>
             </ul>
           </div>
+          {% endraw %}
           {% endif %}
           {% include "partials/_search_bar.html" %}
         </div>
       </div>
     </div>
+
+{% raw %}
+
+<script type="text/ng-template" id="modal-create-new">
+
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
+    <h2 id="rlModalLabel">Skapa ny katalogpost</h2>
+  </div>
+  <div class="modal-body cols">
+  <tabset>
+    <tab>
+      <tab-heading>Bibliografisk post</tab-heading>
+      <div class="col4"
+          data-ng-repeat="typeGroup in typeGroups"
+          data-ng-include="'render-new-type-group'">
+      </div>
+    </tab>
+    <!--
+    <tab>
+      <tab-heading>
+        Auktoritetspost
+      </tab-heading>
+      <div>
+        <label><input type="radio" name="mainType" /> Person</label>
+      </div>
+      <div>
+        <label><input type="radio" name="mainType" /> Organisation</label>
+      </div>
+      <div>
+        <label><input type="radio" name="mainType" /> Möte/konferens</label>
+      </div>
+      <div>
+        <label><input type="radio" name="mainType" /> Verk</label>
+      </div>
+      <div>
+        <label><input type="radio" name="mainType" /> Ämnesord</label>
+      </div>
+    </tab>
+    -->
+  </tabset>
+  </div>
+  <div class="modal-footer">
+    <a class="btn btn-green"
+       href="/edit/bib/new?type={{ createNew.mainType }}&amp;aggregateLevel={{ createNew.aggregateLevel }}"
+       data-ng-click="close()"
+       >Skapa <i class="fa fa-arrow-circle-right"></i></a>
+  </div>
+</script>
+
+<script type="text/ng-template" id="render-new-type-group">
+  <h3>{{ typeGroup.label }}</h3>
+  <div data-ng-repeat="class in typeGroup.classes">
+    <label>
+      <input type="radio" name="{{ typeGroup.name }}"
+             data-ng-model="createNew[typeGroup.name]"
+             data-ng-value="getTermToken(class)" />
+      <!--<a data-ng-switch-default href="/edit/bib/new?type={{ getTermToken(class) }}">-->
+      {{ class.get('label') }}
+    </label>
+  </div>
+</script>
+
+{% endraw %}

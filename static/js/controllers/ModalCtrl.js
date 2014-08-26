@@ -42,4 +42,16 @@ kitin.controller('ModalCtrl', function($scope, $modal) {
     $scope.remoteModal = $modal.open(opts);
   };
 
+  $scope.openCreateNewModal = function() {
+    var opts = angular.extend(
+                  defaultModalOptions,
+                  {
+                  templateUrl: 'modal-create-new',
+                  controller: 'ModalCreateNewCtrl',
+                  scope: $scope,
+                  windowClass: 'modal-large create-modal'
+                  });
+    $scope.remoteModal = $modal.open(opts);
+  };
+
 });

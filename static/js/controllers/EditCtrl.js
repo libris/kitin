@@ -111,7 +111,9 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
 
     // NEW
     case editUtil.RECORD_TYPES.NEW:
-      dataService.record.get($location.$$search.type).then(function(data) {
+      dataService.record.get(
+        null, null, $location.$$search.type, $location.$$search.aggregateLevel
+    ).then(function(data) {
         $scope.record = data['recdata'];
         addRecordViewsToScope($scope.record, $scope);
       });

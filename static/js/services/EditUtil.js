@@ -242,11 +242,12 @@ kitin.service('editUtil', function(definitions, $http) {
       this.patchBibRecord(record);
 
       // Decorate record with template json
-      definitions.recordTemplate(this.getMaterialType(record)).then(function(recordTemplate) {
-        if(recordTemplate) {
-          this.mergeRecordAndTemplate(record, recordTemplate);
-        }
-      }.bind(this));
+      // TODO: merge with create new logic (assemble "defaults" by type+level)
+      //definitions.recordTemplate(this.getMaterialType(record)).then(function(recordTemplate) {
+      //  if(recordTemplate) {
+      //    this.mergeRecordAndTemplate(record, recordTemplate);
+      //  }
+      //}.bind(this));
 
       
       return record;

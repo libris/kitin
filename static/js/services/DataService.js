@@ -14,26 +14,34 @@ kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
       *   @param    type    {String}    Type of record
       *   @param    id      {String}    Record id (Optional)
       */
-      get: function (type, id) {
-        var deferer = $q.defer();
-        
-        var path = '/record/template/' + type; // new record
-        if(id) {
+      get: function (type, id, mainType, aggregateLevel) {
+        var deferer = $q.defer(), path, handleStruct;
+
+        if (id) {
+          // open record
           path = $rootScope.API_PATH + '/' + type + '/' + id;
+          handleStruct = editUtil.decorate.bind(editUtil);
+        } else {
+          // new record
+          path = '/record/template/text.monograph';
+          handleStruct = function (struct) {
+            struct.about['@type'] = [mainType, aggregateLevel];
+            return editUtil.decorate(struct);
+          };
         }
 
         $http.get(path).success(function (struct, status, headers) {
           deferer.resolve({
-            recdata: editUtil.decorate(struct),
+            recdata: handleStruct(struct),
             etag: headers('etag')
           });
         });
-        
+
         return deferer.promise;
       },
 
       /*  save
-      *   
+      *
       */
       save: function(type, id, recordData, recordEtag) {
         var deferer = $q.defer();
@@ -58,7 +66,7 @@ kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
           .success(function(createdRecord, status, headers) {
             deferer.resolve({
               recdata: editUtil.decorate(createdRecord),
-              etag: headers('etag')  
+              etag: headers('etag')
             });
         });
         return deferer.promise;
@@ -106,7 +114,7 @@ kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
         var draftDataCopy = angular.copy(draftData);
         $http.post("/draft/" + type, editUtil.undecorate(draftDataCopy), {headers: {"If-match":etag } })
           .success(function(data, status, headers) {
-            data.document = editUtil.decorate(data.document); 
+            data.document = editUtil.decorate(data.document);
             deferer.resolve(data);
           });
         return deferer.promise;
