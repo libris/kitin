@@ -36,8 +36,8 @@
 			"about.replaces.frequency": "Tidigare utgivningsfrekvens",
 			"about.replaces.date": "Datum",
 			"about.regularity": "Regelbundenhet",
-			"about.relation.precededBy": "Föregående titel",
-			"about.relation.succeededBy": "Efterföljande titel",			
+			"about.precededBy": "Föregående titel",
+			"about.succeededBy": "Efterföljande titel",			
 
             "about.identifers.isbn.identifierValue": "ISBN",
             "about.identifers.isbn.identifierNote": "Notering",
