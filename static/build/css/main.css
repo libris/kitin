@@ -1413,6 +1413,9 @@ li.draft form {
   max-height: 500px;
   overflow: auto;
 }
+body.modal-open {
+  overflow: hidden;
+}
 h4.modal-title {
   font: bold italic 16px/20px 'Droid Serif', georgia, serif;
   color: #1a8f72;
