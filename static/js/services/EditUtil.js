@@ -121,25 +121,25 @@ kitin.service('editUtil', function(definitions, $http) {
     },
 
     getMaterialType: function(record) {
+      var materialType = '';
       if(_.isArray(record.about['@type'])) {
-        return record.about['@type'].join('.').toLowerCase();
+        materialType = record.about['@type'].join('.');
       } else {
-        return record.about['@type'];
+        materialType = record.about['@type'];
       }
-      
+      return materialType ? materialType.toLowerCase() : '';
     },
 
     addObject: function(subj, rel, type, multiple, obj) {
-
       var addToContainer = function(subj, rel, type, obj) {
         var collection = subj[rel];
         if(typeof collection === 'undefined') {
           collection = subj[rel] = [];
         }
-        var res = obj ? obj : createObject(type);
+        var res = obj ? obj : this.createObject(type);
         collection.push(res);
         return collection;
-      };
+      }.bind(this);
 
       var added;
       if (multiple) {
@@ -176,6 +176,23 @@ kitin.service('editUtil', function(definitions, $http) {
           return '';
         default:
           return {};
+      }
+    },
+
+    makeReferenceEntity: function (entity) {
+      // !TODO, handle more types
+      switch(this.getMaterialType(entity)) {
+        case 'person':
+          return {};
+        default: 
+          return {
+            '@type': entity['about']['@type'],
+            'title': entity['about']['instanceTitle']['titleValue'],
+            'describedBy': {
+              '@type': 'Record',
+              '@id': entity['@id']
+            }
+          };
       }
     },
 
