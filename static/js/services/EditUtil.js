@@ -180,17 +180,35 @@ kitin.service('editUtil', function(definitions, $http) {
     },
 
     makeReferenceEntity: function (entity) {
+      // Decorate the entity
+      var decoratedEntity = this.decorate(entity);
+
+      // Returns an array of ISSN identifiers for the entity
+      var getISSN = function(entity) {
+        var identifiers = entity['about']['identifierByIdentifierScheme'];
+        if(identifiers) {
+          for(var key in identifiers) {
+            if(key.indexOf('issn') !== -1) {
+              return identifiers[key];
+            }
+          }
+        } else {
+          return [];
+        }
+      };
+
       // !TODO, handle more types
       switch(this.getMaterialType(entity)) {
         case 'person':
           return {};
         default: 
           return {
-            '@type': entity['about']['@type'],
-            'title': entity['about']['instanceTitle']['titleValue'],
+            '@type': decoratedEntity['about']['@type'],
+            'title': decoratedEntity['about']['instanceTitle']['titleValue'],
+            'issn': _.pluck(getISSN(entity), 'identifierValue').join(','), // Should only be one. But only MARC knows
             'describedBy': {
               '@type': 'Record',
-              '@id': entity['@id']
+              '@id': decoratedEntity['@id']
             }
           };
       }
