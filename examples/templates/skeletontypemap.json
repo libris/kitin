@@ -1,0 +1,137 @@
+{
+
+  "Record": {
+    "about": {
+    }
+  },
+
+  "Monograph": {
+    "publicationYear": "",
+    "publicationCountry": [],
+    "attributedTo": {},
+    "language": [],
+    "literaryForm": {},
+    "originalLanguage": [],
+    "classificationDdc": "",
+    "classification": [],
+    "instanceTitle": {
+      "@type": "Title",
+      "titleValue": "",
+      "subtitle": ""
+    },
+    "responsibilityStatement": "",
+    "identifierByIdentifierScheme": {
+      "/def/identifiers/isbn": []
+    },
+    "publication": [],
+    "genre": [],
+    "hasFormatByType": {
+      "Product": []
+    }
+  },
+
+  "Serial": {
+    "identifierByIdentifierScheme": {
+      "/def/identifiers/issn": []
+    }
+  },
+
+  "Text": {
+  },
+
+  "Audio": {
+    "date": "",
+    "publicationStatus": {},
+    "text": {},
+    "mediaTerm": "",
+    "performerNote": "",
+    "keyword": "",
+    "isPrimaryTopicOf": [],
+    "hasFormatByType": {
+        "SoundRecording": [],
+        "Product": []
+    }
+  },
+
+  "Cartography": {
+    "relief": {},
+    "projection": {},
+    "material": {},
+    "additionalCarrierType": {},
+    "index": {},
+    "cartographer": [],
+    "cartographicAscensionAndDeclination": [
+      {
+        "@type": "CartographyCoordinates",
+        "cartographicScale": "",
+        "constantRatioLinearHorizontalScale": [],
+        "westernmostLongitudeCoordinates": "",
+        "easternmostLongitudeCoordinates": "",
+        "northernmostLatitudeCoordinates": ""
+      }
+    ],
+    "instanceTitle": {
+      "@type": "Title",
+      "titleValue": "",
+      "partTitle": "",
+      "subtitle": ""
+    },
+    "manufacture": [],
+    "cartographicScale": "",
+    "cartographicCoordinates": "",
+    "listOfContents": "",
+    "subject": [],
+    "relation": [],
+    "isPrimaryTopicOf": []
+  },
+
+  "ProjectedImage": {
+    "date": "",
+    "publicationStatus": {},
+    "runningTime": "",
+    "contentType": [],
+    "mediaTerm": "",
+    "performerNote": "",
+    "languageNote": "",
+    "influencedBy": [],
+    "isPrimaryTopicOf": [],
+    "identifierByIdentifierScheme": {
+        "identifier": []
+    },
+    "hasFormatByType": {
+        "VideoRecording": [],
+        "Product": []
+    },
+    "subjectByInSchemeOrType": {
+        "Work": []
+    }
+  },
+
+  "Digital": {
+    "hasPart": [
+      {
+        "@type": [
+          "Digital"
+        ],
+        "contentType": []
+      }
+    ],
+    "mediaTerm": "Elektronisk resurs",
+    "fileType": "",
+    "systemRequirements": "",
+    "hasFormatByType": {
+      "Electronic": [],
+      "Product": []
+    },
+    "technicalNote": []
+  },
+
+  "Holding": {
+    "location": "",
+    "shelvingControlNumber": "",
+    "classificationPart": "",
+    "textualHoldings": "",
+    "uniformResourceIdentifier": ""
+  }
+
+}
