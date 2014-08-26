@@ -49,6 +49,7 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editUtil', function(defini
       // templates ($compile).. If that is fast enough..
       var filterParams = attrs.filter;
       var onSelect = attrs.onselect;
+      var makeReferenceOnItemSelect = attrs.makeReferenceOnItemSelect ? true : false;
       var templateId = attrs.completionTemplate;
       var template = _.template(jQuery('#' + templateId).html());
       var searchedValue = null;
@@ -76,7 +77,8 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editUtil', function(defini
         onItemSelect: function(item, completer) {
           var owner = scope.subject;
           // TODO: if multiple, else set object (and *link*, not copy (embed copy in view?)...)
-          linker.doAdd(item.data);
+          linker.doAdd(makeReferenceOnItemSelect ? editUtil.makeReferenceEntity(item.data._source) : item.data);
+          delete item.data._source;
           scope.$apply(onSelect);
           //scope.triggerModified();
         }
@@ -98,7 +100,10 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editUtil', function(defini
           var result = [];
           if (doc && doc.list) {
             result = doc.list.map(function(item) {
-              return {value: item.data.about.prefLabel, data: item.data.about};
+              var data = item.data.about;
+              // Store reference to orignal object, need to access record properties in making entity reference. 
+              data._source = item.data;
+              return {value: item.data.about.prefLabel, data: data};
             });
           }
           if(attrs.allowNonAuth === 'true') {

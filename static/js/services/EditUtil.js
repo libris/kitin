@@ -67,27 +67,31 @@ kitin.service('editUtil', function(definitions, $http) {
 
     // Iterate all trough the object
     for(var key in obj) {
-      // Node
-      if(_.isObject(obj[key])) {
-        // Pass empty array or object
-        var childObj = doCleanObject(obj[key], _.isArray(obj[key]) ? [] : {});
-        // Empty child, skip add
-        if(!_.isEmpty(childObj)) {
-          cleanObj[key] = childObj;
-        }
-      // Leaf
-      } else { 
-        if(!_.isEmpty(obj[key])) {
-          // If Array push value else set the value
-          if(_.isArray(cleanObj)) {
-            cleanObj.push(obj[key]);
-          } else {
-            cleanObj[key] = obj[key];
+      if(!_.isEmpty(obj[key])) {
+        // Node
+        if(_.isObject(obj[key])) {
+          // Pass empty array or object
+          var childObj = doCleanObject(obj[key], _.isArray(obj[key]) ? [] : {});
+          // Empty child, skip add
+          if(!_.isEmpty(childObj)) {
+            if(_.isArray(cleanObj)) {
+              cleanObj.push(childObj);
+            } else {
+              cleanObj[key] = childObj;
+            }
           }
-        } else {
-          // If empty jump to next leaf
-          continue;
+        // Leaf
+        } else { 
+            // If Array push value else set the value
+            if(_.isArray(cleanObj)) {
+              cleanObj.push(obj[key]);
+            } else {
+              cleanObj[key] = obj[key];
+            }
         }
+      } else {
+        // If empty jump to next
+        continue;
       }
     }
     return cleanObj;
@@ -121,25 +125,25 @@ kitin.service('editUtil', function(definitions, $http) {
     },
 
     getMaterialType: function(record) {
+      var materialType = '';
       if(_.isArray(record.about['@type'])) {
-        return record.about['@type'].join('.').toLowerCase();
+        materialType = record.about['@type'].join('.');
       } else {
-        return record.about['@type'];
+        materialType = record.about['@type'];
       }
-      
+      return materialType ? materialType.toLowerCase() : '';
     },
 
     addObject: function(subj, rel, type, multiple, obj) {
-
       var addToContainer = function(subj, rel, type, obj) {
         var collection = subj[rel];
         if(typeof collection === 'undefined') {
           collection = subj[rel] = [];
         }
-        var res = obj ? obj : createObject(type);
+        var res = obj ? obj : this.createObject(type);
         collection.push(res);
         return collection;
-      };
+      }.bind(this);
 
       var added;
       if (multiple) {
@@ -176,6 +180,41 @@ kitin.service('editUtil', function(definitions, $http) {
           return '';
         default:
           return {};
+      }
+    },
+
+    makeReferenceEntity: function (entity) {
+      // Decorate the entity
+      var decoratedEntity = this.decorate(entity);
+
+      // Returns an array of ISSN identifiers for the entity
+      var getISSN = function(entity) {
+        var identifiers = entity['about']['identifierByIdentifierScheme'];
+        if(identifiers) {
+          for(var key in identifiers) {
+            if(key.indexOf('issn') !== -1) {
+              return identifiers[key];
+            }
+          }
+        } else {
+          return [];
+        }
+      };
+
+      // !TODO, handle more types
+      switch(this.getMaterialType(entity)) {
+        case 'person':
+          return {};
+        default: 
+          return {
+            '@type': decoratedEntity['about']['@type'],
+            'title': decoratedEntity['about']['instanceTitle']['titleValue'],
+            'issn': _.pluck(getISSN(entity), 'identifierValue').join(','), // Should only be one. But only MARC knows
+            'describedBy': {
+              '@type': 'Record',
+              '@id': decoratedEntity['@id']
+            }
+          };
       }
     },
 

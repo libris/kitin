@@ -46,7 +46,7 @@ kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
       save: function(type, id, recordData, recordEtag) {
         var deferer = $q.defer();
         var recordDataCopy = angular.copy(recordData);
-        $http.put($rootScope.API_PATH + '/' + type + "/" + id, editUtil.undecorate(recordDataCopy),
+        $http.put($rootScope.LOCAL_API_PATH + '/' + type + "/" + id, editUtil.undecorate(recordDataCopy),
             {
               headers: {"If-match":etag}
             })
@@ -62,7 +62,7 @@ kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
       create: function(type, recordData) {
         var deferer = $q.defer();
         var recordDataCopy = angular.copy(recordData);
-        $http.post($rootScope.API_PATH, editUtil.undecorate(recordDataCopy))
+        $http.post($rootScope.LOCAL_API_PATH, editUtil.undecorate(recordDataCopy))
           .success(function(createdRecord, status, headers) {
             deferer.resolve({
               recdata: editUtil.decorate(createdRecord),

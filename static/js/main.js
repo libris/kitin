@@ -38,6 +38,7 @@ kitin.config(function($locationProvider, $routeProvider, $translateProvider, $ht
  */
 kitin.run(function($rootScope) {
   $rootScope.API_PATH = WHELK_HOST;
+  $rootScope.LOCAL_API_PATH = '/whelk-webapi';
 });
 
 // Davids preloads
