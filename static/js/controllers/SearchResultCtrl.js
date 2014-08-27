@@ -63,7 +63,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
   $scope.getLabel = function (term, termType) {
     var dfn = $scope.terms[term];
     
-    if (dfn && dfn['label_sv']) return dfn['label_sv']; 
+    if (dfn && dfn['label']) return dfn['label']; 
 
     // !TODO fix propper linking
     if(termType && termType.indexOf('language') > 0) {

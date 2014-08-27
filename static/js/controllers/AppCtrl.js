@@ -50,14 +50,19 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
 
   // Data Model Utilities
 
-  definitions.terms.then(function(data) {
-    $rootScope.ID = '@id';
-    $rootScope.TYPE = '@type';
-    $rootScope.TERMS = 'http://libris.kb.se/def/terms#';
+  var ID = '@id';
+  var TYPE = '@type';
+  var TERMS = 'http://libris.kb.se/def/terms#';
 
+  definitions.terms.then(function(data) {
     var terms = data.index;
     var items = []; for (var key in data.index) items.push(data.index[key]);
-    $rootScope.termIndex = Gild.buildIndex(items);
+    var termIndex = Gild.buildIndex(items);
+
+    $rootScope.ID = ID;
+    $rootScope.TYPE = TYPE;
+    $rootScope.TERMS = TERMS;
+    $rootScope.termIndex = termIndex;
 
     $rootScope.getTermToken = function (obj) {
       var id = obj['@id'];
@@ -69,15 +74,23 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
     $rootScope.getTypeDef = function (obj) {
       if (typeof obj === "undefined")
         return;
-      return terms[obj['@type']];
+      return terms[obj[TYPE]];
     };
+
     // TODO: merge with getLabel (defined in SearchCtrl)
     $rootScope.getTypeLabel = function (obj) {
       if (typeof obj === "undefined")
         return;
-      var dfn = $rootScope.getTypeDef(obj);
-      var typeLabel = (dfn) ? dfn['label_sv'] : obj['@type'];
-      return _.isArray(typeLabel) ? typeLabel.join(', ') : typeLabel;
+      var typeLabels = [];
+      var typeKeys = obj[TYPE];
+      if (!_.isArray(typeKeys)) {
+        typeKeys= [typeKeys];
+      }
+      typeKeys.forEach(function (typeKey) {
+        var dfn = terms[typeKey];
+        typeLabels.push(dfn? dfn.label : typeKey);
+      })
+      return typeLabels.join(', ');
     };
   });
 
