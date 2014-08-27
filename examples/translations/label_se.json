@@ -50,7 +50,8 @@
             "about.mediaTerm": "Allmän medieterm",
             "about.date": "Datum då posten skapades",
             "about.publicationStatus": "Typ av utgivningsdatum. Utgivningsstatus.",
-            "about.publicationYear": "Utgivningsår",
+            "about.publicationYear": "Årtal (1)",
+            "about.publicationOtherYear": "Tidsangivelse (2)",
             "about.publicationCountry": "Utgivningsland",
             
             "about.material": "Material",
@@ -102,14 +103,16 @@
             "about.languageNote": "Språkanmärkning",
             "about.technicalNote": "Intern anmärkning av systemteknisk karaktär",
             "about.listOfContents": "Formaterad innehållsförteckning",
-            "about.performerNote": "Medverkande",
-            "about.contributorNote": "contributorNote",            
+            "about.performerNote": "Medverkande",            
             "about.note": "note",
             "about.comment": "Allmän anmärkning",
             "about.systemRequirements": "Systemkrav",
-            "about.audience.label": "audience.label",
+            "about.audience.label": "Målgrupp",
+            "about.scopeNote": "Relaterade delar",
 
-            "about.genre": "Genre"
+            "about.genre": "Genre",
+            
+            "sourceNote": "Intern anmärkning om katalogiseringskälla"
         },
 
         "gui": {

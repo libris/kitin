@@ -21,7 +21,16 @@
           <span class="lbl" translate>LABEL.record.about.scopeNote</span>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.scopeNote">
         </label>
-
+        <label>
+          <span class="lbl" translate>LABEL.record.about.publicationStatus</span>
+          <ul class="tags" data-kitin-link-entity
+              data-subject="record.about"
+              data-link="'publicationStatus'" data-type="PublicationStatus"
+              data-view-template="render-generic-linked-entity"
+              data-search-template="render-generic-select-category"
+              ng-init="select_data_source=publicationStatus;">
+          </ul>
+        </label>
         <label>
           <span class="lbl" translate>LABEL.record.about.publicationYear</span>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.publicationYear">
@@ -31,34 +40,6 @@
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.publicationOtherYear">
         </label>
 
-
-        <span class="lbl" translate>LABEL.record.about.publicationCountry</span>
-        <ul class="tags" data-kitin-link-entity
-            data-subject="record.about"
-            data-link-multiple="'publicationCountry'" data-type="Country"
-            data-view-template="render-country"
-            data-search-template="render-search-country">
-        </ul>
-        <script type="text/ng-template" id="render-country">
-            <a href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.prefLabel }} <span data-ng-show="object.notation">({{ object.notation }})</span></a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
-        </script>
-
-        <script type="text/ng-template" id="render-search-country">
-          <i class="fa fa-search"></i> <input data-inplace class="input-large authdependant embedded" type="text"
-                  placeholder="Lägg till land"
-                  data-no-value="{{ object.prefLabel }} ({{ object.notation }})"
-                  data-kitin-search-entity
-                  data-service-url="{{API_PATH}}/def/_search"
-                  data-filter="{ filter: 'about.@type:Country'}"
-                  data-completion-template="select-country-template" placeholder="+ Lägg till land">
-        </script>
-        <script type="text/html" id="select-country-template">
-          <div class="auth">
-            <h4>
-            <span class="name"><%= data.prefLabel %></span><span class="date"> <%= data.notation %></span>
-            </h4>
-          </div>
-        </script>
 
       </div>
       <div class="col6">
@@ -105,16 +86,6 @@
         <label>
           <span class="lbl" translate>LABEL.record.sourceNote</span>
           <textarea data-inplace data-ui-jq="autosize" class="ng-pristine ng-valid" type="text" data-ng-model="record.sourceNote" ></textarea>
-        </label>
-        <label>
-          <span class="lbl" translate>LABEL.record.about.publicationStatus</span>
-          <ul class="tags" data-kitin-link-entity
-              data-subject="record.about"
-              data-link="'publicationStatus'" data-type="PublicationStatus"
-              data-view-template="render-generic-linked-entity"
-              data-search-template="render-generic-select-category"
-              ng-init="select_data_source=publicationStatus;">
-          </ul>
         </label>
       </div>
     </div>
@@ -168,6 +139,37 @@
 
 		<div class="cols">
 	    <div class="col12">
+
+        <span class="lbl" translate>LABEL.record.about.publicationCountry</span>
+        <ul class="tags" data-kitin-link-entity
+            data-subject="record.about"
+            data-link-multiple="'publicationCountry'" data-type="Country"
+            data-view-template="render-country"
+            data-search-template="render-search-country">
+        </ul>
+        <script type="text/ng-template" id="render-country">
+            <a href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.prefLabel }} <span data-ng-show="object.notation">({{ object.notation }})</span></a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
+        </script>
+
+        <script type="text/ng-template" id="render-search-country">
+          <i class="fa fa-search"></i> <input data-inplace class="input-large authdependant embedded" type="text"
+                  placeholder="Lägg till land"
+                  data-no-value="{{ object.prefLabel }} ({{ object.notation }})"
+                  data-kitin-search-entity
+                  data-service-url="{{API_PATH}}/def/_search"
+                  data-filter="{ filter: 'about.@type:Country'}"
+                  data-completion-template="select-country-template" placeholder="+ Lägg till land">
+        </script>
+        <script type="text/html" id="select-country-template">
+          <div class="auth">
+            <h4>
+            <span class="name"><%= data.prefLabel %></span><span class="date"> <%= data.notation %></span>
+            </h4>
+          </div>
+        </script>
+
+
+
 	      <div class="datatable" data-ng-target="publisher" 
 	        data-kitin-data-table 
 	        data-table-model="record.about.publication" 
