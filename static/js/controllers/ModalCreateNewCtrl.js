@@ -12,8 +12,8 @@ kitin.controller('ModalCreateNewCtrl', function ($scope, $rootScope, $modalInsta
   aggregateLevels = _.sortBy(aggregateLevels, labelSort);
 
   function notAbstract(cls) { return cls.get('abstract') != true; }
-  _.filter(mainTypes, notAbstract);
-  _.filter(aggregateLevels, notAbstract);
+  mainTypes = _.filter(mainTypes, notAbstract);
+  aggregateLevels = _.filter(aggregateLevels, notAbstract);
 
   $scope.typeGroups = [
     {name: 'mainType', label: 'Typ', classes: mainTypes},

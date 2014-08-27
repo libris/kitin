@@ -65,7 +65,7 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
     $rootScope.termIndex = termIndex;
 
     $rootScope.getTermToken = function (obj) {
-      var id = obj['@id'];
+      var id = obj[ID];
       if (typeof id !== 'string')
         return null;
       return id.substring(id.indexOf('#') + 1);
