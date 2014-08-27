@@ -15,27 +15,30 @@ kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
       *   @param    id      {String}    Record id (Optional)
       */
       get: function (type, id, mainType, aggregateLevel) {
-        var deferer = $q.defer(), path, handleStruct;
+        var deferer = $q.defer();
 
         if (id) {
           // open record
-          path = $rootScope.API_PATH + '/' + type + '/' + id;
-          handleStruct = editUtil.decorate.bind(editUtil);
+          var path = $rootScope.API_PATH + '/' + type + '/' + id;
+          $http.get(path).success(function (struct, status, headers) {
+            deferer.resolve({
+              recdata: editUtil.decorate(struct),
+              etag: headers('etag')
+            });
+          });
+
         } else {
           // new record
-          path = '/record/template/text.monograph';
-          handleStruct = function (struct) {
-            struct.about['@type'] = [mainType, aggregateLevel];
-            return editUtil.decorate(struct);
+          var struct = {
+            "@type": "Record",
+            "about": {
+              "@type": [mainType, aggregateLevel],
+            }
           };
-        }
-
-        $http.get(path).success(function (struct, status, headers) {
           deferer.resolve({
-            recdata: handleStruct(struct),
-            etag: headers('etag')
+            recdata: editUtil.decorate(struct)
           });
-        });
+        }
 
         return deferer.promise;
       },

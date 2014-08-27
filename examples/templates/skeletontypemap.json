@@ -6,9 +6,24 @@
   },
 
   "Monograph": {
+    "attributedTo": {},
+    "influencedBy": [],
+    "identifierByIdentifierScheme": {
+      "/def/identifiers/isbn": []
+    }
+  },
+
+  "Serial": {
+    "comment": [],
+    "influencedBy": [],
+    "identifierByIdentifierScheme": {
+      "/def/identifiers/issn": []
+    }
+  },
+
+  "Text": {
     "publicationYear": "",
     "publicationCountry": [],
-    "attributedTo": {},
     "language": [],
     "literaryForm": {},
     "originalLanguage": [],
@@ -20,23 +35,12 @@
       "subtitle": ""
     },
     "responsibilityStatement": "",
-    "identifierByIdentifierScheme": {
-      "/def/identifiers/isbn": []
-    },
     "publication": [],
+    "manufacture": [],
     "genre": [],
     "hasFormatByType": {
       "Product": []
     }
-  },
-
-  "Serial": {
-    "identifierByIdentifierScheme": {
-      "/def/identifiers/issn": []
-    }
-  },
-
-  "Text": {
   },
 
   "Audio": {
@@ -76,7 +80,6 @@
       "partTitle": "",
       "subtitle": ""
     },
-    "manufacture": [],
     "cartographicScale": "",
     "cartographicCoordinates": "",
     "listOfContents": "",
@@ -93,7 +96,6 @@
     "mediaTerm": "",
     "performerNote": "",
     "languageNote": "",
-    "influencedBy": [],
     "isPrimaryTopicOf": [],
     "identifierByIdentifierScheme": {
         "identifier": []

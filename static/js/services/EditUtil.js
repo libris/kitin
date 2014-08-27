@@ -268,8 +268,8 @@ kitin.service('editUtil', function(definitions, $http) {
         if(reset === false) {
           delete entity[key];
         }
-        
       }
+
       // Rearrange Array elements into display groups
       this.mutateObject(record.about, doIndex);
       // Rearrange Person roles
@@ -281,14 +281,19 @@ kitin.service('editUtil', function(definitions, $http) {
       this.patchBibRecord(record);
 
       // Decorate record with template json
-      // TODO: merge with create new logic (assemble "defaults" by type+level)
-      //definitions.recordTemplate(this.getMaterialType(record)).then(function(recordTemplate) {
-      //  if(recordTemplate) {
-      //    this.mergeRecordAndTemplate(record, recordTemplate);
-      //  }
-      //}.bind(this));
+      definitions.recordSkeletonTypeMap.then(function(skeletonTypeMap) {
+        var types = record.about['@type'];
+        if (!_.isArray(types)) {
+          types = [types];
+        }
+        types.forEach(function (type) {
+          var skeletonType = skeletonTypeMap[type];
+          if (skeletonType) {
+            this.mergeRecordAndTemplate(record.about, skeletonType);
+          }
+        }.bind(this));
+      }.bind(this));
 
-      
       return record;
     },
 

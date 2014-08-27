@@ -47,7 +47,7 @@ kitin.factory('definitions', function($http, $rootScope) {
       literaryForm:   getEnumDefinition('literaryForm'),
       biography:   getEnumDefinition('biography')
     },
-    recordTemplate: function(recordType) { return getDataset("/record/template/" + recordType); }
+    recordSkeletonTypeMap: getDataset("/record/template/skeletontypemap")
   };
 
   return definitions;
