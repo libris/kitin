@@ -53,15 +53,17 @@ kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
       save: function(type, id, recordData, recordEtag) {
         var deferer = $q.defer();
         var recordDataCopy = angular.copy(recordData);
-        editUtil.decorate(savedRecord).then(function(decoratedRecord) {
-          $http.put($rootScope.LOCAL_API_PATH + '/' + type + "/" + id, editUtil.undecorate(recordDataCopy),
+        editUtil.undecorate(recordDataCopy).then(function(undecoratedRecord) {
+          $http.put($rootScope.LOCAL_API_PATH + '/' + type + "/" + id, undecoratedRecord,
               {
                 headers: {"If-match":etag}
               })
             .success(function(savedRecord, status, headers) {
-              deferer.resolve({
-                recdata: decoratedRecord,
-                etag: headers('etag')
+              editUtil.decorate(savedRecord).then(function(decoratedRecord) {
+                deferer.resolve({
+                  recdata: decoratedRecord,
+                  etag: headers('etag')
+                });
               });
           });
         });
@@ -72,22 +74,26 @@ kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
         var deferer = $q.defer();
         var recordDataCopy = angular.copy(recordData);
         
-        $http.post($rootScope.LOCAL_API_PATH, editUtil.undecorate(recordDataCopy))
-          .success(function(createdRecord, status, headers) {
-            editUtil.decorate(createdRecord).then(function(decoratedRecord) {
-              deferer.resolve({
-                recdata: decoratedRecord,
-                etag: headers('etag')
+        editUtil.undecorate(recordDataCopy).then(function(undecoratedRecord) {
+          $http.post($rootScope.LOCAL_API_PATH, undecoratedRecord)
+            .success(function(createdRecord, status, headers) {
+              editUtil.decorate(createdRecord).then(function(decoratedRecord) {
+                deferer.resolve({
+                  recdata: decoratedRecord,
+                  etag: headers('etag')
+                });
               });
-            });
+          });
         });
         return deferer.promise;
       },
 
       convertToMarc: function(data) {
         var deferer = $q.defer();
-        $http.post($rootScope.API_PATH + '/_format?to=application\/x-marc-json', editUtil.undecorate(data)).success(function(data, status, headers) {
-          deferer.resolve(data);
+        editUtil.undecorate(data).then(function(undecoratedRecord) {
+          $http.post($rootScope.API_PATH + '/_format?to=application\/x-marc-json', undecoratedRecord).success(function(data, status, headers) {
+            deferer.resolve(data);
+          });
         });
         return deferer.promise;
       }
@@ -112,12 +118,14 @@ kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
         var deferer = $q.defer();
         etag = etag ? etag : '';
         var draftDataCopy = angular.copy(draftData);
-        editUtil.decorate(data).then(function(decoratedRecord) {
-          $http.put("/draft/" + type + '/' + draftId, editUtil.undecorate(draftDataCopy), {headers: {"If-match":etag } })
+        editUtil.undecorate(draftDataCopy).then(function(undecoratedRecord) {
+          $http.put("/draft/" + type + '/' + draftId, undecoratedRecord, {headers: {"If-match":etag } })
             .success(function(data, status, headers) {
-              deferer.resolve({
-                recdata: decoratedRecord,
-                etag: headers('etag')
+              editUtil.decorate(data).then(function(decoratedRecord) {
+                deferer.resolve({
+                  recdata: decoratedRecord,
+                  etag: headers('etag')
+                });
               });
             });
         });
@@ -128,13 +136,15 @@ kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
         var deferer = $q.defer();
         etag = etag ? etag : '';
         var draftDataCopy = angular.copy(draftData);
-        $http.post("/draft/" + type, editUtil.undecorate(draftDataCopy), {headers: {"If-match":etag } })
-          .success(function(data, status, headers) {
-            editUtil.decorate(data.document).then(function(decoratedRecord) {
-              data.document = decoratedRecord;
-              deferer.resolve(data);
+        editUtil.undecorate(draftDataCopy).then(function(undecoratedRecord) {
+          $http.post("/draft/" + type, undecoratedRecord, {headers: {"If-match":etag } })
+            .success(function(data, status, headers) {
+              editUtil.decorate(data.document).then(function(decoratedRecord) {
+                data.document = decoratedRecord;
+                deferer.resolve(data);
+              });
             });
-          });
+        });
         return deferer.promise;
       },
 

@@ -255,6 +255,7 @@ kitin.service('editUtil', function(definitions, $http, $q) {
 
     decorate: function(record) {
       var deferer = $q.defer();
+
       function doIndex (entity, key, cfg, reset) {
         var items = entity[key];
         if(_.isEmpty(items)) {
@@ -304,6 +305,8 @@ kitin.service('editUtil', function(definitions, $http, $q) {
     },
 
     undecorate: function(record) {
+      var deferer = $q.defer();
+
       function doUnindex (entity, key, cfg, reset) {
         var flattened = _.flatten(entity[cfg.indexName], function(it) { return it; });
         // Reset boolean to handle undecoration of multiple decorators for single entity
@@ -320,7 +323,10 @@ kitin.service('editUtil', function(definitions, $http, $q) {
       this.unreifyAgentRoles(record);
       // Remove empty entities 
       record = this.cleanRecord(record);
-      return record;
+
+      deferer.resolve(record);
+
+      return deferer.promise;
     },
 
     mutateObject: function(entity, mutator) {
