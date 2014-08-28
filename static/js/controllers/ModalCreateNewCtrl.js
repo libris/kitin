@@ -1,23 +1,23 @@
 kitin.controller('ModalCreateNewCtrl', function ($scope, $rootScope, $modalInstance) {
   var termIndex = $rootScope.termIndex,
-      TERMS = $rootScope.TERMS;
+      MARCENUM = 'http://libris.kb.se/def/marc/enum/';
 
-  var mainTypes = termIndex.byId[TERMS+'CreativeWork'].subjects('subClassOf');
-  var aggregateLevels = _.uniq(
-    termIndex.byId[TERMS+'Aggregate'].subjects('subClassOf').concat(
-      termIndex.byId[TERMS+'Part'].subjects('subClassOf')), false, '@id');
+  var typeOfRecordEnum = termIndex.byId[MARCENUM + 'typeOfRecord'];
+  var bibLevelEnum = termIndex.byId[MARCENUM + 'bibLevel'];
 
   function labelSort(cls) { return cls.get('label'); }
-  mainTypes = _.sortBy(mainTypes, labelSort);
-  aggregateLevels = _.sortBy(aggregateLevels, labelSort);
-
-  function notAbstract(cls) { return cls.get('abstract') !== true; }
-  mainTypes = _.filter(mainTypes, notAbstract);
-  aggregateLevels = _.filter(aggregateLevels, notAbstract);
 
   $scope.typeGroups = [
-    {name: 'mainType', label: 'Typ', classes: mainTypes},
-    {name: 'aggregateLevel', label: 'Bibliografisk nivå', classes: aggregateLevels}
+    {
+      name: 'mainType',
+      label: typeOfRecordEnum.get('label'),
+      classes: _.sortBy(typeOfRecordEnum.subjects('termGroup'), labelSort)
+    },
+    {
+      name: 'aggregateLevel',
+      label: bibLevelEnum.get('label'),
+      classes: _.sortBy(bibLevelEnum.subjects('termGroup'), labelSort)
+    }
   ];
 
   $scope.createNew = {mainType: 'Text', aggregateLevel: 'Monograph'};
