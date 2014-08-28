@@ -126,9 +126,9 @@
         </label>
         <label>
           <span class="lbl" translate>LABEL.record.about.influencedBy</span>
-          <a ng-click="showInfluencedBy = !showInfluencedBy">Dölj <i class="icon fa fa-caret-up"></i></a>
+          <!--<a ng-click="showInfluencedBy = !showInfluencedBy">Dölj <i class="icon fa fa-caret-up"></i></a>-->
           <div data-kitin-link-entity
-              collapse="showInfluencedBy"
+              data-collapsable="true"
               data-ng-init="label = 'Lägg till biuppslag'"
               data-subject="record.about" data-link-multiple="'influencedBy'" data-type="Person"
               data-view-template="render-person"

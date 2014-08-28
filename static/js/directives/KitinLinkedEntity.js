@@ -7,13 +7,19 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
 
     compile: function(element, attrs) {
       var multiple = !!(attrs.linkMultiple);
+      var collapsable = !!(attrs.collapsable);
       var itemTag = element.is('ul, ol')? 'li' : 'div';
       var viewDiv = '<div ng-if="viewmode" ng-include="viewTemplate"></div>';
       var nonAuth = 'ng-class="{\'non-auth\' : !isLinked(object) && !isInScheme(object)}"';
       var repeater = multiple ? 'ng-if="objects" ng-repeat="object in objects track by $index"' : 'ng-if="object"';
-      var template =  '<'+ itemTag + ' ' + repeater + ' ' + nonAuth + '> ' +
+      var collapseButton = collapsable ? '<div collapse-button ng-init="objects=objects"></div>' : '';
+      var collapse = collapsable ? ' collapse="doCollapse && $index !== 0" ' : '';
+
+      var template =  collapseButton +
+                      '<'+ itemTag + ' ' + collapse + ' ' + repeater + ' ' + nonAuth + '> ' +
                         viewDiv + 
                       '</'+ itemTag +'>' +
+                      (collapsable ? '<'+ itemTag +' class="entity" ng-show="doCollapse">... Ytterligare {{objects.length-1}}</'+ itemTag +'>' : '') +
                       '<'+ itemTag +' ' + (multiple ? '' : 'ng-if="!viewmode"') + ' class="search" ng-include="searchTemplate"></'+ itemTag +'>';
       
 

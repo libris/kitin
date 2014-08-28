@@ -7,15 +7,23 @@ kitin.directive('kitinDataTable', function() {
 
     compile: function(element, attrs) {
       var type = (attrs.defaultType ? attrs.defaultType : attrs.ngSwitchWhen);
+      var collapsable = !!(attrs.collapsable);
+
+      var collapseButton = collapsable ? '<div collapse-button ng-init="objects=objects"></div>' : '';
+      var collapse = collapsable ? ' collapse="doCollapse && $index !== 0" ' : '';
 
       // Create table template
-      var template = '<table ng-if="' + attrs.tableModel + '.length > 0">' +
+      var template = 
+      '<div ng-init="objects = ' + attrs.tableModel + '">' +
+      collapseButton +
+      '<table ng-if="' + attrs.tableModel + '.length > 0">' +
           '<thead>' +
             '<tr ng-include="tableHeaderRowTemplate"></tr>' +
           '</thead>' +
-          '<tbody ng-init="objects = ' + attrs.tableModel + '">' +
-            '<tr ng-repeat="object in objects track by $index" ng-include="tableRowTemplate">' +
+          '<tbody>' +
+            '<tr ' + collapse + 'ng-repeat="object in objects track by $index" ng-include="tableRowTemplate">' +
             '</tr>' +
+            '<tr collapse="!doCollapse"><td>... Ytterligare {{objects.length-1}}</td></tr>' +
           '</tbody>' +
           '<tfoot ng-if="' + (typeof attrs.addable !== 'undefined') + '">' +
               '<tr>' +
@@ -24,7 +32,8 @@ kitin.directive('kitinDataTable', function() {
                 '</td>' +
               '</tr>' +
             '</tfoot>' +
-        '</table>';
+        '</table>' + 
+        '</div>';
 
       element.html(template);
     },
