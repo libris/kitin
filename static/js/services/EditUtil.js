@@ -2,7 +2,7 @@
  * editUtil
  * Service to modify a record. Typically decorate/undecorate
  */
-kitin.service('editUtil', function(definitions, $http) {
+kitin.service('editUtil', function(definitions, $http, $q) {
 
 
   /** mergeProperties
@@ -254,6 +254,7 @@ kitin.service('editUtil', function(definitions, $http) {
     },
 
     decorate: function(record) {
+      var deferer = $q.defer();
       function doIndex (entity, key, cfg, reset) {
         var items = entity[key];
         if(_.isEmpty(items)) {
@@ -273,15 +274,15 @@ kitin.service('editUtil', function(definitions, $http) {
       // Rearrange Array elements into display groups
       this.mutateObject(record.about, doIndex);
       // Rearrange Person roles
-      definitions.relators.then(function (relators) {
+      var relators = definitions.relators;
+      relators.then(function (relators) {
         var roleMap = {};
         this.reifyAgentRoles(record, relators);
       }.bind(this));
 
-      this.patchBibRecord(record);
-
       // Decorate record with template json
-      definitions.recordSkeletonTypeMap.then(function(skeletonTypeMap) {
+      var recordSkeletonTypeMap = definitions.recordSkeletonTypeMap;
+      recordSkeletonTypeMap.then(function(skeletonTypeMap) {
         var types = record.about['@type'];
         if (!_.isArray(types)) {
           types = [types];
@@ -294,7 +295,12 @@ kitin.service('editUtil', function(definitions, $http) {
         }.bind(this));
       }.bind(this));
 
-      return record;
+      // Combine all promises into one single, to prevent timing issues
+      $q.all([relators, recordSkeletonTypeMap]).then(function() {
+        deferer.resolve(record);
+      });
+      
+      return deferer.promise;
     },
 
     undecorate: function(record) {
@@ -458,25 +464,6 @@ kitin.service('editUtil', function(definitions, $http) {
         });
       }
       return classes;
-    },
-
-    // TODO: fix this in the backend service and remove this patch
-    patchBibRecord: function (record) {
-      var work = record.about;
-      if (work && _.isArray(work.attributedTo)) {
-        work.attributedTo = work.attributedTo[0];
-      }
-     /* if (work && work.language) {
-        var langId = work.language['@id'];
-        if (!langId)
-          return;
-        // TODO: change language data index to use URIs
-        $http.get("/deflist/" + langId.replace(/\/def\//,''), {cache: true}).then(function(response) {
-          if (response.data) {
-            work.language = response.data;
-          }
-        });
-      }*/
     },
 
     // TODO: fix this in the backend service and remove this patch
