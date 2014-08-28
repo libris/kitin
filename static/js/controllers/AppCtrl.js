@@ -89,7 +89,7 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
       typeKeys.forEach(function (typeKey) {
         var dfn = terms[typeKey];
         typeLabels.push(dfn? dfn.label : typeKey);
-      })
+      });
       return typeLabels.join(', ');
     };
   });
