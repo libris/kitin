@@ -37,8 +37,10 @@ kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
               "@type": [mainType, aggregateLevel],
             }
           };
-          deferer.resolve({
-            recdata: editUtil.decorate(struct)
+          editUtil.decorate(struct).then(function(decoratedRecord) {
+            deferer.resolve({
+              recdata: decoratedRecord
+            });
           });
         }
 

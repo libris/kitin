@@ -185,37 +185,37 @@ kitin.service('editUtil', function(definitions, $http, $q) {
 
     makeReferenceEntity: function (entity) {
       // Decorate the entity
-      var decoratedEntity = this.decorate(entity);
-
-      // Returns an array of ISSN identifiers for the entity
-      var getISSN = function(entity) {
-        var identifiers = entity['about']['identifierByIdentifierScheme'];
-        if(identifiers) {
-          for(var key in identifiers) {
-            if(key.indexOf('issn') !== -1) {
-              return identifiers[key];
+      this.decorate(entity).then(function(decoratedEntity) {
+        // Returns an array of ISSN identifiers for the entity
+        var getISSN = function(entity) {
+          var identifiers = entity['about']['identifierByIdentifierScheme'];
+          if(identifiers) {
+            for(var key in identifiers) {
+              if(key.indexOf('issn') !== -1) {
+                return identifiers[key];
+              }
             }
+          } else {
+            return [];
           }
-        } else {
-          return [];
-        }
-      };
+        };
 
-      // !TODO, handle more types
-      switch(this.getMaterialType(entity)) {
-        case 'person':
-          return {};
-        default: 
-          return {
-            '@type': decoratedEntity['about']['@type'],
-            'title': decoratedEntity['about']['instanceTitle']['titleValue'],
-            'issn': _.pluck(getISSN(entity), 'identifierValue').join(','), // Should only be one. But only MARC knows
-            'describedBy': {
-              '@type': 'Record',
-              '@id': decoratedEntity['@id']
-            }
-          };
-      }
+        // !TODO, handle more types
+        switch(this.getMaterialType(entity)) {
+          case 'person':
+            return {};
+          default: 
+            return {
+              '@type': decoratedEntity['about']['@type'],
+              'title': decoratedEntity['about']['instanceTitle']['titleValue'],
+              'issn': _.pluck(getISSN(entity), 'identifierValue').join(','), // Should only be one. But only MARC knows
+              'describedBy': {
+                '@type': 'Record',
+                '@id': decoratedEntity['@id']
+              }
+            };
+        }
+      });
     },
 
     indexes: {
