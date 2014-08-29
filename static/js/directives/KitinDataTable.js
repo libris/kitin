@@ -28,7 +28,7 @@ kitin.directive('kitinDataTable', function() {
           '<tfoot ng-if="' + (typeof attrs.addable !== 'undefined') + '">' +
               '<tr>' +
                 '<td>' +
-                  '<button class="add-thing btn-link" data-ng-click="addObject(record.about, \'' +  attrs.linkMultiple + '\',\'' + type + '\',\'' + attrs.ngTarget + '\',\'' + attrs.ngSwitchWhen + '\')">Lägg till</button>' +
+                  '<button class="add-thing btn-link" data-ng-click="expand();addObject(record.about, \'' +  attrs.linkMultiple + '\',\'' + type + '\',\'' + attrs.ngTarget + '\',\'' + attrs.ngSwitchWhen + '\')">Lägg till</button>' +
                 '</td>' +
               '</tr>' +
             '</tfoot>' +

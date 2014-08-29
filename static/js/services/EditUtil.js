@@ -184,6 +184,7 @@ kitin.service('editUtil', function(definitions, $http, $q) {
     },
 
     makeReferenceEntity: function (entity) {
+      var deferer = $q.defer();
       // Decorate the entity
       this.decorate(entity).then(function(decoratedEntity) {
         // Returns an array of ISSN identifiers for the entity
@@ -203,9 +204,9 @@ kitin.service('editUtil', function(definitions, $http, $q) {
         // !TODO, handle more types
         switch(this.getMaterialType(entity)) {
           case 'person':
-            return {};
+            deferer.resolve({});
           default: 
-            return {
+            deferer.resolve({
               '@type': decoratedEntity['about']['@type'],
               'title': decoratedEntity['about']['instanceTitle']['titleValue'],
               'issn': _.pluck(getISSN(entity), 'identifierValue').join(','), // Should only be one. But only MARC knows
@@ -213,9 +214,10 @@ kitin.service('editUtil', function(definitions, $http, $q) {
                 '@type': 'Record',
                 '@id': decoratedEntity['@id']
               }
-            };
+            });
         }
-      });
+      }.bind(this));
+      return deferer.promise;
     },
 
     indexes: {

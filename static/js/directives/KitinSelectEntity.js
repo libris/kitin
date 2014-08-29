@@ -3,6 +3,8 @@ kitin.directive('kitinSelectEntity', ['definitions', 'editUtil', '$compile', fun
   return {
     require: '^kitinLinkEntity',
 
+    restrict: 'A',
+    replace: false,
     terminal: true, // skip other directives after this
     priority: 1000, // make sure this is directive compiled first
 

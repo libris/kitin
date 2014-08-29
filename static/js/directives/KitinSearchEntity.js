@@ -77,7 +77,14 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editUtil', function(defini
         onItemSelect: function(item, completer) {
           var owner = scope.subject;
           // TODO: if multiple, else set object (and *link*, not copy (embed copy in view?)...)
-          linker.doAdd(makeReferenceOnItemSelect ? editUtil.makeReferenceEntity(item.data._source) : item.data);
+          if(makeReferenceOnItemSelect) {
+            editUtil.makeReferenceEntity(item.data._source).then(function(referenced) {
+              linker.doAdd(referenced);
+            });
+          } else {
+            linker.doAdd(item.data);
+          }
+          
           delete item.data._source;
           scope.$apply(onSelect);
           //scope.triggerModified();
