@@ -205,6 +205,7 @@ kitin.service('editUtil', function(definitions, $http, $q) {
         switch(this.getMaterialType(entity)) {
           case 'person':
             deferer.resolve({});
+            break;
           default: 
             deferer.resolve({
               '@type': decoratedEntity['about']['@type'],
@@ -215,6 +216,7 @@ kitin.service('editUtil', function(definitions, $http, $q) {
                 '@id': decoratedEntity['@id']
               }
             });
+            break;
         }
       }.bind(this));
       return deferer.promise;
