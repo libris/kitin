@@ -2750,6 +2750,9 @@ label {
   font-weight: 400;
   margin-bottom: 10px;
 }
+a {
+  cursor: pointer;
+}
 .container {
   width: 1080px;
   margin: 0 auto;
