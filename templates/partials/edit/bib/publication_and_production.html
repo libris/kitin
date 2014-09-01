@@ -1,5 +1,8 @@
  {% raw %}
 <h2>Utgivning och tillverkning<i></i></h2>
+	<div class="cols">
+	    <div class="identifier" ng-include="'/partials/edit/bib/identifier'"></div>
+	</div>
     <div class="cols"> <!-- data-ng-show="record.about['@type'] != 'Book'">-->
       <div class="col6">
         <label data-ng-show="record.about.mediaTerm">
@@ -228,7 +231,6 @@
  
     </div>
     </div>
-    <div class="identifier" ng-include="'/partials/edit/bib/identifier'"></div>
     <div class="element-adder" data-element-adder="publication_and_production"></div>
 
 
