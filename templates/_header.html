@@ -82,7 +82,7 @@
 <script type="text/ng-template" id="render-new-type-group">
   <h3>{{ typeGroup.label }}</h3>
   <div data-ng-repeat="class in typeGroup.classes">
-    <label>
+    <label data-ng-class="{'text-muted': class.deprecated}">
       <input type="radio" name="{{ typeGroup.name }}"
              data-ng-model="createNew[typeGroup.name]"
              data-ng-value="getTermToken(class)" />
