@@ -537,10 +537,26 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     var suffix = ' ***EDITABLE';
     // Add suffix
     updatePrinted(suffix);
-    // Print
-    $scope.debugRecord = JSON.stringify(angular.copy($scope.record), null, 4);
+    var recordCopy = angular.copy($scope.record);
     // Remove suffix
     updatePrinted(suffix, true);
+    // Remove editable parts
+    function removeEditables(obj) {
+      for (var key in obj) {
+        var child = obj[key];
+        if (_.isObject(child)) {
+            removeEditables(child);
+            if (_.isArray(child) && child[0] === undefined) {
+              delete obj[key];
+            }
+        } else if (child.indexOf(suffix) > -1) {
+          delete obj[key];
+        }
+      }
+    }
+    removeEditables(recordCopy);
+    // Print
+    $scope.debugRecord = JSON.stringify(recordCopy, null, 4);
   }
   // Could not get $viewContentLoading to work. Using timeout as a temporary solution
   if($scope.debug && recType === 'bib') {
