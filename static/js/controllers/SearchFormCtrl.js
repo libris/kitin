@@ -18,6 +18,7 @@ kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, $ro
     $scope.setSearchType($routeParams.recType || "bib");
   });
   $scope.$watch('state.searchType.key', function(newValue, oldValue) {
+    $scope.isopen = false;
     if(newValue == 'remote') {
       // For remote search, load list of remote database definitions
       if(_.isEmpty($rootScope.state.remoteDatabases)) {
