@@ -483,7 +483,14 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
 
       var updateValue = function(value, suffix, remove) {
         // remove or add suffix
-        v = (remove === true) ? value.replace(suffix,'') : value + '' + suffix;
+        if(remove === true) {
+          v = typeof value !== 'undefined' ? value.replace(suffix,'') : value;
+        } else {
+          if(value + '' === '[object Object]') {
+            debugger;
+          }
+          v = typeof value !== 'undefined' && value.indexOf(suffix) !== -1 ? value : (value + '' + suffix);
+        }
         return v === 'undefined' ? null : v;
       };
 
@@ -522,7 +529,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
             } else if(dataRef.$scope['object']) {
               obj = dataRef.$scope['object'];
               for(var objkey in obj) {
-                obj[objkey] = updateValue(obj[objkey], suffix, remove);
+                iterateObject(obj[objkey], suffix, remove);
               }
             }
           }
