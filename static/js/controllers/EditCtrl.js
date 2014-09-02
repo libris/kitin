@@ -554,7 +554,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
                 (_.isArray(child) && child[0] === undefined)) {
               delete obj[key];
             }
-        } else if (child.indexOf(suffix) > -1) {
+        } else if (child && child.indexOf && child.indexOf(suffix) > -1) {
           delete obj[key];
         }
       }
@@ -569,6 +569,46 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   if($scope.debug && recType === 'bib') {
     $timeout(function() {
       debugRecord();
+      
+      // Experimental file drop 
+      // ------------------------------------------------
+      var $dropTarget = $('body');
+      $dropTarget.on('dragenter dragover', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        $(this).css('border', '6px dotted #0B85A1');
+      });
+      $dropTarget.on('drop', function (e) 
+      {
+        var that = this;
+        $(that).css('border', '6px solid #0B85A1');
+        e.preventDefault();
+        var files = e.originalEvent.dataTransfer.files;
+        var reader = new FileReader();
+
+        reader.onloadend = function(e) {
+          var result = JSON.parse(this.result);
+          editUtil.decorate(result).then(function(decoratedRecord) {
+            $timeout(function(){
+              $scope.record = decoratedRecord;
+            }).then(function() {
+              $timeout(function() {
+                debugRecord();
+              },1000);
+              $(that).css('border', '0');
+            });
+          });
+        };
+
+        reader.readAsText(files[0]);  
+      });
+
+      $(document).on('dragenter dragover drop', function (e) {
+          e.stopPropagation();
+          e.preventDefault();
+      });
+      // ------------------------------------------------
+
     }, 1000);
   }
 });
