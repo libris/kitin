@@ -260,7 +260,13 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   $scope.save = function() {
     var recType = $routeParams.recType === editUtil.RECORD_TYPES.REMOTE ? editUtil.RECORD_TYPES.BIB : $routeParams.recType;
     if(!$scope.isDraft && !isNew) {
-      var ifMatchHeader = $scope.etag.replace(/["']/g, "");
+
+      var ifMatchHeader = '';
+      if($scope.etag) {
+        ifMatchHeader = $scope.etag.replace(/["']/g, "");
+      } else {
+        console.warn('No ETag for this record. Where is it?');
+      }
       dataService.record.save(recType, recId, $scope.record, ifMatchHeader).then(function(data) {
         $scope.record = data['recdata'];
         $scope.etag = data['etag'];

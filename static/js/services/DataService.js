@@ -56,7 +56,7 @@ kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
         editUtil.undecorate(recordDataCopy).then(function(undecoratedRecord) {
           $http.put($rootScope.LOCAL_API_PATH + '/' + type + "/" + id, undecoratedRecord,
               {
-                headers: {"If-match":etag}
+                headers: {"If-match":recordEtag}
               })
             .success(function(savedRecord, status, headers) {
               editUtil.decorate(savedRecord).then(function(decoratedRecord) {
@@ -122,6 +122,7 @@ kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
           $http.put("/draft/" + type + '/' + draftId, undecoratedRecord, {headers: {"If-match":etag } })
             .success(function(data, status, headers) {
               editUtil.decorate(data).then(function(decoratedRecord) {
+
                 deferer.resolve({
                   recdata: decoratedRecord,
                   etag: headers('etag')
