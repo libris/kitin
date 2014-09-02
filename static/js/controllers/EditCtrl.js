@@ -559,7 +559,9 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
         }
       }
     }
-    removeEditables(recordCopy);
+    if(typeof $routeParams.showEditables === 'undefined') {
+      removeEditables(recordCopy);
+    }
     // Print
     $scope.debugRecord = JSON.stringify(recordCopy, null, 4);
   }
