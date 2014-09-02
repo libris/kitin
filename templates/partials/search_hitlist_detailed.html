@@ -74,7 +74,7 @@
               </div>
 
               <div class="col2">
-                <label title="{{ identifier.identifierScheme }}" class="identifier-code" data-ng-repeat="identifier in record.data.about.identifier | limitTo:1">{{ identifier.identifierValue }}
+                <label title="{{ identifier.identifierScheme }}" class="identifier-code" data-ng-repeat="identifier in record.data.about.identifier">{{ identifier.identifierValue }}
                 </label>
               </div>
             </div>
