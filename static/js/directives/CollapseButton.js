@@ -1,11 +1,10 @@
 kitin.directive('collapseButton', function(editUtil) {
   return {
-    template: '<a ng-click="toggleCollapse()">{{buttonlinkText}} <i class="icon fa fa-caret-{{doCollapse?\'down\':\'up\'}}"></i></a>',
+    template: '<a ng-show="objects && objects.length>1" ng-click="toggleCollapse()">{{buttonlinkText}} <span>({{objects.length}}) st</span><i class="icon fa fa-caret-{{doCollapse?\'down\':\'up\'}}"></i></a>',
     link: function($scope, elm, attrs, controller) {
-      // !TODO fix count update
-      var count =  $scope.objects ? '(' + $scope.objects.length + ' st)' : '';
-      var hideText = 'Dölj ' + count;
-      var showText = 'Visa ' + count;
+
+      var hideText = 'Dölj ';
+      var showText = 'Visa ';
       $scope.$watch('doCollapse',function(newValue, oldValue) {
         $scope.buttonlinkText = newValue ? showText : hideText;
       });
