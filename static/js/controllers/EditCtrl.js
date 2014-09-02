@@ -550,7 +550,8 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
         var child = obj[key];
         if (_.isObject(child)) {
             removeEditables(child);
-            if (_.isArray(child) && child[0] === undefined) {
+            if ((_.isObject(child) && _.isEmpty(child)) ||
+                (_.isArray(child) && child[0] === undefined)) {
               delete obj[key];
             }
         } else if (child.indexOf(suffix) > -1) {
