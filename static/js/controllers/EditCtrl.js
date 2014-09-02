@@ -508,7 +508,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
         if(dataRef) {
           if(dataRef.$ngModelController) {
             dataRefCtrl = dataRef.$ngModelController;
-            if(dataRefCtrl.$viewValue) {
+            if(_.isString(dataRefCtrl.$viewValue)) {
               dataRefCtrl.$setViewValue(updateValue(dataRefCtrl.$viewValue, suffix, remove));  
               if(remove) {
                 // Set binding to non dirty and pristine, aka user has not interacted with the control.
