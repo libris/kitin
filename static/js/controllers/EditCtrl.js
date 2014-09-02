@@ -526,7 +526,11 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
             } else if(dataRef.$scope['object']) {
               obj = dataRef.$scope['object'];
               for(var objkey in obj) {
-                iterateObject(obj[objkey], suffix, remove);
+                if(_.isObject(obj[objkey])) {
+                  iterateObject(obj[objkey], suffix, remove);
+                } else {
+                  obj[objkey] = updateValue(obj[objkey], suffix, remove);
+                }
               }
             }
           }
