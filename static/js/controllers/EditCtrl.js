@@ -486,9 +486,6 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
         if(remove === true) {
           v = typeof value !== 'undefined' ? value.replace(suffix,'') : value;
         } else {
-          if(value + '' === '[object Object]') {
-            debugger;
-          }
           v = typeof value !== 'undefined' && value.indexOf(suffix) !== -1 ? value : (value + '' + suffix);
         }
         return v === 'undefined' ? null : v;
