@@ -30,16 +30,16 @@
 
     <div class="cols">
       <div class="col6">
-        <label>
+        <label data-ng-repeat="summary in record.about.summary">
           <span class="lbl" translate>LABEL.record.about.summary</span>
             <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
-                      data-ng-model="record.about.summary" ></textarea>
+                      data-ng-model="summary" ></textarea>
         </label>
       </div>
       <div class="col6">
-        <label>
+        <label data-ng-repeat="listOfContents in record.about.listOfContents">
           <span class="lbl" translate>LABEL.record.about.listOfContents</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.listOfContents" ></textarea>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="listOfContents" ></textarea>
         </label>
       </div>
     </div>
