@@ -97,6 +97,7 @@
         <!-- Electronic END -->
 
         <!-- Map START -->
+
         <div ng-switch-when="Map" class="datatable" data-ng-target="movingImageTable" 
           data-kitin-data-table 
           data-table-model="subFormat" 
@@ -224,18 +225,37 @@
     </div>
   </div>
 		<!-- More Map Details -->
-	<div class="cols" ng-switch on="formatType"  >	
-      <div class="col6" data-ng-switch-when="Map">
+
+	<div class="cols">	
+      <div class="col6">
         <label>
           <span class="lbl" translate>LABEL.record.about.cartographicScale</span>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.cartographicScale" placeholder="">
          </label>
-      </div>
-      <div class="col6" data-ng-switch-when="Map">
         <label>
           <span class="lbl" translate>LABEL.record.about.cartographicCoordinates</span>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.cartographicCoordinates" placeholder="">
          </label>
+      </div>
+      <div class="col6">
+      <div data-ng-repeat="cartographicAscensionAndDeclination in record.about.cartographicAscensionAndDeclination">
+        <label>
+          <span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.cartographicScale</span>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="cartographicAscensionAndDeclination.cartographicScale"></textarea>
+        </label>   
+        <label>
+          <span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.westernmostLongitudeCoordinates</span>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="cartographicAscensionAndDeclination.westernmostLongitudeCoordinates"></textarea>
+        </label>
+        <label>
+          <span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.easternmostLongitudeCoordinates</span>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="cartographicAscensionAndDeclination.easternmostLongitudeCoordinates"></textarea>
+        </label>
+        <label>
+          <span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.northernmostLatitudeCoordinates</span>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="cartographicAscensionAndDeclination.northernmostLatitudeCoordinates"></textarea>
+        </label> 
+		</div>   
       </div>
 	</div>
 
