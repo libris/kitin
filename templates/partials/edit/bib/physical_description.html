@@ -122,6 +122,31 @@
         </script>
         <!-- Map END -->
 
+        <!-- StillImage START -->
+        <div ng-switch-when="StillImage" class="datatable" data-ng-target="stillImageTable" 
+          data-kitin-data-table 
+          data-table-model="subFormat" 
+          data-table-header-row-template="still-image-header-row-template"
+          data-table-row-template="still-image-row-template"
+          data-subject="record.about" data-link-multiple="hasFormatByType"
+          data-add-first
+          data-addable="physical_description">
+        </div>
+        <script type="text/ng-template" id="still-image-header-row-template">
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.StillImage.carrierType</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.StillImage.nonProjColor</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.StillImage.nonProjPrimary</span></td>
+        </script>
+        <script type="text/ng-template" id="still-image-row-template">
+          <td><label><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><label><input ng-model="object['nonProjColor']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><label><input ng-model="object['nonProjPrimary']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td class="controls">
+            <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
+          </td>
+        </script>
+        <!-- StillImage END -->
+
         <!-- MovingImage START -->
         <div ng-switch-when="MovingImage" class="datatable" data-ng-target="movingImageTable" 
           data-kitin-data-table 
