@@ -111,4 +111,26 @@
         </h4>
       </div>
     </script>
+
+    <!-- GENERAL REFERENCED ENTITY TEMPLATES -->
+     <script type="text/ng-template" id="render-referenced-entity">
+        <a href="?m={{object.describedBy['@id']}}"><i class="fa fa-bookmark" data-ng-if="isAuth(object.describedBy)"></i> <span class="name">{{ object.title }}</span> {{ object.issn }}</a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
+    </script>
+
+    <script type="text/ng-template" id="render-search-bib">
+      <i class="fa fa-search"></i> <input data-inplace class="input-large authdependant embedded" type="text"
+              placeholder="Lägg till"
+              data-kitin-search-entity
+              data-make-reference-on-item-select="true"
+              data-service-url="{{API_PATH}}/bib/_search"
+              data-filter=""
+              data-completion-template="bib-completion-template">
+    </script>
+    <script type="text/html" id="bib-completion-template">
+      <div class="auth">
+        <h4>
+          <span class="name"><%= data.instanceTitle.titleValue %></span>
+        </h4>
+      </div>
+    </script>
 {% endraw %}

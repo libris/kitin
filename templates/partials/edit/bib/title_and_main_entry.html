@@ -39,9 +39,14 @@
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="influentialRelation.title"></textarea>
         </label>       
         
-        <label data-ng-repeat="isPartOf in record.about.isPartOf">
+        <label>
           <span class="lbl" translate>LABEL.record.about.isPartOf</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="isPartOf.title"></textarea>
+          <ul class="tags entity" data-kitin-link-entity
+              data-subject="record.about"
+              data-link-multiple="'isPartOf'" data-type="isPartOf"
+              data-view-template="render-referenced-entity"
+              data-search-template="render-search-bib">
+          </ul>
         </label>
 
         <label>
