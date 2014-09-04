@@ -30,17 +30,52 @@
 
     <div class="cols">
       <div class="col6">
-        <label data-ng-repeat="summary in record.about.summary">
-          <span class="lbl" translate>LABEL.record.about.summary</span>
-            <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
-                      data-ng-model="summary" ></textarea>
-        </label>
+        <label>
+          <div class="datatable" data-ng-target="summary" 
+            data-kitin-data-table 
+            data-collapsable="true"
+            data-table-model="record.about.summary" 
+            data-table-header-row-template="issueNumber-header-row-template"
+            data-table-row-template="issueNumber-row-template"
+            data-subject="record.about" data-link-multiple="summary"
+            data-default-type="IssueNumber"
+            data-add-first
+            data-addable="publication_and_production">
+          </div>
+          <script type="text/ng-template" id="summary-header-row-template">
+            <td><span class="lbl" translate>LABEL.record.about.summary</span></td>
+          </script>
+          <script type="text/ng-template" id="summary-row-template">
+            <td><label><input ng-model="object" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+            <td class="controls">
+              <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
+            </td>
+          </script>
+        </label>  
       </div>
       <div class="col6">
-        <label data-ng-repeat="listOfContents in record.about.listOfContents">
-          <span class="lbl" translate>LABEL.record.about.listOfContents</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="listOfContents" ></textarea>
-        </label>
+        <label>
+          <div class="datatable" data-ng-target="listOfContents" 
+            data-kitin-data-table 
+            data-collapsable="true"
+            data-table-model="record.about.listOfContents" 
+            data-table-header-row-template="issueNumber-header-row-template"
+            data-table-row-template="issueNumber-row-template"
+            data-subject="record.about" data-link-multiple="listOfContents"
+            data-default-type="IssueNumber"
+            data-add-first
+            data-addable="publication_and_production">
+          </div>
+          <script type="text/ng-template" id="listOfContents-header-row-template">
+            <td><span class="lbl" translate>LABEL.record.about.listOfContents</span></td>
+          </script>
+          <script type="text/ng-template" id="listOfContents-row-template">
+            <td><label><input ng-model="object" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+            <td class="controls">
+              <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
+            </td>
+          </script>
+        </label>  
       </div>
     </div>
 
