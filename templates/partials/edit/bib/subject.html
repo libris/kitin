@@ -90,8 +90,28 @@
           ng-init=" placeholder='Lägg till'; ">
       </div>
     </label>
-
-
+    <label>
+      <span class="lbl" translate>LABEL.record.about.confPub</span>
+      <div data-kitin-link-entity
+          data-subject="record.about"
+          data-link="'confPub'"
+          data-view-template="render-tag-view"
+          data-search-template="render-generic-select-category"
+          data-filter="about.inCollection.@id:\/def\/enum\/content\/confPub\-collection"
+          ng-init=" placeholder='Lägg till'; ">
+      </div>
+    </label>
+    <label>
+      <span class="lbl" translate>LABEL.record.about.festschrift</span>
+      <div data-kitin-link-entity
+          data-subject="record.about"
+          data-link="'festschrift'"
+          data-view-template="render-tag-view"
+          data-search-template="render-generic-select-category"
+          data-filter="about.inCollection.@id:\/def\/enum\/content\/festschrift\-collection"
+          ng-init=" placeholder='Lägg till'; ">
+      </div>
+    </label>
   </div>
 </div>
   
