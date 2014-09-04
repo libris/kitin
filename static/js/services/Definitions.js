@@ -38,16 +38,11 @@ kitin.factory('definitions', function($http, $rootScope) {
     countries:        getDefinition('about.@type:Country'),
     nationalities:    getDefinition('about.@type:Nationality'),
     enums: {
-      publicationStatus: getEnumDefinition('publicationStatus'), 
-      contentType:    getEnumDefinition('contentType'),
-      frequencies:    getEnumDefinition('frequency'),
-      regularities:   getEnumDefinition('regularity'),
       encLevel:       getEnumDefinition('encLevel'),
       catForm:        getEnumDefinition('catForm'),
-      literaryForm:   getEnumDefinition('literaryForm'),
-      biography:   getEnumDefinition('biography')
     },
-    recordSkeletonTypeMap: getDataset("/record/template/skeletontypemap")
+    recordSkeletonTypeMap: getDataset("/record/template/skeletontypemap"),
+    getDefinition: getDefinition
   };
 
   return definitions;

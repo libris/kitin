@@ -29,6 +29,8 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
     controller: function($element, $scope, $attrs) {
       $scope.viewTemplate = $attrs.viewTemplate;
       $scope.searchTemplate = $attrs.searchTemplate;
+      $scope.serviceUrl = $attrs.serviceUrl;
+      $scope.filter = $attrs.filter;
       $scope.type = $attrs.type;
 
       var linkKey = $attrs.link;

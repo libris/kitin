@@ -26,35 +26,6 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     }
   });
 
-
-  // Fetch definitions
-  // TODO: Don't load just to set in scope; load on demand in directives (see e.g. language selector)
-
-  // !TODO: change to load on-demand 
-  definitions.enums.contentType.then(function(data) { 
-    $scope.contentTypes = data.list;
-  });
-
-  definitions.enums.frequencies.then(function(data) { 
-    $scope.frequencies = data.list;
-  });
-
-  definitions.enums.regularities.then(function(data) { 
-    $scope.regularities = data.list;
-  });
-
-  definitions.enums.publicationStatus.then(function(data) { 
-    $scope.publicationStatus = data.list;
-  });
-
-  definitions.enums.literaryForm.then(function(data) { 
-    $scope.literaryForm = data.list;
-  });
-
-  definitions.enums.biography.then(function(data) { 
-    $scope.biography = data.list;
-  });
-
   $scope.isLinked = function (thing) {
     if(!thing) { return; }
     var id = thing['@id'] || (thing['describedBy'] ? thing['describedBy']['@id'] : null);

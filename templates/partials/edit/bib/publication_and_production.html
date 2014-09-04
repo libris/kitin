@@ -31,7 +31,7 @@
               data-link="'publicationStatus'" data-type="PublicationStatus"
               data-view-template="render-generic-linked-entity"
               data-search-template="render-generic-select-category"
-              ng-init="select_data_source=publicationStatus;">
+              data-filter="about.inCollection.@id:\/def\/enum\/content\/publicationStatus\-collection">
           </ul>
         </label>
         <label>
@@ -53,7 +53,7 @@
               data-link="'frequencyCategory'" data-type="frequencyCategory"
               data-view-template="render-generic-linked-entity"
               data-search-template="render-generic-select-category"
-              ng-init="select_data_source=frequencies">
+              data-filter="about.inCollection.@id:\/def\/enum\/content\/frequency\-collection">
           </ul>
         </label>   
         <label>
@@ -83,7 +83,7 @@
               data-link="'regularity'" data-type="Regularity"
               data-view-template="render-generic-linked-entity"
               data-search-template="render-generic-select-category"
-              ng-init="select_data_source=regularities;">
+              data-filter="about.inCollection.@id:\/def\/enum\/content\/regularity\-collection">
           </ul>
         </label>
         <label>

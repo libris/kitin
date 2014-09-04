@@ -18,6 +18,13 @@ kitin.directive('kitinSelectEntity', ['definitions', 'editUtil', '$compile', fun
       elem.removeAttr("kitin-select-entity"); 
       elem.removeAttr("data-kitin-select-entity");
 
+      definitions.getDefinition(scope.filter).then(function(data) { 
+        if(!data || !data.list || data.list.length === 0) {
+          console.warn('No defintion loaded', scope.filter);
+        }
+        scope.objects = data.list;
+      });
+
       // On selection chaned add item and reset
       scope.onSelected = function() {
         linker.doAdd(scope.$eval(attrs.selectedItemVariable));
