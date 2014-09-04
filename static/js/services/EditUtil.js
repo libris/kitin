@@ -177,6 +177,7 @@ kitin.service('editUtil', function(definitions, $http, $q) {
           return {'@type': "ProviderEvent", providerName: "", providerDate: "",
                   place: {'@type': "Place", label: ""}};
         case 'Comment':
+        case 'IssueNumber':
           return '';
         default:
           return {};
