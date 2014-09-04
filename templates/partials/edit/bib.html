@@ -69,6 +69,9 @@
       <div style="clear:both"></div>
     </script>
 
+    <!-- !TODO: Move general templates into separate template files? -->
+
+    <!-- GENERAL LINKED ENTITY -->
     <script type="text/ng-template" id="render-generic-linked-entity">
       <a href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ (object.prefLabel || object.prefLabel_en) }} </a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
     </script>
@@ -81,4 +84,31 @@
         </select>
     </script>
 
+
+    <!-- GENERAL TAG TEMPLATES -->
+    <script type="text/ng-template" id="render-tag-view">
+      <ul class="tags">
+        <li><a href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.prefLabel }}</a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i></li>
+      </ul>
+    </script>
+
+    <script type="text/ng-template" id="render-tag-search">
+      <label class="find-entity">
+        <i class="fa fa-search"></i>
+        <input data-inplace class="input-large authdependant embedded" type="text"
+              placeholder="{{ search_placeholder }}"
+              data-no-value="{{ object.prefLabel }}"
+              data-kitin-search-entity
+              data-service-url="{{ search_service_url }}"
+              data-filter="{{ search_filter }}"
+              data-completion-template="select-tag-template" />
+      </label>
+    </script>
+    <script type="text/html" id="select-tag-template">
+      <div class="auth">
+        <h4>
+          <span class="name"><%= data.prefLabel %></span>
+        </h4>
+      </div>
+    </script>
 {% endraw %}

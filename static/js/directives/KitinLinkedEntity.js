@@ -40,6 +40,7 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
         multiple = true;
       }
       var link = $scope.$eval(linkKey);
+
       $scope.link = link;
       $scope.multiple = multiple;
 
