@@ -53,11 +53,29 @@
     </div>
 
     <div class="cols">
-      <div class="col6" data-ng-show="record.about.performerNote">
+      <div class="col6">
         <label>
-          <span class="lbl" translate>LABEL.record.about.performerNote</span>
-          <textarea data-inplace data-ui-jq="autosize" class="ng-pristine ng-valid" type="text" data-ng-model="record.about.performerNote" ></textarea>
-        </label>
+          <div class="datatable" data-ng-target="performerNote" 
+            data-kitin-data-table 
+            data-collapsable="true"
+            data-table-model="record.about.performerNote" 
+            data-table-header-row-template="performerNote-header-row-template"
+            data-table-row-template="performerNote-row-template"
+            data-subject="record.about" data-link-multiple="performerNote"
+            data-default-type="IssueNumber"
+            data-add-first
+            data-addable="publication_and_production">
+          </div>
+          <script type="text/ng-template" id="performerNote-header-row-template">
+            <td><span class="lbl" translate>LABEL.record.about.performerNote</span></td>
+          </script>
+          <script type="text/ng-template" id="performerNote-row-template">
+            <td><label><input ng-model="object" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+            <td class="controls">
+              <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
+            </td>
+          </script>
+        </label>  
       </div>
       <div class="col6" data-ng-show="record.about.contributorNote"> <!-- data-ng-show="getTypeDef(instance).term == 'Audiobook'" ?-->
         <label>
