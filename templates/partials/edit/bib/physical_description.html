@@ -2,6 +2,16 @@
   <div>
     <h2>Fysisk beskrivning<i></i></h2>
     <div class="cols">
+      <label>
+        <span class="lbl" translate>LABEL.record.about.additionalCarrierType</span>
+        <ul class="tags" data-kitin-link-entity
+            data-subject="record.about"
+            data-link="'additionalCarrierType'" data-type="AdditionalCarrierType"
+            data-view-template="render-generic-linked-entity"
+            data-search-template="render-generic-select-category"
+            data-filter="about.inCollection.@id:\/def\/enum\/content\/additionalCarrierType\-collection">
+        </ul>
+      </label>
       <div class="col6" data-ng-show="record.about.material['@id']">
         <label>
           <span class="lbl" translate>LABEL.record.about.material</span>
