@@ -77,8 +77,7 @@
         <select 
           data-kitin-select-entity
           data-selected-item-variable="selectedItem.data.about"
-          ng-init="selectionArray = select_data_source"
-          ng-options="(item.data.about.prefLabel || item.data.about.prefLabel_en) for item in selectionArray">
+          ng-options="(item.data.about.prefLabel || item.data.about.prefLabel_en) for item in objects | orderBy:'data.about.prefLabel'">
         </select>
     </script>
 
