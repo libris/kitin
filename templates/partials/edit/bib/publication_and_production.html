@@ -60,7 +60,12 @@
           <span class="lbl" translate>LABEL.record.about.frequency</span>
           <input type="text" data-ng-model="record.about.frequency">
         </label>    
-<!-- freq-->
+
+        <label>
+          <span class="lbl" translate>LABEL.record.about.issueNumber</span>
+          <input type="text" data-ng-model="record.about.issueNumber">
+        </label>  
+
 	      <div class="datatable" data-ng-target="replaces" 
 	        data-kitin-data-table 
 	        data-table-model="record.about.replaces" 
@@ -89,6 +94,17 @@
         <label>
           <span class="lbl" translate>LABEL.record.sourceNote</span>
           <textarea data-inplace data-ui-jq="autosize" class="ng-pristine ng-valid" type="text" data-ng-model="record.sourceNote" ></textarea>
+        </label>
+
+        <label>
+          <span class="lbl" translate>LABEL.record.about.typeOfEntry</span>
+          <ul class="tags" data-kitin-link-entity
+              data-subject="record.about"
+              data-link="'typeOfEntry'" data-type="TypeOfEntry"
+              data-view-template="render-generic-linked-entity"
+              data-search-template="render-generic-select-category"
+              data-filter="about.inCollection.@id:\/def\/enum\/content\/typeOfEntry\-collection">
+          </ul>
         </label>
       </div>
     </div>
@@ -122,6 +138,15 @@
         <ul class="tags entity" data-kitin-link-entity
             data-subject="record.about"
             data-link-multiple="'precededBy'" data-type="PrecededBy"
+            data-view-template="render-referenced-entity"
+            data-search-template="render-search-bib">
+        </ul>
+      </label>
+      <label>
+        <span class="lbl" translate>LABEL.record.about.alternateFormat</span>
+        <ul class="tags entity" data-kitin-link-entity
+            data-subject="record.about"
+            data-link-multiple="'alternateFormat'" data-type="AlternateFormat"
             data-view-template="render-referenced-entity"
             data-search-template="render-search-bib">
         </ul>
