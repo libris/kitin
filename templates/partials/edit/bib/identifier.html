@@ -74,11 +74,13 @@
           <td><span class="lbl" translate>LABEL.record.about.identifers.generalIdentifier.identifierValue</span></td>
           <td><span class="lbl" translate>LABEL.record.about.identifers.generalIdentifier.identifierNote</span></td>
           <td><span class="lbl" translate>LABEL.record.about.identifers.generalIdentifier.identifierScheme</span></td>
+		  <td><span class="lbl" translate>LABEL.record.about.identifers.generalIdentifier.identifierStatus</span></td>
         </script>
         <script type="text/ng-template" id="general-identifier-row-template">
           <td><label><input ng-model="object['identifierValue']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
           <td><label><input ng-model="object['identifierNote']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
           <td><label><input ng-model="object['identifierScheme']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><label><input ng-model="object['identifierStatus']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
           <td class="controls">
             <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
           </td>
