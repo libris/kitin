@@ -97,11 +97,11 @@
           </div>
         </script>
 
-        <label>
+        <label data-ng-repeat="languageNote in record.about.languageNote">
           <div data-ng-show="record.about.languageNote">
           <span class="lbl" translate>LABEL.record.about.languageNote</span>
             <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
-                      data-ng-model="record.about.languageNote" ></textarea>
+                      data-ng-model="languageNote" ></textarea>
           </div>
         </label> 
 
@@ -155,6 +155,14 @@
               data-search-template="render-search-box">
           </div>
         </label>
+        <label data-ng-repeat="cartographer in record.about.cartographer">
+          <span class="lbl" translate>LABEL.record.about.cartographer</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="cartographer['@id']" placeholder="">
+         </label>
+        <label data-ng-repeat="author in record.about.author">
+          <span class="lbl" translate>LABEL.record.about.author</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="author['@id']" placeholder="">
+         </label> 
       </div>
     </div>
 
