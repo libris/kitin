@@ -141,6 +141,19 @@
 
     <div class="col6">
       <label>
+        <span class="lbl" translate>LABEL.record.about.relation</span>
+        <ul class="tags entity" data-kitin-link-entity
+            data-subject="record.about"
+            data-link-multiple="'relation'" data-type="relation"
+            data-view-template="render-relation-referenced-entity"
+            data-search-template="render-search-bib">
+        </ul>
+        <script type="text/ng-template" id="render-relation-referenced-entity">
+            <div><span class="lbl" translate>LABEL.record.about.relation.linkNote</span><input data-inplace class="ng-pristine ng-valid" type="text" ng-model="object.linkNote" /></div>
+            <a href="?m={{object.describedBy['@id']}}"><i class="fa fa-bookmark" data-ng-if="isAuth(object.describedBy)"></i> <span class="name">{{ object.title }}</span> {{ object.issn }}</a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
+        </script>
+      </label>
+      <label>
         <span class="lbl" translate>LABEL.record.about.alternateEdition</span>
         <ul class="tags entity" data-kitin-link-entity
             data-subject="record.about"
