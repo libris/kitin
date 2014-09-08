@@ -38,11 +38,36 @@
           <span class="lbl" translate>LABEL.record.about.abbreviatedTitle</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.abbreviatedTitle.titleValue"></textarea>
         </label>
-        <label data-ng-repeat="influentialRelation in record.about.influentialRelation">
-          <span class="lbl" translate>LABEL.record.about.influentialRelation.title</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="influentialRelation.title"></textarea>
-        </label>       
-        
+
+        <label class="datatable" data-ng-target="influentialRelationTable" 
+          data-kitin-data-table 
+          data-table-model="record.about.influentialRelation" 
+          data-table-header-row-template="influentialRelation-header-row-template"
+          data-table-row-template="influentialRelation-row-template"
+          data-subject="record.about" data-link-multiple="influentialRelation"
+          data-default-type="Comment"
+          data-add-first
+          data-addable="notes">
+        </label>
+
+        <script type="text/ng-template" id="influentialRelation-header-row-template">
+          <td>
+              <span class="lbl" translate>LABEL.record.about.influentialRelation</span>
+          </td>
+        </script>
+        <script type="text/ng-template" id="influentialRelation-row-template">
+          <td>
+            <label>
+              <textarea ng-model="objects[$index].uniformTitle" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
+            </label>
+          </td>
+          <td class="controls">
+            <button class="btn-link deleter" data-ng-click="removeTableRow($index)">
+              <i class="fa fa-times"></i>
+            </button>
+          </td>
+        </script>
+
         <label>
           <span class="lbl" translate>LABEL.record.about.isPartOf</span>
           <ul class="tags entity" data-kitin-link-entity
@@ -97,13 +122,34 @@
           </div>
         </script>
 
-        <label>
-          <div data-ng-show="record.about.languageNote">
-          <span class="lbl" translate>LABEL.record.about.languageNote</span>
-            <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
-                      data-ng-model="record.about.languageNote" ></textarea>
-          </div>
-        </label> 
+        <label class="datatable" data-ng-target="languageNoteTable" 
+          data-kitin-data-table 
+          data-table-model="record.about.languageNote" 
+          data-table-header-row-template="languageNote-header-row-template"
+          data-table-row-template="languageNote-row-template"
+          data-subject="record.about" data-link-multiple="languageNote"
+          data-default-type="Comment"
+          data-add-first
+          data-addable="notes">
+        </label>
+
+        <script type="text/ng-template" id="languageNote-header-row-template">
+          <td>
+              <span class="lbl" translate>LABEL.record.about.languageNote</span>
+          </td>
+        </script>
+        <script type="text/ng-template" id="languageNote-row-template">
+          <td>
+            <label>
+              <textarea ng-model="objects[$index]" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
+            </label>
+          </td>
+          <td class="controls">
+            <button class="btn-link deleter" data-ng-click="removeTableRow($index)">
+              <i class="fa fa-times"></i>
+            </button>
+          </td>
+        </script>
 
         <label>
           <span class="lbl" translate>LABEL.record.about.alphabet</span>
