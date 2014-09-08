@@ -178,6 +178,7 @@ kitin.service('editUtil', function(definitions, $http, $q) {
                   place: {'@type': "Place", label: ""}};
         case 'Comment':
         case 'IssueNumber':
+        case 'audience':
           return '';
         default:
           return {};

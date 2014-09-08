@@ -129,7 +129,7 @@
             </label>
           </td>
           <td class="controls">
-            <button class="btn-link deleter" data-ng-click="removeObject(tableModel, null, $index)">
+            <button class="btn-link deleter" data-ng-click="removeTableRow($index)">
               <i class="fa fa-times"></i>
             </button>
           </td>
@@ -150,16 +150,16 @@
 
     <div class="cols">
       <div class="col6">
-          <label data-ng-repeat="audience in record.about.audience">
-            <span class="lbl" translate>LABEL.record.about.audience.label</span>
-          <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="audience.label" ></textarea>        
-<!-- audience from fixed fields?
-        </label>
-          <label data-ng-repeat="audience in record.about.audience">
+          <label>
             <span class="lbl" translate>LABEL.record.about.audience</span>
-          <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="audience" ></textarea>          
-        </label>
--->
+            <ul class="tags" data-kitin-link-entity
+                data-subject="record.about"
+                data-link="'audience'" data-type="audience"
+                data-view-template="render-generic-linked-entity"
+                data-search-template="render-generic-select-category"
+                data-filter="about.inCollection.@id:\/def\/enum\/content\/audience\-collection">
+            </ul>
+          </label>
       </div>
       <div class="col6" data-ng-show="record.about.note">
        <label>
