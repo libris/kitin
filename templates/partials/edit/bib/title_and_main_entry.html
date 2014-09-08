@@ -30,10 +30,18 @@
            <span class="lbl" translate>LABEL.record.about.keyTitle</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.keyTitle.titleValue"></textarea>       
         </label>
+        <label data-ng-show="exists(record.about.keyTitle.titleQualifier)">
+           <span class="lbl" translate>LABEL.record.about.keyTitle.titleQualifier</span>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.keyTitle.titleQualifier"></textarea>       
+        </label>
         <label data-ng-show="exists(record.about.titleVariation.titleValue)">
           <span class="lbl" translate>LABEL.record.about.titleVariation.titleValue</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.titleValue"></textarea>
         </label>
+        <label data-ng-show="exists(record.about.titleVariation.subtitle)">
+          <span class="lbl" translate>LABEL.record.about.titleVariation.subtitle</span>
+          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.subtitle"></textarea>
+        </label>        
         <label>
           <span class="lbl" translate>LABEL.record.about.abbreviatedTitle</span>
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.abbreviatedTitle.titleValue"></textarea>
@@ -201,6 +209,14 @@
               data-search-template="render-search-box">
           </div>
         </label>
+        <label data-ng-repeat="cartographer in record.about.cartographer">
+          <span class="lbl" translate>LABEL.record.about.cartographer</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="cartographer['@id']" placeholder="">
+         </label>
+        <label data-ng-repeat="author in record.about.author">
+          <span class="lbl" translate>LABEL.record.about.author</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="author['@id']" placeholder="">
+         </label> 
       </div>
     </div>
 
