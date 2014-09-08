@@ -328,32 +328,44 @@
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.cartographicCoordinates" placeholder="">
          </label>
       </div>
-      <div class="col6">
-      <div data-ng-repeat="cartographicAscensionAndDeclination in record.about.cartographicAscensionAndDeclination">
-        <label>
-          <span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.cartographicScale</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="cartographicAscensionAndDeclination.cartographicScale"></textarea>
-        </label>   
-        <label>
-          <span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.westernmostLongitudeCoordinates</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="cartographicAscensionAndDeclination.westernmostLongitudeCoordinates"></textarea>
-        </label>
-        <label>
-          <span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.easternmostLongitudeCoordinates</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="cartographicAscensionAndDeclination.easternmostLongitudeCoordinates"></textarea>
-        </label>
-        <label>
-          <span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.northernmostLatitudeCoordinates</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="cartographicAscensionAndDeclination.northernmostLatitudeCoordinates"></textarea>
-        </label> 
-        <label>
-          <span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.southernmostLatitudeCoordinates</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="cartographicAscensionAndDeclination.southernmostLatitudeCoordinates"></textarea>
-        </label> 
-		</div>   
-      </div>
+      
 	</div>
 
+  <div class="cols">
+    <div class="col6">
+        <label>
+          <div class="datatable" data-ng-target="cartographicAscensionAndDeclination" 
+            data-kitin-data-table 
+            data-table-model="record.about.cartographicAscensionAndDeclination" 
+            data-table-header-row-template="cartographicAscensionAndDeclination-header-row-template"
+            data-table-row-template="cartographicAscensionAndDeclination-row-template"
+            data-subject="record.about" data-link-multiple="cartographicAscensionAndDeclination"
+            data-default-type="cartographicAscensionAndDeclination"
+            data-add-first
+            data-addable="publication_and_production">
+          </div>
+          <script type="text/ng-template" id="cartographicAscensionAndDeclination-header-row-template">
+            <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.cartographicScale</span></td>
+            <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.constantRatioLinearHorizontalScale</span></td>
+            <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.westernmostLongitudeCoordinates</span></td>
+            <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.easternmostLongitudeCoordinates</span></td>
+            <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.northernmostLatitudeCoordinates</span></td>
+            <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.southernmostLatitudeCoordinates</span></td>
+          </script>
+          <script type="text/ng-template" id="cartographicAscensionAndDeclination-row-template">
+            <td><label><input ng-model="object['cartographicScale']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+            <td><label><input ng-model="object['constantRatioLinearHorizontalScale']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+            <td><label><input ng-model="object['westernmostLongitudeCoordinates']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+            <td><label><input ng-model="object['easternmostLongitudeCoordinates']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+            <td><label><input ng-model="object['northernmostLatitudeCoordinates']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+            <td><label><input ng-model="object['southernmostLatitudeCoordinates']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+            <td class="controls">
+              <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
+            </td>
+          </script>
+        </label>
+      </div>
+    </div>
   </div>
   <div class="element-adder" data-element-adder="physical_description"></div>
 </div>
