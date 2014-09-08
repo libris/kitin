@@ -179,6 +179,7 @@ kitin.service('editUtil', function(definitions, $http, $q) {
         case 'Comment':
         case 'IssueNumber':
         case 'audience':
+        case 'summary':
           return '';
         default:
           return {};

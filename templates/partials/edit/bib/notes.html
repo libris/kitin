@@ -8,10 +8,10 @@
             data-kitin-data-table 
             data-collapsable="true"
             data-table-model="record.about.summary" 
-            data-table-header-row-template="issueNumber-header-row-template"
-            data-table-row-template="issueNumber-row-template"
+            data-table-header-row-template="summary-header-row-template"
+            data-table-row-template="summary-row-template"
             data-subject="record.about" data-link-multiple="summary"
-            data-default-type="IssueNumber"
+            data-default-type="summary"
             data-add-first
             data-addable="publication_and_production">
           </div>
@@ -19,7 +19,7 @@
             <td><span class="lbl" translate>LABEL.record.about.summary</span></td>
           </script>
           <script type="text/ng-template" id="summary-row-template">
-            <td><label><input ng-model="object" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+            <td><label><textarea data-ui-jq="autosize" ng-model="object" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
             <td class="controls">
               <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
             </td>
