@@ -219,11 +219,15 @@
         </div>
         <script type="text/ng-template" id="video-recording-header-row-template">
           <td><span class="lbl" translate>LABEL.record.about.hasFormat.VideoRecording.carrierType</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.VideoRecording.videoColor</span></td>
           <td><span class="lbl" translate>LABEL.record.about.hasFormat.VideoRecording.videoFormat</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.hasFormat.VideoRecording.videoSound</span></td>
         </script>
         <script type="text/ng-template" id="video-recording-row-template">
           <td><label><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><label><input ng-model="object['videoColor']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
           <td><label><input ng-model="object['videoFormat']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><label><input ng-model="object['videoSound']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
           <td class="controls">
             <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
           </td>
