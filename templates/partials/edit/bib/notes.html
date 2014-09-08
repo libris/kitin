@@ -97,10 +97,34 @@
         </label>
       </div>
       <div class="col6" data-ng-show="record.about.systemRequirements">
-          <label>
-            <span class="lbl" translate>LABEL.record.about.systemRequirements</span>
-          <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="record.about.systemRequirements" ></textarea>
+        <label class="datatable" data-ng-target="systemRequirementsTable" 
+          data-kitin-data-table 
+          data-table-model="record.about.systemRequirements" 
+          data-table-header-row-template="systemRequirements-header-row-template"
+          data-table-row-template="systemRequirements-row-template"
+          data-subject="record.about" data-link-multiple="systemRequirements"
+          data-default-type="Comment"
+          data-add-first
+          data-addable="notes">
         </label>
+
+        <script type="text/ng-template" id="systemRequirements-header-row-template">
+          <td>
+              <span class="lbl" translate>LABEL.record.about.systemRequirements</span>
+          </td>
+        </script>
+        <script type="text/ng-template" id="systemRequirements-row-template">
+          <td>
+            <label>
+              <textarea ng-model="objects[$index]" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
+            </label>
+          </td>
+          <td class="controls">
+            <button class="btn-link deleter" data-ng-click="removeTableRow($index)">
+              <i class="fa fa-times"></i>
+            </button>
+          </td>
+        </script>
       </div>
     </div>
     <div style="clear:both"></div>
