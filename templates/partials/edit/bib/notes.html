@@ -191,6 +191,58 @@
           <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="record.about.note" ></textarea>
         </label>	      
       </div>
+      <div class="col12">
+        <label class="datatable" data-ng-target="hasAnnotation" 
+          data-kitin-data-table 
+          data-table-model="record.about.hasAnnotation" 
+          data-table-header-row-template="hasAnnotation-header-row-template"
+          data-table-row-template="hasAnnotation-row-template"
+          data-subject="record.about" data-link-multiple="hasAnnotation"
+          data-default-type="hasAnnotation"
+          data-add-first
+          data-addable="notes">
+        </label>
+
+        <script type="text/ng-template" id="hasAnnotation-header-row-template">
+          <td><span class="lbl" translate>LABEL.record.about.hasAnnotation.note</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.hasAnnotation.degree</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.hasAnnotation.location</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.hasAnnotation.date</span></td>
+          <td><span class="lbl" translate>LABEL.record.about.hasAnnotation.comment</span></td>
+        </script>
+        <script type="text/ng-template" id="hasAnnotation-row-template">
+          <td>
+            <label>
+              <textarea ng-model="object['note']" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
+            </label>
+          </td>
+          <td>
+            <label>
+              <textarea ng-model="object['degree']" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
+            </label>
+          </td>
+          <td>
+            <label>
+              <textarea ng-model="object['location']" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
+            </label>
+          </td>
+          <td>
+            <label>
+              <textarea ng-model="object['date']" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
+            </label>
+          </td>
+          <td>
+            <label>
+              <textarea ng-model="object['comment']" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
+            </label>
+          </td>
+          <td class="controls">
+            <button class="btn-link deleter" data-ng-click="removeTableRow($index)">
+              <i class="fa fa-times"></i>
+            </button>
+          </td>
+        </script>
+      </div>
     </div>
     <div style="clear:both"></div>    
     <div class="element-adder" data-element-adder="notes"></div>
