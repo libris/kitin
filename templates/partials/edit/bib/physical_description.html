@@ -7,8 +7,8 @@
         <ul class="tags" data-kitin-link-entity
             data-subject="record.about"
             data-link="'additionalCarrierType'" data-type="AdditionalCarrierType"
-            data-view-template="render-generic-linked-entity"
-            data-search-template="render-generic-select-category"
+            data-view-template="/partials/edit/bib/_render_generic_linked_entity"
+            data-search-template="/partials/edit/bib/_render_generic_select"
             data-filter="about.inCollection.@id:\/def\/enum\/content\/additionalCarrierType\-collection">
         </ul>
       </label>
@@ -261,8 +261,8 @@
       <div data-kitin-link-entity
           data-subject="record.about"
           data-link="'illustrations'"
-          data-view-template="render-tag-view"
-          data-search-template="render-generic-select-category"
+          data-view-template="/partials/edit/bib/_render_generic_tag_entity"
+          data-search-template="/partials/edit/bib/_render_generic_select"
           data-filter="about.inCollection.@id:\/def\/enum\/content\/illustrations\-collection"
           ng-init=" placeholder='Lägg till'; ">
       </div>
@@ -274,8 +274,8 @@
       <div data-kitin-link-entity
           data-subject="record.about"
           data-link="'nature'"
-          data-view-template="render-tag-view"
-          data-search-template="render-generic-select-category"
+          data-view-template="/partials/edit/bib/_render_generic_tag_entity"
+          data-search-template="/partials/edit/bib/_render_generic_select"
           data-filter="about.inCollection.@id:\/def\/enum\/content\/nature\-collection"
           ng-init=" placeholder='Lägg till'; ">
       </div>
@@ -287,8 +287,8 @@
       <div data-kitin-link-entity
           data-subject="record.about"
           data-link="'originalItem'"
-          data-view-template="render-tag-view"
-          data-search-template="render-generic-select-category"
+          data-view-template="/partials/edit/bib/_render_generic_tag_entity"
+          data-search-template="/partials/edit/bib/_render_generic_select"
           data-filter="about.inCollection.@id:\/def\/enum\/content\/originalItem\-collection"
           ng-init=" placeholder='Lägg till'; ">
       </div>

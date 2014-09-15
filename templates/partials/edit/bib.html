@@ -26,7 +26,7 @@
     </section>
   
     <section class="submit modificationinfo" data-ng-class="modifiedClasses()" data-ng-init="disableButtons = (subform.$invalid)">
-      <div data-ng-include="'save-buttons'"></div>
+      <div ng-include="'/partials/edit/bib/_save_buttons'"></div>
     </section>
 
     <div class="footer footer-sticky">
@@ -50,7 +50,7 @@
             </div>
             <div class="col6 right">
               <div class="record-status">Postens status</div>
-              <div data-ng-include="'save-buttons'"></div>
+              <div ng-include="'/partials/edit/bib/_save_buttons'"></div>
             </div>
           </div>
         </section>
@@ -58,79 +58,4 @@
     </div>
   </ng-form>
 
-  
-
-    <script type="text/ng-template" id="save-buttons">
-      <button class="btn-link" id="draft" data-ng-click="saveDraft()"
-        title="{{lastSavedLabel('Senast sparad: %s')}}">Spara utkast</button>
-      <button class="btn btn-dark btn-submit" id="publish" data-ng-disabled="disableButtons" data-ng-click="save()"
-        title="{{lastPublishedLabel('Senast publicerad: %s')}}">Publicera</button>
-      <p class="message" data-ng-show="modifications.message">{{ modifications.message }}</p>
-      <div style="clear:both"></div>
-    </script>
-
-    <!-- !TODO: Move general templates into separate template files? -->
-
-    <!-- GENERAL LINKED ENTITY -->
-    <script type="text/ng-template" id="render-generic-linked-entity">
-      <a href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ (object.prefLabel || object.prefLabel_en) }} </a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
-    </script>
-
-    <script type="text/ng-template" id="render-generic-select-category">
-        <select 
-          data-kitin-select-entity
-          data-selected-item-variable="selectedItem.data.about"
-          ng-options="(item.data.about.prefLabel || item.data.about.prefLabel_en) for item in objects | orderBy:'data.about.prefLabel'">
-        </select>
-    </script>
-
-
-    <!-- GENERAL TAG TEMPLATES -->
-    <script type="text/ng-template" id="render-tag-view">
-      <ul class="tags">
-        <li><a href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.prefLabel }}</a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i></li>
-      </ul>
-    </script>
-
-    <script type="text/ng-template" id="render-tag-search">
-      <label class="find-entity">
-        <i class="fa fa-search"></i>
-        <input data-inplace class="input-large authdependant embedded" type="text"
-              placeholder="{{ search_placeholder }}"
-              data-no-value="{{ object.prefLabel }}"
-              data-kitin-search-entity
-              data-service-url="{{ search_service_url }}"
-              data-filter="{{ search_filter }}"
-              data-completion-template="select-tag-template" />
-      </label>
-    </script>
-    <script type="text/html" id="select-tag-template">
-      <div class="auth">
-        <h4>
-          <span class="name"><%= data.prefLabel %></span>
-        </h4>
-      </div>
-    </script>
-
-    <!-- GENERAL REFERENCED ENTITY TEMPLATES -->
-     <script type="text/ng-template" id="render-referenced-entity">
-        <a href="?m={{object.describedBy['@id']}}"><i class="fa fa-bookmark" data-ng-if="isAuth(object.describedBy)"></i> <span class="name">{{ object.title || object.uniformTitle}}</span> {{ object.issn }}</a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
-    </script>
-
-    <script type="text/ng-template" id="render-search-bib">
-      <i class="fa fa-search"></i> <input data-inplace class="input-large authdependant embedded" type="text"
-              placeholder="Lägg till"
-              data-kitin-search-entity
-              data-make-reference-on-item-select="true"
-              data-service-url="{{API_PATH}}/bib/_search"
-              data-filter=""
-              data-completion-template="bib-completion-template">
-    </script>
-    <script type="text/html" id="bib-completion-template">
-      <div class="auth">
-        <h4>
-          <span class="name"><%= data.instanceTitle.titleValue %></span>
-        </h4>
-      </div>
-    </script>
 {% endraw %}

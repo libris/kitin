@@ -1,0 +1,16 @@
+{% raw %}
+
+  <!-- 
+    render_generic_select
+    
+    Generic select dropdown for linked entities
+
+  -->
+
+  <select 
+    data-kitin-select-entity
+    data-selected-item-variable="selectedItem.data.about"
+    ng-options="(item.data.about.prefLabel || item.data.about.prefLabel_en) for item in objects | orderBy:'data.about.prefLabel'">
+  </select>
+  
+{% endraw %}

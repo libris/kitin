@@ -1,0 +1,26 @@
+{% raw %}
+
+  <!-- 
+  render_bib_search
+
+  Generic bib-search input field, used for reference fields
+
+  -->
+
+  <i class="fa fa-search"></i> <input data-inplace class="input-large authdependant embedded" type="text"
+          placeholder="Lägg till"
+          data-kitin-search-entity
+          data-make-reference-on-item-select="true"
+          data-service-url="{{API_PATH}}/bib/_search"
+          data-filter=""
+          data-completion-template="bib-completion-template">
+
+  <script type="text/html" id="bib-completion-template">
+    <div class="auth">
+      <h4>
+        <span class="name"><%= data.instanceTitle.titleValue %></span>
+      </h4>
+    </div>
+  </script>
+  
+{% endraw %}
