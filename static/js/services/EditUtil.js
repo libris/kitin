@@ -226,6 +226,14 @@ kitin.service('editUtil', function(definitions, $http, $q) {
     },
 
     indexes: {
+      classification: {
+        indexName: "classificationByInScheme",
+        getIndexKey: function (entity) {
+          if((entity.inScheme && entity.inScheme['@id'])) {
+            return  entity.inScheme['@id'];
+          }
+        }
+      },
       identifier: {
         indexName: "identifierByIdentifierScheme",
         getIndexKey: function (entity) {

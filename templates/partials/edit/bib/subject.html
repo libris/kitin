@@ -49,22 +49,60 @@
   </div>
   <div class="col6">
 
+    <!-- CLASSIFICATION  START -->
     <h3>Klassifikationer</h3>
     <label class="dynamic-subjects">
         <span class="lbl">Dewey</span>
         <textarea data-inplace placeholder="Dewey Klassifikation" data-ng-model="record.about.classificationDdc"></textarea>
 
     </label>
-    <label class="dynamic-subjects" data-ng-repeat="classification in record.about.classification">
-        <span class="lbl">Klassifikation {{classification.inScheme.notation}}</span>
-        <textarea data-inplace placeholder="Klassifikation" data-ng-model="classification.notation"></textarea>
-
-    </label>
     <label class="dynamic-subjects" data-ng-show="record.about.classificationNlm">
         <span class="lbl">NLM-klassifikation (National Library of Medicine)</span>
         <textarea data-inplace placeholder="Klassifikation" data-ng-model="record.about.classificationNlm"></textarea>
     </label>
+    
+    <label class="cols" data-ng-repeat="(classificationScheme, subClassification) in record.about.classificationByInScheme">
 
+      <h3 ng-if="subClassification.length > 0" class="ng-binding" translate>{{ classificationScheme }}</h3>
+      <div class="col12" ng-switch on="classificationScheme">
+        <ul class="tags" data-kitin-link-entity
+          data-subject="record.about.classificationByInScheme"
+          data-link-multiple="classificationScheme"
+          data-view-template="render-classification"
+          data-search-template="render-search-classification"
+          data-default-type="classificationScheme"
+          >
+        </ul>
+      </div>
+    </label>
+    <script type="text/ng-template" id="render-classification">
+      <a href="#">
+        <i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.notation }}
+      </a> 
+      <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
+          
+        </script>
+
+        <script type="text/ng-template" id="render-search-classification">
+        {{object}}
+            <i class="fa fa-search"></i> <input data-inplace class="input-large authdependant embedded" type="text"
+                  data-no-value="{{ object.notation }}"
+                  data-kitin-search-entity
+                  data-service-url="http://www.example.com"
+                  data-filter=""
+                  data-completion-template="select-language-template" 
+                  data-allow-non-auth="true"
+                  placeholder="+ Lägg till klassifikation">
+        </script>
+        <script type="text/html" id="select-classification-template">
+          <div class="auth">
+            <h4>
+            <span class="name"><%= data.prefLabel %></span><span class="date"> <%= data.langCode %></span>
+            </h4>
+          </div>
+        </script>
+    
+    <!-- CLASSIFICATION  END -->
 
     <h3 translate>LABEL.record.about.genre</h3>
     <label>
