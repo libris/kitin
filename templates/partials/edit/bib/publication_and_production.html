@@ -3,7 +3,7 @@
 	<div class="cols">
 	    <div class="identifier" ng-include="'/partials/edit/bib/identifier'"></div>
 	</div>
-    <div class="cols"> <!-- data-ng-show="record.about['@type'] != 'Book'">-->
+    <div class="cols">
       <div class="col6">
         <label data-ng-show="record.about.mediaTerm">
           <span class="lbl" translate>LABEL.record.about.mediaTerm</span>
@@ -61,6 +61,7 @@
           <input type="text" data-ng-model="record.about.frequency">
         </label>    
 
+        <!-- ISSUE NUMBER  START -->
         <label>
           <div class="datatable" data-ng-target="issueNumber" 
             data-kitin-data-table 
@@ -82,8 +83,10 @@
               <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
             </td>
           </script>
-        </label>  
+        </label>
+        <!-- ISSUE NUMBER  END -->
 
+        <!-- ISSUE REPLACES  START -->
         <label>
   	      <div class="datatable" data-ng-target="replaces" 
   	        data-kitin-data-table 
@@ -107,6 +110,7 @@
             </td>
           </script>
         </label>
+        <!-- ISSUE REPLACES  END -->
 
         <label>
           <span class="lbl" translate>LABEL.record.about.regularity</span>
@@ -140,6 +144,7 @@
 	<div class="cols">
 
     <div class="col6">
+      <!-- RELATION  START -->
       <label>
         <span class="lbl" translate>LABEL.record.about.relation</span>
         <ul class="tags entity" data-kitin-link-entity
@@ -153,6 +158,8 @@
             <a href="?m={{object.describedBy['@id']}}"><i class="fa fa-bookmark" data-ng-if="isAuth(object.describedBy)"></i> <span class="name">{{ object.title }}</span> {{ object.issn }}</a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
         </script>
       </label>
+      <!-- RELATION  END -->
+
       <label>
         <span class="lbl" translate>LABEL.record.about.alternateEdition</span>
         <ul class="tags entity" data-kitin-link-entity
@@ -196,37 +203,40 @@
 
 		<div class="cols">
 	    <div class="col12">
+        <!-- PUBLICATION COUNTRY  START -->
+        <label>
+          <span class="lbl" translate>LABEL.record.about.publicationCountry</span>
+          <ul class="tags" data-kitin-link-entity
+              data-subject="record.about"
+              data-link-multiple="'publicationCountry'" data-type="Country"
+              data-view-template="render-country"
+              data-search-template="render-search-country">
+          </ul>
+          <script type="text/ng-template" id="render-country">
+              <a href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.prefLabel }} <span data-ng-show="object.notation">({{ object.notation }})</span></a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
+          </script>
 
-        <span class="lbl" translate>LABEL.record.about.publicationCountry</span>
-        <ul class="tags" data-kitin-link-entity
-            data-subject="record.about"
-            data-link-multiple="'publicationCountry'" data-type="Country"
-            data-view-template="render-country"
-            data-search-template="render-search-country">
-        </ul>
-        <script type="text/ng-template" id="render-country">
-            <a href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.prefLabel }} <span data-ng-show="object.notation">({{ object.notation }})</span></a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
-        </script>
-
-        <script type="text/ng-template" id="render-search-country">
-          <i class="fa fa-search"></i> <input data-inplace class="input-large authdependant embedded" type="text"
-                  placeholder="Lägg till land"
-                  data-no-value="{{ object.prefLabel }} ({{ object.notation }})"
-                  data-kitin-search-entity
-                  data-service-url="{{API_PATH}}/def/_search"
-                  data-filter="{ filter: 'about.@type:Country'}"
-                  data-completion-template="select-country-template" placeholder="+ Lägg till land">
-        </script>
-        <script type="text/html" id="select-country-template">
-          <div class="auth">
-            <h4>
-            <span class="name"><%= data.prefLabel %></span><span class="date"> <%= data.notation %></span>
-            </h4>
-          </div>
-        </script>
+          <script type="text/ng-template" id="render-search-country">
+            <i class="fa fa-search"></i> <input data-inplace class="input-large authdependant embedded" type="text"
+                    placeholder="Lägg till land"
+                    data-no-value="{{ object.prefLabel }} ({{ object.notation }})"
+                    data-kitin-search-entity
+                    data-service-url="{{API_PATH}}/def/_search"
+                    data-filter="{ filter: 'about.@type:Country'}"
+                    data-completion-template="select-country-template" placeholder="+ Lägg till land">
+          </script>
+          <script type="text/html" id="select-country-template">
+            <div class="auth">
+              <h4>
+              <span class="name"><%= data.prefLabel %></span><span class="date"> <%= data.notation %></span>
+              </h4>
+            </div>
+          </script>
+        </label>
+        <!-- PUBLICATION COUNTRY  END -->
 
 
-
+        <!-- PUBLISHER  START -->
 	      <div class="datatable" data-ng-target="publisher" 
 	        data-kitin-data-table 
           data-collapsable="true"
@@ -243,6 +253,7 @@
           <td><span class="lbl" translate>LABEL.record.about.publication.providerName</span></td>
           <td><span class="lbl" translate>LABEL.record.about.publication.providerDate</span></td>
         </script>
+        <!-- PUBLISHER  END -->
 	    </div>
 		</div>
 		
@@ -253,7 +264,7 @@
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.editionStatement.edition" >
         </label>
       </div>
-     <div class="col3" ><!-- data-ng-show="getTypeDef(record.about).term == 'Audiobook'" -->
+     <div class="col3" >
         <label data-ng-show="record.about.publisherNumber">
           <span class="lbl" translate>LABEL.record.about.publisherNumber</span>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.publisherNumber" >
@@ -263,6 +274,7 @@
 
 		<div class="cols">
 	    <div class="col12">
+        <!-- MANUFACTURE  START -->
 	      <div class="datatable" data-ng-target="manufacture" 
 	        data-kitin-data-table 
 	        data-table-model="record.about.manufacture" 
@@ -278,6 +290,7 @@
           <td><span class="lbl" translate>LABEL.record.about.manufacture.providerName</span></td>
           <td><span class="lbl" translate>LABEL.record.about.publication.providerDate</span></td>
         </script>
+        <!-- MANUFACTURE  END -->
 	    </div>
 		</div>
 
@@ -287,7 +300,9 @@
     </div>
     <div class="element-adder" data-element-adder="publication_and_production"></div>
 
-
+    <!-- manufacture-publisher-recording-row-template  START 
+         Used by both manufacture and publication
+    -->
     <script type="text/ng-template" id="manufacture-publisher-recording-row-template">
       <td><label><input ng-model="object['place']['label']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
       <td><label><input ng-model="object['providerName']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
@@ -296,5 +311,6 @@
         <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
       </td>
     </script>
+    <!-- manufacture-publisher-recording-row-template  END -->
     
  {% endraw %}

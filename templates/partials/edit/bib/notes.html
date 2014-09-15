@@ -3,6 +3,7 @@
 
     <div class="cols">
       <div class="col6">
+        <!-- SUMMARY START -->
         <label>
           <div class="datatable" data-ng-target="summary" 
             data-kitin-data-table 
@@ -25,8 +26,10 @@
             </td>
           </script>
         </label>  
+        <!-- SUMMARY  END -->
       </div>
       <div class="col6">
+        <!-- LIST OF CONTENTS  START -->
         <label>
           <div class="datatable" data-ng-target="listOfContents" 
             data-kitin-data-table 
@@ -49,11 +52,13 @@
             </td>
           </script>
         </label>  
+        <!-- LIST OF CONTENTS  END -->
       </div>
     </div>
 
     <div class="cols">
       <div class="col6">
+        <!-- PERFORMER NOTE  START -->
         <label>
           <div class="datatable" data-ng-target="performerNote" 
             data-kitin-data-table 
@@ -76,12 +81,14 @@
             </td>
           </script>
         </label>  
+        <!-- PERFORMER NOTE  END -->
       </div>
-      <div class="col6" data-ng-show="record.about.contributorNote"> <!-- data-ng-show="getTypeDef(instance).term == 'Audiobook'" ?-->
-        <label>
+      <div class="col6">
+        <label data-ng-show="record.about.contributorNote">
           <span class="lbl" translate>LABEL.record.about.contributorNote</span>
           <textarea data-inplace data-ui-jq="autosize" class="ng-pristine ng-valid" type="text" data-ng-model="record.about.contributorNote" ></textarea>
         </label>
+
         <label>
           <span class="lbl" translate>LABEL.record.sourceNote</span>
           <textarea data-inplace data-ui-jq="autosize" class="ng-pristine ng-valid" type="text" data-ng-model="record.sourceNote" ></textarea>
@@ -97,6 +104,7 @@
         </label>
       </div>
       <div class="col6" data-ng-show="record.about.systemRequirements">
+        <!-- SYSTEM REQUIREMENTS  START -->
         <label class="datatable" data-ng-target="systemRequirementsTable" 
           data-kitin-data-table 
           data-table-model="record.about.systemRequirements" 
@@ -125,11 +133,13 @@
             </button>
           </td>
         </script>
+        <!-- SYSTEM REQUIREMENTS  END -->
       </div>
     </div>
     <div style="clear:both"></div>
 		<div class="cols">
 			<div class="col6">
+        <!-- COMMENT  START -->
         <label class="datatable" data-ng-target="commentTable" 
           data-kitin-data-table 
           data-table-model="record.about.comment" 
@@ -158,9 +168,10 @@
             </button>
           </td>
         </script>
-
+        <!-- COMMENT  END -->
 			</div>
 			<div class="col6">
+        <!-- IS PRIMARY TOPIC OF  START -->
 	      <label data-ng-repeat="topic in record.about.isPrimaryTopicOf">
             <span class="lbl" translate>{{ "isPrimaryTopicOf type: " + topic['@type'] }}</span>
           <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="topic['@id']" ></textarea>
@@ -169,11 +180,13 @@
             <span class="lbl" translate>LABEL.record.about.isPrimaryTopicOf</span>
           <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="topic.comment" ></textarea>
         </label>
+        <!-- IS PRIMARY TOPIC OF  END -->
 			</div>		
 		</div>
 
     <div class="cols">
       <div class="col6">
+          <!-- AUDIENCE  START -->
           <label>
             <span class="lbl" translate>LABEL.record.about.audience</span>
             <ul class="tags" data-kitin-link-entity
@@ -184,14 +197,16 @@
                 data-filter="about.inCollection.@id:\/def\/enum\/content\/audience\-collection">
             </ul>
           </label>
+          <!-- AUDIENCE  END -->
       </div>
       <div class="col6" data-ng-show="record.about.note">
-       <label>
+        <label>
             <span class="lbl" translate>LABEL.record.about.note</span>
           <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="record.about.note" ></textarea>
-        </label>	      
+        </label>
       </div>
       <div class="col12">
+        <!-- HAS ANNOTATION  START -->
         <label class="datatable" data-ng-target="hasAnnotation" 
           data-kitin-data-table 
           data-table-model="record.about.hasAnnotation" 
@@ -242,6 +257,7 @@
             </button>
           </td>
         </script>
+        <!-- HAS ANNOTATION  END -->
       </div>
     </div>
     <div style="clear:both"></div>    
