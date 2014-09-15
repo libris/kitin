@@ -114,7 +114,7 @@
 
     <!-- GENERAL REFERENCED ENTITY TEMPLATES -->
      <script type="text/ng-template" id="render-referenced-entity">
-        <a href="?m={{object.describedBy['@id']}}"><i class="fa fa-bookmark" data-ng-if="isAuth(object.describedBy)"></i> <span class="name">{{ object.title }}</span> {{ object.issn }}</a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
+        <a href="?m={{object.describedBy['@id']}}"><i class="fa fa-bookmark" data-ng-if="isAuth(object.describedBy)"></i> <span class="name">{{ object.title || object.uniformTitle}}</span> {{ object.issn }}</a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
     </script>
 
     <script type="text/ng-template" id="render-search-bib">
