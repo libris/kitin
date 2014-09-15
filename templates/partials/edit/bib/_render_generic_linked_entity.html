@@ -1,5 +1,12 @@
 {% raw %}
 
+<!-- 
+  render_generic_linked_entity
+  
+  Linked entity used in lists
+
+-->
+
   <a href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ (object.prefLabel || object.prefLabel_en) }} </a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
 
 {% endraw %}
