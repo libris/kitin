@@ -1,4 +1,4 @@
-kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
+kitin.directive('kitinLinkEntity', ['editService', function(editService) {
 
   return {
     restrict: 'A',
@@ -62,7 +62,7 @@ kitin.directive('kitinLinkEntity', ['editUtil', function(editUtil) {
 
       this.doAdd = function (data) {
         if($scope.expand) { $scope.expand(); }
-        var added = editUtil.addObject(subj, link, $scope.type, multiple, data);
+        var added = editService.addObject(subj, link, $scope.type, multiple, data);
         if (multiple) {
           $scope.objects = added;
         } else {
