@@ -1,0 +1,10 @@
+{% raw %}
+
+  <button class="btn-link" id="draft" data-ng-click="saveDraft()"
+          title="{{lastSavedLabel('Senast sparad: %s')}}">Spara utkast</button>
+  <button class="btn btn-dark btn-submit" id="publish" data-ng-disabled="disableButtons" data-ng-click="save()"
+    title="{{lastPublishedLabel('Senast publicerad: %s')}}">Publicera</button>
+  <p class="message" data-ng-show="modifications.message">{{ modifications.message }}</p>
+  <div style="clear:both"></div>
+
+{% endraw %}
