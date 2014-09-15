@@ -1,4 +1,4 @@
-kitin.directive('collapseButton', function(editUtil) {
+kitin.directive('collapseButton', function(editService) {
   return {
     template: '<a ng-show="objects && objects.length>1" ng-click="toggleCollapse()">{{buttonlinkText}} <span>({{objects.length}}) st</span><i class="icon fa fa-caret-{{doCollapse?\'down\':\'up\'}}"></i></a>',
     link: function($scope, elm, attrs, controller) {

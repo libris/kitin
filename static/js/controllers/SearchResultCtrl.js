@@ -1,4 +1,4 @@
-kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routeParams, $rootScope, $anchorScroll, definitions, searchService, searchUtil, editUtil) {
+kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routeParams, $rootScope, $anchorScroll, definitions, searchService, searchUtil, editService) {
 
   $scope.recType = $routeParams.recType;
 
@@ -40,7 +40,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
   $scope.editPost = function(recType, record) {
     if(recType === 'remote') {
       record.identifier = '/remote/new';
-      editUtil.setRecord(record);
+      editService.setRecord(record);
     }
     $location.url('/edit' + record.identifier);
     return false;

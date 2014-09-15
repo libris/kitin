@@ -1,4 +1,4 @@
-kitin.directive('elementAdder', function(editUtil) {
+kitin.directive('elementAdder', function(editService) {
   return {
     restrict: 'A',
     require: 'editCtrl',
@@ -16,7 +16,7 @@ kitin.directive('elementAdder', function(editUtil) {
               '</li>',
     //<select class="form-control" ng-model="elementToAdd" ng-change="change()" ng-options="getElementLabel(element) for element in addableElements"><option value="" selected>Lägg till</option></select>',
     controller: function($element, $scope, $attrs, $translate) {
-      $scope.addableElements = $attrs.elementAdder !== '' ? editUtil.addableElements[$attrs.elementAdder] : editUtil.addableElements;
+      $scope.addableElements = $attrs.elementAdder !== '' ? editService.addableElements[$attrs.elementAdder] : editService.addableElements;
       $scope.change = function(element) {
         var type = (element.defaultType ? element.defaultType : element.ngSwitchWhen);
         $scope.$parent.addObject($scope.$parent.record.about, element.linkMultiple, type, element.ngTarget, element.ngSwitchWhen);

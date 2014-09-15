@@ -1,4 +1,4 @@
-kitin.directive('kitinSearchEntity', ['definitions', 'editUtil', function(definitions, editUtil) {
+kitin.directive('kitinSearchEntity', ['definitions', 'editService', function(definitions, editService) {
 
   var sourceConfiguration = {
     relators: {
@@ -78,7 +78,7 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editUtil', function(defini
           var owner = scope.subject;
           // TODO: if multiple, else set object (and *link*, not copy (embed copy in view?)...)
           if(makeReferenceOnItemSelect) {
-            editUtil.makeReferenceEntity(item.data._source).then(function(referenced) {
+            editService.makeReferenceEntity(item.data._source).then(function(referenced) {
               linker.doAdd(referenced);
             });
           } else {
@@ -117,7 +117,7 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editUtil', function(defini
             // !TODO Add propper lookup against entity definitions
             result.unshift({ 
               value: searchedValue, 
-              data: editUtil.createObject(scope.$parent.type, searchedValue)
+              data: editService.createObject(scope.$parent.type, searchedValue)
             });
           }
           return result;
