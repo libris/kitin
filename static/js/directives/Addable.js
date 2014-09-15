@@ -1,15 +1,15 @@
-kitin.directive('addable', function(editUtil){
+kitin.directive('addable', function(editService){
   return {
       restrict: 'A',
       scope: true,
       compile: function(element, attrs) {
         if(attrs.addable !== '') {
-          if(typeof editUtil.addableElements[attrs.addable] === 'undefined') {
-            editUtil.addableElements[attrs.addable] = [];
+          if(typeof editService.addableElements[attrs.addable] === 'undefined') {
+            editService.addableElements[attrs.addable] = [];
           }
-          editUtil.addableElements[attrs.addable].push(attrs);
+          editService.addableElements[attrs.addable].push(attrs);
         } else {
-          editUtil.addableElements.push(attrs);
+          editService.addableElements.push(attrs);
         }
       }
   };

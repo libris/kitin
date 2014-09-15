@@ -1,7 +1,7 @@
 
-kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $timeout, $rootScope, $location, $anchorScroll, dataService, definitions, userData, editUtil) {
+kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $timeout, $rootScope, $location, $anchorScroll, recordService, definitions, userData, editService) {
 
-  editUtil.addableElements = [];
+  editService.addableElements = [];
   var modalRecord = $rootScope.modalRecord;
   var recType = modalRecord? modalRecord.recType : $routeParams.recType;
   var recId = modalRecord? modalRecord.recId : $routeParams.recId;
@@ -40,9 +40,9 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     return (obj && !_.isEmpty(obj['inScheme']));
   };
 
-  // TODO: move each part of this into editUtil.decorate, then remove this function
+  // TODO: move each part of this into editService.decorate, then remove this function
   function addRecordViewsToScope(record, scope) {
-    scope.unifiedClassifications = editUtil.getUnifiedClassifications(record);
+    scope.unifiedClassifications = editService.getUnifiedClassifications(record);
 
     definitions.conceptSchemes.then(function(data) {
       scope.conceptSchemes = data;
@@ -66,14 +66,14 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
 
   // Needed? Set update recType instead?
   function getRecordType(recType, isNew) {
-    if(isNew && recType !== editUtil.RECORD_TYPES.REMOTE) {
-      return editUtil.RECORD_TYPES.NEW;
-    } else if(recId.indexOf(editUtil.RECORD_TYPES.DRAFT) > -1) {
-      return editUtil.RECORD_TYPES.DRAFT;
+    if(isNew && recType !== editService.RECORD_TYPES.REMOTE) {
+      return editService.RECORD_TYPES.NEW;
+    } else if(recId.indexOf(editService.RECORD_TYPES.DRAFT) > -1) {
+      return editService.RECORD_TYPES.DRAFT;
     } else if(recType) {
       return recType;
     } else {
-      return editUtil.RECORD_TYPES.BIB;
+      return editService.RECORD_TYPES.BIB;
     }
   }
 
@@ -81,8 +81,8 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   switch(getRecordType(recType, isNew)) {
 
     // NEW
-    case editUtil.RECORD_TYPES.NEW:
-      dataService.record.get(
+    case editService.RECORD_TYPES.NEW:
+      recordService.record.get(
         null, null, $location.$$search.type, $location.$$search.aggregateLevel
     ).then(function(data) {
         $scope.record = data['recdata'];
@@ -93,8 +93,8 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
 
 
     // DRAFT
-    case editUtil.RECORD_TYPES.DRAFT:
-      dataService.draft.get(recType + '/' + recId).then(function(data) {
+    case editService.RECORD_TYPES.DRAFT:
+      recordService.draft.get(recType + '/' + recId).then(function(data) {
         $scope.record = data['recdata']['document'];
         addRecordViewsToScope($scope.record, $scope);
         $scope.isDraft = true;
@@ -109,9 +109,9 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
 
 
     // REMOTE
-    case editUtil.RECORD_TYPES.REMOTE:
+    case editService.RECORD_TYPES.REMOTE:
 
-      var record = editUtil.getRecord();
+      var record = editService.getRecord();
       if(record) {
         $scope.record = record.data;
         addRecordViewsToScope(record, $scope);
@@ -122,13 +122,13 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     // BIB
     // AUTH
     default:
-      dataService.record.get(recType, recId).then(function(data) {
+      recordService.record.get(recType, recId).then(function(data) {
         var record = data['recdata'];
         // MARC
         // !TODO create a cleaner way to detect data format and sperate from bib
         if($location.$$path.indexOf('/marc/') !== -1) {
           delete record.about.publicationCountry;
-          dataService.record.convertToMarc(record).then(function(data) {
+          recordService.record.convertToMarc(record).then(function(data) {
             $scope.record = data;
           });
         }
@@ -138,14 +138,14 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
         $scope.userSigel = userData.userSigel;
 
         // BIB
-        if (recType === editUtil.RECORD_TYPES.BIB) {
+        if (recType === editService.RECORD_TYPES.BIB) {
           addRecordViewsToScope(record, $scope);
         }
         
         // HOLDINGS
         $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.annotates.@id:' + recType + '\\/' + recId).success(function(data) {
           var holdingEtags = {};
-          var items = editUtil.patchHoldings(data.list);
+          var items = editService.patchHoldings(data.list);
           $scope.holdings = items;
           var myHoldings = _.filter(items, function(i) { return i['location'] == userData.userSigel; });
           if (myHoldings <= 0) {
@@ -173,8 +173,8 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
 
 
   $scope.modifications = {
-    saved:     recType === editUtil.RECORD_TYPES.REMOTE ? false : true, 
-    published: recType === editUtil.RECORD_TYPES.REMOTE ? false : true
+    saved:     recType === editService.RECORD_TYPES.REMOTE ? false : true, 
+    published: recType === editService.RECORD_TYPES.REMOTE ? false : true
   };
 
   function onSaveState() {
@@ -214,7 +214,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   $scope.promptConfirmDelete = function($event, type, id) {
     $scope.confirmDeleteDraft = {
       execute: function() {
-        dataService.draft.delete(type, id).then(function(data) {
+        recordService.draft.delete(type, id).then(function(data) {
           $scope.draft = null;
           $scope.confirmDeleteDraft = null;
         });
@@ -229,7 +229,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   };
 
   $scope.save = function() {
-    var recType = $routeParams.recType === editUtil.RECORD_TYPES.REMOTE ? editUtil.RECORD_TYPES.BIB : $routeParams.recType;
+    var recType = $routeParams.recType === editService.RECORD_TYPES.REMOTE ? editService.RECORD_TYPES.BIB : $routeParams.recType;
     if(!$scope.isDraft && !isNew) {
 
       var ifMatchHeader = '';
@@ -238,15 +238,15 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
       } else {
         console.warn('No ETag for this record. Where is it?');
       }
-      dataService.record.save(recType, recId, $scope.record, ifMatchHeader).then(function(data) {
+      recordService.record.save(recType, recId, $scope.record, ifMatchHeader).then(function(data) {
         $scope.record = data['recdata'];
         $scope.etag = data['etag'];
         onPublishState();
       });
     } else {
-      dataService.record.create(recType, $scope.record).then(function(data) {
+      recordService.record.create(recType, $scope.record).then(function(data) {
         if($scope.isDraft) {
-          dataService.draft.delete(recType, recId);
+          recordService.draft.delete(recType, recId);
         }
         $location.url('/edit' + data['recdata']['@id']);
       });
@@ -255,14 +255,14 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   
 
   $scope.saveDraft = function() {
-    var recType = $routeParams.recType === editUtil.RECORD_TYPES.REMOTE ? editUtil.RECORD_TYPES.BIB : $routeParams.recType;
+    var recType = $routeParams.recType === editService.RECORD_TYPES.REMOTE ? editService.RECORD_TYPES.BIB : $routeParams.recType;
 
     if(!$scope.isDraft) {
-      dataService.draft.create(recType, $scope.record).then(function(data) {
+      recordService.draft.create(recType, $scope.record).then(function(data) {
         $location.url('/edit/' + data['draft_id']);
       });
     } else {
-      dataService.draft.save(recType, recId, $scope.record, $scope.etag).then(function(data) {
+      recordService.draft.save(recType, recId, $scope.record, $scope.etag).then(function(data) {
         $scope.record = data['recdata'];
         if(data['recdata']['@id']) { // Undefined if new record
           $scope.record.type = data['recdata']['@id'].split("/").slice(-2)[0];
@@ -274,7 +274,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     }
   };
 /*
-  dataService.draft.get(recId).then(function(data, status, headers) {
+  recordService.draft.get(recId).then(function(data, status, headers) {
     $scope.draft = data['recdata'];
     $scope.isDraft = true;
     if(data['recdata']['@id']) {
@@ -285,7 +285,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   });
 */
   $scope.newObject = function(subj, rel, type) {
-    var obj = subj[rel] = editUtil.createObject(type);
+    var obj = subj[rel] = editService.createObject(type);
   };
 
   $scope.addObject = function(subj, rel, type) {
@@ -293,7 +293,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     if (typeof collection === 'undefined') {
       collection = subj[rel] = [];
     }
-    var obj = editUtil.createObject(type);
+    var obj = editService.createObject(type);
     collection.push(obj);
   };
 
@@ -313,7 +313,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
         collection = subj[rel][subCollection] = [];
       }
     }
-    var obj = editUtil.createObject(type);
+    var obj = editService.createObject(type);
     collection.push(obj);
     // Focus on added row
     if (target) {
@@ -559,7 +559,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
 
         reader.onloadend = function(e) {
           var result = JSON.parse(this.result);
-          editUtil.decorate(result).then(function(decoratedRecord) {
+          editService.decorate(result).then(function(decoratedRecord) {
             $timeout(function(){
               $scope.record = decoratedRecord;
             }).then(function() {

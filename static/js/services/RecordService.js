@@ -1,9 +1,8 @@
 /**
- * dataService
- * Service to handle communcation with backend.
- * Currently used for records and drafts
+ * recordService
+ * Service to handle communcation with backend for records and drafts
  */
-kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
+kitin.factory('recordService', function ($http, $q, editService, $rootScope) {
 
   return {
 
@@ -21,7 +20,7 @@ kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
           // open record
           var path = $rootScope.API_PATH + '/' + type + '/' + id;
           $http.get(path).success(function (struct, status, headers) {
-            editUtil.decorate(struct).then(function(decoratedRecord) {
+            editService.decorate(struct).then(function(decoratedRecord) {
               deferer.resolve({
                 recdata: decoratedRecord,
                 etag: headers('etag')
@@ -37,7 +36,7 @@ kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
               "@type": [mainType, aggregateLevel],
             }
           };
-          editUtil.decorate(struct).then(function(decoratedRecord) {
+          editService.decorate(struct).then(function(decoratedRecord) {
             deferer.resolve({
               recdata: decoratedRecord
             });
@@ -53,13 +52,13 @@ kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
       save: function(type, id, recordData, recordEtag) {
         var deferer = $q.defer();
         var recordDataCopy = angular.copy(recordData);
-        editUtil.undecorate(recordDataCopy).then(function(undecoratedRecord) {
+        editService.undecorate(recordDataCopy).then(function(undecoratedRecord) {
           $http.put($rootScope.LOCAL_API_PATH + '/' + type + "/" + id, undecoratedRecord,
               {
                 headers: {"If-match":recordEtag}
               })
             .success(function(savedRecord, status, headers) {
-              editUtil.decorate(savedRecord).then(function(decoratedRecord) {
+              editService.decorate(savedRecord).then(function(decoratedRecord) {
                 deferer.resolve({
                   recdata: decoratedRecord,
                   etag: headers('etag')
@@ -74,10 +73,10 @@ kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
         var deferer = $q.defer();
         var recordDataCopy = angular.copy(recordData);
         
-        editUtil.undecorate(recordDataCopy).then(function(undecoratedRecord) {
+        editService.undecorate(recordDataCopy).then(function(undecoratedRecord) {
           $http.post($rootScope.LOCAL_API_PATH, undecoratedRecord)
             .success(function(createdRecord, status, headers) {
-              editUtil.decorate(createdRecord).then(function(decoratedRecord) {
+              editService.decorate(createdRecord).then(function(decoratedRecord) {
                 deferer.resolve({
                   recdata: decoratedRecord,
                   etag: headers('etag')
@@ -90,7 +89,7 @@ kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
 
       convertToMarc: function(data) {
         var deferer = $q.defer();
-        editUtil.undecorate(data).then(function(undecoratedRecord) {
+        editService.undecorate(data).then(function(undecoratedRecord) {
           $http.post($rootScope.API_PATH + '/_format?to=application\/x-marc-json', undecoratedRecord).success(function(data, status, headers) {
             deferer.resolve(data);
           });
@@ -103,7 +102,7 @@ kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
       get: function (draftId) {
         var deferer = $q.defer();
         $http.get("/draft/" + draftId).success(function (data, status, headers) {
-          editUtil.decorate(data.document).then(function(decoratedRecord) {
+          editService.decorate(data.document).then(function(decoratedRecord) {
             data.document = decoratedRecord;
             deferer.resolve({
               recdata: data,
@@ -118,10 +117,10 @@ kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
         var deferer = $q.defer();
         etag = etag ? etag : '';
         var draftDataCopy = angular.copy(draftData);
-        editUtil.undecorate(draftDataCopy).then(function(undecoratedRecord) {
+        editService.undecorate(draftDataCopy).then(function(undecoratedRecord) {
           $http.put("/draft/" + type + '/' + draftId, undecoratedRecord, {headers: {"If-match":etag } })
             .success(function(data, status, headers) {
-              editUtil.decorate(data).then(function(decoratedRecord) {
+              editService.decorate(data).then(function(decoratedRecord) {
 
                 deferer.resolve({
                   recdata: decoratedRecord,
@@ -137,10 +136,10 @@ kitin.factory('dataService', function ($http, $q, editUtil, $rootScope) {
         var deferer = $q.defer();
         etag = etag ? etag : '';
         var draftDataCopy = angular.copy(draftData);
-        editUtil.undecorate(draftDataCopy).then(function(undecoratedRecord) {
+        editService.undecorate(draftDataCopy).then(function(undecoratedRecord) {
           $http.post("/draft/" + type, undecoratedRecord, {headers: {"If-match":etag } })
             .success(function(data, status, headers) {
-              editUtil.decorate(data.document).then(function(decoratedRecord) {
+              editService.decorate(data.document).then(function(decoratedRecord) {
                 data.document = decoratedRecord;
                 deferer.resolve(data);
               });

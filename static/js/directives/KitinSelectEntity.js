@@ -1,4 +1,4 @@
-kitin.directive('kitinSelectEntity', ['definitions', 'editUtil', '$compile', function(definitions, editUtil, $compile) {
+kitin.directive('kitinSelectEntity', ['definitions', 'editService', '$compile', function(definitions, editService, $compile) {
 
   return {
     require: '^kitinLinkEntity',

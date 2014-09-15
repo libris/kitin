@@ -1,8 +1,8 @@
 /**
- * editUtil
+ * editService
  * Service to modify a record. Typically decorate/undecorate
  */
-kitin.service('editUtil', function(definitions, $http, $q) {
+kitin.service('editService', function(definitions, $http, $q) {
 
 
   /** mergeProperties
@@ -97,7 +97,7 @@ kitin.service('editUtil', function(definitions, $http, $q) {
     return cleanObj;
   }
 
-  var editutil = {
+  var editService = {
 
     RECORD_TYPES: {
       NEW: 'new',
@@ -494,5 +494,5 @@ kitin.service('editUtil', function(definitions, $http, $q) {
       });
     }
   };
-  return editutil;
+  return editService;
 });
