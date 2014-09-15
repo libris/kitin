@@ -4,6 +4,9 @@
 <div class="cols" onload="work = record.about">
   <div class="col6">
     <h3>{{ "Ämnesord" }}</h3>
+
+    <!-- SUBJECT START -->
+    <!-- SUBJECT BY IN SCHEME  START -->
     <div data-ng-repeat="(key, container) in record.about.subjectByInScheme" class="scheme tagsinput"
        data-ng-init="scheme = conceptSchemes.byNotation[key.replace('/topic/','')] || {'title': key, 'notation': container[0].inScheme.notation}; 
                     search_filter = {filter: 'about.inScheme.notation:' + scheme.notation};
@@ -15,7 +18,9 @@
           data-view-template="view-subject">
       </ul>
     </div>
+    <!-- SUBJECT BY IN SCHEME  END -->
 
+    <!-- SUBJECT BY TYPE  START -->
     <div data-ng-repeat="(key, container) in record.about.subjectByType" class="scheme tagsinput"
        data-ng-init="scheme = subjectByType[key];
                      search_filter = (key === '/topic/chronological') ? { filter: 'about.inCollection.@id:\\/topic\\/chronological\\/'} : { filter: 'about.@type:' + key};
@@ -27,7 +32,66 @@
           data-view-template="view-subject">
       </ul>
     </div>
+    <!-- SUBJECT BY TYPE  END -->
 
+    <!-- SUBJECT SEARCH TEMPLATE  START -->
+    <script type="text/ng-template" id="search-subject">
+      <i class="fa fa-search"></i> 
+      <input data-kitin-search-entity
+            data-filter="{{search_filter}}"
+            data-service-url="{{API_PATH}}/auth/_search"
+            data-completion-template="{{search_completion_template}}" type="text" placeholder=""
+            data-allow-non-auth="{{scheme.allowNonAuth}}">
+    </script>
+    <!-- SUBJECT SEARCH TEMPLATE  END -->
+
+    <!-- SUBJECT LIST TEMPLATE  START -->
+    <script type="text/ng-template" id="view-subject" >
+      <a ng-init="subjectLabel = (object.prefLabel || object.uniformTitle || object.controlledLabel  || object.notation || object.name)" ng-show="subjectLabel" href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ subjectLabel }}</a> 
+
+      <a data-ng-repeat="broader in object.broader" href="#">
+        {{broader.prefLabel}}
+        <span data-ng-show="broader.notation">({{ broader.notation }}) </span>
+        <span class="subject-delimiter" data-ng-hide="$last">--</span>
+      </a> 
+      <i data-ng-click="doRemove($index)" class="no">&times;</i>
+    </script>
+    <!-- SUBJECT LIST TEMPLATE  END -->
+
+    <!-- SUBJECT SUGGEST TEMPLATE  START -->
+    <script type="text/html" id="subject-completion-template">
+      <div class="auth">
+        <% if (data['prefLabel']) { %>
+          <h4>
+            <span class="name" title="<%= data['@id']%>"><%= data['prefLabel']%></span>
+              <% if (isLinked(data)) { %>
+                <!-- TODO: fix auth
+                <span class="what">Se aukt. post <i class="fa fa-sign-out"></i></span>
+                -->
+                <span class="what"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> Aukt.</span>
+              <% } %>
+          </h4>
+          <% if (data['historyNote']) { %>
+            <div><em><%= data['historyNote']%></em></div>
+          <% } %>
+          <% if (data['hiddenLabel']) { %>
+            <div><span class="">Används ej: <%= data['hiddenLabel']%></span></div>
+          <% } %>   
+          <% if (data['scopeNote']) { %>
+          <ul class="about">
+            <li><%= data['scopeNote']%></li>
+          </ul>
+          <% } %>
+        <% } else {%>
+          <h4>
+            <%= value%>
+          </h4>
+        <% } %>
+      </div>
+    </script>
+    <!-- SUBJECT SUGGEST TEMPLATE  END -->
+
+    <!-- GENERAL SUBJECT  START -->
     <div class="cols">
       <span class="lbl">Andra ämnesordssystem {{chosenScheme}}</span>
       <div class="col3">  
@@ -46,6 +110,7 @@
         </label>
       </div>
     </div>
+    <!-- GENERAL SUBJECT  END -->
   </div>
   <div class="col6">
 
@@ -152,62 +217,5 @@
     </label>
   </div>
 </div>
-  
-
-<!-- subject search -->
-<script type="text/ng-template" id="search-subject">
-  <i class="fa fa-search"></i> 
-  <input data-kitin-search-entity
-        data-filter="{{search_filter}}"
-        data-service-url="{{API_PATH}}/auth/_search"
-        data-completion-template="{{search_completion_template}}" type="text" placeholder=""
-        data-allow-non-auth="{{scheme.allowNonAuth}}">
-</script>
-
-<!-- subject list -->
-<script type="text/ng-template" id="view-subject" >
-  <a ng-init="subjectLabel = (object.prefLabel || object.uniformTitle || object.controlledLabel  || object.notation || object.name)" ng-show="subjectLabel" href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ subjectLabel }}</a> 
-
-  <a data-ng-repeat="broader in object.broader" href="#">
-    {{broader.prefLabel}}
-    <span data-ng-show="broader.notation">({{ broader.notation }}) </span>
-    <span class="subject-delimiter" data-ng-hide="$last">--</span>
-  </a> 
-  <i data-ng-click="doRemove($index)" class="no">&times;</i>
-</script>
-
-<!-- subject suggest -->
-<script type="text/html" id="subject-completion-template">
-  <div class="auth">
-    <% if (data['prefLabel']) { %>
-      <h4>
-        <span class="name" title="<%= data['@id']%>"><%= data['prefLabel']%></span>
-          <% if (isLinked(data)) { %>
-            <!-- TODO: fix auth
-            <span class="what">Se aukt. post <i class="fa fa-sign-out"></i></span>
-            -->
-            <span class="what"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> Aukt.</span>
-          <% } %>
-      </h4>
-      <% if (data['historyNote']) { %>
-        <div><em><%= data['historyNote']%></em></div>
-      <% } %>
-      <% if (data['hiddenLabel']) { %>
-        <div><span class="">Används ej: <%= data['hiddenLabel']%></span></div>
-      <% } %>   
-      <% if (data['scopeNote']) { %>
-      <ul class="about">
-        <li><%= data['scopeNote']%></li>
-      </ul>
-      <% } %>
-    <% } else {%>
-      <h4>
-        <%= value%>
-      </h4>
-    <% } %>
-  </div>
-</script>
-
-
 
 {% endraw %}

@@ -47,6 +47,7 @@
           <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.abbreviatedTitle.titleValue"></textarea>
         </label>
 
+        <!-- INFLUENTIAL RELATION TITLE  START -->
         <label class="datatable" data-ng-target="influentialRelationTable" 
           data-kitin-data-table 
           data-table-model="record.about.influentialRelation" 
@@ -75,6 +76,7 @@
             </button>
           </td>
         </script>
+        <!-- INFLUENTIAL RELATION TITLE  END -->
 
         <label>
           <span class="lbl" translate>LABEL.record.about.isPartOf</span>
@@ -95,6 +97,7 @@
           </ul>
         </label>
 
+        <!-- LANGUAGES  START -->
         <label>
           <span class="lbl" translate>LABEL.record.about.language</span>
           <ul class="tags" data-kitin-link-entity
@@ -114,14 +117,17 @@
               data-search-template="render-search-language">
           </ul>
         </label>
+
+        <!-- RENDER LANGUAGE TEMPLATE  START -->
         <script type="text/ng-template" id="render-language">
               <a href="#">
                 <i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.prefLabel }} <span data-ng-show="object.langCode">({{ object.langCode }})</span>
               </a> 
               <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
-          
         </script>
+        <!-- RENDER LANGUAGE TEMPLATE  END -->
 
+        <!-- SEARCH LANGUAGE TEMPLATE  START -->
         <script type="text/ng-template" id="render-search-language">
             <i class="fa fa-search"></i> <input data-inplace class="input-large authdependant embedded" type="text"
                   placeholder="Lägg till språk"
@@ -131,6 +137,9 @@
                   data-filter="{ filter: 'about.@type:Language'}"
                   data-completion-template="select-language-template" placeholder="+ Lägg till språk">
         </script>
+        <!-- SEARCH LANGUAGE TEMPLATE  START -->
+
+        <!-- SELECT LANGUAGE TEMPLATE  START -->
         <script type="text/html" id="select-language-template">
           <div class="auth">
             <h4>
@@ -138,7 +147,9 @@
             </h4>
           </div>
         </script>
+        <!-- SELECT LANGUAGE TEMPLATE  END -->
 
+        <!-- LANGUAGE NOTE  START -->
         <label class="datatable" data-ng-target="languageNoteTable" 
           data-kitin-data-table 
           data-table-model="record.about.languageNote" 
@@ -167,6 +178,8 @@
             </button>
           </td>
         </script>
+        <!-- LANGUAGE NOTE  END -->
+        <!-- LANGUAGES  END -->
 
         <label>
           <span class="lbl" translate>LABEL.record.about.alphabet</span>
@@ -191,6 +204,7 @@
         </label>
 
       </div>
+      <!-- PERSONS  START -->
       <div class="col6">
         <label>
           <span class="lbl" translate>LABEL.record.about.responsibilityStatement</span>
@@ -231,6 +245,7 @@
 
     <div class="element-adder" data-element-adder="title_and_main_entry"></div>
 
+    <!-- RENDER SEARCH AUTH TEMPLATE  START -->
     <script type="text/ng-template" id="render-search-box">
       <label class="find-entity">
         <i class="fa fa-search"></i>
@@ -243,7 +258,9 @@
               data-allow-non-auth="true"/>
       </label>
     </script>
+    <!-- RENDER SEARCH AUTH TEMPLATE  END -->
 
+    <!-- RENDER PERSON TEMPLATE  START -->
     <script type="text/ng-template" id="render-person">
       <div data-ng-if="isLinked(object) && !isEmpty(object)" class="entity person linked" tabindex="0">
         <div class="main">
@@ -297,7 +314,9 @@
            data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a>
       </div>
     </script>
+    <!-- RENDER PERSON TEMPLATE  END -->
 
+    <!-- RENDER ROLES TEMPLATE  START -->
     <script type='text/ng-template' id="roles">
       <ul data-kitin-link-entity
           class="tags"
@@ -311,11 +330,16 @@
       <button class="btn btn-dark" data-ng-if="editable.on"
               data-ng-click="editable.on = false">ok</button>
     </script>
+    <!-- RENDER ROLES TEMPLATE  END -->
 
+    <!-- RENDER ROLE TEMPLATE  START -->
     <script type='text/ng-template' id="render-role">
       {{ object.label }} <em>({{ object.notation }})</em>
       <a href="#" data-ng-click="doRemove($index)"><i class="no">&times;</i></a>
     </script>
+    <!-- RENDER ROLE TEMPLATE  END -->
+
+    <!-- RENDER SEARCH ROLE TEMPLATE  START -->
     <script type='text/ng-template' id="render-search-role">
       <label class="add-item">
         <i class="fa fa-search"></i>
@@ -325,7 +349,9 @@
               data-completion-template="select-role-template" />
       </label>
     </script>
+    <!-- RENDER SEARCH ROLE TEMPLATE  END -->
 
+    <!-- COMPLETION ROLE TEMPLATE  START -->
     <script type="text/html" id="select-role-template">
       <div class="auth">
         <h4>
@@ -333,7 +359,9 @@
         </h4>
       </div>
     </script>
+    <!-- COMPLETION ROLE TEMPLATE  END -->
 
+    <!-- MODAL EDIT AUTH TEMPLATE  START -->
     <script type='text/ng-template' id="modal-edit-auth"> 
           <div class="modal-header">
            <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
@@ -343,8 +371,9 @@
             <div ng-include="'/partials/edit/auth'"></div>
           </div>
     </script> 
+    <!-- MODAL EDIT AUTH TEMPLATE  END -->
 
-    <!-- person completion presentation -->
+    <!-- AUTH COMPLETION TEMPLATE  START -->
     <script type="text/html" id="auth-completion-template">
       <div class="auth">
       <% if (nameRepr(data) !== ", ") { %>
@@ -373,6 +402,8 @@
         <% } %>
       </div>
     </script>
+    <!-- AUTH COMPLETION TEMPLATE  END -->
 
+    <!-- PERSONS  END -->
 
 {% endraw %}

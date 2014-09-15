@@ -2,6 +2,8 @@
   <div>
     <h2>Fysisk beskrivning<i></i></h2>
     <div class="cols">
+      
+      <!-- ADDITIONAL CARRIER TYPE START -->
       <label>
         <span class="lbl" translate>LABEL.record.about.additionalCarrierType</span>
         <ul class="tags" data-kitin-link-entity
@@ -12,33 +14,45 @@
             data-filter="about.inCollection.@id:\/def\/enum\/content\/additionalCarrierType\-collection">
         </ul>
       </label>
+      <!-- ADDITIONAL CARRIER TYPE END -->
+
       <div class="col6" data-ng-show="record.about.material['@id']">
+        <!-- MATERIAL START -->
         <label>
           <span class="lbl" translate>LABEL.record.about.material</span>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.material['@id']" placeholder="">
-         </label>
+        </label>
+        <!-- MATERIAL END -->
       </div>
       <div class="col6" data-ng-show="record.about.relief['@id']">
+        <!-- RELIEF START -->
         <label>
           <span class="lbl" translate>LABEL.record.about.relief</span>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.relief['@id']" placeholder="">
-         </label>
+        </label>
+        <!-- RELIEF END -->
       </div>
     </div>
     <div class="cols">
     	<div class="col6" data-ng-show="record.about.fileType">
+        <!-- RELIEF START -->
         <label>
           <span class="lbl" translate>LABEL.record.about.fileType</span>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.fileType" placeholder="">
-         </label>
+        </label>
+        <!-- RELIEF START -->
       </div>
       <div class="col6" data-ng-show="record.about.index['@id']">
+        <!-- INDEX START -->
         <label>
           <span class="lbl" translate>LABEL.record.about.index</span>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.index['@id']" placeholder="">
          </label>
+         <!-- INDEX END -->
       </div>
     </div>
+
+    <!-- HAS FORMAT  START -->
     <div class="cols" data-ng-repeat="(formatType, subFormat) in record.about.hasFormatByType">
 
       <h3 ng-if="subFormat.length > 0" class="ng-binding" translate>{{ 'LABEL.record.about.hasFormat.' + formatType }}</h3>
@@ -251,88 +265,93 @@
         </div>
         <!-- Rest END -->
 
+      </div>
     </div>
-  </div>
+    <!-- HAS FORMAT  END -->
 
-  <div class="cols">
-  	<div class="col6">
-    <label>
-      <span class="lbl" translate>LABEL.record.about.illustrations</span>
-      <div data-kitin-link-entity
-          data-subject="record.about"
-          data-link="'illustrations'"
-          data-view-template="/partials/edit/bib/_render_generic_tag_entity"
-          data-search-template="/partials/edit/bib/_render_generic_select"
-          data-filter="about.inCollection.@id:\/def\/enum\/content\/illustrations\-collection"
-          ng-init=" placeholder='Lägg till'; ">
-      </div>
-    </label>
-
-
-    <label>
-      <span class="lbl" translate>LABEL.record.about.nature</span>
-      <div data-kitin-link-entity
-          data-subject="record.about"
-          data-link="'nature'"
-          data-view-template="/partials/edit/bib/_render_generic_tag_entity"
-          data-search-template="/partials/edit/bib/_render_generic_select"
-          data-filter="about.inCollection.@id:\/def\/enum\/content\/nature\-collection"
-          ng-init=" placeholder='Lägg till'; ">
-      </div>
-    </label>
-
-
-    <label>
-      <span class="lbl" translate>LABEL.record.about.originalItem</span>
-      <div data-kitin-link-entity
-          data-subject="record.about"
-          data-link="'originalItem'"
-          data-view-template="/partials/edit/bib/_render_generic_tag_entity"
-          data-search-template="/partials/edit/bib/_render_generic_select"
-          data-filter="about.inCollection.@id:\/def\/enum\/content\/originalItem\-collection"
-          ng-init=" placeholder='Lägg till'; ">
-      </div>
-    </label>
-
-
-
- 	
-  	</div>
-  	<div class="col6">
-  	    <label>
-          <span class="lbl" translate>LABEL.record.about.runningTime</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.runningTime">
+    <div class="cols">
+    	<div class="col6">
+        <!-- ILLUSTRATIONS  START -->
+        <label>
+          <span class="lbl" translate>LABEL.record.about.illustrations</span>
+          <div data-kitin-link-entity
+              data-subject="record.about"
+              data-link="'illustrations'"
+              data-view-template="/partials/edit/bib/_render_generic_tag_entity"
+              data-search-template="/partials/edit/bib/_render_generic_select"
+              data-filter="about.inCollection.@id:\/def\/enum\/content\/illustrations\-collection"
+              ng-init=" placeholder='Lägg till'; ">
+          </div>
         </label>
-  	</div>
-  </div>
-  
-		<!-- More Map Details -->
+        <!-- ILLUSTRATIONS  END -->
 
-	<div class="cols">
-	  <div class="col6">
-        
-	  </div>
-	  <div class="col6">
-	  </div>
-      <div class="col6">
+        <!-- NATURE  START -->
         <label>
-          <span class="lbl" translate>LABEL.record.about.availability</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.availability" placeholder="">
-         </label> 
+          <span class="lbl" translate>LABEL.record.about.nature</span>
+          <div data-kitin-link-entity
+              data-subject="record.about"
+              data-link="'nature'"
+              data-view-template="/partials/edit/bib/_render_generic_tag_entity"
+              data-search-template="/partials/edit/bib/_render_generic_select"
+              data-filter="about.inCollection.@id:\/def\/enum\/content\/nature\-collection"
+              ng-init=" placeholder='Lägg till'; ">
+          </div>
+        </label>
+        <!-- NATURE  END -->
+
+        <!-- ORIGNIAL ITEM  START -->
         <label>
-          <span class="lbl" translate>LABEL.record.about.cartographicScale</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.cartographicScale" placeholder="">
-         </label>
-        <label>
-          <span class="lbl" translate>LABEL.record.about.cartographicCoordinates</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.cartographicCoordinates" placeholder="">
-         </label>
+          <span class="lbl" translate>LABEL.record.about.originalItem</span>
+          <div data-kitin-link-entity
+              data-subject="record.about"
+              data-link="'originalItem'"
+              data-view-template="/partials/edit/bib/_render_generic_tag_entity"
+              data-search-template="/partials/edit/bib/_render_generic_select"
+              data-filter="about.inCollection.@id:\/def\/enum\/content\/originalItem\-collection"
+              ng-init=" placeholder='Lägg till'; ">
+          </div>
+        </label>
+        <!-- ORIGNIAL ITEM  END -->
+
+      	</div>
+      	<div class="col6">
+            <!-- RUNNING TIME  START -->
+      	    <label>
+              <span class="lbl" translate>LABEL.record.about.runningTime</span>
+              <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.runningTime">
+            </label>
+            <!-- RUNNING TIME  END -->
+      	</div>
       </div>
-      
-	</div>
+    
+  	<!-- More Map Details -->
 
-  <div class="cols">
-    <div class="col6">
+  	<div class="cols">
+  	  <div class="col6">
+          
+  	  </div>
+  	  <div class="col6">
+  	  </div>
+        <div class="col6">
+          <label>
+            <span class="lbl" translate>LABEL.record.about.availability</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.availability" placeholder="">
+           </label> 
+          <label>
+            <span class="lbl" translate>LABEL.record.about.cartographicScale</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.cartographicScale" placeholder="">
+           </label>
+          <label>
+            <span class="lbl" translate>LABEL.record.about.cartographicCoordinates</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.cartographicCoordinates" placeholder="">
+           </label>
+        </div>
+        
+  	</div>
+
+    <div class="cols">
+      <div class="col6">
+        <!-- CARTOGRAPHICAL ASCENSION AND DECLINATION  START -->
         <label>
           <div class="datatable" data-ng-target="cartographicAscensionAndDeclination" 
             data-kitin-data-table 
@@ -364,6 +383,7 @@
             </td>
           </script>
         </label>
+        <!-- CARTOGRAPHICAL ASCENSION AND DECLINATION  END -->
       </div>
     </div>
   </div>
