@@ -23,7 +23,7 @@
     <!-- SUBJECT BY TYPE  START -->
     <div data-ng-repeat="(key, container) in record.about.subjectByType" class="scheme tagsinput"
        data-ng-init="scheme = subjectByType[key];
-                     search_filter = (key === '/topic/chronological') ? { filter: 'about.inCollection.@id:\\/topic\\/chronological\\/'} : { filter: 'about.@type:' + key};
+                     search_filter = (key === '/topic/chronological') ? { filter: 'about.inCollection.@id:\/topic\/chronological\/'} : { filter: 'about.@type:' + key};
                      search_completion_template = key === 'Person' ? 'auth-completion-template' : 'subject-completion-template';">
       <span class="lbl">{{ scheme.alternative || scheme.title || scheme.title_en }}</span>
       <ul class="tags" data-kitin-link-entity
@@ -149,13 +149,12 @@
         </script>
 
         <script type="text/ng-template" id="render-search-classification">
-        {{object}}
             <i class="fa fa-search"></i> <input data-inplace class="input-large authdependant embedded" type="text"
                   data-no-value="{{ object.notation }}"
                   data-kitin-search-entity
-                  data-service-url="http://www.example.com"
-                  data-filter=""
-                  data-completion-template="select-language-template" 
+                  data-service-url="{{API_PATH}}/auth/_search"
+                  data-filter="{ filter: 'about.inCollection.@id:{{classificationScheme}}'}"
+                  data-completion-template="auth-completion-template" 
                   data-allow-non-auth="true"
                   placeholder="+ Lägg till klassifikation">
         </script>
@@ -178,7 +177,7 @@
           data-view-template="/partials/edit/bib/_render_generic_tag_entity"
           data-search-template="/partials/edit/bib/_render_generic_select"
           data-search-placeholder="Lägg till litterär genre"
-          data-filter="about.inCollection.@id:\/def\/enum\/content\/literaryForm\-collection"
+          data-filter="about.inCollection.@id:/def/enum/content/literaryForm-collection"
           ng-init=" placeholder='Lägg till litterär genre'; ">
       </div>
     </label>
@@ -189,7 +188,7 @@
           data-link="'biography'"
           data-view-template="/partials/edit/bib/_render_generic_tag_entity"
           data-search-template="/partials/edit/bib/_render_generic_select"
-          data-filter="about.inCollection.@id:\/def\/enum\/content\/biography\-collection"
+          data-filter="about.inCollection.@id:/def/enum/content/biography-collection"
           ng-init=" placeholder='Lägg till'; ">
       </div>
     </label>
@@ -200,7 +199,7 @@
           data-link="'confPub'"
           data-view-template="/partials/edit/bib/_render_generic_tag_entity"
           data-search-template="/partials/edit/bib/_render_generic_select"
-          data-filter="about.inCollection.@id:\/def\/enum\/content\/confPub\-collection"
+          data-filter="about.inCollection.@id:/def/enum/content/confPub-collection"
           ng-init=" placeholder='Lägg till'; ">
       </div>
     </label>
@@ -211,7 +210,7 @@
           data-link="'festschrift'"
           data-view-template="/partials/edit/bib/_render_generic_tag_entity"
           data-search-template="/partials/edit/bib/_render_generic_select"
-          data-filter="about.inCollection.@id:\/def\/enum\/content\/festschrift\-collection"
+          data-filter="about.inCollection.@id:/def/enum/content/festschrift-collection"
           ng-init=" placeholder='Lägg till'; ">
       </div>
     </label>

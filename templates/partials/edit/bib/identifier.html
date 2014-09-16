@@ -27,7 +27,7 @@
           <td><span class="lbl" translate>LABEL.record.about.identifers.isbn.identifierNote</span></td>
         </script>
         <script type="text/ng-template" id="isbn-row-template">
-          <td><label><input data-inplace type="text" data-inplace name="isbn_name" data-ng-model="object['identifierValue']" data-isbn-pattern="^$|^[0-9\-xX]*$" isbnvalidator/></label></td>
+          <td><label><input data-inplace type="text" data-inplace name="isbn_name" data-ng-model="object['identifierValue']" data-isbn-pattern="^$|^[0-9-xX]*$" isbnvalidator/></label></td>
           <td><label><input data-inplace ng-model="object['identifierNote']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
           <td class="controls">
             <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>

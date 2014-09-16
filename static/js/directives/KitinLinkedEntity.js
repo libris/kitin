@@ -30,7 +30,9 @@ kitin.directive('kitinLinkEntity', ['editService', function(editService) {
       $scope.viewTemplate = $attrs.viewTemplate;
       $scope.searchTemplate = $attrs.searchTemplate;
       $scope.serviceUrl = $attrs.serviceUrl;
-      $scope.filter = $attrs.filter;
+      if($attrs.filter) {
+        $scope.filter = $attrs.filter.replace(/\//g,'\\/').replace(/-/g, '\\-');
+      }
       $scope.type = $attrs.type;
 
       var linkKey = $attrs.link;
@@ -53,7 +55,9 @@ kitin.directive('kitinLinkEntity', ['editService', function(editService) {
         } else {
           $scope.object = obj;
           $scope.$watch($attrs.subject[link], function (newVal, oldVal) {
-            $scope.object = newVal;
+            if(typeof newVal !== 'undefined') {
+              $scope.object = newVal;
+            }
           });
         }
       } else {
@@ -69,7 +73,7 @@ kitin.directive('kitinLinkEntity', ['editService', function(editService) {
           $scope.object = added;
         }
         $scope.viewmode = true;
-        if($scope.searchTemplate) { angular.element($scope.searchTemplate).focus(); }
+        //if($scope.searchTemplate) { angular.element($scope.searchTemplate).focus(); }
       };
 
       $scope.doRemove = function (index) {
