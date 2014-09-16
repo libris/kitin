@@ -75,6 +75,7 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editService', function(def
         },
 
         onItemSelect: function(item, completer) {
+          
           var owner = scope.subject;
           // TODO: if multiple, else set object (and *link*, not copy (embed copy in view?)...)
           if(makeReferenceOnItemSelect) {
@@ -82,7 +83,7 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editService', function(def
               linker.doAdd(referenced);
             });
           } else {
-            linker.doAdd(item.data);
+            linker.doAdd(_.isEmpty(item.data) ? item.value : item.data);
           }
           
           delete item.data._source;
@@ -136,30 +137,51 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editService', function(def
         options.useCache = true;
         options.maxItemsToShow = 0; // show all
 
+        options.beforeUseConverter = function (value) {
+          searchedValue = value; // Store searched value
+          return value + '*';
+        };
+
         options.processData = function (doc) {
-          return data.items;
+          var result = [];
+          if(doc && doc.items && doc.items.length > 0) {
+            result = doc.items;
+          }
+          if(attrs.allowNonAuth === 'true' && searchedValue) {
+            result.unshift({ 
+              value: searchedValue, 
+              data: searchedValue
+            });
+          }
+          return result;
         };
 
         options.filter = function (result, inputval) {
-          var data = result.data;
-          var label = data[sourceCfg.labelKey].toLowerCase();
-          var code = data[sourceCfg.codeKey].toLowerCase();
-          var sel = inputval.toLowerCase();
-          return label.indexOf(sel) === 0 || code.indexOf(sel) === 0;
+          if(sourceCfg) {
+            var data = result.data;
+            var label = data[sourceCfg.labelKey].toLowerCase();
+            var code = data[sourceCfg.codeKey].toLowerCase();
+            var sel = inputval.toLowerCase();
+            return label.indexOf(sel) === 0 || code.indexOf(sel) === 0;
+          } else {
+            return true;
+          }
         };
 
         elem.autocomplete(options);
         elem.on('focus', function () {
-          var items = itemsCache[source];
-          if (typeof items === 'undefined') {
-            var loadingClass = elem.data('autocompleter').options.loadingClass;
-            elem.addClass(loadingClass);
-            definitions[source].then(function (struct) {
-              elem.removeClass(loadingClass);
-              data.items = itemsCache[source] = getItems(sourceCfg, struct);
-            });
-          } else {
-            data.items = items;
+          if(source) {
+            var items = itemsCache[source];
+            if (typeof items === 'undefined') {
+              var loadingClass = elem.data('autocompleter').options.loadingClass;
+              elem.addClass(loadingClass);
+              definitions[source].then(function (struct) {
+                elem.removeClass(loadingClass);
+                data.items = itemsCache[source] = getItems(sourceCfg, struct);
+              });
+            } else {
+              data.items = items;
+            }
           }
         });
 

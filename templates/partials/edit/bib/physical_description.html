@@ -16,6 +16,32 @@
       </label>
       <!-- ADDITIONAL CARRIER TYPE END -->
 
+      <div class="col6">
+        <label>
+          <span class="lbl" translate>LABEL.record.about.exampleOfWork</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.exampleOfWork.title" placeholder="">
+        </label>
+        <label>
+          <span class="lbl" translate>LABEL.record.about.exampleOfWork.partNumber</span>
+          <ul class="tags" data-kitin-link-entity
+              data-subject="record.about.exampleOfWork"
+              data-link-multiple="'partNumber'" data-type="partNumber"
+              data-search-template="/partials/edit/bib/_render_generic_non_auth_add"
+              data-view-template="/partials/edit/bib/_render_non_auth_tag">
+          </ul>
+        </label>
+        <label>
+          <span class="lbl" translate>LABEL.record.about.exampleOfWork.subtitle</span>
+          <ul class="tags" data-kitin-link-entity
+              data-subject="record.about.exampleOfWork"
+              data-link-multiple="'subtitle'" data-type="subtitle"
+              data-search-template="/partials/edit/bib/_render_generic_non_auth_add"
+              data-view-template="/partials/edit/bib/_render_non_auth_tag">
+          </ul>
+        </label>
+      </div>
+
+
       <div class="col6" data-ng-show="record.about.material['@id']">
         <!-- MATERIAL START -->
         <label>

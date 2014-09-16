@@ -180,6 +180,7 @@ kitin.service('editService', function(definitions, $http, $q) {
         case 'IssueNumber':
         case 'audience':
         case 'summary':
+        case 'subtitle':
           return '';
         default:
           return {};
