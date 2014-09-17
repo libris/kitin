@@ -19,7 +19,7 @@
   },
 
   "Monograph": {
-    "attributedTo": {},
+    "attributedTo": [],
     "influencedBy": [],
     "identifierByIdentifierScheme": {
       "/def/identifiers/isbn": []

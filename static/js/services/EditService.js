@@ -16,6 +16,7 @@ kitin.service('editService', function(definitions, $http, $q) {
   */
   function mergeProperties(propertyKey, firstObject, secondObject) {
     var propertyValue = firstObject[propertyKey];
+
       if (_.isObject(propertyValue) || _.isArray(propertyValue)) {
         // Second object is missing a node, return first objects node
         if(typeof secondObject[propertyKey] === 'undefined' || _.isEmpty(secondObject[propertyKey])) {
@@ -43,12 +44,20 @@ kitin.service('editService', function(definitions, $http, $q) {
 
       // Merge first object and its properties.
       for (var propertyKey in firstObject) {
+          if(propertyKey === 'attributedTo')
+            console.log('first pre', propertyKey, _.isArray(firstObject[propertyKey]), firstObject[propertyKey], secondObject[propertyKey]);
           finalObject[propertyKey] = mergeProperties(propertyKey, firstObject, secondObject);
+          if(propertyKey === 'attributedTo')
+            console.log('first pos', propertyKey, _.isArray(firstObject[propertyKey]), firstObject[propertyKey], secondObject[propertyKey]);
       }
 
       // Merge second object and its properties, to add missing properties from second to first object.
       for (propertyKey in secondObject) {
+          if(propertyKey === 'attributedTo')
+            console.log('second pre', propertyKey, _.isArray(secondObject[propertyKey]), firstObject[propertyKey], secondObject[propertyKey]);
           finalObject[propertyKey] = mergeProperties(propertyKey, secondObject, firstObject);
+          if(propertyKey === 'attributedTo')
+            console.log('second pos', propertyKey, _.isArray(secondObject[propertyKey]), firstObject[propertyKey], secondObject[propertyKey]);
       }
 
       return finalObject;
@@ -401,7 +410,9 @@ kitin.service('editService', function(definitions, $http, $q) {
         agent._reifiedRoles = this.makeVolatileArray();
       }.bind(this);
 
-      prepareAgent(instance.attributedTo);
+      if (instance.attributedTo) {
+        instance.attributedTo.forEach(prepareAgent);
+      }
       if (instance.influencedBy) {
         instance.influencedBy.forEach(prepareAgent);
       }
