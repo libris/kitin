@@ -2,6 +2,7 @@
     "LABEL": {
         "record": {
             
+            "about.abbreviatedTitle": "Förkortad titel",
             "about.instanceTitle.titleValue": "Huvudtitel",
             "about.instanceTitle.subtitle": "Övrig titelinformation",
             "about.instanceTitle.partEnumeration": "Delbeteckning",
@@ -96,8 +97,13 @@
             "about.hasFormat.VideoRecording.carrierType": "Bärartyp",
             "about.hasFormat.VideoRecording.videoFormat": "Videoformat",
             
-            "about.isPartOf": "Del av",
+            "about.hasPart": "Del inom samling",
+            
+            "about.isPartOf": "Värdpublikation",
             "about.isPartOf.title": "isPartOfTitle",
+            
+            "about.relation": "Länkfält",
+            "about.relation.linkNote": "Anmärkning",
 
             "about.summary": "Innehållsbeskrivning, sammanfattning",
             "about.languageNote": "Språkanmärkning",
@@ -109,6 +115,17 @@
             "about.systemRequirements": "Systemkrav",
             "about.audience.label": "Målgrupp",
             "about.scopeNote": "Relaterade delar",
+           
+			"about.alphabet": "Alfabet/Skriftart",
+			"about.audience": "Målgrupp",
+			"about.confPub": "Konferenspublikation",
+			"about.contentType": "Form för utgåva",
+			"about.festschrift": "Festskrift",
+			"about.illustrations": "Illustrationer i resursen",
+			"about.nature": "Innehållsmässig karaktär",
+			"about.originalItem": "Bärartyp",
+            "about.runningTime": "Speltid",
+           
 
             "about.genre": "Genre",
             
