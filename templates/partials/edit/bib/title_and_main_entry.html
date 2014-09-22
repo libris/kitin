@@ -251,10 +251,9 @@
         </label>
         <label>
           <span class="lbl" translate>LABEL.record.about.attributedTo</span>
-          <div ng-repeat="attributedTo in record.about.attributedTo"
-              data-kitin-link-entity
+          <div data-kitin-link-entity
               data-ng-init="label = 'Lägg till huvuduppslag'"
-              data-subject="record.about.attributedTo" data-link="$index" data-type="Person"
+              data-subject="record.about" data-link="'attributedTo'" data-type="Person"
               data-view-template="render-person"
               data-search-template="render-search-box">
           </div>
