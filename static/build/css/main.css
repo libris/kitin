@@ -2104,7 +2104,7 @@ label.find-entity input[type="text"] {
   border: 1px solid transparent;
   padding: 3px 6px;
   margin-bottom: 1em;
-  overflow: auto;
+  /*   overflow: auto; */
   border-radius: 2px;
 }
 .edit .entity.addmore {
