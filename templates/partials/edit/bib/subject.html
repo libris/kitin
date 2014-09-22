@@ -173,6 +173,21 @@
     <!-- CLASSIFICATION  END -->
 
     <h3 translate>LABEL.record.about.genre</h3>
+        <!-- NATURE  START -->
+        <label>
+          <span class="lbl" translate>LABEL.record.about.nature</span>
+          <div data-kitin-link-entity
+              data-subject="record.about"
+              data-link="'nature'"
+              data-view-template="/partials/edit/bib/_render_generic_tag_entity"
+              data-search-template="/partials/edit/bib/_render_generic_select"
+              data-filter="about.inCollection.@id:/def/enum/content/nature-collection"
+              ng-init=" placeholder='Lägg till'; ">
+          </div>
+        </label>
+        <!-- NATURE  END -->
+        
+        <!-- LITERARY FORM  START -->        
     <label>
       <span class="lbl" translate>LABEL.record.about.literaryForm</span>
       <div data-kitin-link-entity
@@ -185,6 +200,9 @@
           ng-init=" placeholder='Lägg till litterär genre'; ">
       </div>
     </label>
+        <!-- LITERARY FORM  END -->  
+
+        <!-- BIOGRAPHY  START --> 
     <label>
       <span class="lbl" translate>LABEL.record.about.biography</span>
       <div data-kitin-link-entity
@@ -196,6 +214,9 @@
           ng-init=" placeholder='Lägg till'; ">
       </div>
     </label>
+        <!-- BIOGRAPHY END --> 
+
+        <!-- CONFERENCE PUBLICATION START --> 
     <label>
       <span class="lbl" translate>LABEL.record.about.confPub</span>
       <div data-kitin-link-entity
@@ -207,6 +228,8 @@
           ng-init=" placeholder='Lägg till'; ">
       </div>
     </label>
+        <!-- CONFERENCE PUBLICATION END --> 
+
         <!-- FESTSCHRIFT  START -->
     <label>
       <span class="lbl" translate>LABEL.record.about.festschrift</span>
@@ -221,19 +244,18 @@
     </label>
         <!-- FESTSCHRIFT  END -->
         
-        <!-- NATURE  START -->
-        <label>
-          <span class="lbl" translate>LABEL.record.about.nature</span>
-          <div data-kitin-link-entity
-              data-subject="record.about"
-              data-link="'nature'"
-              data-view-template="/partials/edit/bib/_render_generic_tag_entity"
-              data-search-template="/partials/edit/bib/_render_generic_select"
-              data-filter="about.inCollection.@id:/def/enum/content/nature-collection"
-              ng-init=" placeholder='Lägg till'; ">
-          </div>
-        </label>
-        <!-- NATURE  END -->
+          <!-- AUDIENCE  START -->
+          <label>
+            <span class="lbl" translate>LABEL.record.about.audience</span>
+            <ul class="tags" data-kitin-link-entity
+                data-subject="record.about"
+                data-link="'audience'" data-type="audience"
+                data-view-template="/partials/edit/bib/_render_generic_linked_entity"
+                data-search-template="/partials/edit/bib/_render_generic_select"
+                data-filter="about.inCollection.@id:/def/enum/content/audience-collection">
+            </ul>
+          </label>
+          <!-- AUDIENCE  END -->
   </div>
 </div>
 
