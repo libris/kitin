@@ -2,10 +2,10 @@
  * isbnTools
  *
  */
-kitin.factory('isbnTools', function($http, $q) {
+kitin.factory('isbnTools', function($http, $q, $rootScope) {
   function doCheck(isbn) {
     var deferred = $q.defer();
-    var url = "/_isxntool?isbn=" + isbn;
+    var url = $rootScope.API_PATH + "/_isxntool?isbn=" + isbn;
     $http.get(url).success(function(data) {
       deferred.resolve(data);
     });
