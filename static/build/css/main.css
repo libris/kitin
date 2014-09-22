@@ -2795,6 +2795,7 @@ a.beta-blocker {
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   border-radius: 0px;
+  background-color: #ffffff;
 }
 .alert span {
   display: block;
@@ -2819,7 +2820,6 @@ a.beta-blocker {
   height: 120px;
   width: 310px;
   border: 5px solid #f7f3ee;
-  background-color: #ffffff;
   color: #191919;
 }
 .alert-loading .loading-text {
