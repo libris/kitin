@@ -3,7 +3,7 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
 
   // Core Utilities
   $rootScope.lodash = _;
-  $rootScope.isEmpty = function(obj) { return angular.equals({},obj); };
+  $rootScope.isEmpty = function(obj) { return _.isEmpty(obj); };
   $rootScope.typeOf = function (o) { return o === null? 'null' : typeof o; };
   $rootScope.exists = function(o) { return typeof o !== 'undefined'; };
 
