@@ -29,7 +29,9 @@
   "Serial": {
     "keyTitle": {
         "@type": "Title",
-        "titleValue": ""
+        "titleValue": "",
+        "titleQualifier": "",
+        "titleSource": ""
     },
     "comment": [],
     "influencedBy": [],
@@ -49,7 +51,10 @@
     "instanceTitle": {
       "@type": "Title",
       "titleValue": "",
-      "subtitle": ""
+      "subtitle": "",
+      "titleDate": "",
+      "partNumber": "",
+      "partTitle": ""
     },
     "responsibilityStatement": "",
     "publication": [],
@@ -94,8 +99,10 @@
     "instanceTitle": {
       "@type": "Title",
       "titleValue": "",
-      "partTitle": "",
-      "subtitle": ""
+      "subtitle": "",
+      "titleDate": "",
+      "partNumber": "",
+      "partTitle": ""
     },
     "cartographicScale": "",
     "cartographicCoordinates": "",
