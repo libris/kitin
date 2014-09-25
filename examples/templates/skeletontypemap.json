@@ -27,12 +27,14 @@
   },
 
   "Serial": {
-    "keyTitle": {
-        "@type": "Title",
-        "titleValue": "",
-        "titleQualifier": "",
-        "titleSource": ""
-    },
+    "keyTitle": [
+        {
+          "@type": "Title",
+          "titleValue": "",
+          "titleQualifier": "",
+          "titleSource": ""
+        }
+    ],
     "comment": [],
     "influencedBy": [],
     "identifierByIdentifierScheme": {
