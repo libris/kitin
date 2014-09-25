@@ -251,10 +251,9 @@
         </label>
         <label>
           <span class="lbl" translate>LABEL.record.about.attributedTo</span>
-          <div ng-repeat="attributedTo in record.about.attributedTo"
-              data-kitin-link-entity
+          <div data-kitin-link-entity
               data-ng-init="label = 'Lägg till huvuduppslag'"
-              data-subject="record.about.attributedTo" data-link="$index" data-type="Person"
+              data-subject="record.about" data-link="'attributedTo'" data-type="Person"
               data-view-template="render-person"
               data-search-template="render-search-box">
           </div>
@@ -270,14 +269,6 @@
               data-search-template="render-search-box">
           </div>
         </label>
-        <label data-ng-repeat="cartographer in record.about.cartographer">
-          <span class="lbl" translate>LABEL.record.about.cartographer</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="cartographer['@id']" placeholder="">
-         </label>
-        <label data-ng-repeat="author in record.about.author">
-          <span class="lbl" translate>LABEL.record.about.author</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="author['@id']" placeholder="">
-         </label> 
       </div>
     </div>
 
