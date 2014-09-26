@@ -1208,6 +1208,9 @@ section.nav dt i {
   border: none;
 }
 /*code override*/
+.json-ld span {
+  font-size: 12px;
+}
 .json-ld input {
   font-size: 12px;
   border-bottom: 1px dashed #dddddd;
