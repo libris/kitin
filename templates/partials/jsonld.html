@@ -35,12 +35,15 @@
           <span data-ng-click="openTermDef(key)">{{ key }}</span>
           <i data-ng-click="collapsed=!collapsed"> </i>
         </label>
-        <section data-ng-init="object = obj"
-            data-ng-include="'render-object'" class="entity"></section>
+        <section data-ng-init="object = obj;
+              linked = obj[ID] &amp;&amp; obj[ID].indexOf('_:') != 0 &amp;&amp; key != 'about'"
+            data-ng-include="'render-object'"
+            data-ng-class="{linked: linked}" class="entity"></section>
       </div>
       <span data-ng-switch-when="string">
         <code data-ng-click="openTermDef(key)">{{ key }}</code>
-        <input data-ng-model="obj" type="text" />
+        <input data-ng-if="!linked" data-ng-model="obj" type="text" />
+        <span data-ng-if="linked">{{ obj }}</span>
       </span>
     </ng:switch>
   </div>

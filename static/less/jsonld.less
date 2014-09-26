@@ -58,6 +58,14 @@
   transition: max-height 0.25s ease-in-out;
   overflow: auto;
 }
+.edit .json-ld .entity.linked,
+.edit .json-ld .entity.linked:hover {
+  background-color: @grey-warm;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, .4);
+  label {
+    background-color: inherit;
+  }
+}
 
 .collapsed > .entity {
   max-height: 2em;
