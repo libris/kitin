@@ -38,6 +38,7 @@
                   <span class="title-key">{{ record.data.about.instanceTitle.titleValue | chop }}</span>
                   <span class="title-subtitle">{{ record.data.about.instanceTitle.subtitle | chop }}
                   <span class="title-variation">{{ record.data.about.titleVariation.titleValue | chop }}</span>
+                  <span class="title-key-real" data-ng-repeat="keyTitle in record.data.about.keyTitle">{{ keyTitle.titleValue | chop }}</span>
                   <span class="title-creator"> {{ record.data.about.responsibilityStatement | chop }}</span></span>
                 </label>
   <!-- testing different layout, delete this if creator and subtitle should span in the same section.
