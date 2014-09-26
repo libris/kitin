@@ -27,10 +27,14 @@
   },
 
   "Serial": {
-    "keyTitle": {
-        "@type": "Title",
-        "titleValue": ""
-    },
+    "keyTitle": [
+        {
+          "@type": "Title",
+          "titleValue": "",
+          "titleQualifier": "",
+          "titleSource": ""
+        }
+    ],
     "comment": [],
     "influencedBy": [],
     "identifierByIdentifierScheme": {
@@ -49,7 +53,10 @@
     "instanceTitle": {
       "@type": "Title",
       "titleValue": "",
-      "subtitle": ""
+      "subtitle": "",
+      "titleDate": "",
+      "partNumber": "",
+      "partTitle": ""
     },
     "responsibilityStatement": "",
     "publication": [],
@@ -94,8 +101,10 @@
     "instanceTitle": {
       "@type": "Title",
       "titleValue": "",
-      "partTitle": "",
-      "subtitle": ""
+      "subtitle": "",
+      "titleDate": "",
+      "partNumber": "",
+      "partTitle": ""
     },
     "cartographicScale": "",
     "cartographicCoordinates": "",

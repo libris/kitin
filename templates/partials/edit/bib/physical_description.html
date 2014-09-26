@@ -9,8 +9,8 @@
         <ul class="tags" data-kitin-link-entity
             data-subject="record.about"
             data-link="'additionalCarrierType'" data-type="AdditionalCarrierType"
-            data-view-template="/partials/edit/bib/_render_generic_linked_entity"
-            data-search-template="/partials/edit/bib/_render_generic_select"
+            data-view-template="render-generic-linked-entity"
+            data-search-template="render-generic-select"
             data-filter="about.inCollection.@id:/def/enum/content/additionalCarrierType-collection">
         </ul>
       </label>
@@ -26,8 +26,8 @@
           <ul class="tags" data-kitin-link-entity
               data-subject="record.about.exampleOfWork"
               data-link-multiple="'partNumber'" data-type="partNumber"
-              data-search-template="/partials/edit/bib/_render_generic_non_auth_add"
-              data-view-template="/partials/edit/bib/_render_non_auth_tag">
+              data-search-template="render-generic-non-auth-add"
+              data-view-template="render-non-auth-tag">
           </ul>
         </label>
         <label>
@@ -35,8 +35,8 @@
           <ul class="tags" data-kitin-link-entity
               data-subject="record.about.exampleOfWork"
               data-link-multiple="'subtitle'" data-type="subtitle"
-              data-search-template="/partials/edit/bib/_render_generic_non_auth_add"
-              data-view-template="/partials/edit/bib/_render_non_auth_tag">
+              data-search-template="render-generic-non-auth-add"
+              data-view-template="render-non-auth-tag">
           </ul>
         </label>
       </div>
@@ -303,13 +303,27 @@
           <div data-kitin-link-entity
               data-subject="record.about"
               data-link="'illustrations'"
-              data-view-template="/partials/edit/bib/_render_generic_tag_entity"
-              data-search-template="/partials/edit/bib/_render_generic_select"
+              data-view-template="'render-generic-tag-entity'"
+              data-search-template="render-generic-select"
               data-filter="about.inCollection.@id:/def/enum/content/illustrations-collection"
               ng-init=" placeholder='Lägg till'; ">
           </div>
         </label>
         <!-- ILLUSTRATIONS  END -->
+
+        <!-- NATURE  START -->
+        <label>
+          <span class="lbl" translate>LABEL.record.about.nature</span>
+          <div data-kitin-link-entity
+              data-subject="record.about"
+              data-link="'nature'"
+              data-view-template="'render-generic-tag-entity'"
+              data-search-template="render-generic-select"
+              data-filter="about.inCollection.@id:/def/enum/content/nature-collection"
+              ng-init=" placeholder='Lägg till'; ">
+          </div>
+        </label>
+        <!-- NATURE  END -->
 
         <!-- ORIGNIAL ITEM  START -->
         <label>
@@ -317,8 +331,8 @@
           <div data-kitin-link-entity
               data-subject="record.about"
               data-link="'originalItem'"
-              data-view-template="/partials/edit/bib/_render_generic_tag_entity"
-              data-search-template="/partials/edit/bib/_render_generic_select"
+              data-view-template="'render-generic-tag-entity'"
+              data-search-template="render-generic-select"
               data-filter="about.inCollection.@id:/def/enum/content/originalItem-collection"
               ng-init=" placeholder='Lägg till'; ">
           </div>

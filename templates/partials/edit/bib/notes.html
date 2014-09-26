@@ -186,7 +186,18 @@
 
     <div class="cols">
       <div class="col6">
-		  	<!--empty-->
+          <!-- AUDIENCE  START -->
+          <label>
+            <span class="lbl" translate>LABEL.record.about.audience</span>
+            <ul class="tags" data-kitin-link-entity
+                data-subject="record.about"
+                data-link="'audience'" data-type="audience"
+                data-view-template="render-generic-linked-entity"
+                data-search-template="render-generic-select"
+                data-filter="about.inCollection.@id:/def/enum/content/audience-collection">
+            </ul>
+          </label>
+          <!-- AUDIENCE  END -->
       </div>
       <div class="col6" data-ng-show="record.about.note">
         <label>

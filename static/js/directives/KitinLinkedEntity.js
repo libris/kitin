@@ -54,11 +54,13 @@ kitin.directive('kitinLinkEntity', ['editService', function(editService) {
           $scope.objects = obj;
         } else {
           $scope.object = obj;
-          $scope.$watch($attrs.subject[link], function (newVal, oldVal) {
-            if(typeof newVal !== 'undefined') {
-              $scope.object = newVal;
-            }
-          });
+          if($attrs.subject[link]) {
+            $scope.$watch($attrs.subject[link], function (newVal, oldVal) {
+              if(typeof newVal !== 'undefined') {
+                $scope.object = newVal;
+              }
+            });
+          }
         }
       } else {
         $scope.objects = null;

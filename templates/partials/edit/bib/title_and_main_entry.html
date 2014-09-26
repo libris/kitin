@@ -85,7 +85,7 @@
             data-subject="record.about"
             data-link-multiple="'relation'" data-type="relation"
             data-view-template="render-relation-referenced-entity"
-            data-search-template="/partials/edit/bib/_render_bib_search">
+            data-search-template="render-bib-search">
         </ul>
         <script type="text/ng-template" id="render-relation-referenced-entity">
             <div><span class="lbl" translate>LABEL.record.about.relation.linkNote</span><input data-inplace class="ng-pristine ng-valid" type="text" ng-model="object.linkNote" /></div>
@@ -100,8 +100,8 @@
           <ul class="tags entity" data-kitin-link-entity
               data-subject="record.about"
               data-link-multiple="'isPartOf'" data-type="isPartOf"
-              data-view-template="/partials/edit/bib/_render_referenced_entity"
-              data-search-template="/partials/edit/bib/_render_bib_search">
+              data-view-template="render-referenced-entity"
+              data-search-template="render-bib-search">
           </ul>
         </label>
         <label>
@@ -109,8 +109,8 @@
           <ul class="tags entity" data-kitin-link-entity
               data-subject="record.about"
               data-link-multiple="'hasPart'" data-type="hasPart"
-              data-view-template="/partials/edit/bib/_render_referenced_entity"
-              data-search-template="/partials/edit/bib/_render_bib_search">
+              data-view-template="render-referenced-entity"
+              data-search-template="render-bib-search">
           </ul>
         </label>
 
@@ -120,8 +120,8 @@
           <ul class="tags entity" data-kitin-link-entity
               data-subject="record.about"
               data-link-multiple="'precededBy'" data-type="PrecededBy"
-              data-view-template="/partials/edit/bib/_render_referenced_entity"
-              data-search-template="/partials/edit/bib/_render_bib_search">
+              data-view-template="render-referenced-entity"
+              data-search-template="render-bib-search">
           </ul>
         </label>
         <label>
@@ -129,8 +129,8 @@
           <ul class="tags entity" data-kitin-link-entity
               data-subject="record.about"
               data-link-multiple="'succeededBy'" data-type="SucceededBy"
-              data-view-template="/partials/edit/bib/_render_referenced_entity"
-              data-search-template="/partials/edit/bib/_render_bib_search">
+              data-view-template="render-referenced-entity"
+              data-search-template="render-bib-search">
           </ul>
         </label>
 
@@ -223,8 +223,8 @@
           <ul class="tags" data-kitin-link-entity
               data-subject="record.about"
               data-link="'alphabet'" data-type="Alphabet"
-              data-view-template="/partials/edit/bib/_render_generic_linked_entity"
-              data-search-template="/partials/edit/bib/_render_generic_select"
+              data-view-template="render-generic-linked-entity"
+              data-search-template="render-generic-select"
               data-filter="about.inCollection.@id:/def/enum/content/alphabet-collection">
           </ul>
         </label>
@@ -234,8 +234,8 @@
           <ul class="tags" data-kitin-link-entity
               data-subject="record.about"
               data-link-multiple="'contentType'" data-type="contentType"
-              data-view-template="/partials/edit/bib/_render_generic_linked_entity"
-              data-search-template="/partials/edit/bib/_render_generic_select"
+              data-view-template="render-generic-linked-entity"
+              data-search-template="render-generic-select"
               data-filter="about.inCollection.@id:/def/enum/content/contentType-collection">
           </ul>
         </label>
