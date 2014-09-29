@@ -314,6 +314,9 @@ input[type="color"]:focus,
   content: '';
   margin: 0;
 }
+body.edit {
+  padding-bottom: 40px;
+}
 body.edit .footer footer {
   margin-top: 0px;
 }
