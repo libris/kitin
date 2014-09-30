@@ -397,11 +397,13 @@ body.edit .footer footer {
 }
 .btn-purple {
   background-color: #683568;
+  color: #ffffff;
 }
 .btn-purple:hover,
 .btn-purple:focus,
 .btn-purple:active {
   background-color: #573657;
+  color: #ffffff;
 }
 .btn-link {
   color: #1a8f72;
@@ -1954,6 +1956,11 @@ section.result .widget {
 }
 section.result .widget label {
   color: #666666;
+}
+section.result .btn-hld {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
 }
 section.result-pre {
   border-style: dashed;
