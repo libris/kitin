@@ -221,6 +221,20 @@ input[type="color"]:focus,
   font-weight: normal;
   font-style: italic;
 }
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../../fonts/OpenSans-Light-webfont.eot');
+  src: url('../../fonts/OpenSans-Light-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/OpenSans-Light-webfont.woff') format('woff'), url('../../fonts/OpenSans-Light-webfont.ttf') format('truetype'), url('../../fonts/OpenSans-Light-webfont.svg#OpenSansLight') format('svg');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../../fonts/OpenSans-LightItalic-webfont.eot');
+  src: url('../../fonts/OpenSans-LightItalic-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/OpenSans-LightItalic-webfont.woff') format('woff'), url('../../fonts/OpenSans-LightItalic-webfont.ttf') format('truetype'), url('../../fonts/OpenSans-LightItalic-webfont.svg#OpenSansLightItalic') format('svg');
+  font-weight: 300;
+  font-style: italic;
+}
 /*
 @font-face {
     .font-face('Open Sans', 'OpenSans-Semibold-webfont', 'OpenSansSemibold', semibold, normal);
@@ -1484,7 +1498,7 @@ ul.tags {
 }
 ul.tags li {
   display: inline-block;
-  margin: 0 1px 5px 5px;
+  margin: 0 5px 5px 0;
   padding: 2px 8px 3px 8px;
   font-size: 12px;
   background: #f7f3ee;
@@ -2028,7 +2042,7 @@ label.find-entity i {
   margin: 6px 0 0 6px;
 }
 label.find-entity input[type="text"] {
-  padding-left: 26px;
+  padding-left: 22px;
 }
 .col6 .entity input[type="text"],
 .col6 label.find-entity input[type="text"] {
@@ -2214,6 +2228,7 @@ label ::-webkit-input-placeholder {
   color: #c7c7c7;
   font-style: italic;
   font-size: 14px;
+  font-weight: 300;
 }
 input[type="text"]::-webkit-input-placeholder {
   color: #c7c7c7;
@@ -2276,7 +2291,7 @@ label input[type="text"],
 label select,
 .fakeinput {
   font-size: 15px;
-  padding: 2px 5px 0 5px;
+  padding: 0 5px 0 5px;
   height: 25px;
   border-radius: 2px;
 }
@@ -2289,7 +2304,6 @@ label select,
 label input[type="text"] {
   padding-top: 0;
   height: 25px;
-  padding-bottom: 2px;
 }
 label textarea,
 label input[type="text"],
@@ -2740,10 +2754,10 @@ section.result p.holding {
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   body label select {
     -webkit-appearance: none;
-    background: #ffffff url(/static/img/select-arrow.png) no-repeat 98% -2px;
+    background: #ffffff url(/static/img/select-arrow.png) no-repeat 100% -2px;
   }
   body label select:hover {
-    background: #ffffff url(/static/img/select-arrow.png) no-repeat 98% -92px;
+    background: #ffffff url(/static/img/select-arrow.png) no-repeat 100% -92px;
   }
   body label select:focus {
     border: 1px solid #adadad;
