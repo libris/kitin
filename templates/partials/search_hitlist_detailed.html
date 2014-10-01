@@ -137,10 +137,7 @@
               <div class="widget">
                 <div class="enc-level">
                   <div data-ng-include="'/partials/enc_level'" ng-init="encLevel = record.data.encLevel"></div>
-                  <span data-ng-if="record.data.encLevel == 8 ">
-                    Beståndsinformation ej tillgänglig
-                  </span>
-                  <span data-ng-if="record.data.encLevel != 8 && record.holdings.hits != null">
+                  <span data-ng-if="record.holdings.hits != null">
                     <i class="fa fa-thumb-tack"></i> {{record.holdings.hits}} bibliotek 
                   </span>
                 </div>
