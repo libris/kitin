@@ -119,7 +119,7 @@
                 <input type="text" placeholder="Sök personer">
               </span>
               <span class="linkchoice">
-                eller <a href="#">Skapa ny person</a>
+                eller <a href="#">Skapa ny</a>
               </span>
             </span>
           </li>
@@ -141,7 +141,7 @@
 	        <li><a href="#"><i class="fa fa-bookmark"></i> Bofink</a> <i class="no">&times;</i></li>
 	        <li><a href="#"><i class="fa fa-bookmark"></i> Burhöna</a> <i class="no">&times;</i></li>
 	        <li class="add-item">
-            <span class="add-link"><i class="fa fa-plus"></i> Lägg till ämnesord</span>
+            <span class="add-link"><i class="fa fa-plus"></i></span>
             <span class="search-field toggler">
               <i class="fa fa-search"></i>
               <input type="text" placeholder="Sök ämnesord">
@@ -168,9 +168,15 @@
 	        <li class="non-auth"><a href="#"> Enhörning</a> <i class="no">&times;</i></li>
 	        <li><a href="#"><i class="fa fa-bookmark"></i> Orangutang</a> <i class="no">&times;</i></li>
 	        <li class="add-item">
-            <span class="add-link"><i class="fa fa-plus"></i> Lägg till ämnesord</span>
-            <span class="search-field fake toggler">
-              <input type="text" class="toggler" placeholder="">
+            <span class="add-link"><i class="fa fa-plus"></i></span>
+            <span class="toggler">  
+              <span class="search-field">
+                <i class="fa fa-search"></i>
+                <input type="text" placeholder="Sök ämnesord">
+              </span>
+              <span class="linkchoice">
+                eller <a href="#">Skapa ny</a>
+              </span>
             </span>
           </li>
 	      </ul>
@@ -230,12 +236,21 @@
 	   		<input type="text">
 	   		<span class="help"><i class="fa fa-question-circle"></i> Hjälptext</span>
 	   	</label>
-    
-	   	<label class="">
-	   		<span class="lbl">Row input</i></span>
-	   		<input type="text">
-	   		<button class="add-thing btn-link ng-binding">Lägg till rad</button>
-	   	</label>
+      
+      <div class="datatable">
+  	   	<span class="lbl">Row input</i></span>
+        <table>
+          <tr>
+            <td>
+  	   		    <label><input type="text"></label>
+            </td>
+            <td class="controls">
+              <button class="btn-link deleter"><i class="fa fa-times"></i></button>
+            </td>
+          </tr>
+        </table>
+  	   	<button class="add-thing btn-link ng-binding">Lägg till rad</button>
+      </div>
     
 	   	<label class="warning">
 	   		<span class="lbl">Warning informational input <i class="fa fa-asterisk"></i></span>
