@@ -2,12 +2,12 @@
 .tagsinput{margin-bottom:12px}
 ul.tags { list-style:none;margin:3px 0 0 0;padding:0; }
 ul.tags li {
-  display: inline-block; margin: 0 5px 5px 0; padding: 2px 8px 3px 8px;
+  display: inline-block; margin: 0 2px 6px 0; padding: 3px 8px;
   font-size:12px;
   background: @grey-warm; color: @grey-very-dark;
   border-radius:2px;
 
-  i.no {margin-left:6px;font-weight:700;color:rgba(0,0,0,.4);cursor:pointer;font-size:14px}
+  i.no {margin-left:6px;font-weight:700;color:rgba(0,0,0,.4);cursor:pointer;font-size:14px;line-height:1}
   i.no:hover {color:@grey-very-dark;}
   a {color: @grey-very-dark;
 	  i {color:@green;}
@@ -17,7 +17,7 @@ ul.tags li {
     > i.no { color: @red; }
   }
   a .fa-check {color:@green-light;font-size:11px;margin-right:0;font-weight:100}
-	&.non-auth {border: 1px dashed @grey-light;background: none;padding: 1px 7px 2px 7px;}	
+	&.non-auth {border: 1px dashed @grey-light;background: none;padding: 2px 7px;}	
   &.search {
     background: none;
     border: 1px solid @grey-light;
@@ -42,6 +42,71 @@ ul.tags li {
     }
   }
 }
+  // Styles for adding tags
+ul.tags .add-item,
+.find-entity .add-item {
+  background: @green;
+  border: none;
+  cursor:pointer;
+  display: inline-block; 
+  margin: 0 2px 6px 0; 
+  padding: 3px 8px;
+  font-size:12px;
+  border-radius:2px;
+  .toggler { display:none }
+  .add-link {
+    color: #fff
+  }
+
+  i { margin-right:2px }
+  &:hover {
+    background: @green-dark;
+  }
+  &.active {
+    background: transparent;
+    cursor: default;
+    padding: 0;
+    .toggler {
+      display:inline-block;
+    }
+    .linkchoice {
+      color: @grey;
+    }
+    .search-field {
+      display:inline-block;
+      border: 1px solid @grey-light;
+      border-radius: 2px;
+      padding: 2px 7px 1px 7px;
+      margin-bottom: -1px; // prevents jump bug (chrome)
+      i { color:@grey; font-size:12px; }
+      &.fake {
+        border:none;
+        padding: 3px 0 2px 0;
+      }
+    }
+    input[type="text"] {
+      outline: none;
+      border: none;
+      font-size: 12px;
+      padding: 0;
+      width: 110px;
+      margin: 0;
+      &::-webkit-input-placeholder{font-size:12px;color:@grey-light;}
+      &:-moz-input-placeholder{font-size:12px;color:@grey-light}
+    }
+    .add-link{ display:none }
+  }
+}
+
+.find-entity .add-item {
+  background: @grey-darker;
+  &:hover{ 
+    background: @grey-very-dark; 
+  }
+  &.active:hover{
+    background: transparent;
+  }
+}
 
 
 .tagsinput .suggestions{border-top:1px solid @grey-lighter;padding-top:6px;margin-top:4px}
@@ -58,8 +123,6 @@ ul.tags.suggestions li {
 
 .tagsinput.free ul.tags{border:1px solid @grey-light;border-radius:3px;padding:7px 7px 0 7px}
 .tagsinput.free ul.tags.suggestions{border:none;border-radius:0;border:none;padding:4px 0 0 0}
-.tagsinput.free ul.tags li.add-item{border:none;padding: 2px 6px 2px 0;}
-.tagsinput.free ul.tags li.add-item input{padding-left:0}
 
 /* TAGS END ------------------------- */
 
