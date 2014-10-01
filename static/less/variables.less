@@ -1,27 +1,37 @@
-//Colors
+// Colors
 
-@white: #ffffff;          // background
+@white: #ffffff;
+@black: #000;
 @pink: #fa1963;           // holdings
-@red-lighter: #ffd4db;    // error/warning background
-@red: #FF0000;            // error/warning text
-@yellow-lighter: #f7ecb9; // highligt background!
-@yellow-lighter-hover: @yellow-lighter - #111;
+@red: #ee5d61;            // error/warning text
 @yellow: #d6ab00;         // highligt text, unused!
-@purple-lighter: #dda0dd; // holdings placeholder
-@purple-light: #a756a7;   // holdings headers
 @purple: #683568;         // holdings link etc
-@purple-dark: #573657;    // holdings button dark
-@green-lighter: #c8f4ea;  // dropdowns select
-@green-light: #27b492;    // buttons, headers
 @green: #1a8f72;          // links, backgrounds
-@green-dark: #106351;     // link and button hovers
-@green-darker: #0a5041;   // dark button hover
-@grey-warm: #eeeeeb;      // dropdown disabled selection
+
+@red-light: lighten(@red, 15%);
+@red-lighter: lighten(@red, 30%);
+@red-dark: darken(@red, 10%);
+
+@yellow-light: lighten(@yellow, 20%);
+@yellow-lighter: lighten(@yellow, 50%);
+@yellow-dark: darken(@yellow, 10%);
+
+@purple-light: lighten(@purple, 20%);
+@purple-lighter: lighten(@purple, 50%);
+@purple-dark: darken(@purple, 10%);
+
+@green-light: lighten(@green, 10%); // buttons, headers
+@green-lighter: lighten(@green, 50%);  // dropdowns select
+
+@green-dark: darken(@green, 20%);     // link and button hovers
+@green-darker: darken(@green, 40%);   // dark button hover
+
+@grey-warm: #eeeeec;      // dropdown disabled selection
 @grey-lighter: #ddddd8;   // unused? 
 @grey-light: #c7c7c3;     // delimiters
 @grey: #adada9;           // backgrounds, footer
 @grey-dark: #999996;      // lighter text color
-@grey-darker: #666664;    
+@grey-darker: #666664;    //
 @grey-very-dark: #191913; // font-color
 
 /* fonts
