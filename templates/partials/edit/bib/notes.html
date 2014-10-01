@@ -1,8 +1,6 @@
  {% raw %}
 <h2>{{ "Anmärkningar" }}<i></i></h2>
 
-    <div class="cols">
-      <div class="col6">
         <!-- COMMENT  START -->
         <label class="datatable" data-ng-target="commentTable" 
           data-kitin-data-table 
@@ -33,8 +31,7 @@
           </td>
         </script>
         <!-- COMMENT  END -->
-      </div>
-      <div class="col6">
+
         <!-- LIST OF CONTENTS  START -->
         <label>
           <div class="datatable" data-ng-target="listOfContents" 
@@ -59,11 +56,7 @@
           </script>
         </label>  
         <!-- LIST OF CONTENTS  END -->
-      </div>
-    </div>
 
-    <div class="cols">
-      <div class="col6">
         <!-- PERFORMER NOTE  START -->
         <label>
           <div class="datatable" data-ng-target="performerNote" 
@@ -88,8 +81,7 @@
           </script>
         </label>  
         <!-- PERFORMER NOTE  END -->
-      </div>
-      <div class="col6">
+
         <label data-ng-show="record.about.contributorNote">
           <span class="lbl" translate>LABEL.record.about.contributorNote</span>
           <textarea data-inplace data-ui-jq="autosize" class="ng-pristine ng-valid" type="text" data-ng-model="record.about.contributorNote" ></textarea>
@@ -99,17 +91,13 @@
           <span class="lbl" translate>LABEL.record.sourceNote</span>
           <textarea data-inplace data-ui-jq="autosize" class="ng-pristine ng-valid" type="text" data-ng-model="record.sourceNote" ></textarea>
         </label>
-      </div>
-    </div>
-    <div class="cols">
-      <div class="col6" data-ng-show="record.about.technicalNote">
+
         <label>
           <span class="lbl" translate>LABEL.record.about.technicalNote</span>
             <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
                       data-ng-model="record.about.technicalNote" ></textarea>
         </label>
-      </div>
-      <div class="col6" data-ng-show="record.about.systemRequirements">
+
         <!-- SYSTEM REQUIREMENTS  START -->
         <label class="datatable" data-ng-target="systemRequirementsTable" 
           data-kitin-data-table 
@@ -140,11 +128,9 @@
           </td>
         </script>
         <!-- SYSTEM REQUIREMENTS  END -->
-      </div>
-    </div>
+
     <div style="clear:both"></div>
-		<div class="cols">
-			<div class="col6">
+
         <!-- SUMMARY START -->
         <label>
           <div class="datatable" data-ng-target="summary" 
@@ -169,8 +155,7 @@
           </script>
         </label>  
         <!-- SUMMARY  END -->
-			</div>
-			<div class="col6">
+
         <!-- IS PRIMARY TOPIC OF  START -->
 	      <label data-ng-repeat="topic in record.about.isPrimaryTopicOf">
             <span class="lbl" translate>{{ "isPrimaryTopicOf type: " + topic['@type'] }}</span>
@@ -181,11 +166,8 @@
           <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="topic.comment" ></textarea>
         </label>
         <!-- IS PRIMARY TOPIC OF  END -->
-			</div>		
-		</div>
 
-    <div class="cols">
-      <div class="col6">
+
           <!-- AUDIENCE  START -->
           <label>
             <span class="lbl" translate>LABEL.record.about.audience</span>
@@ -198,14 +180,12 @@
             </ul>
           </label>
           <!-- AUDIENCE  END -->
-      </div>
-      <div class="col6" data-ng-show="record.about.note">
+
         <label>
             <span class="lbl" translate>LABEL.record.about.note</span>
           <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" type="text" data-ng-model="record.about.note" ></textarea>
         </label>
-      </div>
-      <div class="col12">
+        
         <!-- HAS ANNOTATION  START -->
         <label class="datatable" data-ng-target="hasAnnotation" 
           data-kitin-data-table 
@@ -258,8 +238,7 @@
           </td>
         </script>
         <!-- HAS ANNOTATION  END -->
-      </div>
-    </div>
+
     <div style="clear:both"></div>    
     <div class="element-adder" data-element-adder="notes"></div>
  {% endraw %}
