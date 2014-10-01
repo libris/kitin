@@ -12,12 +12,13 @@
 }
 
 label.find-entity i { position: absolute; color: @grey; margin:6px 0 0 6px; }
-label.find-entity input[type="text"] { padding-left: 26px; }
+label.find-entity input[type="text"] { padding-left: 22px; }
 .col6 .entity input[type="text"],
 .col6 label.find-entity input[type="text"] { width: 466px; }
 
-.persons{list-style:none;margin:4px 0;padding:0}
-.persons>li{position:relative;border-top:1px dotted @grey-light;padding-top:6px}
+.persons{list-style:none;margin:4px 0;padding:0;}
+.persons>li{position:relative;border-bottom:1px dotted @grey-light;padding-bottom:1px;margin-bottom:6px;}
+.persons>li:first-child{border-top:1px dotted @grey-light;padding-top:6px;}
 .persons>li .check{color:@grey;margin-right:2px;cursor:pointer}
 .persons>li .check:hover{color:@grey-very-dark}
 .persons>li.main .check{color:@grey-very-dark;cursor:default}
@@ -107,11 +108,12 @@ label.find-entity input[type="text"] { padding-left: 26px; }
 
 span.authorized{display:block;margin-left:15px; padding-left:5px;margin-top:25px;color:@green; font-size: 24px;}
 
-label ::-webkit-input-placeholder { color:@grey-light; font-style:italic; font-size:14px; }
+label ::-webkit-input-placeholder { color:@grey-light; font-style:italic; font-size:14px; font-weight:300}
 input[type="text"]::-webkit-input-placeholder { color:@grey-light; font-style:italic; font-size:14px; }
 label :-moz-placeholder { color:@grey-light; font-style:italic; font-size:14px; }/*FF18<*/
 input[type="text"] :-moz-placeholder { color:@grey-light; font-style:italic; font-size:14px; }/*FF18<*/
 ::-moz-placeholder { color:@grey-light; font-style:italic; font-size:14px; }/*FF19>*/
+
 :-ms-input-placeholder { color:@grey-light; font-style:italic; font-size:14px; }
 
 
@@ -129,11 +131,11 @@ input[type="text"] :-moz-placeholder { color:@grey-light; font-style:italic; fon
 label textarea,
 label input[type="text"],
 label select,
-.fakeinput{font-size:15px;padding:2px 5px 0 5px;height:25px;border-radius:2px}
+.fakeinput{font-size:15px;padding:0 5px 0 5px;height:25px;border-radius:2px}
 
 .fakeinput{color:@grey-very-dark;cursor:text;padding-top:3px;height:24px}
 
-label input[type="text"]{padding-top:0;height:25px;padding-bottom:2px}
+label input[type="text"]{padding-top:0;height:25px;}
 
 label textarea,
 label input[type="text"],
@@ -142,11 +144,39 @@ label input[type="text"],
 label textarea{line-height:22px;}
 label select{height:26px;}
 
-label:hover textarea,
-label:hover input[type="text"]{color:@grey-very-dark;border-color:@grey}
-
-label input[type="text"]:focus,
-label textarea:focus{color:@grey-very-dark;border-color:@grey-dark; box-shadow:rgba(0,0,0,.3) 0 0 2px;outline:none}
+label {
+  input[type="text"],
+  textarea {
+    &:focus {
+      color:@grey-very-dark;
+      border-color:@grey-dark;
+      box-shadow:0 0 2px rgba(0,0,0,.3);
+      outline:none;
+    }
+  }
+  &.error {
+    input[type="text"],
+    textarea {
+      color: @red;
+      &:focus {
+        border-color:@red-dark;
+        box-shadow:0 0 2px fade(@red, 30%);
+      }
+    }
+    .lbl{color:@red}
+  }
+  &.warning {
+    input[type="text"],
+    textarea {
+      color: @yellow;
+      &:focus {
+        border-color:@yellow-dark;
+        box-shadow:0 0 2px fade(@yellow, 30%);
+      }
+    }
+    .lbl{color:@yellow-dark}
+  }
+}
 
 //WARNINGS AND ERRORS IN FORM
 label textarea.ng-invalid,
@@ -156,9 +186,20 @@ label select.ng-invalid {background-color:@red-lighter!important;border-color:@r
 label textarea{overflow:hidden;resize:none;color:@grey-very-dark;}
 label textarea.title{font-weight:bold;}
 
-.lbl{ display:block; font-size:10px; color:@grey-dark; margin-bottom:0; line-height:16px; text-transform:uppercase; letter-spacing:.5px; }
+.lbl{ display:block; font-size:10px; color:@grey-darker; margin-bottom:0; line-height:16px; text-transform:uppercase; letter-spacing:.5px; }
 .lbl-suggest{display:block;font-size:12px;color:@green;margin-top:2px;line-height:14px;float:left;clear:both;}
 
+label .help {
+  font-size:11px; 
+  color:@grey-dark;
+  display:block;
+  margin-top:2px;
+  i.fa {
+    font-size:14px;
+    position:relative;
+    top:1px
+  }
+}
 
 span.error-label { color: @red; }
 span.error-message { font-size: 10px; color: @red; float:left; }

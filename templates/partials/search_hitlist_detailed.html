@@ -98,6 +98,8 @@
                       <i class="fa fa-thumb-tack"></i> {{record.holdings.hits}} bibliotek 
                     </span>
                     <span data-ng-repeat="comment in record.data.comment">{{comment}}</span>
+                    <button data-ng-if="record.holdings.hits == null || record.holdings.hits == 0" class="btn btn-purple btn-hld" data-ng-click="addHolding(holdings)"><i class="fa fa-inverse fa-plus"></i> Bestånd</button>
+                    <button disabled data-ng-if="record.holdings.hits > 0" class="btn btn-purple btn-hld" data-ng-click="addHolding(holdings)"><i class="fa fa-inverse fa-check"></i> Bestånd</button>
                   </p>
                 </label>
               </div>

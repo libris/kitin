@@ -4,7 +4,9 @@
 {% block content %}
 <div class="content styleguide">
 
-<header>styleguide/pattern library</header>
+<header class="clearfix">
+  <h1>Styleguide/pattern library</h1>
+</header>
 <section>
   <h2>Colors <i></i></h2>
   <div class="cols">
@@ -12,7 +14,7 @@
       <thead>
         <tr><th>Example</th><th>RGB</th><th>HEX</th><th>LESS</th></tr>
       </thead>
-      <tbody id="color-boxes" class="red-lighter red pink purple-lighter purple-light purple purple-dark yellow-lighter yellow green-lighter green-light green green-dark green-darker white grey-warm grey-lighter grey-light grey grey-dark grey-darker grey-very-dark">
+      <tbody id="color-boxes" class="red-lighter red-light red red-dark pink purple-lighter purple-light purple purple-dark yellow-lighter yellow-light yellow yellow-dark green-lighter green-light green green-dark green-darker white grey-warm grey-lighter grey-light grey grey-dark grey-darker grey-very-dark">
       </tbody>
     </table>
     <script type="text/javascript">
@@ -37,75 +39,98 @@
 
 <section>
 <!-- person suggest -->
-    <hr>
-    <div class="cols">
-      <div class="col6">
-        <div class="alert alert-block">Designförslag</div>
-        <div class="person-suggest">
-          <span class="lbl">Personer</span>
-          <ul class="persons">
-            <li class="main">
-              <i class="fa fa-check-square-o check"></i>
-              <div class="main">
-                <span class="name">Jansson, Tove</span>
-                <span class="timeSpan">1921-1870</span>
-                <a class="auth" href="#"><i class="fa fa-check"></i> Aukt.</a>
-              </div>
-              <div class="tagsinput">
-                <ul class="tags">
-                  <li>Bibliotekarie <i class="no">&times;</i></li>
-                  <li>Författare <i class="no">&times;</i></li>
-                  <li class="add"><i class="fa fa-search"></i> <input type="text" placeholder="Lägg till roll"></li>
-                </ul>
-              </div>
-              <a class="delete" href="#"><i class="fa fa-times"></i></a>
-            </li>
-            <li>
-              <i class="fa fa-square-o check"></i>
-              <div class="main">
-                <span class="name">Karlsson, Owe</span>
-                <span class="timeSpan">1811-1972</span>
-              </div>
-              <div class="tagsinput">
-                <ul class="tags">
-                  <li class="add"><i class="fa fa-search"></i> <input type="text" placeholder="Lägg till roll"></li>
-                </ul>
-              </div>
-              <a class="delete" href="#"><i class="fa fa-times"></i></a>
-            </li>
-            <li>
-              <i class="fa fa-square-o check"></i>
-              <div class="main">
-                <span class="name">Karlsson, Owe</span>
-                <span class="timeSpan">1811-1972</span>
-                <a class="auth" href="#"><i class="fa fa-check"></i> Aukt.</a>
-              </div>
-              <div class="tagsinput">
-                <ul class="tags">
-                  <li>Kåkfarare <i class="no">&times;</i></li>
-                  <li class="add"><i class="fa fa-search"></i> <input type="text" placeholder="Lägg till roll"></li>
-                </ul>
-              </div>
-              <a class="delete" href="#"><i class="fa fa-times"></i></a>
-            </li>
-          </ul>
-          <label class="find-entity">
-            <i class="fa fa-search"></i>
-            <input type="text" placeholder="Lägg till person">
-          </label>
+  <h2>Form elements<i></i></h2>
+  <br><br>
+  <h3>Personsuggest</h3>
+  <div class="cols">
+    <div class="col6">
+      <div class="person-suggest">
+        <span class="lbl">Personer</span>
+        <ul class="persons">
+          <li class="main">
+            <i class="fa fa-check-square-o check"></i>
+            <div class="main">
+              <span class="name">Jansson, Tove</span>
+              <span class="timeSpan">1921-1870</span>
+              <a class="auth" href="#"><i class="fa fa-check"></i> Aukt.</a>
+            </div>
+            <div class="tagsinput">
+              <ul class="tags">
+                <li>Bibliotekarie <i class="no">&times;</i></li>
+                <li>Författare <i class="no">&times;</i></li>
+                <li class="add-item">
+                  <span class="add-link"><i class="fa fa-plus"></i> Lägg till roll</span>
+                  <span class="search-field toggler">
+                    <i class="fa fa-search"></i>
+                    <input type="text" placeholder="Sök roller">
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <a class="delete" href="#"><i class="fa fa-times"></i></a>
+          </li>
+          <li>
+            <i class="fa fa-square-o check"></i>
+            <div class="main">
+              <span class="name">Karlsson, Owe</span>
+              <span class="timeSpan">1811-1972</span>
+            </div>
+            <div class="tagsinput">
+              <ul class="tags">
+                <li class="add-item">
+                  <span class="add-link"><i class="fa fa-plus"></i> Lägg till roll</span>
+                  <span class="search-field toggler">
+                    <i class="fa fa-search"></i>
+                    <input type="text" placeholder="Sök roller">
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <a class="delete" href="#"><i class="fa fa-times"></i></a>
+          </li>
+          <li>
+            <i class="fa fa-square-o check"></i>
+            <div class="main">
+              <span class="name">Karlsson, Owe</span>
+              <span class="timeSpan">1811-1972</span>
+              <a class="auth" href="#"><i class="fa fa-check"></i> Aukt.</a>
+            </div>
+            <div class="tagsinput">
+              <ul class="tags">
+                <li>Kåkfarare <i class="no">&times;</i></li>
+                <li class="add-item">
+                  <span class="add-link"><i class="fa fa-plus"></i> Lägg till roll</span>
+                  <span class="search-field toggler">
+                    <i class="fa fa-search"></i>
+                    <input type="text" placeholder="Sök roller">
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <a class="delete" href="#"><i class="fa fa-times"></i></a>
+          </li>
+        </ul>
+        <div class="find-entity">
+          <span class="add-item">
+            <span class="add-link"><i class="fa fa-plus"></i> Lägg till person</span>
+            <span class="toggler">  
+              <span class="search-field">
+                <i class="fa fa-search"></i>
+                <input type="text" placeholder="Sök personer">
+              </span>
+              <span class="linkchoice">
+                eller <a href="#">Skapa ny person</a>
+              </span>
+            </span>
+          </li>
         </div>
       </div>
     </div>
-
-</section>
-
-<!-- subject design -->
-<section>
-<hr>
-	
+  </div>
+  <hr />
+  <h3>Related properties</h3>
 	<div class="cols">
 	  <div class="col6">
-	    <div class="alert alert-block">Designförslag</div>
 	    <div class="tagsinput">
 	      <span class="lbl">Ämnesord</span>
 	      <ul class="tags">
@@ -115,7 +140,13 @@
 	        <li><a href="#"><i class="fa fa-bookmark"></i> Komododrake</a> <i class="no">&times;</i></li>
 	        <li><a href="#"><i class="fa fa-bookmark"></i> Bofink</a> <i class="no">&times;</i></li>
 	        <li><a href="#"><i class="fa fa-bookmark"></i> Burhöna</a> <i class="no">&times;</i></li>
-	        <li class="add-item"><i class="fa fa-search"></i> <input type="text" placeholder="Sök ämnesord"></li>
+	        <li class="add-item">
+            <span class="add-link"><i class="fa fa-plus"></i> Lägg till ämnesord</span>
+            <span class="search-field toggler">
+              <i class="fa fa-search"></i>
+              <input type="text" placeholder="Sök ämnesord">
+            </span>
+          </li>
 	      </ul>
 	      <ul class="tags suggestions">
 	        <li class="title">Förslag:</li>
@@ -125,9 +156,10 @@
 	    </div>
 	  </div>
 	</div>
+  <hr />
+  <h3>Free properties med förslag</h3>
 	<div class="cols">
 	  <div class="col6">
-	    <div class="alert alert-block">Designförslag</div>
 	    <div class="tagsinput free">
 	      <span class="lbl">Ämnesord</span>
 	      <ul class="tags">
@@ -135,7 +167,12 @@
 	        <li><a href="#"><i class="fa fa-bookmark"></i> Lejon</a> <i class="no">&times;</i></li>
 	        <li class="non-auth"><a href="#"> Enhörning</a> <i class="no">&times;</i></li>
 	        <li><a href="#"><i class="fa fa-bookmark"></i> Orangutang</a> <i class="no">&times;</i></li>
-	        <li class="add-item"><input type="text" placeholder="+ Lägg till ämnesord"></li>
+	        <li class="add-item">
+            <span class="add-link"><i class="fa fa-plus"></i> Lägg till ämnesord</span>
+            <span class="search-field fake toggler">
+              <input type="text" class="toggler" placeholder="">
+            </span>
+          </li>
 	      </ul>
 	      <ul class="tags suggestions">
 	        <li class="title">Förslag:</li>
@@ -145,10 +182,12 @@
 	    </div>
 	  </div>
 	</div>
+  <hr />
+  <h3>Alerts</h3>
+<!--
 
 	<div class="cols">
 	    <div class="col6">
-	<!-- subject-suggest -->
 	  <div class="suggestion-subjects">
 	      <ul>
 	      <li><i class="fa fa-circle-arrow-up"></i>...</li>
@@ -159,76 +198,90 @@
 	  </ul>
 	 </div>
 	</div>
-	
-	<div class="alert alert-info">
-		<i class="fa fa-asterisk"></i>
-		<p>Fält har lagts till som behövs för att uppgradera posten till en Aukt.post. </p>
-	</div>
 
-	<div class="alert alert-warning">
-		<i class="fa fa-asterisk"></i>
-		<p>Fält har lagts till som behövs för att uppgradera posten till en Aukt.post. </p>
-	</div>	
-
-	<div class="alert alert-error">
-		<i class="fa fa-asterisk"></i>
-		<p>Fält har lagts till som behövs för att uppgradera posten till en Aukt.post. </p>
-	</div>		
-
-</section>
-
-
-<section>
-	<h2>Inputs <i></i></h2>
+  -->
 	<div class="cols">
-	<div class="col6">
-		<label class="">
-			<span class="lbl">Regular input</span>
-			<input type="text">
-		</label>
+  	<div class="alert alert-info">
+  		<i class="fa fa-asterisk"></i>
+  		<p>Fält har lagts till som behövs för att uppgradera posten till en Aukt.post. </p>
+  	</div>
 
-		<label class="">
-			<span class="lbl">Regular input</span>
-			<input type="text">
-			<button class="show-more btn-link" ng-click="isCollapsed = !isCollapsed">Kommentarer om språk <i class="fa fa-chevron-right"></i> </button> <i class="more-details">...</i>
-		</label>
+  	<div class="alert alert-warning">
+  		<i class="fa fa-asterisk"></i>
+  		<p>Fält har lagts till som behövs för att uppgradera posten till en Aukt.post. </p>
+  	</div>	
 
-
-
-
-
-
-		<label class="">
-			<span class="lbl">Regular input</i></span>
-			<input type="text">
-			<button class="add-thing btn-link ng-binding">Lägg till</button>
-		</label>
-
-		<label class="warning">
-			<span class="lbl">Warning informational input <i class="fa fa-asterisk"></i></span>
-			<input type="text">
-		</label>
-
-		<label class="warning warning-action">
-			<span class="lbl">Warning action input <i class="fa fa-asterisk"></i></span>
-			<input type="text">
-		</label>
-		
-		<label class="error">
-			<span class="lbl">Error informational input</span>
-			<input type="text">
-		</label>
-
-		<label class="error error-action">
-			<span class="lbl">Error warning input </span>
-			<input type="text"><a href=""><i class="fa fa-info-circle"></i></a>
-		</label>
-		
-	</div>
+  	<div class="alert alert-error">
+  		<i class="fa fa-asterisk"></i>
+  		<p>Fält har lagts till som behövs för att uppgradera posten till en Aukt.post. </p>
+  	</div>
+  </div>
+  <hr />
+	<h3>Inputs</h3>
+	<div class="cols">
+	   <div class="col6">
+	   	<label class="">
+	   		<span class="lbl">Regular input</span>
+	   		<input type="text">
+	   	</label>
+    
+	   	<label class="">
+	   		<span class="lbl">Regular input</span>
+	   		<input type="text">
+	   		<span class="help"><i class="fa fa-question-circle"></i> Hjälptext</span>
+	   	</label>
+    
+	   	<label class="">
+	   		<span class="lbl">Row input</i></span>
+	   		<input type="text">
+	   		<button class="add-thing btn-link ng-binding">Lägg till rad</button>
+	   	</label>
+    
+	   	<label class="warning">
+	   		<span class="lbl">Warning informational input <i class="fa fa-asterisk"></i></span>
+	   		<input type="text">
+	   	</label>
+    
+	   	<label class="warning warning-action">
+	   		<span class="lbl">Warning action input <i class="fa fa-asterisk"></i></span>
+	   		<input type="text">
+	   	</label>
+	   	
+	   	<label class="error">
+	   		<span class="lbl">Error informational input</span>
+	   		<input type="text">
+	   	</label>
+    
+	   	<label class="error error-action">
+	   		<span class="lbl">Error action input </span>
+	   		<input type="text"><a href=""><i class="fa fa-info-circle"></i></a>
+	   	</label>
+	  </div>
 	</div>
 </section>
 
 </div>
+
+<script>
+
+$('.add-item').click(function(e) {
+  e.preventDefault()
+
+  var $li = $(this)
+  var $input = $li.find('input').on('blur', function blurHandler(e) {
+    $li.removeClass('active')
+    $(this).val('').off('blur', blurHandler)
+  })
+
+  if ( $li.hasClass('active') )
+    return
+
+  $li.addClass('active')
+  $input.focus()
+
+})
+
+</script>
 
 
 {% endblock content %} 
