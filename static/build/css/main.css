@@ -1112,7 +1112,8 @@ body.login .content.index header {
 .content.auth header h1:before {
   content: "\f00c";
 }
-.content.bib header h1:before {
+.content.bib header h1:before,
+.content.remote header h1:before {
   content: "\f02d";
 }
 .content.holdings a {
@@ -1971,7 +1972,7 @@ section.result .widget {
 section.result .widget label {
   color: #666666;
 }
-section.result .btn-hld {
+section.result .widget .btn {
   position: absolute;
   right: 10px;
   bottom: 10px;
