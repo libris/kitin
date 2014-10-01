@@ -1,10 +1,8 @@
  {% raw %}
 <h2>Utgivning och tillverkning<i></i></h2>
-	<div class="cols">
-	    <div class="identifier" ng-include="'/partials/edit/bib/identifier'"></div>
-	</div>
-    <div class="cols">
-      <div class="col6">
+	<div class="identifier" ng-include="'/partials/edit/bib/identifier'"></div>
+
+    <div>
         <label data-ng-show="record.about.mediaTerm">
           <span class="lbl" translate>LABEL.record.about.mediaTerm</span>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.mediaTerm">
@@ -43,9 +41,6 @@
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.publicationOtherYear">
         </label>
 
-
-      </div>
-      <div class="col6">
         <label>
           <span class="lbl" translate>LABEL.record.about.frequencyCategory</span>
           <ul class="tags" data-kitin-link-entity
@@ -137,13 +132,7 @@
               data-filter="about.inCollection.@id:/def/enum/content/typeOfEntry-collection">
           </ul>
         </label>
-      </div>
-    </div>
 
-
-	<div class="cols">
-
-    <div class="col6">
 
 
       <label>
@@ -164,11 +153,9 @@
             data-search-template="render-bib-search">
         </ul>
       </label>
-    </div>
+ 
 
 
-		<div class="cols">
-	    <div class="col12">
         <!-- PUBLICATION COUNTRY  START -->
         <label>
           <span class="lbl" translate>LABEL.record.about.publicationCountry</span>
@@ -220,26 +207,17 @@
           <td><span class="lbl" translate>LABEL.record.about.publication.providerDate</span></td>
         </script>
         <!-- PUBLISHER  END -->
-	    </div>
-		</div>
-		
-    <div class="cols">
-      <div class="col3">
+
         <label>
           <span class="lbl" translate>LABEL.record.about.editionStatement.edition</span>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.editionStatement.edition" >
         </label>
-      </div>
-     <div class="col3" >
+
         <label data-ng-show="record.about.publisherNumber">
           <span class="lbl" translate>LABEL.record.about.publisherNumber</span>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.publisherNumber" >
         </label>
-      </div>
-    </div>
 
-		<div class="cols">
-	    <div class="col12">
         <!-- MANUFACTURE  START -->
 	      <div class="datatable" data-ng-target="manufacture" 
 	        data-kitin-data-table 
@@ -257,13 +235,9 @@
           <td><span class="lbl" translate>LABEL.record.about.publication.providerDate</span></td>
         </script>
         <!-- MANUFACTURE  END -->
-	    </div>
-		</div>
 
-    <div class="cols">
  
-    </div>
-    </div>
+
     <div class="element-adder" data-element-adder="publication_and_production"></div>
 
     <!-- manufacture-publisher-recording-row-template  START 

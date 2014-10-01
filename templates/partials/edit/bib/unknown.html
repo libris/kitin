@@ -1,7 +1,6 @@
  {% raw %}
 <h2>{{ "Omappade" }}<i></i></h2>
-    <div class="cols">
-      <div class="col12" data-ng-repeat="item in record._marcUncompleted">
+      <div data-ng-repeat="item in record._marcUncompleted">
         <div data-ng-repeat="(k, subitem) in item">
         <label>
           <span class="lbl">{{ k }}</span>
@@ -10,5 +9,4 @@
           </label>
         </label>
       </div>
-    </div>
  {% endraw %}
