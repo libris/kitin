@@ -23,7 +23,11 @@
         <span>
           <strong translate>LABEL.gui.edit.ID</strong> <em>{{record['@id']}}</em>
         </span>
-        
+        <div
+        	<span data ng-repeat="bibliographyCode in record.bibliographyCode">
+        	<input data-ng-model="bibliographyCode">
+			</span>
+      </div>
       </div>
 
       <header class="clearfix">
