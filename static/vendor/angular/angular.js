@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.2.26-build.487+sha.1f18285
+ * @license AngularJS v1.2.26
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -68,7 +68,7 @@ function minErr(module) {
       return match;
     });
 
-    message = message + '\nhttp://errors.angularjs.org/1.2.26-build.487+sha.1f18285/' +
+    message = message + '\nhttp://errors.angularjs.org/1.2.26/' +
       (module ? module + '/' : '') + code;
     for (i = 2; i < arguments.length; i++) {
       message = message + (i == 2 ? '?' : '&') + 'p' + (i-2) + '=' +
@@ -1987,11 +1987,11 @@ function setupModuleLoader(window) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
-  full: '1.2.26-build.487+sha.1f18285',    // all of these placeholder strings will be replaced by grunt's
+  full: '1.2.26',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
   minor: 2,
   dot: 26,
-  codeName: 'snapshot'
+  codeName: 'zucchini-expansion'
 };
 
 
@@ -5529,7 +5529,7 @@ function $TemplateCacheProvider() {
  * }
  * ```
  *
- * Below is an example using `$compileProvider`.
+ * ## Example
  *
  * <div class="alert alert-warning">
  * **Note**: Typically directives are registered with `module.directive`. The example below is
@@ -17004,18 +17004,7 @@ function addNativeHtml5Validators(ctrl, validatorName, badFlags, ignoreFlags, va
   }
 }
 
-function stringBasedInputType(ctrl) {
-  ctrl.$formatters.push(function stringifier(value) {
-    return ctrl.$isEmpty(value) ? value : value.toString();
-  });
-}
-
-function textInputType(scope, element, attr,ctrl, $sniffer, $browser) {
-  baseInputType(scope, element, attr, ctrl, $sniffer, $browser);
-  stringBasedInputType(ctrl);
-}
-
-function baseInputType(scope, element, attr, ctrl, $sniffer, $browser) {
+function textInputType(scope, element, attr, ctrl, $sniffer, $browser) {
   var validity = element.prop(VALIDITY_STATE_PROPERTY);
   var placeholder = element[0].placeholder, noevent = {};
   var type = lowercase(element[0].type);
@@ -18075,8 +18064,6 @@ var requiredDirective = function() {
  */
 var ngListDirective = function() {
   return {
-    restrict: 'A',
-    priority: 100,
     require: 'ngModel',
     link: function(scope, element, attr, ctrl) {
       var match = /\/(.*)\//.exec(attr.ngList),

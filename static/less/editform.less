@@ -144,11 +144,39 @@ label input[type="text"],
 label textarea{line-height:22px;}
 label select{height:26px;}
 
-label:hover textarea,
-label:hover input[type="text"]{color:@grey-very-dark;border-color:@grey}
-
-label input[type="text"]:focus,
-label textarea:focus{color:@grey-very-dark;border-color:@grey-dark; box-shadow:rgba(0,0,0,.3) 0 0 2px;outline:none}
+label {
+  input[type="text"],
+  textarea {
+    &:focus {
+      color:@grey-very-dark;
+      border-color:@grey-dark;
+      box-shadow:0 0 2px rgba(0,0,0,.3);
+      outline:none;
+    }
+  }
+  &.error {
+    input[type="text"],
+    textarea {
+      color: @red;
+      &:focus {
+        border-color:@red-dark;
+        box-shadow:0 0 2px fade(@red, 30%);
+      }
+    }
+    .lbl{color:@red}
+  }
+  &.warning {
+    input[type="text"],
+    textarea {
+      color: @yellow;
+      &:focus {
+        border-color:@yellow-dark;
+        box-shadow:0 0 2px fade(@yellow, 30%);
+      }
+    }
+    .lbl{color:@yellow-dark}
+  }
+}
 
 //WARNINGS AND ERRORS IN FORM
 label textarea.ng-invalid,
@@ -161,6 +189,17 @@ label textarea.title{font-weight:bold;}
 .lbl{ display:block; font-size:10px; color:@grey-darker; margin-bottom:0; line-height:16px; text-transform:uppercase; letter-spacing:.5px; }
 .lbl-suggest{display:block;font-size:12px;color:@green;margin-top:2px;line-height:14px;float:left;clear:both;}
 
+label .help {
+  font-size:11px; 
+  color:@grey-dark;
+  display:block;
+  margin-top:2px;
+  i.fa {
+    font-size:14px;
+    position:relative;
+    top:1px
+  }
+}
 
 span.error-label { color: @red; }
 span.error-message { font-size: 10px; color: @red; float:left; }
