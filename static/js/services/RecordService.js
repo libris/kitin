@@ -168,7 +168,59 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope) {
     },
 
     holding: {
-      get: function() {}
+      get: function(recordId, userData) {
+        var deferer = $q.defer();
+        var sigel = userData.userSigel;
+        sigel = 'KVIN'; // TODO: <--------------------------------  Haxxor shit, remove
+        $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.holdingFor.@id:' + recordId.replace(/\//g, '\\/') + '+about.offers.heldBy.notation:' + sigel).success(function(data, status, headers) {
+          console.log(data);
+          deferer.resolve({
+            data: data,
+            etag: headers('etag')
+          });
+        }).error(function(data, status, headers) {
+          console.log('RecordService failed getting holding.');
+        });
+        return deferer.promise;
+      },
+
+      create: function() {
+        var deferer = $q.defer();
+        $http.get('/holding/bib/new').success(function(data, status, headers) {
+          console.log(data);
+          deferer.resolve({
+            data: data,
+            etag: headers('etag')
+          });
+        }).error(function(data, status, headers) {
+          console.log('RecordService failed creating holding.');
+        });
+        return deferer.promise;
+      },
+
+      save: function(holding, etag) {
+        var deferer = $q.defer();
+        $http.put($rootScope.API_PATH + '/hold/' + holding['@id'].split('/').slice(-2)[1], holding, {headers: {'If-match':etag}}).success(function(data, status, headers) {
+          deferer.resolve({
+            data: data,
+            etag: headers('etag')
+          });
+        }).error(function(data, status, headers) {
+          console.log('RecordService failed saving holding.');
+        });
+      },
+
+      getEtag: function(itemId) {
+        var deferer = $q.defer();
+        $http.get($rootScope.API_PATH + '/hold/'+ itemId.split('/').slice(-2)[1]).success(function(data, status, headers) {
+          deferer.resolve({
+            etag: headers('etag')
+          });
+        }).error(function(data, status, headers) {
+          console.log('RecordService failed getting eTag for holding.');
+        });
+        return deferer.promise;
+      }
     }
   };
 });

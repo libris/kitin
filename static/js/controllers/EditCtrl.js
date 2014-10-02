@@ -73,7 +73,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     case editService.RECORD_TYPES.NEW:
       recordService.record.get(
         null, null, $location.$$search.type, $location.$$search.aggregateLevel
-    ).then(function(data) {
+      ).then(function(data) {
         $scope.record = data['recdata'];
         addRecordViewsToScope($scope.record, $scope);
       });
@@ -131,30 +131,30 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
           addRecordViewsToScope(record, $scope);
         }
         
-        // HOLDINGS
-        $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.annotates.@id:' + recType + '\\/' + recId).success(function(data) {
-          var holdingEtags = {};
-          var items = editService.patchHoldings(data.list);
-          $scope.holdings = items;
-          var myHoldings = _.filter(items, function(i) { return i['location'] == userData.userSigel; });
-          if (myHoldings <= 0) {
-            $http.get("/holding/bib/new").success(function(data, status, headers) {
-              data.location = $scope.userSigel;
-              $scope.holding = data;
-              data._isNew = true; // TODO: don't do this when etag works
-            });
-          } else {
-            $scope.holding = myHoldings[0];
-          }
-          items.forEach(function (item) {
-            if (item['@id']) {
-              $http.get("/holding/"+ item['@id'].split("/").slice(-2)[1]).success(function (data, status, headers) {
-                holdingEtags[data['@id']] = headers('etag');
-              });
-            }
-          });
-          $scope.holdingEtags = holdingEtags;
-        });
+        // // HOLDINGS
+        // $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.annotates.@id:' + recType + '\\/' + recId).success(function(data) {
+        //   var holdingEtags = {};
+        //   var items = editService.patchHoldings(data.list);
+        //   $scope.holdings = items;
+        //   var myHoldings = _.filter(items, function(i) { return i['location'] == userData.userSigel; });
+        //   if (myHoldings <= 0) {
+        //     $http.get("/holding/bib/new").success(function(data, status, headers) {
+        //       data.location = $scope.userSigel;
+        //       $scope.holding = data;
+        //       data._isNew = true; // TODO: don't do this when etag works
+        //     });
+        //   } else {
+        //     $scope.holding = myHoldings[0];
+        //   }
+        //   items.forEach(function (item) {
+        //     if (item['@id']) {
+        //       $http.get("/holding/"+ item['@id'].split("/").slice(-2)[1]).success(function (data, status, headers) {
+        //         holdingEtags[data['@id']] = headers('etag');
+        //       });
+        //     }
+        //   });
+        //   $scope.holdingEtags = holdingEtags;
+        // });
 
       });
       break;
@@ -327,43 +327,6 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     }
     $scope.triggerModified();
   };
-
-  $scope.addHolding = function(holdings) {
-    holdings.push({shelvingControlNumber: "", location: constants['user_sigel']});
-  };
-
-  $scope.saveHolding = function(holding) {
-    var etag = $scope.holdingEtags[holding['@id']];
-    holding['annotates'] = { '@id': "/"+recType+"/"+recId };
-    // TODO: only use etag (but it's not present yet..)
-    if(!holding._isNew && (etag || holding.location === $scope.userSigel)) {
-      $http.put("/holding/" + holding['@id'].split("/").slice(-2)[1], holding, {headers: {"If-match":etag}}).success(function(data, status, headers) {
-        $scope.holdingEtags[data['@id']] = headers('etag');
-      }).error(function(data, status, headers) {
-        console.log("ohh crap!");
-      });
-    } else {
-      if (holding._isNew) { delete holding._isNew; }
-      console.log("we wants to post a new holding");
-      $http.post("/holding", holding).success(function(data, status, headers) {
-        $scope.holdingEtags[data['@id']] = headers('etag');
-      }).error(function(data, status, headers) {
-        console.log("ohh crap!");
-      });
-    }
-  };
-
-  $scope.deleteHolding = function(holdingId) {
-    $http['delete']("/holding/" + holdingId).success(function(data, success) {
-      console.log("great success!");
-      $http.get("/record/" + recType + "/" + recId + "/holdings").success(function(data) {
-        $scope.holdings = patchHoldings(data.list);
-      });
-    }).error(function() {
-      console.log("oh crap!");
-    });
-  };
-
 
   $scope.getLeaf = function (uri) {
     return uri.replace(/.*?([^\/#]+)$/, "$1");
