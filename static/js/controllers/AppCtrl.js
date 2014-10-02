@@ -10,6 +10,22 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
   // App State
   $rootScope.debug = (debug === true) || false;
 
+  if ( debug === true ) {
+    $rootScope.log = function(variables,event) {
+      if ( event ) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      if ( typeof variables == 'Array') {
+        variables.forEach(function() {
+          console.log(this);
+        });
+      } else{
+        console.log(variables);
+      }
+    };
+  }
+
   $rootScope.loading = false;
   $rootScope.state = {
     searchType: {},

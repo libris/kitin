@@ -5,34 +5,37 @@
     <div id="grid"></div>
     <div>
       <div class="record-data">
-      <ul>
-      	<li><span translate>LABEL.gui.edit.DATE_CREATED</span>: <span data-ng-model="record.date">{{record.date}}</span></li>
-	  	<li><span>Skapad av:</span> <span data-ng-model="record.originalCatalogingAgency.name">{{record.originalCatalogingAgency.name}}</span>
+        <span data-ng-if="record.date">
+          <strong translate>LABEL.gui.edit.DATE_CREATED</strong>
+          <em data-ng-model="record.date">{{record.date}}</em>
+        </span>
 
-  			</span></li>
-      	<li><span translate>LABEL.gui.edit.MODIFIED</span>: <span data-ng-model="record.modified">{{record.modified | date:'yyyy-MM-dd HH:mm'}}</span></li>
-      	<li><span>Ändrad av</span> {{ record.modifyingAgency.name }}</li>
-  		<li><span translate>LABEL.gui.edit.STATUS</span> {{record.status['@id']}}</li>
-  		<li><span translate>LABEL.gui.edit.ID</span> {{record['@id']}}</li>
-  		<li><span translate>librisIIINumber</span> {{record.librisIIINumber}}</li>
-      </ul>
+        <span data-nf-if="record.originalCatalogingAgency.name">
+          <strong translate>LABEL.gui.edit.MODIFIED</strong> 
+          <span data-ng-if="record.modified">
+            <em data-ng-model="record.modified">{{record.modified | date:'yyyy-MM-dd HH:mm'}}</em> av 
+          </span>
+          <span data-ng-model="record.originalCatalogingAgency.name">{{record.originalCatalogingAgency.name}}</span>
+          {{ record.modifyingAgency.name }}
+  			</span>
 
-        <div
-        <label><span class="lbl">Tillhör bibliografi</span>
-        	<span data ng-repeat="bibliographyCode in record.bibliographyCode">
-        	<input data-ng-model="bibliographyCode">
-			</span>
-        </label>
-      </div>
+  			<span>
+  			 <strong translate>LABEL.gui.edit.STATUS</strong> {{record.status['@id']}}
+  			</span>
+
+        <span>
+          <strong translate>LABEL.gui.edit.ID</strong> <em>{{record['@id']}}</em>
+        </span>
+        
       </div>
 
       <header class="clearfix">
         <h1>
-        <span data-ng-if="recType == 'auth'">Aukt.</span>{{ getTypeLabel(record.about) }}
-        <span data-ng-repeat="contentType in record.about.contentType">| {{ contentType.prefLabel }} </span>
-        <span>{{ record.about.text['@id'] }}</span>
-          <!--(Bibliografiskt material)--></h1>
-
+          <span data-ng-if="recType == 'auth'">Aukt.</span>{{ getTypeLabel(record.about) }}
+          <span data-ng-repeat="contentType in record.about.contentType">| {{ contentType.prefLabel }} </span>
+          <span>{{ record.about.text['@id'] }}</span>
+          <!--(Bibliografiskt material)-->
+        </h1>
 
         <div class="levels">
           <span>{{ enums.bibLevel[record.bibLevel].label_sv }}</span>
