@@ -25,9 +25,9 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     var myHoldings = _.filter(items, function(i) {
       var offers = i.data.about.offers;
       for ( var j = 0; j < offers.length; j++ ) {
-        var heldBy = offers[j].heldBy
+        var heldBy = offers[j].heldBy;
         for ( var k = 0; k < heldBy.length; k++ ) {
-          if ( heldBy[k].notation == userData.userSigel || heldBy[k].notation == 'KVIN' ) return true // TODO: Don't compare to U, that's just for dev purposes
+          if ( heldBy[k].notation == userData.userSigel || heldBy[k].notation == 'KVIN' ) return true; // TODO: Don't compare to U, that's just for dev purposes
         }
       }
     });
