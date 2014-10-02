@@ -1,20 +1,26 @@
-kitin.controller('ModalCtrl', function($scope, $modal) {
+kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, dataTransport) {
   var defaultModalOptions = {
     backdrop: 'static', // Shows backdrop but doesn't close dialog on click outside.
     keyboard: true,
     controller: 'OpenModalCtrl',
-    backdropFade: true,
+    backdropFade: false,
     dialogFade: false,
-
   };
 
-  $scope.openAuthModal = function() {
+  $scope.openAuthModal = function(id) {
+    var params = id.split('/').splice(1);
+    var recType = params[1];
+    var recId = params[2];
     var opts = angular.extend(
                 defaultModalOptions,
                 {
                   templateUrl: 'modal-edit-auth',
-                  controller: 'ModalOpenCtrl',
-                  windowClass: 'modal-large auth-modal'
+                  controller: 'ModalAuthCtrl',
+                  windowClass: 'modal-large auth-modal',
+                  resolve: {
+                    recType: function() { return recType; },
+                    recId: function() { return recId; }
+                  }
                 });
     $scope.authModal = $modal.open(opts);
   };
@@ -24,7 +30,7 @@ kitin.controller('ModalCtrl', function($scope, $modal) {
                 defaultModalOptions,
                 {
                   templateUrl: 'modal-release',
-                  controller: 'ModalOpenCtrl',
+                  controller: 'ModalReleaseCtrl',
                   windowClass: 'modal-large release-modal'
                 });
     $scope.releaseModal = $modal.open(opts);

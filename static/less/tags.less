@@ -45,23 +45,23 @@ ul.tags li {
   // Styles for adding tags
 ul.tags .add-item,
 .find-entity .add-item {
-  background: transparent;
-  border: 1px solid @grey-light;
+  background: @green-lighter;
+  border: none;
   cursor:pointer;
   display: inline-block; 
   margin: 0 2px 6px 0; 
-  padding: 2px 7px;
+  padding: 3px 8px;
   font-size:12px;
   border-radius:2px;
   .toggler { display:none }
   .add-link {
-    color: @grey;
+    color: @green-dark;
     i { margin-left: 2px; }
   }
   i { margin-right:2px }
   &:hover {
-    i, .add-link { color: @grey-darker; }
-    border-color: @grey-dark;
+    i, .add-link { color: @green-darker; }
+    background: darken(@green-lighter, 8%)
   }
   &.active {
     background: transparent;
@@ -73,13 +73,16 @@ ul.tags .add-item,
     }
     .linkchoice {
       color: @grey;
+      a { 
+        color: @green;
+        &:hover{color:@green-dark}
+      }
     }
     .search-field {
       display:inline-block;
       border: 1px solid @grey;
       border-radius: 2px;
       padding: 2px 7px 0px 7px;
-      margin-bottom: -1px; // prevents jump bug (chrome)
       i { color:@grey; font-size:12px; }
       &.fake {
         border:none;
@@ -112,7 +115,8 @@ ul.tags .add-item,
   &:hover{ 
     background: @green-dark;
     border-color: @green-dark;
-    i {
+    color: #fff;
+    i, .add-link {
       color:#fff
     }
   }

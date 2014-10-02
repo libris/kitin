@@ -1,29 +1,18 @@
-
 kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $timeout, $rootScope, $location, $anchorScroll, recordService, definitions, userData, editService) {
 
+  var recType = _.isFunction($scope.getRecType) ? $scope.getRecType() : $routeParams.recType;
+  var recId = _.isFunction($scope.getRecId) ? $scope.getRecId() : $routeParams.recId;
+
   editService.addableElements = [];
-  var modalRecord = $rootScope.modalRecord;
-  var recType = modalRecord? modalRecord.recType : $routeParams.recType;
-  var recId = modalRecord? modalRecord.recId : $routeParams.recId;
+
   var isNew = (recId === 'new');
   $scope.recType = recType;
   $scope.recId = recId;
 
   document.body.className = isNew ? 'edit new' : 'edit';
-  $anchorScroll();
-
 
   $scope.$on('$routeUpdate', function() {
-    var modalParams = $location.$$search.m;
-    if(modalParams) {
-      var params = modalParams.split('/').splice(1);
-      $rootScope.modalRecord = {
-        recType: recType = params[1],
-        recId: recId = params[2],
-      };
-    } else {
-      $rootScope.modalRecord = null;
-    }
+    $anchorScroll();
   });
 
   $scope.isLinked = function (thing) {
@@ -229,7 +218,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   };
 
   $scope.save = function() {
-    var recType = $routeParams.recType === editService.RECORD_TYPES.REMOTE ? editService.RECORD_TYPES.BIB : $routeParams.recType;
+    var recType = $scope.recType === editService.RECORD_TYPES.REMOTE ? editService.RECORD_TYPES.BIB : $scope.recType;
     if(!$scope.isDraft && !isNew) {
 
       var ifMatchHeader = '';
@@ -255,7 +244,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   
 
   $scope.saveDraft = function() {
-    var recType = $routeParams.recType === editService.RECORD_TYPES.REMOTE ? editService.RECORD_TYPES.BIB : $routeParams.recType;
+    var recType = $scope.recType === editService.RECORD_TYPES.REMOTE ? editService.RECORD_TYPES.BIB : $scope.recType;
 
     if(!$scope.isDraft) {
       recordService.draft.create(recType, $scope.record).then(function(data) {
