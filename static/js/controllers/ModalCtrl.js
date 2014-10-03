@@ -1,4 +1,4 @@
-kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, dataTransport) {
+kitin.controller('ModalCtrl', function($scope, $modal, $rootScope) {
   var defaultModalOptions = {
     backdrop: 'static', // Shows backdrop but doesn't close dialog on click outside.
     keyboard: true,
