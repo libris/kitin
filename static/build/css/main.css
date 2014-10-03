@@ -1455,6 +1455,11 @@ h4.modal-title {
   font: bold italic 16px/20px 'Droid Serif', georgia, serif;
   color: #1a8f72;
 }
+html .modal.fade .modal-dialog {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
+}
 /* MODAL END ------------------------- */
 /* REMOTE SOURCES MODAL START ------------------------- */
 .remote-modal a.database-name {
@@ -2875,13 +2880,6 @@ section.result p.holding {
 }
 .faded:hover {
   opacity: 1;
-}
-html .modal.fade .modal-dialog {
-  -webkit-transition: none;
-  transition: none;
-  -webkit-transform: translate(0, 0);
-  -ms-transform: translate(0, 0);
-  transform: translate(0, 0);
 }
 .pages {
   position: absolute;

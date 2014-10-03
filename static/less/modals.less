@@ -13,6 +13,17 @@ body.modal-open {
 }
 h4.modal-title{font: bold italic 16px/20px @header-font, georgia,serif; color:@green; }
 
+html .modal {
+  // Remove sliding and speed up
+  &.fade {
+    .modal-dialog {
+     -webkit-transform: translate(0,0);
+         -ms-transform: translate(0,0); // IE9 only
+             transform: translate(0,0);
+    }
+  }
+}
+
 /* MODAL END ------------------------- */
 
 /* REMOTE SOURCES MODAL START ------------------------- */

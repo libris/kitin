@@ -1,4 +1,4 @@
-kitin.controller('ModalCtrl', function($scope, $modal, $rootScope) {
+kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) {
   var defaultModalOptions = {
     backdrop: 'static', // Shows backdrop but doesn't close dialog on click outside.
     keyboard: true,
@@ -8,21 +8,33 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope) {
   };
 
   $scope.openAuthModal = function(id) {
-    var params = id.split('/').splice(1);
-    var recType = params[1];
-    var recId = params[2];
-    var opts = angular.extend(
-                defaultModalOptions,
-                {
-                  templateUrl: 'modal-edit-auth',
-                  controller: 'ModalAuthCtrl',
-                  windowClass: 'modal-large auth-modal',
-                  resolve: {
-                    recType: function() { return recType; },
-                    recId: function() { return recId; }
-                  }
-                });
-    $scope.authModal = $modal.open(opts);
+    $scope.authModal = editService.getRecordTypeId(id).then(function(record) {
+      var opts = angular.extend( defaultModalOptions, {
+        templateUrl: 'modal-edit-auth',
+        controller: 'ModalAuthCtrl',
+        windowClass: 'modal-large auth-modal',
+        resolve: {
+          recType: function() { return record.type; },
+          recId: function() { return record.id; }
+        }
+      });
+      $modal.open(opts);
+    });
+  };
+
+  $scope.openBibModal = function(id) {
+    $scope.bibModal = editService.getRecordTypeId(id).then(function(record) {
+      var opts = angular.extend(defaultModalOptions, {
+        templateUrl: 'modal-edit-bib',
+        controller: 'ModalBibCtrl',
+        windowClass: 'modal-large bib-modal',
+        resolve: {
+          recType: function() { return record.type; },
+          recId: function() { return record.id; }
+        }
+      });
+      $modal.open(opts);
+    });
   };
 
   $scope.openReleaseModal = function() {
