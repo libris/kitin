@@ -173,6 +173,47 @@
   },
 
   "summary": {
+
+    "CreativeWork": {
+      "instanceTitle": {"titleValue": ""},
+      "attributedTo": {"@type": "Person"},
+      "publicationYear": ""
+    },
+
+    "CartographyCoordinates": {},
+    "Identifier": {
+      "identifierScheme": {"@id": "/def/identifiers/isbn"},
+      "identifierValue": ""
+    },
+    "Title": {
+      "@type": "Title",
+      "titleValue": "",
+      "subtitle": "",
+      "titleDate": "",
+      "partNumber": "",
+      "partTitle": ""
+    },
+
+    "Audience": {},
+    "DissertationAnnotation": {},
+    "FunctionOrRole": {},
+    "Profession": {},
+    "Language": {"notation": "", "prefLabel": ""},
+    "Nationality": {"notation": "", "prefLabel": ""},
+    "ProviderEvent": {
+      "providerName": "",
+      "providerDate": "",
+      "place": {"@type": "Place", "label": ""}
+    },
+
+    "Concept": {"prefLabel": "", "notation": ""},
+    "ConceptScheme": {"notation": ""},
+    "ConceptualWork": {"uniformTitle": "", "attributedTo": {"@type": "Person"}},
+
+    "Country": {"name": ""},
+    "Family": {"name": ""},
+    "Meeting": {"name": ""},
+    "Organization": {"name": ""},
     "Person": {
       "name": "",
       "familyName": "",
@@ -185,29 +226,10 @@
         "controlledLabel": "{{familyName}}{%if familyName and givenName%}, {%endif%}{{givenName}}{%if numeration%} ({{numeration}}){%endif%}{%if personTitle%}, {{personTitle}}{%endif%}{%if birthYear or deathYear%} {{birthYear}}-{{deathYear}}{%endif%}"
       }
     },
-    "Organization": {"name": ""},
-    "Family": {"name": ""},
-    "Meeting": {"name": ""},
-    "Jurisdiction": {"name": ""},
-    "CreativeWork": {
-      "instanceTitle": {"titleValue": ""},
-      "attributedTo": {"name": ""},
-      "publicationYear": ""
-    },
-    "Concept": {"prefLabel": "", "notation": ""},
-    "ConceptScheme": {"notation": ""},
-    "Identifier": {
-      "identifierScheme": {"@id": "/def/identifiers/isbn"},
-      "identifierValue": ""
-    },
-    "Language": {"notation": "", "prefLabel": ""},
-    "Nationality": {"notation": "", "prefLabel": ""},
-    "Place": {"prefLabel": ""},
-    "ProviderEvent": {
-      "providerName": "",
-      "providerDate": "",
-      "place": {"@type": "Place", "label": ""}
-    }
+    "Place": {"label": ""},
+    "PlanetaryObject": {"name": ""},
+    "Jurisdiction": {"name": ""}
+
   }
 
 }
