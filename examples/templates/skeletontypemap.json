@@ -138,11 +138,45 @@
     },
 
     "Holding": {
-      "location": "",
-      "shelvingControlNumber": "",
-      "classificationPart": "",
-      "textualHoldings": "",
-      "uniformResourceIdentifier": ""
+      "@type": ["HeldMaterial"],
+      "librisIIINumber": [],
+      "callno": [],
+      "subject": [],
+      "offers": [{
+        "@type": "Offer",
+        "heldBy": [{
+          "@type": "Organization",
+          "notation": ""
+        }],
+        "shelfLocation": [],
+        "formerShelfLocation": [],
+        "address": [],
+        "codedLocationQualifier": [],
+        "nonCodedLocationQualifier": [],
+        "classificationPart": "",
+        "availability": [],
+        "shelfControlNumber": "",
+        "callNumberPrefix": [],
+        "shelfLabel": "",
+        "callNumberSuffix": [],
+        "countryCode": "",
+        "pieceDesignation": "",
+        "itemCondition": "",
+        "copyrightArticleFeeCode": [],
+        "copyNumber": "",
+        "url": [],
+        "editorialNote": [],
+        "copyNote": []
+      }],
+      "isPrimaryTopicOf": [],
+      "workExample": [
+        {
+          "@type": "SomeProducts",
+          "scopeNote": "",
+          "editorialNote": [],
+          "copyNote": []
+        }
+      ]
     }
 
   },
