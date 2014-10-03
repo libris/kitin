@@ -90,21 +90,74 @@ label.find-entity input[type="text"] { padding-left: 22px; }
 .entity:hover .on-hover { visibility: visible; }
 
 
-.datatable{margin-bottom:10px}
-.datatable td{padding: 0 0 0 6px}
-.datatable td:first-child{padding:0}
-.datatable tbody label{margin-bottom: -1px}
-.datatable tfoot { margin-top: 4px;}
-.datatable label input[type="text"]{
-  -moz-box-sizing: border-box; 
-  -webkit-box-sizing: border-box; 
-  box-sizing: border-box;
-  width:100%;
+.datatable {
+  table { border-collapse: separate; width: 100%; min-height: 1px; height: 100% }
+  margin-bottom:10px;
+  tbody td {
+    padding: 4px;
+    border:1px solid @grey-light;
+    border-left-width: 0;
+    border-top-width: 0;
+    position:relative;
+    min-height:22px;
+    height: 100%;
+    &.controls {
+      border-color: #fff;
+      width: 24px;
+      margin: 0;
+      .btn-link {
+        padding: 0;
+        font-size:20px;
+        &.deleter {
+          color:@grey-light;
+          &:focus,
+          &:hover { color: @red }
+        }
+      }
+    }
+    &.multi {
+      ul.tags { margin-top:0 }
+      .add-item { margin-bottom:0 }
+    }
+    &:first-child { border-left-width:1px }
+    label {
+      display:block;
+      height: 100%;
+      textarea {
+        box-sizing: border-box;
+        width:100%;
+        height: 100%;
+        border:none;
+        padding:0;
+        margin:0 4px;
+        min-height:22px;
+        min-width:200px;
+        &:focus{border:none;box-shadow:none}
+      }
+    }
+  }
+  tr {
+    &:first-child td {
+      border-top-width: 1px;
+      &:first-child { border-top-left-radius:2px; }
+      &:last-child { border-top-right-radius:2px; }
+    }
+    &:last-child td {
+      &:first-child { border-bottom-left-radius:2px; }
+      &:last-child { border-bottom-right-radius:2px; }
+    }
+  }
+  tbody label { margin-bottom: -1px }
+  tfoot { 
+    margin-top:4px;
+    button {
+      margin-top:-2px!important;
+      position:relative;
+      float:left;
+      margin-right:18px
+    }
+  }
 }
-.datatable label input[type="text"]:focus{}
-.datatable td.controls{width:20px;margin:0}
-.datatable td.controls .btn-link{padding:0;position:relative;top:-3px;}
-.datatable tfoot button{margin-top:-2px!important;position:relative;float:left;margin-right:18px}
 
 span.authorized{display:block;margin-left:15px; padding-left:5px;margin-top:25px;color:@green; font-size: 24px;}
 
@@ -131,11 +184,9 @@ input[type="text"] :-moz-placeholder { color:@grey-light; font-style:italic; fon
 label textarea,
 label input[type="text"],
 label select,
-.fakeinput{font-size:15px;padding:0 5px 0 5px;height:25px;border-radius:2px}
+.fakeinput{font-size:15px;padding:0 5px 0 5px;height:25px;border-radius:2px;width:100%}
 
 .fakeinput{color:@grey-very-dark;cursor:text;padding-top:3px;height:24px}
-
-label input[type="text"]{padding-top:0;height:25px;}
 
 label textarea,
 label input[type="text"],

@@ -45,7 +45,7 @@ ul.tags li {
   // Styles for adding tags
 ul.tags .add-item,
 .find-entity .add-item {
-  background: @green;
+  background: @green-lighter;
   border: none;
   cursor:pointer;
   display: inline-block; 
@@ -55,15 +55,17 @@ ul.tags .add-item,
   border-radius:2px;
   .toggler { display:none }
   .add-link {
-    color: #fff
+    color: @green-dark;
+    i { margin-left: 2px; }
   }
-
   i { margin-right:2px }
   &:hover {
-    background: @green-dark;
+    i, .add-link { color: @green-darker; }
+    background: darken(@green-lighter, 8%)
   }
   &.active {
     background: transparent;
+    border:none;
     cursor: default;
     padding: 0;
     .toggler {
@@ -71,13 +73,16 @@ ul.tags .add-item,
     }
     .linkchoice {
       color: @grey;
+      a { 
+        color: @green;
+        &:hover{color:@green-dark}
+      }
     }
     .search-field {
       display:inline-block;
-      border: 1px solid @grey-light;
+      border: 1px solid @grey;
       border-radius: 2px;
-      padding: 2px 7px 1px 7px;
-      margin-bottom: -1px; // prevents jump bug (chrome)
+      padding: 2px 7px 0px 7px;
       i { color:@grey; font-size:12px; }
       &.fake {
         border:none;
@@ -99,9 +104,21 @@ ul.tags .add-item,
 }
 
 .find-entity .add-item {
-  background: @grey-darker;
+  background: @green;
+  i {
+    color: @white;
+  }
+  .add-link {
+    color: @white;
+  }
+  border-color: @green;
   &:hover{ 
-    background: @grey-very-dark; 
+    background: @green-dark;
+    border-color: @green-dark;
+    color: #fff;
+    i, .add-link {
+      color:#fff
+    }
   }
   &.active:hover{
     background: transparent;

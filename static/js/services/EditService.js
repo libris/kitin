@@ -306,7 +306,7 @@ kitin.service('editService', function(definitions, $http, $q) {
           types = [types];
         }
         ['Resource'].concat(types).forEach(function (type) {
-          var skeletonType = skeletonTypeMap[type];
+          var skeletonType = skeletonTypeMap.main[type];
           if (skeletonType) {
             this.mergeRecordAndTemplate(record.about, skeletonType);
           }

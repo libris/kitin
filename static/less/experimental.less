@@ -37,6 +37,17 @@ section.result p.holding {font-size:11px; color:@grey;padding-top:0px; display: 
 .faded {opacity: 0.5}
 .faded:hover {opacity: 1}
 
+html .modal {
+  // When fading in the modal, animate it to slide down
+  &.fade .modal-dialog {
+    -webkit-transition: none;
+    transition: none;
+      -webkit-transform: translate(0,0);
+      -ms-transform: translate(0,0); // IE9 only
+          transform: translate(0,0);
+  }
+}
+
 .pages {position:absolute; bottom:23px; padding-left:3px;}
 
 .copy {position:absolute; bottom:-100px; right:20px;}
@@ -50,7 +61,15 @@ section.result p.holding {font-size:11px; color:@grey;padding-top:0px; display: 
     &:focus {color:@grey-very-dark}
   }
 .remove-thing.btn-link {margin-top:16px;}
-.add-thing.btn-link {margin-top:0px;padding-left:12px;background:url(/static/img/plus.png) no-repeat 0 7px}
+.add-thing.btn-link {
+    margin-top:0px;
+    padding-left:12px;
+    background:url(/static/img/plus.png) no-repeat 0 7px;
+    &:hover {
+        color: @green-dark;
+        text-decoration:underline;
+    }
+}
 
 
 
@@ -68,11 +87,8 @@ section.result p.holding {font-size:11px; color:@grey;padding-top:0px; display: 
     text-decoration: none;
     vertical-align: middle;
     color:@grey;
-		background-color:@grey-lighter;}
-
-.btn-link.deleter{color:#ddd}
-.btn-link.deleter:focus,
-.btn-link.deleter:hover{color:#c44}
+	background-color:@grey-lighter;
+}
 
 .input-controls {;margin: 0 26px 10px 0; }
 

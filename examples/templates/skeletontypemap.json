@@ -1,165 +1,213 @@
 {
 
-  "Record": {
-    "about": {
-    }
-  },
+  "main": {
 
-  "Resource": {
-    "subjectByInScheme": {
-        "/topic/sao": [],
-        "/topic/saogf": [],
-        "barn": []
+    "Record": {
+      "about": {
+      }
     },
-    "subjectByType": {
-        "/topic/chronological": [],
-        "Person": [],
-        "Place": []
-    }
-  },
 
-  "Monograph": {
-    "attributedTo": {},
-    "influencedBy": [],
-    "identifierByIdentifierScheme": {
-      "/def/identifiers/isbn": []
-    }
-  },
+    "Resource": {
+      "subjectByInScheme": {
+          "/topic/sao": [],
+          "/topic/saogf": [],
+          "barn": []
+      },
+      "subjectByType": {
+          "/topic/chronological": [],
+          "Person": [],
+          "Place": []
+      }
+    },
 
-  "Serial": {
-    "keyTitle": [
+    "Monograph": {
+      "attributedTo": {},
+      "influencedBy": [],
+      "identifierByIdentifierScheme": {
+        "/def/identifiers/isbn": []
+      }
+    },
+
+    "Serial": {
+      "keyTitle": [
+          {
+            "@type": "Title",
+            "titleValue": "",
+            "titleQualifier": "",
+            "titleSource": ""
+          }
+      ],
+      "comment": [],
+      "influencedBy": [],
+      "identifierByIdentifierScheme": {
+        "/def/identifiers/issn": []
+      }
+    },
+
+    "Text": {
+      "publicationYear": "",
+      "publicationCountry": [],
+      "language": [],
+      "literaryForm": {},
+      "originalLanguage": [],
+      "classificationDdc": "",
+      "classification": [],
+      "instanceTitle": {
+        "@type": "Title",
+        "titleValue": "",
+        "subtitle": "",
+        "titleDate": "",
+        "partNumber": "",
+        "partTitle": ""
+      },
+      "responsibilityStatement": "",
+      "publication": [],
+      "manufacture": [],
+      "genre": [],
+      "hasFormatByType": {
+        "Product": []
+      }
+    },
+
+    "Audio": {
+      "date": "",
+      "publicationStatus": {},
+      "text": {},
+      "mediaTerm": "",
+      "performerNote": "",
+      "keyword": "",
+      "isPrimaryTopicOf": [],
+      "hasFormatByType": {
+          "SoundRecording": [],
+          "Product": []
+      }
+    },
+
+    "Cartography": {
+      "relief": {},
+      "projection": {},
+      "material": {},
+      "additionalCarrierType": {},
+      "index": {},
+      "cartographer": [],
+      "cartographicAscensionAndDeclination": [
         {
-          "@type": "Title",
-          "titleValue": "",
-          "titleQualifier": "",
-          "titleSource": ""
+          "@type": "CartographyCoordinates",
+          "cartographicScale": "",
+          "constantRatioLinearHorizontalScale": [],
+          "westernmostLongitudeCoordinates": "",
+          "easternmostLongitudeCoordinates": "",
+          "northernmostLatitudeCoordinates": ""
         }
-    ],
-    "comment": [],
-    "influencedBy": [],
-    "identifierByIdentifierScheme": {
-      "/def/identifiers/issn": []
-    }
-  },
-
-  "Text": {
-    "publicationYear": "",
-    "publicationCountry": [],
-    "language": [],
-    "literaryForm": {},
-    "originalLanguage": [],
-    "classificationDdc": "",
-    "classification": [],
-    "instanceTitle": {
-      "@type": "Title",
-      "titleValue": "",
-      "subtitle": "",
-      "titleDate": "",
-      "partNumber": "",
-      "partTitle": ""
+      ],
+      "instanceTitle": {
+        "@type": "Title",
+        "titleValue": "",
+        "subtitle": "",
+        "titleDate": "",
+        "partNumber": "",
+        "partTitle": ""
+      },
+      "cartographicScale": "",
+      "cartographicCoordinates": "",
+      "listOfContents": "",
+      "subject": [],
+      "relation": [],
+      "isPrimaryTopicOf": []
     },
-    "responsibilityStatement": "",
-    "publication": [],
-    "manufacture": [],
-    "genre": [],
-    "hasFormatByType": {
-      "Product": []
-    }
-  },
 
-  "Audio": {
-    "date": "",
-    "publicationStatus": {},
-    "text": {},
-    "mediaTerm": "",
-    "performerNote": "",
-    "keyword": "",
-    "isPrimaryTopicOf": [],
-    "hasFormatByType": {
-        "SoundRecording": [],
-        "Product": []
-    }
-  },
-
-  "Cartography": {
-    "relief": {},
-    "projection": {},
-    "material": {},
-    "additionalCarrierType": {},
-    "index": {},
-    "cartographer": [],
-    "cartographicAscensionAndDeclination": [
-      {
-        "@type": "CartographyCoordinates",
-        "cartographicScale": "",
-        "constantRatioLinearHorizontalScale": [],
-        "westernmostLongitudeCoordinates": "",
-        "easternmostLongitudeCoordinates": "",
-        "northernmostLatitudeCoordinates": ""
+    "ProjectedImage": {
+      "date": "",
+      "publicationStatus": {},
+      "runningTime": "",
+      "contentType": [],
+      "mediaTerm": "",
+      "performerNote": "",
+      "languageNote": "",
+      "isPrimaryTopicOf": [],
+      "identifierByIdentifierScheme": {
+          "identifier": []
+      },
+      "hasFormatByType": {
+          "VideoRecording": [],
+          "Product": []
+      },
+      "subjectByInSchemeOrType": {
+          "Work": []
       }
-    ],
-    "instanceTitle": {
-      "@type": "Title",
-      "titleValue": "",
-      "subtitle": "",
-      "titleDate": "",
-      "partNumber": "",
-      "partTitle": ""
     },
-    "cartographicScale": "",
-    "cartographicCoordinates": "",
-    "listOfContents": "",
-    "subject": [],
-    "relation": [],
-    "isPrimaryTopicOf": []
-  },
 
-  "ProjectedImage": {
-    "date": "",
-    "publicationStatus": {},
-    "runningTime": "",
-    "contentType": [],
-    "mediaTerm": "",
-    "performerNote": "",
-    "languageNote": "",
-    "isPrimaryTopicOf": [],
-    "identifierByIdentifierScheme": {
-        "identifier": []
-    },
-    "hasFormatByType": {
-        "VideoRecording": [],
-        "Product": []
-    },
-    "subjectByInSchemeOrType": {
-        "Work": []
+    "Holding": {
+      "location": "",
+      "shelvingControlNumber": "",
+      "classificationPart": "",
+      "textualHoldings": "",
+      "uniformResourceIdentifier": ""
     }
+
   },
 
-  "Digital": {
-    "hasPart": [
-      {
-        "@type": [
-          "Digital"
-        ],
-        "contentType": []
+  "mixin": {
+
+    "EBook": ["Text", "Digital"],
+
+    "Digital": {
+      "hasPart": [
+        {
+          "@type": [
+            "Digital"
+          ],
+          "contentType": []
+        }
+      ],
+      "mediaTerm": "Elektronisk resurs",
+      "fileType": "",
+      "systemRequirements": "",
+      "hasFormatByType": {
+        "Electronic": [],
+        "Product": []
+      },
+      "technicalNote": []
+    }
+
+  },
+
+  "summary": {
+    "Person": {
+      "name": "",
+      "familyName": "",
+      "givenName": "",
+      "birthYear": "",
+      "deathYear": "",
+      "notation": "",
+      "personTitle": "",
+      "_construct": {
+        "controlledLabel": "{{familyName}}{%if familyName and givenName%}, {%endif%}{{givenName}}{%if numeration%} ({{numeration}}){%endif%}{%if personTitle%}, {{personTitle}}{%endif%}{%if birthYear or deathYear%} {{birthYear}}-{{deathYear}}{%endif%}"
       }
-    ],
-    "mediaTerm": "Elektronisk resurs",
-    "fileType": "",
-    "systemRequirements": "",
-    "hasFormatByType": {
-      "Electronic": [],
-      "Product": []
     },
-    "technicalNote": []
-  },
-
-  "Holding": {
-    "location": "",
-    "shelvingControlNumber": "",
-    "classificationPart": "",
-    "textualHoldings": "",
-    "uniformResourceIdentifier": ""
+    "Organization": {"name": ""},
+    "Family": {"name": ""},
+    "Meeting": {"name": ""},
+    "Jurisdiction": {"name": ""},
+    "CreativeWork": {
+      "instanceTitle": {"titleValue": ""},
+      "attributedTo": {"name": ""},
+      "publicationYear": ""
+    },
+    "Concept": {"prefLabel": "", "notation": ""},
+    "ConceptScheme": {"notation": ""},
+    "Identifier": {
+      "identifierScheme": {"@id": "/def/identifiers/isbn"},
+      "identifierValue": ""
+    },
+    "Language": {"notation": "", "prefLabel": ""},
+    "Nationality": {"notation": "", "prefLabel": ""},
+    "Place": {"prefLabel": ""},
+    "ProviderEvent": {
+      "providerName": "",
+      "providerDate": "",
+      "place": {"@type": "Place", "label": ""}
+    }
   }
 
 }

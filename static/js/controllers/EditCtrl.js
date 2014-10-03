@@ -1,29 +1,18 @@
-
 kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $timeout, $rootScope, $location, $anchorScroll, recordService, definitions, userData, editService) {
 
+  // recType & recId can be inherited from f.ex modals
+
+  $scope.recType = $scope.recType || $routeParams.recType;
+  $scope.recId = $scope.recId || $routeParams.recId;
+
   editService.addableElements = [];
-  var modalRecord = $rootScope.modalRecord;
-  var recType = modalRecord? modalRecord.recType : $routeParams.recType;
-  var recId = modalRecord? modalRecord.recId : $routeParams.recId;
-  var isNew = (recId === 'new');
-  $scope.recType = recType;
-  $scope.recId = recId;
+
+  var isNew = ($scope.recId === 'new');
 
   document.body.className = isNew ? 'edit new' : 'edit';
-  $anchorScroll();
-
 
   $scope.$on('$routeUpdate', function() {
-    var modalParams = $location.$$search.m;
-    if(modalParams) {
-      var params = modalParams.split('/').splice(1);
-      $rootScope.modalRecord = {
-        recType: recType = params[1],
-        recId: recId = params[2],
-      };
-    } else {
-      $rootScope.modalRecord = null;
-    }
+    $anchorScroll();
   });
 
   $scope.isLinked = function (thing) {
@@ -65,20 +54,20 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   }
 
   // Needed? Set update recType instead?
-  function getRecordType(recType, isNew) {
-    if(isNew && recType !== editService.RECORD_TYPES.REMOTE) {
+  var recordType = (function() {
+    if(isNew && $scope.recType !== editService.RECORD_TYPES.REMOTE) {
       return editService.RECORD_TYPES.NEW;
-    } else if(recId.indexOf(editService.RECORD_TYPES.DRAFT) > -1) {
+    } else if($scope.recId.indexOf(editService.RECORD_TYPES.DRAFT) > -1) {
       return editService.RECORD_TYPES.DRAFT;
-    } else if(recType) {
-      return recType;
+    } else if($scope.recType) {
+      return $scope.recType;
     } else {
       return editService.RECORD_TYPES.BIB;
     }
-  }
+  }());
 
   // Depending on type of record, get record and add to scope
-  switch(getRecordType(recType, isNew)) {
+  switch(recordType) {
 
     // NEW
     case editService.RECORD_TYPES.NEW:
@@ -94,7 +83,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
 
     // DRAFT
     case editService.RECORD_TYPES.DRAFT:
-      recordService.draft.get(recType + '/' + recId).then(function(data) {
+      recordService.draft.get($scope.recType + '/' + $scope.recId).then(function(data) {
         $scope.record = data['recdata']['document'];
         addRecordViewsToScope($scope.record, $scope);
         $scope.isDraft = true;
@@ -122,7 +111,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     // BIB
     // AUTH
     default:
-      recordService.record.get(recType, recId).then(function(data) {
+      recordService.record.get($scope.recType, $scope.recId).then(function(data) {
         var record = data['recdata'];
         // MARC
         // !TODO create a cleaner way to detect data format and sperate from bib
@@ -138,7 +127,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
         $scope.userSigel = userData.userSigel;
 
         // BIB
-        if (recType === editService.RECORD_TYPES.BIB) {
+        if ($scope.recType === editService.RECORD_TYPES.BIB) {
           addRecordViewsToScope(record, $scope);
         }
         
@@ -173,8 +162,8 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
 
 
   $scope.modifications = {
-    saved:     recType === editService.RECORD_TYPES.REMOTE ? false : true, 
-    published: recType === editService.RECORD_TYPES.REMOTE ? false : true
+    saved:     $scope.recType === editService.RECORD_TYPES.REMOTE ? false : true, 
+    published: $scope.recType === editService.RECORD_TYPES.REMOTE ? false : true
   };
 
   function onSaveState() {
@@ -229,7 +218,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   };
 
   $scope.save = function() {
-    var recType = $routeParams.recType === editService.RECORD_TYPES.REMOTE ? editService.RECORD_TYPES.BIB : $routeParams.recType;
+    var parsedRecType = $scope.recType === editService.RECORD_TYPES.REMOTE ? editService.RECORD_TYPES.BIB : $scope.recType;
     if(!$scope.isDraft && !isNew) {
 
       var ifMatchHeader = '';
@@ -238,15 +227,15 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
       } else {
         console.warn('No ETag for this record. Where is it?');
       }
-      recordService.record.save(recType, recId, $scope.record, ifMatchHeader).then(function(data) {
+      recordService.record.save(parsedRecType, $scope.recId, $scope.record, ifMatchHeader).then(function(data) {
         $scope.record = data['recdata'];
         $scope.etag = data['etag'];
         onPublishState();
       });
     } else {
-      recordService.record.create(recType, $scope.record).then(function(data) {
+      recordService.record.create(parsedRecType, $scope.record).then(function(data) {
         if($scope.isDraft) {
-          recordService.draft.delete(recType, recId);
+          recordService.draft.delete(parsedRecType, $scope.recId);
         }
         $location.url('/edit' + data['recdata']['@id']);
       });
@@ -255,14 +244,14 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   
 
   $scope.saveDraft = function() {
-    var recType = $routeParams.recType === editService.RECORD_TYPES.REMOTE ? editService.RECORD_TYPES.BIB : $routeParams.recType;
+    var parsedRecType = $scope.recType === editService.RECORD_TYPES.REMOTE ? editService.RECORD_TYPES.BIB : $scope.recType;
 
     if(!$scope.isDraft) {
-      recordService.draft.create(recType, $scope.record).then(function(data) {
+      recordService.draft.create(parsedRecType, $scope.record).then(function(data) {
         $location.url('/edit/' + data['draft_id']);
       });
     } else {
-      recordService.draft.save(recType, recId, $scope.record, $scope.etag).then(function(data) {
+      recordService.draft.save(parsedRecType, $scope.recId, $scope.record, $scope.etag).then(function(data) {
         $scope.record = data['recdata'];
         if(data['recdata']['@id']) { // Undefined if new record
           $scope.record.type = data['recdata']['@id'].split("/").slice(-2)[0];
@@ -500,7 +489,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     $scope.debugRecord = JSON.stringify(recordCopy, null, 4);
   }
   // Could not get $viewContentLoading to work. Using timeout as a temporary solution
-  if($scope.debug && recType === 'bib') {
+  if($scope.debug && $scope.recType === 'bib') {
     $timeout(function() {
       debugRecord();
       
