@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.2.27-build.493+sha.45b896a
+ * @license AngularJS v1.2.27-build.494+sha.029ac8c
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -68,7 +68,7 @@ function minErr(module) {
       return match;
     });
 
-    message = message + '\nhttp://errors.angularjs.org/1.2.27-build.493+sha.45b896a/' +
+    message = message + '\nhttp://errors.angularjs.org/1.2.27-build.494+sha.029ac8c/' +
       (module ? module + '/' : '') + code;
     for (i = 2; i < arguments.length; i++) {
       message = message + (i == 2 ? '?' : '&') + 'p' + (i-2) + '=' +
@@ -1987,7 +1987,7 @@ function setupModuleLoader(window) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
-  full: '1.2.27-build.493+sha.45b896a',    // all of these placeholder strings will be replaced by grunt's
+  full: '1.2.27-build.494+sha.029ac8c',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
   minor: 2,
   dot: 27,
@@ -2158,7 +2158,7 @@ function publishExternalAPI(angular){
  * - [`children()`](http://api.jquery.com/children/) - Does not support selectors
  * - [`clone()`](http://api.jquery.com/clone/)
  * - [`contents()`](http://api.jquery.com/contents/)
- * - [`css()`](http://api.jquery.com/css/)
+ * - [`css()`](http://api.jquery.com/css/) - Only retrieves inline-styles, does not call `getComputedStyles()`
  * - [`data()`](http://api.jquery.com/data/)
  * - [`empty()`](http://api.jquery.com/empty/)
  * - [`eq()`](http://api.jquery.com/eq/)
