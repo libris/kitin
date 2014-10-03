@@ -180,7 +180,10 @@
       "birthYear": "",
       "deathYear": "",
       "notation": "",
-      "personTitle": ""
+      "personTitle": "",
+      "_construct": {
+        "controlledLabel": "{{familyName}}{%if familyName and givenName%}, {%endif%}{{givenName}}{%if numeration%} ({{numeration}}){%endif%}{%if personTitle%}, {{personTitle}}{%endif%}{%if birthYear or deathYear%} {{birthYear}}-{{deathYear}}{%endif%}"
+      }
     },
     "Organization": {"name": ""},
     "Family": {"name": ""},
