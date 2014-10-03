@@ -5,79 +5,71 @@
     <h4 class="modal-title">Bestånd</h4>
   </div>
   <div class="modal-body"> 
-    <form>
-      <section class="holdings">
-      <pre>{{ holding.about.offers }}</pre>
+  <pre>{{ holding }}</pre>
+    <form data-ng-show="holding['@id'] || holding['_isNew']">
+      <section class="holdings offer" data-ng-repeat="offer in holding.about.offers">
+      <pre>{{ offer }}</pre>
         <div class="cols">
           <div class="col6">
             <label>
-              <input data-inplace type="text" placeholder="Avdelning/Samling" data-ng-model="holding.about.offers[0].shelfLocation"/>
+              <input data-inplace type="text" placeholder="Avdelning/Samling" data-ng-model="offer.shelfLocation"/>
               <span class="lbl">{{ "Avdelning/Samling" }}</span>
             </label>
             <label>
-              <input data-inplace type="text" placeholder="Hyllsignum/Klassifikation" data-ng-model="holding.about.offers[0].classificationPart"/>
+              <input data-inplace type="text" placeholder="Hyllsignum/Klassifikation" data-ng-model="offer.classificationPart"/>
               <span class="lbl">{{ "Hyllsignum/Klassifikation" }}</span>
             </label>
             <div class="suggestion-classification">
               <ul>
-                <li data-ng-repeat="holding in holdings" data-ng-show="holding.about.offers[0].classificationPart"><i class="fa fa-circle-arrow-up"></i> {{ holding.about.offers[0].classificationPart }}</li>
+                <li data-ng-repeat="holding in holdings" data-ng-show="offer.classificationPart"><i class="fa fa-circle-arrow-up"></i> {{ offer.classificationPart }}</li>
               </ul>
               <span class="lbl lbl-suggest">Förslag på signum</span>
             </div>
           </div>
           <div class="col6">
             <label>
-              <input data-inplace type="text" placeholder="Löpnummer" data-ng-model="holding.about.offers[0].shelfControlNumber"/>
+              <input data-inplace type="text" placeholder="Löpnummer" data-ng-model="offer.shelfControlNumber"/>
               <span class="lbl">{{ "Löpnummer" }}</span>
             </label>
             <label>
-              <input data-inplace type="text" placeholder="Uppställningsord" data-ng-model="holding.about.offers[0].shelfLabel"/>
+              <input data-inplace type="text" placeholder="Uppställningsord" data-ng-model="offer.shelfLabel"/>
               <span class="lbl">{{ "Uppställningsord" }}</span>
             </label>
             <label>
-              <input data-inplace type="text" placeholder="Exemplarinfo" data-ng-model="holding.about.offers[0].availability"/><!-- Used to be itemPart -->
+              <input data-inplace type="text" placeholder="Exemplarinfo" data-ng-model="offer.availability"/><!-- Used to be itemPart -->
               <span class="lbl">{{ "Exemplarinfo" }}</span>
             </label>
             <label>
-              <input data-inplace type="text" placeholder="Exemplarnummer TODO!" data-ng-model="holding.about.offers[0].copyNumber"/>
+              <input data-inplace type="text" placeholder="Exemplarnummer TODO!" data-ng-model="offer.copyNumber"/>
               <span class="lbl">{{ "Exemplarnummer" }}</span>
             </label>
             <label>
-              <textarea data-inplace data-ui-jq="autosize" spellcheck="false" placeholder="Publik anmärkning" data-ng-model="holding.about.offers[0].copyNote"></textarea>
+              <textarea data-inplace data-ui-jq="autosize" spellcheck="false" placeholder="Publik anmärkning" data-ng-model="offer.copyNote"></textarea>
               <span class="lbl">{{ "Publik anmärkning" }}</span>
             </label>
             <label>
-              <textarea data-inplace data-ui-jq="autosize" spellcheck="false" placeholder="Intern anmärkning" data-ng-model="holding.about.offers[0].editorialNote"></textarea>
+              <textarea data-inplace data-ui-jq="autosize" spellcheck="false" placeholder="Intern anmärkning" data-ng-model="offer.editorialNote"></textarea>
               <span class="lbl">{{ "Intern anmärkning" }}</span>
             </label>
           </div>
         </div>
       </section>
-        
-      <section class="modal-footer submit">
-        <button class="btn btn-purple  btn-submit" id="save-hld" data-ng-click="saveHolding(holding)">Spara bestånd</button> 
-        <button data-ng-show="holding['@id']"class="btn-link" id="delete-hld" data-ng-click="deleteHolding(holding['@id'])">Ta bort</button>
-        <!--<button disabled class="btn btn-purple" data-ng-click="addHolding(holdings)">Lägg till <i class="fa fa-inverse fa-chevron-down"></i></button>-->
-      </section>
-
-      <section class="holdings holdings-list">
-        <h2>Allt Bestånd<i></i></h2>
-        <div class="cols">
-          <div class="col12">
-            <div data-ng-repeat="holding in holdings" data-ng-include="'render-holding'"></div>
-         </div>
-        </div>
-      </section>
 
     </form>
+        
+    <section class="submit">
+      <button class="btn btn-purple btn-submit" id="save-hld" data-ng-click="saveHolding(holding)">Spara bestånd</button> 
+      <button data-ng-show="holding['@id']" class="btn-link" id="delete-hld" data-ng-click="deleteHolding(holding)">Ta bort</button>
+      <!--<button disabled class="btn btn-purple" data-ng-click="addHolding(holdings)">Lägg till <i class="fa fa-inverse fa-chevron-down"></i></button>-->
+    </section>
+
   </div>
 </script>
 
-
 <script type="text/ng-template" id="render-holding">
-  <div class="holdings-list" data-ng-show="holding.about.offers[0].location"> 
+  <div class="holdings-list" data-ng-show="holdingsitem"> 
     <ul>
-      <li data-ng-show="holding.about.offers[0].location"><a href="#" class="sigel beta-blocker">{{ holding.about.offers[0].location }}<span class="pull-right"><!--<i class="fa fa-chevron-down"></i></span>--></a></li>
+      <li data-ng-show="holdingsitem.about.offers[0].heldBy.notation"><a href="#" class="sigel beta-blocker">{{ holdingsitem.about.offers[0].heldBy.notation }}<span class="pull-right"><!--<i class="fa fa-chevron-down"></i></span>--></a></li>
     </ul>
   </div>
 </script>
