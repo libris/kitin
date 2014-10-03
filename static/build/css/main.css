@@ -1441,8 +1441,11 @@ li.draft form {
   text-transform: none;
 }
 .modal-large > .modal-dialog {
-  width: 1008px;
+  width: 1080px;
   height: 80%;
+}
+.modal-header {
+  background-color: #1a8f72;
 }
 .modal-body {
   max-height: 500px;
@@ -1453,7 +1456,7 @@ body.modal-open {
 }
 h4.modal-title {
   font: bold italic 16px/20px 'Droid Serif', georgia, serif;
-  color: #1a8f72;
+  color: #ffffff;
 }
 html .modal.fade .modal-dialog {
   -webkit-transform: translate(0, 0);
