@@ -54,14 +54,13 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     });
   };
 
-  $scope.deleteHolding = function(holdingId) {
-    $http['delete']('/holding/' + holdingId).success(function(data, success) {
+  $scope.deleteHolding = function(holding) {
+    var holdingId = holding['@id']
+    recordService.holding.del(holdingId).then(function(response) {
       console.log('great success!');
-      $http.get('/record/' + recType + '/' + recordId + '/holdings').success(function(data) {
-        $scope.holdings = patchHoldings(data.list);
-      });
-    }).error(function() {
-      console.log('oh crap!');
+      // $http.get('/record/' + recType + '/' + recordId + '/holdings').success(function(data) {
+      //   $scope.holdings = patchHoldings(data.list);
+      // });
     });
   };
 
