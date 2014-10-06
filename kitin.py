@@ -234,14 +234,9 @@ def create_draft(rec_type):
         etag = request.headers['If-match']
 
     #Remember that this is a draft
-    draft_id =  'draft-'  + str(uuid.uuid4())
-    json_data = json.dumps({
-      'isDraft': True,
-      'draft_id': rec_type + '/' + draft_id,
-      'document': json.loads(request.data),
-      'etag': etag
-    });
-    storage.save_draft(current_user.get_id(), rec_type, draft_id, json_data,'')
+#    draft_id =  'draft-'  + str(uuid.uuid4())
+
+    storage.save_draft(current_user.get_id(), rec_type, request.data, etag)
     return json_data
 
 # UPDATE
@@ -254,13 +249,7 @@ def save_draft(rec_type, draft_id):
     if('If-match' in request.headers):
         etag = request.headers['If-match']
 
-    json_data = json.dumps({
-      'isDraft': True,
-      'draft_id': rec_type + '/' + draft_id,
-      'document': json.loads(request.data),
-      'etag': etag
-    });
-    storage.update_draft(current_user.get_id(), rec_type, draft_id, json_data,'')
+    storage.update_draft(current_user.get_id(), rec_type, request.data, etag, draft_id)
     return json.dumps(request.json)
 
 # DELETE
