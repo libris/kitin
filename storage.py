@@ -3,6 +3,7 @@
 import json
 import os
 import datetime
+import uuid
 #from sqlalchemy import MetaData, Table, create_engine
 
 
@@ -61,7 +62,7 @@ class Storage(object):
             if draft_index != '':
                 draft_index = json.loads(draft_index)
             else:
-                draft_index = { 'user': user_id, 'drafts': [] }
+                draft_index = { 'user': params['user_id'], 'drafts': [] }
 
             if callback:
                 draft_index = callback(draft_index, params)
@@ -89,12 +90,13 @@ class Storage(object):
         json_data = json.loads(json_data)
         meta_record = {
                             '@id': rec_id,
+                            'type': rec_type,
                             'etag': etag,
                             'modified': datetime.datetime.now().isoformat(),
                             'title': json_data['about']['instanceTitle']['titleValue']
                         }
 
-        self.rw_index(path, do_update_index, { 'meta_record': meta_record})
+        self.rw_index(path, do_update_index, { 'meta_record': meta_record, 'user_id': user_id})
         return meta_record
 
     def remove_from_index(self, user_id, rec_type, rec_id):
@@ -103,11 +105,11 @@ class Storage(object):
                 if d['@id'] == params['rec_id']:
                     draft_index['drafts'].remove(d)
             return draft_index
-        self.rw_index(construct_path([self.path, user_id]), do_remove_index, {'rec_id': rec_id})
+        self.rw_index(construct_path([self.path, user_id]), do_remove_index, {'rec_id': rec_id, 'user_id': user_id})
 
     def save_draft(self, user_id, rec_type, json_data, etag, rec_id=None):
         if rec_id is None:
-            reco_id = construct_id()
+            rec_id = construct_id()
 
         path = construct_path([self.path, user_id, rec_type])
         create_dir_if_not_exists(path)
@@ -143,7 +145,7 @@ class Storage(object):
             return draft_index
 
         path = construct_path([self.path, user_id])
-        return self.rw_index(path, read_index)
+        return self.rw_index(path, read_index, {'user_id': user_id})
 
     def draft_exists(self, user_id, rec_type, rec_id):
         return os.path.exists("/".join([self.path, user_id, rec_type, rec_id])) and (self.find_in_index(self.get_drafts_index(user_id), rec_id) is not None)
@@ -158,7 +160,7 @@ class Storage(object):
         return match_index
 
 def construct_id():
-    return 'draft-'  + str(uuid.uuid4())
+    return 'draft-' + str(uuid.uuid4())
 
 def construct_path(path_array):
     return "/".join(path_array)

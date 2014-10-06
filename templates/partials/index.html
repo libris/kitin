@@ -39,8 +39,8 @@
         <h4 translate>LABEL.gui.index.headers.MY_SAVED_DRAFTS</h4>
         <ul class="unstyled">
           <li data-ng-repeat="draft in drafts" class="draft">
-            <form data-ng-submit="delete(draft.type, draft.id)" method="POST" class="form-inline">
-          	  <a href="/edit/{{ draft.type }}/{{ draft.id }}" title="{{draft.path}}">{{draft.type}}/{{ draft.id }}</a>
+            <form data-ng-submit="delete(draft.type, draft['@id'])" method="POST" class="form-inline">
+          	  <a href="/edit/{{ draft.type }}/{{ draft['@id'] }}" title="{{draft.path}}">{{draft.title}}, {{draft.modified | date:'yyyy-MM-dd HH:mm' }}</a>
               <button type="submit" class="btn-link pull-right" title="Ta bort utkast"><i class="fa fa-times"></i></button>
               <input type="hidden" name="_method" value="DELETE" />
             </form>

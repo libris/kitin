@@ -8,7 +8,6 @@ import json
 import urllib2
 from urlparse import urlparse
 import mimetypes
-import uuid
 from flask import (Flask, render_template, request, make_response, Response,
         abort, redirect, url_for, Markup, session)
 from flask_login import LoginManager, login_required, login_user, flash, current_user, logout_user
@@ -208,7 +207,8 @@ def proxy_request(path=''):
 @app.route('/drafts', methods=['GET'])
 @login_required
 def get_drafts():
-    drafts = storage.get_drafts_as_json(current_user.get_id())
+    drafts = storage.get_drafts_index(current_user.get_id())
+    drafts = json.dumps(drafts)
     return raw_json_response(drafts)
 
 # GET
@@ -226,18 +226,16 @@ def get_draft(rec_type, draft_id):
 
 # CREATE
 @app.route('/draft/<rec_type>', methods=['POST'])
+@app.route('/draft/<rec_type>/<rec_id>', methods=['POST'])
 @login_required
-def create_draft(rec_type):
+def create_draft(rec_type, rec_id=None):
     #!TODO handle etag properly
     etag = ''
     if('If-match' in request.headers):
         etag = request.headers['If-match']
 
-    #Remember that this is a draft
-#    draft_id =  'draft-'  + str(uuid.uuid4())
-
-    storage.save_draft(current_user.get_id(), rec_type, request.data, etag)
-    return json_data
+    json_data = storage.save_draft(current_user.get_id(), rec_type, request.data, etag, rec_id)
+    return json.dumps(json_data)
 
 # UPDATE
 @app.route('/draft/<rec_type>/<draft_id>', methods=['PUT'])
