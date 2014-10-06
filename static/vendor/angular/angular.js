@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.2.27-build.492+sha.f807d7a
+ * @license AngularJS v1.2.27-build.496+sha.d7c084f
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -68,7 +68,7 @@ function minErr(module) {
       return match;
     });
 
-    message = message + '\nhttp://errors.angularjs.org/1.2.27-build.492+sha.f807d7a/' +
+    message = message + '\nhttp://errors.angularjs.org/1.2.27-build.496+sha.d7c084f/' +
       (module ? module + '/' : '') + code;
     for (i = 2; i < arguments.length; i++) {
       message = message + (i == 2 ? '?' : '&') + 'p' + (i-2) + '=' +
@@ -1987,7 +1987,7 @@ function setupModuleLoader(window) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
-  full: '1.2.27-build.492+sha.f807d7a',    // all of these placeholder strings will be replaced by grunt's
+  full: '1.2.27-build.496+sha.d7c084f',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
   minor: 2,
   dot: 27,
@@ -2158,7 +2158,7 @@ function publishExternalAPI(angular){
  * - [`children()`](http://api.jquery.com/children/) - Does not support selectors
  * - [`clone()`](http://api.jquery.com/clone/)
  * - [`contents()`](http://api.jquery.com/contents/)
- * - [`css()`](http://api.jquery.com/css/)
+ * - [`css()`](http://api.jquery.com/css/) - Only retrieves inline-styles, does not call `getComputedStyles()`
  * - [`data()`](http://api.jquery.com/data/)
  * - [`empty()`](http://api.jquery.com/empty/)
  * - [`eq()`](http://api.jquery.com/eq/)
@@ -4532,6 +4532,10 @@ function Browser(window, document, $log, $sniffer) {
 
   function fireUrlChange() {
     newLocation = null;
+    checkUrlChange();
+  }
+
+  function checkUrlChange() {
     if (lastBrowserUrl == self.url()) return;
 
     lastBrowserUrl = self.url();
@@ -4587,7 +4591,7 @@ function Browser(window, document, $log, $sniffer) {
    * Needs to be exported to be able to check for changes that have been done in sync,
    * as hashchange/popstate events fire in async.
    */
-  self.$$checkUrlChange = fireUrlChange;
+  self.$$checkUrlChange = checkUrlChange;
 
   //////////////////////////////////////////////////////////////
   // Misc API
@@ -9278,21 +9282,26 @@ function LocationHtml5Url(appBase, basePrefix) {
     this.$$absUrl = appBaseNoFile + this.$$url.substr(1); // first char is always '/'
   };
 
-  this.$$rewrite = function(url) {
+  this.$$parseLinkUrl = function(url, relHref) {
     var appUrl, prevAppUrl;
+    var rewrittenUrl;
 
     if ( (appUrl = beginsWith(appBase, url)) !== undefined ) {
       prevAppUrl = appUrl;
       if ( (appUrl = beginsWith(basePrefix, appUrl)) !== undefined ) {
-        return appBaseNoFile + (beginsWith('/', appUrl) || appUrl);
+        rewrittenUrl = appBaseNoFile + (beginsWith('/', appUrl) || appUrl);
       } else {
-        return appBase + prevAppUrl;
+        rewrittenUrl = appBase + prevAppUrl;
       }
     } else if ( (appUrl = beginsWith(appBaseNoFile, url)) !== undefined ) {
-      return appBaseNoFile + appUrl;
+      rewrittenUrl = appBaseNoFile + appUrl;
     } else if (appBaseNoFile == url + '/') {
-      return appBaseNoFile;
+      rewrittenUrl = appBaseNoFile;
     }
+    if (rewrittenUrl) {
+      this.$$parse(rewrittenUrl);
+    }
+    return !!rewrittenUrl;
   };
 }
 
@@ -9382,10 +9391,12 @@ function LocationHashbangUrl(appBase, hashPrefix) {
     this.$$absUrl = appBase + (this.$$url ? hashPrefix + this.$$url : '');
   };
 
-  this.$$rewrite = function(url) {
+  this.$$parseLinkUrl = function(url, relHref) {
     if(stripHash(appBase) == stripHash(url)) {
-      return url;
+      this.$$parse(url);
+      return true;
     }
+    return false;
   };
 }
 
@@ -9405,16 +9416,21 @@ function LocationHashbangInHtml5Url(appBase, hashPrefix) {
 
   var appBaseNoFile = stripFile(appBase);
 
-  this.$$rewrite = function(url) {
+  this.$$parseLinkUrl = function(url, relHref) {
+    var rewrittenUrl;
     var appUrl;
 
     if ( appBase == stripHash(url) ) {
-      return url;
+      rewrittenUrl = url;
     } else if ( (appUrl = beginsWith(appBaseNoFile, url)) ) {
-      return appBase + hashPrefix + appUrl;
+      rewrittenUrl = appBase + hashPrefix + appUrl;
     } else if ( appBaseNoFile === url + '/') {
-      return appBaseNoFile;
+      rewrittenUrl = appBaseNoFile;
     }
+    if (rewrittenUrl) {
+      this.$$parse(rewrittenUrl);
+    }
+    return !!rewrittenUrl;
   };
 
   this.$$compose = function() {
@@ -9787,7 +9803,7 @@ function $LocationProvider(){
       LocationMode = LocationHashbangUrl;
     }
     $location = new LocationMode(appBase, '#' + hashPrefix);
-    $location.$$parse($location.$$rewrite(initialUrl));
+    $location.$$parseLinkUrl(initialUrl, initialUrl);
 
     var IGNORE_URI_REGEXP = /^\s*(javascript|mailto):/i;
 
@@ -9806,6 +9822,9 @@ function $LocationProvider(){
       }
 
       var absHref = elm.prop('href');
+      // get the actual href attribute - see
+      // http://msdn.microsoft.com/en-us/library/ie/dd347148(v=vs.85).aspx
+      var relHref = elm.attr('href') || elm.attr('xlink:href');
 
       if (isObject(absHref) && absHref.toString() === '[object SVGAnimatedString]') {
         // SVGAnimatedString.animVal should be identical to SVGAnimatedString.baseVal, unless during
@@ -9816,50 +9835,15 @@ function $LocationProvider(){
       // Ignore when url is started with javascript: or mailto:
       if (IGNORE_URI_REGEXP.test(absHref)) return;
 
-      // Make relative links work in HTML5 mode for legacy browsers (or at least IE8 & 9)
-      // The href should be a regular url e.g. /link/somewhere or link/somewhere or ../somewhere or
-      // somewhere#anchor or http://example.com/somewhere
-      if (LocationMode === LocationHashbangInHtml5Url) {
-        // get the actual href attribute - see
-        // http://msdn.microsoft.com/en-us/library/ie/dd347148(v=vs.85).aspx
-        var href = elm.attr('href') || elm.attr('xlink:href');
-
-        if (href && href.indexOf('://') < 0) {         // Ignore absolute URLs
-          var prefix = '#' + hashPrefix;
-          if (href[0] == '/') {
-            // absolute path - replace old path
-            absHref = appBase + prefix + href;
-          } else if (href[0] == '#') {
-            // local anchor
-            absHref = appBase + prefix + ($location.path() || '/') + href;
-          } else {
-            // relative path - join with current path
-            var stack = $location.path().split("/"),
-              parts = href.split("/");
-            if (stack.length === 2 && !stack[1]) stack.length = 1;
-            for (var i=0; i<parts.length; i++) {
-              if (parts[i] == ".")
-                continue;
-              else if (parts[i] == "..")
-                stack.pop();
-              else if (parts[i].length)
-                stack.push(parts[i]);
-            }
-            absHref = appBase + prefix + stack.join('/');
-          }
-        }
-      }
-
-      var rewrittenUrl = $location.$$rewrite(absHref);
-
-      if (absHref && !elm.attr('target') && rewrittenUrl && !event.isDefaultPrevented()) {
-        event.preventDefault();
-        if (rewrittenUrl != $browser.url()) {
+      if (absHref && !elm.attr('target') && !event.isDefaultPrevented()) {
+        if ($location.$$parseLinkUrl(absHref, relHref)) {
+          event.preventDefault();
           // update location manually
-          $location.$$parse(rewrittenUrl);
-          $rootScope.$apply();
-          // hack to work around FF6 bug 684208 when scenario runner clicks on links
-          window.angular['ff-684208-preventDefault'] = true;
+          if ($location.absUrl() != $browser.url()) {
+            $rootScope.$apply();
+            // hack to work around FF6 bug 684208 when scenario runner clicks on links
+            window.angular['ff-684208-preventDefault'] = true;
+          }
         }
       }
     });
@@ -15481,7 +15465,7 @@ function limitToFilter(){
  * correctly, make sure they are actually being saved as numbers and not strings.
  *
  * @param {Array} array The array to sort.
- * @param {function(*)|string|Array.<(function(*)|string)>} expression A predicate to be
+ * @param {function(*)|string|Array.<(function(*)|string)>=} expression A predicate to be
  *    used by the comparator to determine the order of elements.
  *
  *    Can be one of:
@@ -15494,9 +15478,12 @@ function limitToFilter(){
  *      is interpreted as a property name to be used in comparisons (for example `"special name"`
  *      to sort object by the value of their `special name` property). An expression can be
  *      optionally prefixed with `+` or `-` to control ascending or descending sort order
- *      (for example, `+name` or `-name`).
+ *      (for example, `+name` or `-name`). If no property is provided, (e.g. `'+'`) then the array
+ *      element itself is used to compare where sorting.
  *    - `Array`: An array of function or string predicates. The first predicate in the array
  *      is used for sorting, but when two items are equivalent, the next predicate is used.
+ *
+ *    If the predicate is missing or empty then it defaults to `'+'`.
  *
  * @param {boolean=} reverse Reverse the order of the array.
  * @returns {Array} Sorted copy of the source array.
@@ -15586,14 +15573,20 @@ orderByFilter.$inject = ['$parse'];
 function orderByFilter($parse){
   return function(array, sortPredicate, reverseOrder) {
     if (!(isArrayLike(array))) return array;
-    if (!sortPredicate) return array;
     sortPredicate = isArray(sortPredicate) ? sortPredicate: [sortPredicate];
+    if (sortPredicate.length === 0) { sortPredicate = ['+']; }
     sortPredicate = map(sortPredicate, function(predicate){
       var descending = false, get = predicate || identity;
       if (isString(predicate)) {
         if ((predicate.charAt(0) == '+' || predicate.charAt(0) == '-')) {
           descending = predicate.charAt(0) == '-';
           predicate = predicate.substring(1);
+        }
+        if ( predicate === '' ) {
+          // Effectively no predicate was passed so we compare identity
+          return reverseComparator(function(a,b) {
+            return compare(a, b);
+          }, descending);
         }
         get = $parse(predicate);
         if (get.constant) {
