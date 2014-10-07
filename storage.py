@@ -53,25 +53,28 @@ class Storage(object):
 
     def rw_index(self, path, callback, params={}):
         filename = "/".join([path, 'index.json'])
-        with open(filename, 'a+') as f:
-            # Read index
-            f.seek(0)
-            draft_index = f.read()
-            
-            # Load or initiate
-            if draft_index != '':
-                draft_index = json.loads(draft_index)
-            else:
-                draft_index = { 'user': params['user_id'], 'drafts': [] }
+        if not os.path.exists(path):
+            return {}
+        else:
+            with open(filename, 'a+') as f:
+                # Read index
+                f.seek(0)
+                draft_index = f.read()
+                
+                # Load or initiate
+                if draft_index != '':
+                    draft_index = json.loads(draft_index)
+                else:
+                    draft_index = { 'user': params['user_id'], 'drafts': [] }
 
-            if callback:
-                draft_index = callback(draft_index, params)
-            # Trucate
-            f.seek(0)
-            f.truncate()
-            # Update
-            f.write(json.dumps(draft_index))
-            return draft_index
+                if callback:
+                    draft_index = callback(draft_index, params)
+                # Trucate
+                f.seek(0)
+                f.truncate()
+                # Update
+                f.write(json.dumps(draft_index))
+                return draft_index
 
     def add_to_index(self, user_id, rec_type, rec_id, record, etag, path):
 
@@ -88,7 +91,7 @@ class Storage(object):
             return draft_index
 
         meta_record = {
-                            '@id': rec_id,
+                            '@id': record['@id'],
                             'etag': etag,
                             'modified': record['modified'],
                             'title': record['about']['instanceTitle']['titleValue']
@@ -107,21 +110,20 @@ class Storage(object):
 
     def save_draft(self, user_id, rec_type, json_record, etag, rec_id=None):
         if rec_id is None:
-            rec_id = construct_id()
+            rec_id = construct_id(rec_type)
 
         path = construct_path([self.path, user_id, rec_type])
         create_dir_if_not_exists(path)
 
         record = json.loads(json_record)
         record['draft'] = True
-        record['@id'] = rec_id
+        record['@id'] = '/'.join([rec_type, rec_id])
         record['modified'] = datetime.datetime.now().isoformat()
 
         with open(construct_path([path, rec_id]), 'w') as f:
             f.write(json.dumps(record))
         meta_record = self.add_to_index(user_id, rec_type, rec_id, record, etag, construct_path([self.path, user_id]))
-        meta_record['document'] = json_record
-        return meta_record
+        return record
 
     def update_draft(self, user_id, rec_type, json_data, etag, rec_id):
         return self.save_draft(user_id, rec_type, json_data, etag, rec_id)
@@ -161,8 +163,8 @@ class Storage(object):
                 break
         return match_index
 
-def construct_id():
-    return 'draft-' + str(uuid.uuid4())
+def construct_id(rec_type):
+    return '/'.join([rec_type, 'draft-' + str(uuid.uuid4())])
 
 def construct_path(path_array):
     return "/".join(path_array)
