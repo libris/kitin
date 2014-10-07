@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.2.27-build.506+sha.f619d03
+ * @license AngularJS v1.2.27-build.507+sha.5d04259
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -68,7 +68,7 @@ function minErr(module) {
       return match;
     });
 
-    message = message + '\nhttp://errors.angularjs.org/1.2.27-build.506+sha.f619d03/' +
+    message = message + '\nhttp://errors.angularjs.org/1.2.27-build.507+sha.5d04259/' +
       (module ? module + '/' : '') + code;
     for (i = 2; i < arguments.length; i++) {
       message = message + (i == 2 ? '?' : '&') + 'p' + (i-2) + '=' +
@@ -1987,7 +1987,7 @@ function setupModuleLoader(window) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
-  full: '1.2.27-build.506+sha.f619d03',    // all of these placeholder strings will be replaced by grunt's
+  full: '1.2.27-build.507+sha.5d04259',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
   minor: 2,
   dot: 27,
@@ -3310,7 +3310,7 @@ function annotate(fn) {
  *   expect($injector.get('$injector')).toBe($injector);
  *   expect($injector.invoke(function($injector){
  *     return $injector;
- *   }).toBe($injector);
+ *   })).toBe($injector);
  * ```
  *
  * # Injection Function Annotation

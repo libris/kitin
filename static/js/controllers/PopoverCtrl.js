@@ -1,4 +1,4 @@
 
-kitin.controller('PopoverCtrl', function($scope) {
-
+kitin.controller('PopoverCtrl', function($scope, $attrs) {
+  $scope.loading = '-';
 });

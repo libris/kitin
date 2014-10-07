@@ -7,6 +7,15 @@ ul.tags li {
   background: @grey-warm; color: @grey-very-dark;
   border-radius:2px;
 
+  &.open {
+    background: @grey-darker;
+    color: #fff;
+  }
+
+  .tag-linked {
+    cursor: pointer;
+  }
+
   i.no {margin-left:6px;font-weight:700;color:rgba(0,0,0,.4);cursor:pointer;font-size:14px;line-height:1}
   i.no:hover {color:@grey-very-dark;}
   a {color: @grey-very-dark;

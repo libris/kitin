@@ -1494,7 +1494,6 @@ html .modal.fade .modal-dialog {
   padding-bottom: 0;
 }
 .popover .popover-content {
-  padding-top: 0;
   font-size: 12px;
   color: #666664;
 }
@@ -1516,6 +1515,13 @@ ul.tags li {
   background: #eeeeec;
   color: #191913;
   border-radius: 2px;
+}
+ul.tags li.open {
+  background: #666664;
+  color: #fff;
+}
+ul.tags li .tag-linked {
+  cursor: pointer;
 }
 ul.tags li i.no {
   margin-left: 6px;
