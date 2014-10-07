@@ -42,7 +42,6 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
       record.identifier = '/remote/new';
       editService.setRecord(record);
     }
-    $location.url('/edit' + record.identifier);
     return false;
   };
 
