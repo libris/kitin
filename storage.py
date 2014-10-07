@@ -103,7 +103,7 @@ class Storage(object):
     def remove_from_index(self, user_id, rec_type, rec_id):
         def do_remove_index(draft_index, params):
             for idx, d in enumerate(draft_index['drafts']):
-                if d['@id'] == params['rec_id']:
+                if d['@id'] == '/' + '/'.join([rec_type, params['rec_id']]):
                     draft_index['drafts'].remove(d)
             return draft_index
         self.rw_index(construct_path([self.path, user_id]), do_remove_index, {'rec_id': rec_id, 'user_id': user_id})
@@ -117,7 +117,7 @@ class Storage(object):
 
         record = json.loads(json_record)
         record['draft'] = True
-        record['@id'] = '/'.join([rec_type, rec_id])
+        record['@id'] = '/' + '/'.join([rec_type, rec_id])
         record['modified'] = datetime.datetime.now().isoformat()
 
         with open(construct_path([path, rec_id]), 'w') as f:
@@ -139,6 +139,7 @@ class Storage(object):
 
     def delete_draft(self, user_id, rec_type, rec_id):
         filename = construct_path([self.path, user_id, rec_type, rec_id])
+        print filename
         if os.path.exists(filename):
             os.remove(filename)
             return self.remove_from_index(user_id, rec_type, rec_id)

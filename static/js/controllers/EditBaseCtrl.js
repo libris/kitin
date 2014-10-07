@@ -182,8 +182,7 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
 
     if(!$scope.record.draft) {
       recordService.draft.create(parsedRecType, $scope.recId, $scope.record).then(function(data) {
-        debugger;
-        $location.url('/edit/draft/' + data['recdata']['@id']);
+        $location.url('/edit/draft' + data['recdata']['@id']);
       });
     } else {
       recordService.draft.save(parsedRecType, $scope.recId, $scope.record, $scope.etag).then(function(data) {
