@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.2.27-build.496+sha.d7c084f
+ * @license AngularJS v1.2.27-build.506+sha.f619d03
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -68,7 +68,7 @@ function minErr(module) {
       return match;
     });
 
-    message = message + '\nhttp://errors.angularjs.org/1.2.27-build.496+sha.d7c084f/' +
+    message = message + '\nhttp://errors.angularjs.org/1.2.27-build.506+sha.f619d03/' +
       (module ? module + '/' : '') + code;
     for (i = 2; i < arguments.length; i++) {
       message = message + (i == 2 ? '?' : '&') + 'p' + (i-2) + '=' +
@@ -1987,7 +1987,7 @@ function setupModuleLoader(window) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
-  full: '1.2.27-build.496+sha.d7c084f',    // all of these placeholder strings will be replaced by grunt's
+  full: '1.2.27-build.506+sha.f619d03',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
   minor: 2,
   dot: 27,
@@ -3202,13 +3202,13 @@ HashMap.prototype = {
  * @kind function
  *
  * @description
- * Creates an injector function that can be used for retrieving services as well as for
+ * Creates an injector object that can be used for retrieving services as well as for
  * dependency injection (see {@link guide/di dependency injection}).
  *
 
  * @param {Array.<string|Function>} modules A list of module functions or their aliases. See
  *        {@link angular.module}. The `ng` module must be explicitly added.
- * @returns {function()} Injector function. See {@link auto.$injector $injector}.
+ * @returns {function()} Injector object. See {@link auto.$injector $injector}.
  *
  * @example
  * Typical usage
@@ -3296,7 +3296,6 @@ function annotate(fn) {
 /**
  * @ngdoc service
  * @name $injector
- * @kind function
  *
  * @description
  *
@@ -3378,8 +3377,8 @@ function annotate(fn) {
  * @description
  * Allows the user to query if the particular service exists.
  *
- * @param {string} Name of the service to query.
- * @returns {boolean} returns true if injector has given service.
+ * @param {string} name Name of the service to query.
+ * @returns {boolean} `true` if injector has given service.
  */
 
 /**
@@ -18306,7 +18305,10 @@ var ngBindTemplateDirective = ['$interpolate', function($interpolate) {
  * element in a secure way.  By default, the innerHTML-ed content will be sanitized using the {@link
  * ngSanitize.$sanitize $sanitize} service.  To utilize this functionality, ensure that `$sanitize`
  * is available, for example, by including {@link ngSanitize} in your module's dependencies (not in
- * core Angular.)  You may also bypass sanitization for values you know are safe. To do so, bind to
+ * core Angular). In order to use {@link ngSanitize} in your module's dependencies, you need to
+ * include "angular-sanitize.js" in your application.
+ *
+ * You may also bypass sanitization for values you know are safe. To do so, bind to
  * an explicitly trusted value via {@link ng.$sce#trustAsHtml $sce.trustAsHtml}.  See the example
  * under {@link ng.$sce#Example Strict Contextual Escaping (SCE)}.
  *
@@ -19582,8 +19584,8 @@ forEach(
  * and `leave` effects.
  *
  * @animations
- * enter - happens just after the ngIf contents change and a new DOM element is created and injected into the ngIf container
- * leave - happens just before the ngIf contents are removed from the DOM
+ * enter - happens just after the `ngIf` contents change and a new DOM element is created and injected into the `ngIf` container
+ * leave - happens just before the `ngIf` contents are removed from the DOM
  *
  * @element ANY
  * @scope
