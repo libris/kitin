@@ -5,7 +5,7 @@
           <span class="page-indicator" data-ng-if="($index > 0 && ($index + 1) % 10 == 0) || ($index+1) == hitCount">{{ $index + 1 }} träffar av {{ state.search.hitCount }}</span>
           
           <!-- ng recType switch -->
-          <a class="bib-url" href="/edit{{record.identifier || record.data['@id']}}" data-ng-click="editPost(recType, record)" data-ng-switch="recType">
+          <a class="bib-url" href="/edit/libris/{{record.identifier || record.data['@id']}}" data-ng-click="editPost(recType, record)" data-ng-switch="recType">
 
 
             <!-- auth result list -->
