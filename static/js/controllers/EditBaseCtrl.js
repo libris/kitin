@@ -57,41 +57,14 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
     };
   };
 
-  // Needed? Set update recType instead?
-  var recordType = (function() {
-    if(isNew && $scope.recType !== editService.RECORD_TYPES.REMOTE) {
-      return editService.RECORD_TYPES.NEW;
-    } else if($scope.recId.indexOf(editService.RECORD_TYPES.DRAFT) > -1) {
-      return editService.RECORD_TYPES.DRAFT;
-    } else if($scope.recType) {
-      return $scope.recType;
-    } else {
-      return editService.RECORD_TYPES.BIB;
-    }
-  }());
-
-  // Depending on type of record, get record and add to scope
-  switch(recordType) {
-
-    // NEW
-    case editService.RECORD_TYPES.NEW:
-      recordService.libris.get(
-        null, null, $location.$$search.type, $location.$$search.aggregateLevel
-      ).then(function(data) {
-        $scope.addRecordViewsToScope(data['recdata']);
-        $scope.etag = data['etag'];
-      });
-
-      break;
 
     // REMOTE
-    case editService.RECORD_TYPES.REMOTE:
+  if($scope.recType === editService.RECORD_TYPES.REMOTE) {
 
       var record = editService.getRecord();
       if(record) {
         $scope.addRecordViewsToScope(record.data);
       }
-      break;
 
   }
 
