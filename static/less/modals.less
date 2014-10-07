@@ -2,8 +2,9 @@
 
 .modal { color:@grey-very-dark; text-transform: none; }
 //.modal.fade { top:10%; transition:none }
-.modal-large > .modal-dialog { width: 1008px; height:80%; }
+.modal-large > .modal-dialog { width: 1080px; height:80%; }
 
+.modal-header {background-color:@green;}
 .modal-body {
   max-height: 500px;
   overflow: auto;
@@ -11,7 +12,18 @@
 body.modal-open {
     overflow: hidden;
 }
-h4.modal-title{font: bold italic 16px/20px @header-font, georgia,serif; color:@green; }
+h4.modal-title{font: bold italic 16px/20px @header-font, georgia,serif; color:@white; }
+
+html .modal {
+  // Remove sliding and speed up
+  &.fade {
+    .modal-dialog {
+     -webkit-transform: translate(0,0);
+         -ms-transform: translate(0,0); // IE9 only
+             transform: translate(0,0);
+    }
+  }
+}
 
 /* MODAL END ------------------------- */
 

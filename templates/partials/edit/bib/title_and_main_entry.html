@@ -406,6 +406,18 @@
     </script> 
     <!-- MODAL EDIT AUTH TEMPLATE  END -->
 
+    <!-- MODAL EDIT BIB TEMPLATE  START -->
+    <script type='text/ng-template' id="modal-edit-bib"> 
+      <div class="modal-header">
+       <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Bibliotekspost ({{ instance['@type'] }})</h4>
+      </div>
+      <div class="modal-body" data-ng-controller="EditCtrl">    
+        <div ng-include="'/partials/edit/bib'"></div>
+      </div>
+    </script> 
+    <!-- MODAL EDIT BIB TEMPLATE  END -->
+
     <!-- AUTH COMPLETION TEMPLATE  START -->
     <script type="text/html" id="auth-completion-template">
       <div class="auth">

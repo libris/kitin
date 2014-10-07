@@ -125,6 +125,29 @@ kitin.service('editService', function(definitions, $http, $q) {
       return this.record;
     },
 
+    /*
+    *  Used to get the recType and recId (for now it's just parsing a string, later it will be using ajax)
+    */
+    getRecordTypeId: function(val) {
+      var deferred = $q.defer();
+
+      // replace self-executing function with ajax
+      (function(val) {
+        var params = val.split('/').splice(1);
+        var record = {
+          type: params[1],
+          id: params[2]
+        };
+        if ( record.type && record.id ) {
+          deferred.resolve(record);
+        } else {
+          deferred.reject(record);
+        }
+      }(val));
+
+      return deferred.promise;
+    },
+
     getMaterialType: function(record) {
       var materialType = '';
       if(_.isArray(record.about['@type'])) {
