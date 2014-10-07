@@ -11,7 +11,6 @@ kitin.directive('customPopover', function($compile) {
           var compiled = $compile(el);
           elem.next().find('.popover-content').append(el);
           compiled(scope);
-          scope.parsed = el.html();
         }
       });
     }
