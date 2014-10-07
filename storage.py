@@ -73,7 +73,7 @@ class Storage(object):
             f.write(json.dumps(draft_index))
             return draft_index
 
-    def add_to_index(self, user_id, rec_type, rec_id, json_data, etag, path):
+    def add_to_index(self, user_id, rec_type, rec_id, record, etag, path):
 
         def do_update_index(draft_index, params):
             
@@ -87,13 +87,11 @@ class Storage(object):
 
             return draft_index
 
-        json_data = json.loads(json_data)
         meta_record = {
                             '@id': rec_id,
-                            'type': rec_type,
                             'etag': etag,
-                            'modified': datetime.datetime.now().isoformat(),
-                            'title': json_data['about']['instanceTitle']['titleValue']
+                            'modified': record['modified'],
+                            'title': record['about']['instanceTitle']['titleValue']
                         }
 
         self.rw_index(path, do_update_index, { 'meta_record': meta_record, 'user_id': user_id})
@@ -107,18 +105,22 @@ class Storage(object):
             return draft_index
         self.rw_index(construct_path([self.path, user_id]), do_remove_index, {'rec_id': rec_id, 'user_id': user_id})
 
-    def save_draft(self, user_id, rec_type, json_data, etag, rec_id=None):
+    def save_draft(self, user_id, rec_type, json_record, etag, rec_id=None):
         if rec_id is None:
             rec_id = construct_id()
 
         path = construct_path([self.path, user_id, rec_type])
         create_dir_if_not_exists(path)
-        filename = "/".join([path, rec_id])
-        
-        with open(filename, 'w') as f:
-            f.write(json_data)
-        meta_record = self.add_to_index(user_id, rec_type, rec_id, json_data, etag, construct_path([self.path, user_id]))
-        meta_record['document'] = json_data
+
+        record = json.loads(json_record)
+        record['draft'] = True
+        record['@id'] = rec_id
+        record['modified'] = datetime.datetime.now().isoformat()
+
+        with open(construct_path([path, rec_id]), 'w') as f:
+            f.write(json.dumps(record))
+        meta_record = self.add_to_index(user_id, rec_type, rec_id, record, etag, construct_path([self.path, user_id]))
+        meta_record['document'] = json_record
         return meta_record
 
     def update_draft(self, user_id, rec_type, json_data, etag, rec_id):

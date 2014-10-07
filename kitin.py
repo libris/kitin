@@ -219,7 +219,7 @@ def get_draft(rec_type, draft_id):
     if(draft):
         json_data = json.loads(draft)
         resp = raw_json_response(json.dumps(json_data))
-        resp.headers['etag'] = json_data['etag']
+        #resp.headers['etag'] = json_data['etag']
         return resp
     else:
         abort(404)
