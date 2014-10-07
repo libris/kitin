@@ -133,7 +133,7 @@ kitin.service('editService', function(definitions, $http, $q) {
 
       // replace self-executing function with ajax
       (function(val) {
-        var params = val.split('/').splice(1);
+        var params = val.split('/');
         var record = {
           type: params[1],
           id: params[2]

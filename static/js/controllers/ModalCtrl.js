@@ -8,6 +8,7 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
   };
 
   $scope.openAuthModal = function(id) {
+    id = id.replace('/resource',''); // TODO, should be the record id
     $scope.authModal = editService.getRecordTypeId(id).then(function(record) {
       var opts = angular.extend( defaultModalOptions, {
         templateUrl: 'modal-edit-auth',
