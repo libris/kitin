@@ -2,7 +2,7 @@ kitin.controller('EditLibrisCtrl', function($scope, $controller, $location, reco
   // Inherit edit base controller
   $controller('EditBaseCtrl', {$scope: $scope});
 
-  recordService.record.get($scope.recType, $scope.recId).then(function(data) {
+  recordService.libris.get($scope.recType, $scope.recId).then(function(data) {
     var record = data['recdata'];
     // MARC
     // !TODO create a cleaner way to detect data format and sperate from bib

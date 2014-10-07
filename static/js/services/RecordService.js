@@ -6,7 +6,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope) {
 
   return {
 
-    record: {
+    libris: {
       /*  get
       *   Get record from whelk API
       *   If no record id is requested a new record is returned by type

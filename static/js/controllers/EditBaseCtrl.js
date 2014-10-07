@@ -72,7 +72,7 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
 
     // NEW
     case editService.RECORD_TYPES.NEW:
-      recordService.record.get(
+      recordService.libris.get(
         null, null, $location.$$search.type, $location.$$search.aggregateLevel
       ).then(function(data) {
         $scope.record = data['recdata'];
@@ -159,13 +159,13 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
       } else {
         console.warn('No ETag for this record. Where is it?');
       }
-      recordService.record.save(parsedRecType, $scope.recId, $scope.record, ifMatchHeader).then(function(data) {
+      recordService.libris.save(parsedRecType, $scope.recId, $scope.record, ifMatchHeader).then(function(data) {
         $scope.record = data['recdata'];
         $scope.etag = data['etag'];
         onPublishState();
       });
     } else {
-      recordService.record.create(parsedRecType, $scope.record).then(function(data) {
+      recordService.libris.create(parsedRecType, $scope.record).then(function(data) {
         if($scope.isDraft) {
           recordService.draft.delete(parsedRecType, $scope.recId);
         }
