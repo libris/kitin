@@ -103,7 +103,6 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope) {
         var deferer = $q.defer();
         $http.get("/draft/" + draftId).success(function (data, status, headers) {
           editService.decorate(data).then(function(decoratedRecord) {
-            data.document = decoratedRecord;
             deferer.resolve({
               recdata: data,
               etag: headers('etag')
@@ -139,9 +138,11 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope) {
         editService.undecorate(draftDataCopy).then(function(undecoratedRecord) {
           $http.post("/draft/" + [type, draftId].join('/') , undecoratedRecord, {headers: {"If-match":etag } })
             .success(function(data, status, headers) {
-              editService.decorate(data.document).then(function(decoratedRecord) {
-                data.document = decoratedRecord;
-                deferer.resolve(data);
+              editService.decorate(data).then(function(decoratedRecord) {
+                deferer.resolve({
+                  recdata: decoratedRecord,
+                  etag: headers('etag')
+                });
               });
             });
         });

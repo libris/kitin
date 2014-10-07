@@ -32,6 +32,9 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
 
   // TODO: move each part of this into editService.decorate, then remove this function
   $scope.addRecordViewsToScope = function(record) {
+
+    $scope.record = record;
+
     $scope.unifiedClassifications = editService.getUnifiedClassifications(record);
 
     definitions.conceptSchemes.then(function(data) {
@@ -75,8 +78,8 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
       recordService.libris.get(
         null, null, $location.$$search.type, $location.$$search.aggregateLevel
       ).then(function(data) {
-        $scope.record = data['recdata'];
-        addRecordViewsToScope($scope.record, $scope);
+        $scope.addRecordViewsToScope(data['recdata']);
+        $scope.etag = data['etag'];
       });
 
       break;
@@ -86,8 +89,7 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
 
       var record = editService.getRecord();
       if(record) {
-        $scope.record = record.data;
-        addRecordViewsToScope(record, $scope);
+        $scope.addRecordViewsToScope(record.data);
       }
       break;
 
@@ -160,7 +162,7 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
         console.warn('No ETag for this record. Where is it?');
       }
       recordService.libris.save(parsedRecType, $scope.recId, $scope.record, ifMatchHeader).then(function(data) {
-        $scope.record = data['recdata'];
+        $scope.addRecordViewsToScope(data['recdata']);
         $scope.etag = data['etag'];
         onPublishState();
       });
@@ -180,15 +182,13 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
 
     if(!$scope.record.draft) {
       recordService.draft.create(parsedRecType, $scope.recId, $scope.record).then(function(data) {
-        $location.url('/edit/draft/' + data['@id']);
+        debugger;
+        $location.url('/edit/draft/' + data['recdata']['@id']);
       });
     } else {
       recordService.draft.save(parsedRecType, $scope.recId, $scope.record, $scope.etag).then(function(data) {
-        $scope.record = data['recdata'];
-        if(data['recdata']['@id']) { // Undefined if new record
-          $scope.record.type = data['recdata']['@id'].split("/").slice(-2)[0];
-          $scope.record.id = data['recdata']['@id'].split("/").slice(-2)[1];
-        }
+        $scope.addRecordViewsToScope(data['recdata']);
+        $scope.etag = data['etag'];
         onSaveState();
         //$('.flash_message').text("Utkast sparat!");
       });

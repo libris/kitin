@@ -3,8 +3,7 @@ kitin.controller('EditDraftCtrl', function($scope, $controller, recordService) {
   $controller('EditBaseCtrl', {$scope: $scope});
 
   recordService.draft.get($scope.recType + '/' + $scope.recId).then(function(data) { 
-    $scope.record = data['recdata'];
-    $scope.addRecordViewsToScope($scope.record);
+    $scope.addRecordViewsToScope(data['recdata']);
     $scope.isDraft = true;
     if(data['recdata']['@id']) {
       $scope.record.type = data['recdata']['@id'].split("/").slice(-2)[0];
