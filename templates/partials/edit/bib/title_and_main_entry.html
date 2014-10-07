@@ -156,7 +156,7 @@
 
         <!-- RENDER LANGUAGE TEMPLATE  START -->
         <script type="text/ng-template" id="render-language" data-ng-controller="PopoverCtrl">
-              <a href="#" data-popover-html="varWithHtml" data-popover-title="More Info" content="test1">
+              <a href="#" data-popover="{{object}}" data-popover-title="{{object.prefLabel}}" data-custom-popover="language" data-popover-template="partials/popover.html">
                 <i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.prefLabel }} <span data-ng-show="object.langCode">({{ object.langCode }})</span>
               </a> 
               <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
