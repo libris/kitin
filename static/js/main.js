@@ -18,11 +18,13 @@ kitin.config(function($locationProvider, $routeProvider, $translateProvider, $ht
         .preferredLanguage('se');
 
       $routeProvider
-        .when('/',                        { templateUrl: '/partials/index' })
-        .when('/search/:recType',         { templateUrl: '/partials/search' })
-        .when('/edit/:recType/:recId',    { templateUrl: '/partials/edit', reloadOnSearch: false })
-        .when('/jsonld/:recType/:recId',  { templateUrl: '/partials/jsonld' })
-        .when('/marc/:recType/:recId',    { templateUrl: '/partials/marc', isMarc: true })
+        .when('/',                               { templateUrl: '/partials/index' })
+        .when('/search/:recType',                { templateUrl: '/partials/search' })
+        .when('/edit/libris/:recType/:recId',    { templateUrl: '/partials/edit_libris', reloadOnSearch: false })
+        .when('/edit/draft/:recType/:recId',     { templateUrl: '/partials/edit_draft', reloadOnSearch: false })
+        .when('/jsonld/libris/:recType/:recId',  { templateUrl: '/partials/jsonld_libris' })
+        .when('/jsonld/draft/:recType/:recId',   { templateUrl: '/partials/jsonld_draft'})
+        .when('/marc/:recType/:recId',           { templateUrl: '/partials/marc', isMarc: true })
         ;//.otherwise({redirectTo: '/'});
 
       $httpProvider.interceptors.push('HttpInterceptor');

@@ -111,11 +111,11 @@ def logout():
 
 # START PAGE
 @app.route("/")
-@app.route('/edit/<rec_type>/<rec_id>')   # Edit start template
-@app.route('/jsonld/<rec_type>/<rec_id>') # JSON-LD start template
+@app.route('/edit/<source>/<rec_type>/<rec_id>')   # Edit start template
+@app.route('/jsonld/<source>/<rec_type>/<rec_id>') # JSON-LD start template
 @app.route('/marc/<rec_type>/<rec_id>')   # Marc start template
 @login_required
-def index(rec_type=None, rec_id=None):
+def index(source=None, rec_type=None, rec_id=None):
     return render_template('index.html', user=current_user, partials = {"/partials/index" : "partials/index.html"}, debug = app.debug, WHELK_HOST = app.config['CLIENT_WHELK_HOST'])
 
 # SEARCH TEMPLATE 

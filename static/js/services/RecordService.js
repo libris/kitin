@@ -102,7 +102,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope) {
       get: function (draftId) {
         var deferer = $q.defer();
         $http.get("/draft/" + draftId).success(function (data, status, headers) {
-          editService.decorate(data.document).then(function(decoratedRecord) {
+          editService.decorate(data).then(function(decoratedRecord) {
             data.document = decoratedRecord;
             deferer.resolve({
               recdata: data,
@@ -118,7 +118,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope) {
         etag = etag ? etag : '';
         var draftDataCopy = angular.copy(draftData);
         editService.undecorate(draftDataCopy).then(function(undecoratedRecord) {
-          $http.put("/draft/" + type + '/' + draftId, undecoratedRecord, {headers: {"If-match":etag } })
+          $http.put("/draft/" + [type, draftId].join('/'), undecoratedRecord, {headers: {"If-match":etag } })
             .success(function(data, status, headers) {
               editService.decorate(data).then(function(decoratedRecord) {
 
@@ -132,12 +132,12 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope) {
         return deferer.promise;
       },
 
-      create: function(type, draftData, etag) {
+      create: function(type, draftId, draftData, etag) {
         var deferer = $q.defer();
         etag = etag ? etag : '';
         var draftDataCopy = angular.copy(draftData);
         editService.undecorate(draftDataCopy).then(function(undecoratedRecord) {
-          $http.post("/draft/" + type, undecoratedRecord, {headers: {"If-match":etag } })
+          $http.post("/draft/" + [type, draftId].join('/') , undecoratedRecord, {headers: {"If-match":etag } })
             .success(function(data, status, headers) {
               editService.decorate(data.document).then(function(decoratedRecord) {
                 data.document = decoratedRecord;
@@ -150,7 +150,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope) {
 
       delete: function(type, draftId) {
         var deferer = $q.defer();
-        $http.delete("/draft/" + type + '/' + draftId).success(function(data, status, headers) {
+        $http.delete("/draft/" + [type, draftId].join('/')).success(function(data, status, headers) {
           deferer.resolve(data);
         });
         return deferer.promise;
