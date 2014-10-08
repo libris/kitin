@@ -1,4 +1,4 @@
-kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $modalInstance, $location, $http, recordId, editService, recordService, userData) {
+kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $modalInstance, $location, $http, recordId, editService, recordService, userData, definitions) {
 
   $scope.recordId = recordId;
 
@@ -16,6 +16,8 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     $modalInstance.close();
   };
 
+  console.log(definitions);
+
   // HOLDINGS
   recordService.holding.get(recordId, userData).then(function(response) {
     var data = response.data;
@@ -30,12 +32,12 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
         console.log(data);
         data.data.about.holdingFor['@id'] = recordId;
         data.data.about.offers[0].heldBy[0].notation = userData.userSigel;
-        $scope.holding = data.data;
+        $scope.holding = data;
         data._isNew = true; // TODO: don't do this when etag works
       });
     } else {
       console.log('Found', holdings.length, 'holdings, picking the first.\n', holdings);
-      $scope.holding = holdings[0].data;
+      $scope.holding = holdings[0];
     }
 
   });
@@ -45,6 +47,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   };
 
   $scope.saveHolding = function(holding) {
+    console.log('HOLDING: ', holding);
     recordService.holding.getEtag(holding['@id']).then(function(response) {
       var etag = response['etag'];
       if (holding._isNew) { delete holding._isNew; }

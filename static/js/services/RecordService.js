@@ -251,6 +251,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope) {
       },
 
       getEtag: function(holdingId) {
+        console.log(holdingId);
         var deferer = $q.defer();
         //$http.get($rootScope.API_PATH + '/hold/'+ holdingId.split('/').slice(-2)[1]).success(function(data, status, headers) {
           $http.get($rootScope.API_PATH + holdingId).success(function(data, status, headers) {
