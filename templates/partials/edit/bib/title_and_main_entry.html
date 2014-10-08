@@ -87,8 +87,16 @@
             data-search-template="render-bib-search">
         </ul>
         <script type="text/ng-template" id="render-relation-referenced-entity">
-            <div><span class="lbl" translate>LABEL.record.about.relation.linkNote</span><input data-inplace class="ng-pristine ng-valid" type="text" ng-model="object.linkNote" /></div>
-            <a href="?m={{object.describedBy['@id']}}"><i class="fa fa-bookmark" data-ng-if="isAuth(object.describedBy)"></i> <span class="name">{{ object.title }}</span> {{ object.issn }}</a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
+          <div>
+            <span class="lbl" translate>LABEL.record.about.relation.linkNote</span>
+            <input data-inplace class="ng-pristine ng-valid" type="text" ng-model="object.linkNote" />
+          </div>
+          <a href="?m={{object.describedBy['@id']}}">
+            <i class="fa fa-bookmark" data-ng-if="isAuth(object.describedBy)"></i>
+            <span class="name">{{ object.title }}</span>
+            {{ object.issn }}
+          </a>
+          <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
         </script>
       </label>
       <!-- RELATION  END -->
@@ -298,12 +306,7 @@
       <div data-ng-if="isLinked(object) && !isEmpty(object)" class="entity person linked" tabindex="0">
         <div class="main">
           <span onload="person = object" data-ng-include="'render-person-name'"></span>
-            <!--
-            <a data-ng-if="isLinked(object)" class="auth" href="?m={{person['@id']}}">
-              <i class="fa fa-bookmark"></i> Aukt.
-            </a>
-            -->
-            <button data-ng-if="isLinked(object)" class="auth" data-ng-controller="ModalCtrl" data-ng-click="openAuthModal(person['@id'])">
+            <button data-ng-if="isLinked(object)" class="btn-link auth" data-ng-controller="ModalCtrl" data-ng-click="openAuthModal(person['@id'])">
               <i class="fa fa-bookmark"></i> Aukt.
             </button>
         </div>

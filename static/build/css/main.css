@@ -2161,7 +2161,7 @@ section.minified-hitlist table td.date {
 }
 /* HITLIST END ------------------------- */
 /* EDIT FORM START ------------------------- */
-/* PERSON SUGGEST START ------------------------- */
+/* RICH TAGS START ------------------------- */
 .record-data {
   margin-top: 4px;
   font-size: 12px;
@@ -2182,69 +2182,6 @@ label.find-entity input[type="text"] {
 .col6 label.find-entity input[type="text"] {
   width: 466px;
 }
-.persons {
-  list-style: none;
-  margin: 4px 0;
-  padding: 0;
-}
-.persons > li {
-  position: relative;
-  border-bottom: 1px dotted #c7c7c3;
-  padding-bottom: 1px;
-  margin-bottom: 6px;
-}
-.persons > li:first-child {
-  border-top: 1px dotted #c7c7c3;
-  padding-top: 6px;
-}
-.persons > li .check {
-  color: #adada9;
-  margin-right: 2px;
-  cursor: pointer;
-}
-.persons > li .check:hover {
-  color: #191913;
-}
-.persons > li.main .check {
-  color: #191913;
-  cursor: default;
-}
-.persons > li div.main {
-  display: inline-block;
-}
-.entity .name,
-.persons > li .name {
-  font-weight: bold;
-}
-.entity .delete,
-.persons > li .delete {
-  position: absolute;
-  right: 0;
-  top: 6px;
-  display: none;
-}
-.entity:hover .delete,
-.persons > li:hover .delete {
-  display: inline-block;
-  color: #adada9;
-  position: absolute;
-  top: 3px;
-  right: 6px;
-}
-.entity .delete:hover,
-.persons > li .delete:hover {
-  color: #ee5d61;
-}
-.entity .auth,
-.persons > li .auth {
-  padding-left: 6px;
-  margin-left: 3px;
-  border-left: 1px solid #ddddd8;
-  font-size: 11px;
-}
-.persons > li .tagsinput {
-  margin-bottom: 2px;
-}
 /* PERSON SUGGEST END ------------------------- */
 .element-adder {
   text-align: right;
@@ -2258,9 +2195,6 @@ label.find-entity input[type="text"] {
   font-size: 13px;
   height: 25px;
 }
-.entity {
-  position: relative;
-}
 .addon .on-hover {
   float: right!important;
   position: absolute;
@@ -2268,26 +2202,60 @@ label.find-entity input[type="text"] {
   right: 3px;
   color: #999996;
 }
-.entity:focus {
-  border: 1px solid #666664;
-  outline: 0;
-}
 .edit .col6 .entity .embedded input {
   width: 456px;
 }
 .edit .entity {
-  border: 1px solid transparent;
-  padding: 3px 6px;
-  margin-bottom: 1em;
-  /*   overflow: auto; */
-  border-radius: 2px;
+  position: relative;
+  border-bottom: 1px dotted #c7c7c3;
+  padding: 0;
+  margin: 2px 0;
 }
 .edit .entity.addmore {
   margin-bottom: 4px;
 }
-.edit .entity:focus {
-  border: 1px solid #666664;
-  outline: 0;
+.edit .entity:first-child {
+  border-top: 1px dotted #c7c7c3;
+}
+.edit .entity .check {
+  color: #adada9;
+  margin-right: 2px;
+  cursor: pointer;
+}
+.edit .entity .check:hover {
+  color: #191913;
+}
+.edit .entity .name {
+  font-weight: bold;
+}
+.edit .entity .delete {
+  position: absolute;
+  right: 6px;
+  top: 3px;
+  display: none;
+  color: #adada9;
+}
+.edit .entity .delete:hover {
+  color: #ee5d61;
+}
+.edit .entity .auth {
+  padding-left: 6px;
+  margin-left: 3px;
+  border-left: 1px solid #ddddd8;
+  font-size: 11px;
+}
+.edit .entity .tagsinput {
+  margin-bottom: 2px;
+}
+.edit .entity:hover .delete {
+  display: inline-block;
+}
+.edit .entity.main {
+  display: inline-block;
+}
+.edit .entity.main .check {
+  color: #191913;
+  cursor: default;
 }
 .edit .entity label {
   border: none;
@@ -2300,18 +2268,6 @@ label.find-entity input[type="text"] {
 }
 .edit .entity .what {
   color: #22ba94;
-}
-.edit .entity.linked {
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-}
-.edit .entity.linked:hover {
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
-}
-.edit .entity.embedded {
-  box-shadow: 0 0px 0px 1px #eeeeec inset;
-}
-.edit .entity.embedded:hover {
-  box-shadow: 0 1px 2px 1px #eeeeec inset;
 }
 .on-hover {
   visibility: hidden;

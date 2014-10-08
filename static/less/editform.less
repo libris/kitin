@@ -1,6 +1,6 @@
 /* EDIT FORM START ------------------------- */
 
-/* PERSON SUGGEST START ------------------------- */
+/* RICH TAGS START ------------------------- */
 
 .record-data {
   margin-top: 4px;
@@ -16,25 +16,6 @@ label.find-entity input[type="text"] { padding-left: 22px; }
 .col6 .entity input[type="text"],
 .col6 label.find-entity input[type="text"] { width: 466px; }
 
-.persons{list-style:none;margin:4px 0;padding:0;}
-.persons>li{position:relative;border-bottom:1px dotted @grey-light;padding-bottom:1px;margin-bottom:6px;}
-.persons>li:first-child{border-top:1px dotted @grey-light;padding-top:6px;}
-.persons>li .check{color:@grey;margin-right:2px;cursor:pointer}
-.persons>li .check:hover{color:@grey-very-dark}
-.persons>li.main .check{color:@grey-very-dark;cursor:default}
-.persons>li div.main {display:inline-block}
-.entity .name,
-.persons>li .name { font-weight: bold; }
-.entity .delete,
-.persons>li .delete{position:absolute;right:0;top:6px;display:none;}
-.entity:hover .delete,
-.persons>li:hover .delete{display:inline-block;color:@grey;position: absolute;top: 3px;right: 6px;}
-.entity .delete:hover,
-.persons>li .delete:hover{color:@red}
-.entity .auth,
-.persons>li .auth{padding-left:6px;margin-left:3px;border-left:1px solid @grey-lighter;font-size:11px}
-.persons>li .tagsinput{margin-bottom:2px}
-
 /* PERSON SUGGEST END ------------------------- */
 
 .element-adder { 
@@ -44,23 +25,60 @@ label.find-entity input[type="text"] { padding-left: 22px; }
     >div { text-align: left; }
     select {font-size:13px;height:25px;}
 }
-.entity {position:relative;}
+
 .addon .on-hover {float:right!important; position:absolute;top:1px;right:3px;color: @grey-dark;}
 
-.entity:focus {border: 1px solid @grey-darker;outline:0; }
 
 .edit .col6  .entity .embedded input{width:456px;}
 .edit .entity {
-  border: 1px solid transparent;
-  padding: 3px 6px;
-  margin-bottom: 1em;
-/*   overflow: auto; */
-  border-radius: 2px;
 
+  position:relative;
+  border-bottom:1px dotted @grey-light;
+  padding: 0;
+  margin:2px 0;
 
   &.addmore { margin-bottom: 4px; }
-  &:focus {border: 1px solid @grey-darker;outline:0; }
 
+  &:first-child{ border-top:1px dotted @grey-light; }
+
+  .check {
+    color:@grey;
+    margin-right:2px;
+    cursor:pointer;
+    &:hover{ color:@grey-very-dark }
+  }
+  .name {
+    font-weight:bold;
+  }
+  .delete { 
+    position:absolute;
+    right:6px;
+    top:3px;
+    display:none;
+    color: @grey;
+    &:hover{
+      color: @red;
+    }
+  }
+  .auth {
+    padding-left:6px;
+    margin-left:3px;
+    border-left:1px solid @grey-lighter;
+    font-size:11px;
+  }
+  .tagsinput{
+    margin-bottom:2px
+  }
+  &:hover {
+    .delete {
+      display:inline-block;
+    }
+  }
+
+  &.main {
+    display:inline-block;
+    .check{ color:@grey-very-dark;cursor:default }
+  }
 
   label { border: none; margin-bottom: 0; }
   .addon label,
@@ -68,20 +86,6 @@ label.find-entity input[type="text"] { padding-left: 22px; }
 
   .what {
     color: @green-light;
-  }
-
-  &.linked {
-    box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
-    &:hover {
-      box-shadow: 0 2px 3px rgba(0, 0, 0, .2);
-    }
-  }
-  &.embedded {
-    box-shadow: 0 0px 0px 1px @grey-warm inset;
-
-    &:hover {
-      box-shadow: 0 1px 2px 1px @grey-warm inset;
-    }
   }
 
 }
