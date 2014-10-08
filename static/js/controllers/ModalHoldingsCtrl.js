@@ -16,54 +16,54 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     $modalInstance.close();
   };
 
-  // HOLDINGS
-  recordService.holding.get(recordId, userData).then(function(response) {
-    var data = response.data;
-    var holdings = data.list;
-    var holdingEtags = {};
-    $scope.holdings = holdings;
-
-    if (holdings <= 0) {
+  // HOLDING
+  // 2014-10-08: To avoid confusion, all references to holding_s_ have been removed. 
+  // There can only be one holding per sigel. There can, however, be multiple offers per holding.
+  // If no holding is found, we create a new one.
+  recordService.holding.get(recordId, userData).then(function(holding) {
+    if (!holding) {
       console.log('No holdings found, creating new.\n');
       recordService.holding.create().then(function(response) {
-        var data = response;
-        console.log(data);
-        data.data.holdingFor = {
+        holding = response;
+        holding.data.about.holdingFor = {
           '@id': recordId
         };
-        data.data.offers[0].heldBy[0].notation = userData.userSigel;
-        data._isNew = true; // TODO: don't do this when etag works
-        $scope.holding = data;
+        holding.data.about.offers[0].heldBy[0].notation = userData.userSigel;
+        holding._isNew = true; // TODO: don't do this when etag works
+        $scope.holding = holding;
+        console.log(holding);
       });
     } else {
-      console.log('Found', holdings.length, 'holdings, picking the first.\n', holdings);
-      $scope.holding = holdings[0];
+      $scope.holding = holding;
     }
-
   });
 
-  $scope.addHolding = function(holdings) {
-    holdings.push({shelvingControlNumber: '', location: constants['user_sigel']});
+  $scope.addOffer = function(holding) {
+    var offers = holding.data.about.offers;
+    recordService.holding.create().then(function(response) {
+      var data = response;
+      console.log(data);
+      var offer = data.data.offers[0];
+      offer.heldBy[0].notation = userData.userSigel;
+      offers.push(offer);
+    });
   };
 
   $scope.saveHolding = function(holding) {
     console.log('HOLDING: ', holding);
-    recordService.holding.getEtag(holding['@id']).then(function(response) {
+    recordService.holding.getEtag(holding['identifier']).then(function(response) {
       var etag = response['etag'];
       if (holding._isNew) { delete holding._isNew; }
-      recordService.holding.save(holding, etag).then(function(response) {
-        console.log(response);
+      recordService.holding.save(holding, recordId, etag).then(function(holding) {
+        $scope.holding = holding;
       });
     });
   };
 
   $scope.deleteHolding = function(holding) {
-    var holdingId = holding['@id']
+    var holdingId = holding['identifier']
     recordService.holding.del(holdingId).then(function(response) {
-      console.log('great success!');
-      // $http.get('/record/' + recType + '/' + recordId + '/holdings').success(function(data) {
-      //   $scope.holdings = patchHoldings(data.list);
-      // });
+      console.log('Holding removed successfully!');
     });
   };
 

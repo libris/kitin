@@ -6,7 +6,7 @@
   </div>
   <div class="modal-body"> 
   <pre>{{ holding }}</pre>
-    <form data-ng-show="holding['@id'] || holding['_isNew']">
+    <form data-ng-show="holding['identifier'] || holding['_isNew']">
       <section class="holdings offer" data-ng-repeat="offer in holding.data.about.offers">
       <pre>{{ offer }}</pre>
         <div class="cols">
@@ -36,7 +36,7 @@
               <span class="lbl">{{ "Uppställningsord" }}</span>
             </label>
             <label>
-              <input data-inplace type="text" placeholder="Exemplarinfo" data-ng-model="offer.availability"/><!-- Used to be itemPart -->
+              <input data-inplace type="text" placeholder="Exemplarinfo" data-ng-model="offer.availability"/>
               <span class="lbl">{{ "Exemplarinfo" }}</span>
             </label>
             <label>
@@ -57,14 +57,14 @@
 
     </form>
 
-    <div class="alert alert-success" role="alert" data-ng-show="!holding['@id'] && !holding['_isNew']">
+    <div class="alert alert-success" role="alert" data-ng-show="!holding['identifier'] && !holding['_isNew']">
     {{ "Beståndet raderat" }}
     </div>
         
     <section class="modal-footer submit">
       <button class="btn btn-purple btn-submit" id="save-hld" data-ng-click="saveHolding(holding)">Spara bestånd</button> 
-      <button data-ng-show="holding['@id']" class="btn-link" id="delete-hld" data-ng-click="deleteHolding(holding)">Ta bort</button>
-      <!--<button disabled class="btn btn-purple" data-ng-click="addHolding(holdings)">Lägg till <i class="fa fa-inverse fa-chevron-down"></i></button>-->
+      <button data-ng-show="holding['identifier']" class="btn-link" id="delete-hld" data-ng-click="deleteHolding(holding)">Ta bort bestånd</button>
+      <button class="btn btn-purple" data-ng-click="addOffer(holding)">Lägg till "offer"</button>
     </section>
 
   </div>
