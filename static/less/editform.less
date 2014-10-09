@@ -28,13 +28,15 @@ label.find-entity input[type="text"] { padding-left: 22px; }
 
 .addon .on-hover {float:right!important; position:absolute;top:1px;right:3px;color: @grey-dark;}
 
+section>div.ng-scope{width:400px}
+
 
 .edit .col6  .entity .embedded input{width:456px;}
-.edit .entity {
+.edit div[data-rich-entity]>div {
 
   position:relative;
   border-bottom:1px dotted @grey-light;
-  padding: 0;
+  padding: 4px 0;
   margin:2px 0;
 
   &.addmore { margin-bottom: 4px; }

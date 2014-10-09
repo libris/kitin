@@ -267,18 +267,19 @@
               data-ng-init="label = 'Lägg till huvuduppslag'"
               data-subject="record.about" data-link="'attributedTo'" data-type="Person"
               data-view-template="render-person"
-              data-search-template="render-search-box">
+              data-search-template="render-search-box"
+              data-rich-entity>
           </div>
         </label>
         <label>
           <span class="lbl" translate>LABEL.record.about.influencedBy</span>
           <!--<a ng-click="showInfluencedBy = !showInfluencedBy">Dölj <i class="icon fa fa-caret-up"></i></a>-->
           <div data-kitin-link-entity
-              data-collapsable="true"
               data-ng-init="label = 'Lägg till biuppslag'"
               data-subject="record.about" data-link-multiple="'influencedBy'" data-type="Person"
               data-view-template="render-person"
-              data-search-template="render-search-box">
+              data-search-template="render-search-box"
+              data-rich-entity>
           </div>
         </label>
       </div>
@@ -303,12 +304,12 @@
 
     <!-- RENDER PERSON TEMPLATE  START -->
     <script type="text/ng-template" id="render-person">
-      <div data-ng-if="isLinked(object) && !isEmpty(object)" class="entity person linked" tabindex="0">
+      <div data-ng-if="isLinked(object) && !isEmpty(object)" class="entity person linked">
         <div class="main">
           <span onload="person = object" data-ng-include="'render-person-name'"></span>
-            <button data-ng-if="isLinked(object)" class="btn-link auth" data-ng-controller="ModalCtrl" data-ng-click="openAuthModal(person['@id'])">
-              <i class="fa fa-bookmark"></i> Aukt.
-            </button>
+          <a data-ng-if="isLinked(object)" class="btn-link auth" data-ng-controller="ModalCtrl" data-ng-click="openAuthModal(person['@id'])">
+            <i class="fa fa-bookmark"></i> Aukt.
+          </a>
         </div>
         <div data-ng-include="'roles'"></div>
         <a data-ng-if="!editable.on" class="delete" href="#"
@@ -384,6 +385,16 @@
 
     <!-- RENDER SEARCH ROLE TEMPLATE  START -->
     <script type='text/ng-template' id="render-search-role">
+      <span class="add-link"><i class="fa fa-plus"></i> Lägg till roll</span>
+      <span class="search-field toggler">
+        <i class="fa fa-search"></i>
+        <input data-inplace type="text" placeholder="Sök roller"
+              data-service-url="{{API_PATH}}/relator/_search"
+              data-kitin-search-entity
+              data-completion-template="select-role-template"
+              />
+      </span>
+      <!--
       <label class="add-item">
         <i class="fa fa-search"></i>
         <input data-inplace type="text" placeholder="Roll"
@@ -391,6 +402,7 @@
               data-kitin-search-entity
               data-completion-template="select-role-template" />
       </label>
+      -->
     </script>
     <!-- RENDER SEARCH ROLE TEMPLATE  END -->
 
