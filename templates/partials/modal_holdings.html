@@ -5,10 +5,8 @@
     <h4 class="modal-title">Bestånd</h4>
   </div>
   <div class="modal-body"> 
-  <pre>{{ holding }}</pre>
     <form data-ng-show="holding['identifier'] || holding['_isNew']">
       <section class="holdings offer" data-ng-repeat="offer in holding.data.about.offers">
-      <pre>{{ offer }}</pre>
         <div class="cols">
           <div class="col6">
             <label>
@@ -67,14 +65,6 @@
       <button class="btn btn-purple" data-ng-click="addOffer(holding)">Lägg till "offer"</button>
     </section>
 
-  </div>
-</script>
-
-<script type="text/ng-template" id="render-holding">
-  <div class="holdings-list" data-ng-show="holdingsitem"> 
-    <ul>
-      <li data-ng-show="holdingsitem.about.offers[0].heldBy.notation"><a href="#" class="sigel beta-blocker">{{ holdingsitem.about.offers[0].heldBy.notation }}<span class="pull-right"><!--<i class="fa fa-chevron-down"></i></span>--></a></li>
-    </ul>
   </div>
 </script>
 

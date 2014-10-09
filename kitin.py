@@ -137,12 +137,6 @@ def show_partial(path):
 def get_template(type):
     return raw_json_response(open(os.path.join(here, "examples/templates/%s.json" % type), 'r').read())
 
-# INITIAL HOLDINGS TEMPLATE
-@app.route("/holding/bib/new", methods=["GET"])
-@login_required
-def get_holding_template():
-    return raw_json_response(open(os.path.join(here, "examples/templates/holding.json"), 'r').read())
-
 # RESOURCES
 @app.route("/resource/<path:path>")
 @login_required

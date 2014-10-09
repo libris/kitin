@@ -43,7 +43,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     recordService.holding.create().then(function(response) {
       var data = response;
       console.log(data);
-      var offer = data.data.offers[0];
+      var offer = data.data.about.offers[0];
       offer.heldBy[0].notation = userData.userSigel;
       offers.push(offer);
     });
@@ -61,7 +61,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   };
 
   $scope.deleteHolding = function(holding) {
-    var holdingId = holding['identifier']
+    var holdingId = holding['identifier'];
     recordService.holding.del(holdingId).then(function(response) {
       console.log('Holding removed successfully!');
     });

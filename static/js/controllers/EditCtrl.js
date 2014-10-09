@@ -130,31 +130,6 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
         if ($scope.recType === editService.RECORD_TYPES.BIB) {
           addRecordViewsToScope(record, $scope);
         }
-        
-        // // HOLDINGS
-        // $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.annotates.@id:' + recType + '\\/' + recId).success(function(data) {
-        //   var holdingEtags = {};
-        //   var items = editService.patchHoldings(data.list);
-        //   $scope.holdings = items;
-        //   var myHoldings = _.filter(items, function(i) { return i['location'] == userData.userSigel; });
-        //   if (myHoldings <= 0) {
-        //     $http.get("/holding/bib/new").success(function(data, status, headers) {
-        //       data.location = $scope.userSigel;
-        //       $scope.holding = data;
-        //       data._isNew = true; // TODO: don't do this when etag works
-        //     });
-        //   } else {
-        //     $scope.holding = myHoldings[0];
-        //   }
-        //   items.forEach(function (item) {
-        //     if (item['@id']) {
-        //       $http.get("/holding/"+ item['@id'].split("/").slice(-2)[1]).success(function (data, status, headers) {
-        //         holdingEtags[data['@id']] = headers('etag');
-        //       });
-        //     }
-        //   });
-        //   $scope.holdingEtags = holdingEtags;
-        // });
 
       });
       break;

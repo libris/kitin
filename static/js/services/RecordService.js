@@ -198,12 +198,11 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
               about: skeletonTypeMap.main.HeldMaterial
             }
           });
-        })
+        });
         return deferer.promise;
       },
 
       save: function(holding, etag) {
-        console.log(holding, etag);
         var deferer = $q.defer();
         if (holding['identifier'] && etag) {
           $http.put($rootScope.API_PATH + holding['identifier'], holding, {headers: {'Content-Type': 'application/ld+json', 'If-match':etag}}).success(function(data, status, headers) {
@@ -217,7 +216,6 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
         } else {
           // Holding has no ID, assume it's new
           $http.post($rootScope.API_PATH + '/hold', holding, {headers: {'Content-Type': 'application/ld+json'}}).success(function(data, status, headers) {
-            console.log('DATA:', data, 'STATUS:', status, 'HEADERS:', headers());
             var identifier = headers('location');
             if (identifier) {
               identifier = '/hold/' + identifier.split('/').slice(-2)[1];
@@ -237,7 +235,6 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
       del: function(holdingId) {
         var deferer = $q.defer();
         $http['delete']($rootScope.API_PATH + holdingId).success(function(data, success, headers) {
-          console.log(data, success, headers);
           deferer.resolve({
             data: data,
             etag: headers('etag')
@@ -249,7 +246,6 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
       },
 
       getEtag: function(holdingId) {
-        console.log(holdingId);
         var deferer = $q.defer();
         if (holdingId) {
           $http.get($rootScope.API_PATH + holdingId).success(function(data, status, headers) {
