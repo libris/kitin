@@ -1,8 +1,37 @@
 {
-  "@context": "http://libris.kb.se/contexts/libris.jsonld",
-  "location": "",
-  "shelvingControlNumber": "",
-  "classificationPart": "",
-  "textualHoldings": "",
-  "uniformResourceIdentifier": ""
+  "data": {
+    "entryMap": "",
+    "encLevel": {
+      "@id": "/def/enum/record/FullLevelMaterialNotExamined"
+    },
+    "characterCoding": {
+      "@id": "/def/enum/record/UCS-Unicode"
+    },
+    "status": {
+      "@id": "/def/enum/record/New"
+    },
+    "@type": "Record",
+    "about": {
+      "librisIIINumber": [],
+      "@id": "",
+      "@type": [
+        "HeldMaterial",
+        "ComponentPart"
+      ],
+      "offers": [{
+        "shelfControlNumber": "",
+        "classificationPart": "",
+        "@type": "Offer",
+        "heldBy": [{
+          "@type": "Organization",
+          "notation": ""
+        }]
+      }],
+      "holdingFor": {
+        "@id": ""
+      }
+    },
+    "controlNumber": "",
+    "@id": ""
+  }
 }
