@@ -212,7 +212,8 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
             }
             deferer.resolve(holding);
           }).error(function(data, status, headers) {
-            console.log('RecordService failed saving holding.');
+            console.log('RecordService failed saving holding, rejecting promise.');
+            deferer.reject('Etag doesn\'t match');
           });
         } else {
           // Holding has no ID, assume it's new

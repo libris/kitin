@@ -53,9 +53,11 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
 
   $scope.saveHolding = function(holding) {
     console.log('ABOUT TO SAVE HOLDING: ', holding);
-    recordService.holding.save(holding).then(function(holding) {
+    recordService.holding.save(holding).then(function success(holding) {
       console.log('SAVED HOLDING, ETAG SHOULD HAVE CHANGED: ', holding);
       $scope.holding = holding;
+    }, function error(reason) {
+      console.log('Rejected. reason:', reason);
     });
   };
 
