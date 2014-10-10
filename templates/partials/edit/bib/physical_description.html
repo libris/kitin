@@ -4,7 +4,7 @@
     <div>
       
       <!-- ADDITIONAL CARRIER TYPE START -->
-      <label>
+      <div class="label">
         <span class="lbl" translate>LABEL.record.about.additionalCarrierType</span>
         <ul class="tags" data-kitin-link-entity
             data-subject="record.about"
@@ -13,14 +13,14 @@
             data-search-template="render-generic-select"
             data-filter="about.inCollection.@id:/def/enum/content/additionalCarrierType-collection">
         </ul>
-      </label>
+      </div>
       <!-- ADDITIONAL CARRIER TYPE END -->
 
-        <label>
+        <div class="label">
           <span class="lbl" translate>LABEL.record.about.exampleOfWork</span>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.exampleOfWork.title" placeholder="">
-        </label>
-        <label>
+        </div>
+        <div class="label">
           <span class="lbl" translate>LABEL.record.about.exampleOfWork.partNumber</span>
           <ul class="tags" data-kitin-link-entity
               data-subject="record.about.exampleOfWork"
@@ -28,8 +28,8 @@
               data-search-template="render-generic-non-auth-add"
               data-view-template="render-non-auth-tag">
           </ul>
-        </label>
-        <label>
+        </div>
+        <div class="label">
           <span class="lbl" translate>LABEL.record.about.exampleOfWork.subtitle</span>
           <ul class="tags" data-kitin-link-entity
               data-subject="record.about.exampleOfWork"
@@ -37,41 +37,41 @@
               data-search-template="render-generic-non-auth-add"
               data-view-template="render-non-auth-tag">
           </ul>
-        </label>
+        </div>
 
 
       <div data-ng-show="record.about.material['@id']">
         <!-- MATERIAL START -->
-        <label>
+        <div class="label">
           <span class="lbl" translate>LABEL.record.about.material</span>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.material['@id']" placeholder="">
-        </label>
+        </div>
         <!-- MATERIAL END -->
       </div>
       <div data-ng-show="record.about.relief['@id']">
         <!-- RELIEF START -->
-        <label>
+        <div class="label">
           <span class="lbl" translate>LABEL.record.about.relief</span>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.relief['@id']" placeholder="">
-        </label>
+        </div>
         <!-- RELIEF END -->
       </div>
     </div>
     <div class="cols">
     	<div class="col6" data-ng-show="record.about.fileType">
         <!-- RELIEF START -->
-        <label>
+        <div class="label">
           <span class="lbl" translate>LABEL.record.about.fileType</span>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.fileType" placeholder="">
-        </label>
+        </div>
         <!-- RELIEF START -->
       </div>
       <div class="col6" data-ng-show="record.about.index['@id']">
         <!-- INDEX START -->
-        <label>
+        <div class="label">
           <span class="lbl" translate>LABEL.record.about.index</span>
           <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.index['@id']" placeholder="">
-         </label>
+         </div>
          <!-- INDEX END -->
       </div>
     </div>
@@ -98,10 +98,10 @@
           <td><span class="lbl" translate>LABEL.record.about.hasFormat.Product.accompanyingMaterial</span></td>
         </script>
         <script type="text/ng-template" id="product-row-template">
-          <td><label><input ng-model="object['extent']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
-          <td><label><input ng-model="object['dimensions']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
-          <td><label><input ng-model="object['otherPhysicalDetails']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
-          <td><label><input ng-model="object['accompanyingMaterial']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><div class="label"><input ng-model="object['extent']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+          <td><div class="label"><input ng-model="object['dimensions']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+          <td><div class="label"><input ng-model="object['otherPhysicalDetails']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+          <td><div class="label"><input ng-model="object['accompanyingMaterial']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
           <td class="controls">
             <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
           </td>
@@ -124,9 +124,9 @@
           <td><span class="lbl" translate>LABEL.record.about.hasFormat.Electronic.dimensions</span></td>
         </script>
         <script type="text/ng-template" id="electronic-row-template">
-          <td><label><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
-          <td><label><input ng-model="object['color']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
-          <td><label><input ng-model="object['dimensions']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+          <td><div class="label"><input ng-model="object['color']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+          <td><div class="label"><input ng-model="object['dimensions']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
           <td class="controls">
             <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
           </td>
@@ -150,9 +150,9 @@
           <td><span class="lbl" translate>LABEL.record.about.hasFormat.Map.medium</span></td>
         </script>
         <script type="text/ng-template" id="map-row-template">
-          <td><label><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
-          <td><label><input ng-model="object['color']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
-          <td><label><input ng-model="object['medium']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+          <td><div class="label"><input ng-model="object['color']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+          <td><div class="label"><input ng-model="object['medium']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
           <td class="controls">
             <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
           </td>
@@ -175,9 +175,9 @@
           <td><span class="lbl" translate>LABEL.record.about.hasFormat.StillImage.nonProjPrimary</span></td>
         </script>
         <script type="text/ng-template" id="still-image-row-template">
-          <td><label><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
-          <td><label><input ng-model="object['nonProjColor']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
-          <td><label><input ng-model="object['nonProjPrimary']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+          <td><div class="label"><input ng-model="object['nonProjColor']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+          <td><div class="label"><input ng-model="object['nonProjPrimary']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
           <td class="controls">
             <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
           </td>
@@ -202,11 +202,11 @@
           <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.motionPicDimensions</span></td>
         </script>
         <script type="text/ng-template" id="moving-image-row-template">
-          <td><label><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
-          <td><label><input ng-model="object['motionPicFormat']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
-          <td><label><input ng-model="object['motionPicSound']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
-          <td><label><input ng-model="object['motionPicMedium']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
-          <td><label><input ng-model="object['motionPicDimensions']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+          <td><div class="label"><input ng-model="object['motionPicFormat']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+          <td><div class="label"><input ng-model="object['motionPicSound']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+          <td><div class="label"><input ng-model="object['motionPicMedium']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+          <td><div class="label"><input ng-model="object['motionPicDimensions']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
           <td class="controls">
             <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
           </td>
@@ -232,12 +232,12 @@
           <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.soundPlaybackCharacter</span></td>
         </script>
         <script type="text/ng-template" id="sound-recording-row-template">
-          <td><label><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
-          <td><label><input ng-model="object['soundSpeed']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
-          <td><label><input ng-model="object['soundDimensions']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
-          <td><label><input ng-model="object['soundKindOfDisc']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
-          <td><label><input ng-model="object['soundKindOfMaterial']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
-          <td><label><input ng-model="object['soundPlaybackCharacter']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+          <td><div class="label"><input ng-model="object['soundSpeed']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+          <td><div class="label"><input ng-model="object['soundDimensions']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+          <td><div class="label"><input ng-model="object['soundKindOfDisc']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+          <td><div class="label"><input ng-model="object['soundKindOfMaterial']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+          <td><div class="label"><input ng-model="object['soundPlaybackCharacter']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
           <td class="controls">
             <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
           </td>
@@ -261,10 +261,10 @@
           <td><span class="lbl" translate>LABEL.record.about.hasFormat.VideoRecording.videoSound</span></td>
         </script>
         <script type="text/ng-template" id="video-recording-row-template">
-          <td><label><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
-          <td><label><input ng-model="object['videoColor']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
-          <td><label><input ng-model="object['videoFormat']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
-          <td><label><input ng-model="object['videoSound']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+          <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+          <td><div class="label"><input ng-model="object['videoColor']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+          <td><div class="label"><input ng-model="object['videoFormat']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+          <td><div class="label"><input ng-model="object['videoSound']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
           <td class="controls">
             <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
           </td>
@@ -278,9 +278,9 @@
               <tr ng-repeat="format in subFormat">
                 <td ng-repeat="(key, value) in format">
                   <span class="lbl">{{key}}</span>
-                  <label>
+                  <div class="label">
                     <input data-inplace class="ng-pristine ng-valid" type="text" ng-model="value"/>
-                  </label>
+                  </div>
                 </td>
               </tr>
             </tbody>
@@ -292,7 +292,7 @@
 
 
         <!-- ILLUSTRATIONS  START -->
-        <label>
+        <div class="label">
           <span class="lbl" translate>LABEL.record.about.illustrations</span>
           <div data-kitin-link-entity
               data-subject="record.about"
@@ -302,11 +302,11 @@
               data-filter="about.inCollection.@id:/def/enum/content/illustrations-collection"
               ng-init=" placeholder='Lägg till'; ">
           </div>
-        </label>
+        </div>
         <!-- ILLUSTRATIONS  END -->
 
         <!-- NATURE  START -->
-        <label>
+        <div class="label">
           <span class="lbl" translate>LABEL.record.about.nature</span>
           <div data-kitin-link-entity
               data-subject="record.about"
@@ -316,11 +316,11 @@
               data-filter="about.inCollection.@id:/def/enum/content/nature-collection"
               ng-init=" placeholder='Lägg till'; ">
           </div>
-        </label>
+        </div>
         <!-- NATURE  END -->
 
         <!-- ORIGNIAL ITEM  START -->
-        <label>
+        <div class="label">
           <span class="lbl" translate>LABEL.record.about.originalItem</span>
           <div data-kitin-link-entity
               data-subject="record.about"
@@ -330,35 +330,35 @@
               data-filter="about.inCollection.@id:/def/enum/content/originalItem-collection"
               ng-init=" placeholder='Lägg till'; ">
           </div>
-        </label>
+        </div>
         <!-- ORIGNIAL ITEM  END -->
 
             <!-- RUNNING TIME  START -->
-      	    <label>
+      	    <div class="label">
               <span class="lbl" translate>LABEL.record.about.runningTime</span>
               <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.runningTime">
-            </label>
+            </div>
             <!-- RUNNING TIME  END -->
 
     
   	<!-- More Map Details -->
 
 
-          <label>
+          <div class="label">
             <span class="lbl" translate>LABEL.record.about.availability</span>
             <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.availability" placeholder="">
-           </label> 
-          <label>
+           </div> 
+          <div class="label">
             <span class="lbl" translate>LABEL.record.about.cartographicScale</span>
             <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.cartographicScale" placeholder="">
-           </label>
-          <label>
+           </div>
+          <div class="label">
             <span class="lbl" translate>LABEL.record.about.cartographicCoordinates</span>
             <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.cartographicCoordinates" placeholder="">
-           </label>
+           </div>
 
         <!-- CARTOGRAPHICAL ASCENSION AND DECLINATION  START -->
-        <label>
+        <div class="label">
           <div class="datatable" data-ng-target="cartographicAscensionAndDeclination" 
             data-kitin-data-table 
             data-table-model="record.about.cartographicAscensionAndDeclination" 
@@ -378,17 +378,17 @@
             <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.southernmostLatitudeCoordinates</span></td>
           </script>
           <script type="text/ng-template" id="cartographicAscensionAndDeclination-row-template">
-            <td><label><input ng-model="object['cartographicScale']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
-            <td><label><input ng-model="object['constantRatioLinearHorizontalScale']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
-            <td><label><input ng-model="object['westernmostLongitudeCoordinates']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
-            <td><label><input ng-model="object['easternmostLongitudeCoordinates']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
-            <td><label><input ng-model="object['northernmostLatitudeCoordinates']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
-            <td><label><input ng-model="object['southernmostLatitudeCoordinates']" data-inplace class="ng-pristine ng-valid" type="text" /></label></td>
+            <td><div class="label"><input ng-model="object['cartographicScale']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+            <td><div class="label"><input ng-model="object['constantRatioLinearHorizontalScale']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+            <td><div class="label"><input ng-model="object['westernmostLongitudeCoordinates']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+            <td><div class="label"><input ng-model="object['easternmostLongitudeCoordinates']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+            <td><div class="label"><input ng-model="object['northernmostLatitudeCoordinates']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+            <td><div class="label"><input ng-model="object['southernmostLatitudeCoordinates']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
             <td class="controls">
               <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
             </td>
           </script>
-        </label>
+        </div>
         <!-- CARTOGRAPHICAL ASCENSION AND DECLINATION  END -->
       </div>
 

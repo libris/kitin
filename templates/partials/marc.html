@@ -1,19 +1,25 @@
 {% raw %}
-<div class="content bib marc"><form name="form" class="form-horizontal" data-ng-controller="EditCtrl">
-  <header class="clearfix">
-    <h1>MARC</h1>
-    <div data-ng-include="'/partials/_mode_menu'" onload="mode = 'MARC'"></div>
-  </header>
-  <section class="marc">
-    <table>
-      <tr><td data-ng-if="record.leader"><code>000</code><span>{{record.leader}}</span><td></tr>
-      <tr data-ng-repeat="object in record.fields">
-        <td data-ng-include="'render-object'"></td>
-      </tr>
-    </table>
-  </sectio
-
-</form></div>
+<div class="content bib marc">
+  <form name="form" class="form-horizontal" data-ng-controller="EditCtrl">
+    <header class="clearfix">
+      <h1>MARC</h1>
+      <div data-ng-include="'/partials/_mode_menu'" onload="mode = 'MARC'"></div>
+    </header>
+    <section class="marc">
+      <table>
+        <tr>
+          <td data-ng-if="record.leader">
+            <code>000</code>
+            <span>{{record.leader}}</span>
+          </td>
+        </tr>
+        <tr data-ng-repeat="object in record.fields">
+          <td data-ng-include="'render-object'"></td>
+        </tr>
+      </table>
+    </section>
+  </form>
+</div>
 
 <script type="text/ng-template" id="render-object">
   <span data-ng-repeat="(key, value) in object" data-ng-init="obj = object[key]">

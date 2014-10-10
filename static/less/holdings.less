@@ -1,10 +1,7 @@
 /* HOLDINGS START ------------------------- */
 
-// .holdings label:hover,
-// .holdings label.focus{border-left-color:@purple;}
-
-.holdings label input[type="text"]:focus,
-.holdings label textarea:focus{}
+.holdings .label input[type="text"]:focus,
+.holdings .label textarea:focus{}
 
 .holdings .lbl {color:@purple;}
 
@@ -20,22 +17,6 @@
      -moz-box-shadow: 0 1px 3px rgba(0,0,0,.2);
       box-shadow: 0 1px 3px rgba(0,0,0,.2);
 }
-
-// section.holdings-list{background:@grey-warm;}
-
-// .holdings-list ul{list-style:none;margin:0;padding:0;
-//   -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.2);
-//      -moz-box-shadow: 0 1px 3px rgba(0,0,0,.2);
-//           box-shadow: 0 1px 3px rgba(0,0,0,.2);
-// }
-
-// .holdings-list a{display:block;background:@grey-warm;padding:12px;border-top:1px solid @grey-light;color:@grey-darker;}
-// .holdings-list li:first-child a{border-top:none;}
-// .holdings-list li.active a{background:@white;color:@grey-very-dark;}
-
-// .holdings-list a.sigel {font-weight: bold;font-size: 14px;color:@grey-darker;}
-
-// .holdings-list a.sigel i {opacity:.60;}
 
 .content.holdings section h2{background-color: @purple-light;}
 .content.holdings section h2 i{border-right-color: @purple;}
@@ -57,4 +38,13 @@ section.offer{
   margin-bottom:24px;
 }
 
+.modal-alerts{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,.5);
+  padding: 80px;
+}
 /* HOLDINGS END ------------------------- */

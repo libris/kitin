@@ -4,45 +4,46 @@
     <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
     <h4 class="modal-title">Bestånd</h4>
   </div>
-  <div class="modal-body"> 
+  <div class="modal-body">
+    <pre>{{holding}}</pre>
     <form data-ng-show="holding.data['@id'] || !holding['etag']">
       <section class="holdings offer" data-ng-repeat="offer in holding.data.about.offers track by $index">
         <div class="cols">
           <div class="col6">
-            <label>
+            <div class="label">
               <input data-inplace type="text" placeholder="Avdelning/Samling" data-ng-model="offer.shelfLocation"/>
               <span class="lbl">{{ "Avdelning/Samling" }}</span>
-            </label>
-            <label>
+            </div>
+            <div class="label">
               <input data-inplace type="text" placeholder="Hyllsignum/Klassifikation" data-ng-model="offer.classificationPart"/>
               <span class="lbl">{{ "Hyllsignum/Klassifikation" }}</span>
-            </label>
-            <label>
+            </div>
+            <div class="label">
               <input data-inplace type="text" placeholder="Löpnummer" data-ng-model="offer.shelfControlNumber"/>
               <span class="lbl">{{ "Löpnummer" }}</span>
-            </label>
-            <label>
+            </div>
+            <div class="label">
               <input data-inplace type="text" placeholder="Uppställningsord" data-ng-model="offer.shelfLabel"/>
               <span class="lbl">{{ "Uppställningsord" }}</span>
-            </label>
+            </div>
           </div>
           <div class="col6">
-            <label>
+            <div class="label">
               <input data-inplace type="text" placeholder="Exemplarinfo" data-ng-model="offer.availability"/>
               <span class="lbl">{{ "Exemplarinfo" }}</span>
-            </label>
-            <label>
+            </div>
+            <div class="label">
               <input data-inplace type="text" placeholder="Exemplarnummer" data-ng-model="offer.copyNumber"/>
               <span class="lbl">{{ "Exemplarnummer" }}</span>
-            </label>
-            <label>
+            </div>
+            <div class="label">
               <textarea data-inplace data-ui-jq="autosize" spellcheck="false" placeholder="Publik anmärkning" data-ng-model="offer.copyNote"></textarea>
               <span class="lbl">{{ "Publik anmärkning" }}</span>
-            </label>
-            <label>
+            </div>
+            <div class="label">
               <textarea data-inplace data-ui-jq="autosize" spellcheck="false" placeholder="Intern anmärkning" data-ng-model="offer.editorialNote"></textarea>
               <span class="lbl">{{ "Intern anmärkning" }}</span>
-            </label>
+            </div>
           </div>
           <div class="col12">
             <button class="btn btn-red" data-ng-click="deleteOffer(holding, $index)">Ta bort lokalsignum</button>
@@ -51,7 +52,7 @@
       </section>
     </form>
 
-    <div class="alert alert-success" role="alert" data-ng-show="!holding.data['@id'] && holding['etag']">
+    <div class="alert alert-success" role="alert" data-ng-show="!holding">
       {{ "Beståndet raderat" }}
     </div>
     
@@ -59,12 +60,22 @@
       {{ "Beståndet saknar lokalsignum" }}
     </div>
 
+    <div class="modal-alerts" data-ng-show="alerts.length > 0">
+      <alert data-ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+    </div>
+
   </div>
 
   <div class="modal-footer submit">
-    <button class="btn btn-purple" data-ng-click="addOffer(holding)">Lägg till lokalsignum</button>
+    <div class="status pull-left">
+      <pre>{{modifications}}</pre>
+      <div data-ng-if="modifications.saved">Inga osparade ändringar.</div>
+      <div data-ng-if="!modifications.saved">Du har inte sparat dina ändringar.</div>
+    </div>
+    <button class="btn btn-purple" data-ng-click="addOffer(holding)" data-ng-show="holding">Lägg till lokalsignum</button>
     <button class="btn-link" id="delete-hld" data-ng-click="deleteHolding(holding)" data-ng-show="holding.data['@id']">Ta bort bestånd</button>
-    <button class="btn btn-purple btn-submit" id="save-hld" data-ng-click="saveHolding(holding)">Spara bestånd</button>
+    <button class="btn btn-purple btn-submit" id="save-hld" data-ng-click="saveHolding(holding)" data-ng-show="holding">Spara bestånd</button>
+    <button class="btn btn-purple btn-submit" id="save-hld" data-ng-click="close()" data-ng-show="!holding">Stäng</button>
   </div>
 
 

@@ -31,6 +31,20 @@ kitin.config(function($locationProvider, $routeProvider, $translateProvider, $ht
       $httpProvider.interceptors.push('HttpInterceptor');
 });
 
+// default popover options
+kitin.config(function($tooltipProvider) {
+  $tooltipProvider.options({
+    placement: "right"
+  });
+});
+
+// unsafe filter for html
+kitin.filter('unsafe', ['$sce', function ($sce) {
+    return function (val) {
+        return $sce.trustAsHtml(val);
+    };
+}]);
+
 // TODO: window.onunload or $routeProvider / $locationChangeStart
 //if (ajaxInProgress)
 //  confirm('ajaxInProgress; break and leave?')
