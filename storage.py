@@ -109,7 +109,7 @@ class Storage(object):
         self.rw_index(construct_path([self.path, user_id]), do_remove_index, {'rec_id': rec_id, 'user_id': user_id})
 
     def save_draft(self, user_id, rec_type, json_record, etag, rec_id=None):
-        if rec_id is None:
+        if rec_id is None or rec_id == 'new':
             rec_id = construct_id(rec_type)
 
         path = construct_path([self.path, user_id, rec_type])
@@ -165,7 +165,7 @@ class Storage(object):
         return match_index
 
 def construct_id(rec_type):
-    return '/'.join([rec_type, 'draft-' + str(uuid.uuid4())])
+    return 'draft-' + str(uuid.uuid4())
 
 def construct_path(path_array):
     return "/".join(path_array)
