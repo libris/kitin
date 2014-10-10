@@ -1,4 +1,4 @@
-kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routeParams, $rootScope, $anchorScroll, definitions, searchService, searchUtil, editService) {
+kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routeParams, $rootScope, $anchorScroll, definitions, searchService, searchUtil, editService, recordService, userData) {
 
   $scope.recType = $routeParams.recType;
 
@@ -140,14 +140,25 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
 
   $rootScope.$watch('state.search.result.list.length', function(newLength, oldLength) {
     var updateHoldings = function(data, status, headers, config) {
-    if(data) {
-          config.record.holdings = data;
-        }
+      if (data) {
+        config.record.holdings = data;
+      }
     };
     for (var i = oldLength ? oldLength: 0; i < newLength; i++) {
         var record = $rootScope.state.search.result.list[i];
-        if(record.identifier) {
-          $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.annotates.@id:' + record.identifier.replace('/','\/'), {record: record}).success(updateHoldings);
+        if (record.identifier) {
+          //$http.get($rootScope.API_PATH + '/hold/_search?q=*+about.annotates.@id:' + record.identifier.replace('/','\/'), {record: record}).success(updateHoldings);
+          $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.holdingFor.@id:' + record.identifier.replace(/\//g, '\\/') + '+about.offers.heldBy.notation:' + userData.userSigel, {record: record}).success(updateHoldings);
+          // Would need to customize recordService.holding.get() to make this work. Is it worth it? 
+          // For now, stick to the solution above.
+          // recordService.holding.get(recordId, userData).then(function(holding) {
+          //   console.log('RecID:', record.identifier, holding);
+          //   if (!holding) {
+          //     console.log('No holding found :(');
+          //   } else {
+          //     console.log('Holding found!');
+          //   }
+          // });
         }
 
     }

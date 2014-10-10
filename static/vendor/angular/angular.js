@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.2.27-build.508+sha.434d7a0
+ * @license AngularJS v1.2.27-build.513+sha.b11d6c7
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -68,7 +68,7 @@ function minErr(module) {
       return match;
     });
 
-    message = message + '\nhttp://errors.angularjs.org/1.2.27-build.508+sha.434d7a0/' +
+    message = message + '\nhttp://errors.angularjs.org/1.2.27-build.513+sha.b11d6c7/' +
       (module ? module + '/' : '') + code;
     for (i = 2; i < arguments.length; i++) {
       message = message + (i == 2 ? '?' : '&') + 'p' + (i-2) + '=' +
@@ -1987,7 +1987,7 @@ function setupModuleLoader(window) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
-  full: '1.2.27-build.508+sha.434d7a0',    // all of these placeholder strings will be replaced by grunt's
+  full: '1.2.27-build.513+sha.b11d6c7',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
   minor: 2,
   dot: 27,
@@ -5399,8 +5399,13 @@ function $TemplateCacheProvider() {
  * scope. This makes it possible for the widget to have private state, and the transclusion to
  * be bound to the parent (pre-`isolate`) scope.
  *
- * * `true` - transclude the content of the directive.
- * * `'element'` - transclude the whole element including any directives defined at lower priority.
+ * There are two kinds of transclusion depending upon whether you want to transclude just the contents of the
+ * directive's element or the entire element:
+ *
+ * * `true` - transclude the content (i.e. the child nodes) of the directive's element.
+ * * `'element'` - transclude the whole of the directive's element including any directives on this
+ *   element that defined at a lower priority than this directive. When used, the `template`
+ *   property is ignored.
  *
  * <div class="alert alert-warning">
  * **Note:** When testing an element transclude directive you must not place the directive at the root of the
@@ -14786,17 +14791,17 @@ function filterFilter() {
     }
 
     var search = function(obj, text){
-      if (typeof text == 'string' && text.charAt(0) === '!') {
+      if (typeof text === 'string' && text.charAt(0) === '!') {
         return !search(obj, text.substr(1));
       }
       switch (typeof obj) {
-        case "boolean":
-        case "number":
-        case "string":
+        case 'boolean':
+        case 'number':
+        case 'string':
           return comparator(obj, text);
-        case "object":
+        case 'object':
           switch (typeof text) {
-            case "object":
+            case 'object':
               return comparator(obj, text);
             default:
               for ( var objKey in obj) {
@@ -14807,7 +14812,7 @@ function filterFilter() {
               break;
           }
           return false;
-        case "array":
+        case 'array':
           for ( var i = 0; i < obj.length; i++) {
             if (search(obj[i], text)) {
               return true;
@@ -14819,13 +14824,13 @@ function filterFilter() {
       }
     };
     switch (typeof expression) {
-      case "boolean":
-      case "number":
-      case "string":
+      case 'boolean':
+      case 'number':
+      case 'string':
         // Set up expression object and fall through
         expression = {$:expression};
         // jshint -W086
-      case "object":
+      case 'object':
         // jshint +W086
         for (var key in expression) {
           (function(path) {
@@ -19577,7 +19582,7 @@ forEach(
  * Note that when an element is removed using `ngIf` its scope is destroyed and a new scope
  * is created when the element is restored.  The scope created within `ngIf` inherits from
  * its parent scope using
- * [prototypal inheritance](https://github.com/angular/angular.js/wiki/The-Nuances-of-Scope-Prototypal-Inheritance).
+ * [prototypal inheritance](https://github.com/angular/angular.js/wiki/Understanding-Scopes#javascript-prototypal-inheritance).
  * An important implication of this is if `ngModel` is used within `ngIf` to bind to
  * a javascript primitive defined in the parent scope. In this case any modifications made to the
  * variable within the child scope will override (hide) the value in the parent scope.

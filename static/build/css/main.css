@@ -2612,10 +2612,6 @@ label.error i {
 }
 /* EDIT FORM END ------------------------- */
 /* HOLDINGS START ------------------------- */
-.holdings label:hover,
-.holdings label.focus {
-  border-left-color: #683568;
-}
 .holdings .lbl {
   color: #683568;
 }
@@ -2642,39 +2638,6 @@ label.error i {
   -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
-section.holdings-list {
-  background: #eeeeec;
-}
-.holdings-list ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-.holdings-list a {
-  display: block;
-  background: #eeeeec;
-  padding: 12px;
-  border-top: 1px solid #c7c7c3;
-  color: #666664;
-}
-.holdings-list li:first-child a {
-  border-top: none;
-}
-.holdings-list li.active a {
-  background: #ffffff;
-  color: #191913;
-}
-.holdings-list a.sigel {
-  font-weight: bold;
-  font-size: 14px;
-  color: #666664;
-}
-.holdings-list a.sigel i {
-  opacity: .60;
-}
 .content.holdings section h2 {
   background-color: #aa59aa;
 }
@@ -2696,6 +2659,9 @@ section.holdings-list {
 }
 section.holdings ul li {
   list-style: none;
+}
+section.offer {
+  margin-bottom: 24px;
 }
 /* HOLDINGS END ------------------------- */
 /* AUTOCOMPLETE START ------------------------- */

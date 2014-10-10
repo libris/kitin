@@ -29,12 +29,15 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
           '@id': recordId
         };
         holding.data.about.offers[0].heldBy[0].notation = userData.userSigel;
-        holding._isNew = true; // TODO: don't do this when etag works
         $scope.holding = holding;
-        console.log(holding);
       });
     } else {
-      $scope.holding = holding;
+      recordService.holding.getEtag(holding.data['@id']).then(function(response) {
+        var etag = response['etag'];
+        holding.etag = etag;
+        console.log(holding);
+        $scope.holding = holding;
+      });
     }
   });
 
@@ -42,29 +45,35 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     var offers = holding.data.about.offers;
     recordService.holding.create().then(function(response) {
       var data = response;
-      console.log(data);
-      var offer = data.data.offers[0];
+      var offer = data.data.about.offers[0];
       offer.heldBy[0].notation = userData.userSigel;
       offers.push(offer);
     });
   };
 
   $scope.saveHolding = function(holding) {
-    console.log('HOLDING: ', holding);
-    recordService.holding.getEtag(holding['identifier']).then(function(response) {
-      var etag = response['etag'];
-      if (holding._isNew) { delete holding._isNew; }
-      recordService.holding.save(holding, recordId, etag).then(function(holding) {
-        $scope.holding = holding;
-      });
+    console.log('ABOUT TO SAVE HOLDING: ', holding);
+    recordService.holding.save(holding).then(function success(holding) {
+      console.log('SAVED HOLDING, ETAG SHOULD HAVE CHANGED: ', holding);
+      $scope.holding = holding;
+    }, function error(reason) {
+      console.log('Rejected. reason:', reason);
     });
   };
 
   $scope.deleteHolding = function(holding) {
-    var holdingId = holding['identifier']
+    var holdingId = holding.data['@id'];
     recordService.holding.del(holdingId).then(function(response) {
       console.log('Holding removed successfully!');
     });
+  };
+
+  $scope.deleteOffer = function(holding, index) {
+    var offers = holding.data.about.offers;
+    console.log(offers, index);
+    offers.splice(index, 1);
+    console.log(offers);
+    console.log('Offer removed successfully, form should now be considered dirty!');
   };
 
 });
