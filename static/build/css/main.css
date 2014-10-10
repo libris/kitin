@@ -62,70 +62,70 @@
 .lastcol {
   margin-right: 0;
 }
-.col6 label textarea,
-.col6 label input[type="text"],
-.col6 label select {
+.col6 .label textarea,
+.col6 .label input[type="text"],
+.col6 .label select {
   width: 466px;
 }
-.col4 label textarea,
-.col4 label input[type="text"],
-.col4 label select {
+.col4 .label textarea,
+.col4 .label input[type="text"],
+.col4 .label select {
   width: 298px;
 }
-.col3 label textarea,
-.col3 label input[type="text"],
-.col3 label select {
+.col3 .label textarea,
+.col3 .label input[type="text"],
+.col3 .label select {
   width: 214px;
 }
-.col2 label textarea,
-.col2 label input[type="text"],
-.col2 label select {
+.col2 .label textarea,
+.col2 .label input[type="text"],
+.col2 .label select {
   width: 130px;
 }
 .split {
   overflow: hidden;
 }
-.col3 .split label {
+.col3 .split .label {
   float: left;
   margin-left: 24px;
   overflow: hidden;
   width: 92px;
 }
-.col3 .split label:first-child {
+.col3 .split .label:first-child {
   margin-left: 0;
 }
-.col3 .split label textarea,
-.col3 .split label input[type="text"],
-.col3 .split label select {
+.col3 .split .label textarea,
+.col3 .split .label input[type="text"],
+.col3 .split .label select {
   width: 74px;
 }
-.col6 .split label {
+.col6 .split .label {
   float: left;
   margin-left: 24px;
   overflow: hidden;
   width: 184px;
 }
-.col6 .split label:first-child {
+.col6 .split .label:first-child {
   margin-left: 0;
 }
-.col6 .split label textarea,
-.col6 .split label input[type="text"],
-.col6 .split label select {
+.col6 .split .label textarea,
+.col6 .split .label input[type="text"],
+.col6 .split .label select {
   width: 166px;
 }
-.col3 label.deletable .lbl {
+.col3 .label.deletable .lbl {
   display: block;
 }
-.col3 label.deletable input[type="text"] {
+.col3 .label.deletable input[type="text"] {
   width: 160px;
 }
-.col2 label.deletable input[type="text"] {
+.col2 .label.deletable input[type="text"] {
   width: 100px;
 }
 .multifield {
   margin-bottom: 18px;
 }
-.multifield label {
+.multifield .label {
   margin-bottom: 0;
 }
 .multifield .lbl {
@@ -1122,7 +1122,7 @@ body.login .content.index header {
 .content.holdings a {
   color: #683568;
 }
-.content.holdings label .lbl {
+.content.holdings .label .lbl {
   color: #683568;
 }
 .content section {
@@ -1254,7 +1254,7 @@ section.nav dt i {
 .json-ld .header {
   font-size: 12px;
 }
-.json-ld label {
+.json-ld .label {
   font-size: 12px;
   display: block;
   background-color: #ffffff;
@@ -1301,8 +1301,8 @@ section.nav dt i {
   background-color: #eeeeec;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
 }
-.edit .json-ld .entity.linked label,
-.edit .json-ld .entity.linked:hover label {
+.edit .json-ld .entity.linked .label,
+.edit .json-ld .entity.linked:hover .label {
   background-color: inherit;
 }
 .collapsed > .entity {
@@ -1340,7 +1340,7 @@ div.array > section.entity > div:nth-of-type(even) {
 .array {
   position: relative;
 }
-.array > section > div > * > div > label {
+.array > section > div > * > div > .label {
   position: absolute;
   left: 0;
   display: none;
@@ -1354,7 +1354,7 @@ div.array > section.entity > div:nth-of-type(even) {
 }
 .marc code {
   color: #fa1963;
-  background-color: #b6f2e3;
+  background-color: #c6ece3;
 }
 /* LOGIN START ------------------------- */
 form.login {
@@ -1363,13 +1363,13 @@ form.login {
   padding-top: 60px;
   position: relative;
 }
-form.login label {
+form.login .label {
   border-left: none;
   padding-left: 0;
 }
 form.login .inp input,
 form.login .inp input:hover,
-form.login label.inp:hover input,
+form.login .label.inp:hover input,
 form.login .inp input:focus {
   width: 312px;
   border: 1px solid #adada9;
@@ -1396,7 +1396,7 @@ form.login .inp input:focus,
 form.login .inp input:focus:hover {
   border-color: #666664 #adada9 #adada9 #666664;
 }
-form.login label .lbl {
+form.login .label .lbl {
   color: #191913;
 }
 form.login .checks {
@@ -1405,20 +1405,20 @@ form.login .checks {
   bottom: 14px;
   width: 300px;
 }
-form.login .checks label {
+form.login .checks .label {
   overflow: hidden;
   margin-bottom: 14px;
 }
-form.login .checks label input {
+form.login .checks .label input {
   margin-top: 0;
   margin-right: 6px;
 }
-form.login .checks label input,
+form.login .checks .label input,
 form.login .checks label .lbl {
   float: left;
   width: auto;
 }
-form.login label .lbl-login {
+form.login .label .lbl-login {
   text-transform: lowercase;
 }
 ul.drafts {
@@ -1494,7 +1494,6 @@ html .modal.fade .modal-dialog {
   padding-bottom: 0;
 }
 .popover .popover-content {
-  padding-top: 0;
   font-size: 12px;
   color: #666664;
 }
@@ -1510,12 +1509,44 @@ ul.tags {
 }
 ul.tags li {
   display: inline-block;
-  margin: 0 2px 6px 0;
+  margin: 0 4px 4px 0;
   padding: 3px 8px;
   font-size: 12px;
   background: #eeeeec;
   color: #191913;
   border-radius: 2px;
+  /*
+  &.search {
+    background: none;
+    border: 1px solid @grey-light;
+    padding: 1px 6px 1px 0;
+    position: relative;
+
+    input[type="text"],
+    input[type="text"]:focus,
+    select,
+    select:focus { border: none; box-shadow: none; }
+
+    i {color:@grey;font-size:12px;margin:0 2px 0 6px}
+    input[type="text"],
+    select {
+      width: 110px;
+      font-size:12px;height:20px;margin:0;padding:0 8px 0 0;line-height:16px;
+
+      &::-webkit-input-placeholder,
+      &:-moz-input-placeholder {font-size:12px;color:@grey-lighter}
+      &:focus::-webkit-input-placeholder,
+      &:focus:-moz-input-placeholder {color:@white}
+    }
+  }
+  */
+}
+ul.tags li.open {
+  background: #666664;
+  color: #fff;
+}
+ul.tags li .tag-linked {
+  cursor: pointer;
 }
 ul.tags li i.no {
   margin-left: 6px;
@@ -1551,84 +1582,56 @@ ul.tags li.non-auth {
   background: none;
   padding: 2px 7px;
 }
-ul.tags li.search {
-  background: none;
-  border: 1px solid #c7c7c3;
-  padding: 1px 6px 1px 0;
-  position: relative;
-}
-ul.tags li.search input[type="text"],
-ul.tags li.search input[type="text"]:focus,
-ul.tags li.search select,
-ul.tags li.search select:focus {
-  border: none;
-  box-shadow: none;
-}
-ul.tags li.search i {
-  color: #adada9;
-  font-size: 12px;
-  margin: 0 2px 0 6px;
-}
-ul.tags li.search input[type="text"],
-ul.tags li.search select {
-  width: 110px;
-  font-size: 12px;
-  height: 20px;
-  margin: 0;
-  padding: 0 8px 0 0;
-  line-height: 16px;
-}
-ul.tags li.search input[type="text"]::-webkit-input-placeholder,
-ul.tags li.search select::-webkit-input-placeholder,
-ul.tags li.search input[type="text"]:-moz-input-placeholder,
-ul.tags li.search select:-moz-input-placeholder {
-  font-size: 12px;
-  color: #ddddd8;
-}
-ul.tags li.search input[type="text"]:focus::-webkit-input-placeholder,
-ul.tags li.search select:focus::-webkit-input-placeholder,
-ul.tags li.search input[type="text"]:focus:-moz-input-placeholder,
-ul.tags li.search select:focus:-moz-input-placeholder {
-  color: #ffffff;
-}
 ul.tags .add-item,
+ul.tags li.search,
 .find-entity .add-item {
-  background: #b6f2e3;
   border: none;
+  background: none;
   cursor: pointer;
   display: inline-block;
-  margin: 0 2px 6px 0;
-  padding: 3px 8px;
+  margin: 0 4px 4px 0;
+  padding: 0;
   font-size: 12px;
   border-radius: 2px;
+  position: relative;
 }
 ul.tags .add-item .toggler,
+ul.tags li.search .toggler,
 .find-entity .add-item .toggler {
   display: none;
 }
 ul.tags .add-item .add-link,
+ul.tags li.search .add-link,
 .find-entity .add-item .add-link {
   color: #0e4e3e;
+  background: #c6ece3;
+  padding: 3px 8px;
+  display: inline-block;
+  border-radius: 2px;
 }
 ul.tags .add-item .add-link i,
+ul.tags li.search .add-link i,
 .find-entity .add-item .add-link i {
   margin-left: 2px;
 }
+ul.tags .add-item .add-link:hover,
+ul.tags li.search .add-link:hover,
+.find-entity .add-item .add-link:hover {
+  color: #000000;
+  background: #a8e1d3;
+}
+ul.tags .add-item .add-link:hover i,
+ul.tags li.search .add-link:hover i,
+.find-entity .add-item .add-link:hover i {
+  color: #000000;
+}
 ul.tags .add-item i,
+ul.tags li.search i,
 .find-entity .add-item i {
   margin-right: 2px;
 }
-ul.tags .add-item:hover,
-.find-entity .add-item:hover {
-  background: #94ebd6;
-}
-ul.tags .add-item:hover i,
-.find-entity .add-item:hover i,
-ul.tags .add-item:hover .add-link,
-.find-entity .add-item:hover .add-link {
-  color: #000000;
-}
 ul.tags .add-item.active,
+ul.tags li.search.active,
 .find-entity .add-item.active {
   background: transparent;
   border: none;
@@ -1636,39 +1639,47 @@ ul.tags .add-item.active,
   padding: 0;
 }
 ul.tags .add-item.active .toggler,
+ul.tags li.search.active .toggler,
 .find-entity .add-item.active .toggler {
   display: inline-block;
 }
 ul.tags .add-item.active .linkchoice,
+ul.tags li.search.active .linkchoice,
 .find-entity .add-item.active .linkchoice {
   color: #adada9;
 }
 ul.tags .add-item.active .linkchoice a,
+ul.tags li.search.active .linkchoice a,
 .find-entity .add-item.active .linkchoice a {
   color: #1a8f72;
 }
 ul.tags .add-item.active .linkchoice a:hover,
+ul.tags li.search.active .linkchoice a:hover,
 .find-entity .add-item.active .linkchoice a:hover {
   color: #0e4e3e;
 }
 ul.tags .add-item.active .search-field,
+ul.tags li.search.active .search-field,
 .find-entity .add-item.active .search-field {
   display: inline-block;
-  border: 1px solid #adada9;
+  border: 1px solid #c7c7c3;
   border-radius: 2px;
   padding: 2px 7px 0px 7px;
 }
 ul.tags .add-item.active .search-field i,
+ul.tags li.search.active .search-field i,
 .find-entity .add-item.active .search-field i {
   color: #adada9;
   font-size: 12px;
 }
 ul.tags .add-item.active .search-field.fake,
+ul.tags li.search.active .search-field.fake,
 .find-entity .add-item.active .search-field.fake {
   border: none;
   padding: 3px 0 2px 0;
 }
 ul.tags .add-item.active input[type="text"],
+ul.tags li.search.active input[type="text"],
 .find-entity .add-item.active input[type="text"] {
   outline: none;
   border: none;
@@ -1676,18 +1687,23 @@ ul.tags .add-item.active input[type="text"],
   padding: 0;
   width: 110px;
   margin: 0;
+  height: 22px;
+  box-shadow: none;
 }
 ul.tags .add-item.active input[type="text"]::-webkit-input-placeholder,
+ul.tags li.search.active input[type="text"]::-webkit-input-placeholder,
 .find-entity .add-item.active input[type="text"]::-webkit-input-placeholder {
   font-size: 12px;
   color: #c7c7c3;
 }
 ul.tags .add-item.active input[type="text"]:-moz-input-placeholder,
+ul.tags li.search.active input[type="text"]:-moz-input-placeholder,
 .find-entity .add-item.active input[type="text"]:-moz-input-placeholder {
   font-size: 12px;
   color: #c7c7c3;
 }
 ul.tags .add-item.active .add-link,
+ul.tags li.search.active .add-link,
 .find-entity .add-item.active .add-link {
   display: none;
 }
@@ -1969,7 +1985,7 @@ section.result .footer span {
 section.result a:visited {
   color: #22ba94;
 }
-section.result a:hover label.title .title-key {
+section.result a:hover .label.title .title-key {
   text-decoration: underline;
 }
 section.result a:active {
@@ -1982,53 +1998,53 @@ section.result:hover .footer {
   border-color: #adada9;
   border-top-color: #eeeeec;
 }
-section.result label {
+section.result .label {
   cursor: pointer;
   padding-left: 1px;
 }
-section.result label {
+section.result .label {
   text-overflow: ellipsis;
 }
-section.result label:hover {
+section.result .label:hover {
   border-color: #ddddd8;
 }
-section.result label .lbl {
+section.result .label .lbl {
   color: #999996;
 }
-section.result label.title {
+section.result .label.title {
   display: block;
 }
-section.result label.title .title-key {
+section.result .label.title .title-key {
   font-size: 18px;
   line-height: 22px;
   font-weight: 600;
   display: block;
   padding-bottom: 4px;
 }
-section.result label.title .title-subtitle {
+section.result .label.title .title-subtitle {
   color: #0e4e3e;
   font-size: 14px;
   line-height: 18px;
   display: block;
 }
-section.result label .title-creator {
+section.result .label .title-creator {
   color: #666664;
   font-size: 14px;
   line-height: 18px;
 }
-section.result label.title .icon {
+section.result .label.title .icon {
   font-size: 16px;
   color: #22ba94;
 }
-section.result label.identifier-code {
+section.result .label.identifier-code {
   color: #191913;
   font-weight: 600;
   text-align: right;
 }
-section.result label.title .lbl {
+section.result .label.title .lbl {
   margin-top: 4px;
 }
-section.result label.contributors {
+section.result .label.contributors {
   padding-bottom: 0px;
   margin-bottom: 18px;
 }
@@ -2096,7 +2112,7 @@ section.result .widget {
   border: 1px solid #eeeeec;
   border-left-color: #eeeeec;
 }
-section.result .widget label {
+section.result .widget .label {
   color: #666664;
 }
 section.result .widget .btn {
@@ -2155,7 +2171,7 @@ section.minified-hitlist table td.date {
 }
 /* HITLIST END ------------------------- */
 /* EDIT FORM START ------------------------- */
-/* PERSON SUGGEST START ------------------------- */
+/* RICH TAGS START ------------------------- */
 .record-data {
   margin-top: 4px;
   font-size: 12px;
@@ -2176,69 +2192,6 @@ label.find-entity input[type="text"] {
 .col6 label.find-entity input[type="text"] {
   width: 466px;
 }
-.persons {
-  list-style: none;
-  margin: 4px 0;
-  padding: 0;
-}
-.persons > li {
-  position: relative;
-  border-bottom: 1px dotted #c7c7c3;
-  padding-bottom: 1px;
-  margin-bottom: 6px;
-}
-.persons > li:first-child {
-  border-top: 1px dotted #c7c7c3;
-  padding-top: 6px;
-}
-.persons > li .check {
-  color: #adada9;
-  margin-right: 2px;
-  cursor: pointer;
-}
-.persons > li .check:hover {
-  color: #191913;
-}
-.persons > li.main .check {
-  color: #191913;
-  cursor: default;
-}
-.persons > li div.main {
-  display: inline-block;
-}
-.entity .name,
-.persons > li .name {
-  font-weight: bold;
-}
-.entity .delete,
-.persons > li .delete {
-  position: absolute;
-  right: 0;
-  top: 6px;
-  display: none;
-}
-.entity:hover .delete,
-.persons > li:hover .delete {
-  display: inline-block;
-  color: #adada9;
-  position: absolute;
-  top: 3px;
-  right: 6px;
-}
-.entity .delete:hover,
-.persons > li .delete:hover {
-  color: #ee5d61;
-}
-.entity .auth,
-.persons > li .auth {
-  padding-left: 6px;
-  margin-left: 3px;
-  border-left: 1px solid #ddddd8;
-  font-size: 11px;
-}
-.persons > li .tagsinput {
-  margin-bottom: 2px;
-}
 /* PERSON SUGGEST END ------------------------- */
 .element-adder {
   text-align: right;
@@ -2252,9 +2205,6 @@ label.find-entity input[type="text"] {
   font-size: 13px;
   height: 25px;
 }
-.entity {
-  position: relative;
-}
 .addon .on-hover {
   float: right!important;
   position: absolute;
@@ -2262,50 +2212,75 @@ label.find-entity input[type="text"] {
   right: 3px;
   color: #999996;
 }
-.entity:focus {
-  border: 1px solid #666664;
-  outline: 0;
+section > div.ng-scope {
+  width: 400px;
 }
 .edit .col6 .entity .embedded input {
   width: 456px;
 }
-.edit .entity {
-  border: 1px solid transparent;
-  padding: 3px 6px;
-  margin-bottom: 1em;
-  /*   overflow: auto; */
-  border-radius: 2px;
+.edit div[data-rich-entity] > div {
+  position: relative;
+  border-bottom: 1px dotted #c7c7c3;
+  padding: 4px 0;
+  margin: 2px 0;
 }
-.edit .entity.addmore {
+.edit div[data-rich-entity] > div.addmore {
   margin-bottom: 4px;
 }
-.edit .entity:focus {
-  border: 1px solid #666664;
-  outline: 0;
+.edit div[data-rich-entity] > div:first-child {
+  border-top: 1px dotted #c7c7c3;
 }
-.edit .entity label {
+.edit div[data-rich-entity] > div .check {
+  color: #adada9;
+  margin-right: 2px;
+  cursor: pointer;
+}
+.edit div[data-rich-entity] > div .check:hover {
+  color: #191913;
+}
+.edit div[data-rich-entity] > div .name {
+  font-weight: bold;
+}
+.edit div[data-rich-entity] > div .delete {
+  position: absolute;
+  right: 6px;
+  top: 3px;
+  display: none;
+  color: #adada9;
+}
+.edit div[data-rich-entity] > div .delete:hover {
+  color: #ee5d61;
+}
+.edit div[data-rich-entity] > div .auth {
+  padding-left: 6px;
+  margin-left: 3px;
+  border-left: 1px solid #ddddd8;
+  font-size: 11px;
+}
+.edit div[data-rich-entity] > div .tagsinput {
+  margin-bottom: 2px;
+}
+.edit div[data-rich-entity] > div:hover .delete {
+  display: inline-block;
+}
+.edit div[data-rich-entity] > div.main {
+  display: inline-block;
+}
+.edit div[data-rich-entity] > div.main .check {
+  color: #191913;
+  cursor: default;
+}
+.edit div[data-rich-entity] > div .label {
   border: none;
   margin-bottom: 0;
 }
-.edit .entity .addon label,
-.edit .entity .addon input[type="text"] {
+.edit div[data-rich-entity] > div .addon .label,
+.edit div[data-rich-entity] > div .addon input[type="text"] {
   float: left;
   width: 74px;
 }
-.edit .entity .what {
+.edit div[data-rich-entity] > div .what {
   color: #22ba94;
-}
-.edit .entity.linked {
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-}
-.edit .entity.linked:hover {
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
-}
-.edit .entity.embedded {
-  box-shadow: 0 0px 0px 1px #eeeeec inset;
-}
-.edit .entity.embedded:hover {
-  box-shadow: 0 1px 2px 1px #eeeeec inset;
 }
 .on-hover {
   visibility: hidden;
@@ -2356,11 +2331,11 @@ label.find-entity input[type="text"] {
 .datatable tbody td:first-child {
   border-left-width: 1px;
 }
-.datatable tbody td label {
+.datatable tbody td .label {
   display: block;
   height: 100%;
 }
-.datatable tbody td label textarea {
+.datatable tbody td .label textarea {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
@@ -2370,7 +2345,7 @@ label.find-entity input[type="text"] {
   min-height: 22px;
   min-width: 200px;
 }
-.datatable tbody td label textarea:focus {
+.datatable tbody td .label textarea:focus {
   border: none;
   box-shadow: none;
 }
@@ -2389,7 +2364,7 @@ label.find-entity input[type="text"] {
 .datatable tr:last-child td:last-child {
   border-bottom-right-radius: 2px;
 }
-.datatable tbody label {
+.datatable tbody .label {
   margin-bottom: -1px;
 }
 .datatable tfoot {
@@ -2409,7 +2384,7 @@ span.authorized {
   color: #1a8f72;
   font-size: 24px;
 }
-label ::-webkit-input-placeholder {
+.label ::-webkit-input-placeholder {
   color: #c7c7c3;
   font-style: italic;
   font-size: 14px;
@@ -2420,7 +2395,7 @@ input[type="text"]::-webkit-input-placeholder {
   font-style: italic;
   font-size: 14px;
 }
-label :-moz-placeholder {
+.label :-moz-placeholder {
   color: #c7c7c3;
   font-style: italic;
   font-size: 14px;
@@ -2471,9 +2446,9 @@ input[type="text"] :-moz-placeholder {
 .holdings :focus:-ms-input-placeholder:focus {
   color: #debede;
 }
-label textarea,
-label input[type="text"],
-label select,
+.label textarea,
+.label input[type="text"],
+.label select,
 .fakeinput {
   font-size: 15px;
   padding: 0 5px 0 5px;
@@ -2487,60 +2462,60 @@ label select,
   padding-top: 3px;
   height: 24px;
 }
-label textarea,
-label input[type="text"],
+.label textarea,
+.label input[type="text"],
 .fakeinput {
   border: 1px solid #c7c7c3;
 }
-label textarea {
+.label textarea {
   line-height: 22px;
 }
-label select {
+.label select {
   height: 26px;
 }
-label input[type="text"]:focus,
-label textarea:focus {
+.label input[type="text"]:focus,
+.label textarea:focus {
   color: #191913;
   border-color: #999996;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
   outline: none;
 }
-label.error input[type="text"],
-label.error textarea {
+.label.error input[type="text"],
+.label.error textarea {
   color: #ee5d61;
 }
-label.error input[type="text"]:focus,
-label.error textarea:focus {
+.label.error input[type="text"]:focus,
+.label.error textarea:focus {
   border-color: #e92f34;
   box-shadow: 0 0 2px rgba(238, 93, 97, 0.3);
 }
-label.error .lbl {
+.label.error .lbl {
   color: #ee5d61;
 }
-label.warning input[type="text"],
-label.warning textarea {
+.label.warning input[type="text"],
+.label.warning textarea {
   color: #d6ab00;
 }
-label.warning input[type="text"]:focus,
-label.warning textarea:focus {
+.label.warning input[type="text"]:focus,
+.label.warning textarea:focus {
   border-color: #a38200;
   box-shadow: 0 0 2px rgba(214, 171, 0, 0.3);
 }
-label.warning .lbl {
+.label.warning .lbl {
   color: #a38200;
 }
-label textarea.ng-invalid,
-label input[type="text"].ng-invalid,
-label select.ng-invalid {
+.label textarea.ng-invalid,
+.label input[type="text"].ng-invalid,
+.label select.ng-invalid {
   background-color: #fde7e8 !important;
   border-color: #fde7e8 !important;
 }
-label textarea {
+.label textarea {
   overflow: hidden;
   resize: none;
   color: #191913;
 }
-label textarea.title {
+.label textarea.title {
   font-weight: bold;
 }
 .lbl {
@@ -2561,13 +2536,13 @@ label textarea.title {
   float: left;
   clear: both;
 }
-label .help {
+.label .help {
   font-size: 11px;
   color: #999996;
   display: block;
   margin-top: 2px;
 }
-label .help i.fa {
+.label .help i.fa {
   font-size: 14px;
   position: relative;
   top: 1px;
@@ -2580,31 +2555,31 @@ span.error-message {
   color: #ee5d61;
   float: left;
 }
-label.warning input {
+.label.warning input {
   border-color: #d6ab00;
 }
-label.warning input i {
+.label.warning input i {
   color: #d6ab00;
 }
-label.warning-action input {
+.label.warning-action input {
   background-color: #fff7d6;
 }
-label.warning .lbl i {
+.label.warning .lbl i {
   color: #d6ab00;
 }
-label.error input {
+.label.error input {
   border-color: #ee5d61;
 }
-label.error input i {
+.label.error input i {
   color: #ee5d61;
 }
-label.error-action input {
+.label.error-action input {
   background-color: #fde7e8;
 }
-label.error .lbl i {
+.label.error .lbl i {
   color: #ee5d61;
 }
-label.error i {
+.label.error i {
   color: #ee5d61;
   font-size: 16px;
   margin-left: -20px;
@@ -2760,7 +2735,7 @@ section.offer {
 }
 .acSelect {
   color: #999996;
-  background: #b6f2e3;
+  background: #c6ece3;
 }
 /* AUTOCOMPLETE END ------------------------- */
 .color-box {
@@ -2810,7 +2785,7 @@ section.offer {
   background-color: #462446;
 }
 .color-box.green-lighter {
-  background-color: #b6f2e3;
+  background-color: #c6ece3;
 }
 .color-box.green-light {
   background-color: #22ba94;
@@ -2948,14 +2923,14 @@ section.result p.holding {
 }
 /*?*/
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
-  body label select {
+  body .label select {
     -webkit-appearance: none;
     background: #ffffff url(/static/img/select-arrow.png) no-repeat 100% -2px;
   }
-  body label select:hover {
+  body .label select:hover {
     background: #ffffff url(/static/img/select-arrow.png) no-repeat 100% -92px;
   }
-  body label select:focus {
+  body .label select:focus {
     border: 1px solid #adada9;
     background: #ffffff url(/static/img/select-arrow.png) no-repeat 98% -2px;
   }
@@ -2978,7 +2953,7 @@ h3 {
 h4 {
   font-size: 15px;
 }
-label {
+.label {
   font-weight: 400;
   margin-bottom: 10px;
   width: 100%;

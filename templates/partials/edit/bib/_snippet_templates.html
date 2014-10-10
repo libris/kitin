@@ -7,21 +7,26 @@
 
   -->
 <script type="text/ng-template" id="render-bib-search">
-  <i class="fa fa-search"></i> <input data-inplace class="input-large authdependant embedded" type="text"
-          placeholder="Lägg till"
-          data-kitin-search-entity
-          data-make-reference-on-item-select="true"
-          data-service-url="{{API_PATH}}/bib/_search"
-          data-filter=""
-          data-completion-template="bib-completion-template">
-
-  <script type="text/html" id="bib-completion-template">
-    <div class="auth">
-      <h4>
-        <span class="name"><%= data.instanceTitle.titleValue %></span>
-      </h4>
-    </div>
-  </script>
+  <div data-click-search>
+    <span class="add-link" ng-click="onclick($event)"><i class="fa fa-plus"></i></span>
+    <span class="search-field toggler">
+      <i class="fa fa-search"></i>
+      <input data-inplace class="input-large authdependant embedded" type="text" ng-blur="onblur($event)"
+        placeholder="Sök"
+        data-kitin-search-entity
+        data-make-reference-on-item-select="true"
+        data-service-url="{{API_PATH}}/bib/_search"
+        data-filter=""
+        data-completion-template="bib-completion-template">
+    </span>
+  </div>
+</script>
+<script type="text/html" id="bib-completion-template">
+  <div class="auth">
+    <h4>
+      <span class="name"><%= data.instanceTitle.titleValue %></span>
+    </h4>
+  </div>
 </script>
 
 <!-- 

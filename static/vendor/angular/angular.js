@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.2.27-build.513+sha.b11d6c7
+ * @license AngularJS v1.2.27-build.517+sha.315f320
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -68,7 +68,7 @@ function minErr(module) {
       return match;
     });
 
-    message = message + '\nhttp://errors.angularjs.org/1.2.27-build.513+sha.b11d6c7/' +
+    message = message + '\nhttp://errors.angularjs.org/1.2.27-build.517+sha.315f320/' +
       (module ? module + '/' : '') + code;
     for (i = 2; i < arguments.length; i++) {
       message = message + (i == 2 ? '?' : '&') + 'p' + (i-2) + '=' +
@@ -1987,7 +1987,7 @@ function setupModuleLoader(window) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
-  full: '1.2.27-build.513+sha.b11d6c7',    // all of these placeholder strings will be replaced by grunt's
+  full: '1.2.27-build.517+sha.315f320',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
   minor: 2,
   dot: 27,
@@ -3208,7 +3208,7 @@ HashMap.prototype = {
 
  * @param {Array.<string|Function>} modules A list of module functions or their aliases. See
  *        {@link angular.module}. The `ng` module must be explicitly added.
- * @returns {function()} Injector object. See {@link auto.$injector $injector}.
+ * @returns {injector} Injector object. See {@link auto.$injector $injector}.
  *
  * @example
  * Typical usage
@@ -8265,18 +8265,31 @@ function $HttpProvider() {
      * @param {Object=} config Optional configuration object
      * @returns {HttpPromise} Future object
      */
-    createShortMethodsWithData('post', 'put');
 
-        /**
-         * @ngdoc property
-         * @name $http#defaults
-         *
-         * @description
-         * Runtime equivalent of the `$httpProvider.defaults` property. Allows configuration of
-         * default headers, withCredentials as well as request and response transformations.
-         *
-         * See "Setting HTTP Headers" and "Transforming Requests and Responses" sections above.
-         */
+    /**
+     * @ngdoc method
+     * @name $http#patch
+     *
+     * @description
+     * Shortcut method to perform `PATCH` request.
+     *
+     * @param {string} url Relative or absolute URL specifying the destination of the request
+     * @param {*} data Request content
+     * @param {Object=} config Optional configuration object
+     * @returns {HttpPromise} Future object
+     */
+    createShortMethodsWithData('post', 'put', 'patch');
+
+    /**
+     * @ngdoc property
+     * @name $http#defaults
+     *
+     * @description
+     * Runtime equivalent of the `$httpProvider.defaults` property. Allows configuration of
+     * default headers, withCredentials as well as request and response transformations.
+     *
+     * See "Setting HTTP Headers" and "Transforming Requests and Responses" sections above.
+     */
     $http.defaults = defaults;
 
 
