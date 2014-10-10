@@ -9,40 +9,40 @@
       <section class="holdings offer" data-ng-repeat="offer in holding.data.about.offers track by $index">
         <div class="cols">
           <div class="col6">
-            <label>
+            <div class="label">
               <input data-inplace type="text" placeholder="Avdelning/Samling" data-ng-model="offer.shelfLocation"/>
               <span class="lbl">{{ "Avdelning/Samling" }}</span>
-            </label>
-            <label>
+            </div>
+            <div class="label">
               <input data-inplace type="text" placeholder="Hyllsignum/Klassifikation" data-ng-model="offer.classificationPart"/>
               <span class="lbl">{{ "Hyllsignum/Klassifikation" }}</span>
-            </label>
-            <label>
+            </div>
+            <div class="label">
               <input data-inplace type="text" placeholder="Löpnummer" data-ng-model="offer.shelfControlNumber"/>
               <span class="lbl">{{ "Löpnummer" }}</span>
-            </label>
-            <label>
+            </div>
+            <div class="label">
               <input data-inplace type="text" placeholder="Uppställningsord" data-ng-model="offer.shelfLabel"/>
               <span class="lbl">{{ "Uppställningsord" }}</span>
-            </label>
+            </div>
           </div>
           <div class="col6">
-            <label>
+            <div class="label">
               <input data-inplace type="text" placeholder="Exemplarinfo" data-ng-model="offer.availability"/>
               <span class="lbl">{{ "Exemplarinfo" }}</span>
-            </label>
-            <label>
+            </div>
+            <div class="label">
               <input data-inplace type="text" placeholder="Exemplarnummer" data-ng-model="offer.copyNumber"/>
               <span class="lbl">{{ "Exemplarnummer" }}</span>
-            </label>
-            <label>
+            </div>
+            <div class="label">
               <textarea data-inplace data-ui-jq="autosize" spellcheck="false" placeholder="Publik anmärkning" data-ng-model="offer.copyNote"></textarea>
               <span class="lbl">{{ "Publik anmärkning" }}</span>
-            </label>
-            <label>
+            </div>
+            <div class="label">
               <textarea data-inplace data-ui-jq="autosize" spellcheck="false" placeholder="Intern anmärkning" data-ng-model="offer.editorialNote"></textarea>
               <span class="lbl">{{ "Intern anmärkning" }}</span>
-            </label>
+            </div>
           </div>
           <div class="col12">
             <button class="btn btn-red" data-ng-click="deleteOffer(holding, $index)">Ta bort lokalsignum</button>

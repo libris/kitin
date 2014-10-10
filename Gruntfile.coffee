@@ -10,6 +10,10 @@ module.exports = (grunt) ->
     'cachebuster'
   ]
 
+  grunt.registerTask 'validate', [
+    'htmlangular'
+  ]
+
   grunt.registerTask 'vendor', [
     'bower:install'
     'cssmin:vendor'
@@ -25,6 +29,20 @@ module.exports = (grunt) ->
   ]
 
   grunt.initConfig
+
+    htmlangular:
+      options: 
+        relaxerror: [
+          'Stray doctype.',
+          'Non-space characters found without seeing a doctype first. Expected <!DOCTYPE html>.',
+          'Element head is missing a required instance of child element title.',
+          'Section lacks heading. Consider using h2-h6 elements to add identifying headings to all sections.'
+        ]
+        customtags: [
+          'alert'
+        ]
+      files:
+        src: ['templates/base.html', 'templates/partials/**/*.html']
 
     bower:
       install:

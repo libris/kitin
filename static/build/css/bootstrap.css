@@ -62,70 +62,70 @@
 .lastcol {
   margin-right: 0;
 }
-.col6 label textarea,
-.col6 label input[type="text"],
-.col6 label select {
+.col6 .label textarea,
+.col6 .label input[type="text"],
+.col6 .label select {
   width: 466px;
 }
-.col4 label textarea,
-.col4 label input[type="text"],
-.col4 label select {
+.col4 .label textarea,
+.col4 .label input[type="text"],
+.col4 .label select {
   width: 298px;
 }
-.col3 label textarea,
-.col3 label input[type="text"],
-.col3 label select {
+.col3 .label textarea,
+.col3 .label input[type="text"],
+.col3 .label select {
   width: 214px;
 }
-.col2 label textarea,
-.col2 label input[type="text"],
-.col2 label select {
+.col2 .label textarea,
+.col2 .label input[type="text"],
+.col2 .label select {
   width: 130px;
 }
 .split {
   overflow: hidden;
 }
-.col3 .split label {
+.col3 .split .label {
   float: left;
   margin-left: 24px;
   overflow: hidden;
   width: 92px;
 }
-.col3 .split label:first-child {
+.col3 .split .label:first-child {
   margin-left: 0;
 }
-.col3 .split label textarea,
-.col3 .split label input[type="text"],
-.col3 .split label select {
+.col3 .split .label textarea,
+.col3 .split .label input[type="text"],
+.col3 .split .label select {
   width: 74px;
 }
-.col6 .split label {
+.col6 .split .label {
   float: left;
   margin-left: 24px;
   overflow: hidden;
   width: 184px;
 }
-.col6 .split label:first-child {
+.col6 .split .label:first-child {
   margin-left: 0;
 }
-.col6 .split label textarea,
-.col6 .split label input[type="text"],
-.col6 .split label select {
+.col6 .split .label textarea,
+.col6 .split .label input[type="text"],
+.col6 .split .label select {
   width: 166px;
 }
-.col3 label.deletable .lbl {
+.col3 .label.deletable .lbl {
   display: block;
 }
-.col3 label.deletable input[type="text"] {
+.col3 .label.deletable input[type="text"] {
   width: 160px;
 }
-.col2 label.deletable input[type="text"] {
+.col2 .label.deletable input[type="text"] {
   width: 100px;
 }
 .multifield {
   margin-bottom: 18px;
 }
-.multifield label {
+.multifield .label {
   margin-bottom: 0;
 }
 .multifield .lbl {

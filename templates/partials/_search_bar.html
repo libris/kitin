@@ -24,7 +24,7 @@
   {% if current_user and current_user.is_authenticated() %}
     {% raw %}
 		<div class="nav-back" ng-show="state.search.q">
-			<a href nav-back><i class="fa fa-arrow-circle-left"></i> Tillbaka till träfflistan</a>
+			<a data-nav-back><i class="fa fa-arrow-circle-left"></i> Tillbaka till träfflistan</a>
 		</div>
 		
     <div data-ng-controller="SearchFormCtrl">
@@ -34,7 +34,7 @@
                  value="{{ state.search.q }}" placeholder="{{ state.searchType.placeholder }}"
           autocomplete="off" role="textbox"
           aria-autocomplete="list" aria-haspopup="true" data-ng-model="state.search.q">
-          <div class="btn-group dropdown" is-open="isopen">
+          <div class="btn-group dropdown" data-is-open="isopen">
 						<a class="btn btn-grey search-source dropdown-toggle">
 							<span class="btn-label">{{ state.searchType.label }}</span>
               <span class="fa fa-caret-down"></span>
