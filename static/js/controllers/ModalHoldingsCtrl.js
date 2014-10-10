@@ -7,10 +7,11 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     published: true
   };
 
-  $scope.alerts = [];
-  $scope.closeAlert = function(index) {
-    $scope.alerts.splice(index, 1);
-  };
+  // Went back to systemMessages. Better?
+  // $scope.alerts = [];
+  // $scope.closeAlert = function(index) {
+  //   $scope.alerts.splice(index, 1);
+  // };
 
   // We are using these functions in several places,
   // maybe create a service?
@@ -53,23 +54,10 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     console.log('ABOUT TO SAVE HOLDING: ', holding);
     recordService.holding.save(holding).then(function success(holding) {
       console.log('SAVED HOLDING, ETAG SHOULD HAVE CHANGED: ', holding);
+      onSaveState();
       $scope.holding = holding;
     }, function error(status) {
-      var alert = {
-        type: 'error',
-        msg: 'Det gick inte att spara.'
-      };
-      switch(status) {
-        case 0:
-          alert.msg += ' Kontakta en administratör.';
-          break;
-        case 412:
-          alert.msg += ' Någon har redigerat beståndet sedan du sparade senast.';
-          break;
-        default:
-          alert.msg += ' Kontrollera din internetanslutning.';
-      }
-      $scope.alerts.push(alert);
+      console.log('you should now see an alert from the httpinterceptor');
     });
   };
 
