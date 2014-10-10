@@ -304,7 +304,6 @@
 
 <!-- RENDER PERSON TEMPLATE  START -->
 <script type="text/ng-template" id="render-person">
-  <a ng-click="fail()">Fail</a>
   <div data-ng-if="isLinked(object) && !isEmpty(object)" class="entity person linked">
     <div class="main">
       <span onload="person = object" data-ng-include="'render-person-name'"></span>
@@ -385,7 +384,6 @@
 <!-- RENDER SEARCH ROLE TEMPLATE  START -->
 <script type='text/ng-template' id="render-search-role">
   <div data-link-search>
-    <button ng-click="fail()">Fail</button>
     <span class="add-link" data-ng-click="onclick($event)"><i class="fa fa-plus"></i> Lägg till roll</span>
     <span class="search-field toggler">
       <i class="fa fa-search"></i>

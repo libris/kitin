@@ -3,10 +3,8 @@ kitin.directive('clickSearch', function(editService){
       restrict: 'A',
       scope: true,
       link: function(scope, element, attrs) {
-        console.log(element);
         var container = element.closest('.search');
         scope.onclick = function(e) {
-          console.log('clicked');
           container.addClass('active');
           setTimeout(function() {
             container.find('input').focus();
