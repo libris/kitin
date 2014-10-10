@@ -2,7 +2,7 @@
 .tagsinput{margin-bottom:12px}
 ul.tags { list-style:none;margin:3px 0 0 0;padding:0; }
 ul.tags li {
-  display: inline-block; margin: 0 2px 6px 0; padding: 3px 8px;
+  display: inline-block; margin: 0 4px 4px 0; padding: 3px 8px;
   font-size:12px;
   background: @grey-warm; color: @grey-very-dark;
   border-radius:2px;
@@ -57,24 +57,30 @@ ul.tags li {
 ul.tags .add-item,
 ul.tags li.search,
 .find-entity .add-item {
-  background: @green-lighter;
   border: none;
+  background: none;
   cursor:pointer;
   display: inline-block; 
-  margin: 0 2px 6px 0; 
-  padding: 3px 8px;
+  margin: 0 4px 4px 0; 
+  padding: 0;
   font-size:12px;
   border-radius:2px;
+  position:relative;
   .toggler { display:none }
   .add-link {
     color: @green-dark;
+    background: @green-lighter;
+    padding: 3px 8px;
+    display: inline-block;
+    border-radius:2px;
     i { margin-left: 2px; }
+    &:hover {
+      color: @green-darker;
+      i { color: @green-darker; }
+      background: darken(@green-lighter, 8%)
+    }
   }
   i { margin-right:2px }
-  &:hover {
-    i, .add-link { color: @green-darker; }
-    background: darken(@green-lighter, 8%)
-  }
   &.active {
     background: transparent;
     border:none;
@@ -92,7 +98,7 @@ ul.tags li.search,
     }
     .search-field {
       display:inline-block;
-      border: 1px solid @grey;
+      border: 1px solid @grey-light;
       border-radius: 2px;
       padding: 2px 7px 0px 7px;
       i { color:@grey; font-size:12px; }
@@ -108,6 +114,8 @@ ul.tags li.search,
       padding: 0;
       width: 110px;
       margin: 0;
+      height: 22px;
+      box-shadow: none;
       &::-webkit-input-placeholder{font-size:12px;color:@grey-light;}
       &:-moz-input-placeholder{font-size:12px;color:@grey-light}
     }

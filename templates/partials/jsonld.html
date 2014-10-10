@@ -31,10 +31,10 @@
       <div data-ng-switch-when="object"
            data-ng-init="collapsed = (key == '_marcUncompleted')"
            data-ng-class="{collapsed: collapsed, array: lodash.isArray(obj)}">
-        <label class="entitylink">
+        <div class="label" class="entitylink">
           <span data-ng-click="openTermDef(key)">{{ key }}</span>
           <i data-ng-click="collapsed=!collapsed"> </i>
-        </label>
+        </div>
         <section data-ng-init="object = obj;
               linked = obj[ID] &amp;&amp; obj[ID].indexOf('_:') != 0 &amp;&amp; key != 'about'"
             data-ng-include="'render-object'"

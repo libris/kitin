@@ -9,7 +9,6 @@
     </header>
   </div>
   <div data-ng-show="!loading" class="content search" data-ng-switch-default>
-    <div id="grid"></div>
     <header>
       <p class="summary">
         {{ state.search.hitCount | chunk }} träffar för
@@ -20,12 +19,10 @@
         </span>
       </p>
       <span data-ng-show="state.searchType.key != 'remote'" class="sort-option">
-
       	<span class="hitlist-viewswitch">
          	<a href="#" data-ng-click="viewmode='detailed'"><i class="fa fa-th-list fa-border"></i></a>
       		<a href="#" data-ng-click="viewmode='minified'"><i class="fa fa-list fa-border"></i></a>
       	</span>
-
         <select ng-model="selectedSort" ng-options="item as item.text for item in sortables" ng-change="sortChanged(selectedSort)"></select>
       </span>
     </header>
@@ -50,15 +47,13 @@
           </dl>
         </section>
       </div>
-      <div class="col9" infinite-scroll="onScroll()" infinite-scroll-distance="0" infinite-scroll-immediate-check="true" ng-switch on="viewmode">
-		     <div ng-switch-when="minified">
-           <div data-ng-include="'/partials/search_hitlist_minified'"></div>
-         </div>
-         <div ng-switch-default>
-           <div data-ng-include="'/partials/search_hitlist_detailed'"></div>
-         </div>
-        
-
+      <div class="col9" data-infinite-scroll="onScroll()" data-infinite-scroll-distance="0" data-infinite-scroll-immediate-check="true" ng-switch on="viewmode">
+		    <div ng-switch-when="minified">
+          <div data-ng-include="'/partials/search_hitlist_minified'"></div>
+        </div>
+        <div ng-switch-default>
+          <div data-ng-include="'/partials/search_hitlist_detailed'"></div>
+        </div>
       </div>
       <div class="to-top-link" data-ng-class="{hidden: (state.search.page.start < state.search.page.n)}" data-ng-click="gotoTop()">
         <span>Till toppen</span><i class="fa fa-chevron-up"></i> 
@@ -66,6 +61,4 @@
     </div>
   </div>
 </div>
-
-
 {% endraw %}

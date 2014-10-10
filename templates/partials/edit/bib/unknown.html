@@ -1,12 +1,13 @@
  {% raw %}
 <h2>{{ "Omappade" }}<i></i></h2>
-      <div data-ng-repeat="item in record._marcUncompleted">
-        <div data-ng-repeat="(k, subitem) in item">
-        <label>
-          <span class="lbl">{{ k }}</span>
-          <label data-ng-repeat="(subfield_label, subfield) in subitem.subfields">
-            <input data-inplace class="authdependant" type="text" data-ng-repeat="(k, v) in subfield" data-ng-model="v"/>
-          </label>
-        </label>
+<div data-ng-repeat="item in record._marcUncompleted">
+  <div data-ng-repeat="(k, subitem) in item">
+    <div class="label">
+      <span class="lbl">{{ k }}</span>
+      <div class="label" data-ng-repeat="(subfield_label, subfield) in subitem.subfields">
+        <input data-inplace class="authdependant" type="text" data-ng-repeat="(k, v) in subfield" data-ng-model="v"/>
       </div>
+    </div>
+  </div>
+</div>
  {% endraw %}
