@@ -7,12 +7,25 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     published: true
   };
 
+  $scope.alerts = [];
+  $scope.closeAlert = function(index) {
+    $scope.alerts.splice(index, 1);
+  };
+
+  // We are using these functions in several places,
+  // maybe create a service?
+  function onSaveState() {
+    $scope.modifications.saved = true;
+    $scope.modifications.published = true;
+  }
+
   $scope.triggerModified = function () {
     $scope.modifications.saved = false;
     $scope.modifications.published = false;
   };
 
   $scope.close = function() {
+    // On close (or on save?), update holding status in search results.
     $modalInstance.close();
   };
 
@@ -32,14 +45,42 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
         $scope.holding = holding;
       });
     } else {
-      recordService.holding.getEtag(holding.data['@id']).then(function(response) {
-        var etag = response['etag'];
-        holding.etag = etag;
-        console.log(holding);
-        $scope.holding = holding;
-      });
+      $scope.holding = holding;
     }
   });
+
+  $scope.saveHolding = function(holding) {
+    console.log('ABOUT TO SAVE HOLDING: ', holding);
+    recordService.holding.save(holding).then(function success(holding) {
+      console.log('SAVED HOLDING, ETAG SHOULD HAVE CHANGED: ', holding);
+      $scope.holding = holding;
+    }, function error(status) {
+      var alert = {
+        type: 'error',
+        msg: 'Det gick inte att spara.'
+      };
+      switch(status) {
+        case 0:
+          alert.msg += ' Kontakta en administratör.';
+          break;
+        case 412:
+          alert.msg += ' Någon har redigerat beståndet sedan du sparade senast.';
+          break;
+        default:
+          alert.msg += ' Kontrollera din internetanslutning.';
+      }
+      $scope.alerts.push(alert);
+    });
+  };
+
+  $scope.deleteHolding = function(holding) {
+    var holdingId = holding.data['@id'];
+    recordService.holding.del(holdingId).then(function(response) {
+      console.log(response);
+      delete $scope.holding;
+      console.log('Holding removed successfully!');
+    });
+  };
 
   $scope.addOffer = function(holding) {
     var offers = holding.data.about.offers;
@@ -48,23 +89,6 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
       var offer = data.data.about.offers[0];
       offer.heldBy[0].notation = userData.userSigel;
       offers.push(offer);
-    });
-  };
-
-  $scope.saveHolding = function(holding) {
-    console.log('ABOUT TO SAVE HOLDING: ', holding);
-    recordService.holding.save(holding).then(function success(holding) {
-      console.log('SAVED HOLDING, ETAG SHOULD HAVE CHANGED: ', holding);
-      $scope.holding = holding;
-    }, function error(reason) {
-      console.log('Rejected. reason:', reason);
-    });
-  };
-
-  $scope.deleteHolding = function(holding) {
-    var holdingId = holding.data['@id'];
-    recordService.holding.del(holdingId).then(function(response) {
-      console.log('Holding removed successfully!');
     });
   };
 
