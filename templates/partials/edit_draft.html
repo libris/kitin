@@ -1,2 +1,3 @@
-THIS IS A DRAFT
-<div ng-include="'/partials/edit'" ng-controller="EditDraftCtrl"></div>
+<div ng-controller="EditDraftCtrl">
+  <div ng-include="outputFormat === 'jsonld' ? '/partials/jsonld' : '/partials/edit'"></div>
+</div>

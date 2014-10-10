@@ -18,14 +18,15 @@ kitin.config(function($locationProvider, $routeProvider, $translateProvider, $ht
         .preferredLanguage('se');
 
       $routeProvider
-        .when('/',                               { templateUrl: '/partials/index' })
-        .when('/search/:recType',                { templateUrl: '/partials/search' })
-        .when('/edit/libris/:recType/:recId',    { templateUrl: '/partials/edit_libris', reloadOnSearch: false })
-        .when('/edit/draft/:recType/:recId',     { templateUrl: '/partials/edit_draft', reloadOnSearch: false })
-        .when('/jsonld/libris/:recType/:recId',  { templateUrl: '/partials/jsonld_libris' })
-        .when('/jsonld/draft/:recType/:recId',   { templateUrl: '/partials/jsonld_draft'})
-        .when('/marc/:recType/:recId',           { templateUrl: '/partials/marc', isMarc: true })
-        ;//.otherwise({redirectTo: '/'});
+        .when('/',                                  { templateUrl: '/partials/index' })
+        .when('/search/:recType',                   { templateUrl: '/partials/search' })
+        .when('/edit/:editSource/:recType/:recId',  { 
+          templateUrl: function(params) {
+            return '/partials/edit_' + params.editSource;
+          }, 
+          reloadOnSearch: false }
+        )
+        .when('/marc/:recType/:recId',           { templateUrl: '/partials/marc', isMarc: true });
 
       $httpProvider.interceptors.push('HttpInterceptor');
 });

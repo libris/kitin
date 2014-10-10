@@ -1,10 +1,13 @@
 kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $timeout, $rootScope, $location, $anchorScroll, recordService, definitions, userData, editService) {
+  
 
   // recType & recId can be inherited from f.ex modals
 
   $scope.recType = $scope.recType || $routeParams.recType;
   $scope.recId = $scope.recId || $routeParams.recId;
   $scope.userSigel = userData.userSigel;
+  $scope.outputFormat = $location.hash(); // #jsonld changes edit template
+  $scope.editSource = $routeParams.editSource;
 
   editService.addableElements = [];
 
@@ -13,6 +16,7 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
   document.body.className = isNew ? 'edit new' : 'edit';
 
   $scope.$on('$routeUpdate', function() {
+    $scope.outputFormat = $location.hash();
     $anchorScroll();
   });
 
