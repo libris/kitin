@@ -140,7 +140,7 @@
           <span data-ng-repeat="comment in record.data.comment">{{comment}}</span>
         </div>
         <div class="holding">
-          <button class="btn btn-purple btn-hld" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record.identifier)">
+          <button class="btn btn-purple btn-hld" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record.data.about['@id'])">
             <span data-ng-if="record.holdings.hits == null || record.holdings.hits == 0"><i class="fa fa-inverse fa-plus"></i> Bestånd</span>
             <span data-ng-if="record.holdings.hits > 0"><i class="fa fa-inverse fa-check"></i> Bestånd</span>
           </button>
