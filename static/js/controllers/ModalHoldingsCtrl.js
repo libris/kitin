@@ -19,7 +19,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
       return record.identifier == recordId;
     });
     return currentRecord;
-  };
+  }
 
   // We are using these functions in several places,
   // maybe create a service?
@@ -106,9 +106,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
 
   $scope.deleteOffer = function(holding, index) {
     var offers = holding.data.about.offers;
-    console.log(offers, index);
     offers.splice(index, 1);
-    console.log(offers);
     console.log('Offer removed successfully, form should now be considered dirty!');
   };
 

@@ -165,25 +165,19 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
         return result;
       }
       return traverse(items);
-    }
+    };
 
     var updateHoldings = function(data, status, headers, config) {
       if (data && data.list) {
         config.record.holdings = {
           hits: 0
-        }
+        };
         if (data.list.length > 0) {
-          // _.each(data.list, function(item){
-          //   var offers = item.data.about.offers;
-          //   _.each(offers, function(offer) {
-          //     var userHolding = _.filter(offer, { heldBy: { notation: userData.userSigel } })
-          //   });
-          // });
-          var userHolding = findDeep(data.list, { notation: userData.userSigel })
+          var userHolding = findDeep(data.list, { notation: userData.userSigel });
           config.record.holdings = {
             hits: data.list.length,
             holding: userHolding
-          }
+          };
         }
       }
     };
@@ -192,16 +186,6 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
         var record = $rootScope.state.search.result.list[i];
         if (record.identifier) {
           $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.holdingFor.@id:' + record.data.about['@id'].replace(/\//g, '\\/'), {record: record}).success(updateHoldings);
-          // Would need to customize recordService.holding.get() to make this work. Is it worth it? 
-          // For now, stick to the solution above.
-          // recordService.holding.get(recordId, userData).then(function(holding) {
-          //   console.log('RecID:', record.identifier, holding);
-          //   if (!holding) {
-          //     console.log('No holding found :(');
-          //   } else {
-          //     console.log('Holding found!');
-          //   }
-          // });
         }
     }
   });
