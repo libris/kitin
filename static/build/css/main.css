@@ -382,6 +382,12 @@ body.edit .footer footer {
   box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.2), inset 1px 1px 1px rgba(255, 255, 255, 0.2);
   -webkit-transition: background ease-out 0.03s;
 }
+.btn-flat {
+  text-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
 .btn-light {
   background: #22ba94;
 }
@@ -418,6 +424,16 @@ body.edit .footer footer {
   background-color: #462446;
   color: #ffffff;
 }
+.btn-purple-light {
+  background-color: #aa59aa;
+  color: #ffffff;
+}
+.btn-purple-light:hover,
+.btn-purple-light:focus,
+.btn-purple-light:active {
+  background-color: #683568;
+  color: #ffffff;
+}
 .btn-link {
   color: #1a8f72;
   outline: none;
@@ -434,6 +450,9 @@ body.edit .footer footer {
 }
 .holdings .btn-link {
   color: #683568;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }
 .holdings .btn-link:hover {
   color: #462446;
@@ -1463,6 +1482,11 @@ html .modal.fade .modal-dialog {
   transform: translate(0, 0);
 }
 /* MODAL END ------------------------- */
+/* HOLDINGS MODAL START ------------------------- */
+.modal-header.holdings {
+  background-color: #683568;
+}
+/* HOLDINGS MODAL END ------------------------- */
 /* REMOTE SOURCES MODAL START ------------------------- */
 .remote-modal a.database-name {
   color: #666664;
@@ -1714,6 +1738,13 @@ ul.tags li.search.active .add-link,
   color: #ffffff;
 }
 .find-entity .add-item .add-link {
+  color: #ffffff;
+  background: #1a8f72;
+}
+.find-entity .add-item .add-link:hover {
+  background: #0e4e3e;
+}
+.find-entity .add-item .add-link:hover i {
   color: #ffffff;
 }
 .find-entity .add-item:hover {
@@ -2217,68 +2248,71 @@ section > div.ng-scope {
 .edit .col6 .entity .embedded input {
   width: 456px;
 }
-.edit div[data-rich-entity] > div {
+div[data-rich-entity] > div {
   position: relative;
   border-bottom: 1px dotted #c7c7c3;
   padding: 4px 0;
   margin: 2px 0;
 }
-.edit div[data-rich-entity] > div.addmore {
+div[data-rich-entity] > div.find-entity {
+  border-bottom: none;
+}
+div[data-rich-entity] > div.addmore {
   margin-bottom: 4px;
 }
-.edit div[data-rich-entity] > div:first-child {
+div[data-rich-entity] > div:first-child {
   border-top: 1px dotted #c7c7c3;
 }
-.edit div[data-rich-entity] > div .check {
+div[data-rich-entity] > div .check {
   color: #adada9;
   margin-right: 2px;
   cursor: pointer;
 }
-.edit div[data-rich-entity] > div .check:hover {
+div[data-rich-entity] > div .check:hover {
   color: #191913;
 }
-.edit div[data-rich-entity] > div .name {
+div[data-rich-entity] > div .name {
   font-weight: bold;
 }
-.edit div[data-rich-entity] > div .delete {
+div[data-rich-entity] > div .delete {
   position: absolute;
   right: 6px;
   top: 3px;
   display: none;
   color: #adada9;
 }
-.edit div[data-rich-entity] > div .delete:hover {
+div[data-rich-entity] > div .delete:hover {
   color: #ee5d61;
 }
-.edit div[data-rich-entity] > div .auth {
+div[data-rich-entity] > div .auth {
   padding-left: 6px;
   margin-left: 3px;
   border-left: 1px solid #ddddd8;
   font-size: 11px;
 }
-.edit div[data-rich-entity] > div .tagsinput {
+div[data-rich-entity] > div .tagsinput {
   margin-bottom: 2px;
 }
-.edit div[data-rich-entity] > div:hover .delete {
+div[data-rich-entity] > div:hover .delete {
   display: inline-block;
 }
-.edit div[data-rich-entity] > div.main {
+div[data-rich-entity] > div.main {
   display: inline-block;
 }
-.edit div[data-rich-entity] > div.main .check {
+div[data-rich-entity] > div.main .check {
   color: #191913;
   cursor: default;
 }
-.edit div[data-rich-entity] > div .label {
+div[data-rich-entity] > div .label {
   border: none;
   margin-bottom: 0;
 }
-.edit div[data-rich-entity] > div .addon .label,
-.edit div[data-rich-entity] > div .addon input[type="text"] {
+div[data-rich-entity] > div .addon .label,
+div[data-rich-entity] > div .addon input[type="text"] {
   float: left;
   width: 74px;
 }
-.edit div[data-rich-entity] > div .what {
+div[data-rich-entity] > div .what {
   color: #22ba94;
 }
 .on-hover {
@@ -2294,7 +2328,6 @@ section > div.ng-scope {
   border-collapse: separate;
   width: 100%;
   min-height: 1px;
-  height: 100%;
 }
 .datatable tbody td {
   padding: 4px;
@@ -2337,11 +2370,10 @@ section > div.ng-scope {
 .datatable tbody td .label textarea {
   box-sizing: border-box;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   border: none;
   padding: 0;
   margin: 0 4px;
-  min-height: 22px;
   min-width: 200px;
 }
 .datatable tbody td .label textarea:focus {
@@ -2590,49 +2622,26 @@ span.error-message {
 .holdings .lbl {
   color: #683568;
 }
-.holdings-list ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-#holdings {
-  background: transparent;
-  box-shadow: none;
-  -moz-box-shadow: none;
-  -webkit-box-shadow: none;
-  padding: 12px 0;
-}
-.holdings-editor .editor {
-  background: #ffffff;
-  width: 732px;
-  padding: 12px;
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-.content.holdings section h2 {
+.holdings section h2 {
   background-color: #aa59aa;
 }
-.content.holdings section h2 i {
+.holdings section h2 i {
   border-right-color: #683568;
 }
-.content.holdings section h3 {
+.holdings section h3 {
   font: bold italic 16px/20px 'Droid Serif', georgia, serif;
   color: #aa59aa;
   border-bottom: 1px solid #aa59aa;
   padding-bottom: 2px;
 }
-.content.holdings section h3.inline_heading {
+.holdings section h3.inline_heading {
   border: none;
   float: left;
   margin-left: 10px;
   margin-bottom: 0px;
   line-height: 32px;
 }
-section.holdings ul li {
+.holdings ul li {
   list-style: none;
 }
 section.offer {
