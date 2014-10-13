@@ -53,7 +53,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
         var deferer = $q.defer();
         var recordDataCopy = angular.copy(recordData);
         editService.undecorate(recordDataCopy).then(function(undecoratedRecord) {
-          $http.put($rootScope.LOCAL_API_PATH + '/' + type + '/' + id, undecoratedRecord,
+          $http.put($rootScope.WRITE_API_PATH + '/' + type + '/' + id, undecoratedRecord,
               {
                 headers: {"If-match":recordEtag}
               })
@@ -74,7 +74,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
         var recordDataCopy = angular.copy(recordData);
         
         editService.undecorate(recordDataCopy).then(function(undecoratedRecord) {
-          $http.post($rootScope.LOCAL_API_PATH + '/' + type, undecoratedRecord)
+          $http.post($rootScope.WRITE_API_PATH + '/' + type, undecoratedRecord)
             .success(function(createdRecord, status, headers) {
               editService.decorate(createdRecord).then(function(decoratedRecord) {
                 deferer.resolve({
@@ -210,7 +210,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
         var deferer = $q.defer();
         var etag = holding.etag;
         if (holding.data['@id'] && etag) {
-          $http.put($rootScope.API_PATH + holding.data['@id'], holding.data, {headers: {'Content-Type': 'application/ld+json', 'If-match': etag}}).success(function(data, status, headers) {
+          $http.put($rootScope.WRITE_API_PATH + holding.data['@id'], holding.data, {headers: {'Content-Type': 'application/ld+json', 'If-match': etag}}).success(function(data, status, headers) {
             if (headers('etag')) {
               holding.etag = headers('etag');
             }
@@ -221,7 +221,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
           });
         } else {
           // Holding has no ID, assume it's new
-          $http.post($rootScope.API_PATH + '/hold', holding.data, {headers: {'Content-Type': 'application/ld+json'}}).success(function(data, status, headers) {
+          $http.post($rootScope.WRITE_API_PATH + '/hold', holding.data, {headers: {'Content-Type': 'application/ld+json'}}).success(function(data, status, headers) {
             var identifier = headers('location');
             if (identifier) {
               identifier = '/hold/' + identifier.split('/').slice(-2)[1];
@@ -241,7 +241,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
 
       del: function(holdingId) {
         var deferer = $q.defer();
-        $http['delete']($rootScope.API_PATH + holdingId).success(function(data, success, headers, also) {
+        $http['delete']($rootScope.WRITE_API_PATH + holdingId).success(function(data, success, headers, also) {
           console.log(data, success, headers(), also);
           var etag = headers('etag') ? headers('etag') : null;
           deferer.resolve({
