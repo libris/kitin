@@ -13,12 +13,37 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   //   $scope.alerts.splice(index, 1);
   // };
 
+  function getCurrentRecord() {
+    var records = $rootScope.state.search.result.list;
+    var currentRecord = _.find(records, function(record) {
+      return record.identifier == recordId;
+    });
+    return currentRecord;
+  };
+
   // We are using these functions in several places,
   // maybe create a service?
-  function onSaveState() {
+  function onSave(holding) {
     $scope.modifications.saved = true;
     $scope.modifications.published = true;
+    
+    var currentRecord = getCurrentRecord();
+    currentRecord.holdings.holding = holding;
+    currentRecord.holdings.hits += 1;
   }
+
+
+  // We are using these functions in several places,
+  // maybe create a service?
+  function onDelete(holding) {
+    $scope.modifications.saved = true;
+    $scope.modifications.published = true;
+
+    var currentRecord = getCurrentRecord();
+    currentRecord.holdings.holding = null;
+    currentRecord.holdings.hits -= 1;
+  }
+
 
   $scope.triggerModified = function () {
     $scope.modifications.saved = false;
@@ -26,7 +51,6 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   };
 
   $scope.close = function() {
-    // On close (or on save?), update holding status in search results.
     $modalInstance.close();
   };
 
@@ -54,7 +78,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     console.log('ABOUT TO SAVE HOLDING: ', holding);
     recordService.holding.save(holding).then(function success(holding) {
       console.log('SAVED HOLDING, ETAG SHOULD HAVE CHANGED: ', holding);
-      onSaveState();
+      onSave(holding);
       $scope.holding = holding;
     }, function error(status) {
       console.log('you should now see an alert from the httpinterceptor');
@@ -64,7 +88,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   $scope.deleteHolding = function(holding) {
     var holdingId = holding.data['@id'];
     recordService.holding.del(holdingId).then(function(response) {
-      console.log(response);
+      onDelete(holding);
       delete $scope.holding;
       console.log('Holding removed successfully!');
     });

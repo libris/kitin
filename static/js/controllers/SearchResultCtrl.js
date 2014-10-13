@@ -140,15 +140,29 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
 
   $rootScope.$watch('state.search.result.list.length', function(newLength, oldLength) {
     var updateHoldings = function(data, status, headers, config) {
-      if (data) {
-        config.record.holdings = data;
+      if (data && data.list) {
+        config.record.holdings = {
+          hits: 0
+        }
+        if (data.list.length > 0) {
+          var userHolding = _.filter(data.list, function(item){
+            var offers = item.data.about.offers;
+            return _.filter(offers, function(offer) {
+              return _.filter(offer, { heldBy: { notation: userData.userSigel } })
+            });
+          });
+          config.record.holdings = {
+            hits: data.list.length,
+            holding: userHolding
+          }
+        }
       }
     };
+
     for (var i = oldLength ? oldLength: 0; i < newLength; i++) {
         var record = $rootScope.state.search.result.list[i];
         if (record.identifier) {
-          //$http.get($rootScope.API_PATH + '/hold/_search?q=*+about.annotates.@id:' + record.identifier.replace('/','\/'), {record: record}).success(updateHoldings);
-          $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.holdingFor.@id:' + record.identifier.replace(/\//g, '\\/') + '+about.offers.heldBy.notation:' + userData.userSigel, {record: record}).success(updateHoldings);
+          $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.holdingFor.@id:' + record.identifier.replace(/\//g, '\\/'), {record: record}).success(updateHoldings);
           // Would need to customize recordService.holding.get() to make this work. Is it worth it? 
           // For now, stick to the solution above.
           // recordService.holding.get(recordId, userData).then(function(holding) {
@@ -160,7 +174,6 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
           //   }
           // });
         }
-
     }
   });
 
