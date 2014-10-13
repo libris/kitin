@@ -382,6 +382,12 @@ body.edit .footer footer {
   box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.2), inset 1px 1px 1px rgba(255, 255, 255, 0.2);
   -webkit-transition: background ease-out 0.03s;
 }
+.btn-flat {
+  text-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
 .btn-light {
   background: #22ba94;
 }
@@ -418,6 +424,16 @@ body.edit .footer footer {
   background-color: #462446;
   color: #ffffff;
 }
+.btn-purple-light {
+  background-color: #aa59aa;
+  color: #ffffff;
+}
+.btn-purple-light:hover,
+.btn-purple-light:focus,
+.btn-purple-light:active {
+  background-color: #683568;
+  color: #ffffff;
+}
 .btn-link {
   color: #1a8f72;
   outline: none;
@@ -434,6 +450,9 @@ body.edit .footer footer {
 }
 .holdings .btn-link {
   color: #683568;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }
 .holdings .btn-link:hover {
   color: #462446;
@@ -1463,6 +1482,11 @@ html .modal.fade .modal-dialog {
   transform: translate(0, 0);
 }
 /* MODAL END ------------------------- */
+/* HOLDINGS MODAL START ------------------------- */
+.modal-header.holdings {
+  background-color: #683568;
+}
+/* HOLDINGS MODAL END ------------------------- */
 /* REMOTE SOURCES MODAL START ------------------------- */
 .remote-modal a.database-name {
   color: #666664;
@@ -2590,49 +2614,26 @@ span.error-message {
 .holdings .lbl {
   color: #683568;
 }
-.holdings-list ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-#holdings {
-  background: transparent;
-  box-shadow: none;
-  -moz-box-shadow: none;
-  -webkit-box-shadow: none;
-  padding: 12px 0;
-}
-.holdings-editor .editor {
-  background: #ffffff;
-  width: 732px;
-  padding: 12px;
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-.content.holdings section h2 {
+.holdings section h2 {
   background-color: #aa59aa;
 }
-.content.holdings section h2 i {
+.holdings section h2 i {
   border-right-color: #683568;
 }
-.content.holdings section h3 {
+.holdings section h3 {
   font: bold italic 16px/20px 'Droid Serif', georgia, serif;
   color: #aa59aa;
   border-bottom: 1px solid #aa59aa;
   padding-bottom: 2px;
 }
-.content.holdings section h3.inline_heading {
+.holdings section h3.inline_heading {
   border: none;
   float: left;
   margin-left: 10px;
   margin-bottom: 0px;
   line-height: 32px;
 }
-section.holdings ul li {
+.holdings ul li {
   list-style: none;
 }
 section.offer {
