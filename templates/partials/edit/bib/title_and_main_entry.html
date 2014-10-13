@@ -265,7 +265,7 @@
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.attributedTo</span>
     <div data-kitin-link-entity
-        data-ng-init="label = 'Lägg till huvuduppslag'"
+        data-ng-init="label = 'Sök huvuduppslag'"
         data-subject="record.about" data-link="'attributedTo'" data-type="Person"
         data-view-template="render-person"
         data-search-template="render-search-box"
@@ -276,7 +276,7 @@
     <span class="lbl" translate>LABEL.record.about.influencedBy</span>
     <!--<a ng-click="showInfluencedBy = !showInfluencedBy">Dölj <i class="icon fa fa-caret-up"></i></a>-->
     <div data-kitin-link-entity
-        data-ng-init="label = 'Lägg till biuppslag'"
+        data-ng-init="label = 'Sök biuppslag'"
         data-subject="record.about" data-link-multiple="'influencedBy'" data-type="Person"
         data-view-template="render-person"
         data-search-template="render-search-box"
@@ -289,15 +289,27 @@
 
 <!-- RENDER SEARCH AUTH TEMPLATE  START -->
 <script type="text/ng-template" id="render-search-box">
-  <div class="label" class="find-entity">
-    <i class="fa fa-search"></i>
-    <input class="input-large" type="text" placeholder="{{ label }}"
-          data-kitin-search-entity
-          data-service-url="{{API_PATH}}/auth/_search"
-          data-filter="{ 
-              'filters' : ['about.@type:Person', 'about.@type:Meeting', 'about.@type:Organization' ] } "
-          data-completion-template="auth-completion-template" 
-          data-allow-non-auth="true"/>
+  <div class="label find-entity">
+    <div class="add-item search">
+      <div data-click-search>
+        <span class="add-link" ng-click="onclick($event)"><i class="fa fa-plus"></i> Lägg till</span>
+        <span class="toggler">  
+          <span class="search-field">
+            <i class="fa fa-search"></i>
+            <input ng-blur="onblur($event)" class="input-large" type="text" placeholder="{{ label }}"
+                  data-kitin-search-entity
+                  data-service-url="{{API_PATH}}/auth/_search"
+                  data-filter="{ 
+                      'filters' : ['about.@type:Person', 'about.@type:Meeting', 'about.@type:Organization' ] } "
+                  data-completion-template="auth-completion-template" 
+                  data-allow-non-auth="true"/>
+          </span>
+          <span class="linkchoice">
+            eller <a href="#">Skapa ny</a>
+          </span>
+        </span>
+      </div>
+    </div>
   </div>
 </script>
 <!-- RENDER SEARCH AUTH TEMPLATE  END -->

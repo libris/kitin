@@ -2254,8 +2254,14 @@ div[data-rich-entity] > div {
   padding: 4px 0;
   margin: 2px 0;
 }
-div[data-rich-entity] > div.find-entity {
+div[data-rich-entity] > div.search {
   border-bottom: none;
+}
+div[data-rich-entity] > div.search:first-child {
+  padding-top: 6px;
+}
+div[data-rich-entity] > div.search input[type="text"] {
+  width: 200px !important;
 }
 div[data-rich-entity] > div.addmore {
   margin-bottom: 4px;
