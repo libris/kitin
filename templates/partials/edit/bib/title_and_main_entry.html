@@ -316,7 +316,7 @@
        data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a>
   </div>
   <div data-ng-if="!isLinked(object)" class="entity person embedded"
-        data-ng-init="editable = {on: !(object.controlledLabel || object.givenName || object.name)}" tabindex="0">
+        data-ng-init="editable = {on: !(object.controlledLabel || object.givenName || object.name)}">
     <div data-ng-hide="editable.on">
         <div class="label" >
           <span onload="person = object" data-ng-include="'render-person-name'"></span><a class="auth" href="#" data-ng-click="editable.on = !editable.on">Ändra</a>
