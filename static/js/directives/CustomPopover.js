@@ -11,7 +11,7 @@ kitin.directive('customPopover', function($compile) {
 
       if ( !$target.closest(this).length && !$target.closest($pop).length ) {
         $pop.remove();       
-        angular.element(this).scope().tt_isOpen = false;
+        angular.element(this).scope()['tt_isOpen'] = false;
         $(this).closest('li').removeClass('open');
       }
 
