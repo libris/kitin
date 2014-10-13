@@ -1,0 +1,47 @@
+{% raw %}
+<!-- REMOTEModal -->
+<script type="text/ng-template" id="modal-remote">  
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="remoteDatabaseFilterQuery = ''; close()">×</button>
+    <h3 id="remoteModalLabel">Remotekällor</h3>
+    <div class="input-group col-md-4">
+      <input ng-model="remoteDatabaseFilterQuery" placeholder="filtrera databaser" class="form-control">
+      <span class="input-group-btn">
+        <button class="btn btn-default" ng-click="remoteDatabaseFilterQuery = ''">
+          <i class="fa fa-times-circle"></i>
+        </button>
+      </span>
+		</div>
+  </div>
+  <div class="modal-body">
+    <!--<div>
+      Sortera:
+      <ul>
+        <li ng-click="orderRemoteDatabases = 'alternativeName'; groupRemoteDatabases = false;">Bokstavsordning</li>
+        <li ng-click="orderRemoteDatabases = 'country'; groupRemoteDatabases = true;">Länder</li>
+      <ul>
+    </div>-->
+    <div class="container-fluid" ng-init="orderRemoteDatabases = 'alternativeName'; groupRemoteDatabases = false;">
+    <div class="row">
+      <dl class="col-md-6" data-ng-repeat="database in orderedRemoteDatabases = ((state.remoteDatabases | orderBy: orderRemoteDatabases)) | filter:remoteDatabaseFilterQuery">
+        <dd>
+          <h4 ng-if="groupRemoteDatabases && orderedRemoteDatabases[$index-1][orderRemoteDatabases] !== database[orderRemoteDatabases]">
+            {{database.country}}
+          </h4>
+          <a href="#" class="database-name"  ng-class="{'active':database.selected}" ng-click="database.selected = !database.selected">
+            {{ database.alternativeName }}
+          </a>
+          <a href="{{database.address}}" target="_blank">
+            <i class="fa fa-external-link"></i>
+          </a>
+          <i data-ng-show="database.comment" class="fa fa-info-circle database-comment" title="{{ database.comment }}"></i>
+        </dd>
+      </dl>
+    </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-green" ng-click="remoteDatabaseFilterQuery = ''; close()">OK</button>
+  </div>
+</script>
+{% endraw %}
