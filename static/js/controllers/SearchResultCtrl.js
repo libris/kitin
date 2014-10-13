@@ -139,15 +139,58 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
   }
 
   $rootScope.$watch('state.search.result.list.length', function(newLength, oldLength) {
+    var findDeep = function(items, attrs) {
+      function match(value) {
+        for (var key in attrs) {
+          if (attrs[key] !== value[key]) {
+            return false;
+          }
+        }
+        return true;
+      }
+      function traverse(value) {
+        var result;
+        _.forEach(value, function (val) {
+          if (match(val)) {
+            result = val;
+            return false;
+          }
+          if (_.isObject(val) || _.isArray(val)) {
+            result = traverse(val);
+          }
+          if (result) {
+            return false;
+          }
+        });
+        return result;
+      }
+      return traverse(items);
+    }
+
     var updateHoldings = function(data, status, headers, config) {
-      if (data) {
-        config.record.holdings = data;
+      if (data && data.list) {
+        config.record.holdings = {
+          hits: 0
+        }
+        if (data.list.length > 0) {
+          // _.each(data.list, function(item){
+          //   var offers = item.data.about.offers;
+          //   _.each(offers, function(offer) {
+          //     var userHolding = _.filter(offer, { heldBy: { notation: userData.userSigel } })
+          //   });
+          // });
+          var userHolding = findDeep(data.list, { notation: userData.userSigel })
+          config.record.holdings = {
+            hits: data.list.length,
+            holding: userHolding
+          }
+        }
       }
     };
+
     for (var i = oldLength ? oldLength: 0; i < newLength; i++) {
         var record = $rootScope.state.search.result.list[i];
         if (record.identifier) {
-          //$http.get($rootScope.API_PATH + '/hold/_search?q=*+about.annotates.@id:' + record.identifier.replace('/','\/'), {record: record}).success(updateHoldings);
           $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.holdingFor.@id:' + record.data.about['@id'].replace(/\//g, '\\/'), {record: record}).success(updateHoldings);
           // Would need to customize recordService.holding.get() to make this work. Is it worth it? 
           // For now, stick to the solution above.
@@ -160,7 +203,6 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
           //   }
           // });
         }
-
     }
   });
 
