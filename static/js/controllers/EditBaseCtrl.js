@@ -1,9 +1,13 @@
-kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $timeout, $rootScope, $location, $anchorScroll, recordService, definitions, userData, editService) {
+kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $timeout, $rootScope, $location, $anchorScroll, recordService, definitions, userData, editService) {
+  
 
   // recType & recId can be inherited from f.ex modals
 
   $scope.recType = $scope.recType || $routeParams.recType;
   $scope.recId = $scope.recId || $routeParams.recId;
+  $scope.userSigel = userData.userSigel;
+  $scope.outputFormat = $location.hash(); // #jsonld changes edit template
+  $scope.editSource = $routeParams.editSource;
 
   editService.addableElements = [];
 
@@ -12,6 +16,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   document.body.className = isNew ? 'edit new' : 'edit';
 
   $scope.$on('$routeUpdate', function() {
+    $scope.outputFormat = $location.hash();
     $anchorScroll();
   });
 
@@ -30,13 +35,16 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   };
 
   // TODO: move each part of this into editService.decorate, then remove this function
-  function addRecordViewsToScope(record, scope) {
-    scope.unifiedClassifications = editService.getUnifiedClassifications(record);
+  $scope.addRecordViewsToScope = function(record) {
+
+    $scope.record = record;
+
+    $scope.unifiedClassifications = editService.getUnifiedClassifications(record);
 
     definitions.conceptSchemes.then(function(data) {
-      scope.conceptSchemes = data;
+      $scope.conceptSchemes = data;
     });
-    scope.subjectByType = {
+    $scope.subjectByType = {
       'Place': {
         title: 'Geografiska ämnesord',
         allowNonAuth: true
@@ -51,113 +59,17 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
         title: 'Organisation'
       }
     };
-  }
-
-  // Needed? Set update recType instead?
-  var recordType = (function() {
-    if(isNew && $scope.recType !== editService.RECORD_TYPES.REMOTE) {
-      return editService.RECORD_TYPES.NEW;
-    } else if($scope.recId.indexOf(editService.RECORD_TYPES.DRAFT) > -1) {
-      return editService.RECORD_TYPES.DRAFT;
-    } else if($scope.recType) {
-      return $scope.recType;
-    } else {
-      return editService.RECORD_TYPES.BIB;
-    }
-  }());
-
-  // Depending on type of record, get record and add to scope
-  switch(recordType) {
-
-    // NEW
-    case editService.RECORD_TYPES.NEW:
-      recordService.record.get(
-        null, null, $location.$$search.type, $location.$$search.aggregateLevel
-      ).then(function(data) {
-        $scope.record = data['recdata'];
-        addRecordViewsToScope($scope.record, $scope);
-      });
-
-      break;
-
-
-    // DRAFT
-    case editService.RECORD_TYPES.DRAFT:
-      recordService.draft.get($scope.recType + '/' + $scope.recId).then(function(data) {
-        $scope.record = data['recdata']['document'];
-        addRecordViewsToScope($scope.record, $scope);
-        $scope.isDraft = true;
-        if(data['recdata']['document']['@id']) {
-          $scope.record.type = data['recdata']['document']['@id'].split("/").slice(-2)[0];
-          $scope.record.id = data['recdata']['document']['@id'].split("/").slice(-2)[1];
-        }
-        $scope.etag = data['recdata']['etag'];
-      });
-
-      break;
+  };
 
 
     // REMOTE
-    case editService.RECORD_TYPES.REMOTE:
+  if($scope.recType === editService.RECORD_TYPES.REMOTE) {
 
       var record = editService.getRecord();
       if(record) {
-        $scope.record = record.data;
-        addRecordViewsToScope(record, $scope);
+        $scope.addRecordViewsToScope(record.data);
       }
-      break;
 
-
-    // BIB
-    // AUTH
-    default:
-      recordService.record.get($scope.recType, $scope.recId).then(function(data) {
-        var record = data['recdata'];
-        // MARC
-        // !TODO create a cleaner way to detect data format and sperate from bib
-        if($location.$$path.indexOf('/marc/') !== -1) {
-          delete record.about.publicationCountry;
-          recordService.record.convertToMarc(record).then(function(data) {
-            $scope.record = data;
-          });
-        }
-
-        $scope.record = record;
-        $scope.etag = data['etag'];
-        $scope.userSigel = userData.userSigel;
-
-        // BIB
-        if ($scope.recType === editService.RECORD_TYPES.BIB) {
-          addRecordViewsToScope(record, $scope);
-        }
-        
-        // // HOLDINGS
-        // $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.annotates.@id:' + recType + '\\/' + recId).success(function(data) {
-        //   var holdingEtags = {};
-        //   var items = editService.patchHoldings(data.list);
-        //   $scope.holdings = items;
-        //   var myHoldings = _.filter(items, function(i) { return i['location'] == userData.userSigel; });
-        //   if (myHoldings <= 0) {
-        //     $http.get("/holding/bib/new").success(function(data, status, headers) {
-        //       data.location = $scope.userSigel;
-        //       $scope.holding = data;
-        //       data._isNew = true; // TODO: don't do this when etag works
-        //     });
-        //   } else {
-        //     $scope.holding = myHoldings[0];
-        //   }
-        //   items.forEach(function (item) {
-        //     if (item['@id']) {
-        //       $http.get("/holding/"+ item['@id'].split("/").slice(-2)[1]).success(function (data, status, headers) {
-        //         holdingEtags[data['@id']] = headers('etag');
-        //       });
-        //     }
-        //   });
-        //   $scope.holdingEtags = holdingEtags;
-        // });
-
-      });
-      break;
   }
 
 
@@ -204,7 +116,6 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     $scope.confirmDeleteDraft = {
       execute: function() {
         recordService.draft.delete(type, id).then(function(data) {
-          $scope.draft = null;
           $scope.confirmDeleteDraft = null;
         });
       },
@@ -219,7 +130,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
 
   $scope.save = function() {
     var parsedRecType = $scope.recType === editService.RECORD_TYPES.REMOTE ? editService.RECORD_TYPES.BIB : $scope.recType;
-    if(!$scope.isDraft && !isNew) {
+    if(!$scope.record.draft && !isNew) {
 
       var ifMatchHeader = '';
       if($scope.etag) {
@@ -227,13 +138,13 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
       } else {
         console.warn('No ETag for this record. Where is it?');
       }
-      recordService.record.save(parsedRecType, $scope.recId, $scope.record, ifMatchHeader).then(function(data) {
-        $scope.record = data['recdata'];
+      recordService.libris.save(parsedRecType, $scope.recId, $scope.record, ifMatchHeader).then(function(data) {
+        $scope.addRecordViewsToScope(data['recdata']);
         $scope.etag = data['etag'];
         onPublishState();
       });
     } else {
-      recordService.record.create(parsedRecType, $scope.record).then(function(data) {
+      recordService.libris.create(parsedRecType, $scope.record).then(function(data) {
         if($scope.isDraft) {
           recordService.draft.delete(parsedRecType, $scope.recId);
         }
@@ -246,33 +157,20 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   $scope.saveDraft = function() {
     var parsedRecType = $scope.recType === editService.RECORD_TYPES.REMOTE ? editService.RECORD_TYPES.BIB : $scope.recType;
 
-    if(!$scope.isDraft) {
-      recordService.draft.create(parsedRecType, $scope.record).then(function(data) {
-        $location.url('/edit/' + data['draft_id']);
+    if(!$scope.record.draft) {
+      recordService.draft.create(parsedRecType, $scope.recId, $scope.record).then(function(data) {
+        $location.url('/edit/draft' + data['recdata']['@id']);
       });
     } else {
       recordService.draft.save(parsedRecType, $scope.recId, $scope.record, $scope.etag).then(function(data) {
-        $scope.record = data['recdata'];
-        if(data['recdata']['@id']) { // Undefined if new record
-          $scope.record.type = data['recdata']['@id'].split("/").slice(-2)[0];
-          $scope.record.id = data['recdata']['@id'].split("/").slice(-2)[1];
-        }
+        $scope.addRecordViewsToScope(data['recdata']);
+        $scope.etag = data['etag'];
         onSaveState();
         //$('.flash_message').text("Utkast sparat!");
       });
     }
   };
-/*
-  recordService.draft.get(recId).then(function(data, status, headers) {
-    $scope.draft = data['recdata'];
-    $scope.isDraft = true;
-    if(data['recdata']['@id']) {
-      $scope.draft.type = data['recdata']['@id'].split("/").slice(-2)[0];
-      $scope.draft.id = data['recdata']['@id'].split("/").slice(-2)[1];
-    }
-    $scope.etag = data['etag'];
-  });
-*/
+
   $scope.newObject = function(subj, rel, type) {
     var obj = subj[rel] = editService.createObject(type);
   };

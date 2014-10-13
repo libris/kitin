@@ -18,15 +18,32 @@ kitin.config(function($locationProvider, $routeProvider, $translateProvider, $ht
         .preferredLanguage('se');
 
       $routeProvider
-        .when('/',                        { templateUrl: '/partials/index' })
-        .when('/search/:recType',         { templateUrl: '/partials/search' })
-        .when('/edit/:recType/:recId',    { templateUrl: '/partials/edit', reloadOnSearch: false })
-        .when('/jsonld/:recType/:recId',  { templateUrl: '/partials/jsonld' })
-        .when('/marc/:recType/:recId',    { templateUrl: '/partials/marc', isMarc: true })
-        ;//.otherwise({redirectTo: '/'});
+        .when('/',                                  { templateUrl: '/partials/index' })
+        .when('/search/:recType',                   { templateUrl: '/partials/search' })
+        .when('/edit/:editSource/:recType/:recId',  { 
+          templateUrl: function(params) {
+            return '/partials/edit_' + params.editSource;
+          }, 
+          reloadOnSearch: false }
+        )
+        .when('/marc/:recType/:recId',           { templateUrl: '/partials/marc', isMarc: true });
 
       $httpProvider.interceptors.push('HttpInterceptor');
 });
+
+// default popover options
+kitin.config(function($tooltipProvider) {
+  $tooltipProvider.options({
+    placement: "right"
+  });
+});
+
+// unsafe filter for html
+kitin.filter('unsafe', ['$sce', function ($sce) {
+    return function (val) {
+        return $sce.trustAsHtml(val);
+    };
+}]);
 
 // TODO: window.onunload or $routeProvider / $locationChangeStart
 //if (ajaxInProgress)
@@ -38,7 +55,7 @@ kitin.config(function($locationProvider, $routeProvider, $translateProvider, $ht
  */
 kitin.run(function($rootScope) {
   $rootScope.API_PATH = WHELK_HOST;
-  $rootScope.LOCAL_API_PATH = '/whelk-webapi';
+  $rootScope.WRITE_API_PATH = '/whelk-webapi';
 });
 
 // Davids preloads

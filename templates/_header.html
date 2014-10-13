@@ -53,19 +53,19 @@
         Auktoritetspost
       </tab-heading>
       <div>
-        <label><input type="radio" name="mainType" /> Person</label>
+        <div class="label"><input type="radio" name="mainType" /> Person</div>
       </div>
       <div>
-        <label><input type="radio" name="mainType" /> Organisation</label>
+        <div class="label"><input type="radio" name="mainType" /> Organisation</div>
       </div>
       <div>
-        <label><input type="radio" name="mainType" /> Möte/konferens</label>
+        <div class="label"><input type="radio" name="mainType" /> Möte/konferens</div>
       </div>
       <div>
-        <label><input type="radio" name="mainType" /> Verk</label>
+        <div class="label"><input type="radio" name="mainType" /> Verk</div>
       </div>
       <div>
-        <label><input type="radio" name="mainType" /> Ämnesord</label>
+        <div class="label"><input type="radio" name="mainType" /> Ämnesord</div>
       </div>
     </tab>
     -->
@@ -73,7 +73,7 @@
   </div>
   <div class="modal-footer">
     <a class="btn btn-green"
-       href="/edit/bib/new?type={{ createNew.mainType }}&amp;aggregateLevel={{ createNew.aggregateLevel }}"
+       href="/edit/draft/bib/new?type={{ createNew.mainType }}&amp;aggregateLevel={{ createNew.aggregateLevel }}"
        data-ng-click="close()"
        >Skapa <i class="fa fa-arrow-circle-right"></i></a>
   </div>
@@ -82,13 +82,13 @@
 <script type="text/ng-template" id="render-new-type-group">
   <h3>{{ typeGroup.label }}</h3>
   <div data-ng-repeat="class in typeGroup.classes">
-    <label data-ng-class="{'text-muted': class.deprecated}">
+    <div class="label" data-ng-class="{'text-muted': class.deprecated}">
       <input type="radio" name="{{ typeGroup.name }}"
              data-ng-model="createNew[typeGroup.name]"
              data-ng-value="getTermToken(class)" />
       <!--<a data-ng-switch-default href="/edit/bib/new?type={{ getTermToken(class) }}">-->
       {{ class.get('label') }}
-    </label>
+    </div>
   </div>
 </script>
 

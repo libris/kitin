@@ -21,7 +21,7 @@
 
 .json-ld .type {font-size: 12px; font-weight:600;color:@grey-very-dark;padding-left: 3px;}
 .json-ld .header {font-size: 12px;}
-.json-ld label {font-size: 12px;display: block;background-color:@white;color:@grey;}
+.json-ld .label {font-size: 12px;display: block;background-color:@white;color:@grey;}
 
 .collapsed > code {
   background-color: @grey-light;
@@ -66,7 +66,7 @@
 .edit .json-ld .entity.linked:hover {
   background-color: @grey-warm;
   box-shadow: 0 1px 5px rgba(0, 0, 0, .4);
-  label {
+  .label {
     background-color: inherit;
   }
 }
@@ -107,7 +107,7 @@ div.array > section.entity > div:nth-of-type(even) {
 }
 
 .array {position: relative;}
-.array > section > div > * > div > label {
+.array > section > div > * > div > .label {
   position: absolute;
   left: 0;
   display:none;

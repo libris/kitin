@@ -2,11 +2,11 @@
  * recordService
  * Service to handle communcation with backend for records and drafts
  */
-kitin.factory('recordService', function ($http, $q, editService, $rootScope) {
+kitin.factory('recordService', function ($http, $q, editService, $rootScope, definitions) {
 
-  return {
+  var recordService = {
 
-    record: {
+    libris: {
       /*  get
       *   Get record from whelk API
       *   If no record id is requested a new record is returned by type
@@ -53,7 +53,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope) {
         var deferer = $q.defer();
         var recordDataCopy = angular.copy(recordData);
         editService.undecorate(recordDataCopy).then(function(undecoratedRecord) {
-          $http.put($rootScope.LOCAL_API_PATH + '/' + type + "/" + id, undecoratedRecord,
+          $http.put($rootScope.WRITE_API_PATH + '/' + type + '/' + id, undecoratedRecord,
               {
                 headers: {"If-match":recordEtag}
               })
@@ -74,7 +74,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope) {
         var recordDataCopy = angular.copy(recordData);
         
         editService.undecorate(recordDataCopy).then(function(undecoratedRecord) {
-          $http.post($rootScope.LOCAL_API_PATH, undecoratedRecord)
+          $http.post($rootScope.WRITE_API_PATH + '/' + type, undecoratedRecord)
             .success(function(createdRecord, status, headers) {
               editService.decorate(createdRecord).then(function(decoratedRecord) {
                 deferer.resolve({
@@ -102,8 +102,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope) {
       get: function (draftId) {
         var deferer = $q.defer();
         $http.get("/draft/" + draftId).success(function (data, status, headers) {
-          editService.decorate(data.document).then(function(decoratedRecord) {
-            data.document = decoratedRecord;
+          editService.decorate(data).then(function(decoratedRecord) {
             deferer.resolve({
               recdata: data,
               etag: headers('etag')
@@ -118,7 +117,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope) {
         etag = etag ? etag : '';
         var draftDataCopy = angular.copy(draftData);
         editService.undecorate(draftDataCopy).then(function(undecoratedRecord) {
-          $http.put("/draft/" + type + '/' + draftId, undecoratedRecord, {headers: {"If-match":etag } })
+          $http.put("/draft/" + [type, draftId].join('/'), undecoratedRecord, {headers: {"If-match":etag } })
             .success(function(data, status, headers) {
               editService.decorate(data).then(function(decoratedRecord) {
 
@@ -132,16 +131,18 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope) {
         return deferer.promise;
       },
 
-      create: function(type, draftData, etag) {
+      create: function(type, draftId, draftData, etag) {
         var deferer = $q.defer();
         etag = etag ? etag : '';
         var draftDataCopy = angular.copy(draftData);
         editService.undecorate(draftDataCopy).then(function(undecoratedRecord) {
-          $http.post("/draft/" + type, undecoratedRecord, {headers: {"If-match":etag } })
+          $http.post("/draft/" + [type, draftId].join('/') , undecoratedRecord, {headers: {"If-match":etag } })
             .success(function(data, status, headers) {
-              editService.decorate(data.document).then(function(decoratedRecord) {
-                data.document = decoratedRecord;
-                deferer.resolve(data);
+              editService.decorate(data).then(function(decoratedRecord) {
+                deferer.resolve({
+                  recdata: decoratedRecord,
+                  etag: headers('etag')
+                });
               });
             });
         });
@@ -150,7 +151,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope) {
 
       delete: function(type, draftId) {
         var deferer = $q.defer();
-        $http.delete("/draft/" + type + '/' + draftId).success(function(data, status, headers) {
+        $http.delete("/draft/" + [type, draftId].join('/')).success(function(data, status, headers) {
           deferer.resolve(data);
         });
         return deferer.promise;
@@ -171,56 +172,104 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope) {
       get: function(recordId, userData) {
         var deferer = $q.defer();
         var sigel = userData.userSigel;
-        sigel = 'KVIN'; // TODO: <--------------------------------  Haxxor shit, remove
+        //sigel = 'SLB'; // TODO: <--------------------------------  Haxxor shit, remove
         $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.holdingFor.@id:' + recordId.replace(/\//g, '\\/') + '+about.offers.heldBy.notation:' + sigel).success(function(data, status, headers) {
-          console.log(data);
-          deferer.resolve({
-            data: data,
-            etag: headers('etag')
-          });
+          if (data.list.length > 0) {
+            console.log('Found existing holding:\n', data.list[0]);
+            var holding = data.list[0];
+            recordService.holding.getEtag(holding.data['@id']).then(function(etag) {
+              console.log(etag);
+              if (etag) {
+                holding.etag = etag;
+              }
+              deferer.resolve(holding);
+            });
+          } else {
+            deferer.resolve(null);
+          }
         }).error(function(data, status, headers) {
           console.log('RecordService failed getting holding.');
         });
         return deferer.promise;
       },
 
-      create: function() {
+      create: function(type) {
         var deferer = $q.defer();
-        $http.get('/holding/bib/new').success(function(data, status, headers) {
-          console.log(data);
+        var recordSkeletonTypeMap = definitions.recordSkeletonTypeMap;
+        recordSkeletonTypeMap.then(function(skeletonTypeMap) {
           deferer.resolve({
-            data: data,
-            etag: headers('etag')
+            data: {
+              about: skeletonTypeMap.main.HeldMaterial
+            }
           });
-        }).error(function(data, status, headers) {
-          console.log('RecordService failed creating holding.');
         });
         return deferer.promise;
       },
 
-      save: function(holding, etag) {
+      save: function(holding) {
         var deferer = $q.defer();
-        $http.put($rootScope.API_PATH + '/hold/' + holding['@id'].split('/').slice(-2)[1], holding, {headers: {'If-match':etag}}).success(function(data, status, headers) {
-          deferer.resolve({
-            data: data,
-            etag: headers('etag')
+        var etag = holding.etag;
+        if (holding.data['@id'] && etag) {
+          $http.put($rootScope.WRITE_API_PATH + holding.data['@id'], holding.data, {headers: {'Content-Type': 'application/ld+json', 'If-match': etag}}).success(function(data, status, headers) {
+            if (headers('etag')) {
+              holding.etag = headers('etag');
+            }
+            deferer.resolve(holding);
+          }).error(function(data, status, headers) {
+            console.log('RecordService failed saving holding, rejecting promise. Status code:', status);
+            deferer.reject(status);
           });
-        }).error(function(data, status, headers) {
-          console.log('RecordService failed saving holding.');
-        });
+        } else {
+          // Holding has no ID, assume it's new
+          $http.post($rootScope.WRITE_API_PATH + '/hold', holding.data, {headers: {'Content-Type': 'application/ld+json'}}).success(function(data, status, headers) {
+            var identifier = headers('location');
+            if (identifier) {
+              identifier = '/hold/' + identifier.split('/').slice(-2)[1];
+              holding.data['@id'] = identifier;
+            }
+            if (headers('etag')) {
+              holding.etag = headers('etag');
+            }
+            deferer.resolve(holding);
+          }).error(function(data, status, headers) {
+            console.log('RecordService failed saving new holding.');
+            deferer.reject(status);
+          });
+        }
+        return deferer.promise;
       },
 
-      getEtag: function(itemId) {
+      del: function(holdingId) {
         var deferer = $q.defer();
-        $http.get($rootScope.API_PATH + '/hold/'+ itemId.split('/').slice(-2)[1]).success(function(data, status, headers) {
+        $http['delete']($rootScope.WRITE_API_PATH + holdingId).success(function(data, success, headers, also) {
+          console.log(data, success, headers(), also);
+          var etag = headers('etag') ? headers('etag') : null;
           deferer.resolve({
-            etag: headers('etag')
+            etag: etag
           });
         }).error(function(data, status, headers) {
-          console.log('RecordService failed getting eTag for holding.');
+          console.log('RecordService failed deleting holding.');
+          deferer.reject(status);
         });
+        return deferer.promise;
+      },
+
+      getEtag: function(holdingId) {
+        var deferer = $q.defer();
+        if (holdingId) {
+          $http.get($rootScope.API_PATH + holdingId).success(function(data, status, headers) {
+            var etag = headers('etag') ? headers('etag') : null;
+            deferer.resolve(etag);
+          }).error(function(data, status, headers) {
+            console.log('RecordService failed getting eTag for holding.');
+          });
+        } else {
+          deferer.resolve(null);
+        }
         return deferer.promise;
       }
     }
   };
+
+  return recordService;
 });

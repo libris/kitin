@@ -7,91 +7,85 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     published: true
   };
 
+  // Went back to systemMessages. Better?
+  // $scope.alerts = [];
+  // $scope.closeAlert = function(index) {
+  //   $scope.alerts.splice(index, 1);
+  // };
+
+  // We are using these functions in several places,
+  // maybe create a service?
+  function onSaveState() {
+    $scope.modifications.saved = true;
+    $scope.modifications.published = true;
+  }
+
   $scope.triggerModified = function () {
     $scope.modifications.saved = false;
     $scope.modifications.published = false;
   };
 
   $scope.close = function() {
+    // On close (or on save?), update holding status in search results.
     $modalInstance.close();
   };
 
-  // HOLDINGS
-  recordService.holding.get(recordId, userData).then(function(response) {
-    var data = response.data;
-    var items = data.list;
-    var holdingEtags = {};
-    $scope.holdings = items;
-    var myHoldings = _.filter(items, function(i) {
-      var offers = i.data.about.offers;
-      for ( var j = 0; j < offers.length; j++ ) {
-        var heldBy = offers[j].heldBy;
-        for ( var k = 0; k < heldBy.length; k++ ) {
-          if ( heldBy[k].notation == userData.userSigel || heldBy[k].notation == 'KVIN' ) return true; // TODO: Don't compare to U, that's just for dev purposes
-        }
-      }
-    });
-    
-    if (myHoldings <= 0) {
+  // HOLDING
+  // 2014-10-08: To avoid confusion, all references to holding_s_ have been removed. 
+  // There can only be one holding per sigel. There can, however, be multiple offers per holding.
+  // If no holding is found, we create a new one.
+  recordService.holding.get(recordId, userData).then(function(holding) {
+    if (!holding) {
       console.log('No holdings found, creating new.\n');
       recordService.holding.create().then(function(response) {
-        var data = response.data;
-        data.location = $scope.userSigel;
-        $scope.holding = data;
-        data._isNew = true; // TODO: don't do this when etag works
+        holding = response;
+        holding.data.about.holdingFor = {
+          '@id': recordId
+        };
+        holding.data.about.offers[0].heldBy[0].notation = userData.userSigel;
+        $scope.holding = holding;
       });
     } else {
-      console.log('Found', myHoldings.length, 'holdings, picking the first.\n', myHoldings);
-      $scope.holding = myHoldings[0].data;
+      $scope.holding = holding;
     }
-    // TODO: Remove this by end of week. 
-    // items.forEach(function (item) {
-    //   if (item.identifier) {
-    //     recordService.holding.getEtag(item.identifier).then(function(response) {
-    //       console.log(response);
-    //       holdingEtags[data['@id']] = response['etag'];
-    //     });
-    //   }
-    // });
-    // $scope.holdingEtags = holdingEtags;
   });
 
-  $scope.addHolding = function(holdings) {
-    holdings.push({shelvingControlNumber: '', location: constants['user_sigel']});
-  };
-
   $scope.saveHolding = function(holding) {
-    recordService.holding.getEtag(holding['@id']).then(function(response) {
-      var etag = response['etag'];
-      //holding['annotates'] = { '@id': '/' + recType + '/' + recordId };
-      // TODO: only use etag (but it's not present yet..)
-      if(!holding._isNew && (etag || holding.location === $scope.userSigel)) {
-        $http.put('/holding/' + holding['@id'].split('/').slice(-2)[1], holding, {headers: {'If-match':etag}}).success(function(data, status, headers) {
-          $scope.holdingEtags[data['@id']] = headers('etag');
-        }).error(function(data, status, headers) {
-          console.log('ohh crap!');
-        });
-      } else {
-        if (holding._isNew) { delete holding._isNew; }
-        console.log('we wants to post a new holding');
-        $http.post('/holding', holding).success(function(data, status, headers) {
-          $scope.holdingEtags[data['@id']] = headers('etag');
-        }).error(function(data, status, headers) {
-          console.log('ohh crap!');
-        });
-      }
+    console.log('ABOUT TO SAVE HOLDING: ', holding);
+    recordService.holding.save(holding).then(function success(holding) {
+      console.log('SAVED HOLDING, ETAG SHOULD HAVE CHANGED: ', holding);
+      onSaveState();
+      $scope.holding = holding;
+    }, function error(status) {
+      console.log('you should now see an alert from the httpinterceptor');
     });
   };
 
-  $scope.deleteHolding = function(holdingId) {
-    $http['delete']('/holding/' + holdingId).success(function(data, success) {
-      console.log('great success!');
-      $http.get('/record/' + recType + '/' + recordId + '/holdings').success(function(data) {
-        $scope.holdings = patchHoldings(data.list);
-      });
-    }).error(function() {
-      console.log('oh crap!');
+  $scope.deleteHolding = function(holding) {
+    var holdingId = holding.data['@id'];
+    recordService.holding.del(holdingId).then(function(response) {
+      console.log(response);
+      delete $scope.holding;
+      console.log('Holding removed successfully!');
     });
+  };
+
+  $scope.addOffer = function(holding) {
+    var offers = holding.data.about.offers;
+    recordService.holding.create().then(function(response) {
+      var data = response;
+      var offer = data.data.about.offers[0];
+      offer.heldBy[0].notation = userData.userSigel;
+      offers.push(offer);
+    });
+  };
+
+  $scope.deleteOffer = function(holding, index) {
+    var offers = holding.data.about.offers;
+    console.log(offers, index);
+    offers.splice(index, 1);
+    console.log(offers);
+    console.log('Offer removed successfully, form should now be considered dirty!');
   };
 
 });

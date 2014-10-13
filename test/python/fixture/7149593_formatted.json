@@ -1,203 +1,351 @@
 {
-    "@context": "http://libris.kb.se/contexts/libris.jsonld", 
-    "@id": "/bib/7149593", 
-    "@type": "Record", 
-    "bibLevel": {
-        "code": "m", 
-        "label": "Monografisk resurs"
-    }, 
-    "catForm": {
-        "code": "a", 
-        "label": "AACR2/KRS (normalv\u00e4rde)"
-    }, 
-    "characterCoding": {
-        "code": "a", 
-        "label": "UCS/Unicode"
-    }, 
-    "controlNumber": "7149593", 
-    "creator": {
-        "@type": "foaf:Organization", 
-        "abbr": "NB"
-    }, 
-    "dateAndTimeOfLatestTransaction": "2004-08-09T15:20:32.0", 
-    "dateOfPublication": {
-        "@type": "year", 
-        "@value": "1996"
-    }, 
-    "describes": {
-        "baseMaterial": "ill. ;", 
-        "comment": "\u00c4ven tillg. med tryck\u00e5r: 2. uppl., 1996", 
-        "dimensions": "25 cm", 
-        "expression": {
-            "authorList": [
+    "@type": "Record",
+    "@id": "/bib/7149593",
+    "about": {
+        "@type": [
+            "Text",
+            "Monograph"
+        ],
+        "publicationStatus": {
+            "@type": "Concept",
+            "prefLabel_en": "Single known date/probable date",
+            "prefLabel": "Ett årtal",
+            "inCollection": [
                 {
-                    "dateOfBirth": {
-                        "@type": "year", 
-                        "@value": "1914"
-                    }, 
-                    "dateOfDeath": {
-                        "@type": "year", 
-                        "@value": "2001"
-                    }, 
-                    "givenName": "Tove", 
-                    "name": "Tove Jansson", 
-                    "preferredNameForThePerson": "Jansson, Tove", 
-                    "surname": "Jansson"
-                }, 
+                    "@id": "/def/enum/content/publicationStatus-collection"
+                }
+            ],
+            "@id": "/def/enum/content/SingleKnownDateProbableDate"
+        },
+        "publicationYear": "1996",
+        "publicationCountry": [
+            {
+                "exactMatch": "http://id.loc.gov/vocabulary/countries/sw",
+                "label_en": "Sweden",
+                "@type": [
+                    "Concept",
+                    "Country"
+                ],
+                "prefLabel_en": "Sweden",
+                "prefLabel": "Sverige",
+                "@id": "/def/countries/sw",
+                "notation": "sw"
+            }
+        ],
+        "language": [
+            {
+                "langCode": "swe",
+                "matches": "http://id.loc.gov/vocabulary/iso639-2/swe",
+                "@type": [
+                    "Language",
+                    "Concept"
+                ],
+                "prefLabel_en": "Swedish",
+                "prefLabel": "Svenska",
+                "@id": "/def/languages/swe",
+                "langTag": "sv",
+                "notation": "swe"
+            }
+        ],
+        "literaryForm": {
+            "@type": "Concept",
+            "prefLabel_en": "Not fiction (not further specified)",
+            "prefLabel": "Ej skönlitterärt verk",
+            "inCollection": [
                 {
-                    "dateOfBirth": {
-                        "@type": "year", 
-                        "@value": "1917"
-                    }, 
-                    "givenName": "Tuulikki", 
-                    "name": "Tuulikki Pietil\u00e4", 
-                    "preferredNameForThePerson": "Pietil\u00e4, Tuulikki", 
-                    "surname": "Pietil\u00e4"
+                    "@id": "/def/enum/content/literaryForm-collection"
                 }
-            ], 
-            "languageOfTheContent": "swe", 
-            "statementOfResponsibilityRelatingToTitleProper": "Tove Jansson, Tuulikki Pietil\u00e4", 
-            "titleProper": "Anteckningar fr\u00e5n en \u00f6 /"
-        }, 
-        "extentOfText": "102, [1] s. :", 
-        "isbn": "9100563226", 
-        "isbnData": "(inb.)", 
-        "marc:bibliographyCode": [
-            "BULB", 
-            "NB", 
-            "SEE", 
-            "SLB", 
-            "KVIN"
-        ], 
-        "termsOfAvailability": {
-            "literal": "310:00"
-        }
-    }, 
-    "entryMap": {
-        "code": "4500", 
-        "label": "EntryMap"
-    }, 
-    "localSystemNumber": "9100563226", 
-    "marc21": {
-        "fields": [
-            {
-                "084": {
-                    "ind1": " ", 
-                    "ind2": " ", 
-                    "subfields": [
-                        {
-                            "a": "Gcdz Jansson, Tove"
-                        }, 
-                        {
-                            "2": "kssb/6"
-                        }
-                    ]
+            ],
+            "@id": "/def/enum/content/NotFictionNotFurtherSpecified"
+        },
+        "biography": {
+            "@type": "Concept",
+            "prefLabel_en": "Autobiography",
+            "prefLabel": "Självbiografisk text",
+            "inCollection": [
+                {
+                    "@id": "/def/enum/content/biography-collection"
+                },
+                {
+                    "@id": "/def/enum/content/text-collection"
                 }
-            }, 
-            {
-                "084": {
-                    "ind1": " ", 
-                    "ind2": " ", 
-                    "subfields": [
-                        {
-                            "a": "Ibz Pietil\u00e4, Tuulikki"
-                        }, 
-                        {
-                            "2": "kssb/6"
-                        }
-                    ]
+            ],
+            "@id": "/def/enum/content/Autobiography"
+        },
+        "attributedTo": {
+            "sameAs": [
+                {
+                    "birthYear": "1914",
+                    "@type": "Person",
+                    "deathYear": "2001",
+                    "familyName": "Haij",
+                    "controlledLabel": "Haij, Vera, 1914-2001",
+                    "givenName": "Vera"
+                },
+                {
+                    "birthYear": "1914",
+                    "@type": "Person",
+                    "deathYear": "2001",
+                    "familyName": "Janssonová",
+                    "controlledLabel": "Janssonová, Tove, 1914-2001",
+                    "givenName": "Tove"
+                },
+                {
+                    "birthYear": "1914",
+                    "@type": "Person",
+                    "deathYear": "2001",
+                    "familyName": "Janson",
+                    "controlledLabel": "Janson, Tuve, 1914-2001",
+                    "givenName": "Tuve"
+                },
+                {
+                    "birthYear": "1914",
+                    "@type": "Person",
+                    "deathYear": "2001",
+                    "familyName": "Jansson",
+                    "controlledLabel": "Jansson, Tuve, 1914-2001",
+                    "givenName": "Tuve"
+                },
+                {
+                    "birthYear": "1914",
+                    "@type": "Person",
+                    "deathYear": "2001",
+                    "familyName": "Janssonova",
+                    "controlledLabel": "Janssonova, Tove, 1914-2001",
+                    "givenName": "Tove"
+                },
+                {
+                    "birthYear": "1914",
+                    "@type": "Person",
+                    "deathYear": "2001",
+                    "familyName": "Jānsone",
+                    "controlledLabel": "Jānsone, Tūve, 1914-2001",
+                    "givenName": "Tūve"
+                },
+                {
+                    "birthYear": "1914",
+                    "@type": "Person",
+                    "deathYear": "2001",
+                    "familyName": "Yanson",
+                    "controlledLabel": "Yanson, Tōbe, 1914-2001",
+                    "givenName": "Tōbe"
+                },
+                {
+                    "birthYear": "1914",
+                    "@type": "Person",
+                    "deathYear": "2001",
+                    "familyName": "Yānsūn",
+                    "controlledLabel": "Yānsūn, Tūfā, 1914-2001",
+                    "givenName": "Tūfā"
+                },
+                {
+                    "birthYear": "1914",
+                    "@type": "Person",
+                    "deathYear": "2001",
+                    "familyName": "ヤンソン",
+                    "controlledLabel": "ヤンソン, トーベ, 1914-2001",
+                    "givenName": "トーベ"
                 }
-            }, 
-            {
-                "084": {
-                    "ind1": " ", 
-                    "ind2": " ", 
-                    "subfields": [
-                        {
-                            "a": "Lz"
-                        }
-                    ]
+            ],
+            "birthYear": "1914",
+            "nationality": {
+                "@id": "/def/nationalities/e-fi---"
+            },
+            "subject": [
+                {
+                    "@type": "Concept",
+                    "inScheme": {
+                        "@type": "ConceptScheme",
+                        "isVersionOf": {
+                            "@id": "http://dewey.info/scheme/ddc/"
+                        },
+                        "@id": "http://dewey.info/scheme/edition/e23/swe/",
+                        "language": "swe",
+                        "notation": "DDC",
+                        "version": "23"
+                    },
+                    "@id": "http://dewey.info/class/839.7374/e23/",
+                    "notation": "839.7374"
                 }
-            }, 
+            ],
+            "deathYear": "2001",
+            "@type": "Person",
+            "familyName": "Jansson",
+            "controlledLabel": "Jansson, Tove, 1914-2001",
+            "@id": "/resource/auth/191503",
+            "givenName": "Tove",
+            "note": [
+                "Finlandssvensk författare & konstnär",
+                "Har även publicerat sig under pseudonymen Vera Haij"
+            ]
+        },
+        "identifier": [
             {
-                "599": {
-                    "ind1": " ", 
-                    "ind2": " ", 
-                    "subfields": [
-                        {
-                            "a": "Li:S"
-                        }
-                    ]
-                }
-            }, 
-            {
-                "600": {
-                    "ind1": "1", 
-                    "ind2": "4", 
-                    "subfields": [
-                        {
-                            "a": "Jansson, Tove,"
-                        }, 
-                        {
-                            "d": "1914-2001"
-                        }
-                    ]
-                }
-            }, 
-            {
-                "600": {
-                    "ind1": "1", 
-                    "ind2": "4", 
-                    "subfields": [
-                        {
-                            "a": "Pietil\u00e4, Tuulikki"
-                        }
-                    ]
-                }
-            }, 
-            {
-                "976": {
-                    "ind1": " ", 
-                    "ind2": "2", 
-                    "subfields": [
-                        {
-                            "a": "Gcdz"
-                        }, 
-                        {
-                            "b": "Litteraturhistoria Finlandssvensk"
-                        }
-                    ]
-                }
-            }, 
-            {
-                "976": {
-                    "ind1": " ", 
-                    "ind2": "2", 
-                    "subfields": [
-                        {
-                            "a": "Ibz"
-                        }, 
-                        {
-                            "b": "Konst Konsthistoria"
-                        }
-                    ]
+                "@type": "Identifier",
+                "identifierValue": "91-0-056322-6",
+                "identifierNote": "inb.",
+                "identifierScheme": {
+                    "@id": "/def/identifiers/isbn"
                 }
             }
-        ]
-    }, 
-    "placeOfManufacture": {
-        "label": "Finland"
-    }, 
-    "placeOfPublication": {
-        "label": "Stockholm"
-    }, 
-    "publisherName": "Bonnier", 
+        ],
+        "availability": "310:00",
+        "classification": [
+            {
+                "@type": "Concept",
+                "notation": "839.7374",
+                "inScheme": {
+                    "@type": "ConceptScheme",
+                    "@id": "http://dewey.info/scheme/edition/e23/swe/",
+                    "version": "23",
+                    "language": "swe",
+                    "notation": "DDC",
+                    "isVersionOf": {
+                        "@id": "http://dewey.info/scheme/ddc/"
+                    }
+                },
+                "@id": "http://dewey.info/class/839.7374/e23/"
+            },
+            {
+                "@type": "Concept",
+                "notation": "Gcdz Jansson, Tove",
+                "inScheme": {
+                    "@type": "ConceptScheme",
+                    "@id": "/topic/kssb/6",
+                    "notation": "kssb/6"
+                },
+                "@id": "/topic/kssb/6/Gcdz%20Jansson%2C%20Tove"
+            },
+            {
+                "@type": "Concept",
+                "notation": "Ibz Pietilä, Tuulikki",
+                "inScheme": {
+                    "@type": "ConceptScheme",
+                    "@id": "/topic/kssb/6",
+                    "notation": "kssb/6"
+                },
+                "@id": "/topic/kssb/6/Ibz%20Pietil%C3%A4%2C%20Tuulikki"
+            },
+            {
+                "@type": "Concept",
+                "notation": "Lz",
+                "@id": "/topic/kssb/Lz"
+            },
+            {
+                "@type": "Concept",
+                "inScheme": {
+                    "@type": "ConceptScheme",
+                    "@id": "/topic/sab",
+                    "notation": "sab"
+                },
+                "notation": "Gcdz",
+                "prefLabel": "Litteraturhistoria Finlandssvensk",
+                "@id": "/topic/sab/Gcdz"
+            },
+            {
+                "@type": "Concept",
+                "inScheme": {
+                    "@type": "ConceptScheme",
+                    "@id": "/topic/sab",
+                    "notation": "sab"
+                },
+                "notation": "Ibz",
+                "prefLabel": "Konst Konsthistoria",
+                "@id": "/topic/sab/Ibz"
+            }
+        ],
+        "instanceTitle": {
+            "@type": "Title",
+            "titleValue": "Anteckningar från en ö"
+        },
+        "responsibilityStatement": "Tove Jansson, Tuulikki Pietilä",
+        "publication": [
+            {
+                "@type": "ProviderEvent",
+                "place": {
+                    "@type": "Place",
+                    "label": "Stockholm"
+                },
+                "providerName": "Bonnier",
+                "providerDate": "1996"
+            }
+        ],
+        "manufacture": [
+            {
+                "@type": "ProviderEvent",
+                "place": {
+                    "@type": "Place",
+                    "label": "Finland"
+                }
+            }
+        ],
+        "hasFormat": [
+            {
+                "@type": "Product",
+                "extent": "102, [1] s.",
+                "otherPhysicalDetails": "ill.",
+                "dimensions": "25 cm"
+            }
+        ],
+        "comment": [
+            "Även tillg. med tryckår: 2. uppl., 1996"
+        ],
+        "subject": [
+            {
+                "@type": "Person",
+                "familyName": "Jansson",
+                "givenName": "Tove",
+                "birthYear": "1914",
+                "deathYear": "2001",
+                "controlledLabel": "Jansson, Tove, 1914-2001",
+                "@id": "/resource/auth/191503"
+            },
+            {
+                "@type": "Person",
+                "familyName": "Pietilä",
+                "givenName": "Tuulikki",
+                "birthYear": "1917",
+                "deathYear": "2009",
+                "controlledLabel": "Pietilä, Tuulikki, 1917-2009"
+            }
+        ],
+        "influencedBy": [
+            {
+                "@type": "Person",
+                "familyName": "Pietilä",
+                "givenName": "Tuulikki",
+                "birthYear": "1917",
+                "deathYear": "2009",
+                "controlledLabel": "Pietilä, Tuulikki, 1917-2009"
+            }
+        ],
+        "@id": "/resource/bib/7149593"
+    },
     "status": {
-        "code": "c", 
-        "label": "R\u00e4ttad eller reviderad post (s\u00e4tts maskinellt)"
-    }, 
-    "typeOfRecord": {
-        "code": "a", 
-        "label": "Text: tryck"
-    }
+        "@id": "/def/enum/record/CorrectedOrRevised"
+    },
+    "characterCoding": {
+        "@id": "/def/enum/record/UCS-Unicode"
+    },
+    "catForm": {
+        "@id": "/def/enum/record/AACR2"
+    },
+    "entryMap": "4500",
+    "controlNumber": "7149593",
+    "date": "960214",
+    "originalCatalogingAgency": {
+        "@type": "Organization",
+        "name": "NB"
+    },
+    "bibliographyCode": [
+        "BULB",
+        "NB",
+        "SEE",
+        "SLB",
+        "KVIN"
+    ],
+    "modified": "2014-06-10T12:05:05.0+0200",
+    "librisIIINumber": [
+        "9100563226"
+    ]
 }

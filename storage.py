@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 import json
 import os
+import datetime
+import uuid
 #from sqlalchemy import MetaData, Table, create_engine
 
 
@@ -46,15 +48,85 @@ class Storage(object):
         if not os.path.exists(self.path):
             os.makedirs(self.path)
 
-    def save_draft(self, user_id, rec_type, rec_id, json_data, etag):
+    def get_record_summary(rec_type, rec_id, json_data, etag):
+        print rec_id
+
+    def rw_index(self, path, callback, params={}):
+        filename = "/".join([path, 'index.json'])
+        if not os.path.exists(path):
+            return {}
+        else:
+            with open(filename, 'a+') as f:
+                # Read index
+                f.seek(0)
+                draft_index = f.read()
+                
+                # Load or initiate
+                if draft_index != '':
+                    draft_index = json.loads(draft_index)
+                else:
+                    draft_index = { 'user': params['user_id'], 'drafts': [] }
+
+                if callback:
+                    draft_index = callback(draft_index, params)
+                # Trucate
+                f.seek(0)
+                f.truncate()
+                # Update
+                f.write(json.dumps(draft_index))
+                return draft_index
+
+    def add_to_index(self, user_id, rec_type, rec_id, record, etag, path):
+
+        def do_update_index(draft_index, params):
+            
+            match_index = self.find_in_index(draft_index, params['meta_record']['@id'])
+
+            # Update or add meta record
+            if match_index is None:
+                draft_index['drafts'].append(params['meta_record'])
+            else:
+                draft_index['drafts'][match_index] = params['meta_record']
+
+            return draft_index
+
+        meta_record = {
+                            '@id': record['@id'],
+                            'etag': etag,
+                            'modified': record['modified'],
+                            'title': record['about']['instanceTitle']['titleValue']
+                        }
+
+        self.rw_index(path, do_update_index, { 'meta_record': meta_record, 'user_id': user_id})
+        return meta_record
+
+    def remove_from_index(self, user_id, rec_type, rec_id):
+        def do_remove_index(draft_index, params):
+            for idx, d in enumerate(draft_index['drafts']):
+                if d['@id'] == '/' + '/'.join([rec_type, params['rec_id']]):
+                    draft_index['drafts'].remove(d)
+            return draft_index
+        self.rw_index(construct_path([self.path, user_id]), do_remove_index, {'rec_id': rec_id, 'user_id': user_id})
+
+    def save_draft(self, user_id, rec_type, json_record, etag, rec_id=None):
+        if rec_id is None or rec_id == 'new':
+            rec_id = construct_id(rec_type)
+
         path = construct_path([self.path, user_id, rec_type])
         create_dir_if_not_exists(path)
-        filename = "/".join([path, rec_id])
-        with open(filename, 'w') as f:
-            f.write(json_data)
 
-    def update_draft(self, user_id, rec_type, rec_id, json_data, etag):
-        self.save_draft(user_id, rec_type, rec_id, json_data, etag)
+        record = json.loads(json_record)
+        record['draft'] = True
+        record['@id'] = '/' + '/'.join([rec_type, rec_id])
+        record['modified'] = datetime.datetime.now().isoformat()
+
+        with open(construct_path([path, rec_id]), 'w') as f:
+            f.write(json.dumps(record))
+        meta_record = self.add_to_index(user_id, rec_type, rec_id, record, etag, construct_path([self.path, user_id]))
+        return record
+
+    def update_draft(self, user_id, rec_type, json_data, etag, rec_id):
+        return self.save_draft(user_id, rec_type, json_data, etag, rec_id)
 
     def get_draft(self, user_id, rec_type, rec_id):
         path = construct_path([self.path, user_id, rec_type])
@@ -67,34 +139,33 @@ class Storage(object):
 
     def delete_draft(self, user_id, rec_type, rec_id):
         filename = construct_path([self.path, user_id, rec_type, rec_id])
+        print filename
         if os.path.exists(filename):
             os.remove(filename)
+            return self.remove_from_index(user_id, rec_type, rec_id)
 
-    def get_drafts(self, user_id):
-        result = {}
-        for root, subFolders, files in os.walk(construct_path([self.path, user_id])):
-            for file in files:
-                f = os.path.join(root,file)
-                result["/".join(f.rsplit("/",2)[-2:])] = f
-        return result
 
-    def get_drafts_as_json(self, user_id):
-        result = {}
-        drafts = []
-        for root, subFolders, files in os.walk(construct_path([self.path, user_id])):
-            for file in files:
-                f = os.path.join(root,file)
-                item = {}
-                item['type'] = f.rsplit("/",2)[-2:-1][0]
-                item['id'] = f.rsplit("/",2)[-1:][0]
-                item['path'] = f
-                drafts.append(item)
-        result['drafts'] = drafts
-        return json.dumps(result)
+    def get_drafts_index(self, user_id):
+        def read_index(draft_index, params):
+            return draft_index
 
-    def draft_exists(self, rec_type, rec_id):
-        return os.path.exists("/".join([self.path, rect_type, rec_id]))
+        path = construct_path([self.path, user_id])
+        return self.rw_index(path, read_index, {'user_id': user_id})
 
+    def draft_exists(self, user_id, rec_type, rec_id):
+        return os.path.exists("/".join([self.path, user_id, rec_type, rec_id])) and (self.find_in_index(self.get_drafts_index(user_id), rec_id) is not None)
+
+    def find_in_index(self, draft_index, rec_id):
+        match_index = None
+        # Find meta record in index    
+        for idx, d in enumerate(draft_index['drafts']):
+            if d['@id'] == rec_id:
+                match_index = idx
+                break
+        return match_index
+
+def construct_id(rec_type):
+    return 'draft-' + str(uuid.uuid4())
 
 def construct_path(path_array):
     return "/".join(path_array)
@@ -102,4 +173,6 @@ def construct_path(path_array):
 def create_dir_if_not_exists(path):
     if not os.path.exists(str(path)):
         os.makedirs(path)
+
+
 

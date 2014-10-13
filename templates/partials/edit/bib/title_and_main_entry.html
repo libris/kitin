@@ -1,454 +1,467 @@
  {% raw %}
- <h2> <span>{{ 'Titel och upphov' }}</span><i></i></h2>
+ <h2>
+  <span>{{ 'Titel och upphov' }}</span>
+  <i></i>
+</h2>
+<div>
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.instanceTitle.titleValue</span>
+    <textarea data-inplace class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.titleValue"></textarea>
+  </div>
+  <div class="label" data-ng-show="exists(record.about.instanceTitle.partEnumeration)">
+    <span class="lbl" translate>LABEL.record.about.instanceTitle.partEnumeration</span>
+    <textarea data-inplace class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.partEnumeration"></textarea>
+  </div>
+  <div class="label" data-ng-show="exists(record.about.instanceTitle.partTitle)">
+    <span class="lbl" translate>LABEL.record.about.instanceTitle.partTitle</span>
+    <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.partTitle"></textarea>
+  </div>
+  <div class="label" data-ng-show="exists(record.about.instanceTitle.subtitle)">
+    <span class="lbl" translate>LABEL.record.about.instanceTitle.subtitle</span>
+    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.subtitle"></textarea>
+  </div>
+  <div class="label" data-ng-show="exists(record.about.titleVariation.titleType)">
+    <span class="lbl" translate>LABEL.record.about.titleVariation.titleType</span>
+    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.titleType"></textarea>
+  </div>
+  <div class="label" data-ng-show="exists(record.about.uniformTitle)">
+    <span class="lbl" translate>LABEL.record.about.uniformTitle</span>
+    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.uniformTitle"></textarea>
+  </div> 
+  <div class="label" data-ng-show="exists(record.about.keyTitle.titleValue)">
+     <span class="lbl" translate>LABEL.record.about.keyTitle</span>
+    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.keyTitle.titleValue"></textarea>       
+  </div>
+  <div class="label" data-ng-show="exists(record.about.keyTitle.titleQualifier)">
+     <span class="lbl" translate>LABEL.record.about.keyTitle.titleQualifier</span>
+    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.keyTitle.titleQualifier"></textarea>       
+  </div>
+  <div class="label" data-ng-show="exists(record.about.titleVariation.titleValue)">
+    <span class="lbl" translate>LABEL.record.about.titleVariation.titleValue</span>
+    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.titleValue"></textarea>
+  </div>
+  <div class="label" data-ng-show="exists(record.about.titleVariation.subtitle)">
+    <span class="lbl" translate>LABEL.record.about.titleVariation.subtitle</span>
+    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.subtitle"></textarea>
+  </div>        
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.abbreviatedTitle</span>
+    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.abbreviatedTitle.titleValue"></textarea>
+  </div>
+
+  <!-- INFLUENTIAL RELATION TITLE  START -->
+  <div class="label datatable" data-ng-target="influentialRelationTable" 
+    data-kitin-data-table 
+    data-table-model="record.about.influentialRelation" 
+    data-table-header-row-template="influentialRelation-header-row-template"
+    data-table-row-template="influentialRelation-row-template"
+    data-subject="record.about" data-link-multiple="influentialRelation"
+    data-default-type="Comment"
+    data-add-first
+    data-addable="notes">
+  </div>
+
+  <script type="text/ng-template" id="influentialRelation-header-row-template">
+    <td>
+        <span class="lbl" translate>LABEL.record.about.influentialRelation</span>
+    </td>
+  </script>
+  <script type="text/ng-template" id="influentialRelation-row-template">
+    <td>
+      <div class="label">
+        <textarea ng-model="objects[$index].uniformTitle" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
+      </div>
+    </td>
+    <td class="controls">
+      <button class="btn-link deleter" data-ng-click="removeTableRow($index)">
+        <i class="fa fa-times"></i>
+      </button>
+    </td>
+  </script>
+  <!-- INFLUENTIAL RELATION TITLE  END -->
+
+  <!-- RELATION  START -->
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.relation</span>
+    <ul class="tags entity" data-kitin-link-entity
+        data-subject="record.about"
+        data-link-multiple="'relation'" data-type="relation"
+        data-view-template="render-relation-referenced-entity"
+        data-search-template="render-bib-search">
+    </ul>
+    <script type="text/ng-template" id="render-relation-referenced-entity">
       <div>
-        <label>
-          <span class="lbl" translate>LABEL.record.about.instanceTitle.titleValue</span>
-          <textarea data-inplace class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.titleValue"></textarea>
-        </label>
-        <label data-ng-show="exists(record.about.instanceTitle.partEnumeration)">
-          <span class="lbl" translate>LABEL.record.about.instanceTitle.partEnumeration</span>
-          <textarea data-inplace class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.partEnumeration"></textarea>
-        </label>
-        <label data-ng-show="exists(record.about.instanceTitle.partTitle)">
-          <span class="lbl" translate>LABEL.record.about.instanceTitle.partTitle</span>
-          <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.partTitle"></textarea>
-        </label>
-        <label data-ng-show="exists(record.about.instanceTitle.subtitle)">
-          <span class="lbl" translate>LABEL.record.about.instanceTitle.subtitle</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.subtitle"></textarea>
-        </label>
-        <label data-ng-show="exists(record.about.titleVariation.titleType)">
-          <span class="lbl" translate>LABEL.record.about.titleVariation.titleType</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.titleType"></textarea>
-        </label>
-        <label data-ng-show="exists(record.about.uniformTitle)">
-          <span class="lbl" translate>LABEL.record.about.uniformTitle</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.uniformTitle"></textarea>
-        </label> 
-        <label data-ng-show="exists(record.about.keyTitle.titleValue)">
-           <span class="lbl" translate>LABEL.record.about.keyTitle</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.keyTitle.titleValue"></textarea>       
-        </label>
-        <label data-ng-show="exists(record.about.keyTitle.titleQualifier)">
-           <span class="lbl" translate>LABEL.record.about.keyTitle.titleQualifier</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.keyTitle.titleQualifier"></textarea>       
-        </label>
-        <label data-ng-show="exists(record.about.titleVariation.titleValue)">
-          <span class="lbl" translate>LABEL.record.about.titleVariation.titleValue</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.titleValue"></textarea>
-        </label>
-        <label data-ng-show="exists(record.about.titleVariation.subtitle)">
-          <span class="lbl" translate>LABEL.record.about.titleVariation.subtitle</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.subtitle"></textarea>
-        </label>        
-        <label>
-          <span class="lbl" translate>LABEL.record.about.abbreviatedTitle</span>
-          <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.abbreviatedTitle.titleValue"></textarea>
-        </label>
+        <span class="lbl" translate>LABEL.record.about.relation.linkNote</span>
+        <input data-inplace class="ng-pristine ng-valid" type="text" ng-model="object.linkNote" />
+      </div>
+      <a href="?m={{object.describedBy['@id']}}">
+        <i class="fa fa-bookmark" data-ng-if="isAuth(object.describedBy)"></i>
+        <span class="name">{{ object.title }}</span>
+        {{ object.issn }}
+      </a>
+      <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
+    </script>
+  </div>
+  <!-- RELATION  END -->
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.isPartOf</span>
+    <ul class="tags entity" data-kitin-link-entity
+        data-subject="record.about"
+        data-link-multiple="'isPartOf'" data-type="isPartOf"
+        data-view-template="render-referenced-entity"
+        data-search-template="render-bib-search">
+    </ul>
+  </div>
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.hasPart</span>
+    <ul class="tags entity" data-kitin-link-entity
+        data-subject="record.about"
+        data-link-multiple="'hasPart'" data-type="hasPart"
+        data-view-template="render-referenced-entity"
+        data-search-template="render-bib-search">
+    </ul>
+  </div>
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.precededBy</span>
+    <ul class="tags entity" data-kitin-link-entity
+        data-subject="record.about"
+        data-link-multiple="'precededBy'" data-type="PrecededBy"
+        data-view-template="render-referenced-entity"
+        data-search-template="render-bib-search">
+    </ul>
+  </div>
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.succeededBy</span>
+    <ul class="tags entity" data-kitin-link-entity
+        data-subject="record.about"
+        data-link-multiple="'succeededBy'" data-type="SucceededBy"
+        data-view-template="render-referenced-entity"
+        data-search-template="render-bib-search">
+    </ul>
+  </div>
+  <!-- LANGUAGES  START -->
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.language</span>
+    <ul class="tags" data-kitin-link-entity
+        data-subject="record.about"
+        data-link-multiple="'language'" data-type="Language"
+        data-view-template="render-language"
+        data-search-template="render-search-language">
+    </ul>
+  </div>
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.originalLanguage</span>
+    <ul class="tags" data-kitin-link-entity
+        data-subject="record.about"
+        data-link-multiple="'originalLanguage'" data-type="Language"
+        data-view-template="render-language"
+        data-search-template="render-search-language">
+    </ul>
+  </div>
+  <!-- RENDER LANGUAGE TEMPLATE  START -->
+  <script type="text/ng-template" id="render-language">
+      <div class="tag-linked"
+        data-ng-controller="PopoverCtrl" 
+        data-popover="{{loading}}" 
+        data-object="{{object}}" 
+        data-popover-title="{{object.prefLabel}}" 
+        data-custom-popover="language">
+          <i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i>
+          {{ object.prefLabel }}
+          <span data-ng-show="object.langCode">({{ object.langCode }})</span>
+          <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
+      </div>
+  </script>
+  <!-- RENDER LANGUAGE TEMPLATE  END -->
 
-        <!-- INFLUENTIAL RELATION TITLE  START -->
-        <label class="datatable" data-ng-target="influentialRelationTable" 
-          data-kitin-data-table 
-          data-table-model="record.about.influentialRelation" 
-          data-table-header-row-template="influentialRelation-header-row-template"
-          data-table-row-template="influentialRelation-row-template"
-          data-subject="record.about" data-link-multiple="influentialRelation"
-          data-default-type="Comment"
-          data-add-first
-          data-addable="notes">
-        </label>
+  <!-- SEARCH LANGUAGE TEMPLATE  START -->
+  <script type="text/ng-template" id="render-search-language">
+    <div data-click-search>
+      <span class="add-link" ng-click="onclick($event)"><i class="fa fa-plus"></i></span>
+      <span class="search-field toggler">
+        <i class="fa fa-search"></i>
+        <input data-inplace class="input-large authdependant embedded" type="text" ng-blur="onblur($event)"
+          data-no-value="{{ object.prefLabel }} ({{ object.langCode }})"
+          data-kitin-search-entity
+          data-service-url="{{API_PATH}}/def/_search"
+          data-filter="{ filter: 'about.@type:Language'}"
+          data-completion-template="select-language-template" placeholder="Sök språk">
+      </span>
+    </div>
+  </script>
+  <!-- SEARCH LANGUAGE TEMPLATE  START -->
 
-        <script type="text/ng-template" id="influentialRelation-header-row-template">
-          <td>
-              <span class="lbl" translate>LABEL.record.about.influentialRelation</span>
-          </td>
-        </script>
-        <script type="text/ng-template" id="influentialRelation-row-template">
-          <td>
-            <label>
-              <textarea ng-model="objects[$index].uniformTitle" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
-            </label>
-          </td>
-          <td class="controls">
-            <button class="btn-link deleter" data-ng-click="removeTableRow($index)">
-              <i class="fa fa-times"></i>
-            </button>
-          </td>
-        </script>
-        <!-- INFLUENTIAL RELATION TITLE  END -->
+  <!-- SELECT LANGUAGE TEMPLATE  START -->
+  <script type="text/html" id="select-language-template">
+    <div class="auth">
+      <h4>
+      <span class="name"><%= data.prefLabel %></span><span class="date"> <%= data.langCode %></span>
+      </h4>
+    </div>
+  </script>
+  <!-- SELECT LANGUAGE TEMPLATE  END -->
 
-      <!-- RELATION  START -->
-      <label>
-        <span class="lbl" translate>LABEL.record.about.relation</span>
-        <ul class="tags entity" data-kitin-link-entity
-            data-subject="record.about"
-            data-link-multiple="'relation'" data-type="relation"
-            data-view-template="render-relation-referenced-entity"
-            data-search-template="render-bib-search">
-        </ul>
-        <script type="text/ng-template" id="render-relation-referenced-entity">
-            <div><span class="lbl" translate>LABEL.record.about.relation.linkNote</span><input data-inplace class="ng-pristine ng-valid" type="text" ng-model="object.linkNote" /></div>
-            <a href="?m={{object.describedBy['@id']}}"><i class="fa fa-bookmark" data-ng-if="isAuth(object.describedBy)"></i> <span class="name">{{ object.title }}</span> {{ object.issn }}</a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
-        </script>
-      </label>
-      <!-- RELATION  END -->
+  <!-- LANGUAGE NOTE  START -->
+  <div class="label datatable" data-ng-target="languageNoteTable" 
+    data-kitin-data-table 
+    data-table-model="record.about.languageNote" 
+    data-table-header-row-template="languageNote-header-row-template"
+    data-table-row-template="languageNote-row-template"
+    data-subject="record.about" data-link-multiple="languageNote"
+    data-default-type="Comment"
+    data-add-first
+    data-addable="notes">
+  </div>
 
+  <script type="text/ng-template" id="languageNote-header-row-template">
+    <td>
+        <span class="lbl" translate>LABEL.record.about.languageNote</span>
+    </td>
+  </script>
+  <script type="text/ng-template" id="languageNote-row-template">
+    <td>
+      <div class="label">
+        <textarea ng-model="objects[$index]" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
+      </div>
+    </td>
+    <td class="controls">
+      <button class="btn-link deleter" data-ng-click="removeTableRow($index)">
+        <i class="fa fa-times"></i>
+      </button>
+    </td>
+  </script>
+  <!-- LANGUAGE NOTE  END -->
+  <!-- LANGUAGES  END -->
 
-        <label>
-          <span class="lbl" translate>LABEL.record.about.isPartOf</span>
-          <ul class="tags entity" data-kitin-link-entity
-              data-subject="record.about"
-              data-link-multiple="'isPartOf'" data-type="isPartOf"
-              data-view-template="render-referenced-entity"
-              data-search-template="render-bib-search">
-          </ul>
-        </label>
-        <label>
-          <span class="lbl" translate>LABEL.record.about.hasPart</span>
-          <ul class="tags entity" data-kitin-link-entity
-              data-subject="record.about"
-              data-link-multiple="'hasPart'" data-type="hasPart"
-              data-view-template="render-referenced-entity"
-              data-search-template="render-bib-search">
-          </ul>
-        </label>
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.alphabet</span>
+    <ul class="tags" data-kitin-link-entity
+        data-subject="record.about"
+        data-link="'alphabet'" data-type="Alphabet"
+        data-view-template="render-generic-linked-entity"
+        data-search-template="render-generic-select"
+        data-filter="about.inCollection.@id:/def/enum/content/alphabet-collection">
+    </ul>
+  </div>
 
-        
-        <label>
-          <span class="lbl" translate>LABEL.record.about.precededBy</span>
-          <ul class="tags entity" data-kitin-link-entity
-              data-subject="record.about"
-              data-link-multiple="'precededBy'" data-type="PrecededBy"
-              data-view-template="render-referenced-entity"
-              data-search-template="render-bib-search">
-          </ul>
-        </label>
-        <label>
-          <span class="lbl" translate>LABEL.record.about.succeededBy</span>
-          <ul class="tags entity" data-kitin-link-entity
-              data-subject="record.about"
-              data-link-multiple="'succeededBy'" data-type="SucceededBy"
-              data-view-template="render-referenced-entity"
-              data-search-template="render-bib-search">
-          </ul>
-        </label>
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.contentType</span>
+    <ul class="tags" data-kitin-link-entity
+        data-subject="record.about"
+        data-link-multiple="'contentType'" data-type="contentType"
+        data-view-template="render-generic-linked-entity"
+        data-search-template="render-generic-select"
+        data-filter="about.inCollection.@id:/def/enum/content/contentType-collection">
+    </ul>
+  </div>
 
-        <!-- LANGUAGES  START -->
-        <label>
-          <span class="lbl" translate>LABEL.record.about.language</span>
-          <ul class="tags" data-kitin-link-entity
-              data-subject="record.about"
-              data-link-multiple="'language'" data-type="Language"
-              data-view-template="render-language"
-              data-search-template="render-search-language">
-          </ul>
-        </label>
+  <!-- PERSONS  START -->
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.responsibilityStatement</span>
+    <textarea spellcheck="false"
+        data-inplace data-ui-jq="autosize"
+        data-ng-model="record.about.responsibilityStatement"></textarea>
+  </div>
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.attributedTo</span>
+    <div data-kitin-link-entity
+        data-ng-init="label = 'Lägg till huvuduppslag'"
+        data-subject="record.about" data-link="'attributedTo'" data-type="Person"
+        data-view-template="render-person"
+        data-search-template="render-search-box"
+        data-rich-entity>
+    </div>
+  </div>
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.influencedBy</span>
+    <!--<a ng-click="showInfluencedBy = !showInfluencedBy">Dölj <i class="icon fa fa-caret-up"></i></a>-->
+    <div data-kitin-link-entity
+        data-ng-init="label = 'Lägg till biuppslag'"
+        data-subject="record.about" data-link-multiple="'influencedBy'" data-type="Person"
+        data-view-template="render-person"
+        data-search-template="render-search-box"
+        data-rich-entity>
+    </div>
+  </div>
+</div>
 
-        <label>
-          <span class="lbl" translate>LABEL.record.about.originalLanguage</span>
-          <ul class="tags" data-kitin-link-entity
-              data-subject="record.about"
-              data-link-multiple="'originalLanguage'" data-type="Language"
-              data-view-template="render-language"
-              data-search-template="render-search-language">
-          </ul>
-        </label>
+<div class="element-adder" data-element-adder="title_and_main_entry"></div>
 
-        <!-- RENDER LANGUAGE TEMPLATE  START -->
-        <script type="text/ng-template" id="render-language">
-              <a href="#">
-                <i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.prefLabel }} <span data-ng-show="object.langCode">({{ object.langCode }})</span>
-              </a> 
-              <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
-        </script>
-        <!-- RENDER LANGUAGE TEMPLATE  END -->
+<!-- RENDER SEARCH AUTH TEMPLATE  START -->
+<script type="text/ng-template" id="render-search-box">
+  <div class="label" class="find-entity">
+    <i class="fa fa-search"></i>
+    <input class="input-large" type="text" placeholder="{{ label }}"
+          data-kitin-search-entity
+          data-service-url="{{API_PATH}}/auth/_search"
+          data-filter="{ 
+              'filters' : ['about.@type:Person', 'about.@type:Meeting', 'about.@type:Organization' ] } "
+          data-completion-template="auth-completion-template" 
+          data-allow-non-auth="true"/>
+  </div>
+</script>
+<!-- RENDER SEARCH AUTH TEMPLATE  END -->
 
-        <!-- SEARCH LANGUAGE TEMPLATE  START -->
-        <script type="text/ng-template" id="render-search-language">
-            <i class="fa fa-search"></i> <input data-inplace class="input-large authdependant embedded" type="text"
-                  placeholder="Lägg till språk"
-                  data-no-value="{{ object.prefLabel }} ({{ object.langCode }})"
-                  data-kitin-search-entity
-                  data-service-url="{{API_PATH}}/def/_search"
-                  data-filter="{ filter: 'about.@type:Language'}"
-                  data-completion-template="select-language-template" placeholder="+ Lägg till språk">
-        </script>
-        <!-- SEARCH LANGUAGE TEMPLATE  START -->
-
-        <!-- SELECT LANGUAGE TEMPLATE  START -->
-        <script type="text/html" id="select-language-template">
-          <div class="auth">
-            <h4>
-            <span class="name"><%= data.prefLabel %></span><span class="date"> <%= data.langCode %></span>
-            </h4>
-          </div>
-        </script>
-        <!-- SELECT LANGUAGE TEMPLATE  END -->
-
-        <!-- LANGUAGE NOTE  START -->
-        <label class="datatable" data-ng-target="languageNoteTable" 
-          data-kitin-data-table 
-          data-table-model="record.about.languageNote" 
-          data-table-header-row-template="languageNote-header-row-template"
-          data-table-row-template="languageNote-row-template"
-          data-subject="record.about" data-link-multiple="languageNote"
-          data-default-type="Comment"
-          data-add-first
-          data-addable="notes">
-        </label>
-
-        <script type="text/ng-template" id="languageNote-header-row-template">
-          <td>
-              <span class="lbl" translate>LABEL.record.about.languageNote</span>
-          </td>
-        </script>
-        <script type="text/ng-template" id="languageNote-row-template">
-          <td>
-            <label>
-              <textarea ng-model="objects[$index]" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
-            </label>
-          </td>
-          <td class="controls">
-            <button class="btn-link deleter" data-ng-click="removeTableRow($index)">
-              <i class="fa fa-times"></i>
-            </button>
-          </td>
-        </script>
-        <!-- LANGUAGE NOTE  END -->
-        <!-- LANGUAGES  END -->
-
-        <label>
-          <span class="lbl" translate>LABEL.record.about.alphabet</span>
-          <ul class="tags" data-kitin-link-entity
-              data-subject="record.about"
-              data-link="'alphabet'" data-type="Alphabet"
-              data-view-template="render-generic-linked-entity"
-              data-search-template="render-generic-select"
-              data-filter="about.inCollection.@id:/def/enum/content/alphabet-collection">
-          </ul>
-        </label>
-
-        <label>
-          <span class="lbl" translate>LABEL.record.about.contentType</span>
-          <ul class="tags" data-kitin-link-entity
-              data-subject="record.about"
-              data-link-multiple="'contentType'" data-type="contentType"
-              data-view-template="render-generic-linked-entity"
-              data-search-template="render-generic-select"
-              data-filter="about.inCollection.@id:/def/enum/content/contentType-collection">
-          </ul>
-        </label>
-
-      <!-- PERSONS  START -->
-        <label>
-          <span class="lbl" translate>LABEL.record.about.responsibilityStatement</span>
-          <textarea spellcheck="false"
-              data-inplace data-ui-jq="autosize"
-              data-ng-model="record.about.responsibilityStatement"></textarea>
-        </label>
-        <label>
-          <span class="lbl" translate>LABEL.record.about.attributedTo</span>
-          <div data-kitin-link-entity
-              data-ng-init="label = 'Lägg till huvuduppslag'"
-              data-subject="record.about" data-link="'attributedTo'" data-type="Person"
-              data-view-template="render-person"
-              data-search-template="render-search-box">
-          </div>
-        </label>
-        <label>
-          <span class="lbl" translate>LABEL.record.about.influencedBy</span>
-          <!--<a ng-click="showInfluencedBy = !showInfluencedBy">Dölj <i class="icon fa fa-caret-up"></i></a>-->
-          <div data-kitin-link-entity
-              data-collapsable="true"
-              data-ng-init="label = 'Lägg till biuppslag'"
-              data-subject="record.about" data-link-multiple="'influencedBy'" data-type="Person"
-              data-view-template="render-person"
-              data-search-template="render-search-box">
-          </div>
-        </label>
+<!-- RENDER PERSON TEMPLATE  START -->
+<script type="text/ng-template" id="render-person">
+  <div data-ng-if="isLinked(object) && !isEmpty(object)" class="entity person linked">
+    <div class="main">
+      <span onload="person = object" data-ng-include="'render-person-name'"></span>
+      <a data-ng-if="isLinked(object)" class="btn-link auth" data-ng-controller="ModalCtrl" data-ng-click="openAuthModal(person['@id'])">
+        <i class="fa fa-bookmark"></i> Aukt.
+      </a>
+    </div>
+    <div data-ng-include="'roles'"></div>
+    <a data-ng-if="!editable.on" class="delete" href="#"
+       data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a>
+  </div>
+  <div data-ng-if="!isLinked(object)" class="entity person embedded"
+        data-ng-init="editable = {on: !(object.controlledLabel || object.givenName || object.name)}">
+    <div data-ng-hide="editable.on">
+        <div class="label" >
+          <span onload="person = object" data-ng-include="'render-person-name'"></span><a class="auth" href="#" data-ng-click="editable.on = !editable.on">Ändra</a>
+        </div>
+    </div>
+    <div data-ng-show="editable.on">
+      <a class="delete" href="#" data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a>
+      <div class="label">
+        <span class="lbl">{{ "Förnamn" }}</span>
+        <input data-inplace class="" type="text" placeholder="Förnamn"
+               data-ng-model="object.givenName" />
+      </div>
+      <div class="label">
+        <span class="lbl">{{ "Släktnamn" }}</span>
+        <input data-inplace class="" type="text" placeholder="Släktnamn"
+               data-ng-model="object.familyName" />
       </div>
     </div>
+    <div data-ng-show="editable.on">
+      <div class="label">
+        <span class="lbl">{{ "Född" }}</span>
+        <input data-inplace class="authdependant" type="text" placeholder="ÅÅÅÅ"
+               data-ng-model="object.birthYear" />
 
-    <div class="element-adder" data-element-adder="title_and_main_entry"></div>
-
-    <!-- RENDER SEARCH AUTH TEMPLATE  START -->
-    <script type="text/ng-template" id="render-search-box">
-      <label class="find-entity">
-        <i class="fa fa-search"></i>
-        <input class="input-large" type="text" placeholder="{{ label }}"
-              data-kitin-search-entity
-              data-service-url="{{API_PATH}}/auth/_search"
-              data-filter="{ 
-                  'filters' : ['about.@type:Person', 'about.@type:Meeting', 'about.@type:Organization' ] } "
-              data-completion-template="auth-completion-template" 
-              data-allow-non-auth="true"/>
-      </label>
-    </script>
-    <!-- RENDER SEARCH AUTH TEMPLATE  END -->
-
-    <!-- RENDER PERSON TEMPLATE  START -->
-    <script type="text/ng-template" id="render-person">
-      <div data-ng-if="isLinked(object) && !isEmpty(object)" class="entity person linked" tabindex="0">
-        <div class="main">
-          <span onload="person = object" data-ng-include="'render-person-name'"></span>
-            <!--
-            <a data-ng-if="isLinked(object)" class="auth" href="?m={{person['@id']}}">
-              <i class="fa fa-bookmark"></i> Aukt.
-            </a>
-            -->
-            <button data-ng-if="isLinked(object)" class="auth" data-ng-controller="ModalCtrl" data-ng-click="openAuthModal(person['@id'])">
-              <i class="fa fa-bookmark"></i> Aukt.
-            </button>
-        </div>
-        <div data-ng-include="'roles'"></div>
-        <a data-ng-if="!editable.on" class="delete" href="#"
-           data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a>
       </div>
-      <div data-ng-if="!isLinked(object)" class="entity person embedded"
-            data-ng-init="editable = {on: !(object.controlledLabel || object.givenName || object.name)}" tabindex="0">
-        <div data-ng-hide="editable.on">
-            <label >
-              <span onload="person = object" data-ng-include="'render-person-name'"></span><a class="auth" href="#" data-ng-click="editable.on = !editable.on">Ändra</a>
-            </label>
-        </div>
-        <div data-ng-show="editable.on">
-          <a class="delete" href="#" data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a>
-          <label>
-            <span class="lbl">{{ "Förnamn" }}</span>
-            <input data-inplace class="" type="text" placeholder="Förnamn"
-                   data-ng-model="object.givenName" />
-          </label>
-          <label>
-            <span class="lbl">{{ "Släktnamn" }}</span>
-            <input data-inplace class="" type="text" placeholder="Släktnamn"
-                   data-ng-model="object.familyName" />
-          </label>
-        </div>
-        <div data-ng-show="editable.on">
-          <label>
-            <span class="lbl">{{ "Född" }}</span>
-            <input data-inplace class="authdependant" type="text" placeholder="ÅÅÅÅ"
-                   data-ng-model="object.birthYear" />
-
-          </label>
-          <label>
-            <span class="lbl">{{ "Död" }}</span>
-            <input data-inplace class="authdependant" type="text" placeholder="ÅÅÅÅ" 
-                   data-ng-model="object.deathYear" />
-          </label>
-          <!--
-          <div data-ng-controller="ModalCtrl">
-            <button class="btn btn-primary" data-ng-click="openAuthModal($event)">Aukt.</button>
-          </div>
-          -->
-        </div>
-        <div data-ng-include="'roles'"></div>
-        <a data-ng-if="!editable.on" class="delete" href="#"
-           data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a>
+      <div class="label">
+        <span class="lbl">{{ "Död" }}</span>
+        <input data-inplace class="authdependant" type="text" placeholder="ÅÅÅÅ" 
+               data-ng-model="object.deathYear" />
       </div>
-    </script>
-    <!-- RENDER PERSON TEMPLATE  END -->
-
-    <!-- RENDER ROLES TEMPLATE  START -->
-    <script type='text/ng-template' id="roles">
-      <ul data-kitin-link-entity
-          class="tags"
-          data-service-url="{{API_PATH}}/auth"
-          data-filter="{ filter: 'about.@type:ObjectProperty' }"
-          data-subject="object"
-          data-link-multiple="'_reifiedRoles'" data-type="ObjectProperty"
-          data-view-template="render-role"
-          data-search-template="render-search-role">
-      </ul>
-      <button class="btn btn-dark" data-ng-if="editable.on"
-              data-ng-click="editable.on = false">ok</button>
-    </script>
-    <!-- RENDER ROLES TEMPLATE  END -->
-
-    <!-- RENDER ROLE TEMPLATE  START -->
-    <script type='text/ng-template' id="render-role">
-      {{ object.label }} <em>({{ object.notation }})</em>
-      <a href="#" data-ng-click="doRemove($index)"><i class="no">&times;</i></a>
-    </script>
-    <!-- RENDER ROLE TEMPLATE  END -->
-
-    <!-- RENDER SEARCH ROLE TEMPLATE  START -->
-    <script type='text/ng-template' id="render-search-role">
-      <label class="add-item">
-        <i class="fa fa-search"></i>
-        <input data-inplace type="text" placeholder="Roll"
-              data-service-url="{{API_PATH}}/relator/_search"
-              data-kitin-search-entity
-              data-completion-template="select-role-template" />
-      </label>
-    </script>
-    <!-- RENDER SEARCH ROLE TEMPLATE  END -->
-
-    <!-- COMPLETION ROLE TEMPLATE  START -->
-    <script type="text/html" id="select-role-template">
-      <div class="auth">
-        <h4>
-        <span class="name"><%= data.label %></span><span class="date"> <%= data.notation %></span>
-        </h4>
+      <!--
+      <div data-ng-controller="ModalCtrl">
+        <button class="btn btn-primary" data-ng-click="openAuthModal($event)">Aukt.</button>
       </div>
-    </script>
-    <!-- COMPLETION ROLE TEMPLATE  END -->
+      -->
+    </div>
+    <div data-ng-include="'roles'"></div>
+    <a data-ng-if="!editable.on" class="delete" href="#"
+       data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a>
+  </div>
+</script>
+<!-- RENDER PERSON TEMPLATE  END -->
 
-    <!-- MODAL EDIT AUTH TEMPLATE  START -->
-    <script type='text/ng-template' id="modal-edit-auth"> 
-      <div class="modal-header">
-       <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Auktoritetspost ({{ instance['@type'] }})</h4>
-      </div>
-      <div class="modal-body" data-ng-controller="EditCtrl">    
-        <div ng-include="'/partials/edit/auth'"></div>
-      </div>
-    </script> 
-    <!-- MODAL EDIT AUTH TEMPLATE  END -->
+<!-- RENDER ROLES TEMPLATE  START -->
+<script type='text/ng-template' id="roles">
+  <ul data-kitin-link-entity
+      class="tags"
+      data-service-url="{{API_PATH}}/auth"
+      data-filter="{ filter: 'about.@type:ObjectProperty' }"
+      data-subject="object"
+      data-link-multiple="'_reifiedRoles'" data-type="ObjectProperty"
+      data-view-template="render-role"
+      data-search-template="render-search-role">
+  </ul>
+</script>
+<!-- RENDER ROLES TEMPLATE  END -->
 
-    <!-- MODAL EDIT BIB TEMPLATE  START -->
-    <script type='text/ng-template' id="modal-edit-bib"> 
-      <div class="modal-header">
-       <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Bibliotekspost ({{ instance['@type'] }})</h4>
-      </div>
-      <div class="modal-body" data-ng-controller="EditCtrl">    
-        <div ng-include="'/partials/edit/bib'"></div>
-      </div>
-    </script> 
-    <!-- MODAL EDIT BIB TEMPLATE  END -->
+<!-- RENDER ROLE TEMPLATE  START -->
+<script type='text/ng-template' id="render-role">
+  {{ object.label }} <em>({{ object.notation }})</em>
+  <a href="#" data-ng-click="doRemove($index)"><i class="no">&times;</i></a>
+</script>
+<!-- RENDER ROLE TEMPLATE  END -->
 
-    <!-- AUTH COMPLETION TEMPLATE  START -->
-    <script type="text/html" id="auth-completion-template">
-      <div class="auth">
-      <% if (nameRepr(data) !== ", ") { %>
-          <h4>
-            <span class="name"><%= nameRepr(data) %></span>
-            <span class="date"><%= [data.birthYear, data.deathYear].join('–') %></span>
-            <% if (isLinked(data)) { %>
-              <span class="what" data-ng-if="isAuth(object)"><i class="fa fa-bookmark"></i> Aukt.</span>
-            <% } %>
-          </h4>
-          <span class="title"><%= data.personTitle %></span>
-          <% if (data.hasPersona && data.hasPersona.length) { %>
-            <span class="persona">Se även:
-              <b><%= data.hasPersona.map(nameRepr).join('</b>, <b>') %></b>
-            </span>
-          <% } %>
-          <% if (data.note && data.note.length) { %>
-            <ul class="about">
-              <li><%= data.note.map(truncate).join('</li><li>') %></li>
-            </ul>
-          <% } %>
-        <% } else { %>
-          <h4>
-            Ny icke auktoriserad person
-          </h4>
+<!-- RENDER SEARCH ROLE TEMPLATE  START -->
+<script type='text/ng-template' id="render-search-role">
+  <div data-link-search>
+    <span class="add-link" data-ng-click="onclick($event)"><i class="fa fa-plus"></i> Lägg till roll</span>
+    <span class="search-field toggler">
+      <i class="fa fa-search"></i>
+      <input data-inplace type="text" placeholder="Sök roller" ng-blur="onblur($event)"
+            data-service-url="{{API_PATH}}/relator/_search"
+            data-kitin-search-entity
+            data-completion-template="select-role-template"
+            />
+    </span>
+  </div>
+</script>
+<!-- RENDER SEARCH ROLE TEMPLATE  END -->
+
+<!-- COMPLETION ROLE TEMPLATE  START -->
+<script type="text/html" id="select-role-template">
+  <div class="auth">
+    <h4>
+    <span class="name"><%= data.label %></span><span class="date"> <%= data.notation %></span>
+    </h4>
+  </div>
+</script>
+<!-- COMPLETION ROLE TEMPLATE  END -->
+
+<!-- MODAL EDIT AUTH TEMPLATE  START -->
+<script type='text/ng-template' id="modal-edit-auth"> 
+  <div class="modal-header">
+   <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
+    <h4 class="modal-title">Auktoritetspost ({{ instance['@type'] }})</h4>
+  </div>
+  <div class="modal-body" data-ng-controller="EditCtrl">    
+    <div ng-include="'/partials/edit/auth'"></div>
+  </div>
+</script> 
+<!-- MODAL EDIT AUTH TEMPLATE  END -->
+
+<!-- MODAL EDIT BIB TEMPLATE  START -->
+<script type='text/ng-template' id="modal-edit-bib"> 
+  <div class="modal-header">
+   <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
+    <h4 class="modal-title">Bibliotekspost ({{ instance['@type'] }})</h4>
+  </div>
+  <div class="modal-body" data-ng-controller="EditCtrl">    
+    <div ng-include="'/partials/edit/bib'"></div>
+  </div>
+</script> 
+<!-- MODAL EDIT BIB TEMPLATE  END -->
+
+<!-- AUTH COMPLETION TEMPLATE  START -->
+<script type="text/html" id="auth-completion-template">
+  <div class="auth">
+  <% if (nameRepr(data) !== ", ") { %>
+      <h4>
+        <span class="name"><%= nameRepr(data) %></span>
+        <span class="date"><%= [data.birthYear, data.deathYear].join('–') %></span>
+        <% if (isLinked(data)) { %>
+          <span class="what" data-ng-if="isAuth(object)"><i class="fa fa-bookmark"></i> Aukt.</span>
         <% } %>
-      </div>
-    </script>
-    <!-- AUTH COMPLETION TEMPLATE  END -->
+      </h4>
+      <span class="title"><%= data.personTitle %></span>
+      <% if (data.hasPersona && data.hasPersona.length) { %>
+        <span class="persona">Se även:
+          <b><%= data.hasPersona.map(nameRepr).join('</b>, <b>') %></b>
+        </span>
+      <% } %>
+      <% if (data.note && data.note.length) { %>
+        <ul class="about">
+          <li><%= data.note.map(truncate).join('</li><li>') %></li>
+        </ul>
+      <% } %>
+    <% } else { %>
+      <h4>
+        Ny icke auktoriserad person
+      </h4>
+    <% } %>
+  </div>
+</script>
+  <!-- AUTH COMPLETION TEMPLATE  END -->
 
-    <!-- PERSONS  END -->
+  <!-- PERSONS  END -->
 
 {% endraw %}

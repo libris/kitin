@@ -45,9 +45,8 @@
     <h3>Personsuggest</h3>
     <div class="person-suggest">
       <span class="lbl">Personer</span>
-      <ul class="persons">
-        <li class="main">
-          <i class="fa fa-check-square-o check"></i>
+      <div class="persons" data-rich-entity>
+        <div>
           <div class="main">
             <span class="name">Jansson, Tove</span>
             <span class="timeSpan">1921-1870</span>
@@ -67,9 +66,8 @@
             </ul>
           </div>
           <a class="delete" href="#"><i class="fa fa-times"></i></a>
-        </li>
-        <li>
-          <i class="fa fa-square-o check"></i>
+        </div>
+        <div>
           <div class="main">
             <span class="name">Karlsson, Owe</span>
             <span class="timeSpan">1811-1972</span>
@@ -86,9 +84,8 @@
             </ul>
           </div>
           <a class="delete" href="#"><i class="fa fa-times"></i></a>
-        </li>
-        <li>
-          <i class="fa fa-square-o check"></i>
+        </div>
+        <div>
           <div class="main">
             <span class="name">Karlsson, Owe</span>
             <span class="timeSpan">1811-1972</span>
@@ -107,21 +104,21 @@
             </ul>
           </div>
           <a class="delete" href="#"><i class="fa fa-times"></i></a>
-        </li>
-      </ul>
-      <div class="find-entity">
-        <span class="add-item">
-          <span class="add-link"><i class="fa fa-plus"></i> Lägg till person</span>
-          <span class="toggler">  
-            <span class="search-field">
-              <i class="fa fa-search"></i>
-              <input type="text" placeholder="Sök personer">
-            </span>
-            <span class="linkchoice">
-              eller <a href="#">Skapa ny</a>
+        </div>
+        <div class="find-entity">
+          <span class="add-item">
+            <span class="add-link"><i class="fa fa-plus"></i> Lägg till person</span>
+            <span class="toggler">  
+              <span class="search-field">
+                <i class="fa fa-search"></i>
+                <input type="text" placeholder="Sök personer">
+              </span>
+              <span class="linkchoice">
+                eller <a href="#">Skapa ny</a>
+              </span>
             </span>
           </span>
-        </span>
+        </div>
       </div>
     </div>
     <hr />
@@ -238,16 +235,16 @@
     </div>
     <hr />
   	<h3>Inputs</h3>
-  	<label class="">
+  	<div class="label" class="">
   		<span class="lbl">Regular input</span>
   		<input type="text">
-  	</label>
+  	</div>
     
-  	<label class="">
+  	<div class="label" class="">
   		<span class="lbl">Regular input</span>
   		<input type="text">
   		<span class="help"><i class="fa fa-question-circle"></i> Hjälptext</span>
-  	</label>
+  	</div>
     
     <div class="datatable">
       <table>
@@ -264,7 +261,7 @@
         <tbody>
           <tr>
             <td>
-       		    <label><textarea></textarea></label>
+       		    <div class="label"><textarea></textarea></div>
             </td>
             <td class="multi">
               <ul class="tags">
@@ -290,25 +287,25 @@
      	<button class="add-thing btn-link ng-binding">Lägg till rad</button>
     </div>
     
-  	<label class="warning">
+  	<div class="label" class="warning">
   		<span class="lbl">Warning informational input <i class="fa fa-asterisk"></i></span>
   		<input type="text">
-  	</label>
+  	</div>
     
-  	<label class="warning warning-action">
+  	<div class="label" class="warning warning-action">
   		<span class="lbl">Warning action input <i class="fa fa-asterisk"></i></span>
   		<input type="text">
-  	</label>
+  	</div>
   	
-  	<label class="error">
+  	<div class="label" class="error">
   		<span class="lbl">Error informational input</span>
   		<input type="text">
-  	</label>
+  	</div>
     
-  	<label class="error error-action">
+  	<div class="label" class="error error-action">
   		<span class="lbl">Error action input </span>
   		<input type="text"><a href=""><i class="fa fa-info-circle"></i></a>
-  	</label>
+  	</div>
   </div>
 </section>
 
