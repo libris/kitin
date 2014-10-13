@@ -5,7 +5,6 @@
     <h4 class="modal-title">Bestånd</h4>
   </div>
   <div class="modal-body">
-    <pre>{{holding}}</pre>
     <form data-ng-show="holding.data['@id'] || !holding['etag']">
       <section class="holdings offer" data-ng-repeat="offer in holding.data.about.offers track by $index">
         <div class="cols">
@@ -68,7 +67,6 @@
 
   <div class="modal-footer submit">
     <div class="status pull-left">
-      <pre>{{modifications}}</pre>
       <div data-ng-if="modifications.saved">Inga osparade ändringar.</div>
       <div data-ng-if="!modifications.saved">Du har inte sparat dina ändringar.</div>
     </div>
