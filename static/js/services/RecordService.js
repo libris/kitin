@@ -210,7 +210,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
         var deferer = $q.defer();
         var etag = holding.etag;
         if (holding.data['@id'] && etag) {
-          $http.put($rootScope.WRITE_API_PATH + holding.data['@id'], holding.data, {headers: {'Content-Type': 'application/ld+json', 'If-match': etag}}).success(function(data, status, headers) {
+          $http.put($rootScope.WRITE_API_PATH + holding.data['@id'], holding.data, {headers: {'If-match': etag}}).success(function(data, status, headers) {
             if (headers('etag')) {
               holding.etag = headers('etag');
             }
@@ -221,7 +221,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
           });
         } else {
           // Holding has no ID, assume it's new
-          $http.post($rootScope.WRITE_API_PATH + '/hold', holding.data, {headers: {'Content-Type': 'application/ld+json'}}).success(function(data, status, headers) {
+          $http.post($rootScope.WRITE_API_PATH + '/hold', holding.data).success(function(data, status, headers) {
             var identifier = headers('location');
             if (identifier) {
               identifier = '/hold/' + identifier.split('/').slice(-2)[1];
