@@ -16,8 +16,9 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   function getCurrentRecord() {
     var records = $rootScope.state.search.result.list;
     var currentRecord = _.find(records, function(record) {
-      return record.identifier == recordId;
+      return record.data.about['@id'] == recordId;
     });
+    console.log(currentRecord);
     return currentRecord;
   }
 
@@ -86,8 +87,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   };
 
   $scope.deleteHolding = function(holding) {
-    var holdingId = holding.data['@id'];
-    recordService.holding.del(holdingId).then(function(response) {
+    recordService.holding.del(holding).then(function(response) {
       onDelete(holding);
       delete $scope.holding;
       console.log('Holding removed successfully!');

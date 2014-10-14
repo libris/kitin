@@ -294,12 +294,17 @@ def do_request(path, params=None, method='GET', headers=None, data=None, allow_r
             resp.headers['etag'] = response.headers['etag'].replace('"', '')
         app.logger.debug('Request done');
         return resp
+
     # Updated/Created
     elif response.status_code == 201:
         if 'Location' in response.headers:
             return do_request(response.headers['Location'],host='')
         else:
             app.logger.warning('Error status code 201 but no Location header, %s', (method))
+
+    # This is what the server returns when deleting a holding, handle it:
+    elif response.status_code == 204:
+        return ''
 
     # Error
     else:
