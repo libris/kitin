@@ -64,6 +64,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
       console.log('No holdings found, creating new.\n');
       recordService.holding.create().then(function(response) {
         holding = response;
+        holding.data.about['@id'] = recordId;
         holding.data.about.holdingFor = {
           '@id': recordId
         };
