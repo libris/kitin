@@ -500,6 +500,7 @@ button::-moz--focus-inner {
   float: none;
   position: absolute;
   right: 0;
+  top: 10px;
 }
 #nav .nav-menu > li {
   border-left: 1px solid #ddddd8;
