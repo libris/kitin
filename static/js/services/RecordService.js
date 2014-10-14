@@ -178,7 +178,6 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
             console.log('Found existing holding:\n', data.list[0]);
             var holding = data.list[0];
             recordService.holding.getEtag(holding.data['@id']).then(function(etag) {
-              console.log(etag);
               if (etag) {
                 holding.etag = etag;
               }
@@ -222,11 +221,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
         } else {
           // Holding has no ID, assume it's new
           $http.post($rootScope.WRITE_API_PATH + '/hold', holding.data).success(function(data, status, headers) {
-            var identifier = headers('location');
-            if (identifier) {
-              identifier = '/hold/' + identifier.split('/').slice(-2)[1];
-              holding.data['@id'] = identifier;
-            }
+            holding.data = data;
             if (headers('etag')) {
               holding.etag = headers('etag');
             }
@@ -239,14 +234,14 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
         return deferer.promise;
       },
 
-      del: function(holdingId) {
+      del: function(holding) {
         var deferer = $q.defer();
-        $http['delete']($rootScope.WRITE_API_PATH + holdingId).success(function(data, success, headers, also) {
+        var holdingId = holding.data['@id'];
+        var etag = holding.etag;
+        $http['delete']($rootScope.WRITE_API_PATH + holdingId, {headers: {'If-match': etag}}).success(function(data, success, headers, also) {
           console.log(data, success, headers(), also);
-          var etag = headers('etag') ? headers('etag') : null;
-          deferer.resolve({
-            etag: etag
-          });
+          holding = data;
+          deferer.resolve(holding);
         }).error(function(data, status, headers) {
           console.log('RecordService failed deleting holding.');
           deferer.reject(status);
