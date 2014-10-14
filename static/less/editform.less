@@ -28,7 +28,8 @@ label.find-entity input[type="text"] { padding-left: 22px; }
 
 .addon .on-hover {float:right!important; position:absolute;top:1px;right:3px;color: @grey-dark;}
 
-section>div.ng-scope{width:400px}
+
+.form-container{width:400px;clear:both;}
 
 
 .edit .col6  .entity .embedded input{width:456px;}
@@ -36,19 +37,20 @@ section>div.ng-scope{width:400px}
 div[data-rich-entity]>div {
 
   position:relative;
-  border-bottom:1px dotted @grey-light;
-  padding: 4px 0;
-  margin:2px 0;
+  border: 1px solid @grey-light;
+  padding: 4px 8px;
+  margin-bottom:2px;
+  border-radius: 2px;
 
   &.search {
-    border-bottom: none;
-    &:first-child{padding-top:6px}
+    border: none;
+    padding: 2px 0;
     input[type="text"]{width:200px!important}
   }
 
   &.addmore { margin-bottom: 4px; }
 
-  &:first-child{ border-top:1px dotted @grey-light; }
+  &:first-child{  }
 
   .check {
     color:@grey;

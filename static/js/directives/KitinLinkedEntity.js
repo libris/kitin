@@ -14,7 +14,6 @@ kitin.directive('kitinLinkEntity', ['editService', function(editService) {
       var repeater = multiple ? 'ng-if="objects" ng-repeat="object in objects track by $index"' : 'ng-if="object"';
       var collapseButton = collapsable ? '<div collapse-button ng-init="objects=objects"></div>' : '';
       var collapse = collapsable ? ' collapse="doCollapse && $index !== 0" ' : '';
-
       var template =  collapseButton +
                       '<'+ itemTag + ' ' + collapse + ' ' + repeater + ' ' + nonAuth + '> ' +
                         viewDiv + 
@@ -67,6 +66,7 @@ kitin.directive('kitinLinkEntity', ['editService', function(editService) {
       }
 
       this.doAdd = function (data) {
+        console.log('doadd', data)
         if($scope.expand) { $scope.expand(); }
         var added = editService.addObject(subj, link, $scope.type, multiple, data);
         if (multiple) {

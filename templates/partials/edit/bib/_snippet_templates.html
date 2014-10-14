@@ -7,18 +7,28 @@
 
   -->
 <script type="text/ng-template" id="render-bib-search">
-  <div data-click-search>
-    <span class="add-link" ng-click="onclick($event)"><i class="fa fa-plus"></i></span>
-    <span class="search-field toggler">
-      <i class="fa fa-search"></i>
-      <input data-inplace class="input-large authdependant embedded" type="text" ng-blur="onblur($event)"
-        placeholder="Sök"
-        data-kitin-search-entity
-        data-make-reference-on-item-select="true"
-        data-service-url="{{API_PATH}}/bib/_search"
-        data-filter=""
-        data-completion-template="bib-completion-template">
-    </span>
+
+  <div class="label find-entity">
+    <div class="add-item search">
+      <div data-click-search>
+        <span class="add-link" ng-click="onclick($event)"><i class="fa fa-plus"></i> Lägg till {{ label }}</span>
+        <span class="toggler">  
+          <span class="search-field">
+            <i class="fa fa-search"></i>
+            <input ng-blur="onblur($event)" data-inplace class="input-large authdependant embedded" type="text"
+              placeholder="Sök {{ label }}"
+              data-kitin-search-entity
+              data-make-reference-on-item-select="true"
+              data-service-url="{{API_PATH}}/bib/_search"
+              data-filter=""
+              data-completion-template="bib-completion-template">
+          </span>
+          <span class="linkchoice">
+            eller <a href="#">Skapa ny</a>
+          </span>
+        </span>
+      </div>
+    </div>
   </div>
 </script>
 <script type="text/html" id="bib-completion-template">

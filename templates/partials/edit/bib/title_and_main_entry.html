@@ -3,7 +3,7 @@
   <span>{{ 'Titel och upphov' }}</span>
   <i></i>
 </h2>
-<div>
+<div class="form-container">
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.instanceTitle.titleValue</span>
     <textarea data-inplace class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.titleValue"></textarea>
@@ -83,25 +83,45 @@
   <!-- RELATION  START -->
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.relation</span>
-    <ul class="tags entity" data-kitin-link-entity
+    <div class="entity" data-kitin-link-entity
         data-subject="record.about"
+        data-ng-init="label = 'Länkfält'"
         data-link-multiple="'relation'" data-type="relation"
         data-view-template="render-relation-referenced-entity"
-        data-search-template="render-bib-search">
-    </ul>
-    <script type="text/ng-template" id="render-relation-referenced-entity">
-      <div>
+        data-search-template="render-bib-search"
+        data-rich-entity>
+    </div>
+  </div>
+
+  <script type="text/ng-template" id="render-relation-referenced-entity">
+    <!--
+    <a href="?m={{object.describedBy['@id']}}">
+      <i class="fa fa-bookmark" data-ng-if="isAuth(object.describedBy)"></i>
+      <span class="name">{{ object.title }}</span>
+      {{ object.issn }}
+    </a>
+    <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
+    -->
+
+    <div class="entity relation linked">
+      <div class="main">
+        <div class="title"><strong>{{ object.instanceTitle.titleValue + object.instanceTitle.subtitle }}</strong></div>
+        <div class="creator">{{ object.responsibilityStatement }}</div>
+        <div class="date">
+          <span title="Utgivningsår" data-ng-repeat="publication in object.publication | limitTo:1" data-ng-show="publication.providerDate">
+            {{publication.providerDate}}
+          </span>
+        </div>
+      </div>
+      <div class="notes">
         <span class="lbl" translate>LABEL.record.about.relation.linkNote</span>
         <input data-inplace class="ng-pristine ng-valid" type="text" ng-model="object.linkNote" />
       </div>
-      <a href="?m={{object.describedBy['@id']}}">
-        <i class="fa fa-bookmark" data-ng-if="isAuth(object.describedBy)"></i>
-        <span class="name">{{ object.title }}</span>
-        {{ object.issn }}
-      </a>
-      <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
-    </script>
-  </div>
+      <a data-ng-if="!editable.on" class="delete" href="#"
+         data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a>
+    </div>
+  </script>
+
   <!-- RELATION  END -->
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.isPartOf</span>
@@ -265,7 +285,7 @@
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.attributedTo</span>
     <div data-kitin-link-entity
-        data-ng-init="label = 'Sök huvuduppslag'"
+        data-ng-init="label = 'huvuduppslag'"
         data-subject="record.about" data-link="'attributedTo'" data-type="Person"
         data-view-template="render-person"
         data-search-template="render-search-box"
@@ -276,7 +296,7 @@
     <span class="lbl" translate>LABEL.record.about.influencedBy</span>
     <!--<a ng-click="showInfluencedBy = !showInfluencedBy">Dölj <i class="icon fa fa-caret-up"></i></a>-->
     <div data-kitin-link-entity
-        data-ng-init="label = 'Sök biuppslag'"
+        data-ng-init="label = 'biuppslag'"
         data-subject="record.about" data-link-multiple="'influencedBy'" data-type="Person"
         data-view-template="render-person"
         data-search-template="render-search-box"
@@ -292,11 +312,11 @@
   <div class="label find-entity">
     <div class="add-item search">
       <div data-click-search>
-        <span class="add-link" ng-click="onclick($event)"><i class="fa fa-plus"></i> Lägg till</span>
+        <span class="add-link" ng-click="onclick($event)"><i class="fa fa-plus"></i> Lägg till {{ label }}</span>
         <span class="toggler">  
           <span class="search-field">
             <i class="fa fa-search"></i>
-            <input ng-blur="onblur($event)" class="input-large" type="text" placeholder="{{ label }}"
+            <input ng-blur="onblur($event)" class="input-large" type="text" placeholder="Sök {{ label }}"
                   data-kitin-search-entity
                   data-service-url="{{API_PATH}}/auth/_search"
                   data-filter="{ 
