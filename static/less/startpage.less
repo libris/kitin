@@ -1,6 +1,8 @@
 /* STARTPAGE START ------------------------- */
+// Mixins
+@import (reference) "bootstrap.less";
 
-section.dash{border-top: 5px solid @grey-dark;position:relative;}
+section.dash{border-top: 5px solid @grey-dark;position:relative;margin-bottom: 30px;}
 section.dash .circle{width:38px;height:38px;display:block;position:absolute;left:50%;margin-left:-19px;top:-21px;
   border-radius: 19px;
   -moz-border-radius: 19px;
@@ -17,8 +19,29 @@ section.dash.green .circle{background-color: @green;}
 section.dash.grey{border-top-color: @grey-light;}
 section.dash.grey .circle{background-color: @grey-light;}
 
-section.dash {margin-bottom: 30px;}
-
+section.dash.drafts ul{list-style-type:none;padding-left:0;}
+section.dash.drafts li{border-top: 1px solid @grey-light;padding-top:6px;
+  .make-row();
+  .title{
+    .make-xs-column(3);
+    font-weight: bold;
+  }
+  .meta{
+    .make-xs-column(4);
+  }
+  .release-year{
+    .make-xs-column(2);
+  }
+  .date{
+    .make-xs-column(2);
+    font-size: 13px;
+    font-style: italic;;
+    color: @grey;
+  }
+  .delete{
+    .make-xs-column(1);
+  }
+}
 
 .content.search > .cols{width:1036px;overflow:visible;}
 .content.search .nest-cols{overflow:hidden; min-height: 134px; width: 620px;clear:both;}

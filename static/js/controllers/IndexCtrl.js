@@ -2,6 +2,7 @@ kitin.controller('IndexCtrl', function($scope, $http, recordService, editService
   document.body.className = 'index';
 
   recordService.drafts.get().then(function(data) {
+    console.log(data);
     $scope.drafts = data.drafts;
   });
 

@@ -500,7 +500,6 @@ button::-moz--focus-inner {
   float: none;
   position: absolute;
   right: 0;
-  top: 10px;
 }
 #nav .nav-menu > li {
   border-left: 1px solid #ddddd8;
@@ -1851,9 +1850,60 @@ ul.tags.suggestions li li a {
   color: #683568;
 }
 /* STARTPAGE START ------------------------- */
+.btn-group-lg > .btn {
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 6px;
+}
+.btn-group-sm > .btn {
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+.btn-group-xs > .btn {
+  padding: 1px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+.container:before,
+.container:after,
+.container-fluid:before,
+.container-fluid:after,
+.row:before,
+.row:after,
+.form-horizontal .form-group:before,
+.form-horizontal .form-group:after,
+.btn-toolbar:before,
+.btn-toolbar:after,
+.btn-group-vertical > .btn-group:before,
+.btn-group-vertical > .btn-group:after,
+.nav:before,
+.nav:after,
+.modal-footer:before,
+.modal-footer:after,
+section.dash.drafts li:before,
+section.dash.drafts li:after {
+  content: " ";
+  display: table;
+}
+.container:after,
+.container-fluid:after,
+.row:after,
+.form-horizontal .form-group:after,
+.btn-toolbar:after,
+.btn-group-vertical > .btn-group:after,
+.nav:after,
+.modal-footer:after,
+section.dash.drafts li:after {
+  clear: both;
+}
 section.dash {
   border-top: 5px solid #999996;
   position: relative;
+  margin-bottom: 30px;
 }
 section.dash .circle {
   width: 38px;
@@ -1899,8 +1949,59 @@ section.dash.grey {
 section.dash.grey .circle {
   background-color: #c7c7c3;
 }
-section.dash {
-  margin-bottom: 30px;
+section.dash.drafts ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+section.dash.drafts li {
+  border-top: 1px solid #c7c7c3;
+  padding-top: 6px;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+section.dash.drafts li .title {
+  position: relative;
+  float: left;
+  width: 25%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-weight: bold;
+}
+section.dash.drafts li .meta {
+  position: relative;
+  float: left;
+  width: 33.33333333%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+section.dash.drafts li .release-year {
+  position: relative;
+  float: left;
+  width: 16.66666667%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+section.dash.drafts li .date {
+  position: relative;
+  float: left;
+  width: 16.66666667%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 13px;
+  font-style: italic;
+  color: #adada9;
+}
+section.dash.drafts li .delete {
+  position: relative;
+  float: left;
+  width: 8.33333333%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 .content.search > .cols {
   width: 1036px;
