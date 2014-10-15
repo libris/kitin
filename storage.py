@@ -101,6 +101,9 @@ class Storage(object):
         # Only add responsibilityStatement if it exist. TODO: What to show if it doesn't?
         if 'responsibilityStatement' in record['about']:
             meta_record['creator'] = record['about']['responsibilityStatement']
+        elif 'performerNote' in record['about']:
+            if len(record['about']['performerNote']) > 0:
+                meta_record['creator'] = record['about']['performerNote'][0]
 
         self.rw_index(path, do_update_index, { 'meta_record': meta_record, 'user_id': user_id})
         return meta_record

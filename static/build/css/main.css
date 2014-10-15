@@ -1962,7 +1962,7 @@ section.dash.drafts li {
 section.dash.drafts li .title {
   position: relative;
   float: left;
-  width: 25%;
+  width: 33.33333333%;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
@@ -1979,7 +1979,7 @@ section.dash.drafts li .creator {
 section.dash.drafts li .publication {
   position: relative;
   float: left;
-  width: 16.66666667%;
+  width: 8.33333333%;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;

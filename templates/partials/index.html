@@ -41,7 +41,7 @@
           <li data-ng-repeat="draft in drafts" class="draft">
             <form data-ng-submit="delete(draft['@id'])" method="POST" class="form-inline">
           	  <div class="title"><a href="/edit/draft{{ draft['@id'] }}" title="{{draft.path}}">{{draft.instanceTitle.subtitle ? draft.instanceTitle.titleValue + ' - ' + draft.instanceTitle.subtitle : draft.instanceTitle.titleValue | chop:80 }}</a></div>
-              <div class="creator">{{draft.creator}}</div>
+              <div class="creator">{{draft.creator | chop:40}}</div>
               <div class="publication"><span data-ng-repeat="publication in draft.publication | limitTo:1">{{publication.providerDate}}</span></div>
               <div class="modified">{{draft.modified | timeAgo }}</div>
               <div class="delete"><button type="submit" class="btn-link pull-right" title="Ta bort utkast"><i class="fa fa-trash-o"></i></button></div>
