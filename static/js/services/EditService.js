@@ -159,6 +159,7 @@ kitin.service('editService', function(definitions, $http, $q) {
     },
 
     addObject: function(subj, rel, type, multiple, obj) {
+      console.log(arguments);
       var addToContainer = function(subj, rel, type, obj) {
         var collection = subj[rel];
         if(typeof collection === 'undefined') {

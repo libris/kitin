@@ -80,7 +80,9 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editService', function(def
           // TODO: if multiple, else set object (and *link*, not copy (embed copy in view?)...)
           if(makeReferenceOnItemSelect) {
             editService.makeReferenceEntity(item.data._source).then(function(referenced) {
-              linker.doAdd(referenced);
+              // pass raw data
+              item.data.decorated = referenced;
+              linker.doAdd(item.data);
             });
           } else {
             linker.doAdd(_.isEmpty(item.data) ? item.value : item.data);

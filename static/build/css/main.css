@@ -2344,32 +2344,29 @@ label.find-entity input[type="text"] {
   right: 3px;
   color: #999996;
 }
-section > div.ng-scope {
+.form-container {
   width: 400px;
+  clear: both;
 }
 .edit .col6 .entity .embedded input {
   width: 456px;
 }
 div[data-rich-entity] > div {
   position: relative;
-  border-bottom: 1px dotted #c7c7c3;
-  padding: 4px 0;
-  margin: 2px 0;
+  border: 1px solid #c7c7c3;
+  padding: 4px 8px;
+  margin-bottom: 2px;
+  border-radius: 2px;
 }
 div[data-rich-entity] > div.search {
-  border-bottom: none;
-}
-div[data-rich-entity] > div.search:first-child {
-  padding-top: 6px;
+  border: none;
+  padding: 2px 0;
 }
 div[data-rich-entity] > div.search input[type="text"] {
   width: 200px !important;
 }
 div[data-rich-entity] > div.addmore {
   margin-bottom: 4px;
-}
-div[data-rich-entity] > div:first-child {
-  border-top: 1px dotted #c7c7c3;
 }
 div[data-rich-entity] > div .check {
   color: #adada9;
