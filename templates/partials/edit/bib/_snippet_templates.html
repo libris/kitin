@@ -1,5 +1,35 @@
 {% raw %}
 
+<!-- compact hitlists for results and entity preview inside form -->
+<script type="text/ng-template" id="hitlist-compact-bib">
+  <div class="hitlist-item bib compact">
+    <div class="title">
+      <strong>{{object.instanceTitle.titleValue + object.instanceTitle.subtitle | chop }}</strong>
+    </div>
+    <div class="creator">
+      {{ object.responsibilityStatement | chop }}
+    </div>
+    <div class="date">
+      <span title="Utgivningsår" data-ng-repeat="publication in object.publication | limitTo:1" data-ng-show="publication.providerDate">
+        {{publication.providerDate}}
+      </span>
+    </div>
+  </div>
+</script>
+<script type="text/ng-template" id="hitlist-compact-auth">
+  <div class="hitlist-item auth compact">
+    <div class="title">
+      <strong>{{ object.controlledLabel + object.prefLabel + object.name + object.uniformTitle | chop }}</strong>
+    </div>
+    <div class="creator">
+      {{ object.name | chop }}
+    </div>
+    <div class="about">
+      <span title="about">{{ object.about['@type'] }}</span>
+    </div>
+  </div>
+</script>
+
   <!-- 
   render-bib-search
 
