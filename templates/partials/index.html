@@ -37,18 +37,19 @@
       <section class="dash pink drafts">
         <span class="circle"><i class="icon fa fa-file-text fa-inverse"></i></span>
         <h4 translate>LABEL.gui.index.headers.MY_SAVED_DRAFTS</h4>
-        <ul class="container-fluid">
+        <ul class="container-fluid" data-ng-show="drafts.length > 0">
           <li data-ng-repeat="draft in drafts" class="draft">
             <form data-ng-submit="delete(draft['@id'])" method="POST" class="form-inline">
-          	  <div class="title"><a href="/edit/draft{{ draft['@id'] }}" title="{{draft.path}}">{{draft.title | limitTo:80}}{{draft.title.length > 80 ? '...' : ''}}</a></div>
+          	  <div class="title"><a href="/edit/draft{{ draft['@id'] }}" title="{{draft.path}}">{{draft.instanceTitle.subtitle ? draft.instanceTitle.titleValue + ' - ' + draft.instanceTitle.subtitle : draft.instanceTitle.titleValue | chop:80 }}</a></div>
               <div class="creator">{{draft.creator}}</div>
               <div class="publication"><span data-ng-repeat="publication in draft.publication | limitTo:1">{{publication.providerDate}}</span></div>
-              <div class="date">{{draft.modified | timeAgo }}</div>
+              <div class="modified">{{draft.modified | timeAgo }}</div>
               <div class="delete"><button type="submit" class="btn-link pull-right" title="Ta bort utkast"><i class="fa fa-trash-o"></i></button></div>
               <input type="hidden" name="_method" value="DELETE" />
             </form>
           </li>
         </ul>
+        <div translate data-ng-show="drafts.length < 1">LABEL.gui.index.messages.NO_SAVED_DRAFTS</div>
       </section>
     </div>
   </div>

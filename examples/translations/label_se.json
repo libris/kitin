@@ -139,6 +139,9 @@
                     "CHANGE_MESSAGES": "Ändringsmeddelanden (fd CXZ-listan)",
                     "MY_SAVED_DRAFTS": "Mina sparade utkast",
                     "DISCUSSION_FORUM": "Diskussionsforum (fd Marc21-listan)"
+                },
+                "messages": {
+                    "NO_SAVED_DRAFTS": "Du har inga sparade utkast."
                 }
             },
             "search": {

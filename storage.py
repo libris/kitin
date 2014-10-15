@@ -90,13 +90,15 @@ class Storage(object):
 
             return draft_index
 
+        # Perhaps we should put a little more logic here, instead of just including instanceTitle and publication?
         meta_record = {
                           '@id': record['@id'],
                           'etag': etag,
                           'modified': record['modified'],
-                          'title': record['about']['instanceTitle']['titleValue'],
+                          'instanceTitle': record['about']['instanceTitle'],
                           'publication': record['about']['publication']
                       }
+        # Only add responsibilityStatement if it exist. TODO: What to show if it doesn't?
         if 'responsibilityStatement' in record['about']:
             meta_record['creator'] = record['about']['responsibilityStatement']
 

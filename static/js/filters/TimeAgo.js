@@ -5,14 +5,18 @@ kitin.filter('timeAgo', function($filter) {
       case 'number':
         break;
       case 'string':
-        time = +new Date(time + '+02:00'); // TODO: Save timezone in draft, this is sooo bad. 
+        time = new Date(time).getTime();
         break;
       case 'object':
         if (time.constructor === Date) time = time.getTime();
         break;
       default:
-        time = +new Date();
+        time = new Date().getTime();
     }
+    
+    // Correct time for timezone missing in the input time string.
+    // TODO: Fix this.Save time with time zone in drafts.
+    correctedTime = time + (new Date().getTimezoneOffset() * 60 * 1000)
 
     var timeFormats = [
         [60, 'sekunder', 1], // 60
@@ -32,7 +36,7 @@ kitin.filter('timeAgo', function($filter) {
         // [58060800000, 'årtionden', 2903040000] // 60*60*24*7*4*12*100*20, 60*60*24*7*4*12*100
     ];
     var months = ['januari','februari','mars','april','maj','juni','juli','augusti','september','oktober','november','december'];
-    var seconds = (+new Date() - time) / 1000;
+    var seconds = (new Date().getTime() - correctedTime) / 1000;
     var tokens = ['För ', ' sen'];
     var listChoice = 1;
     var format;

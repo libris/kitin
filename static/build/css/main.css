@@ -1984,7 +1984,7 @@ section.dash.drafts li .publication {
   padding-left: 15px;
   padding-right: 15px;
 }
-section.dash.drafts li .date {
+section.dash.drafts li .modified {
   position: relative;
   float: left;
   width: 16.66666667%;
