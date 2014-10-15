@@ -91,13 +91,14 @@ class Storage(object):
             return draft_index
 
         meta_record = {
-                            '@id': record['@id'],
-                            'etag': etag,
-                            'modified': record['modified'],
-                            'title': record['about']['instanceTitle']['titleValue'],
-                            'creator': record['about']['responsibilityStatement'],
-                            'published': record['about']['publicationYear'],
-                        }
+                          '@id': record['@id'],
+                          'etag': etag,
+                          'modified': record['modified'],
+                          'title': record['about']['instanceTitle']['titleValue'],
+                          'publication': record['about']['publication']
+                      }
+        if 'responsibilityStatement' in record['about']:
+            meta_record['creator'] = record['about']['responsibilityStatement']
 
         self.rw_index(path, do_update_index, { 'meta_record': meta_record, 'user_id': user_id})
         return meta_record
