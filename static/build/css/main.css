@@ -1968,7 +1968,7 @@ section.dash.drafts li .title {
   padding-right: 15px;
   font-weight: bold;
 }
-section.dash.drafts li .meta {
+section.dash.drafts li .creator {
   position: relative;
   float: left;
   width: 33.33333333%;
@@ -1976,7 +1976,7 @@ section.dash.drafts li .meta {
   padding-left: 15px;
   padding-right: 15px;
 }
-section.dash.drafts li .release-year {
+section.dash.drafts li .published {
   position: relative;
   float: left;
   width: 16.66666667%;

@@ -41,8 +41,8 @@
           <li data-ng-repeat="draft in drafts" class="draft">
             <form data-ng-submit="delete(draft['@id'])" method="POST" class="form-inline">
           	  <div class="title"><a href="/edit/draft{{ draft['@id'] }}" title="{{draft.path}}">{{draft.title}}</a></div>
-              <div class="meta"></div>
-              <div class="release-year"></div>
+              <div class="creator">{{draft.creator}}</div>
+              <div class="published">{{draft.published}}</div>
               <div class="date">{{draft.modified | timeAgo }}</div>
               <div class="delete"><button type="submit" class="btn-link pull-right" title="Ta bort utkast"><i class="fa fa-trash-o"></i></button></div>
               <input type="hidden" name="_method" value="DELETE" />

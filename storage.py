@@ -94,7 +94,9 @@ class Storage(object):
                             '@id': record['@id'],
                             'etag': etag,
                             'modified': record['modified'],
-                            'title': record['about']['instanceTitle']['titleValue']
+                            'title': record['about']['instanceTitle']['titleValue'],
+                            'creator': record['about']['responsibilityStatement'],
+                            'published': record['about']['publicationYear'],
                         }
 
         self.rw_index(path, do_update_index, { 'meta_record': meta_record, 'user_id': user_id})
