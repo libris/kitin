@@ -4,6 +4,14 @@
     return {
       // optional method
       'request': function(config) {
+        var method = config.method;
+        if (method == 'PUT' || method == 'POST') {
+          action = 'Sparar.';
+        } else if (method == 'DELETE') {
+          action = 'Raderar.';
+        } else {
+          action = 'Laddar.';
+        }
         // do something on success
         $rootScope.loading = true;
         return config;
@@ -22,8 +30,6 @@
      //    return $q.reject(rejection);
      //  },
 
-
-
       // optional method
       'response': function(response) {
         // do something on success
@@ -33,11 +39,10 @@
 
       // optional method
      'responseError': function(rejection) {
-      console.log(rejection);
         $rootScope.loading = false;
         var method = rejection.config.method;
         var status = rejection.status;
-        console.log(status);
+    
         if (method == 'PUT' || method == 'POST') {
           action = 'spara';
         } else if (method == 'DELETE') {
@@ -45,6 +50,7 @@
         } else {
           action = 'ladda';
         }
+
         var alert = {
           msg: 'Det gick inte att ' + action + '. '
         };
