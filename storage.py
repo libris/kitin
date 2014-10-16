@@ -3,14 +3,8 @@
 import json
 import os
 import uuid
-from datetime import datetime, tzinfo, timedelta
-
-
-class simple_utc(tzinfo):
-    def tzname(self):
-        return "UTC"
-    def utcoffset(self, dt):
-        return timedelta(0)
+import pytz
+from datetime import datetime
 #from sqlalchemy import MetaData, Table, create_engine
 
 
@@ -127,13 +121,16 @@ class Storage(object):
         if rec_id is None or rec_id == 'new':
             rec_id = construct_id(rec_type)
 
+        tz = pytz.timezone("Europe/Stockholm")
+        aware_dt = tz.localize(datetime.now())
+
         path = construct_path([self.path, user_id, rec_type])
         create_dir_if_not_exists(path)
 
         record = json.loads(json_record)
         record['draft'] = True
         record['@id'] = '/' + '/'.join([rec_type, rec_id])
-        record['modified'] = datetime.utcnow().replace(tzinfo=simple_utc()).isoformat()
+        record['modified'] = aware_dt.isoformat() #datetime.utcnow().replace(tzinfo=simple_utc()).isoformat()
 
         with open(construct_path([path, rec_id]), 'w') as f:
             f.write(json.dumps(record))
