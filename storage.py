@@ -2,8 +2,15 @@
 # -*- coding: utf-8 -*-
 import json
 import os
-import datetime
 import uuid
+from datetime import datetime, tzinfo, timedelta
+
+
+class simple_utc(tzinfo):
+    def tzname(self):
+        return "UTC"
+    def utcoffset(self, dt):
+        return timedelta(0)
 #from sqlalchemy import MetaData, Table, create_engine
 
 
@@ -39,7 +46,7 @@ import uuid
                 #newvalues = users.update().where(users.username == uname).values(active = 1, sigel = sigel).execute()
                 #user = users.select(users.c.username == uname).execute().first()
                 #return user
-            
+
     
 
 class Storage(object):
@@ -98,7 +105,7 @@ class Storage(object):
                           'instanceTitle': record['about']['instanceTitle'],
                           'publication': record['about']['publication']
                       }
-        # Only add responsibilityStatement if it exist. TODO: What to show if it doesn't?
+        # Only add responsibilityStatement if it exist.
         if 'responsibilityStatement' in record['about']:
             meta_record['creator'] = record['about']['responsibilityStatement']
         elif 'performerNote' in record['about']:
@@ -126,7 +133,7 @@ class Storage(object):
         record = json.loads(json_record)
         record['draft'] = True
         record['@id'] = '/' + '/'.join([rec_type, rec_id])
-        record['modified'] = datetime.datetime.now().isoformat()
+        record['modified'] = datetime.utcnow().replace(tzinfo=simple_utc()).isoformat()
 
         with open(construct_path([path, rec_id]), 'w') as f:
             f.write(json.dumps(record))
