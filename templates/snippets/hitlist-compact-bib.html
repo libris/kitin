@@ -1,0 +1,13 @@
+<div class="hitlist-item bib compact">
+  <div class="title">
+    <strong>{{object.instanceTitle.titleValue + object.instanceTitle.subtitle | chop }}</strong>
+  </div>
+  <div class="creator">
+    {{ object.responsibilityStatement | chop }}
+  </div>
+  <div class="date">
+    <span title="Utgivningsår" data-ng-repeat="publication in object.publication | limitTo:1" data-ng-show="publication.providerDate">
+      {{publication.providerDate}}
+    </span>
+  </div>
+</div>

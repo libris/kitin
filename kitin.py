@@ -9,7 +9,7 @@ import urllib2
 from urlparse import urlparse
 import mimetypes
 from flask import (Flask, render_template, request, make_response, Response,
-        abort, redirect, url_for, Markup, session)
+        abort, redirect, url_for, Markup, session, send_from_directory)
 from flask_login import LoginManager, login_required, login_user, flash, current_user, logout_user
 import jinja2
 import requests
@@ -129,6 +129,13 @@ def search(record_type):
 @login_required
 def show_partial(path):
     return render_template('partials/%s.html' % path)
+
+# SNIPPETS TEMPLATES
+@app.route("/snippets/<path:path>")
+@login_required
+def show_snippets(path):
+    print '%s.html' % path
+    return send_from_directory('templates/snippets/', '%s.html' % path)
 
 # INITIAL STATIC RECORD
 @app.route("/record/template/<type>", methods=["GET"])
