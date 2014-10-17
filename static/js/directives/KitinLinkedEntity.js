@@ -66,7 +66,6 @@ kitin.directive('kitinLinkEntity', ['editService', function(editService) {
       }
 
       this.doAdd = function (data) {
-        console.log('doadd', data)
         if($scope.expand) { $scope.expand(); }
         var added = editService.addObject(subj, link, $scope.type, multiple, data);
         if (multiple) {
