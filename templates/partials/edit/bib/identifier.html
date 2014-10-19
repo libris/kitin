@@ -1,91 +1,45 @@
- {% raw %}
+{% raw %}
 
-    
-      <div data-ng-repeat="(identifierSchemeName, identifierScheme) in record.about.identifierByIdentifierScheme" ng-switch on="identifierSchemeName">
-        <!-- ISBN START -->
-        <div ng-switch-when="/def/identifiers/isbn" class="datatable" data-ng-target="isbnTable" 
-          data-kitin-data-table 
-          data-table-model="identifierScheme" 
-          data-table-header-row-template="isbn-header-row-template"
-          data-table-row-template="isbn-row-template"
-          data-subject="record.about" data-link-multiple="identifierByIdentifierScheme"
-          data-add-first
-          data-addable="publication_and_production">
-        </div>
-        <script type="text/ng-template" id="isbn-header-row-template">
-          <td><!--TODO fix labels and error messages for identifiers-->
-            <span class="lbl-inline lbl"
-                  data-ng-hide="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length"><span translate>LABEL.record.about.identifers.isbn.identifierValue</span>                      
-            </span>
-            <span class="lbl-inline lbl error-label"
-                  data-ng-show="subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length" translate>LABEL.record.about.identifers.isbn.identifierValue 
-            <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_value">(Fel numeriskt värde)</span>
-            <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_length">(Fel längd)</span>
-            </span>
-          </td>
-          <td><span class="lbl" translate>LABEL.record.about.identifers.isbn.identifierNote</span></td>
-        </script>
-        <script type="text/ng-template" id="isbn-row-template">
-          <td><div class="label"><input data-inplace type="text" data-inplace name="isbn_name" data-ng-model="object['identifierValue']" data-isbn-pattern="^$|^[0-9-xX]*$" isbnvalidator/></div></td>
-          <td><div class="label"><input data-inplace ng-model="object['identifierNote']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td class="controls">
-            <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-          </td>
-        </script>
-        <!-- ISBN END -->
-
-
-        <!-- ISSN START -->
-        <div ng-switch-when="/def/identifiers/issn" class="datatable" data-ng-target="issnTable" 
-          data-kitin-data-table 
-          data-table-model="identifierScheme" 
-          data-table-header-row-template="issn-header-row-template"
-          data-table-row-template="issn-row-template"
-          data-subject="record.about" data-link-multiple="identifierByIdentifierScheme"
-          data-add-first
-          data-addable="publication_and_production">
-        </div>
-        <script type="text/ng-template" id="issn-header-row-template">
-          <td><span class="lbl" translate>LABEL.record.about.identifers.issn.identifierValue</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.identifers.issn.identifierNote</span></td>
-        </script>
-        <script type="text/ng-template" id="issn-row-template">
-          <td><div class="label"><input ng-model="object['identifierValue']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td><div class="label"><input ng-model="object['identifierNote']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td class="controls">
-            <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-          </td>
-        </script>
-        <!-- ISSN END -->
-
-
-        <!-- OTHER IDENTIFIER START -->
-        <div ng-switch-default class="datatable" data-ng-target="identifierTable" 
-          data-kitin-data-table 
-          data-table-model="identifierScheme" 
-          data-table-header-row-template="general-identifier-header-row-template"
-          data-table-row-template="general-identifier-row-template"
-          data-subject="record.about" data-link-multiple="identifierByIdentifierScheme" data-default-type="identifier"
-          data-add-first
-          data-addable="publication_and_production">
-        </div>
-         <script type="text/ng-template" id="general-identifier-header-row-template">
-          <td><span class="lbl" translate>LABEL.record.about.identifers.generalIdentifier.identifierValue</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.identifers.generalIdentifier.identifierNote</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.identifers.generalIdentifier.identifierScheme</span></td>
-		  <td><span class="lbl" translate>LABEL.record.about.identifers.generalIdentifier.identifierStatus</span></td>
-        </script>
-        <script type="text/ng-template" id="general-identifier-row-template">
-          <td><div class="label"><input ng-model="object['identifierValue']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td><div class="label"><input ng-model="object['identifierNote']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td><div class="label"><input ng-model="object['identifierScheme']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td><div class="label"><input ng-model="object['identifierStatus']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td class="controls">
-            <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-          </td>
-        </script>
-        <!-- OTHER IDENTIFIER END -->
-
+<div data-ng-repeat="(identifierSchemeName, identifierScheme) in record.about.identifierByIdentifierScheme" 
+    ng-switch ="identifierSchemeName">
+  <!-- ISBN START -->
+  <div ng-switch-when="/def/identifiers/isbn" class="datatable" data-ng-target="isbnTable" 
+    data-kitin-data-table 
+    data-table-model="identifierScheme" 
+    data-table-header-row-template="/snippets/isbn-header-row-template"
+    data-table-row-template="/snippets/isbn-row-template"
+    data-subject="record.about" data-link-multiple="identifierByIdentifierScheme"
+    data-add-first
+    data-addable="publication_and_production">
   </div>
- {% endraw %}
+  <!-- ISBN END -->
+
+
+  <!-- ISSN START -->
+  <div ng-switch-when="/def/identifiers/issn" class="datatable" data-ng-target="issnTable" 
+    data-kitin-data-table 
+    data-table-model="identifierScheme" 
+    data-table-header-row-template="/snippets/issn-header-row-template"
+    data-table-row-template="/snippets/issn-row-template"
+    data-subject="record.about" data-link-multiple="identifierByIdentifierScheme"
+    data-add-first
+    data-addable="publication_and_production">
+  </div>
+  <!-- ISSN END -->
+
+
+  <!-- OTHER IDENTIFIER START -->
+  <div ng-switch-default class="datatable" data-ng-target="identifierTable" 
+    data-kitin-data-table 
+    data-table-model="identifierScheme" 
+    data-table-header-row-template="/snippets/general-identifier-header-row-template"
+    data-table-row-template="/snippets/general-identifier-row-template"
+    data-subject="record.about" data-link-multiple="identifierByIdentifierScheme" data-default-type="identifier"
+    data-add-first
+    data-addable="publication_and_production">
+  </div>
+  <!-- OTHER IDENTIFIER END -->
+
+</div>
+{% endraw %}
  
