@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.2.27-build.519+sha.6eab8ab
+ * @license AngularJS v1.2.27-build.523+sha.a56435f
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -68,7 +68,7 @@ function minErr(module) {
       return match;
     });
 
-    message = message + '\nhttp://errors.angularjs.org/1.2.27-build.519+sha.6eab8ab/' +
+    message = message + '\nhttp://errors.angularjs.org/1.2.27-build.523+sha.a56435f/' +
       (module ? module + '/' : '') + code;
     for (i = 2; i < arguments.length; i++) {
       message = message + (i == 2 ? '?' : '&') + 'p' + (i-2) + '=' +
@@ -1987,7 +1987,7 @@ function setupModuleLoader(window) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
-  full: '1.2.27-build.519+sha.6eab8ab',    // all of these placeholder strings will be replaced by grunt's
+  full: '1.2.27-build.523+sha.a56435f',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
   minor: 2,
   dot: 27,
@@ -12862,8 +12862,11 @@ function $RootScopeProvider(){
 
         var self = this;
         return function() {
-          namedListeners[indexOf(namedListeners, listener)] = null;
-          decrementListenerCount(self, 1, name);
+          var indexOfListener = indexOf(namedListeners, listener);
+          if (indexOfListener !== -1) {
+            namedListeners[indexOfListener] = null;
+            decrementListenerCount(self, 1, name);
+          }
         };
       },
 
@@ -17830,7 +17833,7 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
  *
  * For best practices on using `ngModel`, see:
  *
- *  - [https://github.com/angular/angular.js/wiki/Understanding-Scopes]
+ *  - [Understanding Scopes](https://github.com/angular/angular.js/wiki/Understanding-Scopes)
  *
  * For basic examples, how to use `ngModel`, see:
  *
@@ -19128,10 +19131,8 @@ var ngControllerDirective = [function() {
    </example>
  */
 /*
- * A directive that allows creation of custom onclick handlers that are defined as angular
- * expressions and are compiled and executed within the current scope.
- *
- * Events that are handled via these handler are always configured not to propagate further.
+ * A collection of directives that allows creation of custom event handlers that are defined as
+ * angular expressions and are compiled and executed within the current scope.
  */
 var ngEventDirectives = {};
 

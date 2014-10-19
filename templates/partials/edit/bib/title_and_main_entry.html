@@ -53,32 +53,13 @@
   <div class="label datatable" data-ng-target="influentialRelationTable" 
     data-kitin-data-table 
     data-table-model="record.about.influentialRelation" 
-    data-table-header-row-template="influentialRelation-header-row-template"
-    data-table-row-template="influentialRelation-row-template"
+    data-table-header-row-template="/snippets/influentialRelation-header-row-template"
+    data-table-row-template="/snippets/influentialRelation-row-template"
     data-subject="record.about" data-link-multiple="influentialRelation"
     data-default-type="Comment"
     data-add-first
     data-addable="notes">
   </div>
-
-  <script type="text/ng-template" id="influentialRelation-header-row-template">
-    <td>
-        <span class="lbl" translate>LABEL.record.about.influentialRelation</span>
-    </td>
-  </script>
-  <script type="text/ng-template" id="influentialRelation-row-template">
-    <td>
-      <div class="label">
-        <textarea ng-model="objects[$index].uniformTitle" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
-      </div>
-    </td>
-    <td class="controls">
-      <button class="btn-link deleter" data-ng-click="removeTableRow($index)">
-        <i class="fa fa-times"></i>
-      </button>
-    </td>
-  </script>
-  <!-- INFLUENTIAL RELATION TITLE  END -->
 
   <!-- RELATION  START -->
   <div class="label">
@@ -87,40 +68,11 @@
         data-subject="record.about"
         data-ng-init="label = 'Länkfält'"
         data-link-multiple="'relation'" data-type="relation"
-        data-view-template="render-relation-referenced-entity"
-        data-search-template="render-bib-search"
+        data-view-template="/snippets/render-relation-referenced-entity"
+        data-search-template="/snippets/render-bib-search"
         data-rich-entity>
     </div>
   </div>
-
-  <script type="text/ng-template" id="render-relation-referenced-entity">
-    <!--
-    <a href="?m={{object.describedBy['@id']}}">
-      <i class="fa fa-bookmark" data-ng-if="isAuth(object.describedBy)"></i>
-      <span class="name">{{ object.title }}</span>
-      {{ object.issn }}
-    </a>
-    <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
-    -->
-
-    <div class="entity relation linked">
-      <div class="main">
-        <div class="title"><strong>{{ object.instanceTitle.titleValue + object.instanceTitle.subtitle }}</strong></div>
-        <div class="creator">{{ object.responsibilityStatement }}</div>
-        <div class="date">
-          <span title="Utgivningsår" data-ng-repeat="publication in object.publication | limitTo:1" data-ng-show="publication.providerDate">
-            {{publication.providerDate}}
-          </span>
-        </div>
-      </div>
-      <div class="notes">
-        <span class="lbl" translate>LABEL.record.about.relation.linkNote</span>
-        <input data-inplace class="ng-pristine ng-valid" type="text" ng-model="object.linkNote" />
-      </div>
-      <a data-ng-if="!editable.on" class="delete" href="#"
-         data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a>
-    </div>
-  </script>
 
   <!-- RELATION  END -->
   <div class="label">
@@ -128,8 +80,8 @@
     <ul class="tags entity" data-kitin-link-entity
         data-subject="record.about"
         data-link-multiple="'isPartOf'" data-type="isPartOf"
-        data-view-template="render-referenced-entity"
-        data-search-template="render-bib-search">
+        data-view-template="/snippets/render-referenced-entity"
+        data-search-template="/snippets/render-bib-search">
     </ul>
   </div>
   <div class="label">
@@ -137,8 +89,8 @@
     <ul class="tags entity" data-kitin-link-entity
         data-subject="record.about"
         data-link-multiple="'hasPart'" data-type="hasPart"
-        data-view-template="render-referenced-entity"
-        data-search-template="render-bib-search">
+        data-view-template="/snippets/render-referenced-entity"
+        data-search-template="/snippets/render-bib-search">
     </ul>
   </div>
   <div class="label">
@@ -146,8 +98,8 @@
     <ul class="tags entity" data-kitin-link-entity
         data-subject="record.about"
         data-link-multiple="'precededBy'" data-type="PrecededBy"
-        data-view-template="render-referenced-entity"
-        data-search-template="render-bib-search">
+        data-view-template="/snippets/render-referenced-entity"
+        data-search-template="/snippets/render-bib-search">
     </ul>
   </div>
   <div class="label">
@@ -155,8 +107,8 @@
     <ul class="tags entity" data-kitin-link-entity
         data-subject="record.about"
         data-link-multiple="'succeededBy'" data-type="SucceededBy"
-        data-view-template="render-referenced-entity"
-        data-search-template="render-bib-search">
+        data-view-template="/snippets/render-referenced-entity"
+        data-search-template="/snippets/render-bib-search">
     </ul>
   </div>
   <!-- LANGUAGES  START -->
@@ -165,8 +117,8 @@
     <ul class="tags" data-kitin-link-entity
         data-subject="record.about"
         data-link-multiple="'language'" data-type="Language"
-        data-view-template="render-language"
-        data-search-template="render-search-language">
+        data-view-template="/snippets/render-language"
+        data-search-template="/snippets/render-search-language">
     </ul>
   </div>
   <div class="label">
@@ -174,82 +126,22 @@
     <ul class="tags" data-kitin-link-entity
         data-subject="record.about"
         data-link-multiple="'originalLanguage'" data-type="Language"
-        data-view-template="render-language"
-        data-search-template="render-search-language">
+        data-view-template="/snippets/render-language"
+        data-search-template="/snippets/render-search-language">
     </ul>
   </div>
-  <!-- RENDER LANGUAGE TEMPLATE  START -->
-  <script type="text/ng-template" id="render-language">
-      <div class="tag-linked"
-        data-ng-controller="PopoverCtrl" 
-        data-popover="{{loading}}" 
-        data-object="{{object}}" 
-        data-popover-title="{{object.prefLabel}}" 
-        data-custom-popover="language">
-          <i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i>
-          {{ object.prefLabel }}
-          <span data-ng-show="object.langCode">({{ object.langCode }})</span>
-          <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
-      </div>
-  </script>
-  <!-- RENDER LANGUAGE TEMPLATE  END -->
-
-  <!-- SEARCH LANGUAGE TEMPLATE  START -->
-  <script type="text/ng-template" id="render-search-language">
-    <div data-click-search>
-      <span class="add-link" ng-click="onclick($event)"><i class="fa fa-plus"></i></span>
-      <span class="search-field toggler">
-        <i class="fa fa-search"></i>
-        <input data-inplace class="input-large authdependant embedded" type="text" ng-blur="onblur($event)"
-          data-no-value="{{ object.prefLabel }} ({{ object.langCode }})"
-          data-kitin-search-entity
-          data-service-url="{{API_PATH}}/def/_search"
-          data-filter="{ filter: 'about.@type:Language'}"
-          data-completion-template="select-language-template" placeholder="Sök språk">
-      </span>
-    </div>
-  </script>
-  <!-- SEARCH LANGUAGE TEMPLATE  START -->
-
-  <!-- SELECT LANGUAGE TEMPLATE  START -->
-  <script type="text/html" id="select-language-template">
-    <div class="auth">
-      <h4>
-      <span class="name"><%= data.prefLabel %></span><span class="date"> <%= data.langCode %></span>
-      </h4>
-    </div>
-  </script>
-  <!-- SELECT LANGUAGE TEMPLATE  END -->
 
   <!-- LANGUAGE NOTE  START -->
   <div class="label datatable" data-ng-target="languageNoteTable" 
     data-kitin-data-table 
     data-table-model="record.about.languageNote" 
-    data-table-header-row-template="languageNote-header-row-template"
-    data-table-row-template="languageNote-row-template"
+    data-table-header-row-template="/snippets/languageNote-header-row-template"
+    data-table-row-template="/snippets/languageNote-row-template"
     data-subject="record.about" data-link-multiple="languageNote"
     data-default-type="Comment"
     data-add-first
     data-addable="notes">
   </div>
-
-  <script type="text/ng-template" id="languageNote-header-row-template">
-    <td>
-        <span class="lbl" translate>LABEL.record.about.languageNote</span>
-    </td>
-  </script>
-  <script type="text/ng-template" id="languageNote-row-template">
-    <td>
-      <div class="label">
-        <textarea ng-model="objects[$index]" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
-      </div>
-    </td>
-    <td class="controls">
-      <button class="btn-link deleter" data-ng-click="removeTableRow($index)">
-        <i class="fa fa-times"></i>
-      </button>
-    </td>
-  </script>
   <!-- LANGUAGE NOTE  END -->
   <!-- LANGUAGES  END -->
 
@@ -258,8 +150,8 @@
     <ul class="tags" data-kitin-link-entity
         data-subject="record.about"
         data-link="'alphabet'" data-type="Alphabet"
-        data-view-template="render-generic-linked-entity"
-        data-search-template="render-generic-select"
+        data-view-template="/snippets/render-generic-linked-entity"
+        data-search-template="/snippets/render-generic-select"
         data-filter="about.inCollection.@id:/def/enum/content/alphabet-collection">
     </ul>
   </div>
@@ -269,8 +161,8 @@
     <ul class="tags" data-kitin-link-entity
         data-subject="record.about"
         data-link-multiple="'contentType'" data-type="contentType"
-        data-view-template="render-generic-linked-entity"
-        data-search-template="render-generic-select"
+        data-view-template="/snippets/render-generic-linked-entity"
+        data-search-template="/snippets/render-generic-select"
         data-filter="about.inCollection.@id:/def/enum/content/contentType-collection">
     </ul>
   </div>
@@ -287,8 +179,8 @@
     <div data-kitin-link-entity
         data-ng-init="label = 'huvuduppslag'"
         data-subject="record.about" data-link="'attributedTo'" data-type="Person"
-        data-view-template="render-person"
-        data-search-template="render-search-box"
+        data-view-template="/snippets/render-person"
+        data-search-template="/snippets/render-search-box"
         data-rich-entity>
     </div>
   </div>
@@ -298,202 +190,12 @@
     <div data-kitin-link-entity
         data-ng-init="label = 'biuppslag'"
         data-subject="record.about" data-link-multiple="'influencedBy'" data-type="Person"
-        data-view-template="render-person"
-        data-search-template="render-search-box"
+        data-view-template="/snippets/render-person"
+        data-search-template="/snippets/render-search-box"
         data-rich-entity>
     </div>
   </div>
 </div>
 
 <div class="element-adder" data-element-adder="title_and_main_entry"></div>
-
-<!-- RENDER SEARCH AUTH TEMPLATE  START -->
-<script type="text/ng-template" id="render-search-box">
-  <div class="label find-entity">
-    <div class="add-item search">
-      <div data-click-search>
-        <span class="add-link" ng-click="onclick($event)"><i class="fa fa-plus"></i> Lägg till {{ label }}</span>
-        <span class="toggler">  
-          <span class="search-field">
-            <i class="fa fa-search"></i>
-            <input ng-blur="onblur($event)" class="input-large" type="text" placeholder="Sök {{ label }}"
-                  data-kitin-search-entity
-                  data-service-url="{{API_PATH}}/auth/_search"
-                  data-filter="{ 
-                      'filters' : ['about.@type:Person', 'about.@type:Meeting', 'about.@type:Organization' ] } "
-                  data-completion-template="auth-completion-template" 
-                  data-allow-non-auth="true"/>
-          </span>
-          <span class="linkchoice">
-            eller <a href="#">Skapa ny</a>
-          </span>
-        </span>
-      </div>
-    </div>
-  </div>
-</script>
-<!-- RENDER SEARCH AUTH TEMPLATE  END -->
-
-<!-- RENDER PERSON TEMPLATE  START -->
-<script type="text/ng-template" id="render-person">
-  <div data-ng-if="isLinked(object) && !isEmpty(object)" class="entity person linked">
-    <div class="main">
-      <span onload="person = object" data-ng-include="'render-person-name'"></span>
-      <a data-ng-if="isLinked(object)" class="btn-link auth" data-ng-controller="ModalCtrl" data-ng-click="openAuthModal(person['@id'])">
-        <i class="fa fa-bookmark"></i> Aukt.
-      </a>
-    </div>
-    <div data-ng-include="'roles'"></div>
-    <a data-ng-if="!editable.on" class="delete" href="#"
-       data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a>
-  </div>
-  <div data-ng-if="!isLinked(object)" class="entity person embedded"
-        data-ng-init="editable = {on: !(object.controlledLabel || object.givenName || object.name)}">
-    <div data-ng-hide="editable.on">
-        <div class="label" >
-          <span onload="person = object" data-ng-include="'render-person-name'"></span><a class="auth" href="#" data-ng-click="editable.on = !editable.on">Ändra</a>
-        </div>
-    </div>
-    <div data-ng-show="editable.on">
-      <a class="delete" href="#" data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a>
-      <div class="label">
-        <span class="lbl">{{ "Förnamn" }}</span>
-        <input data-inplace class="" type="text" placeholder="Förnamn"
-               data-ng-model="object.givenName" />
-      </div>
-      <div class="label">
-        <span class="lbl">{{ "Släktnamn" }}</span>
-        <input data-inplace class="" type="text" placeholder="Släktnamn"
-               data-ng-model="object.familyName" />
-      </div>
-    </div>
-    <div data-ng-show="editable.on">
-      <div class="label">
-        <span class="lbl">{{ "Född" }}</span>
-        <input data-inplace class="authdependant" type="text" placeholder="ÅÅÅÅ"
-               data-ng-model="object.birthYear" />
-
-      </div>
-      <div class="label">
-        <span class="lbl">{{ "Död" }}</span>
-        <input data-inplace class="authdependant" type="text" placeholder="ÅÅÅÅ" 
-               data-ng-model="object.deathYear" />
-      </div>
-      <!--
-      <div data-ng-controller="ModalCtrl">
-        <button class="btn btn-primary" data-ng-click="openAuthModal($event)">Aukt.</button>
-      </div>
-      -->
-    </div>
-    <div data-ng-include="'roles'"></div>
-    <a data-ng-if="!editable.on" class="delete" href="#"
-       data-ng-click="doRemove($index)"><i class="fa fa-trash"></i></a>
-  </div>
-</script>
-<!-- RENDER PERSON TEMPLATE  END -->
-
-<!-- RENDER ROLES TEMPLATE  START -->
-<script type='text/ng-template' id="roles">
-  <ul data-kitin-link-entity
-      class="tags"
-      data-service-url="{{API_PATH}}/auth"
-      data-filter="{ filter: 'about.@type:ObjectProperty' }"
-      data-subject="object"
-      data-link-multiple="'_reifiedRoles'" data-type="ObjectProperty"
-      data-view-template="render-role"
-      data-search-template="render-search-role">
-  </ul>
-</script>
-<!-- RENDER ROLES TEMPLATE  END -->
-
-<!-- RENDER ROLE TEMPLATE  START -->
-<script type='text/ng-template' id="render-role">
-  {{ object.label }} <em>({{ object.notation }})</em>
-  <a href="#" data-ng-click="doRemove($index)"><i class="no">&times;</i></a>
-</script>
-<!-- RENDER ROLE TEMPLATE  END -->
-
-<!-- RENDER SEARCH ROLE TEMPLATE  START -->
-<script type='text/ng-template' id="render-search-role">
-  <div data-click-search>
-    <span class="add-link" data-ng-click="onclick($event)"><i class="fa fa-plus"></i> Lägg till roll</span>
-    <span class="search-field toggler">
-      <i class="fa fa-search"></i>
-      <input data-inplace type="text" placeholder="Sök roller" ng-blur="onblur($event)"
-            data-service-url="{{API_PATH}}/relator/_search"
-            data-kitin-search-entity
-            data-completion-template="select-role-template"
-            />
-    </span>
-  </div>
-</script>
-<!-- RENDER SEARCH ROLE TEMPLATE  END -->
-
-<!-- COMPLETION ROLE TEMPLATE  START -->
-<script type="text/html" id="select-role-template">
-  <div class="auth">
-    <h4>
-    <span class="name"><%= data.label %></span><span class="date"> <%= data.notation %></span>
-    </h4>
-  </div>
-</script>
-<!-- COMPLETION ROLE TEMPLATE  END -->
-
-<!-- MODAL EDIT AUTH TEMPLATE  START -->
-<script type='text/ng-template' id="modal-edit-auth"> 
-  <div class="modal-header">
-   <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
-    <h4 class="modal-title">Auktoritetspost ({{ instance['@type'] }})</h4>
-  </div>
-  <div class="modal-body" data-ng-controller="EditCtrl">    
-    <div ng-include="'/partials/edit/auth'"></div>
-  </div>
-</script> 
-<!-- MODAL EDIT AUTH TEMPLATE  END -->
-
-<!-- MODAL EDIT BIB TEMPLATE  START -->
-<script type='text/ng-template' id="modal-edit-bib"> 
-  <div class="modal-header">
-   <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
-    <h4 class="modal-title">Bibliotekspost ({{ instance['@type'] }})</h4>
-  </div>
-  <div class="modal-body" data-ng-controller="EditCtrl">    
-    <div ng-include="'/partials/edit/bib'"></div>
-  </div>
-</script> 
-<!-- MODAL EDIT BIB TEMPLATE  END -->
-
-<!-- AUTH COMPLETION TEMPLATE  START -->
-<script type="text/html" id="auth-completion-template">
-  <div class="auth">
-  <% if (nameRepr(data) !== ", ") { %>
-      <h4>
-        <span class="name"><%= nameRepr(data) %></span>
-        <span class="date"><%= [data.birthYear, data.deathYear].join('–') %></span>
-        <% if (isLinked(data)) { %>
-          <span class="what" data-ng-if="isAuth(object)"><i class="fa fa-bookmark"></i> Aukt.</span>
-        <% } %>
-      </h4>
-      <span class="title"><%= data.personTitle %></span>
-      <% if (data.hasPersona && data.hasPersona.length) { %>
-        <span class="persona">Se även:
-          <b><%= data.hasPersona.map(nameRepr).join('</b>, <b>') %></b>
-        </span>
-      <% } %>
-      <% if (data.note && data.note.length) { %>
-        <ul class="about">
-          <li><%= data.note.map(truncate).join('</li><li>') %></li>
-        </ul>
-      <% } %>
-    <% } else { %>
-      <h4>
-        Ny icke auktoriserad person
-      </h4>
-    <% } %>
-  </div>
-</script>
-  <!-- AUTH COMPLETION TEMPLATE  END -->
-
-  <!-- PERSONS  END -->
-
 {% endraw %}

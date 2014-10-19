@@ -1,0 +1,11 @@
+<div class="tag-linked"
+  data-ng-controller="PopoverCtrl" 
+  data-popover="{{loading}}" 
+  data-object="{{object}}" 
+  data-popover-title="{{object.prefLabel}}" 
+  data-custom-popover="language">
+    <i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i>
+    {{ object.prefLabel }}
+    <span data-ng-show="object.langCode">({{ object.langCode }})</span>
+    <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
+</div>

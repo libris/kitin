@@ -1,9 +1,11 @@
 {
   "name": "Kitin",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+  },
   "devDependencies": {
     "grunt": "~0.4.5",
+    "grunt-angular-templates": "^0.5.7",
     "load-grunt-tasks": "~0.1.0",
     "grunt-contrib-watch": "~0.5.3",
     "grunt-contrib-coffee": "~0.7.0",
