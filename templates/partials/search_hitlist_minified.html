@@ -5,7 +5,7 @@
     <!--AUTH RESULT-->
     <div data-ng-switch-when="auth">
       <div data-ng-repeat="record in state.search.result.list">
-        <div data-ng-include="'hitlist-compact-auth'" data-ng-init="object = record.data.about"></div>
+        <div data-ng-include="'/snippets/hitlist-compact-auth'" data-ng-init="object = record.data.about"></div>
       </div>
     </div>
     <!--BIB RESULT-->
@@ -16,20 +16,5 @@
     </div>
   </div>
 </section>
-
-<!-- compact hitlists for results and entity preview inside form -->
-<script type="text/ng-template" id="hitlist-compact-auth">
-  <div class="hitlist-item auth compact">
-    <div class="title">
-      <strong>{{ object.controlledLabel + object.prefLabel + object.name + object.uniformTitle | chop }}</strong>
-    </div>
-    <div class="creator">
-      {{ object.name | chop }}
-    </div>
-    <div class="about">
-      <span title="about">{{ object.about['@type'] }}</span>
-    </div>
-  </div>
-</script>
 
 {% endraw %}

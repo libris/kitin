@@ -1,0 +1,26 @@
+<div class="auth">
+<% if (nameRepr(data) !== ", ") { %>
+    <h4>
+      <span class="name"><%= nameRepr(data) %></span>
+      <span class="date"><%= [data.birthYear, data.deathYear].join('–') %></span>
+      <% if (isLinked(data)) { %>
+        <span class="what" data-ng-if="isAuth(object)"><i class="fa fa-bookmark"></i> Aukt.</span>
+      <% } %>
+    </h4>
+    <span class="title"><%= data.personTitle %></span>
+    <% if (data.hasPersona && data.hasPersona.length) { %>
+      <span class="persona">Se även:
+        <b><%= data.hasPersona.map(nameRepr).join('</b>, <b>') %></b>
+      </span>
+    <% } %>
+    <% if (data.note && data.note.length) { %>
+      <ul class="about">
+        <li><%= data.note.map(truncate).join('</li><li>') %></li>
+      </ul>
+    <% } %>
+  <% } else { %>
+    <h4>
+      Ny icke auktoriserad person
+    </h4>
+  <% } %>
+</div>

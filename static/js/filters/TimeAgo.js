@@ -16,7 +16,7 @@ kitin.filter('timeAgo', function($filter) {
     
     // Correct time for timezone missing in the input time string.
     // TODO: Fix this.Save time with time zone in drafts.
-    correctedTime = time + (new Date().getTimezoneOffset() * 60 * 1000)
+    correctedTime = time + (new Date().getTimezoneOffset() * 60 * 1000);
 
     var timeFormats = [
         [60, 'sekunder', 1], // 60

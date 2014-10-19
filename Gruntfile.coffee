@@ -11,6 +11,10 @@ module.exports = (grunt) ->
     'cachebuster'
   ]
 
+  grunt.registerTask 'templates', [
+    'ngtemplates'
+  ]
+
   grunt.registerTask 'validate', [
     'htmlangular'
   ]

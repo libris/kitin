@@ -1,9 +1,9 @@
 // May be generalized at will
 kitin.filter('chop', function() {
   return function(victim, length, token) {
-    victim = victim || ''
-    length = length || 99
-    token = token || ' [...]'
+    victim = victim || '';
+    length = length || 99;
+    token = token || ' [...]';
     if (victim.length < length) {
       return victim;
     } else {
