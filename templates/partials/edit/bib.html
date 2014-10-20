@@ -23,29 +23,21 @@
       </div>
     </section>
   
-    <section class="submit modificationinfo" data-ng-class="modifiedClasses()" data-ng-init="disableButtons = (subform.$invalid)">
-      <div ng-include="'save-buttons'"></div>
-    </section>
-
-    <div class="footer footer-sticky">
-      <div class="container">
+      <div class="footer footer-sticky">
         <section>
-          <div class="cols">
-            <div class="col6 left">
+          <div class="row">
+            <div class="col-md-4">
               <div data-ng-include="'/snippets/holdings-button'"></div>
-              <div style="clear:both"></div>
+            </div>
+            <div class="col-md-8">  
               <a href="">Förhandsgranska MARC</a>
-            </div>
-            <div>
-
-            </div>
-            <div class="col6 right">
-              <div class="record-status">{{record.draft ? 'DRAFT' : 'PUBLISHED?'}} - Senast sparad: {{record.modified | date:'yyyy-MM-dd HH:mm:ss'}}</div>
-              <div ng-include="'save-buttons'"></div>
+              <span>{{record.modified | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+              <a id="draft" data-ng-click="saveDraft()" title="{{lastSavedLabel('Senast sparad: %s')}}">Spara utkast</a>
+              <a class="btn btn-dark" id="publish" data-ng-class="modifiedClasses()" data-ng-disabled="subform.$invalid" data-ng-click="save()" title="{{lastPublishedLabel('Senast publicerad: %s')}}">Publicera</a>
+              <p class="message" data-ng-show="modifications.message">{{ modifications.message }}</p>
             </div>
           </div>
         </section>
-      </div>
     </div>
   </ng-form>
 
