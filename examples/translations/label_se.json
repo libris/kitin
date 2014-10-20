@@ -131,7 +131,19 @@
             
             "sourceNote": "Intern anmärkning om katalogiseringskälla"
         },
-
+        
+        "holding": {
+        	"about.offers": {
+        		"availability": "Begränsningar på utlån",
+        		"classificationPart": "Uppställd på",
+        		"copyNote": "Anmärkning om uppställningen",
+        		"copyNumber": "Exemplarnummer",
+	        	"editorialNote": "Intern uppställningsanm.",
+	        	"shelfControlNumber": "Löpnummer",
+	        	"shelfLabel": "Uppställningsord",
+	        	"shelfLocation": "Avdelning, samling etc."
+        	}
+        },
         "gui": {
             "index": {
                 "headers": {
@@ -154,6 +166,9 @@
             		"ID": "Id",
             		"ENCODING": "Encoding"
 
+            },
+            "terms": {
+	            	"HOLDINGS": "Bestånd"
             }
 
         }
