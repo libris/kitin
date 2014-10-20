@@ -111,7 +111,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
   $templateCache.put('/snippets/holdings-button',
     " <div class=\"holding\">\n" +
-    "  <a class=\"btn btn-purple btn-hld\" data-ng-controller=\"ModalCtrl\" data-ng-click=\"openHoldingsModal($event, record.data.about['@id'])\">\n" +
+    "  <a class=\"btn btn-purple btn-hld\" data-ng-controller=\"ModalCtrl\" data-ng-click=\"openHoldingsModal($event, recordId)\">\n" +
     "    <span data-ng-if=\"!record.holdings.holding\"><i class=\"fa fa-inverse fa-plus\"></i> Bestånd</span>\n" +
     "    <span data-ng-if=\"record.holdings.holding\"><i class=\"fa fa-inverse fa-check\"></i> Bestånd</span>\n" +
     "  </a>\n" +

@@ -27,7 +27,7 @@
         <section>
           <div class="row">
             <div class="col-md-4">
-              <div data-ng-include="'/snippets/holdings-button'"></div>
+              <div data-ng-include="'/snippets/holdings-button'" data-ng-init="recordId = record.about['@id']"></div>
             </div>
             <div class="col-md-8">  
               <a data-ng-controller="ModalCtrl" data-ng-click="openMARCModal($event, record)">Förhandsgranska MARC</a>

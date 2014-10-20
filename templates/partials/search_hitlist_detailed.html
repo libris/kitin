@@ -139,7 +139,7 @@
         <div class="comments">
           <span data-ng-repeat="comment in record.data.comment">{{comment}}</span>
         </div>
-        <div data-ng-include="'/snippets/holdings-button'"></div>
+        <div data-ng-include="'/snippets/holdings-button'" data-ng-init="recordId = record.data.about['@id']"></div>
       </div>
 
     </div>
