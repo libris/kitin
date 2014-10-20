@@ -116,19 +116,20 @@ def logout():
 @app.route('/marc/<rec_type>/<rec_id>')   # Marc start template
 @login_required
 def index(source=None, rec_type=None, rec_id=None):
-    return render_template('index.html', user=current_user, partials = {"/partials/index" : "partials/index.html"}, debug = app.debug, WHELK_HOST = app.config['CLIENT_WHELK_HOST'])
+    return render_template('index.html', user=current_user, debug = app.debug, WHELK_HOST = app.config['CLIENT_WHELK_HOST'])
 
-# SEARCH TEMPLATE 
-@app.route("/search/<record_type>")
-@login_required
-def search(record_type):
-    return render_template('index.html', partials = {"/partials/search" : "partials/search.html"}, debug = app.debug, WHELK_HOST = app.config['CLIENT_WHELK_HOST'])
+# SEARCH TEMPLATE
+# @app.route("/search/<record_type>")
+# @login_required
+# def search(record_type):
+#     return render_template('index.html', partials = {"/partials/search" : "partials/search.html"}, debug = app.debug, WHELK_HOST = app.config['CLIENT_WHELK_HOST'])
 
 # PARTIAL TEMPLATES
 @app.route("/partials/<path:path>")
 @login_required
 def show_partial(path):
-    return render_template('partials/%s.html' % path)
+    return send_from_directory('templates/partials/', '%s.html' % path)
+    #return render_template('partials/%s.html' % path)
 
 # SNIPPETS TEMPLATES
 @app.route("/snippets/<path:path>")

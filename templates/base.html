@@ -32,20 +32,59 @@
   </head>
 
   <body data-ng-app="kitin" class="{% block bodyclass %}{% endblock %}" data-ng-controller="AppCtrl">
-      {% include "partials/_system_message.html" %}  
-      {% include "_header.html" %}
-    <div class="container">     
-      {% block content %}
-      {% endblock content %}
-      {% include "_footer.html" %}
-
+    {{alerts}}
+    <div data-ng-include="'/snippets/messages'"></div>
+    <div id="header-wrapper">
+      <div class="container">
+        <div id="header">
+          {% if current_user and current_user.is_authenticated() %}
+          <div id="nav">
+            <ul class="nav-menu pull-right">
+              <li class="active"><a href="http://feedback.kat.libris.kb.se/" target="_blank" title="Feedback forum">Tyck till <i class="icon fa fa-external-link"></i></a></li>
+              <li data-ng-controller="ModalCtrl">
+                <a title="Skapa ny post" href="#" data-ng-click="openCreateNewModal()"><i class="icon fa fa-plus"></i> Skapa ny post</a>
+              </li>
+              <li class="dropdown">
+                <a class="dropdown-toggle login" data-toggle="dropdown" title="Logga ut - inställningar">
+                  <span class="username">{{current_user.username}} ({{current_user.sigel}})</span><i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu pull-right">
+                  <li class="disabled"><a href="#"> Mitt konto</a></li>
+                  <li><a href="/signout" target="_self">Logga ut</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          {% endif %}
+          <div class="logo">
+            <a href="/"><h1>Libris <strong>Katalogisering</strong></h1></a>
+            <span class="beta">BETA</span>
+            <span class="system-updated" title="{{ modified.strftime('%Y-%m-%d %H:%m') }}">
+              Uppdaterad {{ modified.strftime('%d %b') }} - 
+              <a href="#" data-ng-controller="ModalCtrl" data-ng-click="openReleaseModal()">Release notes</a> | 
+              <a href="https://docs.google.com/presentation/d/1Q4Abhn1t5ThQoAhm_wNYrNrs6nvGEUTDSCC7gf8O4U0/pub?start=false&loop=false&delayms=3000#slide=id.p" target="_blank">Testanvisningar</a>
+            </span>
+          </div>
+          <div class="kb"></div>
+          {% if current_user and current_user.is_authenticated() %}
+          <div data-ng-include="'/snippets/searchfield'"></div>
+          {% endif %}
+        </div>
+      </div>
     </div>
-
-    <!-- Remote modal -->
-    {% include "partials/modal_remote_search.html" %}
-    <!-- Holdings modal -->
-    {% include "partials/modal_holdings.html" %}
-
+    <div class="container">     
+      {% block content %}{% endblock content %}
+      <div class="footer">
+        <footer>
+          <img alt="Kb logo" src="/static/img/kb.svg">
+          <ul>
+            <li>
+              <a href="#" id="contact" title="Information om cookies: Libris katalogisering använder sig av cookies. Cookies är små filer som lagras på besökarens dator för att webbservern ska kunna upprätthålla information om användaren inom en viss tidsperiod. Libris katalogisering använder sig av s.k. sessionscookies som sparar information om den inloggade användaren temporärt, så länge som webbläsarsessionen varar. Informationen som lagras ser till att tjänsten vet vilken användare som är inloggad och vilka bibliotek som han/hon katalogiserar för. Funktionen &quote;håll mig inloggad&quote; sparar en permanent cookie som är aktiv i 31 dagar.Post- och telestyrelsen, som är tillsynsmyndighet på området, lämnar ytterligare information om Cookies på sin webbplats, www.pts.se">Om kakor</a>
+            </li>
+          </ul>
+        </footer>
+      </div>
+    </div>
     {% if current_user %}
     <script type="text/javascript">
       kitin.run(['userData', function (userData) {

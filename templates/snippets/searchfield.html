@@ -1,0 +1,40 @@
+<div class="nav-back" ng-show="state.search.q">
+  <a data-nav-back><i class="fa fa-arrow-circle-left"></i> Tillbaka till träfflistan</a>
+</div>
+
+<div data-ng-controller="SearchFormCtrl">
+  <div class="searchfield">
+    <form data-ng-submit="state.search.q ? search() : false" method="GET" name="search_form">
+      <input id="search" name="q" type="text" autofocus
+             value="{{ state.search.q }}" placeholder="{{ state.searchType.placeholder }}"
+      autocomplete="off" role="textbox"
+      aria-autocomplete="list" aria-haspopup="true" data-ng-model="state.search.q">
+      <div class="btn-group dropdown" data-is-open="isopen">
+        <a class="btn btn-grey search-source dropdown-toggle">
+          <span class="btn-label">{{ state.searchType.label }}</span>
+          <span class="fa fa-caret-down"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li data-ng-repeat="opt in searchTypes">
+            <a data-ng-class="{selected: opt.key == state.searchType.key}"
+               data-ng-click="setSearchType(opt.key)">{{ opt.label }}</a>
+          </li>
+        </ul>
+        <button class="btn btn-green" type="submit"><i class="fa fa-search"></i></button>
+      </div>
+      <div class="remote-search" data-ng-show="state.searchType.key == 'remote'">
+        <!-- List seleceted remote databases -->
+        <ul class="remotesource">
+          <li data-ng-repeat="database in state.remoteDatabases | filter:{selected: true} | orderBy:'alternativeName'"><i class="fa fa-check"> </i>
+           {{ database.database }}
+            <span class="hitcount" data-ng-show="database.hitCount">({{ database.hitCount }})</span>
+            <span data-ng-show=" ! $last ">,</span>
+          </li>
+        </ul>
+        <div data-ng-controller="ModalCtrl">
+          <a href="#" data-ng-click="openRemoteModal()">Fler källor</a>
+        </div>            
+      </div>
+    </form>
+  </div>
+</div>

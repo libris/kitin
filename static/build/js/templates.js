@@ -40,6 +40,43 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('/snippets/general-identifier-header-row-template',
+    "<td><span class=\"lbl\" translate>LABEL.record.about.identifers.generalIdentifier.identifierValue</span></td>\n" +
+    "<td><span class=\"lbl\" translate>LABEL.record.about.identifers.generalIdentifier.identifierNote</span></td>\n" +
+    "<td><span class=\"lbl\" translate>LABEL.record.about.identifers.generalIdentifier.identifierScheme</span></td>\n" +
+    "<td><span class=\"lbl\" translate>LABEL.record.about.identifers.generalIdentifier.identifierStatus</span></td>"
+  );
+
+
+  $templateCache.put('/snippets/general-identifier-row-template',
+    "<td>\n" +
+    "  <div class=\"label\">\n" +
+    "    <input ng-model=\"object['identifierValue']\" data-inplace class=\"ng-pristine ng-valid\" type=\"text\" />\n" +
+    "  </div>\n" +
+    "</td>\n" +
+    "<td>\n" +
+    "  <div class=\"label\">\n" +
+    "    <input ng-model=\"object['identifierNote']\" data-inplace class=\"ng-pristine ng-valid\" type=\"text\" />\n" +
+    "  </div>\n" +
+    "</td>\n" +
+    "<td>\n" +
+    "  <div class=\"label\">\n" +
+    "    <input ng-model=\"object['identifierScheme']['@id']\" data-inplace class=\"ng-pristine ng-valid\" type=\"text\" />\n" +
+    "  </div>\n" +
+    "</td>\n" +
+    "<td>\n" +
+    "  <div class=\"label\">\n" +
+    "    <input ng-model=\"object['identifierStatus']\" data-inplace class=\"ng-pristine ng-valid\" type=\"text\" />\n" +
+    "  </div>\n" +
+    "</td>\n" +
+    "<td class=\"controls\">\n" +
+    "  <button class=\"btn-link deleter\" data-ng-click=\"removeTableRow($index)\">\n" +
+    "    <i class=\"fa fa-times\"></i>\n" +
+    "  </button>\n" +
+    "</td>"
+  );
+
+
   $templateCache.put('/snippets/hitlist-compact-auth',
     "<div class=\"hitlist-item auth compact\">\n" +
     "  <div class=\"title\">\n" +
@@ -93,6 +130,65 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('/snippets/isbn-header-row-template',
+    "<td><!--TODO fix labels and error messages for identifiers-->\n" +
+    "  <span class=\"lbl-inline lbl\"\n" +
+    "        data-ng-hide=\"subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length\"><span translate>LABEL.record.about.identifers.isbn.identifierValue</span>                      \n" +
+    "  </span>\n" +
+    "  <span class=\"lbl-inline lbl error-label\"\n" +
+    "        data-ng-show=\"subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length\" translate>LABEL.record.about.identifers.isbn.identifierValue \n" +
+    "  <span class=\"error_message\" data-ng-show=\"subform.isbn_name.$error.invalid_value\">(Fel numeriskt värde)</span>\n" +
+    "  <span class=\"error_message\" data-ng-show=\"subform.isbn_name.$error.invalid_length\">(Fel längd)</span>\n" +
+    "  </span>\n" +
+    "</td>\n" +
+    "<td><span class=\"lbl\" translate>LABEL.record.about.identifers.isbn.identifierNote</span></td>"
+  );
+
+
+  $templateCache.put('/snippets/isbn-row-template',
+    "<td>\n" +
+    "  <div class=\"label\">\n" +
+    "    <input data-inplace type=\"text\" data-inplace name=\"isbn_name\" data-ng-model=\"object['identifierValue']\" data-isbn-pattern=\"^$|^[0-9-xX]*$\" isbnvalidator/>\n" +
+    "  </div>\n" +
+    "</td>\n" +
+    "<td>\n" +
+    "  <div class=\"label\">\n" +
+    "    <input data-inplace ng-model=\"object['identifierNote']\" data-inplace class=\"ng-pristine ng-valid\" type=\"text\" />\n" +
+    "  </div>\n" +
+    "</td>\n" +
+    "<td class=\"controls\">\n" +
+    "  <button class=\"btn-link deleter\" data-ng-click=\"removeTableRow($index)\">\n" +
+    "    <i class=\"fa fa-times\"></i>\n" +
+    "  </button>\n" +
+    "</td>"
+  );
+
+
+  $templateCache.put('/snippets/issn-header-row-template',
+    "<td><span class=\"lbl\" translate>LABEL.record.about.identifers.issn.identifierValue</span></td>\n" +
+    "<td><span class=\"lbl\" translate>LABEL.record.about.identifers.issn.identifierNote</span></td>"
+  );
+
+
+  $templateCache.put('/snippets/issn-row-template',
+    "<td>\n" +
+    "  <div class=\"label\">\n" +
+    "    <input ng-model=\"object['identifierValue']\" data-inplace class=\"ng-pristine ng-valid\" type=\"text\" />\n" +
+    "  </div>\n" +
+    "</td>\n" +
+    "<td>\n" +
+    "  <div class=\"label\">\n" +
+    "    <input ng-model=\"object['identifierNote']\" data-inplace class=\"ng-pristine ng-valid\" type=\"text\" />\n" +
+    "  </div>\n" +
+    "</td>\n" +
+    "<td class=\"controls\">\n" +
+    "  <button class=\"btn-link deleter\" data-ng-click=\"removeTableRow($index)\">\n" +
+    "    <i class=\"fa fa-times\"></i>\n" +
+    "  </button>\n" +
+    "</td>"
+  );
+
+
   $templateCache.put('/snippets/languageNote-header-row-template',
     "<td>\n" +
     "  <span class=\"lbl\" translate>LABEL.record.about.languageNote</span>\n" +
@@ -114,6 +210,38 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('/snippets/messages',
+    "<div id=\"system-message-container\">\n" +
+    "  <alert ng-repeat=\"message in systemMessages track by $index\" type=\"message.type\" close=\"closeSystemMessage($index)\">{{message.msg}}</alert>\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('/snippets/modal-create-new',
+    "<div class=\"modal-header\">\n" +
+    "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
+    "  <h2 id=\"rlModalLabel\">Skapa ny katalogpost</h2>\n" +
+    "</div>\n" +
+    "<div class=\"modal-body cols\">\n" +
+    "<tabset>\n" +
+    "  <tab>\n" +
+    "    <tab-heading>Bibliografisk post</tab-heading>\n" +
+    "    <div class=\"col4\"\n" +
+    "        data-ng-repeat=\"typeGroup in typeGroups\"\n" +
+    "        data-ng-include=\"'render-new-type-group'\">\n" +
+    "    </div>\n" +
+    "  </tab>\n" +
+    "</tabset>\n" +
+    "</div>\n" +
+    "<div class=\"modal-footer\">\n" +
+    "  <a class=\"btn btn-green\"\n" +
+    "     href=\"/edit/draft/bib/new?type={{ createNew.mainType }}&amp;aggregateLevel={{ createNew.aggregateLevel }}\"\n" +
+    "     data-ng-click=\"close()\"\n" +
+    "     >Skapa <i class=\"fa fa-arrow-circle-right\"></i></a>\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('/snippets/modal-edit-auth',
     "<div class=\"modal-header\">\n" +
     " <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
@@ -132,6 +260,230 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "</div>\n" +
     "<div class=\"modal-body\" data-ng-controller=\"EditCtrl\">    \n" +
     "  <div ng-include=\"'/partials/edit/bib'\"></div>\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('/snippets/modal-holdings',
+    "<div class=\"modal-header holdings\">\n" +
+    "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
+    "  <h4 class=\"modal-title\">Bestånd</h4>\n" +
+    "</div>\n" +
+    "\n" +
+    "<div class=\"modal-body holdings\">\n" +
+    "  <form data-ng-show=\"holding.data['@id'] || !holding['etag']\">\n" +
+    "    <section class=\"offer\" data-ng-repeat=\"offer in holding.data.about.offers track by $index\">\n" +
+    "      <div class=\"cols\">\n" +
+    "        <div class=\"col6\">\n" +
+    "          <div class=\"label\">\n" +
+    "            <span class=\"lbl\">{{ \"Avdelning/Samling\" }}</span>\n" +
+    "            <input data-inplace type=\"text\" placeholder=\"Avdelning/Samling\" data-ng-model=\"offer.shelfLocation\"/>\n" +
+    "          </div>\n" +
+    "          <div class=\"label\">\n" +
+    "            <span class=\"lbl\">{{ \"Hyllsignum/Klassifikation\" }}</span>\n" +
+    "            <input data-inplace type=\"text\" placeholder=\"Hyllsignum/Klassifikation\" data-ng-model=\"offer.classificationPart\"/>\n" +
+    "          </div>\n" +
+    "          <div class=\"label\">\n" +
+    "            <span class=\"lbl\">{{ \"Löpnummer\" }}</span>\n" +
+    "            <input data-inplace type=\"text\" placeholder=\"Löpnummer\" data-ng-model=\"offer.shelfControlNumber\"/>\n" +
+    "          </div>\n" +
+    "          <div class=\"label\">\n" +
+    "            <span class=\"lbl\">{{ \"Uppställningsord\" }}</span>\n" +
+    "            <input data-inplace type=\"text\" placeholder=\"Uppställningsord\" data-ng-model=\"offer.shelfLabel\"/>\n" +
+    "          </div>\n" +
+    "        </div>\n" +
+    "        <div class=\"col6\">\n" +
+    "          <div class=\"label\">\n" +
+    "            <span class=\"lbl\">{{ \"Exemplarinfo\" }}</span>\n" +
+    "            <input data-inplace type=\"text\" placeholder=\"Exemplarinfo\" data-ng-model=\"offer.availability\"/>\n" +
+    "          </div>\n" +
+    "          <div class=\"label\">\n" +
+    "            <span class=\"lbl\">{{ \"Exemplarnummer\" }}</span>\n" +
+    "            <input data-inplace type=\"text\" placeholder=\"Exemplarnummer\" data-ng-model=\"offer.copyNumber\"/>\n" +
+    "          </div>\n" +
+    "          <div class=\"label\">\n" +
+    "            <span class=\"lbl\">{{ \"Publik anmärkning\" }}</span>\n" +
+    "            <textarea data-inplace data-ui-jq=\"autosize\" spellcheck=\"false\" placeholder=\"Publik anmärkning\" data-ng-model=\"offer.copyNote\"></textarea>\n" +
+    "          </div>\n" +
+    "          <div class=\"label\">\n" +
+    "            <span class=\"lbl\">{{ \"Intern anmärkning\" }}</span>\n" +
+    "            <textarea data-inplace data-ui-jq=\"autosize\" spellcheck=\"false\" placeholder=\"Intern anmärkning\" data-ng-model=\"offer.editorialNote\"></textarea>\n" +
+    "          </div>\n" +
+    "        </div>\n" +
+    "        <div class=\"col12\">\n" +
+    "          <button class=\"btn btn-link pull-right\" data-ng-if=\"holding.data.about.offers.length > 1\" data-ng-click=\"deleteOffer(holding, $index)\"><i class=\"fa fa-trash-o\"></i> Radera lokalsignum</button>\n" +
+    "        </div>\n" +
+    "      </div>\n" +
+    "    </section>\n" +
+    "  </form>\n" +
+    "\n" +
+    "  <hrdata-ng-show=\"holding\">\n" +
+    "\n" +
+    "  <div class=\"alert alert-success\" role=\"alert\" data-ng-show=\"!holding\">\n" +
+    "    {{ \"Beståndet raderat\" }}\n" +
+    "  </div>\n" +
+    "  \n" +
+    "  <div class=\"alert alert-error\" role=\"alert\" data-ng-show=\"holding.data.about.offers.length < 1\">\n" +
+    "    {{ \"Beståndet saknar lokalsignum\" }}\n" +
+    "  </div>\n" +
+    "\n" +
+    "  <div class=\"modal-alerts\" data-ng-show=\"alerts.length > 0\">\n" +
+    "    <alert data-ng-repeat=\"alert in alerts\" type=\"{{alert.type}}\" close=\"closeAlert($index)\">{{alert.msg}}</alert>\n" +
+    "  </div>\n" +
+    "\n" +
+    "  <div>\n" +
+    "    <button class=\"btn btn-flat btn-purple-light\" data-ng-click=\"addOffer(holding)\" data-ng-show=\"holding\"><i class=\"fa fa-plus\"></i> Lägg till lokalsignum</button>\n" +
+    "  </div>\n" +
+    "\n" +
+    "</div>\n" +
+    "\n" +
+    "<div class=\"modal-footer holdings submit\">\n" +
+    "  <div class=\"status pull-left\">\n" +
+    "    <div data-ng-if=\"modifications.saved\">Inga osparade ändringar.</div>\n" +
+    "    <div data-ng-if=\"!modifications.saved\">Du har inte sparat dina ändringar.</div>\n" +
+    "  </div>\n" +
+    "  <button class=\"btn-link\" id=\"delete-hld\" data-ng-click=\"deleteHolding(holding)\" data-ng-show=\"holding.data['@id']\"><i class=\"fa fa-trash-o\"></i> Radera bestånd</button>\n" +
+    "  <button class=\"btn btn-purple btn-submit\" id=\"save-hld\" data-ng-click=\"saveHolding(holding)\" data-ng-show=\"holding\">Spara bestånd</button>\n" +
+    "  <button class=\"btn btn-purple btn-submit\" id=\"save-hld\" data-ng-click=\"close()\" data-ng-show=\"!holding\">Stäng</button>\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('/snippets/modal-release',
+    "<div class=\"modal-header\">\n" +
+    "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
+    "  <h2 id=\"rlModalLabel\">Release Notes</h2>\n" +
+    "</div>\n" +
+    "<div class=\"modal-body\">\n" +
+    "  <h4>2014-07-02</h4>\n" +
+    "  <ul>\n" +
+    "    <li>Förenklad träfflista.</li>\n" +
+    "    <li>Förbättrad funktionalitet för att lägga till fält i post.</li>\n" +
+    "    <li>Tillägg av oauktoriserade uppslag.</li>\n" +
+    "    <li>Hantering av laddnings- och systemfelsmeddelanden.</li>\n" +
+    "  </ul>\n" +
+    "  <h4>2014-06-02</h4>\n" +
+    "  <p>Gränssnitt</p>\n" +
+    "  <ul>\n" +
+    "    <li>Förbättrad autosuggest för språk, länder, personer och ämnesord.</li>\n" +
+    "    <li>Påbörjat arbete med implementering av värden från fasta fält.</li>\n" +
+    "    <li>Förbättrat flöde och mallhantering för katalogisering av monografi.</li>\n" +
+    "  </ul>\n" +
+    "  <h4>2014-05-19</h4>\n" +
+    "  <p>Gränssnitt</p>\n" +
+    "  <ul>\n" +
+    "    <li>Ny sökruta med tydligare information i vilken delmängd man söker i.</li>\n" +
+    "    <li>Träfflistan har nu tydligare information om antal träffar, samt en direktknapp \"till toppen\".</li>\n" +
+    "    <li>\"Sticky\" footer i redigeringsläget där postinformation kan rymmas.</li>\n" +
+    "    <li>Påbörjat ombyggnad av \"taggning\" för språk, länder och ämnesord, samt andra definitionslistor</li>\n" +
+    "    <li>En \"åter träfflistan\" länk har ersatt sökrutan i redigeringsläget för att spara utrymme.</li>\n" +
+    "  </ul>\n" +
+    "  <h4>2014-04-15</h4>\n" +
+    "  <p>Gränssnitt</p>\n" +
+    "  <ul>\n" +
+    "    <li>Sökning och hämtning av poster i externa databaser (remotesök).</li>\n" +
+    "    <li>Sortering och fler avgränsningsmöjligheter i träfflistan.</li>\n" +
+    "    <li>Fler detaljer i fullposten, bla fler titeltyper, bärarspecifika detaljer och anmärkningar.</li>\n" +
+    "    <li>Första iteration för att lägga till fält i vissa sektioner.</li>\n" +
+    "  </ul>\n" +
+    "  <h4>2013-12-18</h4>\n" +
+    "  <p>Gränssnitt</p>\n" +
+    "  <ul>\n" +
+    "    <li>Semifunktionell prototyp av personhantering med tillägg av roller (förändringar av roller påverkar ännu inte den data som sparas).</li>\n" +
+    "    <li>Ny hantering av definitionslistor (för t.ex. språk-, lands- och roll-/funktionskoder), med uppdaterad data.</li>\n" +
+    "    <li>Enhetlig teknik för sökning av auktoriteter och definitioner.</li>\n" +
+    "    <li>Förbättringar av sökning på personer och ämnen (ännu inget stöd för att skapa lokal definition av ett ämne).</li>\n" +
+    "    <li>Minskade marginaler i sidhuvud och marginaler för att ge en mer kompakt arbetsyta.</li>\n" +
+    "    <li>Förbättrat utseende i JSON-LD-vyn.</li>\n" +
+    "  </ul>\n" +
+    "  <p>Libris XL</p>\n" +
+    "  <ul>\n" +
+    "    <li>Fortsatt arbete med att hitta och skapa länkar till extraherade entiteter, nu inklusive  Organization och Work</li>\n" +
+    "    <li>ElasticSearch, tokenisering i index och möjlighet att ställa in konfigurering specifikt per indextyp</li>\n" +
+    "    <li>Förberedelse inför möjlighet att göra sökning mot externa kataloger via Z39.50. API som gör sökning mot metaproxy (där en testinstans i ett första steg söker mot LC Library of Congress, ESTER Estland och NLE Spanien) och returnerar metadata i JSON-LD.</li>\n" +
+    "  </ul>\n" +
+    "  <h4>2013-11-18</h4>\n" +
+    "  <p>Gränssnitt</p>\n" +
+    "  <ul>\n" +
+    "    <li>Omstrukturerad layout efter användartester för att förbättra arbetsflöde och översikt</li>\n" +
+    "    <li>Auktoritetssök, med grundläggande vy för att se aukt. post, fler detaljer finns under JSON-LD fliken.</li>\n" +
+    "  </ul>\n" +
+    "  <p>Libris XL</p>\n" +
+    "  <ul>\n" +
+    "    <li>Vi har förbättrat katalogsystemets infrastruktur för inläsning, lagring, bearbetning och indexering av metadata samt arbetat med optimering av APIer och uppslag för relaterat metadata baserat på länkar.</li>\n" +
+    "  </ul>\n" +
+    "  <h4>2013-10-25</h4>\n" +
+    "  <p>Auktoritetsdata</p>\n" +
+    "  <ul>\n" +
+    "    <li>Länkar från bib-data till auth-data</li>\n" +
+    "    <li>Uttryck namn+titel som verksentitet med huvuduppslag</li>\n" +
+    "  </ul>\n" +
+    "  <p>Libris XL</p>\n" +
+    "  <ul>\n" +
+    "    <li>Interpunktion rensas i vanligt förekommande fält</li>\n" +
+    "    <li>Förbättrad infrastruktur (sök-API, dokumenthantering, OAI-PMH-import)</li>\n" +
+    "  </ul>\n" +
+    "  <p>Gränssnitt: JSON-LD-fliken</p>\n" +
+    "  <ul>\n" +
+    "    <li>Ihopvikbara block (klicka på etiketten)</li>\n" +
+    "    <li>Navigerbara <code>@id</code>-länkar</li>\n" +
+    "  </ul>\n" +
+    "  <hr />\n" +
+    "  <h4>2013-10-11</h4>\n" +
+    "  <p>Ämnesord</p>\n" +
+    "  <ul>\n" +
+    "    <li>Se kontrollerade ämnesord uppdelat på system</li>\n" +
+    "    <li>Lägga till och ta bort ämnesord (dock ej redigera redan tillagda)</li>\n" +
+    "    <li>Rudimentär förslagsfunktion för att navigera och välja bland ämnesord</li>\n" +
+    "  </ul>\n" +
+    "  <p>Personauktoriteter är under rekonstruktion för att möjliggöra länkar (till skillnad från bara strängar) mellan auktoritetsposter och bibliografiska poster.\n" +
+    "  </p>\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('/snippets/modal-remote',
+    "<div class=\"modal-header\">\n" +
+    "  <button type=\"button\" class=\"close\" ng-click=\"remoteDatabaseFilterQuery = ''; close()\">×</button>\n" +
+    "  <h3 id=\"remoteModalLabel\">Remotekällor</h3>\n" +
+    "  <div class=\"input-group col-md-4\">\n" +
+    "    <input ng-model=\"remoteDatabaseFilterQuery\" placeholder=\"filtrera databaser\" class=\"form-control\">\n" +
+    "    <span class=\"input-group-btn\">\n" +
+    "      <button class=\"btn btn-default\" ng-click=\"remoteDatabaseFilterQuery = ''\">\n" +
+    "        <i class=\"fa fa-times-circle\"></i>\n" +
+    "      </button>\n" +
+    "    </span>\n" +
+    "  </div>\n" +
+    "</div>\n" +
+    "<div class=\"modal-body\">\n" +
+    "  <!--<div>\n" +
+    "    Sortera:\n" +
+    "    <ul>\n" +
+    "      <li ng-click=\"orderRemoteDatabases = 'alternativeName'; groupRemoteDatabases = false;\">Bokstavsordning</li>\n" +
+    "      <li ng-click=\"orderRemoteDatabases = 'country'; groupRemoteDatabases = true;\">Länder</li>\n" +
+    "    <ul>\n" +
+    "  </div>-->\n" +
+    "  <div class=\"container-fluid\" ng-init=\"orderRemoteDatabases = 'alternativeName'; groupRemoteDatabases = false;\">\n" +
+    "  <div class=\"row\">\n" +
+    "    <dl class=\"col-md-6\" data-ng-repeat=\"database in orderedRemoteDatabases = ((state.remoteDatabases | orderBy: orderRemoteDatabases)) | filter:remoteDatabaseFilterQuery\">\n" +
+    "      <dd>\n" +
+    "        <h4 ng-if=\"groupRemoteDatabases && orderedRemoteDatabases[$index-1][orderRemoteDatabases] !== database[orderRemoteDatabases]\">\n" +
+    "          {{database.country}}\n" +
+    "        </h4>\n" +
+    "        <a href=\"#\" class=\"database-name\"  ng-class=\"{'active':database.selected}\" ng-click=\"database.selected = !database.selected\">\n" +
+    "          {{ database.alternativeName }}\n" +
+    "        </a>\n" +
+    "        <a href=\"{{database.address}}\" target=\"_blank\">\n" +
+    "          <i class=\"fa fa-external-link\"></i>\n" +
+    "        </a>\n" +
+    "        <i data-ng-show=\"database.comment\" class=\"fa fa-info-circle database-comment\" title=\"{{ database.comment }}\"></i>\n" +
+    "      </dd>\n" +
+    "    </dl>\n" +
+    "  </div>\n" +
+    "  </div>\n" +
+    "</div>\n" +
+    "<div class=\"modal-footer\">\n" +
+    "  <button class=\"btn btn-green\" ng-click=\"remoteDatabaseFilterQuery = ''; close()\">OK</button>\n" +
     "</div>"
   );
 
@@ -237,6 +589,19 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    {{ object.prefLabel }}\n" +
     "    <span data-ng-show=\"object.langCode\">({{ object.langCode }})</span>\n" +
     "    <i data-ng-if=\"!editable.on\" data-ng-click=\"doRemove($index)\" class=\"no\">&times;</i>\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('/snippets/render-new-type-group',
+    "<h3>{{ typeGroup.label }}</h3>\n" +
+    "<div data-ng-repeat=\"class in typeGroup.classes\">\n" +
+    "  <div class=\"label\" data-ng-class=\"{'text-muted': class.deprecated}\">\n" +
+    "    <input type=\"radio\" name=\"{{ typeGroup.name }}\"\n" +
+    "           data-ng-model=\"createNew[typeGroup.name]\"\n" +
+    "           data-ng-value=\"getTermToken(class)\" />\n" +
+    "    {{ class.get('label') }}\n" +
+    "  </div>\n" +
     "</div>"
   );
 
@@ -459,6 +824,50 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  \n" +
     "<p class=\"message\" data-ng-show=\"modifications.message\">{{ modifications.message }}</p>\n" +
     "<div style=\"clear:both\"></div>"
+  );
+
+
+  $templateCache.put('/snippets/searchfield',
+    "<div class=\"nav-back\" ng-show=\"state.search.q\">\n" +
+    "  <a data-nav-back><i class=\"fa fa-arrow-circle-left\"></i> Tillbaka till träfflistan</a>\n" +
+    "</div>\n" +
+    "\n" +
+    "<div data-ng-controller=\"SearchFormCtrl\">\n" +
+    "  <div class=\"searchfield\">\n" +
+    "    <form data-ng-submit=\"state.search.q ? search() : false\" method=\"GET\" name=\"search_form\">\n" +
+    "      <input id=\"search\" name=\"q\" type=\"text\" autofocus\n" +
+    "             value=\"{{ state.search.q }}\" placeholder=\"{{ state.searchType.placeholder }}\"\n" +
+    "      autocomplete=\"off\" role=\"textbox\"\n" +
+    "      aria-autocomplete=\"list\" aria-haspopup=\"true\" data-ng-model=\"state.search.q\">\n" +
+    "      <div class=\"btn-group dropdown\" data-is-open=\"isopen\">\n" +
+    "        <a class=\"btn btn-grey search-source dropdown-toggle\">\n" +
+    "          <span class=\"btn-label\">{{ state.searchType.label }}</span>\n" +
+    "          <span class=\"fa fa-caret-down\"></span>\n" +
+    "        </a>\n" +
+    "        <ul class=\"dropdown-menu\">\n" +
+    "          <li data-ng-repeat=\"opt in searchTypes\">\n" +
+    "            <a data-ng-class=\"{selected: opt.key == state.searchType.key}\"\n" +
+    "               data-ng-click=\"setSearchType(opt.key)\">{{ opt.label }}</a>\n" +
+    "          </li>\n" +
+    "        </ul>\n" +
+    "        <button class=\"btn btn-green\" type=\"submit\"><i class=\"fa fa-search\"></i></button>\n" +
+    "      </div>\n" +
+    "      <div class=\"remote-search\" data-ng-show=\"state.searchType.key == 'remote'\">\n" +
+    "        <!-- List seleceted remote databases -->\n" +
+    "        <ul class=\"remotesource\">\n" +
+    "          <li data-ng-repeat=\"database in state.remoteDatabases | filter:{selected: true} | orderBy:'alternativeName'\"><i class=\"fa fa-check\"> </i>\n" +
+    "           {{ database.database }}\n" +
+    "            <span class=\"hitcount\" data-ng-show=\"database.hitCount\">({{ database.hitCount }})</span>\n" +
+    "            <span data-ng-show=\" ! $last \">,</span>\n" +
+    "          </li>\n" +
+    "        </ul>\n" +
+    "        <div data-ng-controller=\"ModalCtrl\">\n" +
+    "          <a href=\"#\" data-ng-click=\"openRemoteModal()\">Fler källor</a>\n" +
+    "        </div>            \n" +
+    "      </div>\n" +
+    "    </form>\n" +
+    "  </div>\n" +
+    "</div>"
   );
 
 

@@ -1,59 +1,54 @@
-{% include "partials/edit/bib/_snippet_templates.html" %} 
-{% raw %}
+<ng-form name="subform">
 
-  <ng-form name="subform">
+  <section class="title-and-main-entry"       ng-include="'/partials/edit/bib/title_and_main_entry'"></section>
+  <section class="publication-and-production" ng-include="'/partials/edit/bib/publication_and_production'"></section>
+  <section class="physical-description"       ng-include="'/partials/edit/bib/physical_description'"></section>
+  <section class="notes"                      ng-include="'/partials/edit/bib/notes'"></section>
+  <section class="edit-subject"               ng-include="'/partials/edit/bib/subject'"></section>
 
-    <section class="title-and-main-entry"       ng-include="'/partials/edit/bib/title_and_main_entry'"></section>
-    <section class="publication-and-production" ng-include="'/partials/edit/bib/publication_and_production'"></section>
-    <section class="physical-description"       ng-include="'/partials/edit/bib/physical_description'"></section>
-    <section class="notes"                      ng-include="'/partials/edit/bib/notes'"></section>
-    <section class="edit-subject"               ng-include="'/partials/edit/bib/subject'"></section>
-
-<!-- uncompleted marc debug -->
-    <section ng-if="debug && record._marcUncompleted" class="unknown" ng-include="'/partials/edit/bib/unknown'"></section>
+  <!-- uncompleted marc debug -->
+  <section ng-if="debug && record._marcUncompleted" class="unknown" ng-include="'/partials/edit/bib/unknown'"></section>
 
 
-<!-- debug printed fields -->
-    <section ng-if="debug" class="debug">
-      <h2> <span>Debug record</span><i></i></h2>
-      <div class="cols">
-      	<div class="col12">
-        <pre data-ng-bind="debugRecord"></pre>
-      	</div>
-      </div>
-    </section>
-  
-    <section class="submit modificationinfo" data-ng-class="modifiedClasses()" data-ng-init="disableButtons = (subform.$invalid)">
-      <div ng-include="'save-buttons'"></div>
-    </section>
-
-    <div class="footer footer-sticky">
-      <div class="container">
-        <section>
-          <div class="cols">
-            <div class="col6 left">
-              <div data-ng-include="'/partials/enc_level'" ng-init="encLevel = record.encLevel"></div>
-              <div class="levelselect">
-                <div class="dropup">
-                  <a class="dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-check"></i> <span data-ng-model="record.encLevel['@id']"  >{{record.encLevel['@id']}}</span><i class="fa fa-caret-down"></i>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#">Minimal nivå</a></li>
-                    <li><a href="#">Bibliografisk nivå</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div style="clear:both"></div>
-            </div>
-            <div class="col6 right">
-              <div class="record-status">{{record.draft ? 'DRAFT' : 'PUBLISHED?'}} - Senast sparad: {{record.modified | date:'yyyy-MM-dd HH:mm:ss'}}</div>
-              <div ng-include="'save-buttons'"></div>
-            </div>
-          </div>
-        </section>
-      </div>
+  <!-- debug printed fields -->
+  <section ng-if="debug" class="debug">
+    <h2> <span>Debug record</span><i></i></h2>
+    <div class="cols">
+    	<div class="col12">
+      <pre data-ng-bind="debugRecord"></pre>
+    	</div>
     </div>
-  </ng-form>
+  </section>
 
-{% endraw %}
+  <section class="submit modificationinfo" data-ng-class="modifiedClasses()" data-ng-init="disableButtons = (subform.$invalid)">
+    <div ng-include="'save-buttons'"></div>
+  </section>
+
+  <div class="footer footer-sticky">
+    <div class="container">
+      <section>
+        <div class="cols">
+          <div class="col6 left">
+            <div data-ng-include="'/partials/enc_level'" ng-init="encLevel = record.encLevel"></div>
+            <div class="levelselect">
+              <div class="dropup">
+                <a class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-check"></i> <span data-ng-model="record.encLevel['@id']"  >{{record.encLevel['@id']}}</span><i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Minimal nivå</a></li>
+                  <li><a href="#">Bibliografisk nivå</a></li>
+                </ul>
+              </div>
+            </div>
+            <div style="clear:both"></div>
+          </div>
+          <div class="col6 right">
+            <div class="record-status">{{record.draft ? 'DRAFT' : 'PUBLISHED?'}} - Senast sparad: {{record.modified | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+            <div ng-include="'save-buttons'"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</ng-form>
