@@ -32,19 +32,12 @@
         <section>
           <div class="cols">
             <div class="col6 left">
-              <div data-ng-include="'/partials/enc_level'" ng-init="encLevel = record.encLevel"></div>
-              <div class="levelselect">
-                <div class="dropup">
-                  <a class="dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-check"></i> <span data-ng-model="record.encLevel['@id']"  >{{record.encLevel['@id']}}</span><i class="fa fa-caret-down"></i>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#">Minimal nivå</a></li>
-                    <li><a href="#">Bibliografisk nivå</a></li>
-                  </ul>
-                </div>
-              </div>
+              <div data-ng-include="'/snippets/holdings-button'"></div>
               <div style="clear:both"></div>
+              <a href="">Förhandsgranska MARC</a>
+            </div>
+            <div>
+
             </div>
             <div class="col6 right">
               <div class="record-status">{{record.draft ? 'DRAFT' : 'PUBLISHED?'}} - Senast sparad: {{record.modified | date:'yyyy-MM-dd HH:mm:ss'}}</div>
