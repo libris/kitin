@@ -30,7 +30,7 @@
               <div data-ng-include="'/snippets/holdings-button'"></div>
             </div>
             <div class="col-md-8">  
-              <a href="">Förhandsgranska MARC</a>
+              <a data-ng-controller="ModalCtrl" data-ng-click="openMARCModal($event, record)">Förhandsgranska MARC</a>
               <span>{{record.modified | date:'yyyy-MM-dd HH:mm:ss'}}</span>
               <a id="draft" data-ng-click="saveDraft()" title="{{lastSavedLabel('Senast sparad: %s')}}">Spara utkast</a>
               <a class="btn btn-dark" id="publish" data-ng-class="modifiedClasses()" data-ng-disabled="subform.$invalid" data-ng-click="save()" title="{{lastPublishedLabel('Senast publicerad: %s')}}">Publicera</a>
