@@ -1,12 +1,8 @@
 kitin.controller('ModalMARCCtrl', function($scope, $modalInstance, recordService, record) {
 
-  var flattenMARC = function(marcRecord) {
-
-  };
-
   // POST record to Whelk and get it in MARC
   recordService.libris.convertToMarc(record).then(function(marcRecord) {
-    $scope.record = flattenMARC(marcRecord);
+    $scope.record = marcRecord;
   });
 
   $scope.close = function() {
