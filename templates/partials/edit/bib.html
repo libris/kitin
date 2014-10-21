@@ -21,7 +21,7 @@
   </section>
 
   <section class="submit modificationinfo" data-ng-class="modifiedClasses()" data-ng-init="disableButtons = (subform.$invalid)">
-    <div ng-include="'save-buttons'"></div>
+    <div ng-include="'/snippets/save-buttons'"></div>
   </section>
 
   <div class="footer footer-sticky">
@@ -45,7 +45,7 @@
           </div>
           <div class="col6 right">
             <div class="record-status">{{record.draft ? 'DRAFT' : 'PUBLISHED?'}} - Senast sparad: {{record.modified | date:'yyyy-MM-dd HH:mm:ss'}}</div>
-            <div ng-include="'save-buttons'"></div>
+            <div ng-include="'/snippets/save-buttons'"></div>
           </div>
         </div>
       </section>
