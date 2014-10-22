@@ -127,11 +127,9 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
   };
 
   $scope.save = function() {
-    console.log(!$scope.record.draft, !isNew);return;
     var parsedRecType = $scope.recType === editService.RECORD_TYPES.REMOTE ? editService.RECORD_TYPES.BIB : $scope.recType;
     if(!$scope.record.new) {
 
-      delete $scope.record.draft
       var ifMatchHeader = '';
       if($scope.etag) {
         ifMatchHeader = $scope.etag.replace(/["']/g, "");
@@ -165,7 +163,6 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
 
   $scope.saveDraft = function() {
     var parsedRecType = $scope.recType === editService.RECORD_TYPES.REMOTE ? editService.RECORD_TYPES.BIB : $scope.recType;
-
     if(!$scope.record.draft) {
       recordService.draft.create(parsedRecType, $scope.recId, $scope.record).then(function(data) {
         $location.url('/edit/draft' + data['recdata']['@id']);
@@ -305,7 +302,7 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
 
   /** debugRecord
   * Function for debug purposes, !TODO REMOVE
-  * Finds data bindings and prints record to console.log
+
   */
   function debugRecord() {
 

@@ -18,10 +18,10 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
       }
       if ( typeof variables == 'Array') {
         variables.forEach(function() {
-          console.log(this);
+
         });
       } else{
-        console.log(variables);
+
       }
     };
   }

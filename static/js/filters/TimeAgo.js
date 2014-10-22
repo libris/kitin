@@ -16,7 +16,7 @@ kitin.filter('timeAgo', function($filter) {
         time = new Date().getTime();
     }
     
-    var verboseFormat = verboseFormat || 'yyyy-MM-dd, HH:mm';
+    verboseFormat = verboseFormat || 'yyyy-MM-dd, HH:mm';
 
     var timeFormats = [
         [60, 'sekunder', 1], // 60
