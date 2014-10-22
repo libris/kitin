@@ -11,9 +11,7 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
 
   editService.addableElements = [];
 
-  var isNew = ($scope.recId === 'new');
-
-  document.body.className = isNew ? 'edit new' : 'edit';
+  document.body.className = 'edit';
 
   $scope.$on('$routeUpdate', function() {
     $scope.outputFormat = $location.hash();
@@ -130,7 +128,7 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
 
   $scope.save = function() {
     var parsedRecType = $scope.recType === editService.RECORD_TYPES.REMOTE ? editService.RECORD_TYPES.BIB : $scope.recType;
-    if(!$scope.record.draft && !isNew) {
+    if(!$scope.record.new) {
 
       var ifMatchHeader = '';
       if($scope.etag) {
@@ -138,17 +136,26 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
       } else {
         console.warn('No ETag for this record. Where is it?');
       }
+
       recordService.libris.save(parsedRecType, $scope.recId, $scope.record, ifMatchHeader).then(function(data) {
-        $scope.addRecordViewsToScope(data['recdata']);
-        $scope.etag = data['etag'];
-        onPublishState();
+
+        if($scope.record.draft) {
+          // If draft load libris record
+          recordService.draft.delete(parsedRecType, $scope.recId);
+          $location.url('/edit/libris' + data['recdata']['@id']);
+        } else {
+          // Libris rexord, just update record
+          $scope.addRecordViewsToScope(data['recdata']);
+          $scope.etag = data['etag'];
+          onPublishState();
+        }
       });
     } else {
       recordService.libris.create(parsedRecType, $scope.record).then(function(data) {
-        if($scope.isDraft) {
+        if($scope.draft) {
           recordService.draft.delete(parsedRecType, $scope.recId);
         }
-        $location.url('/edit' + data['recdata']['@id']);
+        $location.url('/edit/libris' + data['recdata']['@id']);
       });
     }
   };
