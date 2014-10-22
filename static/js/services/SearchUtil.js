@@ -78,7 +78,7 @@ kitin.factory('searchUtil', function() {
           if (i > 0) {
             tmpCrumb["bridge"] = " och ";
           }
-          //console.log("Facett: " + facet + ", term: " + term + ", urlpart: " + urlPart + ", position: " + i + ", length: " + facetlist.length);
+
           crumblist.push(tmpCrumb);
         }
       } else {

@@ -3,14 +3,8 @@
 import json
 import os
 import uuid
-from datetime import datetime, tzinfo, timedelta
-
-
-class simple_utc(tzinfo):
-    def tzname(self):
-        return "UTC"
-    def utcoffset(self, dt):
-        return timedelta(0)
+import pytz
+from datetime import datetime
 #from sqlalchemy import MetaData, Table, create_engine
 
 
@@ -50,13 +44,34 @@ class simple_utc(tzinfo):
     
 
 class Storage(object):
-    def __init__(self, path):
+    def __init__(self, path, app=None):
+        self.app = app
         self.path = path
         if not os.path.exists(self.path):
             os.makedirs(self.path)
 
-    def get_record_summary(rec_type, rec_id, json_data, etag):
-        print rec_id
+    def get_record_summary(self, record, etag):
+        # Perhaps we should put a little more logic here, instead of just including instanceTitle and publication?
+        if record and '@id' in record:
+            meta_record = {
+                          '@id': record['@id'],
+                          'modified': record['modified'],
+                          'etag': etag
+                        }
+            try:
+                meta_record['instanceTitle'] = record['about']['instanceTitle']
+                meta_record['publication'] = record['about']['publication']
+                meta_record['creator'] = record['about']['responsibilityStatement']
+                if 'performerNote' in record['about']:
+                    if len(record['about']['performerNote']) > 0:
+                        meta_record['creator'] = record['about']['performerNote'][0]
+            except Exception as exeption:
+                self.app.logger.warning("Error, problem parsing record metadata on draft save", exeption) 
+                pass
+            return meta_record
+        else:
+            app.logger.warning("Error no record to save as draft")
+        
 
     def rw_index(self, path, callback, params={}):
         filename = "/".join([path, 'index.json'])
@@ -97,20 +112,7 @@ class Storage(object):
 
             return draft_index
 
-        # Perhaps we should put a little more logic here, instead of just including instanceTitle and publication?
-        meta_record = {
-                          '@id': record['@id'],
-                          'etag': etag,
-                          'modified': record['modified'],
-                          'instanceTitle': record['about']['instanceTitle'],
-                          'publication': record['about']['publication']
-                      }
-        # Only add responsibilityStatement if it exist.
-        if 'responsibilityStatement' in record['about']:
-            meta_record['creator'] = record['about']['responsibilityStatement']
-        elif 'performerNote' in record['about']:
-            if len(record['about']['performerNote']) > 0:
-                meta_record['creator'] = record['about']['performerNote'][0]
+        meta_record = self.get_record_summary(record, etag)
 
         self.rw_index(path, do_update_index, { 'meta_record': meta_record, 'user_id': user_id})
         return meta_record
@@ -127,13 +129,16 @@ class Storage(object):
         if rec_id is None or rec_id == 'new':
             rec_id = construct_id(rec_type)
 
+        tz = pytz.timezone("Europe/Stockholm")
+        aware_dt = tz.localize(datetime.now())
+
         path = construct_path([self.path, user_id, rec_type])
         create_dir_if_not_exists(path)
 
         record = json.loads(json_record)
         record['draft'] = True
         record['@id'] = '/' + '/'.join([rec_type, rec_id])
-        record['modified'] = datetime.utcnow().replace(tzinfo=simple_utc()).isoformat()
+        record['modified'] = aware_dt.isoformat() #datetime.utcnow().replace(tzinfo=simple_utc()).isoformat()
 
         with open(construct_path([path, rec_id]), 'w') as f:
             f.write(json.dumps(record))

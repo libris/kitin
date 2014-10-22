@@ -350,27 +350,6 @@ body.edit .footer footer {
   padding-top: 7px !important;
   background-color: transparent !important;
 }
-.footer-sticky .left {
-  padding-top: 5px;
-  padding-left: 25px;
-}
-.footer-sticky .left > div {
-  float: left;
-}
-.footer-sticky .left .levelselect {
-  margin-left: 15px;
-}
-.footer-sticky .record-status {
-  float: left;
-  margin-top: 5px;
-}
-.footer-sticky .right {
-  text-align: right;
-}
-.footer-sticky .btn {
-  font-size: inherit;
-  padding: 6px 12px;
-}
 /* BUTTONS START ------------------------- */
 /* !TODO Remove and use boostrap buttons instead */
 /* bootstrap buttons */

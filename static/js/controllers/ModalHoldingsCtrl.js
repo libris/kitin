@@ -18,7 +18,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     var currentRecord = _.find(records, function(record) {
       return record.data.about['@id'] == recordId;
     });
-    console.log(currentRecord);
+
     return currentRecord;
   }
 
@@ -61,7 +61,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   // If no holding is found, we create a new one.
   recordService.holding.get(recordId, userData).then(function(holding) {
     if (!holding) {
-      console.log('No holdings found, creating new.\n');
+
       recordService.holding.create().then(function(response) {
         holding = response;
         holding.data.about['@id'] = recordId;
@@ -77,13 +77,13 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   });
 
   $scope.saveHolding = function(holding) {
-    console.log('ABOUT TO SAVE HOLDING: ', holding);
+
     recordService.holding.save(holding).then(function success(holding) {
-      console.log('SAVED HOLDING, ETAG SHOULD HAVE CHANGED: ', holding);
+
       onSave(holding);
       $scope.holding = holding;
     }, function error(status) {
-      console.log('you should now see an alert from the httpinterceptor');
+
     });
   };
 
@@ -91,7 +91,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     recordService.holding.del(holding).then(function(response) {
       onDelete(holding);
       delete $scope.holding;
-      console.log('Holding removed successfully!');
+
     });
   };
 
@@ -108,7 +108,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   $scope.deleteOffer = function(holding, index) {
     var offers = holding.data.about.offers;
     offers.splice(index, 1);
-    console.log('Offer removed successfully, form should now be considered dirty!');
+
   };
 
 });

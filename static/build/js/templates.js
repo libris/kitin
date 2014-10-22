@@ -109,6 +109,16 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('/snippets/holdings-button',
+    " <div class=\"holding\">\n" +
+    "  <a class=\"btn btn-purple btn-hld\" data-ng-controller=\"ModalCtrl\" data-ng-click=\"openHoldingsModal($event, recordId)\">\n" +
+    "    <span data-ng-if=\"!record.holdings.holding\"><i class=\"fa fa-inverse fa-plus\"></i> Bestånd</span>\n" +
+    "    <span data-ng-if=\"record.holdings.holding\"><i class=\"fa fa-inverse fa-check\"></i> Bestånd</span>\n" +
+    "  </a>\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('/snippets/influentialRelation-header-row-template',
     "<td>\n" +
     "    <span class=\"lbl\" translate>LABEL.record.about.influentialRelation</span>\n" +
@@ -538,23 +548,6 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    data-view-template=\"/snippets/render-role\"\n" +
     "    data-search-template=\"/snippets/render-search-role\">\n" +
     "</ul>"
-  );
-
-
-  $templateCache.put('/snippets/save-buttons',
-    "<!-- \n" +
-    "  save-buttons\n" +
-    "  Publish and save draft buttons\n" +
-    "-->\n" +
-    "\n" +
-    "<button class=\"btn-link\" id=\"draft\" data-ng-click=\"saveDraft()\"\n" +
-    "        title=\"{{lastSavedLabel('Senast sparad: %s')}}\">Spara utkast</button>\n" +
-    "\n" +
-    "<button class=\"btn btn-dark btn-submit\" id=\"publish\" data-ng-disabled=\"disableButtons\" data-ng-click=\"save()\"\n" +
-    "  title=\"{{lastPublishedLabel('Senast publicerad: %s')}}\">Publicera</button>\n" +
-    "  \n" +
-    "<p class=\"message\" data-ng-show=\"modifications.message\">{{ modifications.message }}</p>\n" +
-    "<div style=\"clear:both\"></div>"
   );
 
 

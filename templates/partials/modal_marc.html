@@ -1,10 +1,10 @@
 {% raw %}
-<div class="content bib marc">
-  <form name="form" class="form-horizontal" data-ng-controller="EditCtrl">
-    <header class="clearfix">
-      <h1>MARC</h1>
-      <div data-ng-include="'/partials/_mode_menu'" onload="mode = 'MARC'"></div>
-    </header>
+<div class="modal-header marc">
+  <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
+  <h4 class="modal-title">MARC förhandsgranskning</h4>
+</div>
+
+<div class="modal-body marc">
     <section class="marc">
       <table>
         <tr>
@@ -18,7 +18,6 @@
         </tr>
       </table>
     </section>
-  </form>
 </div>
 
 <script type="text/ng-template" id="render-object">
@@ -36,4 +35,5 @@
   </span>
 </script>
 
+<div class="modal-footer holdings submit"></div>
 {% endraw %}

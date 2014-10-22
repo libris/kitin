@@ -34,7 +34,8 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
             "@type": "Record",
             "about": {
               "@type": [mainType, aggregateLevel],
-            }
+            },
+            "new": true
           };
           editService.decorate(struct).then(function(decoratedRecord) {
             deferer.resolve({
@@ -52,6 +53,8 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
       save: function(type, id, recordData, recordEtag) {
         var deferer = $q.defer();
         var recordDataCopy = angular.copy(recordData);
+        delete recordDataCopy['new'];
+        delete recordDataCopy['draft'];
         editService.undecorate(recordDataCopy).then(function(undecoratedRecord) {
           $http.put($rootScope.WRITE_API_PATH + '/' + type + '/' + id, undecoratedRecord,
               {
@@ -72,7 +75,8 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
       create: function(type, recordData) {
         var deferer = $q.defer();
         var recordDataCopy = angular.copy(recordData);
-        
+        delete recordDataCopy['new'];
+        delete recordDataCopy['draft'];
         editService.undecorate(recordDataCopy).then(function(undecoratedRecord) {
           $http.post($rootScope.WRITE_API_PATH + '/' + type, undecoratedRecord)
             .success(function(createdRecord, status, headers) {
@@ -90,7 +94,11 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
       convertToMarc: function(data) {
         var deferer = $q.defer();
         editService.undecorate(data).then(function(undecoratedRecord) {
-          $http.post($rootScope.API_PATH + '/_format?to=application\/x-marc-json', undecoratedRecord).success(function(data, status, headers) {
+          $http.post($rootScope.API_PATH + '/_format?to=application\/x-marc-json', undecoratedRecord, {
+            headers: {
+              'Content-Type': 'application/ld+json'
+            }
+          }).success(function(data, status, headers) {
             deferer.resolve(data);
           });
         });
@@ -175,7 +183,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
         //sigel = 'SLB'; // TODO: <--------------------------------  Haxxor shit, remove
         $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.holdingFor.@id:' + recordId.replace(/\//g, '\\/') + '+about.offers.heldBy.notation:' + sigel).success(function(data, status, headers) {
           if (data.list.length > 0) {
-            console.log('Found existing holding:\n', data.list[0]);
+
             var holding = data.list[0];
             recordService.holding.getEtag(holding.data['@id']).then(function(etag) {
               if (etag) {
@@ -187,7 +195,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
             deferer.resolve(null);
           }
         }).error(function(data, status, headers) {
-          console.log('RecordService failed getting holding.');
+
         });
         return deferer.promise;
       },
@@ -215,7 +223,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
             }
             deferer.resolve(holding);
           }).error(function(data, status, headers) {
-            console.log('RecordService failed saving holding, rejecting promise. Status code:', status);
+
             deferer.reject(status);
           });
         } else {
@@ -227,7 +235,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
             }
             deferer.resolve(holding);
           }).error(function(data, status, headers) {
-            console.log('RecordService failed saving new holding.');
+
             deferer.reject(status);
           });
         }
@@ -239,11 +247,11 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
         var holdingId = holding.data['@id'];
         var etag = holding.etag;
         $http['delete']($rootScope.WRITE_API_PATH + holdingId, {headers: {'If-match': etag}}).success(function(data, success, headers, also) {
-          console.log(data, success, headers(), also);
+
           holding = data;
           deferer.resolve(holding);
         }).error(function(data, status, headers) {
-          console.log('RecordService failed deleting holding.');
+
           deferer.reject(status);
         });
         return deferer.promise;
@@ -256,7 +264,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
             var etag = headers('etag') ? headers('etag') : null;
             deferer.resolve(etag);
           }).error(function(data, status, headers) {
-            console.log('RecordService failed getting eTag for holding.');
+
           });
         } else {
           deferer.resolve(null);

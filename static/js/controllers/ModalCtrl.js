@@ -92,4 +92,17 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
     $scope.holdingsModal = $modal.open(opts);
   };
 
+  $scope.openMARCModal = function(event, record) {
+    var opts = angular.extend( defaultModalOptions, {
+      templateUrl: '/partials/modal_marc',
+      controller: 'ModalMARCCtrl',
+      windowClass: 'modal-large marc-modal',
+      resolve: {
+        record: function() { return record; }
+      }
+    });
+    
+     $scope.marcModal = $modal.open(opts);
+  };
+
 });

@@ -17,7 +17,7 @@ kitin.directive('isbnvalidator', function(isbnTools) {
        /*if (inputval.length != 0 && inputval.length != 10 && inputval.length != 13){
            controller.$setValidity('invalid_length', false);
            scope.$apply();
-           console.log("Frontend says wrong length");
+
         }
         else {*/
           isbnTools.checkIsbn(inputval).then(function(data) {
