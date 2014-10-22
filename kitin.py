@@ -39,7 +39,7 @@ app.permanent_session_lifetime = timedelta(days=31)
 login_manager = LoginManager()
 login_manager.setup_app(app)
 
-storage = Storage(app.config.get("DRAFTS_DIR"))
+storage = Storage(app.config.get("DRAFTS_DIR"), app)
 
 JSON_LD_MIME_TYPE = 'application/ld+json'
 
