@@ -126,7 +126,7 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
     });
   };
 
-  $scope.save = function() {
+  $scope.publish = function() {
     var parsedRecType = $scope.recType === editService.RECORD_TYPES.REMOTE ? editService.RECORD_TYPES.BIB : $scope.recType;
     if(!$scope.record.new) {
 
