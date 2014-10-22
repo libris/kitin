@@ -93,7 +93,7 @@ if(debug) {
   $(document).on("click", function (evt) {
     if (!evt.altKey)
       return;
-    console.log($(evt.target).scope());
+
     evt.stopPropagation();
   }).on('keydown', function(e) {
     if ( e.which == 192 ) {

@@ -68,7 +68,7 @@ kitin.service('editService', function(definitions, $http, $q) {
 
     // Iterate all trough the object
     for(var key in obj) {
-      if(!_.isEmpty(obj[key])) {
+      if(!_.isEmpty(obj[key]) || _.isBoolean(obj[key]) || (_.isNumber(obj[key]) && !_.isNaN(obj[key])) ) {
         // Node
         if(_.isObject(obj[key])) {
           // Pass empty array or object
@@ -159,7 +159,7 @@ kitin.service('editService', function(definitions, $http, $q) {
     },
 
     addObject: function(subj, rel, type, multiple, obj) {
-      console.log(arguments);
+
       var addToContainer = function(subj, rel, type, obj) {
         var collection = subj[rel];
         if(typeof collection === 'undefined') {
@@ -362,6 +362,7 @@ kitin.service('editService', function(definitions, $http, $q) {
       this.mutateObject(record.about, doUnindex);
       // Rearrange Person roles
       this.unreifyAgentRoles(record);
+
       // Remove empty entities 
       record = this.cleanRecord(record);
 

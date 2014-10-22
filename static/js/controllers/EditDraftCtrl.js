@@ -2,7 +2,6 @@ kitin.controller('EditDraftCtrl', function($scope, $controller, $location, recor
   // Inherit edit base controller
   $controller('EditBaseCtrl', {$scope: $scope});
 
-  console.log($scope.recType + '/' + $scope.recId);
 
   if ($location.$$search.type && $location.$$search.aggregateLevel) {
     // New record
