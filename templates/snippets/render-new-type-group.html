@@ -1,0 +1,9 @@
+<h3>{{ typeGroup.label }}</h3>
+<div data-ng-repeat="class in typeGroup.classes">
+  <div class="label" data-ng-class="{'text-muted': class.deprecated}">
+    <input type="radio" name="{{ typeGroup.name }}"
+           data-ng-model="createNew[typeGroup.name]"
+           data-ng-value="getTermToken(class)" />
+    {{ class.get('label') }}
+  </div>
+</div>

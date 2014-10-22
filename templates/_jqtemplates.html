@@ -1,3 +1,4 @@
+{% raw %}
 <script type="text/html" id="auth-completion-template">
   <div class="auth">
   <% if (nameRepr(data) !== ", ") { %>
@@ -22,6 +23,37 @@
     <% } else { %>
       <h4>
         Ny icke auktoriserad person
+      </h4>
+    <% } %>
+  </div>
+</script>
+
+<script type="text/html" id="subject-completion-template">
+  <div class="auth">
+    <% if (data['prefLabel']) { %>
+      <h4>
+        <span class="name" title="<%= data['@id']%>"><%= data['prefLabel']%></span>
+          <% if (isLinked(data)) { %>
+            <!-- TODO: fix auth
+            <span class="what">Se aukt. post <i class="fa fa-sign-out"></i></span>
+            -->
+            <span class="what"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> Aukt.</span>
+          <% } %>
+      </h4>
+      <% if (data['historyNote']) { %>
+        <div><em><%= data['historyNote']%></em></div>
+      <% } %>
+      <% if (data['hiddenLabel']) { %>
+        <div><span class="">Används ej: <%= data['hiddenLabel']%></span></div>
+      <% } %>   
+      <% if (data['scopeNote']) { %>
+      <ul class="about">
+        <li><%= data['scopeNote']%></li>
+      </ul>
+      <% } %>
+    <% } else {%>
+      <h4>
+        <%= value%>
       </h4>
     <% } %>
   </div>
@@ -59,3 +91,4 @@
   </div>
 </script>
 
+{% endraw %}

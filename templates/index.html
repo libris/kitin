@@ -2,12 +2,6 @@
 {% block title %}Kitin{% endblock %}
 {% block content %}
 
-{% for key, value in partials.items() %}
-  <script type="text/ng-template" id="{{ key }}">
-    {% include value %}
-  </script>
-{% endfor %}
-<div data-ng-view>
-</div>
+<div data-ng-view></div>
 
 {% endblock content %}
