@@ -273,56 +273,6 @@
   </div>
   
 </div>
-<div class="bottom" data-ng-include="'auth-updater-template'"></div>
-
-<!-- source and source comment fragment -->
-<script type="text/ng-template" id="source-comment-template">
-  <div class="col12">
-    <h4 data-ng-model="record.source">
-      <a href="" ng-click="entry.showThis = !entry.showThis"> 
-        Källor ({{record.source.length}} st) 
-        <i class="fa fa-caret-right"></i>
-      </a>
-    </h4>
-    <div class="datatable" data-ng-target="source" data-ng-show="entry.showThis">
-      <table>
-        <thead>
-          <tr>
-            <td><span class="lbl">{{ "Källa" }}</span></td>
-            <td><span class="lbl">{{ "Källtext" }}</span></td>
-            <td></td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr data-ng-repeat="source in record.source track by $index" class="">
-            <td>
-              <div class="label">
-              <div class="label">
-                <input data-inplace type="text" data-ng-model="source.label"/>
-              </div>
-            </td>
-            <td class="last">
-              <div class="label">
-              <input data-inplace type="text" data-ng-model="source.citation"/>
-            </div>
-            </td>
-            <td class="controls">
-              <button class="btn-link deleter" data-ng-click="removeObject(record, 'source', $index)">
-                <i class="fa fa-times"></i>
-              </button>
-            </td>
-          </tr>
-        <tfoot>
-          <tr>
-            <td colspan="2">
-              <button class="add-thing btn-link" data-ng-click="addObject(record, 'source', 'label', 'citation')">{{ 'Lägg till källa' }} </button>
-            </td>
-          </tr>
-        </tfoot>
-      </table>
-    </div>          
-</script>
-
-<script type="text/ng-template" id="auth-updater-template">
+<div class="bottom">
   <button class="btn disabled">Uppdatera</button>
-</script>
+</div>

@@ -4,20 +4,20 @@
         <div class="label datatable" data-ng-target="commentTable" 
           data-kitin-data-table 
           data-table-model="record.about.comment" 
-          data-table-header-row-template="comment-header-row-template"
-          data-table-row-template="comment-row-template"
+          data-table-header-row-template="/snippets/comment-header-row-template"
+          data-table-row-template="/snippets/comment-row-template"
           data-subject="record.about" data-link-multiple="comment"
           data-default-type="Comment"
           data-add-first
           data-addable="notes">
         </div>
 
-        <script type="text/ng-template" id="comment-header-row-template">
+        <script type="text/ng-template" id="/snippets/comment-header-row-template">
           <td>
               <span class="lbl" translate>LABEL.record.about.comment</span>
           </td>
         </script>
-        <script type="text/ng-template" id="comment-row-template">
+        <script type="text/ng-template" id="/snippets/comment-row-template">
           <td>
             <div class="label">
               <textarea ng-model="objects[$index]" data-ui-jq="autosize" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
@@ -37,17 +37,17 @@
             data-kitin-data-table 
             data-collapsable="true"
             data-table-model="record.about.listOfContents" 
-            data-table-header-row-template="issueNumber-header-row-template"
-            data-table-row-template="issueNumber-row-template"
+            data-table-header-row-template="/snippets/issueNumber-header-row-template"
+            data-table-row-template="/snippets/issueNumber-row-template"
             data-subject="record.about" data-link-multiple="listOfContents"
             data-default-type="IssueNumber"
             data-add-first
             data-addable="publication_and_production">
           </div>
-          <script type="text/ng-template" id="listOfContents-header-row-template">
+          <script type="text/ng-template" id="/snippets/listOfContents-header-row-template">
             <td><span class="lbl" translate>LABEL.record.about.listOfContents</span></td>
           </script>
-          <script type="text/ng-template" id="listOfContents-row-template">
+          <script type="text/ng-template" id="/snippets/listOfContents-row-template">
             <td><div class="label"><input ng-model="object" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
             <td class="controls">
               <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
@@ -62,17 +62,17 @@
             data-kitin-data-table 
             data-collapsable="true"
             data-table-model="record.about.performerNote" 
-            data-table-header-row-template="performerNote-header-row-template"
-            data-table-row-template="performerNote-row-template"
+            data-table-header-row-template="/snippets/performerNote-header-row-template"
+            data-table-row-template="/snippets/performerNote-row-template"
             data-subject="record.about" data-link-multiple="performerNote"
             data-default-type="IssueNumber"
             data-add-first
             data-addable="publication_and_production">
           </div>
-          <script type="text/ng-template" id="performerNote-header-row-template">
+          <script type="text/ng-template" id="/snippets/performerNote-header-row-template">
             <td><span class="lbl" translate>LABEL.record.about.performerNote</span></td>
           </script>
-          <script type="text/ng-template" id="performerNote-row-template">
+          <script type="text/ng-template" id="/snippets/performerNote-row-template">
             <td><div class="label"><input ng-model="object" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
             <td class="controls">
               <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
@@ -101,20 +101,20 @@
         <div class="label datatable" data-ng-target="systemRequirementsTable" 
           data-kitin-data-table 
           data-table-model="record.about.systemRequirements" 
-          data-table-header-row-template="systemRequirements-header-row-template"
-          data-table-row-template="systemRequirements-row-template"
+          data-table-header-row-template="/snippets/systemRequirements-header-row-template"
+          data-table-row-template="/snippets/systemRequirements-row-template"
           data-subject="record.about" data-link-multiple="systemRequirements"
           data-default-type="Comment"
           data-add-first
           data-addable="notes">
         </div>
 
-        <script type="text/ng-template" id="systemRequirements-header-row-template">
+        <script type="text/ng-template" id="/snippets/systemRequirements-header-row-template">
           <td>
               <span class="lbl" translate>LABEL.record.about.systemRequirements</span>
           </td>
         </script>
-        <script type="text/ng-template" id="systemRequirements-row-template">
+        <script type="text/ng-template" id="/snippets/systemRequirements-row-template">
           <td>
             <div class="label">
               <textarea ng-model="objects[$index]" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
@@ -136,17 +136,17 @@
             data-kitin-data-table 
             data-collapsable="true"
             data-table-model="record.about.summary" 
-            data-table-header-row-template="summary-header-row-template"
-            data-table-row-template="summary-row-template"
+            data-table-header-row-template="/snippets/summary-header-row-template"
+            data-table-row-template="/snippets/summary-row-template"
             data-subject="record.about" data-link-multiple="summary"
             data-default-type="summary"
             data-add-first
             data-addable="publication_and_production">
           </div>
-          <script type="text/ng-template" id="summary-header-row-template">
+          <script type="text/ng-template" id="/snippets/summary-header-row-template">
             <td><span class="lbl" translate>LABEL.record.about.summary</span></td>
           </script>
-          <script type="text/ng-template" id="summary-row-template">
+          <script type="text/ng-template" id="/snippets/summary-row-template">
             <td><div class="label"><textarea data-ui-jq="autosize" ng-model="object" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
             <td class="controls">
               <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
@@ -189,22 +189,22 @@
         <div class="label datatable" data-ng-target="hasAnnotation" 
           data-kitin-data-table 
           data-table-model="record.about.hasAnnotation" 
-          data-table-header-row-template="hasAnnotation-header-row-template"
-          data-table-row-template="hasAnnotation-row-template"
+          data-table-header-row-template="/snippets/hasAnnotation-header-row-template"
+          data-table-row-template="/snippets/hasAnnotation-row-template"
           data-subject="record.about" data-link-multiple="hasAnnotation"
           data-default-type="hasAnnotation"
           data-add-first
           data-addable="notes">
         </div>
 
-        <script type="text/ng-template" id="hasAnnotation-header-row-template">
+        <script type="text/ng-template" id="/snippets/hasAnnotation-header-row-template">
           <td><span class="lbl" translate>LABEL.record.about.hasAnnotation.note</span></td>
           <td><span class="lbl" translate>LABEL.record.about.hasAnnotation.degree</span></td>
           <td><span class="lbl" translate>LABEL.record.about.hasAnnotation.location</span></td>
           <td><span class="lbl" translate>LABEL.record.about.hasAnnotation.date</span></td>
           <td><span class="lbl" translate>LABEL.record.about.hasAnnotation.comment</span></td>
         </script>
-        <script type="text/ng-template" id="hasAnnotation-row-template">
+        <script type="text/ng-template" id="/snippets/hasAnnotation-row-template">
           <td>
             <div class="label">
               <textarea ng-model="object['note']" data-inplace class="ng-pristine ng-valid" type="text"></textarea>

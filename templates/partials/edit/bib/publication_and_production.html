@@ -60,17 +60,17 @@
       data-kitin-data-table 
         data-collapsable="true"
         data-table-model="record.about.issueNumber" 
-        data-table-header-row-template="issueNumber-header-row-template"
-        data-table-row-template="issueNumber-row-template"
+        data-table-header-row-template="/snippets/issueNumber-header-row-template"
+        data-table-row-template="/snippets/issueNumber-row-template"
         data-subject="record.about" data-link-multiple="issueNumber"
         data-default-type="IssueNumber"
         data-add-first
         data-addable="publication_and_production">
       </div>
-      <script type="text/ng-template" id="issueNumber-header-row-template">
+      <script type="text/ng-template" id="/snippets/issueNumber-header-row-template">
         <td><span class="lbl" translate>LABEL.record.about.issueNumber</span></td>
       </script>
-      <script type="text/ng-template" id="issueNumber-row-template">
+      <script type="text/ng-template" id="/snippets/issueNumber-row-template">
         <td><div class="label"><input ng-model="object" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
         <td class="controls">
           <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
@@ -84,18 +84,18 @@
       <div class="datatable" data-ng-target="replaces" 
         data-kitin-data-table 
         data-table-model="record.about.replaces" 
-        data-table-header-row-template="replaces-frequency-header-row-template"
-        data-table-row-template="replaces-frequency-row-template"
+        data-table-header-row-template="/snippets/replaces-frequency-header-row-template"
+        data-table-row-template="/snippets/replaces-frequency-row-template"
         data-subject="record.about" data-link-multiple="replaces"
         data-default-type="frequency"
         data-add-first
         data-addable="publication_and_production">
       </div>
-      <script type="text/ng-template" id="replaces-frequency-header-row-template">
+      <script type="text/ng-template" id="/snippets/replaces-frequency-header-row-template">
         <td><span class="lbl" translate>LABEL.record.about.replaces.frequency</span></td>
         <td><span class="lbl" translate>LABEL.record.about.replaces.date</span></td>
       </script>
-      <script type="text/ng-template" id="replaces-frequency-row-template">
+      <script type="text/ng-template" id="/snippets/replaces-frequency-row-template">
         <td><div class="label"><input ng-model="object['frequency']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
         <td><div class="label"><input ng-model="object['date']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
         <td class="controls">
@@ -150,14 +150,14 @@
       <ul class="tags" data-kitin-link-entity
           data-subject="record.about"
           data-link-multiple="'publicationCountry'" data-type="Country"
-          data-view-template="render-country"
-          data-search-template="render-search-country">
+          data-view-template="/snippets/render-country"
+          data-search-template="/snippets/render-search-country">
       </ul>
-      <script type="text/ng-template" id="render-country">
+      <script type="text/ng-template" id="/snippets/render-country">
         <a href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.prefLabel }} <span data-ng-show="object.notation">({{ object.notation }})</span></a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
       </script>
 
-      <script type="text/ng-template" id="render-search-country">
+      <script type="text/ng-template" id="/snippets/render-search-country">
         <i class="fa fa-search"></i>
         <input data-inplace class="input-large authdependant embedded" type="text"
                 placeholder="Lägg till land"
@@ -167,7 +167,7 @@
                 data-filter="{ filter: 'about.@type:Country'}"
                 data-completion-template="select-country-template" placeholder="+ Lägg till land">
       </script>
-      <script type="text/html" id="select-country-template">
+      <script type="text/html" id="/snippets/select-country-template">
         <div class="auth">
           <h4>
             <span class="name"><%= data.prefLabel %></span>
@@ -184,14 +184,14 @@
       data-kitin-data-table 
       data-collapsable="true"
       data-table-model="record.about.publication" 
-      data-table-header-row-template="publisher-recording-header-row-template"
-      data-table-row-template="manufacture-publisher-recording-row-template"
+      data-table-header-row-template="/snippets/publisher-recording-header-row-template"
+      data-table-row-template="/snippets/manufacture-publisher-recording-row-template"
       data-subject="record.about" data-link-multiple="publication"
       data-default-type="Publisher"
       data-add-first
       data-addable="publication_and_production">
     </div>
-    <script type="text/ng-template" id="publisher-recording-header-row-template">
+    <script type="text/ng-template" id="/snippets/publisher-recording-header-row-template">
       <td><span class="lbl" translate>LABEL.record.about.publication.place.label</span></td>
       <td><span class="lbl" translate>LABEL.record.about.publication.providerName</span></td>
       <td><span class="lbl" translate>LABEL.record.about.publication.providerDate</span></td>
@@ -212,14 +212,14 @@
     <div class="datatable" data-ng-target="manufacture" 
       data-kitin-data-table 
       data-table-model="record.about.manufacture" 
-      data-table-header-row-template="manufacture-recording-header-row-template"
-      data-table-row-template="manufacture-publisher-recording-row-template"
+      data-table-header-row-template="/snippets/manufacture-recording-header-row-template"
+      data-table-row-template="/snippets/manufacture-publisher-recording-row-template"
       data-subject="record.about" data-link-multiple="manufacture"
       data-default-type="Publisher"
       data-add-first
       data-addable="publication_and_production">
     </div>
-    <script type="text/ng-template" id="manufacture-recording-header-row-template">
+    <script type="text/ng-template" id="/snippets/manufacture-recording-header-row-template">
       <td><span class="lbl" translate>LABEL.record.about.manufacture.place.label</span></td>
       <td><span class="lbl" translate>LABEL.record.about.manufacture.providerName</span></td>
       <td><span class="lbl" translate>LABEL.record.about.publication.providerDate</span></td>
@@ -231,7 +231,7 @@
     <!-- manufacture-publisher-recording-row-template  START 
          Used by both manufacture and publication
     -->
-    <script type="text/ng-template" id="manufacture-publisher-recording-row-template">
+    <script type="text/ng-template" id="/snippets/manufacture-publisher-recording-row-template">
       <td><div class="label"><input ng-model="object['place']['label']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
       <td><div class="label"><input ng-model="object['providerName']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
       <td><div class="label"><input ng-model="object['providerDate']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>

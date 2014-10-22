@@ -1,45 +1,6 @@
 angular.module('kitin').run(['$templateCache', function($templateCache) {
   'use strict';
 
-  $templateCache.put('/snippets/auth-completion-template',
-    "<div class=\"auth\">\n" +
-    "<% if (nameRepr(data) !== \", \") { %>\n" +
-    "    <h4>\n" +
-    "      <span class=\"name\"><%= nameRepr(data) %></span>\n" +
-    "      <span class=\"date\"><%= [data.birthYear, data.deathYear].join('–') %></span>\n" +
-    "      <% if (isLinked(data)) { %>\n" +
-    "        <span class=\"what\" data-ng-if=\"isAuth(object)\"><i class=\"fa fa-bookmark\"></i> Aukt.</span>\n" +
-    "      <% } %>\n" +
-    "    </h4>\n" +
-    "    <span class=\"title\"><%= data.personTitle %></span>\n" +
-    "    <% if (data.hasPersona && data.hasPersona.length) { %>\n" +
-    "      <span class=\"persona\">Se även:\n" +
-    "        <b><%= data.hasPersona.map(nameRepr).join('</b>, <b>') %></b>\n" +
-    "      </span>\n" +
-    "    <% } %>\n" +
-    "    <% if (data.note && data.note.length) { %>\n" +
-    "      <ul class=\"about\">\n" +
-    "        <li><%= data.note.map(truncate).join('</li><li>') %></li>\n" +
-    "      </ul>\n" +
-    "    <% } %>\n" +
-    "  <% } else { %>\n" +
-    "    <h4>\n" +
-    "      Ny icke auktoriserad person\n" +
-    "    </h4>\n" +
-    "  <% } %>\n" +
-    "</div>"
-  );
-
-
-  $templateCache.put('/snippets/bib-completion-template',
-    "<div class=\"auth\">\n" +
-    "  <h4>\n" +
-    "    <span class=\"name\"><%= data.instanceTitle.titleValue %></span>\n" +
-    "  </h4>\n" +
-    "</div>"
-  );
-
-
   $templateCache.put('/snippets/comment-header-row-template',
     "<td>\n" +
     "  <span class=\"lbl\" translate>LABEL.record.about.comment</span>\n" +
@@ -737,8 +698,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "\n" +
     "<div class=\"entity relation linked\">\n" +
     "  <div class=\"main\">\n" +
-    "    <div class=\"title\"><strong>{{ object.instanceTitle.titleValue + object.instanceTitle.subtitle }}</strong></div>\n" +
-    "    <div class=\"creator\">{{ object.responsibilityStatement }}</div>\n" +
+    "    <div class=\"title\"><strong>{{ object.title }}</strong></div>\n" +
     "    <div class=\"date\">\n" +
     "      <span title=\"Utgivningsår\" data-ng-repeat=\"publication in object.publication | limitTo:1\" data-ng-show=\"publication.providerDate\">\n" +
     "        {{publication.providerDate}}\n" +
@@ -906,6 +866,55 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  <h4>\n" +
     "  <span class=\"name\"><%= data.label %></span><span class=\"date\"> <%= data.notation %></span>\n" +
     "  </h4>\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('/snippets/source-comment-template',
+    "<div class=\"col12\">\n" +
+    "  <h4 data-ng-model=\"record.source\">\n" +
+    "    <a href=\"\" ng-click=\"entry.showThis = !entry.showThis\"> \n" +
+    "      Källor ({{record.source.length}} st) \n" +
+    "      <i class=\"fa fa-caret-right\"></i>\n" +
+    "    </a>\n" +
+    "  </h4>\n" +
+    "  <div class=\"datatable\" data-ng-target=\"source\" data-ng-show=\"entry.showThis\">\n" +
+    "    <table>\n" +
+    "      <thead>\n" +
+    "        <tr>\n" +
+    "          <td><span class=\"lbl\">{{ \"Källa\" }}</span></td>\n" +
+    "          <td><span class=\"lbl\">{{ \"Källtext\" }}</span></td>\n" +
+    "          <td></td>\n" +
+    "        </tr>\n" +
+    "      </thead>\n" +
+    "      <tbody>\n" +
+    "        <tr data-ng-repeat=\"source in record.source track by $index\" class=\"\">\n" +
+    "          <td>\n" +
+    "            <div class=\"label\">\n" +
+    "              <input data-inplace type=\"text\" data-ng-model=\"source.label\"/>\n" +
+    "            </div>\n" +
+    "          </td>\n" +
+    "          <td class=\"last\">\n" +
+    "            <div class=\"label\">\n" +
+    "              <input data-inplace type=\"text\" data-ng-model=\"source.citation\"/>\n" +
+    "            </div>\n" +
+    "          </td>\n" +
+    "          <td class=\"controls\">\n" +
+    "            <button class=\"btn-link deleter\" data-ng-click=\"removeObject(record, 'source', $index)\">\n" +
+    "              <i class=\"fa fa-times\"></i>\n" +
+    "            </button>\n" +
+    "          </td>\n" +
+    "        </tr>\n" +
+    "      </tbody>\n" +
+    "      <tfoot>\n" +
+    "        <tr>\n" +
+    "          <td colspan=\"2\">\n" +
+    "            <button class=\"add-thing btn-link\" data-ng-click=\"addObject(record, 'source', 'label', 'citation')\">{{ 'Lägg till källa' }} </button>\n" +
+    "          </td>\n" +
+    "        </tr>\n" +
+    "      </tfoot>\n" +
+    "    </table>\n" +
+    "  </div>\n" +
     "</div>"
   );
 }])
