@@ -1,8 +1,6 @@
 {% raw %}
 
-<form class="form-horizontal">
-  <div class="edit content {{recType}}" data-ng-if="record"><!-- Do not remove ng-if="record", needed to ensure record loaded -->
-    <div id="grid"></div>
+  <div ng-controller="EditCtrl">
     <div>
       <div class="record-data">
         <ul>
@@ -55,7 +53,6 @@
         <span>{{ enums.encLevel[record.encLevel].label_sv }}</span>
         <span>{{ enums.catForm[record.catForm].label_sv }}</span>
       </div>
-      <div data-ng-include="'/partials/_mode_menu'" onload="mode = 'EDIT'"></div>
     </header>
     <div ng-switch on="recType">
       <div ng-switch-when="auth">
@@ -77,7 +74,6 @@
         <button class="btn btn-warning" data-ng-click="confirmDeleteDraft.abort()">Nej</button>
       </div>
     </div>
-  </div>
-</form>
+
 
 {% endraw %}
