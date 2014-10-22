@@ -129,11 +129,9 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
   };
 
   $scope.save = function() {
-    console.log(!$scope.record.draft, !isNew);return;
     var parsedRecType = $scope.recType === editService.RECORD_TYPES.REMOTE ? editService.RECORD_TYPES.BIB : $scope.recType;
     if(!$scope.record.draft && !isNew) {
-
-      delete $scope.record.draft
+      delete $scope.record.draft;
       var ifMatchHeader = '';
       if($scope.etag) {
         ifMatchHeader = $scope.etag.replace(/["']/g, "");
@@ -148,7 +146,7 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
     } else {
       recordService.libris.create(parsedRecType, $scope.record).then(function(data) {
         if($scope.record.draft) {
-          delete $scope.record.draft
+          delete $scope.record.draft;
           recordService.draft.delete(parsedRecType, $scope.recId);
         }
         console.log(data);
@@ -162,14 +160,19 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
     var parsedRecType = $scope.recType === editService.RECORD_TYPES.REMOTE ? editService.RECORD_TYPES.BIB : $scope.recType;
 
     if(!$scope.record.draft) {
+      console.log('Create a draft and go there');
       recordService.draft.create(parsedRecType, $scope.recId, $scope.record).then(function(data) {
         $location.url('/edit/draft' + data['recdata']['@id']);
       });
     } else {
+      console.log('Already ion draft mode, save');
       recordService.draft.save(parsedRecType, $scope.recId, $scope.record, $scope.etag).then(function(data) {
+        console.log(data, $scope.record);
+        //$scope.record = data;
         $scope.addRecordViewsToScope(data['recdata']);
         $scope.etag = data['etag'];
         onSaveState();
+        console.log('Utkast sparat!', $scope.record);
         //$('.flash_message').text("Utkast sparat!");
       });
     }

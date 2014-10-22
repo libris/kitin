@@ -248,8 +248,8 @@ def save_draft(rec_type, draft_id):
     if('If-match' in request.headers):
         etag = request.headers['If-match']
 
-    storage.update_draft(current_user.get_id(), rec_type, request.data, etag, draft_id)
-    return json.dumps(request.json)
+    updated_draft = storage.update_draft(current_user.get_id(), rec_type, request.data, etag, draft_id)
+    return json.dumps(updated_draft)
 
 # DELETE
 @app.route('/draft/<rec_type>/<draft_id>', methods=['DELETE'])
