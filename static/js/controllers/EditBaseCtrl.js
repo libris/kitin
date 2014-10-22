@@ -172,7 +172,6 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
         $scope.addRecordViewsToScope(data['recdata']);
         $scope.etag = data['etag'];
         onSaveState();
-        //$('.flash_message').text("Utkast sparat!");
       });
     }
   };
