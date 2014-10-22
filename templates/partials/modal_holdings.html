@@ -2,7 +2,7 @@
 <script type='text/ng-template' id="modal-holdings"> 
   <div class="modal-header holdings">
     <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
-    <h4 class="modal-title">Bestånd</h4>
+    <h4 class="modal-title" translate>LABEL.gui.terms.HOLDINGS</h4>
   </div>
 
   <div class="modal-body holdings">
@@ -11,38 +11,38 @@
         <div class="cols">
           <div class="col6">
             <div class="label">
-              <span class="lbl">{{ "Avdelning/Samling" }}</span>
-              <input data-inplace type="text" placeholder="Avdelning/Samling" data-ng-model="offer.shelfLocation"/>
+              <span class="lbl" translate>LABEL.holding.about.offers.shelfLocation</span>
+              <input data-inplace type="text" data-ng-model="offer.shelfLocation"/>
             </div>
             <div class="label">
-              <span class="lbl">{{ "Hyllsignum/Klassifikation" }}</span>
-              <input data-inplace type="text" placeholder="Hyllsignum/Klassifikation" data-ng-model="offer.classificationPart"/>
+              <span class="lbl" translate>LABEL.holding.about.offers.classificationPart</span>
+              <input data-inplace type="text" data-ng-model="offer.classificationPart"/>
             </div>
             <div class="label">
-              <span class="lbl">{{ "Löpnummer" }}</span>
-              <input data-inplace type="text" placeholder="Löpnummer" data-ng-model="offer.shelfControlNumber"/>
+              <span class="lbl" translate>LABEL.holding.about.offers.shelfControlNumber</span>
+              <input data-inplace type="text" data-ng-model="offer.shelfControlNumber"/>
             </div>
             <div class="label">
-              <span class="lbl">{{ "Uppställningsord" }}</span>
-              <input data-inplace type="text" placeholder="Uppställningsord" data-ng-model="offer.shelfLabel"/>
+              <span class="lbl" translate>LABEL.holding.about.offers.shelfLabel</span>
+              <input data-inplace type="text" data-ng-model="offer.shelfLabel"/>
             </div>
           </div>
           <div class="col6">
             <div class="label">
-              <span class="lbl">{{ "Exemplarinfo" }}</span>
-              <input data-inplace type="text" placeholder="Exemplarinfo" data-ng-model="offer.availability"/>
+              <span class="lbl" translate>LABEL.holding.about.offers.availability</span>
+              <input data-inplace type="text" data-ng-model="offer.availability"/>
             </div>
             <div class="label">
-              <span class="lbl">{{ "Exemplarnummer" }}</span>
-              <input data-inplace type="text" placeholder="Exemplarnummer" data-ng-model="offer.copyNumber"/>
+              <span class="lbl" translate>LABEL.holding.about.offers.copyNumber</span>
+              <input data-inplace type="text" data-ng-model="offer.copyNumber"/>
             </div>
             <div class="label">
-              <span class="lbl">{{ "Publik anmärkning" }}</span>
-              <textarea data-inplace data-ui-jq="autosize" spellcheck="false" placeholder="Publik anmärkning" data-ng-model="offer.copyNote"></textarea>
+              <span class="lbl" translate>LABEL.holding.about.offers.copyNote</span>
+              <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="offer.copyNote"></textarea>
             </div>
             <div class="label">
-              <span class="lbl">{{ "Intern anmärkning" }}</span>
-              <textarea data-inplace data-ui-jq="autosize" spellcheck="false" placeholder="Intern anmärkning" data-ng-model="offer.editorialNote"></textarea>
+              <span class="lbl" translate>LABEL.holding.about.offers.editorialNote</span>
+              <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="offer.editorialNote"></textarea>
             </div>
           </div>
           <div class="col12">

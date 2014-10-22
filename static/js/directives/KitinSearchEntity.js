@@ -50,7 +50,7 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editService', function(def
       var filterParams = attrs.filter;
       var onSelect = attrs.onselect;
       var makeReferenceOnItemSelect = attrs.makeReferenceOnItemSelect ? true : false;
-      var templateId = attrs.completionTemplate;
+      var templateId = attrs.completionTemplateId;
       var template = _.template(jQuery('#' + templateId).html());
       var searchedValue = null;
 

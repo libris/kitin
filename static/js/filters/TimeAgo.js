@@ -1,5 +1,5 @@
 kitin.filter('timeAgo', function($filter) {
-  return function(time) {
+  return function(time, verboseAfter, verboseFormat) {
     // "Inspired by" http://stackoverflow.com/a/12475270
 
     // Handle different input formats
@@ -16,6 +16,8 @@ kitin.filter('timeAgo', function($filter) {
         time = new Date().getTime();
     }
     
+    var verboseFormat = verboseFormat || 'yyyy-MM-dd, HH:mm';
+
     var timeFormats = [
         [60, 'sekunder', 1], // 60
         [120, 'En minut sen', 'Om en minut'], // 60*2
@@ -39,8 +41,12 @@ kitin.filter('timeAgo', function($filter) {
     var listChoice = 1;
     var format;
 
-    if (seconds === 0) {
+    if (seconds <= 1) {
       return 'Just nu';
+    }
+
+    if (verboseAfter && seconds >= verboseAfter) {
+      return $filter('date')(time, verboseFormat);
     }
 
     // After four weeks, show day and month 
@@ -68,6 +74,6 @@ kitin.filter('timeAgo', function($filter) {
     }
     
     // Redundant fallback
-    return $filter('date')(time, 'yyyy-MM-dd, HH:mm');
+    return $filter('date')(time, verboseFormat);
   };
 }); 

@@ -7,7 +7,12 @@ module.exports = (grunt) ->
   grunt.registerTask 'build', [
     'vendor'
     'app'
+    'ngtemplates'
     'cachebuster'
+  ]
+
+  grunt.registerTask 'templates', [
+    'ngtemplates'
   ]
 
   grunt.registerTask 'validate', [
@@ -30,12 +35,25 @@ module.exports = (grunt) ->
 
   grunt.initConfig
 
+    ngtemplates:
+      kitin:
+        cwd: 'templates'
+        src: ['snippets/**/*.html'] # add partials/**/*.html after all script templates are moved to snippets
+        dest: 'static/build/js/templates.js'
+        options:
+          prefix: '/'
+          url: (url) ->
+            return url.replace(/\.html$/, "")
+          bootstrap: (module, script) ->
+            return 'angular.module(\'kitin\').run([\'$templateCache\', function($templateCache) {\n' + script.replace(/\{%.+%\}/gi,'') + '}])' # removes python template stuff
+
+
     htmlangular:
       options: 
         relaxerror: [
           'Stray doctype.',
-          'Non-space characters found without seeing a doctype first. Expected <!DOCTYPE html>.',
-          'Element head is missing a required instance of child element title.',
+          'Non-space characters found without seeing a doctype first. Expected <!DOCTYPE html>.'
+          'Element head is missing a required instance of child element title.'
           'Section lacks heading. Consider using h2-h6 elements to add identifying headings to all sections.'
         ]
         customtags: [
@@ -131,9 +149,10 @@ module.exports = (grunt) ->
           'static/build/css/bootstrap.css'
           'static/build/css/vendor.min.css'
           'static/build/css/main.css'
-          'static/build/*/*.min.js'
+          'static/build/js/*.min.js'
           'static/js/**/*.js'
           'static/js/{main,*locale*}.js'
+          'static/build/js/templates.js'
         ]
         dest: 'templates/_media.html'
 
@@ -153,6 +172,10 @@ module.exports = (grunt) ->
       cachebuster:
         files: ['<%= cachebuster.build.src %>']
         tasks: ['cachebuster']
+      ngtemplates:
+        files: ['templates/partials/**/*.html', 'templates/snippets/**/*.html']
+        tasks: ['ngtemplates']
+
 
     clean: [
       'static/build'

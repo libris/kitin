@@ -1,0 +1,26 @@
+<!--
+<a href="?m={{object.describedBy['@id']}}">
+  <i class="fa fa-bookmark" data-ng-if="isAuth(object.describedBy)"></i>
+  <span class="name">{{ object.title }}</span>
+  {{ object.issn }}
+</a>
+<i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
+-->
+
+<div class="entity relation linked">
+  <div class="main">
+    <div class="title"><strong>{{ object.instanceTitle.titleValue + object.instanceTitle.subtitle }}</strong></div>
+    <div class="creator">{{ object.responsibilityStatement }}</div>
+    <div class="date">
+      <span title="Utgivningsår" data-ng-repeat="publication in object.publication | limitTo:1" data-ng-show="publication.providerDate">
+        {{publication.providerDate}}
+      </span>
+    </div>
+  </div>
+  <div class="notes">
+    <span class="lbl" translate>LABEL.record.about.relation.linkNote</span>
+    <input data-inplace class="ng-pristine ng-valid" type="text" ng-model="object.linkNote" />
+  </div>
+  <a data-ng-if="!editable.on" class="delete" href="#"
+     data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a>
+</div>

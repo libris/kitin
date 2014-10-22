@@ -91,7 +91,11 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
       convertToMarc: function(data) {
         var deferer = $q.defer();
         editService.undecorate(data).then(function(undecoratedRecord) {
-          $http.post($rootScope.API_PATH + '/_format?to=application\/x-marc-json', undecoratedRecord).success(function(data, status, headers) {
+          $http.post($rootScope.API_PATH + '/_format?to=application\/x-marc-json', undecoratedRecord, {
+            headers: {
+              'Content-Type': 'application/ld+json'
+            }
+          }).success(function(data, status, headers) {
             deferer.resolve(data);
           });
         });

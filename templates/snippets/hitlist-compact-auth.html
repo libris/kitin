@@ -1,0 +1,11 @@
+<div class="hitlist-item auth compact">
+  <div class="title">
+    <strong>{{ object.controlledLabel + object.prefLabel + object.name + object.uniformTitle | chop }}</strong>
+  </div>
+  <div class="creator">
+    {{ object.name | chop }}
+  </div>
+  <div class="about">
+    <span title="about">{{ object.about['@type'] }}</span>
+  </div>
+</div>
