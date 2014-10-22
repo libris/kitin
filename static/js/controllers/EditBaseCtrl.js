@@ -129,9 +129,11 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
   };
 
   $scope.save = function() {
+    console.log(!$scope.record.draft, !isNew);return;
     var parsedRecType = $scope.recType === editService.RECORD_TYPES.REMOTE ? editService.RECORD_TYPES.BIB : $scope.recType;
     if(!$scope.record.draft && !isNew) {
 
+      delete $scope.record.draft
       var ifMatchHeader = '';
       if($scope.etag) {
         ifMatchHeader = $scope.etag.replace(/["']/g, "");
@@ -145,9 +147,11 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
       });
     } else {
       recordService.libris.create(parsedRecType, $scope.record).then(function(data) {
-        if($scope.isDraft) {
+        if($scope.record.draft) {
+          delete $scope.record.draft
           recordService.draft.delete(parsedRecType, $scope.recId);
         }
+        console.log(data);
         $location.url('/edit' + data['recdata']['@id']);
       });
     }

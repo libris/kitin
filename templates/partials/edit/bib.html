@@ -47,7 +47,7 @@
               <div style="clear:both"></div>
             </div>
             <div class="col6 right">
-              <div class="record-status">{{record.draft ? 'DRAFT' : 'PUBLISHED?'}} - Senast sparad: {{record.modified | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+              <div class="record-status">{{record.draft ? 'Sparad' : 'Publicerad'}}: {{record.modified | timeAgo}} <span class="vdiv">|</span>{{record.draft}}<span class="vdiv">|</span></div>
               <div ng-include="'save-buttons'"></div>
             </div>
           </div>

@@ -52,6 +52,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
       save: function(type, id, recordData, recordEtag) {
         var deferer = $q.defer();
         var recordDataCopy = angular.copy(recordData);
+        
         editService.undecorate(recordDataCopy).then(function(undecoratedRecord) {
           $http.put($rootScope.WRITE_API_PATH + '/' + type + '/' + id, undecoratedRecord,
               {

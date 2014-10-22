@@ -49,7 +49,7 @@
             </form>
           </li>
         </ul>
-        <div translate data-ng-show="drafts.length < 1">LABEL.gui.index.messages.NO_SAVED_DRAFTS</div>
+        <div translate data-ng-show="!drafts || drafts.length < 1">LABEL.gui.index.messages.NO_SAVED_DRAFTS</div>
       </section>
     </div>
   </div>
