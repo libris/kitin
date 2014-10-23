@@ -1,5 +1,3 @@
-{% raw %}
-
 <h2>{{ "Ämnesord och klassifikation" }}<i></i></h2>
 <div onload="work = record.about">
 
@@ -14,8 +12,8 @@
     <span class="lbl">{{ scheme.alternative || scheme.title || scheme.title_en }}</span>
     <ul class="tags" data-kitin-link-entity
         data-subject="record.about.subjectByInScheme" data-link-multiple="key" data-type="Concept"
-        data-search-template="search-subject"
-        data-view-template="view-subject">
+        data-search-template="/snippets/search-subject"
+        data-view-template="/snippets/view-subject">
     </ul>
   </div>
   <!-- SUBJECT BY IN SCHEME  END -->
@@ -28,72 +26,11 @@
     <span class="lbl">{{ scheme.alternative || scheme.title || scheme.title_en }}</span>
     <ul class="tags" data-kitin-link-entity
         data-subject="record.about.subjectByType" data-link-multiple="key" data-type="Concept"
-        data-search-template="search-subject"
-        data-view-template="view-subject">
+        data-search-template="/snippets/search-subject"
+        data-view-template="/snippets/view-subject">
     </ul>
   </div>
   <!-- SUBJECT BY TYPE  END -->
-
-  <!-- SUBJECT SEARCH TEMPLATE  START -->
-  <script type="text/ng-template" id="search-subject">
-    <i class="fa fa-search"></i> 
-    <input data-kitin-search-entity
-          data-filter="{{search_filter}}"
-          data-service-url="{{API_PATH}}/auth/_search"
-          data-completion-template="{{search_completion_template}}" type="text" placeholder=""
-          data-allow-non-auth="{{scheme.allowNonAuth}}">
-  </script>
-  <!-- SUBJECT SEARCH TEMPLATE  END -->
-
-  <!-- SUBJECT LIST TEMPLATE  START -->
-  <script type="text/ng-template" id="view-subject" >
-    <a ng-init="subjectLabel = (object.prefLabel || object.uniformTitle || object.controlledLabel  || object.notation || object.name)" ng-show="subjectLabel" href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ subjectLabel }}</a> 
-
-      
-    <!-- Broader terms should not be shown for general subjects... used for?
-    <a data-ng-repeat="broader in object.broader" href="#">
-      {{broader.prefLabel}}
-      <span data-ng-show="broader.notation">({{ broader.notation }}) </span>
-      <span class="subject-delimiter" data-ng-hide="$last">--</span>
-     </a> 
-    -->
-
-    <i data-ng-click="doRemove($index)" class="no">&times;</i>
-  </script>
-  <!-- SUBJECT LIST TEMPLATE  END -->
-
-  <!-- SUBJECT SUGGEST TEMPLATE  START -->
-  <script type="text/html" id="subject-completion-template">
-    <div class="auth">
-      <% if (data['prefLabel']) { %>
-        <h4>
-          <span class="name" title="<%= data['@id']%>"><%= data['prefLabel']%></span>
-            <% if (isLinked(data)) { %>
-              <!-- TODO: fix auth
-              <span class="what">Se aukt. post <i class="fa fa-sign-out"></i></span>
-              -->
-              <span class="what"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> Aukt.</span>
-            <% } %>
-        </h4>
-        <% if (data['historyNote']) { %>
-          <div><em><%= data['historyNote']%></em></div>
-        <% } %>
-        <% if (data['hiddenLabel']) { %>
-          <div><span class="">Används ej: <%= data['hiddenLabel']%></span></div>
-        <% } %>   
-        <% if (data['scopeNote']) { %>
-        <ul class="about">
-          <li><%= data['scopeNote']%></li>
-        </ul>
-        <% } %>
-      <% } else {%>
-        <h4>
-          <%= value%>
-        </h4>
-      <% } %>
-    </div>
-  </script>
-  <!-- SUBJECT SUGGEST TEMPLATE  END -->
 
   <!-- GENERAL SUBJECT  START -->
   <div class="cols">
@@ -132,35 +69,22 @@
       <ul class="tags" data-kitin-link-entity
         data-subject="record.about.classificationByInScheme"
         data-link-multiple="classificationScheme"
-        data-view-template="render-classification"
-        data-search-template="render-search-classification"
+        data-view-template="/snippets/render-classification"
+        data-search-template="/snippets/render-search-classification"
         data-default-type="classificationScheme"
         >
       </ul>
     </div>
   </div>
-  <script type="text/ng-template" id="render-classification">
-    <a href="#">
-      <i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.notation }}
-    </a> 
-    <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
-  </script>
-  <script type="text/ng-template" id="render-search-classification">
+  <script type="text/ng-template" id="/snippets/render-search-classification">
       <i class="fa fa-search"></i> <input data-inplace class="input-large authdependant embedded" type="text"
             data-no-value="{{ object.notation }}"
             data-kitin-search-entity
             data-service-url="{{API_PATH}}/auth/_search"
             data-filter="{ filter: 'about.inCollection.@id:{{classificationScheme}}'}"
-            data-completion-template="auth-completion-template" 
+            data-completion-template-id="auth-completion-template" 
             data-allow-non-auth="true"
             placeholder="+ Lägg till klassifikation">
-  </script>
-  <script type="text/html" id="select-classification-template">
-    <div class="auth">
-      <h4>
-      <span class="name"><%= data.prefLabel %></span><span class="date"> <%= data.langCode %></span>
-      </h4>
-    </div>
   </script>
   <!-- CLASSIFICATION  END -->
 
@@ -171,8 +95,8 @@
     <div data-kitin-link-entity
         data-subject="record.about"
         data-link="'nature'"
-        data-view-template="render-generic-tag-entity"
-        data-search-template="render-generic-select"
+        data-view-template="/snippets/render-generic-tag-entity"
+        data-search-template="/snippets/render-generic-select"
         data-filter="about.inCollection.@id:/def/enum/content/nature-collection"
         ng-init=" placeholder='Lägg till'; ">
     </div>
@@ -185,8 +109,8 @@
     <div data-kitin-link-entity
         data-subject="record.about"
         data-link="'literaryForm'"
-        data-view-template="render-generic-tag-entity"
-        data-search-template="render-generic-select"
+        data-view-template="/snippets/render-generic-tag-entity"
+        data-search-template="/snippets/render-generic-select"
         data-search-placeholder="Lägg till litterär genre"
         data-filter="about.inCollection.@id:/def/enum/content/literaryForm-collection"
         ng-init=" placeholder='Lägg till litterär genre'; ">
@@ -200,8 +124,8 @@
     <div data-kitin-link-entity
         data-subject="record.about"
         data-link="'biography'"
-        data-view-template="render-generic-tag-entity"
-        data-search-template="render-generic-select"
+        data-view-template="/snippets/render-generic-tag-entity"
+        data-search-template="/snippets/render-generic-select"
         data-filter="about.inCollection.@id:/def/enum/content/biography-collection"
         ng-init=" placeholder='Lägg till'; ">
     </div>
@@ -214,8 +138,8 @@
     <div data-kitin-link-entity
         data-subject="record.about"
         data-link="'confPub'"
-        data-view-template="render-generic-tag-entity"
-        data-search-template="render-generic-select"
+        data-view-template="/snippets/render-generic-tag-entity"
+        data-search-template="/snippets/render-generic-select"
         data-filter="about.inCollection.@id:/def/enum/content/confPub-collection"
         ng-init=" placeholder='Lägg till'; ">
     </div>
@@ -228,8 +152,8 @@
     <div data-kitin-link-entity
         data-subject="record.about"
         data-link="'festschrift'"
-        data-view-template="render-generic-tag-entity"
-        data-search-template="render-generic-select"
+        data-view-template="/snippets/render-generic-tag-entity"
+        data-search-template="/snippets/render-generic-select"
         data-filter="about.inCollection.@id:/def/enum/content/festschrift-collection"
         ng-init=" placeholder='Lägg till'; ">
     </div>
@@ -242,13 +166,11 @@
     <ul class="tags" data-kitin-link-entity
         data-subject="record.about"
         data-link="'audience'" data-type="audience"
-        data-view-template="render-generic-linked-entity"
-        data-search-template="render-generic-linked-entity"
+        data-view-template="/snippets/render-generic-linked-entity"
+        data-search-template="/snippets/render-generic-linked-entity"
         data-filter="about.inCollection.@id:/def/enum/content/audience-collection">
     </ul>
   </div>
   <!-- AUDIENCE  END -->
 
 </div>
-
-{% endraw %}

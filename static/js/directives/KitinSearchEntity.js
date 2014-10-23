@@ -81,8 +81,8 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editService', function(def
           if(makeReferenceOnItemSelect) {
             editService.makeReferenceEntity(item.data._source).then(function(referenced) {
               // pass raw data
-              item.data.decorated = referenced;
-              linker.doAdd(item.data);
+              // item.data.decorated = referenced;
+              linker.doAdd(referenced);
             });
           } else {
             linker.doAdd(_.isEmpty(item.data) ? item.value : item.data);

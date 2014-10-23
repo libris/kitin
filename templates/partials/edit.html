@@ -1,79 +1,75 @@
-{% raw %}
-
-  <div ng-controller="EditCtrl">
-    <div>
-      <div class="record-data">
-        <ul>
-        	<li>
-            <span translate>LABEL.gui.edit.DATE_CREATED</span>:
-            <span data-ng-model="record.date">{{record.date}}</span>
-          </li>
-  	  	  <li>
-            <span>Skapad av:</span>
-            <span data-ng-model="record.originalCatalogingAgency.name">{{record.originalCatalogingAgency.name}}</span>
-          </li>
-        	<li>
-            <span translate>LABEL.gui.edit.MODIFIED</span>: 
-            <span data-ng-model="record.modified">{{record.modified | date:'yyyy-MM-dd HH:mm'}}</span>
-          </li>
-        	<li>
-            <span>Ändrad av:</span> {{ record.modifyingAgency.name }}
-          </li>
-    		  <li>
-            <span translate>LABEL.gui.edit.STATUS</span> {{record.status['@id']}}
-          </li>
-    		  <li> 
-            <span translate>LABEL.gui.edit.ID</span> {{record['@id']}}
-          </li>
-    		  <li>
-            <span translate>librisIIINumber</span> {{record.librisIIINumber}}
-          </li>
-        </ul>
-      </div>
-      <div class="label">
-        <span class="lbl">Tillhör bibliografi</span>
-        <span data-ng-repeat="bibliographyCode in record.bibliographyCode">
-          <input data-ng-model="bibliographyCode" />
-        </span>
-      </div>
-      <div class="label">
-        <span class="lbl" translate>LABEL.record.sourceNote</span>
-        <textarea data-inplace data-ui-jq="autosize" class="ng-pristine ng-valid" data-ng-model="record.sourceNote" ></textarea>
-      </div>
+<div ng-controller="EditCtrl">
+  <div>
+    <div class="record-data">
+      <ul>
+      	<li>
+          <span translate>LABEL.gui.edit.DATE_CREATED</span>:
+          <span data-ng-model="record.date">{{record.date}}</span>
+        </li>
+	  	  <li>
+          <span>Skapad av:</span>
+          <span data-ng-model="record.originalCatalogingAgency.name">{{record.originalCatalogingAgency.name}}</span>
+        </li>
+      	<li>
+          <span translate>LABEL.gui.edit.MODIFIED</span>: 
+          <span data-ng-model="record.modified">{{record.modified | date:'yyyy-MM-dd HH:mm'}}</span>
+        </li>
+      	<li>
+          <span>Ändrad av:</span> {{ record.modifyingAgency.name }}
+        </li>
+  		  <li>
+          <span translate>LABEL.gui.edit.STATUS</span> {{record.status['@id']}}
+        </li>
+  		  <li> 
+          <span translate>LABEL.gui.edit.ID</span> {{record['@id']}}
+        </li>
+  		  <li>
+          <span translate>librisIIINumber</span> {{record.librisIIINumber}}
+        </li>
+      </ul>
     </div>
-    <header class="clearfix">
-      <h1>
-        <span data-ng-if="recType == 'auth'">Aukt.</span>{{ getTypeLabel(record.about) }}
-        <span data-ng-repeat="contentType in record.about.contentType">| {{ contentType.prefLabel }} </span>
-        <span>{{ record.about.text['@id'] }}</span>
-        <!--(Bibliografiskt material)-->
-      </h1>
-      <div class="levels">
-        <span>{{ enums.bibLevel[record.bibLevel].label_sv }}</span>
-        <span>{{ enums.encLevel[record.encLevel].label_sv }}</span>
-        <span>{{ enums.catForm[record.catForm].label_sv }}</span>
-      </div>
-    </header>
-    <div ng-switch on="recType">
-      <div ng-switch-when="auth">
-        <div ng-include="'/partials/edit/auth'"></div>
-      </div>
-      <div ng-switch-default>
-        <div ng-include="'/partials/edit/bib'"></div>
-      </div>
+    <div class="label">
+      <span class="lbl">Tillhör bibliografi</span>
+      <span data-ng-repeat="bibliographyCode in record.bibliographyCode">
+        <input data-ng-model="bibliographyCode" />
+      </span>
     </div>
-  
-    <!-- dialog -->
-    <div id="confirmDeleteDraftDialog" data-ng-show="confirmDeleteDraft" class="popover">
-      <div class="popover-inner">
-        <button class="close" data-ng-click="confirmDeleteDraft.abort()">&times;</button>
-      </div>
-      <div class="popover-content">
-        <h4>Vill du verkligen ta bort utkastet?</h4>
-        <button class="btn btn-success" data-ng-click="confirmDeleteDraft.execute()">Ja</button>
-        <button class="btn btn-warning" data-ng-click="confirmDeleteDraft.abort()">Nej</button>
-      </div>
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.sourceNote</span>
+      <textarea data-inplace data-ui-jq="autosize" class="ng-pristine ng-valid" data-ng-model="record.sourceNote" ></textarea>
     </div>
+  </div>
+  <header class="clearfix">
+    <h1>
+      <span data-ng-if="recType == 'auth'">Aukt.</span>{{ getTypeLabel(record.about) }}
+      <span data-ng-repeat="contentType in record.about.contentType">| {{ contentType.prefLabel }} </span>
+      <span>{{ record.about.text['@id'] }}</span>
+      <!--(Bibliografiskt material)-->
+    </h1>
+    <div class="levels">
+      <span>{{ enums.bibLevel[record.bibLevel].label_sv }}</span>
+      <span>{{ enums.encLevel[record.encLevel].label_sv }}</span>
+      <span>{{ enums.catForm[record.catForm].label_sv }}</span>
+    </div>
+  </header>
+  <div ng-switch on="recType">
+    <div ng-switch-when="auth">
+      <div ng-include="'/partials/edit/auth'"></div>
+    </div>
+    <div ng-switch-default>
+      <div ng-include="'/partials/edit/bib'"></div>
+    </div>
+  </div>
 
-
-{% endraw %}
+  <!-- dialog -->
+  <div id="confirmDeleteDraftDialog" data-ng-show="confirmDeleteDraft" class="popover">
+    <div class="popover-inner">
+      <button class="close" data-ng-click="confirmDeleteDraft.abort()">&times;</button>
+    </div>
+    <div class="popover-content">
+      <h4>Vill du verkligen ta bort utkastet?</h4>
+      <button class="btn btn-success" data-ng-click="confirmDeleteDraft.execute()">Ja</button>
+      <button class="btn btn-warning" data-ng-click="confirmDeleteDraft.abort()">Nej</button>
+    </div>
+  </div>
+</div>

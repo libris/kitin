@@ -9,8 +9,7 @@
 
 <div class="entity relation linked">
   <div class="main">
-    <div class="title"><strong>{{ object.instanceTitle.titleValue + object.instanceTitle.subtitle }}</strong></div>
-    <div class="creator">{{ object.responsibilityStatement }}</div>
+    <div class="title"><strong>{{ object.title }}</strong></div>
     <div class="date">
       <span title="Utgivningsår" data-ng-repeat="publication in object.publication | limitTo:1" data-ng-show="publication.providerDate">
         {{publication.providerDate}}

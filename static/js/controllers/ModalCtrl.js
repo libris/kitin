@@ -11,7 +11,7 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
     id = id.replace('/resource',''); // TODO, should be the record id
     $scope.authModal = editService.getRecordTypeId(id).then(function(record) {
       var opts = angular.extend( defaultModalOptions, {
-        templateUrl: 'modal-edit-auth',
+        templateUrl: '/snippets/modal-edit-auth',
         controller: 'ModalAuthCtrl',
         windowClass: 'modal-large auth-modal',
         resolve: {
@@ -26,7 +26,7 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
   $scope.openBibModal = function(id) {
     $scope.bibModal = editService.getRecordTypeId(id).then(function(record) {
       var opts = angular.extend(defaultModalOptions, {
-        templateUrl: 'modal-edit-bib',
+        templateUrl: '/snippets/modal-edit-bib',
         controller: 'ModalBibCtrl',
         windowClass: 'modal-large bib-modal',
         resolve: {
@@ -42,7 +42,7 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
     var opts = angular.extend(
                 defaultModalOptions,
                 {
-                  templateUrl: 'modal-release',
+                  templateUrl: '/snippets/modal-release',
                   controller: 'ModalReleaseCtrl',
                   windowClass: 'modal-large release-modal'
                 });
@@ -53,7 +53,7 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
     var opts = angular.extend(
                   defaultModalOptions,
                   {
-                  templateUrl: 'modal-remote',
+                  templateUrl: '/snippets/modal-remote',
                   controller: 'ModalRemoteCtrl',
                   scope: $scope,
                   windowClass: 'modal-large remote-modal'
@@ -65,7 +65,7 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
     var opts = angular.extend(
                   defaultModalOptions,
                   {
-                  templateUrl: 'modal-create-new',
+                  templateUrl: '/snippets/modal-create-new',
                   controller: 'ModalCreateNewCtrl',
                   scope: $scope,
                   windowClass: 'modal-large create-modal'
@@ -79,7 +79,7 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
     var opts = angular.extend(
                   defaultModalOptions,
                   {
-                  templateUrl: 'modal-holdings',
+                  templateUrl: '/snippets/modal-holdings',
                   controller: 'ModalHoldingsCtrl',
                   windowClass: 'modal-large holdings-modal',
                   scope: $scope,
