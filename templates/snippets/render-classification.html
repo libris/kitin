@@ -1,0 +1,4 @@
+<a href="#">
+  <i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.notation }}
+</a> 
+<i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>

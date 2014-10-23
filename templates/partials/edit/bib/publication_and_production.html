@@ -153,28 +153,6 @@
           data-view-template="/snippets/render-country"
           data-search-template="/snippets/render-search-country">
       </ul>
-      <script type="text/ng-template" id="/snippets/render-country">
-        <a href="#"><i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i> {{ object.prefLabel }} <span data-ng-show="object.notation">({{ object.notation }})</span></a> <i data-ng-if="!editable.on" data-ng-click="doRemove($index)" class="no">&times;</i>
-      </script>
-
-      <script type="text/ng-template" id="/snippets/render-search-country">
-        <i class="fa fa-search"></i>
-        <input data-inplace class="input-large authdependant embedded" type="text"
-                placeholder="Lägg till land"
-                data-no-value="{{ object.prefLabel }} ({{ object.notation }})"
-                data-kitin-search-entity
-                data-service-url="{{API_PATH}}/def/_search"
-                data-filter="{ filter: 'about.@type:Country'}"
-                data-completion-template="select-country-template" placeholder="+ Lägg till land">
-      </script>
-      <script type="text/html" id="/snippets/select-country-template">
-        <div class="auth">
-          <h4>
-            <span class="name"><%= data.prefLabel %></span>
-            <span class="date"><%= data.notation %></span>
-          </h4>
-        </div>
-      </script>
     </div>
     <!-- PUBLICATION COUNTRY  END -->
 
