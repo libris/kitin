@@ -1,4 +1,5 @@
-<div class="content bib"><form name="form" class="form-horizontal">
+
+<div ng-controller="JSONLDCtrl">
   <header class="clearfix">
     <h1>JSON-LD</h1>
     <p>
@@ -7,13 +8,11 @@
     <p>
       Denna struktur är under utveckling. Kom gärna med synpunkter om något saknas eller ser feltolkat ut.
     </p>
-    <div data-ng-include="'/partials/_mode_menu'" onload="mode = 'JSON-LD'"></div>
   </header>
 
   <section data-ng-repeat="object in [record]" class="json-ld"
       data-ng-include="'render-object'"></section>
-
-</form></div>
+</div>
 
 <script type="text/ng-template" id="render-object">
   <div class="header" data-ng-if="object[TYPE] || object[ID]">
