@@ -1053,44 +1053,43 @@ body.login .content.index header {
   color: #191913;
 }
 .modes-menu {
-  margin-top: 21px;
-  margin-bottom: 50px;
+  margin-top: 20px;
+  margin-bottom: 36px;
 }
 .modes-menu a {
+  min-width: 150px;
   float: left;
-  font: 600 12px/1 'Open Sans', sans-serif;
-  color: #666664;
   padding: 8px 12px 8px;
-  background: #ffffff;
-  margin-left: 2px;
-  text-transform: uppercase;
-  opacity: .6;
-}
-.modes-menu a[href^="/"]:hover {
-  opacity: 1;
-  color: #1a8f72;
-  text-decoration: none;
-}
-.modes-menu a.active,
-.modes-menu a.active {
-  opacity: 1;
+  background: #c7c7c3;
+  font: 600 12px/1 'Open Sans', sans-serif;
   color: #191913;
+  text-transform: uppercase;
+  text-align: center;
+  opacity: 0.8;
+  box-shadow: inset 0 -2px 0px rgba(0, 0, 0, 0.1);
+}
+.modes-menu a.active {
+  box-shadow: none;
+  opacity: 1;
+  background: #ffffff;
 }
 .modes-menu a.active:hover {
   cursor: default;
   text-decoration: none;
 }
-.content header h1 {
-  margin: 0 0 12px;
-  height: 37px;
-  background: url(/static/img/circ.png) no-repeat;
-  padding: 0 0 0 10px;
-  color: #666664;
-  text-shadow: #ffffff 1px 1px 0;
-  font: bold 16px/39px 'Droid Serif', sans-serif;
-  float: left;
+.content header .record-type {
+  z-index: 100;
+  background-color: #ffffff;
+  margin-left: -11px;
 }
-.content header h1:before {
+.content header .record-type h1 {
+  margin: 0 0 8px;
+  padding: 0px;
+  color: #191913;
+  text-shadow: #ffffff 1px 1px 0;
+  font: bold 16px/39px 'Open Sans', sans-serif;
+}
+.content header .record-type h1:before {
   display: inline-block;
   font-family: FontAwesome;
   font-style: normal;
@@ -1098,10 +1097,16 @@ body.login .content.index header {
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 17px;
+  font-size: 24px;
   position: relative;
-  margin-right: 16px;
-  color: #adada9;
+  margin-right: 10px;
+  color: #999996;
+  border: 1px solid #ddddd8;
+  border-radius: 35px;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  background: white;
 }
 .content.holdings header h1:before {
   content: "\f0ca";
@@ -1129,6 +1134,15 @@ body.login .content.index header {
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+body.edit .content header section {
+  margin: 0px;
+}
+body.edit .content header section .record-metadata {
+  margin-top: -15px;
+  z-index: 99;
+  padding: 20px 20px 20px 50px;
+  background: url(/static/img/bg.png);
 }
 body.edit .content section {
   margin: 0px 0px 10px 0px;

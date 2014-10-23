@@ -46,21 +46,49 @@ body.login .content.index header{margin-bottom:60px;}
 .content header .levelselect .dropdown-toggle .fa-caret-down{border-left:1px solid @grey;padding:0 2px 0 8px;margin-left:8px;line-height:16px;color:@grey-very-dark}
 .content header .levelselect .dropdown-toggle:hover .fa-caret-down{color:@grey-very-dark}
 
-.modes-menu {margin-top:21px; margin-bottom: 50px;}
+.modes-menu {
+  margin-top:20px; 
+  margin-bottom: 36px;
 
-.modes-menu a{float:left;font:600 12px/1 @paragraph-font, sans-serif;color:@grey-darker;padding:8px 12px 8px;
-    background:@white;margin-left:2px;text-transform:uppercase;opacity:.6;
+  a {
+    min-width: 150px;
+    float: left;
+    padding: 8px 12px 8px;
+    background: @grey-light;
+    font: 600 12px/1 @paragraph-font, sans-serif;
+    color: @grey-very-dark;
+    text-transform: uppercase;
+    text-align: center;
+    opacity: 0.8;
+    box-shadow: inset 0 -2px 0px rgba(0, 0, 0, 0.1);
+
+    &.active {
+      box-shadow: none;
+      opacity: 1;
+      background:@white;
+      &:hover{
+        cursor:default;
+        text-decoration:none
+      }
+    }
   }
-.modes-menu a[href^="/"]:hover{opacity:1;color:@green;text-decoration:none}
-.modes-menu a.active,  
-.modes-menu a.active{opacity:1;color:@grey-very-dark}
+}
 
-.modes-menu a.active:hover{cursor:default;text-decoration:none}
+.content header .record-type {
+  z-index: 100;
+  background-color: @white;
+  margin-left: -11px;
 
-.content header h1{margin:0 0 12px;height:37px;background:url(/static/img/circ.png) no-repeat;
-  padding:0 0 0 10px;color:@grey-darker;text-shadow:@white 1px 1px 0;font:bold 16px/39px @header-font, sans-serif;float:left;}
+  h1 {
+    margin: 0 0 8px;
+    padding: 0px;
+    color: @grey-very-dark;
+    text-shadow: @white 1px 1px 0;
+    font: bold 16px/39px @paragraph-font, sans-serif;
+  }
+}
 
-.content header h1:before {
+.content header .record-type h1:before {
   display: inline-block;
   font-family: FontAwesome;
   font-style: normal;
@@ -68,10 +96,16 @@ body.login .content.index header{margin-bottom:60px;}
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size:17px;
+  font-size: 24px;
   position:relative;
-  margin-right:16px;
-  color:@grey;
+  margin-right: 10px;
+  color: @grey-dark;
+  border: 1px solid @grey-lighter;
+  border-radius: 35px;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  background: white;
 }
 
 .content.holdings header h1:before {
@@ -99,6 +133,17 @@ body.login .content.index header{margin-bottom:60px;}
   -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.1);
      -moz-box-shadow: 0 1px 2px rgba(0,0,0,.1);
       box-shadow: 0 1px 2px rgba(0,0,0,.1);
+}
+
+body.edit .content header section {
+  margin: 0px;
+
+  .record-metadata {
+    margin-top: -15px;
+    z-index: 99;
+    padding: 20px 20px 20px 50px;
+    background: url(/static/img/bg.png);
+  }
 }
 
 body.edit .content section {
