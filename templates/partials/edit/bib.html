@@ -6,17 +6,17 @@
   <section class="notes"                      ng-include="'/partials/edit/bib/notes'"></section>
   <section class="edit-subject"               ng-include="'/partials/edit/bib/subject'"></section>
 
-  <!-- uncompleted marc debug -->
+<!-- uncompleted marc debug -->
   <section ng-if="debug && record._marcUncompleted" class="unknown" ng-include="'/partials/edit/bib/unknown'"></section>
 
 
-  <!-- debug printed fields -->
+<!-- debug printed fields -->
   <section ng-if="debug" class="debug">
     <h2> <span>Debug record</span><i></i></h2>
     <div class="cols">
-    	<div class="col12">
+      <div class="col12">
       <pre data-ng-bind="debugRecord"></pre>
-    	</div>
+      </div>
     </div>
   </section>
 

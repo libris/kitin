@@ -513,6 +513,24 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('/snippets/render-classification',
+    "<a href=\"#\">\n" +
+    "  <i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object)\"></i> {{ object.notation }}\n" +
+    "</a> \n" +
+    "<i data-ng-if=\"!editable.on\" data-ng-click=\"doRemove($index)\" class=\"no\">&times;</i>"
+  );
+
+
+  $templateCache.put('/snippets/render-country',
+    "<a href=\"#\">\n" +
+    "  <i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object)\"></i>\n" +
+    "  {{ object.prefLabel }}\n" +
+    "  <span data-ng-show=\"object.notation\">({{ object.notation }})</span>\n" +
+    "</a>\n" +
+    "<i data-ng-if=\"!editable.on\" data-ng-click=\"doRemove($index)\" class=\"no\">&times;</i>"
+  );
+
+
   $templateCache.put('/snippets/render-generic-linked-entity',
     "<!-- \n" +
     "  render-generic-linked-entity\n" +
@@ -757,6 +775,23 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('/snippets/render-search-classification',
+    ""
+  );
+
+
+  $templateCache.put('/snippets/render-search-country',
+    "<i class=\"fa fa-search\"></i>\n" +
+    "<input data-inplace class=\"input-large authdependant embedded\" type=\"text\"\n" +
+    "        placeholder=\"Lägg till land\"\n" +
+    "        data-no-value=\"{{ object.prefLabel }} ({{ object.notation }})\"\n" +
+    "        data-kitin-search-entity\n" +
+    "        data-service-url=\"{{API_PATH}}/def/_search\"\n" +
+    "        data-filter=\"{ filter: 'about.@type:Country'}\"\n" +
+    "        data-completion-template-id=\"select-country-template\" placeholder=\"+ Lägg till land\">"
+  );
+
+
   $templateCache.put('/snippets/render-search-language',
     "<div data-click-search>\n" +
     "  <span class=\"add-link\" ng-click=\"onclick($event)\"><i class=\"fa fa-plus\"></i></span>\n" +
@@ -801,6 +836,24 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('/snippets/save-buttons',
+    "<button class=\"btn-link\" id=\"draft\" data-ng-click=\"saveDraft()\"\n" +
+    "  title=\"{{lastSavedLabel('Senast sparad: %s')}}\">Spara utkast</button>\n" +
+    "<button class=\"btn btn-dark btn-submit\" id=\"publish\" data-ng-disabled=\"disableButtons\" data-ng-click=\"save()\"\n" +
+    "  title=\"{{lastPublishedLabel('Senast publicerad: %s')}}\">Publicera</button>"
+  );
+
+
+  $templateCache.put('/snippets/search-subject',
+    "<i class=\"fa fa-search\"></i> \n" +
+    "<input data-kitin-search-entity\n" +
+    "      data-filter=\"{{search_filter}}\"\n" +
+    "      data-service-url=\"{{API_PATH}}/auth/_search\"\n" +
+    "      data-completion-template-id=\"{{search_completion_template}}\" type=\"text\" placeholder=\"\"\n" +
+    "      data-allow-non-auth=\"{{scheme.allowNonAuth}}\">"
+  );
+
+
   $templateCache.put('/snippets/searchfield',
     "<div class=\"nav-back\" ng-show=\"state.search.q\">\n" +
     "  <a data-nav-back><i class=\"fa fa-arrow-circle-left\"></i> Tillbaka till träfflistan</a>\n" +
@@ -841,24 +894,6 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "      </div>\n" +
     "    </form>\n" +
     "  </div>\n" +
-    "</div>"
-  );
-
-
-  $templateCache.put('/snippets/select-language-template',
-    "<div class=\"auth\">\n" +
-    "  <h4>\n" +
-    "  <span class=\"name\"><%= data.prefLabel %></span><span class=\"date\"> <%= data.langCode %></span>\n" +
-    "  </h4>\n" +
-    "</div>"
-  );
-
-
-  $templateCache.put('/snippets/select-role-template',
-    "<div class=\"auth\">\n" +
-    "  <h4>\n" +
-    "  <span class=\"name\"><%= data.label %></span><span class=\"date\"> <%= data.notation %></span>\n" +
-    "  </h4>\n" +
     "</div>"
   );
 
@@ -909,5 +944,21 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    </table>\n" +
     "  </div>\n" +
     "</div>"
+  );
+
+
+  $templateCache.put('/snippets/view-subject',
+    "<a ng-init=\"subjectLabel = (object.prefLabel || object.uniformTitle || object.controlledLabel  || object.notation || object.name)\" ng-show=\"subjectLabel\" href=\"#\"><i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object)\"></i> {{ subjectLabel }}</a> \n" +
+    "\n" +
+    "  \n" +
+    "<!-- Broader terms should not be shown for general subjects... used for?\n" +
+    "<a data-ng-repeat=\"broader in object.broader\" href=\"#\">\n" +
+    "  {{broader.prefLabel}}\n" +
+    "  <span data-ng-show=\"broader.notation\">({{ broader.notation }}) </span>\n" +
+    "  <span class=\"subject-delimiter\" data-ng-hide=\"$last\">--</span>\n" +
+    " </a> \n" +
+    "-->\n" +
+    "\n" +
+    "<i data-ng-click=\"doRemove($index)\" class=\"no\">&times;</i>"
   );
 }])
