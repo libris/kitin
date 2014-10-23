@@ -7,6 +7,8 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     published: true
   };
 
+  var isNew = false;
+
   // Went back to systemMessages. Better?
   // $scope.alerts = [];
   // $scope.closeAlert = function(index) {
@@ -30,7 +32,10 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     
     var currentRecord = getCurrentRecord();
     currentRecord.holdings.holding = holding;
-    currentRecord.holdings.hits += 1;
+    if (isNew) {
+      currentRecord.holdings.hits += 1;
+      isNew = false;
+    }
   }
 
 
@@ -61,8 +66,8 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   // If no holding is found, we create a new one.
   recordService.holding.get(recordId, userData).then(function(holding) {
     if (!holding) {
-
       recordService.holding.create().then(function(response) {
+        isNew = true;
         holding = response;
         holding.data.about['@id'] = recordId;
         holding.data.about.holdingFor = {
@@ -79,7 +84,6 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   $scope.saveHolding = function(holding) {
 
     recordService.holding.save(holding).then(function success(holding) {
-
       onSave(holding);
       $scope.holding = holding;
     }, function error(status) {
@@ -91,7 +95,6 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     recordService.holding.del(holding).then(function(response) {
       onDelete(holding);
       delete $scope.holding;
-
     });
   };
 
@@ -108,7 +111,6 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   $scope.deleteOffer = function(holding, index) {
     var offers = holding.data.about.offers;
     offers.splice(index, 1);
-
   };
 
 });
