@@ -1,10 +1,9 @@
-{% raw %}
-<div class="modal-header marc">
-  <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
-  <h4 class="modal-title">MARC förhandsgranskning</h4>
-</div>
-
-<div class="modal-body marc">
+<div class="content bib marc">
+  <form name="form" class="form-horizontal" data-ng-controller="EditCtrl">
+    <header class="clearfix">
+      <h1>MARC</h1>
+      <div data-ng-include="'/partials/_mode_menu'" onload="mode = 'MARC'"></div>
+    </header>
     <section class="marc">
       <table>
         <tr>
@@ -14,13 +13,14 @@
           </td>
         </tr>
         <tr data-ng-repeat="object in record.fields">
-          <td data-ng-include="'render-object'"></td>
+          <td data-ng-include="'/snippets/render-object'"></td>
         </tr>
       </table>
     </section>
+  </form>
 </div>
 
-<script type="text/ng-template" id="render-object">
+<script type="text/ng-template" id="/snippets/render-object">
   <span data-ng-repeat="(key, value) in object" data-ng-init="obj = object[key]">
     <ng:switch on="typeOf(obj)">
       <span data-ng-switch-when="object">
@@ -34,6 +34,3 @@
     </ng:switch>
   </span>
 </script>
-
-<div class="modal-footer holdings submit"></div>
-{% endraw %}
