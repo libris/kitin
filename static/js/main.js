@@ -20,7 +20,7 @@ kitin.config(function($locationProvider, $routeProvider, $translateProvider, $ht
       $routeProvider
         .when('/',                                  { templateUrl: '/partials/index' })
         .when('/search/:recType',                   { templateUrl: '/partials/search' })
-        .when('/edit/:editSource/:recType/:recId',  { templateUrl: '/partials/edit_base' })
+        .when('/edit/:editSource/:recType/:recId',  { templateUrl: '/partials/edit_base', reloadOnSearch: false })
         .when('/marc/:recType/:recId',           { templateUrl: '/partials/marc', isMarc: true });
 
       $httpProvider.interceptors.push('HttpInterceptor');
