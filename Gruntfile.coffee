@@ -60,7 +60,7 @@ module.exports = (grunt) ->
           'alert'
         ]
       files:
-        src: ['templates/partials/**/*.html']
+        src: [ 'templates/**/*.html' ]
 
     bower:
       install:
