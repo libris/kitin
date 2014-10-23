@@ -1,13 +1,19 @@
 
 <div ng-controller="JSONLDCtrl">
   <header class="clearfix">
-    <h1>JSON-LD</h1>
-    <p>
-      Den underliggande datastrukturen representerad som ett träd av entiteter, på formatet <a href="http://json-ld.org/" target="_blank">JSON-LD <i class="fa fa-external-link"></i></a>. Här visas all data som är lyft ur MARC-posten (samt de delar som ännu inte mappats klart, placerade i block prefixade med '_marc').
-    </p>
-    <p>
-      Denna struktur är under utveckling. Kom gärna med synpunkter om något saknas eller ser feltolkat ut.
-    </p>
+    <section>
+      <div class="record-type">
+        <h1>JSON-LD</h1>
+      </div>
+      <div class="record-metadata">
+        <p>
+          Den underliggande datastrukturen representerad som ett träd av entiteter, på formatet <a href="http://json-ld.org/" target="_blank">JSON-LD <i class="fa fa-external-link"></i></a>. Här visas all data som är lyft ur MARC-posten (samt de delar som ännu inte mappats klart, placerade i block prefixade med '_marc').
+        </p>
+        <p>
+          Denna struktur är under utveckling. Kom gärna med synpunkter om något saknas eller ser feltolkat ut.
+        </p>
+      </div>
+    </section>
   </header>
 
   <section data-ng-repeat="object in [record]" class="json-ld"

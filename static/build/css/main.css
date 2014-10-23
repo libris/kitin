@@ -965,8 +965,6 @@ body.search .content header {
   margin-left: -24px;
 }
 .content header p {
-  clear: both;
-  float: left;
   font-size: 13px;
 }
 .content footer h1 {
