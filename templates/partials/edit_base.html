@@ -1,6 +1,5 @@
 <div ng-controller="EditBaseCtrl">
   <form class="form-horizontal">
-    {{editMode}}
     <div class="edit content {{recType}}" data-ng-if="record"><!-- Do not remove ng-if="record", needed to ensure record loaded -->
       <div class="modes-menu">
         <a href="#edit"   data-ng-class="{active: (!editMode || editMode == 'edit')}">LIBRIS</a>
