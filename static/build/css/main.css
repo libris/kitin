@@ -1052,11 +1052,11 @@ body.login .content.index header {
 .content header .levelselect .dropdown-toggle:hover .fa-caret-down {
   color: #191913;
 }
-.content header .modes {
-  float: right;
+.modes-menu {
   margin-top: 21px;
+  margin-bottom: 50px;
 }
-.content header .modes a {
+.modes-menu a {
   float: left;
   font: 600 12px/1 'Open Sans', sans-serif;
   color: #666664;
@@ -1066,17 +1066,17 @@ body.login .content.index header {
   text-transform: uppercase;
   opacity: .6;
 }
-.content header .modes a[href^="/"]:hover {
+.modes-menu a[href^="/"]:hover {
   opacity: 1;
   color: #1a8f72;
   text-decoration: none;
 }
-.content footer .modes a.active,
-.content header .modes a.active {
+.modes-menu a.active,
+.modes-menu a.active {
   opacity: 1;
   color: #191913;
 }
-.content header .modes a.active:hover {
+.modes-menu a.active:hover {
   cursor: default;
   text-decoration: none;
 }
