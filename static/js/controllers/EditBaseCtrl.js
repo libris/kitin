@@ -6,7 +6,6 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
   $scope.userSigel = userData.userSigel;
   $scope.editMode = $location.hash(); // #jsonld changes edit template
   $scope.editSource = $routeParams.editSource;
-  console.warn('edit mode',$scope.editMode);
 
   editService.addableElements = [];
 
@@ -21,10 +20,8 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
   if($routeParams.editSource === 'libris') {
     // LIBRIS
     recordService.libris.get($scope.recType, $scope.recId).then(function(data) {
-      if ($scope.recType === editService.RECORD_TYPES.BIB) {
         $scope.addRecordViewsToScope(data['recdata'], $scope);
         $scope.etag = data['etag'];
-      }
     });
   } else if($routeParams.editSource === 'draft') {
     // DRAFT
