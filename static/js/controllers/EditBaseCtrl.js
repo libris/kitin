@@ -6,7 +6,6 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
   $scope.userSigel = userData.userSigel;
   $scope.editMode = $location.hash(); // #jsonld changes edit template
   $scope.editSource = $routeParams.editSource;
-  console.warn('edit mode',$scope.editMode);
 
   editService.addableElements = [];
 
