@@ -53,7 +53,7 @@ def global_view_variables():
 @login_manager.user_loader
 def _load_user(uid):
     app.logger.debug("Loading user %s " % uid)
-    app.logger.debug("Sigel in session %s" % session.get('sigel'))
+    #app.logger.debug("Sigel in session %s" % session.get('sigel'))
     if not 'sigel' in session:
         return None
     return User(uid, sigel=session.get('sigel'))
@@ -117,8 +117,8 @@ def logout():
 @app.route("/search/<record_type>") # Search template
 @login_required
 def index(source=None, rec_type=None, rec_id=None):
-    if request.is_xhr:
-        return 'Error: Base requested using XHR'
+    if ( request.accept_mimetypes.best_match(['application/json', 'text/html']) == 'application/json' ):
+        return 'Error: Base requested using XHR', 500
     return render_template('index.html', user=current_user, debug = app.debug, WHELK_HOST = app.config['CLIENT_WHELK_HOST'])
 
 # SEARCH TEMPLATE
@@ -252,8 +252,8 @@ def save_draft(rec_type, draft_id):
     if('If-match' in request.headers):
         etag = request.headers['If-match']
 
-    storage.update_draft(current_user.get_id(), rec_type, request.data, etag, draft_id)
-    return json.dumps(request.json)
+    updated_draft = storage.update_draft(current_user.get_id(), rec_type, request.data, etag, draft_id)
+    return json.dumps(updated_draft)
 
 # DELETE
 @app.route('/draft/<rec_type>/<draft_id>', methods=['DELETE'])

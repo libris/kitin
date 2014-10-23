@@ -625,6 +625,40 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('/snippets/render-object',
+    "<div class=\"header\" data-ng-if=\"object[TYPE] || object[ID]\">\n" +
+    "  <span class=\"type\" data-ng-if=\"object[TYPE]\"\n" +
+    "        data-ng-repeat=\"typekey in ensureArray(object[TYPE])\"\n" +
+    "        data-ng-click=\"openTermDef(typekey)\">{{ typekey }} </span>\n" +
+    "  <span data-ng-if=\"object[ID]\">\n" +
+    "    <a href=\"{{ toJsonLdLink(object[ID]) }}\">&lt;{{ object[ID] }}&gt; </a>\n" +
+    "  </span>\n" +
+    "</div>\n" +
+    "<div data-ng-repeat=\"key in jsonLdKeys(object)\"\n" +
+    "     data-ng-init=\"obj = object[key]\" data-ng-if=\"key[0] != '@'\">\n" +
+    "  <ng:switch on=\"typeOf(obj)\">\n" +
+    "    <div data-ng-switch-when=\"object\"\n" +
+    "         data-ng-init=\"collapsed = (key == '_marcUncompleted')\"\n" +
+    "         data-ng-class=\"{collapsed: collapsed, array: lodash.isArray(obj)}\">\n" +
+    "      <div class=\"label\" class=\"entitylink\">\n" +
+    "        <span data-ng-click=\"openTermDef(key)\">{{ key }}</span>\n" +
+    "        <i data-ng-click=\"collapsed=!collapsed\"> </i>\n" +
+    "      </div>\n" +
+    "      <section data-ng-init=\"object = obj;\n" +
+    "            linked = obj[ID] &amp;&amp; obj[ID].indexOf('_:') != 0 &amp;&amp; key != 'about'\"\n" +
+    "          data-ng-include=\"'/snippets/render-object'\"\n" +
+    "          data-ng-class=\"{linked: linked}\" class=\"entity\"></section>\n" +
+    "    </div>\n" +
+    "    <span data-ng-switch-when=\"string\">\n" +
+    "      <code data-ng-click=\"openTermDef(key)\">{{ key }}</code>\n" +
+    "      <input data-ng-if=\"!linked\" data-ng-model=\"obj\" type=\"text\" />\n" +
+    "      <span data-ng-if=\"linked\">{{ obj }}</span>\n" +
+    "    </span>\n" +
+    "  </ng:switch>\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('/snippets/render-person-name',
     "<span data-ng-if=\"person.givenName || person.familyName\" class=\"name\">\n" +
     "  {{ person.givenName }} {{ person.familyName }}\n" +
