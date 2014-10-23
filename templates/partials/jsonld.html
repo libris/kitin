@@ -11,38 +11,5 @@
   </header>
 
   <section data-ng-repeat="object in [record]" class="json-ld"
-      data-ng-include="'render-object'"></section>
+      data-ng-include="'/snippets/render-object'"></section>
 </div>
-
-<script type="text/ng-template" id="render-object">
-  <div class="header" data-ng-if="object[TYPE] || object[ID]">
-    <span class="type" data-ng-if="object[TYPE]"
-          data-ng-repeat="typekey in ensureArray(object[TYPE])"
-          data-ng-click="openTermDef(typekey)">{{ typekey }} </span>
-    <span data-ng-if="object[ID]">
-      <a href="{{ toJsonLdLink(object[ID]) }}">&lt;{{ object[ID] }}&gt; </a>
-    </span>
-  </div>
-  <div data-ng-repeat="key in jsonLdKeys(object)"
-       data-ng-init="obj = object[key]" data-ng-if="key[0] != '@'">
-    <ng:switch on="typeOf(obj)">
-      <div data-ng-switch-when="object"
-           data-ng-init="collapsed = (key == '_marcUncompleted')"
-           data-ng-class="{collapsed: collapsed, array: lodash.isArray(obj)}">
-        <div class="label" class="entitylink">
-          <span data-ng-click="openTermDef(key)">{{ key }}</span>
-          <i data-ng-click="collapsed=!collapsed"> </i>
-        </div>
-        <section data-ng-init="object = obj;
-              linked = obj[ID] &amp;&amp; obj[ID].indexOf('_:') != 0 &amp;&amp; key != 'about'"
-            data-ng-include="'render-object'"
-            data-ng-class="{linked: linked}" class="entity"></section>
-      </div>
-      <span data-ng-switch-when="string">
-        <code data-ng-click="openTermDef(key)">{{ key }}</code>
-        <input data-ng-if="!linked" data-ng-model="obj" type="text" />
-        <span data-ng-if="linked">{{ obj }}</span>
-      </span>
-    </ng:switch>
-  </div>
-</script>
