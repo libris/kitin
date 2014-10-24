@@ -138,7 +138,7 @@ class Storage(object):
         record = json.loads(json_record)
         record['draft'] = True
         record['@id'] = '/' + '/'.join([rec_type, rec_id])
-        record['modified'] = aware_dt.isoformat() #datetime.utcnow().replace(tzinfo=simple_utc()).isoformat()
+        record['modified'] = aware_dt.strftime('%Y-%m-%dT%H:%M:%S.0%z') # TODO change back to .isoformat() when it is supported by whelk
 
         with open(construct_path([path, rec_id]), 'w') as f:
             f.write(json.dumps(record))
