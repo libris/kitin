@@ -1,6 +1,8 @@
 <h2>Utgivning och tillverkning<i></i></h2>
-<div class="identifier" ng-include="'/partials/edit/bib/identifier'"></div>
-<div>
+
+<div class="form-container">
+  <div class="identifier" ng-include="'/partials/edit/bib/identifier'"></div>
+  
   <div class="label" data-ng-show="record.about.mediaTerm">
     <span class="lbl" translate>LABEL.record.about.mediaTerm</span>
     <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.mediaTerm">

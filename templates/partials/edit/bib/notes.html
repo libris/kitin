@@ -1,242 +1,242 @@
 <h2>{{ "Anmärkningar" }}<i></i></h2>
+<div class="form-container">
+  <!-- COMMENT  START -->
+  <div class="label datatable" data-ng-target="commentTable" 
+    data-kitin-data-table 
+    data-table-model="record.about.comment" 
+    data-table-header-row-template="/snippets/comment-header-row-template"
+    data-table-row-template="/snippets/comment-row-template"
+    data-subject="record.about" data-link-multiple="comment"
+    data-default-type="Comment"
+    data-add-first
+    data-addable="notes">
+  </div>
 
-        <!-- COMMENT  START -->
-        <div class="label datatable" data-ng-target="commentTable" 
-          data-kitin-data-table 
-          data-table-model="record.about.comment" 
-          data-table-header-row-template="/snippets/comment-header-row-template"
-          data-table-row-template="/snippets/comment-row-template"
-          data-subject="record.about" data-link-multiple="comment"
-          data-default-type="Comment"
-          data-add-first
-          data-addable="notes">
-        </div>
+  <script type="text/ng-template" id="/snippets/comment-header-row-template">
+    <td>
+        <span class="lbl" translate>LABEL.record.about.comment</span>
+    </td>
+  </script>
+  <script type="text/ng-template" id="/snippets/comment-row-template">
+    <td>
+      <div class="label">
+        <textarea ng-model="objects[$index]" data-ui-jq="autosize" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
+      </div>
+    </td>
+    <td class="controls">
+      <button class="btn-link deleter" data-ng-click="removeTableRow($index)">
+        <i class="fa fa-times"></i>
+      </button>
+    </td>
+  </script>
+  <!-- COMMENT  END -->
 
-        <script type="text/ng-template" id="/snippets/comment-header-row-template">
-          <td>
-              <span class="lbl" translate>LABEL.record.about.comment</span>
-          </td>
-        </script>
-        <script type="text/ng-template" id="/snippets/comment-row-template">
-          <td>
-            <div class="label">
-              <textarea ng-model="objects[$index]" data-ui-jq="autosize" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
-            </div>
-          </td>
-          <td class="controls">
-            <button class="btn-link deleter" data-ng-click="removeTableRow($index)">
-              <i class="fa fa-times"></i>
-            </button>
-          </td>
-        </script>
-        <!-- COMMENT  END -->
+  <!-- LIST OF CONTENTS  START -->
+  <div class="label">
+    <div class="datatable" data-ng-target="listOfContents" 
+      data-kitin-data-table 
+      data-collapsable="true"
+      data-table-model="record.about.listOfContents" 
+      data-table-header-row-template="/snippets/issueNumber-header-row-template"
+      data-table-row-template="/snippets/issueNumber-row-template"
+      data-subject="record.about" data-link-multiple="listOfContents"
+      data-default-type="IssueNumber"
+      data-add-first
+      data-addable="publication_and_production">
+    </div>
+    <script type="text/ng-template" id="/snippets/listOfContents-header-row-template">
+      <td><span class="lbl" translate>LABEL.record.about.listOfContents</span></td>
+    </script>
+    <script type="text/ng-template" id="/snippets/listOfContents-row-template">
+      <td><div class="label"><input ng-model="object" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td class="controls">
+        <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
+      </td>
+    </script>
+  </div>  
+  <!-- LIST OF CONTENTS  END -->
 
-        <!-- LIST OF CONTENTS  START -->
-        <div class="label">
-          <div class="datatable" data-ng-target="listOfContents" 
-            data-kitin-data-table 
-            data-collapsable="true"
-            data-table-model="record.about.listOfContents" 
-            data-table-header-row-template="/snippets/issueNumber-header-row-template"
-            data-table-row-template="/snippets/issueNumber-row-template"
-            data-subject="record.about" data-link-multiple="listOfContents"
-            data-default-type="IssueNumber"
-            data-add-first
-            data-addable="publication_and_production">
-          </div>
-          <script type="text/ng-template" id="/snippets/listOfContents-header-row-template">
-            <td><span class="lbl" translate>LABEL.record.about.listOfContents</span></td>
-          </script>
-          <script type="text/ng-template" id="/snippets/listOfContents-row-template">
-            <td><div class="label"><input ng-model="object" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-            <td class="controls">
-              <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-            </td>
-          </script>
-        </div>  
-        <!-- LIST OF CONTENTS  END -->
+  <!-- PERFORMER NOTE  START -->
+  <div class="label">
+    <div class="datatable" data-ng-target="performerNote" 
+      data-kitin-data-table 
+      data-collapsable="true"
+      data-table-model="record.about.performerNote" 
+      data-table-header-row-template="/snippets/performerNote-header-row-template"
+      data-table-row-template="/snippets/performerNote-row-template"
+      data-subject="record.about" data-link-multiple="performerNote"
+      data-default-type="IssueNumber"
+      data-add-first
+      data-addable="publication_and_production">
+    </div>
+    <script type="text/ng-template" id="/snippets/performerNote-header-row-template">
+      <td><span class="lbl" translate>LABEL.record.about.performerNote</span></td>
+    </script>
+    <script type="text/ng-template" id="/snippets/performerNote-row-template">
+      <td><div class="label"><input ng-model="object" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td class="controls">
+        <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
+      </td>
+    </script>
+  </div>  
+  <!-- PERFORMER NOTE  END -->
 
-        <!-- PERFORMER NOTE  START -->
-        <div class="label">
-          <div class="datatable" data-ng-target="performerNote" 
-            data-kitin-data-table 
-            data-collapsable="true"
-            data-table-model="record.about.performerNote" 
-            data-table-header-row-template="/snippets/performerNote-header-row-template"
-            data-table-row-template="/snippets/performerNote-row-template"
-            data-subject="record.about" data-link-multiple="performerNote"
-            data-default-type="IssueNumber"
-            data-add-first
-            data-addable="publication_and_production">
-          </div>
-          <script type="text/ng-template" id="/snippets/performerNote-header-row-template">
-            <td><span class="lbl" translate>LABEL.record.about.performerNote</span></td>
-          </script>
-          <script type="text/ng-template" id="/snippets/performerNote-row-template">
-            <td><div class="label"><input ng-model="object" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-            <td class="controls">
-              <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-            </td>
-          </script>
-        </div>  
-        <!-- PERFORMER NOTE  END -->
+  <div class="label" data-ng-show="record.about.contributorNote">
+    <span class="lbl" translate>LABEL.record.about.contributorNote</span>
+    <textarea data-inplace data-ui-jq="autosize" class="ng-pristine ng-valid" data-ng-model="record.about.contributorNote" ></textarea>
+  </div>
 
-        <div class="label" data-ng-show="record.about.contributorNote">
-          <span class="lbl" translate>LABEL.record.about.contributorNote</span>
-          <textarea data-inplace data-ui-jq="autosize" class="ng-pristine ng-valid" data-ng-model="record.about.contributorNote" ></textarea>
-        </div>
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.sourceNote</span>
+    <textarea data-inplace data-ui-jq="autosize" class="ng-pristine ng-valid" data-ng-model="record.sourceNote" ></textarea>
+  </div>
 
-        <div class="label">
-          <span class="lbl" translate>LABEL.record.sourceNote</span>
-          <textarea data-inplace data-ui-jq="autosize" class="ng-pristine ng-valid" data-ng-model="record.sourceNote" ></textarea>
-        </div>
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.technicalNote</span>
+      <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
+                data-ng-model="record.about.technicalNote" ></textarea>
+  </div>
 
-        <div class="label">
-          <span class="lbl" translate>LABEL.record.about.technicalNote</span>
-            <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
-                      data-ng-model="record.about.technicalNote" ></textarea>
-        </div>
+  <!-- SYSTEM REQUIREMENTS  START -->
+  <div class="label datatable" data-ng-target="systemRequirementsTable" 
+    data-kitin-data-table 
+    data-table-model="record.about.systemRequirements" 
+    data-table-header-row-template="/snippets/systemRequirements-header-row-template"
+    data-table-row-template="/snippets/systemRequirements-row-template"
+    data-subject="record.about" data-link-multiple="systemRequirements"
+    data-default-type="Comment"
+    data-add-first
+    data-addable="notes">
+  </div>
 
-        <!-- SYSTEM REQUIREMENTS  START -->
-        <div class="label datatable" data-ng-target="systemRequirementsTable" 
-          data-kitin-data-table 
-          data-table-model="record.about.systemRequirements" 
-          data-table-header-row-template="/snippets/systemRequirements-header-row-template"
-          data-table-row-template="/snippets/systemRequirements-row-template"
-          data-subject="record.about" data-link-multiple="systemRequirements"
-          data-default-type="Comment"
-          data-add-first
-          data-addable="notes">
-        </div>
+  <script type="text/ng-template" id="/snippets/systemRequirements-header-row-template">
+    <td>
+        <span class="lbl" translate>LABEL.record.about.systemRequirements</span>
+    </td>
+  </script>
+  <script type="text/ng-template" id="/snippets/systemRequirements-row-template">
+    <td>
+      <div class="label">
+        <textarea ng-model="objects[$index]" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
+      </div>
+    </td>
+    <td class="controls">
+      <button class="btn-link deleter" data-ng-click="removeTableRow($index)">
+        <i class="fa fa-times"></i>
+      </button>
+    </td>
+  </script>
+  <!-- SYSTEM REQUIREMENTS  END -->
 
-        <script type="text/ng-template" id="/snippets/systemRequirements-header-row-template">
-          <td>
-              <span class="lbl" translate>LABEL.record.about.systemRequirements</span>
-          </td>
-        </script>
-        <script type="text/ng-template" id="/snippets/systemRequirements-row-template">
-          <td>
-            <div class="label">
-              <textarea ng-model="objects[$index]" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
-            </div>
-          </td>
-          <td class="controls">
-            <button class="btn-link deleter" data-ng-click="removeTableRow($index)">
-              <i class="fa fa-times"></i>
-            </button>
-          </td>
-        </script>
-        <!-- SYSTEM REQUIREMENTS  END -->
+<div style="clear:both"></div>
 
-    <div style="clear:both"></div>
+  <!-- SUMMARY START -->
+  <div class="label">
+    <div class="datatable" data-ng-target="summary" 
+      data-kitin-data-table 
+      data-collapsable="true"
+      data-table-model="record.about.summary" 
+      data-table-header-row-template="/snippets/summary-header-row-template"
+      data-table-row-template="/snippets/summary-row-template"
+      data-subject="record.about" data-link-multiple="summary"
+      data-default-type="summary"
+      data-add-first
+      data-addable="publication_and_production">
+    </div>
+    <script type="text/ng-template" id="/snippets/summary-header-row-template">
+      <td><span class="lbl" translate>LABEL.record.about.summary</span></td>
+    </script>
+    <script type="text/ng-template" id="/snippets/summary-row-template">
+      <td><div class="label"><textarea data-ui-jq="autosize" ng-model="object" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td class="controls">
+        <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
+      </td>
+    </script>
+  </div>  
+  <!-- SUMMARY  END -->
 
-        <!-- SUMMARY START -->
-        <div class="label">
-          <div class="datatable" data-ng-target="summary" 
-            data-kitin-data-table 
-            data-collapsable="true"
-            data-table-model="record.about.summary" 
-            data-table-header-row-template="/snippets/summary-header-row-template"
-            data-table-row-template="/snippets/summary-row-template"
-            data-subject="record.about" data-link-multiple="summary"
-            data-default-type="summary"
-            data-add-first
-            data-addable="publication_and_production">
-          </div>
-          <script type="text/ng-template" id="/snippets/summary-header-row-template">
-            <td><span class="lbl" translate>LABEL.record.about.summary</span></td>
-          </script>
-          <script type="text/ng-template" id="/snippets/summary-row-template">
-            <td><div class="label"><textarea data-ui-jq="autosize" ng-model="object" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-            <td class="controls">
-              <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-            </td>
-          </script>
-        </div>  
-        <!-- SUMMARY  END -->
-
-        <!-- IS PRIMARY TOPIC OF  START -->
-	      <div class="label" data-ng-repeat="topic in record.about.isPrimaryTopicOf">
-            <span class="lbl" translate>{{ "isPrimaryTopicOf type: " + topic['@type'] }}</span>
-          <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" data-ng-model="topic['@id']" ></textarea>
-        </div>
-	      <div class="label" data-ng-repeat="topic in record.about.isPrimaryTopicOf">
-            <span class="lbl" translate>LABEL.record.about.isPrimaryTopicOf</span>
-          <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" data-ng-model="topic.comment" ></textarea>
-        </div>
-        <!-- IS PRIMARY TOPIC OF  END -->
+  <!-- IS PRIMARY TOPIC OF  START -->
+  <div class="label" data-ng-repeat="topic in record.about.isPrimaryTopicOf">
+      <span class="lbl" translate>{{ "isPrimaryTopicOf type: " + topic['@type'] }}</span>
+    <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" data-ng-model="topic['@id']" ></textarea>
+  </div>
+  <div class="label" data-ng-repeat="topic in record.about.isPrimaryTopicOf">
+      <span class="lbl" translate>LABEL.record.about.isPrimaryTopicOf</span>
+    <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" data-ng-model="topic.comment" ></textarea>
+  </div>
+  <!-- IS PRIMARY TOPIC OF  END -->
 
 
-          <!-- AUDIENCE  START -->
-          <div class="label">
-            <span class="lbl" translate>LABEL.record.about.audience</span>
-            <ul class="tags" data-kitin-link-entity
-                data-subject="record.about"
-                data-link="'audience'" data-type="audience"
-                data-view-template="/snippets/render-generic-linked-entity"
-                data-search-template="/snippets/render-generic-select"
-                data-filter="about.inCollection.@id:/def/enum/content/audience-collection">
-            </ul>
-          </div>
-          <!-- AUDIENCE  END -->
+    <!-- AUDIENCE  START -->
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.audience</span>
+      <ul class="tags" data-kitin-link-entity
+          data-subject="record.about"
+          data-link="'audience'" data-type="audience"
+          data-view-template="/snippets/render-generic-linked-entity"
+          data-search-template="/snippets/render-generic-select"
+          data-filter="about.inCollection.@id:/def/enum/content/audience-collection">
+      </ul>
+    </div>
+    <!-- AUDIENCE  END -->
 
-        <div class="label">
-            <span class="lbl" translate>LABEL.record.about.note</span>
-          <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" data-ng-model="record.about.note" ></textarea>
-        </div>
-        
-        <!-- HAS ANNOTATION  START -->
-        <div class="label datatable" data-ng-target="hasAnnotation" 
-          data-kitin-data-table 
-          data-table-model="record.about.hasAnnotation" 
-          data-table-header-row-template="/snippets/hasAnnotation-header-row-template"
-          data-table-row-template="/snippets/hasAnnotation-row-template"
-          data-subject="record.about" data-link-multiple="hasAnnotation"
-          data-default-type="hasAnnotation"
-          data-add-first
-          data-addable="notes">
-        </div>
+  <div class="label">
+      <span class="lbl" translate>LABEL.record.about.note</span>
+    <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" data-ng-model="record.about.note" ></textarea>
+  </div>
+  
+  <!-- HAS ANNOTATION  START -->
+  <div class="label datatable" data-ng-target="hasAnnotation" 
+    data-kitin-data-table 
+    data-table-model="record.about.hasAnnotation" 
+    data-table-header-row-template="/snippets/hasAnnotation-header-row-template"
+    data-table-row-template="/snippets/hasAnnotation-row-template"
+    data-subject="record.about" data-link-multiple="hasAnnotation"
+    data-default-type="hasAnnotation"
+    data-add-first
+    data-addable="notes">
+  </div>
 
-        <script type="text/ng-template" id="/snippets/hasAnnotation-header-row-template">
-          <td><span class="lbl" translate>LABEL.record.about.hasAnnotation.note</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.hasAnnotation.degree</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.hasAnnotation.location</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.hasAnnotation.date</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.hasAnnotation.comment</span></td>
-        </script>
-        <script type="text/ng-template" id="/snippets/hasAnnotation-row-template">
-          <td>
-            <div class="label">
-              <textarea ng-model="object['note']" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
-            </div>
-          </td>
-          <td>
-            <div class="label">
-              <textarea ng-model="object['degree']" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
-            </div>
-          </td>
-          <td>
-            <div class="label">
-              <textarea ng-model="object['location']" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
-            </div>
-          </td>
-          <td>
-            <div class="label">
-              <textarea ng-model="object['date']" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
-            </div>
-          </td>
-          <td>
-            <div class="label">
-              <textarea ng-model="object['comment']" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
-            </div>
-          </td>
-          <td class="controls">
-            <button class="btn-link deleter" data-ng-click="removeTableRow($index)">
-              <i class="fa fa-times"></i>
-            </button>
-          </td>
-        </script>
-        <!-- HAS ANNOTATION  END -->
+  <script type="text/ng-template" id="/snippets/hasAnnotation-header-row-template">
+    <td><span class="lbl" translate>LABEL.record.about.hasAnnotation.note</span></td>
+    <td><span class="lbl" translate>LABEL.record.about.hasAnnotation.degree</span></td>
+    <td><span class="lbl" translate>LABEL.record.about.hasAnnotation.location</span></td>
+    <td><span class="lbl" translate>LABEL.record.about.hasAnnotation.date</span></td>
+    <td><span class="lbl" translate>LABEL.record.about.hasAnnotation.comment</span></td>
+  </script>
+  <script type="text/ng-template" id="/snippets/hasAnnotation-row-template">
+    <td>
+      <div class="label">
+        <textarea ng-model="object['note']" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
+      </div>
+    </td>
+    <td>
+      <div class="label">
+        <textarea ng-model="object['degree']" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
+      </div>
+    </td>
+    <td>
+      <div class="label">
+        <textarea ng-model="object['location']" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
+      </div>
+    </td>
+    <td>
+      <div class="label">
+        <textarea ng-model="object['date']" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
+      </div>
+    </td>
+    <td>
+      <div class="label">
+        <textarea ng-model="object['comment']" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
+      </div>
+    </td>
+    <td class="controls">
+      <button class="btn-link deleter" data-ng-click="removeTableRow($index)">
+        <i class="fa fa-times"></i>
+      </button>
+    </td>
+  </script>
+  <!-- HAS ANNOTATION  END -->
 
-    <div style="clear:both"></div>    
-    <div class="element-adder" data-element-adder="notes"></div>
+</div>
+<div class="element-adder" data-element-adder="notes"></div>

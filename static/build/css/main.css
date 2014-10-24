@@ -2350,7 +2350,6 @@ label.find-entity input[type="text"] {
   color: #999996;
 }
 .form-container {
-  width: 400px;
   clear: both;
 }
 .edit .col6 .entity .embedded input {
@@ -2479,7 +2478,6 @@ div[data-rich-entity] > div .what {
 }
 .datatable tbody td .label textarea {
   box-sizing: border-box;
-  width: 100%;
   min-height: 100%;
   border: none;
   padding: 0;
@@ -2595,7 +2593,6 @@ input[type="text"] :-moz-placeholder {
   padding: 0 5px 0 5px;
   height: 25px;
   border-radius: 2px;
-  width: 100%;
 }
 .fakeinput {
   color: #191913;
@@ -2613,6 +2610,7 @@ input[type="text"] :-moz-placeholder {
 }
 .label select {
   height: 26px;
+  max-width: 200px;
 }
 .label input[type="text"]:focus,
 .label textarea:focus {
