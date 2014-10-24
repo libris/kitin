@@ -9,11 +9,33 @@
         <tr>
           <td data-ng-if="record.leader">
             <code>000</code>
+          </td>
+          <td></td>
+          <td></td>
+          <td colspan="3">
             <span>{{record.leader}}</span>
           </td>
         </tr>
-        <tr data-ng-repeat="field in record.fields">
+        <tr data-ng-repeat="field in record.fields" ng-init="pair = lodash.pairs(field)[0]; key = pair[0]; value = pair[1]">
           <td>
+            <code>{{key}}</code>
+          </td>
+          <td class="ind">
+            {{value.ind1}}
+          </td>
+          <td class="ind">
+            {{value.ind2}}
+          </td>
+          <td>
+            <span ng-if="typeOf(value) === 'string'">{{value}}</span>
+            <span data-ng-init="object = value.subfields" data-ng-include="'/snippets/render-marc-object'"></span>
+          </td>
+        </tr>
+      </table>
+    </section>
+</div>
+
+<!--
             <span data-ng-repeat="(key, value) in field" data-ng-init="obj = field[key]">
               <ng:switch on="typeOf(obj)">
                 <span data-ng-switch-when="object">
@@ -26,10 +48,5 @@
                 </span>
               </ng:switch>
             </span>
-          </td>
-        </tr>
-      </table>
-    </section>
-</div>
-
+-->
 <div class="modal-footer holdings submit"></div>

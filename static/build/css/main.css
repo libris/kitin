@@ -1369,6 +1369,15 @@ div.array > section.entity > div:nth-of-type(even) {
   color: #191913;
   background-color: transparent;
 }
+.marc code.code {
+  color: #666664;
+}
+.marc .ind {
+  font-style: italic;
+}
+.marc td {
+  padding: 0 3px;
+}
 /* LOGIN START ------------------------- */
 form.login {
   width: 312px;
