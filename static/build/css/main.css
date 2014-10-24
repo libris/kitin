@@ -1370,12 +1370,13 @@ div.array > section.entity > div:nth-of-type(even) {
   background-color: transparent;
 }
 .marc code.code {
-  color: #666664;
+  color: #999996;
 }
 .marc .ind {
   font-style: italic;
 }
 .marc td {
+  vertical-align: top;
   padding: 0 3px;
 }
 /* LOGIN START ------------------------- */
