@@ -12,13 +12,13 @@
             <span>{{record.leader}}</span>
           </td>
         </tr>
-        <tr data-ng-repeat="object in record.fields">
+        <tr data-ng-repeat="field in record.fields">
           <td>
-            <span data-ng-repeat="(key, value) in object" data-ng-init="obj = object[key]">
+            <span data-ng-repeat="(key, value) in field" data-ng-init="obj = field[key]">
               <ng:switch on="typeOf(obj)">
                 <span data-ng-switch-when="object">
                   <code data-ng-if="key.length === 3">{{ key }}</code>
-                  <span data-ng-init="object = obj" data-ng-include="'/snippets/render-object'"></span>
+                  <span data-ng-init="object = obj" data-ng-include="'/snippets/render-marc-object'"></span>
                 </span>
                 <span data-ng-switch-when="string">
                     <code>{{ key }}</code>

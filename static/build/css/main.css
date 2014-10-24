@@ -1360,15 +1360,14 @@ div.array > section.entity > div:nth-of-type(even) {
   display: none;
 }
 /* JSON-LD VIEW END ------------------------- */
-.marc,
-.marc code {
-  font-family: 'Comic Sans MS';
-  font-size: 105%;
-  line-height: 140%;
+.marc {
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 .marc code {
-  color: #fa1963;
-  background-color: #c6ece3;
+  font-size: 100%;
+  font-weight: bold;
+  color: #191913;
+  background-color: transparent;
 }
 /* LOGIN START ------------------------- */
 form.login {

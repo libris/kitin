@@ -603,6 +603,22 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('/snippets/render-marc-object',
+    "<span data-ng-repeat=\"(key, value) in object\" data-ng-init=\"obj = object[key]\">\n" +
+    "  <ng:switch on=\"typeOf(obj)\">\n" +
+    "    <span data-ng-switch-when=\"object\">\n" +
+    "      <code data-ng-if=\"key.length === 3\">{{ key }}</code>\n" +
+    "      <span data-ng-init=\"object = obj\" data-ng-include=\"'/snippets/render-marc-object'\"></span>\n" +
+    "    </span>\n" +
+    "    <span data-ng-switch-when=\"string\">\n" +
+    "        <code>{{ key }}</code>\n" +
+    "        <span>{{ obj }}</span>\n" +
+    "    </span>\n" +
+    "  </ng:switch>\n" +
+    "</span>"
+  );
+
+
   $templateCache.put('/snippets/render-new-type-group',
     "<h3>{{ typeGroup.label }}</h3>\n" +
     "<div data-ng-repeat=\"class in typeGroup.classes\">\n" +
