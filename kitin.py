@@ -114,7 +114,7 @@ def logout():
 @app.route('/edit/<source>/<rec_type>/<rec_id>')   # Edit start template
 @app.route('/jsonld/<source>/<rec_type>/<rec_id>') # JSON-LD start template
 @app.route('/marc/<rec_type>/<rec_id>')   # Marc start template
-@app.route("/search/<record_type>") # Search template
+@app.route("/search/<rec_type>") # Search template
 @login_required
 def index(source=None, rec_type=None, rec_id=None):
     if ( request.accept_mimetypes.best_match(['application/json', 'text/html']) == 'application/json' ):
