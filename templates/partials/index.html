@@ -34,7 +34,7 @@
         <span class="circle"><i class="icon fa fa-file-text fa-inverse"></i></span>
         <h4 translate>LABEL.gui.index.headers.MY_SAVED_DRAFTS</h4>
         <ul class="container-fluid" data-ng-show="drafts.length > 0">
-          <li data-ng-repeat="draft in drafts" class="draft">
+          <li data-ng-repeat="draft in drafts | orderBy:'modified':true" class="draft">
             <form data-ng-submit="delete(draft['@id'])" method="POST" class="form-inline">
           	  <div class="title"><a href="/edit/draft{{ draft['@id'] }}" title="{{draft.path}}">{{draft.clickableTitle | chop:80 }}</a></div>
               <div class="creator">{{draft.creator | chop:40}}</div>
