@@ -220,7 +220,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <tab-heading>Bibliografisk post</tab-heading>\n" +
     "    <div class=\"col4\"\n" +
     "        data-ng-repeat=\"typeGroup in typeGroups\"\n" +
-    "        data-ng-include=\"'render-new-type-group'\">\n" +
+    "        data-ng-include=\"'/snippets/render-new-type-group'\">\n" +
     "    </div>\n" +
     "  </tab>\n" +
     "</tabset>\n" +
