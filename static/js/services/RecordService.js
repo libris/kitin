@@ -13,10 +13,8 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
       *   @param    type    {String}    Type of record
       *   @param    id      {String}    Record id (Optional)
       */
-      get: function (type, id, mainType, aggregateLevel) {
+      get: function (type, id) {
         var deferer = $q.defer();
-
-        if (id) {
           // open record
           var path = $rootScope.API_PATH + '/' + type + '/' + id;
           $http.get(path).success(function (struct, status, headers) {
@@ -27,22 +25,6 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
               });
             });
           });
-
-        } else {
-          // new record
-          var struct = {
-            "@type": "Record",
-            "about": {
-              "@type": [mainType, aggregateLevel],
-            },
-            "new": true
-          };
-          editService.decorate(struct).then(function(decoratedRecord) {
-            deferer.resolve({
-              recdata: decoratedRecord
-            });
-          });
-        }
 
         return deferer.promise;
       },
@@ -107,16 +89,33 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
     },
 
     draft: {
-      get: function (draftId) {
+      get: function (draftId, mainType, aggregateLevel) {
         var deferer = $q.defer();
-        $http.get("/draft/" + draftId).success(function (data, status, headers) {
-          editService.decorate(data).then(function(decoratedRecord) {
-            deferer.resolve({
-              recdata: data,
-              etag: headers('etag')
+        if(draftId) {
+          $http.get("/draft/" + draftId).success(function (data, status, headers) {
+            editService.decorate(data).then(function(decoratedRecord) {
+              deferer.resolve({
+                recdata: data,
+                etag: headers('etag')
+              });
             });
           });
-        });
+        } else {
+          // new record
+          var struct = {
+            "@type": "Record",
+            "about": {
+              "@type": [mainType, aggregateLevel],
+            },
+            "new": true
+          };
+          editService.decorate(struct).then(function(decoratedRecord) {
+            deferer.resolve({
+              recdata: decoratedRecord
+            });
+          });
+        }
+
         return deferer.promise;
       },
 

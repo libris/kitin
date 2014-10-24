@@ -17,7 +17,14 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
   });
 
   // Load record into scope
-  if($routeParams.editSource === 'libris') {
+  if ($location.$$search.type && $location.$$search.aggregateLevel) {
+    // NEW RECORD
+    recordService.draft.get(null, $location.$$search.type, $location.$$search.aggregateLevel)
+      .then(function(data) {
+        $scope.addRecordViewsToScope(data['recdata']);
+        $scope.etag = data['etag'];
+    })
+  } else if($routeParams.editSource === 'libris') {
     // LIBRIS
     recordService.libris.get($scope.recType, $scope.recId).then(function(data) {
         $scope.addRecordViewsToScope(data['recdata'], $scope);
@@ -33,13 +40,6 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
           $scope.record.id = data['recdata']['@id'].split("/").slice(-2)[1];
         }
         $scope.etag = data['recdata']['etag'];
-    });
-  } else if ($location.$$search.type && $location.$$search.aggregateLevel) {
-    // NEW RECORD
-    recordService.libris.get(null, null, $location.$$search.type, $location.$$search.aggregateLevel)
-      .then(function(data) {
-        $scope.addRecordViewsToScope(data['recdata']);
-        $scope.etag = data['etag'];
     });
   } else if($scope.recType === editService.RECORD_TYPES.REMOTE){
     // REMOTE
