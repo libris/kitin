@@ -33,7 +33,10 @@
 
   <body data-ng-app="kitin" class="{% block bodyclass %}{% endblock %}" data-ng-controller="AppCtrl">
     {{alerts}}
+    {% if current_user and current_user.is_authenticated() %}
     <div data-ng-include="'/snippets/messages'"></div>
+    {% endif %}
+
     <div id="header-wrapper">
       <div class="container">
         <div id="header">
