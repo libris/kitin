@@ -611,7 +611,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "      <span data-ng-init=\"object = obj\" data-ng-include=\"'/snippets/render-marc-object'\"></span>\n" +
     "    </span>\n" +
     "    <span data-ng-switch-when=\"string\">\n" +
-    "        <code>{{ key }}</code>\n" +
+    "        <code class=\"code\" >{{ key }}</code>\n" +
     "        <span>{{ obj }}</span>\n" +
     "    </span>\n" +
     "  </ng:switch>\n" +
