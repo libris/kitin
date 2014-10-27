@@ -1370,12 +1370,13 @@ div.array > section.entity > div:nth-of-type(even) {
   background-color: transparent;
 }
 .marc code.code {
-  color: #666664;
+  color: #999996;
 }
 .marc .ind {
   font-style: italic;
 }
 .marc td {
+  vertical-align: top;
   padding: 0 3px;
 }
 /* LOGIN START ------------------------- */
@@ -2349,7 +2350,6 @@ label.find-entity input[type="text"] {
   color: #999996;
 }
 .form-container {
-  width: 400px;
   clear: both;
 }
 .edit .col6 .entity .embedded input {
@@ -2478,7 +2478,6 @@ div[data-rich-entity] > div .what {
 }
 .datatable tbody td .label textarea {
   box-sizing: border-box;
-  width: 100%;
   min-height: 100%;
   border: none;
   padding: 0;
@@ -2594,7 +2593,6 @@ input[type="text"] :-moz-placeholder {
   padding: 0 5px 0 5px;
   height: 25px;
   border-radius: 2px;
-  width: 100%;
 }
 .fakeinput {
   color: #191913;
@@ -2612,6 +2610,7 @@ input[type="text"] :-moz-placeholder {
 }
 .label select {
   height: 26px;
+  max-width: 200px;
 }
 .label input[type="text"]:focus,
 .label textarea:focus {
@@ -3073,7 +3072,6 @@ h4 {
 .label {
   font-weight: 400;
   margin-bottom: 10px;
-  width: 100%;
 }
 a {
   cursor: pointer;

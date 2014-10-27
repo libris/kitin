@@ -998,16 +998,16 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('/snippets/view-subject',
-    "<a ng-init=\"subjectLabel = (object.prefLabel || object.uniformTitle || object.controlledLabel  || object.notation || object.name)\" ng-show=\"subjectLabel\" href=\"#\"><i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object)\"></i> {{ subjectLabel }}</a> \n" +
+    "<a ng-init=\"subjectLabel = (object.prefLabel || object.uniformTitle || object.controlledLabel  || object.notation || object.name)\" ng-show=\"subjectLabel\" href=\"#\">\n" +
+    "  <i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object)\"></i> {{ subjectLabel }}</a> \n" +
     "\n" +
-    "  \n" +
-    "<!-- Broader terms should not be shown for general subjects... used for?\n" +
+    "<!-- Broader terms should not be shown for general subjects... used for?-->\n" +
     "<a data-ng-repeat=\"broader in object.broader\" href=\"#\">\n" +
     "  {{broader.prefLabel}}\n" +
     "  <span data-ng-show=\"broader.notation\">({{ broader.notation }}) </span>\n" +
     "  <span class=\"subject-delimiter\" data-ng-hide=\"$last\">--</span>\n" +
     " </a> \n" +
-    "-->\n" +
+    "\n" +
     "\n" +
     "<i data-ng-click=\"doRemove($index)\" class=\"no\">&times;</i>"
   );

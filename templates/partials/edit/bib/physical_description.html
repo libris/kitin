@@ -1,395 +1,393 @@
-  <div>
-    <h2>Fysisk beskrivning<i></i></h2>
-    <div>
-      
-      <!-- ADDITIONAL CARRIER TYPE START -->
-      <div class="label">
-        <span class="lbl" translate>LABEL.record.about.additionalCarrierType</span>
-        <ul class="tags" data-kitin-link-entity
-            data-subject="record.about"
-            data-link="'additionalCarrierType'" data-type="AdditionalCarrierType"
-            data-view-template="/snippets/render-generic-linked-entity"
-            data-search-template="/snippets/render-generic-select"
-            data-filter="about.inCollection.@id:/def/enum/content/additionalCarrierType-collection">
-        </ul>
-      </div>
-      <!-- ADDITIONAL CARRIER TYPE END -->
 
-        <div class="label">
-          <span class="lbl" translate>LABEL.record.about.exampleOfWork</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.exampleOfWork.title" placeholder="">
-        </div>
-        <div class="label">
-          <span class="lbl" translate>LABEL.record.about.exampleOfWork.partNumber</span>
-          <ul class="tags" data-kitin-link-entity
-              data-subject="record.about.exampleOfWork"
-              data-link-multiple="'partNumber'" data-type="partNumber"
-              data-search-template="/snippets/render-generic-non-auth-add"
-              data-view-template="/snippets/render-non-auth-tag">
-          </ul>
-        </div>
-        <div class="label">
-          <span class="lbl" translate>LABEL.record.about.exampleOfWork.subtitle</span>
-          <ul class="tags" data-kitin-link-entity
-              data-subject="record.about.exampleOfWork"
-              data-link-multiple="'subtitle'" data-type="subtitle"
-              data-search-template="/snippets/render-generic-non-auth-add"
-              data-view-template="/snippets/render-non-auth-tag">
-          </ul>
-        </div>
+<h2>Fysisk beskrivning<i></i></h2>
+<div class="form-container">
+  
+  <!-- ADDITIONAL CARRIER TYPE START -->
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.additionalCarrierType</span>
+    <ul class="tags" data-kitin-link-entity
+        data-subject="record.about"
+        data-link="'additionalCarrierType'" data-type="AdditionalCarrierType"
+        data-view-template="/snippets/render-generic-linked-entity"
+        data-search-template="/snippets/render-generic-select"
+        data-filter="about.inCollection.@id:/def/enum/content/additionalCarrierType-collection">
+    </ul>
+  </div>
+  <!-- ADDITIONAL CARRIER TYPE END -->
 
-
-      <div data-ng-show="record.about.material['@id']">
-        <!-- MATERIAL START -->
-        <div class="label">
-          <span class="lbl" translate>LABEL.record.about.material</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.material['@id']" placeholder="">
-        </div>
-        <!-- MATERIAL END -->
-      </div>
-      <div data-ng-show="record.about.relief['@id']">
-        <!-- RELIEF START -->
-        <div class="label">
-          <span class="lbl" translate>LABEL.record.about.relief</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.relief['@id']" placeholder="">
-        </div>
-        <!-- RELIEF END -->
-      </div>
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.exampleOfWork</span>
+      <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.exampleOfWork.title" placeholder="">
     </div>
-    <div class="cols">
-    	<div class="col6" data-ng-show="record.about.fileType">
-        <!-- RELIEF START -->
-        <div class="label">
-          <span class="lbl" translate>LABEL.record.about.fileType</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.fileType" placeholder="">
-        </div>
-        <!-- RELIEF START -->
-      </div>
-      <div class="col6" data-ng-show="record.about.index['@id']">
-        <!-- INDEX START -->
-        <div class="label">
-          <span class="lbl" translate>LABEL.record.about.index</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.index['@id']" placeholder="">
-         </div>
-         <!-- INDEX END -->
-      </div>
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.exampleOfWork.partNumber</span>
+      <ul class="tags" data-kitin-link-entity
+          data-subject="record.about.exampleOfWork"
+          data-link-multiple="'partNumber'" data-type="partNumber"
+          data-search-template="/snippets/render-generic-non-auth-add"
+          data-view-template="/snippets/render-non-auth-tag">
+      </ul>
+    </div>
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.exampleOfWork.subtitle</span>
+      <ul class="tags" data-kitin-link-entity
+          data-subject="record.about.exampleOfWork"
+          data-link-multiple="'subtitle'" data-type="subtitle"
+          data-search-template="/snippets/render-generic-non-auth-add"
+          data-view-template="/snippets/render-non-auth-tag">
+      </ul>
     </div>
 
-    <!-- HAS FORMAT  START -->
-    <div class="cols" data-ng-repeat="(formatType, subFormat) in record.about.hasFormatByType">
 
-      <h3 ng-if="subFormat.length > 0" class="ng-binding" translate>{{ 'LABEL.record.about.hasFormat.' + formatType }}</h3>
-
-        <!-- Product START -->
-        <div ng-switch-when="Product" class="datatable" data-ng-target="productTable" 
-          data-kitin-data-table 
-          data-table-model="subFormat" 
-          data-table-header-row-template="/snippets/product-header-row-template"
-          data-table-row-template="/snippets/product-row-template"
-          data-subject="record.about" data-link-multiple="hasFormatByType"
-          data-add-first
-          data-addable="physical_description">
-        </div>
-        <script type="text/ng-template" id="/snippets/product-header-row-template">
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.Product.extent</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.Product.dimensions</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.Product.otherPhysicalDetails</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.Product.accompanyingMaterial</span></td>
-        </script>
-        <script type="text/ng-template" id="/snippets/product-row-template">
-          <td><div class="label"><input ng-model="object['extent']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td><div class="label"><input ng-model="object['dimensions']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td><div class="label"><input ng-model="object['otherPhysicalDetails']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td><div class="label"><input ng-model="object['accompanyingMaterial']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td class="controls">
-            <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-          </td>
-        </script>
-        <!-- Product END -->
-
-        <!-- Electronic START -->
-        <div ng-switch-when="Electronic" class="datatable" data-ng-target="electronicTable" 
-          data-kitin-data-table 
-          data-table-model="subFormat" 
-          data-table-header-row-template="/snippets/electronic-header-row-template"
-          data-table-row-template="/snippets/electronic-row-template"
-          data-subject="record.about" data-link-multiple="hasFormatByType"
-          data-add-first
-          data-addable="physical_description">
-        </div>
-        <script type="text/ng-template" id="/snippets/electronic-header-row-template">
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.Electronic.carrierType</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.Electronic.color</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.Electronic.dimensions</span></td>
-        </script>
-        <script type="text/ng-template" id="/snippets/electronic-row-template">
-          <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td><div class="label"><input ng-model="object['color']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td><div class="label"><input ng-model="object['dimensions']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td class="controls">
-            <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-          </td>
-        </script>
-        <!-- Electronic END -->
-
-        <!-- Map START -->
-
-        <div ng-switch-when="Map" class="datatable" data-ng-target="movingImageTable" 
-          data-kitin-data-table 
-          data-table-model="subFormat" 
-          data-table-header-row-template="/snippets/map-header-row-template"
-          data-table-row-template="/snippets/map-row-template"
-          data-subject="record.about" data-link-multiple="hasFormatByType"
-          data-add-first
-          data-addable="physical_description">
-        </div>
-        <script type="text/ng-template" id="/snippets/map-header-row-template">
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.Map.carrierType</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.Map.color</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.Map.medium</span></td>
-        </script>
-        <script type="text/ng-template" id="/snippets/map-row-template">
-          <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td><div class="label"><input ng-model="object['color']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td><div class="label"><input ng-model="object['medium']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td class="controls">
-            <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-          </td>
-        </script>
-        <!-- Map END -->
-
-        <!-- StillImage START -->
-        <div ng-switch-when="StillImage" class="datatable" data-ng-target="stillImageTable" 
-          data-kitin-data-table 
-          data-table-model="subFormat" 
-          data-table-header-row-template="/snippets/still-image-header-row-template"
-          data-table-row-template="/snippets/still-image-row-template"
-          data-subject="record.about" data-link-multiple="hasFormatByType"
-          data-add-first
-          data-addable="physical_description">
-        </div>
-        <script type="text/ng-template" id="/snippets/still-image-header-row-template">
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.StillImage.carrierType</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.StillImage.nonProjColor</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.StillImage.nonProjPrimary</span></td>
-        </script>
-        <script type="text/ng-template" id="/snippets/still-image-row-template">
-          <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td><div class="label"><input ng-model="object['nonProjColor']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td><div class="label"><input ng-model="object['nonProjPrimary']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td class="controls">
-            <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-          </td>
-        </script>
-        <!-- StillImage END -->
-
-        <!-- MovingImage START -->
-        <div ng-switch-when="MovingImage" class="datatable" data-ng-target="movingImageTable" 
-          data-kitin-data-table 
-          data-table-model="subFormat" 
-          data-table-header-row-template="/snippets/moving-image-header-row-template"
-          data-table-row-template="/snippets/moving-image-row-template"
-          data-subject="record.about" data-link-multiple="hasFormatByType"
-          data-add-first
-          data-addable="physical_description">
-        </div>
-        <script type="text/ng-template" id="/snippets/moving-image-header-row-template">
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.carrierType</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.motionPicFormat</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.motionPicSound</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.motionPicMedium</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.motionPicDimensions</span></td>
-        </script>
-        <script type="text/ng-template" id="/snippets/moving-image-row-template">
-          <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td><div class="label"><input ng-model="object['motionPicFormat']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td><div class="label"><input ng-model="object['motionPicSound']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td><div class="label"><input ng-model="object['motionPicMedium']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td><div class="label"><input ng-model="object['motionPicDimensions']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td class="controls">
-            <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-          </td>
-        </script>
-        <!-- MovingImage END -->
-
-        <!-- SoundRecording START -->
-        <div ng-switch-when="SoundRecording" class="datatable" data-ng-target="soundRecordingTable" 
-          data-kitin-data-table 
-          data-table-model="subFormat" 
-          data-table-header-row-template="/snippets/sound-recording-header-row-template"
-          data-table-row-template="/snippets/sound-recording-row-template"
-          data-subject="record.about" data-link-multiple="hasFormatByType"
-          data-add-first
-          data-addable="physical_description">
-        </div>
-        <script type="text/ng-template" id="/snippets/sound-recording-header-row-template">
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.carrierType</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.soundSpeed</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.soundDimensions</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.soundKindOfDisc</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.soundKindOfMaterial</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.soundPlaybackCharacter</span></td>
-        </script>
-        <script type="text/ng-template" id="/snippets/sound-recording-row-template">
-          <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td><div class="label"><input ng-model="object['soundSpeed']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td><div class="label"><input ng-model="object['soundDimensions']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td><div class="label"><input ng-model="object['soundKindOfDisc']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td><div class="label"><input ng-model="object['soundKindOfMaterial']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td><div class="label"><input ng-model="object['soundPlaybackCharacter']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td class="controls">
-            <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-          </td>
-        </script>
-        <!-- SoundRecording END -->
-
-        <!-- VideoRecording START -->
-        <div ng-switch-when="VideoRecording" class="datatable" data-ng-target="videoRecordingTable" 
-          data-kitin-data-table 
-          data-table-model="subFormat" 
-          data-table-header-row-template="/snippets/video-recording-header-row-template"
-          data-table-row-template="/snippets/video-recording-row-template"
-          data-subject="record.about" data-link-multiple="hasFormatByType"
-          data-add-first
-          data-addable="physical_description">
-        </div>
-        <script type="text/ng-template" id="/snippets/video-recording-header-row-template">
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.VideoRecording.carrierType</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.VideoRecording.videoColor</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.VideoRecording.videoFormat</span></td>
-          <td><span class="lbl" translate>LABEL.record.about.hasFormat.VideoRecording.videoSound</span></td>
-        </script>
-        <script type="text/ng-template" id="/snippets/video-recording-row-template">
-          <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td><div class="label"><input ng-model="object['videoColor']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td><div class="label"><input ng-model="object['videoFormat']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td><div class="label"><input ng-model="object['videoSound']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-          <td class="controls">
-            <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-          </td>
-        </script>
-        <!-- VideoRecording END -->
-
-        <!-- Rest START -->
-        <div ng-switch-default class="datatable">
-          <table>
-            <tbody>
-              <tr ng-repeat="format in subFormat">
-                <td ng-repeat="(key, value) in format">
-                  <span class="lbl">{{key}}</span>
-                  <div class="label">
-                    <input data-inplace class="ng-pristine ng-valid" type="text" ng-model="value"/>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <!-- Rest END -->
-
-    <!-- HAS FORMAT  END -->
-
-
-        <!-- ILLUSTRATIONS  START -->
-        <div class="label">
-          <span class="lbl" translate>LABEL.record.about.illustrations</span>
-          <div data-kitin-link-entity
-              data-subject="record.about"
-              data-link="'illustrations'"
-              data-view-template="/snippets/render-generic-tag-entity"
-              data-search-template="/snippets/render-generic-select"
-              data-filter="about.inCollection.@id:/def/enum/content/illustrations-collection"
-              ng-init=" placeholder='Lägg till'; ">
-          </div>
-        </div>
-        <!-- ILLUSTRATIONS  END -->
-
-        <!-- NATURE  START -->
-        <div class="label">
-          <span class="lbl" translate>LABEL.record.about.nature</span>
-          <div data-kitin-link-entity
-              data-subject="record.about"
-              data-link="'nature'"
-              data-view-template="/snippets/render-generic-tag-entity"
-              data-search-template="/snippets/render-generic-select"
-              data-filter="about.inCollection.@id:/def/enum/content/nature-collection"
-              ng-init=" placeholder='Lägg till'; ">
-          </div>
-        </div>
-        <!-- NATURE  END -->
-
-        <!-- ORIGNIAL ITEM  START -->
-        <div class="label">
-          <span class="lbl" translate>LABEL.record.about.originalItem</span>
-          <div data-kitin-link-entity
-              data-subject="record.about"
-              data-link="'originalItem'"
-              data-view-template="/snippets/render-generic-tag-entity"
-              data-search-template="/snippets/render-generic-select"
-              data-filter="about.inCollection.@id:/def/enum/content/originalItem-collection"
-              ng-init=" placeholder='Lägg till'; ">
-          </div>
-        </div>
-        <!-- ORIGNIAL ITEM  END -->
-
-            <!-- RUNNING TIME  START -->
-      	    <div class="label">
-              <span class="lbl" translate>LABEL.record.about.runningTime</span>
-              <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.runningTime">
-            </div>
-            <!-- RUNNING TIME  END -->
-
-    
-  	<!-- More Map Details -->
-
-
-          <div class="label">
-            <span class="lbl" translate>LABEL.record.about.availability</span>
-            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.availability" placeholder="">
-           </div> 
-          <div class="label">
-            <span class="lbl" translate>LABEL.record.about.cartographicScale</span>
-            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.cartographicScale" placeholder="">
-           </div>
-          <div class="label">
-            <span class="lbl" translate>LABEL.record.about.cartographicCoordinates</span>
-            <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.cartographicCoordinates" placeholder="">
-           </div>
-
-        <!-- CARTOGRAPHICAL ASCENSION AND DECLINATION  START -->
-        <div class="label">
-          <div class="datatable" data-ng-target="cartographicAscensionAndDeclination" 
-            data-kitin-data-table 
-            data-table-model="record.about.cartographicAscensionAndDeclination" 
-            data-table-header-row-template="/snippets/cartographicAscensionAndDeclination-header-row-template"
-            data-table-row-template="/snippets/cartographicAscensionAndDeclination-row-template"
-            data-subject="record.about" data-link-multiple="cartographicAscensionAndDeclination"
-            data-default-type="cartographicAscensionAndDeclination"
-            data-add-first
-            data-addable="publication_and_production">
-          </div>
-          <script type="text/ng-template" id="/snippets/cartographicAscensionAndDeclination-header-row-template">
-            <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.cartographicScale</span></td>
-            <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.constantRatioLinearHorizontalScale</span></td>
-            <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.westernmostLongitudeCoordinates</span></td>
-            <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.easternmostLongitudeCoordinates</span></td>
-            <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.northernmostLatitudeCoordinates</span></td>
-            <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.southernmostLatitudeCoordinates</span></td>
-          </script>
-          <script type="text/ng-template" id="/snippets/cartographicAscensionAndDeclination-row-template">
-            <td><div class="label"><input ng-model="object['cartographicScale']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-            <td><div class="label"><input ng-model="object['constantRatioLinearHorizontalScale']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-            <td><div class="label"><input ng-model="object['westernmostLongitudeCoordinates']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-            <td><div class="label"><input ng-model="object['easternmostLongitudeCoordinates']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-            <td><div class="label"><input ng-model="object['northernmostLatitudeCoordinates']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-            <td><div class="label"><input ng-model="object['southernmostLatitudeCoordinates']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-            <td class="controls">
-              <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-            </td>
-          </script>
-        </div>
-        <!-- CARTOGRAPHICAL ASCENSION AND DECLINATION  END -->
-      </div>
-
-  <div class="element-adder" data-element-adder="physical_description"></div>
+  <div data-ng-show="record.about.material['@id']">
+    <!-- MATERIAL START -->
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.material</span>
+      <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.material['@id']" placeholder="">
+    </div>
+    <!-- MATERIAL END -->
+  </div>
+  <div data-ng-show="record.about.relief['@id']">
+    <!-- RELIEF START -->
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.relief</span>
+      <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.relief['@id']" placeholder="">
+    </div>
+    <!-- RELIEF END -->
+  </div>
+<div class="cols">
+	<div class="col6" data-ng-show="record.about.fileType">
+    <!-- RELIEF START -->
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.fileType</span>
+      <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.fileType" placeholder="">
+    </div>
+    <!-- RELIEF START -->
+  </div>
+  <div class="col6" data-ng-show="record.about.index['@id']">
+    <!-- INDEX START -->
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.index</span>
+      <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.index['@id']" placeholder="">
+     </div>
+     <!-- INDEX END -->
+  </div>
 </div>
+
+<!-- HAS FORMAT  START -->
+<div class="cols" data-ng-repeat="(formatType, subFormat) in record.about.hasFormatByType">
+
+  <h3 ng-if="subFormat.length > 0" class="ng-binding" translate>{{ 'LABEL.record.about.hasFormat.' + formatType }}</h3>
+
+    <!-- Product START -->
+    <div ng-switch-when="Product" class="datatable" data-ng-target="productTable" 
+      data-kitin-data-table 
+      data-table-model="subFormat" 
+      data-table-header-row-template="/snippets/product-header-row-template"
+      data-table-row-template="/snippets/product-row-template"
+      data-subject="record.about" data-link-multiple="hasFormatByType"
+      data-add-first
+      data-addable="physical_description">
+    </div>
+    <script type="text/ng-template" id="/snippets/product-header-row-template">
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Product.extent</span></td>
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Product.dimensions</span></td>
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Product.otherPhysicalDetails</span></td>
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Product.accompanyingMaterial</span></td>
+    </script>
+    <script type="text/ng-template" id="/snippets/product-row-template">
+      <td><div class="label"><input ng-model="object['extent']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['dimensions']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['otherPhysicalDetails']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['accompanyingMaterial']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td class="controls">
+        <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
+      </td>
+    </script>
+    <!-- Product END -->
+
+    <!-- Electronic START -->
+    <div ng-switch-when="Electronic" class="datatable" data-ng-target="electronicTable" 
+      data-kitin-data-table 
+      data-table-model="subFormat" 
+      data-table-header-row-template="/snippets/electronic-header-row-template"
+      data-table-row-template="/snippets/electronic-row-template"
+      data-subject="record.about" data-link-multiple="hasFormatByType"
+      data-add-first
+      data-addable="physical_description">
+    </div>
+    <script type="text/ng-template" id="/snippets/electronic-header-row-template">
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Electronic.carrierType</span></td>
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Electronic.color</span></td>
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Electronic.dimensions</span></td>
+    </script>
+    <script type="text/ng-template" id="/snippets/electronic-row-template">
+      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['color']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['dimensions']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td class="controls">
+        <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
+      </td>
+    </script>
+    <!-- Electronic END -->
+
+    <!-- Map START -->
+
+    <div ng-switch-when="Map" class="datatable" data-ng-target="movingImageTable" 
+      data-kitin-data-table 
+      data-table-model="subFormat" 
+      data-table-header-row-template="/snippets/map-header-row-template"
+      data-table-row-template="/snippets/map-row-template"
+      data-subject="record.about" data-link-multiple="hasFormatByType"
+      data-add-first
+      data-addable="physical_description">
+    </div>
+    <script type="text/ng-template" id="/snippets/map-header-row-template">
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Map.carrierType</span></td>
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Map.color</span></td>
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Map.medium</span></td>
+    </script>
+    <script type="text/ng-template" id="/snippets/map-row-template">
+      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['color']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['medium']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td class="controls">
+        <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
+      </td>
+    </script>
+    <!-- Map END -->
+
+    <!-- StillImage START -->
+    <div ng-switch-when="StillImage" class="datatable" data-ng-target="stillImageTable" 
+      data-kitin-data-table 
+      data-table-model="subFormat" 
+      data-table-header-row-template="/snippets/still-image-header-row-template"
+      data-table-row-template="/snippets/still-image-row-template"
+      data-subject="record.about" data-link-multiple="hasFormatByType"
+      data-add-first
+      data-addable="physical_description">
+    </div>
+    <script type="text/ng-template" id="/snippets/still-image-header-row-template">
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.StillImage.carrierType</span></td>
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.StillImage.nonProjColor</span></td>
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.StillImage.nonProjPrimary</span></td>
+    </script>
+    <script type="text/ng-template" id="/snippets/still-image-row-template">
+      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['nonProjColor']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['nonProjPrimary']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td class="controls">
+        <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
+      </td>
+    </script>
+    <!-- StillImage END -->
+
+    <!-- MovingImage START -->
+    <div ng-switch-when="MovingImage" class="datatable" data-ng-target="movingImageTable" 
+      data-kitin-data-table 
+      data-table-model="subFormat" 
+      data-table-header-row-template="/snippets/moving-image-header-row-template"
+      data-table-row-template="/snippets/moving-image-row-template"
+      data-subject="record.about" data-link-multiple="hasFormatByType"
+      data-add-first
+      data-addable="physical_description">
+    </div>
+    <script type="text/ng-template" id="/snippets/moving-image-header-row-template">
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.carrierType</span></td>
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.motionPicFormat</span></td>
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.motionPicSound</span></td>
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.motionPicMedium</span></td>
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.motionPicDimensions</span></td>
+    </script>
+    <script type="text/ng-template" id="/snippets/moving-image-row-template">
+      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['motionPicFormat']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['motionPicSound']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['motionPicMedium']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['motionPicDimensions']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td class="controls">
+        <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
+      </td>
+    </script>
+    <!-- MovingImage END -->
+
+    <!-- SoundRecording START -->
+    <div ng-switch-when="SoundRecording" class="datatable" data-ng-target="soundRecordingTable" 
+      data-kitin-data-table 
+      data-table-model="subFormat" 
+      data-table-header-row-template="/snippets/sound-recording-header-row-template"
+      data-table-row-template="/snippets/sound-recording-row-template"
+      data-subject="record.about" data-link-multiple="hasFormatByType"
+      data-add-first
+      data-addable="physical_description">
+    </div>
+    <script type="text/ng-template" id="/snippets/sound-recording-header-row-template">
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.carrierType</span></td>
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.soundSpeed</span></td>
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.soundDimensions</span></td>
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.soundKindOfDisc</span></td>
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.soundKindOfMaterial</span></td>
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.soundPlaybackCharacter</span></td>
+    </script>
+    <script type="text/ng-template" id="/snippets/sound-recording-row-template">
+      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['soundSpeed']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['soundDimensions']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['soundKindOfDisc']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['soundKindOfMaterial']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['soundPlaybackCharacter']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td class="controls">
+        <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
+      </td>
+    </script>
+    <!-- SoundRecording END -->
+
+    <!-- VideoRecording START -->
+    <div ng-switch-when="VideoRecording" class="datatable" data-ng-target="videoRecordingTable" 
+      data-kitin-data-table 
+      data-table-model="subFormat" 
+      data-table-header-row-template="/snippets/video-recording-header-row-template"
+      data-table-row-template="/snippets/video-recording-row-template"
+      data-subject="record.about" data-link-multiple="hasFormatByType"
+      data-add-first
+      data-addable="physical_description">
+    </div>
+    <script type="text/ng-template" id="/snippets/video-recording-header-row-template">
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.VideoRecording.carrierType</span></td>
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.VideoRecording.videoColor</span></td>
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.VideoRecording.videoFormat</span></td>
+      <td><span class="lbl" translate>LABEL.record.about.hasFormat.VideoRecording.videoSound</span></td>
+    </script>
+    <script type="text/ng-template" id="/snippets/video-recording-row-template">
+      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['videoColor']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['videoFormat']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['videoSound']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td class="controls">
+        <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
+      </td>
+    </script>
+    <!-- VideoRecording END -->
+
+    <!-- Rest START -->
+    <div ng-switch-default class="datatable">
+      <table>
+        <tbody>
+          <tr ng-repeat="format in subFormat">
+            <td ng-repeat="(key, value) in format">
+              <span class="lbl">{{key}}</span>
+              <div class="label">
+                <input data-inplace class="ng-pristine ng-valid" type="text" ng-model="value"/>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Rest END -->
+
+<!-- HAS FORMAT  END -->
+
+
+    <!-- ILLUSTRATIONS  START -->
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.illustrations</span>
+      <div data-kitin-link-entity
+          data-subject="record.about"
+          data-link="'illustrations'"
+          data-view-template="/snippets/render-generic-tag-entity"
+          data-search-template="/snippets/render-generic-select"
+          data-filter="about.inCollection.@id:/def/enum/content/illustrations-collection"
+          ng-init=" placeholder='Lägg till'; ">
+      </div>
+    </div>
+    <!-- ILLUSTRATIONS  END -->
+
+    <!-- NATURE  START -->
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.nature</span>
+      <div data-kitin-link-entity
+          data-subject="record.about"
+          data-link="'nature'"
+          data-view-template="/snippets/render-generic-tag-entity"
+          data-search-template="/snippets/render-generic-select"
+          data-filter="about.inCollection.@id:/def/enum/content/nature-collection"
+          ng-init=" placeholder='Lägg till'; ">
+      </div>
+    </div>
+    <!-- NATURE  END -->
+
+    <!-- ORIGNIAL ITEM  START -->
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.originalItem</span>
+      <div data-kitin-link-entity
+          data-subject="record.about"
+          data-link="'originalItem'"
+          data-view-template="/snippets/render-generic-tag-entity"
+          data-search-template="/snippets/render-generic-select"
+          data-filter="about.inCollection.@id:/def/enum/content/originalItem-collection"
+          ng-init=" placeholder='Lägg till'; ">
+      </div>
+    </div>
+    <!-- ORIGNIAL ITEM  END -->
+
+        <!-- RUNNING TIME  START -->
+  	    <div class="label">
+          <span class="lbl" translate>LABEL.record.about.runningTime</span>
+          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.runningTime">
+        </div>
+        <!-- RUNNING TIME  END -->
+
+
+<!-- More Map Details -->
+
+
+      <div class="label">
+        <span class="lbl" translate>LABEL.record.about.availability</span>
+        <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.availability" placeholder="">
+       </div> 
+      <div class="label">
+        <span class="lbl" translate>LABEL.record.about.cartographicScale</span>
+        <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.cartographicScale" placeholder="">
+       </div>
+      <div class="label">
+        <span class="lbl" translate>LABEL.record.about.cartographicCoordinates</span>
+        <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.cartographicCoordinates" placeholder="">
+       </div>
+
+    <!-- CARTOGRAPHICAL ASCENSION AND DECLINATION  START -->
+    <div class="label">
+      <div class="datatable" data-ng-target="cartographicAscensionAndDeclination" 
+        data-kitin-data-table 
+        data-table-model="record.about.cartographicAscensionAndDeclination" 
+        data-table-header-row-template="/snippets/cartographicAscensionAndDeclination-header-row-template"
+        data-table-row-template="/snippets/cartographicAscensionAndDeclination-row-template"
+        data-subject="record.about" data-link-multiple="cartographicAscensionAndDeclination"
+        data-default-type="cartographicAscensionAndDeclination"
+        data-add-first
+        data-addable="publication_and_production">
+      </div>
+      <script type="text/ng-template" id="/snippets/cartographicAscensionAndDeclination-header-row-template">
+        <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.cartographicScale</span></td>
+        <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.constantRatioLinearHorizontalScale</span></td>
+        <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.westernmostLongitudeCoordinates</span></td>
+        <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.easternmostLongitudeCoordinates</span></td>
+        <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.northernmostLatitudeCoordinates</span></td>
+        <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.southernmostLatitudeCoordinates</span></td>
+      </script>
+      <script type="text/ng-template" id="/snippets/cartographicAscensionAndDeclination-row-template">
+        <td><div class="label"><input ng-model="object['cartographicScale']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+        <td><div class="label"><input ng-model="object['constantRatioLinearHorizontalScale']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+        <td><div class="label"><input ng-model="object['westernmostLongitudeCoordinates']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+        <td><div class="label"><input ng-model="object['easternmostLongitudeCoordinates']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+        <td><div class="label"><input ng-model="object['northernmostLatitudeCoordinates']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+        <td><div class="label"><input ng-model="object['southernmostLatitudeCoordinates']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+        <td class="controls">
+          <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
+        </td>
+      </script>
+    </div>
+    <!-- CARTOGRAPHICAL ASCENSION AND DECLINATION  END -->
+  </div>
+</div>
+<div class="element-adder" data-element-adder="physical_description"></div>
