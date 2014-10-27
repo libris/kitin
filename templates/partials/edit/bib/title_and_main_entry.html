@@ -76,39 +76,47 @@
   <!-- RELATION  END -->
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.isPartOf</span>
-    <ul class="tags entity" data-kitin-link-entity
+    <div class="entity" data-kitin-link-entity
         data-subject="record.about"
+        data-ng-init="label = 'Värdpublikation'"
         data-link-multiple="'isPartOf'" data-type="isPartOf"
         data-view-template="/snippets/render-referenced-entity"
-        data-search-template="/snippets/render-bib-search">
-    </ul>
+        data-search-template="/snippets/render-bib-search"
+        data-rich-entity>
+    </div>
   </div>
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.hasPart</span>
-    <ul class="tags entity" data-kitin-link-entity
+    <div class="entity" data-kitin-link-entity
         data-subject="record.about"
+        data-ng-init="label = 'Del'"
         data-link-multiple="'hasPart'" data-type="hasPart"
         data-view-template="/snippets/render-referenced-entity"
-        data-search-template="/snippets/render-bib-search">
-    </ul>
+        data-search-template="/snippets/render-bib-search"
+        data-rich-entity>
+    </div>
   </div>
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.precededBy</span>
-    <ul class="tags entity" data-kitin-link-entity
+    <div class="entity" data-kitin-link-entity
         data-subject="record.about"
+        data-ng-init="label = 'Titel'"
         data-link-multiple="'precededBy'" data-type="PrecededBy"
         data-view-template="/snippets/render-referenced-entity"
-        data-search-template="/snippets/render-bib-search">
-    </ul>
+        data-search-template="/snippets/render-bib-search"
+        data-rich-entity>
+    </div>
   </div>
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.succeededBy</span>
-    <ul class="tags entity" data-kitin-link-entity
+    <div class="entity" data-kitin-link-entity
         data-subject="record.about"
+        data-ng-init="label = 'Titel'"
         data-link-multiple="'succeededBy'" data-type="SucceededBy"
         data-view-template="/snippets/render-referenced-entity"
-        data-search-template="/snippets/render-bib-search">
-    </ul>
+        data-search-template="/snippets/render-bib-search"
+        data-rich-entity>
+    </div>
   </div>
   <!-- LANGUAGES  START -->
   <div class="label">
