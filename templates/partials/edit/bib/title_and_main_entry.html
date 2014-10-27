@@ -3,50 +3,82 @@
   <i></i>
 </h2>
 <div class="form-container">
+<!--instanceTitle START-->
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.instanceTitle.titleValue</span>
     <textarea data-inplace class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.titleValue"></textarea>
   </div>
-  <div class="label" data-ng-show="exists(record.about.instanceTitle.partEnumeration)">
-    <span class="lbl" translate>LABEL.record.about.instanceTitle.partEnumeration</span>
-    <textarea data-inplace class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.partEnumeration"></textarea>
-  </div>
-  <div class="label" data-ng-show="exists(record.about.instanceTitle.partTitle)">
-    <span class="lbl" translate>LABEL.record.about.instanceTitle.partTitle</span>
-    <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.partTitle"></textarea>
-  </div>
-  <div class="label" data-ng-show="exists(record.about.instanceTitle.subtitle)">
+  <div class="label">
     <span class="lbl" translate>LABEL.record.about.instanceTitle.subtitle</span>
     <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.subtitle"></textarea>
   </div>
-  <div class="label" data-ng-show="exists(record.about.titleVariation.titleType)">
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.instanceTitle.partNumber</span>
+    <textarea data-inplace class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.partNumber"></textarea>
+  </div>
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.instanceTitle.partTitle</span>
+    <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.partTitle"></textarea>
+  </div>
+<!--instanceTitle END-->
+  
+<!--TitleVariation START-->
+  <div class="label">
     <span class="lbl" translate>LABEL.record.about.titleVariation.titleType</span>
     <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.titleType"></textarea>
   </div>
-  <div class="label" data-ng-show="exists(record.about.uniformTitle)">
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.titleVariation.titleValue</span>
+    <textarea data-inplace class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.titleValue"></textarea>
+  </div>
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.titleVariation.subtitle</span>
+    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.subtitle"></textarea>
+  </div>
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.titleVariation.partNumber</span>
+    <textarea data-inplace class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.partNumber"></textarea>
+  </div>
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.titleVariation.partTitle</span>
+    <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.partTitle"></textarea>
+  </div>  
+<!--TitleVariation END-->
+
+<!--uniformTitle START--> 
+  <div class="label">
     <span class="lbl" translate>LABEL.record.about.uniformTitle</span>
     <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.uniformTitle"></textarea>
   </div> 
-  <div class="label" data-ng-show="exists(record.about.keyTitle.titleValue)">
+<!--uniformTitle END-->  
+
+<!--keyTitle START-->
+  <div class="label">
      <span class="lbl" translate>LABEL.record.about.keyTitle</span>
     <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.keyTitle.titleValue"></textarea>       
   </div>
-  <div class="label" data-ng-show="exists(record.about.keyTitle.titleQualifier)">
+  <div class="label">
      <span class="lbl" translate>LABEL.record.about.keyTitle.titleQualifier</span>
     <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.keyTitle.titleQualifier"></textarea>       
   </div>
-  <div class="label" data-ng-show="exists(record.about.titleVariation.titleValue)">
-    <span class="lbl" translate>LABEL.record.about.titleVariation.titleValue</span>
-    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.titleValue"></textarea>
-  </div>
-  <div class="label" data-ng-show="exists(record.about.titleVariation.subtitle)">
-    <span class="lbl" translate>LABEL.record.about.titleVariation.subtitle</span>
-    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.subtitle"></textarea>
-  </div>        
   <div class="label">
-    <span class="lbl" translate>LABEL.record.about.abbreviatedTitle</span>
+    <span class="lbl" translate>LABEL.record.about.keyTitle.titleSource</span>
+    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.keyTitle.titleSource"></textarea>
+  </div>
+<!--abbreviatedTitle START-->
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.abbreviatedTitle.titleValue</span>
     <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.abbreviatedTitle.titleValue"></textarea>
   </div>
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.abbreviatedTitle.titleQualifier</span>
+    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.abbreviatedTitle.titleQualifier"></textarea>
+  </div>
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.abbreviatedTitle.titleSource</span>
+    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.abbreviatedTitle.titleSource"></textarea>
+  </div>
+  <!-- abbreviatedTitle END-->
 
   <!-- INFLUENTIAL RELATION TITLE  START -->
   <div class="label datatable" data-ng-target="influentialRelationTable" 

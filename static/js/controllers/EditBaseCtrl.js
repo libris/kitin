@@ -23,7 +23,7 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
       .then(function(data) {
         $scope.addRecordViewsToScope(data['recdata']);
         $scope.etag = data['etag'];
-    })
+    });
   } else if($routeParams.editSource === 'libris') {
     // LIBRIS
     recordService.libris.get($scope.recType, $scope.recId).then(function(data) {
