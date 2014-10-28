@@ -2352,11 +2352,14 @@ label.find-entity input[type="text"] {
 .form-container {
   clear: both;
 }
+.form-container hr {
+  display: none;
+}
 .form-container .label {
   position: relative;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px dotted #ddd;
   margin: 0;
-  padding: 4px 0;
+  padding: 6px 0;
 }
 .form-container .label .lbl {
   display: inline-block;
@@ -2364,7 +2367,6 @@ label.find-entity input[type="text"] {
   padding-right: 20px;
   margin-top: 3px;
   text-align: left;
-  word-break: break-all;
   font-weight: bold;
   vertical-align: middle;
 }
