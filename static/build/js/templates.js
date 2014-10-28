@@ -239,7 +239,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     " <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
     "  <h4 class=\"modal-title\">Auktoritetspost ({{ instance['@type'] }})</h4>\n" +
     "</div>\n" +
-    "<div class=\"modal-body\" data-ng-controller=\"EditCtrl\">    \n" +
+    "<div class=\"modal-body\" data-ng-controller=\"EditBaseCtrl\">    \n" +
     "  <div ng-include=\"'/partials/edit/auth'\"></div>\n" +
     "</div>"
   );
@@ -250,7 +250,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     " <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
     "  <h4 class=\"modal-title\">Bibliotekspost ({{ instance['@type'] }})</h4>\n" +
     "</div>\n" +
-    "<div class=\"modal-body\" data-ng-controller=\"EditCtrl\">    \n" +
+    "<div class=\"modal-body\" data-ng-controller=\"EditBaseCtrl\">    \n" +
     "  <div ng-include=\"'/partials/edit/bib'\"></div>\n" +
     "</div>"
   );
