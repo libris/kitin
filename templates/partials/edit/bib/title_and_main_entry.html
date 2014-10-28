@@ -4,28 +4,15 @@
 </h2>
 <div class="form-container">
 <!--instanceTitle START-->
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.instanceTitle.titleValue</span>
-    <textarea data-inplace class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.titleValue"></textarea>
-  </div>
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.instanceTitle.subtitle</span>
-    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.subtitle"></textarea>
-  </div>
-  <!-- responsibilityStatement used @ creators -->
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.instanceTitle.titleDate</span>
-    <textarea data-inplace class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.titleDate"></textarea>
-  </div>
-  <!-- mediaTerm mapped to instance and used @ publication and production -->
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.instanceTitle.partNumber</span>
-    <textarea data-inplace class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.partNumber"></textarea>
-  </div>
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.instanceTitle.partTitle</span>
-    <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.instanceTitle.partTitle"></textarea>
-  </div>
+  <kitin-group>
+    <kitin-textarea model="record.about.instanceTitle.titleValue"></kitin-textarea>
+    <kitin-textarea model="record.about.instanceTitle.subtitle"></kitin-textarea>
+    <!-- responsibilityStatement used @ creators -->
+    <kitin-textarea model="record.about.instanceTitle.titleDate"></kitin-textarea>
+    <!-- mediaTerm mapped to instance and used @ publication and production -->
+    <kitin-textarea model="record.about.instanceTitle.partNumber"></kitin-textarea>
+    <kitin-textarea model="record.about.instanceTitle.partTitle"></kitin-textarea>
+  </kitin-group>
 <!--instanceTitle END-->
   <hr />
 <!--TitleVariation START-->
