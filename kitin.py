@@ -115,8 +115,9 @@ def logout():
 @app.route('/jsonld/<source>/<rec_type>/<rec_id>') # JSON-LD start template
 @app.route('/marc/<rec_type>/<rec_id>')   # Marc start template
 @app.route("/search/<rec_type>") # Search template
-#@login_required
+@login_required
 def index(source=None, rec_type=None, rec_id=None):
+    print app.root_path
     best = request.accept_mimetypes.best_match(['application/json', 'text/html'])
     if (best == 'application/json' and request.accept_mimetypes[best] > request.accept_mimetypes['text/html']):
         return 'Error: Base requested using XHR', 500
