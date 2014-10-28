@@ -15,6 +15,10 @@ kitin.filter('timeAgo', function($filter) {
           // but let's go ahead and assume it's because user is on IE9:
           // Make sure there are exactly 3 digits for milliseconds
           time = _time.replace(/\.\d/, '.000');
+          // In the future, if we want to fix the problem with missing colon in timeozne:
+          // time = _time.replace(/\.(\d+)([\+|\-])(\d+)/, function(orig, ms, tz, tzval) {
+          //   // Fix stuff here
+          // });
         }
         break;
       case 'object':

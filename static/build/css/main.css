@@ -2765,6 +2765,10 @@ section.offer {
   padding: 80px;
 }
 /* HOLDINGS END ------------------------- */
+html.ie .datatable table tr {
+  float: left!important;
+  clear: both;
+}
 /* AUTOCOMPLETE START ------------------------- */
 .acResults {
   width: 476px;
