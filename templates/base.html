@@ -4,6 +4,7 @@
   <!--[if lt IE 9]>
     Vi rekommenderar uppdaterade versioner av Google Chrome eller Mozilla Firefox för att testa betaversionen av Libris katalogisering.
   <![endif]-->
+
     <meta charset="utf-8" />
     <title>LIBRIS katalogisering</title>
 
@@ -33,7 +34,10 @@
 
   <body data-ng-app="kitin" class="{% block bodyclass %}{% endblock %}" data-ng-controller="AppCtrl">
     {{alerts}}
+    {% if current_user and current_user.is_authenticated() %}
     <div data-ng-include="'/snippets/messages'"></div>
+    {% endif %}
+
     <div id="header-wrapper">
       <div class="container">
         <div id="header">

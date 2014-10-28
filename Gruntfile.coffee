@@ -119,7 +119,7 @@ module.exports = (grunt) ->
       app:
         files:
           'static/build/js/app.min.js': [
-            'static/js/*.js',
+            'static/js/*.js'
             'static/js/**/*.js'
           ]
       vendor:
@@ -129,6 +129,7 @@ module.exports = (grunt) ->
           sourceMapRoot: '/'
         files:
           'static/build/js/vendor.min.js': [
+            'static/vendor/xhr-xdr-adapter/*.js'
             'static/vendor/jquery/*.js'
             'static/vendor/angular/*.js'
             'static/vendor/angular-translate/*.js'

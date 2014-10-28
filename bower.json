@@ -16,7 +16,8 @@
     "dyve-jquery-autocomplete": "dyve/jquery-autocomplete#df032d1f3ec734c1415c09825578df336bec8272",
     "jquery-autosize": "~1.17.8",
     "ngInfiniteScroll": "1.0.0",
-    "spin.js": "~2.0.0"
+    "spin.js": "~2.0.0",
+    "xhr-xdr-adapter": "intuit/xhr-xdr-adapter#351100b1dc3508994b134b92ec04588953095dfa"
   },
   "exportsOverride": {
     "bootstrap": {
