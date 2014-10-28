@@ -20,7 +20,7 @@
             "about.translatedTitle.partNumber": "Delbeteckning",
             "about.translatedTitle.partTitle": "Deltitel",
 
-            "about.abbreviatedTitle": "Förkortad titel",
+            "about.abbreviatedTitle.titleValue": "Förkortad titel",
             "about.abbreviatedTitle.titleQualifier": "Särskiljande tillägg",
             "about.abbreviatedTitle.titleSource": "Typ av annan förkortad titel",
             
