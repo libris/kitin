@@ -1,6 +1,6 @@
 
 kitin.directive('inplace', function () {
-  return function(scope, elm, attrs) {    
+  return function(scope, elm, attrs) {
     elm.keyup(function () { // or change (when leaving)
       scope.triggerModified();
       scope.$apply();

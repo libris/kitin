@@ -1,6 +1,6 @@
 kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) {
   var defaultModalOptions = {
-    backdrop: 'static', // Shows backdrop but doesn't close dialog on click outside.
+    backdrop: true, // This should make modals closable on backdrop click.
     keyboard: true,
     controller: 'OpenModalCtrl',
     backdropFade: false,

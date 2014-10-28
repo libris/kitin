@@ -6,7 +6,7 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
   $scope.userSigel = userData.userSigel;
   $scope.editMode = $location.hash(); // #jsonld changes edit template
   $scope.editSource = $routeParams.editSource;
-
+  
   editService.addableElements = [];
 
   document.body.className = 'edit';
@@ -80,12 +80,7 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
     };
   };
 
+  $scope.getCurrentPath = function() { return $location.path(); };
  
-
-  
-
-
- 
-
 
 });

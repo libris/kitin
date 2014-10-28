@@ -115,10 +115,11 @@ def logout():
 @app.route('/jsonld/<source>/<rec_type>/<rec_id>') # JSON-LD start template
 @app.route('/marc/<rec_type>/<rec_id>')   # Marc start template
 @app.route("/search/<rec_type>") # Search template
-@login_required
+#@login_required
 def index(source=None, rec_type=None, rec_id=None):
-    # if ( request.accept_mimetypes.best_match(['application/json', 'text/html']) == 'application/json' ):
-    #     return 'Error: Base requested using XHR', 500
+    best = request.accept_mimetypes.best_match(['application/json', 'text/html'])
+    if (best == 'application/json' and request.accept_mimetypes[best] > request.accept_mimetypes['text/html']):
+        return 'Error: Base requested using XHR', 500
     return render_template('index.html', user=current_user, debug = app.debug, WHELK_HOST = app.config['CLIENT_WHELK_HOST'])
 
 # SEARCH TEMPLATE

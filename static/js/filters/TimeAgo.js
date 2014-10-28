@@ -1,6 +1,8 @@
 kitin.filter('timeAgo', function($filter) {
-  return function(time, verboseAfter, verboseFormat) {
+  return function(_time, verboseAfter, verboseFormat) {
     // "Inspired by" http://stackoverflow.com/a/12475270
+
+    var time = _time;
 
     // Handle different input formats
     switch (typeof time) {
@@ -8,6 +10,12 @@ kitin.filter('timeAgo', function($filter) {
         break;
       case 'string':
         time = new Date(time).getTime();
+        if (isNaN(time)) {
+          // This might be due to a malformed string, 
+          // but let's go ahead and assume it's because user is on IE9:
+          // Make sure there are exactly 3 digits for milliseconds
+          time = _time.replace(/\.\d/, '.000');
+        }
         break;
       case 'object':
         if (time.constructor === Date) time = time.getTime();
@@ -19,7 +27,7 @@ kitin.filter('timeAgo', function($filter) {
     verboseFormat = verboseFormat || 'yyyy-MM-dd, HH:mm';
 
     var timeFormats = [
-        [60, 'sekunder', 1], // 60
+        [60, 'sekunder', 2], // 60
         [120, 'En minut sen', 'Om en minut'], // 60*2
         [3600, 'minuter', 60], // 60*60, 60
         [7200, 'En timma sen', 'Om en timma'], // 60*60*2
@@ -73,7 +81,7 @@ kitin.filter('timeAgo', function($filter) {
       }
     }
     
-    // Redundant fallback
+    // IE9 fallback, no niceties
     return $filter('date')(time, verboseFormat);
   };
 }); 
