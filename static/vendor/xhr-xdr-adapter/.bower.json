@@ -1,0 +1,12 @@
+{
+  "name": "xhr-xdr-adapter",
+  "homepage": "https://github.com/intuit/xhr-xdr-adapter",
+  "_release": "351100b1dc",
+  "_resolution": {
+    "type": "commit",
+    "commit": "351100b1dc3508994b134b92ec04588953095dfa"
+  },
+  "_source": "git://github.com/intuit/xhr-xdr-adapter.git",
+  "_target": "351100b1dc3508994b134b92ec04588953095dfa",
+  "_originalSource": "intuit/xhr-xdr-adapter"
+}
