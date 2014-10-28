@@ -503,7 +503,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "            data-filter=\"\"\n" +
     "            data-completion-template-id=\"bib-completion-template\">\n" +
     "        </span>\n" +
-    "        <span class=\"linkchoice\">\n" +
+    "        <span class=\"linkchoice\" ng-show=\"cancreate\">\n" +
     "          eller <a href=\"#\">Skapa ny</a>\n" +
     "        </span>\n" +
     "      </span>\n" +
@@ -755,12 +755,29 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  Render generic linked bib reference tag.\n" +
     "-->\n" +
     "\n" +
+    "<!--\n" +
+    "\n" +
     "<a href=\"?m={{object.describedBy['@id']}}\">\n" +
     "  <i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object.describedBy)\"></i>\n" +
     "  <span class=\"name\">{{ object.title || object.uniformTitle}}</span>\n" +
     "  {{ object.issn }}\n" +
     "</a>\n" +
-    "<i data-ng-if=\"!editable.on\" data-ng-click=\"doRemove($index)\" class=\"no\">&times;</i>"
+    "<i data-ng-if=\"!editable.on\" data-ng-click=\"doRemove($index)\" class=\"no\">&times;</i>\n" +
+    "\n" +
+    "-->\n" +
+    "\n" +
+    "<div class=\"entity relation linked\">\n" +
+    "  <div class=\"main\">\n" +
+    "    <div class=\"title\">{{ object.title || object.uniformTitle }}</div>\n" +
+    "    <div class=\"date\">\n" +
+    "      <span title=\"ISSN\">\n" +
+    "        {{ object.issn }}\n" +
+    "      </span>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "  <a data-ng-if=\"!editable.on\" class=\"delete\" href=\"#\"\n" +
+    "     data-ng-click=\"doRemove($index)\"><i class=\"fa fa-times\"></i></a>\n" +
+    "</div>"
   );
 
 
@@ -776,7 +793,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "\n" +
     "<div class=\"entity relation linked\">\n" +
     "  <div class=\"main\">\n" +
-    "    <div class=\"title\"><strong>{{ object.title }}</strong></div>\n" +
+    "    <div class=\"title\">{{ object.title }}</div>\n" +
     "    <div class=\"date\">\n" +
     "      <span title=\"Utgivningsår\" data-ng-repeat=\"publication in object.publication | limitTo:1\" data-ng-show=\"publication.providerDate\">\n" +
     "        {{publication.providerDate}}\n" +
