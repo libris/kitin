@@ -1,17 +1,36 @@
 {
     "LABEL": {
-        "record": {
-            
-            "about.abbreviatedTitle": "Förkortad titel",
+        "record": {            
             "about.instanceTitle.titleValue": "Huvudtitel",
             "about.instanceTitle.subtitle": "Övrig titelinformation",
+            "about.instanceTitle.titleDate": "Täcknings- eller tillkomsttid",
             "about.instanceTitle.partNumber": "Delbeteckning",
             "about.instanceTitle.partTitle": "Deltitel",
-            "about.titleVariation.titleType": "Titelanmärkning",
+            
             "about.titleVariation.titleValue": "Varianttitel",
+            "about.titleVariation.subtitle": "Övrig titelinformation",
+            "about.titleVariation.titleDate": "Täcknings- eller tillkomsttid",
+			"about.titleVariation.titleType": "Titelanmärkning",
+            "about.titleVariation.partNumber": "Delbeteckning",
+            "about.titleVariation.partTitle": "Deltitel",
+
+            "about.translatedTitle.titleValue": "Huvudtitel",
+            "about.translatedTitle.subtitle": "Övrig titelinformation",
+            "about.translatedTitle.titleDate": "Täcknings- eller tillkomsttid",
+            "about.translatedTitle.partNumber": "Delbeteckning",
+            "about.translatedTitle.partTitle": "Deltitel",
+
+            "about.abbreviatedTitle": "Förkortad titel",
+            "about.abbreviatedTitle.titleQualifier": "Särskiljande tillägg",
+            "about.abbreviatedTitle.titleSource": "Typ av annan förkortad titel",
+            
             "about.keyTitle": "Nyckeltitel",
+            "about.keyTitle.titleQualifier": "Särskiljande tillägg",
+            "about.keyTitle.titleSource": "Typ av annan förkortad titel",
+            
             "about.influentialRelation.uniformTitle": "titel (influential relation)",
             "about.uniformTitle": "Uniform titel",           
+            
             "about.language": "Språk",
             "about.originalLanguage": "Originalspråk",
             "about.responsibilityStatement": "Upphov",
