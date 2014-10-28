@@ -259,7 +259,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/modal-holdings',
     "<div class=\"modal-header holdings\">\n" +
     "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
-    "  <h4 class=\"modal-title\" translate>LABEL.gui.terms.HOLDINGS</h4>\n" +
+    "  <h4 class=\"modal-title\"><span  translate>LABEL.gui.terms.HOLDINGS</span> ({{userData.userSigel}})</h4>\n" +
     "</div>\n" +
     "\n" +
     "<div class=\"modal-body holdings\">\n" +
