@@ -29,8 +29,20 @@ label.find-entity input[type="text"] { padding-left: 22px; }
 .addon .on-hover {float:right!important; position:absolute;top:1px;right:3px;color: @grey-dark;}
 
 
-.form-container{
+.form-container {
   clear:both;
+  .label {
+    position:relative;
+    .lbl {
+      position:absolute;
+      width:380px;
+      margin-top:3px;
+      text-align:right;
+    }
+    textarea,
+    >.entity,
+    ul.tags {margin-left:400px; width:400px}
+  }
 }
 
 

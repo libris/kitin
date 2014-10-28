@@ -2352,6 +2352,21 @@ label.find-entity input[type="text"] {
 .form-container {
   clear: both;
 }
+.form-container .label {
+  position: relative;
+}
+.form-container .label .lbl {
+  position: absolute;
+  width: 380px;
+  margin-top: 3px;
+  text-align: right;
+}
+.form-container .label textarea,
+.form-container .label > .entity,
+.form-container .label ul.tags {
+  margin-left: 400px;
+  width: 400px;
+}
 .edit .col6 .entity .embedded input {
   width: 456px;
 }
