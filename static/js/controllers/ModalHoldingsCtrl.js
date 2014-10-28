@@ -1,6 +1,7 @@
 kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $modalInstance, $location, $http, recordId, editService, recordService, userData) {
 
   $scope.recordId = recordId;
+  $scope.userData = userData;
 
   $scope.modifications = {
     saved: true,
