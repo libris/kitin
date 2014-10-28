@@ -133,7 +133,7 @@ def index(source=None, rec_type=None, rec_id=None):
 @app.route("/partials/<path:path>")
 @login_required
 def show_partial(path):
-    return send_from_directory('templates/partials/', '%s.html' % path)
+    return send_from_directory(app.root_path + '/templates/partials/', '%s.html' % path)
     #return render_template('partials/%s.html' % path)
 
 # SNIPPETS TEMPLATES
