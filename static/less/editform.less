@@ -33,15 +33,22 @@ label.find-entity input[type="text"] { padding-left: 22px; }
   clear:both;
   .label {
     position:relative;
+    border-bottom:1px solid #eee;
+    margin: 0;
+    padding: 4px 0;
     .lbl {
-      position:absolute;
-      width:380px;
+      display:inline-block;
+      width:200px;
+      padding-right:20px;
       margin-top:3px;
-      text-align:right;
+      text-align:left;
+      word-break: break-all;
+      font-weight:bold;
+      vertical-align:middle;
     }
     textarea,
     >.entity,
-    ul.tags {margin-left:400px; width:400px}
+    ul.tags {width:600px;display:inline-block;vertical-align:middle;}
   }
 }
 
@@ -267,7 +274,7 @@ input[type="text"] :-moz-placeholder { color:@grey-light; font-style:italic; fon
 .label textarea{overflow:hidden;resize:none;color:@grey-very-dark;}
 .label textarea.title{font-weight:bold;}
 
-.lbl{ display:block; font-size:10px; color:@grey-darker; margin-bottom:0; line-height:16px; text-transform:uppercase; letter-spacing:.5px; }
+.lbl{ display:block; font-size:13px; color:@grey-very-dark; margin-bottom:0; line-height:16px;  }
 .lbl-suggest{display:block;font-size:12px;color:@green;margin-top:2px;line-height:14px;float:left;clear:both;}
 
 .label .help {

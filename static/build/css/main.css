@@ -2354,18 +2354,26 @@ label.find-entity input[type="text"] {
 }
 .form-container .label {
   position: relative;
+  border-bottom: 1px solid #eee;
+  margin: 0;
+  padding: 4px 0;
 }
 .form-container .label .lbl {
-  position: absolute;
-  width: 380px;
+  display: inline-block;
+  width: 200px;
+  padding-right: 20px;
   margin-top: 3px;
-  text-align: right;
+  text-align: left;
+  word-break: break-all;
+  font-weight: bold;
+  vertical-align: middle;
 }
 .form-container .label textarea,
 .form-container .label > .entity,
 .form-container .label ul.tags {
-  margin-left: 400px;
-  width: 400px;
+  width: 600px;
+  display: inline-block;
+  vertical-align: middle;
 }
 .edit .col6 .entity .embedded input {
   width: 456px;
@@ -2674,12 +2682,10 @@ input[type="text"] :-moz-placeholder {
 }
 .lbl {
   display: block;
-  font-size: 10px;
-  color: #666664;
+  font-size: 13px;
+  color: #191913;
   margin-bottom: 0;
   line-height: 16px;
-  text-transform: uppercase;
-  letter-spacing: .5px;
 }
 .lbl-suggest {
   display: block;
