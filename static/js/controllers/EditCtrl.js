@@ -17,10 +17,6 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     return (obj && !_.isEmpty(obj['inScheme']));
   };
 
-  // $scope.$watchCollection('record', function(a,b ) {
-  //   console.log(a, b);
-  // });
-
   $scope.modifications = {
     saved:     $scope.recType === editService.RECORD_TYPES.REMOTE ? false : true, 
     published: $scope.recType === editService.RECORD_TYPES.REMOTE ? false : true
