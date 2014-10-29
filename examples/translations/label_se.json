@@ -14,7 +14,7 @@
             "about.titleVariation.partNumber": "Delbeteckning",
             "about.titleVariation.partTitle": "Deltitel",
 
-            "about.translatedTitle.titleValue": "Huvudtitel",
+            "about.translatedTitle.titleValue": "Översatt/Normaliserad titel",
             "about.translatedTitle.subtitle": "Övrig titelinformation",
             "about.translatedTitle.titleDate": "Täcknings- eller tillkomsttid",
             "about.translatedTitle.partNumber": "Delbeteckning",
@@ -27,6 +27,21 @@
             "about.keyTitle": "Nyckeltitel",
             "about.keyTitle.titleQualifier": "Särskiljande tillägg",
             "about.keyTitle.titleSource": "Typ av annan förkortad titel",
+            
+            "about.exampleOfWork.title": "Uniform titel",
+            "about.exampleOfWork.subtitle": "Specificering i form av grupptitel",
+            "about.exampleOfWork.partTitle": "Titel på del eller avsnitt av verk",
+            "about.exampleOfWork.partNumber": "Nummer på del eller avsnitt av verk",
+            "about.exampleOfWork.language": "Verkets språk",
+            "about.exampleOfWork.date": "Specificering : årtal",            
+            "about.exampleOfWork.treatySigningDate": "Datum för undertecknande av fördrag",
+            "about.exampleOfWork.version": "",
+            "about.exampleOfWork.version": "Version",
+            "about.exampleOfWork.comment": "Övrig information",
+            "about.exampleOfWork.medium": "Medieterm",
+            "about.exampleOfWork.musicPerformanceMedium": "Besättning (musik)",            
+            "about.exampleOfWork.musicArrangement": "Arrangemang (musik)",  
+            "about.exampleOfWork.musicKey": "Tonart",       
             
             "about.influentialRelation.uniformTitle": "titel (influential relation)",
             "about.uniformTitle": "Uniform titel",           
@@ -57,7 +72,9 @@
 			"about.replaces.date": "Datum",
 			"about.regularity": "Regelbundenhet",
 			"about.precededBy": "Föregående titel",
-			"about.succeededBy": "Efterföljande titel",			
+			"about.succeededBy": "Efterföljande titel",
+			
+			"about.issueNumber": "Alfanumeriska och/eller kronologiska volymbeteckningar",	
 
             "about.identifers.isbn.identifierValue": "ISBN",
             "about.identifers.isbn.identifierNote": "Notering",
@@ -66,6 +83,8 @@
             "about.identifers.generalIdentifier.identifierValue": "Identifierare",
             "about.identifers.generalIdentifier.identifierNote": "Notering",
             "about.identifers.generalIdentifier.identifierScheme": "identifierScheme",
+            
+            "about.availability": "Anskaffningsvillkor",
             
             "about.mediaTerm": "Allmän medieterm",
             "about.date": "Datum då posten skapades",
@@ -123,6 +142,9 @@
             
             "about.relation": "Länkfält",
             "about.relation.linkNote": "Anmärkning",
+            
+            "about.alternateEdition": "Länkfält - Annan utgåva",
+            "about.alternateFormat": "Länkfält - Annat medium",
 
             "about.summary": "Innehållsbeskrivning, sammanfattning",
             "about.languageNote": "Språkanmärkning",
@@ -143,11 +165,17 @@
 			"about.illustrations": "Illustrationer i resursen",
 			"about.nature": "Innehållsmässig karaktär",
 			"about.originalItem": "Bärartyp",
-            "about.runningTime": "Speltid",
-           
+            "about.runningTime": "Speltid",  
 
             "about.genre": "Genre",
-            
+
+			"about.typeOfEntry": "Behandling vid titeländring",
+			
+			"about.additionalCarrierType": "Form för manifestationen",
+            "about.encLevel": "Fullständighetsnivå",
+            "about.characterCoding": "Teckenuppsättning",
+            "about.status": "Poststatus",
+            "about.catForm": "Katalogiseringsregler",
             "sourceNote": "Intern anmärkning om katalogiseringskälla"
         },
         
@@ -181,9 +209,7 @@
             "edit": {
             		"DATE_CREATED": "Skapad",
             		"MODIFIED": "Ändrad",
-            		"STATUS": "Status",
-            		"ID": "Id",
-            		"ENCODING": "Encoding"
+            		"ID": "Id"
 
             },
             "terms": {
