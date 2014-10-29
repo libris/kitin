@@ -2370,12 +2370,13 @@ label.find-entity input[type="text"] {
   font-weight: bold;
   vertical-align: middle;
 }
-.form-container .label textarea,
-.form-container .label > .entity,
-.form-container .label ul.tags {
+.form-container .label .inp {
   width: 600px;
   display: inline-block;
   vertical-align: middle;
+}
+.form-container .label .inp textarea {
+  width: 100%;
 }
 .edit .col6 .entity .embedded input {
   width: 456px;
@@ -2615,7 +2616,7 @@ input[type="text"] :-moz-placeholder {
 .label select,
 .fakeinput {
   font-size: 15px;
-  padding: 0 5px 0 5px;
+  padding: 2px 5px 2px 5px;
   height: 25px;
   border-radius: 2px;
 }
