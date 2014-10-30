@@ -32,70 +32,48 @@
     <kitin-textarea model="record.about.translatedTitle.titleType"></kitin-textarea>
   </kitin-group>
 
-<!--translatedTitle START-->
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.translatedTitle.titleValue</span>
-    <textarea data-inplace class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.translatedTitle.titleValue"></textarea>
-  </div>
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.translatedTitle.subtitle</span>
-    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.translatedTitle.subtitle"></textarea>
-  <!-- responsibilityStatement used @ creators -->
-  </div>
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.translatedTitle.titleDate</span>
-    <textarea data-inplace class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.translatedTitle.titleDate"></textarea>
-  </div>
-  <!-- mediaTerm mapped to instance and used @ publication and production -->
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.translatedTitle.partNumber</span>
-    <textarea data-inplace class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.translatedTitle.partNumber"></textarea>
-  </div>
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.translatedTitle.partTitle</span>
-    <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.translatedTitle.partTitle"></textarea>
-  </div>  
-<!--translatedTitle END-->
   <hr />
+
 <!--uniformTitle START--> 
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.uniformTitle</span>
-    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.uniformTitle"></textarea>
+    <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.uniformTitle"></textarea>
   </div> 
 <!--uniformTitle END-->  
   <hr />
 <!--keyTitle START-->
   <div class="label">
      <span class="lbl" translate>LABEL.record.about.keyTitle</span>
-    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.keyTitle.titleValue"></textarea>       
+    <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.keyTitle.titleValue"></textarea>       
   </div>
   <div class="label">
      <span class="lbl" translate>LABEL.record.about.keyTitle.titleQualifier</span>
-    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.keyTitle.titleQualifier"></textarea>       
+    <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.keyTitle.titleQualifier"></textarea>       
   </div>
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.keyTitle.titleSource</span>
-    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.keyTitle.titleSource"></textarea>
+    <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.keyTitle.titleSource"></textarea>
   </div>
 <!--keyTitle END-->
     <hr />
 <!--abbreviatedTitle START-->
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.abbreviatedTitle.titleValue</span>
-    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.abbreviatedTitle.titleValue"></textarea>
+    <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.abbreviatedTitle.titleValue"></textarea>
   </div>
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.abbreviatedTitle.titleQualifier</span>
-    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.abbreviatedTitle.titleQualifier"></textarea>
+    <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.abbreviatedTitle.titleQualifier"></textarea>
   </div>
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.abbreviatedTitle.titleSource</span>
-    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.abbreviatedTitle.titleSource"></textarea>
+    <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.abbreviatedTitle.titleSource"></textarea>
   </div>
   <!-- abbreviatedTitle END-->
 
   <!-- INFLUENTIAL RELATION TITLE  START -->
   <div class="label datatable" data-ng-target="influentialRelationTable" 
+    data-track-change
     data-kitin-data-table 
     data-table-model="record.about.influentialRelation" 
     data-table-header-row-template="/snippets/influentialRelation-header-row-template"
@@ -110,6 +88,7 @@
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.relation</span>
     <div class="entity" data-kitin-link-entity
+        data-track-change
         data-subject="record.about"
         data-ng-init="label = 'Länkfält'"
         data-link-multiple="'relation'" data-type="relation"
@@ -123,6 +102,7 @@
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.isPartOf</span>
     <div class="entity" data-kitin-link-entity
+        data-track-change
         data-subject="record.about"
         data-ng-init="label = 'Värdpublikation'"
         data-link-multiple="'isPartOf'" data-type="isPartOf"
@@ -134,6 +114,7 @@
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.hasPart</span>
     <div class="entity" data-kitin-link-entity
+        data-track-change
         data-subject="record.about"
         data-ng-init="label = 'Del'"
         data-link-multiple="'hasPart'" data-type="hasPart"
@@ -145,6 +126,7 @@
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.precededBy</span>
     <div class="entity" data-kitin-link-entity
+        data-track-change
         data-subject="record.about"
         data-ng-init="label = 'Titel'"
         data-link-multiple="'precededBy'" data-type="PrecededBy"
@@ -156,6 +138,7 @@
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.succeededBy</span>
     <div class="entity" data-kitin-link-entity
+        data-track-change
         data-subject="record.about"
         data-ng-init="label = 'Titel'"
         data-link-multiple="'succeededBy'" data-type="SucceededBy"
@@ -168,6 +151,7 @@
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.language</span>
     <ul class="tags" data-kitin-link-entity
+        data-track-change
         data-subject="record.about"
         data-link-multiple="'language'" data-type="Language"
         data-view-template="/snippets/render-language"
@@ -177,6 +161,7 @@
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.originalLanguage</span>
     <ul class="tags" data-kitin-link-entity
+        data-track-change
         data-subject="record.about"
         data-link-multiple="'originalLanguage'" data-type="Language"
         data-view-template="/snippets/render-language"
@@ -186,6 +171,7 @@
 
   <!-- LANGUAGE NOTE  START -->
   <div class="label datatable" data-ng-target="languageNoteTable" 
+    data-track-change
     data-kitin-data-table 
     data-table-model="record.about.languageNote" 
     data-table-header-row-template="/snippets/languageNote-header-row-template"
@@ -201,6 +187,7 @@
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.alphabet</span>
     <ul class="tags" data-kitin-link-entity
+        data-track-change
         data-subject="record.about"
         data-link="'alphabet'" data-type="Alphabet"
         data-view-template="/snippets/render-generic-linked-entity"
@@ -212,6 +199,7 @@
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.contentType</span>
     <ul class="tags" data-kitin-link-entity
+        data-track-change
         data-subject="record.about"
         data-link-multiple="'contentType'" data-type="contentType"
         data-view-template="/snippets/render-generic-linked-entity"
@@ -224,12 +212,13 @@
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.responsibilityStatement</span>
     <textarea spellcheck="false"
-        data-inplace data-ui-jq="autosize"
+        data-track-change data-ui-jq="autosize"
         data-ng-model="record.about.responsibilityStatement"></textarea>
   </div>
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.attributedTo</span>
     <div data-kitin-link-entity
+        data-track-change
         data-ng-init="label = 'huvuduppslag'"
         data-subject="record.about" data-link="'attributedTo'" data-type="Person"
         data-view-template="/snippets/render-person"
@@ -241,6 +230,7 @@
     <span class="lbl" translate>LABEL.record.about.influencedBy</span>
     <!--<a ng-click="showInfluencedBy = !showInfluencedBy">Dölj <i class="icon fa fa-caret-up"></i></a>-->
     <div data-kitin-link-entity
+        data-track-change
         data-ng-init="label = 'biuppslag'"
         data-subject="record.about" data-link-multiple="'influencedBy'" data-type="Person"
         data-view-template="/snippets/render-person"

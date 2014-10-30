@@ -2,7 +2,20 @@
 
 .modal { color:@grey-very-dark; text-transform: none; }
 //.modal.fade { top:10%; transition:none }
-.modal-large > .modal-dialog { width: 1080px; height:80%; }
+.modal-large > .modal-dialog { width: 1080px; }
+.modal-large .modal-content { border-radius:0; max-height: 80%; }
+
+.modal-header .close{
+  font-size: 28px;
+  color: #fff;
+  opacity: 1;
+  text-shadow: 0 1px 0 #000;
+  padding:4px;
+  margin-top:-8px;
+}
+.modal-header .close:hover{
+  opacity:.8;
+}
 
 .modal-header {background-color:@green;}
 .modal-body {
@@ -10,7 +23,7 @@
   overflow: auto;
 }
 body.modal-open {
-    overflow: hidden;
+    overflow: hidden!important;
 }
 h4.modal-title{font: bold italic 16px/20px @header-font, georgia,serif; color:@white; }
 
@@ -44,3 +57,4 @@ html .modal {
 }
 
 /* REMOTE SOURCES MODAL END ------------------------- */
+

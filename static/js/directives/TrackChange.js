@@ -30,7 +30,7 @@ kitin.directive('trackChange', function ($rootScope) {
 
       if (customEvent) {
         var customEventListener = scope.$on(customEvent, function(event, payload) {
-          console.log(event, payload);
+          //console.log(event.name, payload);
           trigger(customEvent, event);
           // Done, stop listening. In the future, perhaps continue listening
           // but this is good enough for dirty checking.
