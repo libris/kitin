@@ -3,7 +3,7 @@
   <i></i>
 </h2>
 <div class="form-container">
-<!--instanceTitle START-->
+
   <kitin-group title="Instance Title">
     <kitin-textarea model="record.about.instanceTitle.titleValue"></kitin-textarea>
     <kitin-textarea model="record.about.instanceTitle.subtitle"></kitin-textarea>
@@ -13,37 +13,25 @@
     <kitin-textarea model="record.about.instanceTitle.partNumber"></kitin-textarea>
     <kitin-textarea model="record.about.instanceTitle.partTitle"></kitin-textarea>
   </kitin-group>
-<!--instanceTitle END-->
 
-<!--TitleVariation START-->
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.titleVariation.titleValue</span>
-    <textarea data-inplace class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.titleValue"></textarea>
-  </div>
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.titleVariation.subtitle</span>
-    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.subtitle"></textarea>
-  <!-- responsibilityStatement used @ creators -->
-  </div>
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.titleVariation.titleDate</span>
-    <textarea data-inplace class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.titleDate"></textarea>
-  </div>
-  <!-- mediaTerm mapped to instance and used @ publication and production -->
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.titleVariation.titleType</span>
-    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.titleType"></textarea>
-  </div>
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.titleVariation.partNumber</span>
-    <textarea data-inplace class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.partNumber"></textarea>
-  </div>
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.titleVariation.partTitle</span>
-    <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.titleVariation.partTitle"></textarea>
-  </div>  
-<!--TitleVariation END-->
-  <hr />
+  <kitin-group title="Variation Title">
+    <kitin-textarea model="record.about.titleVariation.titleValue"></kitin-textarea>
+    <kitin-textarea model="record.about.titleVariation.subtitle"></kitin-textarea>
+    <kitin-textarea model="record.about.titleVariation.titleDate"></kitin-textarea>
+    <kitin-textarea model="record.about.titleVariation.partNumber"></kitin-textarea>
+    <kitin-textarea model="record.about.titleVariation.partTitle"></kitin-textarea>
+    <kitin-textarea model="record.about.titleVariation.titleType"></kitin-textarea>
+  </kitin-group>
+
+  <kitin-group title="Translated Title">
+    <kitin-textarea model="record.about.translatedTitle.titleValue"></kitin-textarea>
+    <kitin-textarea model="record.about.translatedTitle.subtitle"></kitin-textarea>
+    <kitin-textarea model="record.about.translatedTitle.titleDate"></kitin-textarea>
+    <kitin-textarea model="record.about.translatedTitle.partNumber"></kitin-textarea>
+    <kitin-textarea model="record.about.translatedTitle.partTitle"></kitin-textarea>
+    <kitin-textarea model="record.about.translatedTitle.titleType"></kitin-textarea>
+  </kitin-group>
+
 <!--translatedTitle START-->
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.translatedTitle.titleValue</span>

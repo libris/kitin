@@ -2359,7 +2359,7 @@ label.find-entity input[type="text"] {
   position: relative;
   border-bottom: 1px dotted #ddd;
   margin: 0;
-  padding: 6px 0;
+  padding: 8px 0;
 }
 .form-container .label .lbl {
   display: inline-block;
@@ -2629,7 +2629,7 @@ input[type="text"] :-moz-placeholder {
 .label select,
 .fakeinput {
   font-size: 15px;
-  padding: 2px 5px 2px 5px;
+  padding: 3px 5px;
   height: 25px;
   border-radius: 2px;
 }
