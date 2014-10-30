@@ -6,7 +6,9 @@ kitin.directive('kitinGroup', function(editService){
       template: '<div class="group">' +
                   '<div class="group-title label">' +
                     '<span class="lbl">{{title}}</span>' +
-                    '<span class="inp"><button class="btn-link" ng-click="toggle()">{{hidden ? "Visa alla" : "Göm tomma"}} fält</button></span>' +
+                    '<span class="inp"><button class="btn-link" ng-click="toggle()">' +
+                      '<span>{{hidden ? "+":"–"}}</span> {{hidden ? "Visa alla" : "Göm tomma"}} fält</button>' +
+                    '</span>'+
                   '</div>' +
                   '<div ng-transclude></div>' +
                 '</div>',

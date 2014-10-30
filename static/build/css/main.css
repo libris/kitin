@@ -2371,9 +2371,9 @@ label.find-entity input[type="text"] {
 }
 .form-container .label {
   position: relative;
-  border-bottom: 1px dotted #ddd;
+  border-top: 1px dotted #ddd;
   margin: 0;
-  padding: 8px 0;
+  padding: 10px 0;
 }
 .form-container .label .lbl {
   display: inline-block;
@@ -2393,17 +2393,42 @@ label.find-entity input[type="text"] {
 }
 .form-container .group {
   border-top: 1px solid #ccc;
+  border-bottom: 8px solid #eeeeec;
+}
+.form-container .group:after {
+  display: block;
+  content: ' ';
+  height: 1px;
+  background: #ccc;
 }
 .form-container .group .label {
   width: 600px;
 }
 .form-container .group .lbl {
   font-weight: normal;
-  padding-left: 20px;
+  padding-left: 16px;
+  color: #666;
+}
+.form-container .group .group-title {
+  border-top: none;
 }
 .form-container .group .group-title .lbl {
   padding-left: 0;
   font-weight: bold;
+  color: #111;
+}
+.form-container .group .group-title .inp button {
+  font-size: 12px;
+  padding-left: 0;
+}
+.form-container .group .group-title .inp button span {
+  border-right: 1px solid #eee;
+  margin-right: 4px;
+  font-weight: bold;
+  display: inline-block;
+  width: 14px;
+  font-size: 13px;
+  text-align: left;
 }
 .edit .col6 .entity .embedded input {
   width: 456px;
