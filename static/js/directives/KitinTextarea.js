@@ -9,7 +9,7 @@ kitin.directive('kitinTextarea', function(editService, $rootScope){
       //TODO, move into snippet?
       template: '<div class="label">' + 
                   '<span ng-show="!$parent.viewmode || !isEmpty(model)" class="lbl">{{title  | translate}}</span>' +
-                  '<textarea ng-show="!$parent.viewmode || !isEmpty(model)" data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="model"></textarea>' +
+                  '<textarea ng-show="!$parent.viewmode || !isEmpty(model)" data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="model"></textarea>' +
                 '</div>',
       controller: function($scope, $rootScope, $attrs){
         $scope.isEmpty = $rootScope.isEmpty;

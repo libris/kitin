@@ -10,37 +10,37 @@
             <div class="col4" ng-show="instance.familyName">
               <div class="label">
                 <span class="lbl">{{ "Efternamn" }}</span>
-                <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.familyName">{{ instance.familyName  }} </textarea>
+                <textarea data-track-change class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.familyName">{{ instance.familyName  }} </textarea>
               </div>
             </div>
             <div class="col4" ng-show="instance.name">
               <div class="label">
                 <span class="lbl">{{ "Namn" }}</span>
-                <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.name">{{ instance.name }}</textarea >
+                <textarea data-track-change class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.name">{{ instance.name }}</textarea >
               </div>
             </div>
             <div class="col4" ng-show="instance.givenName">
               <div class="label">
                 <span class="lbl">{{ "Förnamn" }}</span>
-                <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.givenName">{{ instance.givenName }} </textarea>
+                <textarea data-track-change class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.givenName">{{ instance.givenName }} </textarea>
               </div>
             </div>
             <div class="col4" ng-show="instance.numeration">
               <div class="label">
                 <span class="lbl">{{ "Ordningstal och därpå följande del av namn" }}</span>
-                <textarea data-inplace class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.numeration">{{ instance.numeration  }} </textarea>
+                <textarea data-track-change class="title" data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.numeration">{{ instance.numeration  }} </textarea>
               </div>
             </div>
             <div class="col2">
               <div class="label">
                 <span class="lbl">{{ "Födelseår" }}</span>
-                <input data-inplace type="text" class="" data-ng-model="instance.birthYear"/>
+                <input data-track-change type="text" class="" data-ng-model="instance.birthYear"/>
               </div>
             </div>
              <div class="col2">     
               <div class="label">
                 <span class="lbl">{{ "Dödsår" }}</span>
-                <input data-inplace type="text" class="" data-ng-model="instance.deathYear"/>
+                <input data-track-change type="text" class="" data-ng-model="instance.deathYear"/>
               </div>
             </div>
           </div>
@@ -58,12 +58,12 @@
                   <tr data-ng-repeat="person in instance.sameAs track by $index" class="">
                     <td>
                       <div class="label">
-                        <input data-inplace type="text" data-ng-model="person.familyName"/>
+                        <input data-track-change type="text" data-ng-model="person.familyName"/>
                       </div>
                     </td>
                     <td class="last">
                       <div class="label">
-                      <input data-inplace type="text" data-ng-model="person.givenName"/>
+                      <input data-track-change type="text" data-ng-model="person.givenName"/>
                     </div>
                     </td>
                     <td class="controls">
@@ -83,10 +83,10 @@
              </div>
              <div class="col6">
                 <div class="label"><span class="lbl">{{ "Särskiljande tillägg" }}</span>
-                  <textarea data-ng-model="instance.personTitle" data-inplace data-ui-jq="autosize" placeholder="Särskiljande tillägg"></textarea>
+                  <textarea data-ng-model="instance.personTitle" data-track-change data-ui-jq="autosize" placeholder="Särskiljande tillägg"></textarea>
                 </div> 
                 <div class="label"><span class="lbl">{{ "Risk för sammanblandning" }}</span>
-                  <textarea data-ng-model="instance.scopeNote" data-inplace data-ui-jq="autosize" placeholder="Särskiljande tillägg"></textarea>
+                  <textarea data-ng-model="instance.scopeNote" data-track-change data-ui-jq="autosize" placeholder="Särskiljande tillägg"></textarea>
                 </div> 
                 <div class="label"><span class="lbl">{{ "Nationalitet" }}</span>
                 <input type="text" placeholder="Nationalitet"/></div>
@@ -96,7 +96,7 @@
                 <div class="label" data-ng-repeat="sameAs in instance.sameAs"><a href="{{ sameAs['@id'] }}" target="_blank">{{ sameAs['@id'] }}</a>
                  </div> 
                 <div class="label"><span class="lbl">{{ "Allmän anmärkning" }}</span>
-                  <textarea data-inplace data-ui-jq="autosize" data-ng-model="record.comment" placeholder="Allmän anmärkning"></textarea>
+                  <textarea data-track-change data-ui-jq="autosize" data-ng-model="record.comment" placeholder="Allmän anmärkning"></textarea>
                 </div>           
               </div>
             </div>
@@ -104,11 +104,11 @@
               <div class="col6">
                 <div class="label">
                   <span class="lbl">{{ "Biografisk uppgift" }}</span>
-                  <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.note">{{ instance.note }}</textarea>
+                  <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.note">{{ instance.note }}</textarea>
                 </div>
                 <div class="label">
                   <span class="lbl">{{ "Notering" }}</span>
-                  <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.note">{{ record.note }}</textarea>
+                  <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="record.note">{{ record.note }}</textarea>
                 </div>        
               </div>
             </div>
@@ -162,19 +162,19 @@
         <div class="col6">
          <div class="label">
             <span class="lbl">{{ "Uniform Titel" }}</span>
-            <input data-inplace type="text" class="" data-ng-model="instance.uniformTitle"/>
+            <input data-track-change type="text" class="" data-ng-model="instance.uniformTitle"/>
           </div>
           <div ng-show="instance.hasVersion"  class="multifield">
             <span class="lbl">{{ "Alternativ titelform" }}</span>
               <div class="label" data-ng-repeat="hasVersion in instance.hasVersion">
-              <input data-inplace class="input-medium" type="text" data-ng-model="hasVersion.uniformTitle">
+              <input data-track-change class="input-medium" type="text" data-ng-model="hasVersion.uniformTitle">
             </div>
           </div>
         </div>
         <div class="col6">      
             <span class="lbl">{{ "Upphov" }}</span>
               <div class="label">
-              <input data-inplace class="input-medium" type="text" data-ng-model="instance.attributedTo.controlledLabel">
+              <input data-track-change class="input-medium" type="text" data-ng-model="instance.attributedTo.controlledLabel">
             </div>
         </div>
       </div>
@@ -182,7 +182,7 @@
         <div class="col6">
           <div class="label">
           <span class="lbl">{{ "Anmärkning" }}</span>
-            <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.editorialNote">{{ record.editorialNote }}</textarea>
+            <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="record.editorialNote">{{ record.editorialNote }}</textarea>
           </div>
         </div>
       </div>
@@ -197,17 +197,17 @@
         <div class="col6">
           <div class="label">
             <span class="lbl">{{ "Label" }}</span>
-            <input data-inplace type="text" class="" data-ng-model="instance.label"/>
+            <input data-track-change type="text" class="" data-ng-model="instance.label"/>
           </div>
           <div ng-show="instance"  class="multifield">
             <span class="lbl">{{ "Används ej" }}</span>
               <div class="label" data-ng-repeat="hasVersion in instance.hasVersion">
-              <input data-inplace class="input-medium" type="text" data-ng-model="hasVersion.label">
+              <input data-track-change class="input-medium" type="text" data-ng-model="hasVersion.label">
             </div>
           </div>
           <div class="label">
           <span class="lbl">{{ "Anmärkning" }}</span>
-            <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.note">{{ instance.note }}</textarea>
+            <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.note">{{ instance.note }}</textarea>
           </div>
         </div>
       </div>
@@ -222,26 +222,26 @@
         <div class="col6">
           <div class="label">
             <span class="lbl">{{ "Label" }}</span>
-            <input data-inplace type="text" class="" data-ng-model="instance.label"/>
+            <input data-track-change type="text" class="" data-ng-model="instance.label"/>
           </div>
           <div ng-show="instance.instanceOf"  class="multifield">
             <span class="lbl">{{ "Används för" }}</span>
               <div class="label" data-ng-repeat="hasVersion in instance.instanceOf.hasVersion">
-              <input data-inplace class="input-medium" type="text" data-ng-model="hasVersion.label">
+              <input data-track-change class="input-medium" type="text" data-ng-model="hasVersion.label">
             </div>
           </div>
           <div class="label">
             <span class="lbl">{{ "Plats" }}</span>
-            <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.place.label">{{ instance.place.label }}</textarea>
+            <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.place.label">{{ instance.place.label }}</textarea>
           </div>
           <div class="label">
             <span class="lbl">{{ "Datum" }}</span>
-            <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.date">{{ instance.date }}</textarea>
+            <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.date">{{ instance.date }}</textarea>
           </div>
           <div class="label">
             <span class="lbl">{{ "Anmärkning" }}</span>
             <div data-ng-repeat="note in instance.note">
-            <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
+            <textarea data-track-change data-ui-jq="autosize" spellcheck="false"
                       data-ng-model="note">{{ note }}</textarea>
             </div>
           </div>
@@ -258,12 +258,12 @@
         <div class="col6">
           <div class="label">
             <span class="lbl">{{ "Label" }}</span>
-            <input data-inplace type="text" class="" data-ng-model="instance.prefLabel"/>
+            <input data-track-change type="text" class="" data-ng-model="instance.prefLabel"/>
           </div>
           <div class="label">
             <span class="lbl">{{ "Anmärkning" }}</span>
             <div data-ng-repeat="note in instance.note">
-              <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="note">{{ note }}</textarea>
+              <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="note">{{ note }}</textarea>
             </div>
           </div>
         </div>

@@ -5,22 +5,22 @@
   
   <div class="label" data-ng-show="record.about.mediaTerm">
     <span class="lbl" translate>LABEL.record.about.mediaTerm</span>
-    <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.mediaTerm">
+    <input data-track-change type="text" data-ng-model="record.about.mediaTerm">
   </div>
   <!-- normalize with other dates in format
   <div class="label" ng-if="false">
     <span class="lbl" translate>LABEL.record.about.date</span>
-    <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.date">
+    <input data-track-change type="text" data-ng-model="record.about.date">
   </div>
   -->
   <div class="label" ng-if="false">
     <span class="lbl" translate>LABEL.record.about.publicationStatus</span>
-    <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.publicationStatus['@id']">
+    <input data-track-change type="text" data-ng-model="record.about.publicationStatus['@id']">
   </div>
 
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.scopeNote</span>
-    <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.scopeNote">
+    <input data-track-change type="text" data-ng-model="record.about.scopeNote">
   </div>
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.publicationStatus</span>
@@ -34,11 +34,11 @@
   </div>
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.publicationYear</span>
-    <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.publicationYear">
+    <input data-track-change type="text" data-ng-model="record.about.publicationYear">
   </div>
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.publicationOtherYear</span>
-    <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.publicationOtherYear">
+    <input data-track-change type="text" data-ng-model="record.about.publicationOtherYear">
   </div>
 
   <div class="label">
@@ -73,7 +73,7 @@
         <td><span class="lbl" translate>LABEL.record.about.issueNumber</span></td>
       </script>
       <script type="text/ng-template" id="/snippets/issueNumber-row-template">
-        <td><div class="label"><input ng-model="object" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+        <td><div class="label"><input ng-model="object" data-track-change type="text" /></div></td>
         <td class="controls">
           <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
         </td>
@@ -98,8 +98,8 @@
         <td><span class="lbl" translate>LABEL.record.about.replaces.date</span></td>
       </script>
       <script type="text/ng-template" id="/snippets/replaces-frequency-row-template">
-        <td><div class="label"><input ng-model="object['frequency']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-        <td><div class="label"><input ng-model="object['date']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+        <td><div class="label"><input ng-model="object['frequency']" data-track-change type="text" /></div></td>
+        <td><div class="label"><input ng-model="object['date']" data-track-change type="text" /></div></td>
         <td class="controls">
           <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
         </td>
@@ -180,12 +180,12 @@
 
     <div class="label">
       <span class="lbl" translate>LABEL.record.about.editionStatement.edition</span>
-      <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.editionStatement.edition" >
+      <input data-track-change type="text" data-ng-model="record.about.editionStatement.edition" >
     </div>
 
     <div class="label" data-ng-show="record.about.publisherNumber">
       <span class="lbl" translate>LABEL.record.about.publisherNumber</span>
-      <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.publisherNumber" >
+      <input data-track-change type="text" data-ng-model="record.about.publisherNumber" >
     </div>
 
     <!-- MANUFACTURE  START -->
@@ -212,9 +212,9 @@
          Used by both manufacture and publication
     -->
     <script type="text/ng-template" id="/snippets/manufacture-publisher-recording-row-template">
-      <td><div class="label"><input ng-model="object['place']['label']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['providerName']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['providerDate']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['place']['label']" data-track-change type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['providerName']" data-track-change type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['providerDate']" data-track-change type="text" /></div></td>
       <td class="controls">
         <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
       </td>

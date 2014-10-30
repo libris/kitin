@@ -440,7 +440,7 @@ body.edit .footer footer {
 .btn.disabled:hover,
 button[disabled=disabled],
 button:disabled {
-  background-color: #c7c7c3;
+  background-color: #adada9;
 }
 a btn {
   color: #22ba94;
@@ -2749,6 +2749,8 @@ span.error-message {
   top: 3px;
 }
 /* EDIT FORM END ------------------------- */
+/* EDIT FORM DEBUG CLASSES  ---------------------------- */
+/* EDIT FORM DEBUG CLASSES END ------------------------- */
 /* HOLDINGS START ------------------------- */
 .holdings .lbl {
   color: #683568;

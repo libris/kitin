@@ -2,7 +2,7 @@
   <span class="add-link" ng-click="onclick($event)"><i class="fa fa-plus"></i></span>
   <span class="search-field toggler">
     <i class="fa fa-search"></i>
-    <input data-inplace class="input-large authdependant embedded" type="text" ng-blur="onblur($event)"
+    <input data-track-change class="input-large authdependant embedded" type="text" ng-blur="onblur($event)"
       data-no-value="{{ object.prefLabel }} ({{ object.langCode }})"
       data-kitin-search-entity
       data-service-url="{{API_PATH}}/def/_search"

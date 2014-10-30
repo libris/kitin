@@ -91,6 +91,7 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editService', function(def
           delete item.data._source;
           scope.$apply(onSelect);
           //scope.triggerModified();
+          scope.$emit('changed', ['Added search entity']);
         }
       };
 
