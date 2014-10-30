@@ -651,9 +651,10 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  </span>\n" +
     "</div>\n" +
     "<div data-ng-repeat=\"key in jsonLdKeys(object)\"\n" +
-    "     data-ng-init=\"obj = object[key]\" data-ng-if=\"key[0] != '@'\">\n" +
-    "  <ng:switch on=\"typeOf(obj)\">\n" +
+    "     data-ng-if=\"key[0] != '@'\">\n" +
+    "  <ng:switch on=\"typeOf(object[key])\">\n" +
     "    <div data-ng-switch-when=\"object\"\n" +
+    "         data-ng-init=\"obj = object[key]\"\n" +
     "         data-ng-init=\"collapsed = (key == '_marcUncompleted')\"\n" +
     "         data-ng-class=\"{collapsed: collapsed, array: lodash.isArray(obj)}\">\n" +
     "      <div class=\"label\" class=\"entitylink\">\n" +
@@ -667,8 +668,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    </div>\n" +
     "    <span data-ng-switch-when=\"string\">\n" +
     "      <code data-ng-click=\"openTermDef(key)\">{{ key }}</code>\n" +
-    "      <input data-ng-if=\"!linked\" data-ng-model=\"obj\" type=\"text\" />\n" +
-    "      <span data-ng-if=\"linked\">{{ obj }}</span>\n" +
+    "      <input data-ng-if=\"!linked\" data-ng-model=\"object[key]\" type=\"text\" />\n" +
+    "      <span data-ng-if=\"linked\">{{ object[key] }}</span>\n" +
     "    </span>\n" +
     "  </ng:switch>\n" +
     "</div>"
