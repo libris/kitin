@@ -3180,5 +3180,8 @@ a.beta-blocker {
 .alert-error i {
   color: #ee5d61;
 }
+.cg-busy {
+  z-index: 100000;
+}
 /* GENERAL END ------------------------- */
 /*# sourceMappingURL=main.css.map */

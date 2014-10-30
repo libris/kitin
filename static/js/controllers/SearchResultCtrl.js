@@ -190,10 +190,9 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
     }
   });
 
-  $scope.loading = true;
   $scope.doSearch = function(url, params) {
 
-    searchService.search(url, params).then(function(data) {
+    searchService.search(url, params, $scope).then(function(data) {
       $scope.facetGroups = searchUtil.makeLinkedFacetGroups($scope.recType, data.facets, $rootScope.state.search.q, prevFacetsStr);
       $scope.crumbs = searchUtil.bakeCrumbs($scope.recType, $rootScope.state.search.q, prevFacetsStr);
       if(data && data.hits) {
@@ -224,7 +223,6 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
         $rootScope.state.search.result = { hits: 0 };
       }
       $scope.scrolled = false;
-      $scope.loading = false;
     });
   };
 });

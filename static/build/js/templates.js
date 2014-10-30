@@ -263,6 +263,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "</div>\n" +
     "\n" +
     "<div class=\"modal-body holdings\">\n" +
+    "  <div cg-busy=\"{promise:holdingPromise,message:'Laddar bestånd...', minDuration: 2000}\"></div>\n" +
     "  <form data-ng-show=\"holding.data['@id'] || !holding['etag']\">\n" +
     "    <section class=\"offer\" data-ng-repeat=\"offer in holding.data.about.offers track by $index\">\n" +
     "      <div class=\"cols\">\n" +

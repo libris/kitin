@@ -182,7 +182,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
         var deferer = $q.defer();
         var sigel = userData.userSigel;
         //sigel = 'SLB'; // TODO: <--------------------------------  Haxxor shit, remove
-        $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.holdingFor.@id:' + recordId.replace(/\//g, '\\/') + '+about.offers.heldBy.notation:' + sigel).success(function(data, status, headers) {
+        $rootScope.holdingPromise = $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.holdingFor.@id:' + recordId.replace(/\//g, '\\/') + '+about.offers.heldBy.notation:' + sigel).success(function(data, status, headers) {
           if (data.list.length > 0) {
 
             var holding = data.list[0];
@@ -196,7 +196,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
             deferer.resolve(null);
           }
         }).error(function(data, status, headers) {
-
+            deferer.reject(status);
         });
         return deferer.promise;
       },
@@ -224,7 +224,6 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
             }
             deferer.resolve(holding);
           }).error(function(data, status, headers) {
-
             deferer.reject(status);
           });
         } else {
@@ -236,7 +235,6 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
             }
             deferer.resolve(holding);
           }).error(function(data, status, headers) {
-
             deferer.reject(status);
           });
         }

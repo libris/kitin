@@ -2,21 +2,7 @@
   kitin.factory('HttpInterceptor', function($q, $rootScope) {
 
     return {
-      'request': function(config) {
-        var method = config.method;
-        if (method == 'PUT' || method == 'POST') {
-          action = 'Sparar.';
-        } else if (method == 'DELETE') {
-          action = 'Raderar.';
-        } else {
-          action = 'Laddar.';
-        }
-        return config;
-      },
 
-      'response': function(response) {
-        return response;
-      },
       
      'responseError': function(rejection) {
         var method = rejection.config.method;
