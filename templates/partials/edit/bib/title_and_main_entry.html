@@ -4,7 +4,7 @@
 </h2>
 <div class="form-container">
 <!--instanceTitle START-->
-  <kitin-group>
+  <kitin-group title="Instance Title">
     <kitin-textarea model="record.about.instanceTitle.titleValue"></kitin-textarea>
     <kitin-textarea model="record.about.instanceTitle.subtitle"></kitin-textarea>
     <!-- responsibilityStatement used @ creators -->
@@ -14,7 +14,7 @@
     <kitin-textarea model="record.about.instanceTitle.partTitle"></kitin-textarea>
   </kitin-group>
 <!--instanceTitle END-->
-  <hr />
+
 <!--TitleVariation START-->
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.titleVariation.titleValue</span>
@@ -59,10 +59,6 @@
     <textarea data-track-change class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.translatedTitle.titleDate"></textarea>
   </div>
   <!-- mediaTerm mapped to instance and used @ publication and production -->
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.translatedTitle.titleType</span>
-    <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.translatedTitle.titleType"></textarea>
-  </div>
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.translatedTitle.partNumber</span>
     <textarea data-track-change class="title"  data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.translatedTitle.partNumber"></textarea>

@@ -2365,17 +2365,31 @@ label.find-entity input[type="text"] {
   display: inline-block;
   width: 200px;
   padding-right: 20px;
-  margin-top: 3px;
   text-align: left;
   font-weight: bold;
   vertical-align: middle;
 }
-.form-container .label textarea,
-.form-container .label > .entity,
-.form-container .label ul.tags {
-  width: 600px;
+.form-container .label .inp {
+  width: 400px;
   display: inline-block;
   vertical-align: middle;
+}
+.form-container .label .inp textarea {
+  width: 100%;
+}
+.form-container .group {
+  border-top: 1px solid #ccc;
+}
+.form-container .group .label {
+  width: 600px;
+}
+.form-container .group .lbl {
+  font-weight: normal;
+  padding-left: 20px;
+}
+.form-container .group .group-title .lbl {
+  padding-left: 0;
+  font-weight: bold;
 }
 .edit .col6 .entity .embedded input {
   width: 456px;
@@ -2615,7 +2629,7 @@ input[type="text"] :-moz-placeholder {
 .label select,
 .fakeinput {
   font-size: 15px;
-  padding: 0 5px 0 5px;
+  padding: 2px 5px 2px 5px;
   height: 25px;
   border-radius: 2px;
 }

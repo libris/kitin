@@ -2,22 +2,22 @@ kitin.directive('kitinGroup', function(editService){
   return {
       restrict: 'E',
       scope: true,
-      compile: function(element, attrs) {
-        element.html(
-          '<div ng-click="edit()">' +
-            element.html() +
-          '</div>' +
-          '<button ng-show="!viewmode" class="btn btn-dark ng-scope" ng-click="view()">ok</button>'
-        );
-      },
+      transclude: true,
+      template: '<div class="group">' +
+                  '<div class="group-title label">' +
+                    '<span class="lbl">{{title}}</span>' +
+                    '<span class="inp"><button class="btn-link" ng-click="showAll()">Visa alla fält</button></span>' +
+                  '</div>' +
+                  '<div ng-transclude></div>' +
+                '</div>',
       controller: function($element, $scope, $attrs) {
-        $scope.viewmode = true;
-        $scope.edit =  function() {
-          if($scope.viewmode) { $scope.viewmode = false; }
+        $scope.title = $attrs.title;
+        this.options = {
+          hidden: true
         };
-        $scope.view =  function() {
-          if(!$scope.viewmode) { $scope.viewmode = true; }
-        };
+        $scope.showAll = function() {
+          this.options.hidden = false;
+        }.bind(this);
       }
   };
 });

@@ -755,17 +755,6 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  Render generic linked bib reference tag.\n" +
     "-->\n" +
     "\n" +
-    "<!--\n" +
-    "\n" +
-    "<a href=\"?m={{object.describedBy['@id']}}\">\n" +
-    "  <i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object.describedBy)\"></i>\n" +
-    "  <span class=\"name\">{{ object.title || object.uniformTitle}}</span>\n" +
-    "  {{ object.issn }}\n" +
-    "</a>\n" +
-    "<i data-ng-if=\"!editable.on\" data-ng-click=\"doRemove($index)\" class=\"no\">&times;</i>\n" +
-    "\n" +
-    "-->\n" +
-    "\n" +
     "<div class=\"entity relation linked\">\n" +
     "  <div class=\"main\">\n" +
     "    <div class=\"title\">{{ object.title || object.uniformTitle }}</div>\n" +
@@ -782,15 +771,6 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('/snippets/render-relation-referenced-entity',
-    "<!--\n" +
-    "<a href=\"?m={{object.describedBy['@id']}}\">\n" +
-    "  <i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object.describedBy)\"></i>\n" +
-    "  <span class=\"name\">{{ object.title }}</span>\n" +
-    "  {{ object.issn }}\n" +
-    "</a>\n" +
-    "<i data-ng-if=\"!editable.on\" data-ng-click=\"doRemove($index)\" class=\"no\">&times;</i>\n" +
-    "-->\n" +
-    "\n" +
     "<div class=\"entity relation linked\">\n" +
     "  <div class=\"main\">\n" +
     "    <div class=\"title\">{{ object.title }}</div>\n" +
