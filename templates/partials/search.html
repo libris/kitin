@@ -1,5 +1,3 @@
-<div class="loading alert alert-loading" data-loading-message="Sökresultatet laddas!" ng-show="loading"></div>
-
 <div data-ng-switch on="state.search.result.hits" data-ng-controller="SearchResultCtrl">
   <div class="content search" data-ng-switch-when="0">
     <div id="grid"></div>
@@ -13,7 +11,7 @@
         {{ state.search.hitCount | chunk }} träffar för
         <span data-ng-repeat="crumb in crumbs">
           <span data-ng-show="crumb.bridge">{{ crumb.bridge }}</span>
-          <span data-ng-hide="crumb.urlpart"><strong>{{ getLabel(crumb.term,crumb.type) }}</strong></span>
+          <span data-ng-hide="crumb.urlpart"><strong>{{ getLabel(crumb.term, crumb.type) }}</strong></span>
           <a data-ng-show="crumb.urlpart" href="{{ crumb.urlpart }}">{{ getLabel(crumb.term, crumb.type) }}</a>
         </span>
       </p>

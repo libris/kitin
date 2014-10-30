@@ -44,15 +44,15 @@
           </div>
         </div>
         <div class="col12">
-          <button class="btn btn-link pull-right" data-ng-if="holding.data.about.offers.length > 1" data-ng-click="deleteOffer(holding, $index)"><i class="fa fa-trash-o"></i> Radera lokalsignum</button>
+          <button class="btn btn-link pull-right" data-ng-if="holding.data.about.offers.length > 1" data-ng-click="deleteOffer(holding, $index)"><i class="fa fa-trash-o"></i> {{ "Radera lokalsignum" }}</button>
         </div>
       </div>
     </section>
   </form>
 
-  <hrdata-ng-show="holding">
+  <hr data-ng-show="holding">
 
-  <div class="alert alert-success" role="alert" data-ng-show="!holding">
+  <div class="alert alert-success" role="alert" data-ng-show="holdingRemoved">
     {{ "Beståndet raderat" }}
   </div>
   
@@ -65,17 +65,17 @@
   </div>
 
   <div>
-    <button class="btn btn-flat btn-purple-light" data-ng-click="addOffer(holding)" data-ng-show="holding"><i class="fa fa-plus"></i> Lägg till lokalsignum</button>
+    <button class="btn btn-flat btn-purple-light" data-ng-click="addOffer(holding)" data-ng-show="holding"><i class="fa fa-plus"></i> {{ "Lägg till lokalsignum" }}</button>
   </div>
 
 </div>
 
 <div class="modal-footer holdings submit">
   <div class="status pull-left">
-    <div data-ng-if="modifications.saved">Inga osparade ändringar.</div>
-    <div data-ng-if="!modifications.saved">Du har inte sparat dina ändringar.</div>
+    <div data-ng-if="modifications.saved">{{ "Inga osparade ändringar." }}</div>
+    <div data-ng-if="!modifications.saved">{{ "Du har inte sparat dina ändringar." }}</div>
   </div>
-  <button class="btn-link" id="delete-hld" data-ng-click="deleteHolding(holding)" data-ng-show="holding.data['@id']"><i class="fa fa-trash-o"></i> Radera bestånd</button>
-  <button class="btn btn-purple btn-submit" id="save-hld" data-ng-click="saveHolding(holding)" data-ng-show="holding">Spara bestånd</button>
-  <button class="btn btn-purple btn-submit" id="save-hld" data-ng-click="close()" data-ng-show="!holding">Stäng</button>
+  <button class="btn-link" id="delete-hld" data-ng-click="deleteHolding(holding)" data-ng-show="holding.data['@id']"><i class="fa fa-trash-o"></i> {{ "Radera bestånd" }}</button>
+  <button class="btn btn-purple btn-submit" id="save-hld" data-ng-click="saveHolding(holding)" data-ng-show="holding">{{ "Spara bestånd" }}</button>
+  <button class="btn btn-purple btn-submit" id="save-hld" data-ng-click="close()" data-ng-show="!holding">{{ "Stäng" }}</button>
 </div>

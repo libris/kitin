@@ -1,8 +1,7 @@
-  // register the interceptor as a service
+  // Register the interceptor as a service
   kitin.factory('HttpInterceptor', function($q, $rootScope) {
 
     return {
-      // optional method
       'request': function(config) {
         var method = config.method;
         if (method == 'PUT' || method == 'POST') {
@@ -12,34 +11,14 @@
         } else {
           action = 'Laddar.';
         }
-        // do something on success
-        $rootScope.loading = true;
         return config;
       },
 
-     //  // optional method
-     
-     // 2014-10-10: We shouldn't need this, should we?
-
-     // 'requestError': function(rejection) {
-     //    $rootScope.addSystemMessage({
-     //      msg: 'Fel vid laddning'
-     //    });
-     //    $rootScope.loading = false;
-     //    // do something on error
-     //    return $q.reject(rejection);
-     //  },
-
-      // optional method
       'response': function(response) {
-        // do something on success
-        $rootScope.loading = false;
         return response;
       },
-
-      // optional method
+      
      'responseError': function(rejection) {
-        $rootScope.loading = false;
         var method = rejection.config.method;
         var status = rejection.status;
     
@@ -69,7 +48,7 @@
             alert.msg += 'Kontrollera din internetanslutning.';
         }
         $rootScope.addSystemMessage(alert);
-        // do something on error
+
         return $q.reject(rejection);
       }
     };

@@ -1,4 +1,5 @@
 
 kitin.controller('PopoverCtrl', function($scope, $attrs) {
-  $scope.loading = '-';
+  // This is being removed.
+  //$scope.loading = '-';
 });

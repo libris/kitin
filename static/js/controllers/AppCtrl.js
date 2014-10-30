@@ -26,7 +26,6 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
     };
   }
 
-  $rootScope.loading = false;
   $rootScope.state = {
     searchType: {},
     remoteDatabases: [],

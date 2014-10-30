@@ -303,15 +303,15 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "          </div>\n" +
     "        </div>\n" +
     "        <div class=\"col12\">\n" +
-    "          <button class=\"btn btn-link pull-right\" data-ng-if=\"holding.data.about.offers.length > 1\" data-ng-click=\"deleteOffer(holding, $index)\"><i class=\"fa fa-trash-o\"></i> Radera lokalsignum</button>\n" +
+    "          <button class=\"btn btn-link pull-right\" data-ng-if=\"holding.data.about.offers.length > 1\" data-ng-click=\"deleteOffer(holding, $index)\"><i class=\"fa fa-trash-o\"></i> {{ \"Radera lokalsignum\" }}</button>\n" +
     "        </div>\n" +
     "      </div>\n" +
     "    </section>\n" +
     "  </form>\n" +
     "\n" +
-    "  <hrdata-ng-show=\"holding\">\n" +
+    "  <hr data-ng-show=\"holding\">\n" +
     "\n" +
-    "  <div class=\"alert alert-success\" role=\"alert\" data-ng-show=\"!holding\">\n" +
+    "  <div class=\"alert alert-success\" role=\"alert\" data-ng-show=\"holdingRemoved\">\n" +
     "    {{ \"Beståndet raderat\" }}\n" +
     "  </div>\n" +
     "  \n" +
@@ -324,19 +324,19 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  </div>\n" +
     "\n" +
     "  <div>\n" +
-    "    <button class=\"btn btn-flat btn-purple-light\" data-ng-click=\"addOffer(holding)\" data-ng-show=\"holding\"><i class=\"fa fa-plus\"></i> Lägg till lokalsignum</button>\n" +
+    "    <button class=\"btn btn-flat btn-purple-light\" data-ng-click=\"addOffer(holding)\" data-ng-show=\"holding\"><i class=\"fa fa-plus\"></i> {{ \"Lägg till lokalsignum\" }}</button>\n" +
     "  </div>\n" +
     "\n" +
     "</div>\n" +
     "\n" +
     "<div class=\"modal-footer holdings submit\">\n" +
     "  <div class=\"status pull-left\">\n" +
-    "    <div data-ng-if=\"modifications.saved\">Inga osparade ändringar.</div>\n" +
-    "    <div data-ng-if=\"!modifications.saved\">Du har inte sparat dina ändringar.</div>\n" +
+    "    <div data-ng-if=\"modifications.saved\">{{ \"Inga osparade ändringar.\" }}</div>\n" +
+    "    <div data-ng-if=\"!modifications.saved\">{{ \"Du har inte sparat dina ändringar.\" }}</div>\n" +
     "  </div>\n" +
-    "  <button class=\"btn-link\" id=\"delete-hld\" data-ng-click=\"deleteHolding(holding)\" data-ng-show=\"holding.data['@id']\"><i class=\"fa fa-trash-o\"></i> Radera bestånd</button>\n" +
-    "  <button class=\"btn btn-purple btn-submit\" id=\"save-hld\" data-ng-click=\"saveHolding(holding)\" data-ng-show=\"holding\">Spara bestånd</button>\n" +
-    "  <button class=\"btn btn-purple btn-submit\" id=\"save-hld\" data-ng-click=\"close()\" data-ng-show=\"!holding\">Stäng</button>\n" +
+    "  <button class=\"btn-link\" id=\"delete-hld\" data-ng-click=\"deleteHolding(holding)\" data-ng-show=\"holding.data['@id']\"><i class=\"fa fa-trash-o\"></i> {{ \"Radera bestånd\" }}</button>\n" +
+    "  <button class=\"btn btn-purple btn-submit\" id=\"save-hld\" data-ng-click=\"saveHolding(holding)\" data-ng-show=\"holding\">{{ \"Spara bestånd\" }}</button>\n" +
+    "  <button class=\"btn btn-purple btn-submit\" id=\"save-hld\" data-ng-click=\"close()\" data-ng-show=\"!holding\">{{ \"Stäng\" }}</button>\n" +
     "</div>"
   );
 
