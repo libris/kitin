@@ -11,7 +11,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/comment-row-template',
     "<td>\n" +
     "  <div class=\"label\">\n" +
-    "    <textarea ng-model=\"objects[$index]\" data-ui-jq=\"autosize\" data-inplace class=\"ng-pristine ng-valid\" type=\"text\"></textarea>\n" +
+    "    <textarea ng-model=\"objects[$index]\" data-ui-jq=\"autosize\" data-track-change type=\"text\"></textarea>\n" +
     "  </div>\n" +
     "</td>\n" +
     "<td class=\"controls\">\n" +
@@ -33,22 +33,22 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/general-identifier-row-template',
     "<td>\n" +
     "  <div class=\"label\">\n" +
-    "    <input ng-model=\"object['identifierValue']\" data-inplace class=\"ng-pristine ng-valid\" type=\"text\" />\n" +
+    "    <input ng-model=\"object['identifierValue']\" data-track-change type=\"text\" />\n" +
     "  </div>\n" +
     "</td>\n" +
     "<td>\n" +
     "  <div class=\"label\">\n" +
-    "    <input ng-model=\"object['identifierNote']\" data-inplace class=\"ng-pristine ng-valid\" type=\"text\" />\n" +
+    "    <input ng-model=\"object['identifierNote']\" data-track-change type=\"text\" />\n" +
     "  </div>\n" +
     "</td>\n" +
     "<td>\n" +
     "  <div class=\"label\">\n" +
-    "    <input ng-model=\"object['identifierScheme']['@id']\" data-inplace class=\"ng-pristine ng-valid\" type=\"text\" />\n" +
+    "    <input ng-model=\"object['identifierScheme']['@id']\" data-track-change type=\"text\" />\n" +
     "  </div>\n" +
     "</td>\n" +
     "<td>\n" +
     "  <div class=\"label\">\n" +
-    "    <input ng-model=\"object['identifierStatus']\" data-inplace class=\"ng-pristine ng-valid\" type=\"text\" />\n" +
+    "    <input ng-model=\"object['identifierStatus']\" data-track-change type=\"text\" />\n" +
     "  </div>\n" +
     "</td>\n" +
     "<td class=\"controls\">\n" +
@@ -111,7 +111,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/influentialRelation-row-template',
     "<td>\n" +
     "  <div class=\"label\">\n" +
-    "    <textarea ng-model=\"objects[$index].uniformTitle\" data-inplace class=\"ng-pristine ng-valid\" type=\"text\"></textarea>\n" +
+    "    <textarea ng-model=\"objects[$index].uniformTitle\" data-track-change type=\"text\"></textarea>\n" +
     "  </div>\n" +
     "</td>\n" +
     "<td class=\"controls\">\n" +
@@ -140,12 +140,12 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/isbn-row-template',
     "<td>\n" +
     "  <div class=\"label\">\n" +
-    "    <input data-inplace type=\"text\" data-inplace name=\"isbn_name\" data-ng-model=\"object['identifierValue']\" data-isbn-pattern=\"^$|^[0-9-xX]*$\" isbnvalidator/>\n" +
+    "    <input data-track-change type=\"text\" data-track-change name=\"isbn_name\" data-ng-model=\"object['identifierValue']\" data-isbn-pattern=\"^$|^[0-9-xX]*$\" isbnvalidator/>\n" +
     "  </div>\n" +
     "</td>\n" +
     "<td>\n" +
     "  <div class=\"label\">\n" +
-    "    <input data-inplace ng-model=\"object['identifierNote']\" data-inplace class=\"ng-pristine ng-valid\" type=\"text\" />\n" +
+    "    <input data-track-change ng-model=\"object['identifierNote']\" data-track-change type=\"text\" />\n" +
     "  </div>\n" +
     "</td>\n" +
     "<td class=\"controls\">\n" +
@@ -165,12 +165,12 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/issn-row-template',
     "<td>\n" +
     "  <div class=\"label\">\n" +
-    "    <input ng-model=\"object['identifierValue']\" data-inplace class=\"ng-pristine ng-valid\" type=\"text\" />\n" +
+    "    <input ng-model=\"object['identifierValue']\" data-track-change type=\"text\" />\n" +
     "  </div>\n" +
     "</td>\n" +
     "<td>\n" +
     "  <div class=\"label\">\n" +
-    "    <input ng-model=\"object['identifierNote']\" data-inplace class=\"ng-pristine ng-valid\" type=\"text\" />\n" +
+    "    <input ng-model=\"object['identifierNote']\" data-track-change type=\"text\" />\n" +
     "  </div>\n" +
     "</td>\n" +
     "<td class=\"controls\">\n" +
@@ -191,7 +191,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/languageNote-row-template',
     "<td>\n" +
     "  <div class=\"label\">\n" +
-    "    <textarea ng-model=\"objects[$index]\" data-inplace class=\"ng-pristine ng-valid\" type=\"text\"></textarea>\n" +
+    "    <textarea ng-model=\"objects[$index]\" data-track-change type=\"text\"></textarea>\n" +
     "  </div>\n" +
     "</td>\n" +
     "<td class=\"controls\">\n" +
@@ -269,37 +269,37 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "        <div class=\"col6\">\n" +
     "          <div class=\"label\">\n" +
     "            <span class=\"lbl\" translate>LABEL.holding.about.offers.shelfLocation</span>\n" +
-    "            <input data-inplace type=\"text\" data-ng-model=\"offer.shelfLocation\"/>\n" +
+    "            <input data-track-change type=\"text\" data-ng-model=\"offer.shelfLocation\"/>\n" +
     "          </div>\n" +
     "          <div class=\"label\">\n" +
     "            <span class=\"lbl\" translate>LABEL.holding.about.offers.classificationPart</span>\n" +
-    "            <input data-inplace type=\"text\" data-ng-model=\"offer.classificationPart\"/>\n" +
+    "            <input data-track-change type=\"text\" data-ng-model=\"offer.classificationPart\"/>\n" +
     "          </div>\n" +
     "          <div class=\"label\">\n" +
     "            <span class=\"lbl\" translate>LABEL.holding.about.offers.shelfControlNumber</span>\n" +
-    "            <input data-inplace type=\"text\" data-ng-model=\"offer.shelfControlNumber\"/>\n" +
+    "            <input data-track-change type=\"text\" data-ng-model=\"offer.shelfControlNumber\"/>\n" +
     "          </div>\n" +
     "          <div class=\"label\">\n" +
     "            <span class=\"lbl\" translate>LABEL.holding.about.offers.shelfLabel</span>\n" +
-    "            <input data-inplace type=\"text\" data-ng-model=\"offer.shelfLabel\"/>\n" +
+    "            <input data-track-change type=\"text\" data-ng-model=\"offer.shelfLabel\"/>\n" +
     "          </div>\n" +
     "        </div>\n" +
     "        <div class=\"col6\">\n" +
     "          <div class=\"label\">\n" +
     "            <span class=\"lbl\" translate>LABEL.holding.about.offers.availability</span>\n" +
-    "            <input data-inplace type=\"text\" data-ng-model=\"offer.availability\"/>\n" +
+    "            <input data-track-change type=\"text\" data-ng-model=\"offer.availability\"/>\n" +
     "          </div>\n" +
     "          <div class=\"label\">\n" +
     "            <span class=\"lbl\" translate>LABEL.holding.about.offers.copyNumber</span>\n" +
-    "            <input data-inplace type=\"text\" data-ng-model=\"offer.copyNumber\"/>\n" +
+    "            <input data-track-change type=\"text\" data-ng-model=\"offer.copyNumber\"/>\n" +
     "          </div>\n" +
     "          <div class=\"label\">\n" +
     "            <span class=\"lbl\" translate>LABEL.holding.about.offers.copyNote</span>\n" +
-    "            <textarea data-inplace data-ui-jq=\"autosize\" spellcheck=\"false\" data-ng-model=\"offer.copyNote\"></textarea>\n" +
+    "            <textarea data-track-change data-ui-jq=\"autosize\" spellcheck=\"false\" data-ng-model=\"offer.copyNote\"></textarea>\n" +
     "          </div>\n" +
     "          <div class=\"label\">\n" +
     "            <span class=\"lbl\" translate>LABEL.holding.about.offers.editorialNote</span>\n" +
-    "            <textarea data-inplace data-ui-jq=\"autosize\" spellcheck=\"false\" data-ng-model=\"offer.editorialNote\"></textarea>\n" +
+    "            <textarea data-track-change data-ui-jq=\"autosize\" spellcheck=\"false\" data-ng-model=\"offer.editorialNote\"></textarea>\n" +
     "          </div>\n" +
     "        </div>\n" +
     "        <div class=\"col12\">\n" +
@@ -495,7 +495,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "      <span class=\"toggler\">  \n" +
     "        <span class=\"search-field\">\n" +
     "          <i class=\"fa fa-search\"></i>\n" +
-    "          <input ng-blur=\"onblur($event)\" data-inplace class=\"input-large authdependant embedded\" type=\"text\"\n" +
+    "          <input ng-blur=\"onblur($event)\" data-track-change class=\"input-large authdependant embedded\" type=\"text\"\n" +
     "            placeholder=\"Sök {{ label }}\"\n" +
     "            data-kitin-search-entity\n" +
     "            data-make-reference-on-item-select=\"true\"\n" +
@@ -548,7 +548,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('/snippets/render-generic-non-auth-add',
-    "<input data-inplace class=\"input-large authdependant embedded\" type=\"text\"\n" +
+    "<input data-track-change class=\"input-large authdependant embedded\" type=\"text\"\n" +
     "  placeholder=\"Lägg till\"\n" +
     "  data-kitin-search-entity\n" +
     "  data-completion-template-id=\"non-auth-completion-template\"\n" +
@@ -651,9 +651,10 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  </span>\n" +
     "</div>\n" +
     "<div data-ng-repeat=\"key in jsonLdKeys(object)\"\n" +
-    "     data-ng-init=\"obj = object[key]\" data-ng-if=\"key[0] != '@'\">\n" +
-    "  <ng:switch on=\"typeOf(obj)\">\n" +
+    "     data-ng-if=\"key[0] != '@'\">\n" +
+    "  <ng:switch on=\"typeOf(object[key])\">\n" +
     "    <div data-ng-switch-when=\"object\"\n" +
+    "         data-ng-init=\"obj = object[key]\"\n" +
     "         data-ng-init=\"collapsed = (key == '_marcUncompleted')\"\n" +
     "         data-ng-class=\"{collapsed: collapsed, array: lodash.isArray(obj)}\">\n" +
     "      <div class=\"label\" class=\"entitylink\">\n" +
@@ -667,8 +668,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    </div>\n" +
     "    <span data-ng-switch-when=\"string\">\n" +
     "      <code data-ng-click=\"openTermDef(key)\">{{ key }}</code>\n" +
-    "      <input data-ng-if=\"!linked\" data-ng-model=\"obj\" type=\"text\" />\n" +
-    "      <span data-ng-if=\"linked\">{{ obj }}</span>\n" +
+    "      <input data-ng-if=\"!linked\" data-ng-model=\"object[key]\" type=\"text\" />\n" +
+    "      <span data-ng-if=\"linked\">{{ object[key] }}</span>\n" +
     "    </span>\n" +
     "  </ng:switch>\n" +
     "</div>"
@@ -714,25 +715,25 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <a class=\"delete\" href=\"#\" data-ng-click=\"doRemove($index)\"><i class=\"fa fa-times\"></i></a>\n" +
     "    <div class=\"label\">\n" +
     "      <span class=\"lbl\">{{ \"Förnamn\" }}</span>\n" +
-    "      <input data-inplace class=\"\" type=\"text\" placeholder=\"Förnamn\"\n" +
+    "      <input data-track-change class=\"\" type=\"text\" placeholder=\"Förnamn\"\n" +
     "             data-ng-model=\"object.givenName\" />\n" +
     "    </div>\n" +
     "    <div class=\"label\">\n" +
     "      <span class=\"lbl\">{{ \"Släktnamn\" }}</span>\n" +
-    "      <input data-inplace class=\"\" type=\"text\" placeholder=\"Släktnamn\"\n" +
+    "      <input data-track-change class=\"\" type=\"text\" placeholder=\"Släktnamn\"\n" +
     "             data-ng-model=\"object.familyName\" />\n" +
     "    </div>\n" +
     "  </div>\n" +
     "  <div data-ng-show=\"editable.on\">\n" +
     "    <div class=\"label\">\n" +
     "      <span class=\"lbl\">{{ \"Född\" }}</span>\n" +
-    "      <input data-inplace class=\"authdependant\" type=\"text\" placeholder=\"ÅÅÅÅ\"\n" +
+    "      <input data-track-change class=\"authdependant\" type=\"text\" placeholder=\"ÅÅÅÅ\"\n" +
     "             data-ng-model=\"object.birthYear\" />\n" +
     "\n" +
     "    </div>\n" +
     "    <div class=\"label\">\n" +
     "      <span class=\"lbl\">{{ \"Död\" }}</span>\n" +
-    "      <input data-inplace class=\"authdependant\" type=\"text\" placeholder=\"ÅÅÅÅ\" \n" +
+    "      <input data-track-change class=\"authdependant\" type=\"text\" placeholder=\"ÅÅÅÅ\" \n" +
     "             data-ng-model=\"object.deathYear\" />\n" +
     "    </div>\n" +
     "    <!--\n" +
@@ -782,7 +783,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  </div>\n" +
     "  <div class=\"notes\">\n" +
     "    <span class=\"lbl\" translate>LABEL.record.about.relation.linkNote</span>\n" +
-    "    <input data-inplace class=\"ng-pristine ng-valid\" type=\"text\" ng-model=\"object.linkNote\" />\n" +
+    "    <input data-track-change type=\"text\" ng-model=\"object.linkNote\" />\n" +
     "  </div>\n" +
     "  <a data-ng-if=\"!editable.on\" class=\"delete\" href=\"#\"\n" +
     "     data-ng-click=\"doRemove($index)\"><i class=\"fa fa-times\"></i></a>\n" +
@@ -829,7 +830,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
   $templateCache.put('/snippets/render-search-country',
     "<i class=\"fa fa-search\"></i>\n" +
-    "<input data-inplace class=\"input-large authdependant embedded\" type=\"text\"\n" +
+    "<input data-track-change class=\"input-large authdependant embedded\" type=\"text\"\n" +
     "        placeholder=\"Lägg till land\"\n" +
     "        data-no-value=\"{{ object.prefLabel }} ({{ object.notation }})\"\n" +
     "        data-kitin-search-entity\n" +
@@ -844,7 +845,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  <span class=\"add-link\" ng-click=\"onclick($event)\"><i class=\"fa fa-plus\"></i></span>\n" +
     "  <span class=\"search-field toggler\">\n" +
     "    <i class=\"fa fa-search\"></i>\n" +
-    "    <input data-inplace class=\"input-large authdependant embedded\" type=\"text\" ng-blur=\"onblur($event)\"\n" +
+    "    <input data-track-change class=\"input-large authdependant embedded\" type=\"text\" ng-blur=\"onblur($event)\"\n" +
     "      data-no-value=\"{{ object.prefLabel }} ({{ object.langCode }})\"\n" +
     "      data-kitin-search-entity\n" +
     "      data-service-url=\"{{API_PATH}}/def/_search\"\n" +
@@ -860,7 +861,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  <span class=\"add-link\" data-ng-click=\"onclick($event)\"><i class=\"fa fa-plus\"></i> Lägg till roll</span>\n" +
     "  <span class=\"search-field toggler\">\n" +
     "    <i class=\"fa fa-search\"></i>\n" +
-    "    <input data-inplace type=\"text\" placeholder=\"Sök roller\" ng-blur=\"onblur($event)\"\n" +
+    "    <input data-track-change type=\"text\" placeholder=\"Sök roller\" ng-blur=\"onblur($event)\"\n" +
     "          data-service-url=\"{{API_PATH}}/relator/_search\"\n" +
     "          data-kitin-search-entity\n" +
     "          data-completion-template-id=\"select-role-template\"\n" +
@@ -966,12 +967,12 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "        <tr data-ng-repeat=\"source in record.source track by $index\" class=\"\">\n" +
     "          <td>\n" +
     "            <div class=\"label\">\n" +
-    "              <input data-inplace type=\"text\" data-ng-model=\"source.label\"/>\n" +
+    "              <input data-track-change type=\"text\" data-ng-model=\"source.label\"/>\n" +
     "            </div>\n" +
     "          </td>\n" +
     "          <td class=\"last\">\n" +
     "            <div class=\"label\">\n" +
-    "              <input data-inplace type=\"text\" data-ng-model=\"source.citation\"/>\n" +
+    "              <input data-track-change type=\"text\" data-ng-model=\"source.citation\"/>\n" +
     "            </div>\n" +
     "          </td>\n" +
     "          <td class=\"controls\">\n" +

@@ -76,11 +76,13 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
       convertToMarc: function(data) {
         var deferer = $q.defer();
         editService.undecorate(data).then(function(undecoratedRecord) {
-          $http.post($rootScope.API_PATH + '/_format?to=application\/x-marc-json', undecoratedRecord, {
+          $http.post($rootScope.WRITE_API_PATH + '/_format?to=application\/x-marc-json', undecoratedRecord
+          /*{ !TODO change to API_PATH and add header when authentication is implemented in whelk
             headers: {
               'Content-Type': 'application/ld+json'
             }
-          }).success(function(data, status, headers) {
+          }*/
+          ).success(function(data, status, headers) {
             deferer.resolve(data);
           });
         });

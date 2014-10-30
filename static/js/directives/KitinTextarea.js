@@ -12,7 +12,7 @@ kitin.directive('kitinTextarea', function(editService, $rootScope){
       //TODO, move into snippet?
       template: '<div class="label" ng-hide="shouldHide(model, options)">' + 
                   '<span class="lbl">{{title  | translate}}</span>' +
-                  '<span class="inp"><textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="model"></textarea></span>' +
+                  '<span class="inp"><textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="model"></textarea></span>' +
                 '</div>',
       controller: function($scope, $rootScope, $attrs) {
 

@@ -14,6 +14,12 @@
             "about.titleVariation.partNumber": "Delbeteckning",
             "about.titleVariation.partTitle": "Deltitel",
 
+            "about.previousTitle.titleValue": "Tidigare titel",
+            "about.previousTitle.subtitle": "Övrig titelinformation",           
+            "about.previousTitle.titleDate": "Täcknings- eller tillkomsttid",
+            "about.previousTitle.partNumber": "Delbeteckning",
+            "about.previousTitle.partTitle": "Deltitel",
+                                                		
             "about.translatedTitle.titleValue": "Översatt/Normaliserad titel",
             "about.translatedTitle.subtitle": "Övrig titelinformation",
             "about.translatedTitle.titleDate": "Täcknings- eller tillkomsttid",

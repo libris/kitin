@@ -7,9 +7,10 @@
   </span>
 </div>
 <div data-ng-repeat="key in jsonLdKeys(object)"
-     data-ng-init="obj = object[key]" data-ng-if="key[0] != '@'">
-  <ng:switch on="typeOf(obj)">
+     data-ng-if="key[0] != '@'">
+  <ng:switch on="typeOf(object[key])">
     <div data-ng-switch-when="object"
+         data-ng-init="obj = object[key]"
          data-ng-init="collapsed = (key == '_marcUncompleted')"
          data-ng-class="{collapsed: collapsed, array: lodash.isArray(obj)}">
       <div class="label" class="entitylink">
@@ -23,8 +24,8 @@
     </div>
     <span data-ng-switch-when="string">
       <code data-ng-click="openTermDef(key)">{{ key }}</code>
-      <input data-ng-if="!linked" data-ng-model="obj" type="text" />
-      <span data-ng-if="linked">{{ obj }}</span>
+      <input data-ng-if="!linked" data-ng-model="object[key]" type="text" />
+      <span data-ng-if="linked">{{ object[key] }}</span>
     </span>
   </ng:switch>
 </div>

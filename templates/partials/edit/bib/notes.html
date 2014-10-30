@@ -20,7 +20,7 @@
   <script type="text/ng-template" id="/snippets/comment-row-template">
     <td>
       <div class="label">
-        <textarea ng-model="objects[$index]" data-ui-jq="autosize" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
+        <textarea ng-model="objects[$index]" data-ui-jq="autosize" data-track-change type="text"></textarea>
       </div>
     </td>
     <td class="controls">
@@ -48,7 +48,7 @@
       <td><span class="lbl" translate>LABEL.record.about.listOfContents</span></td>
     </script>
     <script type="text/ng-template" id="/snippets/listOfContents-row-template">
-      <td><div class="label"><input ng-model="object" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object" data-track-change type="text" /></div></td>
       <td class="controls">
         <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
       </td>
@@ -73,7 +73,7 @@
       <td><span class="lbl" translate>LABEL.record.about.performerNote</span></td>
     </script>
     <script type="text/ng-template" id="/snippets/performerNote-row-template">
-      <td><div class="label"><input ng-model="object" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object" data-track-change type="text" /></div></td>
       <td class="controls">
         <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
       </td>
@@ -83,12 +83,12 @@
 
   <div class="label" data-ng-show="record.about.contributorNote">
     <span class="lbl" translate>LABEL.record.about.contributorNote</span>
-    <textarea data-inplace data-ui-jq="autosize" class="ng-pristine ng-valid" data-ng-model="record.about.contributorNote" ></textarea>
+    <textarea data-track-change data-ui-jq="autosize" data-ng-model="record.about.contributorNote" ></textarea>
   </div>
 
   <div class="label">
     <span class="lbl" translate>LABEL.record.sourceNote</span>
-    <textarea data-inplace data-ui-jq="autosize" class="ng-pristine ng-valid" data-ng-model="record.sourceNote" ></textarea>
+    <textarea data-track-change data-ui-jq="autosize" data-ng-model="record.sourceNote" ></textarea>
   </div>
 
 
@@ -113,7 +113,7 @@
   <script type="text/ng-template" id="/snippets/systemRequirements-row-template">
     <td>
       <div class="label">
-        <textarea ng-model="objects[$index]" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
+        <textarea ng-model="objects[$index]" data-track-change type="text"></textarea>
       </div>
     </td>
     <td class="controls">
@@ -143,7 +143,7 @@
       <td><span class="lbl" translate>LABEL.record.about.summary</span></td>
     </script>
     <script type="text/ng-template" id="/snippets/summary-row-template">
-      <td><div class="label"><textarea data-ui-jq="autosize" ng-model="object" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><textarea data-ui-jq="autosize" ng-model="object" data-track-change type="text" /></div></td>
       <td class="controls">
         <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
       </td>
@@ -154,11 +154,11 @@
   <!-- IS PRIMARY TOPIC OF  START -->
   <div class="label" data-ng-repeat="topic in record.about.isPrimaryTopicOf">
       <span class="lbl" translate>{{ "isPrimaryTopicOf type: " + topic['@type'] }}</span>
-    <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" data-ng-model="topic['@id']" ></textarea>
+    <textarea data-track-change data-ui-jq="autosize" data-ng-model="topic['@id']" ></textarea>
   </div>
   <div class="label" data-ng-repeat="topic in record.about.isPrimaryTopicOf">
       <span class="lbl" translate>LABEL.record.about.isPrimaryTopicOf</span>
-    <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" data-ng-model="topic.comment" ></textarea>
+    <textarea data-track-change data-ui-jq="autosize" data-ng-model="topic.comment" ></textarea>
   </div>
   <!-- IS PRIMARY TOPIC OF  END -->
 
@@ -178,7 +178,7 @@
 
   <div class="label">
       <span class="lbl" translate>LABEL.record.about.note</span>
-    <textarea data-inplace class="ng-pristine ng-valid" data-ui-jq="autosize" data-ng-model="record.about.note" ></textarea>
+    <textarea data-track-change data-ui-jq="autosize" data-ng-model="record.about.note" ></textarea>
   </div>
   
   <!-- HAS ANNOTATION  START -->
@@ -203,27 +203,27 @@
   <script type="text/ng-template" id="/snippets/hasAnnotation-row-template">
     <td>
       <div class="label">
-        <textarea ng-model="object['note']" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
+        <textarea ng-model="object['note']" data-track-change type="text"></textarea>
       </div>
     </td>
     <td>
       <div class="label">
-        <textarea ng-model="object['degree']" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
+        <textarea ng-model="object['degree']" data-track-change type="text"></textarea>
       </div>
     </td>
     <td>
       <div class="label">
-        <textarea ng-model="object['location']" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
+        <textarea ng-model="object['location']" data-track-change type="text"></textarea>
       </div>
     </td>
     <td>
       <div class="label">
-        <textarea ng-model="object['date']" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
+        <textarea ng-model="object['date']" data-track-change type="text"></textarea>
       </div>
     </td>
     <td>
       <div class="label">
-        <textarea ng-model="object['comment']" data-inplace class="ng-pristine ng-valid" type="text"></textarea>
+        <textarea ng-model="object['comment']" data-track-change type="text"></textarea>
       </div>
     </td>
     <td class="controls">

@@ -20,25 +20,25 @@
     <a class="delete" href="#" data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a>
     <div class="label">
       <span class="lbl">{{ "Förnamn" }}</span>
-      <input data-inplace class="" type="text" placeholder="Förnamn"
+      <input data-track-change class="" type="text" placeholder="Förnamn"
              data-ng-model="object.givenName" />
     </div>
     <div class="label">
       <span class="lbl">{{ "Släktnamn" }}</span>
-      <input data-inplace class="" type="text" placeholder="Släktnamn"
+      <input data-track-change class="" type="text" placeholder="Släktnamn"
              data-ng-model="object.familyName" />
     </div>
   </div>
   <div data-ng-show="editable.on">
     <div class="label">
       <span class="lbl">{{ "Född" }}</span>
-      <input data-inplace class="authdependant" type="text" placeholder="ÅÅÅÅ"
+      <input data-track-change class="authdependant" type="text" placeholder="ÅÅÅÅ"
              data-ng-model="object.birthYear" />
 
     </div>
     <div class="label">
       <span class="lbl">{{ "Död" }}</span>
-      <input data-inplace class="authdependant" type="text" placeholder="ÅÅÅÅ" 
+      <input data-track-change class="authdependant" type="text" placeholder="ÅÅÅÅ" 
              data-ng-model="object.deathYear" />
     </div>
     <!--

@@ -38,6 +38,7 @@
           <div class="col-md-4 label">
             <span class="lbl" translate>LABEL.record.about.encLevel</span>
             <ul class="tags" data-kitin-link-entity
+                data-track-change
                 data-subject="record.about"
                 data-link="'encLevel'" data-type="EncLevel"
                 data-view-template="/snippets/render-generic-linked-entity"
@@ -48,6 +49,7 @@
           <div class="col-md-4 label">
             <span class="lbl" translate>LABEL.record.about.characterCoding</span>
             <ul class="tags" data-kitin-link-entity
+                data-track-change
                 data-subject="record.about"
                 data-link="'characterCoding'" data-type="CharacterCoding"
                 data-view-template="/snippets/render-generic-linked-entity"
@@ -58,6 +60,7 @@
           <div class="col-md-4 label">
             <span class="lbl" translate>LABEL.record.about.status</span>
             <ul class="tags" data-kitin-link-entity
+                data-track-change
                 data-subject="record.about"
                 data-link="'status'" data-type="status"
                 data-view-template="/snippets/render-generic-linked-entity"
@@ -70,6 +73,7 @@
           <div class="col-md-4 label">
             <span class="lbl" translate>LABEL.record.about.catForm</span>
             <ul class="tags" data-kitin-link-entity
+                data-track-change
                 data-subject="record.about"
                 data-link="'catForm'" data-type="catForm"
                 data-view-template="/snippets/render-generic-linked-entity"
@@ -80,16 +84,16 @@
           <div class="col-md-4 label">
             <span class="lbl">Tillhör bibliografi</span>
             <span data-ng-repeat="bibliographyCode in record.bibliographyCode">
-              <input data-ng-model="bibliographyCode" />
+              <input data-track-change data-ng-model="bibliographyCode" />
             </span>
           </div>
           <div class="col-md-4 label">
             <span class="lbl" translate>LABEL.record.sourceNote</span>
-            <textarea data-inplace data-ui-jq="autosize" class="ng-pristine ng-valid" data-ng-model="record.sourceNote" ></textarea>
+            <textarea data-track-change data-ui-jq="autosize" data-ng-model="record.sourceNote" ></textarea>
           </div>
           <div class="label">
               <span class="lbl" translate>LABEL.record.about.technicalNote</span>
-              <textarea data-inplace data-ui-jq="autosize" spellcheck="false"
+              <textarea data-track-change data-ui-jq="autosize" spellcheck="false"
                 data-ng-model="record.about.technicalNote" ></textarea>
           </div>
         </div>

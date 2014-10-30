@@ -54,6 +54,8 @@ kitin.directive('kitinDataTable', function() {
 
       $scope.removeTableRow = function(index) {
         $scope.removeObject($scope.$eval($attrs.tableModel), null, index);
+        //$scope.triggerModified();
+        $scope.$emit('changed', ['Removed table row', index]);
       };
 
     }

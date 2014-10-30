@@ -16,14 +16,15 @@
           <div data-ng-include="'/snippets/holdings-button'" data-ng-init="recordId = record.about['@id']"></div>
         </div>
         <div class="col-md-2">
-          <div></div>
         </div>
         <div class="col-md-8">  
           <a data-ng-controller="ModalCtrl" data-ng-click="openMARCModal($event, record)">Förhandsgranska MARC</a> | 
           <span data-ng-show="record.modified" class="bib-edit-modified">{{record.draft ? 'Sparad' : 'Publicerad'}}: {{record.modified | timeAgo:60*60*24}} | </span>
           <a id="draft" data-ng-click="saveDraft()" title="{{lastSavedLabel('Senast sparad: %s')}}">Spara utkast</a> &nbsp;
-          <a class="btn btn-dark" id="publish" data-ng-class="modifiedClasses()" data-ng-disabled="subform.$invalid" data-ng-click="publish()" title="{{lastPublishedLabel('Senast publicerad: %s')}}">Publicera</a>
-          <p class="message" data-ng-show="modifications.message">{{ modifications.message }}</p>
+          <button class="btn btn-dark" id="publish" data-ng-class="modifiedClasses()" data-ng-disabled="subform.$invalid || modifications.bib.published" data-ng-click="publish()" title="{{lastPublishedLabel('Senast publicerad: %s')}}">{{modifications.bib.published ? 'Publicerad' : 'Publicera'}} 
+          <i class="fa fa-check" data-ng-show="modifications.bib.published"></i>
+          </button>
+          <p class="message" data-ng-show="modifications.bib.message">{{ modifications.bib.message }}</p>
         </div>
       </div>
     </section>
