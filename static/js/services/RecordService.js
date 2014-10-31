@@ -17,7 +17,8 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
         var deferer = $q.defer();
           // open record
           var path = $rootScope.API_PATH + '/' + type + '/' + id;
-          $rootScope.bibPromise = $http.get(path).success(function (struct, status, headers) {
+          // $rootScope.promises is used by angular-busy to show and hide loading/saving indicators
+          $rootScope.promises.bib.loading = $http.get(path).success(function (struct, status, headers) {
             editService.decorate(struct).then(function(decoratedRecord) {
               deferer.resolve({
                 recdata: decoratedRecord,
@@ -38,7 +39,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
         delete recordDataCopy['new'];
         delete recordDataCopy['draft'];
         editService.undecorate(recordDataCopy).then(function(undecoratedRecord) {
-          $http.put($rootScope.WRITE_API_PATH + '/' + type + '/' + id, undecoratedRecord,
+          $rootScope.promises.bib.saving = $http.put($rootScope.WRITE_API_PATH + '/' + type + '/' + id, undecoratedRecord,
               {
                 headers: {"If-match":recordEtag}
               })
@@ -76,7 +77,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
       convertToMarc: function(data) {
         var deferer = $q.defer();
         editService.undecorate(data).then(function(undecoratedRecord) {
-          $http.post($rootScope.WRITE_API_PATH + '/_format?to=application\/x-marc-json', undecoratedRecord
+          $rootScope.promises.marc = $http.post($rootScope.WRITE_API_PATH + '/_format?to=application\/x-marc-json', undecoratedRecord
           /*{ !TODO change to API_PATH and add header when authentication is implemented in whelk
             headers: {
               'Content-Type': 'application/ld+json'
@@ -94,7 +95,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
       get: function (draftId, mainType, aggregateLevel) {
         var deferer = $q.defer();
         if(draftId) {
-          $rootScope.draftPromise = $http.get("/draft/" + draftId).success(function (data, status, headers) {
+          $rootScope.promises.draft.loading = $http.get("/draft/" + draftId).success(function (data, status, headers) {
             editService.decorate(data).then(function(decoratedRecord) {
               deferer.resolve({
                 recdata: data,
@@ -126,7 +127,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
         etag = etag ? etag : '';
         var draftDataCopy = angular.copy(draftData);
         editService.undecorate(draftDataCopy).then(function(undecoratedRecord) {
-          $http.put("/draft/" + [type, draftId].join('/'), undecoratedRecord, {headers: {"If-match":etag } })
+          $rootScope.promises.draft.saving = $http.put("/draft/" + [type, draftId].join('/'), undecoratedRecord, {headers: {"If-match":etag } })
             .success(function(data, status, headers) {
               editService.decorate(data).then(function(decoratedRecord) {
 
@@ -182,8 +183,8 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
         var deferer = $q.defer();
         var sigel = userData.userSigel;
         var searchPath = '/hold/_search?q=*+about.holdingFor.@id:' + recordId.replace(/\//g, '\\/') + '+about.offers.heldBy.notation:' + sigel;
-        // holdingPromise is used by angular-busy to show and hide loading indicator
-        $rootScope.holdingPromise = $http.get($rootScope.API_PATH + searchPath).success(function(data, status, headers) {
+        // $rootScope.promises is used by angular-busy to show and hide loading/saving indicators
+        $rootScope.promises.holding.loading = $http.get($rootScope.API_PATH + searchPath).success(function(data, status, headers) {
           if (data.list.length > 0) {
             var holding = data.list[0];
             recordService.holding.getEtag(holding.data['@id']).then(function(etag) {
@@ -218,7 +219,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
         var deferer = $q.defer();
         var etag = holding.etag;
         if (holding.data['@id'] && etag) {
-          $http.put($rootScope.WRITE_API_PATH + holding.data['@id'], holding.data, {headers: {'If-match': etag}}).success(function(data, status, headers) {
+          $rootScope.promises.holding.saving = $http.put($rootScope.WRITE_API_PATH + holding.data['@id'], holding.data, {headers: {'If-match': etag}}).success(function(data, status, headers) {
             if (headers('etag')) {
               holding.etag = headers('etag');
             }
@@ -228,7 +229,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
           });
         } else {
           // Holding has no ID, assume it's new
-          $http.post($rootScope.WRITE_API_PATH + '/hold', holding.data).success(function(data, status, headers) {
+          $rootScope.promises.holding.saving = $http.post($rootScope.WRITE_API_PATH + '/hold', holding.data).success(function(data, status, headers) {
             holding.data = data;
             if (headers('etag')) {
               holding.etag = headers('etag');

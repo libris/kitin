@@ -263,44 +263,45 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "</div>\n" +
     "\n" +
     "<div class=\"modal-body holdings\">\n" +
-    "  <div cg-busy=\"{promise:holdingPromise,message:'Laddar bestånd...', minDuration: 800}\"></div>\n" +
-    "  <form data-ng-show=\"holding.data['@id'] || !holding['etag']\">\n" +
+    "  <div cg-busy=\"{promise:promises.holding.loading, message:'Laddar bestånd...', minDuration: 800}\"></div>\n" +
+    "  <div cg-busy=\"{promise:promises.holding.saving, message:'Sparar bestånd...', minDuration: 800}\"></div>\n" +
+    "  <form data-ng-show=\"holding.data['@id'] || !holding['etag']\" name=\"holdingForm\">\n" +
     "    <section class=\"offer\" data-ng-repeat=\"offer in holding.data.about.offers track by $index\">\n" +
     "      <div class=\"cols\">\n" +
     "        <div class=\"col6\">\n" +
     "          <div class=\"label\">\n" +
     "            <span class=\"lbl\" translate>LABEL.holding.about.offers.shelfLocation</span>\n" +
-    "            <input data-track-change=\"holdings\" type=\"text\" data-ng-model=\"offer.shelfLocation\"/>\n" +
+    "            <input data-track-change=\"holding\" type=\"text\" data-ng-model=\"offer.shelfLocation\"/>\n" +
     "          </div>\n" +
     "          <div class=\"label\">\n" +
     "            <span class=\"lbl\" translate>LABEL.holding.about.offers.classificationPart</span>\n" +
-    "            <input data-track-change=\"holdings\" type=\"text\" data-ng-model=\"offer.classificationPart\"/>\n" +
+    "            <input data-track-change=\"holding\" type=\"text\" data-ng-model=\"offer.classificationPart\"/>\n" +
     "          </div>\n" +
     "          <div class=\"label\">\n" +
     "            <span class=\"lbl\" translate>LABEL.holding.about.offers.shelfControlNumber</span>\n" +
-    "            <input data-track-change=\"holdings\" type=\"text\" data-ng-model=\"offer.shelfControlNumber\"/>\n" +
+    "            <input data-track-change=\"holding\" type=\"text\" data-ng-model=\"offer.shelfControlNumber\"/>\n" +
     "          </div>\n" +
     "          <div class=\"label\">\n" +
     "            <span class=\"lbl\" translate>LABEL.holding.about.offers.shelfLabel</span>\n" +
-    "            <input data-track-change=\"holdings\" type=\"text\" data-ng-model=\"offer.shelfLabel\"/>\n" +
+    "            <input data-track-change=\"holding\" type=\"text\" data-ng-model=\"offer.shelfLabel\"/>\n" +
     "          </div>\n" +
     "        </div>\n" +
     "        <div class=\"col6\">\n" +
     "          <div class=\"label\">\n" +
     "            <span class=\"lbl\" translate>LABEL.holding.about.offers.availability</span>\n" +
-    "            <input data-track-change=\"holdings\" type=\"text\" data-ng-model=\"offer.availability\"/>\n" +
+    "            <input data-track-change=\"holding\" type=\"text\" data-ng-model=\"offer.availability\"/>\n" +
     "          </div>\n" +
     "          <div class=\"label\">\n" +
     "            <span class=\"lbl\" translate>LABEL.holding.about.offers.copyNumber</span>\n" +
-    "            <input data-track-change=\"holdings\" type=\"text\" data-ng-model=\"offer.copyNumber\"/>\n" +
+    "            <input data-track-change=\"holding\" type=\"text\" data-ng-model=\"offer.copyNumber\"/>\n" +
     "          </div>\n" +
     "          <div class=\"label\">\n" +
     "            <span class=\"lbl\" translate>LABEL.holding.about.offers.copyNote</span>\n" +
-    "            <textarea data-track-change=\"holdings\" data-ui-jq=\"autosize\" spellcheck=\"false\" data-ng-model=\"offer.copyNote\"></textarea>\n" +
+    "            <textarea data-track-change=\"holding\" data-ui-jq=\"autosize\" spellcheck=\"false\" data-ng-model=\"offer.copyNote\"></textarea>\n" +
     "          </div>\n" +
     "          <div class=\"label\">\n" +
     "            <span class=\"lbl\" translate>LABEL.holding.about.offers.editorialNote</span>\n" +
-    "            <textarea data-track-change=\"holdings\" data-ui-jq=\"autosize\" spellcheck=\"false\" data-ng-model=\"offer.editorialNote\"></textarea>\n" +
+    "            <textarea data-track-change=\"holding\" data-ui-jq=\"autosize\" spellcheck=\"false\" data-ng-model=\"offer.editorialNote\"></textarea>\n" +
     "          </div>\n" +
     "        </div>\n" +
     "        <div class=\"col12\">\n" +
@@ -312,7 +313,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "\n" +
     "  <hr data-ng-show=\"holding\">\n" +
     "\n" +
-    "  <div class=\"alert alert-success\" role=\"alert\" data-ng-show=\"modifications.holdings.deleted\">\n" +
+    "  <div class=\"alert alert-success\" role=\"alert\" data-ng-show=\"modifications.holding.deleted\">\n" +
     "    {{ \"Beståndet raderat\" }}\n" +
     "  </div>\n" +
     "  \n" +
@@ -332,8 +333,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "\n" +
     "<div class=\"modal-footer holdings submit\">\n" +
     "  <div class=\"status pull-left\">\n" +
-    "    <div data-ng-if=\"modifications.holdings.saved\">{{ \"Inga osparade ändringar.\" }}</div>\n" +
-    "    <div data-ng-if=\"!modifications.holdings.saved\">{{ \"Du har inte sparat dina ändringar.\" }}</div>\n" +
+    "    <div data-ng-if=\"holdingForm.$pristine\">{{ \"Inga osparade ändringar.\" }}</div>\n" +
+    "    <div data-ng-if=\"holdingForm.$dirty\">{{ \"Du har inte sparat dina ändringar.\" }}</div>\n" +
     "  </div>\n" +
     "  <button class=\"btn-link\" id=\"delete-hld\" data-ng-click=\"deleteHolding(holding)\" data-ng-show=\"holding.data['@id']\"><i class=\"fa fa-trash-o\"></i> {{ \"Radera bestånd\" }}</button>\n" +
     "  <button class=\"btn btn-purple btn-submit\" id=\"save-hld\" data-ng-click=\"saveHolding(holding)\" data-ng-show=\"holding\">{{ \"Spara bestånd\" }}</button>\n" +

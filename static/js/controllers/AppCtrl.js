@@ -10,12 +10,17 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
   // App State
   $rootScope.debug = (debug === true) || false;
 
-  // Dirtyflag
+  // Container for dirty flags
   $rootScope.modifications = {
     bib: {},
-    holdings: {}
+    holding: {}
   };
-
+  // Container for busy indicators
+  $rootScope.promises = {
+    bib: {},
+    holding: {},
+    marc: {}
+  };
 
   if ( debug === true ) {
     $rootScope.log = function(variables,event) {
@@ -31,6 +36,12 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
 
       }
     };
+    // Log stuff
+    $(document).on('keydown', function(e) {
+      if ( e.which == 192 && e.ctrlKey ) {
+        console.log($rootScope);
+      }
+    });
   }
 
   $rootScope.state = {
