@@ -1,7 +1,4 @@
-<pre>{{searchPromise}}</pre>
-
 <div data-ng-switch on="state.search.result.hits" data-ng-controller="SearchResultCtrl">
-  <div cg-busy="{promise:searchPromise,message:'Laddar sökresultat...', minDuration: 2000}"></div>
   <div class="content search" data-ng-switch-when="0">
     <div id="grid"></div>
     <header>

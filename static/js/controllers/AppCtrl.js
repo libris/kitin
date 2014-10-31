@@ -10,6 +10,13 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
   // App State
   $rootScope.debug = (debug === true) || false;
 
+  // Dirtyflag
+  $rootScope.modifications = {
+    bib: {},
+    holdings: {}
+  };
+
+
   if ( debug === true ) {
     $rootScope.log = function(variables,event) {
       if ( event ) {

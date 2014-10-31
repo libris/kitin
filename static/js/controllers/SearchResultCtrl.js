@@ -192,7 +192,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
 
   $scope.doSearch = function(url, params) {
 
-    searchService.search(url, params, $scope).then(function(data) {
+    searchService.search(url, params).then(function(data) {
       $scope.facetGroups = searchUtil.makeLinkedFacetGroups($scope.recType, data.facets, $rootScope.state.search.q, prevFacetsStr);
       $scope.crumbs = searchUtil.bakeCrumbs($scope.recType, $rootScope.state.search.q, prevFacetsStr);
       if(data && data.hits) {

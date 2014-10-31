@@ -440,7 +440,7 @@ body.edit .footer footer {
 .btn.disabled:hover,
 button[disabled=disabled],
 button:disabled {
-  background-color: #c7c7c3;
+  background-color: #adada9;
 }
 a btn {
   color: #22ba94;
@@ -2366,6 +2366,45 @@ label.find-entity input[type="text"] {
 .form-container {
   clear: both;
 }
+.form-container hr {
+  display: none;
+}
+.form-container .label {
+  position: relative;
+  border-bottom: 1px dotted #ddd;
+  margin: 0;
+  padding: 8px 0;
+}
+.form-container .label .lbl {
+  display: inline-block;
+  width: 200px;
+  padding-right: 20px;
+  text-align: left;
+  font-weight: bold;
+  vertical-align: middle;
+}
+.form-container .label .inp {
+  width: 400px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.form-container .label .inp textarea {
+  width: 100%;
+}
+.form-container .group {
+  border-top: 1px solid #ccc;
+}
+.form-container .group .label {
+  width: 600px;
+}
+.form-container .group .lbl {
+  font-weight: normal;
+  padding-left: 20px;
+}
+.form-container .group .group-title .lbl {
+  padding-left: 0;
+  font-weight: bold;
+}
 .edit .col6 .entity .embedded input {
   width: 456px;
 }
@@ -2604,7 +2643,7 @@ input[type="text"] :-moz-placeholder {
 .label select,
 .fakeinput {
   font-size: 15px;
-  padding: 0 5px 0 5px;
+  padding: 3px 5px;
   height: 25px;
   border-radius: 2px;
 }
@@ -2673,12 +2712,10 @@ input[type="text"] :-moz-placeholder {
 }
 .lbl {
   display: block;
-  font-size: 10px;
-  color: #666664;
+  font-size: 13px;
+  color: #191913;
   margin-bottom: 0;
   line-height: 16px;
-  text-transform: uppercase;
-  letter-spacing: .5px;
 }
 .lbl-suggest {
   display: block;
@@ -2740,6 +2777,8 @@ span.error-message {
   top: 3px;
 }
 /* EDIT FORM END ------------------------- */
+/* EDIT FORM DEBUG CLASSES  ---------------------------- */
+/* EDIT FORM DEBUG CLASSES END ------------------------- */
 /* HOLDINGS START ------------------------- */
 .holdings .lbl {
   color: #683568;

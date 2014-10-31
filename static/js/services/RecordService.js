@@ -17,7 +17,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
         var deferer = $q.defer();
           // open record
           var path = $rootScope.API_PATH + '/' + type + '/' + id;
-          $http.get(path).success(function (struct, status, headers) {
+          $rootScope.bibPromise = $http.get(path).success(function (struct, status, headers) {
             editService.decorate(struct).then(function(decoratedRecord) {
               deferer.resolve({
                 recdata: decoratedRecord,
@@ -94,7 +94,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
       get: function (draftId, mainType, aggregateLevel) {
         var deferer = $q.defer();
         if(draftId) {
-          $http.get("/draft/" + draftId).success(function (data, status, headers) {
+          $rootScope.draftPromise = $http.get("/draft/" + draftId).success(function (data, status, headers) {
             editService.decorate(data).then(function(decoratedRecord) {
               deferer.resolve({
                 recdata: data,

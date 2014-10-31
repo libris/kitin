@@ -3,9 +3,10 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   $scope.recordId = recordId;
   $scope.userData = userData;
 
-  $scope.modifications = {
+   $rootScope.modifications.holdings = {
     saved: true,
-    published: true
+    published: true,
+    deleted: false
   };
 
   var isNew = false;
@@ -28,8 +29,8 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   // We are using these functions in several places,
   // maybe create a service?
   function onSave(holding) {
-    $scope.modifications.saved = true;
-    $scope.modifications.published = true;
+    $rootScope.modifications.holdings.saved = true;
+    $rootScope.modifications.holdings.published = true;
     
     var currentRecord = getCurrentRecord();
     currentRecord.holdings.holding = holding;
@@ -39,22 +40,21 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     }
   }
 
-
   // We are using these functions in several places,
   // maybe create a service?
   function onDelete(holding) {
-    $scope.modifications.saved = true;
-    $scope.modifications.published = true;
+    $rootScope.modifications.holdings.saved = true;
+    $rootScope.modifications.holdings.published = true;
+    $rootScope.modifications.holdings.deleted = true;
 
     var currentRecord = getCurrentRecord();
     currentRecord.holdings.holding = null;
     currentRecord.holdings.hits -= 1;
   }
 
-
   $scope.triggerModified = function () {
-    $scope.modifications.saved = false;
-    $scope.modifications.published = false;
+    $rootScope.modifications.holdings.saved = false;
+    $rootScope.modifications.holdings.published = false;
   };
 
   $scope.close = function() {
@@ -64,9 +64,9 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   // HOLDING
   // 2014-10-08: To avoid confusion, all references to holding_s_ have been removed. 
   // There can only be one holding per sigel. There can, however, be multiple offers per holding.
-  // If no holding is found, we create a new one.
   recordService.holding.get(recordId, userData).then(function(holding) {
     if (!holding) {
+      // If no holding is found, we create a new one.
       recordService.holding.create().then(function(response) {
         isNew = true;
         holding = response;
@@ -83,7 +83,6 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   });
 
   $scope.saveHolding = function(holding) {
-
     recordService.holding.save(holding).then(function success(holding) {
       onSave(holding);
       $scope.holding = holding;

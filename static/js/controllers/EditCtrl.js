@@ -17,43 +17,38 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     return (obj && !_.isEmpty(obj['inScheme']));
   };
 
-  $scope.modifications = {
+  $rootScope.modifications.bib = {
     saved:     $scope.recType === editService.RECORD_TYPES.REMOTE ? false : true, 
     published: $scope.recType === editService.RECORD_TYPES.REMOTE ? false : true
   };
 
   function onSaveState() {
-    $scope.modifications.saved = true;
-    $scope.modifications.lastSaved = new Date();
+    $rootScope.modifications.bib.saved = true;
+    $rootScope.modifications.bib.lastSaved = new Date();
   }
   function onPublishState() {
-    $scope.modifications.saved = true;
-    $scope.modifications.published = true;
-    $scope.modifications.lastPublished = new Date();
+    $rootScope.modifications.bib.saved = true;
+    $rootScope.modifications.bib.published = true;
+    $rootScope.modifications.bib.lastPublished = new Date();
   }
 
-  $scope.triggerModified = function () {
-    $scope.modifications.saved = false;
-    $scope.modifications.published = false;
-  };
-
   $scope.modifiedClasses = function () {
-    var classes = [], mods = $scope.modifications;
+    var classes = [], mods = $rootScope.modifications.bib;
     if (mods.saved) classes.push('saved');
     if (mods.published) classes.push('published');
     return classes;
   };
 
   $scope.lastSavedLabel = function (tplt) {
-    if (!$scope.modifications.lastSaved)
+    if (!$rootScope.modifications.bib.lastSaved)
       return "";
-    return tplt.replace(/%s/, $scope.modifications.lastSaved.toLocaleString());
+    return tplt.replace(/%s/, $rootScope.modifications.bib.lastSaved.toLocaleString());
   };
 
   $scope.lastPublishedLabel = function (tplt) {
-    if (!$scope.modifications.lastPublished)
+    if (!$rootScope.modifications.bib.lastPublished)
       return "";
-    return tplt.replace(/%s/, $scope.modifications.lastPublished.toLocaleString());
+    return tplt.replace(/%s/, $rootScope.modifications.bib.lastPublished.toLocaleString());
   };
 
   $scope.promptConfirmDelete = function($event, type, id) {
@@ -126,14 +121,14 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     var obj = subj[rel] = editService.createObject(type);
   };
 
-  $scope.addObject = function(subj, rel, type) {
-    var collection = subj[rel];
-    if (typeof collection === 'undefined') {
-      collection = subj[rel] = [];
-    }
-    var obj = editService.createObject(type);
-    collection.push(obj);
-  };
+  // $scope.addObject = function(subj, rel, type) {
+  //   var collection = subj[rel];
+  //   if (typeof collection === 'undefined') {
+  //     collection = subj[rel] = [];
+  //   }
+  //   var obj = editService.createObject(type);
+  //   collection.push(obj);
+  // };
 
   $scope.addObject = function(subj, rel, type, target, subCollection) {
     var isDefined = function(collection) {
@@ -174,7 +169,8 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     if (typeof subj.onRemove === 'function') {
       subj.onRemove(rel, removed, index);
     }
-    $scope.triggerModified();
+    //$scope.triggerModified();
+    $scope.$emit('changed');
   };
 
   $scope.getLeaf = function (uri) {

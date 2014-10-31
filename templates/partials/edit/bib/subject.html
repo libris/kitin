@@ -11,6 +11,7 @@
                   search_completion_template = 'subject-completion-template';">
     <span class="lbl">{{ scheme.alternative || scheme.title || scheme.title_en }}</span>
     <ul class="tags" data-kitin-link-entity
+        data-track-change
         data-subject="record.about.subjectByInScheme" data-link-multiple="key" data-type="Concept"
         data-search-template="/snippets/search-subject"
         data-view-template="/snippets/view-subject">
@@ -25,6 +26,7 @@
                    search_completion_template = key === 'Person' ? 'auth-completion-template' : 'subject-completion-template';">
     <span class="lbl">{{ scheme.alternative || scheme.title || scheme.title_en }}</span>
     <ul class="tags" data-kitin-link-entity
+        data-track-change
         data-subject="record.about.subjectByType" data-link-multiple="key" data-type="Concept"
         data-search-template="/snippets/search-subject"
         data-view-template="/snippets/view-subject">
@@ -38,6 +40,7 @@
     <div class="col3">  
       <div class="label">
         <input type="text" placeholder="Nytt ämnesord" data-kitin-autocomplete="subject"
+            data-track-change
             data-kitin-add-to="schemeContainer"
               data-kitin-filter="{'about.subject.inScheme.notation': chosenScheme}" />
       </div>
@@ -45,7 +48,8 @@
     <div class="col3">
       <div class="label">
         <select data-ng-model="chosenScheme"
-          data-ng-options="code as (scheme.alternative || scheme.title || scheme.title_en)
+            data-track-change
+            data-ng-options="code as (scheme.alternative || scheme.title || scheme.title_en)
                            for (code, scheme) in conceptSchemes.byNotation">
         </select>
       </div>
@@ -57,11 +61,11 @@
   <h3>Klassifikationer</h3>
   <div class="label dynamic-subjects">
     <span class="lbl">Dewey</span>
-    <textarea data-inplace placeholder="Dewey Klassifikation" data-ng-model="record.about.classificationDdc"></textarea>
+    <textarea data-track-change placeholder="Dewey Klassifikation" data-ng-model="record.about.classificationDdc"></textarea>
   </div>
   <div class="label dynamic-subjects" data-ng-show="record.about.classificationNlm">
       <span class="lbl">NLM-klassifikation (National Library of Medicine)</span>
-      <textarea data-inplace placeholder="Klassifikation" data-ng-model="record.about.classificationNlm"></textarea>
+      <textarea data-track-change placeholder="Klassifikation" data-ng-model="record.about.classificationNlm"></textarea>
   </div>
   <div class="label cols" data-ng-repeat="(classificationScheme, subClassification) in record.about.classificationByInScheme">
     <h3 ng-if="subClassification.length > 0" class="ng-binding" translate>{{ classificationScheme }}</h3>
@@ -77,7 +81,7 @@
     </div>
   </div>
   <script type="text/ng-template" id="/snippets/render-search-classification">
-      <i class="fa fa-search"></i> <input data-inplace class="input-large authdependant embedded" type="text"
+      <i class="fa fa-search"></i> <input data-track-change class="input-large authdependant embedded" type="text"
             data-no-value="{{ object.notation }}"
             data-kitin-search-entity
             data-service-url="{{API_PATH}}/auth/_search"
@@ -93,6 +97,7 @@
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.nature</span>
     <div data-kitin-link-entity
+        data-track-change
         data-subject="record.about"
         data-link="'nature'"
         data-view-template="/snippets/render-generic-tag-entity"
@@ -107,6 +112,7 @@
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.literaryForm</span>
     <div data-kitin-link-entity
+        data-track-change
         data-subject="record.about"
         data-link="'literaryForm'"
         data-view-template="/snippets/render-generic-tag-entity"
@@ -122,6 +128,7 @@
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.biography</span>
     <div data-kitin-link-entity
+        data-track-change
         data-subject="record.about"
         data-link="'biography'"
         data-view-template="/snippets/render-generic-tag-entity"
@@ -136,6 +143,7 @@
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.confPub</span>
     <div data-kitin-link-entity
+        data-track-change
         data-subject="record.about"
         data-link="'confPub'"
         data-view-template="/snippets/render-generic-tag-entity"
@@ -150,6 +158,7 @@
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.festschrift</span>
     <div data-kitin-link-entity
+        data-track-change
         data-subject="record.about"
         data-link="'festschrift'"
         data-view-template="/snippets/render-generic-tag-entity"
@@ -164,6 +173,7 @@
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.audience</span>
     <ul class="tags" data-kitin-link-entity
+        data-track-change
         data-subject="record.about"
         data-link="'audience'" data-type="audience"
         data-view-template="/snippets/render-generic-linked-entity"
