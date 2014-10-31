@@ -7,7 +7,7 @@ kitin.directive('trackChange', function ($rootScope) {
       var customEvent = attrs.changeEvent || 'changed';
       var targetModel = attrs.trackChange || 'bib';
       // Holdings use angular's own dirty checking for now, leave
-      if (targetModel == 'holding') return
+      if (targetModel == 'holding') return;
 
       var triggeredResponse = false;
       var trigger = function(someVar, event) {
