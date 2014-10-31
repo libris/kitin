@@ -71,7 +71,8 @@ label.find-entity input[type="text"] { padding-left: 22px; }
       padding-left:16px;
       color:#666;
     }
-    .group-title {
+    .group-title,
+     {
       border-top:none;
       .lbl {
         padding-left:0;
@@ -89,6 +90,19 @@ label.find-entity input[type="text"] { padding-left: 22px; }
           width:14px;
           font-size:13px;
           text-align:left;
+        }
+      }
+    }
+    &.single {
+      .group-title {
+        display:none;
+      }
+      .label {
+        border: none;
+        .lbl {
+          padding-left:0;
+          font-weight:bold;
+          color:#111;
         }
       }
     }

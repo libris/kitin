@@ -2430,6 +2430,17 @@ label.find-entity input[type="text"] {
   font-size: 13px;
   text-align: left;
 }
+.form-container .group.single .group-title {
+  display: none;
+}
+.form-container .group.single .label {
+  border: none;
+}
+.form-container .group.single .label .lbl {
+  padding-left: 0;
+  font-weight: bold;
+  color: #111;
+}
 .edit .col6 .entity .embedded input {
   width: 456px;
 }

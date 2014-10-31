@@ -1,4 +1,4 @@
-kitin.directive('kitinTextarea', function(editService, $rootScope){
+kitin.directive('kitinTextrow', function(editService, $rootScope){
   return {
       restrict: 'E',
       scope: {
@@ -21,6 +21,11 @@ kitin.directive('kitinTextarea', function(editService, $rootScope){
 
         $scope.shouldHide = function(model, options) {
 
+          // always show for single rows
+          if ( options.single ) {
+            return false;
+          }
+
           // reset hasValue if options.hidden has changed from false=>true
           if ( options.hidden && savedOptionsHidden === false ) {
             hasValue = false;
@@ -42,7 +47,6 @@ kitin.directive('kitinTextarea', function(editService, $rootScope){
           return true;
         };
         $scope.title = 'LABEL.' + $attrs.model;
-        $scope.hideTitle = (typeof $attrs.hideTitle !== 'undefined');
       }
   };
 });
