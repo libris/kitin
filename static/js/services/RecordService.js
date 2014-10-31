@@ -181,10 +181,10 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
       get: function(recordId, userData) {
         var deferer = $q.defer();
         var sigel = userData.userSigel;
-        //sigel = 'SLB'; // TODO: <--------------------------------  Haxxor shit, remove
-        $rootScope.holdingPromise = $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.holdingFor.@id:' + recordId.replace(/\//g, '\\/') + '+about.offers.heldBy.notation:' + sigel).success(function(data, status, headers) {
+        var searchPath = '/hold/_search?q=*+about.holdingFor.@id:' + recordId.replace(/\//g, '\\/') + '+about.offers.heldBy.notation:' + sigel;
+        // holdingPromise is used by angular-busy to show and hide loading indicator
+        $rootScope.holdingPromise = $http.get($rootScope.API_PATH + searchPath).success(function(data, status, headers) {
           if (data.list.length > 0) {
-
             var holding = data.list[0];
             recordService.holding.getEtag(holding.data['@id']).then(function(etag) {
               if (etag) {
@@ -246,11 +246,9 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
         var holdingId = holding.data['@id'];
         var etag = holding.etag;
         $http['delete']($rootScope.WRITE_API_PATH + holdingId, {headers: {'If-match': etag}}).success(function(data, success, headers, also) {
-
           holding = data;
           deferer.resolve(holding);
         }).error(function(data, status, headers) {
-
           deferer.reject(status);
         });
         return deferer.promise;

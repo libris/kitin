@@ -34,6 +34,7 @@ kitin.factory('searchService', function($http, $q, $rootScope) {
     ],
     search: function(url, params) {
       var deferred = $q.defer();
+      // searchPromise is used by angular-busy to show and hide loading indicator
       $rootScope.searchPromise = $http.get(url, { params: params }).success(function(data) {
         deferred.resolve(data);
       }).error(function(data, status) {
