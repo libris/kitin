@@ -10,7 +10,11 @@
     <!-- responsibilityStatement used @ creators -->
     <kitin-textarea model="record.about.instanceTitle.titleDate"></kitin-textarea>
     <!-- mediaTerm mapped to instance and used @ publication and production -->
-    <kitin-textarea model="record.about.instanceTitle.partNumber"></kitin-textarea>
+     <kitin-table model="record.about.instanceTitle.partNumber">
+      <kitin-td>
+        <input model="item"/>
+      </kitin-td>
+    </kitin-table>
     <kitin-textarea model="record.about.instanceTitle.partTitle"></kitin-textarea>
   </kitin-group>
 
@@ -31,6 +35,7 @@
     <kitin-textarea model="record.about.translatedTitle.partTitle"></kitin-textarea>
     <kitin-textarea model="record.about.translatedTitle.titleType"></kitin-textarea>
   </kitin-group>
+
 
 <!--translatedTitle START-->
   <div class="label">
