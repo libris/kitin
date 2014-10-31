@@ -12,6 +12,10 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
   document.body.className = 'edit';
 
   $scope.$on('$routeUpdate', function() {
+    // This is where lazy people puts fake loading indicators
+    if ($location.hash() == 'jsonld') {
+      //$rootScope.promises.jsonld = $q.
+    }
     $scope.editMode = $location.hash();
     $anchorScroll();
   });

@@ -11,12 +11,6 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
 
   var isNew = false;
 
-  // Went back to systemMessages. Better?
-  // $scope.alerts = [];
-  // $scope.closeAlert = function(index) {
-  //   $scope.alerts.splice(index, 1);
-  // };
-
   function getCurrentRecord() {
     var records = $rootScope.state.search.result.list;
     var currentRecord = _.find(records, function(record) {
@@ -26,8 +20,6 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     return currentRecord;
   }
 
-  // We are using these functions in several places,
-  // maybe create a service?
   function onSave(holding) {
     $rootScope.modifications.holdings.saved = true;
     $rootScope.modifications.holdings.published = true;
@@ -40,8 +32,6 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     }
   }
 
-  // We are using these functions in several places,
-  // maybe create a service?
   function onDelete(holding) {
     $rootScope.modifications.holdings.saved = true;
     $rootScope.modifications.holdings.published = true;
@@ -51,11 +41,6 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     currentRecord.holdings.holding = null;
     currentRecord.holdings.hits -= 1;
   }
-
-  $scope.triggerModified = function () {
-    $rootScope.modifications.holdings.saved = false;
-    $rootScope.modifications.holdings.published = false;
-  };
 
   $scope.close = function() {
     $modalInstance.close();

@@ -121,15 +121,6 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     var obj = subj[rel] = editService.createObject(type);
   };
 
-  // $scope.addObject = function(subj, rel, type) {
-  //   var collection = subj[rel];
-  //   if (typeof collection === 'undefined') {
-  //     collection = subj[rel] = [];
-  //   }
-  //   var obj = editService.createObject(type);
-  //   collection.push(obj);
-  // };
-
   $scope.addObject = function(subj, rel, type, target, subCollection) {
     var isDefined = function(collection) {
       return typeof collection !== 'undefined' && collection !== 'undefined';

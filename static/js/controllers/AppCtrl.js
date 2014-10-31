@@ -19,6 +19,7 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
   $rootScope.promises = {
     bib: {},
     holding: {},
+    draft: {},
     marc: {}
   };
 
