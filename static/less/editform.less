@@ -31,12 +31,12 @@ label.find-entity input[type="text"] { padding-left: 22px; }
 
 .form-container {
   clear:both;
-  hr{display:none}
+  hr { display:none }
   .label {
     position:relative;
-    border-bottom:1px dotted #ddd;
+    border-top:1px dotted #ddd;
     margin: 0;
-    padding: 8px 0;
+    padding: 10px 0;
     .lbl {
       display:inline-block;
       width:200px;
@@ -56,16 +56,55 @@ label.find-entity input[type="text"] { padding-left: 22px; }
   }
   .group {
     border-top:1px solid #ccc;
+    border-bottom:8px solid @grey-warm;
+    &:after {
+      display:block;
+      content: ' ';
+      height: 1px;
+      background:#ccc;
+    }
     .label {
       width:600px
     }
     .lbl {
       font-weight:normal;
-      padding-left:20px;
+      padding-left:16px;
+      color:#666;
     }
-    .group-title .lbl {
-      padding-left:0;
-      font-weight:bold;
+    .group-title,
+     {
+      border-top:none;
+      .lbl {
+        padding-left:0;
+        font-weight:bold;
+        color:#111;
+      }
+      .inp button {
+        font-size:12px;
+        padding-left: 0;
+        span { 
+          border-right:1px solid #eee;
+          margin-right:4px;
+          font-weight:bold;
+          display:inline-block;
+          width:14px;
+          font-size:13px;
+          text-align:left;
+        }
+      }
+    }
+    &.single {
+      .group-title {
+        display:none;
+      }
+      .label {
+        border: none;
+        .lbl {
+          padding-left:0;
+          font-weight:bold;
+          color:#111;
+        }
+      }
     }
   }
 }
@@ -326,3 +365,10 @@ span.error-message { font-size: 10px; color: @red; float:left; }
 
 /* EDIT FORM END ------------------------- */
 
+/* EDIT FORM DEBUG CLASSES  ---------------------------- */
+
+// .ng-valid{border:2px solid #6BFF8B!important;}
+// .ng-invalid{border:2px solid #FF5B58!important;}
+// .ng-dirty{border:2px solid #FEFF61!important;}
+
+/* EDIT FORM DEBUG CLASSES END ------------------------- */

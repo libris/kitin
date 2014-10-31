@@ -6,6 +6,7 @@
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.additionalCarrierType</span>
     <ul class="tags" data-kitin-link-entity
+        data-track-change
         data-subject="record.about"
         data-link="'additionalCarrierType'" data-type="AdditionalCarrierType"
         data-view-template="/snippets/render-generic-linked-entity"
@@ -16,12 +17,13 @@
   <!-- ADDITIONAL CARRIER TYPE END -->
 
     <div class="label">
-      <span class="lbl" translate>LABEL.record.about.exampleOfWork.title</span>
-      <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.exampleOfWork.title" placeholder="">
+      <span class="lbl" translate>LABEL.record.about.exampleOfWork</span>
+      <input data-track-change type="text" data-ng-model="record.about.exampleOfWork.title" placeholder="">
     </div>
     <div class="label">
       <span class="lbl" translate>LABEL.record.about.exampleOfWork.subtitle</span>
       <ul class="tags" data-kitin-link-entity
+          data-track-change
           data-subject="record.about.exampleOfWork"
           data-link-multiple="'subtitle'" data-type="subtitle"
           data-search-template="/snippets/render-generic-non-auth-add"
@@ -31,6 +33,7 @@
     <div class="label">
       <span class="lbl" translate>LABEL.record.about.exampleOfWork.partNumber</span>
       <ul class="tags" data-kitin-link-entity
+          data-track-change
           data-subject="record.about.exampleOfWork"
           data-link-multiple="'partNumber'" data-type="partNumber"
           data-search-template="/snippets/render-generic-non-auth-add"
@@ -43,7 +46,7 @@
     <!-- MATERIAL START -->
     <div class="label">
       <span class="lbl" translate>LABEL.record.about.material</span>
-      <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.material['@id']" placeholder="">
+      <input data-track-change type="text" data-ng-model="record.about.material['@id']" placeholder="">
     </div>
     <!-- MATERIAL END -->
   </div>
@@ -51,7 +54,7 @@
     <!-- RELIEF START -->
     <div class="label">
       <span class="lbl" translate>LABEL.record.about.relief</span>
-      <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.relief['@id']" placeholder="">
+      <input data-track-change type="text" data-ng-model="record.about.relief['@id']" placeholder="">
     </div>
     <!-- RELIEF END -->
   </div>
@@ -60,7 +63,7 @@
     <!-- RELIEF START -->
     <div class="label">
       <span class="lbl" translate>LABEL.record.about.fileType</span>
-      <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.fileType" placeholder="">
+      <input data-track-change type="text" data-ng-model="record.about.fileType" placeholder="">
     </div>
     <!-- RELIEF START -->
   </div>
@@ -68,7 +71,7 @@
     <!-- INDEX START -->
     <div class="label">
       <span class="lbl" translate>LABEL.record.about.index</span>
-      <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.index['@id']" placeholder="">
+      <input data-track-change type="text" data-ng-model="record.about.index['@id']" placeholder="">
      </div>
      <!-- INDEX END -->
   </div>
@@ -81,6 +84,7 @@
 
     <!-- Product START -->
     <div ng-switch-when="Product" class="datatable" data-ng-target="productTable" 
+      data-track-change
       data-kitin-data-table 
       data-table-model="subFormat" 
       data-table-header-row-template="/snippets/product-header-row-template"
@@ -96,10 +100,10 @@
       <td><span class="lbl" translate>LABEL.record.about.hasFormat.Product.accompanyingMaterial</span></td>
     </script>
     <script type="text/ng-template" id="/snippets/product-row-template">
-      <td><div class="label"><input ng-model="object['extent']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['dimensions']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['otherPhysicalDetails']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['accompanyingMaterial']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['extent']" data-track-change type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['dimensions']" data-track-change type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['otherPhysicalDetails']" data-track-change type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['accompanyingMaterial']" data-track-change type="text" /></div></td>
       <td class="controls">
         <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
       </td>
@@ -108,6 +112,7 @@
 
     <!-- Electronic START -->
     <div ng-switch-when="Electronic" class="datatable" data-ng-target="electronicTable" 
+      data-track-change
       data-kitin-data-table 
       data-table-model="subFormat" 
       data-table-header-row-template="/snippets/electronic-header-row-template"
@@ -122,9 +127,9 @@
       <td><span class="lbl" translate>LABEL.record.about.hasFormat.Electronic.dimensions</span></td>
     </script>
     <script type="text/ng-template" id="/snippets/electronic-row-template">
-      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['color']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['dimensions']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-track-change type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['color']['@id']" data-track-change type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['dimensions']['@id']" data-track-change type="text" /></div></td>
       <td class="controls">
         <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
       </td>
@@ -134,6 +139,7 @@
     <!-- Map START -->
 
     <div ng-switch-when="Map" class="datatable" data-ng-target="movingImageTable" 
+      data-track-change
       data-kitin-data-table 
       data-table-model="subFormat" 
       data-table-header-row-template="/snippets/map-header-row-template"
@@ -148,9 +154,9 @@
       <td><span class="lbl" translate>LABEL.record.about.hasFormat.Map.medium</span></td>
     </script>
     <script type="text/ng-template" id="/snippets/map-row-template">
-      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['color']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['medium']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-track-change type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['color']['@id']" data-track-change type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['medium']['@id']" data-track-change type="text" /></div></td>
       <td class="controls">
         <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
       </td>
@@ -159,6 +165,7 @@
 
     <!-- StillImage START -->
     <div ng-switch-when="StillImage" class="datatable" data-ng-target="stillImageTable" 
+      data-track-change
       data-kitin-data-table 
       data-table-model="subFormat" 
       data-table-header-row-template="/snippets/still-image-header-row-template"
@@ -173,9 +180,9 @@
       <td><span class="lbl" translate>LABEL.record.about.hasFormat.StillImage.nonProjPrimary</span></td>
     </script>
     <script type="text/ng-template" id="/snippets/still-image-row-template">
-      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['nonProjColor']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['nonProjPrimary']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-track-change type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['nonProjColor']['@id']" data-track-change type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['nonProjPrimary']['@id']" data-track-change type="text" /></div></td>
       <td class="controls">
         <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
       </td>
@@ -184,6 +191,7 @@
 
     <!-- MovingImage START -->
     <div ng-switch-when="MovingImage" class="datatable" data-ng-target="movingImageTable" 
+      data-track-change
       data-kitin-data-table 
       data-table-model="subFormat" 
       data-table-header-row-template="/snippets/moving-image-header-row-template"
@@ -200,11 +208,11 @@
       <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.motionPicDimensions</span></td>
     </script>
     <script type="text/ng-template" id="/snippets/moving-image-row-template">
-      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['motionPicFormat']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['motionPicSound']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['motionPicMedium']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['motionPicDimensions']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-track-change type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['motionPicFormat']['@id']" data-track-change type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['motionPicSound']['@id']" data-track-change type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['motionPicMedium']['@id']" data-track-change type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['motionPicDimensions']['@id']" data-track-change type="text" /></div></td>
       <td class="controls">
         <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
       </td>
@@ -213,6 +221,7 @@
 
     <!-- SoundRecording START -->
     <div ng-switch-when="SoundRecording" class="datatable" data-ng-target="soundRecordingTable" 
+      data-track-change
       data-kitin-data-table 
       data-table-model="subFormat" 
       data-table-header-row-template="/snippets/sound-recording-header-row-template"
@@ -230,12 +239,12 @@
       <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.soundPlaybackCharacter</span></td>
     </script>
     <script type="text/ng-template" id="/snippets/sound-recording-row-template">
-      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['soundSpeed']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['soundDimensions']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['soundKindOfDisc']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['soundKindOfMaterial']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['soundPlaybackCharacter']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-track-change type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['soundSpeed']['@id']" data-track-change type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['soundDimensions']['@id']" data-track-change type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['soundKindOfDisc']['@id']" data-track-change type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['soundKindOfMaterial']['@id']" data-track-change type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['soundPlaybackCharacter']['@id']" data-track-change type="text" /></div></td>
       <td class="controls">
         <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
       </td>
@@ -244,6 +253,7 @@
 
     <!-- VideoRecording START -->
     <div ng-switch-when="VideoRecording" class="datatable" data-ng-target="videoRecordingTable" 
+      data-track-change
       data-kitin-data-table 
       data-table-model="subFormat" 
       data-table-header-row-template="/snippets/video-recording-header-row-template"
@@ -259,10 +269,10 @@
       <td><span class="lbl" translate>LABEL.record.about.hasFormat.VideoRecording.videoSound</span></td>
     </script>
     <script type="text/ng-template" id="/snippets/video-recording-row-template">
-      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['videoColor']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['videoFormat']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['videoSound']['@id']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-track-change type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['videoColor']['@id']" data-track-change type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['videoFormat']['@id']" data-track-change type="text" /></div></td>
+      <td><div class="label"><input ng-model="object['videoSound']['@id']" data-track-change type="text" /></div></td>
       <td class="controls">
         <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
       </td>
@@ -277,7 +287,7 @@
             <td ng-repeat="(key, value) in format">
               <span class="lbl">{{key}}</span>
               <div class="label">
-                <input data-inplace class="ng-pristine ng-valid" type="text" ng-model="value"/>
+                <input data-track-change type="text" ng-model="value"/>
               </div>
             </td>
           </tr>
@@ -293,6 +303,7 @@
     <div class="label">
       <span class="lbl" translate>LABEL.record.about.illustrations</span>
       <div data-kitin-link-entity
+          data-track-change
           data-subject="record.about"
           data-link="'illustrations'"
           data-view-template="/snippets/render-generic-tag-entity"
@@ -307,6 +318,7 @@
     <div class="label">
       <span class="lbl" translate>LABEL.record.about.nature</span>
       <div data-kitin-link-entity
+          data-track-change
           data-subject="record.about"
           data-link="'nature'"
           data-view-template="/snippets/render-generic-tag-entity"
@@ -321,6 +333,7 @@
     <div class="label">
       <span class="lbl" translate>LABEL.record.about.originalItem</span>
       <div data-kitin-link-entity
+          data-track-change
           data-subject="record.about"
           data-link="'originalItem'"
           data-view-template="/snippets/render-generic-tag-entity"
@@ -334,7 +347,7 @@
         <!-- RUNNING TIME  START -->
   	    <div class="label">
           <span class="lbl" translate>LABEL.record.about.runningTime</span>
-          <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.runningTime">
+          <input data-track-change type="text" data-ng-model="record.about.runningTime">
         </div>
         <!-- RUNNING TIME  END -->
 
@@ -344,20 +357,21 @@
 
       <div class="label">
         <span class="lbl" translate>LABEL.record.about.availability</span>
-        <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.availability" placeholder="">
+        <input data-track-change type="text" data-ng-model="record.about.availability" placeholder="">
        </div> 
       <div class="label">
         <span class="lbl" translate>LABEL.record.about.cartographicScale</span>
-        <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.cartographicScale" placeholder="">
+        <input data-track-change type="text" data-ng-model="record.about.cartographicScale" placeholder="">
        </div>
       <div class="label">
         <span class="lbl" translate>LABEL.record.about.cartographicCoordinates</span>
-        <input data-inplace class="ng-pristine ng-valid" type="text" data-ng-model="record.about.cartographicCoordinates" placeholder="">
+        <input data-track-change type="text" data-ng-model="record.about.cartographicCoordinates" placeholder="">
        </div>
 
     <!-- CARTOGRAPHICAL ASCENSION AND DECLINATION  START -->
     <div class="label">
       <div class="datatable" data-ng-target="cartographicAscensionAndDeclination" 
+        data-track-change
         data-kitin-data-table 
         data-table-model="record.about.cartographicAscensionAndDeclination" 
         data-table-header-row-template="/snippets/cartographicAscensionAndDeclination-header-row-template"
@@ -376,12 +390,12 @@
         <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.southernmostLatitudeCoordinates</span></td>
       </script>
       <script type="text/ng-template" id="/snippets/cartographicAscensionAndDeclination-row-template">
-        <td><div class="label"><input ng-model="object['cartographicScale']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-        <td><div class="label"><input ng-model="object['constantRatioLinearHorizontalScale']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-        <td><div class="label"><input ng-model="object['westernmostLongitudeCoordinates']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-        <td><div class="label"><input ng-model="object['easternmostLongitudeCoordinates']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-        <td><div class="label"><input ng-model="object['northernmostLatitudeCoordinates']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
-        <td><div class="label"><input ng-model="object['southernmostLatitudeCoordinates']" data-inplace class="ng-pristine ng-valid" type="text" /></div></td>
+        <td><div class="label"><input ng-model="object['cartographicScale']" data-track-change type="text" /></div></td>
+        <td><div class="label"><input ng-model="object['constantRatioLinearHorizontalScale']" data-track-change type="text" /></div></td>
+        <td><div class="label"><input ng-model="object['westernmostLongitudeCoordinates']" data-track-change type="text" /></div></td>
+        <td><div class="label"><input ng-model="object['easternmostLongitudeCoordinates']" data-track-change type="text" /></div></td>
+        <td><div class="label"><input ng-model="object['northernmostLatitudeCoordinates']" data-track-change type="text" /></div></td>
+        <td><div class="label"><input ng-model="object['southernmostLatitudeCoordinates']" data-track-change type="text" /></div></td>
         <td class="controls">
           <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
         </td>

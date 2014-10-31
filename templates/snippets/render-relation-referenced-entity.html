@@ -9,7 +9,7 @@
   </div>
   <div class="notes">
     <span class="lbl" translate>LABEL.record.about.relation.linkNote</span>
-    <input data-inplace class="ng-pristine ng-valid" type="text" ng-model="object.linkNote" />
+    <input data-track-change type="text" ng-model="object.linkNote" />
   </div>
   <a data-ng-if="!editable.on" class="delete" href="#"
      data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a>

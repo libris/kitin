@@ -18,12 +18,12 @@
         <tr data-ng-repeat="source in record.source track by $index" class="">
           <td>
             <div class="label">
-              <input data-inplace type="text" data-ng-model="source.label"/>
+              <input data-track-change type="text" data-ng-model="source.label"/>
             </div>
           </td>
           <td class="last">
             <div class="label">
-              <input data-inplace type="text" data-ng-model="source.citation"/>
+              <input data-track-change type="text" data-ng-model="source.citation"/>
             </div>
           </td>
           <td class="controls">

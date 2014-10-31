@@ -4,7 +4,7 @@
     <div class="label">
       <span class="lbl">{{ k }}</span>
       <div class="label" data-ng-repeat="(subfield_label, subfield) in subitem.subfields">
-        <input data-inplace class="authdependant" type="text" data-ng-repeat="(k, v) in subfield" data-ng-model="v"/>
+        <input data-track-change class="authdependant" type="text" data-ng-repeat="(k, v) in subfield" data-ng-model="v"/>
       </div>
     </div>
   </div>

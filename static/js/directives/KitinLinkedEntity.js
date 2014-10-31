@@ -75,6 +75,8 @@ kitin.directive('kitinLinkEntity', ['editService', function(editService) {
         }
         $scope.viewmode = true;
         //if($scope.searchTemplate) { angular.element($scope.searchTemplate).focus(); }
+        // Do this in Kitin[Search/Select]Entity.js instead
+        //$scope.$emit('changed', ['Added linked entity']);
       };
 
       $scope.doRemove = function (index) {
@@ -90,7 +92,8 @@ kitin.directive('kitinLinkEntity', ['editService', function(editService) {
         if (typeof subj.onRemove === 'function') {
           subj.onRemove(link, removed, index);
         }
-        //$scope.triggerModified();
+        console.log('HEY');
+        $scope.$emit('changed', ['Removed linked entity']);
       };
 
     }
