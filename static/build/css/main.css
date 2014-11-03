@@ -3266,6 +3266,20 @@ a.beta-blocker {
 .alert-error i {
   color: #ee5d61;
 }
+.cg-busy-default-sign {
+  background-color: #eeeeec;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.cg-busy-default-text {
+  font-family: 'Open Sans', arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #191913;
+}
+.cg-busy-default-spinner {
+  left: 20px;
+}
 .modal-dialog .cg-busy-default-wrapper {
   margin-top: -20px;
 }
