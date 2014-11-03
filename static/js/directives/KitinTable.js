@@ -10,37 +10,64 @@ kitin.directive('kitinTable', function(editService){
       link: function(scope, element, attrs, kitinGroupCtrl, transcludeFn) {
         scope.options = kitinGroupCtrl.options;
       },
-      template: '<div class="label" ng-hide="isEmpty(model) && options.hidden">' + 
+      template: '<div class="label">' + 
                   '<span class="lbl">{{title | translate}}</span>' +
                   '<span class="inp">' +
-                    '<table ng-init="model = createFirstRowIfEmpty(model)">' +
+                    '<table>' +
                       '<thead>' +
                         '<tr class="thead" ng-if="titles.length">' +
                           '<th ng-repeat="title in titles">{{title}}</th>' +
                         '</tr>' +
                       '</thead>' +
                       '<tbody>' +
-                        '<tr kitin-tr-controls ng-transclude ng-repeat="item in model track by $index">' +
+                        '<tr kitin-tr-controls ng-transclude ng-hide="shouldHideTableRow(item, options)" ng-repeat="(key, item) in model track by $index">' +
                         '</tr>' +
                       '</tbody>' +
                     '</table>' +
                   '</span>' + 
-                  '<span>' +
+                  '<span class="act">' +
                     '<a href="" ng-click="addRow()">Lägg till fält</a>' +
                   '</span>' +
                 '</div>',
-      controller: function($element, $scope, $attrs, $rootScope) {
-        
-        $scope.isEmpty = $rootScope.isEmpty;
+
+      controller: function($scope, $rootScope, $attrs) {
+
+        var hasValue = false;
+        var savedOptionsHidden;
+
+        $scope.shouldHideTableRow = function(model, options) {
+          // always show for single rows
+          if ( options.single ) {
+            return false;
+          }
+
+          // reset hasValue if options.hidden has changed from false=>true
+          if ( options.hidden && savedOptionsHidden === false ) {
+            hasValue = false;
+          }
+          
+          savedOptionsHidden = options.hidden;
+
+          // never hide a field that has value, and save hasValue
+          if ( !$rootScope.isEmpty(model) ) {
+            hasValue = true;
+            return false;
+          }
+
+          if ( !options.hidden || 
+             ( options.hidden && hasValue )  ) { // don’t hide if the input has a value
+            return false;
+          }
+          
+          return true;
+        };
         $scope.title = 'LABEL.' + $attrs.model;
-        $scope.titles = $scope.$eval($attrs.titles);
+
 
         // TODO! Create object for each model. Use editService.createObject?
-        var createObject = function() { return {}; };
+        var createObject = function(model) { return []; };
 
-        $scope.createFirstRowIfEmpty = function(model) {
-          return _.isArray(model) && model.length > 0 ? model : [createObject()]; 
-        };
+        $scope.model = _.isArray($scope.model) && $scope.model.length > 0 ? $scope.model : createObject($scope.model);
 
         $scope.addRow = function(index) {
           return $scope.model.push(createObject());
@@ -60,13 +87,14 @@ kitin.directive('kitinTrControls', ['$compile', function($compile) {
     // Type element isnt working since the transclude function is manipulating the element after its been added to the DOM
     // and a table needs to have correct <tr>-tags to render propperly
     restrict: 'AC',
+    scope: false,
     link: function(scope, element, attrs, controller, transcludeFn) {
-      transcludeFn(scope,function(clone) {
+      transcludeFn(scope, function(clone) {
         element.empty();
         // Append button to each row
         var controls = angular.element(
           '<td>' + 
-            '<button class=btn-link deleter" data-ng-click="removeRow($index)"><i class="fa fa-times"></i></button>' + 
+            '<button class=btn-link deleter" data-ng-click="removeRow($index)"><i class="fa fa-trash-o"></i></button>' + 
           '</td>');
         element.append(clone).append(controls);
         // Controls needs compiling to be bound to scope
