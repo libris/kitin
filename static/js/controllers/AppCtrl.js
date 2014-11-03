@@ -15,6 +15,7 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
     bib: {},
     holding: {}
   };
+  
   // Container for busy indicators
   $rootScope.promises = {
     bib: {},
