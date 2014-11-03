@@ -3,7 +3,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   $scope.recordId = recordId;
   $scope.userData = userData;
 
-   $rootScope.modifications.holdings = {
+   $rootScope.modifications.holding = {
     saved: true,
     published: true,
     deleted: false
@@ -12,6 +12,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   var isNew = false;
 
   function getCurrentRecord() {
+    if (!$rootScope.state.search.result) return false;
     var records = $rootScope.state.search.result.list;
     var currentRecord = _.find(records, function(record) {
       return record.data.about['@id'] == recordId;
@@ -21,8 +22,8 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   }
 
   function onSave(holding) {
-    $rootScope.modifications.holdings.saved = true;
-    $rootScope.modifications.holdings.published = true;
+    $rootScope.modifications.holding.saved = true;
+    $rootScope.modifications.holding.published = true;
     
     var currentRecord = getCurrentRecord();
     currentRecord.holdings.holding = holding;
@@ -33,13 +34,15 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   }
 
   function onDelete(holding) {
-    $rootScope.modifications.holdings.saved = true;
-    $rootScope.modifications.holdings.published = true;
-    $rootScope.modifications.holdings.deleted = true;
+    $rootScope.modifications.holding.saved = true;
+    $rootScope.modifications.holding.published = true;
+    $rootScope.modifications.holding.deleted = true;
 
     var currentRecord = getCurrentRecord();
-    currentRecord.holdings.holding = null;
-    currentRecord.holdings.hits -= 1;
+    if (currentRecord) {
+      currentRecord.holdings.holding = null;
+      currentRecord.holdings.hits -= 1;
+    }
   }
 
   $scope.close = function() {

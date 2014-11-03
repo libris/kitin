@@ -2858,6 +2858,17 @@ html.ie .datatable table tr {
   float: left!important;
   clear: both;
 }
+html.ie .cg-busy-default-spinner {
+  width: 24px;
+  height: 24px;
+  background: url(/static/img/loading.gif);
+}
+html.ie .cg-busy-default-spinner div {
+  display: none;
+}
+html.ie .cg-busy {
+  z-index: 10000;
+}
 /* AUTOCOMPLETE START ------------------------- */
 .acResults {
   width: 476px;

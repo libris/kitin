@@ -333,8 +333,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "\n" +
     "<div class=\"modal-footer holdings submit\">\n" +
     "  <div class=\"status pull-left\">\n" +
-    "    <div data-ng-if=\"holdingForm.$pristine\">{{ \"Inga osparade ändringar.\" }}</div>\n" +
-    "    <div data-ng-if=\"holdingForm.$dirty\">{{ \"Du har inte sparat dina ändringar.\" }}</div>\n" +
+    "    <div data-ng-if=\"modifications.holding.saved\">{{ \"Inga osparade ändringar.\" }}</div>\n" +
+    "    <div data-ng-if=\"!modifications.holding.saved\">{{ \"Du har inte sparat dina ändringar.\" }}</div>\n" +
     "  </div>\n" +
     "  <button class=\"btn-link\" id=\"delete-hld\" data-ng-click=\"deleteHolding(holding)\" data-ng-show=\"holding.data['@id']\"><i class=\"fa fa-trash-o\"></i> {{ \"Radera bestånd\" }}</button>\n" +
     "  <button class=\"btn btn-purple btn-submit\" id=\"save-hld\" data-ng-click=\"saveHolding(holding)\" data-ng-show=\"holding\">{{ \"Spara bestånd\" }}</button>\n" +

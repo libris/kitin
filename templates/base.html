@@ -41,8 +41,8 @@
     <div id="header-wrapper">
       <div class="container">
         <div id="header">
-          <div data-ng-include="'/partials/header_loading_indicators'"></div>
           {% if current_user and current_user.is_authenticated() %}
+          <div data-ng-include="'/partials/header_loading_indicators'"></div>
           <div id="nav">
             <ul class="nav-menu pull-right">
               <li class="active"><a href="http://feedback.kat.libris.kb.se/" target="_blank" title="Feedback forum">Tyck till <i class="icon fa fa-external-link"></i></a></li>

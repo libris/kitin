@@ -1,3 +1,15 @@
 html.ie{
   .datatable table tr{float:left!important;clear:both;}
+  // Make spinners work
+  .cg-busy-default-spinner {
+    width:24px;
+    height:24px;
+    background: url(/static/img/loading.gif);
+    div{
+      display:none;
+    }
+  }
+  .cg-busy{
+    z-index: 10000
+  }
 }
