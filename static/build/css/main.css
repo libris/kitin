@@ -3255,8 +3255,8 @@ a.beta-blocker {
 .alert-error i {
   color: #ee5d61;
 }
-.cg-busy {
-  z-index: 100000;
+.modal-dialog .cg-busy-default-wrapper {
+  margin-top: -20px;
 }
 /* GENERAL END ------------------------- */
 /*# sourceMappingURL=main.css.map */
