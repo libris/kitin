@@ -2388,8 +2388,15 @@ label.find-entity input[type="text"] {
   display: inline-block;
   vertical-align: middle;
 }
-.form-container .label .inp textarea {
+.form-container .label .inp textarea,
+.form-container .label .inp input,
+.form-container .label .inp table {
   width: 100%;
+}
+.form-container .label .act {
+  width: 200px;
+  display: inline-block;
+  vertical-align: bottom;
 }
 .form-container .group {
   border-top: 1px solid #ccc;
@@ -2400,9 +2407,6 @@ label.find-entity input[type="text"] {
   content: ' ';
   height: 1px;
   background: #ccc;
-}
-.form-container .group .label {
-  width: 600px;
 }
 .form-container .group .lbl {
   font-weight: normal;
