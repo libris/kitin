@@ -5,71 +5,125 @@
 <div class="form-container">
 
   <kitin-group title="Instance Title">
-    <kitin-textarea model="record.about.instanceTitle.titleValue"></kitin-textarea>
-    <kitin-textarea model="record.about.instanceTitle.subtitle"></kitin-textarea>
+    <kitin-textrow model="record.about.instanceTitle.titleValue"></kitin-textrow>
+    <kitin-textrow model="record.about.instanceTitle.subtitle"></kitin-textrow>
     <!-- responsibilityStatement used @ creators -->
-    <kitin-textarea model="record.about.instanceTitle.titleDate"></kitin-textarea>
+    <kitin-textrow model="record.about.instanceTitle.titleDate"></kitin-textrow>
     <!-- mediaTerm mapped to instance and used @ publication and production -->
-    <kitin-textarea model="record.about.instanceTitle.partNumber"></kitin-textarea>
-    <kitin-textarea model="record.about.instanceTitle.partTitle"></kitin-textarea>
+    <kitin-table model="record.about.instanceTitle.partNumber">
+      <kitin-td><input model="item"/></kitin-td>
+    </kitin-table>
+    <kitin-table model="record.about.instanceTitle.partTitle">
+      <kitin-td><input model="item"/></kitin-td>
+    </kitin-table>
   </kitin-group>
 
   <kitin-group title="Variation Title">
-    <kitin-textarea model="record.about.titleVariation.titleValue"></kitin-textarea>
-    <kitin-textarea model="record.about.titleVariation.subtitle"></kitin-textarea>
-    <kitin-textarea model="record.about.titleVariation.titleDate"></kitin-textarea>
-    <kitin-textarea model="record.about.titleVariation.partNumber"></kitin-textarea>
-    <kitin-textarea model="record.about.titleVariation.partTitle"></kitin-textarea>
-    <kitin-textarea model="record.about.titleVariation.titleType"></kitin-textarea>
+    <kitin-textrow model="record.about.titleVariation.titleValue"></kitin-textrow>
+    <kitin-textrow model="record.about.titleVariation.subtitle"></kitin-textrow>
+    <kitin-textrow model="record.about.titleVariation.titleDate"></kitin-textrow>
+    <kitin-textrow model="record.about.titleVariation.partNumber"></kitin-textrow>
+    <kitin-textrow model="record.about.titleVariation.partTitle"></kitin-textrow>
+    <kitin-textrow model="record.about.titleVariation.titleType"></kitin-textrow>
   </kitin-group>
 
   <kitin-group title="Translated Title">
-    <kitin-textarea model="record.about.translatedTitle.titleValue"></kitin-textarea>
-    <kitin-textarea model="record.about.translatedTitle.subtitle"></kitin-textarea>
-    <kitin-textarea model="record.about.translatedTitle.titleDate"></kitin-textarea>
-    <kitin-textarea model="record.about.translatedTitle.partNumber"></kitin-textarea>
-    <kitin-textarea model="record.about.translatedTitle.partTitle"></kitin-textarea>
-    <kitin-textarea model="record.about.translatedTitle.titleType"></kitin-textarea>
+    <kitin-textrow model="record.about.translatedTitle.titleValue"></kitin-textrow>
+    <kitin-textrow model="record.about.translatedTitle.subtitle"></kitin-textrow>
+    <kitin-textrow model="record.about.translatedTitle.titleDate"></kitin-textrow>
+    <kitin-textrow model="record.about.translatedTitle.partNumber"></kitin-textrow>
+    <kitin-textrow model="record.about.translatedTitle.partTitle"></kitin-textrow>
   </kitin-group>
 
-  <hr />
 
+<!--translatedTitle START-->
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.translatedTitle.titleValue</span>
+    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.translatedTitle.titleValue"></textarea>
+  </div>
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.translatedTitle.subtitle</span>
+    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.translatedTitle.subtitle"></textarea>
+  <!-- responsibilityStatement used @ creators -->
+  </div>
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.translatedTitle.titleDate</span>
+    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.translatedTitle.titleDate"></textarea>
+  </div>
+  <!-- mediaTerm mapped to instance and used @ publication and production -->
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.translatedTitle.partNumber</span>
+    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.translatedTitle.partNumber"></textarea>
+  </div>
+  <div class="label">
+    <span class="lbl" translate>LABEL.record.about.translatedTitle.partTitle</span>
+    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.translatedTitle.partTitle"></textarea>
+  </div>  
+<!--translatedTitle END-->
+  <hr />
 <!--uniformTitle START--> 
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.uniformTitle</span>
-    <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.uniformTitle"></textarea>
+    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.uniformTitle"></textarea>
   </div> 
 <!--uniformTitle END-->  
   <hr />
 <!--keyTitle START-->
   <div class="label">
      <span class="lbl" translate>LABEL.record.about.keyTitle</span>
-    <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.keyTitle.titleValue"></textarea>       
+    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.keyTitle.titleValue"></textarea>       
   </div>
   <div class="label">
      <span class="lbl" translate>LABEL.record.about.keyTitle.titleQualifier</span>
-    <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.keyTitle.titleQualifier"></textarea>       
+    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.keyTitle.titleQualifier"></textarea>       
   </div>
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.keyTitle.titleSource</span>
-    <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.keyTitle.titleSource"></textarea>
+    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.keyTitle.titleSource"></textarea>
   </div>
 <!--keyTitle END-->
     <hr />
 <!--abbreviatedTitle START-->
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.abbreviatedTitle.titleValue</span>
-    <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.abbreviatedTitle.titleValue"></textarea>
+    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.abbreviatedTitle.titleValue"></textarea>
   </div>
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.abbreviatedTitle.titleQualifier</span>
-    <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.abbreviatedTitle.titleQualifier"></textarea>
+    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.abbreviatedTitle.titleQualifier"></textarea>
   </div>
   <div class="label">
     <span class="lbl" translate>LABEL.record.about.abbreviatedTitle.titleSource</span>
-    <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.abbreviatedTitle.titleSource"></textarea>
+    <textarea data-inplace data-ui-jq="autosize" spellcheck="false" data-ng-model="record.about.abbreviatedTitle.titleSource"></textarea>
   </div>
   <!-- abbreviatedTitle END-->
+=======
+  <kitin-group title="Previous Title">
+    <kitin-textrow model="record.about.previousTitle.titleValue"></kitin-textrow>
+    <kitin-textrow model="record.about.previousTitle.subtitle"></kitin-textrow>
+    <kitin-textrow model="record.about.previousTitle.titleDate"></kitin-textrow>
+    <kitin-textrow model="record.about.previousTitle.partNumber"></kitin-textrow>
+    <kitin-textrow model="record.about.previousTitle.partTitle"></kitin-textrow>
+  </kitin-group>
+
+  <kitin-group title="Abbreviated Title">
+    <kitin-textrow model="record.about.abbreviatedTitle.titleValue"></kitin-textrow>
+    <kitin-textrow model="record.about.abbreviatedTitle.titleQualifier"></kitin-textrow>
+    <kitin-textrow model="record.about.abbreviatedTitle.titleSource"></kitin-textrow>
+  </kitin-group>
+
+  <kitin-group title="Key Title">
+    <kitin-textrow model="record.about.keyTitle.titleValue"></kitin-textrow>
+    <kitin-textrow model="record.about.keyTitle.titleQualifier"></kitin-textrow>
+    <kitin-textrow model="record.about.keyTitle.titleSource"></kitin-textrow>
+  </kitin-group>
+
+  <!--uniformTitle START-->
+  <kitin-group single>
+    <kitin-textrow model="record.about.uniformTitle"></kitin-textrow>
+  </kitin-group>
+  <!--uniformTitle END-->
+>>>>>>> a55cdd60fb1a9e9e772da4676e4d266f65823ae0
 
   <!-- INFLUENTIAL RELATION TITLE  START -->
   <div class="label datatable" data-ng-target="influentialRelationTable" 
@@ -83,6 +137,12 @@
     data-add-first
     data-addable="notes">
   </div>
+
+  <!-- TODO: refactor
+  <kitin-group single>
+    <kitin-entity model="LABEL.record.about.relation" multiple></kitin-entity>
+  </kitin-group>
+  -->
 
   <!-- RELATION  START -->
   <div class="label">
