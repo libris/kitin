@@ -1,5 +1,31 @@
-kitin.controller('JSONLDCtrl', function($scope) {
+kitin.controller('JSONLDCtrl', function($scope, $modal) {
 
+  $scope.getLeaf = function (uri) {
+    return uri.replace(/.*?([^\/#]+)$/, "$1");
+  };
+
+  $scope.ensureArray = function (obj) {
+    return _.isArray(obj)? obj : [obj];
+  };
+
+  $scope.openTermDef = function (key) {
+    var opts = {
+      backdrop: true,
+      keyboard: true,
+      templateUrl: '/partials/modal_vocabview',
+      //controller: 'ModalVocabBrowserCtrl',
+      scope: $scope,
+      resolve: {key: function () { return key; }},
+      controller: function ModalVocabBrowserCtrl($scope, $modalInstance, key) {
+        $scope.viewTerm = function (key) {
+          $scope.term = $scope.termIndex.byTerm[key];
+        };
+        $scope.viewTerm(key);
+      },
+      windowClass: ''
+    };
+    $scope.browseVocabModal = $modal.open(opts);
+  };
 
   $scope.toJsonLdLink = function (id) {
     return id.replace(/^\/(resource\/)?/, '/jsonld/');

@@ -1,4 +1,4 @@
-kitin.directive('trackChange', function ($rootScope) {
+kitin.directive('trackChange', function ($rootScope, $timeout) {
   return {
     restrict: 'A',
     link: function (scope, elem, attrs) {
@@ -6,17 +6,16 @@ kitin.directive('trackChange', function ($rootScope) {
       // Some elements need to trigger a custom event 
       var customEvent = attrs.changeEvent || 'changed';
       var targetModel = attrs.trackChange || 'bib';
-      // Holdings use angular's own dirty checking for now, leave
-      if (targetModel == 'holding') return;
 
       var triggeredResponse = false;
       var trigger = function(someVar, event) {
         // Make sure we only trigger once
         if (triggeredResponse) return;
-
-        $rootScope.modifications[targetModel].saved = false;
-        $rootScope.modifications[targetModel].published = false;
-        triggeredResponse = true;
+        $timeout(function() {
+          $rootScope.modifications[targetModel].saved = false;
+          $rootScope.modifications[targetModel].published = false;
+          triggeredResponse = true;
+        });
       };
 
       elem.keyup(function (event) { // or change (when leaving)
