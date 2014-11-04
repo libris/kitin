@@ -12,13 +12,22 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   var isNew = false;
 
   function getCurrentRecord() {
-    if (!$rootScope.state.search.result) return false;
-    var records = $rootScope.state.search.result.list;
-    var currentRecord = _.find(records, function(record) {
-      return record.data.about['@id'] == recordId;
-    });
-
+    var currentRecord;
+    if ($rootScope.state.search.result) {
+      var records = $rootScope.state.search.result.list;
+      currentRecord = _.find(records, function(record) {
+        return record.data.about['@id'] == recordId;
+      });
+    } else if ($scope.recordId) {
+      // Do we need to update record in edit view? 
+      // Perhaps if we want to update the fixed footer holdings button.
+      // Return false for now
+      currentRecord = false;
+    } else {
+      currentRecord = false;
+    }
     return currentRecord;
+
   }
 
   function onSave(holding) {
@@ -26,10 +35,12 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     $rootScope.modifications.holding.published = true;
     
     var currentRecord = getCurrentRecord();
-    currentRecord.holdings.holding = holding;
-    if (isNew) {
-      currentRecord.holdings.hits += 1;
-      isNew = false;
+    if (currentRecord) {
+      currentRecord.holdings.holding = holding;
+      if (isNew) {
+        currentRecord.holdings.hits += 1;
+        isNew = false;
+      }
     }
   }
 
