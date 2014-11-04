@@ -179,7 +179,7 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
     },
 
     holding: {
-      get: function(recordId, userData) {
+      find: function(recordId, userData) {
         var deferer = $q.defer();
         var sigel = userData.userSigel;
         var searchPath = '/hold/_search?q=*+about.holdingFor.@id:' + recordId.replace(/\//g, '\\/') + '+about.offers.heldBy.notation:' + sigel;
@@ -187,11 +187,18 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
         $rootScope.promises.holding.loading = $http.get($rootScope.API_PATH + searchPath).success(function(data, status, headers) {
           if (data.list.length > 0) {
             var holding = data.list[0];
-            recordService.holding.getEtag(holding.data['@id']).then(function(etag) {
-              if (etag) {
-                holding.etag = etag;
+            recordService.holding.get(holding.data['@id']).then(function(response) {
+              if (response.holding) {
+                holding.data = response.holding;
+                if (response.etag) {
+                  holding.etag = response.etag;
+                }
+                deferer.resolve(holding);
+              } else {
+                deferer.reject({
+                  msg: 'Hittade inget bestånd med önskat id.'
+                });
               }
-              deferer.resolve(holding);
             });
           } else {
             deferer.resolve(null);
@@ -199,6 +206,24 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
         }).error(function(data, status, headers) {
             deferer.reject(status);
         });
+        return deferer.promise;
+      },
+
+      get: function(holdingId) {
+        var deferer = $q.defer();
+        if (holdingId) {
+          $http.get($rootScope.API_PATH + holdingId).success(function(data, status, headers) {
+            var etag = headers('etag') ? headers('etag') : null;
+            deferer.resolve({
+              holding: data,
+              etag: etag
+            });
+          }).error(function(data, status, headers) {
+            deferer.reject(status);
+          });
+        } else {
+          deferer.resolve(null);
+        }
         return deferer.promise;
       },
 
@@ -252,21 +277,6 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
         }).error(function(data, status, headers) {
           deferer.reject(status);
         });
-        return deferer.promise;
-      },
-
-      getEtag: function(holdingId) {
-        var deferer = $q.defer();
-        if (holdingId) {
-          $http.get($rootScope.API_PATH + holdingId).success(function(data, status, headers) {
-            var etag = headers('etag') ? headers('etag') : null;
-            deferer.resolve(etag);
-          }).error(function(data, status, headers) {
-
-          });
-        } else {
-          deferer.resolve(null);
-        }
         return deferer.promise;
       }
     }

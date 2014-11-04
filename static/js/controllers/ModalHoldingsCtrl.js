@@ -60,10 +60,8 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     $modalInstance.close();
   };
 
-  // HOLDING
-  // 2014-10-08: To avoid confusion, all references to holding_s_ have been removed. 
-  // There can only be one holding per sigel. There can, however, be multiple offers per holding.
-  recordService.holding.get(recordId, userData).then(function(holding) {
+  // On first run, we have no holding id. Use find to get holding
+  recordService.holding.find(recordId, userData).then(function(holding) {
     if (!holding) {
       // If no holding is found, we create a new one.
       recordService.holding.create().then(function(response) {
