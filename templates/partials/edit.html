@@ -34,8 +34,16 @@
           <strong translate>librisIIINumber</strong>
           <i>{{record.librisIIINumber}}</i>
         </span>
-        <div class="row">
-          <div class="col-md-4 label">
+        <span ng-if="record.sourceNote">
+          <strong translate>sourceNote</strong>
+          <i>{{record.sourceNote}}</i>
+        </span>
+        <span ng-if="record.about.technicalNote">
+          <strong translate>about.technicalNote</strong>
+          <i>{{record.about.technicalNote}}</i>
+        </span>
+        <div class="form-container">
+          <kitin-group>
             <span class="lbl" translate>LABEL.record.about.encLevel</span>
             <ul class="tags" data-kitin-link-entity
                 data-track-change
@@ -45,61 +53,21 @@
                 data-search-template="/snippets/render-generic-select"
                 data-filter="about.inCollection.@id:/def/enum/record/encLevel-collection">
             </ul>
-          </div>
-          <div class="col-md-4 label">
-            <span class="lbl" translate>LABEL.record.about.characterCoding</span>
-            <ul class="tags" data-kitin-link-entity
-                data-track-change
-                data-subject="record.about"
-                data-link="'characterCoding'" data-type="CharacterCoding"
-                data-view-template="/snippets/render-generic-linked-entity"
-                data-search-template="/snippets/render-generic-select"
-                data-filter="about.inCollection.@id:/def/enum/record/characterCoding-collection">
-            </ul>
-          </div>
-          <div class="col-md-4 label">
-            <span class="lbl" translate>LABEL.record.about.status</span>
-            <ul class="tags" data-kitin-link-entity
-                data-track-change
-                data-subject="record.about"
-                data-link="'status'" data-type="status"
-                data-view-template="/snippets/render-generic-linked-entity"
-                data-search-template="/snippets/render-generic-select"
-                data-filter="about.inCollection.@id:/def/enum/record/status-collection">
-            </ul>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4 label">
-            <span class="lbl" translate>LABEL.record.about.catForm</span>
-            <ul class="tags" data-kitin-link-entity
-                data-track-change
-                data-subject="record.about"
-                data-link="'catForm'" data-type="catForm"
-                data-view-template="/snippets/render-generic-linked-entity"
-                data-search-template="/snippets/render-generic-select"
-                data-filter="about.inCollection.@id:/def/enum/record/catForm-collection">
-            </ul>
-          </div>
-          <div class="col-md-4 label">
-            <span class="lbl">Tillhör bibliografi</span>
-            <span data-ng-repeat="bibliographyCode in record.bibliographyCode">
-              <input data-track-change data-ng-model="bibliographyCode" />
-            </span>
-          </div>
-          <div class="col-md-4 label">
-            <span class="lbl" translate>LABEL.record.sourceNote</span>
-            <textarea data-track-change data-ui-jq="autosize" data-ng-model="record.sourceNote" ></textarea>
-          </div>
-          <div class="label">
-              <span class="lbl" translate>LABEL.record.about.technicalNote</span>
-              <textarea data-track-change data-ui-jq="autosize" spellcheck="false"
-                data-ng-model="record.about.technicalNote" ></textarea>
-          </div>
+          
+            <kitin-table model="record.about.bibliographyCode">
+              <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+            </kitin-table>
+
+            </kitin-group>
+            <!-- recor.about.characterCoding. Removed, since its not relevant for users -->
+            <!-- recor.about.status. Removed, since its not relevant for users -->
+            <!-- recor.about.catForm. Removed, since its not relevant for users -->
+          
         </div>
       </div>
     </section>
   </header>
+
   <div ng-switch on="recType">
     <div ng-switch-when="auth">
       <div ng-include="'/partials/edit/auth'"></div>
