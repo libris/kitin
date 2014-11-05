@@ -8,7 +8,11 @@ kitin.directive('kitinTable', function(editService){
       replace: true,
       transclude: true,
       link: function(scope, element, attrs, kitinGroupCtrl, transcludeFn) {
-        scope.options = kitinGroupCtrl.options;
+        if(kitinGroupCtrl.options) {
+          scope.options = kitinGroupCtrl.options;
+        } else {
+          console.error('Missing parent kitin-group');
+        }
       },
       template: '<div class="label" ng-hide="shouldHideTable(model, options)">' + 
                   '<span class="lbl">{{title | translate}}</span>' +
