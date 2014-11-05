@@ -1,186 +1,180 @@
 <h2>{{ "Ämnesord och klassifikation" }}<i></i></h2>
 <div class="form-container" onload="work = record.about">
+  <kitin-group title="Ämnesord">
 
-  <h3>{{ "Ämnesord" }}</h3>
-
-  <!-- SUBJECT START -->
-  <!-- SUBJECT BY IN SCHEME  START -->
-  <div data-ng-repeat="(key, container) in record.about.subjectByInScheme" class="scheme tagsinput"
-     data-ng-init="scheme = conceptSchemes.byNotation[key.replace('/topic/','')] || {'title': key, 'notation': container[0].inScheme.notation}; 
-                  search_filter = {filter: 'about.inScheme.notation:' + scheme.notation};
-                  search_completion_template = 'subject-completion-template';">
-    <span class="lbl">{{ scheme.alternative || scheme.title || scheme.title_en }}</span>
-    <ul class="tags" data-kitin-link-entity
-        data-track-change
-        data-subject="record.about.subjectByInScheme" data-link-multiple="key" data-type="Concept"
-        data-search-template="/snippets/search-subject"
-        data-view-template="/snippets/view-subject">
-    </ul>
-  </div>
-  <!-- SUBJECT BY IN SCHEME  END -->
-
-  <!-- SUBJECT BY TYPE  START -->
-  <div data-ng-repeat="(key, container) in record.about.subjectByType" class="scheme tagsinput"
-     data-ng-init="scheme = subjectByType[key];
-                   search_filter = (key === '/topic/chronological') ? { filter: 'about.inCollection.@id:\/topic\/chronological\/'} : { filter: 'about.@type:' + key};
-                   search_completion_template = key === 'Person' ? 'auth-completion-template' : 'subject-completion-template';">
-    <span class="lbl">{{ scheme.alternative || scheme.title || scheme.title_en }}</span>
-    <ul class="tags" data-kitin-link-entity
-        data-track-change
-        data-subject="record.about.subjectByType" data-link-multiple="key" data-type="Concept"
-        data-search-template="/snippets/search-subject"
-        data-view-template="/snippets/view-subject">
-    </ul>
-  </div>
-  <!-- SUBJECT BY TYPE  END -->
-
-  <!-- GENERAL SUBJECT  START -->
-  <div class="cols">
-    <span class="lbl">Andra ämnesordssystem {{chosenScheme}}</span>
-    <div class="col3">  
-      <div class="label">
-        <input type="text" placeholder="Nytt ämnesord" data-kitin-autocomplete="subject"
-            data-track-change
-            data-kitin-add-to="schemeContainer"
-              data-kitin-filter="{'about.subject.inScheme.notation': chosenScheme}" />
-      </div>
-    </div>
-    <div class="col3">
-      <div class="label">
-        <select data-ng-model="chosenScheme"
-            data-track-change
-            data-ng-options="code as (scheme.alternative || scheme.title || scheme.title_en)
-                           for (code, scheme) in conceptSchemes.byNotation">
-        </select>
-      </div>
-    </div>
-  </div>
-  <!-- GENERAL SUBJECT  END -->
-
-  <!-- CLASSIFICATION  START -->
-  <h3>Klassifikationer</h3>
-  <div class="label dynamic-subjects">
-    <span class="lbl">Dewey</span>
-    <textarea data-track-change placeholder="Dewey Klassifikation" data-ng-model="record.about.classificationDdc"></textarea>
-  </div>
-  <div class="label dynamic-subjects" data-ng-show="record.about.classificationNlm">
-      <span class="lbl">NLM-klassifikation (National Library of Medicine)</span>
-      <textarea data-track-change placeholder="Klassifikation" data-ng-model="record.about.classificationNlm"></textarea>
-  </div>
-  <div class="label cols" data-ng-repeat="(classificationScheme, subClassification) in record.about.classificationByInScheme">
-    <h3 ng-if="subClassification.length > 0" class="ng-binding" translate>{{ classificationScheme }}</h3>
-    <div class="col12" ng-switch on="classificationScheme">
+    <!-- SUBJECT START -->
+    <!-- SUBJECT BY IN SCHEME  START -->
+    <div data-ng-repeat="(key, container) in record.about.subjectByInScheme" class="scheme tagsinput"
+       data-ng-init="scheme = conceptSchemes.byNotation[key.replace('/topic/','')] || {'title': key, 'notation': container[0].inScheme.notation}; 
+                    search_filter = {filter: 'about.inScheme.notation:' + scheme.notation};
+                    search_completion_template = 'subject-completion-template';">
+      <span class="lbl">{{ scheme.alternative || scheme.title || scheme.title_en }}</span>
       <ul class="tags" data-kitin-link-entity
-        data-subject="record.about.classificationByInScheme"
-        data-link-multiple="classificationScheme"
-        data-view-template="/snippets/render-classification"
-        data-search-template="/snippets/render-search-classification"
-        data-default-type="classificationScheme"
-        >
+          data-track-change
+          data-subject="record.about.subjectByInScheme" data-link-multiple="key" data-type="Concept"
+          data-search-template="/snippets/search-subject"
+          data-view-template="/snippets/view-subject">
       </ul>
     </div>
-  </div>
-  <script type="text/ng-template" id="/snippets/render-search-classification">
-      <i class="fa fa-search"></i> <input data-track-change class="input-large authdependant embedded" type="text"
-            data-no-value="{{ object.notation }}"
-            data-kitin-search-entity
-            data-service-url="{{API_PATH}}/auth/_search"
-            data-filter="{ filter: 'about.inCollection.@id:{{classificationScheme}}'}"
-            data-completion-template-id="auth-completion-template" 
-            data-allow-non-auth="true"
-            placeholder="+ Lägg till klassifikation">
-  </script>
+    <!-- SUBJECT BY IN SCHEME  END -->
+
+    <!-- SUBJECT BY TYPE  START -->
+    <div data-ng-repeat="(key, container) in record.about.subjectByType" class="scheme tagsinput"
+       data-ng-init="scheme = subjectByType[key];
+                     search_filter = (key === '/topic/chronological') ? { filter: 'about.inCollection.@id:\/topic\/chronological\/'} : { filter: 'about.@type:' + key};
+                     search_completion_template = key === 'Person' ? 'auth-completion-template' : 'subject-completion-template';">
+      <span class="lbl">{{ scheme.alternative || scheme.title || scheme.title_en }}</span>
+      <ul class="tags" data-kitin-link-entity
+          data-track-change
+          data-subject="record.about.subjectByType" data-link-multiple="key" data-type="Concept"
+          data-search-template="/snippets/search-subject"
+          data-view-template="/snippets/view-subject">
+      </ul>
+    </div>
+    <!-- SUBJECT BY TYPE  END -->
+
+    <!-- GENERAL SUBJECT  START -->
+    <span class="lbl">Andra ämnesordssystem {{chosenScheme}}</span>
+    <div class="label">
+      <input type="text" placeholder="Nytt ämnesord" data-kitin-autocomplete="subject"
+          data-track-change
+          data-kitin-add-to="schemeContainer"
+            data-kitin-filter="{'about.subject.inScheme.notation': chosenScheme}" />
+    </div>
+    <div class="label">
+      <select data-ng-model="chosenScheme"
+          data-track-change
+          data-ng-options="code as (scheme.alternative || scheme.title || scheme.title_en)
+                         for (code, scheme) in conceptSchemes.byNotation">
+      </select>
+    </div>
+    <!-- GENERAL SUBJECT  END -->
+  </kitin-group>
+
+  <!-- CLASSIFICATION  START -->
+  <kitin-group title="Klassifikationer">
+  
+    <kitin-textrow model="record.about.classificationDdc"></kitin-textrow>
+   
+    <kitin-textrow model="record.about.classificationNlm"></kitin-textrow>
+
+  
+    <div class="label cols" data-ng-repeat="(classificationScheme, subClassification) in record.about.classificationByInScheme">
+      <h3 ng-if="subClassification.length > 0" class="ng-binding" translate>{{ classificationScheme }}</h3>
+      <div class="col12" ng-switch on="classificationScheme">
+        <ul class="tags" data-kitin-link-entity
+          data-subject="record.about.classificationByInScheme"
+          data-link-multiple="classificationScheme"
+          data-view-template="/snippets/render-classification"
+          data-search-template="/snippets/render-search-classification"
+          data-default-type="classificationScheme"
+          >
+        </ul>
+      </div>
+    </div>
+    <script type="text/ng-template" id="/snippets/render-search-classification">
+        <i class="fa fa-search"></i> <input data-track-change class="input-large authdependant embedded" type="text"
+              data-no-value="{{ object.notation }}"
+              data-kitin-search-entity
+              data-service-url="{{API_PATH}}/auth/_search"
+              data-filter="{ filter: 'about.inCollection.@id:{{classificationScheme}}'}"
+              data-completion-template-id="auth-completion-template" 
+              data-allow-non-auth="true"
+              placeholder="+ Lägg till klassifikation">
+    </script>
+  </kitin-group>
   <!-- CLASSIFICATION  END -->
 
-  <h3 translate>LABEL.record.about.genre</h3>
-  <!-- NATURE  START -->
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.nature</span>
-    <div data-kitin-link-entity
-        data-track-change
-        data-subject="record.about"
-        data-link="'nature'"
-        data-view-template="/snippets/render-generic-tag-entity"
-        data-search-template="/snippets/render-generic-select"
-        data-filter="about.inCollection.@id:/def/enum/content/nature-collection"
-        ng-init=" placeholder='Lägg till'; ">
+  <kitin-group title="Genre">
+    <!-- NATURE  START -->
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.nature</span>
+      <div data-kitin-link-entity
+          data-track-change
+          data-subject="record.about"
+          data-link="'nature'"
+          data-view-template="/snippets/render-generic-tag-entity"
+          data-search-template="/snippets/render-generic-select"
+          data-filter="about.inCollection.@id:/def/enum/content/nature-collection"
+          ng-init=" placeholder='Lägg till'; ">
+      </div>
     </div>
-  </div>
-  <!-- NATURE  END -->
+    <!-- NATURE  END -->
+      
+    <!-- LITERARY FORM  START -->        
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.literaryForm</span>
+      <div data-kitin-link-entity
+          data-track-change
+          data-subject="record.about"
+          data-link="'literaryForm'"
+          data-view-template="/snippets/render-generic-tag-entity"
+          data-search-template="/snippets/render-generic-select"
+          data-search-placeholder="Lägg till litterär genre"
+          data-filter="about.inCollection.@id:/def/enum/content/literaryForm-collection"
+          ng-init=" placeholder='Lägg till litterär genre'; ">
+      </div>
+    </div>
+    <!-- LITERARY FORM  END -->  
+
+    <!-- BIOGRAPHY  START --> 
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.biography</span>
+      <div data-kitin-link-entity
+          data-track-change
+          data-subject="record.about"
+          data-link="'biography'"
+          data-view-template="/snippets/render-generic-tag-entity"
+          data-search-template="/snippets/render-generic-select"
+          data-filter="about.inCollection.@id:/def/enum/content/biography-collection"
+          ng-init=" placeholder='Lägg till'; ">
+      </div>
+    </div>
+    <!-- BIOGRAPHY END --> 
+
+    <!-- CONFERENCE PUBLICATION START --> 
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.confPub</span>
+      <div data-kitin-link-entity
+          data-track-change
+          data-subject="record.about"
+          data-link="'confPub'"
+          data-view-template="/snippets/render-generic-tag-entity"
+          data-search-template="/snippets/render-generic-select"
+          data-filter="about.inCollection.@id:/def/enum/content/confPub-collection"
+          ng-init=" placeholder='Lägg till'; ">
+      </div>
+    </div>
+    <!-- CONFERENCE PUBLICATION END --> 
+
+    <!-- FESTSCHRIFT  START -->
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.festschrift</span>
+      <div data-kitin-link-entity
+          data-track-change
+          data-subject="record.about"
+          data-link="'festschrift'"
+          data-view-template="/snippets/render-generic-tag-entity"
+          data-search-template="/snippets/render-generic-select"
+          data-filter="about.inCollection.@id:/def/enum/content/festschrift-collection"
+          ng-init=" placeholder='Lägg till'; ">
+      </div>
+    </div>
+    <!-- FESTSCHRIFT  END -->
     
-  <!-- LITERARY FORM  START -->        
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.literaryForm</span>
-    <div data-kitin-link-entity
-        data-track-change
-        data-subject="record.about"
-        data-link="'literaryForm'"
-        data-view-template="/snippets/render-generic-tag-entity"
-        data-search-template="/snippets/render-generic-select"
-        data-search-placeholder="Lägg till litterär genre"
-        data-filter="about.inCollection.@id:/def/enum/content/literaryForm-collection"
-        ng-init=" placeholder='Lägg till litterär genre'; ">
+    <!-- AUDIENCE  START -->
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.audience</span>
+      <ul class="tags" data-kitin-link-entity
+          data-track-change
+          data-subject="record.about"
+          data-link="'audience'" data-type="audience"
+          data-view-template="/snippets/render-generic-linked-entity"
+          data-search-template="/snippets/render-generic-linked-entity"
+          data-filter="about.inCollection.@id:/def/enum/content/audience-collection">
+      </ul>
     </div>
-  </div>
-  <!-- LITERARY FORM  END -->  
-
-  <!-- BIOGRAPHY  START --> 
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.biography</span>
-    <div data-kitin-link-entity
-        data-track-change
-        data-subject="record.about"
-        data-link="'biography'"
-        data-view-template="/snippets/render-generic-tag-entity"
-        data-search-template="/snippets/render-generic-select"
-        data-filter="about.inCollection.@id:/def/enum/content/biography-collection"
-        ng-init=" placeholder='Lägg till'; ">
-    </div>
-  </div>
-  <!-- BIOGRAPHY END --> 
-
-  <!-- CONFERENCE PUBLICATION START --> 
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.confPub</span>
-    <div data-kitin-link-entity
-        data-track-change
-        data-subject="record.about"
-        data-link="'confPub'"
-        data-view-template="/snippets/render-generic-tag-entity"
-        data-search-template="/snippets/render-generic-select"
-        data-filter="about.inCollection.@id:/def/enum/content/confPub-collection"
-        ng-init=" placeholder='Lägg till'; ">
-    </div>
-  </div>
-  <!-- CONFERENCE PUBLICATION END --> 
-
-  <!-- FESTSCHRIFT  START -->
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.festschrift</span>
-    <div data-kitin-link-entity
-        data-track-change
-        data-subject="record.about"
-        data-link="'festschrift'"
-        data-view-template="/snippets/render-generic-tag-entity"
-        data-search-template="/snippets/render-generic-select"
-        data-filter="about.inCollection.@id:/def/enum/content/festschrift-collection"
-        ng-init=" placeholder='Lägg till'; ">
-    </div>
-  </div>
-  <!-- FESTSCHRIFT  END -->
-  
-  <!-- AUDIENCE  START -->
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.audience</span>
-    <ul class="tags" data-kitin-link-entity
-        data-track-change
-        data-subject="record.about"
-        data-link="'audience'" data-type="audience"
-        data-view-template="/snippets/render-generic-linked-entity"
-        data-search-template="/snippets/render-generic-linked-entity"
-        data-filter="about.inCollection.@id:/def/enum/content/audience-collection">
-    </ul>
-  </div>
-  <!-- AUDIENCE  END -->
+    <!-- AUDIENCE  END -->
+  </kitin-group>
 
 </div>
