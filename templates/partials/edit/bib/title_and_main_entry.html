@@ -66,180 +66,171 @@
     <kitin-textrow model="record.about.keyTitle.titleSource"></kitin-textrow>
   </kitin-group>
 
-  <!--uniformTitle START-->
   <kitin-group single>
     <kitin-textrow model="record.about.uniformTitle"></kitin-textrow>
   </kitin-group>
-  <!--uniformTitle END-->
 
-  <!-- INFLUENTIAL RELATION TITLE  START -->
   <kitin-group single>
     <kitin-table model="record.about.influentialRelation">
       <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.uniformTitle"/></kitin-td>
     </kitin-table>
-  <kitin-group>
-
-
-  <!-- TODO: refactor
-  <kitin-group single>
-    <kitin-entity model="LABEL.record.about.relation" multiple></kitin-entity>
   </kitin-group>
-  -->
 
-  <!-- RELATION  START -->
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.relation</span>
-    <div class="entity" data-kitin-link-entity
-        data-track-change
-        data-subject="record.about"
-        data-ng-init="label = 'Länkfält'"
-        data-link-multiple="'relation'" data-type="relation"
-        data-view-template="/snippets/render-relation-referenced-entity"
-        data-search-template="/snippets/render-bib-search"
-        data-rich-entity>
-    </div>
-  </div>
 
-  <!-- RELATION  END -->
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.isPartOf</span>
-    <div class="entity" data-kitin-link-entity
-        data-track-change
-        data-subject="record.about"
-        data-ng-init="label = 'Värdpublikation'"
-        data-link-multiple="'isPartOf'" data-type="isPartOf"
-        data-view-template="/snippets/render-referenced-entity"
-        data-search-template="/snippets/render-bib-search"
-        data-rich-entity>
+  <kitin-group title="References Title">
+    <!-- RELATION  START -->
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.relation</span>
+      <div class="entity" data-kitin-link-entity
+          data-track-change
+          data-subject="record.about"
+          data-ng-init="label = 'Länkfält'"
+          data-link-multiple="'relation'" data-type="relation"
+          data-view-template="/snippets/render-relation-referenced-entity"
+          data-search-template="/snippets/render-bib-search"
+          data-rich-entity>
+      </div>
     </div>
-  </div>
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.hasPart</span>
-    <div class="entity" data-kitin-link-entity
-        data-track-change
-        data-subject="record.about"
-        data-ng-init="label = 'Del'"
-        data-link-multiple="'hasPart'" data-type="hasPart"
-        data-view-template="/snippets/render-referenced-entity"
-        data-search-template="/snippets/render-bib-search"
-        data-rich-entity>
+
+    <!-- RELATION  END -->
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.isPartOf</span>
+      <div class="entity" data-kitin-link-entity
+          data-track-change
+          data-subject="record.about"
+          data-ng-init="label = 'Värdpublikation'"
+          data-link-multiple="'isPartOf'" data-type="isPartOf"
+          data-view-template="/snippets/render-referenced-entity"
+          data-search-template="/snippets/render-bib-search"
+          data-rich-entity>
+      </div>
     </div>
-  </div>
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.precededBy</span>
-    <div class="entity" data-kitin-link-entity
-        data-track-change
-        data-subject="record.about"
-        data-ng-init="label = 'Titel'"
-        data-link-multiple="'precededBy'" data-type="PrecededBy"
-        data-view-template="/snippets/render-referenced-entity"
-        data-search-template="/snippets/render-bib-search"
-        data-rich-entity>
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.hasPart</span>
+      <div class="entity" data-kitin-link-entity
+          data-track-change
+          data-subject="record.about"
+          data-ng-init="label = 'Del'"
+          data-link-multiple="'hasPart'" data-type="hasPart"
+          data-view-template="/snippets/render-referenced-entity"
+          data-search-template="/snippets/render-bib-search"
+          data-rich-entity>
+      </div>
     </div>
-  </div>
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.succeededBy</span>
-    <div class="entity" data-kitin-link-entity
-        data-track-change
-        data-subject="record.about"
-        data-ng-init="label = 'Titel'"
-        data-link-multiple="'succeededBy'" data-type="SucceededBy"
-        data-view-template="/snippets/render-referenced-entity"
-        data-search-template="/snippets/render-bib-search"
-        data-rich-entity>
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.precededBy</span>
+      <div class="entity" data-kitin-link-entity
+          data-track-change
+          data-subject="record.about"
+          data-ng-init="label = 'Titel'"
+          data-link-multiple="'precededBy'" data-type="PrecededBy"
+          data-view-template="/snippets/render-referenced-entity"
+          data-search-template="/snippets/render-bib-search"
+          data-rich-entity>
+      </div>
     </div>
-  </div>
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.succeededBy</span>
+      <div class="entity" data-kitin-link-entity
+          data-track-change
+          data-subject="record.about"
+          data-ng-init="label = 'Titel'"
+          data-link-multiple="'succeededBy'" data-type="SucceededBy"
+          data-view-template="/snippets/render-referenced-entity"
+          data-search-template="/snippets/render-bib-search"
+          data-rich-entity>
+      </div>
+    </div>
+  </kitin-group>
+
   <!-- LANGUAGES  START -->
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.language</span>
-    <ul class="tags" data-kitin-link-entity
-        data-track-change
-        data-subject="record.about"
-        data-link-multiple="'language'" data-type="Language"
-        data-view-template="/snippets/render-language"
-        data-search-template="/snippets/render-search-language">
-    </ul>
-  </div>
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.originalLanguage</span>
-    <ul class="tags" data-kitin-link-entity
-        data-track-change
-        data-subject="record.about"
-        data-link-multiple="'originalLanguage'" data-type="Language"
-        data-view-template="/snippets/render-language"
-        data-search-template="/snippets/render-search-language">
-    </ul>
-  </div>
+  <kitin-group title="Language and more title">
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.language</span>
+      <ul class="tags" data-kitin-link-entity
+          data-track-change
+          data-subject="record.about"
+          data-link-multiple="'language'" data-type="Language"
+          data-view-template="/snippets/render-language"
+          data-search-template="/snippets/render-search-language">
+      </ul>
+    </div>
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.originalLanguage</span>
+      <ul class="tags" data-kitin-link-entity
+          data-track-change
+          data-subject="record.about"
+          data-link-multiple="'originalLanguage'" data-type="Language"
+          data-view-template="/snippets/render-language"
+          data-search-template="/snippets/render-search-language">
+      </ul>
+    </div>
 
-  <!-- LANGUAGE NOTE  START -->
-  <div class="label datatable" data-ng-target="languageNoteTable" 
-    data-track-change
-    data-kitin-data-table 
-    data-table-model="record.about.languageNote" 
-    data-table-header-row-template="/snippets/languageNote-header-row-template"
-    data-table-row-template="/snippets/languageNote-row-template"
-    data-subject="record.about" data-link-multiple="languageNote"
-    data-default-type="Comment"
-    data-add-first
-    data-addable="notes">
-  </div>
-  <!-- LANGUAGE NOTE  END -->
+    <kitin-table model="record.about.languageNote">
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+    </kitin-table>
+
+
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.alphabet</span>
+      <ul class="tags" data-kitin-link-entity
+          data-track-change
+          data-subject="record.about"
+          data-link="'alphabet'" data-type="Alphabet"
+          data-view-template="/snippets/render-generic-linked-entity"
+          data-search-template="/snippets/render-generic-select"
+          data-filter="about.inCollection.@id:/def/enum/content/alphabet-collection">
+      </ul>
+    </div>
+  </kitin-group>
   <!-- LANGUAGES  END -->
 
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.alphabet</span>
-    <ul class="tags" data-kitin-link-entity
-        data-track-change
-        data-subject="record.about"
-        data-link="'alphabet'" data-type="Alphabet"
-        data-view-template="/snippets/render-generic-linked-entity"
-        data-search-template="/snippets/render-generic-select"
-        data-filter="about.inCollection.@id:/def/enum/content/alphabet-collection">
-    </ul>
-  </div>
-
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.contentType</span>
-    <ul class="tags" data-kitin-link-entity
-        data-track-change
-        data-subject="record.about"
-        data-link-multiple="'contentType'" data-type="contentType"
-        data-view-template="/snippets/render-generic-linked-entity"
-        data-search-template="/snippets/render-generic-select"
-        data-filter="about.inCollection.@id:/def/enum/content/contentType-collection">
-    </ul>
-  </div>
-
-  <!-- PERSONS  START -->
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.responsibilityStatement</span>
-    <textarea spellcheck="false"
-        data-track-change data-ui-jq="autosize"
-        data-ng-model="record.about.responsibilityStatement"></textarea>
-  </div>
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.attributedTo</span>
-    <div data-kitin-link-entity
-        data-track-change
-        data-ng-init="label = 'huvuduppslag'"
-        data-subject="record.about" data-link="'attributedTo'" data-type="Person"
-        data-view-template="/snippets/render-person"
-        data-search-template="/snippets/render-search-box"
-        data-rich-entity>
+  <kitin-group single>
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.contentType</span>
+      <ul class="tags" data-kitin-link-entity
+          data-track-change
+          data-subject="record.about"
+          data-link-multiple="'contentType'" data-type="contentType"
+          data-view-template="/snippets/render-generic-linked-entity"
+          data-search-template="/snippets/render-generic-select"
+          data-filter="about.inCollection.@id:/def/enum/content/contentType-collection">
+      </ul>
     </div>
-  </div>
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.influencedBy</span>
-    <!--<a ng-click="showInfluencedBy = !showInfluencedBy">Dölj <i class="icon fa fa-caret-up"></i></a>-->
-    <div data-kitin-link-entity
-        data-track-change
-        data-ng-init="label = 'biuppslag'"
-        data-subject="record.about" data-link-multiple="'influencedBy'" data-type="Person"
-        data-view-template="/snippets/render-person"
-        data-search-template="/snippets/render-search-box"
-        data-rich-entity>
+  </kitin-group>
+
+  <kitin-group title="Uppslag title">
+    <!-- PERSONS  START -->
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.responsibilityStatement</span>
+      <textarea spellcheck="false"
+          data-track-change data-ui-jq="autosize"
+          data-ng-model="record.about.responsibilityStatement"></textarea>
     </div>
-  </div>
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.attributedTo</span>
+      <div data-kitin-link-entity
+          data-track-change
+          data-ng-init="label = 'huvuduppslag'"
+          data-subject="record.about" data-link="'attributedTo'" data-type="Person"
+          data-view-template="/snippets/render-person"
+          data-search-template="/snippets/render-search-box"
+          data-rich-entity>
+      </div>
+    </div>
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.influencedBy</span>
+      <!--<a ng-click="showInfluencedBy = !showInfluencedBy">Dölj <i class="icon fa fa-caret-up"></i></a>-->
+      <div data-kitin-link-entity
+          data-track-change
+          data-ng-init="label = 'biuppslag'"
+          data-subject="record.about" data-link-multiple="'influencedBy'" data-type="Person"
+          data-view-template="/snippets/render-person"
+          data-search-template="/snippets/render-search-box"
+          data-rich-entity>
+      </div>
+    </div>
+  </kitin-group>
 </div>
 
 <div class="element-adder" data-element-adder="title_and_main_entry"></div>
