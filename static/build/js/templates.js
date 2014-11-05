@@ -122,65 +122,6 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('/snippets/isbn-header-row-template',
-    "<td><!--TODO fix labels and error messages for identifiers-->\n" +
-    "  <span class=\"lbl-inline lbl\"\n" +
-    "        data-ng-hide=\"subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length\"><span translate>LABEL.record.about.identifers.isbn.identifierValue</span>                      \n" +
-    "  </span>\n" +
-    "  <span class=\"lbl-inline lbl error-label\"\n" +
-    "        data-ng-show=\"subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length\" translate>LABEL.record.about.identifers.isbn.identifierValue \n" +
-    "  <span class=\"error_message\" data-ng-show=\"subform.isbn_name.$error.invalid_value\">(Fel numeriskt värde)</span>\n" +
-    "  <span class=\"error_message\" data-ng-show=\"subform.isbn_name.$error.invalid_length\">(Fel längd)</span>\n" +
-    "  </span>\n" +
-    "</td>\n" +
-    "<td><span class=\"lbl\" translate>LABEL.record.about.identifers.isbn.identifierNote</span></td>"
-  );
-
-
-  $templateCache.put('/snippets/isbn-row-template',
-    "<td>\n" +
-    "  <div class=\"label\">\n" +
-    "    <input data-track-change type=\"text\" data-track-change name=\"isbn_name\" data-ng-model=\"object['identifierValue']\" data-isbn-pattern=\"^$|^[0-9-xX]*$\" isbnvalidator/>\n" +
-    "  </div>\n" +
-    "</td>\n" +
-    "<td>\n" +
-    "  <div class=\"label\">\n" +
-    "    <input data-track-change ng-model=\"object['identifierNote']\" data-track-change type=\"text\" />\n" +
-    "  </div>\n" +
-    "</td>\n" +
-    "<td class=\"controls\">\n" +
-    "  <button class=\"btn-link deleter\" data-ng-click=\"removeTableRow($index)\">\n" +
-    "    <i class=\"fa fa-times\"></i>\n" +
-    "  </button>\n" +
-    "</td>"
-  );
-
-
-  $templateCache.put('/snippets/issn-header-row-template',
-    "<td><span class=\"lbl\" translate>LABEL.record.about.identifers.issn.identifierValue</span></td>\n" +
-    "<td><span class=\"lbl\" translate>LABEL.record.about.identifers.issn.identifierNote</span></td>"
-  );
-
-
-  $templateCache.put('/snippets/issn-row-template',
-    "<td>\n" +
-    "  <div class=\"label\">\n" +
-    "    <input ng-model=\"object['identifierValue']\" data-track-change type=\"text\" />\n" +
-    "  </div>\n" +
-    "</td>\n" +
-    "<td>\n" +
-    "  <div class=\"label\">\n" +
-    "    <input ng-model=\"object['identifierNote']\" data-track-change type=\"text\" />\n" +
-    "  </div>\n" +
-    "</td>\n" +
-    "<td class=\"controls\">\n" +
-    "  <button class=\"btn-link deleter\" data-ng-click=\"removeTableRow($index)\">\n" +
-    "    <i class=\"fa fa-times\"></i>\n" +
-    "  </button>\n" +
-    "</td>"
-  );
-
-
   $templateCache.put('/snippets/languageNote-header-row-template',
     "<td>\n" +
     "  <span class=\"lbl\" translate>LABEL.record.about.languageNote</span>\n" +

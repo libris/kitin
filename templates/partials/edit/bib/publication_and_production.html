@@ -1,7 +1,44 @@
 <h2>Utgivning och tillverkning<i></i></h2>
 
 <div class="form-container">
-  <div class="identifier" ng-include="'/partials/edit/bib/identifier'"></div>
+  <kitin-group title="Identifier titles">
+    <span data-ng-repeat="(identifierSchemeName, identifierScheme) in record.about.identifierByIdentifierScheme"
+          ng-switch ="identifierSchemeName">
+      
+      <span ng-switch-when="/def/identifiers/isbn">
+        <kitin-table 
+         model="record.about.identifierByIdentifierScheme['/def/identifiers/isbn']"
+         titles="['identifierValue title','identifierNote title']">
+          <kitin-td>
+            <textarea data-ui-jq="autosize" spellcheck="false" name="isbn_name" data-ng-model="item.identifierValue" data-isbn-pattern="^$|^[0-9-xX]*$" isbnvalidator/>
+            <!-- TODO! Implement a kitin-error-displayer-something -->
+            <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_value">(Fel numeriskt värde)</span>
+            <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_length">(Fel längd)</span>
+          </kitin-td>
+          <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.identifierNote"/></kitin-td>
+        </kitin-table>
+      </span>
+
+      <span ng-switch-when="/def/identifiers/issn">
+        <kitin-table 
+         model="record.about.identifierByIdentifierScheme['/def/identifiers/issn']"
+         titles="['identifierValue title','identifierNote title']">
+          <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.identifierValue"/></kitin-td>
+          <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.identifierNote"/></kitin-td>
+        </kitin-table>
+      </span>
+
+      <span ng-switch-default>
+        <kitin-table 
+         model="record.about.identifierByIdentifierScheme[identifierSchemeName]"
+         titles="['identifierValue title','identifierNote title']">
+          <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.identifierValue"/></kitin-td>
+          <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.identifierNote"/></kitin-td>
+        </kitin-table>
+      </span>
+
+    </span>
+  </kitin-group>
   
   <div class="label" data-ng-show="record.about.mediaTerm">
     <span class="lbl" translate>LABEL.record.about.mediaTerm</span>
