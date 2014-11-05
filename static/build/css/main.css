@@ -334,21 +334,25 @@ body.edit {
 body.edit .footer footer {
   margin-top: 0px;
 }
-.footer-sticky {
+body.edit .footer-sticky {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
-  height: 50px;
+  height: 56px;
   font-size: 13px;
   background: rgba(255, 255, 255, 0.9);
   box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
-  text-align: center;
 }
-.footer-sticky section {
-  padding-top: 7px !important;
+body.edit .footer-sticky section.centered {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding-top: 10px !important;
   background-color: transparent !important;
+}
+body.edit .footer-sticky section.centered div.right {
+  text-align: right;
 }
 /* BUTTONS START ------------------------- */
 /* !TODO Remove and use boostrap buttons instead */
@@ -3269,6 +3273,10 @@ a.beta-blocker {
 }
 .alert-error i {
   color: #ee5d61;
+}
+.alert-dismissable .close {
+  top: 0;
+  right: 0;
 }
 .cg-busy-default-sign {
   background-color: #eeeeec;

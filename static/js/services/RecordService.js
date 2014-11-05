@@ -179,12 +179,12 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
     },
 
     holding: {
-      find: function(recordId, userData) {
+      find: function(recordId, userData, quiet) {
         var deferer = $q.defer();
         var sigel = userData.userSigel;
         var searchPath = '/hold/_search?q=*+about.holdingFor.@id:' + recordId.replace(/\//g, '\\/') + '+about.offers.heldBy.notation:' + sigel;
-        // $rootScope.promises is used by angular-busy to show and hide loading/saving indicators
-        $rootScope.promises.holding.loading = $http.get($rootScope.API_PATH + searchPath).success(function(data, status, headers) {
+        // $rootScope.promises is used by angular-busy to show and hide loading/saving indicators ...
+        var promise = $http.get($rootScope.API_PATH + searchPath).success(function(data, status, headers) {
           if (data.list.length > 0) {
             var holding = data.list[0];
             recordService.holding.get(holding.data['@id']).then(function(response) {
@@ -201,11 +201,13 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
               }
             });
           } else {
-            deferer.resolve(null);
+            deferer.resolve(false);
           }
         }).error(function(data, status, headers) {
             deferer.reject(status);
         });
+        // ... unless we have explicitly requested a quiet lookup
+        if (!quiet) $rootScope.promises.holding.loading = promise;
         return deferer.promise;
       },
 

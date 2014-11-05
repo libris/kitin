@@ -32,6 +32,32 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     $rootScope.modifications.bib.lastPublished = new Date();
   }
 
+  // Make sure the edit view holdings button stay updated
+  var updateHolding = function () {
+    var recordId = $scope.record.about['@id'];
+    recordService.holding.find(recordId, userData, true).then(function success(holding) {
+      if (holding) {
+        $scope.hasHolding = true;  
+      } else {
+        $scope.hasHolding = false;
+      }
+    }, function error(status) {
+      $scope.hasHolding = false;
+    });
+  };
+  $scope.$watchCollection('modifications.holding',
+    function(newValue, oldValue) {
+      console.log(newValue,oldValue, newValue.saved !== oldValue.saved);
+      if (newValue.saved !== oldValue.saved && newValue.saved) {
+        $scope.hasHolding = true;
+      } else if (newValue.deleted) {
+        $scope.hasHolding = false;
+      }
+    }
+  );
+  // Set initial value for $scope.hasHolding
+  updateHolding();
+
   $scope.modifiedClasses = function () {
     var classes = [], mods = $rootScope.modifications.bib;
     if (mods.saved) classes.push('saved');
