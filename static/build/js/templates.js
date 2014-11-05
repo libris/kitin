@@ -101,48 +101,6 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('/snippets/influentialRelation-header-row-template',
-    "<td>\n" +
-    "    <span class=\"lbl\" translate>LABEL.record.about.influentialRelation</span>\n" +
-    "</td>"
-  );
-
-
-  $templateCache.put('/snippets/influentialRelation-row-template',
-    "<td>\n" +
-    "  <div class=\"label\">\n" +
-    "    <textarea ng-model=\"objects[$index].uniformTitle\" data-track-change type=\"text\"></textarea>\n" +
-    "  </div>\n" +
-    "</td>\n" +
-    "<td class=\"controls\">\n" +
-    "  <button class=\"btn-link deleter\" data-ng-click=\"removeTableRow($index)\">\n" +
-    "    <i class=\"fa fa-times\"></i>\n" +
-    "  </button>\n" +
-    "</td>"
-  );
-
-
-  $templateCache.put('/snippets/languageNote-header-row-template',
-    "<td>\n" +
-    "  <span class=\"lbl\" translate>LABEL.record.about.languageNote</span>\n" +
-    "</td>"
-  );
-
-
-  $templateCache.put('/snippets/languageNote-row-template',
-    "<td>\n" +
-    "  <div class=\"label\">\n" +
-    "    <textarea ng-model=\"objects[$index]\" data-track-change type=\"text\"></textarea>\n" +
-    "  </div>\n" +
-    "</td>\n" +
-    "<td class=\"controls\">\n" +
-    "  <button class=\"btn-link deleter\" data-ng-click=\"removeTableRow($index)\">\n" +
-    "    <i class=\"fa fa-times\"></i>\n" +
-    "  </button>\n" +
-    "</td>"
-  );
-
-
   $templateCache.put('/snippets/messages',
     "<div id=\"system-message-container\">\n" +
     "  <alert ng-repeat=\"message in systemMessages track by $index\" type=\"message.type\" close=\"closeSystemMessage($index)\">{{message.msg}}</alert>\n" +
