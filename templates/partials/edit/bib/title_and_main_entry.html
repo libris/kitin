@@ -35,10 +35,10 @@
     <kitin-textrow model="record.about.translatedTitle.subtitle"></kitin-textrow>
     <kitin-textrow model="record.about.translatedTitle.titleDate"></kitin-textrow>
     <kitin-table model="record.about.translatedTitle.partNumber">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+      <kitin-td><textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
     </kitin-table>
     <kitin-table model="record.about.translatedTitle.partTitle">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+      <kitin-td><textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
     </kitin-table>
   </kitin-group>
 
@@ -47,10 +47,10 @@
     <kitin-textrow model="record.about.previousTitle.subtitle"></kitin-textrow>
     <kitin-textrow model="record.about.previousTitle.titleDate"></kitin-textrow>
     <kitin-table model="record.about.previousTitle.partNumber">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+      <kitin-td><textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
     </kitin-table>
     <kitin-table model="record.about.previousTitle.partTitle">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+      <kitin-td><textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
     </kitin-table>
   </kitin-group>
 
@@ -73,17 +73,12 @@
   <!--uniformTitle END-->
 
   <!-- INFLUENTIAL RELATION TITLE  START -->
-  <div class="label datatable" data-ng-target="influentialRelationTable" 
-    data-track-change
-    data-kitin-data-table 
-    data-table-model="record.about.influentialRelation" 
-    data-table-header-row-template="/snippets/influentialRelation-header-row-template"
-    data-table-row-template="/snippets/influentialRelation-row-template"
-    data-subject="record.about" data-link-multiple="influentialRelation"
-    data-default-type="Comment"
-    data-add-first
-    data-addable="notes">
-  </div>
+  <kitin-group single>
+    <kitin-table model="record.about.influentialRelation">
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.uniformTitle"/></kitin-td>
+    </kitin-table>
+  <kitin-group>
+
 
   <!-- TODO: refactor
   <kitin-group single>
