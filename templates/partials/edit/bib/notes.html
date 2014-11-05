@@ -29,8 +29,6 @@
     </kitin-table>
 
 
-
-    <!-- IS PRIMARY TOPIC OF  START -->
     <!-- TODO! Changes this into a linked entity -->
     <div class="label" data-ng-repeat="topic in record.about.isPrimaryTopicOf">
         <span class="lbl" translate>{{ "isPrimaryTopicOf type: " + topic['@type'] }}</span>
@@ -40,10 +38,7 @@
         <span class="lbl" translate>LABEL.record.about.isPrimaryTopicOf</span>
       <textarea data-track-change data-ui-jq="autosize" data-ng-model="topic.comment" ></textarea>
     </div>
-    <!-- IS PRIMARY TOPIC OF  END -->
 
-
-    <!-- AUDIENCE  START -->
     <div class="label">
       <span class="lbl" translate>LABEL.record.about.audience</span>
       <ul class="tags" data-kitin-link-entity
@@ -54,9 +49,7 @@
           data-filter="about.inCollection.@id:/def/enum/content/audience-collection">
       </ul>
     </div>
-    <!-- AUDIENCE  END -->
-  
-    <!-- HAS ANNOTATION  START -->
+
     <kitin-table model="record.about.hasAnnotation"
                  titles="['LABEL.note', 'LABEL.degree', 'LABEL.location', 'LABEL.date', 'LABEL.comment']">
       <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.note"/></kitin-td>
@@ -65,6 +58,7 @@
       <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.date"/></kitin-td>
       <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.comment"/></kitin-td>
     </kitin-table>
+    
   </kitin-group>
 </div>
 <div class="element-adder" data-element-adder="notes"></div>
