@@ -8,11 +8,7 @@ kitin.directive('kitinTable', function(editService){
       replace: true,
       transclude: true,
       link: function(scope, element, attrs, kitinGroupCtrl, transcludeFn) {
-        if(kitinGroupCtrl.options) {
           scope.options = kitinGroupCtrl.options;
-        } else {
-          console.error('Missing parent kitin-group');
-        }
       },
       template: '<div class="label" ng-hide="shouldHideTable(model, options)">' + 
                   '<span class="lbl">{{title | translate}}</span>' +
@@ -20,7 +16,7 @@ kitin.directive('kitinTable', function(editService){
                     '<table>' +
                       '<thead>' +
                         '<tr class="thead" ng-if="titles.length">' +
-                          '<th ng-repeat="title in titles">{{title}}</th>' +
+                          '<th ng-repeat="title in titles">{{title | translate}}</th>' +
                         '</tr>' +
                       '</thead>' +
                       '<tbody>' +
@@ -65,16 +61,12 @@ kitin.directive('kitinTable', function(editService){
           
           return true;
         };
-        $scope.title = 'LABEL.' + $attrs.model;
-
-
+       
         // TODO! Create object for each model. Use editService.createObject?
         var createObject = function(model) { 
           console.log(model);
           return ['']; 
         };
-
-        $scope.model = _.isArray($scope.model) && $scope.model.length > 0 ? $scope.model : createObject($attrs.model);
 
         $scope.addRow = function(index) {
           return $scope.model.push(createObject());
@@ -83,6 +75,12 @@ kitin.directive('kitinTable', function(editService){
         $scope.removeRow = function(index) {
           return $scope.model.splice(index,1);
         };
+
+        $scope.title = 'LABEL.' + $attrs.model;
+        $scope.model = _.isArray($scope.model) && $scope.model.length > 0 ? $scope.model : createObject($attrs.model);
+        if($attrs.titles) {
+          $scope.titles = $scope.$eval($attrs.titles);
+        }
 
       }
   };

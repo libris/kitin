@@ -1078,7 +1078,6 @@ body.login .content.index header {
 .content header .record-type {
   z-index: 100;
   background-color: #ffffff;
-  margin-left: -11px;
 }
 .content header .record-type h1 {
   margin: 0 0 8px;
@@ -1139,7 +1138,6 @@ body.edit .content header section {
 body.edit .content header section .record-metadata {
   font-size: 12px;
   color: #666664;
-  margin-top: -15px;
   z-index: 99;
   padding: 20px 20px 20px 50px;
   background: url(/static/img/bg.png);

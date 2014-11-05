@@ -1,122 +1,51 @@
 <h2>Utgivning och tillverkning<i></i></h2>
 
 <div class="form-container">
-  <div class="identifier" ng-include="'/partials/edit/bib/identifier'"></div>
+  <kitin-group title="Identifier titles">
+    <span data-ng-repeat="(identifierSchemeName, identifierScheme) in record.about.identifierByIdentifierScheme"
+          ng-switch ="identifierSchemeName">
+      
+      <span ng-switch-when="/def/identifiers/isbn">
+        <kitin-table 
+         model="record.about.identifierByIdentifierScheme['/def/identifiers/isbn']"
+         titles="['identifierValue title','identifierNote title']">
+          <kitin-td>
+            <textarea data-ui-jq="autosize" spellcheck="false" name="isbn_name" data-ng-model="item.identifierValue" data-isbn-pattern="^$|^[0-9-xX]*$" isbnvalidator/>
+            <!-- TODO! Implement a kitin-error-displayer-something -->
+            <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_value">(Fel numeriskt värde)</span>
+            <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_length">(Fel längd)</span>
+          </kitin-td>
+          <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.identifierNote"/></kitin-td>
+        </kitin-table>
+      </span>
+
+      <span ng-switch-when="/def/identifiers/issn">
+        <kitin-table 
+         model="record.about.identifierByIdentifierScheme['/def/identifiers/issn']"
+         titles="['identifierValue title','identifierNote title']">
+          <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.identifierValue"/></kitin-td>
+          <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.identifierNote"/></kitin-td>
+        </kitin-table>
+      </span>
+
+      <span ng-switch-default>
+        <kitin-table 
+         model="record.about.identifierByIdentifierScheme[identifierSchemeName]"
+         titles="['identifierValue title','identifierNote title']">
+          <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.identifierValue"/></kitin-td>
+          <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.identifierNote"/></kitin-td>
+        </kitin-table>
+      </span>
+
+    </span>
+  </kitin-group>
   
-  <div class="label" data-ng-show="record.about.mediaTerm">
-    <span class="lbl" translate>LABEL.record.about.mediaTerm</span>
-    <input data-track-change type="text" data-ng-model="record.about.mediaTerm">
-  </div>
-  <!-- normalize with other dates in format
-  <div class="label" ng-if="false">
-    <span class="lbl" translate>LABEL.record.about.date</span>
-    <input data-track-change type="text" data-ng-model="record.about.date">
-  </div>
-  -->
-  <div class="label" ng-if="false">
-    <span class="lbl" translate>LABEL.record.about.publicationStatus</span>
-    <input data-track-change type="text" data-ng-model="record.about.publicationStatus['@id']">
-  </div>
+  <kitin-group title="Some group title">
+    
+    <kitin-textrow model="record.about.mediaTerm"></kitin-textrow>
+    
+    <kitin-textrow model="record.about.scopeNote"></kitin-textrow>
 
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.scopeNote</span>
-    <input data-track-change type="text" data-ng-model="record.about.scopeNote">
-  </div>
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.publicationStatus</span>
-    <ul class="tags" data-kitin-link-entity
-        data-subject="record.about"
-        data-link="'publicationStatus'" data-type="PublicationStatus"
-        data-view-template="/snippets/render-generic-linked-entity"
-        data-search-template="/snippets/render-generic-select"
-        data-filter="about.inCollection.@id:/def/enum/content/publicationStatus-collection">
-    </ul>
-  </div>
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.publicationYear</span>
-    <input data-track-change type="text" data-ng-model="record.about.publicationYear">
-  </div>
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.publicationOtherYear</span>
-    <input data-track-change type="text" data-ng-model="record.about.publicationOtherYear">
-  </div>
-
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.frequencyCategory</span>
-    <ul class="tags" data-kitin-link-entity
-        data-subject="record.about"
-        data-link="'frequencyCategory'" data-type="frequencyCategory"
-        data-view-template="/snippets/render-generic-linked-entity"
-        data-search-template="/snippets/render-generic-select"
-        data-filter="about.inCollection.@id:/def/enum/content/frequency-collection">
-    </ul>
-  </div>   
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.frequency</span>
-    <input type="text" data-ng-model="record.about.frequency">
-  </div>    
-
-  <!-- ISSUE NUMBER  START -->
-  <div class="label">
-    <div class="datatable" data-ng-target="issueNumber" 
-      data-kitin-data-table 
-        data-collapsable="true"
-        data-table-model="record.about.issueNumber" 
-        data-table-header-row-template="/snippets/issueNumber-header-row-template"
-        data-table-row-template="/snippets/issueNumber-row-template"
-        data-subject="record.about" data-link-multiple="issueNumber"
-        data-default-type="IssueNumber"
-        data-add-first
-        data-addable="publication_and_production">
-      </div>
-      <script type="text/ng-template" id="/snippets/issueNumber-header-row-template">
-        <td><span class="lbl" translate>LABEL.record.about.issueNumber</span></td>
-      </script>
-      <script type="text/ng-template" id="/snippets/issueNumber-row-template">
-        <td><div class="label"><input ng-model="object" data-track-change type="text" /></div></td>
-        <td class="controls">
-          <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-        </td>
-      </script>
-    </div>
-    <!-- ISSUE NUMBER  END -->
-
-    <!-- ISSUE REPLACES  START -->
-    <div class="label">
-      <div class="datatable" data-ng-target="replaces" 
-        data-kitin-data-table 
-        data-table-model="record.about.replaces" 
-        data-table-header-row-template="/snippets/replaces-frequency-header-row-template"
-        data-table-row-template="/snippets/replaces-frequency-row-template"
-        data-subject="record.about" data-link-multiple="replaces"
-        data-default-type="frequency"
-        data-add-first
-        data-addable="publication_and_production">
-      </div>
-      <script type="text/ng-template" id="/snippets/replaces-frequency-header-row-template">
-        <td><span class="lbl" translate>LABEL.record.about.replaces.frequency</span></td>
-        <td><span class="lbl" translate>LABEL.record.about.replaces.date</span></td>
-      </script>
-      <script type="text/ng-template" id="/snippets/replaces-frequency-row-template">
-        <td><div class="label"><input ng-model="object['frequency']" data-track-change type="text" /></div></td>
-        <td><div class="label"><input ng-model="object['date']" data-track-change type="text" /></div></td>
-        <td class="controls">
-          <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-        </td>
-      </script>
-    </div>
-    <!-- ISSUE REPLACES  END -->
-
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.regularity</span>
-      <ul class="tags" data-kitin-link-entity
-          data-subject="record.about"
-          data-link="'regularity'" data-type="Regularity"
-          data-view-template="/snippets/render-generic-linked-entity"
-          data-search-template="/snippets/render-generic-select"
-          data-filter="about.inCollection.@id:/def/enum/content/regularity-collection">
-      </ul>
-    </div>
 
     <div class="label">
       <span class="lbl" translate>LABEL.record.about.typeOfEntry</span>
@@ -128,6 +57,100 @@
           data-filter="about.inCollection.@id:/def/enum/content/typeOfEntry-collection">
       </ul>
     </div>
+   
+     <!-- PUBLICATION COUNTRY  START -->
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.publicationCountry</span>
+      <ul class="tags" data-kitin-link-entity
+          data-subject="record.about"
+          data-link-multiple="'publicationCountry'" data-type="Country"
+          data-view-template="/snippets/render-country"
+          data-search-template="/snippets/render-search-country">
+      </ul>
+    </div>
+    <!-- PUBLICATION COUNTRY  END -->
+
+
+    <kitin-table model="record.about.publication"
+                 titles="['Place label title', 'ProviderName title', 'provicerDate title']">
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.place.label"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.providerName"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.providerDate"/></kitin-td>
+    </kitin-table>
+
+    <kitin-textrow model="record.about.editionStatement.edition"></kitin-textrow>
+
+    <kitin-textrow model="record.about.publisherNumber"></kitin-textrow>
+
+    <kitin-table model="record.about.manufacture"
+                 titles="['Place label title', 'ProviderName title', 'provicerDate title']">
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.place.label"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.providerName"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.providerDate"/></kitin-td>
+    </kitin-table>
+
+
+  </kitin-group>
+
+  <kitin-group title="Dates and times title">
+    <kitin-textrow model="record.about.date"></kitin-textrow>
+
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.publicationStatus</span>
+      <ul class="tags" data-kitin-link-entity
+          data-subject="record.about"
+          data-link="'publicationStatus'" data-type="PublicationStatus"
+          data-view-template="/snippets/render-generic-linked-entity"
+          data-search-template="/snippets/render-generic-select"
+          data-filter="about.inCollection.@id:/def/enum/content/publicationStatus-collection">
+      </ul>
+    </div>
+
+    <kitin-textrow model="record.about.publicationYear"></kitin-textrow>
+
+    <kitin-textrow model="record.about.publicationOtherYear"></kitin-textrow>
+  </kitin-group>
+
+  <kitin-group title="Frekvens regularitet title">
+
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.frequencyCategory</span>
+      <ul class="tags" data-kitin-link-entity
+          data-subject="record.about"
+          data-link="'frequencyCategory'" data-type="frequencyCategory"
+          data-view-template="/snippets/render-generic-linked-entity"
+          data-search-template="/snippets/render-generic-select"
+          data-filter="about.inCollection.@id:/def/enum/content/frequency-collection">
+      </ul>
+    </div>   
+
+    <kitin-textrow model="record.about.frequency"></kitin-textrow>
+
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.regularity</span>
+      <ul class="tags" data-kitin-link-entity
+          data-subject="record.about"
+          data-link="'regularity'" data-type="Regularity"
+          data-view-template="/snippets/render-generic-linked-entity"
+          data-search-template="/snippets/render-generic-select"
+          data-filter="about.inCollection.@id:/def/enum/content/regularity-collection">
+      </ul>
+    </div>
+  </kitin-group>
+
+  <kitin-group title="Issue title">
+    <kitin-table model="record.about.issueNumber">
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+    </kitin-table>
+
+    <kitin-table model="record.about.replaces" 
+                 titles="['LABEL.about.replaces.frequency', 'LABEL.about.replaces.date']">
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.frequency"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.date"/></kitin-td>
+    </kitin-table>
+  </kitin-group>
+
+  <kitin-group title="References title">
     <div class="label">
       <span class="lbl" translate>LABEL.record.about.alternateEdition</span>
       <ul class="tags entity" data-kitin-link-entity
@@ -146,79 +169,6 @@
           data-search-template="/snippets/render-bib-search">
       </ul>
     </div>
-    <!-- PUBLICATION COUNTRY  START -->
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.publicationCountry</span>
-      <ul class="tags" data-kitin-link-entity
-          data-subject="record.about"
-          data-link-multiple="'publicationCountry'" data-type="Country"
-          data-view-template="/snippets/render-country"
-          data-search-template="/snippets/render-search-country">
-      </ul>
-    </div>
-    <!-- PUBLICATION COUNTRY  END -->
-
-
-    <!-- PUBLISHER  START -->
-    <div class="datatable" data-ng-target="publisher" 
-      data-kitin-data-table 
-      data-collapsable="true"
-      data-table-model="record.about.publication" 
-      data-table-header-row-template="/snippets/publisher-recording-header-row-template"
-      data-table-row-template="/snippets/manufacture-publisher-recording-row-template"
-      data-subject="record.about" data-link-multiple="publication"
-      data-default-type="Publisher"
-      data-add-first
-      data-addable="publication_and_production">
-    </div>
-    <script type="text/ng-template" id="/snippets/publisher-recording-header-row-template">
-      <td><span class="lbl" translate>LABEL.record.about.publication.place.label</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.publication.providerName</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.publication.providerDate</span></td>
-    </script>
-    <!-- PUBLISHER  END -->
-
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.editionStatement.edition</span>
-      <input data-track-change type="text" data-ng-model="record.about.editionStatement.edition" >
-    </div>
-
-    <div class="label" data-ng-show="record.about.publisherNumber">
-      <span class="lbl" translate>LABEL.record.about.publisherNumber</span>
-      <input data-track-change type="text" data-ng-model="record.about.publisherNumber" >
-    </div>
-
-    <!-- MANUFACTURE  START -->
-    <div class="datatable" data-ng-target="manufacture" 
-      data-kitin-data-table 
-      data-table-model="record.about.manufacture" 
-      data-table-header-row-template="/snippets/manufacture-recording-header-row-template"
-      data-table-row-template="/snippets/manufacture-publisher-recording-row-template"
-      data-subject="record.about" data-link-multiple="manufacture"
-      data-default-type="Publisher"
-      data-add-first
-      data-addable="publication_and_production">
-    </div>
-    <script type="text/ng-template" id="/snippets/manufacture-recording-header-row-template">
-      <td><span class="lbl" translate>LABEL.record.about.manufacture.place.label</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.manufacture.providerName</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.publication.providerDate</span></td>
-    </script>
-    <!-- MANUFACTURE  END -->
-
-    <div class="element-adder" data-element-adder="publication_and_production"></div>
-
-    <!-- manufacture-publisher-recording-row-template  START 
-         Used by both manufacture and publication
-    -->
-    <script type="text/ng-template" id="/snippets/manufacture-publisher-recording-row-template">
-      <td><div class="label"><input ng-model="object['place']['label']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['providerName']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['providerDate']" data-track-change type="text" /></div></td>
-      <td class="controls">
-        <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-      </td>
-    </script>
-    <!-- manufacture-publisher-recording-row-template  END -->
-  </div>
+  </kitin-group>  
+</div>
  

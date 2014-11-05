@@ -194,7 +194,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   //     };
 
   //     // Select all mapped elements
-  //     var cssSelector = '[data-ng-model],[ng-model],input,textarea,[data-kitin-link-entity],[data-kitin-data-table]';
+  //     var cssSelector = '[data-ng-model],[ng-model],input,textarea,[data-kitin-link-entity]';
   //     $(cssSelector).each(function() {
   //       var dataRef = $(this).data();
   //       if(dataRef) {

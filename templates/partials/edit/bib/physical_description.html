@@ -1,25 +1,24 @@
 
 <h2>Fysisk beskrivning<i></i></h2>
 <div class="form-container">
-  
+  <kitin-group>
   <!-- ADDITIONAL CARRIER TYPE START -->
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.additionalCarrierType</span>
-    <ul class="tags" data-kitin-link-entity
-        data-track-change
-        data-subject="record.about"
-        data-link="'additionalCarrierType'" data-type="AdditionalCarrierType"
-        data-view-template="/snippets/render-generic-linked-entity"
-        data-search-template="/snippets/render-generic-select"
-        data-filter="about.inCollection.@id:/def/enum/content/additionalCarrierType-collection">
-    </ul>
-  </div>
-  <!-- ADDITIONAL CARRIER TYPE END -->
 
     <div class="label">
-      <span class="lbl" translate>LABEL.record.about.exampleOfWork</span>
-      <input data-track-change type="text" data-ng-model="record.about.exampleOfWork.title" placeholder="">
+      <span class="lbl" translate>LABEL.record.about.additionalCarrierType</span>
+      <ul class="tags" data-kitin-link-entity
+          data-track-change
+          data-subject="record.about"
+          data-link="'additionalCarrierType'" data-type="AdditionalCarrierType"
+          data-view-template="/snippets/render-generic-linked-entity"
+          data-search-template="/snippets/render-generic-select"
+          data-filter="about.inCollection.@id:/def/enum/content/additionalCarrierType-collection">
+      </ul>
     </div>
+    <!-- ADDITIONAL CARRIER TYPE END -->
+
+    <kitin-textrow model="record.about.exampleOfWork.title"></kitin-textrow>
+    
     <div class="label">
       <span class="lbl" translate>LABEL.record.about.exampleOfWork.subtitle</span>
       <ul class="tags" data-kitin-link-entity
@@ -42,242 +41,109 @@
     </div>
 
 
-  <div data-ng-show="record.about.material['@id']">
+
     <!-- MATERIAL START -->
     <div class="label">
       <span class="lbl" translate>LABEL.record.about.material</span>
       <input data-track-change type="text" data-ng-model="record.about.material['@id']" placeholder="">
     </div>
     <!-- MATERIAL END -->
-  </div>
-  <div data-ng-show="record.about.relief['@id']">
     <!-- RELIEF START -->
     <div class="label">
       <span class="lbl" translate>LABEL.record.about.relief</span>
       <input data-track-change type="text" data-ng-model="record.about.relief['@id']" placeholder="">
     </div>
     <!-- RELIEF END -->
-  </div>
-<div class="cols">
-	<div class="col6" data-ng-show="record.about.fileType">
+
     <!-- RELIEF START -->
     <div class="label">
       <span class="lbl" translate>LABEL.record.about.fileType</span>
       <input data-track-change type="text" data-ng-model="record.about.fileType" placeholder="">
     </div>
     <!-- RELIEF START -->
-  </div>
-  <div class="col6" data-ng-show="record.about.index['@id']">
+
     <!-- INDEX START -->
     <div class="label">
       <span class="lbl" translate>LABEL.record.about.index</span>
       <input data-track-change type="text" data-ng-model="record.about.index['@id']" placeholder="">
      </div>
      <!-- INDEX END -->
-  </div>
-</div>
+  </kitin-group>
 
 <!-- HAS FORMAT  START -->
-<div class="cols" data-ng-repeat="(formatType, subFormat) in record.about.hasFormatByType">
+<kitin-group data-ng-repeat="(formatType, subFormat) in record.about.hasFormatByType" ng-switch="formatType">
 
   <h3 ng-if="subFormat.length > 0" class="ng-binding" translate>{{ 'LABEL.record.about.hasFormat.' + formatType }}</h3>
 
-    <!-- Product START -->
-    <div ng-switch-when="Product" class="datatable" data-ng-target="productTable" 
-      data-track-change
-      data-kitin-data-table 
-      data-table-model="subFormat" 
-      data-table-header-row-template="/snippets/product-header-row-template"
-      data-table-row-template="/snippets/product-row-template"
-      data-subject="record.about" data-link-multiple="hasFormatByType"
-      data-add-first
-      data-addable="physical_description">
-    </div>
-    <script type="text/ng-template" id="/snippets/product-header-row-template">
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Product.extent</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Product.dimensions</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Product.otherPhysicalDetails</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Product.accompanyingMaterial</span></td>
-    </script>
-    <script type="text/ng-template" id="/snippets/product-row-template">
-      <td><div class="label"><input ng-model="object['extent']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['dimensions']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['otherPhysicalDetails']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['accompanyingMaterial']" data-track-change type="text" /></div></td>
-      <td class="controls">
-        <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-      </td>
-    </script>
-    <!-- Product END -->
+  <span ng-switch-when="Product">
+    <kitin-table model="record.about.hasFormatByType['Product']"
+                 titles="['LABEL.extent', 'LABEL.dimensions', 'LABEL.otherPhysicalDetails', 'LABEL.accompanyingMaterial']">
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.extent"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.dimensions"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.otherPhysicalDetails"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.accompanyingMaterial"/></kitin-td>
+    </kitin-table>
+  </span>
 
-    <!-- Electronic START -->
-    <div ng-switch-when="Electronic" class="datatable" data-ng-target="electronicTable" 
-      data-track-change
-      data-kitin-data-table 
-      data-table-model="subFormat" 
-      data-table-header-row-template="/snippets/electronic-header-row-template"
-      data-table-row-template="/snippets/electronic-row-template"
-      data-subject="record.about" data-link-multiple="hasFormatByType"
-      data-add-first
-      data-addable="physical_description">
-    </div>
-    <script type="text/ng-template" id="/snippets/electronic-header-row-template">
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Electronic.carrierType</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Electronic.color</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Electronic.dimensions</span></td>
-    </script>
-    <script type="text/ng-template" id="/snippets/electronic-row-template">
-      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['color']['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['dimensions']['@id']" data-track-change type="text" /></div></td>
-      <td class="controls">
-        <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-      </td>
-    </script>
-    <!-- Electronic END -->
+  <span ng-switch-when="Electronic">
+    <kitin-table model="record.about.hasFormatByType['Electronic']"
+                 titles="['LABEL.carrierType', 'LABEL.color', 'LABEL.dimensions']">
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.carrierType"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.color"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.dimensions"/></kitin-td>
+    </kitin-table>
+  </span>
 
-    <!-- Map START -->
+  <span ng-switch-when="Map">
+    <kitin-table model="record.about.hasFormatByType['Map']"
+                 titles="['LABEL.carrierType', 'LABEL.color', 'LABEL.medium']">
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.carrierType"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.color"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.medium"/></kitin-td>
+    </kitin-table>
+  </span>  
 
-    <div ng-switch-when="Map" class="datatable" data-ng-target="movingImageTable" 
-      data-track-change
-      data-kitin-data-table 
-      data-table-model="subFormat" 
-      data-table-header-row-template="/snippets/map-header-row-template"
-      data-table-row-template="/snippets/map-row-template"
-      data-subject="record.about" data-link-multiple="hasFormatByType"
-      data-add-first
-      data-addable="physical_description">
-    </div>
-    <script type="text/ng-template" id="/snippets/map-header-row-template">
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Map.carrierType</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Map.color</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Map.medium</span></td>
-    </script>
-    <script type="text/ng-template" id="/snippets/map-row-template">
-      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['color']['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['medium']['@id']" data-track-change type="text" /></div></td>
-      <td class="controls">
-        <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-      </td>
-    </script>
-    <!-- Map END -->
+  <span ng-switch-when="StillImage">
+    <kitin-table model="record.about.hasFormatByType['StillImage']"
+                 titles="['LABEL.carrierType', 'LABEL.nonProjColor', 'LABEL.nonProjPrimary']">
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.carrierType"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.nonProjColor"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.nonProjPrimary"/></kitin-td>
+    </kitin-table>
+  </span>  
 
-    <!-- StillImage START -->
-    <div ng-switch-when="StillImage" class="datatable" data-ng-target="stillImageTable" 
-      data-track-change
-      data-kitin-data-table 
-      data-table-model="subFormat" 
-      data-table-header-row-template="/snippets/still-image-header-row-template"
-      data-table-row-template="/snippets/still-image-row-template"
-      data-subject="record.about" data-link-multiple="hasFormatByType"
-      data-add-first
-      data-addable="physical_description">
-    </div>
-    <script type="text/ng-template" id="/snippets/still-image-header-row-template">
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.StillImage.carrierType</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.StillImage.nonProjColor</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.StillImage.nonProjPrimary</span></td>
-    </script>
-    <script type="text/ng-template" id="/snippets/still-image-row-template">
-      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['nonProjColor']['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['nonProjPrimary']['@id']" data-track-change type="text" /></div></td>
-      <td class="controls">
-        <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-      </td>
-    </script>
-    <!-- StillImage END -->
+  <span ng-switch-when="MovingImage">
+    <kitin-table model="record.about.hasFormatByType['MovingImage']"
+                 titles="['LABEL.carrierType', 'LABEL.motionPicFormat', 'LABEL.motionPicSound', 'LABEL.motionPicMedium', 'LABEL.motionPicDimensions']">
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.carrierType"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.motionPicFormat"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.motionPicSound"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.motionPicMedium"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.motionPicDimensions"/></kitin-td>
+    </kitin-table>
+  </span>  
 
-    <!-- MovingImage START -->
-    <div ng-switch-when="MovingImage" class="datatable" data-ng-target="movingImageTable" 
-      data-track-change
-      data-kitin-data-table 
-      data-table-model="subFormat" 
-      data-table-header-row-template="/snippets/moving-image-header-row-template"
-      data-table-row-template="/snippets/moving-image-row-template"
-      data-subject="record.about" data-link-multiple="hasFormatByType"
-      data-add-first
-      data-addable="physical_description">
-    </div>
-    <script type="text/ng-template" id="/snippets/moving-image-header-row-template">
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.carrierType</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.motionPicFormat</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.motionPicSound</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.motionPicMedium</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.motionPicDimensions</span></td>
-    </script>
-    <script type="text/ng-template" id="/snippets/moving-image-row-template">
-      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['motionPicFormat']['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['motionPicSound']['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['motionPicMedium']['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['motionPicDimensions']['@id']" data-track-change type="text" /></div></td>
-      <td class="controls">
-        <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-      </td>
-    </script>
-    <!-- MovingImage END -->
+  <span ng-switch-when="SoundRecording">
+    <kitin-table model="record.about.hasFormatByType['SoundRecording']"
+                 titles="['LABEL.carrierType', 'LABEL.soundSpeed', 'LABEL.soundDimensions', 'LABEL.soundKindOfDisc', 'LABEL.soundKindOfMaterial', 'LABEL.soundPlaybackCharacter']">
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.carrierType"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.soundSpeed"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.soundDimensions"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.soundKindOfDisc"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.soundKindOfMaterial"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.soundPlaybackCharacter"/></kitin-td>
+    </kitin-table>
+  </span> 
 
-    <!-- SoundRecording START -->
-    <div ng-switch-when="SoundRecording" class="datatable" data-ng-target="soundRecordingTable" 
-      data-track-change
-      data-kitin-data-table 
-      data-table-model="subFormat" 
-      data-table-header-row-template="/snippets/sound-recording-header-row-template"
-      data-table-row-template="/snippets/sound-recording-row-template"
-      data-subject="record.about" data-link-multiple="hasFormatByType"
-      data-add-first
-      data-addable="physical_description">
-    </div>
-    <script type="text/ng-template" id="/snippets/sound-recording-header-row-template">
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.carrierType</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.soundSpeed</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.soundDimensions</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.soundKindOfDisc</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.soundKindOfMaterial</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.soundPlaybackCharacter</span></td>
-    </script>
-    <script type="text/ng-template" id="/snippets/sound-recording-row-template">
-      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['soundSpeed']['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['soundDimensions']['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['soundKindOfDisc']['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['soundKindOfMaterial']['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['soundPlaybackCharacter']['@id']" data-track-change type="text" /></div></td>
-      <td class="controls">
-        <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-      </td>
-    </script>
-    <!-- SoundRecording END -->
-
-    <!-- VideoRecording START -->
-    <div ng-switch-when="VideoRecording" class="datatable" data-ng-target="videoRecordingTable" 
-      data-track-change
-      data-kitin-data-table 
-      data-table-model="subFormat" 
-      data-table-header-row-template="/snippets/video-recording-header-row-template"
-      data-table-row-template="/snippets/video-recording-row-template"
-      data-subject="record.about" data-link-multiple="hasFormatByType"
-      data-add-first
-      data-addable="physical_description">
-    </div>
-    <script type="text/ng-template" id="/snippets/video-recording-header-row-template">
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.VideoRecording.carrierType</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.VideoRecording.videoColor</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.VideoRecording.videoFormat</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.VideoRecording.videoSound</span></td>
-    </script>
-    <script type="text/ng-template" id="/snippets/video-recording-row-template">
-      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['videoColor']['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['videoFormat']['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['videoSound']['@id']" data-track-change type="text" /></div></td>
-      <td class="controls">
-        <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-      </td>
-    </script>
-    <!-- VideoRecording END -->
+  <span ng-switch-when="VideoRecording">
+    <kitin-table model="record.about.hasFormatByType['VideoRecording']"
+                 titles="['LABEL.carrierType', 'LABEL.videoColor', 'LABEL.videoFormat', 'LABEL.videoSound']">
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.carrierType"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.videoColor"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.videoFormat"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.videoSound"/></kitin-td>
+    </kitin-table>
+  </span>   
 
     <!-- Rest START -->
     <div ng-switch-default class="datatable">
@@ -295,10 +161,11 @@
       </table>
     </div>
     <!-- Rest END -->
-
+  </kitin-group>
 <!-- HAS FORMAT  END -->
 
 
+  <kitin-group>
     <!-- ILLUSTRATIONS  START -->
     <div class="label">
       <span class="lbl" translate>LABEL.record.about.illustrations</span>
@@ -344,64 +211,26 @@
     </div>
     <!-- ORIGNIAL ITEM  END -->
 
-        <!-- RUNNING TIME  START -->
-  	    <div class="label">
-          <span class="lbl" translate>LABEL.record.about.runningTime</span>
-          <input data-track-change type="text" data-ng-model="record.about.runningTime">
-        </div>
-        <!-- RUNNING TIME  END -->
+    <kitin-textrow model="record.about.runningTime"></kitin-textrow>
 
+  </kitin-group>
 
 <!-- More Map Details -->
+  <kitin-group title="Specifikt för kartor title">
+    <kitin-textrow model="record.about.availability"></kitin-textrow>
+    <kitin-textrow model="record.about.cartographicScale"></kitin-textrow>
+    <kitin-textrow model="record.about.cartographicCoordinates"></kitin-textrow>
 
-
-      <div class="label">
-        <span class="lbl" translate>LABEL.record.about.availability</span>
-        <input data-track-change type="text" data-ng-model="record.about.availability" placeholder="">
-       </div> 
-      <div class="label">
-        <span class="lbl" translate>LABEL.record.about.cartographicScale</span>
-        <input data-track-change type="text" data-ng-model="record.about.cartographicScale" placeholder="">
-       </div>
-      <div class="label">
-        <span class="lbl" translate>LABEL.record.about.cartographicCoordinates</span>
-        <input data-track-change type="text" data-ng-model="record.about.cartographicCoordinates" placeholder="">
-       </div>
-
-    <!-- CARTOGRAPHICAL ASCENSION AND DECLINATION  START -->
-    <div class="label">
-      <div class="datatable" data-ng-target="cartographicAscensionAndDeclination" 
-        data-track-change
-        data-kitin-data-table 
-        data-table-model="record.about.cartographicAscensionAndDeclination" 
-        data-table-header-row-template="/snippets/cartographicAscensionAndDeclination-header-row-template"
-        data-table-row-template="/snippets/cartographicAscensionAndDeclination-row-template"
-        data-subject="record.about" data-link-multiple="cartographicAscensionAndDeclination"
-        data-default-type="cartographicAscensionAndDeclination"
-        data-add-first
-        data-addable="publication_and_production">
-      </div>
-      <script type="text/ng-template" id="/snippets/cartographicAscensionAndDeclination-header-row-template">
-        <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.cartographicScale</span></td>
-        <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.constantRatioLinearHorizontalScale</span></td>
-        <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.westernmostLongitudeCoordinates</span></td>
-        <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.easternmostLongitudeCoordinates</span></td>
-        <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.northernmostLatitudeCoordinates</span></td>
-        <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.southernmostLatitudeCoordinates</span></td>
-      </script>
-      <script type="text/ng-template" id="/snippets/cartographicAscensionAndDeclination-row-template">
-        <td><div class="label"><input ng-model="object['cartographicScale']" data-track-change type="text" /></div></td>
-        <td><div class="label"><input ng-model="object['constantRatioLinearHorizontalScale']" data-track-change type="text" /></div></td>
-        <td><div class="label"><input ng-model="object['westernmostLongitudeCoordinates']" data-track-change type="text" /></div></td>
-        <td><div class="label"><input ng-model="object['easternmostLongitudeCoordinates']" data-track-change type="text" /></div></td>
-        <td><div class="label"><input ng-model="object['northernmostLatitudeCoordinates']" data-track-change type="text" /></div></td>
-        <td><div class="label"><input ng-model="object['southernmostLatitudeCoordinates']" data-track-change type="text" /></div></td>
-        <td class="controls">
-          <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-        </td>
-      </script>
-    </div>
-    <!-- CARTOGRAPHICAL ASCENSION AND DECLINATION  END -->
-  </div>
+    <kitin-table model="record.about.cartographicAscensionAndDeclination"
+                 titles="['LABEL.cartographicScale', 'LABEL.constantRatioLinearHorizontalScale', 'LABEL.westernmostLongitudeCoordinates', 'LABEL.easternmostLongitudeCoordinates', 'LABEL.northernmostLatitudeCoordinates', 'LABEL.southernmostLatitudeCoordinates']">
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.cartographicScale"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.constantRatioLinearHorizontalScale"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.westernmostLongitudeCoordinates"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.easternmostLongitudeCoordinates"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.northernmostLatitudeCoordinates"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.southernmostLatitudeCoordinates"/></kitin-td>
+    </kitin-table>
+  </kitin-group>
 </div>
+
 <div class="element-adder" data-element-adder="physical_description"></div>
