@@ -10,39 +10,48 @@
     <!-- responsibilityStatement used @ creators -->
     <kitin-textrow model="record.about.instanceTitle.titleDate"></kitin-textrow>
     <!-- mediaTerm mapped to instance and used @ publication and production -->
-    <kitin-textrow model="record.about.instanceTitle.partNumber"></kitin-textrow>
-    <kitin-textrow model="record.about.instanceTitle.partTitle"></kitin-textrow>
-   <!-- <kitin-table model="record.about.instanceTitle.partNumber">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[key]"/></kitin-td>
+    <kitin-table model="record.about.instanceTitle.partNumber">
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
     </kitin-table>
     <kitin-table model="record.about.instanceTitle.partTitle">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[key]"/></kitin-td>
-    </kitin-table>-->
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+    </kitin-table>
   </kitin-group>
 
   <kitin-group title="Variation Title">
     <kitin-textrow model="record.about.titleVariation.titleValue"></kitin-textrow>
     <kitin-textrow model="record.about.titleVariation.subtitle"></kitin-textrow>
     <kitin-textrow model="record.about.titleVariation.titleDate"></kitin-textrow>
-    <kitin-textrow model="record.about.titleVariation.partNumber"></kitin-textrow>
-    <kitin-textrow model="record.about.titleVariation.partTitle"></kitin-textrow>
-    <kitin-textrow model="record.about.titleVariation.titleType"></kitin-textrow>
+    <kitin-table model="record.about.titleVariation.partNumber">
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+    </kitin-table>
+    <kitin-table model="record.about.titleVariation.partTitle">
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+    </kitin-table>
   </kitin-group>
 
   <kitin-group title="Translated Title">
     <kitin-textrow model="record.about.translatedTitle.titleValue"></kitin-textrow>
     <kitin-textrow model="record.about.translatedTitle.subtitle"></kitin-textrow>
     <kitin-textrow model="record.about.translatedTitle.titleDate"></kitin-textrow>
-    <kitin-textrow model="record.about.translatedTitle.partNumber"></kitin-textrow>
-    <kitin-textrow model="record.about.translatedTitle.partTitle"></kitin-textrow>
+    <kitin-table model="record.about.translatedTitle.partNumber">
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+    </kitin-table>
+    <kitin-table model="record.about.translatedTitle.partTitle">
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+    </kitin-table>
   </kitin-group>
 
   <kitin-group title="Previous Title">
     <kitin-textrow model="record.about.previousTitle.titleValue"></kitin-textrow>
     <kitin-textrow model="record.about.previousTitle.subtitle"></kitin-textrow>
     <kitin-textrow model="record.about.previousTitle.titleDate"></kitin-textrow>
-    <kitin-textrow model="record.about.previousTitle.partNumber"></kitin-textrow>
-    <kitin-textrow model="record.about.previousTitle.partTitle"></kitin-textrow>
+    <kitin-table model="record.about.previousTitle.partNumber">
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+    </kitin-table>
+    <kitin-table model="record.about.previousTitle.partTitle">
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+    </kitin-table>
   </kitin-group>
 
   <kitin-group title="Abbreviated Title">

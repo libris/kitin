@@ -10,7 +10,7 @@ kitin.directive('kitinTable', function(editService){
       link: function(scope, element, attrs, kitinGroupCtrl, transcludeFn) {
         scope.options = kitinGroupCtrl.options;
       },
-      template: '<div class="label">' + 
+      template: '<div class="label" ng-hide="shouldHideTable(model, options)">' + 
                   '<span class="lbl">{{title | translate}}</span>' +
                   '<span class="inp">' +
                     '<table>' +
@@ -20,7 +20,7 @@ kitin.directive('kitinTable', function(editService){
                         '</tr>' +
                       '</thead>' +
                       '<tbody>' +
-                        '<tr kitin-tr-controls ng-transclude ng-hide="shouldHideTableRow(item, options)" ng-repeat="(key, item) in model track by $index">' +
+                        '<tr kitin-tr-controls ng-transclude ng-repeat="(key, item) in model track by $index">' +
                         '</tr>' +
                       '</tbody>' +
                     '</table>' +
@@ -35,7 +35,7 @@ kitin.directive('kitinTable', function(editService){
         var hasValue = false;
         var savedOptionsHidden;
 
-        $scope.shouldHideTableRow = function(model, options) {
+        $scope.shouldHideTable = function(model, options) {
           // always show for single rows
           if ( options.single ) {
             return false;
@@ -49,7 +49,7 @@ kitin.directive('kitinTable', function(editService){
           savedOptionsHidden = options.hidden;
 
           // never hide a field that has value, and save hasValue
-          if ( !$rootScope.isEmpty(model) ) {
+          if ( _.isArray(model) && model.length > 0 && (!$rootScope.isEmpty(model[0]) || model[0] !== '' )) {
             hasValue = true;
             return false;
           }
@@ -65,9 +65,12 @@ kitin.directive('kitinTable', function(editService){
 
 
         // TODO! Create object for each model. Use editService.createObject?
-        var createObject = function(model) { return []; };
+        var createObject = function(model) { 
+          console.log(model);
+          return ['']; 
+        };
 
-        $scope.model = _.isArray($scope.model) && $scope.model.length > 0 ? $scope.model : createObject($scope.model);
+        $scope.model = _.isArray($scope.model) && $scope.model.length > 0 ? $scope.model : createObject($attrs.model);
 
         $scope.addRow = function(index) {
           return $scope.model.push(createObject());
