@@ -19,11 +19,10 @@
         <div class="col-md-4">
           <div class="holding">
             <button class="btn btn-purple btn-hld" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record.about['@id'])">
-              <span data-ng-if="!hasHolding"><i class="fa fa-inverse fa-plus"></i> Bestånd</span>
-              <span data-ng-if="hasHolding"><i class="fa fa-inverse fa-check"></i> Bestånd</span>
+              <span data-ng-if="!hasHolding"><i class="fa fa-inverse fa-plus"></i> Lägg till bestånd</span>
+              <span data-ng-if="hasHolding"><i class="fa fa-inverse fa-check"></i> Ändra i bestånd</span>
             </button>
           </div>
-          <!-- <div data-ng-include="'/snippets/holdings-button'" data-ng-init="recordId = record.about['@id']"></div> -->
         </div>
         <div class="col-md-8 right">  
           <a data-ng-controller="ModalCtrl" data-ng-click="openMARCModal($event, record)">Förhandsgranska MARC</a> | 

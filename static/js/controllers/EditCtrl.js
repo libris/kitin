@@ -45,12 +45,14 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
       $scope.hasHolding = false;
     });
   };
+  // Set a watcher on holding's dirty flag
   $scope.$watchCollection('modifications.holding',
     function(newValue, oldValue) {
-      console.log(newValue,oldValue, newValue.saved !== oldValue.saved);
       if (newValue.saved !== oldValue.saved && newValue.saved) {
+        // Holding state _changed_ to 'saved'
         $scope.hasHolding = true;
       } else if (newValue.deleted) {
+        // Holding deleted
         $scope.hasHolding = false;
       }
     }

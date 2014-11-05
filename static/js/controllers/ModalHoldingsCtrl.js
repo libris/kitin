@@ -2,7 +2,6 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
 
   $scope.recordId = recordId;
   $scope.userData = userData;
-  $scope.hasHolding = false;
 
   $rootScope.modifications.holding = {
     saved: false,
@@ -34,7 +33,6 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
       }
     }
     $rootScope.modifications.holding.saved = true;
-    $scope.hasHolding = true;
   }
 
   function onDelete(holding) {
@@ -45,7 +43,6 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     }
     $rootScope.modifications.holding.saved = true;
     $rootScope.modifications.holding.deleted = true;
-    $scope.hasHolding = false;
   }
 
   $scope.close = function() {
@@ -69,7 +66,6 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     } else {
       $scope.holding = holding;
       $rootScope.modifications.holding.saved = true;
-      $scope.hasHolding = true;
     }
   });
 
