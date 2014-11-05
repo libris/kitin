@@ -1,27 +1,6 @@
 angular.module('kitin').run(['$templateCache', function($templateCache) {
   'use strict';
 
-  $templateCache.put('/snippets/comment-header-row-template',
-    "<td>\n" +
-    "  <span class=\"lbl\" translate>LABEL.record.about.comment</span>\n" +
-    "</td>"
-  );
-
-
-  $templateCache.put('/snippets/comment-row-template',
-    "<td>\n" +
-    "  <div class=\"label\">\n" +
-    "    <textarea ng-model=\"objects[$index]\" data-ui-jq=\"autosize\" data-track-change type=\"text\"></textarea>\n" +
-    "  </div>\n" +
-    "</td>\n" +
-    "<td class=\"controls\">\n" +
-    "  <button class=\"btn-link deleter\" data-ng-click=\"removeTableRow($index)\">\n" +
-    "    <i class=\"fa fa-times\"></i>\n" +
-    "  </button>\n" +
-    "</td>"
-  );
-
-
   $templateCache.put('/snippets/general-identifier-header-row-template',
     "<td><span class=\"lbl\" translate>LABEL.record.about.identifers.generalIdentifier.identifierValue</span></td>\n" +
     "<td><span class=\"lbl\" translate>LABEL.record.about.identifers.generalIdentifier.identifierNote</span></td>\n" +
