@@ -753,11 +753,6 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('/snippets/render-referenced-entity',
-    "<!-- \n" +
-    "  render-referenced-entity\n" +
-    "  Render generic linked bib reference tag.\n" +
-    "-->\n" +
-    "\n" +
     "<div class=\"entity relation linked\">\n" +
     "  <div class=\"main\">\n" +
     "    <div class=\"title\">{{ object.title || object.uniformTitle }}</div>\n" +
@@ -796,6 +791,23 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/render-role',
     "{{ object.label }} <em>({{ object.notation }})</em>\n" +
     "<a href=\"#\" data-ng-click=\"doRemove($index)\"><i class=\"no\">&times;</i></a>"
+  );
+
+
+  $templateCache.put('/snippets/render-search-box-2',
+    "<span class=\"search-box\">  \n" +
+    "  <span class=\"search-field\">\n" +
+    "    <kitin-search\n" +
+    "      service-url=\"/bib/_search\"\n" +
+    "      make-reference-on-item-select=\"true\"\n" +
+    "      completion-template-id=\"bib-completion-template\" \n" +
+    "      >\n" +
+    "    </kitin-search>\n" +
+    "  </span>\n" +
+    "  <span class=\"linkchoice\">\n" +
+    "    eller <a href=\"#\">Skapa ny</a>\n" +
+    "  </span>\n" +
+    "</span>"
   );
 
 

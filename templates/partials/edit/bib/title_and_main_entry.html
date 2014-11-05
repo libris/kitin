@@ -76,9 +76,12 @@
     </kitin-table>
   </kitin-group>
 
+  <kitin-group title="[Test]">
+    <kitin-entity model="record.about.relation" view="/snippets/render-relation-referenced-entity">
+      <kitin-search service-url="/bib/_search" multiple make-reference template-id="bib-completion-template"></kitin-search>
+    </kitin-entity>
+  </kitin-group>
 
-  <kitin-group title="References Title">
-    <!-- RELATION  START -->
     <div class="label">
       <span class="lbl" translate>LABEL.record.about.relation</span>
       <div class="entity" data-kitin-link-entity

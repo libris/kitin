@@ -1,4 +1,4 @@
-kitin.directive('kitinGroup', function(editService){
+kitin.directive('kitinGroup', function(){
   return {
       restrict: 'E',
       scope: true,

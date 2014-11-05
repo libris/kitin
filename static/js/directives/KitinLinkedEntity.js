@@ -47,6 +47,9 @@ kitin.directive('kitinLinkEntity', ['editService', function(editService) {
 
       var subj = $scope.$eval($attrs.subject);
       var obj = subj ? subj[link] : null;
+      if($scope.type == 'relation') {
+        console.log('subj', subj, $attrs.subject, $scope.$eval, link);
+      }
       $scope.viewmode = !_.isEmpty(obj);
       if(!_.isEmpty(obj)) {        
         if (multiple) {

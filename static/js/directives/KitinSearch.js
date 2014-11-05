@@ -1,4 +1,16 @@
-kitin.directive('kitinSearchEntity', ['definitions', 'editService', function(definitions, editService) {
+/*
+
+Creates autocomplete search 
+
+Params:
+  service-url: (str) path to serive after API_URL
+  make-reference: (bool) decorate reference data
+  template-id: (str) jquery template id
+  filter: (str) filters for search result
+
+*/
+
+kitin.directive('kitinSearch', function(definitions, editService, $rootScope) {
 
   var sourceConfiguration = {
     relators: {
@@ -41,17 +53,19 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editService', function(def
   }
 
   return {
-    require: '^kitinLinkEntity',
+    restrict: 'E',
+    require: '^kitinEntity',
+    replace: true,
+    template: '<input type="text" />',
     link: function(scope, elem, attrs, kitinLinkEntity) {
       var linker = kitinLinkEntity;
 
       // TODO: IMPROVE: replace current autocomplete mechanism and use angular
       // templates ($compile).. If that is fast enough..
-      var filterParams = attrs.filter || '';
-      var onSelect = attrs.onselect;
-      var makeReferenceOnItemSelect = attrs.makeReferenceOnItemSelect ? true : false;
-      var templateId = attrs.completionTemplateId;
-      var template = _.template(jQuery('#' + templateId).html());
+      var filterParams = attrs.filter;
+      var makeReferenceOnItemSelect = attrs.hasOwnProperty('makeReference');
+
+      var template = _.template(jQuery('#' + attrs.templateId).html());
       var searchedValue = null;
 
       options = {
@@ -61,6 +75,7 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editService', function(def
         autoWidth: null,
 
         showResult: function (value, data) {
+          console.log(value, data);
           return template({
             data: data, value: value, nameRepr: nameRepr, truncate: truncate, isLinked: scope.isLinked
           });
@@ -80,8 +95,6 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editService', function(def
           // TODO: if multiple, else set object (and *link*, not copy (embed copy in view?)...)
           if(makeReferenceOnItemSelect) {
             editService.makeReferenceEntity(item.data._source).then(function(referenced) {
-              // pass raw data
-              // item.data.decorated = referenced;
               linker.doAdd(referenced);
             });
           } else {
@@ -89,13 +102,14 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editService', function(def
           }
           
           delete item.data._source;
-          scope.$apply(onSelect);
           //scope.triggerModified();
           scope.$emit('changed', ['Added search entity']);
         }
       };
 
       if (attrs.serviceUrl) {
+
+        var serviceUrl = $rootScope.API_PATH + attrs.serviceUrl;
 
         options.filterResults = false;
         options.sortResults = false;
@@ -127,7 +141,7 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editService', function(def
           return result;
         };
 
-        elem.autocomplete(attrs.serviceUrl, options);
+        elem.autocomplete(serviceUrl, options);
 
       } else {
         var source = attrs.source;
@@ -191,7 +205,6 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editService', function(def
       }
 
       elem.jkey('enter', function () {
-        scope.$apply(onSelect);
         elem.val("");
       });
 
@@ -205,4 +218,4 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editService', function(def
     }
   };
 
-}]);
+});
