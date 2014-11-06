@@ -647,21 +647,19 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('/snippets/render-relation-referenced-entity',
-    "<div class=\"entity relation linked\">\n" +
-    "  <div class=\"main\">\n" +
-    "    <div class=\"title\">{{ object.title }}</div>\n" +
-    "    <div class=\"date\">\n" +
-    "      <span title=\"Utgivningsår\" data-ng-repeat=\"publication in object.publication | limitTo:1\" data-ng-show=\"publication.providerDate\">\n" +
-    "        {{publication.providerDate}}\n" +
-    "      </span>\n" +
-    "    </div>\n" +
+    "<div class=\"main\">\n" +
+    "  <div class=\"title\">{{ object.title }}</div>\n" +
+    "  <div class=\"date\">\n" +
+    "    <span title=\"Utgivningsår\" data-ng-repeat=\"publication in object.publication | limitTo:1\" data-ng-show=\"publication.providerDate\">\n" +
+    "      {{publication.providerDate}}\n" +
+    "    </span>\n" +
     "  </div>\n" +
-    "  <div class=\"notes\">\n" +
-    "    <span class=\"lbl\" translate>LABEL.record.about.relation.linkNote</span>\n" +
+    "</div>\n" +
+    "<div class=\"notes\">\n" +
+    "  <label>\n" +
+    "    <em><span translate>LABEL.record.about.relation.linkNote</span>:</em>\n" +
     "    <input data-track-change type=\"text\" ng-model=\"object.linkNote\" />\n" +
-    "  </div>\n" +
-    "  <a data-ng-if=\"!editable.on\" class=\"delete\" href=\"#\"\n" +
-    "     data-ng-click=\"doRemove($index)\"><i class=\"fa fa-times\"></i></a>\n" +
+    "  </label>\n" +
     "</div>"
   );
 

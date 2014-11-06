@@ -1,3 +1,14 @@
+/*
+
+Creates entity
+
+Params:
+  model: (str)
+  mutiple: (bool) allow multiple entries
+  rich: (bool) sets this entity to rich (for advanced formatting)
+  view: (str) view template snippet (detaults to generic)
+*/
+
 kitin.directive('kitinEntity', function(editService, $rootScope) {
 
   return {
@@ -31,11 +42,15 @@ kitin.directive('kitinEntity', function(editService, $rootScope) {
     },
     */
 
-    template: '<div class="label" ng-hide="shouldHide(objects, options)">' + 
+    template: '<div class="{{className}}" ng-hide="shouldHide(objects, options)">' + 
                 '<span class="lbl">{{title  | translate}}</span>' +
-                '<span class="inp" ng-if="objects" ng-repeat="object in objects" ng-include="viewTemplate">' +
-                '</span>' +
-                '<span ng-transclude ng-init="label=title"></span>' +
+                '<div class="inp" ng-if="objects">' +
+                  '<div ng-repeat="object in objects" class="entity-content">' +
+                    '<span class="inner" ng-include="viewTemplate"></span>' +
+                    '<span class="controls"><a class="delete" data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a></span>' +
+                  '</div>' +
+                  '<span ng-transclude ng-init="label=title"></span>' +
+                '</div>' +
               '</div>',
 
     controller: function($element, $scope, $attrs) {
@@ -53,6 +68,15 @@ kitin.directive('kitinEntity', function(editService, $rootScope) {
       $scope.link = _.last(parts);
       $scope.multiple = $attrs.hasOwnProperty('multiple');
       $scope.title = 'LABEL.' + $attrs.model;
+
+      var classNames = ['entity label'];
+      if ( $attrs.hasOwnProperty('rich') ) {
+        classNames.push('rich');
+      }
+      if ( $scope.multiple ) {
+        classNames.push('multiple');
+      }
+      $scope.className = classNames.join(' ');
 
       var hasValue = false;
       var savedOptionsHidden;
@@ -112,7 +136,6 @@ kitin.directive('kitinEntity', function(editService, $rootScope) {
       }
 
       this.doAdd = function (data) {
-
         var added = editService.addObject(subj, $scope.link, $scope.type, $scope.multiple, data);
         if ($scope.multiple) {
           $scope.objects = added;

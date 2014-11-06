@@ -39,24 +39,26 @@ label.find-entity input[type="text"] { padding-left: 22px; }
     padding: 8px 0;
     .lbl {
       display:inline-block;
-      width:200px;
+      width:@lbl_width;
       padding-right:20px;
       text-align:left;
       font-weight:bold;
-      vertical-align:middle;
+      vertical-align:top;
+      padding-top:@lbl_margin;
     }
     .inp {
-      width:400px;
+      width:@inp_width;
       display:inline-block;
       vertical-align:middle;
+      position:relative;
       textarea, input, table {
         width: 100%
       }
     }
     .act {
-      width: 200px;
+      width:@act_width;
       display:inline-block;
-      vertical-align: bottom;
+      vertical-align: middle;
     }
   }
   .group {
@@ -113,74 +115,67 @@ label.find-entity input[type="text"] { padding-left: 22px; }
   }
 }
 
-
-.edit .col6  .entity .embedded input{width:456px;}
-
-div[data-rich-entity]>div {
-
-  position:relative;
-  border: 1px solid @grey-light;
-  padding: 4px 8px;
-  margin-bottom:2px;
-  border-radius: 2px;
-
-  &.search {
-    border: none;
-    padding: 2px 0;
-    input[type="text"]{width:200px!important}
+.entity.rich {
+  .entity-content {
+    position:relative;
+    margin-bottom:6px;
   }
-
-  &.addmore { margin-bottom: 4px; }
-
-  &:first-child{  }
-
-  .check {
-    color:@grey;
-    margin-right:2px;
-    cursor:pointer;
-    &:hover{ color:@grey-very-dark }
+  .inner {
+    display:block;
+    font-size:13px;
+    border:1px solid @grey-light;
+    border-radius:2px;
+    padding:4px 6px 6px;
+    .main {
+      .title { 
+        font-weight:bold
+      }
+    }
+    .notes {
+      margin-top:2px;
+      label {
+        margin:0;
+        em {
+          font-size:11px;
+          color:#888;
+          font-weight:normal;
+          display:block;
+        }
+        input {
+          width: @inp_width/2;
+          font-weight:normal;
+          font-size:11px;
+        }
+      }
+    }
   }
-  .name {
-    font-weight:bold;
-  }
-  .delete { 
+  .controls {
     position:absolute;
-    right:6px;
-    top:3px;
-    display:none;
-    color: @grey;
-    &:hover{
-      color: @red;
+    left: @inp_width+10;
+    width: @act_width;
+    top: 0;
+  }
+  .search {
+    display:block;
+    width: 200px;
+    input {
+      background:@grey-warm;
+      border:none;
     }
   }
-  .auth {
-    padding-left:6px;
-    margin-left:3px;
-    border-left:1px solid @grey-lighter;
-    font-size:11px;
-  }
-  .tagsinput{
-    margin-bottom:2px
-  }
+}
+
+a.delete {
+  height: 20px;
+  line-height: 20px;
+  border-left:1px dotted @grey-light;
+  width: 28px;
+  text-align:center;
+  display: inline-block;
+  color: @red;
   &:hover {
-    .delete {
-      display:inline-block;
-    }
+    color: @grey-very-dark;
   }
-
-  &.main {
-    display:inline-block;
-    .check{ color:@grey-very-dark;cursor:default }
-  }
-
-  .label { border: none; margin-bottom: 0; }
-  .addon .label,
-  .addon input[type="text"] { float: left; width: 74px; }
-
-  .what {
-    color: @green-light;
-  }
-
 }
 
 .on-hover { visibility: hidden; }

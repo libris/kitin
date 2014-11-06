@@ -56,8 +56,11 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope) {
     restrict: 'E',
     require: '^kitinEntity',
     replace: true,
-    template: '<input type="text" />',
+    template: '<span class="search"><input type="text" placeholder="Lägg till" /></span>',
     link: function(scope, elem, attrs, kitinLinkEntity) {
+
+      elem = elem.is('input') ? elem : elem.find('input');
+
       var linker = kitinLinkEntity;
 
       // TODO: IMPROVE: replace current autocomplete mechanism and use angular
@@ -75,7 +78,7 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope) {
         autoWidth: null,
 
         showResult: function (value, data) {
-          console.log(value, data);
+          //console.log(value, data);
           return template({
             data: data, value: value, nameRepr: nameRepr, truncate: truncate, isLinked: scope.isLinked
           });

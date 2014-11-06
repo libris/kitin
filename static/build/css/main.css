@@ -4,134 +4,6 @@
 @btn-default-color: @green;
 @btn-default-bg: @green-light;
 */
-.cols {
-  overflow: hidden;
-  width: 1008px;
-  clear: both;
-}
-.col12 {
-  width: 984px;
-  float: left;
-  margin-right: 24px;
-}
-.col9 {
-  width: 732px;
-  float: left;
-  margin-right: 24px;
-}
-.col8 {
-  width: 648px;
-  float: left;
-  margin-right: 24px;
-}
-.col7 {
-  width: 552px;
-  float: left;
-  margin-right: 24px;
-}
-.col6 {
-  width: 480px;
-  float: left;
-  margin-right: 24px;
-}
-.col5 {
-  width: 396px;
-  float: left;
-  margin-right: 24px;
-}
-.col4 {
-  width: 312px;
-  float: left;
-  margin-right: 24px;
-}
-.col3 {
-  width: 228px;
-  float: left;
-  margin-right: 24px;
-}
-.col2 {
-  width: 144px;
-  float: left;
-  margin-right: 24px;
-}
-.col1 {
-  width: 72px;
-  float: left;
-  margin-right: 24px;
-}
-.lastcol {
-  margin-right: 0;
-}
-.col6 .label textarea,
-.col6 .label input[type="text"],
-.col6 .label select {
-  width: 466px;
-}
-.col4 .label textarea,
-.col4 .label input[type="text"],
-.col4 .label select {
-  width: 298px;
-}
-.col3 .label textarea,
-.col3 .label input[type="text"],
-.col3 .label select {
-  width: 214px;
-}
-.col2 .label textarea,
-.col2 .label input[type="text"],
-.col2 .label select {
-  width: 130px;
-}
-.split {
-  overflow: hidden;
-}
-.col3 .split .label {
-  float: left;
-  margin-left: 24px;
-  overflow: hidden;
-  width: 92px;
-}
-.col3 .split .label:first-child {
-  margin-left: 0;
-}
-.col3 .split .label textarea,
-.col3 .split .label input[type="text"],
-.col3 .split .label select {
-  width: 74px;
-}
-.col6 .split .label {
-  float: left;
-  margin-left: 24px;
-  overflow: hidden;
-  width: 184px;
-}
-.col6 .split .label:first-child {
-  margin-left: 0;
-}
-.col6 .split .label textarea,
-.col6 .split .label input[type="text"],
-.col6 .split .label select {
-  width: 166px;
-}
-.col3 .label.deletable .lbl {
-  display: block;
-}
-.col3 .label.deletable input[type="text"] {
-  width: 160px;
-}
-.col2 .label.deletable input[type="text"] {
-  width: 100px;
-}
-.multifield {
-  margin-bottom: 18px;
-}
-.multifield .label {
-  margin-bottom: 0;
-}
-.multifield .lbl {
-  margin-top: 0;
-  padding-top: 2px;
-}
 select,
 textarea,
 input[type="text"],
@@ -2379,12 +2251,14 @@ label.find-entity input[type="text"] {
   padding-right: 20px;
   text-align: left;
   font-weight: bold;
-  vertical-align: middle;
+  vertical-align: top;
+  padding-top: 5px;
 }
 .form-container .label .inp {
   width: 400px;
   display: inline-block;
   vertical-align: middle;
+  position: relative;
 }
 .form-container .label .inp textarea,
 .form-container .label .inp input,
@@ -2394,7 +2268,7 @@ label.find-entity input[type="text"] {
 .form-container .label .act {
   width: 200px;
   display: inline-block;
-  vertical-align: bottom;
+  vertical-align: middle;
 }
 .form-container .group {
   border-top: 1px solid #ccc;
@@ -2443,77 +2317,62 @@ label.find-entity input[type="text"] {
   font-weight: bold;
   color: #111;
 }
-.edit .col6 .entity .embedded input {
-  width: 456px;
-}
-div[data-rich-entity] > div {
+.entity.rich .entity-content {
   position: relative;
+  margin-bottom: 6px;
+}
+.entity.rich .inner {
+  display: block;
+  font-size: 13px;
   border: 1px solid #c7c7c3;
-  padding: 4px 8px;
-  margin-bottom: 2px;
   border-radius: 2px;
+  padding: 4px 6px 6px;
 }
-div[data-rich-entity] > div.search {
-  border: none;
-  padding: 2px 0;
-}
-div[data-rich-entity] > div.search input[type="text"] {
-  width: 200px !important;
-}
-div[data-rich-entity] > div.addmore {
-  margin-bottom: 4px;
-}
-div[data-rich-entity] > div .check {
-  color: #adada9;
-  margin-right: 2px;
-  cursor: pointer;
-}
-div[data-rich-entity] > div .check:hover {
-  color: #191913;
-}
-div[data-rich-entity] > div .name {
+.entity.rich .inner .main .title {
   font-weight: bold;
 }
-div[data-rich-entity] > div .delete {
-  position: absolute;
-  right: 6px;
-  top: 3px;
-  display: none;
-  color: #adada9;
+.entity.rich .inner .notes {
+  margin-top: 2px;
 }
-div[data-rich-entity] > div .delete:hover {
-  color: #ee5d61;
+.entity.rich .inner .notes label {
+  margin: 0;
 }
-div[data-rich-entity] > div .auth {
-  padding-left: 6px;
-  margin-left: 3px;
-  border-left: 1px solid #ddddd8;
+.entity.rich .inner .notes label em {
+  font-size: 11px;
+  color: #888;
+  font-weight: normal;
+  display: block;
+}
+.entity.rich .inner .notes label input {
+  width: 200px;
+  font-weight: normal;
   font-size: 11px;
 }
-div[data-rich-entity] > div .tagsinput {
-  margin-bottom: 2px;
+.entity.rich .controls {
+  position: absolute;
+  left: 410px;
+  width: 200px;
+  top: 0;
 }
-div[data-rich-entity] > div:hover .delete {
-  display: inline-block;
+.entity.rich .search {
+  display: block;
+  width: 200px;
 }
-div[data-rich-entity] > div.main {
-  display: inline-block;
-}
-div[data-rich-entity] > div.main .check {
-  color: #191913;
-  cursor: default;
-}
-div[data-rich-entity] > div .label {
+.entity.rich .search input {
+  background: #eeeeec;
   border: none;
-  margin-bottom: 0;
 }
-div[data-rich-entity] > div .addon .label,
-div[data-rich-entity] > div .addon input[type="text"] {
-  float: left;
-  width: 74px;
+a.delete {
+  height: 20px;
+  line-height: 20px;
+  border-left: 1px dotted #c7c7c3;
+  width: 28px;
+  text-align: center;
+  display: inline-block;
+  color: #ee5d61;
 }
-div[data-rich-entity] > div .what {
-  color: #22ba94;
+a.delete:hover {
+  color: #191913;
 }
 .on-hover {
   visibility: hidden;
