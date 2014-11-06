@@ -1,6 +1,92 @@
 
 <h2>Fysisk beskrivning<i></i></h2>
 <div class="form-container">
+
+  <kitin-group title="Example Of Work title">
+    <kitin-textrow model="record.about.exampleOfWork.title"></kitin-textrow>
+    <kitin-textrow model="record.about.exampleOfWork.date"></kitin-textrow>
+    <kitin-textrow model="record.about.exampleOfWork.version"></kitin-textrow>
+    <kitin-textrow model="record.about.exampleOfWork.comment"></kitin-textrow>
+    <kitin-textrow model="record.about.exampleOfWork.medium"></kitin-textrow>
+    <kitin-textrow model="record.about.exampleOfWork.musicArrangement"></kitin-textrow>
+    <kitin-textrow model="record.about.exampleOfWork.musicKey"></kitin-textrow>
+    
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.describedBy</span>
+      <div class="entity" data-kitin-link-entity
+          data-track-change
+          data-subject="record.about.exampleOfWork"
+          data-ng-init="label = 'Titel'"
+          data-link-multiple="'describedBy'" data-type="describedBy"
+          data-view-template="/snippets/render-referenced-entity"
+          data-search-template="/snippets/render-bib-search"
+          data-rich-entity>
+      </div>
+    </div>
+
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.language</span>
+      <ul class="tags" data-kitin-link-entity
+          data-track-change
+          data-subject="record.about.exampleOfWork"
+          data-link-multiple="'language'" data-type="Language"
+          data-view-template="/snippets/render-language"
+          data-search-template="/snippets/render-search-language">
+      </ul>
+    </div>
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.exampleOfWork.subtitle</span>
+      <ul class="tags" data-kitin-link-entity
+          data-track-change
+          data-subject="record.about.exampleOfWork"
+          data-link-multiple="'subtitle'" data-type="subtitle"
+          data-search-template="/snippets/render-generic-non-auth-add"
+          data-view-template="/snippets/render-non-auth-tag">
+      </ul>
+    </div>
+        <div class="label">
+      <span class="lbl" translate>LABEL.record.about.exampleOfWork.partTitle</span>
+      <ul class="tags" data-kitin-link-entity
+          data-track-change
+          data-subject="record.about.exampleOfWork"
+          data-link-multiple="'partTitle'" data-type="parttile"
+          data-search-template="/snippets/render-generic-non-auth-add"
+          data-view-template="/snippets/render-non-auth-tag">
+      </ul>
+    </div>
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.exampleOfWork.partNumber</span>
+      <ul class="tags" data-kitin-link-entity
+          data-track-change
+          data-subject="record.about.exampleOfWork"
+          data-link-multiple="'partNumber'" data-type="partNumber"
+          data-search-template="/snippets/render-generic-non-auth-add"
+          data-view-template="/snippets/render-non-auth-tag">
+      </ul>
+    </div>
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.exampleOfWork.treatySigningDate</span>
+      <ul class="tags" data-kitin-link-entity
+          data-track-change
+          data-subject="record.about.exampleOfWork"
+          data-link-multiple="'treatySigningDate'" data-type="partNumber"
+          data-search-template="/snippets/render-generic-non-auth-add"
+          data-view-template="/snippets/render-non-auth-tag">
+      </ul>
+    </div>
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.exampleOfWork.musicPerformanceMedium</span>
+      <ul class="tags" data-kitin-link-entity
+          data-track-change
+          data-subject="record.about.exampleOfWork"
+          data-link-multiple="'musicPerformanceMedium'" data-type="musicPerformanceMedium"
+          data-search-template="/snippets/render-generic-non-auth-add"
+          data-view-template="/snippets/render-non-auth-tag">
+      </ul>
+    </div>
+
+  </kitin-group>
+
   <kitin-group>
   <!-- ADDITIONAL CARRIER TYPE START -->
 
@@ -17,28 +103,7 @@
     </div>
     <!-- ADDITIONAL CARRIER TYPE END -->
 
-    <kitin-textrow model="record.about.exampleOfWork.title"></kitin-textrow>
-    
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.exampleOfWork.subtitle</span>
-      <ul class="tags" data-kitin-link-entity
-          data-track-change
-          data-subject="record.about.exampleOfWork"
-          data-link-multiple="'subtitle'" data-type="subtitle"
-          data-search-template="/snippets/render-generic-non-auth-add"
-          data-view-template="/snippets/render-non-auth-tag">
-      </ul>
-    </div>
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.exampleOfWork.partNumber</span>
-      <ul class="tags" data-kitin-link-entity
-          data-track-change
-          data-subject="record.about.exampleOfWork"
-          data-link-multiple="'partNumber'" data-type="partNumber"
-          data-search-template="/snippets/render-generic-non-auth-add"
-          data-view-template="/snippets/render-non-auth-tag">
-      </ul>
-    </div>
+   
 
 
 
