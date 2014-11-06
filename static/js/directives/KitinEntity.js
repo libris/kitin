@@ -44,8 +44,8 @@ kitin.directive('kitinEntity', function(editService, $rootScope) {
 
     template: '<div class="{{className}}" ng-hide="shouldHide(objects, options)">' + 
                 '<span class="lbl">{{title  | translate}}</span>' +
-                '<div class="inp" ng-if="objects">' +
-                  '<div ng-repeat="object in objects" class="entity-content">' +
+                '<div class="inp">' +
+                  '<div ng-if="objects" ng-repeat="object in objects" class="entity-content">' +
                     '<span class="inner" ng-include="viewTemplate"></span>' +
                     '<span class="controls"><a class="delete" data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a></span>' +
                   '</div>' +
