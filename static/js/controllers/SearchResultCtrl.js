@@ -1,6 +1,7 @@
-kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routeParams, $rootScope, $anchorScroll, definitions, searchService, searchUtil, editService, recordService, userData) {
+kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routeParams, $rootScope, $anchorScroll, definitions, searchService, searchUtil, editService, recordService, userData, utilsService) {
 
   $scope.recType = $routeParams.recType;
+  $scope.utils = utilsService;
 
   function getSearchURL() {
     var url = $rootScope.API_PATH + '/' + $scope.recType + '/_search';
@@ -138,57 +139,60 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
     return;
   }
 
-  $rootScope.$watch('state.search.result.list.length', function(newLength, oldLength) {
-    var findDeep = function(items, attrs) {
-      function match(value) {
-        for (var key in attrs) {
-          if (attrs[key] !== value[key]) {
-            return false;
+  // Only update holdings for records of type 'bib'
+  if ($scope.recType == 'bib') {
+    $rootScope.$watch('state.search.result.list.length', function(newLength, oldLength) {
+      var findDeep = function(items, attrs) {
+        function match(value) {
+          for (var key in attrs) {
+            if (attrs[key] !== value[key]) {
+              return false;
+            }
           }
+          return true;
         }
-        return true;
-      }
-      function traverse(value) {
-        var result;
-        _.forEach(value, function (val) {
-          if (match(val)) {
-            result = val;
-            return false;
-          }
-          if (_.isObject(val) || _.isArray(val)) {
-            result = traverse(val);
-          }
-          if (result) {
-            return false;
-          }
-        });
-        return result;
-      }
-      return traverse(items);
-    };
+        function traverse(value) {
+          var result;
+          _.forEach(value, function (val) {
+            if (match(val)) {
+              result = val;
+              return false;
+            }
+            if (_.isObject(val) || _.isArray(val)) {
+              result = traverse(val);
+            }
+            if (result) {
+              return false;
+            }
+          });
+          return result;
+        }
+        return traverse(items);
+      };
 
-    var updateHoldings = function(data, status, headers, config) {
-      if (data && data.list) {
-        config.record.holdings = {
-          hits: 0
-        };
-        if (data.list.length > 0) {
-          var userHolding = findDeep(data.list, { notation: userData.userSigel });
+      var updateHoldings = function(data, status, headers, config) {
+        if (data && data.list) {
           config.record.holdings = {
-            hits: data.list.length,
-            holding: userHolding
+            hits: 0
           };
+          if (data.list.length > 0) {
+            var userHolding = findDeep(data.list, { notation: userData.userSigel });
+            config.record.holdings = {
+              hits: data.list.length,
+              holding: userHolding
+            };
+          }
         }
-      }
-    };
+      };
 
-    for (var i = oldLength ? oldLength: 0; i < newLength; i++) {
-        var record = $rootScope.state.search.result.list[i];
-        if (record.identifier) {
-          $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.holdingFor.@id:' + record.data.about['@id'].replace(/\//g, '\\/'), {record: record}).success(updateHoldings);
-        }
-    }
-  });
+      for (var i = oldLength ? oldLength: 0; i < newLength; i++) {
+          var record = $rootScope.state.search.result.list[i];
+          if (record.identifier) {
+            $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.holdingFor.@id:' + record.data.about['@id'].replace(/\//g, '\\/'), {record: record}).success(updateHoldings);
+          }
+      }
+    });
+  }
 
   $scope.doSearch = function(url, params) {
 
