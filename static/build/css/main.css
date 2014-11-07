@@ -2393,8 +2393,7 @@ label.find-entity input[type="text"] {
   position: relative;
 }
 .form-container .label .inp textarea,
-.form-container .label .inp input,
-.form-container .label .inp table {
+.form-container .label .inp input {
   width: 100%;
 }
 .form-container .label .act {
@@ -2517,11 +2516,11 @@ a.delete:hover {
 }
 .datatable table {
   border-collapse: separate;
-  width: 100%;
+  width: 600px;
   min-height: 1px;
 }
 .datatable tbody td {
-  padding: 4px;
+  padding: 2px;
   border: 1px solid #c7c7c3;
   border-left-width: 0;
   border-top-width: 0;
@@ -2529,21 +2528,11 @@ a.delete:hover {
   min-height: 22px;
   height: 100%;
 }
-.datatable tbody td.controls {
-  border-color: #fff;
-  width: 24px;
-  margin: 0;
-}
-.datatable tbody td.controls .btn-link {
-  padding: 0;
-  font-size: 20px;
-}
-.datatable tbody td.controls .btn-link.deleter {
-  color: #c7c7c3;
-}
-.datatable tbody td.controls .btn-link.deleter:focus,
-.datatable tbody td.controls .btn-link.deleter:hover {
-  color: #ee5d61;
+.datatable tbody td.actions {
+  border-width: 0 0 0 1px!important;
+  vertical-align: top;
+  padding: 4px 0 0 10px;
+  width: 200px;
 }
 .datatable tbody td.multi ul.tags {
   margin-top: 0;
@@ -2554,19 +2543,15 @@ a.delete:hover {
 .datatable tbody td:first-child {
   border-left-width: 1px;
 }
-.datatable tbody td .label {
-  display: block;
-  height: 100%;
-}
-.datatable tbody td .label textarea {
+.datatable tbody td textarea {
   box-sizing: border-box;
-  min-height: 100%;
   border: none;
   padding: 0;
   margin: 0 4px;
   min-width: 200px;
+  height: 22px;
 }
-.datatable tbody td .label textarea:focus {
+.datatable tbody td textarea:focus {
   border: none;
   box-shadow: none;
 }
