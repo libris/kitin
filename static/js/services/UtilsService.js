@@ -102,7 +102,7 @@ kitin.factory('utilsService', function($http, $q, $rootScope) {
       if (recType == 'auth') {
         var post = record.data.about;
         var authType = post['@type'] || '';
-console.log(this.composeTitle(record, 'auth'), post);
+        //console.log(this.composeTitle(record, 'auth'), post);
         if (post.birthYear) {
           info += post.birthYear + '-';
           if (post.deathYear) {
