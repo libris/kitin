@@ -14,11 +14,11 @@ kitin.directive('kitinEntity', function(editService, $rootScope) {
   return {
     restrict: 'E',
     scope: true,
-    require: '^kitinGroup',
+    require: '?^^kitinGroup',
     replace: true,
     transclude: true,
     link: function(scope, element, attrs, kitinGroupCtrl) {
-      scope.options = kitinGroupCtrl.options;
+      scope.options = kitinGroupCtrl ? kitinGroupCtrl.options : null;
     },
     /*
     compile: function(element, attrs) {
@@ -83,8 +83,8 @@ kitin.directive('kitinEntity', function(editService, $rootScope) {
 
       $scope.shouldHide = function(objects, options) {
 
-        // always show for single rows
-        if ( options.single ) {
+        // always show for single rows or non-grouped entities
+        if ( !options || options.single ) {
           return false;
         }
 
