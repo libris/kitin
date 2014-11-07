@@ -2520,7 +2520,7 @@ a.delete:hover {
   min-height: 1px;
 }
 .datatable tbody td {
-  padding: 2px;
+  padding: 2px 4px;
   border: 1px solid #c7c7c3;
   border-left-width: 0;
   border-top-width: 0;
@@ -2529,7 +2529,7 @@ a.delete:hover {
   height: 100%;
 }
 .datatable tbody td.actions {
-  border-width: 0 0 0 1px!important;
+  border-width: 0!important;
   vertical-align: top;
   padding: 4px 0 0 10px;
   width: 200px;
@@ -2547,8 +2547,8 @@ a.delete:hover {
   box-sizing: border-box;
   border: none;
   padding: 0;
-  margin: 0 4px;
-  min-width: 200px;
+  margin: 0;
+  min-width: 50px;
   height: 22px;
 }
 .datatable tbody td textarea:focus {
@@ -2561,13 +2561,13 @@ a.delete:hover {
 .datatable tr:first-child td:first-child {
   border-top-left-radius: 2px;
 }
-.datatable tr:first-child td:last-child {
+.datatable tr:first-child td:not(.actions):last-of-type {
   border-top-right-radius: 2px;
 }
 .datatable tr:last-child td:first-child {
   border-bottom-left-radius: 2px;
 }
-.datatable tr:last-child td:last-child {
+.datatable tr:last-child td:not(.actions):last-of-type {
   border-bottom-right-radius: 2px;
 }
 .datatable tbody .label {

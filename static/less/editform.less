@@ -186,7 +186,7 @@ a.delete {
   table { border-collapse: separate; width: @inp_width+@act_width; min-height: 1px; }
   margin-bottom:10px;
   tbody td {
-    padding: 2px;
+    padding: 2px 4px;
     border:1px solid @grey-light;
     border-left-width: 0;
     border-top-width: 0;
@@ -194,7 +194,7 @@ a.delete {
     min-height:22px;
     height: 100%;
     &.actions {
-      border-width: 0 0 0 1px!important;
+      border-width: 0!important;
       vertical-align: top;
       padding: 4px 0 0 10px;
       width: @act_width;
@@ -208,8 +208,8 @@ a.delete {
       box-sizing: border-box;
       border:none;
       padding:0;
-      margin:0 4px;
-      min-width:200px;
+      margin:0;
+      min-width:50px;
       height: 22px;
       &:focus{border:none;box-shadow:none}
     }
@@ -218,11 +218,11 @@ a.delete {
     &:first-child td {
       border-top-width: 1px;
       &:first-child { border-top-left-radius:2px; }
-      &:last-child { border-top-right-radius:2px; }
+      &:not(.actions):last-of-type { border-top-right-radius:2px; }
     }
     &:last-child td {
       &:first-child { border-bottom-left-radius:2px; }
-      &:last-child { border-bottom-right-radius:2px; }
+      &:not(.actions):last-of-type { border-bottom-right-radius:2px; }
     }
   }
   tbody .label { margin-bottom: -1px }
