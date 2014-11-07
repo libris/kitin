@@ -3,13 +3,13 @@
     <!--AUTH RESULT-->
     <div data-ng-switch-when="auth">
       <div data-ng-repeat="record in state.search.result.list">
-        <div data-ng-include="'/snippets/hitlist-compact-auth'" data-ng-init="object = record.data.about"></div>
+        <div data-ng-include="'/snippets/hitlist-compact-auth'"></div>
       </div>
     </div>
     <!--BIB RESULT-->
     <div data-ng-switch-default>
       <div data-ng-repeat="record in state.search.result.list">
-        <div data-ng-include="'/snippets/hitlist-compact-bib'" data-ng-init="object = record.data.about"></div>
+        <div data-ng-include="'/snippets/hitlist-compact-bib'"></div>
       </div>
     </div>
   </div>

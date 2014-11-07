@@ -2,6 +2,7 @@
 // Mixins
 @import (reference) "bootstrap.less";
 
+// Wrap in body.search for separation, remove when bootstrap columns are everywhere
 body.search{
   .content header{
     .make-row();
@@ -13,7 +14,7 @@ body.search{
     }
     .tool-container{
       position:relative;
-      color:@grey-darker; font-size:12px; margin-top:12px; background-color: #E6E6E6;
+      color:@grey-darker; font-size:12px; margin-top:12px; background-color: @grey-warm;
       height:40px;
     }
     .crumbs{
@@ -33,6 +34,26 @@ body.search{
       }
     }
 
+  }
+
+  .hitlist-item.auth{
+    .make-row();
+    position:relative;
+    padding: 6px 0;
+    border-bottom: 1px solid @grey-warm;
+    .icon{
+      position:absolute;
+      width:20px;top:6px;bottom:6px;left:20px;
+      text-align: left;
+      color: @grey-darker;
+    }
+    .title{
+      .make-md-column(4);
+      padding-left:50px;
+    }
+    .about{
+      .make-md-column(8);
+    }
   }
 
 }

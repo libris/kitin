@@ -38,7 +38,7 @@ kitin.factory('searchService', function($http, $q, $rootScope) {
       $rootScope.promises.search = $http.get(url, { params: params }).success(function(data) {
         deferred.resolve(data);
       }).error(function(data, status) {
-        deferer.reject(status);
+        deferred.reject(status);
       });
       return deferred.promise;
     }

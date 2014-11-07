@@ -1,13 +1,8 @@
-kitin.controller('IndexCtrl', function($scope, $http, recordService, editService) {
+kitin.controller('IndexCtrl', function($scope, $http, recordService, editService, utilsService) {
   document.body.className = 'index';
+  $scope.utils = utilsService;
 
   recordService.drafts.get().then(function(data) {
-    for (var i = 0; i < data.drafts.length; i++) {
-      var draft = data.drafts[i];
-      var clickableTitle = draft.instanceTitle.subtitle ? draft.instanceTitle.titleValue + ' - ' + draft.instanceTitle.subtitle : draft.instanceTitle.titleValue;
-      if (!clickableTitle) clickableTitle = '<Titel saknas>';
-      draft.clickableTitle = clickableTitle;
-    }
     $scope.drafts = data.drafts;
   });
 
