@@ -10,14 +10,17 @@
   <section ng-if="debug && record._marcUncompleted" class="unknown" ng-include="'/partials/edit/bib/unknown'"></section>
 
   <div class="footer footer-sticky">
-    <section>
+    <section class="centered">
       <div class="row">
-        <div class="col-md-2">
-          <div data-ng-include="'/snippets/holdings-button'" data-ng-init="recordId = record.about['@id']"></div>
+        <div class="col-md-4">
+          <div class="holding">
+            <button data-ng-disabled="!modifications.bib.published" class="btn btn-purple btn-hld" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record.about['@id'])">
+              <span data-ng-if="!hasHolding"><i class="fa fa-inverse fa-plus"></i> Lägg till bestånd</span>
+              <span data-ng-if="hasHolding"><i class="fa fa-inverse fa-check"></i> Ändra i bestånd</span>
+            </button>
+          </div>
         </div>
-        <div class="col-md-2">
-        </div>
-        <div class="col-md-8">  
+        <div class="col-md-8 right">  
           <a data-ng-controller="ModalCtrl" data-ng-click="openMARCModal($event, record)">Förhandsgranska MARC</a> | 
           <span data-ng-show="record.modified" class="bib-edit-modified">{{record.draft ? 'Sparad' : 'Publicerad'}}: {{record.modified | timeAgo:60*60*24}} | </span>
           <a id="draft" data-ng-click="saveDraft()" title="{{lastSavedLabel('Senast sparad: %s')}}">Spara utkast</a> &nbsp;
