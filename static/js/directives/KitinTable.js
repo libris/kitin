@@ -13,7 +13,7 @@ kitin.directive('kitinTable', function(editService){
       template: '<div class="label" ng-hide="shouldHideTable(model, options)">' + 
                   '<span class="lbl">{{title | translate}}</span>' +
                   '<span class="inp">' +
-                    '<table>' +
+                    '<div class="datatable"><table>' +
                       '<thead>' +
                         '<tr class="thead" ng-if="titles.length">' +
                           '<th ng-repeat="title in titles">{{title | translate}}</th>' +
@@ -23,11 +23,11 @@ kitin.directive('kitinTable', function(editService){
                         '<tr kitin-tr-controls ng-transclude ng-repeat="(key, item) in model track by $index">' +
                         '</tr>' +
                       '</tbody>' +
-                    '</table>' +
+                    '</table></div>' +
                   '</span>' + 
-                  '<span class="act">' +
-                    '<a href="" ng-click="addRow()">Lägg till fält</a>' +
-                  '</span>' +
+                  '<div class="add">' +
+                    '<a href="#" ng-click="addRow()">Lägg till fält</a>' +
+                  '</div>' +
                 '</div>',
 
       controller: function($scope, $rootScope, $attrs) {
@@ -98,8 +98,8 @@ kitin.directive('kitinTrControls', ['$compile', function($compile) {
         element.empty();
         // Append button to each row
         var controls = angular.element(
-          '<td>' + 
-            '<button class=btn-link deleter" data-ng-click="removeRow($index)"><i class="fa fa-trash-o"></i></button>' + 
+          '<td class="actions">' + 
+            '<a class="delete" data-ng-click="removeRow($index)"><i class="fa fa-times"></i></a>' + 
           '</td>');
         element.append(clone).append(controls);
         // Controls needs compiling to be bound to scope

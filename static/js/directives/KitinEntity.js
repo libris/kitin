@@ -20,27 +20,6 @@ kitin.directive('kitinEntity', function(editService, $rootScope) {
     link: function(scope, element, attrs, kitinGroupCtrl) {
       scope.options = kitinGroupCtrl ? kitinGroupCtrl.options : null;
     },
-    /*
-    compile: function(element, attrs) {
-      var multiple = !!(attrs.multiple);
-      var collapsable = !!(attrs.collapsable);
-      var itemTag = element.is('ul, ol')? 'li' : 'div';
-      var viewDiv = '<div ng-if="viewmode" ng-include="viewTemplate"></div>';
-      var nonAuth = 'ng-class="{\'non-auth\' : !isLinked(object) && !isInScheme(object)}"';
-      var repeater = multiple ? 'ng-if="objects" ng-repeat="object in objects track by $index"' : 'ng-if="object"';
-      var collapseButton = collapsable ? '<div collapse-button ng-init="objects=objects"></div>' : '';
-      var collapse = collapsable ? ' collapse="doCollapse && $index !== 0" ' : '';
-      var template =  collapseButton +
-                      '<'+ itemTag + ' ' + collapse + ' ' + repeater + ' ' + nonAuth + '> ' +
-                        viewDiv + 
-                      '</'+ itemTag +'>' +
-                      (collapsable ? '<'+ itemTag +' class="entity" ng-show="doCollapse">... Ytterligare {{objects.length-1}}</'+ itemTag +'>' : '') +
-                      '<'+ itemTag +' ' + (multiple ? '' : 'ng-if="!viewmode"') + ' class="search" ng-include="searchTemplate"></'+ itemTag +'>';
-      
-
-      element.html(template);
-    },
-    */
 
     template: '<div class="{{className}}" ng-hide="shouldHide(objects, options)">' + 
                 '<span class="lbl">{{title  | translate}}</span>' +

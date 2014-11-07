@@ -51,7 +51,7 @@ label.find-entity input[type="text"] { padding-left: 22px; }
       display:inline-block;
       vertical-align:middle;
       position:relative;
-      textarea, input, table {
+      textarea, input {
         width: 100%
       }
     }
@@ -183,47 +183,35 @@ a.delete {
 
 
 .datatable {
-  table { border-collapse: separate; width: 100%; min-height: 1px; }
+  table { border-collapse: separate; width: @inp_width+@act_width; min-height: 1px; }
   margin-bottom:10px;
   tbody td {
-    padding: 4px;
+    padding: 2px;
     border:1px solid @grey-light;
     border-left-width: 0;
     border-top-width: 0;
     position:relative;
     min-height:22px;
     height: 100%;
-    &.controls {
-      border-color: #fff;
-      width: 24px;
-      margin: 0;
-      .btn-link {
-        padding: 0;
-        font-size:20px;
-        &.deleter {
-          color:@grey-light;
-          &:focus,
-          &:hover { color: @red }
-        }
-      }
+    &.actions {
+      border-width: 0 0 0 1px!important;
+      vertical-align: top;
+      padding: 4px 0 0 10px;
+      width: @act_width;
     }
     &.multi {
       ul.tags { margin-top:0 }
       .add-item { margin-bottom:0 }
     }
     &:first-child { border-left-width:1px }
-    .label {
-      display:block;
-      height: 100%;
-      textarea {
-        box-sizing: border-box;
-        min-height: 100%;
-        border:none;
-        padding:0;
-        margin:0 4px;
-        min-width:200px;
-        &:focus{border:none;box-shadow:none}
-      }
+    textarea {
+      box-sizing: border-box;
+      border:none;
+      padding:0;
+      margin:0 4px;
+      min-width:200px;
+      height: 22px;
+      &:focus{border:none;box-shadow:none}
     }
   }
   tr {

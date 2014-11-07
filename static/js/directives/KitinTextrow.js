@@ -4,10 +4,10 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
       scope: {
         model: '=model'
       },
-      require:  '^kitinGroup',
+      require:  '?^^kitinGroup',
       replace: true,
       link: function(scope, element, attrs, kitinGroupCtrl) {
-        scope.options = kitinGroupCtrl.options;
+        scope.options = kitinGroupCtrl ? kitinGroupCtrl.options : null;
       },
       //TODO, move into snippet?
       template: '<div class="label" ng-hide="shouldHide(model, options)">' + 
@@ -22,7 +22,7 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
         $scope.shouldHide = function(model, options) {
 
           // always show for single rows
-          if ( options.single ) {
+          if ( !options || options.single ) {
             return false;
           }
 
