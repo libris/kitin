@@ -350,6 +350,14 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  <h2 id=\"rlModalLabel\">Release Notes</h2>\n" +
     "</div>\n" +
     "<div class=\"modal-body\">\n" +
+    "  <h4>2014-10-06</h4>\n" +
+    "  <ul>\n" +
+    "    <li>Formuläret för editering av bib-poster har tillfälligt blivit lite stökigt.<br>\n" +
+    "        Arbete pågår för fullt med att bygga om formuläret, från dem tidigare två spalterna, till tre nya kolumner.<br>\n" +
+    "        Rubrik-, inmatnings- och actionkolumn, vilket kommer göra att formuläret blir lättare att följa.<br>\n" +
+    "        Ny uppdatering av formuläret kommer inom kort.</li>\n" +
+    "    <li>Antalet sökbara poster har begränsats för att förenkla release och tester av klienten.</li>\n" +
+    "  </ul>\n" +
     "  <h4>2014-07-02</h4>\n" +
     "  <ul>\n" +
     "    <li>Förenklad träfflista.</li>\n" +

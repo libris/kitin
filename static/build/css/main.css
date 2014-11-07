@@ -2821,6 +2821,7 @@ body.search .content header {
   margin-right: -15px;
   width: auto;
   padding: 0;
+  margin-bottom: 10px;
 }
 body.search .content header .summary {
   position: relative;
