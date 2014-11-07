@@ -3,37 +3,27 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   $scope.recordId = recordId;
   $scope.userData = userData;
 
-   $rootScope.modifications.holding = {
-    saved: true,
-    published: true,
+  $rootScope.modifications.holding = {
+    saved: false,
     deleted: false
   };
 
   var isNew = false;
 
   function getCurrentRecord() {
-    var currentRecord;
-    if ($rootScope.state.search.result) {
+    // In search view, we need to know which record the user is editing holdings for.
+    // If we're not in search view, return false
+    if ($rootScope.state.search.result && $rootScope.state.search.result.list) {
       var records = $rootScope.state.search.result.list;
-      currentRecord = _.find(records, function(record) {
+      return _.find(records, function(record) {
         return record.data.about['@id'] == recordId;
       });
-    } else if ($scope.recordId) {
-      // Do we need to update record in edit view? 
-      // Perhaps if we want to update the fixed footer holdings button.
-      // Return false for now
-      currentRecord = false;
     } else {
-      currentRecord = false;
+      return false;
     }
-    return currentRecord;
-
   }
 
-  function onSave(holding) {
-    $rootScope.modifications.holding.saved = true;
-    $rootScope.modifications.holding.published = true;
-    
+  function onSave(holding) {    
     var currentRecord = getCurrentRecord();
     if (currentRecord) {
       currentRecord.holdings.holding = holding;
@@ -42,18 +32,17 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
         isNew = false;
       }
     }
+    $rootScope.modifications.holding.saved = true;
   }
 
   function onDelete(holding) {
-    $rootScope.modifications.holding.saved = true;
-    $rootScope.modifications.holding.published = true;
-    $rootScope.modifications.holding.deleted = true;
-
     var currentRecord = getCurrentRecord();
     if (currentRecord) {
       currentRecord.holdings.holding = null;
       currentRecord.holdings.hits -= 1;
     }
+    $rootScope.modifications.holding.saved = true;
+    $rootScope.modifications.holding.deleted = true;
   }
 
   $scope.close = function() {
@@ -76,6 +65,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
       });
     } else {
       $scope.holding = holding;
+      $rootScope.modifications.holding.saved = true;
     }
   });
 
@@ -89,17 +79,21 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   };
 
   $scope.deleteHolding = function(holding) {
-    recordService.holding.del(holding).then(function(response) {
+    recordService.holding.del(holding).then(function sucess(response) {
       onDelete(holding);
       delete $scope.holding;
+    }, function error(status) {
+
     });
   };
 
   $scope.addOffer = function(holding) {
+    // Get offers from existing holding
     var offers = holding.data.about.offers;
+    // Create a new holding temporarily to get an empty offer
     recordService.holding.create().then(function(response) {
-      var data = response;
-      var offer = data.data.about.offers[0];
+      var offer = response.data.about.offers[0];
+      // Set hidden values and push to offers
       offer.heldBy[0].notation = userData.userSigel;
       offers.push(offer);
     });

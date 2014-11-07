@@ -6,25 +6,34 @@
 .footer footer li:before{content:"\2022";margin-right:8px}
 .footer footer li:first-child{margin-left:0;padding-left:0;border:none}
 .footer footer li:first-child:before{content:'';margin:0}
-// Main footer in edit
-body.edit {padding-bottom:40px;}
-body.edit .footer footer {margin-top:0px;}
 
-// Edit sticky footer
-.footer-sticky {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    height: 50px;
+body.edit {
+  padding-bottom:40px;
 
-    font-size: 13px;
-    background: rgba(255, 255, 255, .9);
-    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    section { 
-        padding-top: 7px !important;
-        background-color: transparent !important;
-    }
+  // Main footer in edit
+  .footer footer {margin-top:0px;}
+
+  // Edit sticky footer
+  .footer-sticky {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      height: 56px;
+
+      font-size: 13px;
+      background: rgba(255, 255, 255, .9);
+      box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
+      //text-align: center;
+      section.centered {
+          max-width:1080px;
+          margin:0 auto;
+          padding-top: 10px !important;
+          background-color: transparent !important;
+          div.right{
+            text-align: right;
+          }
+      }
+  }
 }
