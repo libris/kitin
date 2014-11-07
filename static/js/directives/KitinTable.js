@@ -24,10 +24,10 @@ kitin.directive('kitinTable', function(editService){
                         '</tr>' +
                       '</tbody>' +
                     '</table></div>' +
+                    '<div class="add">' +
+                      '<a href="#" ng-click="addRow()">Lägg till fält</a>' +
+                    '</div>' +
                   '</span>' + 
-                  '<div class="add">' +
-                    '<a href="#" ng-click="addRow()">Lägg till fält</a>' +
-                  '</div>' +
                 '</div>',
 
       controller: function($scope, $rootScope, $attrs) {
