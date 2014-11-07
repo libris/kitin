@@ -76,115 +76,48 @@
     </kitin-table>
   </kitin-group>
 
-  <kitin-group title="[Test]">
+  <kitin-group>
+
     <kitin-entity model="record.about.relation" multiple rich view="/snippets/render-relation-referenced-entity">
       <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
     </kitin-entity>
-  </kitin-group>
 
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.relation</span>
-      <div class="entity" data-kitin-link-entity
-          data-track-change
-          data-subject="record.about"
-          data-ng-init="label = 'Länkfält'"
-          data-link-multiple="'relation'" data-type="relation"
-          data-view-template="/snippets/render-relation-referenced-entity"
-          data-search-template="/snippets/render-bib-search"
-          data-rich-entity>
-      </div>
-    </div>
+    <kitin-entity model="record.about.isPartOf" multiple rich view="/snippets/render-relation-referenced-entity">
+      <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
+    </kitin-entity>
 
-    <!-- RELATION  END -->
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.isPartOf</span>
-      <div class="entity" data-kitin-link-entity
-          data-track-change
-          data-subject="record.about"
-          data-ng-init="label = 'Värdpublikation'"
-          data-link-multiple="'isPartOf'" data-type="isPartOf"
-          data-view-template="/snippets/render-referenced-entity"
-          data-search-template="/snippets/render-bib-search"
-          data-rich-entity>
-      </div>
-    </div>
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.hasPart</span>
-      <div class="entity" data-kitin-link-entity
-          data-track-change
-          data-subject="record.about"
-          data-ng-init="label = 'Del'"
-          data-link-multiple="'hasPart'" data-type="hasPart"
-          data-view-template="/snippets/render-referenced-entity"
-          data-search-template="/snippets/render-bib-search"
-          data-rich-entity>
-      </div>
-    </div>
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.precededBy</span>
-      <div class="entity" data-kitin-link-entity
-          data-track-change
-          data-subject="record.about"
-          data-ng-init="label = 'Titel'"
-          data-link-multiple="'precededBy'" data-type="PrecededBy"
-          data-view-template="/snippets/render-referenced-entity"
-          data-search-template="/snippets/render-bib-search"
-          data-rich-entity>
-      </div>
-    </div>
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.succeededBy</span>
-      <div class="entity" data-kitin-link-entity
-          data-track-change
-          data-subject="record.about"
-          data-ng-init="label = 'Titel'"
-          data-link-multiple="'succeededBy'" data-type="SucceededBy"
-          data-view-template="/snippets/render-referenced-entity"
-          data-search-template="/snippets/render-bib-search"
-          data-rich-entity>
-      </div>
-    </div>
+    <kitin-entity model="record.about.hasPart" multiple rich view="/snippets/render-relation-referenced-entity">
+      <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
+    </kitin-entity>
+
+    <kitin-entity model="record.about.precededBy" multiple rich view="/snippets/render-relation-referenced-entity">
+      <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
+    </kitin-entity>
+
+    <kitin-entity model="record.about.succeededBy" multiple rich view="/snippets/render-relation-referenced-entity">
+      <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
+    </kitin-entity>
+
   </kitin-group>
 
   <!-- LANGUAGES  START -->
   <kitin-group title="Language and more title">
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.language</span>
-      <ul class="tags" data-kitin-link-entity
-          data-track-change
-          data-subject="record.about"
-          data-link-multiple="'language'" data-type="Language"
-          data-view-template="/snippets/render-language"
-          data-search-template="/snippets/render-search-language">
-      </ul>
-    </div>
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.originalLanguage</span>
-      <ul class="tags" data-kitin-link-entity
-          data-track-change
-          data-subject="record.about"
-          data-link-multiple="'originalLanguage'" data-type="Language"
-          data-view-template="/snippets/render-language"
-          data-search-template="/snippets/render-search-language">
-      </ul>
-    </div>
+    <kitin-entity model="record.about.language" multiple rich view="/snippets/render-language" filter="{ filter: 'about.@type:Language'}">
+      <kitin-search service-url="/def/_search" make-reference template-id="bib-completion-template"></kitin-search>
+    </kitin-entity>
+
+    <kitin-entity model="record.about.originalLanguage" multiple rich view="/snippets/render-language" filter="{ filter: 'about.@type:Language'}">
+      <kitin-search service-url="/def/_search" make-reference template-id="bib-completion-template"></kitin-search>
+    </kitin-entity>
 
     <kitin-table model="record.about.languageNote">
       <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
     </kitin-table>
 
+    <kitin-entity model="record.about.alphabet" multiple rich filter="{ filter: 'about.inCollection.@id:/def/enum/content/alphabet-collection'}">
+      <kitin-search service-url="/def/_search" make-reference template-id="bib-completion-template"></kitin-search>
+    </kitin-entity>
 
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.alphabet</span>
-      <ul class="tags" data-kitin-link-entity
-          data-track-change
-          data-subject="record.about"
-          data-link="'alphabet'" data-type="Alphabet"
-          data-view-template="/snippets/render-generic-linked-entity"
-          data-search-template="/snippets/render-generic-select"
-          data-filter="about.inCollection.@id:/def/enum/content/alphabet-collection">
-      </ul>
-    </div>
   </kitin-group>
   <!-- LANGUAGES  END -->
 
