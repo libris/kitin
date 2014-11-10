@@ -31,7 +31,8 @@
         }
 
         var alert = {
-          msg: 'Det gick inte att ' + action + '. '
+          msg: 'Det gick inte att ' + action + '. ',
+          status: status
         };
         
         switch(status) {
