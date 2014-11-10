@@ -40,7 +40,7 @@ kitin.directive('kitinEntity', function(editService, $rootScope) {
       var parts = $attrs.model.split('.');
 
       if($attrs.filter) {
-        $scope.filter = $attrs.filter.replace(/\//g,'\\/').replace(/-/g, '\\-');
+        $scope.filter = this.filter = $attrs.filter.replace(/\//g,'\\/').replace(/-/g, '\\-');
       }
 
       $scope.type = $attrs.type || _.last(parts);
