@@ -1,36 +1,33 @@
 <h2>{{ "Ämnesord och klassifikation" }}<i></i></h2>
 <div class="form-container" onload="work = record.about">
+  
   <kitin-group title="Ämnesord">
 
     <!-- SUBJECT START -->
     <!-- SUBJECT BY IN SCHEME  START -->
-    <div data-ng-repeat="(key, container) in record.about.subjectByInScheme" class="scheme tagsinput"
-       data-ng-init="scheme = conceptSchemes.byNotation[key.replace('/topic/','')] || {'title': key, 'notation': container[0].inScheme.notation}; 
-                    search_filter = {filter: 'about.inScheme.notation:' + scheme.notation};
-                    search_completion_template = 'subject-completion-template';">
-      <span class="lbl">{{ scheme.alternative || scheme.title || scheme.title_en }}</span>
-      <ul class="tags" data-kitin-link-entity
-          data-track-change
-          data-subject="record.about.subjectByInScheme" data-link-multiple="key" data-type="Concept"
-          data-search-template="/snippets/search-subject"
-          data-view-template="/snippets/view-subject">
-      </ul>
+    <div class="label cols" data-ng-repeat="(key, container) in record.about.subjectByInScheme">
+      <kitin-group ng-switch on="key" title="{{ key }}">
+        <kitin-entity model="record.about.subjectByInScheme" link="key" multiple rich view="/snippets/view-subject">
+          <kitin-search service-url="/auth/_search" template-id="subject-completion-template" filter="about.inScheme.notation:{{ (conceptSchemes.byNotation[key.replace('/topic/','')] || container[0].inScheme).notation }}">
+          </kitin-search>
+        </kitin-entity>
+      </kitin-group>
     </div>
+
     <!-- SUBJECT BY IN SCHEME  END -->
 
     <!-- SUBJECT BY TYPE  START -->
-    <div data-ng-repeat="(key, container) in record.about.subjectByType" class="scheme tagsinput"
-       data-ng-init="scheme = subjectByType[key];
-                     search_filter = (key === '/topic/chronological') ? { filter: 'about.inCollection.@id:\/topic\/chronological\/'} : { filter: 'about.@type:' + key};
-                     search_completion_template = key === 'Person' ? 'auth-completion-template' : 'subject-completion-template';">
-      <span class="lbl">{{ scheme.alternative || scheme.title || scheme.title_en }}</span>
-      <ul class="tags" data-kitin-link-entity
-          data-track-change
-          data-subject="record.about.subjectByType" data-link-multiple="key" data-type="Concept"
-          data-search-template="/snippets/search-subject"
-          data-view-template="/snippets/view-subject">
-      </ul>
+    <div class="label cols" data-ng-repeat="(key, container) in record.about.subjectByType">
+      <kitin-group ng-switch on="key" title="{{ key }}">
+        <kitin-entity model="record.about.subjectByType" link="key" multiple>
+          <kitin-search service-url="/auth/_search" 
+                        template-id="{{ key === 'Person' ? 'auth-completion-template' : 'subject-completion-template'}}" 
+                        filter="{{(key === '/topic/chronological') ? 'about.inCollection.@id:\/topic\/chronological\/' : 'about.@type:' + key}}">
+          </kitin-search>
+        </kitin-entity>
+      </kitin-group>
     </div>
+
     <!-- SUBJECT BY TYPE  END -->
 
     <!-- GENERAL SUBJECT  START -->
@@ -57,32 +54,17 @@
     <kitin-textrow model="record.about.classificationDdc"></kitin-textrow>
    
     <kitin-textrow model="record.about.classificationNlm"></kitin-textrow>
-
-  
-    <div class="label cols" data-ng-repeat="(classificationScheme, subClassification) in record.about.classificationByInScheme">
-      <h3 ng-if="subClassification.length > 0" class="ng-binding" translate>{{ classificationScheme }}</h3>
-      <div class="col12" ng-switch on="classificationScheme">
-        <ul class="tags" data-kitin-link-entity
-          data-subject="record.about.classificationByInScheme"
-          data-link-multiple="classificationScheme"
-          data-view-template="/snippets/render-classification"
-          data-search-template="/snippets/render-search-classification"
-          data-default-type="classificationScheme"
-          >
-        </ul>
-      </div>
-    </div>
-    <script type="text/ng-template" id="/snippets/render-search-classification">
-        <i class="fa fa-search"></i> <input data-track-change class="input-large authdependant embedded" type="text"
-              data-no-value="{{ object.notation }}"
-              data-kitin-search-entity
-              data-service-url="{{API_PATH}}/auth/_search"
-              data-filter="{ filter: 'about.inCollection.@id:{{classificationScheme}}'}"
-              data-completion-template-id="auth-completion-template" 
-              data-allow-non-auth="true"
-              placeholder="+ Lägg till klassifikation">
-    </script>
   </kitin-group>
+  
+  <div class="label cols" data-ng-repeat="(classificationScheme, subClassification) in record.about.classificationByInScheme">
+    <kitin-group ng-switch on="classificationScheme" title="{{ classificationScheme }}">
+      <kitin-entity model="record.about.classificationByInScheme" link="classificationScheme" multiple rich view="/snippets/render-classification">
+        <kitin-search service-url="/def/_search" template-id="select-classification-template" filter="about.inCollection.@id:{{classificationScheme}}">
+        </kitin-search>
+      </kitin-entity>
+    </kitin-group>
+  </div>
+  
   <!-- CLASSIFICATION  END -->
 
   <kitin-group title="Genre">
