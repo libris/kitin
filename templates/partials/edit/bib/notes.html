@@ -38,8 +38,8 @@
         <span class="lbl" translate>LABEL.record.about.isPrimaryTopicOf</span>
       <textarea data-track-change data-ui-jq="autosize" data-ng-model="topic.comment" ></textarea>
     </div>
-    
-    <kitin-entity model="record.about.audience" multiple>
+
+    <kitin-entity model="record.about.audience">
       <kitin-select filter="about.inCollection.@id:/def/enum/content/audience-collection"></kitin-select>
     </kitin-entity>
 
