@@ -92,7 +92,6 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope) {
         },
 
         onItemSelect: function(item, completer) {
-          
           var owner = scope.subject;
           // TODO: if multiple, else set object (and *link*, not copy (embed copy in view?)...)
           if(makeReferenceOnItemSelect) {
@@ -103,8 +102,9 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope) {
             linker.doAdd(_.isEmpty(item.data) ? item.value : item.data);
           }
           
+          
           delete item.data._source;
-          //scope.triggerModified();
+          scope.$apply();
           scope.$emit('changed', ['Added search entity']);
         }
       };
