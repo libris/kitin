@@ -40,9 +40,39 @@ kitin.directive('kitinEntity', function(editService, $rootScope) {
       var parts = $attrs.model.split('.');
 
       $scope.type = $attrs.type || _.last(parts);
-      $scope.link = _.last(parts);
+      // attrs.link = is in ng-repeat, eval link and use as link into subject else use last part of model
+      $scope.link = $attrs.link ? $scope.$eval($attrs.link) : _.last(parts); 
       $scope.multiple = $attrs.hasOwnProperty('multiple');
       $scope.title = 'LABEL.' + $attrs.model;
+
+      // attrs.link = is in ng-repeat, use full model else typically use about.record
+      var subject = $attrs.link ? $attrs.model : parts.slice(0, 2).join('.'); 
+      // Get variable value from scope
+      var subj = $scope.$eval(subject);
+      // Get value out of linker in subject
+      var obj = subj ? subj[$scope.link] : null;
+
+      // If object is empty make sure object is set to scope
+      $scope.viewmode = !_.isEmpty(obj);
+      if(!_.isEmpty(obj)) {        
+        if ($scope.multiple) {
+          $scope.objects = obj;
+        } else {
+          $scope.objects = [obj];
+          // ! what is this?
+          /*
+          if($attrs.subject[$scope.link]) {
+            $scope.$watch($attrs.subject[$scope.link], function (newVal, oldVal) {
+              if(typeof newVal !== 'undefined') {
+                $scope.objects = [newVal];
+              }
+            });
+          }
+          */
+        }
+      } else {
+        $scope.objects = null;
+      }
 
       var classNames = ['entity label'];
       if ( $attrs.hasOwnProperty('rich') ) {
@@ -86,45 +116,18 @@ kitin.directive('kitinEntity', function(editService, $rootScope) {
         return true;
       };
 
-      var subject = parts.slice(0, 2).join('.');
-      var subj = $scope.$eval(subject);
-
-      var obj = subj ? subj[$scope.link] : null;
-
-      $scope.viewmode = !_.isEmpty(obj);
-      if(!_.isEmpty(obj)) {        
-        if ($scope.multiple) {
-          $scope.objects = obj;
-        } else {
-          $scope.objects = [obj];
-          // ! what is this?
-          /*
-          if($attrs.subject[$scope.link]) {
-            $scope.$watch($attrs.subject[$scope.link], function (newVal, oldVal) {
-              if(typeof newVal !== 'undefined') {
-                $scope.objects = [newVal];
-              }
-            });
-          }
-          */
-        }
-      } else {
-        $scope.objects = null;
-      }
-      $scope.i = 0;
-
       this.doAdd = function(data) {
-
         var added = editService.addObject(subj, $scope.link, $scope.type, $scope.multiple, data);
+        
+        /*
         if ($scope.multiple) {
           $scope.objects = added;
         } else {
           $scope.objects = [added];
         }
+        */
+ 
         $scope.viewmode = true;
-        //if($scope.searchTemplate) { angular.element($scope.searchTemplate).focus(); }
-        // Do this in Kitin[Search/Select]Entity.js instead
-        //$scope.$emit('changed', ['Added linked entity']);
       };
 
       $scope.doRemove = function (index) {

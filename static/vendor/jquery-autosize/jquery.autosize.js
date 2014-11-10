@@ -53,6 +53,7 @@
 		if (!this.length) {
 			return this;
 		}
+
 		options = $.extend({}, defaults, options || {});
 
 		if (mirror.parentNode !== document.body) {

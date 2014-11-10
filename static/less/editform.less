@@ -164,14 +164,19 @@ label.find-entity input[type="text"] { padding-left: 22px; }
     }
   }
   &.tags {
+    .inp>*{display:inline-block}
     .entity-content {
       display:inline-block;
       background:@green-lighter;
       border-radius:3px;
       font-size:12px;
-      padding: 3px 20px 2px 8px;
-      margin: 0 2px 2px 0;
+      padding: 2px 20px 3px 8px;
+      margin: 0 3px 3px 0;
       position:relative;
+      .inner {
+        position:relative;
+        top:1px;
+      }
       a.delete {
         width: 14px;
         height: 14px;

@@ -2493,14 +2493,21 @@ label.find-entity input[type="text"] {
   width: 200px;
   top: 1px;
 }
+.entity.tags .inp > * {
+  display: inline-block;
+}
 .entity.tags .entity-content {
   display: inline-block;
   background: #d8eee9;
   border-radius: 3px;
   font-size: 12px;
-  padding: 3px 20px 2px 8px;
-  margin: 0 2px 2px 0;
+  padding: 2px 20px 3px 8px;
+  margin: 0 3px 3px 0;
   position: relative;
+}
+.entity.tags .entity-content .inner {
+  position: relative;
+  top: 1px;
 }
 .entity.tags .entity-content a.delete {
   width: 14px;

@@ -65,7 +65,7 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope, $q
 
       // TODO: IMPROVE: replace current autocomplete mechanism and use angular
       // templates ($compile).. If that is fast enough..
-      var filterParams = attrs.filter;
+      var filterParams = attrs.filter ? {filter: attrs.filter } : {};
       var makeReferenceOnItemSelect = attrs.hasOwnProperty('makeReference');
 
       var template = _.template(jQuery('#' + attrs.templateId).html());
@@ -88,7 +88,7 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope, $q
           }
         }
         return deferred.promise;
-      }
+      };
 
       options = {
         inputClass: null,
@@ -126,7 +126,7 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope, $q
         options.filterResults = false;
         options.sortResults = false;
         options.useCache = false;
-        options.extraParams = scope.$eval(filterParams);
+        options.extraParams = filterParams;
 
         options.beforeUseConverter = function (value) {
           searchedValue = value; // Store searched value
