@@ -34,7 +34,7 @@ kitin.directive('kitinEntity', function(editService, $rootScope) {
 
     controller: function($element, $scope, $attrs) {
 
-      $scope.viewTemplate = $attrs.view;
+      $scope.viewTemplate = $attrs.view || '/snippets/render-generic-linked-entity';
       $scope.searchTemplate = $attrs.search;
 
       var parts = $attrs.model.split('.');
