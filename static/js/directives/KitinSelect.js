@@ -30,7 +30,6 @@ kitin.directive('kitinSelect', function(definitions, editService, $rootScope, $c
 
       // On selection chaned add item and reset
       scope.onSelected = function() {
-        debugger;
         linker.doAdd(scope.selectedItem.data.about);
         scope.$emit('changed', ['Added select entity']);
         this.selectedItem = null;

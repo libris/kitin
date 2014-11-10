@@ -24,7 +24,7 @@ kitin.directive('kitinGroup', function(){
         $scope.classNames = {
           true: 'fa fa-chevron-down',
           false: 'fa fa-chevron-up'
-        }
+        };
         $scope.toggle = function() {
           this.options.hidden = $scope.hidden = !$scope.hidden;
         }.bind(this);
