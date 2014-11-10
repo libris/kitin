@@ -135,7 +135,7 @@ kitin.factory('utilsService', function($http, $q, $rootScope) {
       } else if (post.attributedTo) {
         creator = constructName(post.attributedTo);
       } else {
-        console.log(post);
+        //console.log(post);
       }
       return creator;
     }
