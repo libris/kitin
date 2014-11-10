@@ -12,22 +12,24 @@ kitin.directive('kitinTable', function(editService){
       },
       template: '<div class="label" ng-hide="shouldHideTable(model, options)">' + 
                   '<span class="lbl">{{title | translate}}</span>' +
-                  '<span class="inp">' +
-                    '<div class="datatable"><table>' +
-                      '<thead>' +
-                        '<tr class="thead" ng-if="titles.length">' +
-                          '<th ng-repeat="title in titles">{{title | translate}}</th>' +
-                        '</tr>' +
-                      '</thead>' +
-                      '<tbody>' +
-                        '<tr kitin-tr-controls ng-transclude ng-repeat="(key, item) in model track by $index">' +
-                        '</tr>' +
-                      '</tbody>' +
-                    '</table></div>' +
-                    '<div class="add">' +
-                      '<a href="#" ng-click="addRow()">Lägg till fält</a>' +
-                    '</div>' +
-                  '</span>' + 
+                  '<div class="inp">' +
+                    '<div class="datatable">' +
+                      '<table>' +
+                        '<thead>' +
+                          '<tr class="thead" ng-if="titles.length">' +
+                            '<th ng-repeat="title in titles">{{title | translate}}</th>' +
+                          '</tr>' +
+                        '</thead>' +
+                        '<tbody>' +
+                          '<tr kitin-tr-controls ng-transclude ng-repeat="(key, item) in model track by $index">' +
+                          '</tr>' +
+                        '</tbody>' +
+                      '</table>'+
+                      '<div class="adder">' +
+                        '<a class="add" href="#" ng-click="addRow()"><i class="fa fa-plus-circle"></i> Lägg till fält</a>' +
+                      '</div>' +
+                    '</div>' + 
+                  '</div>' + 
                 '</div>',
 
       controller: function($scope, $rootScope, $attrs) {
@@ -63,8 +65,7 @@ kitin.directive('kitinTable', function(editService){
         };
        
         // TODO! Create object for each model. Use editService.createObject?
-        var createObject = function(model) { 
-          console.log(model);
+        var createObject = function(model) {
           return ['']; 
         };
 

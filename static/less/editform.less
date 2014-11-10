@@ -157,9 +157,9 @@ label.find-entity input[type="text"] { padding-left: 22px; }
   }
   .controls {
     position:absolute;
-    left: @inp_width+10;
+    left: @inp_width;
     width: @act_width;
-    top: 0;
+    top: 4px;
   }
   .search {
     display:block;
@@ -174,7 +174,6 @@ label.find-entity input[type="text"] { padding-left: 22px; }
 a.delete {
   height: 20px;
   line-height: 20px;
-  border-left:1px dotted @grey-light;
   width: 28px;
   text-align:center;
   display: inline-block;
@@ -183,6 +182,27 @@ a.delete {
     color: @grey-very-dark;
   }
 }
+
+a.add {
+  display:inline-block;
+  padding-top:4px;
+  font-size:10px;
+  text-transform:uppercase;
+  color: @grey;
+  letter-spacing: 0.5px;
+  .fa {
+    font-size:14px;
+    color: @green;
+  }
+  &:hover {
+    text-decoration:none;
+    color: @green-dark;
+    .fa {
+      color: @green-dark;
+    }
+  }
+}
+
 
 .on-hover { visibility: hidden; }
 .entity:hover .on-hover { visibility: visible; }
@@ -202,7 +222,7 @@ a.delete {
     &.actions {
       border-width: 0!important;
       vertical-align: top;
-      padding: 4px 0 0 10px;
+      padding: 4px 0 0 0;
       width: @act_width;
     }
     &.multi {

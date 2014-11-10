@@ -38,7 +38,7 @@ kitin.directive('kitinEntity', function(editService, $rootScope) {
       $scope.searchTemplate = $attrs.search;
 
       var parts = $attrs.model.split('.');
-
+      
       $scope.type = $attrs.type || _.last(parts);
       $scope.link = _.last(parts);
       $scope.multiple = $attrs.hasOwnProperty('multiple');
@@ -118,6 +118,7 @@ kitin.directive('kitinEntity', function(editService, $rootScope) {
           $scope.objects = [added];
         }
         $scope.viewmode = true;
+        console.log('Objects updated. New length: '+$scope.objects.length, $scope.objects)
         //if($scope.searchTemplate) { angular.element($scope.searchTemplate).focus(); }
         // Do this in Kitin[Search/Select]Entity.js instead
         //$scope.$emit('changed', ['Added linked entity']);
