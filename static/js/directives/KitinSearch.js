@@ -57,11 +57,11 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope) {
     require: '^kitinEntity',
     replace: true,
     template: '<span class="search"><input type="text" placeholder="Lägg till" /></span>',
-    link: function(scope, elem, attrs, kitinLinkEntity) {
+    link: function(scope, elem, attrs, kitinEntity) {
 
       elem = elem.is('input') ? elem : elem.find('input');
 
-      var linker = kitinLinkEntity;
+      var linker = kitinEntity;
 
       // TODO: IMPROVE: replace current autocomplete mechanism and use angular
       // templates ($compile).. If that is fast enough..

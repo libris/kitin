@@ -431,8 +431,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "<a href=\"#\">\n" +
     "  <i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object)\"></i>\n" +
     "  {{ (object.prefLabel || object.prefLabel-en) }}\n" +
-    "</a>\n" +
-    "<i data-ng-if=\"!editable.on\" data-ng-click=\"doRemove($index)\" class=\"no\">&times;</i>"
+    "</a>"
   );
 
 

@@ -34,21 +34,11 @@ kitin.directive('kitinEntity', function(editService, $rootScope) {
 
     controller: function($element, $scope, $attrs) {
 
-      $scope.viewTemplate = $attrs.view;
+      $scope.viewTemplate = $attrs.view || '/snippets/render-generic-linked-entity';
       $scope.searchTemplate = $attrs.search;
 
       var parts = $attrs.model.split('.');
-
-      /*
-
-      Move this into select/search entities instead
-
-      if($attrs.hasOwnProperty('filter')) {
-        $scope.filter = $attrs.filter.replace(/\//g,'\\/').replace(/-/g, '\\-');
-      }
-
-      */
-
+      
       $scope.type = $attrs.type || _.last(parts);
       $scope.link = _.last(parts);
       $scope.multiple = $attrs.hasOwnProperty('multiple');
