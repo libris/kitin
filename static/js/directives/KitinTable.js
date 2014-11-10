@@ -7,7 +7,7 @@ kitin.directive('kitinTable', function(editService){
       require:  '^kitinGroup',
       replace: true,
       transclude: true,
-      link: function(scope, element, attrs, kitinGroupCtrl, transcludeFn) {
+      link: function(scope, element, attrs, kitinGroupCtrl) {
           scope.options = kitinGroupCtrl.options;
       },
       template: '<div class="label" ng-hide="shouldHideTable(model, options)">' + 
