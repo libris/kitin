@@ -78,7 +78,6 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope) {
         autoWidth: null,
 
         showResult: function (value, data) {
-          //console.log(value, data);
           return template({
             data: data, value: value, nameRepr: nameRepr, truncate: truncate, isLinked: scope.isLinked
           });

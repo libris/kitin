@@ -2489,9 +2489,9 @@ label.find-entity input[type="text"] {
 }
 .entity.rich .controls {
   position: absolute;
-  left: 410px;
+  left: 400px;
   width: 200px;
-  top: 0;
+  top: 4px;
 }
 .entity.rich .search {
   display: block;
@@ -2504,7 +2504,6 @@ label.find-entity input[type="text"] {
 a.delete {
   height: 20px;
   line-height: 20px;
-  border-left: 1px dotted #c7c7c3;
   width: 28px;
   text-align: center;
   display: inline-block;
@@ -2512,6 +2511,25 @@ a.delete {
 }
 a.delete:hover {
   color: #191913;
+}
+a.add {
+  display: inline-block;
+  padding-top: 4px;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #adada9;
+  letter-spacing: 0.5px;
+}
+a.add .fa {
+  font-size: 14px;
+  color: #1a8f72;
+}
+a.add:hover {
+  text-decoration: none;
+  color: #0e4e3e;
+}
+a.add:hover .fa {
+  color: #0e4e3e;
 }
 .on-hover {
   visibility: hidden;
@@ -2539,7 +2557,7 @@ a.delete:hover {
 .datatable tbody td.actions {
   border-width: 0!important;
   vertical-align: top;
-  padding: 4px 0 0 10px;
+  padding: 4px 0 0 0;
   width: 200px;
 }
 .datatable tbody td.multi ul.tags {
