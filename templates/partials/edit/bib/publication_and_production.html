@@ -49,19 +49,13 @@
     <kitin-entity model="record.about.typeOfEntry">
       <kitin-select filter="about.inCollection.@id:/def/enum/content/contentType-collection"></kitin-select>
     </kitin-entity>
-   
-     <!-- PUBLICATION COUNTRY  START -->
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.publicationCountry</span>
-      <ul class="tags" data-kitin-link-entity
-          data-subject="record.about"
-          data-link-multiple="'publicationCountry'" data-type="Country"
-          data-view-template="/snippets/render-country"
-          data-search-template="/snippets/render-search-country">
-      </ul>
-    </div>
-    <!-- PUBLICATION COUNTRY  END -->
 
+    <kitin-entity model="record.about.publicationCountry" multiple>
+      <kitin-search service-url="/def/_search" 
+                    template-id="select-country-template" 
+                    filter="about.@type:Country">
+      </kitin-search>
+    </kitin-entity>
 
     <kitin-table model="record.about.publication"
                  titles="['Place label title', 'ProviderName title', 'provicerDate title']">
@@ -123,24 +117,14 @@
   </kitin-group>
 
   <kitin-group title="References title">
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.alternateEdition</span>
-      <ul class="tags entity" data-kitin-link-entity
-          data-subject="record.about"
-          data-link-multiple="'alternateEdition'" data-type="alternateEdition"
-          data-view-template="/snippets/render-referenced-entity"
-          data-search-template="/snippets/render-bib-search">
-      </ul>
-    </div>
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.alternateFormat</span>
-      <ul class="tags entity" data-kitin-link-entity
-          data-subject="record.about"
-          data-link-multiple="'alternateFormat'" data-type="AlternateFormat"
-          data-view-template="/snippets/render-referenced-entity"
-          data-search-template="/snippets/render-bib-search">
-      </ul>
-    </div>
+    <kitin-entity model="record.about.alternateEdition" multiple rich view="/snippets/render-relation-referenced-entity">
+      <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
+    </kitin-entity>
+
+    <kitin-entity model="record.about.alternateFormat" multiple rich view="/snippets/render-relation-referenced-entity">
+      <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
+    </kitin-entity>
+
   </kitin-group>  
 </div>
  
