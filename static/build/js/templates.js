@@ -477,17 +477,9 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('/snippets/render-language',
-    "<div class=\"tag-linked\"\n" +
-    "  data-ng-controller=\"PopoverCtrl\" \n" +
-    "  data-popover=\"{{loading}}\" \n" +
-    "  data-object=\"{{object}}\" \n" +
-    "  data-popover-title=\"{{object.prefLabel}}\" \n" +
-    "  data-custom-popover=\"language\">\n" +
-    "    <i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object)\"></i>\n" +
-    "    {{ object.prefLabel }}\n" +
-    "    <span data-ng-show=\"object.langCode\">({{ object.langCode }})</span>\n" +
-    "    <i data-ng-if=\"!editable.on\" data-ng-click=\"doRemove($index)\" class=\"no\">&times;</i>\n" +
-    "</div>"
+    "<i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object)\"></i>\n" +
+    "<strong>{{ object.prefLabel }}</strong>\n" +
+    "<span data-ng-show=\"object.langCode\">({{ object.langCode }})</span>"
   );
 
 

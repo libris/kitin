@@ -10,7 +10,7 @@ Params:
 
 */
 
-kitin.directive('kitinSearch', function(definitions, editService, $rootScope) {
+kitin.directive('kitinSearch', function(definitions, editService, $rootScope, $q) {
 
   var sourceConfiguration = {
     relators: {
@@ -56,12 +56,12 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope) {
     restrict: 'E',
     require: '^kitinEntity',
     replace: true,
-    template: '<span class="search"><input type="text" placeholder="Lägg till" /></span>',
-    link: function(scope, elem, attrs, kitinEntity) {
+    template: '<span class="search"><i class="fa fa-search"></i><input type="text" placeholder="Lägg till" /></span>',
+    link: function(scope, elem, attrs, kitinLinkEntity) {
 
       elem = elem.is('input') ? elem : elem.find('input');
 
-      var linker = kitinEntity;
+      var linker = kitinLinkEntity;
 
       // TODO: IMPROVE: replace current autocomplete mechanism and use angular
       // templates ($compile).. If that is fast enough..
@@ -70,6 +70,25 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope) {
 
       var template = _.template(jQuery('#' + attrs.templateId).html());
       var searchedValue = null;
+
+      var normalizeItem = function(item) {
+
+        var deferred = $q.defer();
+
+        // TODO: if multiple, else set object (and *link*, not copy (embed copy in view?)...)
+        if(makeReferenceOnItemSelect) {
+          editService.makeReferenceEntity(item.data._source).then(function(referenced) {
+            deferred.resolve(referenced);
+          });
+        } else {
+          if ( !_.isEmpty(item.data) ) {
+            deferred.resolve(item.data);
+          } else {
+            deferred.resolve(item.value); // does this ever happen?
+          }
+        }
+        return deferred.promise;
+      }
 
       options = {
         inputClass: null,
@@ -92,20 +111,11 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope) {
         },
 
         onItemSelect: function(item, completer) {
-          
-          var owner = scope.subject;
-          // TODO: if multiple, else set object (and *link*, not copy (embed copy in view?)...)
-          if(makeReferenceOnItemSelect) {
-            editService.makeReferenceEntity(item.data._source).then(function(referenced) {
-              linker.doAdd(referenced);
-            });
-          } else {
-            linker.doAdd(_.isEmpty(item.data) ? item.value : item.data);
-          }
-          
-          delete item.data._source;
-          //scope.triggerModified();
-          scope.$emit('changed', ['Added search entity']);
+          normalizeItem(item).then(function(result) {
+            delete result._source;
+            linker.doAdd(result);
+            scope.$emit('changed', ['Added search entity']);
+          });
         }
       };
 
