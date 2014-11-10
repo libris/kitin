@@ -86,95 +86,27 @@
   <!-- CLASSIFICATION  END -->
 
   <kitin-group title="Genre">
-    <!-- NATURE  START -->
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.nature</span>
-      <div data-kitin-link-entity
-          data-track-change
-          data-subject="record.about"
-          data-link="'nature'"
-          data-view-template="/snippets/render-generic-tag-entity"
-          data-search-template="/snippets/render-generic-select"
-          data-filter="about.inCollection.@id:/def/enum/content/nature-collection"
-          ng-init=" placeholder='Lägg till'; ">
-      </div>
-    </div>
-    <!-- NATURE  END -->
-      
-    <!-- LITERARY FORM  START -->        
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.literaryForm</span>
-      <div data-kitin-link-entity
-          data-track-change
-          data-subject="record.about"
-          data-link="'literaryForm'"
-          data-view-template="/snippets/render-generic-tag-entity"
-          data-search-template="/snippets/render-generic-select"
-          data-search-placeholder="Lägg till litterär genre"
-          data-filter="about.inCollection.@id:/def/enum/content/literaryForm-collection"
-          ng-init=" placeholder='Lägg till litterär genre'; ">
-      </div>
-    </div>
-    <!-- LITERARY FORM  END -->  
 
-    <!-- BIOGRAPHY  START --> 
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.biography</span>
-      <div data-kitin-link-entity
-          data-track-change
-          data-subject="record.about"
-          data-link="'biography'"
-          data-view-template="/snippets/render-generic-tag-entity"
-          data-search-template="/snippets/render-generic-select"
-          data-filter="about.inCollection.@id:/def/enum/content/biography-collection"
-          ng-init=" placeholder='Lägg till'; ">
-      </div>
-    </div>
-    <!-- BIOGRAPHY END --> 
+    <kitin-entity model="record.about.nature">
+      <kitin-select filter="about.inCollection.@id:/def/enum/content/nature-collection"></kitin-select>
+    </kitin-entity>
 
-    <!-- CONFERENCE PUBLICATION START --> 
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.confPub</span>
-      <div data-kitin-link-entity
-          data-track-change
-          data-subject="record.about"
-          data-link="'confPub'"
-          data-view-template="/snippets/render-generic-tag-entity"
-          data-search-template="/snippets/render-generic-select"
-          data-filter="about.inCollection.@id:/def/enum/content/confPub-collection"
-          ng-init=" placeholder='Lägg till'; ">
-      </div>
-    </div>
-    <!-- CONFERENCE PUBLICATION END --> 
+    <kitin-entity model="record.about.literaryForm">
+      <kitin-select filter="about.inCollection.@id:/def/enum/content/literaryForm-collection"></kitin-select>
+    </kitin-entity>
 
-    <!-- FESTSCHRIFT  START -->
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.festschrift</span>
-      <div data-kitin-link-entity
-          data-track-change
-          data-subject="record.about"
-          data-link="'festschrift'"
-          data-view-template="/snippets/render-generic-tag-entity"
-          data-search-template="/snippets/render-generic-select"
-          data-filter="about.inCollection.@id:/def/enum/content/festschrift-collection"
-          ng-init=" placeholder='Lägg till'; ">
-      </div>
-    </div>
-    <!-- FESTSCHRIFT  END -->
-    
-    <!-- AUDIENCE  START -->
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.audience</span>
-      <ul class="tags" data-kitin-link-entity
-          data-track-change
-          data-subject="record.about"
-          data-link="'audience'" data-type="audience"
-          data-view-template="/snippets/render-generic-linked-entity"
-          data-search-template="/snippets/render-generic-linked-entity"
-          data-filter="about.inCollection.@id:/def/enum/content/audience-collection">
-      </ul>
-    </div>
-    <!-- AUDIENCE  END -->
+    <kitin-entity model="record.about.biography">
+      <kitin-select filter="about.inCollection.@id:/def/enum/content/biography-collection"></kitin-select>
+    </kitin-entity>
+
+    <kitin-entity model="record.about.confPub">
+      <kitin-select filter="about.inCollection.@id:/def/enum/content/confPub-collection"></kitin-select>
+    </kitin-entity>
+
+    <kitin-entity model="record.about.festschrift">
+      <kitin-select filter="about.inCollection.@id:/def/enum/content/festschrift-collection"></kitin-select>
+    </kitin-entity>
+
   </kitin-group>
 
 </div>

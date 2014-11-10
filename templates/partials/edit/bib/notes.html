@@ -38,17 +38,10 @@
         <span class="lbl" translate>LABEL.record.about.isPrimaryTopicOf</span>
       <textarea data-track-change data-ui-jq="autosize" data-ng-model="topic.comment" ></textarea>
     </div>
-
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.audience</span>
-      <ul class="tags" data-kitin-link-entity
-          data-subject="record.about"
-          data-link="'audience'" data-type="audience"
-          data-view-template="/snippets/render-generic-linked-entity"
-          data-search-template="/snippets/render-generic-select"
-          data-filter="about.inCollection.@id:/def/enum/content/audience-collection">
-      </ul>
-    </div>
+    
+    <kitin-entity model="record.about.audience" multiple>
+      <kitin-select filter="about.inCollection.@id:/def/enum/content/audience-collection"></kitin-select>
+    </kitin-entity>
 
     <kitin-table model="record.about.hasAnnotation"
                  titles="['LABEL.note', 'LABEL.degree', 'LABEL.location', 'LABEL.date', 'LABEL.comment']">

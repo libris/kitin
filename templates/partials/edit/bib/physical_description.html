@@ -190,50 +190,13 @@
 
 
   <kitin-group>
-    <!-- ILLUSTRATIONS  START -->
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.illustrations</span>
-      <div data-kitin-link-entity
-          data-track-change
-          data-subject="record.about"
-          data-link="'illustrations'"
-          data-view-template="/snippets/render-generic-tag-entity"
-          data-search-template="/snippets/render-generic-select"
-          data-filter="about.inCollection.@id:/def/enum/content/illustrations-collection"
-          ng-init=" placeholder='Lägg till'; ">
-      </div>
-    </div>
-    <!-- ILLUSTRATIONS  END -->
+    <kitin-entity model="record.about.illustrations" multiple>
+      <kitin-select filter="about.inCollection.@id:/def/enum/content/illustrations-collection"></kitin-select>
+    </kitin-entity>
 
-    <!-- NATURE  START -->
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.nature</span>
-      <div data-kitin-link-entity
-          data-track-change
-          data-subject="record.about"
-          data-link="'nature'"
-          data-view-template="/snippets/render-generic-tag-entity"
-          data-search-template="/snippets/render-generic-select"
-          data-filter="about.inCollection.@id:/def/enum/content/nature-collection"
-          ng-init=" placeholder='Lägg till'; ">
-      </div>
-    </div>
-    <!-- NATURE  END -->
-
-    <!-- ORIGNIAL ITEM  START -->
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.originalItem</span>
-      <div data-kitin-link-entity
-          data-track-change
-          data-subject="record.about"
-          data-link="'originalItem'"
-          data-view-template="/snippets/render-generic-tag-entity"
-          data-search-template="/snippets/render-generic-select"
-          data-filter="about.inCollection.@id:/def/enum/content/originalItem-collection"
-          ng-init=" placeholder='Lägg till'; ">
-      </div>
-    </div>
-    <!-- ORIGNIAL ITEM  END -->
+    <kitin-entity model="record.about.originalItem" multiple>
+      <kitin-select filter="about.inCollection.@id:/def/enum/content/originalItem-collection"></kitin-select>
+    </kitin-entity>
 
     <kitin-textrow model="record.about.runningTime"></kitin-textrow>
 
