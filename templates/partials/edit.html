@@ -44,16 +44,10 @@
         </span>
         <div class="form-container">
           <kitin-group>
-            <span class="lbl" translate>LABEL.record.about.encLevel</span>
-            <ul class="tags" data-kitin-link-entity
-                data-track-change
-                data-subject="record.about"
-                data-link="'encLevel'" data-type="EncLevel"
-                data-view-template="/snippets/render-generic-linked-entity"
-                data-search-template="/snippets/render-generic-select"
-                data-filter="about.inCollection.@id:/def/enum/record/encLevel-collection">
-            </ul>
-          
+            <kitin-entity model="record.about.encLevel">
+              <kitin-select filter="about.inCollection.@id:/def/enum/record/encLevel-collection"></kitin-select>
+            </kitin-entity>
+
             <kitin-table model="record.about.bibliographyCode">
               <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
             </kitin-table>

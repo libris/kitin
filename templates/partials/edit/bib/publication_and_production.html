@@ -46,17 +46,9 @@
     
     <kitin-textrow model="record.about.scopeNote"></kitin-textrow>
 
-
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.typeOfEntry</span>
-      <ul class="tags" data-kitin-link-entity
-          data-subject="record.about"
-          data-link="'typeOfEntry'" data-type="TypeOfEntry"
-          data-view-template="/snippets/render-generic-linked-entity"
-          data-search-template="/snippets/render-generic-select"
-          data-filter="about.inCollection.@id:/def/enum/content/typeOfEntry-collection">
-      </ul>
-    </div>
+    <kitin-entity model="record.about.typeOfEntry">
+      <kitin-select filter="about.inCollection.@id:/def/enum/content/contentType-collection"></kitin-select>
+    </kitin-entity>
    
      <!-- PUBLICATION COUNTRY  START -->
     <div class="label">
@@ -95,16 +87,9 @@
   <kitin-group title="Dates and times title">
     <kitin-textrow model="record.about.date"></kitin-textrow>
 
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.publicationStatus</span>
-      <ul class="tags" data-kitin-link-entity
-          data-subject="record.about"
-          data-link="'publicationStatus'" data-type="PublicationStatus"
-          data-view-template="/snippets/render-generic-linked-entity"
-          data-search-template="/snippets/render-generic-select"
-          data-filter="about.inCollection.@id:/def/enum/content/publicationStatus-collection">
-      </ul>
-    </div>
+    <kitin-entity model="record.about.publicationStatus">
+      <kitin-select filter="about.inCollection.@id:/def/enum/content/publicationStatus-collection"></kitin-select>
+    </kitin-entity>
 
     <kitin-textrow model="record.about.publicationYear"></kitin-textrow>
 
@@ -112,30 +97,17 @@
   </kitin-group>
 
   <kitin-group title="Frekvens regularitet title">
-
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.frequencyCategory</span>
-      <ul class="tags" data-kitin-link-entity
-          data-subject="record.about"
-          data-link="'frequencyCategory'" data-type="frequencyCategory"
-          data-view-template="/snippets/render-generic-linked-entity"
-          data-search-template="/snippets/render-generic-select"
-          data-filter="about.inCollection.@id:/def/enum/content/frequency-collection">
-      </ul>
-    </div>   
+    
+    <kitin-entity model="record.about.frequencyCategory">
+      <kitin-select filter="about.inCollection.@id:/def/enum/content/frequency-collection"></kitin-select>
+    </kitin-entity>
 
     <kitin-textrow model="record.about.frequency"></kitin-textrow>
 
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.regularity</span>
-      <ul class="tags" data-kitin-link-entity
-          data-subject="record.about"
-          data-link="'regularity'" data-type="Regularity"
-          data-view-template="/snippets/render-generic-linked-entity"
-          data-search-template="/snippets/render-generic-select"
-          data-filter="about.inCollection.@id:/def/enum/content/regularity-collection">
-      </ul>
-    </div>
+    <kitin-entity model="record.about.regularity">
+      <kitin-select filter="about.inCollection.@id:/def/enum/content/regularity-collection"></kitin-select>
+    </kitin-entity>
+
   </kitin-group>
 
   <kitin-group title="Issue title">
