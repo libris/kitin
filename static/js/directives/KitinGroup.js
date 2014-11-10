@@ -7,7 +7,7 @@ kitin.directive('kitinGroup', function(){
                   '<div class="group-title label">' +
                     '<span class="lbl">{{title}}</span>' +
                     '<span class="inp"><button class="btn-link" ng-click="toggle()">' +
-                      '<span>{{hidden ? "+":"–"}}</span> {{hidden ? "Visa alla" : "Göm tomma"}} fält</button>' +
+                      '<span><i class="{{classNames[hidden]}}"></i></span> {{hidden ? "Visa alla" : "Göm tomma"}} fält</button>' +
                     '</span>'+
                   '</div>' +
                   '<div ng-transclude></div>' +
@@ -21,6 +21,10 @@ kitin.directive('kitinGroup', function(){
           single: isSingle
         };
         $scope.title = $attrs.title;
+        $scope.classNames = {
+          true: 'fa fa-chevron-down',
+          false: 'fa fa-chevron-up'
+        }
         $scope.toggle = function() {
           this.options.hidden = $scope.hidden = !$scope.hidden;
         }.bind(this);

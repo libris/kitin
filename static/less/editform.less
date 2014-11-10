@@ -88,15 +88,21 @@ label.find-entity input[type="text"] { padding-left: 22px; }
       .inp button {
         font-size:12px;
         padding-left: 0;
+        height:20px;
         span { 
           border-right:1px solid #eee;
           margin-right:4px;
-          font-weight:bold;
+          font-weight:normal;
           display:inline-block;
           width:14px;
-          font-size:13px;
+          font-size:9px;
+          line-height:20px;
           text-align:left;
+          position:relative;
+          top:-1px;
         }
+        &:active,
+        &:focus { text-decoration: none }
       }
     }
     &.single {
