@@ -103,19 +103,19 @@
   <!-- LANGUAGES  START -->
   <kitin-group title="Language and more title">
     <kitin-entity model="record.about.language" multiple rich view="/snippets/render-language">
-      <kitin-search service-url="/def/_search" template-id="select-language-template" filter="{ filter: 'about.@type:Language'}"></kitin-search>
+      <kitin-search service-url="/def/_search" template-id="select-language-template" filter="about.@type:Language"></kitin-search>
     </kitin-entity>
 
     <kitin-entity model="record.about.originalLanguage" multiple rich view="/snippets/render-language" >
-      <kitin-search service-url="/def/_search" make-reference filter="{ filter: 'about.@type:Language'}" template-id="bib-completion-template"></kitin-search>
+      <kitin-search service-url="/def/_search" make-reference filter="about.@type:Language" template-id="bib-completion-template"></kitin-search>
     </kitin-entity>
 
     <kitin-table model="record.about.languageNote">
       <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
     </kitin-table>
 
-    <kitin-entity model="record.about.alphabet" multiple rich filter="{ filter: 'about.inCollection.@id:/def/enum/content/alphabet-collection'}">
-      <kitin-search service-url="/def/_search" make-reference template-id="bib-completion-template"></kitin-search>
+    <kitin-entity model="record.about.alphabet" multiple rich>
+      <kitin-search service-url="/def/_search" make-reference template-id="bib-completion-template" filter="about.inCollection.@id:/def/enum/content/alphabet-collection"></kitin-search>
     </kitin-entity>
 
   </kitin-group>
