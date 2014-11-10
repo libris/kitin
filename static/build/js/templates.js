@@ -77,16 +77,19 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/hitlist-compact-bib',
     "<div class=\"hitlist-item bib compact\">\n" +
     "  <div class=\"title\">\n" +
-    "    <a href=\"/edit/libris{{record.identifier || record.data['@id']}}\">{{ utils.composeTitle(record.data.about) | chop:80 }}</a>\n" +
+    "    <a href=\"/edit/libris{{record.identifier || record.data['@id']}}\">{{ utils.composeTitle(record) | chop:80 }}</a>\n" +
     "  </div>\n" +
     "  <div class=\"creator\">\n" +
-    "    {{ record.data.about.creator || record.data.about.responsibilityStatement | chop:40 }}\n" +
+    "    {{ utils.composeCreator(record) | chop:40 }}\n" +
     "  </div>\n" +
     "  <div class=\"publication\">\n" +
     "    <span title=\"Utgivningsår\" data-ng-repeat=\"publication in record.data.about.publication | limitTo:1\">\n" +
     "      {{ publication.providerDate }}\n" +
     "    </span>\n" +
-    "  </div>  \n" +
+    "  </div>\n" +
+    "  <div class=\"identifier-code\" data-ng-repeat=\"identifier in record.data.about.identifier | limitTo:1\">{{ identifier.identifierValue }}\n" +
+    "  </div>\n" +
+    "\n" +
     "</div>"
   );
 

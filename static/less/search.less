@@ -10,8 +10,8 @@ body.search{
     padding:0;
     margin-bottom:10px;
     .summary{
-      .make-md-column(9);
-      .make-md-column-offset(3);
+      .make-xs-column(9);
+      .make-xs-column-offset(3);
     }
     .tool-container{
       position:relative;
@@ -37,7 +37,7 @@ body.search{
 
   }
 
-  .hitlist-item.auth{
+  .hitlist-item.auth.compact{
     .make-row();
     position:relative;
     padding: 6px 0;
@@ -49,11 +49,30 @@ body.search{
       color: @grey-darker;
     }
     .title{
-      .make-md-column(4);
+      .make-xs-column(4);
       padding-left:50px;
     }
     .about{
-      .make-md-column(8);
+      .make-xs-column(8);
+    }
+  }
+
+  .hitlist-item.bib.compact{
+    .make-row();
+    position:relative;
+    padding: 6px 0;
+    border-bottom: 1px solid @grey-warm;
+    .title{
+      .make-xs-column(5);
+    }
+    .creator{
+      .make-xs-column(4);
+    }
+    .publication{
+      .make-xs-column(1);
+    }
+    .identifier-code{
+      .make-xs-column(2);
     }
   }
 

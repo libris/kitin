@@ -17,55 +17,56 @@ kitin.factory('utilsService', function($http, $q, $rootScope) {
     return deferred.promise;
   }
 
+  function constructName (obj) {
+    // In some cases, obj might be an array (f.ex. sameAs).
+    // Pick the first element and move on.
+    if (Array.isArray(obj)) obj = obj[0];
+    var name;
+    if (obj.prefLabel) {
+      name = obj.prefLabel;
+    } else if (obj.controlledLabel) {
+      name = obj.controlledLabel;
+    } else if (obj.uniformTitle) {
+      name = obj.uniformTitle;
+    } else if (obj.name) {
+      name = obj.name;
+      if (obj.numeration) {
+        name += ' ' + obj.numeration;
+      }
+      if (obj.personTitle) {
+        name += ' ' + obj.personTitle;
+      }
+    } else if (obj.givenName && obj.familyName) {
+      name = obj.givenName + ' ' + obj.familyName;
+    } else if (obj.title) {
+      name = obj.title;
+      if (obj.attributedTo) {
+        name += ' ' + constructName(obj.attributedTo);
+      }
+    // This should be last as a fallback
+    } else if (obj.sameAs) {
+        name = constructName(obj.sameAs);
+    } else {
+      name = false;
+    }
+    return name;
+  }
+
   // Methods
   return {
     composeTitle: function(record, recType) {
       // Put together the actual title text in a separate function.
       // This enables us to call it recursively for nested values.
-      var constructName = function(obj) {
-        // In some cases, obj might be an array (f.ex. sameAs).
-        // Pick the first element and move on.
-        if (Array.isArray(obj)) obj = obj[0];
-        var name;
-        if (obj.prefLabel) {
-          name = obj.prefLabel;
-        } else if (obj.controlledLabel) {
-          name = obj.controlledLabel;
-        } else if (obj.uniformTitle) {
-          name = obj.uniformTitle;
-        } else if (obj.name) {
-          name = obj.name;
-          if (obj.numeration) {
-            name += ' ' + obj.numeration;
-          }
-          if (obj.personTitle) {
-            name += ' ' + obj.personTitle;
-          }
-        } else if (obj.givenName && obj.familyName) {
-          name = obj.givenName + ' ' + obj.familyName;
-        } else if (obj.title) {
-          name = obj.title;
-          if (obj.attributedTo) {
-            name += ' ' + constructName(obj.attributedTo);
-          }
-        // This should be last as a fallback
-        } else if (obj.sameAs) {
-            name = constructName(obj.sameAs);
-        } else {
-          name = false;
-        }
-        return name;
-      };
-
       recType = recType || 'bib';
       var composedTitle;
-      if (recType == 'draft') {
-        composedTitle = record.instanceTitle.subtitle ? record.instanceTitle.titleValue + ' - ' + record.instanceTitle.subtitle : record.instanceTitle.titleValue;
-        if (!composedTitle) composedTitle = '<Titel saknas>';
+      // Normalize post object
+      var post = record.data ? record.data.about : record;
+      if (recType == 'draft' || recType == 'bib') {
+        composedTitle = post.instanceTitle.subtitle ? post.instanceTitle.titleValue + ' - ' + post.instanceTitle.subtitle : post.instanceTitle.titleValue;
       } else if (recType == 'auth') {
-        var post = record.data.about;
         composedTitle = constructName(post) || '<Namn saknas>';
       }
+      if (!composedTitle) composedTitle = '<Titel saknas>';
       return composedTitle;
     },
 
@@ -122,6 +123,21 @@ kitin.factory('utilsService', function($http, $q, $rootScope) {
         }
       }
       return info;
+    },
+
+    composeCreator: function(record) {
+      var creator = '';
+      var post = record.data.about;
+      if (post.creator) {
+        creator = post.creator;  
+      } else if (post.responsibilityStatement) {
+        creator = post.responsibilityStatement;
+      } else if (post.attributedTo) {
+        creator = constructName(post.attributedTo);
+      } else {
+        console.log(post);
+      }
+      return creator;
     }
   };
 });
