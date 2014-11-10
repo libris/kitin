@@ -103,11 +103,17 @@
   <!-- LANGUAGES  START -->
   <kitin-group title="Language and more title">
     <kitin-entity model="record.about.language" multiple rich view="/snippets/render-language">
-      <kitin-search service-url="/def/_search" template-id="select-language-template" filter="about.@type:Language"></kitin-search>
+      <kitin-search service-url="/def/_search" 
+                    template-id="select-language-template" 
+                    filter="about.@type:Language">
+      </kitin-search>
     </kitin-entity>
 
     <kitin-entity model="record.about.originalLanguage" multiple rich view="/snippets/render-language" >
-      <kitin-search service-url="/def/_search" make-reference filter="about.@type:Language" template-id="bib-completion-template"></kitin-search>
+      <kitin-search service-url="/def/_search" 
+                    filter="about.@type:Language" 
+                    template-id="select-language-template">
+      </kitin-search>
     </kitin-entity>
 
     <kitin-table model="record.about.languageNote">
