@@ -21,9 +21,9 @@ kitin.directive('kitinSelect', function(definitions, editService, $rootScope, $c
       scope.selectedItem = linker.model;
 
       // Load definitions
-      definitions.getDefinition(linker.filter).then(function(data) { 
+      definitions.getDefinition(attrs.filter).then(function(data) { 
         if(!data || !data.list || data.list.length === 0) {
-          console.warn('No defintion loaded', linker.filter);
+          console.warn('No defintion loaded', attrs.filter);
         }
         scope.objects = data.list;
       });

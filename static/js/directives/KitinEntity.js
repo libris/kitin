@@ -39,10 +39,6 @@ kitin.directive('kitinEntity', function(editService, $rootScope) {
 
       var parts = $attrs.model.split('.');
 
-      if($attrs.filter) {
-        $scope.filter = this.filter = $attrs.filter.replace(/\//g,'\\/').replace(/-/g, '\\-');
-      }
-
       $scope.type = $attrs.type || _.last(parts);
       $scope.link = _.last(parts);
       $scope.multiple = $attrs.hasOwnProperty('multiple');

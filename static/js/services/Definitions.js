@@ -20,7 +20,8 @@ kitin.factory('definitions', function($http, $rootScope) {
   }
 
   function getDefinition(filter) {
-    return getDataset($rootScope.API_PATH + '/def/_search?q=*+' + filter + '&n=10000');
+    filter = filter ? '+' + filter.replace(/\//g,'\\/').replace(/-/g, '\\-') : '';
+    return getDataset($rootScope.API_PATH + '/def/_search?q=*' + filter + '&n=10000');
   }
 
   function getEnumDefinition(collectionName) {
