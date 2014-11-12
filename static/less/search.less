@@ -1,0 +1,81 @@
+/* SEARCH START ------------------------- */
+// Mixins
+@import (reference) "bootstrap.less";
+
+// Wrap in body.search for separation, remove when bootstrap columns are everywhere
+body.search{
+  .content header{
+    .make-row();
+    width:auto;
+    padding:0;
+    margin-bottom:10px;
+    .summary{
+      .make-xs-column(9);
+      .make-xs-column-offset(3);
+    }
+    .tool-container{
+      position:relative;
+      color:@grey-darker; font-size:12px; margin-top:12px; background-color: @grey-warm;
+      height:40px;
+    }
+    .crumbs{
+      position:absolute;left:0;
+      padding:10px;
+    }
+    .tools{
+      position:absolute;right:0;
+      padding:10px;
+      select {margin-top:-6px;margin-left:4px;font-size:10px; width:104px;background: transparent!important;}
+      .sort-option {
+        float:right;font-size:10px;
+        .hitlist-viewswitch {
+          padding:6px;font-size: 15px;color:@grey-darker;
+          i {padding:3px;color:@grey-darker;}
+        }
+      }
+    }
+
+  }
+
+  .hitlist-item.auth.compact{
+    .make-row();
+    position:relative;
+    padding: 6px 0;
+    border-bottom: 1px solid @grey-warm;
+    .icon{
+      position:absolute;
+      width:20px;top:6px;bottom:6px;left:20px;
+      text-align: left;
+      color: @grey-darker;
+    }
+    .title{
+      .make-xs-column(4);
+      padding-left:50px;
+    }
+    .about{
+      .make-xs-column(8);
+    }
+  }
+
+  .hitlist-item.bib.compact{
+    .make-row();
+    position:relative;
+    padding: 6px 0;
+    border-bottom: 1px solid @grey-warm;
+    .title{
+      .make-xs-column(5);
+    }
+    .creator{
+      .make-xs-column(4);
+    }
+    .publication{
+      .make-xs-column(1);
+    }
+    .identifier-code{
+      .make-xs-column(2);
+    }
+  }
+
+}
+
+/* SEARCH END ------------------------- */

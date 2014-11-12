@@ -15,7 +15,7 @@ kitin.filter('timeAgo', function($filter) {
           // but let's go ahead and assume it's because user is on IE9:
           // Make sure there are exactly 3 digits for milliseconds
           time = _time.replace(/\.\d/, '.000');
-          // In the future, if we want to fix the problem with missing colon in timeozne:
+          // In the future, if we want to fix the problem with missing colon in timezone:
           // time = _time.replace(/\.(\d+)([\+|\-])(\d+)/, function(orig, ms, tz, tzval) {
           //   // Fix stuff here
           // });
@@ -31,7 +31,7 @@ kitin.filter('timeAgo', function($filter) {
     verboseFormat = verboseFormat || 'yyyy-MM-dd, HH:mm';
 
     var timeFormats = [
-        [60, 'sekunder', 2], // 60
+        [60, 'sekunder', 1], // 60
         [120, 'En minut sen', 'Om en minut'], // 60*2
         [3600, 'minuter', 60], // 60*60, 60
         [7200, 'En timma sen', 'Om en timma'], // 60*60*2
@@ -53,7 +53,7 @@ kitin.filter('timeAgo', function($filter) {
     var listChoice = 1;
     var format;
 
-    if (seconds <= 1) {
+    if (seconds <= 2) {
       return 'Just nu';
     }
 

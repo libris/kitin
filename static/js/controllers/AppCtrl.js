@@ -71,6 +71,25 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
   $rootScope.systemMessages = [];
 
   $rootScope.addSystemMessage = function(msgObj) {
+    function makeHash(string) {
+      var response = 0;
+      var len = string.length;
+      for (var i = 0; i < len; i++) {
+        response = response * 31 + string.charCodeAt(i);
+        response = response & response;
+      }
+      return response;
+    }
+    // Create a hash based on message and status (if applicable)
+    var hashString = msgObj.msg;
+    if (msgObj.status) hashString += msgObj.status;
+    hashString = makeHash(hashString);
+    // Pull out if this combination of message and status is already present in systemMessages
+    for (var i = 0; i < $rootScope.systemMessages.length; i++) {
+      if ($rootScope.systemMessages[i].hash == hashString) return;
+    }
+    msgObj.hash = hashString;
+
     $rootScope.systemMessages.push(msgObj);
     if(msgObj.timeout) {
       $timeout(function() {

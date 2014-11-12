@@ -40,14 +40,14 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
   $templateCache.put('/snippets/hitlist-compact-auth',
     "<div class=\"hitlist-item auth compact\">\n" +
-    "  <div class=\"title\">\n" +
-    "    <strong>{{ object.controlledLabel + object.prefLabel + object.name + object.uniformTitle | chop }}</strong>\n" +
+    "  <div class=\"icon\">\n" +
+    "    <i class=\"fa {{utils.getIconByType(record, recType)}}\"></i>\n" +
     "  </div>\n" +
-    "  <div class=\"creator\">\n" +
-    "    {{ object.name | chop }}\n" +
+    "  <div class=\"title\">\n" +
+    "    <a href=\"/edit/libris{{record.identifier || record.data['@id']}}\" data-ng-click=\"editPost(recType, record)\">{{ utils.composeTitle(record, recType) | chop:60 }}</a>\n" +
     "  </div>\n" +
     "  <div class=\"about\">\n" +
-    "    <span title=\"about\">{{ object.about['@type'] }}</span>\n" +
+    "    {{ utils.composeInfo(record, recType) | chop:100 }}\n" +
     "  </div>\n" +
     "</div>"
   );
@@ -56,16 +56,19 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/hitlist-compact-bib',
     "<div class=\"hitlist-item bib compact\">\n" +
     "  <div class=\"title\">\n" +
-    "    <strong>{{object.instanceTitle.titleValue + object.instanceTitle.subtitle | chop }}</strong>\n" +
+    "    <a href=\"/edit/libris{{record.identifier || record.data['@id']}}\">{{ utils.composeTitle(record) | chop:80 }}</a>\n" +
     "  </div>\n" +
     "  <div class=\"creator\">\n" +
-    "    {{ object.responsibilityStatement | chop }}\n" +
+    "    {{ utils.composeCreator(record) | chop:40 }}\n" +
     "  </div>\n" +
-    "  <div class=\"date\">\n" +
-    "    <span title=\"Utgivningsår\" data-ng-repeat=\"publication in object.publication | limitTo:1\" data-ng-show=\"publication.providerDate\">\n" +
-    "      {{publication.providerDate}}\n" +
+    "  <div class=\"publication\">\n" +
+    "    <span title=\"Utgivningsår\" data-ng-repeat=\"publication in record.data.about.publication | limitTo:1\">\n" +
+    "      {{ publication.providerDate }}\n" +
     "    </span>\n" +
     "  </div>\n" +
+    "  <div class=\"identifier-code\" data-ng-repeat=\"identifier in record.data.about.identifier | limitTo:1\">{{ identifier.identifierValue }}\n" +
+    "  </div>\n" +
+    "\n" +
     "</div>"
   );
 

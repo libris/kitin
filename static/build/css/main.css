@@ -955,9 +955,6 @@ body.search #header .searchfield em {
   width: 1080px;
   margin-left: -24px;
 }
-body.search .content header {
-  padding: 0 24px 0;
-}
 .content.footer {
   overflow: visible;
 }
@@ -1215,22 +1212,6 @@ section.nav dt i {
   color: #666664;
   font-style: italic;
   font-weight: 400;
-}
-.content.search .sort-option {
-  margin-left: 12px;
-  margin-right: 24px;
-  margin-top: 12px;
-  float: right;
-  font-size: 10px;
-}
-.content.search .sort-option .hitlist-viewswitch {
-  padding: 6px;
-  font-size: 15px;
-  color: #666664;
-}
-.content.search .sort-option .hitlist-viewswitch i {
-  padding: 3px;
-  color: #666664;
 }
 /* CONTENT END ------------------------- */
 /* JSON-LD VIEW START ------------------------- */
@@ -1906,7 +1887,13 @@ ul.tags.suggestions li li a {
 .modal-footer:before,
 .modal-footer:after,
 section.dash.drafts li:before,
-section.dash.drafts li:after {
+section.dash.drafts li:after,
+body.search .content header:before,
+body.search .content header:after,
+body.search .hitlist-item.auth.compact:before,
+body.search .hitlist-item.auth.compact:after,
+body.search .hitlist-item.bib.compact:before,
+body.search .hitlist-item.bib.compact:after {
   content: " ";
   display: table;
 }
@@ -1918,7 +1905,10 @@ section.dash.drafts li:after {
 .btn-group-vertical > .btn-group:after,
 .nav:after,
 .modal-footer:after,
-section.dash.drafts li:after {
+section.dash.drafts li:after,
+body.search .content header:after,
+body.search .hitlist-item.auth.compact:after,
+body.search .hitlist-item.bib.compact:after {
   clear: both;
 }
 section.dash {
@@ -2023,40 +2013,6 @@ section.dash.drafts li .delete {
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
-}
-.content.search > .cols {
-  width: 1036px;
-  overflow: visible;
-}
-.content.search .nest-cols {
-  overflow: hidden;
-  min-height: 134px;
-  width: 620px;
-  clear: both;
-}
-.content.search .col9 {
-  width: 756px;
-  overflow: visible;
-}
-.content.search .col4:last-child {
-  margin-right: 0px;
-}
-.content.search .col3 {
-  overflow: visible;
-}
-.content.search .summary {
-  margin-left: 252px;
-  color: #666664;
-  font-size: 12px;
-  margin-top: 12px;
-  background-color: #E6E6E6;
-  padding: 0px 13px;
-}
-.content.search select {
-  margin-left: 4px!important;
-  font-size: 10px!important;
-  width: 124px!important;
-  background: transparent!important;
 }
 /* STARTPAGE END ------------------------- */
 /* HITLIST START ------------------------- */
@@ -2926,6 +2882,138 @@ section.offer {
   padding: 80px;
 }
 /* HOLDINGS END ------------------------- */
+/* SEARCH START ------------------------- */
+body.search .content header {
+  margin-left: -15px;
+  margin-right: -15px;
+  width: auto;
+  padding: 0;
+  margin-bottom: 10px;
+}
+body.search .content header .summary {
+  position: relative;
+  float: left;
+  width: 75%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 480px) {
+  body.search .content header .summary {
+    margin-left: 25%;
+  }
+}
+body.search .content header .tool-container {
+  position: relative;
+  color: #666664;
+  font-size: 12px;
+  margin-top: 12px;
+  background-color: #eeeeec;
+  height: 40px;
+}
+body.search .content header .crumbs {
+  position: absolute;
+  left: 0;
+  padding: 10px;
+}
+body.search .content header .tools {
+  position: absolute;
+  right: 0;
+  padding: 10px;
+}
+body.search .content header .tools select {
+  margin-top: -6px;
+  margin-left: 4px;
+  font-size: 10px;
+  width: 104px;
+  background: transparent!important;
+}
+body.search .content header .tools .sort-option {
+  float: right;
+  font-size: 10px;
+}
+body.search .content header .tools .sort-option .hitlist-viewswitch {
+  padding: 6px;
+  font-size: 15px;
+  color: #666664;
+}
+body.search .content header .tools .sort-option .hitlist-viewswitch i {
+  padding: 3px;
+  color: #666664;
+}
+body.search .hitlist-item.auth.compact {
+  margin-left: -15px;
+  margin-right: -15px;
+  position: relative;
+  padding: 6px 0;
+  border-bottom: 1px solid #eeeeec;
+}
+body.search .hitlist-item.auth.compact .icon {
+  position: absolute;
+  width: 20px;
+  top: 6px;
+  bottom: 6px;
+  left: 20px;
+  text-align: left;
+  color: #666664;
+}
+body.search .hitlist-item.auth.compact .title {
+  position: relative;
+  float: left;
+  width: 33.33333333%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-left: 50px;
+}
+body.search .hitlist-item.auth.compact .about {
+  position: relative;
+  float: left;
+  width: 66.66666667%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+body.search .hitlist-item.bib.compact {
+  margin-left: -15px;
+  margin-right: -15px;
+  position: relative;
+  padding: 6px 0;
+  border-bottom: 1px solid #eeeeec;
+}
+body.search .hitlist-item.bib.compact .title {
+  position: relative;
+  float: left;
+  width: 41.66666667%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+body.search .hitlist-item.bib.compact .creator {
+  position: relative;
+  float: left;
+  width: 33.33333333%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+body.search .hitlist-item.bib.compact .publication {
+  position: relative;
+  float: left;
+  width: 8.33333333%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+body.search .hitlist-item.bib.compact .identifier-code {
+  position: relative;
+  float: left;
+  width: 16.66666667%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+/* SEARCH END ------------------------- */
 html.ie .datatable table tr {
   float: left!important;
   clear: both;
