@@ -15,8 +15,8 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   };
 
   $rootScope.modifications.bib = {
-    saved:     $scope.recType === editService.RECORD_TYPES.REMOTE ? false : true, 
-    published: $scope.recType === editService.RECORD_TYPES.REMOTE ? false : $scope.record.draft ? false : true
+    saved:     ($scope.recType === editService.RECORD_TYPES.REMOTE || $scope.record.new) ? false : true, 
+    published: ($scope.recType === editService.RECORD_TYPES.REMOTE || $scope.record.draft || $scope.record.new) ? false : true
   };
 
   function onSaveState() {
