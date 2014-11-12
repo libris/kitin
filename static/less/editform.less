@@ -194,7 +194,7 @@ label.find-entity input[type="text"] { padding-left: 22px; }
         &:hover{color:@green-darker;opacity:1}
       }
     }
-    .search {
+    .search, .select {
       display: inline-block;
       width: 120px;
     }
@@ -205,12 +205,11 @@ label.find-entity input[type="text"] { padding-left: 22px; }
     position:relative;
     input[type="text"] {
       background:@grey-warm;
-      border:none;
+      border-color:@grey-warm;
       padding-right:12px;
       &:focus{
-        border:none;
+        border-color:@grey-light;
         box-shadow: none;
-        background:darken(@grey-warm, 5%);
       }
     }
     .fa {
@@ -219,6 +218,34 @@ label.find-entity input[type="text"] { padding-left: 22px; }
       top: 6px;
       color: @grey-dark;
       font-size: 12px;
+    }
+  }
+  .select {
+    padding-top: 1px;
+    position: relative;
+    width: 240px;
+    select {
+      -webkit-appearance: none;
+      background:@grey-warm;
+      border-color:@grey-warm;
+      border-radius: 2px;
+      padding: 0 5px;
+      height: 25px;
+      color: @grey;
+      width: 100%;
+      font-size:13px;
+      font-weight: 300;
+      /*
+      body .label select:hover{ background:@white url(/static/img/select-arrow.png) no-repeat 100% -92px;}
+      body .label select:focus{ border: 1px solid @grey; background:@white url(/static/img/select-arrow.png) no-repeat 98% -2px;}
+      */
+    }
+    .fa {
+      position:absolute;
+      right: 9px;
+      top: 6px;
+      color: @grey-dark;
+      font-size: 14px;
     }
   }
 }
@@ -339,7 +366,6 @@ input[type="text"] :-moz-placeholder { color:@grey;  }/*FF18<*/
 
 .label textarea,
 .label input[type="text"],
-.label select,
 .fakeinput{font-size:13px;padding:2px 5px;height:25px;border-radius:2px;}
 
 .fakeinput{color:@grey-very-dark;cursor:text;padding-top:3px;height:24px}
@@ -349,10 +375,6 @@ input[type="text"] :-moz-placeholder { color:@grey;  }/*FF18<*/
 .fakeinput{border:1px solid @grey-light;}
 
 .label textarea{line-height:22px;}
-.label select{
-  height:26px;
-  max-width: 200px;
-}
 
 .label {
   input[type="text"],

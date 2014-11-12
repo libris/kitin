@@ -9,16 +9,24 @@ Params:
 
 kitin.directive('kitinSelect', function(definitions, editService, $rootScope, $compile) {
 
+  var i=0;
+
   return {
     restrict: 'E',
     require: '^kitinEntity',
     replace: true,
     scope: false,
-    template: '<span class="select"><select placeholder="Lägg till" ng-model="selectedItem" ng-change="onSelected()" ng-options="(item.data.about.prefLabel || item.data.about.prefLabel-en) for item in objects | orderBy:\'data.about.prefLabel\'"/></span>',
+    template: 
+      '<span class="select">' +
+        '<select placeholder="Lägg till" ng-model="selectedItem" ng-change="onSelected()" ng-options="(item.data.about.prefLabel || item.data.about.prefLabel-en) for item in objects | orderBy:\'data.about.prefLabel\'">' +
+          '<option class="placeholder"value="">Lägg till</option>' +
+        '</select>' +
+        '<i class="fa fa-caret-down"></i>' +
+      '</span>',
     link: function(scope, elem, attrs, kitinEntity) {
       var linker = kitinEntity;
 
-      scope.selectedItem = linker.model;
+      scope.selectedItem = linker.model || '';
 
       // Load definitions
       definitions.getDefinition(attrs.filter).then(function(data) { 
@@ -36,5 +44,4 @@ kitin.directive('kitinSelect', function(definitions, editService, $rootScope, $c
       };
     }
   };
-
 });

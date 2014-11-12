@@ -2384,7 +2384,7 @@ label.find-entity input[type="text"] {
   text-align: left;
   font-weight: bold;
   vertical-align: top;
-  padding-top: 5px;
+  padding-top: 3px;
 }
 .form-container .label .inp {
   width: 400px;
@@ -2532,7 +2532,8 @@ label.find-entity input[type="text"] {
   color: #000000;
   opacity: 1;
 }
-.entity.tags .search {
+.entity.tags .search,
+.entity.tags .select {
   display: inline-block;
   width: 120px;
 }
@@ -2543,13 +2544,12 @@ label.find-entity input[type="text"] {
 }
 .entity .search input[type="text"] {
   background: #eeeeec;
-  border: none;
+  border-color: #eeeeec;
   padding-right: 12px;
 }
 .entity .search input[type="text"]:focus {
-  border: none;
+  border-color: #c7c7c3;
   box-shadow: none;
-  background: #e2e2df;
 }
 .entity .search .fa {
   position: absolute;
@@ -2557,6 +2557,34 @@ label.find-entity input[type="text"] {
   top: 6px;
   color: #999996;
   font-size: 12px;
+}
+.entity .select {
+  padding-top: 1px;
+  position: relative;
+  width: 240px;
+}
+.entity .select select {
+  -webkit-appearance: none;
+  background: #eeeeec;
+  border-color: #eeeeec;
+  border-radius: 2px;
+  padding: 0 5px;
+  height: 25px;
+  color: #adada9;
+  width: 100%;
+  font-size: 13px;
+  font-weight: 300;
+  /*
+      body .label select:hover{ background:@white url(/static/img/select-arrow.png) no-repeat 100% -92px;}
+      body .label select:focus{ border: 1px solid @grey; background:@white url(/static/img/select-arrow.png) no-repeat 98% -2px;}
+      */
+}
+.entity .select .fa {
+  position: absolute;
+  right: 9px;
+  top: 6px;
+  color: #999996;
+  font-size: 14px;
 }
 a.delete {
   height: 20px;
@@ -2725,7 +2753,6 @@ input[type="text"] :-moz-placeholder {
 }
 .label textarea,
 .label input[type="text"],
-.label select,
 .fakeinput {
   font-size: 13px;
   padding: 2px 5px;
@@ -2745,10 +2772,6 @@ input[type="text"] :-moz-placeholder {
 }
 .label textarea {
   line-height: 22px;
-}
-.label select {
-  height: 26px;
-  max-width: 200px;
 }
 .label input[type="text"]:focus,
 .label textarea:focus {
@@ -3189,20 +3212,6 @@ section.result p.holding {
   display: block;
   font-size: 18px;
   padding-bottom: 7px;
-}
-/*?*/
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-  body .label select {
-    -webkit-appearance: none;
-    background: #ffffff url(/static/img/select-arrow.png) no-repeat 100% -2px;
-  }
-  body .label select:hover {
-    background: #ffffff url(/static/img/select-arrow.png) no-repeat 100% -92px;
-  }
-  body .label select:focus {
-    border: 1px solid #adada9;
-    background: #ffffff url(/static/img/select-arrow.png) no-repeat 98% -2px;
-  }
 }
 html {
   overflow-y: scroll;

@@ -118,14 +118,12 @@ kitin.directive('kitinEntity', function(editService, $rootScope) {
 
       this.doAdd = function(data) {
         var added = editService.addObject(subj, $scope.link, $scope.type, $scope.multiple, data);
-        
-        /*
+
         if ($scope.multiple) {
           $scope.objects = added;
         } else {
           $scope.objects = [added];
         }
-        */
  
         $scope.viewmode = true;
       };
