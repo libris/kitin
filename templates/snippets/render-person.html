@@ -5,9 +5,10 @@
       <i class="fa fa-bookmark"></i> Aukt.
     </a>
   </div>
-  <div data-ng-include="'/snippets/roles'"></div>
-  <a data-ng-if="!editable.on" class="delete" href="#"
-     data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a>
+  <div ng-include="'/snippets/roles'"></div>
+  <kitin-entity multiple model="record.about._reifiedRoles" type="ObjectProperty" view="/snippets/render-role">
+    <kitin-search service-url="/relator/_search" filter="about.@type:ObjectProperty" template-id="render-search-role"></kitin-search>
+  </kitin-entity>
 </div>
 <div data-ng-if="!isLinked(object)" class="entity person embedded"
       data-ng-init="editable = {on: !(object.controlledLabel || object.givenName || object.name)}">
@@ -38,17 +39,11 @@
     </div>
     <div class="label">
       <span class="lbl">{{ "Död" }}</span>
-      <input data-track-change class="authdependant" type="text" placeholder="ÅÅÅÅ" 
+      <input data-track-change class="authdependant" type="text" placeholder=."ÅÅÅÅ" 
              data-ng-model="object.deathYear" />
     </div>
-    <!--
-    <div data-ng-controller="ModalCtrl">
-      <button class="btn btn-primary" data-ng-click="openAuthModal($event)">Aukt.</button>
-    </div>
-    -->
   </div>
-  <div data-ng-include="'/snippets/roles'"></div>
-  <a data-ng-if="!editable.on" class="delete" href="#" data-ng-click="doRemove($index)">
-    <i class="fa fa-trash"></i>
-  </a>
+  <kitin-entity multiple model="record.about._reifiedRoles" type="ObjectProperty" view="/snippets/render-role">
+    <kitin-search service-url="/auth/_search" filter="about.@type:ObjectProperty" template-id="render-search-role"></kitin-search>
+  </kitin-entity>
 </div>

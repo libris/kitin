@@ -102,8 +102,10 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editService', function(def
         options.useCache = false;
         options.extraParams = scope.$eval(filterParams);
 
+        console.log(options.extraParams);
+
         options.beforeUseConverter = function (value) {
-          searchedValue = value; // Store searched value
+          searchedValue = value; // Store searched value 
           return value + '*';
         };
 
