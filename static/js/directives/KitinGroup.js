@@ -5,7 +5,7 @@ kitin.directive('kitinGroup', function(){
       transclude: true,
       template: '<div class="{{className}}">' +
                   '<div class="group-title label">' +
-                    '<span class="lbl">{{title}}</span>' +
+                    '<span class="lbl">{{title | translate}}</span>' +
                     '<span class="inp"><button class="btn-link" ng-click="toggle()">' +
                       '<span><i class="{{classNames[hidden]}}"></i></span> {{hidden ? "Visa fler" : "Göm tomma"}} fält</button>' +
                     '</span>'+
