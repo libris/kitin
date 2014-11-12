@@ -1,8 +1,5 @@
 kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $timeout, $rootScope, $location, $anchorScroll, recordService, definitions, userData, editService) {
 
-
-
-
   $scope.isLinked = function (thing) {
     if(!thing) { return; }
     var id = thing['@id'] || (thing['describedBy'] ? thing['describedBy']['@id'] : null);
@@ -35,15 +32,19 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   // Make sure the edit view holdings button stay updated
   var updateHolding = function () {
     var recordId = $scope.record.about['@id'];
-    recordService.holding.find(recordId, userData, true).then(function success(holding) {
-      if (holding) {
-        $scope.hasHolding = true;  
-      } else {
+    if(!$scope.record.new) {
+      recordService.holding.find(recordId, userData, true).then(function success(holding) {
+        if (holding) {
+          $scope.hasHolding = true;  
+        } else {
+          $scope.hasHolding = false;
+        }
+      }, function error(status) {
         $scope.hasHolding = false;
-      }
-    }, function error(status) {
+      });
+    } else {
       $scope.hasHolding = false;
-    });
+    }
   };
   // Set a watcher on holding's dirty flag
   $scope.$watchCollection('modifications.holding',
