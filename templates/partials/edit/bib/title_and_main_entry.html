@@ -141,30 +141,39 @@
           data-track-change data-ui-jq="autosize"
           data-ng-model="record.about.responsibilityStatement"></textarea>
     </div>
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.attributedTo</span>
-      <div data-kitin-link-entity
-          data-track-change
-          data-ng-init="label = 'huvuduppslag'"
-          data-subject="record.about" data-link="'attributedTo'" data-type="Person"
-          data-view-template="/snippets/render-person"
-          data-search-template="/snippets/render-search-box"
-          data-rich-entity>
-      </div>
-    </div>
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.influencedBy</span>
-      <!--<a ng-click="showInfluencedBy = !showInfluencedBy">Dölj <i class="icon fa fa-caret-up"></i></a>-->
-      <div data-kitin-link-entity
-          data-track-change
-          data-ng-init="label = 'biuppslag'"
-          data-subject="record.about" data-link-multiple="'influencedBy'" data-type="Person"
-          data-view-template="/snippets/render-person"
-          data-search-template="/snippets/render-search-box"
-          data-rich-entity>
-      </div>
-    </div>
   </kitin-group>
+  <div class="group">
+    <div class="label group-title">
+      <div class="lbl">Uppslag</div>
+    </div>
+    <div class="label">
+      <div class="lbl" translate>LABEL.record.about.attributedTo</div>
+      <div class="inp">
+        <div data-kitin-link-entity
+            data-track-change
+            data-ng-init="label = 'huvuduppslag'"
+            data-subject="record.about" data-link="'attributedTo'" data-type="Person"
+            data-view-template="/snippets/render-person"
+            data-search-template="/snippets/render-search-box"
+            data-rich-entity>
+        </div>
+      </div>
+    </div>
+    <div class="label">
+      <div class="lbl" translate>LABEL.record.about.influencedBy</div>
+      <div class="inp">
+        <!--<a ng-click="showInfluencedBy = !showInfluencedBy">Dölj <i class="icon fa fa-caret-up"></i></a>-->
+        <div data-kitin-link-entity
+            data-track-change
+            data-ng-init="label = 'biuppslag'"
+            data-subject="record.about" data-link-multiple="'influencedBy'" data-type="Person"
+            data-view-template="/snippets/render-person"
+            data-search-template="/snippets/render-search-box"
+            data-rich-entity>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="element-adder" data-element-adder="title_and_main_entry"></div>
