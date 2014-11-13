@@ -13,11 +13,11 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
 
   return {
     restrict: 'E',
-    scope: false,
+    scope: true,
     replace: true,
     transclude: true,
     template:   '<span>' +
-                  '<div ng-if="objects" ng-repeat="object in objects" class="entity-content">' +
+                  '<div ng-if="objects" ng-repeat="object in objects track by $index" class="entity-content">' +
                     '<span class="inner" ng-include="viewTemplate"></span>' +
                     '<span class="controls"><a class="delete" data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a></span>' +
                   '</div>' +
@@ -42,7 +42,7 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
 
       $scope.type = $scope.type || _.last(parts);
       // attrs.link = is in ng-repeat, eval link and use as link into subject else use last part of model
-      $scope.link = $scope.link ? $scope.$eval($scope.link) : _.last(parts); 
+      $scope.link = $attrs.link ? $scope.$eval($attrs.link) : _.last(parts); 
       $scope.multiple = $attrs.hasOwnProperty('multiple') && $attrs.multiple !== false;
 
       // attrs.link = is in ng-repeat, use full model else typically use about.record

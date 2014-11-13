@@ -37,7 +37,7 @@ kitin.directive('kitinEntityrow', function(editService, $rootScope) {
       }
 
       // Since we want scope to be inherit from parent, to do lookups for controller scope variables like record.
-      // The only found solution where to set a in-kitin-entity-row parameter and pass attributes through the shared scope.
+      // The only solution found where to set a in-kitin-entity-row parameter and pass attributes through the shared scope.
       $scope.attributes = {};
       angular.extend($scope.attributes, $attrs);
       $scope.attributes.multiple = $attrs.hasOwnProperty('multiple');
