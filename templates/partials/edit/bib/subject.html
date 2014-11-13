@@ -5,10 +5,10 @@
   <!-- SUBJECT BY IN SCHEME  START -->
   <div class="label cols" data-ng-repeat="(key, container) in record.about.subjectByInScheme">
     <kitin-group ng-switch on="key" title="{{ key }}">
-      <kitin-entity model="record.about.subjectByInScheme" link="key" multiple rich view="/snippets/view-subject">
+      <kitin-entityrow model="record.about.subjectByInScheme" link="key" multiple rich view="/snippets/view-subject">
         <kitin-search service-url="/auth/_search" template-id="subject-completion-template" filter="about.inScheme.notation:{{ (conceptSchemes.byNotation[key.replace('/topic/','')] || container[0].inScheme).notation }}">
         </kitin-search>
-      </kitin-entity>
+      </kitin-entityrow>
     </kitin-group>
   </div>
 
@@ -17,12 +17,12 @@
   <!-- SUBJECT BY TYPE  START -->
   <div class="label cols" data-ng-repeat="(key, container) in record.about.subjectByType">
     <kitin-group ng-switch on="key" title="{{ key }}">
-      <kitin-entity model="record.about.subjectByType" link="key" multiple>
+      <kitin-entityrow model="record.about.subjectByType" link="key" multiple>
         <kitin-search service-url="/auth/_search" 
                       template-id="{{ key === 'Person' ? 'auth-completion-template' : 'subject-completion-template'}}" 
                       filter="{{(key === '/topic/chronological') ? 'about.inCollection.@id:\/topic\/chronological\/' : 'about.@type:' + key}}">
         </kitin-search>
-      </kitin-entity>
+      </kitin-entityrow>
     </kitin-group>
   </div>
 
@@ -52,14 +52,16 @@
     <kitin-textrow model="record.about.classificationDdc"></kitin-textrow>
    
     <kitin-textrow model="record.about.classificationNlm"></kitin-textrow>
+    
+    <kitin-textrow model="record.about.classificationUdc"></kitin-textrow>
   </kitin-group>
   
   <div class="label cols" data-ng-repeat="(classificationScheme, subClassification) in record.about.classificationByInScheme">
     <kitin-group ng-switch on="classificationScheme" title="{{ classificationScheme }}">
-      <kitin-entity model="record.about.classificationByInScheme" link="classificationScheme" multiple rich view="/snippets/render-classification">
+      <kitin-entityrow model="record.about.classificationByInScheme" link="classificationScheme" multiple rich view="/snippets/render-classification">
         <kitin-search service-url="/def/_search" template-id="select-classification-template" filter="about.inCollection.@id:{{classificationScheme}}">
         </kitin-search>
-      </kitin-entity>
+      </kitin-entityrow>
     </kitin-group>
   </div>
   
@@ -67,25 +69,25 @@
 
   <kitin-group title="Genre">
 
-    <kitin-entity model="record.about.nature">
+    <kitin-entityrow model="record.about.nature">
       <kitin-select filter="about.inCollection.@id:/def/enum/content/nature-collection"></kitin-select>
-    </kitin-entity>
+    </kitin-entityrow>
 
-    <kitin-entity model="record.about.literaryForm">
+    <kitin-entityrow model="record.about.literaryForm">
       <kitin-select filter="about.inCollection.@id:/def/enum/content/literaryForm-collection"></kitin-select>
-    </kitin-entity>
+    </kitin-entityrow>
 
-    <kitin-entity model="record.about.biography">
+    <kitin-entityrow model="record.about.biography">
       <kitin-select filter="about.inCollection.@id:/def/enum/content/biography-collection"></kitin-select>
-    </kitin-entity>
+    </kitin-entityrow>
 
-    <kitin-entity model="record.about.confPub">
+    <kitin-entityrow model="record.about.confPub">
       <kitin-select filter="about.inCollection.@id:/def/enum/content/confPub-collection"></kitin-select>
-    </kitin-entity>
+    </kitin-entityrow>
 
-    <kitin-entity model="record.about.festschrift">
+    <kitin-entityrow model="record.about.festschrift">
       <kitin-select filter="about.inCollection.@id:/def/enum/content/festschrift-collection"></kitin-select>
-    </kitin-entity>
+    </kitin-entityrow>
 
   </kitin-group>
 

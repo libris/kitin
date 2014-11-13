@@ -6,6 +6,7 @@
 
   <kitin-group title="LABEL.record.about.instanceTitle.titleValue">
     <kitin-textrow model="record.about.instanceTitle.titleValue"></kitin-textrow>
+
     <kitin-textrow model="record.about.instanceTitle.subtitle"></kitin-textrow>
     <!-- responsibilityStatement used @ creators -->
     <kitin-textrow model="record.about.instanceTitle.titleDate"></kitin-textrow>
@@ -78,59 +79,59 @@
 
   <kitin-group title="LABEL.record.about.relation">
 
-    <kitin-entity model="record.about.relation" multiple rich view="/snippets/render-relation-referenced-entity">
+    <kitin-entityrow model="record.about.relation" multiple rich view="/snippets/render-relation-referenced-entity">
       <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
-    </kitin-entity>
+    </kitin-entityrow>
 
-    <kitin-entity model="record.about.isPartOf" multiple rich view="/snippets/render-relation-referenced-entity">
+    <kitin-entityrow model="record.about.isPartOf" multiple rich view="/snippets/render-relation-referenced-entity">
       <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
-    </kitin-entity>
+    </kitin-entityrow>
 
-    <kitin-entity model="record.about.hasPart" multiple rich view="/snippets/render-relation-referenced-entity">
+    <kitin-entityrow model="record.about.hasPart" multiple rich view="/snippets/render-relation-referenced-entity">
       <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
-    </kitin-entity>
+    </kitin-entityrow>
 
-    <kitin-entity model="record.about.precededBy" multiple rich view="/snippets/render-relation-referenced-entity">
+    <kitin-entityrow model="record.about.precededBy" multiple rich view="/snippets/render-relation-referenced-entity">
       <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
-    </kitin-entity>
+    </kitin-entityrow>
 
-    <kitin-entity model="record.about.succeededBy" multiple rich view="/snippets/render-relation-referenced-entity">
+    <kitin-entityrow model="record.about.succeededBy" multiple rich view="/snippets/render-relation-referenced-entity">
       <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
-    </kitin-entity>
+    </kitin-entityrow>
 
   </kitin-group>
 
   <!-- LANGUAGES  START -->
   <kitin-group title="LABEL.record.about.language">
-    <kitin-entity model="record.about.language" multiple view="/snippets/render-language">
+    <kitin-entityrow model="record.about.language" multiple view="/snippets/render-language">
       <kitin-search service-url="/def/_search" 
                     template-id="select-language-template" 
                     filter="about.@type:Language">
       </kitin-search>
-    </kitin-entity>
+    </kitin-entityrow>
 
-    <kitin-entity model="record.about.originalLanguage" multiple view="/snippets/render-language" >
+    <kitin-entityrow model="record.about.originalLanguage" multiple view="/snippets/render-language" >
       <kitin-search service-url="/def/_search" 
                     filter="about.@type:Language" 
                     template-id="select-language-template">
       </kitin-search>
-    </kitin-entity>
+    </kitin-entityrow>
 
     <kitin-table model="record.about.languageNote">
       <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
     </kitin-table>
 
-    <kitin-entity model="record.about.alphabet" multiple rich>
+    <kitin-entityrow model="record.about.alphabet" multiple rich>
       <kitin-search service-url="/def/_search" make-reference template-id="bib-completion-template" filter="about.inCollection.@id:/def/enum/content/alphabet-collection"></kitin-search>
-    </kitin-entity>
+    </kitin-entityrow>
 
   </kitin-group>
   <!-- LANGUAGES  END -->
 
   <kitin-group single>
-    <kitin-entity model="record.about.contentType" multiple>
+    <kitin-entityrow model="record.about.contentType" multiple>
       <kitin-select filter="about.inCollection.@id:/def/enum/content/contentType-collection"></kitin-select>
-    </kitin-entity>
+    </kitin-entityrow>
   </kitin-group>
 
   <kitin-group single>
@@ -143,12 +144,12 @@
     </div>
   </kitin-group>
   <kitin-group title="Uppslag">
-    <kitin-entity model="record.about.attributedTo" rich type="Person" view="/snippets/render-person">
+    <kitin-entityrow model="record.about.attributedTo" rich type="Person" view="/snippets/render-person">
       <kitin-search service-url="/auth/_search" 
                     template-id="auth-completion-template" 
                     filter="['about.@type:Person','about.@type:Meeting','about.@type:Organization']">
       </kitin-search>
-    </kitin-entity>
+    </kitin-entityrow>
   </kitin-group>
   <div class="group">
     <div class="label group-title">

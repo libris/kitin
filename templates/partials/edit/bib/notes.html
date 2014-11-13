@@ -16,8 +16,6 @@
 
     <kitin-textrow model="record.about.contributorNote"></kitin-textrow>
 
-    <kitin-textrow model="record.about.sourceNote"></kitin-textrow>
-
     <kitin-textrow model="record.about.note"></kitin-textrow>
 
     <kitin-table model="record.about.systemRequirements">
@@ -39,9 +37,9 @@
       <textarea data-track-change data-ui-jq="autosize" data-ng-model="topic.comment" ></textarea>
     </div>
 
-    <kitin-entity model="record.about.audience">
+    <kitin-entityrow model="record.about.audience">
       <kitin-select filter="about.inCollection.@id:/def/enum/content/audience-collection"></kitin-select>
-    </kitin-entity>
+    </kitin-entityrow>
 
     <kitin-table model="record.about.hasAnnotation"
                  titles="['LABEL.note', 'LABEL.degree', 'LABEL.location', 'LABEL.date', 'LABEL.comment']">

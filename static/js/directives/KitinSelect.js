@@ -13,7 +13,7 @@ kitin.directive('kitinSelect', function(definitions, editService, $rootScope, $c
 
   return {
     restrict: 'E',
-    require: '^kitinEntity',
+    require: '?^^kitinEntity',
     replace: true,
     scope: false,
     template: 

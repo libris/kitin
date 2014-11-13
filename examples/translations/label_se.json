@@ -6,11 +6,11 @@
             "about.instanceTitle.titleDate": "Täcknings- eller tillkomsttid",
             "about.instanceTitle.partNumber": "Delbeteckning",
             "about.instanceTitle.partTitle": "Deltitel",
-            
+
             "about.titleVariation.titleValue": "Varianttitel",
             "about.titleVariation.subtitle": "Övrig titelinformation",
             "about.titleVariation.titleDate": "Täcknings- eller tillkomsttid",
-			"about.titleVariation.titleType": "Titelanmärkning",
+            "about.titleVariation.titleType": "Titelanmärkning",
             "about.titleVariation.partNumber": "Delbeteckning",
             "about.titleVariation.partTitle": "Deltitel",
 
@@ -39,18 +39,19 @@
             "about.exampleOfWork.partTitle": "Titel på del eller avsnitt av verk",
             "about.exampleOfWork.partNumber": "Nummer på del eller avsnitt av verk",
             "about.exampleOfWork.language": "Verkets språk",
-            "about.exampleOfWork.date": "Specificering : årtal",            
+            "about.exampleOfWork.date": "Specificering : årtal",
             "about.exampleOfWork.treatySigningDate": "Datum för undertecknande av fördrag",
             "about.exampleOfWork.version": "",
             "about.exampleOfWork.version": "Version",
             "about.exampleOfWork.comment": "Övrig information",
             "about.exampleOfWork.medium": "Medieterm",
-            "about.exampleOfWork.musicPerformanceMedium": "Besättning (musik)",            
-            "about.exampleOfWork.musicArrangement": "Arrangemang (musik)",  
-            "about.exampleOfWork.musicKey": "Tonart",       
+            "about.exampleOfWork.musicPerformanceMedium": "Besättning (musik)",
+            "about.exampleOfWork.musicArrangement": "Arrangemang (musik)",
+            "about.exampleOfWork.musicKey": "Tonart",
+            "about.exampleOfWork.describedBy": "Beskriven av",
             
-            "about.influentialRelation": "Titel (influential relation)",
-            "about.uniformTitle": "Uniform titel",           
+            "about.influentialRelation": "Biuppslag - Uniform Titel",
+            "about.uniformTitle": "Uniform titel",
             
             "about.language": "Språk",
             "about.originalLanguage": "Originalspråk",
@@ -65,6 +66,7 @@
             "about.publication.place.label": "Utgivningsort",
             "about.publication.providerName": "Utgivare/förlag",
             "about.publication.providerDate": "Utgivningstid",
+            "about.manufacture": "Tryckuppgifter",
             "about.manufacture.place.label": "Tryckort",
             "about.manufacture.providerName": "Tryckeriets namn",
             "about.manufacture.providerDate": "Tryckningstid",
@@ -72,28 +74,27 @@
             "about.editionStatement.edition": "Upplaga",
             "about.publisherNumber": "Utgivningsnummer",
 
-			"about.frequencyCategory": "Frekvens",
-			"about.frequency": "Frekvens (Ej normaliserad)",
-			"about.replaces.frequency": "Tidigare utgivningsfrekvens",
-			"about.replaces.date": "Datum",
-			"about.regularity": "Regelbundenhet",
-			"about.precededBy": "Föregående titel",
-			"about.succeededBy": "Efterföljande titel",
-			
-			"about.issueNumber": "Alfanumeriska och/eller kronologiska volymbeteckningar",	
+            "about.frequencyCategory": "Frekvens",
+            "about.frequency": "Frekvens (Ej normaliserad)",
+            "about.replaces": "Tidigare frekvens",
+            "about.replaces.frequency": "Tidigare utgivningsfrekvens",
+            "about.replaces.date": "Datum",
+            "about.regularity": "Regelbundenhet",
+            "about.precededBy": "Föregående titel",
+            "about.succeededBy": "Efterföljande titel",
 
-            "about.identifers.isbn.identifierValue": "ISBN",
-            "about.identifers.isbn.identifierNote": "Notering",
-            "about.identifers.issn.identifierValue": "ISSN",
-            "about.identifers.issn.identifierNote": "Notering",
-            "about.identifers.generalIdentifier.identifierValue": "Identifierare",
-            "about.identifers.generalIdentifier.identifierNote": "Notering",
-            "about.identifers.generalIdentifier.identifierScheme": "identifierScheme",
-            
+            "about.issueNumber": "Alfanumeriska och/eller kronologiska volymbeteckningar",	
+
+            "about.identifierByIdentifierScheme['/def/identifiers/issn']": "ISSN",
+            "about.identifierByIdentifierScheme['/def/identifiers/isbn']": "ISBN",
+            "about.identifierValue": "Nummer",
+            "about.identifierNote": "Notering",
+
             "about.availability": "Anskaffningsvillkor",
-            
+
             "about.mediaTerm": "Allmän medieterm",
             "about.date": "Datum då posten skapades",
+            "about.publication": "Publicering",
             "about.publicationStatus": "Typ av utgivningsdatum. Utgivningsstatus.",
             "about.publicationYear": "Årtal (1)",
             "about.publicationOtherYear": "Tidsangivelse (2)",
@@ -104,10 +105,20 @@
             "about.relief": "Relief",            
             "about.index": "Index",
 
-            "about.hasFormat.Electronic": "Elektronisk",
-            "about.hasFormat.Electronic.carrierType": "Bärartyp",
-            "about.hasFormat.Electronic.color": "Färg",
-            "about.hasFormat.Electronic.dimensions": "Mått",
+            "about.hasFormatByType['Product']": "Fysisk beskrivning",
+            "about.hasFormatByType['Electronic']": "Elektronisk",
+
+            "about.hasFormatByType.extent": "Omfång",
+            "about.hasFormatByType.otherPhysicalDetails": "Övriga fysiska detaljer",
+            "about.hasFormatByType.accompanyingMaterial": "Bilaga",
+            "about.hasFormatByType.materialsSpecified": "__materialsSpecified__",
+            "about.hasFormatByType.carrierType": "Bärartyp",
+            "about.hasFormatByType.color": "Färg",
+            "about.hasFormatByType.dimensions": "Mått",
+            "about.hasFormatByType.sound": "Ljud",
+            "about.hasFormatByType.fileFormats": "__fileFormats__",
+            "about.hasFormatByType.qATarget": "__qATarget__",
+
             
             "about.hasFormat.Map": "Karta",
             "about.hasFormat.Map.carrierType": "Bärartyp",
@@ -115,6 +126,12 @@
             "about.hasFormat.Map.medium": "medium",
             "about.cartographicScale": "Kartografisk skala",
             "about.cartographicCoordinates": "Kartografiska koordinater",
+            "about.cartographicAscensionAndDeclination": "Koder för kartografiska matematiska data ",
+            "about.constantRatioLinearHorizontalScale": "Linjär horisontell skala med konstant proportion",
+            "about.westernmostLongitudeCoordinates": "Koordinater - västlig gränslongitud ",
+            "about.easternmostLongitudeCoordinates": "Koordinater - östlig gränslongitud",
+            "about.northernmostLatitudeCoordinates": "Koordinater - nordlig gränslatitud",
+            "about.southernmostLatitudeCoordinates": "Koordinater - sydlig gränslatitud",
 
             "about.hasFormat.MovingImage": "Film",
             "about.hasFormat.MovingImage.carrierType": "Bärartyp",
@@ -123,12 +140,6 @@
             "about.hasFormat.MovingImage.motionPicMedium": "motionPicMedium",
             "about.hasFormat.MovingImage.motionPicDimensions": "motionPicDimensions",
             
-            "about.hasFormat.Product": "Fysisk beskrivning",
-            "about.hasFormat.Product.extent": "Omfång",
-            "about.hasFormat.Product.dimensions": "Mått",
-            "about.hasFormat.Product.otherPhysicalDetails": "Övriga fysiska detaljer",
-            "about.hasFormat.Product.accompanyingMaterial": "Bilaga",
-
             "about.hasFormat.SoundRecording": "Ljudinspelning",
             "about.hasFormat.SoundRecording.carrierType": "Bärartyp",
             "about.hasFormat.SoundRecording.soundSpeed": "soundSpeed",
@@ -156,46 +167,51 @@
             "about.languageNote": "Språkanmärkning",
             "about.technicalNote": "Intern anmärkning av systemteknisk karaktär",
             "about.listOfContents": "Formaterad innehållsförteckning",
-            "about.performerNote": "Medverkande",            
+            "about.performerNote": "Medverkande",
             "about.note": "note",
             "about.comment": "Allmän anmärkning",
             "about.systemRequirements": "Systemkrav",
             "about.audience.label": "Målgrupp",
             "about.scopeNote": "Relaterade delar",
            
-			"about.alphabet": "Alfabet/Skriftart",
-			"about.audience": "Målgrupp",
-			"about.confPub": "Konferenspublikation",
-			"about.contentType": "Form för utgåva",
-			"about.festschrift": "Festskrift",
-			"about.illustrations": "Illustrationer i resursen",
-			"about.nature": "Innehållsmässig karaktär",
-			"about.originalItem": "Bärartyp",
+            "about.alphabet": "Alfabet/Skriftart",
+            "about.audience": "Målgrupp",
+            "about.confPub": "Konferenspublikation",
+            "about.contentType": "Form för utgåva",
+            "about.festschrift": "Festskrift",
+            "about.illustrations": "Illustrationer i resursen",
+            "about.nature": "Innehållsmässig karaktär",
+            "about.originalItem": "Bärartyp",
             "about.runningTime": "Speltid",  
 
             "about.genre": "Genre",
 
-			"about.typeOfEntry": "Behandling vid titeländring",
-			
-			"about.additionalCarrierType": "Form för manifestationen",
+            "about.classificationDdc": "DDK (Dewey decimalklassifikation)",
+            "about.classificationNlm": "NLM (National Library of Medicine)",
+            "about.classificationUdc": "UDK (Universell decimalklassifikation)",
+
+            "about.typeOfEntry": "Behandling vid titeländring",
+
+            "about.additionalCarrierType": "Form för manifestationen",
             "about.encLevel": "Fullständighetsnivå",
             "about.characterCoding": "Teckenuppsättning",
             "about.status": "Poststatus",
             "about.catForm": "Katalogiseringsregler",
-            "sourceNote": "Intern anmärkning om katalogiseringskälla"
+            "sourceNote": "Intern anmärkning om katalogiseringskälla",
+            "about.bibliographyCode": "Bibliografi"
         },
-        
+
         "holding": {
-        	"about.offers": {
-        		"availability": "Begränsningar på utlån",
-        		"classificationPart": "Uppställd på",
-        		"copyNote": "Anmärkning om uppställningen",
-        		"copyNumber": "Exemplarnummer",
-	        	"editorialNote": "Intern uppställningsanm.",
-	        	"shelfControlNumber": "Löpnummer",
-	        	"shelfLabel": "Uppställningsord",
-	        	"shelfLocation": "Avdelning, samling etc."
-        	}
+            "about.offers": {
+                "availability": "Begränsningar på utlån",
+                "classificationPart": "Uppställd på",
+                "copyNote": "Anmärkning om uppställningen",
+                "copyNumber": "Exemplarnummer",
+                "editorialNote": "Intern uppställningsanm.",
+                "shelfControlNumber": "Löpnummer",
+                "shelfLabel": "Uppställningsord",
+                "shelfLocation": "Avdelning, samling etc."
+            }
         },
         "gui": {
             "index": {
@@ -213,9 +229,9 @@
 
             },
             "edit": {
-            		"DATE_CREATED": "Skapad",
-            		"MODIFIED": "Ändrad",
-            		"ID": "Id"
+                    "DATE_CREATED": "Skapad",
+                    "MODIFIED": "Ändrad",
+                    "ID": "Id"
 
             },
             "terms": {
