@@ -29,10 +29,6 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
         // If in a kitin entity row, get attributes from scope
         angular.extend($attrs, $scope.attributes);
       }
-
-      if(!$attrs.hasOwnProperty('hideTitle')) {
-        $scope.title = 'LABEL.' + $attrs.model;
-      }
       
       $scope.viewTemplate = $attrs.view || '/snippets/render-generic-linked-entity';
      

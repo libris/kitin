@@ -105,10 +105,20 @@
             "about.relief": "Relief",            
             "about.index": "Index",
 
-            "about.hasFormat.Electronic": "Elektronisk",
-            "about.hasFormat.Electronic.carrierType": "Bärartyp",
-            "about.hasFormat.Electronic.color": "Färg",
-            "about.hasFormat.Electronic.dimensions": "Mått",
+            "about.hasFormatByType['Product']": "Fysisk beskrivning",
+            "about.hasFormatByType['Electronic']": "Elektronisk",
+
+            "about.hasFormatByType.extent": "Omfång",
+            "about.hasFormatByType.otherPhysicalDetails": "Övriga fysiska detaljer",
+            "about.hasFormatByType.accompanyingMaterial": "Bilaga",
+            "about.hasFormatByType.materialsSpecified": "__materialsSpecified__",
+            "about.hasFormatByType.carrierType": "Bärartyp",
+            "about.hasFormatByType.color": "Färg",
+            "about.hasFormatByType.dimensions": "Mått",
+            "about.hasFormatByType.sound": "Ljud",
+            "about.hasFormatByType.fileFormats": "__fileFormats__",
+            "about.hasFormatByType.qATarget": "__qATarget__",
+
             
             "about.hasFormat.Map": "Karta",
             "about.hasFormat.Map.carrierType": "Bärartyp",
@@ -130,12 +140,6 @@
             "about.hasFormat.MovingImage.motionPicMedium": "motionPicMedium",
             "about.hasFormat.MovingImage.motionPicDimensions": "motionPicDimensions",
             
-            "about.hasFormat.Product": "Fysisk beskrivning",
-            "about.hasFormat.Product.extent": "Omfång",
-            "about.hasFormat.Product.dimensions": "Mått",
-            "about.hasFormat.Product.otherPhysicalDetails": "Övriga fysiska detaljer",
-            "about.hasFormat.Product.accompanyingMaterial": "Bilaga",
-
             "about.hasFormat.SoundRecording": "Ljudinspelning",
             "about.hasFormat.SoundRecording.carrierType": "Bärartyp",
             "about.hasFormat.SoundRecording.soundSpeed": "soundSpeed",

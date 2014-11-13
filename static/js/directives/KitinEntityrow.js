@@ -13,7 +13,7 @@ kitin.directive('kitinEntityrow', function(editService, $rootScope) {
 
   return {
     restrict: 'E',
-    scope: true,
+    scope: false,
     require: '?^^kitinGroup',
     replace: true,
     transclude: true,
