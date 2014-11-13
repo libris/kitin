@@ -585,7 +585,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  </div>\n" +
     "  <div ng-include=\"'/snippets/roles'\"></div>\n" +
     "  <kitin-entity multiple model=\"record.about._reifiedRoles\" type=\"ObjectProperty\" view=\"/snippets/render-role\">\n" +
-    "    <kitin-search service-url=\"/relator/_search\" filter=\"about.@type:ObjectProperty\" template-id=\"render-search-role\"></kitin-search>\n" +
+    "    <kitin-search service-url=\"/relator/_search\" template-id=\"select-role-template\"></kitin-search>\n" +
     "  </kitin-entity>\n" +
     "</div>\n" +
     "<div data-ng-if=\"!isLinked(object)\" class=\"entity person embedded\"\n" +

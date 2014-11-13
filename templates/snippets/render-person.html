@@ -7,7 +7,7 @@
   </div>
   <div ng-include="'/snippets/roles'"></div>
   <kitin-entity multiple model="record.about._reifiedRoles" type="ObjectProperty" view="/snippets/render-role">
-    <kitin-search service-url="/relator/_search" filter="about.@type:ObjectProperty" template-id="render-search-role"></kitin-search>
+    <kitin-search service-url="/relator/_search" template-id="select-role-template"></kitin-search>
   </kitin-entity>
 </div>
 <div data-ng-if="!isLinked(object)" class="entity person embedded"
