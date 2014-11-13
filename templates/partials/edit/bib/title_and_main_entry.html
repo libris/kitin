@@ -144,12 +144,12 @@
     </div>
   </kitin-group>
   <kitin-group title="Uppslag">
-    <kitin-entity model="record.about.attributedTo" rich type="Person" view="/snippets/render-person">
+    <kitin-entityrow model="record.about.attributedTo" rich type="Person" view="/snippets/render-person">
       <kitin-search service-url="/auth/_search" 
                     template-id="auth-completion-template" 
                     filter="['about.@type:Person','about.@type:Meeting','about.@type:Organization']">
       </kitin-search>
-    </kitin-entity>
+    </kitin-entityrow>
   </kitin-group>
   <div class="group">
     <div class="label group-title">
