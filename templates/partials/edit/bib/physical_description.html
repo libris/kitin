@@ -71,9 +71,9 @@
     <kitin-table model="record.about.hasFormatByType['Electronic']"
                  titles="['LABEL.carrierType', 'LABEL.color', 'LABEL.dimensions']">
       <kitin-td>
-        <kitin-entityrow model="item" link="'carrierType'" multiple>
+        <kitin-entity model="item" link="'carrierType'" multiple>
           <kitin-select filter="about.inCollection.@id:/def/enum/content/contentType-collection"></kitin-select>
-        </kitin-entityrow>
+        </kitin-entity>
       </kitin-td>
       <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.color"/></kitin-td>
       <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.dimensions"/></kitin-td>
