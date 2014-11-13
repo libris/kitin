@@ -137,8 +137,6 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope, $q
         options.useCache = false;
         options.extraParams = filterParams;
 
-        console.log(filterParams);
-
         options.beforeUseConverter = function (value) {
           searchedValue = value; // Store searched value
           return value + '*';
