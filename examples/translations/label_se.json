@@ -50,7 +50,7 @@
             "about.exampleOfWork.musicKey": "Tonart",
             "about.exampleOfWork.describedBy": "Beskriven av",
             
-            "about.influentialRelation": "Titel (influential relation)",
+            "about.influentialRelation": "Biuppslag - Uniform Titel",
             "about.uniformTitle": "Uniform titel",
             
             "about.language": "Språk",
@@ -66,6 +66,7 @@
             "about.publication.place.label": "Utgivningsort",
             "about.publication.providerName": "Utgivare/förlag",
             "about.publication.providerDate": "Utgivningstid",
+            "about.manufacture": "Tryckuppgifter",
             "about.manufacture.place.label": "Tryckort",
             "about.manufacture.providerName": "Tryckeriets namn",
             "about.manufacture.providerDate": "Tryckningstid",
@@ -157,7 +158,7 @@
             "about.languageNote": "Språkanmärkning",
             "about.technicalNote": "Intern anmärkning av systemteknisk karaktär",
             "about.listOfContents": "Formaterad innehållsförteckning",
-            "about.performerNote": "Medverkande",            
+            "about.performerNote": "Medverkande",
             "about.note": "note",
             "about.comment": "Allmän anmärkning",
             "about.systemRequirements": "Systemkrav",
