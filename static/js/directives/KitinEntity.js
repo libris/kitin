@@ -9,41 +9,41 @@ Params:
   view: (str) view template snippet (detaults to generic)
 */
 
-kitin.directive('kitinEntity', function(editService, $rootScope) {
+kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
 
   return {
     restrict: 'E',
-    scope: true,
-    require: '?^^kitinGroup',
+    scope: false,
     replace: true,
     transclude: true,
-    link: function(scope, element, attrs, kitinGroupCtrl) {
-      scope.options = kitinGroupCtrl ? kitinGroupCtrl.options : null;
-    },
-
-    template: '<div class="{{className}}" ng-hide="shouldHide(objects, options)">' + 
-                '<span class="lbl">{{title  | translate}}</span>' +
-                '<div class="inp">' +
+    template:   '<span>' +
                   '<div ng-if="objects" ng-repeat="object in objects" class="entity-content">' +
                     '<span class="inner" ng-include="viewTemplate"></span>' +
                     '<span class="controls"><a class="delete" data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a></span>' +
                   '</div>' +
-                  '<span ng-transclude ng-init="label=title"></span>' +
-                '</div>' +
-              '</div>',
+                  '<span ng-transclude></span>' +
+                '</span>',
 
     controller: function($element, $scope, $attrs) {
+      if($attrs.inKitinEntityRow) {
+        // If in a kitin entity row, get attributes from scope
+        angular.extend($attrs, $scope.attributes);
+      }
 
-      $scope.viewTemplate = $attrs.view || '/snippets/render-generic-linked-entity';
+      if(!$attrs.hasOwnProperty('hideTitle')) {
+        $scope.title = 'LABEL.' + $attrs.model;
+      }
+      
+      $scope.viewTemplate = $attrs.view || '/snippets/render-generic-linked-entity';
+     
       $scope.searchTemplate = $attrs.search;
 
       var parts = $attrs.model.split('.');
 
-      $scope.type = $attrs.type || _.last(parts);
+      $scope.type = $scope.type || _.last(parts);
       // attrs.link = is in ng-repeat, eval link and use as link into subject else use last part of model
-      $scope.link = $attrs.link ? $scope.$eval($attrs.link) : _.last(parts); 
-      $scope.multiple = $attrs.hasOwnProperty('multiple');
-      $scope.title = 'LABEL.' + $attrs.model;
+      $scope.link = $scope.link ? $scope.$eval($scope.link) : _.last(parts); 
+      $scope.multiple = $attrs.hasOwnProperty('multiple') && $attrs.multiple !== false;
 
       // attrs.link = is in ng-repeat, use full model else typically use about.record
       var subject = $attrs.link ? $attrs.model : parts.slice(0, 2).join('.'); 
@@ -84,37 +84,6 @@ kitin.directive('kitinEntity', function(editService, $rootScope) {
         classNames.push('multiple');
       }
       $scope.className = classNames.join(' ');
-
-      var hasValue = false;
-      var savedOptionsHidden;
-
-      $scope.shouldHide = function(objects, options) {
-
-        // always show for single rows or non-grouped entities
-        if ( !options || options.single ) {
-          return false;
-        }
-
-        // reset hasValue if options.hidden has changed from false=>true
-        if ( options.hidden && savedOptionsHidden === false ) {
-          hasValue = false;
-        }
-        
-        savedOptionsHidden = options.hidden;
-
-        // never hide a field that has value, and save hasValue
-        if ( objects && objects.length ) {
-          hasValue = true;
-          return false;
-        }
-
-        if ( !options.hidden || 
-           ( options.hidden && hasValue )  ) { // don’t hide if the input has a value
-          return false;
-        }
-        
-        return true;
-      };
 
       this.doAdd = function(data) {
         var added = editService.addObject(subj, $scope.link, $scope.type, $scope.multiple, data);

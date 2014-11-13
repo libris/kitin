@@ -11,14 +11,14 @@
     <kitin-textrow model="record.about.exampleOfWork.musicArrangement"></kitin-textrow>
     <kitin-textrow model="record.about.exampleOfWork.musicKey"></kitin-textrow>
 
-    <kitin-entity model="record.about.exampleOfWork.describedBy" multiple rich view="/snippets/render-relation-referenced-entity">
+    <kitin-entityrow model="record.about.exampleOfWork.describedBy" multiple rich view="/snippets/render-relation-referenced-entity">
       <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
-    </kitin-entity>
+    </kitin-entityrow>
 
-    <kitin-entity model="record.about.exampleOfWork.language" multiple rich view="/snippets/render-language">
+    <kitin-entityrow model="record.about.exampleOfWork.language" multiple rich view="/snippets/render-language">
       <kitin-search service-url="/def/_search" template-id="select-language-template" filter="about.@type:Language">
       </kitin-search>
-    </kitin-entity>
+    </kitin-entityrow>
 
     <kitin-table model="record.about.exampleOfWork.subtitle">
       <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
@@ -43,9 +43,9 @@
   </kitin-group>
 
   <kitin-group>
-    <kitin-entity model="record.about.additionalCarrierType" multiple>
+    <kitin-entityrow model="record.about.additionalCarrierType" multiple>
       <kitin-select filter="about.inCollection.@id:/def/enum/content/additionalCarrierType-collection"></kitin-select>
-    </kitin-entity>
+    </kitin-entityrow>
 
    <kitin-textrow model="record.about.fileType"></kitin-textrow>
   </kitin-group>
@@ -62,13 +62,19 @@
       <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.dimensions"/></kitin-td>
       <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.otherPhysicalDetails"/></kitin-td>
       <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.accompanyingMaterial"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.materialsSpecified"/></kitin-td>
+      <kitin-td>LINK: device?</kitin-td>
     </kitin-table>
   </span>
 
   <span ng-switch-when="Electronic">
     <kitin-table model="record.about.hasFormatByType['Electronic']"
                  titles="['LABEL.carrierType', 'LABEL.color', 'LABEL.dimensions']">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.carrierType"/></kitin-td>
+      <kitin-td>
+        <kitin-entityrow model="item" link="'carrierType'" multiple>
+          <kitin-select filter="about.inCollection.@id:/def/enum/content/contentType-collection"></kitin-select>
+        </kitin-entityrow>
+      </kitin-td>
       <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.color"/></kitin-td>
       <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.dimensions"/></kitin-td>
     </kitin-table>
@@ -146,13 +152,13 @@
 
 
   <kitin-group>
-    <kitin-entity model="record.about.illustrations">
+    <kitin-entityrow model="record.about.illustrations">
       <kitin-select filter="about.inCollection.@id:/def/enum/content/illustrations-collection"></kitin-select>
-    </kitin-entity>
+    </kitin-entityrow>
 
-    <kitin-entity model="record.about.originalItem">
+    <kitin-entityrow model="record.about.originalItem">
       <kitin-select filter="about.inCollection.@id:/def/enum/content/originalItem-collection"></kitin-select>
-    </kitin-entity>
+    </kitin-entityrow>
 
     <kitin-textrow model="record.about.runningTime"></kitin-textrow>
 

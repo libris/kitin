@@ -54,7 +54,7 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope, $q
 
   return {
     restrict: 'E',
-    require: '^kitinEntity',
+    require: '?^^kitinEntity',
     replace: true,
     template: '<span class="search"><i class="fa fa-search"></i><input type="text" placeholder="Lägg till" /></span>',
     link: function(scope, elem, attrs, kitinLinkEntity) {

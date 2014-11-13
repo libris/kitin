@@ -44,9 +44,9 @@
         </span>
         <div class="form-container">
           <kitin-group>
-            <kitin-entity model="record.about.encLevel">
+            <kitin-entityrow model="record.about.encLevel">
               <kitin-select filter="about.inCollection.@id:/def/enum/record/encLevel-collection"></kitin-select>
-            </kitin-entity>
+            </kitin-entityrow>
 
             <kitin-table model="record.about.bibliographyCode">
               <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>

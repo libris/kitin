@@ -46,16 +46,16 @@
     
     <kitin-textrow model="record.about.scopeNote"></kitin-textrow>
 
-    <kitin-entity model="record.about.typeOfEntry">
+    <kitin-entityrow model="record.about.typeOfEntry">
       <kitin-select filter="about.inCollection.@id:/def/enum/content/contentType-collection"></kitin-select>
-    </kitin-entity>
+    </kitin-entityrow>
 
-    <kitin-entity model="record.about.publicationCountry" multiple>
+    <kitin-entityrow model="record.about.publicationCountry" multiple>
       <kitin-search service-url="/def/_search" 
                     template-id="select-country-template" 
                     filter="about.@type:Country">
       </kitin-search>
-    </kitin-entity>
+    </kitin-entityrow>
 
     <kitin-table model="record.about.publication"
                  titles="['Place label title', 'ProviderName title', 'provicerDate title']">
@@ -81,9 +81,9 @@
   <kitin-group title="Dates and times title">
     <kitin-textrow model="record.about.date"></kitin-textrow>
 
-    <kitin-entity model="record.about.publicationStatus">
+    <kitin-entityrow model="record.about.publicationStatus">
       <kitin-select filter="about.inCollection.@id:/def/enum/content/publicationStatus-collection"></kitin-select>
-    </kitin-entity>
+    </kitin-entityrow>
 
     <kitin-textrow model="record.about.publicationYear"></kitin-textrow>
 
@@ -92,15 +92,15 @@
 
   <kitin-group title="Frekvens regularitet title">
     
-    <kitin-entity model="record.about.frequencyCategory">
+    <kitin-entityrow model="record.about.frequencyCategory">
       <kitin-select filter="about.inCollection.@id:/def/enum/content/frequency-collection"></kitin-select>
-    </kitin-entity>
+    </kitin-entityrow>
 
     <kitin-textrow model="record.about.frequency"></kitin-textrow>
 
-    <kitin-entity model="record.about.regularity">
+    <kitin-entityrow model="record.about.regularity">
       <kitin-select filter="about.inCollection.@id:/def/enum/content/regularity-collection"></kitin-select>
-    </kitin-entity>
+    </kitin-entityrow>
 
   </kitin-group>
 
@@ -117,13 +117,13 @@
   </kitin-group>
 
   <kitin-group title="References title">
-    <kitin-entity model="record.about.alternateEdition" multiple rich view="/snippets/render-relation-referenced-entity">
+    <kitin-entityrow model="record.about.alternateEdition" multiple rich view="/snippets/render-relation-referenced-entity">
       <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
-    </kitin-entity>
+    </kitin-entityrow>
 
-    <kitin-entity model="record.about.alternateFormat" multiple rich view="/snippets/render-relation-referenced-entity">
+    <kitin-entityrow model="record.about.alternateFormat" multiple rich view="/snippets/render-relation-referenced-entity">
       <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
-    </kitin-entity>
+    </kitin-entityrow>
 
   </kitin-group>  
 </div>
