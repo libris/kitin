@@ -75,6 +75,7 @@
 
             "about.frequencyCategory": "Frekvens",
             "about.frequency": "Frekvens (Ej normaliserad)",
+            "about.replaces": "Tidigare frekvens",
             "about.replaces.frequency": "Tidigare utgivningsfrekvens",
             "about.replaces.date": "Datum",
             "about.regularity": "Regelbundenhet",
@@ -83,16 +84,13 @@
 
             "about.issueNumber": "Alfanumeriska och/eller kronologiska volymbeteckningar",	
 
-            "about.identifers.isbn.identifierValue": "ISBN",
-            "about.identifers.isbn.identifierNote": "Notering",
-            "about.identifers.issn.identifierValue": "ISSN",
-            "about.identifers.issn.identifierNote": "Notering",
-            "about.identifers.generalIdentifier.identifierValue": "Identifierare",
-            "about.identifers.generalIdentifier.identifierNote": "Notering",
-            "about.identifers.generalIdentifier.identifierScheme": "identifierScheme",
-            
+            "about.identifierByIdentifierScheme['/def/identifiers/issn']": "ISSN",
+            "about.identifierByIdentifierScheme['/def/identifiers/isbn']": "ISBN",
+            "about.identifierValue": "Nummer",
+            "about.identifierNote": "Notering",
+
             "about.availability": "Anskaffningsvillkor",
-            
+
             "about.mediaTerm": "Allmän medieterm",
             "about.date": "Datum då posten skapades",
             "about.publication": "Publicering",
