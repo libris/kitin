@@ -107,6 +107,8 @@
 
             "about.hasFormatByType['Product']": "Fysisk beskrivning",
             "about.hasFormatByType['Electronic']": "Elektronisk",
+            "about.hasFormatByType['Map']": "Karta",
+            "about.hasFormatByType['StillImage']": "Bild",
 
             "about.hasFormatByType.extent": "Omfång",
             "about.hasFormatByType.otherPhysicalDetails": "Övriga fysiska detaljer",
@@ -118,12 +120,14 @@
             "about.hasFormatByType.sound": "Ljud",
             "about.hasFormatByType.fileFormats": "__fileFormats__",
             "about.hasFormatByType.qATarget": "__qATarget__",
+            "about.hasFormatByType.medium": "__medium__",
+            "about.hasFormatByType.reproduction": "__reproduction__",
+            "about.hasFormatByType.detail": "__detail__",
+            "about.hasFormatByType.posNeg": "__posNeg__",
+            "about.hasFormatByType.nonProjColor": "__nonProjColor__",
+            "about.hasFormatByType.nonProjPrimary": "__nonProjPrimary__",
+            "about.hasFormatByType.nonProjSecondary": "__nonProjSecondary__",
 
-            
-            "about.hasFormat.Map": "Karta",
-            "about.hasFormat.Map.carrierType": "Bärartyp",
-            "about.hasFormat.Map.color": "Färg",
-            "about.hasFormat.Map.medium": "medium",
             "about.cartographicScale": "Kartografisk skala",
             "about.cartographicCoordinates": "Kartografiska koordinater",
             "about.cartographicAscensionAndDeclination": "Koder för kartografiska matematiska data ",
