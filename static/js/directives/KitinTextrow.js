@@ -12,7 +12,7 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
       //TODO, move into snippet?
       template: '<div class="label" ng-hide="shouldHide(model, options)">' + 
                   '<kitin-title title="title"></kitin-title>' +
-                  '<kitin-textarea model="model"></kitin-textarea>' +
+                  '<span class="inp"><kitin-textarea model="model"></kitin-textarea></span>' +
                 '</div>',
       controller: function($scope, $rootScope, $attrs) {
 

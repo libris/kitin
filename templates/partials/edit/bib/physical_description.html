@@ -58,11 +58,11 @@
   <span ng-switch-when="Product">
     <kitin-table model="record.about.hasFormatByType['Product']"
                  titles="['LABEL.extent', 'LABEL.dimensions', 'LABEL.otherPhysicalDetails', 'LABEL.accompanyingMaterial']">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.extent"/></kitin-td>
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.dimensions"/></kitin-td>
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.otherPhysicalDetails"/></kitin-td>
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.accompanyingMaterial"/></kitin-td>
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.materialsSpecified"/></kitin-td>
+      <kitin-td><kitin-textarea model="item.extent"></kitin-textarea></kitin-td>
+      <kitin-td><kitin-textarea model="item.dimensions"></kitin-textarea></kitin-td>
+      <kitin-td><kitin-textarea model="item.otherPhysicalDetails"></kitin-textarea></kitin-td>
+      <kitin-td><kitin-textarea model="item.accompanyingMaterial"></kitin-textarea></kitin-td>
+      <kitin-td><kitin-textarea model="item.materialsSpecified"></kitin-textarea></kitin-td>
       <kitin-td>LINK: device?</kitin-td>
     </kitin-table>
   </span>

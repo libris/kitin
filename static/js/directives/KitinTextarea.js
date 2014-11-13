@@ -5,7 +5,7 @@ kitin.directive('kitinTextarea', function(editService, $rootScope){
         model: '=model'
       },
       replace: true,
-      template: '<span class="inp"><textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="model"></textarea></span>',
+      template: '<textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="model"></textarea>',
       controller: function($scope, $rootScope, $attrs) {
 
       }
