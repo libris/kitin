@@ -583,9 +583,10 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "      <i class=\"fa fa-bookmark\"></i> Aukt.\n" +
     "    </a>\n" +
     "  </div>\n" +
-    "  <div data-ng-include=\"'/snippets/roles'\"></div>\n" +
-    "  <a data-ng-if=\"!editable.on\" class=\"delete\" href=\"#\"\n" +
-    "     data-ng-click=\"doRemove($index)\"><i class=\"fa fa-times\"></i></a>\n" +
+    "  <div ng-include=\"'/snippets/roles'\"></div>\n" +
+    "  <kitin-entity multiple model=\"record.about._reifiedRoles\" type=\"ObjectProperty\" view=\"/snippets/render-role\">\n" +
+    "    <kitin-search service-url=\"/relator/_search\" filter=\"about.@type:ObjectProperty\" template-id=\"render-search-role\"></kitin-search>\n" +
+    "  </kitin-entity>\n" +
     "</div>\n" +
     "<div data-ng-if=\"!isLinked(object)\" class=\"entity person embedded\"\n" +
     "      data-ng-init=\"editable = {on: !(object.controlledLabel || object.givenName || object.name)}\">\n" +
@@ -616,19 +617,13 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    </div>\n" +
     "    <div class=\"label\">\n" +
     "      <span class=\"lbl\">{{ \"Död\" }}</span>\n" +
-    "      <input data-track-change class=\"authdependant\" type=\"text\" placeholder=\"ÅÅÅÅ\" \n" +
+    "      <input data-track-change class=\"authdependant\" type=\"text\" placeholder=.\"ÅÅÅÅ\" \n" +
     "             data-ng-model=\"object.deathYear\" />\n" +
     "    </div>\n" +
-    "    <!--\n" +
-    "    <div data-ng-controller=\"ModalCtrl\">\n" +
-    "      <button class=\"btn btn-primary\" data-ng-click=\"openAuthModal($event)\">Aukt.</button>\n" +
-    "    </div>\n" +
-    "    -->\n" +
     "  </div>\n" +
-    "  <div data-ng-include=\"'/snippets/roles'\"></div>\n" +
-    "  <a data-ng-if=\"!editable.on\" class=\"delete\" href=\"#\" data-ng-click=\"doRemove($index)\">\n" +
-    "    <i class=\"fa fa-trash\"></i>\n" +
-    "  </a>\n" +
+    "  <kitin-entity multiple model=\"record.about._reifiedRoles\" type=\"ObjectProperty\" view=\"/snippets/render-role\">\n" +
+    "    <kitin-search service-url=\"/auth/_search\" filter=\"about.@type:ObjectProperty\" template-id=\"render-search-role\"></kitin-search>\n" +
+    "  </kitin-entity>\n" +
     "</div>"
   );
 

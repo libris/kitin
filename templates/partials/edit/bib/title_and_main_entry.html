@@ -143,6 +143,14 @@
           data-ng-model="record.about.responsibilityStatement"></textarea>
     </div>
   </kitin-group>
+  <kitin-group title="Uppslag">
+    <kitin-entity model="record.about.attributedTo" rich type="Person" view="/snippets/render-person">
+      <kitin-search service-url="/auth/_search" 
+                    template-id="auth-completion-template" 
+                    filter="['about.@type:Person','about.@type:Meeting','about.@type:Organization']">
+      </kitin-search>
+    </kitin-entity>
+  </kitin-group>
   <div class="group">
     <div class="label group-title">
       <div class="lbl">Uppslag</div>
@@ -163,7 +171,6 @@
     <div class="label">
       <div class="lbl" translate>LABEL.record.about.influencedBy</div>
       <div class="inp">
-        <!--<a ng-click="showInfluencedBy = !showInfluencedBy">Dölj <i class="icon fa fa-caret-up"></i></a>-->
         <div data-kitin-link-entity
             data-track-change
             data-ng-init="label = 'biuppslag'"
