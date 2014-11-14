@@ -109,6 +109,7 @@
             "about.hasFormatByType['Electronic']": "Elektronisk",
             "about.hasFormatByType['Map']": "Karta",
             "about.hasFormatByType['StillImage']": "Bild",
+            "record.about.hasFormatByType['MovingImage']": "Film",
 
             "about.hasFormatByType.extent": "Omfång",
             "about.hasFormatByType.otherPhysicalDetails": "Övriga fysiska detaljer",
@@ -127,6 +128,10 @@
             "about.hasFormatByType.nonProjColor": "__nonProjColor__",
             "about.hasFormatByType.nonProjPrimary": "__nonProjPrimary__",
             "about.hasFormatByType.nonProjSecondary": "__nonProjSecondary__",
+            "about.hasFormatByType.motionPicFormat": "__motionPicFormat__",
+            "about.hasFormatByType.motionPicSound": "__motionPicSound__",
+            "about.hasFormatByType.motionPicMedium": "__motionPicMedium__",
+            "about.hasFormatByType.motionPicDimensions": "__motionPicDimensions__",
 
             "about.cartographicScale": "Kartografisk skala",
             "about.cartographicCoordinates": "Kartografiska koordinater",
@@ -137,12 +142,8 @@
             "about.northernmostLatitudeCoordinates": "Koordinater - nordlig gränslatitud",
             "about.southernmostLatitudeCoordinates": "Koordinater - sydlig gränslatitud",
 
-            "about.hasFormat.MovingImage": "Film",
-            "about.hasFormat.MovingImage.carrierType": "Bärartyp",
-            "about.hasFormat.MovingImage.motionPicFormat": "motionPicFormat",
-            "about.hasFormat.MovingImage.motionPicSound": "motionPicSound",
-            "about.hasFormat.MovingImage.motionPicMedium": "motionPicMedium",
-            "about.hasFormat.MovingImage.motionPicDimensions": "motionPicDimensions",
+            
+            
             
             "about.hasFormat.SoundRecording": "Ljudinspelning",
             "about.hasFormat.SoundRecording.carrierType": "Bärartyp",
