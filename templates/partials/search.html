@@ -20,8 +20,8 @@
           <div class="tools">
             <span data-ng-show="state.searchType.key != 'remote'" class="sort-option">
               <span class="hitlist-viewswitch">
-                <a href="#" data-ng-click="viewmode='detailed'"><i class="fa fa-th-list"></i></a>
-                <a href="#" data-ng-click="viewmode='compact'"><i class="fa fa-list"></i></a>
+                <a href="#" data-ng-click="state.searchView='detailed'"><i class="fa fa-th-list"></i></a>
+                <a href="#" data-ng-click="state.searchView='compact'"><i class="fa fa-list"></i></a>
               </span>
               <select ng-model="selectedSort" ng-options="item as item.text for item in sortables" ng-change="sortChanged(selectedSort)"></select>
             </span>
@@ -31,7 +31,7 @@
     </header>
 
     <div class="row">
-      <div class="col-md-3">
+      <div class="facets">
         <section data-ng-class="{remote: facetGroups.length < 1}" class="nav">
           <dl data-ng-repeat="facet in facetGroups" data-ng-if="facet.items.length > 0">
             <dt><i></i>{{facetLabels[facet.type]}}</dt>
@@ -51,7 +51,7 @@
           </dl>
         </section>
       </div>
-      <div class="col-md-9" data-infinite-scroll="onScroll()" data-infinite-scroll-distance="0" data-infinite-scroll-immediate-check="true" ng-switch on="viewmode">
+      <div class="results" data-infinite-scroll="onScroll()" data-infinite-scroll-distance="0" data-infinite-scroll-immediate-check="true" ng-switch on="state.searchView">
 		    <div ng-switch-when="compact">
           <div data-ng-include="'/partials/search_hitlist_compact'"></div>
         </div>

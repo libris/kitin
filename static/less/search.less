@@ -34,10 +34,16 @@ body.search{
         }
       }
     }
-
   }
 
-  .hitlist-item.auth.compact{
+  .content .facets{
+    .make-xs-column(3);
+  }
+  .content .results{
+    .make-xs-column(9);
+  }
+
+  .hitlist-row.auth.compact{
     .make-row();
     position:relative;
     padding: 6px 0;
@@ -57,7 +63,7 @@ body.search{
     }
   }
 
-  .hitlist-item.bib.compact{
+  .hitlist-row.bib.compact{
     .make-row();
     position:relative;
     padding: 6px 0;
@@ -74,6 +80,12 @@ body.search{
     .identifier-code{
       .make-xs-column(2);
     }
+  }
+
+  .hitlist-row.auth.compact.header,
+  .hitlist-row.bib.compact.header{
+    background: @grey-warm;
+    border-bottom:1px solid #ddd;
   }
 
 }
