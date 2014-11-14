@@ -45,6 +45,18 @@ kitin.directive('kitinEntityrow', function(editService, $rootScope) {
       var hasValue = false;
       var savedOptionsHidden;
 
+      var classNames = ['label entity'];
+      if ( $attrs.hasOwnProperty('rich') ) {
+        classNames.push('rich');
+      } else {
+        classNames.push('tags');
+      }
+      if ( $scope.multiple ) {
+        classNames.push('multiple');
+      }
+
+      $scope.className = classNames.join(' ');
+
       $scope.shouldHide = function(objects, options) {
 
         // always show for single rows or non-grouped entities
