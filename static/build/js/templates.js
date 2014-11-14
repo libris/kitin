@@ -60,7 +60,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('/snippets/hitlist-compact-auth',
-    "<div class=\"hitlist-item auth compact\">\n" +
+    "<div class=\"hitlist-row auth compact\">\n" +
     "  <div class=\"icon\">\n" +
     "    <i class=\"fa {{utils.getIconByType(record, recType)}}\"></i>\n" +
     "  </div>\n" +
@@ -75,21 +75,40 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('/snippets/hitlist-compact-bib',
-    "<div class=\"hitlist-item bib compact\">\n" +
+    "<!-- Do we need a recurring header? Fields are pretty self-explanatory -->\n" +
+    "<!-- Might be a good place to put tooltips showing what fields are made up of, though -->\n" +
+    "<!-- <div class=\"hitlist-row header bib compact\" data-ng-if=\"$first||$index % 20 === 0\">\n" +
     "  <div class=\"title\">\n" +
-    "    <a href=\"/edit/libris{{record.identifier || record.data['@id']}}\">{{ utils.composeTitle(record) | chop:80 }}</a>\n" +
+    "    Titel\n" +
+    "  </div>\n" +
+    "  <div class=\"creator\">\n" +
+    "    Upphovsm.\n" +
+    "  </div>\n" +
+    "  <div class=\"publication\">\n" +
+    "    Publ.\n" +
+    "  </div>\n" +
+    "  <div class=\"identifier-code\">\n" +
+    "    Id\n" +
+    "  </div>\n" +
+    "</div> -->\n" +
+    "\n" +
+    "<div class=\"hitlist-row bib compact\">\n" +
+    "  <div class=\"title\">\n" +
+    "    <a href=\"/edit/libris{{record.identifier || record.data['@id']}}\">{{ utils.composeTitle(record) | chop:80}}</a>\n" +
     "  </div>\n" +
     "  <div class=\"creator\">\n" +
     "    {{ utils.composeCreator(record) | chop:40 }}\n" +
     "  </div>\n" +
     "  <div class=\"publication\">\n" +
-    "    <span title=\"Utgivningsår\" data-ng-repeat=\"publication in record.data.about.publication | limitTo:1\">\n" +
+    "    <span data-ng-repeat=\"publication in record.data.about.publication | limitTo:1\">\n" +
     "      {{ publication.providerDate }}\n" +
     "    </span>\n" +
     "  </div>\n" +
-    "  <div class=\"identifier-code\" data-ng-repeat=\"identifier in record.data.about.identifier | limitTo:1\">{{ identifier.identifierValue }}\n" +
+    "  <div class=\"identifier-code\">\n" +
+    "    <span data-ng-repeat=\"identifier in record.data.about.identifier | limitTo:1\">\n" +
+    "      {{ identifier.identifierValue }}\n" +
+    "    </span>\n" +
     "  </div>\n" +
-    "\n" +
     "</div>"
   );
 
@@ -917,11 +936,11 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('/snippets/searchfield',
-    "<div class=\"nav-back\" ng-show=\"state.search.q\">\n" +
-    "  <a data-nav-back><i class=\"fa fa-arrow-circle-left\"></i> Tillbaka till träfflistan</a>\n" +
-    "</div>\n" +
-    "\n" +
     "<div data-ng-controller=\"SearchFormCtrl\">\n" +
+    "  <div class=\"nav-back\" data-ng-show=\"state.search.q\">\n" +
+    "    <a href=\"#\" data-ng-click=\"search()\"<i class=\"fa fa-arrow-circle-left\"></i> <span translate>LABEL.gui.search.RETURN_TO_HITLIST</span></a>\n" +
+    "  </div>\n" +
+    "  \n" +
     "  <div class=\"searchfield\">\n" +
     "    <form data-ng-submit=\"state.search.q ? search() : false\" method=\"GET\" name=\"search_form\">\n" +
     "      <input id=\"search\" name=\"q\" type=\"text\" autofocus\n" +
