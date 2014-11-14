@@ -71,7 +71,8 @@
         <kitin-title title="'LABEL.record.about.hasFormatByType.materialsSpecified'"></kitin-title>
         <kitin-textarea model="item.materialsSpecified"></kitin-textarea>
         
-        <!-- item.device, mapped but not used -->
+        <!-- item.device, mapped but not used in any record-->
+
     </kitin-table>
   </span>
 
@@ -80,7 +81,7 @@
       <kitin-td>
         <kitin-title title="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-title>
         <kitin-entity model="item" link="'carrierType'" multiple>
-          <kitin-select filter="about.inCollection.@id:/def/enum/content/contentType-collection"></kitin-select>
+          <kitin-select filter="about.inCollection.@id:/def/enum/carrier/carrierType-collection"></kitin-select>
         </kitin-entity>
         
         <kitin-title title="'LABEL.record.about.hasFormatByType.color'"></kitin-title>
@@ -98,7 +99,7 @@
           <kitin-select filter="about.inCollection.@id:/def/enum/carrier/sound-collection"></kitin-select>
         </kitin-entity>
 
-        <!--  item.imageBitDepth, mapped but not used  -->
+        <!--  item.imageBitDepth, mapped but not used in any record  -->
 
         <kitin-title title="'LABEL.record.about.hasFormatByType.fileFormats'"></kitin-title>
         <kitin-entity model="item" link="'fileFormats'">
@@ -125,27 +126,78 @@
           <kitin-select filter="about.inCollection.@id:/def/enum/carrier/reformattingQuality-collection"></kitin-select>
         </kitin-entity>
 
-        <!-- item.fileAspect, mapped but not used -->
+        <!-- item.fileAspect, mapped but not used in any record -->
 
       </kitin-td>
     </kitin-table>
   </span>
 
   <span ng-switch-when="Map">
-    <kitin-table model="record.about.hasFormatByType['Map']"
-                 titles="['LABEL.carrierType', 'LABEL.color', 'LABEL.medium']">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.carrierType"/></kitin-td>
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.color"/></kitin-td>
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.medium"/></kitin-td>
+    <kitin-table model="record.about.hasFormatByType['Map']">
+      <kitin-td>
+        <kitin-title title="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-title>
+        <kitin-entity model="item" link="'carrierType'" multiple>
+          <kitin-select filter="about.inCollection.@id:/def/enum/carrier/carrierType-collection"></kitin-select>
+        </kitin-entity>
+
+        <kitin-title title="'LABEL.record.about.hasFormatByType.color'"></kitin-title>
+        <kitin-entity model="item" link="'color'" multiple>
+          <kitin-select filter="about.inCollection.@id:/def/enum/carrier/color-collection"></kitin-select>
+        </kitin-entity>
+
+        <kitin-title title="'LABEL.record.about.hasFormatByType.medium'"></kitin-title>
+        <kitin-entity model="item" link="'medium'" multiple>
+          <kitin-select filter="about.inCollection.@id:/def/enum/carrier/medium-collection"></kitin-select>
+        </kitin-entity>
+
+        <kitin-title title="'LABEL.record.about.hasFormatByType.reproduction'"></kitin-title>
+        <kitin-entity model="item" link="'reproduction'" multiple>
+          <kitin-select filter="about.inCollection.@id:/def/enum/carrier/reproduction-collection"></kitin-select>
+        </kitin-entity>
+
+        <kitin-title title="'LABEL.record.about.hasFormatByType.detail'"></kitin-title>
+        <kitin-entity model="item" link="'detail'" multiple>
+          <kitin-select filter="about.inCollection.@id:/def/enum/carrier/detail-collection"></kitin-select>
+        </kitin-entity>
+
+        <kitin-title title="'LABEL.record.about.hasFormatByType.posNeg'"></kitin-title>
+        <kitin-entity model="item" link="'detail'" multiple>
+          <kitin-select filter="about.inCollection.@id:/def/enum/carrier/posNeg-collection"></kitin-select>
+        </kitin-entity>
+
+        <!-- item.aspect, mapped but not used in any record -->
+
+      </kitin-td>
     </kitin-table>
   </span>  
 
   <span ng-switch-when="StillImage">
-    <kitin-table model="record.about.hasFormatByType['StillImage']"
-                 titles="['LABEL.carrierType', 'LABEL.nonProjColor', 'LABEL.nonProjPrimary']">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.carrierType"/></kitin-td>
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.nonProjColor"/></kitin-td>
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.nonProjPrimary"/></kitin-td>
+    <kitin-table model="record.about.hasFormatByType['StillImage']">
+      <kitin-td>      
+        
+        <kitin-title title="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-title>
+        <kitin-entity model="item" link="'carrierType'" multiple>
+          <kitin-select filter="about.inCollection.@id:/def/enum/carrier/carrierType-collection"></kitin-select>
+        </kitin-entity>
+
+        <kitin-title title="'LABEL.record.about.hasFormatByType.nonProjColor'"></kitin-title>
+        <kitin-entity model="item" link="'nonProjColor'" multiple>
+          <kitin-select filter="about.inCollection.@id:/def/enum/carrier/nonProjColor-collection"></kitin-select>
+        </kitin-entity>
+
+        <kitin-title title="'LABEL.record.about.hasFormatByType.nonProjPrimary'"></kitin-title>
+        <kitin-entity model="item" link="'nonProjPrimary'" multiple>
+          <kitin-select filter="about.inCollection.@id:/def/enum/carrier/nonProjPrimary-collection"></kitin-select>
+        </kitin-entity>
+
+        <kitin-title title="'LABEL.record.about.hasFormatByType.nonProjSecondary'"></kitin-title>
+        <kitin-entity model="item" link="'nonProjSecondary'" multiple>
+          <kitin-select filter="about.inCollection.@id:/def/enum/carrier/nonProjSecondary-collection"></kitin-select>
+        </kitin-entity>
+
+        <!-- item.nonProjAspect, mapped but not used in any record -->
+
+      </kitin-td>
     </kitin-table>
   </span>  
 
