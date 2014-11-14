@@ -210,7 +210,7 @@
                 }
             },
             "search": {
-
+              "RETURN_TO_HITLIST": "Tillbaka till träfflistan"
             },
             "edit": {
             		"DATE_CREATED": "Skapad",
