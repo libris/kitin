@@ -4,15 +4,30 @@ kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, $ro
   $scope.setSearchType = function (key) {
     $rootScope.state.searchType = searchService.searchTypeIndex[key];
   };
-  
-  $scope.search = function() {
+
+  $scope.search = function(searchParams) {
     var selectRemoteDatabases = '';
     if($rootScope.state.searchType.key === searchService.searchTypeIndex.remote.key) {
       selectRemoteDatabases = searchUtil.parseSelected($rootScope.state.remoteDatabases);
       selectRemoteDatabases = selectRemoteDatabases.length > 0 ? '&database=' + selectRemoteDatabases : '';
     }
-    
-    $location.url("/search/" + $rootScope.state.searchType.key + "?q="+encodeURIComponent($rootScope.state.search.q) + selectRemoteDatabases);
+    var searchParamString = '';
+    if (searchParams) {
+      searchParams = $rootScope.state.getSearchParams();
+      if (searchParams.f) {
+        searchParamString += '&f=' + searchParams.f;
+      }
+      if (searchParams.start) {
+        searchParamString += '&start=' + searchParams.start;
+      }
+      if (searchParams.n) {
+        searchParamString += '&n=' + searchParams.n;
+      }
+      if (searchParams.sort) {
+        searchParamString += '&sort=' + searchParams.sort;
+      }
+    }
+    $location.url("/search/" + $rootScope.state.searchType.key + "?q="+encodeURIComponent($rootScope.state.search.q) + selectRemoteDatabases + searchParamString);
   };
   $scope.$on('$routeChangeSuccess', function () {
     $scope.setSearchType($routeParams.recType || "bib");
@@ -40,4 +55,5 @@ kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, $ro
     }
     
   });
+
 });

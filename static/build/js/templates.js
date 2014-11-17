@@ -936,9 +936,11 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('/snippets/searchfield',
+    "\n" +
     "<div data-ng-controller=\"SearchFormCtrl\">\n" +
+    "\n" +
     "  <div class=\"nav-back\" data-ng-show=\"state.search.q\">\n" +
-    "    <a href=\"#\" data-ng-click=\"search()\"<i class=\"fa fa-arrow-circle-left\"></i> <span translate>LABEL.gui.search.RETURN_TO_HITLIST</span></a>\n" +
+    "    <a href=\"#\" data-ng-click=\"search(true)\"><i class=\"fa fa-arrow-circle-left\"></i> <span translate>LABEL.gui.search.RETURN_TO_HITLIST</span></a>\n" +
     "  </div>\n" +
     "  \n" +
     "  <div class=\"searchfield\">\n" +
