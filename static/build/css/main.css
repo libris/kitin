@@ -2428,7 +2428,7 @@ label.find-entity input[type="text"] {
 }
 .entity.rich .inner .main .label {
   border: none;
-  padding: 4px 0;
+  padding: 4px 0 0;
 }
 .entity.rich .inner .notes {
   margin-top: 2px;

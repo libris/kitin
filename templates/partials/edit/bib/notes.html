@@ -14,8 +14,6 @@
       <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
     </kitin-table>
 
-    <kitin-textrow model="record.about.contributorNote"></kitin-textrow>
-
     <kitin-textrow model="record.about.note"></kitin-textrow>
 
     <kitin-table model="record.about.systemRequirements">
@@ -26,17 +24,10 @@
       <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
     </kitin-table>
 
-
-    <!-- TODO! Changes this into a linked entity -->
-    <div class="label" data-ng-repeat="topic in record.about.isPrimaryTopicOf">
-        <span class="lbl" translate>{{ "isPrimaryTopicOf type: " + topic['@type'] }}</span>
-      <textarea data-track-change data-ui-jq="autosize" data-ng-model="topic['@id']" ></textarea>
-    </div>
-    <div class="label" data-ng-repeat="topic in record.about.isPrimaryTopicOf">
-        <span class="lbl" translate>LABEL.record.about.isPrimaryTopicOf</span>
-      <textarea data-track-change data-ui-jq="autosize" data-ng-model="topic.comment" ></textarea>
-    </div>
-
+    <kitin-entityrow model="record.about.isPrimaryTopicOf" multiple rich view="/snippets/render-relation-referenced-entity">
+      <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
+    </kitin-entityrow>
+    
     <kitin-entityrow model="record.about.audience">
       <kitin-select filter="about.inCollection.@id:/def/enum/content/audience-collection"></kitin-select>
     </kitin-entityrow>

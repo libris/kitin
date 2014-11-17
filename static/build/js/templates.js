@@ -610,7 +610,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "      </div>\n" +
     "      <div class=\"label\">\n" +
     "        <span class=\"lbl\">{{ \"Död\" }}</span>\n" +
-    "        <input data-track-change class=\"authdependant\" type=\"text\" placeholder=.\"ÅÅÅÅ\" \n" +
+    "        <input data-track-change class=\"authdependant\" type=\"text\" placeholder=\"ÅÅÅÅ\" \n" +
     "               data-ng-model=\"object.deathYear\" />\n" +
     "      </div>\n" +
     "    </div>\n" +

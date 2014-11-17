@@ -536,15 +536,44 @@
     <kitin-textrow model="record.about.cartographicScale"></kitin-textrow>
     <kitin-textrow model="record.about.cartographicCoordinates"></kitin-textrow>
 
-    <kitin-table model="record.about.cartographicAscensionAndDeclination"
-                 titles="['LABEL.record.about.cartographicScale', 'LABEL.record.about.constantRatioLinearHorizontalScale', 'LABEL.record.about.westernmostLongitudeCoordinates', 'LABEL.record.about.easternmostLongitudeCoordinates', 'LABEL.record.about.northernmostLatitudeCoordinates', 'LABEL.record.about.southernmostLatitudeCoordinates']">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.cartographicScale"/></kitin-td>
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.constantRatioLinearHorizontalScale"/></kitin-td>
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.westernmostLongitudeCoordinates"/></kitin-td>
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.easternmostLongitudeCoordinates"/></kitin-td>
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.northernmostLatitudeCoordinates"/></kitin-td>
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.southernmostLatitudeCoordinates"/></kitin-td>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.source"></kitin-textrow>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.scopeNote"></kitin-textrow>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.cartographicScale"></kitin-textrow>
+    <kitin-table model="record.about.cartographicAscensionAndDeclination.cartographicAscensionAndDeclination">
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
     </kitin-table>
+    <kitin-table model="record.about.cartographicAscensionAndDeclination.constantRatioLinearHorizontalScale">
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
+    </kitin-table>
+    <kitin-table model="record.about.cartographicAscensionAndDeclination.constantRatioLinearVerticalScale">
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
+    </kitin-table>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.westernmostLongitudeCoordinates"></kitin-textrow>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.easternmostLongitudeCoordinates"></kitin-textrow>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.northernmostLatitudeCoordinates"></kitin-textrow>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.southernmostLatitudeCoordinates"></kitin-textrow>
+    <kitin-table model="record.about.cartographicAscensionAndDeclination.angularScale">
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
+    </kitin-table>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.declinationNorthernLimit"></kitin-textrow>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.declinationSouthernLimit"></kitin-textrow>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.rightAscensionEasternLimit"></kitin-textrow>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.rightAscensionWesternLimit"></kitin-textrow>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.cartographicEquinox"></kitin-textrow>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.distanceFromEarth"></kitin-textrow>
+    <kitin-table model="record.about.cartographicAscensionAndDeclination.gRingLatitude">
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
+    </kitin-table>
+    <kitin-table model="record.about.cartographicAscensionAndDeclination.gRingLongitude">
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
+    </kitin-table>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.startDate"></kitin-textrow>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.endDate"></kitin-textrow>
+    <kitin-table model="record.about.cartographicAscensionAndDeclination.extraterrestrialBody">
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
+    </kitin-table>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.extraterrestrialBody"></kitin-textrow>linked?
+
   </kitin-group>
 </div>
 
