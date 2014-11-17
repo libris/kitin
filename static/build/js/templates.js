@@ -560,15 +560,15 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('/snippets/render-person-name',
-    "<span data-ng-if=\"person.givenName || person.familyName\" class=\"name\">\n" +
+    "<strong data-ng-if=\"person.givenName || person.familyName\" class=\"name\">\n" +
     "  {{ person.givenName }} {{ person.familyName }}\n" +
-    "</span>\n" +
-    "<span data-ng-if=\"person.name\" class=\"name\">\n" +
+    "</strong>\n" +
+    "<strong data-ng-if=\"person.name\" class=\"name\">\n" +
     "  {{ person.name }}\n" +
-    "</span>\n" +
-    "<span data-ng-if=\"person.personTitle\">\n" +
-    "  ( <span ng-repeat=\"personTitle in person.personTitle\">{{ personTitle }} </span>)\n" +
-    "</span>\n" +
+    "</strong>\n" +
+    "<em data-ng-if=\"person.personTitle\">\n" +
+    "  (<span ng-repeat=\"personTitle in person.personTitle\">{{ personTitle }} </span>)\n" +
+    "</em>\n" +
     "<span data-ng-if=\"person.birthYear || person.deathYear\">\n" +
     "  <span class=\"timeSpan\">{{ person.birthYear }}-{{ person.deathYear }}</span>\n" +
     "</span>"
@@ -576,53 +576,47 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('/snippets/render-person',
-    "<div data-ng-if=\"isLinked(object) && !isEmpty(object)\" class=\"entity person linked\">\n" +
-    "  <div class=\"main\">\n" +
+    "<div class=\"person main\">\n" +
+    "  <div data-ng-if=\"isLinked(object) && !isEmpty(object)\" >\n" +
     "    <span onload=\"person = object\" data-ng-include=\"'/snippets/render-person-name'\"></span>\n" +
     "    <a data-ng-if=\"isLinked(object)\" class=\"btn-link auth\" data-ng-controller=\"ModalCtrl\" data-ng-click=\"openAuthModal(person['@id'])\">\n" +
     "      <i class=\"fa fa-bookmark\"></i> Aukt.\n" +
     "    </a>\n" +
     "  </div>\n" +
-    "  <div ng-include=\"'/snippets/roles'\"></div>\n" +
-    "  <kitin-entity multiple model=\"record.about._reifiedRoles\" type=\"ObjectProperty\" view=\"/snippets/render-role\">\n" +
-    "    <kitin-search service-url=\"/relator/_search\" template-id=\"select-role-template\"></kitin-search>\n" +
-    "  </kitin-entity>\n" +
-    "</div>\n" +
-    "<div data-ng-if=\"!isLinked(object)\" class=\"entity person embedded\"\n" +
-    "      data-ng-init=\"editable = {on: !(object.controlledLabel || object.givenName || object.name)}\">\n" +
-    "  <div data-ng-hide=\"editable.on\">\n" +
-    "      <div class=\"label\" >\n" +
+    "  <div data-ng-if=\"!isLinked(object)\"\n" +
+    "        data-ng-init=\"editable = {on: !(object.controlledLabel || object.givenName || object.name)}\">\n" +
+    "    <div data-ng-hide=\"editable.on\">\n" +
     "        <span onload=\"person = object\" data-ng-include=\"'/snippets/render-person-name'\"></span><a class=\"auth\" href=\"#\" data-ng-click=\"editable.on = !editable.on\">Ändra</a>\n" +
+    "    </div>\n" +
+    "    <div data-ng-show=\"editable.on\">\n" +
+    "      <a class=\"delete\" href=\"#\" data-ng-click=\"doRemove($index)\"><i class=\"fa fa-times\"></i></a>\n" +
+    "      <div class=\"label\">\n" +
+    "        <span class=\"lbl\">{{ \"Förnamn\" }}</span>\n" +
+    "        <input data-track-change class=\"\" type=\"text\" placeholder=\"Förnamn\"\n" +
+    "               data-ng-model=\"object.givenName\" />\n" +
     "      </div>\n" +
-    "  </div>\n" +
-    "  <div data-ng-show=\"editable.on\">\n" +
-    "    <a class=\"delete\" href=\"#\" data-ng-click=\"doRemove($index)\"><i class=\"fa fa-times\"></i></a>\n" +
-    "    <div class=\"label\">\n" +
-    "      <span class=\"lbl\">{{ \"Förnamn\" }}</span>\n" +
-    "      <input data-track-change class=\"\" type=\"text\" placeholder=\"Förnamn\"\n" +
-    "             data-ng-model=\"object.givenName\" />\n" +
+    "      <div class=\"label\">\n" +
+    "        <span class=\"lbl\">{{ \"Släktnamn\" }}</span>\n" +
+    "        <input data-track-change class=\"\" type=\"text\" placeholder=\"Släktnamn\"\n" +
+    "               data-ng-model=\"object.familyName\" />\n" +
+    "      </div>\n" +
     "    </div>\n" +
-    "    <div class=\"label\">\n" +
-    "      <span class=\"lbl\">{{ \"Släktnamn\" }}</span>\n" +
-    "      <input data-track-change class=\"\" type=\"text\" placeholder=\"Släktnamn\"\n" +
-    "             data-ng-model=\"object.familyName\" />\n" +
-    "    </div>\n" +
-    "  </div>\n" +
-    "  <div data-ng-show=\"editable.on\">\n" +
-    "    <div class=\"label\">\n" +
-    "      <span class=\"lbl\">{{ \"Född\" }}</span>\n" +
-    "      <input data-track-change class=\"authdependant\" type=\"text\" placeholder=\"ÅÅÅÅ\"\n" +
-    "             data-ng-model=\"object.birthYear\" />\n" +
+    "    <div data-ng-show=\"editable.on\">\n" +
+    "      <div class=\"label\">\n" +
+    "        <span class=\"lbl\">{{ \"Född\" }}</span>\n" +
+    "        <input data-track-change class=\"authdependant\" type=\"text\" placeholder=\"ÅÅÅÅ\"\n" +
+    "               data-ng-model=\"object.birthYear\" />\n" +
     "\n" +
-    "    </div>\n" +
-    "    <div class=\"label\">\n" +
-    "      <span class=\"lbl\">{{ \"Död\" }}</span>\n" +
-    "      <input data-track-change class=\"authdependant\" type=\"text\" placeholder=.\"ÅÅÅÅ\" \n" +
-    "             data-ng-model=\"object.deathYear\" />\n" +
+    "      </div>\n" +
+    "      <div class=\"label\">\n" +
+    "        <span class=\"lbl\">{{ \"Död\" }}</span>\n" +
+    "        <input data-track-change class=\"authdependant\" type=\"text\" placeholder=.\"ÅÅÅÅ\" \n" +
+    "               data-ng-model=\"object.deathYear\" />\n" +
+    "      </div>\n" +
     "    </div>\n" +
     "  </div>\n" +
-    "  <kitin-entity multiple model=\"record.about._reifiedRoles\" type=\"ObjectProperty\" view=\"/snippets/render-role\">\n" +
-    "    <kitin-search service-url=\"/auth/_search\" filter=\"about.@type:ObjectProperty\" template-id=\"render-search-role\"></kitin-search>\n" +
+    "  <kitin-entityrow multiple hide-title model=\"record.about._reifiedRoles\" type=\"ObjectProperty\" view=\"/snippets/render-role\">\n" +
+    "    <kitin-search service-url=\"/relator/_search\" filter=\"about.@type:ObjectProperty\" template-id=\"select-role-template\" placeholder=\"Lägg till roll\"></kitin-search>\n" +
     "  </kitin-entity>\n" +
     "</div>"
   );
@@ -663,8 +657,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('/snippets/render-role',
-    "{{ object.label }} <em>({{ object.notation }})</em>\n" +
-    "<a href=\"#\" data-ng-click=\"doRemove($index)\"><i class=\"no\">&times;</i></a>"
+    "{{ object.label }} <em>({{ object.notation }})</em>"
   );
 
 

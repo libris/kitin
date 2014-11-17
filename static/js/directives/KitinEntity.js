@@ -16,13 +16,26 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
     scope: true,
     replace: true,
     transclude: true,
-    template:   '<span>' +
+    require: ['?^^kitinEntityrow', '?^^kitinGroup'],
+    link: function(scope, element, attrs, parents) {
+      // pass initial objects to parent
+      if ( parents && parents.length ) {
+        scope.$watch(scope.objects, function(a, b, ns) {
+          parents.forEach(function(parent) {
+            if ( parent && parent.passObjects ) {
+              parent.passObjects(ns.objects);
+            }
+          });
+        });
+      }
+    },
+    template:   '<div>' +
                   '<div ng-if="objects" ng-repeat="object in objects track by $index" class="entity-content">' +
                     '<span class="inner" ng-include="viewTemplate"></span>' +
                     '<span class="controls"><a class="delete" data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a></span>' +
                   '</div>' +
                   '<span ng-transclude></span>' +
-                '</span>',
+                '</div>',
 
     controller: function($element, $scope, $attrs) {
       if($attrs.inKitinEntityRow) {
@@ -89,7 +102,7 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
         } else {
           $scope.objects = [added];
         }
- 
+        $scope.$emit('entity', $scope.objects);
         $scope.viewmode = true;
       };
 
@@ -106,7 +119,7 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
         if (typeof subj.onRemove === 'function') {
           subj.onRemove($scope.link, removed, index);
         }
-        $scope.$emit('changed', ['Removed linked entity']);
+        $scope.$emit('entity', $scope.objects);
       };
 
     }
