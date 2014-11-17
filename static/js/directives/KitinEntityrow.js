@@ -13,7 +13,7 @@ kitin.directive('kitinEntityrow', function(editService, $rootScope) {
 
   return {
     restrict: 'E',
-    scope: false,
+    scope: true,
     require: '?^^kitinGroup',
     replace: true,
     transclude: true,
@@ -21,8 +21,8 @@ kitin.directive('kitinEntityrow', function(editService, $rootScope) {
       scope.options = kitinGroupCtrl ? kitinGroupCtrl.options : null;
     },
 
-    template: '<div class="{{className}}" ng-hide="shouldHide(objects, options)">' + 
-                '<kitin-title title="title"></kitin-title>' +
+    template: '<div class="{{className}}" ng-hide="shouldHide(options, objects)">' + 
+                '<kitin-title title="title" ng-if="title"></kitin-title>' +
                 '<div class="inp">' +
                   '<kitin-entity in-kitin-entity-row="true">' +
                     '<span ng-transclude></span>' +
@@ -32,20 +32,45 @@ kitin.directive('kitinEntityrow', function(editService, $rootScope) {
 
     controller: function($element, $scope, $attrs) {
       // Set non two way bound parameters
-      if(!$attrs.hasOwnProperty('hideTitle')) {
-        $scope.title = 'LABEL.' + $attrs.model;
-      }
+      $scope.title = !$attrs.hasOwnProperty('hideTitle') ? 'LABEL.' + $attrs.model : false;
 
       // Since we want scope to be inherit from parent, to do lookups for controller scope variables like record.
       // The only solution found where to set a in-kitin-entity-row parameter and pass attributes through the shared scope.
-      $scope.attributes = {};
-      angular.extend($scope.attributes, $attrs);
-      $scope.attributes.multiple = $attrs.hasOwnProperty('multiple');
+      $scope.attributes = angular.extend({}, {
+        model: $attrs.model,
+        multiple: $attrs.hasOwnProperty('multiple'),
+        rich: $attrs.hasOwnProperty('rich'),
+        view: $attrs.view
+      });
 
       var hasValue = false;
       var savedOptionsHidden;
 
-      $scope.shouldHide = function(objects, options) {
+      var classNames = ['label entity'];
+      if ( $attrs.hasOwnProperty('rich') ) {
+        classNames.push('rich');
+      } else {
+        classNames.push('tags');
+      }
+      if ( $scope.multiple ) {
+        classNames.push('multiple');
+      }
+
+      $scope.className = classNames.join(' ');
+
+      var childObjects = null;
+
+      // listen for objects and changes
+      this.passObjects = function(response) {
+        childObjects = response;
+        $scope.shouldHide($scope.options, response);
+      };
+
+      $scope.$on('entity', function(e, response) {
+        this.passObjects(response);
+      }.bind(this));
+
+      $scope.shouldHide = function(options, objects) {
 
         // always show for single rows or non-grouped entities
         if ( !options || options.single ) {
@@ -58,6 +83,8 @@ kitin.directive('kitinEntityrow', function(editService, $rootScope) {
         }
         
         savedOptionsHidden = options.hidden;
+
+        objects = objects || childObjects || null;
 
         // never hide a field that has value, and save hasValue
         if ( objects && objects.length ) {

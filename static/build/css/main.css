@@ -2415,16 +2415,20 @@ label.find-entity input[type="text"] {
 .entity.rich .entity-content {
   position: relative;
   margin-bottom: 6px;
+  padding: 4px 8px;
+  border-radius: 2px;
+  border: 1px dashed #c7c7c3;
 }
 .entity.rich .inner {
   display: block;
   font-size: 13px;
-  border: 1px solid #c7c7c3;
-  border-radius: 2px;
-  padding: 4px 6px 6px;
 }
 .entity.rich .inner .main .title {
   font-weight: bold;
+}
+.entity.rich .inner .main .label {
+  border: none;
+  padding: 4px 0;
 }
 .entity.rich .inner .notes {
   margin-top: 2px;
@@ -2453,19 +2457,29 @@ label.find-entity input[type="text"] {
   display: inline-block;
 }
 .entity.tags .entity-content {
+  position: relative;
+  top: 1px;
   display: inline-block;
   background: #d8eee9;
   border-radius: 3px;
-  font-size: 12px;
+  border-color: #d8eee9;
   padding: 2px 20px 3px 8px;
   margin: 0 3px 3px 0;
-  position: relative;
 }
 .entity.tags .entity-content .inner {
-  position: relative;
-  top: 1px;
+  display: inline-block;
+  font-size: 12px;
+  border: none;
+  padding: 0;
+  position: static;
 }
-.entity.tags .entity-content a.delete {
+.entity.tags .entity-content .controls {
+  position: static;
+  width: auto;
+  top: auto;
+  left: auto;
+}
+.entity.tags .entity-content .controls a.delete {
   width: 14px;
   height: 14px;
   line-height: 14px;
@@ -2474,17 +2488,17 @@ label.find-entity input[type="text"] {
   color: #0e4e3e;
   position: absolute;
   top: 2px;
-  right: 1px;
+  right: 3px;
   text-decoration: none;
   opacity: .5;
 }
-.entity.tags .entity-content a.delete i {
+.entity.tags .entity-content .controls a.delete i {
   display: none;
 }
-.entity.tags .entity-content a.delete:before {
+.entity.tags .entity-content .controls a.delete:before {
   content: '\00d7';
 }
-.entity.tags .entity-content a.delete:hover {
+.entity.tags .entity-content .controls a.delete:hover {
   color: #000000;
   opacity: 1;
 }

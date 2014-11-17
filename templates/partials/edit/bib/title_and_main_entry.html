@@ -121,7 +121,7 @@
       <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
     </kitin-table>
 
-    <kitin-entityrow model="record.about.alphabet" multiple rich>
+    <kitin-entityrow model="record.about.alphabet" multiple>
       <kitin-search service-url="/def/_search" make-reference template-id="bib-completion-template" filter="about.inCollection.@id:/def/enum/content/alphabet-collection"></kitin-search>
     </kitin-entityrow>
 
@@ -150,38 +150,13 @@
                     filter="['about.@type:Person','about.@type:Meeting','about.@type:Organization']">
       </kitin-search>
     </kitin-entityrow>
+    <kitin-entityrow model="record.about.influencedBy" rich type="Person" view="/snippets/render-person">
+      <kitin-search service-url="/auth/_search" 
+                    template-id="auth-completion-template" 
+                    filter="['about.@type:Person','about.@type:Meeting','about.@type:Organization']">
+      </kitin-search>
+    </kitin-entityrow>
   </kitin-group>
-  <div class="group">
-    <div class="label group-title">
-      <div class="lbl">Uppslag</div>
-    </div>
-    <div class="label">
-      <div class="lbl" translate>LABEL.record.about.attributedTo</div>
-      <div class="inp">
-        <div data-kitin-link-entity
-            data-track-change
-            data-ng-init="label = 'huvuduppslag'"
-            data-subject="record.about" data-link="'attributedTo'" data-type="Person"
-            data-view-template="/snippets/render-person"
-            data-search-template="/snippets/render-search-box"
-            data-rich-entity>
-        </div>
-      </div>
-    </div>
-    <div class="label">
-      <div class="lbl" translate>LABEL.record.about.influencedBy</div>
-      <div class="inp">
-        <div data-kitin-link-entity
-            data-track-change
-            data-ng-init="label = 'biuppslag'"
-            data-subject="record.about" data-link-multiple="'influencedBy'" data-type="Person"
-            data-view-template="/snippets/render-person"
-            data-search-template="/snippets/render-search-box"
-            data-rich-entity>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 
 <div class="element-adder" data-element-adder="title_and_main_entry"></div>

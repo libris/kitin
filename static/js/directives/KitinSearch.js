@@ -7,6 +7,7 @@ Params:
   make-reference: (bool) decorate reference data
   template-id: (str) jquery template id
   filter: (str) filters for search result
+  placeholder: (str) override default "Lägg till" placeholder
 
 */
 
@@ -56,10 +57,12 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope, $q
     restrict: 'E',
     require: '?^^kitinEntity',
     replace: true,
-    template: '<span class="search"><i class="fa fa-search"></i><input type="text" placeholder="Lägg till" /></span>',
+    template: '<span class="search"><i class="fa fa-search"></i><input type="text" placeholder="{{placeholder}}" /></span>',
     link: function(scope, elem, attrs, kitinLinkEntity) {
 
       elem = elem.is('input') ? elem : elem.find('input');
+
+      scope.placeholder = attrs.hasOwnProperty('placeholder') ? attrs.placeholder : 'Lägg till';
 
       var linker = kitinLinkEntity;
 
