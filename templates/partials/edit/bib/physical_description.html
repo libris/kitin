@@ -2,46 +2,6 @@
 <h2>Fysisk beskrivning<i></i></h2>
 <div class="form-container">
 
-  <kitin-group title="Example Of Work title">
-    <kitin-textrow model="record.about.exampleOfWork.title"></kitin-textrow>
-    <kitin-textrow model="record.about.exampleOfWork.date"></kitin-textrow>
-    <kitin-textrow model="record.about.exampleOfWork.version"></kitin-textrow>
-    <kitin-textrow model="record.about.exampleOfWork.comment"></kitin-textrow>
-    <kitin-textrow model="record.about.exampleOfWork.medium"></kitin-textrow>
-    <kitin-textrow model="record.about.exampleOfWork.musicArrangement"></kitin-textrow>
-    <kitin-textrow model="record.about.exampleOfWork.musicKey"></kitin-textrow>
-
-    <kitin-entityrow model="record.about.exampleOfWork.describedBy" multiple rich view="/snippets/render-relation-referenced-entity">
-      <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
-    </kitin-entityrow>
-
-    <kitin-entityrow model="record.about.exampleOfWork.language" multiple rich view="/snippets/render-language">
-      <kitin-search service-url="/def/_search" template-id="select-language-template" filter="about.@type:Language">
-      </kitin-search>
-    </kitin-entityrow>
-
-    <kitin-table model="record.about.exampleOfWork.subtitle">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
-    </kitin-table>
-
-    <kitin-table model="record.about.exampleOfWork.partTitle">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
-    </kitin-table>
-
-    <kitin-table model="record.about.exampleOfWork.partNumber">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
-    </kitin-table>
-
-    <kitin-table model="record.about.exampleOfWork.treatySigningDate">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
-    </kitin-table>
-
-    <kitin-table model="record.about.exampleOfWork.musicPerformanceMedium">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
-    </kitin-table>
-
-  </kitin-group>
-
   <kitin-group>
     <kitin-entityrow model="record.about.additionalCarrierType" multiple>
       <kitin-select filter="about.inCollection.@id:/def/enum/content/additionalCarrierType-collection"></kitin-select>

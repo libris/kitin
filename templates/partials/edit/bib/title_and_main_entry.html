@@ -68,6 +68,70 @@
   </kitin-group>
 
   <kitin-group single>
+    <!-- PERSONS  START -->
+    <div class="label">
+      <span class="lbl" translate>LABEL.record.about.responsibilityStatement</span>
+      <textarea spellcheck="false"
+          data-track-change data-ui-jq="autosize"
+          data-ng-model="record.about.responsibilityStatement"></textarea>
+    </div>
+  </kitin-group>
+  <kitin-group title="Uppslag">
+    <kitin-entityrow model="record.about.attributedTo" rich type="Person" view="/snippets/render-person">
+      <kitin-search service-url="/auth/_search" 
+                    template-id="auth-completion-template" 
+                    filter="['about.@type:Person','about.@type:Meeting','about.@type:Organization']">
+      </kitin-search>
+    </kitin-entityrow>
+    <kitin-entityrow model="record.about.influencedBy" rich type="Person" view="/snippets/render-person">
+      <kitin-search service-url="/auth/_search" 
+                    template-id="auth-completion-template" 
+                    filter="['about.@type:Person','about.@type:Meeting','about.@type:Organization']">
+      </kitin-search>
+    </kitin-entityrow>
+  </kitin-group>
+
+  <kitin-group title="Example Of Work title">
+    <kitin-textrow model="record.about.exampleOfWork.title"></kitin-textrow>
+    <kitin-textrow model="record.about.exampleOfWork.date"></kitin-textrow>
+    <kitin-textrow model="record.about.exampleOfWork.version"></kitin-textrow>
+    <kitin-textrow model="record.about.exampleOfWork.comment"></kitin-textrow>
+    <kitin-textrow model="record.about.exampleOfWork.medium"></kitin-textrow>
+    <kitin-textrow model="record.about.exampleOfWork.musicArrangement"></kitin-textrow>
+    <kitin-textrow model="record.about.exampleOfWork.musicKey"></kitin-textrow>
+
+    <kitin-entityrow model="record.about.exampleOfWork.describedBy" multiple rich view="/snippets/render-relation-referenced-entity">
+      <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
+    </kitin-entityrow>
+
+    <kitin-entityrow model="record.about.exampleOfWork.language" multiple rich view="/snippets/render-language">
+      <kitin-search service-url="/def/_search" template-id="select-language-template" filter="about.@type:Language">
+      </kitin-search>
+    </kitin-entityrow>
+
+    <kitin-table model="record.about.exampleOfWork.subtitle">
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+    </kitin-table>
+
+    <kitin-table model="record.about.exampleOfWork.partTitle">
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+    </kitin-table>
+
+    <kitin-table model="record.about.exampleOfWork.partNumber">
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+    </kitin-table>
+
+    <kitin-table model="record.about.exampleOfWork.treatySigningDate">
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+    </kitin-table>
+
+    <kitin-table model="record.about.exampleOfWork.musicPerformanceMedium">
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+    </kitin-table>
+
+  </kitin-group>
+
+  <kitin-group single>
     <kitin-textrow model="record.about.uniformTitle"></kitin-textrow>
   </kitin-group>
 
@@ -101,7 +165,17 @@
 
   </kitin-group>
 
-  <!-- LANGUAGES  START -->
+
+
+  <kitin-group single>
+    <kitin-entityrow model="record.about.contentType" multiple>
+      <kitin-select filter="about.inCollection.@id:/def/enum/content/contentType-collection"></kitin-select>
+    </kitin-entityrow>
+  </kitin-group>
+
+
+    
+    <!-- LANGUAGES  START -->
   <kitin-group title="LABEL.record.about.language">
     <kitin-entityrow model="record.about.language" multiple view="/snippets/render-language">
       <kitin-search service-url="/def/_search" 
@@ -127,36 +201,7 @@
 
   </kitin-group>
   <!-- LANGUAGES  END -->
-
-  <kitin-group single>
-    <kitin-entityrow model="record.about.contentType" multiple>
-      <kitin-select filter="about.inCollection.@id:/def/enum/content/contentType-collection"></kitin-select>
-    </kitin-entityrow>
-  </kitin-group>
-
-  <kitin-group single>
-    <!-- PERSONS  START -->
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.responsibilityStatement</span>
-      <textarea spellcheck="false"
-          data-track-change data-ui-jq="autosize"
-          data-ng-model="record.about.responsibilityStatement"></textarea>
-    </div>
-  </kitin-group>
-  <kitin-group title="Uppslag">
-    <kitin-entityrow model="record.about.attributedTo" rich type="Person" view="/snippets/render-person">
-      <kitin-search service-url="/auth/_search" 
-                    template-id="auth-completion-template" 
-                    filter="['about.@type:Person','about.@type:Meeting','about.@type:Organization']">
-      </kitin-search>
-    </kitin-entityrow>
-    <kitin-entityrow model="record.about.influencedBy" rich type="Person" view="/snippets/render-person">
-      <kitin-search service-url="/auth/_search" 
-                    template-id="auth-completion-template" 
-                    filter="['about.@type:Person','about.@type:Meeting','about.@type:Organization']">
-      </kitin-search>
-    </kitin-entityrow>
-  </kitin-group>
+  
 </div>
 
 <div class="element-adder" data-element-adder="title_and_main_entry"></div>
