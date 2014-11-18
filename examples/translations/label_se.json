@@ -162,6 +162,13 @@
             "about.systemRequirements": "Systemkrav",
             "about.audience.label": "Målgrupp",
             "about.scopeNote": "Relaterade delar",
+            
+            "about.hasAnnotation": "Anmärkning: Dissertation o. dyl.",
+            "about.hasAnnotation.note": "Disserationsanmärkning",
+            "about.hasAnnotation.degree": "Akademisk examen",
+            "about.hasAnnotation.location": "Disputationsort och lärosäte",
+            "about.hasAnnotation.date": "Disputationsår",
+            "about.hasAnnotation.comment": "Övrig dissertationsanmärkning",
            
 			"about.alphabet": "Alfabet/Skriftart",
 			"about.audience": "Målgrupp",
