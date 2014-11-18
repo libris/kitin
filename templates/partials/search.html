@@ -9,13 +9,14 @@
     <header>
       <div class="summary">
         <div class="tool-container">
-          <div class="crumbs">
+          <div class="crumbs" data-ng-show="state.search.hitCount">
             {{ state.search.hitCount | chunk }} träffar för
             <span data-ng-repeat="crumb in crumbs">
               <span data-ng-show="crumb.bridge">{{ crumb.bridge }}</span>
               <span data-ng-hide="crumb.urlpart"><strong>{{ getLabel(crumb.term, crumb.type) }}</strong></span>
               <a data-ng-show="crumb.urlpart" href="{{ crumb.urlpart }}">{{ getLabel(crumb.term, crumb.type) }}</a>
             </span>
+            <span data-ng-show="state.search.page.total">. Visar sida {{state.search.page.current}} av {{state.search.page.total}}.</span>
           </div>
           <div class="tools">
             <span data-ng-show="state.searchType.key != 'remote'" class="sort-option">
@@ -51,7 +52,7 @@
           </dl>
         </section>
       </div>
-      <div class="results" data-infinite-scroll="onScroll()" data-infinite-scroll-distance="0" data-infinite-scroll-immediate-check="true" ng-switch on="state.searchView">
+      <div class="results" ng-switch on="state.searchView">
 		    <div ng-switch-when="compact">
           <div data-ng-include="'/partials/search_hitlist_compact'"></div>
         </div>
@@ -59,7 +60,10 @@
           <div data-ng-include="'/partials/search_hitlist_detailed'"></div>
         </div>
       </div>
-      <div class="to-top-link" data-ng-class="{hidden: (state.search.page.start < state.search.page.n)}" data-ng-click="gotoTop()">
+      <div class="navigation">
+        <pagination data-total-items="state.search.hitCount" data-ng-model="state.search.page.current" data-ng-change="pageChanged()" class="pagination-sm" data-previous-text="Föreg." data-next-text="Nästa" data-first-text="Första" data-last-text="Sista" boundary-links="true"></pagination>
+      </div>
+      <div class="to-top-link" data-ng-click="gotoTop()">
         <span>Till toppen</span><i class="fa fa-chevron-up"></i> 
       </div>
     </div>

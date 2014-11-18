@@ -42,6 +42,24 @@ body.search{
   .content .results{
     .make-xs-column(9);
   }
+  .content .navigation{
+    .make-xs-column-offset(3);
+    .make-xs-column(9);
+    .pagination > li > a, 
+    .pagination > li > span {
+      background-color: @white;
+    }
+    .pagination > li > a:hover, 
+    .pagination > li > a:focus, 
+    .pagination > li > span:hover,
+    .pagination > li > span:focus,
+    .pagination > li.active > a,
+    .pagination > li.active > span {
+        background-color: @green;
+        border-color: @green;
+        color: @white;
+    }
+  }
 
   .hitlist-row.auth.compact{
     .make-row();

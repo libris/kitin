@@ -1,4 +1,4 @@
-kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routeParams, $rootScope, $anchorScroll, definitions, searchService, searchUtil, editService, recordService, userData, utilsService) {
+kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location, $routeParams, $rootScope, $anchorScroll, definitions, searchService, searchUtil, editService, recordService, userData, utilsService) {
 
   $scope.recType = $routeParams.recType;
   $scope.utils = utilsService;
@@ -24,14 +24,18 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
   $scope.facetLabels = searchService.facetLabels;
 
   document.body.className = 'search';
-  $rootScope.state.search = {};
+  $rootScope.state.search = $rootScope.state.search || {};
   $rootScope.state.search.q = $routeParams.q;
   $rootScope.state.search.f = $routeParams.f;
-  $rootScope.state.search.database = $routeParams.database;
+  if ($routeParams.database) $rootScope.state.search.database = $routeParams.database;
   $rootScope.state.search.page = {
-    start: -searchService.pageSize,
-    n: searchService.pageSize
+    current: $routeParams.page
   };
+  // $rootScope.state.search.page = {
+  //   start: $routeParams.start || 0,
+  //   n: searchService.pageSize,
+  //   current: ($routeParams.start) ? $routeParams.start * searchService.pageSize : 1
+  // };
   $scope.sortables = searchService.sortables;
   
   // Reset remote search hit count 
@@ -115,24 +119,6 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
     $anchorScroll();
   };
 
-  $scope.getScrollStart = function() {
-    var start = $rootScope.state.search.page.start + $rootScope.state.search.page.n;
-    return (start > $rootScope.state.search.hitCount) ? $rootScope.state.search.page.start : start;
-  };
-
-  $scope.onScroll = function() {
-    // Get current scroll start
-    var start = $scope.getScrollStart();
-    // Skip load if already scrolling or if page end is reached
-    if($scope.scrolled || start === $rootScope.state.search.page.start) return;
-
-    $scope.scrolled = true;
-    // Set page start
-    $rootScope.state.search.page.start = start; 
-    // Do search request
-    $scope.doSearch($scope.url, $rootScope.state.getSearchParams());
-  };
-
   var prevFacetsStr = $routeParams.f || "";
 
   if (!$routeParams.q) {
@@ -140,93 +126,107 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
   }
 
   // Only update holdings for records of type 'bib'
-  if ($scope.recType == 'bib') {
-    $rootScope.$watch('state.search.result.list.length', function(newLength, oldLength) {
-      var findDeep = function(items, attrs) {
-        function match(value) {
-          for (var key in attrs) {
-            if (attrs[key] !== value[key]) {
-              return false;
-            }
-          }
-          return true;
-        }
-        function traverse(value) {
-          var result;
-          _.forEach(value, function (val) {
-            if (match(val)) {
-              result = val;
-              return false;
-            }
-            if (_.isObject(val) || _.isArray(val)) {
-              result = traverse(val);
-            }
-            if (result) {
-              return false;
-            }
-          });
-          return result;
-        }
-        return traverse(items);
-      };
-
-      var updateHoldings = function(data, status, headers, config) {
-        if (data && data.list) {
-          config.record.holdings = {
-            hits: 0
-          };
-          if (data.list.length > 0) {
-            var userHolding = findDeep(data.list, { notation: userData.userSigel });
-            config.record.holdings = {
-              hits: data.list.length,
-              holding: userHolding
-            };
+  var getHoldings = function () {
+    var findDeep = function(items, attrs) {
+      function match(value) {
+        for (var key in attrs) {
+          if (attrs[key] !== value[key]) {
+            return false;
           }
         }
-      };
-
-      for (var i = oldLength ? oldLength: 0; i < newLength; i++) {
-          var record = $rootScope.state.search.result.list[i];
-          if (record.identifier) {
-            $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.holdingFor.@id:' + record.data.about['@id'].replace(/\//g, '\\/'), {record: record}).success(updateHoldings);
-          }
+        return true;
       }
-    });
-  }
+      function traverse(value) {
+        var result;
+        _.forEach(value, function (val) {
+          if (match(val)) {
+            result = val;
+            return false;
+          }
+          if (_.isObject(val) || _.isArray(val)) {
+            result = traverse(val);
+          }
+          if (result) {
+            return false;
+          }
+        });
+        return result;
+      }
+      return traverse(items);
+    };
+
+    var updateHoldings = function(data, status, headers, config) {
+      if (data && data.list) {
+        config.record.holdings = {
+          hits: 0
+        };
+        if (data.list.length > 0) {
+          var userHolding = findDeep(data.list, { notation: userData.userSigel });
+          config.record.holdings = {
+            hits: data.list.length,
+            holding: userHolding
+          };
+        }
+      }
+    };
+
+    for (var i = 0; i < $rootScope.state.search.result.list.length; i++) {
+        var record = $rootScope.state.search.result.list[i];
+        if (record.identifier) {
+          $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.holdingFor.@id:' + record.data.about['@id'].replace(/\//g, '\\/'), {record: record}).success(updateHoldings);
+        }
+    }
+
+  };
 
   $scope.doSearch = function(url, params) {
 
     searchService.search(url, params).then(function(data) {
+
+    delete $rootScope.state.search.result;
       $scope.facetGroups = searchUtil.makeLinkedFacetGroups($scope.recType, data.facets, $rootScope.state.search.q, prevFacetsStr);
       $scope.crumbs = searchUtil.bakeCrumbs($scope.recType, $rootScope.state.search.q, prevFacetsStr);
       if(data && data.hits) {
-        // New page load
-        if($rootScope.state.search.result) {
-          data.list.forEach(function(element) {
-            $rootScope.state.search.result.list.push(element);
-          });
 
-        // Initial load
-        } else {
-          $rootScope.state.search.result = data;
-          
-          var hitCount = searchUtil.countTotalHits(data.hits);
-          if(_.isObject(data.hits)) {
-            _.forEach(data.hits, function(count, dbName) {
-
-              var i = _.findIndex($rootScope.state.remoteDatabases, { database: dbName } );
-              if(i > 0) {
-                $rootScope.state.remoteDatabases[i].hitCount = count;
-              }
-            });
-          }  
-
-          $rootScope.state.search.hitCount = hitCount.toString();       
+        $rootScope.state.search.result = data;
+        if ($scope.recType == 'bib') {
+          getHoldings();
         }
+        
+        var hitCount = searchUtil.countTotalHits(data.hits);
+        if(_.isObject(data.hits)) {
+          _.forEach(data.hits, function(count, dbName) {
+            var i = _.findIndex($rootScope.state.remoteDatabases, { database: dbName } );
+            if(i > 0) {
+              $rootScope.state.remoteDatabases[i].hitCount = count;
+            }
+          });
+        }  
+
+        $rootScope.state.search.hitCount = hitCount.toString();
+        $rootScope.state.search.page.total = Math.ceil(hitCount / searchService.pageSize);
+
       } else {
         $rootScope.state.search.result = { hits: 0 };
       }
-      $scope.scrolled = false;
     });
   };
+
+  // $scope.getStart = function() {
+  //   var start = $rootScope.state.search.page.start * $rootScope.state.search.page.n;
+  //   return start;
+  // };
+
+  $scope.pageChanged = function() {
+    $timeout(function() {
+      $scope.gotoTop();
+      // $location.search('start', $scope.getStart());
+      // $location.search('n', searchService.pageSize);
+      $location.search('page', $rootScope.state.search.page.current);
+    });
+  };
+
+  // Get first page
+  $scope.doSearch($scope.url, $rootScope.state.getSearchParams());
+
 });

@@ -17,11 +17,8 @@ kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, $ro
       if (searchParams.f) {
         searchParamString += '&f=' + searchParams.f;
       }
-      if (searchParams.start) {
-        searchParamString += '&start=' + searchParams.start;
-      }
-      if (searchParams.n) {
-        searchParamString += '&n=' + searchParams.n;
+      if (searchParams.page) {
+        searchParamString += '&page=' + searchParams.page;
       }
       if (searchParams.sort) {
         searchParamString += '&sort=' + searchParams.sort;

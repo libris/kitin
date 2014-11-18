@@ -53,10 +53,12 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
     searchView: 'detailed',
 
     getSearchParams : function() {
+      var start = ( $rootScope.state.search.page.current || 0) * searchService.pageSize;
       var params = {
         q: $rootScope.state.search.q,
-        start: $rootScope.state.search.page.start,
-        n: $rootScope.state.search.page.n,
+        start: start,
+        n: searchService.pageSize,
+        page: $rootScope.state.search.page.current,
         sort: $rootScope.state.search.sort,
         database: $rootScope.state.searchType.key === searchService.searchTypeIndex.remote.key ? $rootScope.state.search.database : undefined
       };
