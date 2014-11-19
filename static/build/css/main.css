@@ -2064,6 +2064,7 @@ section.result {
   border-color: #eeeeec;
   padding: 12px;
   min-height: 160px;
+  overflow: hidden;
 }
 section.result:nth-child(10n+10) {
   margin-bottom: 25px;
@@ -2839,6 +2840,7 @@ body.search .content header .summary {
     margin-left: 25%;
   }
 }
+body.search .content header .not-found,
 body.search .content header .tool-container {
   position: relative;
   color: #666664;

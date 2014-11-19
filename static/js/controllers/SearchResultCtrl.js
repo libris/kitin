@@ -175,10 +175,8 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
   };
 
   $scope.doSearch = function(url, params) {
-
-    searchService.search(url, params).then(function(data) {
-
     delete $rootScope.state.search.result;
+    searchService.search(url, params).then(function(data) {
       $scope.facetGroups = searchUtil.makeLinkedFacetGroups($scope.recType, data.facets, $rootScope.state.search.q, prevFacetsStr);
       $scope.crumbs = searchUtil.bakeCrumbs($scope.recType, $rootScope.state.search.q, prevFacetsStr);
       if (data && data.hits) {
@@ -199,8 +197,8 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
         var hitCount = searchUtil.countTotalHits(data.hits);
         $rootScope.state.search.hitCount = hitCount.toString();
         $rootScope.state.search.page.total = Math.ceil(hitCount / searchService.pageSize);
-        // Everything we need is set, trigger change
-        var page = $rootScope.state.search.page.start / $rootScope.state.search.page.n || 1;
+        // Everything we need is set, change paginator page
+        var page = ($rootScope.state.search.page.start / $rootScope.state.search.page.n || 0) + 1;
         $scope.state.page = page;
       } else {
         $rootScope.state.search.result = { hits: 0 };
@@ -209,7 +207,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
   };
 
   $scope.getStart = function() {
-    var start = $scope.state.page * $rootScope.state.search.page.n;
+    var start = ($scope.state.page - 1) * $rootScope.state.search.page.n;
     return start;
   };
 
