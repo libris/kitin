@@ -16,7 +16,7 @@
               <span data-ng-hide="crumb.urlpart"><strong>{{ getLabel(crumb.term, crumb.type) }}</strong></span>
               <a data-ng-show="crumb.urlpart" href="{{ crumb.urlpart }}">{{ getLabel(crumb.term, crumb.type) }}</a>
             </span>
-            <span data-ng-show="state.search.page.total">. Visar sida {{state.search.page.current}} av {{state.search.page.total}}.</span>
+            <span data-ng-show="state.search.page.total">. Visar sida {{state.page}} av {{state.search.page.total}}.</span>
           </div>
           <div class="tools">
             <span data-ng-show="state.searchType.key != 'remote'" class="sort-option">
@@ -61,7 +61,9 @@
         </div>
       </div>
       <div class="navigation">
-        <pagination data-total-items="state.search.hitCount" data-ng-model="state.search.page.current" data-ng-change="pageChanged()" class="pagination-sm" data-previous-text="Föreg." data-next-text="Nästa" data-first-text="Första" data-last-text="Sista" boundary-links="true"></pagination>
+      <!-- There are issues with this, see: https://github.com/angular-ui/bootstrap/issues/2173 -->
+      <!-- For now, data-ng-change is changed to data-ng-click to fix this -->
+        <pagination data-total-items="state.search.hitCount" data-ng-model="state.page" data-ng-change="pageChanged()" class="pagination-sm" data-previous-text="F&ouml;reg." data-next-text="N&auml;sta" data-first-text="F&ouml;rsta" data-last-text="Sista" boundary-links="true"></pagination>
       </div>
       <div class="to-top-link" data-ng-click="gotoTop()">
         <span>Till toppen</span><i class="fa fa-chevron-up"></i> 

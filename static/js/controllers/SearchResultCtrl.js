@@ -1,11 +1,12 @@
-kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location, $routeParams, $rootScope, $anchorScroll, definitions, searchService, searchUtil, editService, recordService, userData, utilsService) {
+kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location, $routeParams, $rootScope, $anchorScroll, definitions, searchService, searchUtil, editService, userData, utilsService) {
 
+  document.body.className = 'search';
   $scope.recType = $routeParams.recType;
   $scope.utils = utilsService;
 
   function getSearchURL() {
     var url = $rootScope.API_PATH + '/' + $scope.recType + '/_search';
-    if($scope.recType === 'remote') {
+    if ($scope.recType === 'remote') {
       url = $rootScope.API_PATH + '/_remotesearch';
     }
     return url;
@@ -23,19 +24,14 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
   // TODO: localization
   $scope.facetLabels = searchService.facetLabels;
 
-  document.body.className = 'search';
   $rootScope.state.search = $rootScope.state.search || {};
   $rootScope.state.search.q = $routeParams.q;
   $rootScope.state.search.f = $routeParams.f;
-  if ($routeParams.database) $rootScope.state.search.database = $routeParams.database;
+  $rootScope.state.search.database = $routeParams.database;
   $rootScope.state.search.page = {
-    current: $routeParams.page
+    start: $routeParams.start || 0,
+    n: searchService.pageSize
   };
-  // $rootScope.state.search.page = {
-  //   start: $routeParams.start || 0,
-  //   n: searchService.pageSize,
-  //   current: ($routeParams.start) ? $routeParams.start * searchService.pageSize : 1
-  // };
   $scope.sortables = searchService.sortables;
   
   // Reset remote search hit count 
@@ -49,7 +45,6 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
     }
     return false;
   };
-
 
   // Sort
   // ----------
@@ -125,7 +120,6 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
     return;
   }
 
-  // Only update holdings for records of type 'bib'
   var getHoldings = function () {
     var findDeep = function(items, attrs) {
       function match(value) {
@@ -186,14 +180,13 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
     delete $rootScope.state.search.result;
       $scope.facetGroups = searchUtil.makeLinkedFacetGroups($scope.recType, data.facets, $rootScope.state.search.q, prevFacetsStr);
       $scope.crumbs = searchUtil.bakeCrumbs($scope.recType, $rootScope.state.search.q, prevFacetsStr);
-      if(data && data.hits) {
-
+      if (data && data.hits) {
         $rootScope.state.search.result = data;
+        // Only update holdings for records of type 'bib'
         if ($scope.recType == 'bib') {
           getHoldings();
         }
         
-        var hitCount = searchUtil.countTotalHits(data.hits);
         if(_.isObject(data.hits)) {
           _.forEach(data.hits, function(count, dbName) {
             var i = _.findIndex($rootScope.state.remoteDatabases, { database: dbName } );
@@ -201,29 +194,29 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
               $rootScope.state.remoteDatabases[i].hitCount = count;
             }
           });
-        }  
-
+        }
+        var hitCount = searchUtil.countTotalHits(data.hits);
         $rootScope.state.search.hitCount = hitCount.toString();
         $rootScope.state.search.page.total = Math.ceil(hitCount / searchService.pageSize);
-
+        // Everything we need is set, trigger change
+        var page = $rootScope.state.search.page.start / $rootScope.state.search.page.n || 1;
+        $scope.state.page = page;
       } else {
         $rootScope.state.search.result = { hits: 0 };
       }
     });
   };
 
-  // $scope.getStart = function() {
-  //   var start = $rootScope.state.search.page.start * $rootScope.state.search.page.n;
-  //   return start;
-  // };
+  $scope.getStart = function() {
+    var start = $scope.state.page * $rootScope.state.search.page.n;
+    return start;
+  };
 
   $scope.pageChanged = function() {
-    $timeout(function() {
-      $scope.gotoTop();
-      // $location.search('start', $scope.getStart());
-      // $location.search('n', searchService.pageSize);
-      $location.search('page', $rootScope.state.search.page.current);
-    });
+    // User clicked paginator
+    $scope.gotoTop();
+    $location.search('start', $scope.getStart());
+    $location.search('n', searchService.pageSize);
   };
 
   // Get first page
