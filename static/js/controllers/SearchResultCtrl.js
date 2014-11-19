@@ -55,9 +55,10 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
   };
   // ----------
 
-  $scope.search = function() {
-    $location.url(url);
-  };
+  // TODO: What is this?? 
+  // $scope.search = function() {
+  //   $location.url(url);
+  // };
 
   $scope.getLabel = function (term, termType) {
     var dfn = $scope.terms[term];
