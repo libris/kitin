@@ -124,8 +124,9 @@
       </div>
 
       <div class="col2">
-        <div class="label identifier-code" title="{{ identifier.identifierScheme }}" data-ng-repeat="identifier in record.data.about.identifier">{{ identifier.identifierValue }}
+        <div class="label identifier code" title="{{ identifier.identifierScheme }}" data-ng-repeat="identifier in record.data.about.identifier | limitTo:3">{{ identifier.identifierValue }}
         </div>
+        <div class="label identifier more" data-ng-show="record.data.about.identifier.length > 3">{{record.data.about.identifier.length - 3}} identifierare visas inte.</div>
       </div>
 
       <div class="widget">

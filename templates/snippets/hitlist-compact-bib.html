@@ -29,7 +29,7 @@
   </div>
   <div class="identifier-code">
     <span data-ng-repeat="identifier in record.data.about.identifier | limitTo:1">
-      {{ identifier.identifierValue }}
+      {{ identifier.identifierValue | chop:20 }}
     </span>
   </div>
 </div>
