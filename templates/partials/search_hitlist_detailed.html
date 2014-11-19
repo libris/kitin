@@ -114,7 +114,7 @@
             <span data-ng-show="record.data.about['@type'] == 'EBook'"><i class="fa fa-square fa-fw"></i></span>
             <span data-ng-show="record.data.about['@type'] == 'Serial'"><i class="fa fa-square fa-fw"></i></span>
             <span title="provider-date" data-ng-repeat="publication in record.data.about.publication | limitTo:1"
-              data-ng-show="publication.providerDate">{{publication.providerDate}}</span>
+              data-ng-show="publication.providerDate">{{ utils.composeDate(publication.providerDate) }}</span>
             <span title="provider" data-ng-repeat="publication in record.data.about.publication | limitTo:1"> {{publication.place.label}} {{publication.providerName}}</span>
             <span data-ng-show="record.data.about.extent">{{ record.data.about.extent }}</span>
           </span>

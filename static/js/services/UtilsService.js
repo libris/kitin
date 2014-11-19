@@ -138,6 +138,21 @@ kitin.factory('utilsService', function($http, $q, $rootScope) {
         //console.log(post);
       }
       return creator;
+    },
+
+    composeDate: function(dateString) {
+      var date = '';
+      if (dateString) {
+        var regex = /^(\d{4}\-\d\d\-\d\d)(([tT][\d:\.]*)?)([zZ]|([+\-])(\d\d):?(\d\d))?$/;
+        var dateArray = dateString.match(regex);
+        if (dateArray && dateArray.length > 0) {
+          // This seems to be an ISO date, only return YYYY-mm-dd
+          date = dateArray[1];
+        } else {
+          date = dateString;
+        }
+      }
+      return date;
     }
   };
 });

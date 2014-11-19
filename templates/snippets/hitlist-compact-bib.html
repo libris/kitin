@@ -24,7 +24,7 @@
   </div>
   <div class="publication">
     <span data-ng-repeat="publication in record.data.about.publication | limitTo:1">
-      {{ publication.providerDate }}
+      {{ utils.composeDate(publication.providerDate) }}
     </span>
   </div>
   <div class="identifier-code">
