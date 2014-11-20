@@ -101,12 +101,12 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  </div>\n" +
     "  <div class=\"publication\">\n" +
     "    <span data-ng-repeat=\"publication in record.data.about.publication | limitTo:1\">\n" +
-    "      {{ publication.providerDate }}\n" +
+    "      {{ utils.composeDate(publication.providerDate) }}\n" +
     "    </span>\n" +
     "  </div>\n" +
     "  <div class=\"identifier-code\">\n" +
     "    <span data-ng-repeat=\"identifier in record.data.about.identifier | limitTo:1\">\n" +
-    "      {{ identifier.identifierValue }}\n" +
+    "      {{ identifier.identifierValue | chop:20 }}\n" +
     "    </span>\n" +
     "  </div>\n" +
     "</div>"
