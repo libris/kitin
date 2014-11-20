@@ -2110,6 +2110,7 @@ section.result {
   border-color: #eeeeec;
   padding: 12px;
   min-height: 160px;
+  overflow: hidden;
 }
 section.result:nth-child(10n+10) {
   margin-bottom: 25px;
@@ -2894,6 +2895,7 @@ body.search .content header .summary {
     margin-left: 25%;
   }
 }
+body.search .content header .not-found,
 body.search .content header .tool-container {
   position: relative;
   color: #666664;
@@ -2947,6 +2949,33 @@ body.search .content .results {
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
+}
+body.search .content .navigation {
+  position: relative;
+  float: left;
+  width: 75%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 480px) {
+  body.search .content .navigation {
+    margin-left: 25%;
+  }
+}
+body.search .content .navigation .pagination > li > a,
+body.search .content .navigation .pagination > li > span {
+  background-color: #ffffff;
+}
+body.search .content .navigation .pagination > li > a:hover,
+body.search .content .navigation .pagination > li > a:focus,
+body.search .content .navigation .pagination > li > span:hover,
+body.search .content .navigation .pagination > li > span:focus,
+body.search .content .navigation .pagination > li.active > a,
+body.search .content .navigation .pagination > li.active > span {
+  background-color: #1a8f72;
+  border-color: #1a8f72;
+  color: #ffffff;
 }
 body.search .hitlist-row.auth.compact {
   margin-left: -15px;
