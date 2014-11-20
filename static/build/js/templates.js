@@ -949,8 +949,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "             value=\"{{ state.search.q }}\" placeholder=\"{{ state.searchType.placeholder }}\"\n" +
     "      autocomplete=\"off\" role=\"textbox\"\n" +
     "      aria-autocomplete=\"list\" aria-haspopup=\"true\" data-ng-model=\"state.search.q\">\n" +
-    "      <div class=\"btn-group dropdown\" data-is-open=\"isopen\">\n" +
-    "        <a class=\"btn btn-grey search-source dropdown-toggle\">\n" +
+    "      <div class=\"btn-group dropdown\" dropdown data-is-open=\"isopen\">\n" +
+    "        <a class=\"btn btn-grey search-source dropdown-toggle\" dropdown-toggle>\n" +
     "          <span class=\"btn-label\">{{ state.searchType.label }}</span>\n" +
     "          <span class=\"fa fa-caret-down\"></span>\n" +
     "        </a>\n" +

@@ -11,8 +11,8 @@
              value="{{ state.search.q }}" placeholder="{{ state.searchType.placeholder }}"
       autocomplete="off" role="textbox"
       aria-autocomplete="list" aria-haspopup="true" data-ng-model="state.search.q">
-      <div class="btn-group dropdown" data-is-open="isopen">
-        <a class="btn btn-grey search-source dropdown-toggle">
+      <div class="btn-group dropdown" dropdown data-is-open="isopen">
+        <a class="btn btn-grey search-source dropdown-toggle" dropdown-toggle>
           <span class="btn-label">{{ state.searchType.label }}</span>
           <span class="fa fa-caret-down"></span>
         </a>
