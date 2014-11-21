@@ -10,6 +10,17 @@
   <section ng-if="debug && record._marcUncompleted" class="unknown" ng-include="'/partials/edit/bib/unknown'"></section>
 
   <div class="footer footer-sticky">
+    <div data-ng-show="httpAction.message">
+      <div class="manual popover {{httpAction.classes}}">
+        <div class="arrow"></div>
+        <div class="popover-inner">
+          <div class="popover-content">
+            <h3>{{httpAction.title | translate}}</h3>
+            <p>{{httpAction.message | translate}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
     <section class="centered">
       <div class="row">
         <div class="col-md-4">
@@ -30,18 +41,6 @@
         </div>
       </div>
     </section>
-  </div>
-
-  <div data-ng-show="httpAction.message">
-    <div class="manual popover {{httpAction.classes}}">
-      <div class="arrow"></div>
-      <div class="popover-inner">
-        <div class="popover-content">
-          <h3 data-ng-show="{{httpAction.title}}">{{httpAction.title | translate}}</h3>
-          <p>{{httpAction.message | translate}}</p>
-        </div>
-      </div>
-    </div>
   </div>
 
 </ng-form>

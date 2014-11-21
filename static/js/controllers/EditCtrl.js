@@ -37,19 +37,19 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   // };
 
   var setHttpResponse = function (messageObject) {
-    messageObject.timeout = messageObject.timeout || 5000;
-    $scope.httpAction = {
-      classes: messageObject.classes,
-      title: messageObject.title,
-      message: messageObject.message
-    };
-    $timeout(function () {
-      $scope.httpAction = {
-        classes: null,
-        title: null,
-        message: null
-      };
-    }, messageObject.timeout);
+    // messageObject.timeout = messageObject.timeout || 5000;
+    // $scope.httpAction = {
+    //   classes: messageObject.classes,
+    //   title: messageObject.title,
+    //   message: messageObject.message
+    // };
+    // $timeout(function () {
+    //   $scope.httpAction = {
+    //     classes: null,
+    //     title: null,
+    //     message: null
+    //   };
+    // }, messageObject.timeout);
   };
 
   // Make sure the edit view holdings button stay updated
