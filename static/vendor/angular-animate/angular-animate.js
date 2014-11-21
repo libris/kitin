@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.3.4-build.3583+sha.dc9775d
+ * @license AngularJS v1.3.4-build.3591+sha.95e03bc
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -245,7 +245,7 @@
  * You then configure `$animate` to enforce this prefix:
  *
  * ```js
- * $animateProvider.classNamePrefix(/animate-/);
+ * $animateProvider.classNameFilter(/animate-/);
  * ```
  * </div>
  *
