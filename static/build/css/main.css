@@ -1978,6 +1978,8 @@ ul.tags.suggestions li li a {
 .btn-group-vertical > .btn-group:after,
 .nav:before,
 .nav:after,
+.panel-body:before,
+.panel-body:after,
 .modal-footer:before,
 .modal-footer:after,
 section.dash.drafts li:before,
@@ -1998,6 +2000,7 @@ body.search .hitlist-row.bib.compact:after {
 .btn-toolbar:after,
 .btn-group-vertical > .btn-group:after,
 .nav:after,
+.panel-body:after,
 .modal-footer:after,
 section.dash.drafts li:after,
 body.search .content header:after,
@@ -2905,6 +2908,9 @@ span.error-message {
 }
 .holdings ul li {
   list-style: none;
+}
+accordion.other-holdings {
+  margin-bottom: 24px;
 }
 section.offer {
   margin-bottom: 24px;

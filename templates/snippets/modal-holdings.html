@@ -1,11 +1,30 @@
 <div class="modal-header holdings">
   <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
-  <h4 class="modal-title"><span  translate>LABEL.gui.terms.HOLDINGS</span> ({{userData.userSigel}})</h4>
+  <h4 class="modal-title"><span translate>LABEL.gui.terms.HOLDINGS</span> ({{userData.userSigel}})</h4>
 </div>
 
 <div class="modal-body holdings">
   <div cg-busy="{promise:promises.holding.loading, message:'Laddar bestånd...', minDuration: 800}"></div>
   <div cg-busy="{promise:promises.holding.saving, message:'Sparar bestånd...', minDuration: 800}"></div>
+  
+  <accordion class="other-holdings" ng-show="true">
+    <accordion-group is-open="showOtherHoldings">
+      <accordion-heading>
+        Visa bestånd för andra bibliotek (beta) <i class="pull-right fa" ng-class="{'fa-chevron-down': showOtherHoldings, 'fa-chevron-right': !showOtherHoldings}"></i>
+      </accordion-heading>
+      <accordion close-others="true">
+        <accordion-group data-ng-repeat="otherHolding in allHoldings" is-open="offer.open">
+          <accordion-heading>
+              {{otherHolding.data.about.heldBy.notation}} <i class="pull-right fa" ng-class="{'fa-chevron-down': offer.open, 'fa-chevron-right': !offer.open}"></i>
+          </accordion-heading>
+          <div data-ng-repeat="offer in otherHolding.data.about.offers" class="other-offer">
+            <span class="offer-value" data-ng-repeat="(property, value) in offer" data-ng-show="property != '@type' && property != 'open'&& property != 'heldBy'">{{property}}: {{value}}<span data-ng-show="!$last">, </span></span>
+          </div>
+        </accordion-group>
+      </accordion>
+    </accordion-group>
+  </accordion>
+  
   <form data-ng-show="holding.data['@id'] || !holding['etag']" name="holdingForm">
     <section class="offer" data-ng-repeat="offer in holding.data.about.offers track by $index">
       <div class="cols">

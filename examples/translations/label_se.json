@@ -239,7 +239,9 @@
                 "LOADING_BIB": "Laddar artikel...",
                 "SAVING_BIB": "Sparar artikel...",
                 "SEARCHING": "Laddar sökresultat...",
-                "CONVERTING_TO_MARC": "Konverterar till MARC-format..."
+                "CONVERTING_TO_MARC": "Konverterar till MARC-format...",
+                "LOADING_HOLDING": "Laddar bestånd...",
+                "SAVING_HOLDING": "Sparar bestånd..."
             }
 
         }
