@@ -222,8 +222,15 @@
             "edit": {
             		"DATE_CREATED": "Skapad",
             		"MODIFIED": "Ändrad",
-            		"ID": "Id"
-
+            		"ID": "Id",
+                "messages": {
+                    "publish": {
+                        "SUCCESS_TITLE": "Publiceringen lyckades!",
+                        "SUCCESS_MSG": "Posten finns nu att se i katalogen.",
+                        "FAILURE_TITLE": "Något gick fel",
+                        "FAILURE_MSG": "Det gick inte att spara posten, försök igen."
+                    },
+                }
             },
             "terms": {
 	            	"HOLDINGS": "Bestånd"

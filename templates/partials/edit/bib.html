@@ -37,8 +37,8 @@
       <div class="arrow"></div>
       <div class="popover-inner">
         <div class="popover-content">
-          <h3 data-ng-show="{{httpAction.title}}" translate>{{httpAction.title}}</h3>
-          <p translate>{{httpAction.message}}</p>
+          <h3 data-ng-show="{{httpAction.title}}">{{httpAction.title | translate}}</h3>
+          <p>{{httpAction.message | translate}}</p>
         </div>
       </div>
     </div>

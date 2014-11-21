@@ -29,11 +29,12 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     $rootScope.modifications.bib.lastPublished = new Date();
   }
 
-  $scope.httpAction = {
-    classes: 'publish success top',
-    title: 'LABEL.gui.edit.messages.publish.SUCCESS_TITLE',
-    message: 'LABEL.gui.edit.messages.publish.SUCCESS_MSG'
-  }
+  // Debug
+  // $scope.httpAction = {
+  //   classes: 'publish success top',
+  //   title: 'LABEL.gui.edit.messages.publish.SUCCESS_TITLE',
+  //   message: 'LABEL.gui.edit.messages.publish.SUCCESS_MSG'
+  // };
 
   var setHttpResponse = function (messageObject) {
     messageObject.timeout = messageObject.timeout || 5000;
@@ -41,14 +42,14 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
       classes: messageObject.classes,
       title: messageObject.title,
       message: messageObject.message
-    }
+    };
     $timeout(function () {
       $scope.httpAction = {
         classes: null,
         title: null,
         message: null
-      }
-    }, messageObject.timeout)
+      };
+    }, messageObject.timeout);
   };
 
   // Make sure the edit view holdings button stay updated
