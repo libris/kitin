@@ -195,13 +195,13 @@
         "holding": {
         	"about.offers": {
         		"availability": "Begränsningar på utlån",
-        		"classificationPart": "Uppställd på",
-        		"copyNote": "Anmärkning om uppställningen",
+        		"classificationPart": "Klassifikationsdel av uppställningssignum ",
+        		"copyNote": "Offentlig anmärkning",
         		"copyNumber": "Exemplarnummer",
-	        	"editorialNote": "Intern uppställningsanm.",
-	        	"shelfControlNumber": "Löpnummer",
-	        	"shelfLabel": "Uppställningsord",
-	        	"shelfLocation": "Avdelning, samling etc."
+	        	"editorialNote": "Intern anmärkning",
+	        	"shelfControlNumber": "Löpnummer/Formatbeteckning",
+	        	"shelfLabel": "Uppställningsord (titel, författare el. dyl.)",
+	        	"shelfLocation": "Avdelning, samling, hyllsignum el. dyl."
         	}
         },
         "gui": {
