@@ -27,10 +27,21 @@
           <button class="btn btn-dark" id="publish" data-ng-class="modifiedClasses()" data-ng-disabled="subform.$invalid || modifications.bib.published" data-ng-click="publish()" title="{{lastPublishedLabel('Senast publicerad: %s')}}">{{modifications.bib.published ? 'Publicerad' : 'Publicera'}} 
           <i class="fa fa-check" data-ng-show="modifications.bib.published"></i>
           </button>
-          <p class="message" data-ng-show="modifications.bib.message">{{ modifications.bib.message }}</p>
         </div>
       </div>
     </section>
+  </div>
+
+  <div data-ng-show="httpAction.message">
+    <div class="manual popover {{httpAction.classes}}">
+      <div class="arrow"></div>
+      <div class="popover-inner">
+        <div class="popover-content">
+          <h3 data-ng-show="{{httpAction.title}}" translate>{{httpAction.title}}</h3>
+          <p translate>{{httpAction.message}}</p>
+        </div>
+      </div>
+    </div>
   </div>
 
 </ng-form>

@@ -1515,48 +1515,63 @@ html .modal.fade .modal-dialog {
   z-index: 1000;
   border: none;
 }
+.popover.manual {
+  display: block;
+}
 .popover.success {
   background-color: rgba(26, 143, 114, 0.8);
 }
+.popover.success.right > .arrow,
 .popover.success.right > .arrow:after {
   border-right-color: rgba(26, 143, 114, 0.8);
 }
+.popover.success.left > .arrow,
 .popover.success.left > .arrow:after {
   border-left-color: rgba(26, 143, 114, 0.8);
 }
+.popover.success.top > .arrow,
 .popover.success.top > .arrow:after {
   border-top-color: rgba(26, 143, 114, 0.8);
 }
+.popover.success.bottom > .arrow,
 .popover.success.bottom > .arrow:after {
   border-bottom-color: rgba(26, 143, 114, 0.8);
 }
 .popover.warning {
   background-color: rgba(214, 171, 0, 0.8);
 }
+.popover.warning.right > .arrow,
 .popover.warning.right > .arrow:after {
   border-right-color: rgba(214, 171, 0, 0.8);
 }
+.popover.warning.left > .arrow,
 .popover.warning.left > .arrow:after {
   border-left-color: rgba(214, 171, 0, 0.8);
 }
+.popover.warning.top > .arrow,
 .popover.warning.top > .arrow:after {
   border-top-color: rgba(214, 171, 0, 0.8);
 }
+.popover.warning.bottom > .arrow,
 .popover.warning.bottom > .arrow:after {
   border-bottom-color: rgba(214, 171, 0, 0.8);
 }
 .popover.error {
   background-color: rgba(238, 93, 97, 0.8);
 }
+.popover.error.right > .arrow,
 .popover.error.right > .arrow:after {
   border-right-color: rgba(238, 93, 97, 0.8);
 }
+.popover.error.left > .arrow,
 .popover.error.left > .arrow:after {
   border-left-color: rgba(238, 93, 97, 0.8);
 }
+.popover.error.top > .arrow,
 .popover.error.top > .arrow:after {
   border-top-color: rgba(238, 93, 97, 0.8);
 }
+.popover.error.bottom > .arrow,
 .popover.error.bottom > .arrow:after {
   border-bottom-color: rgba(238, 93, 97, 0.8);
 }

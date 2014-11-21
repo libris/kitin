@@ -1,8 +1,5 @@
 kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $timeout, $rootScope, $location, $anchorScroll, recordService, definitions, userData, editService) {
 
-
-
-
   $scope.isLinked = function (thing) {
     if(!thing) { return; }
     var id = thing['@id'] || (thing['describedBy'] ? thing['describedBy']['@id'] : null);
@@ -31,6 +28,28 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     $rootScope.modifications.bib.published = true;
     $rootScope.modifications.bib.lastPublished = new Date();
   }
+
+  $scope.httpAction = {
+    classes: 'publish success top',
+    title: 'LABEL.gui.edit.messages.publish.SUCCESS_TITLE',
+    message: 'LABEL.gui.edit.messages.publish.SUCCESS_MSG'
+  }
+
+  var setHttpResponse = function (messageObject) {
+    messageObject.timeout = messageObject.timeout || 5000;
+    $scope.httpAction = {
+      classes: messageObject.classes,
+      title: messageObject.title,
+      message: messageObject.message
+    }
+    $timeout(function () {
+      $scope.httpAction = {
+        classes: null,
+        title: null,
+        message: null
+      }
+    }, messageObject.timeout)
+  };
 
   // Make sure the edit view holdings button stay updated
   var updateHolding = function () {
@@ -134,13 +153,25 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     var parsedRecType = $scope.recType === editService.RECORD_TYPES.REMOTE ? editService.RECORD_TYPES.BIB : $scope.recType;
     if(!$scope.record.draft) {
       recordService.draft.create(parsedRecType, $scope.recId, $scope.record).then(function(data) {
-        $location.url('/edit/draft' + data['recdata']['@id']);
+        $location.url('/edit/draft' + data['recdata']['@id'] + '?saved');
       });
     } else {
-      recordService.draft.save(parsedRecType, $scope.recId, $scope.record, $scope.etag).then(function(data) {
+      recordService.draft.save(parsedRecType, $scope.recId, $scope.record, $scope.etag).then(function success(data) {
         $scope.addRecordViewsToScope(data['recdata']);
         $scope.etag = data['etag'];
+        setHttpResponse({
+          classes: 'draft success top',
+          title: 'Utkast sparat',
+          message: 'Posten finns nu att se i katalogen.'
+        });
         onSaveState();
+      }, function failure (status) {
+        setHttpResponse({
+          classes: 'draft failure top',
+          title: 'Något gick fel',
+          message: 'Posten finns nu att se i katalogen.'
+        });
+        console.log(status);
       });
     }
   };

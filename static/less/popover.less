@@ -23,28 +23,32 @@
   z-index: 1000;
   border: none;
   
+  &.manual{
+    display:block;
+  }
+
   &.success{
     background-color: @green-translucent;
-    &.right > .arrow:after{border-right-color:@green-translucent}
-    &.left > .arrow:after{border-left-color:@green-translucent}
-    &.top > .arrow:after{border-top-color:@green-translucent}
-    &.bottom > .arrow:after{border-bottom-color:@green-translucent}
+    &.right > .arrow, &.right > .arrow:after{border-right-color:@green-translucent}
+    &.left > .arrow, &.left > .arrow:after{border-left-color:@green-translucent}
+    &.top > .arrow, &.top > .arrow:after{border-top-color:@green-translucent}
+    &.bottom > .arrow, &.bottom > .arrow:after{border-bottom-color:@green-translucent}
   }
 
   &.warning{
     background-color: @yellow-translucent;
-    &.right > .arrow:after{border-right-color:@yellow-translucent}
-    &.left > .arrow:after{border-left-color:@yellow-translucent}
-    &.top > .arrow:after{border-top-color:@yellow-translucent}
-    &.bottom > .arrow:after{border-bottom-color:@yellow-translucent}
+    &.right > .arrow, &.right > .arrow:after{border-right-color:@yellow-translucent}
+    &.left > .arrow, &.left > .arrow:after{border-left-color:@yellow-translucent}
+    &.top > .arrow, &.top > .arrow:after{border-top-color:@yellow-translucent}
+    &.bottom > .arrow, &.bottom > .arrow:after{border-bottom-color:@yellow-translucent}
   }
   
   &.error{
     background-color: @red-translucent;
-    &.right > .arrow:after{border-right-color:@red-translucent}
-    &.left > .arrow:after{border-left-color:@red-translucent}
-    &.top > .arrow:after{border-top-color:@red-translucent}
-    &.bottom > .arrow:after{border-bottom-color:@red-translucent}
+    &.right > .arrow, &.right > .arrow:after{border-right-color:@red-translucent}
+    &.left > .arrow, &.left > .arrow:after{border-left-color:@red-translucent}
+    &.top > .arrow, &.top > .arrow:after{border-top-color:@red-translucent}
+    &.bottom > .arrow, &.bottom > .arrow:after{border-bottom-color:@red-translucent}
   }
 
   h3 {font:bold 15px/18px @paragraph-font, sans-serif; border:none; background:none;padding-bottom:0;}
