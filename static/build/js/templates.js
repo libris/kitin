@@ -282,12 +282,31 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/modal-holdings',
     "<div class=\"modal-header holdings\">\n" +
     "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
-    "  <h4 class=\"modal-title\"><span  translate>LABEL.gui.terms.HOLDINGS</span> ({{userData.userSigel}})</h4>\n" +
+    "  <h4 class=\"modal-title\"><span translate>LABEL.gui.terms.HOLDINGS</span> ({{userData.userSigel}})</h4>\n" +
     "</div>\n" +
     "\n" +
     "<div class=\"modal-body holdings\">\n" +
     "  <div cg-busy=\"{promise:promises.holding.loading, message:'Laddar bestånd...', minDuration: 800}\"></div>\n" +
     "  <div cg-busy=\"{promise:promises.holding.saving, message:'Sparar bestånd...', minDuration: 800}\"></div>\n" +
+    "  \n" +
+    "  <accordion class=\"other-holdings\" ng-show=\"true\">\n" +
+    "    <accordion-group is-open=\"showOtherHoldings\">\n" +
+    "      <accordion-heading>\n" +
+    "        Visa bestånd för andra bibliotek (beta) <i class=\"pull-right fa\" ng-class=\"{'fa-chevron-down': showOtherHoldings, 'fa-chevron-right': !showOtherHoldings}\"></i>\n" +
+    "      </accordion-heading>\n" +
+    "      <accordion close-others=\"true\">\n" +
+    "        <accordion-group data-ng-repeat=\"otherHolding in allHoldings\" is-open=\"offer.open\">\n" +
+    "          <accordion-heading>\n" +
+    "              {{otherHolding.data.about.heldBy.notation}} <i class=\"pull-right fa\" ng-class=\"{'fa-chevron-down': offer.open, 'fa-chevron-right': !offer.open}\"></i>\n" +
+    "          </accordion-heading>\n" +
+    "          <div data-ng-repeat=\"offer in otherHolding.data.about.offers\" class=\"other-offer\">\n" +
+    "            <span class=\"offer-value\" data-ng-repeat=\"(property, value) in offer\" data-ng-show=\"property != '@type' && property != 'open'&& property != 'heldBy'\">{{property}}: {{value}}<span data-ng-show=\"!$last\">, </span></span>\n" +
+    "          </div>\n" +
+    "        </accordion-group>\n" +
+    "      </accordion>\n" +
+    "    </accordion-group>\n" +
+    "  </accordion>\n" +
+    "  \n" +
     "  <form data-ng-show=\"holding.data['@id'] || !holding['etag']\" name=\"holdingForm\">\n" +
     "    <section class=\"offer\" data-ng-repeat=\"offer in holding.data.about.offers track by $index\">\n" +
     "      <div class=\"cols\">\n" +

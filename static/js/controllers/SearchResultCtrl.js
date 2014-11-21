@@ -156,7 +156,8 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
           hits: 0
         };
         if (data.list.length > 0) {
-          var userHolding = findDeep(data.list, { notation: userData.userSigel });
+          var userHolding = utilsService.findDeep(data.list, 'data.about.heldBy.notation', userData.userSigel);
+          console.log(userHolding);
           config.record.holdings = {
             hits: data.list.length,
             holding: userHolding

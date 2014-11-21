@@ -23,28 +23,46 @@
   z-index: 1000;
   border: none;
   
+  &.manual{
+    display:block;
+  }
+
   &.success{
     background-color: @green-translucent;
+    &.right > .arrow{border-right-color:transparent}
     &.right > .arrow:after{border-right-color:@green-translucent}
+    &.left > .arrow{border-left-color:transparent}
     &.left > .arrow:after{border-left-color:@green-translucent}
+    &.top > .arrow{border-top-color:transparent}
     &.top > .arrow:after{border-top-color:@green-translucent}
+    &.bottom > .arrow{border-bottom-color:transparent}
     &.bottom > .arrow:after{border-bottom-color:@green-translucent}
+    .popover-content{color: @white;}
   }
 
   &.warning{
     background-color: @yellow-translucent;
+    &.right > .arrow{border-right-color:transparent}
     &.right > .arrow:after{border-right-color:@yellow-translucent}
+    &.left > .arrow{border-left-color:transparent}
     &.left > .arrow:after{border-left-color:@yellow-translucent}
+    &.top > .arrow{border-top-color:transparent}
     &.top > .arrow:after{border-top-color:@yellow-translucent}
+    &.bottom > .arrow{border-bottom-color:transparent}
     &.bottom > .arrow:after{border-bottom-color:@yellow-translucent}
   }
   
   &.error{
     background-color: @red-translucent;
+    &.right > .arrow{border-right-color:transparent}
     &.right > .arrow:after{border-right-color:@red-translucent}
+    &.left > .arrow{border-left-color:transparent}
     &.left > .arrow:after{border-left-color:@red-translucent}
+    &.top > .arrow{border-top-color:transparent}
     &.top > .arrow:after{border-top-color:@red-translucent}
+    &.bottom > .arrow{border-bottom-color:transparent}
     &.bottom > .arrow:after{border-bottom-color:@red-translucent}
+    .popover-content{color: @white;}
   }
 
   h3 {font:bold 15px/18px @paragraph-font, sans-serif; border:none; background:none;padding-bottom:0;}
