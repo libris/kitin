@@ -17,7 +17,7 @@
 
 <div class="hitlist-row bib compact">
   <div class="title">
-    <a href="/edit/libris{{record.identifier || record.data['@id']}}">{{ utils.composeTitle(record) | chop:80}}</a>
+    <a href="/edit/libris{{record['@id']}}">{{ utils.composeTitle(record) | chop:80}}</a>
   </div>
   <div class="creator">
     {{ utils.composeCreator(record) | chop:40 }}

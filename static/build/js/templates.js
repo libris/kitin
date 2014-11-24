@@ -44,7 +44,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <i class=\"fa {{utils.getIconByType(record, recType)}}\"></i>\n" +
     "  </div>\n" +
     "  <div class=\"title\">\n" +
-    "    <a href=\"/edit/libris{{record.identifier || record.data['@id']}}\" data-ng-click=\"editPost(recType, record)\">{{ utils.composeTitle(record, recType) | chop:60 }}</a>\n" +
+    "    <a href=\"/edit/libris{{record['@id']}}\" data-ng-click=\"editPost(recType, record)\">{{ utils.composeTitle(record, recType) | chop:60 }}</a>\n" +
     "  </div>\n" +
     "  <div class=\"about\">\n" +
     "    {{ utils.composeInfo(record, recType) | chop:100 }}\n" +
@@ -73,7 +73,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "\n" +
     "<div class=\"hitlist-row bib compact\">\n" +
     "  <div class=\"title\">\n" +
-    "    <a href=\"/edit/libris{{record.identifier || record.data['@id']}}\">{{ utils.composeTitle(record) | chop:80}}</a>\n" +
+    "    <a href=\"/edit/libris{{record['@id']}}\">{{ utils.composeTitle(record) | chop:80}}</a>\n" +
     "  </div>\n" +
     "  <div class=\"creator\">\n" +
     "    {{ utils.composeCreator(record) | chop:40 }}\n" +
