@@ -17,18 +17,18 @@
 
 <div class="hitlist-row bib compact">
   <div class="title">
-    <a href="/edit/libris{{record.identifier || record.data['@id']}}">{{ utils.composeTitle(record) | chop:80}}</a>
+    <a href="/edit/libris{{record['@id']}}">{{ utils.composeTitle(record) | chop:80}}</a>
   </div>
   <div class="creator">
     {{ utils.composeCreator(record) | chop:40 }}
   </div>
   <div class="publication">
-    <span data-ng-repeat="publication in record.data.about.publication | limitTo:1">
+    <span data-ng-repeat="publication in record.about.publication | limitTo:1">
       {{ utils.composeDate(publication.providerDate) }}
     </span>
   </div>
   <div class="identifier-code">
-    <span data-ng-repeat="identifier in record.data.about.identifier | limitTo:1">
+    <span data-ng-repeat="identifier in record.about.identifier | limitTo:1">
       {{ identifier.identifierValue | chop:20 }}
     </span>
   </div>

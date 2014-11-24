@@ -44,7 +44,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <i class=\"fa {{utils.getIconByType(record, recType)}}\"></i>\n" +
     "  </div>\n" +
     "  <div class=\"title\">\n" +
-    "    <a href=\"/edit/libris{{record.identifier || record.data['@id']}}\" data-ng-click=\"editPost(recType, record)\">{{ utils.composeTitle(record, recType) | chop:60 }}</a>\n" +
+    "    <a href=\"/edit/libris{{record['@id']}}\" data-ng-click=\"editPost(recType, record)\">{{ utils.composeTitle(record, recType) | chop:60 }}</a>\n" +
     "  </div>\n" +
     "  <div class=\"about\">\n" +
     "    {{ utils.composeInfo(record, recType) | chop:100 }}\n" +
@@ -73,18 +73,18 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "\n" +
     "<div class=\"hitlist-row bib compact\">\n" +
     "  <div class=\"title\">\n" +
-    "    <a href=\"/edit/libris{{record.identifier || record.data['@id']}}\">{{ utils.composeTitle(record) | chop:80}}</a>\n" +
+    "    <a href=\"/edit/libris{{record['@id']}}\">{{ utils.composeTitle(record) | chop:80}}</a>\n" +
     "  </div>\n" +
     "  <div class=\"creator\">\n" +
     "    {{ utils.composeCreator(record) | chop:40 }}\n" +
     "  </div>\n" +
     "  <div class=\"publication\">\n" +
-    "    <span data-ng-repeat=\"publication in record.data.about.publication | limitTo:1\">\n" +
+    "    <span data-ng-repeat=\"publication in record.about.publication | limitTo:1\">\n" +
     "      {{ utils.composeDate(publication.providerDate) }}\n" +
     "    </span>\n" +
     "  </div>\n" +
     "  <div class=\"identifier-code\">\n" +
-    "    <span data-ng-repeat=\"identifier in record.data.about.identifier | limitTo:1\">\n" +
+    "    <span data-ng-repeat=\"identifier in record.about.identifier | limitTo:1\">\n" +
     "      {{ identifier.identifierValue | chop:20 }}\n" +
     "    </span>\n" +
     "  </div>\n" +
@@ -175,9 +175,9 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "      <accordion close-others=\"true\">\n" +
     "        <accordion-group data-ng-repeat=\"otherHolding in allHoldings\" is-open=\"offer.open\">\n" +
     "          <accordion-heading>\n" +
-    "              {{otherHolding.data.about.heldBy.notation}} <i class=\"pull-right fa\" ng-class=\"{'fa-chevron-down': offer.open, 'fa-chevron-right': !offer.open}\"></i>\n" +
+    "              {{otherHolding.about.heldBy.notation}} <i class=\"pull-right fa\" ng-class=\"{'fa-chevron-down': offer.open, 'fa-chevron-right': !offer.open}\"></i>\n" +
     "          </accordion-heading>\n" +
-    "          <div data-ng-repeat=\"offer in otherHolding.data.about.offers\" class=\"other-offer\">\n" +
+    "          <div data-ng-repeat=\"offer in otherHolding.about.offers\" class=\"other-offer\">\n" +
     "            <span class=\"offer-value\" data-ng-repeat=\"(property, value) in offer\" data-ng-show=\"property != '@type' && property != 'open'&& property != 'heldBy'\">{{property}}: {{value}}<span data-ng-show=\"!$last\">, </span></span>\n" +
     "          </div>\n" +
     "        </accordion-group>\n" +
@@ -185,8 +185,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    </accordion-group>\n" +
     "  </accordion>\n" +
     "  \n" +
-    "  <form data-ng-show=\"holding.data['@id'] || !holding['etag']\" name=\"holdingForm\">\n" +
-    "    <section class=\"offer\" data-ng-repeat=\"offer in holding.data.about.offers track by $index\">\n" +
+    "  <form data-ng-show=\"holding['@id'] || !holding['etag']\" name=\"holdingForm\">\n" +
+    "    <section class=\"offer\" data-ng-repeat=\"offer in holding.about.offers track by $index\">\n" +
     "      <div class=\"cols\">\n" +
     "        <div class=\"col6\">\n" +
     "          <div class=\"label\">\n" +
@@ -225,7 +225,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "          </div>\n" +
     "        </div>\n" +
     "        <div class=\"col12\">\n" +
-    "          <button class=\"btn btn-link pull-right\" data-ng-if=\"holding.data.about.offers.length > 1\" data-ng-click=\"deleteOffer(holding, $index)\"><i class=\"fa fa-trash-o\"></i> {{ \"Radera lokalsignum\" }}</button>\n" +
+    "          <button class=\"btn btn-link pull-right\" data-ng-if=\"holding.about.offers.length > 1\" data-ng-click=\"deleteOffer(holding, $index)\"><i class=\"fa fa-trash-o\"></i> {{ \"Radera lokalsignum\" }}</button>\n" +
     "        </div>\n" +
     "      </div>\n" +
     "    </section>\n" +
@@ -237,7 +237,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    {{ \"Beståndet raderat\" }}\n" +
     "  </div>\n" +
     "  \n" +
-    "  <div class=\"alert alert-error\" role=\"alert\" data-ng-show=\"holding.data.about.offers.length < 1\">\n" +
+    "  <div class=\"alert alert-error\" role=\"alert\" data-ng-show=\"holding.about.offers.length < 1\">\n" +
     "    {{ \"Beståndet saknar lokalsignum\" }}\n" +
     "  </div>\n" +
     "\n" +
@@ -256,7 +256,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <div data-ng-if=\"modifications.holding.saved\">{{ \"Inga osparade ändringar.\" }}</div>\n" +
     "    <div data-ng-if=\"!modifications.holding.saved\">{{ \"Du har inte sparat dina ändringar.\" }}</div>\n" +
     "  </div>\n" +
-    "  <button class=\"btn-link\" id=\"delete-hld\" data-ng-click=\"deleteHolding(holding)\" data-ng-show=\"holding.data['@id']\"><i class=\"fa fa-trash-o\"></i> {{ \"Radera bestånd\" }}</button>\n" +
+    "  <button class=\"btn-link\" id=\"delete-hld\" data-ng-click=\"deleteHolding(holding)\" data-ng-show=\"holding['@id']\"><i class=\"fa fa-trash-o\"></i> {{ \"Radera bestånd\" }}</button>\n" +
     "  <button class=\"btn btn-purple btn-submit\" id=\"save-hld\" data-ng-click=\"saveHolding(holding)\" data-ng-show=\"holding\">{{ \"Spara bestånd\" }}</button>\n" +
     "  <button class=\"btn btn-purple btn-submit\" id=\"save-hld\" data-ng-click=\"close()\" data-ng-show=\"!holding\">{{ \"Stäng\" }}</button>\n" +
     "</div>"
@@ -493,8 +493,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "\n" +
     "<select \n" +
     "  data-kitin-select-entity\n" +
-    "  data-selected-item-variable=\"selectedItem.data.about\"\n" +
-    "  ng-options=\"(item.data.about.prefLabel || item.data.about.prefLabel-en) for item in objects | orderBy:'data.about.prefLabel'\">\n" +
+    "  data-selected-item-variable=\"selectedItem.about\"\n" +
+    "  ng-options=\"(item.about.prefLabel || item.about.prefLabel-en) for item in objects | orderBy:'about.prefLabel'\">\n" +
     "</select>"
   );
 
