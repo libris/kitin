@@ -512,13 +512,6 @@ kitin.service('editService', function(definitions, $http, $q) {
         });
       }
       return classes;
-    },
-
-    // TODO: fix this in the backend service and remove this patch
-    patchHoldings: function (holdings) {
-      return _.map(holdings, function (it) {
-        var obj = it.data; obj['@id'] = it.identifier; return obj;
-      });
     }
   };
   return editService;
