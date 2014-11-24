@@ -122,41 +122,14 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
   }
 
   var getHoldings = function () {
-    var findDeep = function(items, attrs) {
-      function match(value) {
-        for (var key in attrs) {
-          if (attrs[key] !== value[key]) {
-            return false;
-          }
-        }
-        return true;
-      }
-      function traverse(value) {
-        var result;
-        _.forEach(value, function (val) {
-          if (match(val)) {
-            result = val;
-            return false;
-          }
-          if (_.isObject(val) || _.isArray(val)) {
-            result = traverse(val);
-          }
-          if (result) {
-            return false;
-          }
-        });
-        return result;
-      }
-      return traverse(items);
-    };
-
     var updateHoldings = function(data, status, headers, config) {
       if (data && data.list) {
         config.record.holdings = {
           hits: 0
         };
         if (data.list.length > 0) {
-          var userHolding = findDeep(data.list, { notation: userData.userSigel });
+          var userHolding = utilsService.findDeep(data.list, 'data.about.heldBy.notation', userData.userSigel);
+          console.log(userHolding);
           config.record.holdings = {
             hits: data.list.length,
             holding: userHolding
@@ -171,7 +144,6 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
           $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.holdingFor.@id:' + record.data.about['@id'].replace(/\//g, '\\/'), {record: record}).success(updateHoldings);
         }
     }
-
   };
 
   $scope.doSearch = function(url, params) {
