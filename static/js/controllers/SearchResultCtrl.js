@@ -143,7 +143,6 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
   if ($scope.recType == 'bib') {
     $rootScope.$watch('state.search.result.items.length', function(newLength, oldLength) {
       var updateHoldings = function(data, status, headers, config) {
-        debugger;
         if (data && data.list) {
           config.record.holdings = {
             items: 0
