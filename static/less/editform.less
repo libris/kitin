@@ -36,27 +36,29 @@ label.find-entity input[type="text"] { padding-left: 22px; }
     position:relative;
     border-top:1px dotted #ddd;
     margin: 0;
-    padding: 10px 0;
+    padding: 8px 0;
     .lbl {
       display:inline-block;
-      width:200px;
+      width:@lbl_width;
       padding-right:20px;
       text-align:left;
       font-weight:bold;
-      vertical-align:middle;
+      vertical-align:top;
+      padding-top:@lbl_margin;
     }
     .inp {
-      width:400px;
+      width:@inp_width;
       display:inline-block;
       vertical-align:middle;
-      textarea, input, table {
+      position:relative;
+      textarea, input {
         width: 100%
       }
     }
     .act {
-      width: 200px;
+      width:@act_width;
       display:inline-block;
-      vertical-align: bottom;
+      vertical-align: middle;
     }
   }
   .group {
@@ -86,15 +88,21 @@ label.find-entity input[type="text"] { padding-left: 22px; }
       .inp button {
         font-size:12px;
         padding-left: 0;
+        height:20px;
         span { 
           border-right:1px solid #eee;
           margin-right:4px;
-          font-weight:bold;
+          font-weight:normal;
           display:inline-block;
           width:14px;
-          font-size:13px;
+          font-size:9px;
+          line-height:20px;
           text-align:left;
+          position:relative;
+          top:-1px;
         }
+        &:active,
+        &:focus { text-decoration: none }
       }
     }
     &.single {
@@ -113,133 +121,227 @@ label.find-entity input[type="text"] { padding-left: 22px; }
   }
 }
 
-
-.edit .col6  .entity .embedded input{width:456px;}
-
-div[data-rich-entity]>div {
-
-  position:relative;
-  border: 1px solid @grey-light;
-  padding: 4px 8px;
-  margin-bottom:2px;
-  border-radius: 2px;
-
-  &.search {
-    border: none;
-    padding: 2px 0;
-    input[type="text"]{width:200px!important}
-  }
-
-  &.addmore { margin-bottom: 4px; }
-
-  &:first-child{  }
-
-  .check {
-    color:@grey;
-    margin-right:2px;
-    cursor:pointer;
-    &:hover{ color:@grey-very-dark }
-  }
-  .name {
-    font-weight:bold;
-  }
-  .delete { 
-    position:absolute;
-    right:6px;
-    top:3px;
-    display:none;
-    color: @grey;
-    &:hover{
-      color: @red;
+.entity {
+  &.rich {
+    .entity-content {
+      position:relative;
+      margin-bottom:6px;
+      padding: 4px 8px;
+      border-radius: 2px;
+      border: 1px dashed @grey-light;
+    }
+    .inner {
+      display:block;
+      font-size:13px;
+      .main {
+        .title { 
+          font-weight:bold
+        }
+        .label {
+          border:none;
+          padding: 4px 0 0;
+        }
+      }
+      .notes {
+        margin-top:2px;
+        label {
+          margin:0;
+          em {
+            font-size:11px;
+            color:#888;
+            font-weight:normal;
+            display:block;
+          }
+          input {
+            width: @inp_width/2;
+            font-weight:normal;
+            font-size:11px;
+          }
+        }
+      }
+    }
+    .controls {
+      position:absolute;
+      left: @inp_width;
+      width: @act_width;
+      top: 1px;
     }
   }
-  .auth {
-    padding-left:6px;
-    margin-left:3px;
-    border-left:1px solid @grey-lighter;
-    font-size:11px;
+  &.tags {
+    .inp>*{display:inline-block}
+    .entity-content {
+      position:relative;
+      top:1px;
+      display:inline-block;
+      background:@green-lighter;
+      border-radius:3px;
+      border-color:@green-lighter;
+      padding: 2px 20px 3px 8px;
+      margin: 0 3px 3px 0;
+      .inner {
+        display: inline-block;
+        font-size: 12px;
+        border: none;
+        padding: 0;
+        position: static;
+      }
+      .controls {
+        position: static;
+        width: auto;
+        top: auto;
+        left: auto;
+        a.delete {
+          width: 14px;
+          height: 14px;
+          line-height: 14px;
+          font-weight:600;
+          font-size:12px;
+          color:@green-dark;
+          position:absolute;
+          top: 2px;
+          right:3px;
+          text-decoration:none;
+          i { display: none }
+          opacity: .5;
+          &:before{ content: '\00d7'; }
+          &:hover{color:@green-darker;opacity:1}
+        }
+      }
+    }
+    .search, .select {
+      display: inline-block;
+      width: 120px;
+    }
   }
-  .tagsinput{
-    margin-bottom:2px
+  .search {
+    display:block;
+    width: 240px;
+    position:relative;
+    input[type="text"] {
+      background:@grey-warm;
+      border-color:@grey-warm;
+      padding-right:12px;
+      &:focus{
+        border-color:@grey-light;
+        box-shadow: none;
+      }
+    }
+    .fa {
+      position:absolute;
+      right: 8px;
+      top: 6px;
+      color: @grey-dark;
+      font-size: 12px;
+    }
+  }
+  .select {
+    padding-top: 1px;
+    position: relative;
+    width: 240px;
+    select {
+      -webkit-appearance: none;
+      background:@grey-warm;
+      border-color:@grey-warm;
+      border-radius: 2px;
+      padding: 0 5px;
+      height: 25px;
+      color: @grey;
+      width: 100%;
+      font-size:13px;
+      font-weight: 300;
+      /*
+      body .label select:hover{ background:@white url(/static/img/select-arrow.png) no-repeat 100% -92px;}
+      body .label select:focus{ border: 1px solid @grey; background:@white url(/static/img/select-arrow.png) no-repeat 98% -2px;}
+      */
+    }
+    .fa {
+      position:absolute;
+      right: 9px;
+      top: 6px;
+      color: @grey-dark;
+      font-size: 14px;
+    }
+  }
+}
+
+a.delete {
+  height: 20px;
+  line-height: 20px;
+  width: 28px;
+  text-align:center;
+  display: inline-block;
+  color: @red;
+  &:hover {
+    color: @grey-very-dark;
+  }
+}
+
+a.add {
+  display:inline-block;
+  padding-top:4px;
+  font-size:10px;
+  text-transform:uppercase;
+  color: @grey;
+  letter-spacing: 0.5px;
+  .fa {
+    font-size:14px;
+    color: @green;
   }
   &:hover {
-    .delete {
-      display:inline-block;
+    text-decoration:none;
+    color: @green-dark;
+    .fa {
+      color: @green-dark;
     }
   }
-
-  &.main {
-    display:inline-block;
-    .check{ color:@grey-very-dark;cursor:default }
-  }
-
-  .label { border: none; margin-bottom: 0; }
-  .addon .label,
-  .addon input[type="text"] { float: left; width: 74px; }
-
-  .what {
-    color: @green-light;
-  }
-
 }
+
 
 .on-hover { visibility: hidden; }
 .entity:hover .on-hover { visibility: visible; }
 
 
 .datatable {
-  table { border-collapse: separate; width: 100%; min-height: 1px; }
+  table { border-collapse: separate; width: @inp_width+@act_width; min-height: 1px; }
   margin-bottom:10px;
   tbody td {
-    padding: 4px;
+    padding: 2px 4px;
     border:1px solid @grey-light;
     border-left-width: 0;
     border-top-width: 0;
     position:relative;
     min-height:22px;
     height: 100%;
-    &.controls {
-      border-color: #fff;
-      width: 24px;
-      margin: 0;
-      .btn-link {
-        padding: 0;
-        font-size:20px;
-        &.deleter {
-          color:@grey-light;
-          &:focus,
-          &:hover { color: @red }
-        }
-      }
+    &.actions {
+      border-width: 0!important;
+      vertical-align: top;
+      padding: 3px 0 0 0;
+      width: @act_width;
     }
     &.multi {
       ul.tags { margin-top:0 }
       .add-item { margin-bottom:0 }
     }
     &:first-child { border-left-width:1px }
-    .label {
-      display:block;
-      height: 100%;
-      textarea {
-        box-sizing: border-box;
-        min-height: 100%;
-        border:none;
-        padding:0;
-        margin:0 4px;
-        min-width:200px;
-        &:focus{border:none;box-shadow:none}
-      }
+    textarea {
+      box-sizing: border-box;
+      border:none;
+      padding:0;
+      margin:0;
+      min-width:50px;
+      height: 22px;
+      &:focus{border:none;box-shadow:none}
     }
   }
   tr {
     &:first-child td {
       border-top-width: 1px;
       &:first-child { border-top-left-radius:2px; }
-      &:last-child { border-top-right-radius:2px; }
+      &:not(.actions):last-of-type { border-top-right-radius:2px; }
     }
     &:last-child td {
       &:first-child { border-bottom-left-radius:2px; }
-      &:last-child { border-bottom-right-radius:2px; }
+      &:not(.actions):last-of-type { border-bottom-right-radius:2px; }
     }
   }
   tbody .label { margin-bottom: -1px }
@@ -256,13 +358,13 @@ div[data-rich-entity]>div {
 
 span.authorized{display:block;margin-left:15px; padding-left:5px;margin-top:25px;color:@green; font-size: 24px;}
 
-.label ::-webkit-input-placeholder { color:@grey-light; font-style:italic; font-size:14px; font-weight:300}
-input[type="text"]::-webkit-input-placeholder { color:@grey-light; font-style:italic; font-size:14px; }
-.label :-moz-placeholder { color:@grey-light; font-style:italic; font-size:14px; }/*FF18<*/
-input[type="text"] :-moz-placeholder { color:@grey-light; font-style:italic; font-size:14px; }/*FF18<*/
-::-moz-placeholder { color:@grey-light; font-style:italic; font-size:14px; }/*FF19>*/
+.label ::-webkit-input-placeholder { color:@grey; font-weight:300}
+input[type="text"]::-webkit-input-placeholder { color:@grey;  }
+.label :-moz-placeholder { color:@grey; }/*FF18<*/
+input[type="text"] :-moz-placeholder { color:@grey;  }/*FF18<*/
+::-moz-placeholder { color:@grey; }/*FF19>*/
 
-:-ms-input-placeholder { color:@grey-light; font-style:italic; font-size:14px; }
+:-ms-input-placeholder { color:@grey; }
 
 
 
@@ -278,8 +380,7 @@ input[type="text"] :-moz-placeholder { color:@grey-light; font-style:italic; fon
 
 .label textarea,
 .label input[type="text"],
-.label select,
-.fakeinput{font-size:15px;padding:3px 5px;height:25px;border-radius:2px;}
+.fakeinput{font-size:13px;padding:2px 5px;height:25px;border-radius:2px;}
 
 .fakeinput{color:@grey-very-dark;cursor:text;padding-top:3px;height:24px}
 
@@ -288,10 +389,6 @@ input[type="text"] :-moz-placeholder { color:@grey-light; font-style:italic; fon
 .fakeinput{border:1px solid @grey-light;}
 
 .label textarea{line-height:22px;}
-.label select{
-  height:26px;
-  max-width: 200px;
-}
 
 .label {
   input[type="text"],

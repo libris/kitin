@@ -15,8 +15,8 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   };
 
   $rootScope.modifications.bib = {
-    saved:     $scope.recType === editService.RECORD_TYPES.REMOTE ? false : true, 
-    published: $scope.recType === editService.RECORD_TYPES.REMOTE ? false : $scope.record.draft ? false : true
+    saved:     ($scope.recType === editService.RECORD_TYPES.REMOTE || $scope.record.new) ? false : true, 
+    published: ($scope.recType === editService.RECORD_TYPES.REMOTE || $scope.record.draft || $scope.record.new) ? false : true
   };
 
   function onSaveState() {
@@ -55,15 +55,19 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   // Make sure the edit view holdings button stay updated
   var updateHolding = function () {
     var recordId = $scope.record.about['@id'];
-    recordService.holding.find(recordId, userData, true).then(function success(holding) {
-      if (holding) {
-        $scope.hasHolding = true;  
-      } else {
+    if(!$scope.record.new) {
+      recordService.holding.find(recordId, userData, true).then(function success(holding) {
+        if (holding) {
+          $scope.hasHolding = true;  
+        } else {
+          $scope.hasHolding = false;
+        }
+      }, function error(status) {
         $scope.hasHolding = false;
-      }
-    }, function error(status) {
+      });
+    } else {
       $scope.hasHolding = false;
-    });
+    }
   };
   // Set a watcher on holding's dirty flag
   $scope.$watchCollection('modifications.holding',
@@ -254,7 +258,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   //     };
 
   //     // Select all mapped elements
-  //     var cssSelector = '[data-ng-model],[ng-model],input,textarea,[data-kitin-link-entity],[data-kitin-data-table]';
+  //     var cssSelector = '[data-ng-model],[ng-model],input,textarea,[data-kitin-link-entity]';
   //     $(cssSelector).each(function() {
   //       var dataRef = $(this).data();
   //       if(dataRef) {

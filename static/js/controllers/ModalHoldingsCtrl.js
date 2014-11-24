@@ -15,10 +15,10 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   function getCurrentRecord() {
     // In search view, we need to know which record the user is editing holdings for.
     // If we're not in search view, return false
-    if ($rootScope.state.search.result && $rootScope.state.search.result.list) {
-      var records = $rootScope.state.search.result.list;
+    if ($rootScope.state.search.result && $rootScope.state.search.result.items) {
+      var records = $rootScope.state.search.result.items;
       return _.find(records, function(record) {
-        return record.data.about['@id'] == recordId;
+        return record.about['@id'] == recordId;
       });
     } else {
       return false;
@@ -30,7 +30,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     if (currentRecord) {
       currentRecord.holdings.holding = holding;
       if (isNew) {
-        currentRecord.holdings.hits += 1;
+        currentRecord.holdings.items += 1;
         isNew = false;
       }
     }
@@ -41,7 +41,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     var currentRecord = getCurrentRecord();
     if (currentRecord) {
       currentRecord.holdings.holding = null;
-      currentRecord.holdings.hits -= 1;
+      currentRecord.holdings.items -= 1;
     }
     $rootScope.modifications.holding.saved = true;
     $rootScope.modifications.holding.deleted = true;
@@ -61,11 +61,10 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
       recordService.holding.create().then(function(response) {
         isNew = true;
         holding = response;
-        holding.data.about['@id'] = recordId;
-        holding.data.about.holdingFor = {
+        holding.about.holdingFor = {
           '@id': recordId
         };
-        holding.data.about.offers[0].heldBy[0].notation = userData.userSigel;
+        holding.about.heldBy.notation = holding.about.offers[0].heldBy[0].notation = userData.userSigel;
         $scope.holding = holding;
       });
     } else {
@@ -94,10 +93,10 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
 
   $scope.addOffer = function(holding) {
     // Get offers from existing holding
-    var offers = holding.data.about.offers;
+    var offers = holding.about.offers;
     // Create a new holding temporarily to get an empty offer
     recordService.holding.create().then(function(response) {
-      var offer = response.data.about.offers[0];
+      var offer = response.about.offers[0];
       // Set hidden values and push to offers
       offer.heldBy[0].notation = userData.userSigel;
       offers.push(offer);
@@ -105,7 +104,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   };
 
   $scope.deleteOffer = function(holding, index) {
-    var offers = holding.data.about.offers;
+    var offers = holding.about.offers;
     offers.splice(index, 1);
   };
 

@@ -1,27 +1,6 @@
 angular.module('kitin').run(['$templateCache', function($templateCache) {
   'use strict';
 
-  $templateCache.put('/snippets/comment-header-row-template',
-    "<td>\n" +
-    "  <span class=\"lbl\" translate>LABEL.record.about.comment</span>\n" +
-    "</td>"
-  );
-
-
-  $templateCache.put('/snippets/comment-row-template',
-    "<td>\n" +
-    "  <div class=\"label\">\n" +
-    "    <textarea ng-model=\"objects[$index]\" data-ui-jq=\"autosize\" data-track-change type=\"text\"></textarea>\n" +
-    "  </div>\n" +
-    "</td>\n" +
-    "<td class=\"controls\">\n" +
-    "  <button class=\"btn-link deleter\" data-ng-click=\"removeTableRow($index)\">\n" +
-    "    <i class=\"fa fa-times\"></i>\n" +
-    "  </button>\n" +
-    "</td>"
-  );
-
-
   $templateCache.put('/snippets/general-identifier-header-row-template',
     "<td><span class=\"lbl\" translate>LABEL.record.about.identifers.generalIdentifier.identifierValue</span></td>\n" +
     "<td><span class=\"lbl\" translate>LABEL.record.about.identifers.generalIdentifier.identifierNote</span></td>\n" +
@@ -65,7 +44,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <i class=\"fa {{utils.getIconByType(record, recType)}}\"></i>\n" +
     "  </div>\n" +
     "  <div class=\"title\">\n" +
-    "    <a href=\"/edit/libris{{record.identifier || record.data['@id']}}\" data-ng-click=\"editPost(recType, record)\">{{ utils.composeTitle(record, recType) | chop:60 }}</a>\n" +
+    "    <a href=\"/edit/libris{{record['@id']}}\" data-ng-click=\"editPost(recType, record)\">{{ utils.composeTitle(record, recType) | chop:60 }}</a>\n" +
     "  </div>\n" +
     "  <div class=\"about\">\n" +
     "    {{ utils.composeInfo(record, recType) | chop:100 }}\n" +
@@ -94,18 +73,18 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "\n" +
     "<div class=\"hitlist-row bib compact\">\n" +
     "  <div class=\"title\">\n" +
-    "    <a href=\"/edit/libris{{record.identifier || record.data['@id']}}\">{{ utils.composeTitle(record) | chop:80}}</a>\n" +
+    "    <a href=\"/edit/libris{{record['@id']}}\">{{ utils.composeTitle(record) | chop:80}}</a>\n" +
     "  </div>\n" +
     "  <div class=\"creator\">\n" +
     "    {{ utils.composeCreator(record) | chop:40 }}\n" +
     "  </div>\n" +
     "  <div class=\"publication\">\n" +
-    "    <span data-ng-repeat=\"publication in record.data.about.publication | limitTo:1\">\n" +
+    "    <span data-ng-repeat=\"publication in record.about.publication | limitTo:1\">\n" +
     "      {{ utils.composeDate(publication.providerDate) }}\n" +
     "    </span>\n" +
     "  </div>\n" +
     "  <div class=\"identifier-code\">\n" +
-    "    <span data-ng-repeat=\"identifier in record.data.about.identifier | limitTo:1\">\n" +
+    "    <span data-ng-repeat=\"identifier in record.about.identifier | limitTo:1\">\n" +
     "      {{ identifier.identifierValue | chop:20 }}\n" +
     "    </span>\n" +
     "  </div>\n" +
@@ -121,107 +100,6 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <span data-ng-if=\"hasHolding\"><i class=\"fa fa-inverse fa-check\"></i> Bestånd</span>\n" +
     "  </button>\n" +
     "</div>"
-  );
-
-
-  $templateCache.put('/snippets/influentialRelation-header-row-template',
-    "<td>\n" +
-    "    <span class=\"lbl\" translate>LABEL.record.about.influentialRelation</span>\n" +
-    "</td>"
-  );
-
-
-  $templateCache.put('/snippets/influentialRelation-row-template',
-    "<td>\n" +
-    "  <div class=\"label\">\n" +
-    "    <textarea ng-model=\"objects[$index].uniformTitle\" data-track-change type=\"text\"></textarea>\n" +
-    "  </div>\n" +
-    "</td>\n" +
-    "<td class=\"controls\">\n" +
-    "  <button class=\"btn-link deleter\" data-ng-click=\"removeTableRow($index)\">\n" +
-    "    <i class=\"fa fa-times\"></i>\n" +
-    "  </button>\n" +
-    "</td>"
-  );
-
-
-  $templateCache.put('/snippets/isbn-header-row-template',
-    "<td><!--TODO fix labels and error messages for identifiers-->\n" +
-    "  <span class=\"lbl-inline lbl\"\n" +
-    "        data-ng-hide=\"subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length\"><span translate>LABEL.record.about.identifers.isbn.identifierValue</span>                      \n" +
-    "  </span>\n" +
-    "  <span class=\"lbl-inline lbl error-label\"\n" +
-    "        data-ng-show=\"subform.isbn_name.$error.invalid_value || subform.isbn_name.$error.invalid_length\" translate>LABEL.record.about.identifers.isbn.identifierValue \n" +
-    "  <span class=\"error_message\" data-ng-show=\"subform.isbn_name.$error.invalid_value\">(Fel numeriskt värde)</span>\n" +
-    "  <span class=\"error_message\" data-ng-show=\"subform.isbn_name.$error.invalid_length\">(Fel längd)</span>\n" +
-    "  </span>\n" +
-    "</td>\n" +
-    "<td><span class=\"lbl\" translate>LABEL.record.about.identifers.isbn.identifierNote</span></td>"
-  );
-
-
-  $templateCache.put('/snippets/isbn-row-template',
-    "<td>\n" +
-    "  <div class=\"label\">\n" +
-    "    <input data-track-change type=\"text\" data-track-change name=\"isbn_name\" data-ng-model=\"object['identifierValue']\" data-isbn-pattern=\"^$|^[0-9-xX]*$\" isbnvalidator/>\n" +
-    "  </div>\n" +
-    "</td>\n" +
-    "<td>\n" +
-    "  <div class=\"label\">\n" +
-    "    <input data-track-change ng-model=\"object['identifierNote']\" data-track-change type=\"text\" />\n" +
-    "  </div>\n" +
-    "</td>\n" +
-    "<td class=\"controls\">\n" +
-    "  <button class=\"btn-link deleter\" data-ng-click=\"removeTableRow($index)\">\n" +
-    "    <i class=\"fa fa-times\"></i>\n" +
-    "  </button>\n" +
-    "</td>"
-  );
-
-
-  $templateCache.put('/snippets/issn-header-row-template',
-    "<td><span class=\"lbl\" translate>LABEL.record.about.identifers.issn.identifierValue</span></td>\n" +
-    "<td><span class=\"lbl\" translate>LABEL.record.about.identifers.issn.identifierNote</span></td>"
-  );
-
-
-  $templateCache.put('/snippets/issn-row-template',
-    "<td>\n" +
-    "  <div class=\"label\">\n" +
-    "    <input ng-model=\"object['identifierValue']\" data-track-change type=\"text\" />\n" +
-    "  </div>\n" +
-    "</td>\n" +
-    "<td>\n" +
-    "  <div class=\"label\">\n" +
-    "    <input ng-model=\"object['identifierNote']\" data-track-change type=\"text\" />\n" +
-    "  </div>\n" +
-    "</td>\n" +
-    "<td class=\"controls\">\n" +
-    "  <button class=\"btn-link deleter\" data-ng-click=\"removeTableRow($index)\">\n" +
-    "    <i class=\"fa fa-times\"></i>\n" +
-    "  </button>\n" +
-    "</td>"
-  );
-
-
-  $templateCache.put('/snippets/languageNote-header-row-template',
-    "<td>\n" +
-    "  <span class=\"lbl\" translate>LABEL.record.about.languageNote</span>\n" +
-    "</td>"
-  );
-
-
-  $templateCache.put('/snippets/languageNote-row-template',
-    "<td>\n" +
-    "  <div class=\"label\">\n" +
-    "    <textarea ng-model=\"objects[$index]\" data-track-change type=\"text\"></textarea>\n" +
-    "  </div>\n" +
-    "</td>\n" +
-    "<td class=\"controls\">\n" +
-    "  <button class=\"btn-link deleter\" data-ng-click=\"removeTableRow($index)\">\n" +
-    "    <i class=\"fa fa-times\"></i>\n" +
-    "  </button>\n" +
-    "</td>"
   );
 
 
@@ -297,9 +175,9 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "      <accordion close-others=\"true\">\n" +
     "        <accordion-group data-ng-repeat=\"otherHolding in allHoldings\" is-open=\"offer.open\">\n" +
     "          <accordion-heading>\n" +
-    "              {{otherHolding.data.about.heldBy.notation}} <i class=\"pull-right fa\" ng-class=\"{'fa-chevron-down': offer.open, 'fa-chevron-right': !offer.open}\"></i>\n" +
+    "              {{otherHolding.about.heldBy.notation}} <i class=\"pull-right fa\" ng-class=\"{'fa-chevron-down': offer.open, 'fa-chevron-right': !offer.open}\"></i>\n" +
     "          </accordion-heading>\n" +
-    "          <div data-ng-repeat=\"offer in otherHolding.data.about.offers\" class=\"other-offer\">\n" +
+    "          <div data-ng-repeat=\"offer in otherHolding.about.offers\" class=\"other-offer\">\n" +
     "            <span class=\"offer-value\" data-ng-repeat=\"(property, value) in offer\" data-ng-show=\"property != '@type' && property != 'open'&& property != 'heldBy'\">{{property}}: {{value}}<span data-ng-show=\"!$last\">, </span></span>\n" +
     "          </div>\n" +
     "        </accordion-group>\n" +
@@ -307,8 +185,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    </accordion-group>\n" +
     "  </accordion>\n" +
     "  \n" +
-    "  <form data-ng-show=\"holding.data['@id'] || !holding['etag']\" name=\"holdingForm\">\n" +
-    "    <section class=\"offer\" data-ng-repeat=\"offer in holding.data.about.offers track by $index\">\n" +
+    "  <form data-ng-show=\"holding['@id'] || !holding['etag']\" name=\"holdingForm\">\n" +
+    "    <section class=\"offer\" data-ng-repeat=\"offer in holding.about.offers track by $index\">\n" +
     "      <div class=\"cols\">\n" +
     "        <div class=\"col6\">\n" +
     "          <div class=\"label\">\n" +
@@ -347,7 +225,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "          </div>\n" +
     "        </div>\n" +
     "        <div class=\"col12\">\n" +
-    "          <button class=\"btn btn-link pull-right\" data-ng-if=\"holding.data.about.offers.length > 1\" data-ng-click=\"deleteOffer(holding, $index)\"><i class=\"fa fa-trash-o\"></i> {{ \"Radera lokalsignum\" }}</button>\n" +
+    "          <button class=\"btn btn-link pull-right\" data-ng-if=\"holding.about.offers.length > 1\" data-ng-click=\"deleteOffer(holding, $index)\"><i class=\"fa fa-trash-o\"></i> {{ \"Radera lokalsignum\" }}</button>\n" +
     "        </div>\n" +
     "      </div>\n" +
     "    </section>\n" +
@@ -359,7 +237,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    {{ \"Beståndet raderat\" }}\n" +
     "  </div>\n" +
     "  \n" +
-    "  <div class=\"alert alert-error\" role=\"alert\" data-ng-show=\"holding.data.about.offers.length < 1\">\n" +
+    "  <div class=\"alert alert-error\" role=\"alert\" data-ng-show=\"holding.about.offers.length < 1\">\n" +
     "    {{ \"Beståndet saknar lokalsignum\" }}\n" +
     "  </div>\n" +
     "\n" +
@@ -378,7 +256,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <div data-ng-if=\"modifications.holding.saved\">{{ \"Inga osparade ändringar.\" }}</div>\n" +
     "    <div data-ng-if=\"!modifications.holding.saved\">{{ \"Du har inte sparat dina ändringar.\" }}</div>\n" +
     "  </div>\n" +
-    "  <button class=\"btn-link\" id=\"delete-hld\" data-ng-click=\"deleteHolding(holding)\" data-ng-show=\"holding.data['@id']\"><i class=\"fa fa-trash-o\"></i> {{ \"Radera bestånd\" }}</button>\n" +
+    "  <button class=\"btn-link\" id=\"delete-hld\" data-ng-click=\"deleteHolding(holding)\" data-ng-show=\"holding['@id']\"><i class=\"fa fa-trash-o\"></i> {{ \"Radera bestånd\" }}</button>\n" +
     "  <button class=\"btn btn-purple btn-submit\" id=\"save-hld\" data-ng-click=\"saveHolding(holding)\" data-ng-show=\"holding\">{{ \"Spara bestånd\" }}</button>\n" +
     "  <button class=\"btn btn-purple btn-submit\" id=\"save-hld\" data-ng-click=\"close()\" data-ng-show=\"!holding\">{{ \"Stäng\" }}</button>\n" +
     "</div>"
@@ -594,8 +472,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "<a href=\"#\">\n" +
     "  <i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object)\"></i>\n" +
     "  {{ (object.prefLabel || object.prefLabel-en) }}\n" +
-    "</a>\n" +
-    "<i data-ng-if=\"!editable.on\" data-ng-click=\"doRemove($index)\" class=\"no\">&times;</i>"
+    "</a>"
   );
 
 
@@ -616,8 +493,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "\n" +
     "<select \n" +
     "  data-kitin-select-entity\n" +
-    "  data-selected-item-variable=\"selectedItem.data.about\"\n" +
-    "  ng-options=\"(item.data.about.prefLabel || item.data.about.prefLabel-en) for item in objects | orderBy:'data.about.prefLabel'\">\n" +
+    "  data-selected-item-variable=\"selectedItem.about\"\n" +
+    "  ng-options=\"(item.about.prefLabel || item.about.prefLabel-en) for item in objects | orderBy:'about.prefLabel'\">\n" +
     "</select>"
   );
 
@@ -641,17 +518,9 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('/snippets/render-language',
-    "<div class=\"tag-linked\"\n" +
-    "  data-ng-controller=\"PopoverCtrl\" \n" +
-    "  data-popover=\"{{loading}}\" \n" +
-    "  data-object=\"{{object}}\" \n" +
-    "  data-popover-title=\"{{object.prefLabel}}\" \n" +
-    "  data-custom-popover=\"language\">\n" +
-    "    <i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object)\"></i>\n" +
-    "    {{ object.prefLabel }}\n" +
-    "    <span data-ng-show=\"object.langCode\">({{ object.langCode }})</span>\n" +
-    "    <i data-ng-if=\"!editable.on\" data-ng-click=\"doRemove($index)\" class=\"no\">&times;</i>\n" +
-    "</div>"
+    "<i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object)\"></i>\n" +
+    "<strong>{{ object.prefLabel }}</strong>\n" +
+    "<span data-ng-show=\"object.langCode\">({{ object.langCode }})</span>"
   );
 
 
@@ -729,15 +598,15 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('/snippets/render-person-name',
-    "<span data-ng-if=\"person.givenName || person.familyName\" class=\"name\">\n" +
+    "<strong data-ng-if=\"person.givenName || person.familyName\" class=\"name\">\n" +
     "  {{ person.givenName }} {{ person.familyName }}\n" +
-    "</span>\n" +
-    "<span data-ng-if=\"person.name\" class=\"name\">\n" +
+    "</strong>\n" +
+    "<strong data-ng-if=\"person.name\" class=\"name\">\n" +
     "  {{ person.name }}\n" +
-    "</span>\n" +
-    "<span data-ng-if=\"person.personTitle\">\n" +
-    "  ( <span ng-repeat=\"personTitle in person.personTitle\">{{ personTitle }} </span>)\n" +
-    "</span>\n" +
+    "</strong>\n" +
+    "<em data-ng-if=\"person.personTitle\">\n" +
+    "  (<span ng-repeat=\"personTitle in person.personTitle\">{{ personTitle }} </span>)\n" +
+    "</em>\n" +
     "<span data-ng-if=\"person.birthYear || person.deathYear\">\n" +
     "  <span class=\"timeSpan\">{{ person.birthYear }}-{{ person.deathYear }}</span>\n" +
     "</span>"
@@ -745,69 +614,53 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('/snippets/render-person',
-    "<div data-ng-if=\"isLinked(object) && !isEmpty(object)\" class=\"entity person linked\">\n" +
-    "  <div class=\"main\">\n" +
+    "<div class=\"person main\">\n" +
+    "  <div data-ng-if=\"isLinked(object) && !isEmpty(object)\" >\n" +
     "    <span onload=\"person = object\" data-ng-include=\"'/snippets/render-person-name'\"></span>\n" +
     "    <a data-ng-if=\"isLinked(object)\" class=\"btn-link auth\" data-ng-controller=\"ModalCtrl\" data-ng-click=\"openAuthModal(person['@id'])\">\n" +
     "      <i class=\"fa fa-bookmark\"></i> Aukt.\n" +
     "    </a>\n" +
     "  </div>\n" +
-    "  <div data-ng-include=\"'/snippets/roles'\"></div>\n" +
-    "  <a data-ng-if=\"!editable.on\" class=\"delete\" href=\"#\"\n" +
-    "     data-ng-click=\"doRemove($index)\"><i class=\"fa fa-times\"></i></a>\n" +
-    "</div>\n" +
-    "<div data-ng-if=\"!isLinked(object)\" class=\"entity person embedded\"\n" +
-    "      data-ng-init=\"editable = {on: !(object.controlledLabel || object.givenName || object.name)}\">\n" +
-    "  <div data-ng-hide=\"editable.on\">\n" +
-    "      <div class=\"label\" >\n" +
+    "  <div data-ng-if=\"!isLinked(object)\"\n" +
+    "        data-ng-init=\"editable = {on: !(object.controlledLabel || object.givenName || object.name)}\">\n" +
+    "    <div data-ng-hide=\"editable.on\">\n" +
     "        <span onload=\"person = object\" data-ng-include=\"'/snippets/render-person-name'\"></span><a class=\"auth\" href=\"#\" data-ng-click=\"editable.on = !editable.on\">Ändra</a>\n" +
+    "    </div>\n" +
+    "    <div data-ng-show=\"editable.on\">\n" +
+    "      <a class=\"delete\" href=\"#\" data-ng-click=\"doRemove($index)\"><i class=\"fa fa-times\"></i></a>\n" +
+    "      <div class=\"label\">\n" +
+    "        <span class=\"lbl\">{{ \"Förnamn\" }}</span>\n" +
+    "        <input data-track-change class=\"\" type=\"text\" placeholder=\"Förnamn\"\n" +
+    "               data-ng-model=\"object.givenName\" />\n" +
     "      </div>\n" +
-    "  </div>\n" +
-    "  <div data-ng-show=\"editable.on\">\n" +
-    "    <a class=\"delete\" href=\"#\" data-ng-click=\"doRemove($index)\"><i class=\"fa fa-times\"></i></a>\n" +
-    "    <div class=\"label\">\n" +
-    "      <span class=\"lbl\">{{ \"Förnamn\" }}</span>\n" +
-    "      <input data-track-change class=\"\" type=\"text\" placeholder=\"Förnamn\"\n" +
-    "             data-ng-model=\"object.givenName\" />\n" +
+    "      <div class=\"label\">\n" +
+    "        <span class=\"lbl\">{{ \"Släktnamn\" }}</span>\n" +
+    "        <input data-track-change class=\"\" type=\"text\" placeholder=\"Släktnamn\"\n" +
+    "               data-ng-model=\"object.familyName\" />\n" +
+    "      </div>\n" +
     "    </div>\n" +
-    "    <div class=\"label\">\n" +
-    "      <span class=\"lbl\">{{ \"Släktnamn\" }}</span>\n" +
-    "      <input data-track-change class=\"\" type=\"text\" placeholder=\"Släktnamn\"\n" +
-    "             data-ng-model=\"object.familyName\" />\n" +
-    "    </div>\n" +
-    "  </div>\n" +
-    "  <div data-ng-show=\"editable.on\">\n" +
-    "    <div class=\"label\">\n" +
-    "      <span class=\"lbl\">{{ \"Född\" }}</span>\n" +
-    "      <input data-track-change class=\"authdependant\" type=\"text\" placeholder=\"ÅÅÅÅ\"\n" +
-    "             data-ng-model=\"object.birthYear\" />\n" +
+    "    <div data-ng-show=\"editable.on\">\n" +
+    "      <div class=\"label\">\n" +
+    "        <span class=\"lbl\">{{ \"Född\" }}</span>\n" +
+    "        <input data-track-change class=\"authdependant\" type=\"text\" placeholder=\"ÅÅÅÅ\"\n" +
+    "               data-ng-model=\"object.birthYear\" />\n" +
     "\n" +
+    "      </div>\n" +
+    "      <div class=\"label\">\n" +
+    "        <span class=\"lbl\">{{ \"Död\" }}</span>\n" +
+    "        <input data-track-change class=\"authdependant\" type=\"text\" placeholder=\"ÅÅÅÅ\" \n" +
+    "               data-ng-model=\"object.deathYear\" />\n" +
+    "      </div>\n" +
     "    </div>\n" +
-    "    <div class=\"label\">\n" +
-    "      <span class=\"lbl\">{{ \"Död\" }}</span>\n" +
-    "      <input data-track-change class=\"authdependant\" type=\"text\" placeholder=\"ÅÅÅÅ\" \n" +
-    "             data-ng-model=\"object.deathYear\" />\n" +
-    "    </div>\n" +
-    "    <!--\n" +
-    "    <div data-ng-controller=\"ModalCtrl\">\n" +
-    "      <button class=\"btn btn-primary\" data-ng-click=\"openAuthModal($event)\">Aukt.</button>\n" +
-    "    </div>\n" +
-    "    -->\n" +
     "  </div>\n" +
-    "  <div data-ng-include=\"'/snippets/roles'\"></div>\n" +
-    "  <a data-ng-if=\"!editable.on\" class=\"delete\" href=\"#\" data-ng-click=\"doRemove($index)\">\n" +
-    "    <i class=\"fa fa-trash\"></i>\n" +
-    "  </a>\n" +
+    "  <kitin-entityrow multiple hide-title model=\"record.about._reifiedRoles\" type=\"ObjectProperty\" view=\"/snippets/render-role\">\n" +
+    "    <kitin-search service-url=\"/relator/_search\" filter=\"about.@type:ObjectProperty\" template-id=\"select-role-template\" placeholder=\"Lägg till roll\"></kitin-search>\n" +
+    "  </kitin-entity>\n" +
     "</div>"
   );
 
 
   $templateCache.put('/snippets/render-referenced-entity',
-    "<!-- \n" +
-    "  render-referenced-entity\n" +
-    "  Render generic linked bib reference tag.\n" +
-    "-->\n" +
-    "\n" +
     "<div class=\"entity relation linked\">\n" +
     "  <div class=\"main\">\n" +
     "    <div class=\"title\">{{ object.title || object.uniformTitle }}</div>\n" +
@@ -824,28 +677,42 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('/snippets/render-relation-referenced-entity',
-    "<div class=\"entity relation linked\">\n" +
-    "  <div class=\"main\">\n" +
-    "    <div class=\"title\">{{ object.title }}</div>\n" +
-    "    <div class=\"date\">\n" +
-    "      <span title=\"Utgivningsår\" data-ng-repeat=\"publication in object.publication | limitTo:1\" data-ng-show=\"publication.providerDate\">\n" +
-    "        {{publication.providerDate}}\n" +
-    "      </span>\n" +
-    "    </div>\n" +
+    "<div class=\"main\">\n" +
+    "  <div class=\"title\">{{ object.title }}</div>\n" +
+    "  <div class=\"date\">\n" +
+    "    <span title=\"Utgivningsår\" data-ng-repeat=\"publication in object.publication | limitTo:1\" data-ng-show=\"publication.providerDate\">\n" +
+    "      {{publication.providerDate}}\n" +
+    "    </span>\n" +
     "  </div>\n" +
-    "  <div class=\"notes\">\n" +
-    "    <span class=\"lbl\" translate>LABEL.record.about.relation.linkNote</span>\n" +
+    "</div>\n" +
+    "<div class=\"notes\">\n" +
+    "  <label>\n" +
+    "    <em><span translate>LABEL.record.about.relation.linkNote</span>:</em>\n" +
     "    <input data-track-change type=\"text\" ng-model=\"object.linkNote\" />\n" +
-    "  </div>\n" +
-    "  <a data-ng-if=\"!editable.on\" class=\"delete\" href=\"#\"\n" +
-    "     data-ng-click=\"doRemove($index)\"><i class=\"fa fa-times\"></i></a>\n" +
+    "  </label>\n" +
     "</div>"
   );
 
 
   $templateCache.put('/snippets/render-role',
-    "{{ object.label }} <em>({{ object.notation }})</em>\n" +
-    "<a href=\"#\" data-ng-click=\"doRemove($index)\"><i class=\"no\">&times;</i></a>"
+    "{{ object.label }} <em>({{ object.notation }})</em>"
+  );
+
+
+  $templateCache.put('/snippets/render-search-box-2',
+    "<span class=\"search-box\">  \n" +
+    "  <span class=\"search-field\">\n" +
+    "    <kitin-search\n" +
+    "      service-url=\"/bib/_search\"\n" +
+    "      make-reference-on-item-select=\"true\"\n" +
+    "      completion-template-id=\"bib-completion-template\" \n" +
+    "      >\n" +
+    "    </kitin-search>\n" +
+    "  </span>\n" +
+    "  <span class=\"linkchoice\">\n" +
+    "    eller <a href=\"#\">Skapa ny</a>\n" +
+    "  </span>\n" +
+    "</span>"
   );
 
 

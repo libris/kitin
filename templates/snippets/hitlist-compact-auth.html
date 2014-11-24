@@ -3,7 +3,7 @@
     <i class="fa {{utils.getIconByType(record, recType)}}"></i>
   </div>
   <div class="title">
-    <a href="/edit/libris{{record.identifier || record.data['@id']}}" data-ng-click="editPost(recType, record)">{{ utils.composeTitle(record, recType) | chop:60 }}</a>
+    <a href="/edit/libris{{record['@id']}}" data-ng-click="editPost(recType, record)">{{ utils.composeTitle(record, recType) | chop:60 }}</a>
   </div>
   <div class="about">
     {{ utils.composeInfo(record, recType) | chop:100 }}

@@ -1,12 +1,12 @@
-<span data-ng-if="person.givenName || person.familyName" class="name">
+<strong data-ng-if="person.givenName || person.familyName" class="name">
   {{ person.givenName }} {{ person.familyName }}
-</span>
-<span data-ng-if="person.name" class="name">
+</strong>
+<strong data-ng-if="person.name" class="name">
   {{ person.name }}
-</span>
-<span data-ng-if="person.personTitle">
-  ( <span ng-repeat="personTitle in person.personTitle">{{ personTitle }} </span>)
-</span>
+</strong>
+<em data-ng-if="person.personTitle">
+  (<span ng-repeat="personTitle in person.personTitle">{{ personTitle }} </span>)
+</em>
 <span data-ng-if="person.birthYear || person.deathYear">
   <span class="timeSpan">{{ person.birthYear }}-{{ person.deathYear }}</span>
 </span>

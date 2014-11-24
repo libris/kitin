@@ -1080,7 +1080,6 @@ body.login .content.index header {
 .content header .record-type {
   z-index: 100;
   background-color: #ffffff;
-  margin-left: -11px;
 }
 .content header .record-type h1 {
   margin: 0 0 8px;
@@ -1141,7 +1140,6 @@ body.edit .content header section {
 body.edit .content header section .record-metadata {
   font-size: 12px;
   color: #666664;
-  margin-top: -15px;
   z-index: 99;
   padding: 20px 20px 20px 50px;
   background: url(/static/img/bg.png);
@@ -2438,7 +2436,7 @@ label.find-entity input[type="text"] {
   position: relative;
   border-top: 1px dotted #ddd;
   margin: 0;
-  padding: 10px 0;
+  padding: 8px 0;
 }
 .form-container .label .lbl {
   display: inline-block;
@@ -2446,22 +2444,23 @@ label.find-entity input[type="text"] {
   padding-right: 20px;
   text-align: left;
   font-weight: bold;
-  vertical-align: middle;
+  vertical-align: top;
+  padding-top: 3px;
 }
 .form-container .label .inp {
   width: 400px;
   display: inline-block;
   vertical-align: middle;
+  position: relative;
 }
 .form-container .label .inp textarea,
-.form-container .label .inp input,
-.form-container .label .inp table {
+.form-container .label .inp input {
   width: 100%;
 }
 .form-container .label .act {
   width: 200px;
   display: inline-block;
-  vertical-align: bottom;
+  vertical-align: middle;
 }
 .form-container .group {
   border-top: 1px solid #ccc;
@@ -2489,15 +2488,23 @@ label.find-entity input[type="text"] {
 .form-container .group .group-title .inp button {
   font-size: 12px;
   padding-left: 0;
+  height: 20px;
 }
 .form-container .group .group-title .inp button span {
   border-right: 1px solid #eee;
   margin-right: 4px;
-  font-weight: bold;
+  font-weight: normal;
   display: inline-block;
   width: 14px;
-  font-size: 13px;
+  font-size: 9px;
+  line-height: 20px;
   text-align: left;
+  position: relative;
+  top: -1px;
+}
+.form-container .group .group-title .inp button:active,
+.form-container .group .group-title .inp button:focus {
+  text-decoration: none;
 }
 .form-container .group.single .group-title {
   display: none;
@@ -2510,77 +2517,179 @@ label.find-entity input[type="text"] {
   font-weight: bold;
   color: #111;
 }
-.edit .col6 .entity .embedded input {
-  width: 456px;
-}
-div[data-rich-entity] > div {
+.entity.rich .entity-content {
   position: relative;
-  border: 1px solid #c7c7c3;
+  margin-bottom: 6px;
   padding: 4px 8px;
-  margin-bottom: 2px;
   border-radius: 2px;
+  border: 1px dashed #c7c7c3;
 }
-div[data-rich-entity] > div.search {
-  border: none;
-  padding: 2px 0;
+.entity.rich .inner {
+  display: block;
+  font-size: 13px;
 }
-div[data-rich-entity] > div.search input[type="text"] {
-  width: 200px !important;
-}
-div[data-rich-entity] > div.addmore {
-  margin-bottom: 4px;
-}
-div[data-rich-entity] > div .check {
-  color: #adada9;
-  margin-right: 2px;
-  cursor: pointer;
-}
-div[data-rich-entity] > div .check:hover {
-  color: #191913;
-}
-div[data-rich-entity] > div .name {
+.entity.rich .inner .main .title {
   font-weight: bold;
 }
-div[data-rich-entity] > div .delete {
-  position: absolute;
-  right: 6px;
-  top: 3px;
-  display: none;
-  color: #adada9;
+.entity.rich .inner .main .label {
+  border: none;
+  padding: 4px 0 0;
 }
-div[data-rich-entity] > div .delete:hover {
-  color: #ee5d61;
+.entity.rich .inner .notes {
+  margin-top: 2px;
 }
-div[data-rich-entity] > div .auth {
-  padding-left: 6px;
-  margin-left: 3px;
-  border-left: 1px solid #ddddd8;
+.entity.rich .inner .notes label {
+  margin: 0;
+}
+.entity.rich .inner .notes label em {
+  font-size: 11px;
+  color: #888;
+  font-weight: normal;
+  display: block;
+}
+.entity.rich .inner .notes label input {
+  width: 200px;
+  font-weight: normal;
   font-size: 11px;
 }
-div[data-rich-entity] > div .tagsinput {
-  margin-bottom: 2px;
+.entity.rich .controls {
+  position: absolute;
+  left: 400px;
+  width: 200px;
+  top: 1px;
 }
-div[data-rich-entity] > div:hover .delete {
+.entity.tags .inp > * {
   display: inline-block;
 }
-div[data-rich-entity] > div.main {
+.entity.tags .entity-content {
+  position: relative;
+  top: 1px;
   display: inline-block;
+  background: #c6ece3;
+  border-radius: 3px;
+  border-color: #c6ece3;
+  padding: 2px 20px 3px 8px;
+  margin: 0 3px 3px 0;
 }
-div[data-rich-entity] > div.main .check {
-  color: #191913;
-  cursor: default;
-}
-div[data-rich-entity] > div .label {
+.entity.tags .entity-content .inner {
+  display: inline-block;
+  font-size: 12px;
   border: none;
-  margin-bottom: 0;
+  padding: 0;
+  position: static;
 }
-div[data-rich-entity] > div .addon .label,
-div[data-rich-entity] > div .addon input[type="text"] {
-  float: left;
-  width: 74px;
+.entity.tags .entity-content .controls {
+  position: static;
+  width: auto;
+  top: auto;
+  left: auto;
 }
-div[data-rich-entity] > div .what {
-  color: #22ba94;
+.entity.tags .entity-content .controls a.delete {
+  width: 14px;
+  height: 14px;
+  line-height: 14px;
+  font-weight: 600;
+  font-size: 12px;
+  color: #0e4e3e;
+  position: absolute;
+  top: 2px;
+  right: 3px;
+  text-decoration: none;
+  opacity: .5;
+}
+.entity.tags .entity-content .controls a.delete i {
+  display: none;
+}
+.entity.tags .entity-content .controls a.delete:before {
+  content: '\00d7';
+}
+.entity.tags .entity-content .controls a.delete:hover {
+  color: #000000;
+  opacity: 1;
+}
+.entity.tags .search,
+.entity.tags .select {
+  display: inline-block;
+  width: 120px;
+}
+.entity .search {
+  display: block;
+  width: 240px;
+  position: relative;
+}
+.entity .search input[type="text"] {
+  background: #eeeeec;
+  border-color: #eeeeec;
+  padding-right: 12px;
+}
+.entity .search input[type="text"]:focus {
+  border-color: #c7c7c3;
+  box-shadow: none;
+}
+.entity .search .fa {
+  position: absolute;
+  right: 8px;
+  top: 6px;
+  color: #999996;
+  font-size: 12px;
+}
+.entity .select {
+  padding-top: 1px;
+  position: relative;
+  width: 240px;
+}
+.entity .select select {
+  -webkit-appearance: none;
+  background: #eeeeec;
+  border-color: #eeeeec;
+  border-radius: 2px;
+  padding: 0 5px;
+  height: 25px;
+  color: #adada9;
+  width: 100%;
+  font-size: 13px;
+  font-weight: 300;
+  /*
+      body .label select:hover{ background:@white url(/static/img/select-arrow.png) no-repeat 100% -92px;}
+      body .label select:focus{ border: 1px solid @grey; background:@white url(/static/img/select-arrow.png) no-repeat 98% -2px;}
+      */
+}
+.entity .select .fa {
+  position: absolute;
+  right: 9px;
+  top: 6px;
+  color: #999996;
+  font-size: 14px;
+}
+a.delete {
+  height: 20px;
+  line-height: 20px;
+  width: 28px;
+  text-align: center;
+  display: inline-block;
+  color: #ee5d61;
+}
+a.delete:hover {
+  color: #191913;
+}
+a.add {
+  display: inline-block;
+  padding-top: 4px;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #adada9;
+  letter-spacing: 0.5px;
+}
+a.add .fa {
+  font-size: 14px;
+  color: #1a8f72;
+}
+a.add:hover {
+  text-decoration: none;
+  color: #0e4e3e;
+}
+a.add:hover .fa {
+  color: #0e4e3e;
 }
 .on-hover {
   visibility: hidden;
@@ -2593,11 +2702,11 @@ div[data-rich-entity] > div .what {
 }
 .datatable table {
   border-collapse: separate;
-  width: 100%;
+  width: 600px;
   min-height: 1px;
 }
 .datatable tbody td {
-  padding: 4px;
+  padding: 2px 4px;
   border: 1px solid #c7c7c3;
   border-left-width: 0;
   border-top-width: 0;
@@ -2605,21 +2714,11 @@ div[data-rich-entity] > div .what {
   min-height: 22px;
   height: 100%;
 }
-.datatable tbody td.controls {
-  border-color: #fff;
-  width: 24px;
-  margin: 0;
-}
-.datatable tbody td.controls .btn-link {
-  padding: 0;
-  font-size: 20px;
-}
-.datatable tbody td.controls .btn-link.deleter {
-  color: #c7c7c3;
-}
-.datatable tbody td.controls .btn-link.deleter:focus,
-.datatable tbody td.controls .btn-link.deleter:hover {
-  color: #ee5d61;
+.datatable tbody td.actions {
+  border-width: 0!important;
+  vertical-align: top;
+  padding: 3px 0 0 0;
+  width: 200px;
 }
 .datatable tbody td.multi ul.tags {
   margin-top: 0;
@@ -2630,19 +2729,15 @@ div[data-rich-entity] > div .what {
 .datatable tbody td:first-child {
   border-left-width: 1px;
 }
-.datatable tbody td .label {
-  display: block;
-  height: 100%;
-}
-.datatable tbody td .label textarea {
+.datatable tbody td textarea {
   box-sizing: border-box;
-  min-height: 100%;
   border: none;
   padding: 0;
-  margin: 0 4px;
-  min-width: 200px;
+  margin: 0;
+  min-width: 50px;
+  height: 22px;
 }
-.datatable tbody td .label textarea:focus {
+.datatable tbody td textarea:focus {
   border: none;
   box-shadow: none;
 }
@@ -2652,13 +2747,13 @@ div[data-rich-entity] > div .what {
 .datatable tr:first-child td:first-child {
   border-top-left-radius: 2px;
 }
-.datatable tr:first-child td:last-child {
+.datatable tr:first-child td:not(.actions):last-of-type {
   border-top-right-radius: 2px;
 }
 .datatable tr:last-child td:first-child {
   border-bottom-left-radius: 2px;
 }
-.datatable tr:last-child td:last-child {
+.datatable tr:last-child td:not(.actions):last-of-type {
   border-bottom-right-radius: 2px;
 }
 .datatable tbody .label {
@@ -2682,38 +2777,26 @@ span.authorized {
   font-size: 24px;
 }
 .label ::-webkit-input-placeholder {
-  color: #c7c7c3;
-  font-style: italic;
-  font-size: 14px;
+  color: #adada9;
   font-weight: 300;
 }
 input[type="text"]::-webkit-input-placeholder {
-  color: #c7c7c3;
-  font-style: italic;
-  font-size: 14px;
+  color: #adada9;
 }
 .label :-moz-placeholder {
-  color: #c7c7c3;
-  font-style: italic;
-  font-size: 14px;
+  color: #adada9;
 }
 /*FF18<*/
 input[type="text"] :-moz-placeholder {
-  color: #c7c7c3;
-  font-style: italic;
-  font-size: 14px;
+  color: #adada9;
 }
 /*FF18<*/
 ::-moz-placeholder {
-  color: #c7c7c3;
-  font-style: italic;
-  font-size: 14px;
+  color: #adada9;
 }
 /*FF19>*/
 :-ms-input-placeholder {
-  color: #c7c7c3;
-  font-style: italic;
-  font-size: 14px;
+  color: #adada9;
 }
 :focus::-webkit-input-placeholder {
   color: #eeeeec;
@@ -2745,10 +2828,9 @@ input[type="text"] :-moz-placeholder {
 }
 .label textarea,
 .label input[type="text"],
-.label select,
 .fakeinput {
-  font-size: 15px;
-  padding: 3px 5px;
+  font-size: 13px;
+  padding: 2px 5px;
   height: 25px;
   border-radius: 2px;
 }
@@ -2765,10 +2847,6 @@ input[type="text"] :-moz-placeholder {
 }
 .label textarea {
   line-height: 22px;
-}
-.label select {
-  height: 26px;
-  max-width: 200px;
 }
 .label input[type="text"]:focus,
 .label textarea:focus {
@@ -3393,20 +3471,6 @@ section.result p.holding {
   display: block;
   font-size: 18px;
   padding-bottom: 7px;
-}
-/*?*/
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-  body .label select {
-    -webkit-appearance: none;
-    background: #ffffff url(/static/img/select-arrow.png) no-repeat 100% -2px;
-  }
-  body .label select:hover {
-    background: #ffffff url(/static/img/select-arrow.png) no-repeat 100% -92px;
-  }
-  body .label select:focus {
-    border: 1px solid #adada9;
-    background: #ffffff url(/static/img/select-arrow.png) no-repeat 98% -2px;
-  }
 }
 html {
   overflow-y: scroll;

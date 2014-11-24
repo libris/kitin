@@ -4,17 +4,21 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
       scope: {
         model: '=model'
       },
-      require:  '^kitinGroup',
+      require:  '?^^kitinGroup',
       replace: true,
       link: function(scope, element, attrs, kitinGroupCtrl) {
-        scope.options = kitinGroupCtrl.options;
+        scope.options = kitinGroupCtrl ? kitinGroupCtrl.options : null;
       },
       //TODO, move into snippet?
       template: '<div class="label" ng-hide="shouldHide(model, options)">' + 
-                  '<span class="lbl">{{title  | translate}}</span>' +
-                  '<span class="inp"><textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="model"></textarea></span>' +
+                  '<kitin-title title="title"></kitin-title>' +
+                  '<span class="inp"><kitin-textarea model="model"></kitin-textarea></span>' +
                 '</div>',
       controller: function($scope, $rootScope, $attrs) {
+
+        if(!$attrs.hasOwnProperty('hideTitle')) {
+          $scope.title = 'LABEL.' + $attrs.model;
+        }
 
         var hasValue = false;
         var savedOptionsHidden;
@@ -22,7 +26,7 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
         $scope.shouldHide = function(model, options) {
 
           // always show for single rows
-          if ( options.single ) {
+          if ( !options || options.single ) {
             return false;
           }
 
@@ -46,7 +50,7 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
           
           return true;
         };
-        $scope.title = 'LABEL.' + $attrs.model;
+
       }
   };
 });

@@ -1,4 +1,17 @@
-kitin.directive('kitinSearchEntity', ['definitions', 'editService', function(definitions, editService) {
+/*
+
+Creates autocomplete search 
+
+Params:
+  service-url: (str) path to serive after API_URL
+  make-reference: (bool) decorate reference data
+  template-id: (str) jquery template id
+  filter: (str) filters for search result
+  placeholder: (str) override default "Lägg till" placeholder
+
+*/
+
+kitin.directive('kitinSearch', function(definitions, editService, $rootScope, $q) {
 
   var sourceConfiguration = {
     relators: {
@@ -41,18 +54,53 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editService', function(def
   }
 
   return {
-    require: '^kitinLinkEntity',
+    restrict: 'E',
+    require: '?^^kitinEntity',
+    replace: true,
+    template: '<span class="search"><i class="fa fa-search"></i><input type="text" placeholder="{{placeholder}}" /></span>',
     link: function(scope, elem, attrs, kitinLinkEntity) {
+
+      elem = elem.is('input') ? elem : elem.find('input');
+
+      scope.placeholder = attrs.hasOwnProperty('placeholder') ? attrs.placeholder : 'Lägg till';
+
       var linker = kitinLinkEntity;
 
       // TODO: IMPROVE: replace current autocomplete mechanism and use angular
       // templates ($compile).. If that is fast enough..
-      var filterParams = attrs.filter || '';
-      var onSelect = attrs.onselect;
-      var makeReferenceOnItemSelect = attrs.makeReferenceOnItemSelect ? true : false;
-      var templateId = attrs.completionTemplateId;
-      var template = _.template(jQuery('#' + templateId).html());
+      var filterParams = {};
+      if ( attrs.filter ) {
+        if ( /^\[.*\]$/.test(attrs.filter) ) {
+          // filter array (filters)
+          filterParams.filters = scope.$eval(attrs.filter);
+        } else {
+          // filter string (filter)
+          filterParams.filter = attrs.filter;
+        }
+      }
+      var makeReferenceOnItemSelect = attrs.hasOwnProperty('makeReference');
+
+      var template = _.template(jQuery('#' + attrs.templateId).html());
       var searchedValue = null;
+
+      var normalizeItem = function(item) {
+
+        var deferred = $q.defer();
+
+        // TODO: if multiple, else set object (and *link*, not copy (embed copy in view?)...)
+        if(makeReferenceOnItemSelect) {
+          editService.makeReferenceEntity(item.data._source).then(function(referenced) {
+            deferred.resolve(referenced);
+          });
+        } else {
+          if ( !_.isEmpty(item.data) ) {
+            deferred.resolve(item.data);
+          } else {
+            deferred.resolve(item.value); // does this ever happen?
+          }
+        }
+        return deferred.promise;
+      };
 
       options = {
         inputClass: null,
@@ -75,35 +123,25 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editService', function(def
         },
 
         onItemSelect: function(item, completer) {
-          
-          var owner = scope.subject;
-          // TODO: if multiple, else set object (and *link*, not copy (embed copy in view?)...)
-          if(makeReferenceOnItemSelect) {
-            editService.makeReferenceEntity(item.data._source).then(function(referenced) {
-              // pass raw data
-              // item.data.decorated = referenced;
-              linker.doAdd(referenced);
-            });
-          } else {
-            linker.doAdd(_.isEmpty(item.data) ? item.value : item.data);
-          }
-          
-          delete item.data._source;
-          scope.$apply(onSelect);
-          //scope.triggerModified();
-          scope.$emit('changed', ['Added search entity']);
+          normalizeItem(item).then(function(result) {
+            delete result._source;
+            linker.doAdd(result);
+            scope.$emit('changed', ['Added search entity']);
+          });
         }
       };
 
       if (attrs.serviceUrl) {
 
+        var serviceUrl = $rootScope.API_PATH + attrs.serviceUrl;
+
         options.filterResults = false;
         options.sortResults = false;
         options.useCache = false;
-        options.extraParams = scope.$eval(filterParams);
+        options.extraParams = filterParams;
 
         options.beforeUseConverter = function (value) {
-          searchedValue = value; // Store searched value 
+          searchedValue = value; // Store searched value
           return value + '*';
         };
 
@@ -127,7 +165,7 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editService', function(def
           return result;
         };
 
-        elem.autocomplete(attrs.serviceUrl, options);
+        elem.autocomplete(serviceUrl, options);
 
       } else {
         var source = attrs.source;
@@ -191,7 +229,6 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editService', function(def
       }
 
       elem.jkey('enter', function () {
-        scope.$apply(onSelect);
         elem.val("");
       });
 
@@ -205,4 +242,4 @@ kitin.directive('kitinSearchEntity', ['definitions', 'editService', function(def
     }
   };
 
-}]);
+});

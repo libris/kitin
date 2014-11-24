@@ -15,9 +15,9 @@
       <accordion close-others="true">
         <accordion-group data-ng-repeat="otherHolding in allHoldings" is-open="offer.open">
           <accordion-heading>
-              {{otherHolding.data.about.heldBy.notation}} <i class="pull-right fa" ng-class="{'fa-chevron-down': offer.open, 'fa-chevron-right': !offer.open}"></i>
+              {{otherHolding.about.heldBy.notation}} <i class="pull-right fa" ng-class="{'fa-chevron-down': offer.open, 'fa-chevron-right': !offer.open}"></i>
           </accordion-heading>
-          <div data-ng-repeat="offer in otherHolding.data.about.offers" class="other-offer">
+          <div data-ng-repeat="offer in otherHolding.about.offers" class="other-offer">
             <span class="offer-value" data-ng-repeat="(property, value) in offer" data-ng-show="property != '@type' && property != 'open'&& property != 'heldBy'">{{property}}: {{value}}<span data-ng-show="!$last">, </span></span>
           </div>
         </accordion-group>
@@ -25,8 +25,8 @@
     </accordion-group>
   </accordion>
   
-  <form data-ng-show="holding.data['@id'] || !holding['etag']" name="holdingForm">
-    <section class="offer" data-ng-repeat="offer in holding.data.about.offers track by $index">
+  <form data-ng-show="holding['@id'] || !holding['etag']" name="holdingForm">
+    <section class="offer" data-ng-repeat="offer in holding.about.offers track by $index">
       <div class="cols">
         <div class="col6">
           <div class="label">
@@ -65,7 +65,7 @@
           </div>
         </div>
         <div class="col12">
-          <button class="btn btn-link pull-right" data-ng-if="holding.data.about.offers.length > 1" data-ng-click="deleteOffer(holding, $index)"><i class="fa fa-trash-o"></i> {{ "Radera lokalsignum" }}</button>
+          <button class="btn btn-link pull-right" data-ng-if="holding.about.offers.length > 1" data-ng-click="deleteOffer(holding, $index)"><i class="fa fa-trash-o"></i> {{ "Radera lokalsignum" }}</button>
         </div>
       </div>
     </section>
@@ -77,7 +77,7 @@
     {{ "Beståndet raderat" }}
   </div>
   
-  <div class="alert alert-error" role="alert" data-ng-show="holding.data.about.offers.length < 1">
+  <div class="alert alert-error" role="alert" data-ng-show="holding.about.offers.length < 1">
     {{ "Beståndet saknar lokalsignum" }}
   </div>
 
@@ -96,7 +96,7 @@
     <div data-ng-if="modifications.holding.saved">{{ "Inga osparade ändringar." }}</div>
     <div data-ng-if="!modifications.holding.saved">{{ "Du har inte sparat dina ändringar." }}</div>
   </div>
-  <button class="btn-link" id="delete-hld" data-ng-click="deleteHolding(holding)" data-ng-show="holding.data['@id']"><i class="fa fa-trash-o"></i> {{ "Radera bestånd" }}</button>
+  <button class="btn-link" id="delete-hld" data-ng-click="deleteHolding(holding)" data-ng-show="holding['@id']"><i class="fa fa-trash-o"></i> {{ "Radera bestånd" }}</button>
   <button class="btn btn-purple btn-submit" id="save-hld" data-ng-click="saveHolding(holding)" data-ng-show="holding">{{ "Spara bestånd" }}</button>
   <button class="btn btn-purple btn-submit" id="save-hld" data-ng-click="close()" data-ng-show="!holding">{{ "Stäng" }}</button>
 </div>

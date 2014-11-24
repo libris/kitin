@@ -7,27 +7,29 @@ kitin.directive('kitinTable', function(editService){
       require:  '^kitinGroup',
       replace: true,
       transclude: true,
-      link: function(scope, element, attrs, kitinGroupCtrl, transcludeFn) {
-        scope.options = kitinGroupCtrl.options;
+      link: function(scope, element, attrs, kitinGroupCtrl) {
+          scope.options = kitinGroupCtrl.options;
       },
-      template: '<div class="label">' + 
+      template: '<div class="label" ng-hide="shouldHideTable(model, options)">' + 
                   '<span class="lbl">{{title | translate}}</span>' +
-                  '<span class="inp">' +
-                    '<table>' +
-                      '<thead>' +
-                        '<tr class="thead" ng-if="titles.length">' +
-                          '<th ng-repeat="title in titles">{{title}}</th>' +
-                        '</tr>' +
-                      '</thead>' +
-                      '<tbody>' +
-                        '<tr kitin-tr-controls ng-transclude ng-hide="shouldHideTableRow(item, options)" ng-repeat="(key, item) in model track by $index">' +
-                        '</tr>' +
-                      '</tbody>' +
-                    '</table>' +
-                  '</span>' + 
-                  '<span class="act">' +
-                    '<a href="" ng-click="addRow()">Lägg till fält</a>' +
-                  '</span>' +
+                  '<div class="inp">' +
+                    '<div class="datatable">' +
+                      '<table>' +
+                        '<thead>' +
+                          '<tr class="thead" ng-if="titles.length">' +
+                            '<th ng-repeat="title in titles">{{title | translate}}</th>' +
+                          '</tr>' +
+                        '</thead>' +
+                        '<tbody>' +
+                          '<tr kitin-tr-controls ng-transclude ng-repeat="(key, item) in model track by $index">' +
+                          '</tr>' +
+                        '</tbody>' +
+                      '</table>'+
+                      '<div class="adder">' +
+                        '<a class="add" href="#" ng-click="addRow()"><i class="fa fa-plus-circle"></i> Lägg till rad</a>' +
+                      '</div>' +
+                    '</div>' + 
+                  '</div>' + 
                 '</div>',
 
       controller: function($scope, $rootScope, $attrs) {
@@ -35,7 +37,7 @@ kitin.directive('kitinTable', function(editService){
         var hasValue = false;
         var savedOptionsHidden;
 
-        $scope.shouldHideTableRow = function(model, options) {
+        $scope.shouldHideTable = function(model, options) {
           // always show for single rows
           if ( options.single ) {
             return false;
@@ -49,7 +51,7 @@ kitin.directive('kitinTable', function(editService){
           savedOptionsHidden = options.hidden;
 
           // never hide a field that has value, and save hasValue
-          if ( !$rootScope.isEmpty(model) ) {
+          if ( _.isArray(model) && model.length > 0 && (!$rootScope.isEmpty(model[0]) || model[0] !== '' )) {
             hasValue = true;
             return false;
           }
@@ -61,13 +63,11 @@ kitin.directive('kitinTable', function(editService){
           
           return true;
         };
-        $scope.title = 'LABEL.' + $attrs.model;
-
-
+       
         // TODO! Create object for each model. Use editService.createObject?
-        var createObject = function(model) { return []; };
-
-        $scope.model = _.isArray($scope.model) && $scope.model.length > 0 ? $scope.model : createObject($scope.model);
+        var createObject = function(model) {
+          return ['']; 
+        };
 
         $scope.addRow = function(index) {
           return $scope.model.push(createObject());
@@ -76,6 +76,12 @@ kitin.directive('kitinTable', function(editService){
         $scope.removeRow = function(index) {
           return $scope.model.splice(index,1);
         };
+
+        $scope.title = 'LABEL.' + $attrs.model;
+        $scope.model = _.isArray($scope.model) && $scope.model.length > 0 ? $scope.model : createObject($attrs.model);
+        if($attrs.titles) {
+          $scope.titles = $scope.$eval($attrs.titles);
+        }
 
       }
   };
@@ -93,8 +99,8 @@ kitin.directive('kitinTrControls', ['$compile', function($compile) {
         element.empty();
         // Append button to each row
         var controls = angular.element(
-          '<td>' + 
-            '<button class=btn-link deleter" data-ng-click="removeRow($index)"><i class="fa fa-trash-o"></i></button>' + 
+          '<td class="actions">' + 
+            '<a class="delete" data-ng-click="removeRow($index)"><i class="fa fa-times"></i></a>' + 
           '</td>');
         element.append(clone).append(controls);
         // Controls needs compiling to be bound to scope

@@ -1,13 +1,13 @@
-kitin.directive('kitinGroup', function(editService){
+kitin.directive('kitinGroup', function(){
   return {
       restrict: 'E',
       scope: true,
       transclude: true,
       template: '<div class="{{className}}">' +
                   '<div class="group-title label">' +
-                    '<span class="lbl">{{title}}</span>' +
+                    '<span class="lbl">{{title | translate}}</span>' +
                     '<span class="inp"><button class="btn-link" ng-click="toggle()">' +
-                      '<span>{{hidden ? "+":"–"}}</span> {{hidden ? "Visa alla" : "Göm tomma"}} fält</button>' +
+                      '<span><i class="{{classNames[hidden]}}"></i></span> {{hidden ? "Visa fler" : "Göm tomma"}} fält</button>' +
                     '</span>'+
                   '</div>' +
                   '<div ng-transclude></div>' +
@@ -20,7 +20,22 @@ kitin.directive('kitinGroup', function(editService){
           hidden: $scope.hidden,
           single: isSingle
         };
-        $scope.title = $attrs.title;
+         
+        // Set title from attribute, look-up if its a variable
+        try {
+          // If the title is a string and contains non variable characters like spaces
+          // $eval will throw an unexpected token exception, then use title attribute 
+          title = $scope.$eval($attrs.title);
+        } catch(error) {
+          title = $attrs.title;
+        }
+        $scope.title = title || $attrs.title;
+         
+        
+        $scope.classNames = {
+          true: 'fa fa-chevron-down',
+          false: 'fa fa-chevron-up'
+        };
         $scope.toggle = function() {
           this.options.hidden = $scope.hidden = !$scope.hidden;
         }.bind(this);

@@ -66,13 +66,13 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
     if (dfn && dfn['label']) return dfn['label']; 
 
     // !TODO fix propper linking
-    if(termType && termType.indexOf('language') > 0) {
-      var lang = _.find($scope.languages.list, function(lang) { 
-        if(lang.identifier === term) { 
+    if (termType && termType.indexOf('language') > 0) {
+      var lang = _.find($scope.languages.items, function(lang) {
+        if (lang['@id'] === term) { 
         return true; 
       }});
-      if(lang) {
-        return lang.data.about['prefLabel'];
+      if (lang) {
+        return lang.about['prefLabel'];
       }
     }
     if(termType && termType.indexOf('encLevel') > -1) {
@@ -122,87 +122,66 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
   }
 
   var getHoldings = function () {
-    var findDeep = function(items, attrs) {
-      function match(value) {
-        for (var key in attrs) {
-          if (attrs[key] !== value[key]) {
-            return false;
-          }
-        }
-        return true;
-      }
-      function traverse(value) {
-        var result;
-        _.forEach(value, function (val) {
-          if (match(val)) {
-            result = val;
-            return false;
-          }
-          if (_.isObject(val) || _.isArray(val)) {
-            result = traverse(val);
-          }
-          if (result) {
-            return false;
-          }
-        });
-        return result;
-      }
-      return traverse(items);
-    };
-
     var updateHoldings = function(data, status, headers, config) {
-      if (data && data.list) {
+      if (data && data.items) {
         config.record.holdings = {
-          hits: 0
+          items: 0
         };
-        if (data.list.length > 0) {
-          var userHolding = utilsService.findDeep(data.list, 'data.about.heldBy.notation', userData.userSigel);
-          console.log(userHolding);
+        if (data.items.length > 0) {
+          // At the moment, we're only using userHoldings, but in the future, we might use
+          // allHoldings to present the user with extra information on other organisations'
+          // holdings.
+          var holdings = utilsService.findDeep(data.items, 'about.heldBy.notation', userData.userSigel);
+          var userHolding = holdings.matches;
+          var allHoldings = holdings.nonmatches;
+
           config.record.holdings = {
-            hits: data.list.length,
+            items: data.items.length,
             holding: userHolding
           };
         }
       }
     };
 
-    for (var i = 0; i < $rootScope.state.search.result.list.length; i++) {
-        var record = $rootScope.state.search.result.list[i];
-        if (record.identifier) {
-          $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.holdingFor.@id:' + record.data.about['@id'].replace(/\//g, '\\/'), {record: record}).success(updateHoldings);
+    for (var i = 0; i < $rootScope.state.search.result.items.length; i++) {
+        var record = $rootScope.state.search.result.items[i];
+        if (record.about && record.about['@id']) {
+          $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.holdingFor.@id:' + record.about['@id'].replace(/\//g, '\\/'), {record: record}).success(updateHoldings);
         }
     }
-
   };
 
   $scope.doSearch = function(url, params) {
     delete $rootScope.state.search.result;
     searchService.search(url, params).then(function(data) {
+
       $scope.facetGroups = searchUtil.makeLinkedFacetGroups($scope.recType, data.facets, $rootScope.state.search.q, prevFacetsStr);
       $scope.crumbs = searchUtil.bakeCrumbs($scope.recType, $rootScope.state.search.q, prevFacetsStr);
-      if (data && data.hits) {
+      if (data && data.items) {
         $rootScope.state.search.result = data;
         // Only update holdings for records of type 'bib'
         if ($scope.recType == 'bib') {
           getHoldings();
         }
         
-        if(_.isObject(data.hits)) {
-          _.forEach(data.hits, function(count, dbName) {
+        if(_.isObject(data.items)) {
+          _.forEach(data.items, function(count, dbName) {
             var i = _.findIndex($rootScope.state.remoteDatabases, { database: dbName } );
             if(i > 0) {
               $rootScope.state.remoteDatabases[i].hitCount = count;
             }
           });
         }
-        var hitCount = searchUtil.countTotalHits(data.hits);
+
+        var hitCount = data.totalResults;
+
         $rootScope.state.search.hitCount = hitCount.toString();
         $rootScope.state.search.page.total = Math.ceil(hitCount / searchService.pageSize);
         // Everything we need is set, change paginator page
         var page = ($rootScope.state.search.page.start / $rootScope.state.search.page.n || 0) + 1;
         $scope.state.page = page;
       } else {
-        $rootScope.state.search.result = { hits: 0 };
+        $rootScope.state.search.result = { items: 0 };
       }
     });
   };

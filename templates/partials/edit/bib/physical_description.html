@@ -1,283 +1,461 @@
 
 <h2>Fysisk beskrivning<i></i></h2>
 <div class="form-container">
-  
-  <!-- ADDITIONAL CARRIER TYPE START -->
-  <div class="label">
-    <span class="lbl" translate>LABEL.record.about.additionalCarrierType</span>
-    <ul class="tags" data-kitin-link-entity
-        data-track-change
-        data-subject="record.about"
-        data-link="'additionalCarrierType'" data-type="AdditionalCarrierType"
-        data-view-template="/snippets/render-generic-linked-entity"
-        data-search-template="/snippets/render-generic-select"
-        data-filter="about.inCollection.@id:/def/enum/content/additionalCarrierType-collection">
-    </ul>
-  </div>
-  <!-- ADDITIONAL CARRIER TYPE END -->
 
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.exampleOfWork</span>
-      <input data-track-change type="text" data-ng-model="record.about.exampleOfWork.title" placeholder="">
-    </div>
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.exampleOfWork.subtitle</span>
-      <ul class="tags" data-kitin-link-entity
-          data-track-change
-          data-subject="record.about.exampleOfWork"
-          data-link-multiple="'subtitle'" data-type="subtitle"
-          data-search-template="/snippets/render-generic-non-auth-add"
-          data-view-template="/snippets/render-non-auth-tag">
-      </ul>
-    </div>
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.exampleOfWork.partNumber</span>
-      <ul class="tags" data-kitin-link-entity
-          data-track-change
-          data-subject="record.about.exampleOfWork"
-          data-link-multiple="'partNumber'" data-type="partNumber"
-          data-search-template="/snippets/render-generic-non-auth-add"
-          data-view-template="/snippets/render-non-auth-tag">
-      </ul>
-    </div>
+  <kitin-group>
+    <kitin-entityrow model="record.about.additionalCarrierType" multiple>
+      <kitin-select filter="about.inCollection.@id:/def/enum/content/additionalCarrierType-collection"></kitin-select>
+    </kitin-entityrow>
 
+   <kitin-textrow model="record.about.fileType"></kitin-textrow>
+  </kitin-group>
 
-  <div data-ng-show="record.about.material['@id']">
-    <!-- MATERIAL START -->
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.material</span>
-      <input data-track-change type="text" data-ng-model="record.about.material['@id']" placeholder="">
-    </div>
-    <!-- MATERIAL END -->
-  </div>
-  <div data-ng-show="record.about.relief['@id']">
-    <!-- RELIEF START -->
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.relief</span>
-      <input data-track-change type="text" data-ng-model="record.about.relief['@id']" placeholder="">
-    </div>
-    <!-- RELIEF END -->
-  </div>
-<div class="cols">
-	<div class="col6" data-ng-show="record.about.fileType">
-    <!-- RELIEF START -->
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.fileType</span>
-      <input data-track-change type="text" data-ng-model="record.about.fileType" placeholder="">
-    </div>
-    <!-- RELIEF START -->
-  </div>
-  <div class="col6" data-ng-show="record.about.index['@id']">
-    <!-- INDEX START -->
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.index</span>
-      <input data-track-change type="text" data-ng-model="record.about.index['@id']" placeholder="">
-     </div>
-     <!-- INDEX END -->
-  </div>
-</div>
+  <!-- HAS FORMAT  START -->
+  <kitin-group data-ng-repeat="(formatType, subFormat) in record.about.hasFormatByType" ng-switch="formatType">
 
-<!-- HAS FORMAT  START -->
-<div class="cols" data-ng-repeat="(formatType, subFormat) in record.about.hasFormatByType">
+    <span ng-switch-when="Product">
+      <kitin-table model="record.about.hasFormatByType['Product']">
+        <kitin-td>
+          <kitin-title title="'LABEL.record.about.hasFormatByType.extent'"></kitin-title>
+          <kitin-textarea model="item.extent"></kitin-textarea>
+        
+          <kitin-title title="'LABEL.record.about.hasFormatByType.dimensions'"></kitin-title>
+          <kitin-textarea model="item.dimensions"></kitin-textarea>
 
-  <h3 ng-if="subFormat.length > 0" class="ng-binding" translate>{{ 'LABEL.record.about.hasFormat.' + formatType }}</h3>
+          <kitin-title title="'LABEL.record.about.hasFormatByType.otherPhysicalDetails'"></kitin-title>
+          <kitin-textarea model="item.otherPhysicalDetails"></kitin-textarea>
 
-    <!-- Product START -->
-    <div ng-switch-when="Product" class="datatable" data-ng-target="productTable" 
-      data-track-change
-      data-kitin-data-table 
-      data-table-model="subFormat" 
-      data-table-header-row-template="/snippets/product-header-row-template"
-      data-table-row-template="/snippets/product-row-template"
-      data-subject="record.about" data-link-multiple="hasFormatByType"
-      data-add-first
-      data-addable="physical_description">
-    </div>
-    <script type="text/ng-template" id="/snippets/product-header-row-template">
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Product.extent</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Product.dimensions</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Product.otherPhysicalDetails</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Product.accompanyingMaterial</span></td>
-    </script>
-    <script type="text/ng-template" id="/snippets/product-row-template">
-      <td><div class="label"><input ng-model="object['extent']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['dimensions']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['otherPhysicalDetails']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['accompanyingMaterial']" data-track-change type="text" /></div></td>
-      <td class="controls">
-        <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-      </td>
-    </script>
-    <!-- Product END -->
+          <kitin-title title="'LABEL.record.about.hasFormatByType.accompanyingMaterial'"></kitin-title>
+          <kitin-textarea model="item.accompanyingMaterial"></kitin-textarea>
 
-    <!-- Electronic START -->
-    <div ng-switch-when="Electronic" class="datatable" data-ng-target="electronicTable" 
-      data-track-change
-      data-kitin-data-table 
-      data-table-model="subFormat" 
-      data-table-header-row-template="/snippets/electronic-header-row-template"
-      data-table-row-template="/snippets/electronic-row-template"
-      data-subject="record.about" data-link-multiple="hasFormatByType"
-      data-add-first
-      data-addable="physical_description">
-    </div>
-    <script type="text/ng-template" id="/snippets/electronic-header-row-template">
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Electronic.carrierType</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Electronic.color</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Electronic.dimensions</span></td>
-    </script>
-    <script type="text/ng-template" id="/snippets/electronic-row-template">
-      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['color']['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['dimensions']['@id']" data-track-change type="text" /></div></td>
-      <td class="controls">
-        <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-      </td>
-    </script>
-    <!-- Electronic END -->
+          <kitin-title title="'LABEL.record.about.hasFormatByType.materialsSpecified'"></kitin-title>
+          <kitin-textarea model="item.materialsSpecified"></kitin-textarea>
+          
+          <!-- item.device, mapped but not used in any record-->
 
-    <!-- Map START -->
+      </kitin-table>
+    </span>
 
-    <div ng-switch-when="Map" class="datatable" data-ng-target="movingImageTable" 
-      data-track-change
-      data-kitin-data-table 
-      data-table-model="subFormat" 
-      data-table-header-row-template="/snippets/map-header-row-template"
-      data-table-row-template="/snippets/map-row-template"
-      data-subject="record.about" data-link-multiple="hasFormatByType"
-      data-add-first
-      data-addable="physical_description">
-    </div>
-    <script type="text/ng-template" id="/snippets/map-header-row-template">
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Map.carrierType</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Map.color</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.Map.medium</span></td>
-    </script>
-    <script type="text/ng-template" id="/snippets/map-row-template">
-      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['color']['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['medium']['@id']" data-track-change type="text" /></div></td>
-      <td class="controls">
-        <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-      </td>
-    </script>
-    <!-- Map END -->
+    <span ng-switch-when="Electronic">
+      <kitin-table model="record.about.hasFormatByType['Electronic']">
+        <kitin-td>
+          <kitin-title title="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-title>
+          <kitin-entity model="item" link="'carrierType'" multiple>
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/carrierType-collection"></kitin-select>
+          </kitin-entity>
+          
+          <kitin-title title="'LABEL.record.about.hasFormatByType.color'"></kitin-title>
+          <kitin-entity model="item" link="'color'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/color-collection"></kitin-select>
+          </kitin-entity>
+          
+          <kitin-title title="'LABEL.record.about.hasFormatByType.dimensions'"></kitin-title>
+          <kitin-entity model="item" link="'dimensionsCategory'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/dimensions-collection"></kitin-select>
+          </kitin-entity>
 
-    <!-- StillImage START -->
-    <div ng-switch-when="StillImage" class="datatable" data-ng-target="stillImageTable" 
-      data-track-change
-      data-kitin-data-table 
-      data-table-model="subFormat" 
-      data-table-header-row-template="/snippets/still-image-header-row-template"
-      data-table-row-template="/snippets/still-image-row-template"
-      data-subject="record.about" data-link-multiple="hasFormatByType"
-      data-add-first
-      data-addable="physical_description">
-    </div>
-    <script type="text/ng-template" id="/snippets/still-image-header-row-template">
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.StillImage.carrierType</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.StillImage.nonProjColor</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.StillImage.nonProjPrimary</span></td>
-    </script>
-    <script type="text/ng-template" id="/snippets/still-image-row-template">
-      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['nonProjColor']['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['nonProjPrimary']['@id']" data-track-change type="text" /></div></td>
-      <td class="controls">
-        <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-      </td>
-    </script>
-    <!-- StillImage END -->
+          <kitin-title title="'LABEL.record.about.hasFormatByType.sound'"></kitin-title>
+          <kitin-entity model="item" link="'sound'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/sound-collection"></kitin-select>
+          </kitin-entity>
 
-    <!-- MovingImage START -->
-    <div ng-switch-when="MovingImage" class="datatable" data-ng-target="movingImageTable" 
-      data-track-change
-      data-kitin-data-table 
-      data-table-model="subFormat" 
-      data-table-header-row-template="/snippets/moving-image-header-row-template"
-      data-table-row-template="/snippets/moving-image-row-template"
-      data-subject="record.about" data-link-multiple="hasFormatByType"
-      data-add-first
-      data-addable="physical_description">
-    </div>
-    <script type="text/ng-template" id="/snippets/moving-image-header-row-template">
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.carrierType</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.motionPicFormat</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.motionPicSound</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.motionPicMedium</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.MovingImage.motionPicDimensions</span></td>
-    </script>
-    <script type="text/ng-template" id="/snippets/moving-image-row-template">
-      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['motionPicFormat']['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['motionPicSound']['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['motionPicMedium']['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['motionPicDimensions']['@id']" data-track-change type="text" /></div></td>
-      <td class="controls">
-        <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-      </td>
-    </script>
-    <!-- MovingImage END -->
+          <!--  item.imageBitDepth, mapped but not used in any record  -->
 
-    <!-- SoundRecording START -->
-    <div ng-switch-when="SoundRecording" class="datatable" data-ng-target="soundRecordingTable" 
-      data-track-change
-      data-kitin-data-table 
-      data-table-model="subFormat" 
-      data-table-header-row-template="/snippets/sound-recording-header-row-template"
-      data-table-row-template="/snippets/sound-recording-row-template"
-      data-subject="record.about" data-link-multiple="hasFormatByType"
-      data-add-first
-      data-addable="physical_description">
-    </div>
-    <script type="text/ng-template" id="/snippets/sound-recording-header-row-template">
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.carrierType</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.soundSpeed</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.soundDimensions</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.soundKindOfDisc</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.soundKindOfMaterial</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.SoundRecording.soundPlaybackCharacter</span></td>
-    </script>
-    <script type="text/ng-template" id="/snippets/sound-recording-row-template">
-      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['soundSpeed']['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['soundDimensions']['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['soundKindOfDisc']['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['soundKindOfMaterial']['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['soundPlaybackCharacter']['@id']" data-track-change type="text" /></div></td>
-      <td class="controls">
-        <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-      </td>
-    </script>
-    <!-- SoundRecording END -->
+          <kitin-title title="'LABEL.record.about.hasFormatByType.fileFormats'"></kitin-title>
+          <kitin-entity model="item" link="'fileFormats'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/fileFormats-collection"></kitin-select>
+          </kitin-entity>
 
-    <!-- VideoRecording START -->
-    <div ng-switch-when="VideoRecording" class="datatable" data-ng-target="videoRecordingTable" 
-      data-track-change
-      data-kitin-data-table 
-      data-table-model="subFormat" 
-      data-table-header-row-template="/snippets/video-recording-header-row-template"
-      data-table-row-template="/snippets/video-recording-row-template"
-      data-subject="record.about" data-link-multiple="hasFormatByType"
-      data-add-first
-      data-addable="physical_description">
-    </div>
-    <script type="text/ng-template" id="/snippets/video-recording-header-row-template">
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.VideoRecording.carrierType</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.VideoRecording.videoColor</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.VideoRecording.videoFormat</span></td>
-      <td><span class="lbl" translate>LABEL.record.about.hasFormat.VideoRecording.videoSound</span></td>
-    </script>
-    <script type="text/ng-template" id="/snippets/video-recording-row-template">
-      <td><div class="label"><input ng-model="object['carrierType'][0]['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['videoColor']['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['videoFormat']['@id']" data-track-change type="text" /></div></td>
-      <td><div class="label"><input ng-model="object['videoSound']['@id']" data-track-change type="text" /></div></td>
-      <td class="controls">
-        <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-      </td>
-    </script>
-    <!-- VideoRecording END -->
+          <kitin-title title="'LABEL.record.about.hasFormatByType.qATarget'"></kitin-title>
+          <kitin-entity model="item" link="'qATarget'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/qATarget-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.antecedent'"></kitin-title>
+          <kitin-entity model="item" link="'antecedent'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/antecedent-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.compression'"></kitin-title>
+          <kitin-entity model="item" link="'compression'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/compression-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.reformattingQuality.reformattingQuality'"></kitin-title>
+          <kitin-entity model="item" link="'reformattingQuality'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/reformattingQuality-collection"></kitin-select>
+          </kitin-entity>
+
+          <!-- item.fileAspect, mapped but not used in any record -->
+
+        </kitin-td>
+      </kitin-table>
+    </span>
+
+    <span ng-switch-when="Map">
+      <kitin-table model="record.about.hasFormatByType['Map']">
+        <kitin-td>
+          <kitin-title title="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-title>
+          <kitin-entity model="item" link="'carrierType'" multiple>
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/carrierType-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.color'"></kitin-title>
+          <kitin-entity model="item" link="'color'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/color-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.medium'"></kitin-title>
+          <kitin-entity model="item" link="'medium'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/medium-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.reproduction'"></kitin-title>
+          <kitin-entity model="item" link="'reproduction'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/reproduction-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.detail'"></kitin-title>
+          <kitin-entity model="item" link="'detail'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/detail-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.posNeg'"></kitin-title>
+          <kitin-entity model="item" link="'detail'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/posNeg-collection"></kitin-select>
+          </kitin-entity>
+
+          <!-- item.aspect, mapped but not used in any record -->
+
+        </kitin-td>
+      </kitin-table>
+    </span>  
+
+    <span ng-switch-when="Globe">
+      <kitin-table model="record.about.hasFormatByType['Globe']">
+        <kitin-td>
+          <kitin-title title="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-title>
+          <kitin-entity model="item" link="'carrierType'" multiple>
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/carrierType-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.color'"></kitin-title>
+          <kitin-entity model="item" link="'color'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/color-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.medium'"></kitin-title>
+          <kitin-entity model="item" link="'medium'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/medium-collection"></kitin-select>
+          </kitin-entity>
+
+          <!-- item.reproduction, mapped but not used in any record -->
+
+          <!-- item.aspect, mapped but not used in any record -->
+
+        </kitin-td>
+      </kitin-table>
+    </span>  
+
+    <span ng-switch-when="Microform">
+      <kitin-table model="record.about.hasFormatByType['Microform']">
+        <kitin-td>
+          <kitin-title title="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-title>
+          <kitin-entity model="item" link="'carrierType'" multiple>
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/carrierType-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.posNeg'"></kitin-title>
+          <kitin-entity model="item" link="'posNeg'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/posNeg-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.dimensionsCategory'"></kitin-title>
+          <kitin-entity model="item" link="'dimensionsCategory'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/dimensionsCategory-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.range'"></kitin-title>
+          <kitin-entity model="item" link="'range'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/range-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.color'"></kitin-title>
+          <kitin-entity model="item" link="'color'" >
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/color-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.emulsion'"></kitin-title>
+          <kitin-entity model="item" link="'emulsion'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/emulsion-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.generation'"></kitin-title>
+          <kitin-entity model="item" link="'generation'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/generation-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.base'"></kitin-title>
+          <kitin-entity model="item" link="'base'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/base-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.aspect'"></kitin-title>
+          <kitin-entity model="item" link="'aspect'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/aspect-collection"></kitin-select>
+          </kitin-entity>
+
+        </kitin-td>
+      </kitin-table>
+    </span>  
+
+    <span ng-switch-when="StillImage">
+      <kitin-table model="record.about.hasFormatByType['StillImage']">
+        <kitin-td>      
+          
+          <kitin-title title="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-title>
+          <kitin-entity model="item" link="'carrierType'" multiple>
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/carrierType-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.nonProjColor'"></kitin-title>
+          <kitin-entity model="item" link="'nonProjColor'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/nonProjColor-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.nonProjPrimary'"></kitin-title>
+          <kitin-entity model="item" link="'nonProjPrimary'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/nonProjPrimary-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.nonProjSecondary'"></kitin-title>
+          <kitin-entity model="item" link="'nonProjSecondary'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/nonProjSecondary-collection"></kitin-select>
+          </kitin-entity>
+
+          <!-- item.nonProjAspect, mapped but not used in any record -->
+
+        </kitin-td>
+      </kitin-table>
+    </span>  
+
+    <span ng-switch-when="MovingImage">
+      <kitin-table model="record.about.hasFormatByType['MovingImage']">
+        <kitin-td>
+          <kitin-title title="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-title>
+          <kitin-entity model="item" link="'carrierType'" multiple>
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/carrierType-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.motionPicColor'"></kitin-title>
+          <kitin-entity model="item" link="'motionPicColor'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/motionPicColor-collection"></kitin-select>
+          </kitin-entity>
+        
+          <kitin-title title="'LABEL.record.about.hasFormatByType.motionPicFormat'"></kitin-title>
+          <kitin-entity model="item" link="'motionPicFormat'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/motionPicFormat-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.motionPicSound'"></kitin-title>
+          <kitin-entity model="item" link="'motionPicSound'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/projGraphSound-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.motionPicMedium'"></kitin-title>
+          <kitin-entity model="item" link="'motionPicMedium'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/projGraphMedium-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.motionPicDimensions'"></kitin-title>
+          <kitin-entity model="item" link="'motionPicDimensions'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/motionPicDimensions-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.motionPicConfiguration'"></kitin-title>
+          <kitin-entity model="item" link="'motionPicConfiguration'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/motionPicConfiguration-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.motionPicElements'"></kitin-title>
+          <kitin-entity model="item" link="'motionPicElements'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/motionPicElements-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.motionPicPosNeg'"></kitin-title>
+          <kitin-entity model="item" link="'motionPicPosNeg'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/motionPicPosNeg-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.motionPicGeneration'"></kitin-title>
+          <kitin-entity model="item" link="'motionPicGeneration'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/motionPicGeneration-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.motionPicCategories'"></kitin-title>
+          <kitin-entity model="item" link="'motionPicCategories'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/motionPicCategories-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.motionPicCategories'"></kitin-title>
+          <kitin-entity model="item" link="'motionPicCategories'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/motionPicCategories-collection"></kitin-select>
+          </kitin-entity>
+
+        </kitin-td>
+      </kitin-table>
+    </span>  
+
+    <span ng-switch-when="SoundRecording">
+      <kitin-table model="record.about.hasFormatByType['SoundRecording']">
+        <kitin-td>
+          <kitin-title title="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-title>
+          <kitin-entity model="item" link="'carrierType'" multiple>
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/carrierType-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.soundSpeed'"></kitin-title>
+          <kitin-entity model="item" link="'soundSpeed'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/soundSpeed-collection"></kitin-select>
+          </kitin-entity>
+        
+          <kitin-title title="'LABEL.record.about.hasFormatByType.soundPlaybackChannel'"></kitin-title>
+          <kitin-entity model="item" link="'soundPlaybackChannel'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/soundPlaybackChannel-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.soundGroove'"></kitin-title>
+          <kitin-entity model="item" link="'soundGroove'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/soundGroove-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.soundDimensions'"></kitin-title>
+          <kitin-entity model="item" link="'soundDimensions'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/soundDimensions-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.soundTapeWidth'"></kitin-title>
+          <kitin-entity model="item" link="'soundTapeWidth'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/soundTapeWidth-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.soundTapeConfiguration'"></kitin-title>
+          <kitin-entity model="item" link="'soundTapeConfiguration'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/soundTapeConfiguration-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.soundKindOfDisc'"></kitin-title>
+          <kitin-entity model="item" link="'soundKindOfDisc'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/soundKindOfDisc-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.soundKindOfMaterial'"></kitin-title>
+          <kitin-entity model="item" link="'soundKindOfMaterial'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/soundKindOfMaterial-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.soundKindOfCutting'"></kitin-title>
+          <kitin-entity model="item" link="'soundKindOfCutting'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/soundKindOfCutting-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.soundPlaybackCharacter'"></kitin-title>
+          <kitin-entity model="item" link="'soundPlaybackCharacter'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/soundPlaybackCharacter-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.soundCapture'"></kitin-title>
+          <kitin-entity model="item" link="'soundCapture'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/soundCapture-collection"></kitin-select>
+          </kitin-entity>
+
+        </kitin-td>
+      </kitin-table>
+    </span> 
+
+    <span ng-switch-when="VideoRecording">
+      <kitin-table model="record.about.hasFormatByType['VideoRecording']">
+        <kitin-td>
+          <kitin-title title="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-title>
+          <kitin-entity model="item" link="'carrierType'" multiple>
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/carrierType-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.videoColor'"></kitin-title>
+          <kitin-entity model="item" link="'videoColor'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/videoColor-collection"></kitin-select>
+          </kitin-entity>
+        
+          <kitin-title title="'LABEL.record.about.hasFormatByType.videoFormat'"></kitin-title>
+          <kitin-entity model="item" link="'videoFormat'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/videoFormat-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.videoSound'"></kitin-title>
+          <kitin-entity model="item" link="'videoSound'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/videoSound-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.videoMedium'"></kitin-title>
+          <kitin-entity model="item" link="'videoMedium'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/videoMedium-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.videoDimensions'"></kitin-title>
+          <kitin-entity model="item" link="'videoDimensions'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/videoDimensions-collection"></kitin-select>
+          </kitin-entity>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.videoPlayback'"></kitin-title>
+          <kitin-entity model="item" link="'videoPlayback'">
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/videoPlayback-collection"></kitin-select>
+          </kitin-entity>
+
+          <!-- item.remoteSensImageData, mapped but not used in any record -->
+
+        </kitin-td>
+      </kitin-table>
+    </span>   
+
+    <span ng-switch-when="NotatedMusic">
+      <kitin-table model="record.about.hasFormatByType['NotatedMusic']">
+        <kitin-td>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-title>
+          <kitin-entity model="item" link="'carrierType'" multiple>
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/carrierType-collection"></kitin-select>
+          </kitin-entity>
+
+        </kitin-td>
+      </kitin-table>
+    </span>
+
+    <span ng-switch-when="Text">
+      <kitin-table model="record.about.hasFormatByType['Text']">
+        <kitin-td>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-title>
+          <kitin-entity model="item" link="'carrierType'" multiple>
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/carrierType-collection"></kitin-select>
+          </kitin-entity>
+
+        </kitin-td>
+      </kitin-table>
+    </span>
+
+    <span ng-switch-when="Kit">
+      <kitin-table model="record.about.hasFormatByType['Kit']">
+        <kitin-td>
+
+          <kitin-title title="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-title>
+          <kitin-entity model="item" link="'carrierType'" multiple>
+            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/carrierType-collection"></kitin-select>
+          </kitin-entity>
+
+        </kitin-td>
+      </kitin-table>
+    </span>
+
 
     <!-- Rest START -->
     <div ng-switch-default class="datatable">
@@ -295,113 +473,68 @@
       </table>
     </div>
     <!-- Rest END -->
-
+  </kitin-group>
 <!-- HAS FORMAT  END -->
 
 
-    <!-- ILLUSTRATIONS  START -->
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.illustrations</span>
-      <div data-kitin-link-entity
-          data-track-change
-          data-subject="record.about"
-          data-link="'illustrations'"
-          data-view-template="/snippets/render-generic-tag-entity"
-          data-search-template="/snippets/render-generic-select"
-          data-filter="about.inCollection.@id:/def/enum/content/illustrations-collection"
-          ng-init=" placeholder='Lägg till'; ">
-      </div>
-    </div>
-    <!-- ILLUSTRATIONS  END -->
+  <kitin-group>
+    <kitin-entityrow model="record.about.illustrations">
+      <kitin-select filter="about.inCollection.@id:/def/enum/content/illustrations-collection"></kitin-select>
+    </kitin-entityrow>
 
-    <!-- NATURE  START -->
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.nature</span>
-      <div data-kitin-link-entity
-          data-track-change
-          data-subject="record.about"
-          data-link="'nature'"
-          data-view-template="/snippets/render-generic-tag-entity"
-          data-search-template="/snippets/render-generic-select"
-          data-filter="about.inCollection.@id:/def/enum/content/nature-collection"
-          ng-init=" placeholder='Lägg till'; ">
-      </div>
-    </div>
-    <!-- NATURE  END -->
+    <kitin-entityrow model="record.about.originalItem">
+      <kitin-select filter="about.inCollection.@id:/def/enum/content/originalItem-collection"></kitin-select>
+    </kitin-entityrow>
 
-    <!-- ORIGNIAL ITEM  START -->
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.originalItem</span>
-      <div data-kitin-link-entity
-          data-track-change
-          data-subject="record.about"
-          data-link="'originalItem'"
-          data-view-template="/snippets/render-generic-tag-entity"
-          data-search-template="/snippets/render-generic-select"
-          data-filter="about.inCollection.@id:/def/enum/content/originalItem-collection"
-          ng-init=" placeholder='Lägg till'; ">
-      </div>
-    </div>
-    <!-- ORIGNIAL ITEM  END -->
+    <kitin-textrow model="record.about.runningTime"></kitin-textrow>
 
-        <!-- RUNNING TIME  START -->
-  	    <div class="label">
-          <span class="lbl" translate>LABEL.record.about.runningTime</span>
-          <input data-track-change type="text" data-ng-model="record.about.runningTime">
-        </div>
-        <!-- RUNNING TIME  END -->
-
+  </kitin-group>
 
 <!-- More Map Details -->
+  <kitin-group title="Specifikt för kartor title">
+    <kitin-textrow model="record.about.availability"></kitin-textrow>
+    <kitin-textrow model="record.about.cartographicScale"></kitin-textrow>
+    <kitin-textrow model="record.about.cartographicCoordinates"></kitin-textrow>
 
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.source"></kitin-textrow>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.scopeNote"></kitin-textrow>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.cartographicScale"></kitin-textrow>
+    <kitin-table model="record.about.cartographicAscensionAndDeclination.cartographicAscensionAndDeclination">
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
+    </kitin-table>
+    <kitin-table model="record.about.cartographicAscensionAndDeclination.constantRatioLinearHorizontalScale">
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
+    </kitin-table>
+    <kitin-table model="record.about.cartographicAscensionAndDeclination.constantRatioLinearVerticalScale">
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
+    </kitin-table>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.westernmostLongitudeCoordinates"></kitin-textrow>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.easternmostLongitudeCoordinates"></kitin-textrow>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.northernmostLatitudeCoordinates"></kitin-textrow>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.southernmostLatitudeCoordinates"></kitin-textrow>
+    <kitin-table model="record.about.cartographicAscensionAndDeclination.angularScale">
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
+    </kitin-table>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.declinationNorthernLimit"></kitin-textrow>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.declinationSouthernLimit"></kitin-textrow>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.rightAscensionEasternLimit"></kitin-textrow>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.rightAscensionWesternLimit"></kitin-textrow>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.cartographicEquinox"></kitin-textrow>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.distanceFromEarth"></kitin-textrow>
+    <kitin-table model="record.about.cartographicAscensionAndDeclination.gRingLatitude">
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
+    </kitin-table>
+    <kitin-table model="record.about.cartographicAscensionAndDeclination.gRingLongitude">
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
+    </kitin-table>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.startDate"></kitin-textrow>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.endDate"></kitin-textrow>
+    <kitin-table model="record.about.cartographicAscensionAndDeclination.extraterrestrialBody">
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
+    </kitin-table>
+    <kitin-textrow model="record.about.cartographicAscensionAndDeclination.extraterrestrialBody"></kitin-textrow>linked?
 
-      <div class="label">
-        <span class="lbl" translate>LABEL.record.about.availability</span>
-        <input data-track-change type="text" data-ng-model="record.about.availability" placeholder="">
-       </div> 
-      <div class="label">
-        <span class="lbl" translate>LABEL.record.about.cartographicScale</span>
-        <input data-track-change type="text" data-ng-model="record.about.cartographicScale" placeholder="">
-       </div>
-      <div class="label">
-        <span class="lbl" translate>LABEL.record.about.cartographicCoordinates</span>
-        <input data-track-change type="text" data-ng-model="record.about.cartographicCoordinates" placeholder="">
-       </div>
-
-    <!-- CARTOGRAPHICAL ASCENSION AND DECLINATION  START -->
-    <div class="label">
-      <div class="datatable" data-ng-target="cartographicAscensionAndDeclination" 
-        data-track-change
-        data-kitin-data-table 
-        data-table-model="record.about.cartographicAscensionAndDeclination" 
-        data-table-header-row-template="/snippets/cartographicAscensionAndDeclination-header-row-template"
-        data-table-row-template="/snippets/cartographicAscensionAndDeclination-row-template"
-        data-subject="record.about" data-link-multiple="cartographicAscensionAndDeclination"
-        data-default-type="cartographicAscensionAndDeclination"
-        data-add-first
-        data-addable="publication_and_production">
-      </div>
-      <script type="text/ng-template" id="/snippets/cartographicAscensionAndDeclination-header-row-template">
-        <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.cartographicScale</span></td>
-        <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.constantRatioLinearHorizontalScale</span></td>
-        <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.westernmostLongitudeCoordinates</span></td>
-        <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.easternmostLongitudeCoordinates</span></td>
-        <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.northernmostLatitudeCoordinates</span></td>
-        <td><span class="lbl" translate>LABEL.record.about.cartographicAscensionAndDeclination.southernmostLatitudeCoordinates</span></td>
-      </script>
-      <script type="text/ng-template" id="/snippets/cartographicAscensionAndDeclination-row-template">
-        <td><div class="label"><input ng-model="object['cartographicScale']" data-track-change type="text" /></div></td>
-        <td><div class="label"><input ng-model="object['constantRatioLinearHorizontalScale']" data-track-change type="text" /></div></td>
-        <td><div class="label"><input ng-model="object['westernmostLongitudeCoordinates']" data-track-change type="text" /></div></td>
-        <td><div class="label"><input ng-model="object['easternmostLongitudeCoordinates']" data-track-change type="text" /></div></td>
-        <td><div class="label"><input ng-model="object['northernmostLatitudeCoordinates']" data-track-change type="text" /></div></td>
-        <td><div class="label"><input ng-model="object['southernmostLatitudeCoordinates']" data-track-change type="text" /></div></td>
-        <td class="controls">
-          <button class="btn-link deleter" data-ng-click="removeTableRow($index)"><i class="fa fa-times"></i></button>
-        </td>
-      </script>
-    </div>
-    <!-- CARTOGRAPHICAL ASCENSION AND DECLINATION  END -->
-  </div>
+  </kitin-group>
 </div>
+
 <div class="element-adder" data-element-adder="physical_description"></div>
