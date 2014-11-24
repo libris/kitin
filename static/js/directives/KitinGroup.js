@@ -20,7 +20,18 @@ kitin.directive('kitinGroup', function(){
           hidden: $scope.hidden,
           single: isSingle
         };
-        $scope.title = $attrs.title;
+         
+        // Set title from attribute, look-up if its a variable
+        try {
+          // If the title is a string and contains non variable characters like spaces
+          // $eval will throw an unexpected token exception, then use title attribute 
+          title = $scope.$eval($attrs.title);
+        } catch(error) {
+          title = $attrs.title;
+        }
+        $scope.title = title || $attrs.title;
+         
+        
         $scope.classNames = {
           true: 'fa fa-chevron-down',
           false: 'fa fa-chevron-up'
