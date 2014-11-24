@@ -72,7 +72,6 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
         return true; 
       }});
       if(lang) {
-        console.log(lang);
         return lang.about['prefLabel'];
       }
     }
