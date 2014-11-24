@@ -142,41 +142,13 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
   // Only update holdings for records of type 'bib'
   if ($scope.recType == 'bib') {
     $rootScope.$watch('state.search.result.list.length', function(newLength, oldLength) {
-      var findDeep = function(items, attrs) {
-        function match(value) {
-          for (var key in attrs) {
-            if (attrs[key] !== value[key]) {
-              return false;
-            }
-          }
-          return true;
-        }
-        function traverse(value) {
-          var result;
-          _.forEach(value, function (val) {
-            if (match(val)) {
-              result = val;
-              return false;
-            }
-            if (_.isObject(val) || _.isArray(val)) {
-              result = traverse(val);
-            }
-            if (result) {
-              return false;
-            }
-          });
-          return result;
-        }
-        return traverse(items);
-      };
-
       var updateHoldings = function(data, status, headers, config) {
         if (data && data.list) {
           config.record.holdings = {
             hits: 0
           };
           if (data.list.length > 0) {
-            var userHolding = findDeep(data.list, { notation: userData.userSigel });
+            var userHolding = utilsService.findDeep(data.list, 'data.about.heldBy.notation', userData.userSigel);
             config.record.holdings = {
               hits: data.list.length,
               holding: userHolding

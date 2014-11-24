@@ -1,16 +1,35 @@
-<div class="hitlist-item bib compact">
+<!-- Do we need a recurring header? Fields are pretty self-explanatory -->
+<!-- Might be a good place to put tooltips showing what fields are made up of, though -->
+<!-- <div class="hitlist-row header bib compact" data-ng-if="$first||$index % 20 === 0">
   <div class="title">
-    <a href="/edit/libris{{record.identifier || record.data['@id']}}">{{ utils.composeTitle(record) | chop:80 }}</a>
+    Titel
+  </div>
+  <div class="creator">
+    Upphovsm.
+  </div>
+  <div class="publication">
+    Publ.
+  </div>
+  <div class="identifier-code">
+    Id
+  </div>
+</div> -->
+
+<div class="hitlist-row bib compact">
+  <div class="title">
+    <a href="/edit/libris{{record.identifier || record.data['@id']}}">{{ utils.composeTitle(record) | chop:80}}</a>
   </div>
   <div class="creator">
     {{ utils.composeCreator(record) | chop:40 }}
   </div>
   <div class="publication">
-    <span title="Utgivningsår" data-ng-repeat="publication in record.data.about.publication | limitTo:1">
-      {{ publication.providerDate }}
+    <span data-ng-repeat="publication in record.data.about.publication | limitTo:1">
+      {{ utils.composeDate(publication.providerDate) }}
     </span>
   </div>
-  <div class="identifier-code" data-ng-repeat="identifier in record.data.about.identifier | limitTo:1">{{ identifier.identifierValue }}
+  <div class="identifier-code">
+    <span data-ng-repeat="identifier in record.data.about.identifier | limitTo:1">
+      {{ identifier.identifierValue | chop:20 }}
+    </span>
   </div>
-
 </div>

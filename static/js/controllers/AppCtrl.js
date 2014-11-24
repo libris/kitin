@@ -50,6 +50,7 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
     searchType: {},
     remoteDatabases: [],
     search: {},
+    searchView: 'detailed',
 
     getSearchParams : function() {
       var params = {

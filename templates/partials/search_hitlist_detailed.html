@@ -114,7 +114,7 @@
             <span data-ng-show="record.data.about['@type'] == 'EBook'"><i class="fa fa-square fa-fw"></i></span>
             <span data-ng-show="record.data.about['@type'] == 'Serial'"><i class="fa fa-square fa-fw"></i></span>
             <span title="provider-date" data-ng-repeat="publication in record.data.about.publication | limitTo:1"
-              data-ng-show="publication.providerDate">{{publication.providerDate}}</span>
+              data-ng-show="publication.providerDate">{{ utils.composeDate(publication.providerDate) }}</span>
             <span title="provider" data-ng-repeat="publication in record.data.about.publication | limitTo:1"> {{publication.place.label}} {{publication.providerName}}</span>
             <span data-ng-show="record.data.about.extent">{{ record.data.about.extent }}</span>
           </span>
@@ -124,8 +124,9 @@
       </div>
 
       <div class="col2">
-        <div class="label identifier-code" title="{{ identifier.identifierScheme }}" data-ng-repeat="identifier in record.data.about.identifier">{{ identifier.identifierValue }}
+        <div class="label identifier code" title="{{ identifier.identifierScheme }}" data-ng-repeat="identifier in record.data.about.identifier | limitTo:3">{{ identifier.identifierValue }}
         </div>
+        <div class="label identifier more" data-ng-show="record.data.about.identifier.length > 3">{{record.data.about.identifier.length - 3}} identifierare visas inte.</div>
       </div>
 
       <div class="widget">

@@ -178,6 +178,13 @@
             "about.systemRequirements": "Systemkrav",
             "about.audience.label": "Målgrupp",
             "about.scopeNote": "Relaterade delar",
+            
+            "about.hasAnnotation": "Anmärkning: Dissertation o. dyl.",
+            "about.hasAnnotation.note": "Disserationsanmärkning",
+            "about.hasAnnotation.degree": "Akademisk examen",
+            "about.hasAnnotation.location": "Disputationsort och lärosäte",
+            "about.hasAnnotation.date": "Disputationsår",
+            "about.hasAnnotation.comment": "Övrig dissertationsanmärkning",
            
             "about.alphabet": "Alfabet/Skriftart",
             "about.audience": "Målgrupp",
@@ -207,16 +214,16 @@
         },
 
         "holding": {
-            "about.offers": {
-                "availability": "Begränsningar på utlån",
-                "classificationPart": "Uppställd på",
-                "copyNote": "Anmärkning om uppställningen",
-                "copyNumber": "Exemplarnummer",
-                "editorialNote": "Intern uppställningsanm.",
-                "shelfControlNumber": "Löpnummer",
-                "shelfLabel": "Uppställningsord",
-                "shelfLocation": "Avdelning, samling etc."
-            }
+        	"about.offers": {
+        		"availability": "Begränsningar på utlån",
+        		"classificationPart": "Klassifikationsdel av uppställningssignum ",
+        		"copyNote": "Offentlig anmärkning",
+        		"copyNumber": "Exemplarnummer",
+	        	"editorialNote": "Intern anmärkning",
+	        	"shelfControlNumber": "Löpnummer/Formatbeteckning",
+	        	"shelfLabel": "Uppställningsord (titel, författare el. dyl.)",
+	        	"shelfLocation": "Avdelning, samling, hyllsignum el. dyl."
+        	}
         },
         "gui": {
             "index": {
@@ -231,13 +238,20 @@
                 }
             },
             "search": {
-
+              "RETURN_TO_HITLIST": "Tillbaka till träfflistan"
             },
             "edit": {
-                    "DATE_CREATED": "Skapad",
-                    "MODIFIED": "Ändrad",
-                    "ID": "Id"
-
+        		"DATE_CREATED": "Skapad",
+        		"MODIFIED": "Ändrad",
+        		"ID": "Id",
+                "messages": {
+                    "publish": {
+                        "SUCCESS_TITLE": "Publiceringen lyckades!",
+                        "SUCCESS_MSG": "Posten finns nu att se i katalogen.",
+                        "FAILURE_TITLE": "Något gick fel",
+                        "FAILURE_MSG": "Det gick inte att spara posten, försök igen."
+                    }
+                }
             },
             "terms": {
 	            	"HOLDINGS": "Bestånd"
@@ -246,7 +260,9 @@
                 "LOADING_BIB": "Laddar artikel...",
                 "SAVING_BIB": "Sparar artikel...",
                 "SEARCHING": "Laddar sökresultat...",
-                "CONVERTING_TO_MARC": "Konverterar till MARC-format..."
+                "CONVERTING_TO_MARC": "Konverterar till MARC-format...",
+                "LOADING_HOLDING": "Laddar bestånd...",
+                "SAVING_HOLDING": "Sparar bestånd..."
             }
 
         }

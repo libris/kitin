@@ -1,8 +1,10 @@
-<div class="nav-back" ng-show="state.search.q">
-  <a data-nav-back><i class="fa fa-arrow-circle-left"></i> Tillbaka till träfflistan</a>
-</div>
 
 <div data-ng-controller="SearchFormCtrl">
+
+  <div class="nav-back" data-ng-show="state.search.q">
+    <a href="" data-ng-click="search(true)"><i class="fa fa-arrow-circle-left"></i> <span translate>LABEL.gui.search.RETURN_TO_HITLIST</span></a>
+  </div>
+  
   <div class="searchfield">
     <form data-ng-submit="state.search.q ? search() : false" method="GET" name="search_form">
       <input id="search" name="q" type="text" autofocus

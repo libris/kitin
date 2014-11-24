@@ -39,7 +39,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('/snippets/hitlist-compact-auth',
-    "<div class=\"hitlist-item auth compact\">\n" +
+    "<div class=\"hitlist-row auth compact\">\n" +
     "  <div class=\"icon\">\n" +
     "    <i class=\"fa {{utils.getIconByType(record, recType)}}\"></i>\n" +
     "  </div>\n" +
@@ -54,21 +54,40 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('/snippets/hitlist-compact-bib',
-    "<div class=\"hitlist-item bib compact\">\n" +
+    "<!-- Do we need a recurring header? Fields are pretty self-explanatory -->\n" +
+    "<!-- Might be a good place to put tooltips showing what fields are made up of, though -->\n" +
+    "<!-- <div class=\"hitlist-row header bib compact\" data-ng-if=\"$first||$index % 20 === 0\">\n" +
     "  <div class=\"title\">\n" +
-    "    <a href=\"/edit/libris{{record.identifier || record.data['@id']}}\">{{ utils.composeTitle(record) | chop:80 }}</a>\n" +
+    "    Titel\n" +
+    "  </div>\n" +
+    "  <div class=\"creator\">\n" +
+    "    Upphovsm.\n" +
+    "  </div>\n" +
+    "  <div class=\"publication\">\n" +
+    "    Publ.\n" +
+    "  </div>\n" +
+    "  <div class=\"identifier-code\">\n" +
+    "    Id\n" +
+    "  </div>\n" +
+    "</div> -->\n" +
+    "\n" +
+    "<div class=\"hitlist-row bib compact\">\n" +
+    "  <div class=\"title\">\n" +
+    "    <a href=\"/edit/libris{{record.identifier || record.data['@id']}}\">{{ utils.composeTitle(record) | chop:80}}</a>\n" +
     "  </div>\n" +
     "  <div class=\"creator\">\n" +
     "    {{ utils.composeCreator(record) | chop:40 }}\n" +
     "  </div>\n" +
     "  <div class=\"publication\">\n" +
-    "    <span title=\"Utgivningsår\" data-ng-repeat=\"publication in record.data.about.publication | limitTo:1\">\n" +
-    "      {{ publication.providerDate }}\n" +
+    "    <span data-ng-repeat=\"publication in record.data.about.publication | limitTo:1\">\n" +
+    "      {{ utils.composeDate(publication.providerDate) }}\n" +
     "    </span>\n" +
     "  </div>\n" +
-    "  <div class=\"identifier-code\" data-ng-repeat=\"identifier in record.data.about.identifier | limitTo:1\">{{ identifier.identifierValue }}\n" +
+    "  <div class=\"identifier-code\">\n" +
+    "    <span data-ng-repeat=\"identifier in record.data.about.identifier | limitTo:1\">\n" +
+    "      {{ identifier.identifierValue | chop:20 }}\n" +
+    "    </span>\n" +
     "  </div>\n" +
-    "\n" +
     "</div>"
   );
 
@@ -141,12 +160,31 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/modal-holdings',
     "<div class=\"modal-header holdings\">\n" +
     "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
-    "  <h4 class=\"modal-title\"><span  translate>LABEL.gui.terms.HOLDINGS</span> ({{userData.userSigel}})</h4>\n" +
+    "  <h4 class=\"modal-title\"><span translate>LABEL.gui.terms.HOLDINGS</span> ({{userData.userSigel}})</h4>\n" +
     "</div>\n" +
     "\n" +
     "<div class=\"modal-body holdings\">\n" +
     "  <div cg-busy=\"{promise:promises.holding.loading, message:'Laddar bestånd...', minDuration: 800}\"></div>\n" +
     "  <div cg-busy=\"{promise:promises.holding.saving, message:'Sparar bestånd...', minDuration: 800}\"></div>\n" +
+    "  \n" +
+    "  <accordion class=\"other-holdings\" ng-show=\"true\">\n" +
+    "    <accordion-group is-open=\"showOtherHoldings\">\n" +
+    "      <accordion-heading>\n" +
+    "        Visa bestånd för andra bibliotek (beta) <i class=\"pull-right fa\" ng-class=\"{'fa-chevron-down': showOtherHoldings, 'fa-chevron-right': !showOtherHoldings}\"></i>\n" +
+    "      </accordion-heading>\n" +
+    "      <accordion close-others=\"true\">\n" +
+    "        <accordion-group data-ng-repeat=\"otherHolding in allHoldings\" is-open=\"offer.open\">\n" +
+    "          <accordion-heading>\n" +
+    "              {{otherHolding.data.about.heldBy.notation}} <i class=\"pull-right fa\" ng-class=\"{'fa-chevron-down': offer.open, 'fa-chevron-right': !offer.open}\"></i>\n" +
+    "          </accordion-heading>\n" +
+    "          <div data-ng-repeat=\"offer in otherHolding.data.about.offers\" class=\"other-offer\">\n" +
+    "            <span class=\"offer-value\" data-ng-repeat=\"(property, value) in offer\" data-ng-show=\"property != '@type' && property != 'open'&& property != 'heldBy'\">{{property}}: {{value}}<span data-ng-show=\"!$last\">, </span></span>\n" +
+    "          </div>\n" +
+    "        </accordion-group>\n" +
+    "      </accordion>\n" +
+    "    </accordion-group>\n" +
+    "  </accordion>\n" +
+    "  \n" +
     "  <form data-ng-show=\"holding.data['@id'] || !holding['etag']\" name=\"holdingForm\">\n" +
     "    <section class=\"offer\" data-ng-repeat=\"offer in holding.data.about.offers track by $index\">\n" +
     "      <div class=\"cols\">\n" +
@@ -784,11 +822,13 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('/snippets/searchfield',
-    "<div class=\"nav-back\" ng-show=\"state.search.q\">\n" +
-    "  <a data-nav-back><i class=\"fa fa-arrow-circle-left\"></i> Tillbaka till träfflistan</a>\n" +
-    "</div>\n" +
     "\n" +
     "<div data-ng-controller=\"SearchFormCtrl\">\n" +
+    "\n" +
+    "  <div class=\"nav-back\" data-ng-show=\"state.search.q\">\n" +
+    "    <a href=\"\" data-ng-click=\"search(true)\"><i class=\"fa fa-arrow-circle-left\"></i> <span translate>LABEL.gui.search.RETURN_TO_HITLIST</span></a>\n" +
+    "  </div>\n" +
+    "  \n" +
     "  <div class=\"searchfield\">\n" +
     "    <form data-ng-submit=\"state.search.q ? search() : false\" method=\"GET\" name=\"search_form\">\n" +
     "      <input id=\"search\" name=\"q\" type=\"text\" autofocus\n" +

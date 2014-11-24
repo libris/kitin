@@ -341,6 +341,7 @@ body.edit .footer-sticky {
   width: 100%;
   z-index: 1000;
   height: 56px;
+  overflow: visible;
   font-size: 13px;
   background: rgba(255, 255, 255, 0.9);
   box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
@@ -1504,13 +1505,104 @@ html .modal.fade .modal-dialog {
 /* REMOTE SOURCES MODAL END ------------------------- */
 /* POPOVER START ------------------------- */
 .popover {
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
-  -webkit-box-shadow: 3px;
-  -moz-box-shadow: 3px;
-  box-shadow: 0 0px 2px rgba(0, 0, 0, 0.15);
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
   z-index: 1000;
+  border: none;
+}
+.popover.manual {
+  display: block;
+}
+.popover.success {
+  background-color: rgba(26, 143, 114, 0.8);
+}
+.popover.success.right > .arrow {
+  border-right-color: transparent;
+}
+.popover.success.right > .arrow:after {
+  border-right-color: rgba(26, 143, 114, 0.8);
+}
+.popover.success.left > .arrow {
+  border-left-color: transparent;
+}
+.popover.success.left > .arrow:after {
+  border-left-color: rgba(26, 143, 114, 0.8);
+}
+.popover.success.top > .arrow {
+  border-top-color: transparent;
+}
+.popover.success.top > .arrow:after {
+  border-top-color: rgba(26, 143, 114, 0.8);
+}
+.popover.success.bottom > .arrow {
+  border-bottom-color: transparent;
+}
+.popover.success.bottom > .arrow:after {
+  border-bottom-color: rgba(26, 143, 114, 0.8);
+}
+.popover.success .popover-content {
+  color: #ffffff;
+}
+.popover.warning {
+  background-color: rgba(214, 171, 0, 0.8);
+}
+.popover.warning.right > .arrow {
+  border-right-color: transparent;
+}
+.popover.warning.right > .arrow:after {
+  border-right-color: rgba(214, 171, 0, 0.8);
+}
+.popover.warning.left > .arrow {
+  border-left-color: transparent;
+}
+.popover.warning.left > .arrow:after {
+  border-left-color: rgba(214, 171, 0, 0.8);
+}
+.popover.warning.top > .arrow {
+  border-top-color: transparent;
+}
+.popover.warning.top > .arrow:after {
+  border-top-color: rgba(214, 171, 0, 0.8);
+}
+.popover.warning.bottom > .arrow {
+  border-bottom-color: transparent;
+}
+.popover.warning.bottom > .arrow:after {
+  border-bottom-color: rgba(214, 171, 0, 0.8);
+}
+.popover.error {
+  background-color: rgba(238, 93, 97, 0.8);
+}
+.popover.error.right > .arrow {
+  border-right-color: transparent;
+}
+.popover.error.right > .arrow:after {
+  border-right-color: rgba(238, 93, 97, 0.8);
+}
+.popover.error.left > .arrow {
+  border-left-color: transparent;
+}
+.popover.error.left > .arrow:after {
+  border-left-color: rgba(238, 93, 97, 0.8);
+}
+.popover.error.top > .arrow {
+  border-top-color: transparent;
+}
+.popover.error.top > .arrow:after {
+  border-top-color: rgba(238, 93, 97, 0.8);
+}
+.popover.error.bottom > .arrow {
+  border-bottom-color: transparent;
+}
+.popover.error.bottom > .arrow:after {
+  border-bottom-color: rgba(238, 93, 97, 0.8);
+}
+.popover.error .popover-content {
+  color: #ffffff;
 }
 .popover h3 {
   font: bold 15px/18px 'Open Sans', sans-serif;
@@ -1629,7 +1721,7 @@ ul.tags .add-item .add-link,
 ul.tags li.search .add-link,
 .find-entity .add-item .add-link {
   color: #0e4e3e;
-  background: #d8eee9;
+  background: #c6ece3;
   padding: 3px 8px;
   display: inline-block;
   border-radius: 2px;
@@ -1643,7 +1735,7 @@ ul.tags .add-item .add-link:hover,
 ul.tags li.search .add-link:hover,
 .find-entity .add-item .add-link:hover {
   color: #000000;
-  background: #bce2d8;
+  background: #a8e1d3;
 }
 ul.tags .add-item .add-link:hover i,
 ul.tags li.search .add-link:hover i,
@@ -1884,16 +1976,18 @@ ul.tags.suggestions li li a {
 .btn-group-vertical > .btn-group:after,
 .nav:before,
 .nav:after,
+.panel-body:before,
+.panel-body:after,
 .modal-footer:before,
 .modal-footer:after,
 section.dash.drafts li:before,
 section.dash.drafts li:after,
 body.search .content header:before,
 body.search .content header:after,
-body.search .hitlist-item.auth.compact:before,
-body.search .hitlist-item.auth.compact:after,
-body.search .hitlist-item.bib.compact:before,
-body.search .hitlist-item.bib.compact:after {
+body.search .hitlist-row.auth.compact:before,
+body.search .hitlist-row.auth.compact:after,
+body.search .hitlist-row.bib.compact:before,
+body.search .hitlist-row.bib.compact:after {
   content: " ";
   display: table;
 }
@@ -1904,11 +1998,12 @@ body.search .hitlist-item.bib.compact:after {
 .btn-toolbar:after,
 .btn-group-vertical > .btn-group:after,
 .nav:after,
+.panel-body:after,
 .modal-footer:after,
 section.dash.drafts li:after,
 body.search .content header:after,
-body.search .hitlist-item.auth.compact:after,
-body.search .hitlist-item.bib.compact:after {
+body.search .hitlist-row.auth.compact:after,
+body.search .hitlist-row.bib.compact:after {
   clear: both;
 }
 section.dash {
@@ -2091,6 +2186,21 @@ section.result .footer span.level {
 section.result .footer span {
   padding-right: 12px;
 }
+section.result .bottom {
+  color: #999996;
+  font-size: 14px;
+  background: #ffffff;
+  position: absolute;
+  left: 12px;
+  right: 134px;
+  bottom: 6px;
+}
+section.result .bottom i {
+  font-size: 16px;
+  padding-right: 6px;
+  margin-left: -2px;
+  padding-left: 0;
+}
 section.result a:visited {
   color: #22ba94;
 }
@@ -2145,11 +2255,6 @@ section.result .label.title .icon {
   font-size: 16px;
   color: #22ba94;
 }
-section.result .label.identifier-code {
-  color: #191913;
-  font-weight: 600;
-  text-align: right;
-}
 section.result .label.title .lbl {
   margin-top: 4px;
 }
@@ -2165,19 +2270,18 @@ section.result .contributors ul {
 section.result .contributors ul li .primary-attribution {
   font-weight: 600;
 }
-section.result .bottom {
-  color: #999996;
-  font-size: 14px;
-  background: #ffffff;
-  position: absolute;
-  left: 12px;
-  bottom: 6px;
+section.result .label.identifier {
+  width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #191913;
+  text-align: right;
 }
-section.result .bottom i {
-  font-size: 16px;
-  padding-right: 6px;
-  margin-left: -2px;
-  padding-left: 0;
+section.result .label.identifier.code {
+  font-weight: 600;
+}
+section.result .label.identifier.more {
+  font-size: 12px;
 }
 section.result .excerpt {
   margin-bottom: -14px;
@@ -2460,9 +2564,9 @@ label.find-entity input[type="text"] {
   position: relative;
   top: 1px;
   display: inline-block;
-  background: #d8eee9;
+  background: #c6ece3;
   border-radius: 3px;
-  border-color: #d8eee9;
+  border-color: #c6ece3;
   padding: 2px 20px 3px 8px;
   margin: 0 3px 3px 0;
 }
@@ -2883,6 +2987,9 @@ span.error-message {
 .holdings ul li {
   list-style: none;
 }
+accordion.other-holdings {
+  margin-bottom: 24px;
+}
 section.offer {
   margin-bottom: 24px;
 }
@@ -2955,14 +3062,30 @@ body.search .content header .tools .sort-option .hitlist-viewswitch i {
   padding: 3px;
   color: #666664;
 }
-body.search .hitlist-item.auth.compact {
+body.search .content .facets {
+  position: relative;
+  float: left;
+  width: 25%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+body.search .content .results {
+  position: relative;
+  float: left;
+  width: 75%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+body.search .hitlist-row.auth.compact {
   margin-left: -15px;
   margin-right: -15px;
   position: relative;
   padding: 6px 0;
   border-bottom: 1px solid #eeeeec;
 }
-body.search .hitlist-item.auth.compact .icon {
+body.search .hitlist-row.auth.compact .icon {
   position: absolute;
   width: 20px;
   top: 6px;
@@ -2971,7 +3094,7 @@ body.search .hitlist-item.auth.compact .icon {
   text-align: left;
   color: #666664;
 }
-body.search .hitlist-item.auth.compact .title {
+body.search .hitlist-row.auth.compact .title {
   position: relative;
   float: left;
   width: 33.33333333%;
@@ -2980,7 +3103,7 @@ body.search .hitlist-item.auth.compact .title {
   padding-right: 15px;
   padding-left: 50px;
 }
-body.search .hitlist-item.auth.compact .about {
+body.search .hitlist-row.auth.compact .about {
   position: relative;
   float: left;
   width: 66.66666667%;
@@ -2988,14 +3111,14 @@ body.search .hitlist-item.auth.compact .about {
   padding-left: 15px;
   padding-right: 15px;
 }
-body.search .hitlist-item.bib.compact {
+body.search .hitlist-row.bib.compact {
   margin-left: -15px;
   margin-right: -15px;
   position: relative;
   padding: 6px 0;
   border-bottom: 1px solid #eeeeec;
 }
-body.search .hitlist-item.bib.compact .title {
+body.search .hitlist-row.bib.compact .title {
   position: relative;
   float: left;
   width: 41.66666667%;
@@ -3003,7 +3126,7 @@ body.search .hitlist-item.bib.compact .title {
   padding-left: 15px;
   padding-right: 15px;
 }
-body.search .hitlist-item.bib.compact .creator {
+body.search .hitlist-row.bib.compact .creator {
   position: relative;
   float: left;
   width: 33.33333333%;
@@ -3011,7 +3134,7 @@ body.search .hitlist-item.bib.compact .creator {
   padding-left: 15px;
   padding-right: 15px;
 }
-body.search .hitlist-item.bib.compact .publication {
+body.search .hitlist-row.bib.compact .publication {
   position: relative;
   float: left;
   width: 8.33333333%;
@@ -3019,13 +3142,18 @@ body.search .hitlist-item.bib.compact .publication {
   padding-left: 15px;
   padding-right: 15px;
 }
-body.search .hitlist-item.bib.compact .identifier-code {
+body.search .hitlist-row.bib.compact .identifier-code {
   position: relative;
   float: left;
   width: 16.66666667%;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
+}
+body.search .hitlist-row.auth.compact.header,
+body.search .hitlist-row.bib.compact.header {
+  background: #eeeeec;
+  border-bottom: 1px solid #ddd;
 }
 /* SEARCH END ------------------------- */
 html.ie .datatable table tr {
@@ -3129,7 +3257,7 @@ html.ie .cg-busy {
 }
 .acSelect {
   color: #999996;
-  background: #d8eee9;
+  background: #c6ece3;
 }
 /* AUTOCOMPLETE END ------------------------- */
 .color-box {
@@ -3179,7 +3307,7 @@ html.ie .cg-busy {
   background-color: #462446;
 }
 .color-box.green-lighter {
-  background-color: #d8eee9;
+  background-color: #c6ece3;
 }
 .color-box.green-light {
   background-color: #22ba94;

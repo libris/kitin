@@ -34,6 +34,10 @@ kitin.factory('searchService', function($http, $q, $rootScope) {
     ],
     search: function(url, params) {
       var deferred = $q.defer();
+      // Make sure slashes are correctly escaped
+      if (params.f) {
+        params.f = params.f.replace(/\//g, '\\/');
+      }
       // $rootScope.promises is used by angular-busy to show and hide loading/saving indicators
       $rootScope.promises.search = $http.get(url, { params: params }).success(function(data) {
         deferred.resolve(data);

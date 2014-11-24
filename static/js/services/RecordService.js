@@ -2,7 +2,7 @@
  * recordService
  * Service to handle communcation with backend for records and drafts
  */
-kitin.factory('recordService', function ($http, $q, editService, $rootScope, definitions) {
+kitin.factory('recordService', function ($http, $q, $rootScope, definitions, editService, utilsService) {
 
   var recordService = {
 
@@ -182,24 +182,34 @@ kitin.factory('recordService', function ($http, $q, editService, $rootScope, def
       find: function(recordId, userData, quiet) {
         var deferer = $q.defer();
         var sigel = userData.userSigel;
-        var searchPath = '/hold/_search?q=*+about.holdingFor.@id:' + recordId.replace(/\//g, '\\/') + '+about.offers.heldBy.notation:' + sigel;
+        var searchPath = '/hold/_search?q=*+about.holdingFor.@id:' + recordId.replace(/\//g, '\\/'); // + '+about.offers.heldBy.notation:' + sigel;
         // $rootScope.promises is used by angular-busy to show and hide loading/saving indicators ...
         var promise = $http.get($rootScope.API_PATH + searchPath).success(function(data, status, headers) {
           if (data.list.length > 0) {
-            var holding = data.list[0];
-            recordService.holding.get(holding.data['@id']).then(function(response) {
-              if (response.holding) {
-                holding.data = response.holding;
-                if (response.etag) {
-                  holding.etag = response.etag;
+            var holding = utilsService.findDeep(data.list, 'data.about.heldBy.notation', sigel);
+            var allHoldings = data.list;
+            if (holding) {
+              recordService.holding.get(holding.data['@id']).then(function(response) {
+                if (response.holding) {
+                  holding.data = response.holding;
+                  if (response.etag) {
+                    holding.etag = response.etag;
+                  }
+                  deferer.resolve({
+                    holding: holding,
+                    allHoldings: allHoldings
+                  });
+                } else {
+                  deferer.reject({
+                    msg: 'Hittade inget bestånd med önskat id.'
+                  });
                 }
-                deferer.resolve(holding);
-              } else {
-                deferer.reject({
-                  msg: 'Hittade inget bestånd med önskat id.'
-                });
-              }
-            });
+              });
+            } else {
+              deferer.resolve({
+                allHoldings: allHoldings
+              });  
+            }
           } else {
             deferer.resolve(false);
           }

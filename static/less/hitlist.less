@@ -23,13 +23,35 @@ section.result{
   &:nth-child(10n+10) { margin-bottom: 25px; };
 }
 
-section.result .footer{position: absolute; bottom:-1px; left:-1px; right:-1px;padding: 6px 12px; -webkit-transition:border ease-out 0.05s; 
-  background:@grey-warm;color:@grey-darker;font-size:12px;border:1px solid @grey-warm;border-top-color:@grey-warm}
-section.result .footer span:first-child,
-section.result .footer span.level{margin-left:0;padding-left:0;border-left:none;}
-section.result .footer span.level{float:right;}
+// This is not used?
+section.result .footer{
+  position: absolute; 
+  bottom:-1px; 
+  left:-1px; 
+  right:-1px;
+  padding: 6px 12px; 
+  -webkit-transition:border ease-out 0.05s; 
+  background:@grey-warm;
+  color:@grey-darker;
+  font-size:12px;
+  border:1px solid @grey-warm;
+  border-top-color:@grey-warm;
+  span:first-child,
+  span.level{margin-left:0;padding-left:0;border-left:none;}
+  span.level{float:right;}
+  span{padding-right: 12px;}
+}
 
-section.result .footer span {padding-right: 12px;}
+section.result .bottom {
+  color:@grey-dark;
+  font-size:14px;
+  background: @white;
+  position: absolute;
+  left:12px;
+  right: 134px; // Widget width + 12px
+  bottom: 6px;
+  i {font-size: 16px;padding-right: 6px; margin-left: -2px;padding-left: 0;}
+}
 
 section.result a {
     &:visited {  color: @green-light; }
@@ -50,13 +72,21 @@ section.result .label.title .title-key {font-size:18px;line-height:22px;display:
 section.result .label.title .title-subtitle {color:@green-dark; font-size: 14px; line-height: 18px;display: block;}
 section.result .label .title-creator {color:@grey-darker;font-size: 14px; line-height: 18px;}
 section.result .label.title .icon{font-size:16px;color:@green-light;}
-section.result .label.identifier-code {color: @grey-very-dark; font-weight: 600;text-align: right;}
 section.result .label.title .lbl{margin-top:4px;}
 section.result .label.contributors {padding-bottom: 0px; margin-bottom:18px;}
 section.result .contributors ul {list-style: none;padding:0;margin:0;}
 section.result .contributors ul li .primary-attribution {font-weight: 600;}
-section.result .bottom {color:@grey-dark; font-size:14px;background: @white;position: absolute;left:12px;bottom: 6px;}
-section.result .bottom i {font-size: 16px;padding-right: 6px; margin-left: -2px;padding-left: 0;}
+
+// Identifiers, ellipsis on long fields
+section.result .label.identifier{
+  width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  color: @grey-very-dark;
+  text-align: right;
+  &.code {font-weight: 600;}
+  &.more {font-size: 12px;}
+}
 
 section.result .excerpt{margin-bottom:-14px;}
 section.result .excerpt label{background:@grey-warm url(/static/img/pat1.png);padding-top:4px;padding-bottom:4px;}
