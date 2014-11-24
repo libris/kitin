@@ -8,7 +8,6 @@ kitin.factory('searchUtil', function() {
     countTotalItems: function(items) {
       if(_.isObject(items)) {
         return _.reduce(items, function(sum, num) {
-          debugger;
           return sum + num;
         });
       } else {
