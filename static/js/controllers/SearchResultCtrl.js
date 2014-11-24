@@ -66,13 +66,12 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
     if (dfn && dfn['label']) return dfn['label']; 
 
     // !TODO fix propper linking
-    if(termType && termType.indexOf('language') > 0) {
+    if (termType && termType.indexOf('language') > 0) {
       var lang = _.find($scope.languages.items, function(lang) {
-        if(lang['@id'] === term) { 
+        if (lang['@id'] === term) { 
         return true; 
       }});
-      if(lang) {
-        console.log(lang);
+      if (lang) {
         return lang.about['prefLabel'];
       }
     }
@@ -129,7 +128,12 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
           items: 0
         };
         if (data.items.length > 0) {
-          var userHolding = utilsService.findDeep(data.items, 'about.heldBy.notation', userData.userSigel);
+          // At the moment, we're only using userHoldings, but in the future, we might use
+          // allHoldings to present the user with extra information on other organisations'
+          // holdings.
+          var holdings = utilsService.findDeep(data.items, 'about.heldBy.notation', userData.userSigel);
+          var userHolding = holdings.matches;
+          var allHoldings = holdings.nonmatches;
           config.record.holdings = {
             items: data.items.length,
             holding: userHolding

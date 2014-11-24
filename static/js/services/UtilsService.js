@@ -181,9 +181,19 @@ kitin.factory('utilsService', function($http, $q, $rootScope) {
     },
 
     findDeep: function(items, path, value) {
+      var matches = [];
+      var nonmatches = [];
       _.forEach(items, function(item) {
-        if (getPath(item, path) == value) return item;
+        if (getPath(item, path) == value) {
+          matches.push(item);
+        } else {
+          nonmatches.push(item);
+        }
       });
+      return {
+        matches: matches.length > 0 ? matches[0] : false,
+        nonmatches: nonmatches.length > 0 ? nonmatches : false
+      };
     }
   };
 });

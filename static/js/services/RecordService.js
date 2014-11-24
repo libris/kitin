@@ -182,16 +182,18 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
       find: function(recordId, userData, quiet) {
         var deferer = $q.defer();
         var sigel = userData.userSigel;
-        var searchPath = '/hold/_search?q=*+about.holdingFor.@id:' + recordId.replace(/\//g, '\\/'); // + '+about.offers.heldBy.notation:' + sigel;
+        var searchPath = '/hold/_search?q=*+about.holdingFor.@id:' + recordId.replace(/\//g, '\\/');
         // $rootScope.promises is used by angular-busy to show and hide loading/saving indicators ...
         var promise = $http.get($rootScope.API_PATH + searchPath).success(function(data, status, headers) {
           if (data.items.length > 0) {
-            var holding = utilsService.findDeep(data.items, 'about.heldBy.notation', sigel);
-            var allHoldings = data.items;
+            var holdings = utilsService.findDeep(data.items, 'about.heldBy.notation', sigel);
+            console.log(holdings);
+            var holding = holdings.matches;
+            var allHoldings = holdings.nonmatches;
             if (holding) {
-              recordService.holding.get(holding.data['@id']).then(function(response) {
+              recordService.holding.get(holding['@id']).then(function(response) {
                 if (response.holding) {
-                  holding.data = response.holding;
+                  holding = response.holding;
                   if (response.etag) {
                     holding.etag = response.etag;
                   }
@@ -244,9 +246,7 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
         var recordSkeletonTypeMap = definitions.recordSkeletonTypeMap;
         recordSkeletonTypeMap.then(function(skeletonTypeMap) {
           deferer.resolve({
-            data: {
-              about: skeletonTypeMap.main.HeldMaterial
-            }
+            about: skeletonTypeMap.main.HeldMaterial
           });
         });
         return deferer.promise;
@@ -255,8 +255,9 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
       save: function(holding) {
         var deferer = $q.defer();
         var etag = holding.etag;
-        if (holding.data['@id'] && etag) {
-          $rootScope.promises.holding.saving = $http.put($rootScope.WRITE_API_PATH + holding.data['@id'], holding.data, {headers: {'If-match': etag}}).success(function(data, status, headers) {
+        console.log(holding);
+        if (holding['@id'] && etag) {
+          $rootScope.promises.holding.saving = $http.put($rootScope.WRITE_API_PATH + holding['@id'], holding, {headers: {'If-match': etag}}).success(function(data, status, headers) {
             if (headers('etag')) {
               holding.etag = headers('etag');
             }
@@ -266,8 +267,8 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
           });
         } else {
           // Holding has no ID, assume it's new
-          $rootScope.promises.holding.saving = $http.post($rootScope.WRITE_API_PATH + '/hold', holding.data).success(function(data, status, headers) {
-            holding.data = data;
+          $rootScope.promises.holding.saving = $http.post($rootScope.WRITE_API_PATH + '/hold', holding).success(function(data, status, headers) {
+            holding = data;
             if (headers('etag')) {
               holding.etag = headers('etag');
             }
@@ -281,7 +282,7 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
 
       del: function(holding) {
         var deferer = $q.defer();
-        var holdingId = holding.data['@id'];
+        var holdingId = holding['@id'];
         var etag = holding.etag;
         $http['delete']($rootScope.WRITE_API_PATH + holdingId, {headers: {'If-match': etag}}).success(function(data, success, headers, also) {
           holding = data;

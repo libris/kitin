@@ -138,6 +138,10 @@
     },
 
     "HeldMaterial": {
+      "heldBy": {
+        "@type": "Organization",
+        "notation": ""
+      },
       "@type": ["HeldMaterial"],
       "librisIIINumber": [],
       "callno": [],
