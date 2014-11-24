@@ -187,7 +187,6 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
         var promise = $http.get($rootScope.API_PATH + searchPath).success(function(data, status, headers) {
           if (data.items.length > 0) {
             var holdings = utilsService.findDeep(data.items, 'about.heldBy.notation', sigel);
-            console.log(holdings);
             var holding = holdings.matches;
             var allHoldings = holdings.nonmatches;
             if (holding) {
@@ -255,7 +254,6 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
       save: function(holding) {
         var deferer = $q.defer();
         var etag = holding.etag;
-        console.log(holding);
         if (holding['@id'] && etag) {
           $rootScope.promises.holding.saving = $http.put($rootScope.WRITE_API_PATH + holding['@id'], holding, {headers: {'If-match': etag}}).success(function(data, status, headers) {
             if (headers('etag')) {
