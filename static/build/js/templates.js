@@ -493,8 +493,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "\n" +
     "<select \n" +
     "  data-kitin-select-entity\n" +
-    "  data-selected-item-variable=\"selectedItem.data.about\"\n" +
-    "  ng-options=\"(item.data.about.prefLabel || item.data.about.prefLabel-en) for item in objects | orderBy:'data.about.prefLabel'\">\n" +
+    "  data-selected-item-variable=\"selectedItem.about\"\n" +
+    "  ng-options=\"(item.about.prefLabel || item.about.prefLabel-en) for item in objects | orderBy:'about.prefLabel'\">\n" +
     "</select>"
   );
 

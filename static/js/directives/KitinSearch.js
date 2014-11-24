@@ -147,12 +147,12 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope, $q
 
         options.processData = function (doc) {
           var result = [];
-          if (doc && doc.list) {
-            result = doc.list.map(function(item) {
-              var data = item.data.about;
+          if (doc && doc.items) {
+            result = doc.items.map(function(item) {
+              var data = item.about;
               // Store reference to orignal object, need to access record properties in making entity reference. 
-              data._source = item.data;
-              return {value: item.data.about.prefLabel, data: data};
+              data._source = item;
+              return {value: item.about.prefLabel, data: data};
             });
           }
           if(attrs.allowNonAuth === 'true') {

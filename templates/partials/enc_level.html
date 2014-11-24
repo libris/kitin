@@ -2,13 +2,13 @@
   <div data-ng-switch-when="auth">
     <span data-ng-if="record.data.encLevel == 'c' ">
       <i class="fa fa-pencil-square"></i>
-      {{parseEncLevel(record.data.encLevel)}}
+      {{parseEncLevel(record.encLevel)}}
     </span>
     <span data-ng-if="record.data.encLevel == 'n' ">
       <i class="fa fa-circle-o"></i>
       <i class="fa fa-circle-o"></i>
       <i class="fa fa-circle-o"></i>
-      {{parseEncLevel(record.data.encLevel)}}
+      {{parseEncLevel(record.encLevel)}}
     </span> 
   </div>           
 </div>

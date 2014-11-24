@@ -67,12 +67,12 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
 
     // !TODO fix propper linking
     if(termType && termType.indexOf('language') > 0) {
-      var lang = _.find($scope.languages.list, function(lang) { 
+      var lang = _.find($scope.languages.items, function(lang) { 
         if(lang.identifier === term) { 
         return true; 
       }});
       if(lang) {
-        return lang.data.about['prefLabel'];
+        return lang.about['prefLabel'];
       }
     }
     if(termType && termType.indexOf('encLevel') > -1) {
@@ -141,7 +141,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
 
   // Only update holdings for records of type 'bib'
   if ($scope.recType == 'bib') {
-    $rootScope.$watch('state.search.result.list.length', function(newLength, oldLength) {
+    $rootScope.$watch('state.search.result.items.length', function(newLength, oldLength) {
       var updateHoldings = function(data, status, headers, config) {
         debugger;
         if (data && data.list) {
