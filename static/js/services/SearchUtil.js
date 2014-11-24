@@ -5,13 +5,14 @@
 kitin.factory('searchUtil', function() {
   return {
 
-    countTotalHits: function(hits) {
-      if(_.isObject(hits)) {
-        return _.reduce(hits, function(sum, num) {
+    countTotalItems: function(items) {
+      if(_.isObject(items)) {
+        return _.reduce(items, function(sum, num) {
+          debugger;
           return sum + num;
         });
       } else {
-        return hits;
+        return items;
       }
     },
 

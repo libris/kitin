@@ -143,14 +143,15 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
   if ($scope.recType == 'bib') {
     $rootScope.$watch('state.search.result.list.length', function(newLength, oldLength) {
       var updateHoldings = function(data, status, headers, config) {
+        debugger;
         if (data && data.list) {
           config.record.holdings = {
-            hits: 0
+            items: 0
           };
           if (data.list.length > 0) {
             var userHolding = utilsService.findDeep(data.list, 'data.about.heldBy.notation', userData.userSigel);
             config.record.holdings = {
-              hits: data.list.length,
+              items: data.list.length,
               holding: userHolding
             };
           }
@@ -169,22 +170,24 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
   $scope.doSearch = function(url, params) {
 
     searchService.search(url, params).then(function(data) {
+
       $scope.facetGroups = searchUtil.makeLinkedFacetGroups($scope.recType, data.facets, $rootScope.state.search.q, prevFacetsStr);
       $scope.crumbs = searchUtil.bakeCrumbs($scope.recType, $rootScope.state.search.q, prevFacetsStr);
-      if(data && data.hits) {
+
+      if(data && data.items) {
         // New page load
         if($rootScope.state.search.result) {
-          data.list.forEach(function(element) {
-            $rootScope.state.search.result.list.push(element);
+          data.items.forEach(function(element) {
+            $rootScope.state.search.result.items.push(element);
           });
 
         // Initial load
         } else {
           $rootScope.state.search.result = data;
           
-          var hitCount = searchUtil.countTotalHits(data.hits);
-          if(_.isObject(data.hits)) {
-            _.forEach(data.hits, function(count, dbName) {
+          var hitCount = data.totalResults; //searchUtil.countTotalItems(data.items);
+          if(_.isObject(data.items)) {
+            _.forEach(data.items, function(count, dbName) {
 
               var i = _.findIndex($rootScope.state.remoteDatabases, { database: dbName } );
               if(i > 0) {
@@ -193,10 +196,10 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $location, $routePa
             });
           }  
 
-          $rootScope.state.search.hitCount = hitCount.toString();       
+          $rootScope.state.search.hitCount = data.totalResults  ;       
         }
       } else {
-        $rootScope.state.search.result = { hits: 0 };
+        $rootScope.state.search.result = { items: 0 };
       }
       $scope.scrolled = false;
     });

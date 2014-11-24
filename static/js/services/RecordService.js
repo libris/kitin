@@ -185,9 +185,9 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
         var searchPath = '/hold/_search?q=*+about.holdingFor.@id:' + recordId.replace(/\//g, '\\/'); // + '+about.offers.heldBy.notation:' + sigel;
         // $rootScope.promises is used by angular-busy to show and hide loading/saving indicators ...
         var promise = $http.get($rootScope.API_PATH + searchPath).success(function(data, status, headers) {
-          if (data.list.length > 0) {
-            var holding = utilsService.findDeep(data.list, 'data.about.heldBy.notation', sigel);
-            var allHoldings = data.list;
+          if (data.items.length > 0) {
+            var holding = utilsService.findDeep(data.items, 'about.heldBy.notation', sigel);
+            var allHoldings = data.items;
             if (holding) {
               recordService.holding.get(holding.data['@id']).then(function(response) {
                 if (response.holding) {

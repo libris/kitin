@@ -85,7 +85,7 @@ kitin.factory('utilsService', function($http, $q, $rootScope) {
       recType = recType || 'bib';
       var composedTitle;
       // Normalize post object
-      var post = record.data ? record.data.about : record;
+      var post = record && record.about ? record.about : record;
       if (recType == 'draft' || recType == 'bib') {
         composedTitle = post.instanceTitle.subtitle ? post.instanceTitle.titleValue + ' - ' + post.instanceTitle.subtitle : post.instanceTitle.titleValue;
       } else if (recType == 'auth') {
@@ -113,7 +113,7 @@ kitin.factory('utilsService', function($http, $q, $rootScope) {
       recType = recType || 'bib';
       var icon;
       if (recType == 'auth') {
-        var post = record.data.about;
+        var post = record.about;
         var authType = post['@type'] || '';
         icon = setIcon(authType);
       } else {
@@ -126,7 +126,7 @@ kitin.factory('utilsService', function($http, $q, $rootScope) {
       recType = recType || 'bib';
       var info = '';
       if (recType == 'auth') {
-        var post = record.data.about;
+        var post = record.about;
         var authType = post['@type'] || '';
         //console.log(this.composeTitle(record, 'auth'), post);
         if (post.birthYear) {
@@ -152,7 +152,7 @@ kitin.factory('utilsService', function($http, $q, $rootScope) {
 
     composeCreator: function(record) {
       var creator = '';
-      var post = record.data.about;
+      var post = record.about;
       if (post.creator) {
         creator = post.creator;  
       } else if (post.responsibilityStatement) {

@@ -2,13 +2,13 @@
   <div data-ng-switch="recType">
     <!--AUTH RESULT-->
     <div data-ng-switch-when="auth">
-      <div data-ng-repeat="record in state.search.result.list">
+      <div data-ng-repeat="record in state.search.result.items">
         <div data-ng-include="'/snippets/hitlist-compact-auth'"></div>
       </div>
     </div>
     <!--BIB RESULT-->
     <div data-ng-switch-default>
-      <div data-ng-repeat="record in state.search.result.list">
+      <div data-ng-repeat="record in state.search.result.items">
         <div data-ng-include="'/snippets/hitlist-compact-bib'"></div>
       </div>
     </div>
