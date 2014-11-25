@@ -1,8 +1,8 @@
 kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $modalInstance, $location, $http, record, editService, recordService, userData, utilsService) {
 
-  var isNew = false;
   var recordId = record.about['@id'];
 
+  $scope.isNew = false;
   $scope.record = record;
   $scope.userData = userData;
   $scope.panels = [];
@@ -31,9 +31,9 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     var currentRecord = getCurrentRecord();
     if (currentRecord) {
       currentRecord.holdings.holding = holding;
-      if (isNew) {
+      if ($scope.isNew) {
         currentRecord.holdings.items += 1;
-        isNew = false;
+        $scope.isNew = false;
       }
     }
     $rootScope.modifications.holding.saved = true;
@@ -61,7 +61,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     if (!holding) {
       // If no holding is found, we create a new one.
       recordService.holding.create().then(function(response) {
-        isNew = true;
+        $scope.isNew = true;
         holding = response;
         holding.about.holdingFor = {
           '@id': recordId

@@ -213,8 +213,8 @@
             "about.bibliographyCode": "Bibliografi"
         },
 
-        "holding": {
-        	"about.offers": {
+        "holdings": {
+        	"offer": {
         		"availability": "Begränsningar på utlån",
         		"classificationPart": "Klassifikationsdel av uppställningssignum ",
         		"copyNote": "Offentlig anmärkning",

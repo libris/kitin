@@ -2998,6 +2998,9 @@ span.error-message {
 accordion.other-holdings {
   margin-bottom: 24px;
 }
+.holdings .form-container .group .lbl {
+  width: 340px;
+}
 section.offer {
   margin-bottom: 24px;
 }

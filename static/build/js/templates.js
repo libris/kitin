@@ -160,9 +160,23 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  <h4>{{ utils.composeTitle(record) | chop:80}}, {{ utils.composeCreator(record) | chop:40 }} {{ utils.composeDate(publication.providerDate) }}</h4>\n" +
     "\n" +
     "  <form data-ng-show=\"holding['@id'] || !holding['etag']\" name=\"holdingForm\">\n" +
-    "    <section class=\"offer\" data-ng-repeat=\"offer in holding.about.offers track by $index\">\n" +
+    "    <section class=\"offer form-container\" data-ng-repeat=\"offer in holding.about.offers track by $index\">\n" +
     "      <div class=\"cols\">\n" +
-    "        <div class=\"col6\">\n" +
+    "          <kitin-group title=\"Lokalsignum\">\n" +
+    "<!--             <kitin-entityrow model=\"offer.heldBy\" multiple>\n" +
+    "              <kitin-select></kitin-select>\n" +
+    "            </kitin-entityrow> -->\n" +
+    "\n" +
+    "            <kitin-textrow title-prefix=\"LABEL.holdings.\" model=\"offer.shelfLocation\" change-model=\"holding\"></kitin-textrow>\n" +
+    "            <kitin-textrow title-prefix=\"LABEL.holdings.\" model=\"offer.classificationPart\" change-model=\"holding\"></kitin-textrow>\n" +
+    "            <kitin-textrow title-prefix=\"LABEL.holdings.\" model=\"offer.shelfControlNumber\" change-model=\"holding\"></kitin-textrow>\n" +
+    "            <kitin-textrow title-prefix=\"LABEL.holdings.\" model=\"offer.shelfLabel\" change-model=\"holding\"></kitin-textrow>\n" +
+    "            <kitin-textrow title-prefix=\"LABEL.holdings.\" model=\"offer.availability\" change-model=\"holding\"></kitin-textrow>\n" +
+    "            <kitin-textrow title-prefix=\"LABEL.holdings.\" model=\"offer.copyNumber\" change-model=\"holding\"></kitin-textrow>\n" +
+    "            <kitin-textrow title-prefix=\"LABEL.holdings.\" model=\"offer.copyNote\" change-model=\"holding\"></kitin-textrow>\n" +
+    "            <kitin-textrow title-prefix=\"LABEL.holdings.\" model=\"offer.editorialNote\" change-model=\"holding\"></kitin-textrow>\n" +
+    "          </kitin-group>\n" +
+    "<!--         <div class=\"col6\">\n" +
     "          <div class=\"label\">\n" +
     "            <span class=\"lbl\" translate>LABEL.holding.about.offers.shelfLocation</span>\n" +
     "            <input data-track-change=\"holding\" type=\"text\" data-ng-model=\"offer.shelfLocation\"/>\n" +
@@ -197,7 +211,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "            <span class=\"lbl\" translate>LABEL.holding.about.offers.editorialNote</span>\n" +
     "            <textarea data-track-change=\"holding\" data-ui-jq=\"autosize\" spellcheck=\"false\" data-ng-model=\"offer.editorialNote\"></textarea>\n" +
     "          </div>\n" +
-    "        </div>\n" +
+    "        </div> -->\n" +
+    "\n" +
     "        <div class=\"col12\">\n" +
     "          <button class=\"btn btn-link pull-right\" data-ng-if=\"holding.about.offers.length > 1\" data-ng-click=\"deleteOffer(holding, $index)\"><i class=\"fa fa-trash-o\"></i> {{ \"Radera lokalsignum\" }}</button>\n" +
     "        </div>\n" +
@@ -228,11 +243,15 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "<div class=\"modal-footer holdings submit\">\n" +
     "  <div class=\"status pull-left\">\n" +
     "    <div data-ng-if=\"modifications.holding.saved\">{{ \"Inga osparade ändringar.\" }}</div>\n" +
-    "    <div data-ng-if=\"!modifications.holding.saved\">{{ \"Du har inte sparat dina ändringar.\" }}</div>\n" +
+    "    <div data-ng-if=\"!modifications.holding.saved && !isNew\">{{ \"Du har inte sparat dina ändringar.\" }}</div>\n" +
+    "    <div data-ng-if=\"!modifications.holding.saved && isNew\">{{ \"Nyskapat bestånd, inte sparat.\" }}</div>\n" +
     "  </div>\n" +
     "  <button class=\"btn-link\" id=\"delete-hld\" data-ng-click=\"deleteHolding(holding)\" data-ng-show=\"holding['@id']\"><i class=\"fa fa-trash-o\"></i> {{ \"Radera bestånd\" }}</button>\n" +
-    "  <button class=\"btn btn-purple btn-submit\" id=\"save-hld\" data-ng-click=\"saveHolding(holding)\" data-ng-show=\"holding\">{{ \"Spara bestånd\" }}</button>\n" +
-    "  <button class=\"btn btn-purple btn-submit\" id=\"save-hld\" data-ng-click=\"close()\" data-ng-show=\"!holding\">{{ \"Stäng\" }}</button>\n" +
+    "  <button class=\"btn btn-purple btn-submit\" data-ng-click=\"saveHolding(holding)\" data-ng-show=\"holding\" data-ng-disabled=\"modifications.holding.saved\">\n" +
+    "    <span data-ng-if=\"!modifications.holding.saved\">{{ \"Spara bestånd\" }}</span>\n" +
+    "    <span data-ng-if=\"modifications.holding.saved\">{{ \"Bestånd sparat\" }} <i class=\"fa fa-check\"></i></span>\n" +
+    "  </button>\n" +
+    "  <button class=\"btn btn-purple btn-submit\" data-ng-click=\"close()\" data-ng-show=\"!holding\">{{ \"Stäng\" }}</button>\n" +
     "</div>"
   );
 
