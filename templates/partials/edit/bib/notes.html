@@ -6,6 +6,11 @@
       <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
     </kitin-table>
 
+    <kitin-table model="record.about.describedBy" titles="['LABEL.record.about.describedBy.label','LABEL.record.about.describedBy[\'@id\']']">
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.label"/></kitin-td>
+      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item['@id']"/></kitin-td>
+    </kitin-table>
+
     <kitin-table model="record.about.listOfContents">
       <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
     </kitin-table>
