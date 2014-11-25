@@ -162,7 +162,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  <form data-ng-show=\"holding['@id'] || !holding['etag']\" name=\"holdingForm\">\n" +
     "    <section class=\"offer form-container\" data-ng-repeat=\"offer in holding.about.offers track by $index\">\n" +
     "      <div class=\"cols\">\n" +
-    "          <kitin-group title=\"Lokalsignum\">\n" +
+    "          <kitin-group title=\"Lokalsignum\" initially-visible>\n" +
     "<!--             <kitin-entityrow model=\"offer.heldBy\" multiple>\n" +
     "              <kitin-select></kitin-select>\n" +
     "            </kitin-entityrow> -->\n" +

@@ -30,7 +30,7 @@
   <form data-ng-show="holding['@id'] || !holding['etag']" name="holdingForm">
     <section class="offer form-container" data-ng-repeat="offer in holding.about.offers track by $index">
       <div class="cols">
-          <kitin-group title="Lokalsignum">
+          <kitin-group title="Lokalsignum" initially-visible>
 <!--             <kitin-entityrow model="offer.heldBy" multiple>
               <kitin-select></kitin-select>
             </kitin-entityrow> -->

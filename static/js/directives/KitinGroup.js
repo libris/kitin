@@ -15,7 +15,8 @@ kitin.directive('kitinGroup', function(){
       controller: function($element, $scope, $attrs) {
         var isSingle = $attrs.hasOwnProperty('single');
         $scope.className = isSingle ? 'group single' : 'group';
-        $scope.hidden = true;
+        var initiallyVisible = $attrs.hasOwnProperty('initiallyVisible');
+        $scope.hidden = initiallyVisible ? false : true;
         this.options = {
           hidden: $scope.hidden,
           single: isSingle
