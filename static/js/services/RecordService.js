@@ -190,6 +190,7 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
             var userHoldings = holdings.matches;
             var otherHoldings = holdings.nonmatches;
             if (userHoldings) {
+              // utilsService.findDeep returns an array of matches, get the first (and only) item in it.
               userHoldings = userHoldings[0];
               recordService.holding.get(userHoldings['@id']).then(function(response) {
                 if (response.holding) {

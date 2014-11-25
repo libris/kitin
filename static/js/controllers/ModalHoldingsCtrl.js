@@ -1,6 +1,8 @@
 kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $modalInstance, $location, $http, record, editService, recordService, userData, utilsService) {
-console.log(record);
+
+  var isNew = false;
   var recordId = record.about['@id'];
+
   $scope.record = record;
   $scope.userData = userData;
   $scope.panels = [];
@@ -11,8 +13,6 @@ console.log(record);
     saved: false,
     deleted: false
   };
-
-  var isNew = false;
 
   function getCurrentRecord() {
     // In search view, we need to know which record the user is editing holdings for.
@@ -53,7 +53,7 @@ console.log(record);
     $modalInstance.close();
   };
 
-  // On first run, we have no holding id. Use find to get holding
+  // On first run, we have no holding id. Use recordService.find to get all holdings.
   recordService.holding.find(recordId, userData).then(function(response) {
     var otherHoldings = response.otherHoldings;
     if (otherHoldings) $scope.otherHoldings = otherHoldings;
