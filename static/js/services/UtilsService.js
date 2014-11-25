@@ -191,7 +191,7 @@ kitin.factory('utilsService', function($http, $q, $rootScope) {
         }
       });
       return {
-        matches: matches.length > 0 ? matches[0] : false,
+        matches: matches.length > 0 ? matches : false,
         nonmatches: nonmatches.length > 0 ? nonmatches : false
       };
     }

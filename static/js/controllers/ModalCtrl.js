@@ -73,7 +73,7 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
     $scope.remoteModal = $modal.open(opts);
   };
 
-  $scope.openHoldingsModal = function(event, recordId) {
+  $scope.openHoldingsModal = function(event, record) {
     event.preventDefault();
     event.stopPropagation();
     var opts = angular.extend(
@@ -84,8 +84,8 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
                   windowClass: 'modal-large holdings-modal',
                   scope: $scope,
                   resolve: {
-                    recordId: function() {
-                      return recordId;
+                    record: function() {
+                      return record;
                     }
                   }
                   });

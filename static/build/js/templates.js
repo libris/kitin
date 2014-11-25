@@ -54,23 +54,6 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('/snippets/hitlist-compact-bib',
-    "<!-- Do we need a recurring header? Fields are pretty self-explanatory -->\n" +
-    "<!-- Might be a good place to put tooltips showing what fields are made up of, though -->\n" +
-    "<!-- <div class=\"hitlist-row header bib compact\" data-ng-if=\"$first||$index % 20 === 0\">\n" +
-    "  <div class=\"title\">\n" +
-    "    Titel\n" +
-    "  </div>\n" +
-    "  <div class=\"creator\">\n" +
-    "    Upphovsm.\n" +
-    "  </div>\n" +
-    "  <div class=\"publication\">\n" +
-    "    Publ.\n" +
-    "  </div>\n" +
-    "  <div class=\"identifier-code\">\n" +
-    "    Id\n" +
-    "  </div>\n" +
-    "</div> -->\n" +
-    "\n" +
     "<div class=\"hitlist-row bib compact\">\n" +
     "  <div class=\"title\">\n" +
     "    <a href=\"/edit/libris{{record['@id']}}\">{{ utils.composeTitle(record) | chop:80}}</a>\n" +
@@ -156,13 +139,13 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  <div cg-busy=\"{promise:promises.holding.loading, message:'Laddar bestånd...', minDuration: 800}\"></div>\n" +
     "  <div cg-busy=\"{promise:promises.holding.saving, message:'Sparar bestånd...', minDuration: 800}\"></div>\n" +
     "  \n" +
-    "  <accordion class=\"other-holdings\" ng-show=\"true\">\n" +
+    "  <accordion class=\"other-holdings\" ng-show=\"false\">\n" +
     "    <accordion-group is-open=\"showOtherHoldings\">\n" +
     "      <accordion-heading>\n" +
     "        Visa bestånd för andra bibliotek (beta) <i class=\"pull-right fa\" ng-class=\"{'fa-chevron-down': showOtherHoldings, 'fa-chevron-right': !showOtherHoldings}\"></i>\n" +
     "      </accordion-heading>\n" +
     "      <accordion close-others=\"true\">\n" +
-    "        <accordion-group data-ng-repeat=\"otherHolding in allHoldings\" is-open=\"offer.open\">\n" +
+    "        <accordion-group data-ng-repeat=\"otherHolding in otherHoldings\" is-open=\"offer.open\">\n" +
     "          <accordion-heading>\n" +
     "              {{otherHolding.about.heldBy.notation}} <i class=\"pull-right fa\" ng-class=\"{'fa-chevron-down': offer.open, 'fa-chevron-right': !offer.open}\"></i>\n" +
     "          </accordion-heading>\n" +
@@ -174,6 +157,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    </accordion-group>\n" +
     "  </accordion>\n" +
     "  \n" +
+    "  <h4>{{ utils.composeTitle(record) | chop:80}}, {{ utils.composeCreator(record) | chop:40 }} {{ utils.composeDate(publication.providerDate) }}</h4>\n" +
+    "\n" +
     "  <form data-ng-show=\"holding['@id'] || !holding['etag']\" name=\"holdingForm\">\n" +
     "    <section class=\"offer\" data-ng-repeat=\"offer in holding.about.offers track by $index\">\n" +
     "      <div class=\"cols\">\n" +

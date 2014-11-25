@@ -1,9 +1,11 @@
-kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $modalInstance, $location, $http, recordId, editService, recordService, userData) {
-
-  $scope.recordId = recordId;
+kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $modalInstance, $location, $http, record, editService, recordService, userData, utilsService) {
+console.log(record);
+  var recordId = record.about['@id'];
+  $scope.record = record;
   $scope.userData = userData;
   $scope.panels = [];
   $scope.showOtherHoldings = false;
+  $scope.utils = utilsService;
 
   $rootScope.modifications.holding = {
     saved: false,
@@ -53,9 +55,9 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
 
   // On first run, we have no holding id. Use find to get holding
   recordService.holding.find(recordId, userData).then(function(response) {
-    var allHoldings = response.allHoldings;
-    if (allHoldings) $scope.allHoldings = allHoldings;
-    holding = response.holding;
+    var otherHoldings = response.otherHoldings;
+    if (otherHoldings) $scope.otherHoldings = otherHoldings;
+    holding = response.userHoldings;
     if (!holding) {
       // If no holding is found, we create a new one.
       recordService.holding.create().then(function(response) {

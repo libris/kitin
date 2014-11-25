@@ -187,18 +187,19 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
         var promise = $http.get($rootScope.API_PATH + searchPath).success(function(data, status, headers) {
           if (data.items.length > 0) {
             var holdings = utilsService.findDeep(data.items, 'about.heldBy.notation', sigel);
-            var holding = holdings.matches;
-            var allHoldings = holdings.nonmatches;
-            if (holding) {
-              recordService.holding.get(holding['@id']).then(function(response) {
+            var userHoldings = holdings.matches;
+            var otherHoldings = holdings.nonmatches;
+            if (userHoldings) {
+              userHoldings = userHoldings[0];
+              recordService.holding.get(userHoldings['@id']).then(function(response) {
                 if (response.holding) {
-                  holding = response.holding;
+                  userHoldings = response.holding;
                   if (response.etag) {
-                    holding.etag = response.etag;
+                    userHoldings.etag = response.etag;
                   }
                   deferer.resolve({
-                    holding: holding,
-                    allHoldings: allHoldings
+                    userHoldings: userHoldings,
+                    otherHoldings: otherHoldings
                   });
                 } else {
                   deferer.reject({
@@ -208,7 +209,7 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
               });
             } else {
               deferer.resolve({
-                allHoldings: allHoldings
+                otherHoldings: otherHoldings
               });  
             }
           } else {

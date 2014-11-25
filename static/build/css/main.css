@@ -2985,6 +2985,10 @@ span.error-message {
   margin-bottom: 0px;
   line-height: 32px;
 }
+.holdings h4 {
+  font-weight: bold;
+  color: #683568;
+}
 .holdings ul li {
   list-style: none;
 }

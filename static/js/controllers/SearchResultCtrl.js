@@ -132,11 +132,12 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
           // allHoldings to present the user with extra information on other organisations'
           // holdings.
           var holdings = utilsService.findDeep(data.items, 'about.heldBy.notation', userData.userSigel);
-          var userHolding = holdings.matches;
+          var userHoldings = holdings.matches;
           var allHoldings = holdings.nonmatches;
+          if (userHoldings) userHoldings = userHoldings[0];
           config.record.holdings = {
             items: data.items.length,
-            holding: userHolding
+            holding: userHoldings
           };
         }
       }
