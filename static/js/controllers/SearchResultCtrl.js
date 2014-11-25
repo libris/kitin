@@ -175,7 +175,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
         }
 
         $rootScope.state.search.hitCount = data.totalResults;
-        $rootScope.state.search.page.total = Math.ceil(hitCount / searchService.pageSize);
+        $rootScope.state.search.page.total = Math.ceil(data.totalResults / searchService.pageSize);
         // Everything we need is set, change paginator page
         var page = ($rootScope.state.search.page.start / $rootScope.state.search.page.n || 0) + 1;
         $scope.state.page = page;
