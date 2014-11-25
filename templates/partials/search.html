@@ -12,7 +12,7 @@
       <div class="summary">
         <div class="tool-container">
           <div class="crumbs" data-ng-show="state.search.hitCount">
-            {{ state.search.hitCount | chunk }} träffar för
+            {{ state.search.hitCount | countTotal | chunk }} träffar för
             <span data-ng-repeat="crumb in crumbs">
               <span data-ng-show="crumb.bridge">{{ crumb.bridge }}</span>
               <span data-ng-hide="crumb.urlpart"><strong>{{ getLabel(crumb.term, crumb.type) }}</strong></span>
