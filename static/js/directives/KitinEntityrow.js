@@ -32,7 +32,15 @@ kitin.directive('kitinEntityrow', function(editService, $rootScope) {
 
     controller: function($element, $scope, $attrs) {
       // Set non two way bound parameters
-      $scope.title = !$attrs.hasOwnProperty('hideTitle') ? 'LABEL.' + $attrs.model : false;
+      if(!$attrs.hasOwnProperty('hideTitle')) {
+        if($attrs.hasOwnProperty('titlePrefix')) {
+          $scope.title = $attrs.titlePrefix + $attrs.model;
+        } else {
+          $scope.title = 'LABEL.' + $attrs.model;
+        }
+      } else {
+        $scope.title = false;
+      }
 
       // Since we want scope to be inherit from parent, to do lookups for controller scope variables like record.
       // The only solution found where to set a in-kitin-entity-row parameter and pass attributes through the shared scope.
