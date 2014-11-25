@@ -92,17 +92,6 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('/snippets/holdings-button',
-    "<!-- NOT IN USE -->\n" +
-    "<div class=\"holding\">\n" +
-    "  <button class=\"btn btn-purple btn-hld\" data-ng-controller=\"ModalCtrl\" data-ng-click=\"openHoldingsModal($event, recordId)\">\n" +
-    "    <span data-ng-if=\"!hasHolding\"><i class=\"fa fa-inverse fa-plus\"></i> Bestånd</span>\n" +
-    "    <span data-ng-if=\"hasHolding\"><i class=\"fa fa-inverse fa-check\"></i> Bestånd</span>\n" +
-    "  </button>\n" +
-    "</div>"
-  );
-
-
   $templateCache.put('/snippets/messages',
     "<div id=\"system-message-container\">\n" +
     "  <alert ng-repeat=\"message in systemMessages track by $index\" type=\"message.type\" close=\"closeSystemMessage($index)\">{{message.msg}}</alert>\n" +
