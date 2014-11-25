@@ -167,7 +167,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  <div cg-busy=\"{promise:promises.holding.loading, message:'Laddar bestånd...', minDuration: 800}\"></div>\n" +
     "  <div cg-busy=\"{promise:promises.holding.saving, message:'Sparar bestånd...', minDuration: 800}\"></div>\n" +
     "  \n" +
-    "  <accordion class=\"other-holdings\" ng-show=\"true\">\n" +
+    "  <accordion class=\"other-holdings\" ng-show=\"allHoldings\">\n" +
     "    <accordion-group is-open=\"showOtherHoldings\">\n" +
     "      <accordion-heading>\n" +
     "        Visa bestånd för andra bibliotek (beta) <i class=\"pull-right fa\" ng-class=\"{'fa-chevron-down': showOtherHoldings, 'fa-chevron-right': !showOtherHoldings}\"></i>\n" +

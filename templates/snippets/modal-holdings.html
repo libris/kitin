@@ -7,7 +7,7 @@
   <div cg-busy="{promise:promises.holding.loading, message:'Laddar bestånd...', minDuration: 800}"></div>
   <div cg-busy="{promise:promises.holding.saving, message:'Sparar bestånd...', minDuration: 800}"></div>
   
-  <accordion class="other-holdings" ng-show="true">
+  <accordion class="other-holdings" ng-show="allHoldings">
     <accordion-group is-open="showOtherHoldings">
       <accordion-heading>
         Visa bestånd för andra bibliotek (beta) <i class="pull-right fa" ng-class="{'fa-chevron-down': showOtherHoldings, 'fa-chevron-right': !showOtherHoldings}"></i>
