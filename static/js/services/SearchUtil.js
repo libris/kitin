@@ -5,16 +5,6 @@
 kitin.factory('searchUtil', function() {
   return {
 
-    countTotalItems: function(items) {
-      if(_.isObject(items)) {
-        return _.reduce(items, function(sum, num) {
-          return sum + num;
-        });
-      } else {
-        return items;
-      }
-    },
-
     parseSelected: function (remoteDatabases) {
       return _.map(_.filter(remoteDatabases, 'selected'), 'database').join(',');
     },

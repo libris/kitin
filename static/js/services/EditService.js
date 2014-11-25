@@ -408,7 +408,7 @@ kitin.service('editService', function(definitions, $http, $q) {
       if (relators.byTerm === undefined) {
         var index = relators.byTerm = {};
         _.each(relators.list, function (obj) {
-          var id = obj['data']['about']['@id'];
+          var id = obj['about']['@id'];
           index[id] = obj;
           var key = id.substring(id.lastIndexOf('/') + 1);
           index[key] = obj;
@@ -453,7 +453,7 @@ kitin.service('editService', function(definitions, $http, $q) {
           if (!role) {  return; }
 
           if (!_.contains(roles, role)) {
-            roles.push(role['data']['about']);
+            roles.push(role['about']);
             delete instance[key];
           }
         });

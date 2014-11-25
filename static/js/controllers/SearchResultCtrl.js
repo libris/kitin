@@ -156,6 +156,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
 
       $scope.facetGroups = searchUtil.makeLinkedFacetGroups($scope.recType, data.facets, $rootScope.state.search.q, prevFacetsStr);
       $scope.crumbs = searchUtil.bakeCrumbs($scope.recType, $rootScope.state.search.q, prevFacetsStr);
+
       if (data && data.items) {
         $rootScope.state.search.result = data;
         // Only update holdings for records of type 'bib'
@@ -163,8 +164,8 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
           getHoldings();
         }
         
-        if(_.isObject(data.items)) {
-          _.forEach(data.items, function(count, dbName) {
+        if(_.isObject(data.totalResults)) {
+          _.forEach(data.totalResults, function(count, dbName) {
             var i = _.findIndex($rootScope.state.remoteDatabases, { database: dbName } );
             if(i > 0) {
               $rootScope.state.remoteDatabases[i].hitCount = count;
@@ -172,9 +173,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
           });
         }
 
-        var hitCount = data.totalResults;
-
-        $rootScope.state.search.hitCount = hitCount.toString();
+        $rootScope.state.search.hitCount = data.totalResults;
         $rootScope.state.search.page.total = Math.ceil(hitCount / searchService.pageSize);
         // Everything we need is set, change paginator page
         var page = ($rootScope.state.search.page.start / $rootScope.state.search.page.n || 0) + 1;

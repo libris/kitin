@@ -34,36 +34,36 @@
     <!-- remote result list -->
     <div data-ng-switch-when="remote" class="nest-cols remote">
       <div class="col5">
-        <div class="label title" title="{{ record.about.instanceTitle.titleValue }} {{ record.about.instanceTitle.subtitle }}">
-          <span class="title-key">{{ record.about.instanceTitle.titleValue | chop }}</span>
-          <span class="title-subtitle">{{ record.about.instanceTitle.subtitle | chop }}
-          <span class="title-variation">{{ record.about.titleVariation.titleValue | chop }}</span>
-          <span class="title-key-real" data-ng-repeat="keyTitle in record.about.keyTitle">{{ keyTitle.titleValue | chop }}</span>
-          <span class="title-creator"> {{ record.about.responsibilityStatement | chop }}</span></span>
+        <div class="label title" title="{{ record.data.about.instanceTitle.titleValue }} {{ record.data.about.instanceTitle.subtitle }}">
+          <span class="title-key">{{ record.data.about.instanceTitle.titleValue | chop }}</span>
+          <span class="title-subtitle">{{ record.data.about.instanceTitle.subtitle | chop }}
+          <span class="title-variation">{{ record.data.about.titleVariation.titleValue | chop }}</span>
+          <span class="title-key-real" data-ng-repeat="keyTitle in record.data.about.keyTitle">{{ keyTitle.titleValue | chop }}</span>
+          <span class="title-creator"> {{ record.data.about.responsibilityStatement | chop }}</span></span>
         </div>
 
         <div class="label contributors" title="contributors">
-          <ul title="" data-ng-repeat="attributedTo in record.about.instanceOf.attributedTo"
+          <ul title="" data-ng-repeat="attributedTo in record.data.about.instanceOf.attributedTo"
             data-ng-show="attributedTo.controlledLabel"><li class="primary-attribution">{{ attributedTo.controlledLabel }}</li>
           </ul> 
-          <ul title="" data-ng-repeat="influencedBy in record.about.instanceOf.influencedBy | limitTo:3"
+          <ul title="" data-ng-repeat="influencedBy in record.data.about.instanceOf.influencedBy | limitTo:3"
             data-ng-show="influencedBy.controlledLabel"><li>{{ influencedBy.controlledLabel }}</li>
           </ul> 
         </div>
 
         <div class="f bottom">
           <span>  
-            <span data-ng-show="record.about['@type'] == 'Book'"><i class="fa fa-square fa-fw"></i></span>
-            <span data-ng-show="record.about['@type'] == 'MusicCD'"><i class="fa fa-square fa-fw"></i></span>
-            <span data-ng-show="record.about['@type'] == 'EBook'"><i class="fa fa-square fa-fw"></i></span>
-            <span data-ng-show="record.about['@type'] == 'Serial'"><i class="fa fa-square fa-fw"></i></span>
-            <span title="provider-date" data-ng-repeat="publication in record.about.publication | limitTo:1"
+            <span data-ng-show="record.data.about['@type'] == 'Book'"><i class="fa fa-square fa-fw"></i></span>
+            <span data-ng-show="record.data.about['@type'] == 'MusicCD'"><i class="fa fa-square fa-fw"></i></span>
+            <span data-ng-show="record.data.about['@type'] == 'EBook'"><i class="fa fa-square fa-fw"></i></span>
+            <span data-ng-show="record.data.about['@type'] == 'Serial'"><i class="fa fa-square fa-fw"></i></span>
+            <span title="provider-date" data-ng-repeat="publication in record.data.about.publication | limitTo:1"
               data-ng-show="publication.providerDate">{{publication.providerDate}}</span>
-            <span title="provider" data-ng-repeat="publication in record.about.publication | limitTo:1"> {{publication.place.label}} {{publication.providerName}}</span>
-            <span data-ng-show="record.about.extent">{{ record.about.extent }}</span>
+            <span title="provider" data-ng-repeat="publication in record.data.about.publication | limitTo:1"> {{publication.place.label}} {{publication.providerName}}</span>
+            <span data-ng-show="record.data.about.extent">{{ record.about.extent }}</span>
           </span>
-          <span class="ng-binding ng-hide" data-ng-show="enums.bibLevel[record.bibLevel]"></span>
-          <span class="ng-binding ng-hide" data-ng-show="enums.encLevel[record.encLevel]"></span>
+          <span class="ng-binding ng-hide" data-ng-show="enums.bibLevel[record.data.bibLevel]"></span>
+          <span class="ng-binding ng-hide" data-ng-show="enums.encLevel[record.data.encLevel]"></span>
         </div>
       </div>
 

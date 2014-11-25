@@ -9,7 +9,7 @@ kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, $ro
     var selectRemoteDatabases = '';
     if($rootScope.state.searchType.key === searchService.searchTypeIndex.remote.key) {
       selectRemoteDatabases = searchUtil.parseSelected($rootScope.state.remoteDatabases);
-      selectRemoteDatabases = selectRemoteDatabases.length > 0 ? '&database=' + selectRemoteDatabases : '';
+      selectRemoteDatabases = selectRemoteDatabases.length > 0 ? '&databases=' + selectRemoteDatabases : '';
     }
     var searchParamString = '';
     if (searchParams) {
