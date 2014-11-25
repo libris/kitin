@@ -2989,6 +2989,9 @@ span.error-message {
   font-weight: bold;
   color: #683568;
 }
+.holdings h4.modal-title {
+  color: #ffffff;
+}
 .holdings ul li {
   list-style: none;
 }
