@@ -59,26 +59,6 @@ kitin.directive('kitinEntityrow', function(editService, $rootScope) {
 
       var hasValue = false;
       var savedOptionsHidden;
-
-<<<<<<< HEAD
-      var classNames = ['label entity'];
-      if ( $attrs.hasOwnProperty('rich') ) {
-        classNames.push('rich');
-      } else {
-        classNames.push('tags');
-      }
-      if ( $scope.multiple ) {
-        classNames.push('multiple');
-      }
-
-      if ($attrs.changeModel) {
-        classNames.push('WHAGWAN');
-      }
-
-      $scope.className = classNames.join(' ');
-
-=======
->>>>>>> 149c6724cbc7cba3c7ccf683323f35f94912ec61
       var childObjects = null;
 
       // listen for objects and changes
