@@ -12,10 +12,10 @@
     <kitin-textrow model="record.about.instanceTitle.titleDate"></kitin-textrow>
     <!-- mediaTerm mapped to instance and used @ publication and production -->
     <kitin-table model="record.about.instanceTitle.partNumber">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
     </kitin-table>
     <kitin-table model="record.about.instanceTitle.partTitle">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
     </kitin-table>
   </kitin-group>
 
@@ -24,10 +24,10 @@
     <kitin-textrow model="record.about.titleVariation.subtitle"></kitin-textrow>
     <kitin-textrow model="record.about.titleVariation.titleDate"></kitin-textrow>
     <kitin-table model="record.about.titleVariation.partNumber">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
     </kitin-table>
     <kitin-table model="record.about.titleVariation.partTitle">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
     </kitin-table>
   </kitin-group>
 
@@ -36,10 +36,10 @@
     <kitin-textrow model="record.about.translatedTitle.subtitle"></kitin-textrow>
     <kitin-textrow model="record.about.translatedTitle.titleDate"></kitin-textrow>
     <kitin-table model="record.about.translatedTitle.partNumber">
-      <kitin-td><textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
     </kitin-table>
     <kitin-table model="record.about.translatedTitle.partTitle">
-      <kitin-td><textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
     </kitin-table>
   </kitin-group>
 
@@ -48,10 +48,10 @@
     <kitin-textrow model="record.about.previousTitle.subtitle"></kitin-textrow>
     <kitin-textrow model="record.about.previousTitle.titleDate"></kitin-textrow>
     <kitin-table model="record.about.previousTitle.partNumber">
-      <kitin-td><textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
     </kitin-table>
     <kitin-table model="record.about.previousTitle.partTitle">
-      <kitin-td><textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
     </kitin-table>
   </kitin-group>
 
@@ -192,7 +192,7 @@
     </kitin-entityrow>
 
     <kitin-table model="record.about.languageNote">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
     </kitin-table>
 
     <kitin-entityrow model="record.about.alphabet" multiple>

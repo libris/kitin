@@ -15,7 +15,7 @@
             <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_value">(Fel numeriskt värde)</span>
             <span class="error_message" data-ng-show="subform.isbn_name.$error.invalid_length">(Fel längd)</span>
           </kitin-td>
-          <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.identifierNote"/></kitin-td>
+          <kitin-td><kitin-textarea model="item.identifierNote"></kitin-textarea></kitin-td>
         </kitin-table>
       </span>
 
@@ -23,8 +23,8 @@
         <kitin-table 
          model="record.about.identifierByIdentifierScheme['/def/identifiers/issn']"
          titles="['LABEL.record.about.identifierValue','LABEL.record.about.identifierNote']">
-          <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.identifierValue"/></kitin-td>
-          <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.identifierNote"/></kitin-td>
+          <kitin-td><kitin-textarea model="item.identifierValue"></kitin-textarea></kitin-td>
+          <kitin-td><kitin-textarea model="item.identifierNote"></kitin-textarea></kitin-td>
         </kitin-table>
       </span>
 
@@ -32,8 +32,8 @@
         <kitin-table 
          model="record.about.identifierByIdentifierScheme[identifierSchemeName]"
          titles="['identifierValue title','identifierNote title']">
-          <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.identifierValue"/></kitin-td>
-          <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.identifierNote"/></kitin-td>
+          <kitin-td><kitin-textarea model="item.identifierValue"></kitin-textarea></kitin-td>
+          <kitin-td><kitin-textarea model="item.identifierNote"></kitin-textarea></kitin-td>
         </kitin-table>
       </span>
 
@@ -59,9 +59,9 @@
 
     <kitin-table model="record.about.publication"
                  titles="['LABEL.record.about.publication.place.label', 'LABEL.record.about.publication.providerName', 'LABEL.record.about.publication.providerDate']">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.place.label"/></kitin-td>
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.providerName"/></kitin-td>
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.providerDate"/></kitin-td>
+      <kitin-td><kitin-textarea model="item.place.label"></kitin-textarea></kitin-td>
+      <kitin-td><kitin-textarea model="item.providerName"></kitin-textarea></kitin-td>
+      <kitin-td><kitin-textarea model="item.providerDate"></kitin-textarea></kitin-td>
     </kitin-table>
 
     <kitin-textrow model="record.about.editionStatement.edition"></kitin-textrow>
@@ -70,9 +70,9 @@
 
     <kitin-table model="record.about.manufacture"
                  titles="['LABEL.record.about.manufacture.place.label', 'LABEL.record.about.manufacture.providerName', 'LABEL.record.about.publication.providerDate']">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.place.label"/></kitin-td>
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.providerName"/></kitin-td>
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.providerDate"/></kitin-td>
+      <kitin-td><kitin-textarea model="item.place.label"></kitin-textarea></kitin-td>
+      <kitin-td><kitin-textarea model="item.providerName"></kitin-textarea></kitin-td>
+      <kitin-td><kitin-textarea model="item.providerDate"></kitin-textarea></kitin-td>
     </kitin-table>
 
 
@@ -106,13 +106,13 @@
 
   <kitin-group title="Issue title">
     <kitin-table model="record.about.issueNumber">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
     </kitin-table>
 
     <kitin-table model="record.about.replaces" 
                  titles="['LABEL.record.about.replaces.frequency', 'LABEL.record.about.replaces.date']">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.frequency"/></kitin-td>
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.date"/></kitin-td>
+      <kitin-td><kitin-textarea model="item.frequency"></kitin-textarea></kitin-td>
+      <kitin-td><kitin-textarea model="item.date"></kitin-textarea></kitin-td>
     </kitin-table>
   </kitin-group>
 
