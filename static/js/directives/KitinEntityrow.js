@@ -1,6 +1,11 @@
 /*
 
-Creates entity
+Creates entity row
+
+Usage:
+  <kitin-entityrow model="">
+    <kitin-select> ..or.. <kitin-search>
+  </kitin-entityrow>
 
 Params:
   model: (str)

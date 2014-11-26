@@ -1,3 +1,21 @@
+/*
+
+Creates a table, with functionality to add new rows
+
+Usage:
+  <kitin-table titles="[]">
+    <kitin-td>
+      <kitin-textarea> ..or.. <kitin-entity> ..or.. any html
+    </kitin-td>
+  </kitin-table>
+
+Params:
+  model: (str)
+  title: (str)
+  titles: (string array) Titles to add to table columns 
+
+*/
+
 kitin.directive('kitinTable', function(editService){
   return {
    restrict: 'E',
@@ -87,7 +105,17 @@ kitin.directive('kitinTable', function(editService){
   };
 });
 
+/*
+Adds ui controls to a table row, only used inside kitin-table
 
+Usage:
+  ...
+    <tr kitin-tr-controls></tr>
+  ...
+
+Params:
+
+*/
 kitin.directive('kitinTrControls', ['$compile', function($compile) {
   return {
     // Type element isnt working since the transclude function is manipulating the element after its been added to the DOM
@@ -110,6 +138,19 @@ kitin.directive('kitinTrControls', ['$compile', function($compile) {
   };
 }]);
 
+
+/*
+Creates a td-tag
+This custom tag is needed since rendering of DOM with td-tags results in incorrect html
+
+Usage:
+  ...
+    <kitin-td></kitin-td>
+  ...
+
+Params:
+
+*/
 kitin.directive('kitinTd', function(editService){
   return {
       restrict: 'E',

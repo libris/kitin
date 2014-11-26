@@ -1,6 +1,11 @@
 /*
 
-Creates selectbox
+Creates selectbox for kitin-entity
+
+Usage:
+  <kitin-entity>
+    <kitin-select filter=""></kitin-select>
+  </kitin-entity>
 
 Params:
   filter: (str) filters for search result

@@ -1,6 +1,12 @@
 /*
 
-Creates autocomplete search 
+Creates autocomplete search for kitin-entity
+
+Usage:
+  <kitin-entity>
+    <kitin-search filter=""></kitin-search>
+  </kitin-entity>
+
 
 Params:
   service-url: (str) path to serive after API_URL
