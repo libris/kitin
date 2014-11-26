@@ -1,3 +1,14 @@
+/*
+
+Creates a group with a title and functionality to toggle visibility of child elements 
+
+Params:
+  title: (str)
+  initially-visible: (bool) visible at start
+  single: (bool) single element aka disable toggling functionality of children
+*/
+
+
 kitin.directive('kitinGroup', function(){
   return {
       restrict: 'E',
