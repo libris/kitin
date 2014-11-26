@@ -32,7 +32,12 @@
       <div class="cols">
           <kitin-group title="Lokalsignum" initially-visible>
             <kitin-entityrow title-prefix="LABEL.holdings." model="offer.heldBy">
-              <kitin-select options-model="userData" change-model="holding"></kitin-select>
+            <span class="select">
+              <select data-track-change="holding" data-ng-model="offer.heldBy">
+                <option data-ng-selected="true">{{userSigel}}</option>
+              </select>
+              <i class="fa fa-caret-down"></i>
+            </span>
             </kitin-entityrow>
 
             <kitin-textrow title-prefix="LABEL.holdings." model="offer.shelfLocation" change-model="holding"></kitin-textrow>

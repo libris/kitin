@@ -164,7 +164,12 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "      <div class=\"cols\">\n" +
     "          <kitin-group title=\"Lokalsignum\" initially-visible>\n" +
     "            <kitin-entityrow title-prefix=\"LABEL.holdings.\" model=\"offer.heldBy\">\n" +
-    "              <kitin-select options-model=\"userData\" change-model=\"holding\"></kitin-select>\n" +
+    "            <span class=\"select\">\n" +
+    "              <select data-track-change=\"holding\" data-ng-model=\"offer.heldBy\">\n" +
+    "                <option data-ng-selected=\"true\">{{userSigel}}</option>\n" +
+    "              </select>\n" +
+    "              <i class=\"fa fa-caret-down\"></i>\n" +
+    "            </span>\n" +
     "            </kitin-entityrow>\n" +
     "\n" +
     "            <kitin-textrow title-prefix=\"LABEL.holdings.\" model=\"offer.shelfLocation\" change-model=\"holding\"></kitin-textrow>\n" +

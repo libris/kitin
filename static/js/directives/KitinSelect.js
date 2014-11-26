@@ -21,7 +21,6 @@ kitin.directive('kitinSelect', function(definitions, editService, $rootScope, $c
     require: '?^^kitinEntity',
     replace: true,
     scope: {
-      optionsModel: '=',
       changeModel: '@changeModel'
     },
     template: 
@@ -44,9 +43,6 @@ kitin.directive('kitinSelect', function(definitions, editService, $rootScope, $c
           }
           scope.objects = data.items;
         });
-      } else if (attrs.optionsModel) {
-        var objects = scope.optionsModel;
-        scope.objects = objects;
       }
 
       // On selection chaned add item and reset
