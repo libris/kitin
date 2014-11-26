@@ -1,3 +1,13 @@
+/*
+
+Wrapper for kitin-* elements.
+
+Params:
+  single: (bol) Creates a single element group (? TODO: Does it ?)
+  initially-visible: (bol) When set, group is initially expanded
+
+*/
+
 kitin.directive('kitinGroup', function(){
   return {
       restrict: 'E',

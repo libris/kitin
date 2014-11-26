@@ -48,7 +48,8 @@ kitin.directive('kitinEntityrow', function(editService, $rootScope) {
         model: $attrs.model,
         multiple: $attrs.hasOwnProperty('multiple'),
         rich: $attrs.hasOwnProperty('rich'),
-        view: $attrs.view
+        view: $attrs.view,
+        changeModel: $attrs.changeModel
       });
 
       var hasValue = false;
@@ -62,6 +63,10 @@ kitin.directive('kitinEntityrow', function(editService, $rootScope) {
       }
       if ( $scope.multiple ) {
         classNames.push('multiple');
+      }
+
+      if ($attrs.changeModel) {
+        classNames.push('WHAGWAN');
       }
 
       $scope.className = classNames.join(' ');
