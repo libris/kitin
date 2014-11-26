@@ -26,7 +26,7 @@ kitin.directive('kitinEntityrow', function(editService, $rootScope) {
       scope.options = kitinGroupCtrl ? kitinGroupCtrl.options : null;
     },
 
-    template: '<div class="{{className}}" ng-hide="shouldHide(options, objects)">' + 
+    template: '<div class="label" ng-hide="shouldHide(options, objects)">' + 
                 '<kitin-title title="title" ng-if="title"></kitin-title>' +
                 '<div class="inp">' +
                   '<kitin-entity in-kitin-entity-row="true">' +
@@ -50,18 +50,6 @@ kitin.directive('kitinEntityrow', function(editService, $rootScope) {
 
       var hasValue = false;
       var savedOptionsHidden;
-
-      var classNames = ['label entity'];
-      if ( $attrs.hasOwnProperty('rich') ) {
-        classNames.push('rich');
-      } else {
-        classNames.push('tags');
-      }
-      if ( $scope.multiple ) {
-        classNames.push('multiple');
-      }
-
-      $scope.className = classNames.join(' ');
 
       var childObjects = null;
 
