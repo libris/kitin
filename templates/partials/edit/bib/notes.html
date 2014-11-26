@@ -3,30 +3,66 @@
 
   <kitin-group title="">
     <kitin-table model="record.about.comment">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
     </kitin-table>
 
     <kitin-table model="record.about.describedBy" titles="['LABEL.record.about.describedBy.label','LABEL.record.about.describedBy[\'@id\']']">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.label"/></kitin-td>
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item['@id']"/></kitin-td>
+      <kitin-td><kitin-textarea model="item.label"></kitin-textarea></kitin-td>
+      <kitin-td><kitin-textarea model="item['@id']"></kitin-textarea></kitin-td>
+    </kitin-table>
+
+    <kitin-table model="record.about.reproduction">
+      <kitin-td>
+        <kitin-title title="LABEL.record.about.reproduction.description"></kitin-title>
+        <kitin-textarea model="item.description"></kitin-textarea>
+
+        <kitin-title title="LABEL.record.about.reproduction.provider"></kitin-title>
+        <kitin-entity multiple hide-title model="item" link="'provider'">
+          <kitin-search service-url="/auth/_search" template-id="auth-completion-template" placeholder="Lägg till"></kitin-search>
+        </kitin-entity>
+
+        <kitin-title title="LABEL.record.about.reproduction.physicalDescription"></kitin-title>
+        <kitin-textarea model="item.physicalDescription"></kitin-textarea>
+
+        <kitin-title title="LABEL.record.about.reproduction.seriesStatement"></kitin-title>
+        <kitin-table model="item.seriesStatement">
+          <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
+        </kitin-table>
+
+        <kitin-title title="LABEL.record.about.reproduction.datesAndOrSequentialDesignationOfIssuesReproduced"></kitin-title>
+        <kitin-table model="item.datesAndOrSequentialDesignationOfIssuesReproduced">
+          <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
+        </kitin-table>
+
+        <kitin-title title="LABEL.record.about.reproduction.note"></kitin-title>
+        <kitin-table model="item.note">
+          <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
+        </kitin-table>
+
+        <kitin-title title="LABEL.record.about.reproduction.materialsSpecified"></kitin-title>
+        <kitin-textarea model="item.materialsSpecified"></kitin-textarea>
+
+        <kitin-title title="LABEL.record.about.reproduction.institutionToWhichFieldApplies"></kitin-title>
+        <kitin-textarea model="item.institutionToWhichFieldApplies"></kitin-textarea>
+      </kitin-td>
     </kitin-table>
 
     <kitin-table model="record.about.listOfContents">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
     </kitin-table>
 
     <kitin-table model="record.about.performerNote">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
     </kitin-table>
 
     <kitin-textrow model="record.about.note"></kitin-textrow>
 
     <kitin-table model="record.about.systemRequirements">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
     </kitin-table>
 
     <kitin-table model="record.about.summary">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="model[$index]"/></kitin-td>
+      <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
     </kitin-table>
 
     <kitin-entityrow model="record.about.isPrimaryTopicOf" multiple rich view="/snippets/render-relation-referenced-entity">
@@ -39,11 +75,11 @@
 
     <kitin-table model="record.about.hasAnnotation"
                  titles="['LABEL.note', 'LABEL.degree', 'LABEL.location', 'LABEL.date', 'LABEL.comment']">
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.note"/></kitin-td>
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.degree"/></kitin-td>
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.location"/></kitin-td>
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.date"/></kitin-td>
-      <kitin-td><textarea data-ui-jq="autosize" spellcheck="false" data-ng-model="item.comment"/></kitin-td>
+      <kitin-td><kitin-textarea model="item.note"></kitin-textarea></kitin-td>
+      <kitin-td><kitin-textarea model="item.degree"></kitin-textarea></kitin-td>
+      <kitin-td><kitin-textarea model="item.location"></kitin-textarea></kitin-td>
+      <kitin-td><kitin-textarea model="item.date"></kitin-textarea></kitin-td>
+      <kitin-td><kitin-textarea model="item.comment"></kitin-textarea></kitin-td>
     </kitin-table>
     
   </kitin-group>

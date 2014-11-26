@@ -1,6 +1,11 @@
 /*
 
-Creates entity
+Creates entity row
+
+Usage:
+  <kitin-entityrow model="">
+    <kitin-select> ..or.. <kitin-search>
+  </kitin-entityrow>
 
 Params:
   model: (str)
@@ -21,7 +26,7 @@ kitin.directive('kitinEntityrow', function(editService, $rootScope) {
       scope.options = kitinGroupCtrl ? kitinGroupCtrl.options : null;
     },
 
-    template: '<div class="{{className}}" ng-hide="shouldHide(options, objects)">' + 
+    template: '<div class="label" ng-hide="shouldHide(options, objects)">' + 
                 '<kitin-title title="title" ng-if="title"></kitin-title>' +
                 '<div class="inp">' +
                   '<kitin-entity in-kitin-entity-row="true">' +
@@ -55,6 +60,7 @@ kitin.directive('kitinEntityrow', function(editService, $rootScope) {
       var hasValue = false;
       var savedOptionsHidden;
 
+<<<<<<< HEAD
       var classNames = ['label entity'];
       if ( $attrs.hasOwnProperty('rich') ) {
         classNames.push('rich');
@@ -71,6 +77,8 @@ kitin.directive('kitinEntityrow', function(editService, $rootScope) {
 
       $scope.className = classNames.join(' ');
 
+=======
+>>>>>>> 149c6724cbc7cba3c7ccf683323f35f94912ec61
       var childObjects = null;
 
       // listen for objects and changes

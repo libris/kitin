@@ -1,12 +1,18 @@
 /*
 
-Wrapper for kitin-* elements.
+Creates a group with a title and functionality to toggle visibility of child elements 
+
+Usage:
+  <kitin-group title="">
+    <kitin-entityrow> ..or.. <kitin-textrow> ..or.. <kitin-table>
+  </kitin-group>
 
 Params:
-  single: (bol) Creates a single element group (? TODO: Does it ?)
-  initially-visible: (bol) When set, group is initially expanded
-
+  title: (str)
+  initially-visible: (bool) visible at start
+  single: (bool) single element aka disable toggling functionality of children
 */
+
 
 kitin.directive('kitinGroup', function(){
   return {

@@ -1,3 +1,18 @@
+/*
+
+Creates a textarea row
+
+Usage:
+  <kitin-textrow model=""></kitin-textrow>
+
+Params:
+  model: (str)
+  change-model: (str)
+  hide-title: (bool)
+  title-prefix: (str)
+
+*/
+
 kitin.directive('kitinTextrow', function(editService, $rootScope){
   return {
       restrict: 'E',

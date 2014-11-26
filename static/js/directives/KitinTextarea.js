@@ -1,3 +1,16 @@
+/*
+
+Creates a textarea
+
+Usage:
+  <kitin-textarea model=""></kitin-textarea>
+
+Params:
+  model: (str)
+  change-model: (str)
+
+*/
+
 kitin.directive('kitinTextarea', function(editService, $rootScope){
   return {
       restrict: 'E',

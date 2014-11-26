@@ -1,12 +1,19 @@
 /*
 
-Creates entity
+Creates entity 
+
+Usage:
+  <kitin-entity model="">
+    <kitin-select> ..or.. <kitin-search>
+  </kitin-entity>
+  
 
 Params:
   model: (str)
   mutiple: (bool) allow multiple entries
   rich: (bool) sets this entity to rich (for advanced formatting)
   view: (str) view template snippet (detaults to generic)
+  in-kitin-entity-row: (bool) handle special case when in kitin-entity-row (do to scope problems when using transclude)
 */
 
 kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
@@ -29,8 +36,8 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
         });
       }
     },
-    template:   '<div>' +
-                  '<div ng-if="objects" ng-repeat="object in objects track by $index" class="entity-content">' +
+    template:   '<div class="{{classNames}}" test>' +
+                  '<div ng-if="objects" ng-repeat="object in objects track by $index" class="tag" ng-class="{auth: isLinked(object)}">' +
                     '<span class="inner" ng-include="viewTemplate"></span>' +
                     '<span class="controls"><a class="delete" data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a></span>' +
                   '</div>' +
@@ -83,8 +90,8 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
         $scope.objects = null;
       }
 
-      var classNames = ['entity label'];
-      if ( $attrs.hasOwnProperty('rich') ) {
+      var classNames = ['entity'];
+      if ( $attrs.hasOwnProperty('rich') && $attrs.rich !== false) {
         classNames.push('rich');
       } else {
         classNames.push('tags');
@@ -92,7 +99,8 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
       if ( $scope.multiple ) {
         classNames.push('multiple');
       }
-      $scope.className = classNames.join(' ');
+
+      $scope.classNames = classNames.join(' ');
 
       this.doAdd = function(data) {
         var added = editService.addObject(subj, $scope.link, $scope.type, $scope.multiple, data);
