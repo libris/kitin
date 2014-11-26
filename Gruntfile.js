@@ -32,13 +32,14 @@ module.exports = function(grunt) {
           'Section lacks heading. Consider using h2-h6 elements to add identifying headings to all sections.', 
           'Comments seen before doctype. Internet Explorer will go into the quirks mode.'
         ],
-        customtags: ['alert', 'kitin-*'],
-        wrapping: [
-          {
-            'tr': '<table>{0}</table>',
-            'td': '<table><tr>{0}</tr></table>'
-          }
-        ]
+        customtags: [
+          'alert', 
+          'kitin-*'
+        ],
+        wrapping: {
+          'tr': '<table>{0}</table>',
+          'td': '<table><tr>{0}</tr></table>'
+        }
       },
       files: {
         src: ['templates/**/*.html']

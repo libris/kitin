@@ -2149,6 +2149,9 @@ label.find-entity input[type="text"] {
   padding-left: 16px;
   color: #666;
 }
+.form-container .group td > .label .lbl {
+  padding-left: 0px;
+}
 .form-container .group .group-title {
   border-top: none;
 }
@@ -2405,17 +2408,19 @@ a.add:hover .fa {
 .datatable tbody td:first-child {
   border-left-width: 1px;
 }
+.datatable tbody td > textarea {
+  border: none;
+}
+.datatable tbody td > textarea:focus {
+  border: none;
+  box-shadow: none;
+}
 .datatable tbody td textarea {
   box-sizing: border-box;
-  border: none;
   padding: 0;
   margin: 0;
   min-width: 50px;
   height: 22px;
-}
-.datatable tbody td textarea:focus {
-  border: none;
-  box-shadow: none;
 }
 .datatable tr:first-child td {
   border-top-width: 1px;

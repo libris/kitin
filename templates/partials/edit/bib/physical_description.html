@@ -2,7 +2,7 @@
 <h2>Fysisk beskrivning<i></i></h2>
 <div class="form-container">
 
-  <kitin-group>
+  <kitin-group title="Form och filtyp">
     <kitin-entityrow model="record.about.additionalCarrierType" multiple>
       <kitin-select filter="about.inCollection.@id:/def/enum/content/additionalCarrierType-collection"></kitin-select>
     </kitin-entityrow>
@@ -11,25 +11,36 @@
   </kitin-group>
 
   <!-- HAS FORMAT  START -->
-  <kitin-group data-ng-repeat="(formatType, subFormat) in record.about.hasFormatByType" ng-switch="formatType">
+  <kitin-group title="HasFormat">
+    <div data-ng-repeat="(formatType, subFormat) in record.about.hasFormatByType" ng-switch="formatType">
 
     <span ng-switch-when="Product">
       <kitin-table model="record.about.hasFormatByType['Product']">
         <kitin-td>
-          <kitin-title title="'LABEL.record.about.hasFormatByType.extent'"></kitin-title>
-          <kitin-textarea model="item.extent"></kitin-textarea>
-        
-          <kitin-title title="'LABEL.record.about.hasFormatByType.dimensions'"></kitin-title>
-          <kitin-textarea model="item.dimensions"></kitin-textarea>
+          <div class="label">
+            <kitin-title title="'LABEL.record.about.hasFormatByType.extent'"></kitin-title>
+            <kitin-textarea model="item.extent"></kitin-textarea>
+          </div>
 
-          <kitin-title title="'LABEL.record.about.hasFormatByType.otherPhysicalDetails'"></kitin-title>
-          <kitin-textarea model="item.otherPhysicalDetails"></kitin-textarea>
+          <div class="label">
+            <kitin-title title="'LABEL.record.about.hasFormatByType.dimensions'"></kitin-title>
+            <kitin-textarea model="item.dimensions"></kitin-textarea>
+          </div>
 
-          <kitin-title title="'LABEL.record.about.hasFormatByType.accompanyingMaterial'"></kitin-title>
-          <kitin-textarea model="item.accompanyingMaterial"></kitin-textarea>
+          <div class="label">
+            <kitin-title title="'LABEL.record.about.hasFormatByType.otherPhysicalDetails'"></kitin-title>
+            <kitin-textarea model="item.otherPhysicalDetails"></kitin-textarea>
+          </div>
 
-          <kitin-title title="'LABEL.record.about.hasFormatByType.materialsSpecified'"></kitin-title>
-          <kitin-textarea model="item.materialsSpecified"></kitin-textarea>
+          <div class="label">
+            <kitin-title title="'LABEL.record.about.hasFormatByType.accompanyingMaterial'"></kitin-title>
+            <kitin-textarea model="item.accompanyingMaterial"></kitin-textarea>
+          </div>
+
+          <div class="label">
+            <kitin-title title="'LABEL.record.about.hasFormatByType.materialsSpecified'"></kitin-title>
+            <kitin-textarea model="item.materialsSpecified"></kitin-textarea>
+          </div>
           
           <!-- item.device, mapped but not used in any record-->
         </kitin-td>
@@ -212,26 +223,33 @@
     <span ng-switch-when="StillImage">
       <kitin-table model="record.about.hasFormatByType['StillImage']">
         <kitin-td>      
-          
-          <kitin-title title="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-title>
-          <kitin-entity model="item" link="'carrierType'" multiple>
-            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/carrierType-collection"></kitin-select>
-          </kitin-entity>
+          <div class="label">
+            <kitin-title title="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-title>
+            <kitin-entity model="item" link="'carrierType'" multiple>
+              <kitin-select filter="about.inCollection.@id:/def/enum/carrier/carrierType-collection"></kitin-select>
+            </kitin-entity>
+          </div>
 
-          <kitin-title title="'LABEL.record.about.hasFormatByType.nonProjColor'"></kitin-title>
-          <kitin-entity model="item" link="'nonProjColor'">
-            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/nonProjColor-collection"></kitin-select>
-          </kitin-entity>
+          <div class="label">
+            <kitin-title title="'LABEL.record.about.hasFormatByType.nonProjColor'"></kitin-title>
+            <kitin-entity model="item" link="'nonProjColor'">
+              <kitin-select filter="about.inCollection.@id:/def/enum/carrier/nonProjColor-collection"></kitin-select>
+            </kitin-entity>
+          </div>
 
-          <kitin-title title="'LABEL.record.about.hasFormatByType.nonProjPrimary'"></kitin-title>
-          <kitin-entity model="item" link="'nonProjPrimary'">
-            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/nonProjPrimary-collection"></kitin-select>
-          </kitin-entity>
+          <div class="label">
+            <kitin-title title="'LABEL.record.about.hasFormatByType.nonProjPrimary'"></kitin-title>
+            <kitin-entity model="item" link="'nonProjPrimary'">
+              <kitin-select filter="about.inCollection.@id:/def/enum/carrier/nonProjPrimary-collection"></kitin-select>
+            </kitin-entity>
+          </div>
 
-          <kitin-title title="'LABEL.record.about.hasFormatByType.nonProjSecondary'"></kitin-title>
-          <kitin-entity model="item" link="'nonProjSecondary'">
-            <kitin-select filter="about.inCollection.@id:/def/enum/carrier/nonProjSecondary-collection"></kitin-select>
-          </kitin-entity>
+          <div class="label">
+            <kitin-title title="'LABEL.record.about.hasFormatByType.nonProjSecondary'"></kitin-title>
+            <kitin-entity model="item" link="'nonProjSecondary'">
+              <kitin-select filter="about.inCollection.@id:/def/enum/carrier/nonProjSecondary-collection"></kitin-select>
+            </kitin-entity>
+          </div>
 
           <!-- item.nonProjAspect, mapped but not used in any record -->
 
@@ -473,11 +491,12 @@
       </table>
     </div>
     <!-- Rest END -->
+    </div>
   </kitin-group>
 <!-- HAS FORMAT  END -->
 
 
-  <kitin-group>
+  <kitin-group title="Illustrations, orginalItem, runningTime">
     <kitin-entityrow model="record.about.illustrations">
       <kitin-select filter="about.inCollection.@id:/def/enum/content/illustrations-collection"></kitin-select>
     </kitin-entityrow>
