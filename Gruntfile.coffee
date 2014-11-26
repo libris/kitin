@@ -57,7 +57,8 @@ module.exports = (grunt) ->
           'Section lacks heading. Consider using h2-h6 elements to add identifying headings to all sections.'
         ]
         customtags: [
-          'alert'
+          'alert',
+          'kitin-*'
         ]
       files:
         src: [ 'templates/**/*.html' ]
