@@ -4,8 +4,8 @@
 </div>
 
 <div class="modal-body holdings">
-  <div cg-busy="{promise:promises.holding.loading, message:'Laddar bestånd...', minDuration: 800}"></div>
-  <div cg-busy="{promise:promises.holding.saving, message:'Sparar bestånd...', minDuration: 800}"></div>
+  <div data-cg-busy="{promise:promises.holding.loading, message:'Laddar bestånd...', minDuration: 800}"></div>
+  <div data-cg-busy="{promise:promises.holding.saving, message:'Sparar bestånd...', minDuration: 800}"></div>
   
   <accordion class="other-holdings" ng-show="false">
     <accordion-group is-open="showOtherHoldings">
@@ -31,9 +31,9 @@
     <section class="offer form-container" data-ng-repeat="offer in holding.about.offers track by $index">
       <div class="cols">
           <kitin-group title="Lokalsignum" initially-visible>
-<!--             <kitin-entityrow model="offer.heldBy" multiple>
-              <kitin-select></kitin-select>
-            </kitin-entityrow> -->
+            <kitin-entityrow title-prefix="LABEL.holdings." model="offer.heldBy" multiple>
+              <kitin-select options-model="userData"></kitin-select>
+            </kitin-entityrow>
 
             <kitin-textrow title-prefix="LABEL.holdings." model="offer.shelfLocation" change-model="holding"></kitin-textrow>
             <kitin-textrow title-prefix="LABEL.holdings." model="offer.classificationPart" change-model="holding"></kitin-textrow>
@@ -44,42 +44,6 @@
             <kitin-textrow title-prefix="LABEL.holdings." model="offer.copyNote" change-model="holding"></kitin-textrow>
             <kitin-textrow title-prefix="LABEL.holdings." model="offer.editorialNote" change-model="holding"></kitin-textrow>
           </kitin-group>
-<!--         <div class="col6">
-          <div class="label">
-            <span class="lbl" translate>LABEL.holding.about.offers.shelfLocation</span>
-            <input data-track-change="holding" type="text" data-ng-model="offer.shelfLocation"/>
-          </div>
-          <div class="label">
-            <span class="lbl" translate>LABEL.holding.about.offers.classificationPart</span>
-            <input data-track-change="holding" type="text" data-ng-model="offer.classificationPart"/>
-          </div>
-          <div class="label">
-            <span class="lbl" translate>LABEL.holding.about.offers.shelfControlNumber</span>
-            <input data-track-change="holding" type="text" data-ng-model="offer.shelfControlNumber"/>
-          </div>
-          <div class="label">
-            <span class="lbl" translate>LABEL.holding.about.offers.shelfLabel</span>
-            <input data-track-change="holding" type="text" data-ng-model="offer.shelfLabel"/>
-          </div>
-        </div>
-        <div class="col6">
-          <div class="label">
-            <span class="lbl" translate>LABEL.holding.about.offers.availability</span>
-            <input data-track-change="holding" type="text" data-ng-model="offer.availability"/>
-          </div>
-          <div class="label">
-            <span class="lbl" translate>LABEL.holding.about.offers.copyNumber</span>
-            <input data-track-change="holding" type="text" data-ng-model="offer.copyNumber"/>
-          </div>
-          <div class="label">
-            <span class="lbl" translate>LABEL.holding.about.offers.copyNote</span>
-            <textarea data-track-change="holding" data-ui-jq="autosize" spellcheck="false" data-ng-model="offer.copyNote"></textarea>
-          </div>
-          <div class="label">
-            <span class="lbl" translate>LABEL.holding.about.offers.editorialNote</span>
-            <textarea data-track-change="holding" data-ui-jq="autosize" spellcheck="false" data-ng-model="offer.editorialNote"></textarea>
-          </div>
-        </div> -->
 
         <div class="col12">
           <button class="btn btn-link pull-right" data-ng-if="holding.about.offers.length > 1" data-ng-click="deleteOffer(holding, $index)"><i class="fa fa-trash-o"></i> {{ "Radera lokalsignum" }}</button>
