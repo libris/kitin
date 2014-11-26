@@ -2,7 +2,6 @@ kitin.directive('trackChange', function ($rootScope, $timeout) {
   return {
     restrict: 'A',
     link: function (scope, elem, attrs) {
-
       // Some elements need to trigger a custom event 
       var customEvent = attrs.changeEvent || 'changed';
       var targetModel = attrs.trackChange || 'bib';
@@ -32,7 +31,6 @@ kitin.directive('trackChange', function ($rootScope, $timeout) {
 
       if (customEvent) {
         var customEventListener = scope.$on(customEvent, function(event, payload) {
-          //console.log(event.name, payload);
           trigger(customEvent, event);
           // Done, stop listening. In the future, perhaps continue listening
           // but this is good enough for dirty checking.

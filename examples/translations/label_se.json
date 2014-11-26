@@ -206,6 +206,7 @@
 
         "holdings": {
         	"offer": {
+            "heldBy": "Sigel",
         		"availability": "Begränsningar på utlån",
         		"classificationPart": "Klassifikationsdel av uppställningssignum ",
         		"copyNote": "Offentlig anmärkning",
