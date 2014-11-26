@@ -646,7 +646,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "      </div>\n" +
     "    </div>\n" +
     "  </div>\n" +
-    "  <kitin-entityrow multiple hide-title model=\"record.about._reifiedRoles\" type=\"ObjectProperty\" view=\"/snippets/render-role\">\n" +
+    "  <kitin-entity multiple hide-title model=\"record.about._reifiedRoles\" type=\"ObjectProperty\" view=\"/snippets/render-role\">\n" +
     "    <kitin-search service-url=\"/relator/_search\" filter=\"about.@type:ObjectProperty\" template-id=\"select-role-template\" placeholder=\"Lägg till roll\"></kitin-search>\n" +
     "  </kitin-entity>\n" +
     "</div>"

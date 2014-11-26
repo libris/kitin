@@ -30,7 +30,7 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
       }
     },
     template:   '<div>' +
-                  '<div ng-if="objects" ng-repeat="object in objects track by $index" class="entity-content">' +
+                  '<div ng-if="objects" ng-repeat="object in objects track by $index" class="tag" ng-class="{auth: isLinked(object)}">' +
                     '<span class="inner" ng-include="viewTemplate"></span>' +
                     '<span class="controls"><a class="delete" data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a></span>' +
                   '</div>' +
