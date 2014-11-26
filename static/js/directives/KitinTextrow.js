@@ -2,7 +2,8 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
   return {
       restrict: 'E',
       scope: {
-        model: '=model'
+        model: '=model',
+        changeModel: '@changeModel'
       },
       require:  '?^^kitinGroup',
       replace: true,
@@ -12,12 +13,16 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
       //TODO, move into snippet?
       template: '<div class="label" ng-hide="shouldHide(model, options)">' + 
                   '<kitin-title title="title"></kitin-title>' +
-                  '<span class="inp"><kitin-textarea model="model"></kitin-textarea></span>' +
+                  '<span class="inp"><kitin-textarea data-track-change="{{changeModel}}" model="model"></kitin-textarea></span>' +
                 '</div>',
       controller: function($scope, $rootScope, $attrs) {
 
         if(!$attrs.hasOwnProperty('hideTitle')) {
-          $scope.title = 'LABEL.' + $attrs.model;
+          if($attrs.hasOwnProperty('titlePrefix')) {
+            $scope.title = $attrs.titlePrefix + $attrs.model;
+          } else {
+            $scope.title = 'LABEL.' + $attrs.model;
+          }
         }
 
         var hasValue = false;
