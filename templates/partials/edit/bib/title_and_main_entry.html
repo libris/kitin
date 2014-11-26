@@ -100,11 +100,11 @@
     <kitin-textrow model="record.about.exampleOfWork.musicArrangement"></kitin-textrow>
     <kitin-textrow model="record.about.exampleOfWork.musicKey"></kitin-textrow>
 
-    <kitin-entityrow model="record.about.exampleOfWork.describedBy" multiple rich view="/snippets/render-relation-referenced-entity">
+    <kitin-entityrow model="record.about.exampleOfWork.describedBy" multiple view="/snippets/render-relation-referenced-entity">
       <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
     </kitin-entityrow>
 
-    <kitin-entityrow model="record.about.exampleOfWork.language" multiple rich view="/snippets/render-language">
+    <kitin-entityrow model="record.about.exampleOfWork.language" multiple view="/snippets/render-language">
       <kitin-search service-url="/def/_search" template-id="select-language-template" filter="about.@type:Language">
       </kitin-search>
     </kitin-entityrow>
