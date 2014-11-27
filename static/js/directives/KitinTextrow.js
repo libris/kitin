@@ -8,8 +8,8 @@ Usage:
 Params:
   model: (str)
   change-model: (str)
-  hide-title: (bool)
-  title-prefix: (str)
+  hide-label: (bool)
+  label-prefix: (str)
 
 */
 
@@ -27,16 +27,16 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
       },
       //TODO, move into snippet?
       template: '<div class="label" ng-hide="shouldHide(model, options)">' + 
-                  '<kitin-title title="title"></kitin-title>' +
+                  '<kitin-label label="label"></kitin-label>' +
                   '<span class="inp"><kitin-textarea data-track-change="{{changeModel}}" model="model"></kitin-textarea></span>' +
                 '</div>',
       controller: function($scope, $rootScope, $attrs) {
 
-        if(!$attrs.hasOwnProperty('hideTitle')) {
-          if($attrs.hasOwnProperty('titlePrefix')) {
-            $scope.title = $attrs.titlePrefix + $attrs.model;
+        if(!$attrs.hasOwnProperty('hideLabel')) {
+          if($attrs.hasOwnProperty('labelPrefix')) {
+            $scope.label = $attrs.labelPrefix + $attrs.model;
           } else {
-            $scope.title = 'LABEL.' + $attrs.model;
+            $scope.label = 'LABEL.' + $attrs.model;
           }
         }
 

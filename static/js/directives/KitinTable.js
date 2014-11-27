@@ -3,7 +3,7 @@
 Creates a table, with functionality to add new rows
 
 Usage:
-  <kitin-table titles="[]">
+  <kitin-table labels="[]">
     <kitin-td>
       <kitin-textarea> ..or.. <kitin-entity> ..or.. any html
     </kitin-td>
@@ -11,8 +11,8 @@ Usage:
 
 Params:
   model: (str)
-  title: (str)
-  titles: (string array) Titles to add to table columns 
+  label: (str)
+  labels: (string array) labels to add to table columns 
 
 */
 
@@ -29,13 +29,13 @@ kitin.directive('kitinTable', function(editService){
           scope.options = kitinGroupCtrl.options;
       },
       template: '<div class="label" ng-hide="shouldHideTable(model, options)">' + 
-                  '<span class="lbl">{{title | translate}}</span>' +
+                  '<span class="lbl">{{label | translate}}</span>' +
                   '<div class="inp">' +
                     '<div class="datatable">' +
                       '<table>' +
                         '<thead>' +
-                          '<tr class="thead" ng-if="titles.length">' +
-                            '<th ng-repeat="title in titles">{{title | translate}}</th>' +
+                          '<tr class="thead" ng-if="labels.length">' +
+                            '<th ng-repeat="label in labels">{{label | translate}}</th>' +
                           '</tr>' +
                         '</thead>' +
                         '<tbody>' +
@@ -95,10 +95,10 @@ kitin.directive('kitinTable', function(editService){
           return $scope.model.splice(index,1);
         };
 
-        $scope.title = 'LABEL.' + $attrs.model;
+        $scope.label = 'LABEL.' + $attrs.model;
         $scope.model = _.isArray($scope.model) && $scope.model.length > 0 ? $scope.model : createObject($attrs.model);
-        if($attrs.titles) {
-          $scope.titles = $scope.$eval($attrs.titles);
+        if($attrs.labels) {
+          $scope.labels = $scope.$eval($attrs.labels);
         }
 
       }

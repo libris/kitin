@@ -28,7 +28,7 @@ kitin.directive('kitinEntityrow', function(editService, $rootScope) {
     },
 
     template: '<div class="label" ng-hide="shouldHide(options, objects)">' + 
-                '<kitin-title title="title" ng-if="title"></kitin-title>' +
+                '<kitin-label label="label" ng-if="label"></kitin-label>' +
                 '<div class="inp">' +
                   '<kitin-entity in-kitin-entity-row="true">' +
                     '<span ng-transclude></span>' +
@@ -38,19 +38,19 @@ kitin.directive('kitinEntityrow', function(editService, $rootScope) {
 
     controller: function($element, $scope, $attrs) {
       // Set non two way bound parameters
-      if(!$attrs.hasOwnProperty('hideTitle')) {        
+      if(!$attrs.hasOwnProperty('hideLabel')) {        
         var link = '';
         if($attrs.link) {
-          // When link attribute is set add it to title lookup
+          // When link attribute is set add it to label lookup
           link = '[\'' + $scope.$eval($attrs.link) +'\']';
         }
-        if($attrs.hasOwnProperty('titlePrefix')) {
-          $scope.title = $attrs.titlePrefix + $attrs.model + link;
+        if($attrs.hasOwnProperty('labelPrefix')) {
+          $scope.label = $attrs.labelPrefix + $attrs.model + link;
         } else {
-          $scope.title = 'LABEL.' + $attrs.model + link;
+          $scope.label = 'LABEL.' + $attrs.model + link;
         }
       } else {
-        $scope.title = false;
+        $scope.label = false;
       }
 
       // Since we want scope to be inherit from parent, to do lookups for controller scope variables like record.

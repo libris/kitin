@@ -1,7 +1,7 @@
 <h2>Utgivning och tillverkning<i></i></h2>
 
 <div class="form-container">
-  <kitin-group title="Identifier titles">
+  <kitin-group label="Identifier titles">
     <span data-ng-repeat="(identifierSchemeName, identifierScheme) in record.about.identifierByIdentifierScheme"
           ng-switch ="identifierSchemeName">
       
@@ -40,7 +40,7 @@
     </span>
   </kitin-group>
   
-  <kitin-group title="Some group title">
+  <kitin-group label="Some group title">
     
     <kitin-textrow model="record.about.mediaTerm"></kitin-textrow>
     
@@ -78,7 +78,7 @@
 
   </kitin-group>
 
-  <kitin-group title="Dates and times title">
+  <kitin-group label="Dates and times title">
     <kitin-textrow model="record.about.date"></kitin-textrow>
 
     <kitin-entityrow model="record.about.publicationStatus">
@@ -90,7 +90,7 @@
     <kitin-textrow model="record.about.publicationOtherYear"></kitin-textrow>
   </kitin-group>
 
-  <kitin-group title="Frekvens regularitet title">
+  <kitin-group label="Frekvens regularitet title">
     
     <kitin-entityrow model="record.about.frequencyCategory">
       <kitin-select filter="about.inCollection.@id:/def/enum/content/frequency-collection"></kitin-select>
@@ -104,7 +104,7 @@
 
   </kitin-group>
 
-  <kitin-group title="Issue title">
+  <kitin-group label="Issue title">
     <kitin-table model="record.about.issueNumber">
       <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
     </kitin-table>
@@ -116,7 +116,7 @@
     </kitin-table>
   </kitin-group>
 
-  <kitin-group title="References title">
+  <kitin-group label="References title">
     <kitin-entityrow model="record.about.alternateEdition" multiple rich view="/snippets/render-relation-referenced-entity">
       <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
     </kitin-entityrow>

@@ -4,7 +4,7 @@
 </h2>
 <div class="form-container">
 
-  <kitin-group title="LABEL.record.about.instanceTitle.titleValue">
+  <kitin-group label="LABEL.record.about.instanceTitle.titleValue">
     <kitin-textrow model="record.about.instanceTitle.titleValue"></kitin-textrow>
 
     <kitin-textrow model="record.about.instanceTitle.subtitle"></kitin-textrow>
@@ -19,7 +19,7 @@
     </kitin-table>
   </kitin-group>
 
-  <kitin-group title="LABEL.record.about.titleVariation.titleValue">
+  <kitin-group label="LABEL.record.about.titleVariation.titleValue">
     <kitin-textrow model="record.about.titleVariation.titleValue"></kitin-textrow>
     <kitin-textrow model="record.about.titleVariation.subtitle"></kitin-textrow>
     <kitin-textrow model="record.about.titleVariation.titleDate"></kitin-textrow>
@@ -31,7 +31,7 @@
     </kitin-table>
   </kitin-group>
 
-  <kitin-group title="LABEL.record.about.translatedTitle.titleValue">
+  <kitin-group label="LABEL.record.about.translatedTitle.titleValue">
     <kitin-textrow model="record.about.translatedTitle.titleValue"></kitin-textrow>
     <kitin-textrow model="record.about.translatedTitle.subtitle"></kitin-textrow>
     <kitin-textrow model="record.about.translatedTitle.titleDate"></kitin-textrow>
@@ -43,7 +43,7 @@
     </kitin-table>
   </kitin-group>
 
-  <kitin-group title="LABEL.record.about.previousTitle.titleValue">
+  <kitin-group label="LABEL.record.about.previousTitle.titleValue">
     <kitin-textrow model="record.about.previousTitle.titleValue"></kitin-textrow>
     <kitin-textrow model="record.about.previousTitle.subtitle"></kitin-textrow>
     <kitin-textrow model="record.about.previousTitle.titleDate"></kitin-textrow>
@@ -55,13 +55,13 @@
     </kitin-table>
   </kitin-group>
 
-  <kitin-group title="LABEL.record.about.abbreviatedTitle.titleValue">
+  <kitin-group label="LABEL.record.about.abbreviatedTitle.titleValue">
     <kitin-textrow model="record.about.abbreviatedTitle.titleValue"></kitin-textrow>
     <kitin-textrow model="record.about.abbreviatedTitle.titleQualifier"></kitin-textrow>
     <kitin-textrow model="record.about.abbreviatedTitle.titleSource"></kitin-textrow>
   </kitin-group>
 
-  <kitin-group title="LABEL.record.about.keyTitle.titleValue">
+  <kitin-group label="LABEL.record.about.keyTitle.titleValue">
     <kitin-textrow model="record.about.keyTitle.titleValue"></kitin-textrow>
     <kitin-textrow model="record.about.keyTitle.titleQualifier"></kitin-textrow>
     <kitin-textrow model="record.about.keyTitle.titleSource"></kitin-textrow>
@@ -76,7 +76,7 @@
           data-ng-model="record.about.responsibilityStatement"></textarea>
     </div>
   </kitin-group>
-  <kitin-group title="Uppslag">
+  <kitin-group label="Uppslag">
     <kitin-entityrow model="record.about.attributedTo" rich type="Person" view="/snippets/render-person">
       <kitin-search service-url="/auth/_search" 
                     template-id="auth-completion-template" 
@@ -91,7 +91,7 @@
     </kitin-entityrow>
   </kitin-group>
 
-  <kitin-group title="Example Of Work title">
+  <kitin-group label="Example Of Work title">
     <kitin-textrow model="record.about.exampleOfWork.title"></kitin-textrow>
     <kitin-textrow model="record.about.exampleOfWork.date"></kitin-textrow>
     <kitin-textrow model="record.about.exampleOfWork.version"></kitin-textrow>
@@ -141,7 +141,7 @@
     </kitin-table>
   </kitin-group>
 
-  <kitin-group title="LABEL.record.about.relation">
+  <kitin-group label="LABEL.record.about.relation">
 
     <kitin-entityrow model="record.about.relation" multiple rich view="/snippets/render-relation-referenced-entity">
       <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
@@ -176,7 +176,7 @@
 
     
     <!-- LANGUAGES  START -->
-  <kitin-group title="LABEL.record.about.language">
+  <kitin-group label="LABEL.record.about.language">
     <kitin-entityrow model="record.about.language" multiple view="/snippets/render-language">
       <kitin-search service-url="/def/_search" 
                     template-id="select-language-template" 

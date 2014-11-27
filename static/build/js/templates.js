@@ -162,8 +162,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  <form data-ng-show=\"holding['@id'] || !holding['etag']\" name=\"holdingForm\">\n" +
     "    <section class=\"offer form-container\" data-ng-repeat=\"offer in holding.about.offers track by $index\">\n" +
     "      <div class=\"cols\">\n" +
-    "          <kitin-group title=\"Lokalsignum\" initially-visible>\n" +
-    "            <kitin-entityrow title-prefix=\"LABEL.holdings.\" model=\"offer.heldBy\">\n" +
+    "          <kitin-group label=\"Lokalsignum\" initially-visible>\n" +
+    "            <kitin-entityrow label-prefix=\"LABEL.holdings.\" model=\"offer.heldBy\">\n" +
     "            <span class=\"select\">\n" +
     "              <select data-track-change=\"holding\" data-ng-model=\"offer.heldBy\">\n" +
     "                <option data-ng-selected=\"true\">{{userSigel}}</option>\n" +
@@ -172,14 +172,14 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "            </span>\n" +
     "            </kitin-entityrow>\n" +
     "\n" +
-    "            <kitin-textrow title-prefix=\"LABEL.holdings.\" model=\"offer.shelfLocation\" change-model=\"holding\"></kitin-textrow>\n" +
-    "            <kitin-textrow title-prefix=\"LABEL.holdings.\" model=\"offer.classificationPart\" change-model=\"holding\"></kitin-textrow>\n" +
-    "            <kitin-textrow title-prefix=\"LABEL.holdings.\" model=\"offer.shelfControlNumber\" change-model=\"holding\"></kitin-textrow>\n" +
-    "            <kitin-textrow title-prefix=\"LABEL.holdings.\" model=\"offer.shelfLabel\" change-model=\"holding\"></kitin-textrow>\n" +
-    "            <kitin-textrow title-prefix=\"LABEL.holdings.\" model=\"offer.availability\" change-model=\"holding\"></kitin-textrow>\n" +
-    "            <kitin-textrow title-prefix=\"LABEL.holdings.\" model=\"offer.copyNumber\" change-model=\"holding\"></kitin-textrow>\n" +
-    "            <kitin-textrow title-prefix=\"LABEL.holdings.\" model=\"offer.copyNote\" change-model=\"holding\"></kitin-textrow>\n" +
-    "            <kitin-textrow title-prefix=\"LABEL.holdings.\" model=\"offer.editorialNote\" change-model=\"holding\"></kitin-textrow>\n" +
+    "            <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.shelfLocation\" change-model=\"holding\"></kitin-textrow>\n" +
+    "            <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.classificationPart\" change-model=\"holding\"></kitin-textrow>\n" +
+    "            <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.shelfControlNumber\" change-model=\"holding\"></kitin-textrow>\n" +
+    "            <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.shelfLabel\" change-model=\"holding\"></kitin-textrow>\n" +
+    "            <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.availability\" change-model=\"holding\"></kitin-textrow>\n" +
+    "            <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.copyNumber\" change-model=\"holding\"></kitin-textrow>\n" +
+    "            <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.copyNote\" change-model=\"holding\"></kitin-textrow>\n" +
+    "            <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.editorialNote\" change-model=\"holding\"></kitin-textrow>\n" +
     "          </kitin-group>\n" +
     "\n" +
     "        <div class=\"col12\">\n" +
@@ -881,7 +881,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/view-subject',
     "<a ng-init=\"subjectLabel = (object.prefLabel || object.uniformTitle || object.controlledLabel  || object.notation || object.name)\" ng-show=\"subjectLabel\" href=\"#\">\n" +
     "  <i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object)\"></i> {{ subjectLabel }}</a> \n" +
-    "{{object}}\n" +
+    "\n" +
     "<!-- Broader terms should not be shown for general subjects... used for?-->\n" +
     "<a data-ng-repeat=\"broader in object.broader\" href=\"#\">\n" +
     "  {{broader.prefLabel}}\n" +
