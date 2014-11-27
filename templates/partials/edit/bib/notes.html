@@ -6,7 +6,7 @@
       <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
     </kitin-table>
 
-    <kitin-table model="record.about.describedBy" titles="['LABEL.record.about.describedBy.label','LABEL.record.about.describedBy[\'@id\']']">
+    <kitin-table model="record.about.describedBy" labels="['LABEL.record.about.describedBy.label','LABEL.record.about.describedBy[\'@id\']']">
       <kitin-td><kitin-textarea model="item.label"></kitin-textarea></kitin-td>
       <kitin-td><kitin-textarea model="item['@id']"></kitin-textarea></kitin-td>
     </kitin-table>
@@ -74,7 +74,7 @@
     </kitin-entityrow>
 
     <kitin-table model="record.about.hasAnnotation"
-                 titles="['LABEL.note', 'LABEL.degree', 'LABEL.location', 'LABEL.date', 'LABEL.comment']">
+                 labels="['LABEL.note', 'LABEL.degree', 'LABEL.location', 'LABEL.date', 'LABEL.comment']">
       <kitin-td><kitin-textarea model="item.note"></kitin-textarea></kitin-td>
       <kitin-td><kitin-textarea model="item.degree"></kitin-textarea></kitin-td>
       <kitin-td><kitin-textarea model="item.location"></kitin-textarea></kitin-td>
