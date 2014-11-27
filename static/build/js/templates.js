@@ -433,7 +433,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "\n" +
     "<a href=\"#\">\n" +
     "  <i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object)\"></i>\n" +
-    "  {{ (object.prefLabel || object.prefLabel-en) }}\n" +
+    "  {{ (object.prefLabel || object.prefLabel-en || object['@id']) }}\n" +
     "</a>"
   );
 
@@ -881,7 +881,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/view-subject',
     "<a ng-init=\"subjectLabel = (object.prefLabel || object.uniformTitle || object.controlledLabel  || object.notation || object.name)\" ng-show=\"subjectLabel\" href=\"#\">\n" +
     "  <i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object)\"></i> {{ subjectLabel }}</a> \n" +
-    "\n" +
+    "{{object}}\n" +
     "<!-- Broader terms should not be shown for general subjects... used for?-->\n" +
     "<a data-ng-repeat=\"broader in object.broader\" href=\"#\">\n" +
     "  {{broader.prefLabel}}\n" +
