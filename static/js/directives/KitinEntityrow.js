@@ -38,11 +38,16 @@ kitin.directive('kitinEntityrow', function(editService, $rootScope) {
 
     controller: function($element, $scope, $attrs) {
       // Set non two way bound parameters
-      if(!$attrs.hasOwnProperty('hideTitle')) {
+      if(!$attrs.hasOwnProperty('hideTitle')) {        
+        var link = '';
+        if($attrs.link) {
+          // When link attribute is set add it to title lookup
+          link = '[\'' + $scope.$eval($attrs.link) +'\']';
+        }
         if($attrs.hasOwnProperty('titlePrefix')) {
-          $scope.title = $attrs.titlePrefix + $attrs.model;
+          $scope.title = $attrs.titlePrefix + $attrs.model + link;
         } else {
-          $scope.title = 'LABEL.' + $attrs.model;
+          $scope.title = 'LABEL.' + $attrs.model + link;
         }
       } else {
         $scope.title = false;

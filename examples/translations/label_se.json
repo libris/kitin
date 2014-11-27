@@ -209,6 +209,13 @@
                 "classificationNlm": "NLM (National Library of Medicine)",
                 "classificationUdc": "UDK (Universell decimalklassifikation)",
 
+                "subjectByInScheme['/topic/sao']": "SAO",
+                "subjectByInScheme['/topic/saogf']": "SAOGF",
+                "subjectByInScheme['barn']": "Barn",
+                "subjectByType['/topic/chronological']": "__chronological__",
+                "subjectByType['Person']": "Person",
+                "subjectByType['Place']": "Plats",
+
                 "typeOfEntry": "Behandling vid titeländring",
 
                 "additionalCarrierType": "Form för manifestationen",
