@@ -14,50 +14,50 @@
     <kitin-table model="record.about.reproduction">
       <kitin-td>
         <div class="label">
-          <kitin-title label="LABEL.record.about.reproduction.description"></kitin-title>
+          <kitin-label label="LABEL.record.about.reproduction.description"></kitin-label>
           <kitin-textarea model="item.description"></kitin-textarea>
         </div>
 
         <div class="label">
-          <kitin-title label="LABEL.record.about.reproduction.provider"></kitin-title>
+          <kitin-label label="LABEL.record.about.reproduction.provider"></kitin-label>
             <kitin-entity multiple hide-title model="item" link="'provider'">
             <kitin-search service-url="/auth/_search" template-id="auth-completion-template" placeholder="Lägg till"></kitin-search>
           </kitin-entity>
         </div>
 
         <div class="label">
-          <kitin-title label="LABEL.record.about.reproduction.physicalDescription"></kitin-title>
+          <kitin-label label="LABEL.record.about.reproduction.physicalDescription"></kitin-label>
           <kitin-textarea model="item.physicalDescription"></kitin-textarea>
         </div>
 
         <div class="label">
-          <kitin-title label="LABEL.record.about.reproduction.seriesStatement"></kitin-title>
+          <kitin-label label="LABEL.record.about.reproduction.seriesStatement"></kitin-label>
           <kitin-table model="item.seriesStatement">
             <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
           </kitin-table>
         </div>
 
         <div class="label">
-          <kitin-title label="LABEL.record.about.reproduction.datesAndOrSequentialDesignationOfIssuesReproduced"></kitin-title>
+          <kitin-label label="LABEL.record.about.reproduction.datesAndOrSequentialDesignationOfIssuesReproduced"></kitin-label>
           <kitin-table model="item.datesAndOrSequentialDesignationOfIssuesReproduced">
             <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
           </kitin-table>
         </div>
 
         <div class="label">
-          <kitin-title label="LABEL.record.about.reproduction.note"></kitin-title>
+          <kitin-label label="LABEL.record.about.reproduction.note"></kitin-label>
           <kitin-table model="item.note">
             <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
           </kitin-table>
         </div>
 
         <div class="label">
-          <kitin-title label="LABEL.record.about.reproduction.materialsSpecified"></kitin-title>
+          <kitin-label label="LABEL.record.about.reproduction.materialsSpecified"></kitin-label>
           <kitin-textarea model="item.materialsSpecified"></kitin-textarea>
         </div>
 
         <div class="label">
-          <kitin-title label="LABEL.record.about.reproduction.institutionToWhichFieldApplies"></kitin-title>
+          <kitin-label label="LABEL.record.about.reproduction.institutionToWhichFieldApplies"></kitin-label>
           <kitin-textarea model="item.institutionToWhichFieldApplies"></kitin-textarea>
         </div>
       </kitin-td>
