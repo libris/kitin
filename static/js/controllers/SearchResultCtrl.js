@@ -3,6 +3,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
   document.body.className = 'search';
   $scope.recType = $routeParams.recType;
   $scope.utils = utilsService;
+  $scope.userSigel = userData.userSigel;
 
   function getSearchURL() {
     var url = $rootScope.API_PATH + '/' + $scope.recType + '/_search';
