@@ -13,6 +13,7 @@ Params:
   mutiple: (bool) allow multiple entries
   rich: (bool) sets this entity to rich (for advanced formatting)
   view: (str) view template snippet (detaults to generic)
+  link: (str) link into model, typically model[link]. Used to enable data binding when in a ng-repeat 
   in-kitin-entity-row: (bool) handle special case when in kitin-entity-row (do to scope problems when using transclude)
 */
 
