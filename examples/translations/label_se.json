@@ -183,6 +183,7 @@
                 "note": "note",
                 "comment": "Allmän anmärkning",
                 "systemRequirements": "Systemkrav",
+                "isPrimaryTopicOf": "__isPrimaryTopicOf__",
                 "audience.label": "Målgrupp",
                 "scopeNote": "Relaterade delar",
                 
