@@ -3,28 +3,26 @@
 
   <!-- SUBJECT START -->
   <!-- SUBJECT BY IN SCHEME  START -->
-  <div class="label cols" data-ng-repeat="(key, container) in record.about.subjectByInScheme">
-    <kitin-group ng-switch on="key" title="key">
-      <kitin-entityrow model="record.about.subjectByInScheme" link="key" multiple rich view="/snippets/view-subject">
+  <kitin-group title="'Ämnesord'">
+    <div data-ng-repeat="(key, container) in record.about.subjectByInScheme">
+      <kitin-entityrow ng-switch on="key" model="record.about.subjectByInScheme" link="key" multiple view="/snippets/view-subject">
         <kitin-search service-url="/auth/_search" template-id="subject-completion-template" filter="about.inScheme.notation:{{ (conceptSchemes.byNotation[key.replace('/topic/','')] || container[0].inScheme).notation }}">
         </kitin-search>
       </kitin-entityrow>
-    </kitin-group>
-  </div>
+   </div>
 
   <!-- SUBJECT BY IN SCHEME  END -->
 
   <!-- SUBJECT BY TYPE  START -->
-  <div class="label cols" data-ng-repeat="(key, container) in record.about.subjectByType">
-    <kitin-group ng-switch on="key" title="key">
-      <kitin-entityrow model="record.about.subjectByType" link="key" multiple>
+    <div data-ng-repeat="(key, container) in record.about.subjectByType">
+      <kitin-entityrow ng-switch on="key" title="key" model="record.about.subjectByType" link="key" multiple>
         <kitin-search service-url="/auth/_search" 
                       template-id="{{ key === 'Person' ? 'auth-completion-template' : 'subject-completion-template'}}" 
                       filter="{{(key === '/topic/chronological') ? 'about.inCollection.@id:\/topic\/chronological\/' : 'about.@type:' + key}}">
         </kitin-search>
       </kitin-entityrow>
-    </kitin-group>
-  </div>
+    </div>
+  </kitin-group>
 
     <!-- SUBJECT BY TYPE  END -->
   <kitin-group title="'Andra ämnesordssystem chosenScheme'">
