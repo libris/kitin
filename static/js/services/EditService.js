@@ -194,7 +194,6 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
       } catch(error) {
         console.error('Could not find skeleton for', property, type);
       }
-      debugger;
       return createdObject;
 /*
       switch (type) {
