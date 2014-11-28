@@ -829,6 +829,18 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('/snippets/source-comment-template',
+    "<kitin-group label=\"'Källor (' + record.source.length + ' st)'\">\n" +
+    "  <kitin-table \n" +
+    "    model=\"record.source\"\n" +
+    "    labels=\"['Källa','Källtext']\">\n" +
+    "      <kitin-td><kitin-textarea model=\"item.label\"></kitin-textarea></kitin-td>\n" +
+    "      <kitin-td><kitin-textarea model=\"item.citation\"></kitin-textarea></kitin-td>\n" +
+    "  </kitin-table>\n" +
+    "</kitin-group>"
+  );
+
+
   $templateCache.put('/snippets/view-subject',
     "<a ng-init=\"subjectLabel = (object.prefLabel || object.uniformTitle || object.controlledLabel  || object.notation || object.name)\" ng-show=\"subjectLabel\" href=\"#\">\n" +
     "  <i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object)\"></i> {{ subjectLabel }}</a> \n" +

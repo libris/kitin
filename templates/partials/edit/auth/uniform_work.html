@@ -1,0 +1,26 @@
+<div class="label">
+  <span class="lbl">{{ "Uniform Titel" }}</span>
+  <input data-track-change type="text" class="" data-ng-model="instance.uniformTitle"/>
+</div>
+<div ng-show="instance.hasVersion"  class="multifield">
+  <span class="lbl">{{ "Alternativ titelform" }}</span>
+    <div class="label" data-ng-repeat="hasVersion in instance.hasVersion">
+    <input data-track-change class="input-medium" type="text" data-ng-model="hasVersion.uniformTitle">
+  </div>
+</div>
+</div>
+<div class="col6">      
+  <span class="lbl">{{ "Upphov" }}</span>
+    <div class="label">
+    <input data-track-change class="input-medium" type="text" data-ng-model="instance.attributedTo.controlledLabel">
+  </div>
+</div>
+</div>
+<div class="cols">
+<div class="col6">
+<div class="label">
+<span class="lbl">{{ "Anmärkning" }}</span>
+  <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="record.editorialNote">{{ record.editorialNote }}</textarea>
+</div>
+
+<div class="cols" data-ng-include="'/snippets/source-comment-template'"></div>

@@ -1,23 +1,50 @@
-<div data-ng-repeat="instance in [record.about]">
-  <ng-form name="subform" data-ng-switch="instance['@type']">
-    <section class="person" data-ng-switch-when="Person">
-      <div data-ng-include="'/partials/edit/auth/person'"></div>
+<ng-form name="subform">
+  <section>
+    <h2>
+      {{ record.about['@type'] }}
+      <i></i>
+    </h2>
+    <div class="form-container" data-ng-switch="record.about['@type']">
+      <div class="person" data-ng-switch-when="Person">
+        <div data-ng-include="'/partials/edit/auth/person'"></div>
+      </div>
+      
+      <div class="concept" data-ng-switch-when="Concept">
+        <div data-ng-include="'/partials/edit/auth/concept'"></div>
+      </div>
+      
+      <div class="uniform-work" data-ng-switch-when="UniformWork">
+        <div data-ng-include="'/partials/edit/auth/uniform_work'"></div>
+      </div>
+      
+      <div class="organization" data-ng-switch-when="Organization">
+        <div data-ng-include="'/partials/edit/auth/organization'"></div>
+      </div>
+      
+      <div class="meeting" data-ng-switch-when="Meeting">
+         <div data-ng-include="'/partials/edit/auth/meeting'"></div>
+      </div>
+      
+      <div class="place" data-ng-switch-when="Place">
+        <div data-ng-include="'/partials/edit/auth/place'"></div>
+      </div>
+    </div>
+  </section>
+  <div class="footer footer-sticky">
+    <section class="centered">
+      <div class="row">
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-8 right">  
+          <button disabled class="btn btn-dark" id="publish" data-ng-class="modifiedClasses()" data-ng-disabled="subform.$invalid || modifications.bib.published" data-ng-click="publish()" title="{{lastPublishedLabel('Senast publicerad: %s')}}">{{modifications.bib.published ? 'Publicerad' : 'Publicera'}} 
+          <i class="fa fa-check" data-ng-show="modifications.bib.published"></i>
+          </button>
+        </div>
+      </div>
     </section>
-    <section class="concept" data-ng-switch-when="Concept">
-      <div data-ng-include="'/partials/edit/auth/concept'"></div>
-    </section>
-    <section class="work" data-ng-switch-when="Work">
-      <div data-ng-include="'/partials/edit/auth/work'"></div>
-    </section>
-    <section class="organization" data-ng-switch-when="Organization">
-      <div data-ng-include="'/partials/edit/auth/organization'"></div>
-    </section>
-    <section class="meeting" data-ng-switch-when="Meeting">
-       <div data-ng-include="'/partials/edit/auth/meeting'"></div>
-    </section>
-    <section class="place" data-ng-switch-when="Place">
-      <div data-ng-include="'/partials/edit/auth/place'"></div>
-    </section>
-  </ng-form>
-  <pre>{{instance}}</pre>
-</div>
+  </div>
+
+  <pre>{{record.about}}</pre>
+
+</ng-form>

@@ -1,67 +1,52 @@
-<h2>
-  {{ instance['@type'] }}
-  <i></i>
-</h2>
-<div class="form-container">
+<kitin-group>
+  <kitin-textrow model="record.about.familyName"></kitin-textrow>
+  
+  <kitin-textrow model="record.about.name"></kitin-textrow>
+  
+  <kitin-textrow model="record.about.givenName"></kitin-textrow>
+  
+  <kitin-textrow model="record.about.label"></kitin-textrow>
+  
+  <kitin-textrow model="record.about.numeration"></kitin-textrow>
 
-  <kitin-group>
-    <kitin-textrow model="instance.familyName"></kitin-textrow>
-    
-    <kitin-textrow model="instance.name"></kitin-textrow>
-    
-    <kitin-textrow model="instance.givenName"></kitin-textrow>
-    
-    <kitin-textrow model="instance.label"></kitin-textrow>
-    
-    <kitin-textrow model="instance.numeration"></kitin-textrow>
+  <kitin-textrow model="record.about.birthYear"></kitin-textrow>
 
-    <kitin-textrow model="instance.birthYear"></kitin-textrow>
+  <kitin-textrow model="record.about.deathYear"></kitin-textrow>
+</kitin-group>
 
-    <kitin-textrow model="instance.deathYear"></kitin-textrow>
-  </kitin-group>
+<kitin-group>
+  <kitin-table 
+    model="record.about.sameAs"
+    labels="['Efternamn','Förnamn']">
+      <kitin-td><kitin-textarea model="item.familyName"></kitin-textarea></kitin-td>
+      <kitin-td><kitin-textarea model="item.givenName"></kitin-textarea></kitin-td>
+  </kitin-table>
 
-  <kitin-group>
-    <kitin-table 
-      model="instance.sameAs"
-      labels="['Efternamn','Förnamn']">
-        <kitin-td><kitin-textarea model="item.familyName"></kitin-textarea></kitin-td>
-        <kitin-td><kitin-textarea model="item.givenName"></kitin-textarea></kitin-td>
-    </kitin-table>
+  <kitin-textrow model="record.about.personTitle"></kitin-textrow>
+  
+  <kitin-textrow model="record.about.scopeNote"></kitin-textrow>
 
-    <kitin-textrow model="instance.personTitle"></kitin-textrow>
-    
-    <kitin-textrow model="instance.scopeNote"></kitin-textrow>
+  <!-- <kitin-entityrow model="record.about.nationality" multiple>
+    <kitin-search service-url="/def/_search" 
+                  template-id="select-nationality-template" 
+                  filter="about.@type:Nationality">
+    </kitin-search>
+  <pre>{{record.about.nationality}}</pre>
+  </kitin-entityrow> -->
 
-    <kitin-entityrow model="instance.nationality" multiple>
-      <kitin-search service-url="/def/_search" 
-                    template-id="select-nationality-template" 
-                    filter="about.@type:Nationality">
-      </kitin-search>
-<pre>{{instance.nationality}}</pre>
-    </kitin-entityrow>
+  <kitin-table 
+    model="record.about.subject"
+    labels="['Dewey']">
+      <kitin-td><kitin-textarea model="item.notation"></kitin-textarea></kitin-td>
+  </kitin-table>
+</kitin-group>
 
-    <kitin-table 
-      model="instance.subject"
-      labels="['Dewey']">
-        <kitin-td><kitin-textarea model="item.notation"></kitin-textarea></kitin-td>
-    </kitin-table>
-  </kitin-group>
+<kitin-group>
+  <kitin-textrow model="record.comment" label="{{ 'Allmän anmärkning' }}"></kitin-textrow>
+  
+  <kitin-textrow model="record.about.note" label="{{ 'Biografisk uppgift' }}"></kitin-textrow>
+  
+  <kitin-textrow model="record.note" label="{{ 'Notering' }}"></kitin-textrow>
+</kitin-group>
 
-  <kitin-group>
-    <kitin-textrow model="record.comment" label="{{ 'Allmän anmärkning' }}"></kitin-textrow>
-    
-    <kitin-textrow model="instance.note" label="{{ 'Biografisk uppgift' }}"></kitin-textrow>
-    
-    <kitin-textrow model="record.note" label="{{ 'Notering' }}"></kitin-textrow>
-  </kitin-group>
-
-  <kitin-group label="'Källor (' + record.source.length + ' st)'">
-    <kitin-table 
-      model="record.source"
-      labels="['Källa','Källtext']">
-        <kitin-td><kitin-textarea model="item.label"></kitin-textarea></kitin-td>
-        <kitin-td><kitin-textarea model="item.citation"></kitin-textarea></kitin-td>
-    </kitin-table>
-  </kitin-group>
-
-</div>
+<div data-ng-include="'/snippets/source-comment-template'"></div>

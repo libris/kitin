@@ -1,19 +1,13 @@
+<div class="label">
+  <span class="lbl">{{ "Label" }}</span>
+  <input data-track-change type="text" class="" data-ng-model="instance.prefLabel"/>
+</div>
+<div class="label">
+  <span class="lbl">{{ "Anmärkning" }}</span>
+  <div data-ng-repeat="note in instance.note">
+    <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="note">{{ note }}</textarea>
+  </div>
+</div>
 
-    <section class="instance">
-      <div class="cols">
-        <div class="col6">
-          <div class="label">
-            <span class="lbl">{{ "Label" }}</span>
-            <input data-track-change type="text" class="" data-ng-model="instance.prefLabel"/>
-          </div>
-          <div class="label">
-            <span class="lbl">{{ "Anmärkning" }}</span>
-            <div data-ng-repeat="note in instance.note">
-              <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="note">{{ note }}</textarea>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="cols" data-ng-include="'/snippets/source-comment-template'"></div> 
-    </section>
-  
+<div class="cols" data-ng-include="'/snippets/source-comment-template'"></div> 
+

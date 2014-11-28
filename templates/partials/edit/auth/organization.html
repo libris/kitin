@@ -1,23 +1,16 @@
+<div class="label">
+  <span class="lbl">{{ "Label" }}</span>
+  <input data-track-change type="text" class="" data-ng-model="instance.label"/>
+</div>
+<div ng-show="instance"  class="multifield">
+  <span class="lbl">{{ "Används ej" }}</span>
+    <div class="label" data-ng-repeat="hasVersion in instance.hasVersion">
+    <input data-track-change class="input-medium" type="text" data-ng-model="hasVersion.label">
+  </div>
+</div>
+<div class="label">
+<span class="lbl">{{ "Anmärkning" }}</span>
+  <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.note">{{ instance.note }}</textarea>
+</div>
 
-    <section class="instance">
-      <div class="cols">
-        <div class="col6">
-          <div class="label">
-            <span class="lbl">{{ "Label" }}</span>
-            <input data-track-change type="text" class="" data-ng-model="instance.label"/>
-          </div>
-          <div ng-show="instance"  class="multifield">
-            <span class="lbl">{{ "Används ej" }}</span>
-              <div class="label" data-ng-repeat="hasVersion in instance.hasVersion">
-              <input data-track-change class="input-medium" type="text" data-ng-model="hasVersion.label">
-            </div>
-          </div>
-          <div class="label">
-          <span class="lbl">{{ "Anmärkning" }}</span>
-            <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.note">{{ instance.note }}</textarea>
-          </div>
-        </div>
-      </div>
-      <div class="cols" data-ng-include="'/snippets/source-comment-template'"></div>
-    </section>
-  
+<div class="cols" data-ng-include="'/snippets/source-comment-template'"></div>
