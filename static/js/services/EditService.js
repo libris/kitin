@@ -2,7 +2,7 @@
  * editService
  * Service to modify a record. Typically decorate/undecorate
  */
-kitin.service('editService', function(definitions, $http, $q) {
+kitin.service('editService', function(definitions, $http, $q, $rootScope) {
 
 
   /** mergeProperties
@@ -184,7 +184,19 @@ kitin.service('editService', function(definitions, $http, $q) {
       return added;
     },
 
-    createObject: function (type, initalValue) {
+    createObject: function (property, type, initalValue) {
+      var deferer = $q.defer();
+
+      
+      var createdObject = {};
+      try {
+        createdObject = $rootScope.getSkeletonTypeMap().summary[type];
+      } catch(error) {
+        console.error('Could not find skeleton for', property, type);
+      }
+      debugger;
+      return createdObject;
+/*
       switch (type) {
         case 'Person':
           //objectKeys: ['controlledLabel', 'familyName', 'givenName', 'birthYear', 'deathYear']
@@ -209,7 +221,7 @@ kitin.service('editService', function(definitions, $http, $q) {
           return '';
         default:
           return {};
-      }
+      }*/
     },
 
     makeReferenceEntity: function (entity) {
