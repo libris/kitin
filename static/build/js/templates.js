@@ -829,55 +829,6 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('/snippets/source-comment-template',
-    "<div class=\"col12\">\n" +
-    "  <h4 data-ng-model=\"record.source\">\n" +
-    "    <a href=\"\" ng-click=\"entry.showThis = !entry.showThis\"> \n" +
-    "      Källor ({{record.source.length}} st) \n" +
-    "      <i class=\"fa fa-caret-right\"></i>\n" +
-    "    </a>\n" +
-    "  </h4>\n" +
-    "  <div class=\"datatable\" data-ng-target=\"source\" data-ng-show=\"entry.showThis\">\n" +
-    "    <table>\n" +
-    "      <thead>\n" +
-    "        <tr>\n" +
-    "          <td><span class=\"lbl\">{{ \"Källa\" }}</span></td>\n" +
-    "          <td><span class=\"lbl\">{{ \"Källtext\" }}</span></td>\n" +
-    "          <td></td>\n" +
-    "        </tr>\n" +
-    "      </thead>\n" +
-    "      <tbody>\n" +
-    "        <tr data-ng-repeat=\"source in record.source track by $index\" class=\"\">\n" +
-    "          <td>\n" +
-    "            <div class=\"label\">\n" +
-    "              <input data-track-change type=\"text\" data-ng-model=\"source.label\"/>\n" +
-    "            </div>\n" +
-    "          </td>\n" +
-    "          <td class=\"last\">\n" +
-    "            <div class=\"label\">\n" +
-    "              <input data-track-change type=\"text\" data-ng-model=\"source.citation\"/>\n" +
-    "            </div>\n" +
-    "          </td>\n" +
-    "          <td class=\"controls\">\n" +
-    "            <button class=\"btn-link deleter\" data-ng-click=\"removeObject(record, 'source', $index)\">\n" +
-    "              <i class=\"fa fa-times\"></i>\n" +
-    "            </button>\n" +
-    "          </td>\n" +
-    "        </tr>\n" +
-    "      </tbody>\n" +
-    "      <tfoot>\n" +
-    "        <tr>\n" +
-    "          <td colspan=\"2\">\n" +
-    "            <button class=\"add-thing btn-link\" data-ng-click=\"addObject(record, 'source', 'label', 'citation')\">{{ 'Lägg till källa' }} </button>\n" +
-    "          </td>\n" +
-    "        </tr>\n" +
-    "      </tfoot>\n" +
-    "    </table>\n" +
-    "  </div>\n" +
-    "</div>"
-  );
-
-
   $templateCache.put('/snippets/view-subject',
     "<a ng-init=\"subjectLabel = (object.prefLabel || object.uniformTitle || object.controlledLabel  || object.notation || object.name)\" ng-show=\"subjectLabel\" href=\"#\">\n" +
     "  <i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object)\"></i> {{ subjectLabel }}</a> \n" +

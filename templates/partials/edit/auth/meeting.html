@@ -1,0 +1,34 @@
+
+    <section class="instance">
+      <div class="cols">
+        <div class="col6">
+          <div class="label">
+            <span class="lbl">{{ "Label" }}</span>
+            <input data-track-change type="text" class="" data-ng-model="instance.label"/>
+          </div>
+          <div ng-show="instance.instanceOf"  class="multifield">
+            <span class="lbl">{{ "Används för" }}</span>
+              <div class="label" data-ng-repeat="hasVersion in instance.instanceOf.hasVersion">
+              <input data-track-change class="input-medium" type="text" data-ng-model="hasVersion.label">
+            </div>
+          </div>
+          <div class="label">
+            <span class="lbl">{{ "Plats" }}</span>
+            <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.place.label">{{ instance.place.label }}</textarea>
+          </div>
+          <div class="label">
+            <span class="lbl">{{ "Datum" }}</span>
+            <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="instance.date">{{ instance.date }}</textarea>
+          </div>
+          <div class="label">
+            <span class="lbl">{{ "Anmärkning" }}</span>
+            <div data-ng-repeat="note in instance.note">
+            <textarea data-track-change data-ui-jq="autosize" spellcheck="false"
+                      data-ng-model="note">{{ note }}</textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cols" data-ng-include="'/snippets/source-comment-template'"></div>
+    </section>
+  
