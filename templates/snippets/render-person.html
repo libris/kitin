@@ -11,7 +11,6 @@
         <span onload="person = object" data-ng-include="'/snippets/render-person-name'"></span><a class="auth" href="#" data-ng-click="editable.on = !editable.on">Ändra</a>
     </div>
     <div data-ng-show="editable.on">
-      <a class="delete" href="#" data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a>
       <div class="label">
         <span class="lbl">{{ "Förnamn" }}</span>
         <input data-track-change class="" type="text" placeholder="Förnamn"
