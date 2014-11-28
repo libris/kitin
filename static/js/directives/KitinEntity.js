@@ -63,7 +63,7 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
       $scope.multiple = $attrs.hasOwnProperty('multiple') && $attrs.multiple !== false;
 
       // attrs.link = is in ng-repeat, use full model else typically use about.record
-      var subject = $attrs.link ? $attrs.model : parts.slice(0, 2).join('.'); 
+      var subject = $attrs.link ? $attrs.model : parts.slice(0, parts.length-1).join('.'); 
       // Get variable value from scope
       var subj = $scope.$eval(subject);
       // Get value out of linker in subject
