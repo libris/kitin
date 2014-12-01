@@ -637,24 +637,6 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('/snippets/save-buttons',
-    "<button class=\"btn-link\" id=\"draft\" data-ng-click=\"saveDraft()\"\n" +
-    "  title=\"{{lastSavedLabel('Senast sparad: %s')}}\">Spara utkast</button>\n" +
-    "<button class=\"btn btn-dark btn-submit\" id=\"publish\" data-ng-disabled=\"disableButtons\" data-ng-click=\"save()\"\n" +
-    "  title=\"{{lastPublishedLabel('Senast publicerad: %s')}}\">Publicera</button>"
-  );
-
-
-  $templateCache.put('/snippets/search-subject',
-    "<i class=\"fa fa-search\"></i> \n" +
-    "<input data-kitin-search-entity\n" +
-    "      data-filter=\"{{search_filter}}\"\n" +
-    "      data-service-url=\"{{API_PATH}}/auth/_search\"\n" +
-    "      data-completion-template-id=\"{{search_completion_template}}\" type=\"text\" placeholder=\"\"\n" +
-    "      data-allow-non-auth=\"{{scheme.allowNonAuth}}\">"
-  );
-
-
   $templateCache.put('/snippets/searchfield',
     "\n" +
     "<div data-ng-controller=\"SearchFormCtrl\">\n" +
