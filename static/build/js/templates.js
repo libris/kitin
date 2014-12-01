@@ -557,49 +557,6 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('/snippets/render-search-country',
-    "<i class=\"fa fa-search\"></i>\n" +
-    "<input data-track-change class=\"input-large authdependant embedded\" type=\"text\"\n" +
-    "        placeholder=\"Lägg till land\"\n" +
-    "        data-no-value=\"{{ object.prefLabel }} ({{ object.notation }})\"\n" +
-    "        data-kitin-search-entity\n" +
-    "        data-service-url=\"{{API_PATH}}/def/_search\"\n" +
-    "        data-filter=\"{ filter: 'about.@type:Country'}\"\n" +
-    "        data-completion-template-id=\"select-country-template\" placeholder=\"+ Lägg till land\">"
-  );
-
-
-  $templateCache.put('/snippets/render-search-language',
-    "<div data-click-search>\n" +
-    "  <span class=\"add-link\" ng-click=\"onclick($event)\"><i class=\"fa fa-plus\"></i></span>\n" +
-    "  <span class=\"search-field toggler\">\n" +
-    "    <i class=\"fa fa-search\"></i>\n" +
-    "    <input data-track-change class=\"input-large authdependant embedded\" type=\"text\" ng-blur=\"onblur($event)\"\n" +
-    "      data-no-value=\"{{ object.prefLabel }} ({{ object.langCode }})\"\n" +
-    "      data-kitin-search-entity\n" +
-    "      data-service-url=\"{{API_PATH}}/def/_search\"\n" +
-    "      data-filter=\"{ filter: 'about.@type:Language'}\"\n" +
-    "      data-completion-template-id=\"select-language-template\" placeholder=\"Sök språk\">\n" +
-    "  </span>\n" +
-    "</div>"
-  );
-
-
-  $templateCache.put('/snippets/render-search-role',
-    "<div data-click-search>\n" +
-    "  <span class=\"add-link\" data-ng-click=\"onclick($event)\"><i class=\"fa fa-plus\"></i> Lägg till roll</span>\n" +
-    "  <span class=\"search-field toggler\">\n" +
-    "    <i class=\"fa fa-search\"></i>\n" +
-    "    <input data-track-change type=\"text\" placeholder=\"Sök roller\" ng-blur=\"onblur($event)\"\n" +
-    "          data-service-url=\"{{API_PATH}}/relator/_search\"\n" +
-    "          data-kitin-search-entity\n" +
-    "          data-completion-template-id=\"select-role-template\"\n" +
-    "          />\n" +
-    "  </span>\n" +
-    "</div>"
-  );
-
-
   $templateCache.put('/snippets/searchfield',
     "\n" +
     "<div data-ng-controller=\"SearchFormCtrl\">\n" +
