@@ -13,7 +13,8 @@ Params:
   mutiple: (bool) allow multiple entries
   rich: (bool) sets this entity to rich (for advanced formatting)
   view: (str) view template snippet (detaults to generic)
-  link: (str) link into model, typically model[link]. Used to enable data binding when in a ng-repeat 
+  link: (str) link into model, typically model[link]. Used to enable data binding when in a ng-repeat
+  type: (str) property @type, used when new object is created
   in-kitin-entity-row: (bool) handle special case when in kitin-entity-row (do to scope problems when using transclude)
 */
 
@@ -57,7 +58,7 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
 
       var parts = $attrs.model.split('.');
 
-      $scope.type = $scope.type || _.last(parts);
+      $scope.property = $scope.property || _.last(parts);
       // attrs.link = is in ng-repeat, eval link and use as link into subject else use last part of model
       $scope.link = $attrs.link ? $scope.$eval($attrs.link) : _.last(parts); 
       $scope.multiple = $attrs.hasOwnProperty('multiple') && $attrs.multiple !== false;
@@ -76,16 +77,6 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
           $scope.objects = obj;
         } else {
           $scope.objects = [obj];
-          // ! what is this?
-          /*
-          if($attrs.subject[$scope.link]) {
-            $scope.$watch($attrs.subject[$scope.link], function (newVal, oldVal) {
-              if(typeof newVal !== 'undefined') {
-                $scope.objects = [newVal];
-              }
-            });
-          }
-          */
         }
       } else {
         $scope.objects = null;
@@ -104,7 +95,7 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
       $scope.classNames = classNames.join(' ');
 
       this.doAdd = function(data) {
-        var added = editService.addObject(subj, $scope.link, $scope.type, $scope.multiple, data);
+        var added = editService.addObject(subj, $scope.link, $scope.property, $scope.multiple, data);
 
         if ($scope.multiple) {
           $scope.objects = added;
@@ -113,6 +104,10 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
         }
         $scope.$emit('entity', $scope.objects);
         $scope.viewmode = true;
+      };
+
+      this.doCreate = function(initialValue) {
+        return editService.createObject($scope.property, $attrs.type, initialValue);
       };
 
       $scope.doRemove = function (index) {

@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.2.28-build.565+sha.929dd15
+ * @license AngularJS v1.2.28-build.568+sha.14409d7
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -68,7 +68,7 @@ function minErr(module) {
       return match;
     });
 
-    message = message + '\nhttp://errors.angularjs.org/1.2.28-build.565+sha.929dd15/' +
+    message = message + '\nhttp://errors.angularjs.org/1.2.28-build.568+sha.14409d7/' +
       (module ? module + '/' : '') + code;
     for (i = 2; i < arguments.length; i++) {
       message = message + (i == 2 ? '?' : '&') + 'p' + (i-2) + '=' +
@@ -234,8 +234,8 @@ if ('i' !== 'I'.toLowerCase()) {
 }
 
 
-var /** holds major version number for IE or NaN for real browsers */
-    msie,
+var
+    msie,             // holds major version number for IE, or NaN if UA is not IE.
     jqLite,           // delay binding since jQuery could be loaded after us.
     jQuery,           // delay binding
     slice             = [].slice,
@@ -1987,7 +1987,7 @@ function setupModuleLoader(window) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
-  full: '1.2.28-build.565+sha.929dd15',    // all of these placeholder strings will be replaced by grunt's
+  full: '1.2.28-build.568+sha.14409d7',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
   minor: 2,
   dot: 28,
@@ -10890,7 +10890,7 @@ Parser.prototype = {
       ensureSafeObject(context, parser.text);
       ensureSafeFunction(fnPtr, parser.text);
 
-      // IE stupidity! (IE doesn't have apply for some native functions)
+      // IE doesn't have apply for some native functions
       var v = fnPtr.apply
             ? fnPtr.apply(context, args)
             : fnPtr(args[0], args[1], args[2], args[3], args[4]);
@@ -15824,9 +15824,8 @@ var htmlAnchorDirective = valueFn({
  * make the link go to the wrong URL if the user clicks it before
  * Angular has a chance to replace the `{{hash}}` markup with its
  * value. Until Angular replaces the markup the link will be broken
- * and will most likely return a 404 error.
- *
- * The `ngHref` directive solves this problem.
+ * and will most likely return a 404 error. The `ngHref` directive
+ * solves this problem.
  *
  * The wrong way to write it:
  * ```html
@@ -21446,7 +21445,6 @@ var scriptDirective = ['$templateCache', function($templateCache) {
     compile: function(element, attr) {
       if (attr.type == 'text/ng-template') {
         var templateUrl = attr.id,
-            // IE is not consistent, in scripts we have to read .text but in other nodes we have to read .textContent
             text = element[0].text;
 
         $templateCache.put(templateUrl, text);

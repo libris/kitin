@@ -77,16 +77,17 @@
     </div>
   </kitin-group>
   <kitin-group label="Uppslag">
-    <kitin-entityrow model="record.about.attributedTo" rich type="Person" view="/snippets/render-person">
+    <kitin-entityrow model="record.about.attributedTo" rich view="/snippets/render-person">
       <kitin-search service-url="/auth/_search" 
                     template-id="auth-completion-template" 
                     filter="['about.@type:Person','about.@type:Meeting','about.@type:Organization']">
       </kitin-search>
     </kitin-entityrow>
-    <kitin-entityrow model="record.about.influencedBy" rich type="Person" view="/snippets/render-person">
+    <kitin-entityrow model="record.about.influencedBy" multiple rich view="/snippets/render-person" type="Person">
       <kitin-search service-url="/auth/_search" 
                     template-id="auth-completion-template" 
-                    filter="['about.@type:Person','about.@type:Meeting','about.@type:Organization']">
+                    filter="['about.@type:Person','about.@type:Meeting','about.@type:Organization']"
+                    allow-non-auth>
       </kitin-search>
     </kitin-entityrow>
   </kitin-group>

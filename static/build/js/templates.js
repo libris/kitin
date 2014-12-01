@@ -589,7 +589,6 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "        <span onload=\"person = object\" data-ng-include=\"'/snippets/render-person-name'\"></span><a class=\"auth\" href=\"#\" data-ng-click=\"editable.on = !editable.on\">Ändra</a>\n" +
     "    </div>\n" +
     "    <div data-ng-show=\"editable.on\">\n" +
-    "      <a class=\"delete\" href=\"#\" data-ng-click=\"doRemove($index)\"><i class=\"fa fa-times\"></i></a>\n" +
     "      <div class=\"label\">\n" +
     "        <span class=\"lbl\">{{ \"Förnamn\" }}</span>\n" +
     "        <input data-track-change class=\"\" type=\"text\" placeholder=\"Förnamn\"\n" +

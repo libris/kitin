@@ -12,7 +12,8 @@ Params:
   mutiple: (bool) allow multiple entries
   rich: (bool) sets this entity to rich (for advanced formatting)
   view: (str) view template snippet (detaults to generic)
-  link: (str) link into model, typically model[link]. Used to enable data binding when in a ng-repeat 
+  link: (str) link into model, typically model[link]. Used to enable data binding when in a ng-repeat,
+  type: (str) property @type, used when new object is created
 */
 
 kitin.directive('kitinEntityrow', function(editService, $rootScope) {
@@ -61,7 +62,8 @@ kitin.directive('kitinEntityrow', function(editService, $rootScope) {
         rich: $attrs.hasOwnProperty('rich'),
         view: $attrs.view,
         changeModel: $attrs.changeModel,
-        link: $attrs.link
+        link: $attrs.link,
+        type: $attrs.type 
       });
 
       var hasValue = false;

@@ -14,6 +14,7 @@ Params:
   template-id: (str) jquery template id
   filter: (str) filters for search result
   placeholder: (str) override default "Lägg till" placeholder
+  allow-non-auth: (bool)
 
 */
 
@@ -161,11 +162,12 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope, $q
               return {value: item.about.prefLabel, data: data};
             });
           }
-          if(attrs.allowNonAuth === 'true') {
+
+          if(attrs.hasOwnProperty('allowNonAuth')) {
             // !TODO Add propper lookup against entity definitions
             result.unshift({ 
               value: searchedValue, 
-              data: editService.createObject(scope.$parent.type, searchedValue)
+              data: linker.doCreate(searchedValue)
             });
           }
           return result;

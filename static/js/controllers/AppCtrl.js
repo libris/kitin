@@ -149,5 +149,11 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
     };
   });
 
+  definitions.recordSkeletonTypeMap.then(function(skeletonTypeMap) {
+    $rootScope.getSkeletonTypeMap = function() {
+      return skeletonTypeMap;
+    };
+  });
+
 
 });
