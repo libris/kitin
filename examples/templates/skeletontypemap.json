@@ -18,7 +18,24 @@
           "Person": [],
           "Place": []
       },
-      "exampleOfWork": []
+      "bibliographyCode": [],
+
+
+      "instanceTitle": { "@type": "Title" },
+      "titleVariation": { "@type": "Title" },
+      "translatedTitle": { "@type": "Title" },
+      "previousTitle": { "@type": "Title" },
+      "exampleOfWork": { "@type": "UniformWork" },
+      "influentialRelation": [],
+      "languageNote": [],
+      "issueNumber": [],
+      "describedBy": [],
+      "reproduction": [],
+      "performerNote": [],
+      "systemRequirements": [],
+      "hasAnnotation": [],
+      "replaces": []
+
     },
 
     "Monograph": {
@@ -30,13 +47,8 @@
     },
 
     "Serial": {
-      "keyTitle": [
-          {
-            "@type": "Title",
-            "titleValue": "",
-            "titleQualifier": "",
-            "titleSource": ""
-          }
+      "keyTitle": [ 
+        { "@type": "Title" } 
       ],
       "comment": [],
       "influencedBy": [],
@@ -53,14 +65,6 @@
       "originalLanguage": [],
       "classificationDdc": "",
       "classification": [],
-      "instanceTitle": {
-        "@type": "Title",
-        "titleValue": "",
-        "subtitle": "",
-        "titleDate": "",
-        "partNumber": "",
-        "partTitle": ""
-      },
       "responsibilityStatement": "",
       "publication": [],
       "manufacture": [],
@@ -91,24 +95,8 @@
       "additionalCarrierType": {},
       "index": {},
       "cartographer": [],
-      "cartographicAscensionAndDeclination": [
-        {
-          "@type": "CartographyCoordinates",
-          "cartographicScale": "",
-          "constantRatioLinearHorizontalScale": [],
-          "westernmostLongitudeCoordinates": "",
-          "easternmostLongitudeCoordinates": "",
-          "northernmostLatitudeCoordinates": ""
-        }
-      ],
-      "instanceTitle": {
-        "@type": "Title",
-        "titleValue": "",
-        "subtitle": "",
-        "titleDate": "",
-        "partNumber": "",
-        "partTitle": ""
-      },
+      "cartographicAscensionAndDeclination": { "@type": "CartographyCoordinates" },
+      "instanceTitle": { "@type": "Title" },
       "cartographicScale": "",
       "cartographicCoordinates": "",
       "listOfContents": "",
@@ -219,7 +207,20 @@
       "publicationYear": ""
     },
 
-    "CartographyCoordinates": {},
+    "CartographyCoordinates": {
+        "@type": "CartographyCoordinates",
+        "cartographicScale": "",
+        "angularScale": [],
+        "constantRatioLinearVerticalScale": [],
+        "constantRatioLinearHorizontalScale": [],
+        "westernmostLongitudeCoordinates": "",
+        "easternmostLongitudeCoordinates": "",
+        "northernmostLatitudeCoordinates": "",
+        "cartographicAscensionAndDeclination": [],
+        "gRingLatitude": [],
+        "gRingLongitude": [],
+        "extraterrestrialBody": []
+    },
     "Identifier": {
       "identifierScheme": {"@id": "/def/identifiers/isbn"},
       "identifierValue": ""
@@ -229,8 +230,8 @@
       "titleValue": "",
       "subtitle": "",
       "titleDate": "",
-      "partNumber": "",
-      "partTitle": ""
+      "partNumber": [],
+      "partTitle": []
     },
 
     "Audience": {},
@@ -267,7 +268,23 @@
     },
     "Place": {"label": ""},
     "PlanetaryObject": {"name": ""},
-    "Jurisdiction": {"name": ""}
+    "Jurisdiction": {"name": ""},
+    "UniformWork": {
+      "describedBy": [],
+      "title": "",
+      "subtitle": [],
+      "partTitle": [],
+      "partNumber": [],
+      "language": {},
+      "date": "",
+      "treatySigningDate": [],
+      "version": "",
+      "comment": "",
+      "medium": "",
+      "musicPerformanceMedium": [],
+      "musicArrangement": "",
+      "musicKey": ""
+    }
 
   }
 

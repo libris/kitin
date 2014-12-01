@@ -191,9 +191,13 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
       var createdObject = {};
       try {
         createdObject = $rootScope.getSkeletonTypeMap().summary[type];
+        if(_.isUndefined(createdObject)) {
+          throw '';
+        }
       } catch(error) {
-        console.error('Could not find skeleton for', property, type);
+        console.error('Could not find skeleton for', type);
       }
+      console.log(createdObject, property, type, initalValue);
       return createdObject;
 /*
       switch (type) {
@@ -342,6 +346,17 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
         }
         ['Resource'].concat(types).forEach(function (type) {
           var skeletonType = skeletonTypeMap.main[type];
+
+          // Map @type in main from summary
+          _.forEach(skeletonType, function(skeleton, key) {
+            if(skeleton['@type']) {
+              var summaryType = skeletonTypeMap.summary[skeleton['@type']];
+              if(summaryType) {
+                skeletonType[key] = angular.copy(summaryType);
+              }
+            }
+          }); 
+
           if (skeletonType) {
             this.mergeRecordAndTemplate(record.about, skeletonType);
           }

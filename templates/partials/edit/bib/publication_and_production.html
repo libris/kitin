@@ -8,7 +8,8 @@
       <span ng-switch-when="/def/identifiers/isbn">
         <kitin-table 
          model="record.about.identifierByIdentifierScheme['/def/identifiers/isbn']"
-         labels="['LABEL.record.about.identifierValue','record.about.identifierNote']">
+         labels="['LABEL.record.about.identifierValue','record.about.identifierNote']"
+         type="Identifier">
           <kitin-td>
             <textarea data-ui-jq="autosize" spellcheck="false" name="isbn_name" data-ng-model="item.identifierValue" data-isbn-pattern="^$|^[0-9-xX]*$" isbnvalidator/>
             <!-- TODO! Implement a kitin-error-displayer-something -->
@@ -22,7 +23,8 @@
       <span ng-switch-when="/def/identifiers/issn">
         <kitin-table 
          model="record.about.identifierByIdentifierScheme['/def/identifiers/issn']"
-         labels="['LABEL.record.about.identifierValue','LABEL.record.about.identifierNote']">
+         labels="['LABEL.record.about.identifierValue','LABEL.record.about.identifierNote']"
+         type="Identifier">
           <kitin-td><kitin-textarea model="item.identifierValue"></kitin-textarea></kitin-td>
           <kitin-td><kitin-textarea model="item.identifierNote"></kitin-textarea></kitin-td>
         </kitin-table>
@@ -31,7 +33,8 @@
       <span ng-switch-default>
         <kitin-table 
          model="record.about.identifierByIdentifierScheme[identifierSchemeName]"
-         labels="['identifierValue title','identifierNote title']">
+         labels="['identifierValue title','identifierNote title']"
+         type="Identifier">
           <kitin-td><kitin-textarea model="item.identifierValue"></kitin-textarea></kitin-td>
           <kitin-td><kitin-textarea model="item.identifierNote"></kitin-textarea></kitin-td>
         </kitin-table>
@@ -58,7 +61,8 @@
     </kitin-entityrow>
 
     <kitin-table model="record.about.publication"
-                 labels="['LABEL.record.about.publication.place.label', 'LABEL.record.about.publication.providerName', 'LABEL.record.about.publication.providerDate']">
+                 labels="['LABEL.record.about.publication.place.label', 'LABEL.record.about.publication.providerName', 'LABEL.record.about.publication.providerDate']"
+                 type="ProviderEvent">
       <kitin-td><kitin-textarea model="item.place.label"></kitin-textarea></kitin-td>
       <kitin-td><kitin-textarea model="item.providerName"></kitin-textarea></kitin-td>
       <kitin-td><kitin-textarea model="item.providerDate"></kitin-textarea></kitin-td>
@@ -69,7 +73,8 @@
     <kitin-textrow model="record.about.publisherNumber"></kitin-textrow>
 
     <kitin-table model="record.about.manufacture"
-                 labels="['LABEL.record.about.manufacture.place.label', 'LABEL.record.about.manufacture.providerName', 'LABEL.record.about.publication.providerDate']">
+                 labels="['LABEL.record.about.manufacture.place.label', 'LABEL.record.about.manufacture.providerName', 'LABEL.record.about.publication.providerDate']"
+                 type="ProviderEvent">
       <kitin-td><kitin-textarea model="item.place.label"></kitin-textarea></kitin-td>
       <kitin-td><kitin-textarea model="item.providerName"></kitin-textarea></kitin-td>
       <kitin-td><kitin-textarea model="item.providerDate"></kitin-textarea></kitin-td>
@@ -110,7 +115,8 @@
     </kitin-table>
 
     <kitin-table model="record.about.replaces" 
-                 labels="['LABEL.record.about.replaces.frequency', 'LABEL.record.about.replaces.date']">
+                 labels="['LABEL.record.about.replaces.frequency', 'LABEL.record.about.replaces.date']"
+                 type="Concept">
       <kitin-td><kitin-textarea model="item.frequency"></kitin-textarea></kitin-td>
       <kitin-td><kitin-textarea model="item.date"></kitin-textarea></kitin-td>
     </kitin-table>
