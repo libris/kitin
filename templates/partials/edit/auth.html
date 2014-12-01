@@ -1,5 +1,5 @@
 <ng-form name="subform">
-  <section>
+  <section data-ng-repeat="instance in [record.about]">
     <h2>
       {{ record.about['@type'] }}
       <i></i>
@@ -37,8 +37,8 @@
 
         </div>
         <div class="col-md-8 right">  
-          <button disabled class="btn btn-dark" id="publish" data-ng-class="modifiedClasses()" data-ng-disabled="subform.$invalid || modifications.bib.published" data-ng-click="publish()" title="{{lastPublishedLabel('Senast publicerad: %s')}}">{{modifications.bib.published ? 'Publicerad' : 'Publicera'}} 
-          <i class="fa fa-check" data-ng-show="modifications.bib.published"></i>
+          <button disabled class="btn btn-dark" id="publish" data-ng-disabled="subform.$invalid || modifications.auth.published" data-ng-click="publish()" title="{{lastPublishedLabel('Senast publicerad: %s')}}">{{modifications.auth.published ? 'Publicerad' : 'Publicera'}} 
+          <i class="fa fa-check" data-ng-show="modifications.auth.published"></i>
           </button>
         </div>
       </div>
