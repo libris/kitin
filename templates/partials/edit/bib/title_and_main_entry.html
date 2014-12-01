@@ -101,7 +101,7 @@
     <kitin-textrow model="record.about.exampleOfWork.musicArrangement"></kitin-textrow>
     <kitin-textrow model="record.about.exampleOfWork.musicKey"></kitin-textrow>
 
-    <kitin-entityrow model="record.about.exampleOfWork.describedBy" multiple view="/snippets/view-relation-referenced-entity">
+    <kitin-entityrow model="record.about.exampleOfWork.describedBy" multiple view="/snippets/view-referenced-bib-entity">
       <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
     </kitin-entityrow>
 
@@ -144,23 +144,23 @@
 
   <kitin-group label="LABEL.record.about.relation">
 
-    <kitin-entityrow model="record.about.relation" multiple rich view="/snippets/view-relation-referenced-entity">
+    <kitin-entityrow model="record.about.relation" multiple rich view="/snippets/view-referenced-bib-entity">
       <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
     </kitin-entityrow>
 
-    <kitin-entityrow model="record.about.isPartOf" multiple rich view="/snippets/view-relation-referenced-entity">
+    <kitin-entityrow model="record.about.isPartOf" multiple rich view="/snippets/view-referenced-bib-entity">
       <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
     </kitin-entityrow>
 
-    <kitin-entityrow model="record.about.hasPart" multiple rich view="/snippets/view-relation-referenced-entity">
+    <kitin-entityrow model="record.about.hasPart" multiple rich view="/snippets/view-referenced-bib-entity">
       <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
     </kitin-entityrow>
 
-    <kitin-entityrow model="record.about.precededBy" multiple rich view="/snippets/view-relation-referenced-entity">
+    <kitin-entityrow model="record.about.precededBy" multiple rich view="/snippets/view-referenced-bib-entity">
       <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
     </kitin-entityrow>
 
-    <kitin-entityrow model="record.about.succeededBy" multiple rich view="/snippets/view-relation-referenced-entity">
+    <kitin-entityrow model="record.about.succeededBy" multiple rich view="/snippets/view-referenced-bib-entity">
       <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
     </kitin-entityrow>
 

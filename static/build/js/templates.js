@@ -546,7 +546,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('/snippets/view-relation-referenced-entity',
+  $templateCache.put('/snippets/view-referenced-bib-entity',
     "<div class=\"main\">\n" +
     "  <div class=\"title\">{{ object.title }}</div>\n" +
     "  <div class=\"date\">\n" +
