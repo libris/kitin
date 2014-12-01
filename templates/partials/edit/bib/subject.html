@@ -57,7 +57,7 @@
   
   <div class="label cols" data-ng-repeat="(classificationScheme, subClassification) in record.about.classificationByInScheme">
     <kitin-group ng-switch on="classificationScheme" label="classificationScheme">
-      <kitin-entityrow model="record.about.classificationByInScheme" link="classificationScheme" multiple rich view="/snippets/render-classification">
+      <kitin-entityrow model="record.about.classificationByInScheme" link="classificationScheme" multiple rich view="/snippets/view-classification">
         <kitin-search service-url="/def/_search" template-id="select-classification-template" filter="about.inCollection.@id:{{classificationScheme}}">
         </kitin-search>
       </kitin-entityrow>

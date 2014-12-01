@@ -52,7 +52,7 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
         angular.extend($attrs, $scope.attributes);
       }
       
-      $scope.viewTemplate = $attrs.view || '/snippets/render-generic-linked-entity';
+      $scope.viewTemplate = $attrs.view || '/snippets/view-generic-linked-entity';
      
       $scope.searchTemplate = $attrs.search;
 
