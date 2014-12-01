@@ -197,34 +197,7 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
       } catch(error) {
         console.error('Could not find skeleton for', type);
       }
-      console.log(createdObject, property, type, initalValue);
       return createdObject;
-/*
-      switch (type) {
-        case 'Person':
-          //objectKeys: ['controlledLabel', 'familyName', 'givenName', 'birthYear', 'deathYear']
-          return {'@type': "Person", controlledLabel: "", birthYear: ""};
-        case 'Concept':
-          // !TODO Handle multiple Concept types
-          return {'@type': 'Place', prefLabel: initalValue };
-        case 'ISBN':
-          return {'@type': "Identifier", identifierScheme: { '@id': "/def/identifiers/isbn" }, identifierValue: ""};
-        case '/def/identifiers/issn':
-          return {'@type': "Identifier", identifierScheme: { '@id': "/def/identifiers/issn" }, identifierValue: ""};
-        case 'Identifier':
-          return {'@type': "Identifier", identifierValue: ""};
-        case 'ProviderEvent':
-          return {'@type': "ProviderEvent", providerName: "", providerDate: "",
-                  place: {'@type': "Place", label: ""}};
-        case 'Comment':
-        case 'IssueNumber':
-        case 'audience':
-        case 'summary':
-        case 'subtitle':
-          return '';
-        default:
-          return {};
-      }*/
     },
 
     makeReferenceEntity: function (entity) {
