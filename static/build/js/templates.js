@@ -637,19 +637,6 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('/snippets/roles',
-    "<ul data-kitin-link-entity\n" +
-    "    class=\"tags\"\n" +
-    "    data-service-url=\"{{API_PATH}}/auth\"\n" +
-    "    data-filter=\"{ filter: 'about.@type:ObjectProperty' }\"\n" +
-    "    data-subject=\"object\"\n" +
-    "    data-link-multiple=\"'_reifiedRoles'\" data-type=\"ObjectProperty\"\n" +
-    "    data-view-template=\"/snippets/render-role\"\n" +
-    "    data-search-template=\"/snippets/render-search-role\">\n" +
-    "</ul>"
-  );
-
-
   $templateCache.put('/snippets/save-buttons',
     "<button class=\"btn-link\" id=\"draft\" data-ng-click=\"saveDraft()\"\n" +
     "  title=\"{{lastSavedLabel('Senast sparad: %s')}}\">Spara utkast</button>\n" +
