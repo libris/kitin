@@ -1,2 +1,9 @@
-<strong>{{ object.prefLabel }}</strong>
-<span data-ng-show="object.langCode">({{ object.langCode }})</span>
+
+<a ng-if="isLinked(object)" href="{{API_PATH + object['@id']}}" target="_blank">
+  <strong>{{ object.prefLabel }}</strong>
+  <span data-ng-show="object.langCode">({{ object.langCode }})</span>
+</a>
+
+<span ng-if="!isLinked(object)">
+  <span>{{ object.label }}</span>
+</span>
