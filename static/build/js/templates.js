@@ -1,43 +1,6 @@
 angular.module('kitin').run(['$templateCache', function($templateCache) {
   'use strict';
 
-  $templateCache.put('/snippets/general-identifier-header-row-template',
-    "<td><span class=\"lbl\" translate>LABEL.record.about.identifers.generalIdentifier.identifierValue</span></td>\n" +
-    "<td><span class=\"lbl\" translate>LABEL.record.about.identifers.generalIdentifier.identifierNote</span></td>\n" +
-    "<td><span class=\"lbl\" translate>LABEL.record.about.identifers.generalIdentifier.identifierScheme</span></td>\n" +
-    "<td><span class=\"lbl\" translate>LABEL.record.about.identifers.generalIdentifier.identifierStatus</span></td>"
-  );
-
-
-  $templateCache.put('/snippets/general-identifier-row-template',
-    "<td>\n" +
-    "  <div class=\"label\">\n" +
-    "    <input ng-model=\"object['identifierValue']\" data-track-change type=\"text\" />\n" +
-    "  </div>\n" +
-    "</td>\n" +
-    "<td>\n" +
-    "  <div class=\"label\">\n" +
-    "    <input ng-model=\"object['identifierNote']\" data-track-change type=\"text\" />\n" +
-    "  </div>\n" +
-    "</td>\n" +
-    "<td>\n" +
-    "  <div class=\"label\">\n" +
-    "    <input ng-model=\"object['identifierScheme']['@id']\" data-track-change type=\"text\" />\n" +
-    "  </div>\n" +
-    "</td>\n" +
-    "<td>\n" +
-    "  <div class=\"label\">\n" +
-    "    <input ng-model=\"object['identifierStatus']\" data-track-change type=\"text\" />\n" +
-    "  </div>\n" +
-    "</td>\n" +
-    "<td class=\"controls\">\n" +
-    "  <button class=\"btn-link deleter\" data-ng-click=\"removeTableRow($index)\">\n" +
-    "    <i class=\"fa fa-times\"></i>\n" +
-    "  </button>\n" +
-    "</td>"
-  );
-
-
   $templateCache.put('/snippets/hitlist-compact-auth',
     "<div class=\"hitlist-row auth compact\">\n" +
     "  <div class=\"icon\">\n" +
