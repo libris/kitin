@@ -335,39 +335,6 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('/snippets/render-bib-search',
-    "<!-- \n" +
-    "render-bib-search\n" +
-    "\n" +
-    "Generic bib-search input field, used for reference fields\n" +
-    "\n" +
-    "-->\n" +
-    "\n" +
-    "<div class=\"label find-entity\">\n" +
-    "  <div class=\"add-item search\">\n" +
-    "    <div data-click-search>\n" +
-    "      <span class=\"add-link\" ng-click=\"onclick($event)\"><i class=\"fa fa-plus\"></i> Lägg till {{ label }}</span>\n" +
-    "      <span class=\"toggler\">  \n" +
-    "        <span class=\"search-field\">\n" +
-    "          <i class=\"fa fa-search\"></i>\n" +
-    "          <input ng-blur=\"onblur($event)\" data-track-change class=\"input-large authdependant embedded\" type=\"text\"\n" +
-    "            placeholder=\"Sök {{ label }}\"\n" +
-    "            data-kitin-search-entity\n" +
-    "            data-make-reference-on-item-select=\"true\"\n" +
-    "            data-service-url=\"{{API_PATH}}/bib/_search\"\n" +
-    "            data-filter=\"\"\n" +
-    "            data-completion-template-id=\"bib-completion-template\">\n" +
-    "        </span>\n" +
-    "        <span class=\"linkchoice\" ng-show=\"cancreate\">\n" +
-    "          eller <a href=\"#\">Skapa ny</a>\n" +
-    "        </span>\n" +
-    "      </span>\n" +
-    "    </div>\n" +
-    "  </div>\n" +
-    "</div>"
-  );
-
-
   $templateCache.put('/snippets/render-classification',
     "<a href=\"#\">\n" +
     "  <i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object)\"></i> {{ object.notation }}\n" +
