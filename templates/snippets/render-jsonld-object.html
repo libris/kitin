@@ -19,7 +19,7 @@
       </div>
       <section data-ng-init="object = obj;
             linked = obj[ID] &amp;&amp; obj[ID].indexOf('_:') != 0 &amp;&amp; key != 'about'"
-          data-ng-include="'/snippets/render-object'"
+          data-ng-include="'/snippets/render-jsonld-object'"
           data-ng-class="{linked: linked}" class="entity"></section>
     </div>
     <span data-ng-switch-when="string">
