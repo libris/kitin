@@ -438,44 +438,38 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('/snippets/render-generic-non-auth-add',
-    "<input data-track-change class=\"input-large authdependant embedded\" type=\"text\"\n" +
-    "  placeholder=\"Lägg till\"\n" +
-    "  data-kitin-search-entity\n" +
-    "  data-completion-template-id=\"non-auth-completion-template\"\n" +
-    "  data-allow-non-auth=\"true\">"
-  );
-
-
-  $templateCache.put('/snippets/render-generic-select',
-    "<!-- \n" +
-    "  render-generic-select\n" +
-    "  Generic select dropdown for linked entities\n" +
-    "-->\n" +
-    "\n" +
-    "<select \n" +
-    "  data-kitin-select-entity\n" +
-    "  data-selected-item-variable=\"selectedItem.about\"\n" +
-    "  ng-options=\"(item.about.prefLabel || item.about.prefLabel-en) for item in objects | orderBy:'about.prefLabel'\">\n" +
-    "</select>"
-  );
-
-
-  $templateCache.put('/snippets/render-generic-tag-entity',
-    "<!-- \n" +
-    "  render-generic-tag-entity  \n" +
-    "  Generic tag, used for subject-fields\n" +
-    "-->\n" +
-    "\n" +
-    "<ul class=\"tags\">\n" +
-    "  <li>\n" +
-    "    <a href=\"#\">\n" +
-    "      <i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object)\"></i>\n" +
-    "      {{ object.prefLabel }}\n" +
-    "    </a>\n" +
-    "    <i data-ng-if=\"!editable.on\" data-ng-click=\"doRemove($index)\" class=\"no\">&times;</i>\n" +
-    "  </li>\n" +
-    "</ul>"
+  $templateCache.put('/snippets/render-jsonld-object',
+    "<div class=\"header\" data-ng-if=\"object[TYPE] || object[ID]\">\n" +
+    "  <span class=\"type\" data-ng-if=\"object[TYPE]\"\n" +
+    "        data-ng-repeat=\"typekey in ensureArray(object[TYPE])\"\n" +
+    "        data-ng-click=\"openTermDef(typekey)\">{{ typekey }} </span>\n" +
+    "  <span data-ng-if=\"object[ID]\">\n" +
+    "    <a href=\"{{ toJsonLdLink(object[ID]) }}\">&lt;{{ object[ID] }}&gt; </a>\n" +
+    "  </span>\n" +
+    "</div>\n" +
+    "<div data-ng-repeat=\"key in jsonLdKeys(object)\"\n" +
+    "     data-ng-init=\"obj = object[key]\"\n" +
+    "     data-ng-if=\"key[0] != '@'\">\n" +
+    "  <ng:switch on=\"typeOf(obj)\">\n" +
+    "    <div data-ng-switch-when=\"object\"\n" +
+    "         data-ng-init=\"collapsed = (key == '_marcUncompleted')\"\n" +
+    "         data-ng-class=\"{collapsed: collapsed, array: lodash.isArray(obj)}\">\n" +
+    "      <div class=\"label entitylink\">\n" +
+    "        <span data-ng-click=\"openTermDef(key)\">{{ key }}</span>\n" +
+    "        <i data-ng-click=\"collapsed=!collapsed\"> </i>\n" +
+    "      </div>\n" +
+    "      <section data-ng-init=\"object = obj;\n" +
+    "            linked = obj[ID] &amp;&amp; obj[ID].indexOf('_:') != 0 &amp;&amp; key != 'about'\"\n" +
+    "          data-ng-include=\"'/snippets/render-jsonld-object'\"\n" +
+    "          data-ng-class=\"{linked: linked}\" class=\"entity\"></section>\n" +
+    "    </div>\n" +
+    "    <span data-ng-switch-when=\"string\">\n" +
+    "      <code data-ng-click=\"openTermDef(key)\">{{ key }}</code>\n" +
+    "      <input data-ng-if=\"!linked\" data-ng-model=\"obj\" type=\"text\" />\n" +
+    "      <span data-ng-if=\"linked\">{{ obj }}</span>\n" +
+    "    </span>\n" +
+    "  </ng:switch>\n" +
+    "</div>\n"
   );
 
 
@@ -512,50 +506,6 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    {{ class.get('label') }}\n" +
     "  </div>\n" +
     "</div>"
-  );
-
-
-  $templateCache.put('/snippets/render-non-auth-tag',
-    "<a href=\"#\">\n" +
-    "  <i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object)\"></i>\n" +
-    "  {{ object }}\n" +
-    "</a>\n" +
-    "<i data-ng-if=\"!editable.on\" data-ng-click=\"doRemove($index)\" class=\"no\">&times;</i>"
-  );
-
-
-  $templateCache.put('/snippets/render-object',
-    "<div class=\"header\" data-ng-if=\"object[TYPE] || object[ID]\">\n" +
-    "  <span class=\"type\" data-ng-if=\"object[TYPE]\"\n" +
-    "        data-ng-repeat=\"typekey in ensureArray(object[TYPE])\"\n" +
-    "        data-ng-click=\"openTermDef(typekey)\">{{ typekey }} </span>\n" +
-    "  <span data-ng-if=\"object[ID]\">\n" +
-    "    <a href=\"{{ toJsonLdLink(object[ID]) }}\">&lt;{{ object[ID] }}&gt; </a>\n" +
-    "  </span>\n" +
-    "</div>\n" +
-    "<div data-ng-repeat=\"key in jsonLdKeys(object)\"\n" +
-    "     data-ng-init=\"obj = object[key]\"\n" +
-    "     data-ng-if=\"key[0] != '@'\">\n" +
-    "  <ng:switch on=\"typeOf(obj)\">\n" +
-    "    <div data-ng-switch-when=\"object\"\n" +
-    "         data-ng-init=\"collapsed = (key == '_marcUncompleted')\"\n" +
-    "         data-ng-class=\"{collapsed: collapsed, array: lodash.isArray(obj)}\">\n" +
-    "      <div class=\"label entitylink\">\n" +
-    "        <span data-ng-click=\"openTermDef(key)\">{{ key }}</span>\n" +
-    "        <i data-ng-click=\"collapsed=!collapsed\"> </i>\n" +
-    "      </div>\n" +
-    "      <section data-ng-init=\"object = obj;\n" +
-    "            linked = obj[ID] &amp;&amp; obj[ID].indexOf('_:') != 0 &amp;&amp; key != 'about'\"\n" +
-    "          data-ng-include=\"'/snippets/render-object'\"\n" +
-    "          data-ng-class=\"{linked: linked}\" class=\"entity\"></section>\n" +
-    "    </div>\n" +
-    "    <span data-ng-switch-when=\"string\">\n" +
-    "      <code data-ng-click=\"openTermDef(key)\">{{ key }}</code>\n" +
-    "      <input data-ng-if=\"!linked\" data-ng-model=\"obj\" type=\"text\" />\n" +
-    "      <span data-ng-if=\"linked\">{{ obj }}</span>\n" +
-    "    </span>\n" +
-    "  </ng:switch>\n" +
-    "</div>\n"
   );
 
 
@@ -621,22 +571,6 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('/snippets/render-referenced-entity',
-    "<div class=\"entity relation linked\">\n" +
-    "  <div class=\"main\">\n" +
-    "    <div class=\"title\">{{ object.title || object.uniformTitle }}</div>\n" +
-    "    <div class=\"date\">\n" +
-    "      <span title=\"ISSN\">\n" +
-    "        {{ object.issn }}\n" +
-    "      </span>\n" +
-    "    </div>\n" +
-    "  </div>\n" +
-    "  <a data-ng-if=\"!editable.on\" class=\"delete\" href=\"#\"\n" +
-    "     data-ng-click=\"doRemove($index)\"><i class=\"fa fa-times\"></i></a>\n" +
-    "</div>"
-  );
-
-
   $templateCache.put('/snippets/render-relation-referenced-entity',
     "<div class=\"main\">\n" +
     "  <div class=\"title\">{{ object.title }}</div>\n" +
@@ -657,54 +591,6 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
   $templateCache.put('/snippets/render-role',
     "{{ object.label }} <em>({{ object.notation }})</em>"
-  );
-
-
-  $templateCache.put('/snippets/render-search-box-2',
-    "<span class=\"search-box\">  \n" +
-    "  <span class=\"search-field\">\n" +
-    "    <kitin-search\n" +
-    "      service-url=\"/bib/_search\"\n" +
-    "      make-reference-on-item-select=\"true\"\n" +
-    "      completion-template-id=\"bib-completion-template\" \n" +
-    "      >\n" +
-    "    </kitin-search>\n" +
-    "  </span>\n" +
-    "  <span class=\"linkchoice\">\n" +
-    "    eller <a href=\"#\">Skapa ny</a>\n" +
-    "  </span>\n" +
-    "</span>"
-  );
-
-
-  $templateCache.put('/snippets/render-search-box',
-    "<div class=\"label find-entity\">\n" +
-    "  <div class=\"add-item search\">\n" +
-    "    <div data-click-search>\n" +
-    "      <span class=\"add-link\" ng-click=\"onclick($event)\"><i class=\"fa fa-plus\"></i> Lägg till {{ label }}</span>\n" +
-    "      <span class=\"toggler\">  \n" +
-    "        <span class=\"search-field\">\n" +
-    "          <i class=\"fa fa-search\"></i>\n" +
-    "          <input ng-blur=\"onblur($event)\" class=\"input-large\" type=\"text\" placeholder=\"Sök {{ label }}\"\n" +
-    "                data-kitin-search-entity\n" +
-    "                data-service-url=\"{{API_PATH}}/auth/_search\"\n" +
-    "                data-filter=\"{ \n" +
-    "                    'filters' : ['about.@type:Person', 'about.@type:Meeting', 'about.@type:Organization' ] } \"\n" +
-    "                data-completion-template-id=\"auth-completion-template\" \n" +
-    "                data-allow-non-auth=\"true\"/>\n" +
-    "        </span>\n" +
-    "        <span class=\"linkchoice\">\n" +
-    "          eller <a href=\"#\">Skapa ny</a>\n" +
-    "        </span>\n" +
-    "      </span>\n" +
-    "    </div>\n" +
-    "  </div>\n" +
-    "</div>"
-  );
-
-
-  $templateCache.put('/snippets/render-search-classification',
-    ""
   );
 
 
