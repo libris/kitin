@@ -50,7 +50,7 @@
       <kitin-select filter="about.inCollection.@id:/def/enum/content/contentType-collection"></kitin-select>
     </kitin-entityrow>
 
-    <kitin-entityrow model="record.about.publicationCountry" multiple view="/snippets/render-country">
+    <kitin-entityrow model="record.about.publicationCountry" multiple view="/snippets/view-country">
       <kitin-search service-url="/def/_search" 
                     template-id="select-country-template" 
                     filter="about.@type:Country">
@@ -117,11 +117,11 @@
   </kitin-group>
 
   <kitin-group label="References title">
-    <kitin-entityrow model="record.about.alternateEdition" multiple rich view="/snippets/render-relation-referenced-entity">
+    <kitin-entityrow model="record.about.alternateEdition" multiple rich view="/snippets/view-relation-referenced-entity">
       <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
     </kitin-entityrow>
 
-    <kitin-entityrow model="record.about.alternateFormat" multiple rich view="/snippets/render-relation-referenced-entity">
+    <kitin-entityrow model="record.about.alternateFormat" multiple rich view="/snippets/view-relation-referenced-entity">
       <kitin-search service-url="/bib/_search" make-reference template-id="bib-completion-template"></kitin-search>
     </kitin-entityrow>
 

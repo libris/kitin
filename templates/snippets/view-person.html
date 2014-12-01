@@ -1,6 +1,6 @@
 <div class="person main">
   <div data-ng-if="isLinked(object) && !isEmpty(object)" >
-    <span onload="person = object" data-ng-include="'/snippets/render-person-name'"></span>
+    <span onload="person = object" data-ng-include="'/snippets/person-name'"></span>
     <a data-ng-if="isLinked(object)" class="btn-link auth" data-ng-controller="ModalCtrl" data-ng-click="openAuthModal(person['@id'])">
       <i class="fa fa-bookmark"></i> Aukt.
     </a>
@@ -8,7 +8,7 @@
   <div data-ng-if="!isLinked(object)"
         data-ng-init="editable = {on: !(object.controlledLabel || object.givenName || object.name)}">
     <div data-ng-hide="editable.on">
-        <span onload="person = object" data-ng-include="'/snippets/render-person-name'"></span><a class="auth" href="#" data-ng-click="editable.on = !editable.on">Ändra</a>
+        <span onload="person = object" data-ng-include="'/snippets/person-name'"></span><a class="auth" href="#" data-ng-click="editable.on = !editable.on">Ändra</a>
     </div>
     <div data-ng-show="editable.on">
       <div class="label">
@@ -36,7 +36,7 @@
       </div>
     </div>
   </div>
-  <kitin-entity multiple hide-title model="record.about._reifiedRoles" type="ObjectProperty" view="/snippets/render-role">
+  <kitin-entity multiple hide-title model="record.about._reifiedRoles" type="ObjectProperty" view="/snippets/view-role">
     <kitin-search service-url="/relator/_search" filter="about.@type:ObjectProperty" template-id="select-role-template" placeholder="Lägg till roll"></kitin-search>
   </kitin-entity>
 </div>
