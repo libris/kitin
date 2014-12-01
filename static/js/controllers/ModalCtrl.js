@@ -10,30 +10,34 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
   $scope.openAuthModal = function(id) {
     id = id.replace('/resource',''); // TODO, should be the record id
     $scope.authModal = editService.getRecordTypeId(id).then(function(record) {
-      var opts = angular.extend( defaultModalOptions, {
-        templateUrl: '/snippets/modal-edit-auth',
-        controller: 'ModalAuthCtrl',
-        windowClass: 'modal-large auth-modal',
-        resolve: {
-          recType: function() { return record.type; },
-          recId: function() { return record.id; }
-        }
-      });
+    var opts = angular.extend( 
+                defaultModalOptions, 
+                {
+                  templateUrl: '/snippets/modal-edit-auth',
+                  controller: 'ModalAuthCtrl',
+                  windowClass: 'modal-large auth-modal',
+                  resolve: {
+                    recType: function() { return record.type; },
+                    recId: function() { return record.id; }
+                  }
+                });
       $modal.open(opts);
     });
   };
 
   $scope.openBibModal = function(id) {
     $scope.bibModal = editService.getRecordTypeId(id).then(function(record) {
-      var opts = angular.extend(defaultModalOptions, {
-        templateUrl: '/snippets/modal-edit-bib',
-        controller: 'ModalBibCtrl',
-        windowClass: 'modal-large bib-modal',
-        resolve: {
-          recType: function() { return record.type; },
-          recId: function() { return record.id; }
-        }
-      });
+    var opts = angular.extend(
+                defaultModalOptions, 
+                {
+                  templateUrl: '/snippets/modal-edit-bib',
+                  controller: 'ModalBibCtrl',
+                  windowClass: 'modal-large bib-modal',
+                  resolve: {
+                    recType: function() { return record.type; },
+                    recId: function() { return record.id; }
+                  }
+                });
       $modal.open(opts);
     });
   };
@@ -53,23 +57,23 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
     var opts = angular.extend(
                   defaultModalOptions,
                   {
-                  templateUrl: '/snippets/modal-remote',
-                  controller: 'ModalRemoteCtrl',
-                  scope: $scope,
-                  windowClass: 'modal-large remote-modal'
+                    templateUrl: '/snippets/modal-remote',
+                    controller: 'ModalRemoteCtrl',
+                    scope: $scope,
+                    windowClass: 'modal-large remote-modal'
                   });
     $scope.remoteModal = $modal.open(opts);
   };
 
   $scope.openCreateNewModal = function() {
     var opts = angular.extend(
-                  defaultModalOptions,
-                  {
+                defaultModalOptions,
+                {
                   templateUrl: '/snippets/modal-create-new',
                   controller: 'ModalCreateNewCtrl',
                   scope: $scope,
                   windowClass: 'modal-large create-modal'
-                  });
+                });
     $scope.remoteModal = $modal.open(opts);
   };
 
@@ -77,8 +81,8 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
     event.preventDefault();
     event.stopPropagation();
     var opts = angular.extend(
-                  defaultModalOptions,
-                  {
+                defaultModalOptions,
+                {
                   templateUrl: '/snippets/modal-holdings',
                   controller: 'ModalHoldingsCtrl',
                   windowClass: 'modal-large holdings-modal',
@@ -88,21 +92,22 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
                       return record;
                     }
                   }
-                  });
+                });
     $scope.holdingsModal = $modal.open(opts);
   };
 
   $scope.openMARCModal = function(event, record) {
-    var opts = angular.extend( defaultModalOptions, {
-      templateUrl: '/partials/modal_marc',
-      controller: 'ModalMARCCtrl',
-      windowClass: 'modal-large marc-modal',
-      resolve: {
-        record: function() { return record; }
-      }
-    });
-    
-     $scope.marcModal = $modal.open(opts);
+    var opts = angular.extend( 
+                defaultModalOptions, 
+                {
+                  templateUrl: '/snippets/modal-marc',
+                  controller: 'ModalMARCCtrl',
+                  windowClass: 'modal-large marc-modal',
+                  resolve: {
+                    record: function() { return record; }
+                  }
+              });
+    $scope.marcModal = $modal.open(opts);
   };
 
 });

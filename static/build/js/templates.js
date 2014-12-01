@@ -239,6 +239,49 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('/snippets/modal-marc',
+    "<div class=\"modal-header marc\">\n" +
+    "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
+    "  <h4 class=\"modal-title\">MARC förhandsgranskning</h4>\n" +
+    "</div>\n" +
+    "\n" +
+    "<div class=\"modal-body marc\">\n" +
+    "    <div data-cg-busy=\"{promise:promises.marc, message:'Laddar marcformat...', minDuration: 800}\"></div>\n" +
+    "    <section class=\"marc\">\n" +
+    "      <table>\n" +
+    "        <tr>\n" +
+    "          <td data-ng-if=\"record.leader\">\n" +
+    "            <code>000</code>\n" +
+    "          </td>\n" +
+    "          <td></td>\n" +
+    "          <td></td>\n" +
+    "          <td colspan=\"3\">\n" +
+    "            <span>{{record.leader}}</span>\n" +
+    "          </td>\n" +
+    "        </tr>\n" +
+    "        <tr data-ng-repeat=\"field in record.fields\" ng-init=\"pair = lodash.pairs(field)[0]; key = pair[0]; value = pair[1]\">\n" +
+    "          <td>\n" +
+    "            <code>{{key}}</code>\n" +
+    "          </td>\n" +
+    "          <td class=\"ind\">\n" +
+    "            {{value.ind1}}\n" +
+    "          </td>\n" +
+    "          <td class=\"ind\">\n" +
+    "            {{value.ind2}}\n" +
+    "          </td>\n" +
+    "          <td>\n" +
+    "            <span ng-if=\"typeOf(value) === 'string'\">{{value}}</span>\n" +
+    "            <span data-ng-init=\"object = value.subfields\" data-ng-include=\"'/snippets/marc-object'\"></span>\n" +
+    "          </td>\n" +
+    "        </tr>\n" +
+    "      </table>\n" +
+    "    </section>\n" +
+    "</div>\n" +
+    "\n" +
+    "<div class=\"modal-footer holdings submit\"></div>"
+  );
+
+
   $templateCache.put('/snippets/modal-release',
     "<div class=\"modal-header\">\n" +
     "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
@@ -383,6 +426,93 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "<div class=\"modal-footer\">\n" +
     "  <button class=\"btn btn-green\" ng-click=\"remoteDatabaseFilterQuery = ''; close()\">OK</button>\n" +
     "</div>"
+  );
+
+
+  $templateCache.put('/snippets/modal-vocabview',
+    "<div class=\"modal-header\">\n" +
+    "  <h2>{{ getLeaf(term[ID]) }}\n" +
+    "    (<span>{{ ensureArray(term[TYPE]).join(\", \") }}</span>)</h2>\n" +
+    "</div>\n" +
+    "<div class=\"modal-body\">\n" +
+    "  <p>\n" +
+    "    {{ term.label }}\n" +
+    "    <em data-ng-if=\"term.comment\">&mdash; {{ term.comment }}</em>\n" +
+    "  </p>\n" +
+    "  <ng:switch on=\"term[TYPE]\">\n" +
+    "    <div data-ng-switch-when=\"Class\">\n" +
+    "      <dl>\n" +
+    "        <dt>Baserad på:</dt>\n" +
+    "        <dd>\n" +
+    "          <ul>\n" +
+    "            <li data-ng-repeat=\"bc in term.get('subClassOf')\"\n" +
+    "                data-ng-init=\"lkey = getLeaf(bc[ID])\">\n" +
+    "              <a data-ng-click=\"viewTerm(lkey)\">{{ lkey }}</a>\n" +
+    "            </li>\n" +
+    "          </ul>\n" +
+    "        </dd>\n" +
+    "        <dt>Egenskaper:</dt>\n" +
+    "        <dd>\n" +
+    "          <ul>\n" +
+    "            <li data-ng-repeat=\"domain in term.subjects('domainIncludes')\"\n" +
+    "                data-ng-init=\"lkey = getLeaf(domain[ID])\">\n" +
+    "              <a data-ng-click=\"viewTerm(lkey)\">{{ lkey }}</a>\n" +
+    "            </li>\n" +
+    "          </ul>\n" +
+    "        </dd>\n" +
+    "        <dt>Pekas till via:</dt>\n" +
+    "        <dd>\n" +
+    "          <ul>\n" +
+    "            <li data-ng-repeat=\"range in term.subjects('rangeIncludes')\"\n" +
+    "                data-ng-init=\"lkey = getLeaf(range[ID])\">\n" +
+    "              <a data-ng-click=\"viewTerm(lkey)\">{{ lkey }}</a>\n" +
+    "            </li>\n" +
+    "          </ul>\n" +
+    "        </dd>\n" +
+    "        <dt>Mer specifika typer:</dt>\n" +
+    "        <dd>\n" +
+    "          <ul>\n" +
+    "            <li data-ng-repeat=\"sc in term.subjects('subClassOf')\"\n" +
+    "                data-ng-init=\"lkey = getLeaf(sc[ID])\">\n" +
+    "              <a data-ng-click=\"viewTerm(lkey)\">{{ lkey }}</a>\n" +
+    "            </li>\n" +
+    "          </ul>\n" +
+    "        </dd>\n" +
+    "      </dl>\n" +
+    "    </div>\n" +
+    "    <div data-ng-switch-default>\n" +
+    "      <dl>\n" +
+    "        <dt>Baserad på:</dt>\n" +
+    "        <dd>\n" +
+    "          <ul>\n" +
+    "            <li data-ng-repeat=\"bp in term.get('subPropertyOf')\"\n" +
+    "                data-ng-init=\"lkey = getLeaf(bp[ID])\">\n" +
+    "              <a data-ng-click=\"viewTerm(lkey)\">{{ lkey }}</a>\n" +
+    "            </li>\n" +
+    "          </ul>\n" +
+    "        </dd>\n" +
+    "        <dt>Är egenskap på:</dt>\n" +
+    "        <dd>\n" +
+    "          <ul>\n" +
+    "            <li data-ng-repeat=\"domain in term.get('domainIncludes')\"\n" +
+    "                data-ng-init=\"lkey = getLeaf(domain[ID])\">\n" +
+    "              <a data-ng-click=\"viewTerm(lkey)\">{{ lkey }}</a>\n" +
+    "            </li>\n" +
+    "          </ul>\n" +
+    "        </dd>\n" +
+    "        <dt>Pekar på:</dt>\n" +
+    "        <dd>\n" +
+    "          <ul>\n" +
+    "            <li data-ng-repeat=\"range in term.get('rangeIncludes')\"\n" +
+    "                data-ng-init=\"lkey = getLeaf(range[ID])\">\n" +
+    "              <a data-ng-click=\"viewTerm(lkey)\">{{ lkey }}</a>\n" +
+    "            </li>\n" +
+    "          </ul>\n" +
+    "        </dd>\n" +
+    "      </dl>\n" +
+    "    </div>\n" +
+    "  </ng:switch>\n" +
+    "</div>\n"
   );
 
 
