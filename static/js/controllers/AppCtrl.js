@@ -13,7 +13,8 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
   // Container for dirty flags
   $rootScope.modifications = {
     bib: {},
-    holding: {}
+    holding: {},
+    auth: {}
   };
   
   // Container for busy indicators
@@ -21,7 +22,8 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
     bib: {},
     holding: {},
     draft: {},
-    marc: {}
+    marc: {},
+    auth: {}
   };
 
   if ( debug === true ) {

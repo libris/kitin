@@ -18,13 +18,13 @@
   <kitin-table 
     model="instance.sameAs"
     labels="['Efternamn','Förnamn']">
-      <kitin-td><kitin-textarea model="item.familyName"></kitin-textarea></kitin-td>
-      <kitin-td><kitin-textarea model="item.givenName"></kitin-textarea></kitin-td>
+      <kitin-td><kitin-textarea model="item.familyName" change-model="auth"></kitin-textarea></kitin-td>
+      <kitin-td><kitin-textarea model="item.givenName" change-model="auth"></kitin-textarea></kitin-td>
   </kitin-table>
 
-  <kitin-textrow model="instance.personTitle"></kitin-textrow>
+  <kitin-textrow model="instance.personTitle" change-model="auth"></kitin-textrow>
   
-  <kitin-textrow model="instance.scopeNote"></kitin-textrow>
+  <kitin-textrow model="instance.scopeNote" change-model="auth"></kitin-textrow>
 
   <!-- <kitin-entityrow model="instance.nationality" multiple>
     <kitin-search service-url="/def/_search" 
@@ -37,16 +37,16 @@
   <kitin-table 
     model="instance.subject"
     labels="['Dewey']">
-      <kitin-td><kitin-textarea model="item.notation"></kitin-textarea></kitin-td>
+      <kitin-td><kitin-textarea model="item.notation" change-model="auth"></kitin-textarea></kitin-td>
   </kitin-table>
 </kitin-group>
 
 <kitin-group>
-  <kitin-textrow model="record.comment" label="{{ 'Allmän anmärkning' }}"></kitin-textrow>
+  <kitin-textrow model="record.comment" label="{{ 'Allmän anmärkning' }}" change-model="auth"></kitin-textrow>
   
-  <kitin-textrow model="instance.note" label="{{ 'Biografisk uppgift' }}"></kitin-textrow>
+  <kitin-textrow model="instance.note" label="{{ 'Biografisk uppgift' }}" change-model="auth"></kitin-textrow>
   
-  <kitin-textrow model="record.note" label="{{ 'Notering' }}"></kitin-textrow>
+  <kitin-textrow model="record.note" label="{{ 'Notering' }}" change-model="auth"></kitin-textrow>
 </kitin-group>
 
 <div data-ng-include="'/snippets/source-comment-template'"></div>
