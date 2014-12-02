@@ -177,14 +177,20 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <section class=\"offer form-container\" data-ng-repeat=\"offer in holding.about.offers track by $index\">\n" +
     "      <div class=\"cols\">\n" +
     "          <kitin-group label=\"Lokalsignum\" initially-visible>\n" +
-    "            <kitin-entityrow label-prefix=\"LABEL.holdings.\" model=\"offer.heldBy\">\n" +
-    "            <span class=\"select\">\n" +
-    "              <select data-track-change=\"holding\" data-ng-model=\"offer.heldBy\">\n" +
-    "                <option data-ng-selected=\"true\">{{userSigel}}</option>\n" +
-    "              </select>\n" +
-    "              <i class=\"fa fa-caret-down\"></i>\n" +
-    "            </span>\n" +
-    "            </kitin-entityrow>\n" +
+    "            <!-- Fake Sigel drop-down until we decide how to handle multiple sigels for single users -->\n" +
+    "            <div class=\"label\">\n" +
+    "              <span class=\"lbl\">Sigel</span>\n" +
+    "              <span class=\"inp\">\n" +
+    "                <div class=\"entity tags\">\n" +
+    "                  <span class=\"select\">\n" +
+    "                    <select>\n" +
+    "                      <option data-ng-selected=\"true\">{{userSigel}}</option>\n" +
+    "                    </select>\n" +
+    "                    <i class=\"fa fa-caret-down\"></i>\n" +
+    "                  </span>\n" +
+    "                </div>\n" +
+    "              </span>\n" +
+    "            </div>\n" +
     "\n" +
     "            <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.shelfLocation\" change-model=\"holding\"></kitin-textrow>\n" +
     "            <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.classificationPart\" change-model=\"holding\"></kitin-textrow>\n" +

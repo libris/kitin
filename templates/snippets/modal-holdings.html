@@ -31,14 +31,20 @@
     <section class="offer form-container" data-ng-repeat="offer in holding.about.offers track by $index">
       <div class="cols">
           <kitin-group label="Lokalsignum" initially-visible>
-            <kitin-entityrow label-prefix="LABEL.holdings." model="offer.heldBy">
-            <span class="select">
-              <select data-track-change="holding" data-ng-model="offer.heldBy">
-                <option data-ng-selected="true">{{userSigel}}</option>
-              </select>
-              <i class="fa fa-caret-down"></i>
-            </span>
-            </kitin-entityrow>
+            <!-- Fake Sigel drop-down until we decide how to handle multiple sigels for single users -->
+            <div class="label">
+              <span class="lbl">Sigel</span>
+              <span class="inp">
+                <div class="entity tags">
+                  <span class="select">
+                    <select>
+                      <option data-ng-selected="true">{{userSigel}}</option>
+                    </select>
+                    <i class="fa fa-caret-down"></i>
+                  </span>
+                </div>
+              </span>
+            </div>
 
             <kitin-textrow label-prefix="LABEL.holdings." model="offer.shelfLocation" change-model="holding"></kitin-textrow>
             <kitin-textrow label-prefix="LABEL.holdings." model="offer.classificationPart" change-model="holding"></kitin-textrow>

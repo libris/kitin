@@ -1,4 +1,21 @@
-<div class="label">
+<kitin-group>
+  <kitin-textrow model="instance.uniformTitle"></kitin-textrow>
+  
+  <div ng-show="instance.hasVersion"  class="multifield">
+    <span class="lbl">{{ "Alternativ titelform" }}</span>
+    <div class="label" data-ng-repeat="hasVersion in instance.hasVersion">
+      <input data-track-change class="input-medium" type="text" data-ng-model="hasVersion.uniformTitle">
+    </div>
+  </div>
+
+  <kitin-textrow model="instance.attributedTo.controlledLabel"></kitin-textrow>
+
+  <kitin-table model="instance.note">
+    <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
+  </kitin-table>
+</kitin-group>
+
+<!-- <div class="label">
   <span class="lbl">{{ "Uniform Titel" }}</span>
   <input data-track-change type="text" class="" data-ng-model="instance.uniformTitle"/>
 </div>
@@ -21,6 +38,6 @@
 <div class="label">
 <span class="lbl">{{ "Anmärkning" }}</span>
   <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="record.editorialNote">{{ record.editorialNote }}</textarea>
-</div>
+</div> -->
 
 <div class="cols" data-ng-include="'/snippets/source-comment-template'"></div>
