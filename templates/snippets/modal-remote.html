@@ -25,7 +25,7 @@
         <h4 ng-if="groupRemoteDatabases && orderedRemoteDatabases[$index-1][orderRemoteDatabases] !== database[orderRemoteDatabases]">
           {{database.country}}
         </h4>
-        <a href="#" class="database-name"  ng-class="{'active':database.selected}" ng-click="database.selected = !database.selected">
+        <a href="" class="database-name"  ng-class="{'active':database.selected}" ng-click="database.selected = !database.selected">
           {{ database.alternativeName }}
         </a>
         <a href="{{database.address}}" target="_blank">

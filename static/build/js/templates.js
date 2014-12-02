@@ -411,7 +411,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "        <h4 ng-if=\"groupRemoteDatabases && orderedRemoteDatabases[$index-1][orderRemoteDatabases] !== database[orderRemoteDatabases]\">\n" +
     "          {{database.country}}\n" +
     "        </h4>\n" +
-    "        <a href=\"#\" class=\"database-name\"  ng-class=\"{'active':database.selected}\" ng-click=\"database.selected = !database.selected\">\n" +
+    "        <a href=\"\" class=\"database-name\"  ng-class=\"{'active':database.selected}\" ng-click=\"database.selected = !database.selected\">\n" +
     "          {{ database.alternativeName }}\n" +
     "        </a>\n" +
     "        <a href=\"{{database.address}}\" target=\"_blank\">\n" +
@@ -582,7 +582,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "          </li>\n" +
     "        </ul>\n" +
     "        <div data-ng-controller=\"ModalCtrl\">\n" +
-    "          <a href=\"#\" data-ng-click=\"openRemoteModal()\">Fler källor</a>\n" +
+    "          <a href=\"\" data-ng-click=\"openRemoteModal()\">Fler källor</a>\n" +
     "        </div>            \n" +
     "      </div>\n" +
     "    </form>\n" +
@@ -604,7 +604,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('/snippets/view-classification',
-    "<a href=\"#\">\n" +
+    "<a href=\"\">\n" +
     "  <i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object)\"></i> {{ object.notation }}\n" +
     "</a>"
   );
@@ -656,7 +656,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  <div data-ng-if=\"!isLinked(object)\"\n" +
     "        data-ng-init=\"editable = {on: !(object.controlledLabel || object.givenName || object.name)}\">\n" +
     "    <div data-ng-hide=\"editable.on\">\n" +
-    "        <span onload=\"person = object\" data-ng-include=\"'/snippets/person-name'\"></span><a class=\"auth\" href=\"#\" data-ng-click=\"editable.on = !editable.on\">Ändra</a>\n" +
+    "        <span onload=\"person = object\" data-ng-include=\"'/snippets/person-name'\"></span><a class=\"auth\" href=\"\" data-ng-click=\"editable.on = !editable.on\">Ändra</a>\n" +
     "    </div>\n" +
     "    <div data-ng-show=\"editable.on\">\n" +
     "      <div class=\"label\">\n" +
@@ -715,11 +715,11 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('/snippets/view-subject',
-    "<a ng-init=\"subjectLabel = (object.prefLabel || object.uniformTitle || object.controlledLabel  || object.notation || object.name)\" ng-show=\"subjectLabel\" href=\"#\">\n" +
+    "<a ng-init=\"subjectLabel = (object.prefLabel || object.uniformTitle || object.controlledLabel  || object.notation || object.name)\" ng-show=\"subjectLabel\" href=\"\">\n" +
     "  <i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object)\"></i> {{ subjectLabel }}</a> \n" +
     "\n" +
     "<!-- Broader terms should not be shown for general subjects... used for?-->\n" +
-    "<a data-ng-repeat=\"broader in object.broader\" href=\"#\">\n" +
+    "<a data-ng-repeat=\"broader in object.broader\" href=\"\">\n" +
     "  {{broader.prefLabel}}\n" +
     "  <span data-ng-show=\"broader.notation\">({{ broader.notation }}) </span>\n" +
     "  <span class=\"subject-delimiter\" data-ng-hide=\"$last\">--</span>\n" +

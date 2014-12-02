@@ -8,7 +8,7 @@
   <div data-ng-if="!isLinked(object)"
         data-ng-init="editable = {on: !(object.controlledLabel || object.givenName || object.name)}">
     <div data-ng-hide="editable.on">
-        <span onload="person = object" data-ng-include="'/snippets/person-name'"></span><a class="auth" href="#" data-ng-click="editable.on = !editable.on">Ändra</a>
+        <span onload="person = object" data-ng-include="'/snippets/person-name'"></span><a class="auth" href="" data-ng-click="editable.on = !editable.on">Ändra</a>
     </div>
     <div data-ng-show="editable.on">
       <div class="label">
