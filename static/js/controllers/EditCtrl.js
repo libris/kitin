@@ -28,7 +28,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     $rootScope.modifications.bib.published = true;
     $rootScope.modifications.bib.lastPublished = new Date();
   }
-console.log(editService);
+
   // Debug
   // $scope.httpAction = {
   //   classes: 'publish success top',
