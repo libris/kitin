@@ -191,36 +191,13 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
       var createdObject = {};
       try {
         createdObject = $rootScope.getSkeletonTypeMap().summary[type];
+        if(_.isUndefined(createdObject)) {
+          throw '';
+        }
       } catch(error) {
-        console.error('Could not find skeleton for', property, type);
+        console.error('Could not find skeleton for', type);
       }
       return createdObject;
-/*
-      switch (type) {
-        case 'Person':
-          //objectKeys: ['controlledLabel', 'familyName', 'givenName', 'birthYear', 'deathYear']
-          return {'@type': "Person", controlledLabel: "", birthYear: ""};
-        case 'Concept':
-          // !TODO Handle multiple Concept types
-          return {'@type': 'Place', prefLabel: initalValue };
-        case 'ISBN':
-          return {'@type': "Identifier", identifierScheme: { '@id': "/def/identifiers/isbn" }, identifierValue: ""};
-        case '/def/identifiers/issn':
-          return {'@type': "Identifier", identifierScheme: { '@id': "/def/identifiers/issn" }, identifierValue: ""};
-        case 'Identifier':
-          return {'@type': "Identifier", identifierValue: ""};
-        case 'ProviderEvent':
-          return {'@type': "ProviderEvent", providerName: "", providerDate: "",
-                  place: {'@type': "Place", label: ""}};
-        case 'Comment':
-        case 'IssueNumber':
-        case 'audience':
-        case 'summary':
-        case 'subtitle':
-          return '';
-        default:
-          return {};
-      }*/
     },
 
     makeReferenceEntity: function (entity) {
@@ -342,6 +319,17 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
         }
         ['Resource'].concat(types).forEach(function (type) {
           var skeletonType = skeletonTypeMap.main[type];
+
+          // Map @type in main from summary
+          _.forEach(skeletonType, function(skeleton, key) {
+            if(skeleton['@type']) {
+              var summaryType = skeletonTypeMap.summary[skeleton['@type']];
+              if(summaryType) {
+                skeletonType[key] = angular.copy(summaryType);
+              }
+            }
+          }); 
+
           if (skeletonType) {
             this.mergeRecordAndTemplate(record.about, skeletonType);
           }

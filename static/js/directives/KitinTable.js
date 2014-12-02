@@ -12,7 +12,8 @@ Usage:
 Params:
   model: (str)
   label: (str)
-  labels: (string array) labels to add to table columns 
+  labels: (string array) labels to add to table columns
+  type: (str) type of object to create on add. Defaults to simple string
 
 */
 
@@ -82,21 +83,25 @@ kitin.directive('kitinTable', function(editService){
           return true;
         };
        
-        // TODO! Create object for each model. Use editService.createObject?
-        var createObject = function(model) {
-          return ['']; 
+        this.doCreate = function(initialValue) {
+          var createdObject = '';
+          if($attrs.type) {
+            createdObject = editService.createObject($attrs.model, $attrs.type, initialValue);
+          }
+          
+          return createdObject;
         };
 
-        $scope.addRow = function(index) {
-          return $scope.model.push(createObject());
-        };
+        $scope.addRow = function() {
+          return $scope.model.push(this.doCreate());
+        }.bind(this);
 
         $scope.removeRow = function(index) {
           return $scope.model.splice(index,1);
         };
 
         $scope.label = 'LABEL.' + $attrs.model;
-        $scope.model = _.isArray($scope.model) && $scope.model.length > 0 ? $scope.model : createObject($attrs.model);
+        $scope.model = _.isArray($scope.model) && $scope.model.length > 0 ? $scope.model : [this.doCreate()];
         if($attrs.labels) {
           $scope.labels = $scope.$eval($attrs.labels);
         }

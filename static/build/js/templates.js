@@ -606,18 +606,15 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/view-classification',
     "<a href=\"#\">\n" +
     "  <i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object)\"></i> {{ object.notation }}\n" +
-    "</a> \n" +
-    "<i data-ng-if=\"!editable.on\" data-ng-click=\"doRemove($index)\" class=\"no\">&times;</i>"
+    "</a>"
   );
 
 
   $templateCache.put('/snippets/view-country',
-    "<a href=\"#\">\n" +
-    "  <i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object)\"></i>\n" +
+    "<a href=\"{{API_PATH + object['@id']}}\" target=\"_blank\">\n" +
     "  {{ object.prefLabel }}\n" +
     "  <span data-ng-show=\"object.notation\">({{ object.notation }})</span>\n" +
-    "</a>\n" +
-    "<i data-ng-if=\"!editable.on\" data-ng-click=\"doRemove($index)\" class=\"no\">&times;</i>"
+    "</a>"
   );
 
 
@@ -628,7 +625,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "\n" +
     "-->\n" +
     "\n" +
-    "<a href=\"#\">\n" +
+    "<a href=\"{{API_PATH + object['@id']}}\" target=\"_blank\">\n" +
     "  <i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object)\"></i>\n" +
     "  {{ (object.prefLabel || object.prefLabel-en || object['@id']) }}\n" +
     "</a>"
@@ -636,9 +633,15 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('/snippets/view-language',
-    "<i class=\"fa fa-bookmark\" data-ng-if=\"isAuth(object)\"></i>\n" +
-    "<strong>{{ object.prefLabel }}</strong>\n" +
-    "<span data-ng-show=\"object.langCode\">({{ object.langCode }})</span>"
+    "\n" +
+    "<a ng-if=\"isLinked(object)\" href=\"{{API_PATH + object['@id']}}\" target=\"_blank\">\n" +
+    "  <strong>{{ object.prefLabel }}</strong>\n" +
+    "  <span data-ng-show=\"object.langCode\">({{ object.langCode }})</span>\n" +
+    "</a>\n" +
+    "\n" +
+    "<span ng-if=\"!isLinked(object)\">\n" +
+    "  <span>{{ object.label }}</span>\n" +
+    "</span>"
   );
 
 

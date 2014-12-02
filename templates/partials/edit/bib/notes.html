@@ -11,7 +11,7 @@
       <kitin-td><kitin-textarea model="item['@id']"></kitin-textarea></kitin-td>
     </kitin-table>
 
-    <kitin-table model="record.about.reproduction">
+    <kitin-table model="record.about.reproduction" type="CreativeWork">
       <kitin-td>
         <div class="label">
           <kitin-label label="LABEL.record.about.reproduction.description"></kitin-label>
@@ -90,7 +90,8 @@
     </kitin-entityrow>
 
     <kitin-table model="record.about.hasAnnotation"
-                 labels="['LABEL.record.about.hasAnnotation.note', 'LABEL.record.about.hasAnnotation.degree', 'LABEL.record.about.hasAnnotation.location', 'LABEL.record.about.hasAnnotation.date', 'LABEL.record.about.hasAnnotation.comment']">
+                 labels="['LABEL.record.about.hasAnnotation.note', 'LABEL.record.about.hasAnnotation.degree', 'LABEL.record.about.hasAnnotation.location', 'LABEL.record.about.hasAnnotation.date', 'LABEL.record.about.hasAnnotation.comment']"
+                 type="DissertationAnnotation">
       <kitin-td><kitin-textarea model="item.note"></kitin-textarea></kitin-td>
       <kitin-td><kitin-textarea model="item.degree"></kitin-textarea></kitin-td>
       <kitin-td><kitin-textarea model="item.location"></kitin-textarea></kitin-td>

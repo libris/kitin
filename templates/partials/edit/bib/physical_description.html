@@ -15,7 +15,7 @@
     <div data-ng-repeat="(formatType, subFormat) in record.about.hasFormatByType" ng-switch="formatType">
 
     <span ng-switch-when="Product">
-      <kitin-table model="record.about.hasFormatByType['Product']">
+      <kitin-table model="record.about.hasFormatByType['Product']" type="Product">
         <kitin-td>
           <div class="label">
             <kitin-label label="'LABEL.record.about.hasFormatByType.extent'"></kitin-label>
@@ -48,7 +48,7 @@
     </span>
 
     <span ng-switch-when="Electronic">
-      <kitin-table model="record.about.hasFormatByType['Electronic']">
+      <kitin-table model="record.about.hasFormatByType['Electronic']" type="Electronic">
         <kitin-td>
           <div class="label">
             <kitin-label label="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-label>
@@ -122,7 +122,7 @@
     </span>
 
     <span ng-switch-when="Map">
-      <kitin-table model="record.about.hasFormatByType['Map']">
+      <kitin-table model="record.about.hasFormatByType['Map']" type="Map">
         <kitin-td>
           <div class="label">
             <kitin-label label="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-label>
@@ -153,9 +153,9 @@
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.detail'"></kitin-label>
-              <kitin-entity model="item" link="'detail'">
-              <kitin-select filter="about.inCollection.@id:/def/enum/carrier/detail-collection"></kitin-select>
+            <kitin-label label="'LABEL.record.about.hasFormatByType.details'"></kitin-label>
+              <kitin-entity model="item" link="'details'">
+              <kitin-select filter="about.inCollection.@id:/def/enum/carrier/details-collection"></kitin-select>
             </kitin-entity>
           </div>
 
@@ -173,7 +173,7 @@
     </span>  
 
     <span ng-switch-when="Globe">
-      <kitin-table model="record.about.hasFormatByType['Globe']">
+      <kitin-table model="record.about.hasFormatByType['Globe']" type="Globe">
         <kitin-td>
           <div class="label">
             <kitin-label label="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-label>
@@ -205,7 +205,7 @@
     </span>  
 
     <span ng-switch-when="Microform">
-      <kitin-table model="record.about.hasFormatByType['Microform']">
+      <kitin-table model="record.about.hasFormatByType['Microform']" type="Mircoform">
         <kitin-td>
           <div class="label">
             <kitin-label label="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-label>
@@ -275,7 +275,7 @@
     </span>  
 
     <span ng-switch-when="StillImage">
-      <kitin-table model="record.about.hasFormatByType['StillImage']">
+      <kitin-table model="record.about.hasFormatByType['StillImage']" type="StillImage">
         <kitin-td>      
           <div class="label">
             <kitin-label label="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-label>
@@ -312,7 +312,7 @@
     </span>  
 
     <span ng-switch-when="MovingImage">
-      <kitin-table model="record.about.hasFormatByType['MovingImage']">
+      <kitin-table model="record.about.hasFormatByType['MovingImage']" type="MovingImage">
         <kitin-td>
           <div class="label">
             <kitin-label label="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-label>
@@ -403,7 +403,7 @@
     </span>  
 
     <span ng-switch-when="SoundRecording">
-      <kitin-table model="record.about.hasFormatByType['SoundRecording']">
+      <kitin-table model="record.about.hasFormatByType['SoundRecording']" type="SoundRecording">
         <kitin-td>
           <div class="label">
             <kitin-label label="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-label>
@@ -494,7 +494,7 @@
     </span> 
 
     <span ng-switch-when="VideoRecording">
-      <kitin-table model="record.about.hasFormatByType['VideoRecording']">
+      <kitin-table model="record.about.hasFormatByType['VideoRecording']" type="VideoRecording">
         <kitin-td>
           <div class="label">
             <kitin-label label="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-label>
@@ -552,7 +552,7 @@
     </span>   
 
     <span ng-switch-when="NotatedMusic">
-      <kitin-table model="record.about.hasFormatByType['NotatedMusic']">
+      <kitin-table model="record.about.hasFormatByType['NotatedMusic']" type="NotatedMusic">
         <kitin-td>
 
           <div class="label">
