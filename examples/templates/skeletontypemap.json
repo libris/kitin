@@ -208,7 +208,6 @@
     },
 
     "CartographyCoordinates": {
-        "@type": "CartographyCoordinates",
         "cartographicScale": "",
         "angularScale": [],
         "constantRatioLinearVerticalScale": [],
@@ -226,7 +225,6 @@
       "identifierValue": ""
     },
     "Title": {
-      "@type": "Title",
       "titleValue": "",
       "subtitle": "",
       "titleDate": "",
@@ -266,7 +264,7 @@
         "controlledLabel": "{{familyName}}{%if familyName and givenName%}, {%endif%}{{givenName}}{%if numeration%} ({{numeration}}){%endif%}{%if personTitle%}, {{personTitle}}{%endif%}{%if birthYear or deathYear%} {{birthYear}}-{{deathYear}}{%endif%}"
       }
     },
-    "Place": {"label": ""},
+    "Place": { "label": "" },
     "PlanetaryObject": {"name": ""},
     "Jurisdiction": {"name": ""},
     "UniformWork": {
@@ -284,6 +282,121 @@
       "musicPerformanceMedium": [],
       "musicArrangement": "",
       "musicKey": ""
+    },
+    "Product": {
+      "extent": "",
+      "dimensions": "",
+      "otherPhysicalDetails": "",
+      "accompanyingMaterial": "",
+      "device": {},
+      "materialsSpecified": ""
+    },
+    "Map": {
+      "carrierType": [],
+      "color": {},
+      "medium": {},
+      "reproduction": {},
+      "details": {},
+      "posNeg": {},
+      "aspect": {}
+    },
+    "Electronic": {
+      "carrierType": [],
+      "color": {},
+      "dimensionsCategory": {},
+      "sound": {},
+      "imageBitDepth": "",
+      "fileFormats": {},
+      "qATarget": {},
+      "antecedent": {},
+      "compression": {},
+      "reformattingQuality": {},
+      "fileAspect": {}
+    },
+    "Globe": {
+      "carrierType": [],
+      "color": {},
+      "medium": {},
+      "reproduction": {},
+      "aspect": {}
+    },
+    "ProjectedImage": {
+      "carrierType": [],
+      "projGraphColor": {},
+      "projGraphEmulsion": {},
+      "projGraphSound": {},
+      "projGraphMedium": {},
+      "projGraphDimension": {},
+      "projGraphSupport": {},
+      "projGraphAspect": {}
+    },
+    "Mircoform": {
+      "carrierType": [],
+      "posNeg": {},
+      "dimensionsCategory": {},
+      "range": {},
+      "reductionRatioExactRightJustifiedWithLeadingZero": "",
+      "color": {},
+      "emulsion": {},
+      "generation": {},
+      "base": {},
+      "aspect": {}
+    },
+    "StillImage": {
+      "carrierType": [],
+      "nonProjColor": {},
+      "nonProjPrimary": {},
+      "nonProjSecondary": {},
+      "nonProjAspect": {}
+    },
+    "MovingImage": {
+      "carrierType": [],
+      "motionPicColor": {},
+      "motionPicFormat": {},
+      "motionPicSound": {},
+      "motionPicMedium": {},
+      "motionPicDimesion": {},
+      "motionPicConfiguration": {},
+      "motionPicElements": {},
+      "motionPicPosNeg": {},
+      "motionPicGeneration": {},
+      "motionPicBase": {},
+      "motionPicCategories": {},
+      "motionPicColorStock": {},
+      "motionPicDeterioration": {},
+      "motionPicCompleteness": {},
+      "timeOfExemination": "",
+      "motionPicAspect": {}
+    },
+    "Kit": {
+      "carrierType": []
+    },
+    "SoundRecording": {
+      "carrierType": [],
+      "soundSpeed": {},
+      "soundPlaybackChannel": {},
+      "soundGroove": {},
+      "soundDimensions": {},
+      "soundTapeWidth": {},
+      "soundTapeConfiguration": {},
+      "soundKindOfDisc": {},
+      "soundKindOfMaterial": {},
+      "soundKindOfCutting": {},
+      "soundPlaybackCharacter": {},
+      "soundCapture": {},
+      "soundAspect": {}
+    },
+    "Text": {
+      "carrierType": []
+    },
+    "VideoRecording": {
+      "carrierType": [],
+      "videoColor": {},
+      "videoFormat": {},
+      "videoSound": {},
+      "videoMedium": {},
+      "videoDimensions": {},
+      "videoPlayback": {}
     }
 
   }
