@@ -107,7 +107,13 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
       };
 
       this.doCreate = function(initialValue) {
-        return editService.createObject($scope.property, $attrs.type, initialValue);
+        var type = $attrs.type;
+        // For subjects, creation is in an ng-repeat. Then try to eval variable to get type value from scope attribute
+        try { type = $scope.$eval($attrs.type); } catch(error) {}
+        if(_.isUndefined(type)) {
+          type = $attrs.type;
+        }
+        return editService.createObject($scope.property, type, initialValue);
       };
 
       $scope.doRemove = function (index) {
