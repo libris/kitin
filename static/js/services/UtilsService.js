@@ -4,6 +4,8 @@
  */
 kitin.factory('utilsService', function($http, $q, $rootScope) {
   // Private functions
+
+  // Example
   function genericFunctions (value) {
     // This is just a generic function 
     var deferred = $q.defer();
@@ -17,6 +19,7 @@ kitin.factory('utilsService', function($http, $q, $rootScope) {
     return deferred.promise;
   }
 
+  // Helper function for compose functions
   function constructName (obj) {
     // In some cases, obj might be an array (f.ex. sameAs).
     // Pick the first element and move on.
