@@ -124,7 +124,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/modal-edit-auth',
     "<div class=\"modal-header\">\n" +
     " <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
-    "  <h4 class=\"modal-title\">Auktoritetspost ({{ instance['@type'] }})</h4>\n" +
+    "  <h4 class=\"modal-title\">Auktoritetspost ({{ record.about['@type'] }})</h4>\n" +
     "</div>\n" +
     "<div class=\"modal-body\" data-ng-controller=\"EditBaseCtrl\">    \n" +
     "  <div ng-include=\"'/partials/edit/auth'\"></div>\n" +
@@ -153,7 +153,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  <div data-cg-busy=\"{promise:promises.holding.loading, message:'Laddar bestånd...', minDuration: 800}\"></div>\n" +
     "  <div data-cg-busy=\"{promise:promises.holding.saving, message:'Sparar bestånd...', minDuration: 800}\"></div>\n" +
     "  \n" +
-    "  <accordion class=\"other-holdings\" ng-show=\"false\">\n" +
+    "  <accordion class=\"other-holdings\" ng-show=\"true\">\n" +
     "    <accordion-group is-open=\"showOtherHoldings\">\n" +
     "      <accordion-heading>\n" +
     "        Visa bestånd för andra bibliotek (beta) <i class=\"pull-right fa\" ng-class=\"{'fa-chevron-down': showOtherHoldings, 'fa-chevron-right': !showOtherHoldings}\"></i>\n" +
@@ -164,7 +164,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "              {{otherHolding.about.heldBy.notation}} <i class=\"pull-right fa\" ng-class=\"{'fa-chevron-down': offer.open, 'fa-chevron-right': !offer.open}\"></i>\n" +
     "          </accordion-heading>\n" +
     "          <div data-ng-repeat=\"offer in otherHolding.about.offers\" class=\"other-offer\">\n" +
-    "            <span class=\"offer-value\" data-ng-repeat=\"(property, value) in offer\" data-ng-show=\"property != '@type' && property != 'open'&& property != 'heldBy'\">{{property}}: {{value}}<span data-ng-show=\"!$last\">, </span></span>\n" +
+    "            <span><b>Lokalsignum {{$index + 1}}:</b> </span><span class=\"offer-value\" data-ng-repeat=\"(property, value) in offer\" data-ng-show=\"property != '@type' && property != 'open' && property != 'heldBy'\"><span class=\"prop\">{{property}}</span>: <span class=\"val\">{{value}}</span><span data-ng-show=\"!$last\">, </span></span>\n" +
+    "            <hr>\n" +
     "          </div>\n" +
     "        </accordion-group>\n" +
     "      </accordion>\n" +
@@ -174,38 +175,74 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  <h4>{{ utils.composeTitle(record) | chop:80}}, {{ utils.composeCreator(record) | chop:40 }} {{ utils.composeDate(publication.providerDate) }}</h4>\n" +
     "\n" +
     "  <form data-ng-show=\"holding['@id'] || !holding['etag']\" name=\"holdingForm\">\n" +
-    "    <section class=\"offer form-container\" data-ng-repeat=\"offer in holding.about.offers track by $index\">\n" +
-    "      <div class=\"cols\">\n" +
-    "          <kitin-group label=\"Lokalsignum\" initially-visible>\n" +
-    "            <!-- Fake Sigel drop-down until we decide how to handle multiple sigels for single users -->\n" +
-    "            <div class=\"label\">\n" +
-    "              <span class=\"lbl\">Sigel</span>\n" +
-    "              <span class=\"inp\">\n" +
-    "                <div class=\"entity tags\">\n" +
-    "                  <span class=\"select\">\n" +
-    "                    <select>\n" +
-    "                      <option data-ng-selected=\"true\" value=\"{{userSigel}}\" data-ng-bind=\"userSigel\"></option>\n" +
-    "                    </select>\n" +
-    "                    <i class=\"fa fa-caret-down\"></i>\n" +
-    "                  </span>\n" +
-    "                </div>\n" +
-    "              </span>\n" +
-    "            </div>\n" +
+    "    <!-- Offers -->\n" +
+    "    <section class=\"offer form-container\">\n" +
+    "      <div class=\"cols\" data-ng-repeat=\"offer in holding.about.offers track by $index\">\n" +
+    "        <kitin-group label=\"Lokalsignum\" ___________initially-visible>\n" +
+    "          <!-- Fake Sigel drop-down until we decide how to handle multiple sigels for single users -->\n" +
+    "          <div class=\"label\">\n" +
+    "            <span class=\"lbl\">Sigel</span>\n" +
+    "            <span class=\"inp\">\n" +
+    "              <div class=\"entity tags\">\n" +
+    "                <span class=\"select\">\n" +
+    "                  <select>\n" +
+    "                    <option data-ng-selected=\"true\" value=\"{{userSigel}}\" data-ng-bind=\"userSigel\"></option>\n" +
+    "                  </select>\n" +
+    "                  <i class=\"fa fa-caret-down\"></i>\n" +
+    "                </span>\n" +
+    "              </div>\n" +
+    "            </span>\n" +
+    "          </div>\n" +
     "\n" +
-    "            <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.shelfLocation\" change-model=\"holding\"></kitin-textrow>\n" +
-    "            <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.classificationPart\" change-model=\"holding\"></kitin-textrow>\n" +
-    "            <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.shelfControlNumber\" change-model=\"holding\"></kitin-textrow>\n" +
-    "            <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.shelfLabel\" change-model=\"holding\"></kitin-textrow>\n" +
-    "            <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.availability\" change-model=\"holding\"></kitin-textrow>\n" +
-    "            <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.copyNumber\" change-model=\"holding\"></kitin-textrow>\n" +
-    "            <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.copyNote\" change-model=\"holding\"></kitin-textrow>\n" +
-    "            <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.editorialNote\" change-model=\"holding\"></kitin-textrow>\n" +
-    "          </kitin-group>\n" +
+    "          <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.shelfLocation\" change-model=\"holding\"></kitin-textrow>\n" +
+    "          <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.classificationPart\" change-model=\"holding\"></kitin-textrow>\n" +
+    "          <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.shelfControlNumber\" change-model=\"holding\"></kitin-textrow>\n" +
+    "          <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.shelfLabel\" change-model=\"holding\"></kitin-textrow>\n" +
+    "          <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.availability\" change-model=\"holding\"></kitin-textrow>\n" +
+    "          <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.copyNumber\" change-model=\"holding\"></kitin-textrow>\n" +
+    "          <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.copyNote\" change-model=\"holding\"></kitin-textrow>\n" +
+    "          <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.editorialNote\" change-model=\"holding\"></kitin-textrow>\n" +
+    "        </kitin-group>\n" +
     "\n" +
     "        <div class=\"col12\">\n" +
     "          <button class=\"btn btn-link pull-right\" data-ng-if=\"holding.about.offers.length > 1\" data-ng-click=\"deleteOffer(holding, $index)\"><i class=\"fa fa-trash-o\"></i> {{ \"Radera lokalsignum\" }}</button>\n" +
     "        </div>\n" +
     "      </div>\n" +
+    "      <div class=\"col12\">\n" +
+    "        <button class=\"btn btn-link\" data-ng-click=\"addOffer(holding)\" data-ng-show=\"holding\"><i class=\"fa fa-plus\"></i> {{ \"Lägg till lokalsignum\" }}</button>\n" +
+    "      </div>\n" +
+    "    </section>\n" +
+    "    \n" +
+    "    <!-- Everything else -->\n" +
+    "    <section class=\"meta form-container\">\n" +
+    "      <div class=\"cols\" data-ng-repeat=\"document in holding.about.isPrimaryTopicOf track by $index\">\n" +
+    "        <kitin-group label=\"'Elektronisk adress och åtkomst'\">\n" +
+    "          <kitin-textrow model=\"document['@id']\" change-model=\"holding\"></kitin-textrow>\n" +
+    "\n" +
+    "          <kitin-textrow model=\"document.description\" change-model=\"holding\"></kitin-textrow>\n" +
+    "\n" +
+    "          <kitin-textrow model=\"document.altLabel\" change-model=\"holding\"></kitin-textrow>\n" +
+    "\n" +
+    "          <kitin-textrow model=\"document.comment\" change-model=\"holding\"></kitin-textrow>\n" +
+    "\n" +
+    "          <kitin-table model=\"document.editorialNote\" change-model=\"holding\" labels=\"['Intern anmärkning']\">\n" +
+    "            <kitin-td><kitin-textarea model=\"model[$index]\"></kitin-textarea></kitin-td>\n" +
+    "          </kitin-table>\n" +
+    "        </kitin-group>\n" +
+    "      </div>\n" +
+    "\n" +
+    "      <div class=\"cols\">\n" +
+    "        <kitin-group label=\"Encoding\">\n" +
+    "          <kitin-table model=\"holding.about.encoding\"\n" +
+    "                      change-model=\"holding\"\n" +
+    "                      labels=\"['URI', 'LABEL.record.about.comment']\"\n" +
+    "                      type=\"MediaObject\">\n" +
+    "            <kitin-td><kitin-textarea model=\"item['@id']\"></kitin-textarea></kitin-td>\n" +
+    "            <kitin-td><kitin-textarea model=\"item.comment\"></kitin-textarea></kitin-td>\n" +
+    "          </kitin-table>\n" +
+    "        </kitin-group>\n" +
+    "      </div>\n" +
+    "\n" +
     "    </section>\n" +
     "  </form>\n" +
     "\n" +
@@ -221,10 +258,6 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "\n" +
     "  <div class=\"modal-alerts\" data-ng-show=\"alerts.length > 0\">\n" +
     "    <alert data-ng-repeat=\"alert in alerts\" type=\"{{alert.type}}\" close=\"closeAlert($index)\">{{alert.msg}}</alert>\n" +
-    "  </div>\n" +
-    "\n" +
-    "  <div>\n" +
-    "    <button class=\"btn btn-flat btn-purple-light\" data-ng-click=\"addOffer(holding)\" data-ng-show=\"holding\"><i class=\"fa fa-plus\"></i> {{ \"Lägg till lokalsignum\" }}</button>\n" +
     "  </div>\n" +
     "\n" +
     "</div>\n" +
