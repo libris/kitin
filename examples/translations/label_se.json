@@ -63,6 +63,9 @@
 
                 "attributedTo": "Huvuduppslag",
                 "influencedBy": "Biuppslag",
+                "influencedByByType.Person": "Person",
+                "influencedByByType.Meeting": "Möte",
+                "influencedByByType.Organization": "Organisation",
 
                 "publication.place.label": "Utgivningsort",
                 "publication.providerName": "Utgivare/förlag",

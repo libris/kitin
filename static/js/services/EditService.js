@@ -201,6 +201,8 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
             // Default try to set prefLabel
             if(!_.isUndefined(createdObject.prefLabel)) {
               createdObject.prefLabel = initalValue;
+            } else if(!_.isUndefined(createdObject.name)) {
+              createdObject.name = initalValue;
             }
             break;
         }
@@ -307,7 +309,15 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
             }
           }
         }
-      ]
+      ],
+      influencedBy: {
+        indexName: "influencedByByType",
+        getIndexKey: function (entity) {
+          if(entity) {
+            return entity["@type"];
+          }
+        }
+      },
     },
 
     decorate: function(record) {

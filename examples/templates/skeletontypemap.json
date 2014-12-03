@@ -18,6 +18,11 @@
           "Person": [],
           "Place": []
       },
+      "influencedByByType": {
+        "Person": [],
+        "Meeting": [],
+        "Organization": []
+      },
       "bibliographyCode": [],
 
 
@@ -250,7 +255,11 @@
 
     "Country": {"name": ""},
     "Family": {"name": ""},
-    "Meeting": {"name": ""},
+    "Meeting": {
+      "name": "",
+      "location": {},
+      "date": ""
+    },
     "Organization": {"name": ""},
     "Person": {
       "name": "",
