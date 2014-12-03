@@ -184,7 +184,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "                <div class=\"entity tags\">\n" +
     "                  <span class=\"select\">\n" +
     "                    <select>\n" +
-    "                      <option data-ng-selected=\"true\">{{userSigel}}</option>\n" +
+    "                      <option data-ng-selected=\"true\" value=\"{{userSigel}}\" data-ng-bind=\"userSigel\"></option>\n" +
     "                    </select>\n" +
     "                    <i class=\"fa fa-caret-down\"></i>\n" +
     "                  </span>\n" +
