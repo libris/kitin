@@ -651,6 +651,63 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('/snippets/view-meeting',
+    "<div class=\"meeting main\">\n" +
+    "  <div data-ng-if=\"isLinked(object) && !isEmpty(object)\" >\n" +
+    "    <span>{{object.name}}</span>\n" +
+    "    <a data-ng-if=\"isLinked(object)\" class=\"btn-link auth\" data-ng-controller=\"ModalCtrl\" data-ng-click=\"openAuthModal(object['@id'])\">\n" +
+    "      <i class=\"fa fa-bookmark\"></i> Aukt.\n" +
+    "    </a>\n" +
+    "  </div>\n" +
+    "  <div data-ng-if=\"!isLinked(object)\"\n" +
+    "        data-ng-init=\"editable = {on: !object.name}\">\n" +
+    "    <div data-ng-hide=\"editable.on\">\n" +
+    "        <span>{{object.name}}</span> <a class=\"auth\" href=\"\" data-ng-click=\"editable.on = !editable.on\">Ändra</a>\n" +
+    "    </div>\n" +
+    "    <div data-ng-show=\"editable.on\">\n" +
+    "      <div class=\"label\">\n" +
+    "        <span class=\"lbl\">{{ \"Namn\" }}</span>\n" +
+    "        <kitin-textarea model=\"object.name\"></kitin-textarea>\n" +
+    "      </div>\n" +
+    "      <kitin-entity label=\"'Plats'\" model=\"object\" link=\"'language'\" type=\"Place\">\n" +
+    "        <kitin-search service-url=\"/auth/_search\" \n" +
+    "                      template-id=\"subject-completion-template\" \n" +
+    "                      filter=\"about.@type:Place\"\n" +
+    "                      placeholder=\"Lägg till plats\"\n" +
+    "                      allow-non-auth=\"Ny icke auktoriserad plats\">\n" +
+    "        </kitin-search>\n" +
+    "      </kitin-entity>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('/snippets/view-organization',
+    "<div class=\"orgnization main\">\n" +
+    "  <div data-ng-if=\"isLinked(object) && !isEmpty(object)\" >\n" +
+    "    <span>{{object.name}}</span>\n" +
+    "    <a data-ng-if=\"isLinked(object)\" class=\"btn-link auth\" data-ng-controller=\"ModalCtrl\" data-ng-click=\"openAuthModal(object['@id'])\">\n" +
+    "      <i class=\"fa fa-bookmark\"></i> Aukt.\n" +
+    "    </a>\n" +
+    "  </div>\n" +
+    "  <div data-ng-if=\"!isLinked(object)\"\n" +
+    "        data-ng-init=\"editable = {on: !(object.controlledLabel || object.givenName || object.name)}\">\n" +
+    "    <div data-ng-hide=\"editable.on\">\n" +
+    "        <span>{{object.name}}</span> <a class=\"auth\" href=\"\" data-ng-click=\"editable.on = !editable.on\">Ändra</a>\n" +
+    "    </div>\n" +
+    "    <div data-ng-show=\"editable.on\">\n" +
+    "      <div class=\"label\">\n" +
+    "        <span class=\"lbl\">{{ \"Namn\" }}</span>\n" +
+    "        <input data-track-change class=\"\" type=\"text\" placeholder=\"Namn\"\n" +
+    "               data-ng-model=\"object.name\" />\n" +
+    "      </div>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('/snippets/view-person',
     "<div class=\"person main\">\n" +
     "  <div data-ng-if=\"isLinked(object) && !isEmpty(object)\" >\n" +

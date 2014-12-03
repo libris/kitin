@@ -1,0 +1,21 @@
+<div class="orgnization main">
+  <div data-ng-if="isLinked(object) && !isEmpty(object)" >
+    <span>{{object.name}}</span>
+    <a data-ng-if="isLinked(object)" class="btn-link auth" data-ng-controller="ModalCtrl" data-ng-click="openAuthModal(object['@id'])">
+      <i class="fa fa-bookmark"></i> Aukt.
+    </a>
+  </div>
+  <div data-ng-if="!isLinked(object)"
+        data-ng-init="editable = {on: !(object.controlledLabel || object.givenName || object.name)}">
+    <div data-ng-hide="editable.on">
+        <span>{{object.name}}</span> <a class="auth" href="" data-ng-click="editable.on = !editable.on">Ändra</a>
+    </div>
+    <div data-ng-show="editable.on">
+      <div class="label">
+        <span class="lbl">{{ "Namn" }}</span>
+        <input data-track-change class="" type="text" placeholder="Namn"
+               data-ng-model="object.name" />
+      </div>
+    </div>
+  </div>
+</div>
