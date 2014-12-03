@@ -184,18 +184,46 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
       return added;
     },
 
+    setInitalValue: function(createdObject, type, initalValue) {
+      if(_.isObject(createdObject)) {
+        switch(type) {
+          // For Person try to set given and family name
+          case 'Person': 
+            var values = initalValue.split(' ');
+            if(values.length > 0) {
+              createdObject.givenName = values[0];
+            }
+            if(values.length > 1) {
+              createdObject.familyName = values[1];
+            }
+            break;
+          default: 
+            // Default try to set prefLabel
+            if(!_.isUndefined(createdObject.prefLabel)) {
+              createdObject.prefLabel = initalValue;
+            }
+            break;
+        }
+      }
+    },
+
     createObject: function (property, type, initalValue) {
       var deferer = $q.defer();
 
-      
       var createdObject = {};
-      try {
-        createdObject = $rootScope.getSkeletonTypeMap().summary[type];
-        if(_.isUndefined(createdObject)) {
-          throw '';
+      if(type) {
+        try {
+          createdObject = angular.copy($rootScope.getSkeletonTypeMap().summary[type]);
+          if(_.isUndefined(createdObject)) {
+            throw '';
+          }
+        } catch(error) {
+          console.error('Could not find skeleton for', type);
         }
-      } catch(error) {
-        console.error('Could not find skeleton for', type);
+
+        if(initalValue) {
+          this.setInitalValue(createdObject, type, initalValue);
+        }
       }
       return createdObject;
     },
