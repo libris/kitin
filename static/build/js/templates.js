@@ -124,7 +124,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/modal-edit-auth',
     "<div class=\"modal-header\">\n" +
     " <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
-    "  <h4 class=\"modal-title\">Auktoritetspost ({{ instance['@type'] }})</h4>\n" +
+    "  <h4 class=\"modal-title\">Auktoritetspost ({{ record.about['@type'] }})</h4>\n" +
     "</div>\n" +
     "<div class=\"modal-body\" data-ng-controller=\"EditBaseCtrl\">    \n" +
     "  <div ng-include=\"'/partials/edit/auth'\"></div>\n" +
