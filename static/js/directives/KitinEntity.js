@@ -38,7 +38,7 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
         });
       }
     },
-    template:   '<div class="{{classNames}}" test>' +
+    template:   '<div class="{{classNames}}">' +
                   '<div ng-if="objects" ng-repeat="object in objects track by $index" class="tag" ng-class="{auth: isLinked(object)}">' +
                     '<span class="inner" ng-include="viewTemplate"></span>' +
                     '<span class="controls"><a class="delete" data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a></span>' +

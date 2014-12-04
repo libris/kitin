@@ -32,7 +32,7 @@
     <!-- Offers -->
     <section class="offer form-container">
       <div class="cols" data-ng-repeat="offer in holding.about.offers track by $index">
-        <kitin-group label="Lokalsignum" ___________initially-visible>
+        <kitin-group label="Lokalsignum">
           <!-- Fake Sigel drop-down until we decide how to handle multiple sigels for single users -->
           <div class="label">
             <span class="lbl">Sigel</span>
@@ -56,11 +56,12 @@
           <kitin-textrow label-prefix="LABEL.holdings." model="offer.copyNumber" change-model="holding"></kitin-textrow>
           <kitin-textrow label-prefix="LABEL.holdings." model="offer.copyNote" change-model="holding"></kitin-textrow>
           <kitin-textrow label-prefix="LABEL.holdings." model="offer.editorialNote" change-model="holding"></kitin-textrow>
+
+          <div>
+            <button class="btn btn-link pull-right" data-ng-if="holding.about.offers.length > 1" data-ng-click="deleteOffer(holding, $index)"><i class="fa fa-trash-o"></i> {{ "Radera lokalsignum" }}</button>
+          </div>        
         </kitin-group>
 
-        <div class="col12">
-          <button class="btn btn-link pull-right" data-ng-if="holding.about.offers.length > 1" data-ng-click="deleteOffer(holding, $index)"><i class="fa fa-trash-o"></i> {{ "Radera lokalsignum" }}</button>
-        </div>
       </div>
       <div class="col12">
         <button class="btn btn-link" data-ng-click="addOffer(holding)" data-ng-show="holding"><i class="fa fa-plus"></i> {{ "Lägg till lokalsignum" }}</button>
@@ -69,6 +70,8 @@
     
     <!-- Everything else -->
     <section class="meta form-container">
+
+      <!-- Is Primary Topic Of -->
       <div class="cols" data-ng-repeat="document in holding.about.isPrimaryTopicOf track by $index">
         <kitin-group label="'Elektronisk adress och åtkomst'">
           <kitin-textrow model="document['@id']" change-model="holding"></kitin-textrow>
@@ -82,17 +85,22 @@
           <kitin-table model="document.editorialNote" change-model="holding" labels="['Intern anmärkning']">
             <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
           </kitin-table>
+          <div>
+            <button class="btn btn-link pull-right" data-ng-if="holding.about.isPrimaryTopicOf.length > 1" data-ng-click="deletePrimaryTopicOf(holding, $index)"><i class="fa fa-trash-o"></i> {{ "Radera elektronisk adress" }}</button>
+          </div>
         </kitin-group>
       </div>
+      <div class="col12">
+        <button class="btn btn-link" data-ng-click="addPrimaryTopicOf(holding)" data-ng-show="holding"><i class="fa fa-plus"></i> {{ "Lägg till elektronisk adress " }}</button>
+      </div>
 
+      <!-- Encoding -->
       <div class="cols">
         <kitin-group label="Encoding">
           <kitin-table model="holding.about.encoding"
-                      change-model="holding"
-                      labels="['URI', 'LABEL.record.about.comment']"
-                      type="MediaObject">
-            <kitin-td><kitin-textarea model="item['@id']"></kitin-textarea></kitin-td>
-            <kitin-td><kitin-textarea model="item.comment"></kitin-textarea></kitin-td>
+                      labels="['URI', 'LABEL.record.about.comment']">
+            <kitin-td><kitin-textarea model="item['@id']" change-model="holding"></kitin-textarea></kitin-td>
+            <kitin-td><kitin-textarea model="item.comment" change-model="holding"></kitin-textarea></kitin-td>
           </kitin-table>
         </kitin-group>
       </div>
@@ -113,6 +121,10 @@
   <div class="modal-alerts" data-ng-show="alerts.length > 0">
     <alert data-ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
   </div>
+
+  <section>
+    <pre>{{holding}}</pre>
+  </section>
 
 </div>
 
