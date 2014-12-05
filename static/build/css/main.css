@@ -567,78 +567,6 @@ body.login #header .searchfield,
 body.styleguide #header .searchfield {
   display: none;
 }
-body.index #header .searchfield {
-  left: 248px;
-  top: 220px;
-  min-width: 611px;
-}
-body.index #header .searchfield input[type="text"] {
-  padding: 11px 16px;
-}
-body.index #header .searchfield .btn-group {
-  float: right;
-}
-body.index #header .searchfield a.btn {
-  height: 47px;
-}
-body.index #header .searchfield a.search-source {
-  color: #191913;
-  padding: 8px 16px;
-  display: block;
-  border-radius: none;
-  text-align: left;
-  border-top: 1px solid #c7c7c3;
-  border-bottom: 1px solid #c7c7c3;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05) inset;
-  font-size: 14px;
-}
-body.index #header .searchfield a.search-source:hover .fa-caret-down {
-  color: #0e4e3e;
-}
-body.index #header .searchfield a.search-source .fa-caret-down {
-  position: absolute;
-  right: 12px;
-  color: #1a8f72;
-}
-body.index #header .searchfield a span {
-  margin-top: 8px;
-}
-body.index #header .searchfield a .btn-label {
-  position: relative;
-  top: 5px;
-}
-body.index #header .searchfield em {
-  color: #666664;
-  font-size: 13px;
-}
-body.index #header .searchfield .remote-search ul.remotesource {
-  max-width: 520px;
-  /*     width: 100%; */
-  padding-left: 6px;
-  margin: 0px;
-}
-body.index #header .searchfield .remote-search ul.remotesource i {
-  color: #666664;
-}
-#header .remote-search {
-  display: block;
-  width: 100%;
-  position: absolute;
-  top: 28px;
-  background-color: #eeeeec;
-  clear: both;
-  height: 20px;
-  padding: 0px;
-}
-body.index #header .remote-search {
-  top: 47px;
-  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-#header .remote-search a {
-  margin-right: 3px;
-}
 body.search #header-wrapper {
   position: fixed;
   top: 0;
@@ -682,6 +610,8 @@ body.search #header .kb {
 #header {
   height: 130px;
   position: relative;
+  transition: height 100ms ease-out;
+  -moz-transition: height 100ms ease-out;
   -webkit-transition: height 100ms ease-out;
 }
 #header .user {
@@ -769,11 +699,13 @@ body.edit #header .nav-back :focus::-moz-placeholder {
 /* HEADER SEARCHFIELD START ------------------------- */
 #header .searchfield {
   position: absolute;
-  left: 384px;
-  top: 82px;
+  top: 12px;
+  left: 276px;
+  min-width: 462px;
   z-index: 2;
   /*FF18<*/
   /*FF19>*/
+  opacity: 0;
 }
 #header .searchfield :focus:-moz-placeholder:focus {
   color: #ddddd8;
@@ -781,26 +713,31 @@ body.edit #header .nav-back :focus::-moz-placeholder {
 #header .searchfield :focus::-moz-placeholder {
   color: #ddddd8;
 }
+#header .searchfield,
+#header .searchfield > * {
+  transition: all ease-out 50ms;
+  -moz-transition: all ease-out 50ms;
+  -webkit-transition: all ease-out 50ms;
+}
 #header .searchfield .dropdown-menu {
   margin-top: -5px;
 }
 #header .searchfield input[type="text"] {
-  width: 433px;
+  float: left;
+  height: 28px;
   border: 1px solid #adada9;
+  border-top-left-radius: 3px;
+  -moz-border-radius-topleft: 3px;
+  -webkit-border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  border-right-width: 0;
   padding: 6px 10px 6px;
   border-color: #adada9 #ffffff #c7c7c3 #adada9;
   box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2);
-  -webkit-border-top-left-radius: 3px;
-  -webkit-border-bottom-left-radius: 3px;
-  -moz-border-radius-topleft: 3px;
-  -moz-border-radius-bottomleft: 3px;
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-  height: 47px;
-  border-right-width: 0;
-  -webkit-transition: all ease-out 0.05s;
 }
 #header .searchfield input[type="text"] :focus {
   border-color: #666664 #ffffff #adada9 #666664;
@@ -811,13 +748,97 @@ body.edit #header .nav-back :focus::-moz-placeholder {
 #header .searchfield input[type="text"] :focus :-ms-input-placeholder:focus {
   color: #ddddd8;
 }
+#header .searchfield button {
+  float: left;
+  height: 28px;
+  width: 36px;
+  border: none;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  transition: background ease-out 0.03s;
+  -moztransition: background ease-out 0.03s;
+  -webkit-transition: background ease-out 0.03s;
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px;
+  border-left: 0;
+  margin-left: 0;
+}
+#header .searchfield a.btn {
+  height: 28px;
+}
+#header .searchfield a.search-source {
+  width: 128px;
+  border-radius: 0px;
+  padding: 6px 16px;
+  color: #191913;
+  display: block;
+  border-radius: 0;
+  text-align: left;
+  border-top: 1px solid #c7c7c3;
+  border-bottom: 1px solid #c7c7c3;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05) inset;
+  font-size: 14px;
+}
+#header .searchfield a.search-source:hover .fa-caret-down {
+  color: #0e4e3e;
+}
+#header .searchfield a.search-source .fa-caret-down {
+  position: absolute;
+  right: 6px;
+  color: #1a8f72;
+}
+#header .searchfield em {
+  color: #666664;
+  font-size: 12px;
+}
+body.index #header .searchfield {
+  left: 248px;
+  top: 220px;
+  min-width: 611px;
+  opacity: 1;
+}
+body.index #header .searchfield input[type="text"] {
+  padding: 11px 16px;
+  width: 433px;
+  height: 47px;
+}
+body.index #header .searchfield button {
+  font-size: 1.6em;
+  height: 47px;
+  width: 50px;
+}
+body.index #header .searchfield a.btn {
+  height: 47px;
+}
+body.index #header .searchfield a.search-source {
+  padding: 8px 16px;
+}
+body.index #header .searchfield a.search-source .fa-caret-down {
+  right: 12px;
+}
+body.index #header .searchfield a span {
+  margin-top: 8px;
+}
+body.index #header .searchfield a .btn-label {
+  position: relative;
+  top: 5px;
+}
+body.index #header .searchfield em {
+  font-size: 13px;
+}
+body.index #header .searchfield .remote-search ul.remotesource {
+  max-width: 520px;
+  padding-left: 6px;
+  margin: 0px;
+}
+body.index #header .searchfield .remote-search ul.remotesource i {
+  color: #666664;
+}
 body.edit #header .searchfield {
   display: none;
 }
 body.search #header .searchfield {
-  top: 12px;
-  left: 276px;
-  min-width: 462px;
+  opacity: 1;
 }
 body.search #header .searchfield input[type="text"] {
   box-shadow: none;
@@ -825,7 +846,6 @@ body.search #header .searchfield input[type="text"] {
   -webkit-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.05);
   padding: 3px 8px;
   font-size: 14px;
-  height: 28px;
   width: 300px;
   border-color: #c7c7c3;
   font-weight: 400;
@@ -842,50 +862,27 @@ body.search #header .searchfield input[type="text"] :-ms-input-placeholder {
   font-style: italic;
   font-size: 14px;
 }
-body.search #header .searchfield .btn-group {
-  float: right;
-}
 body.search #header .searchfield button {
-  height: 28px;
-  width: 36px;
   font-size: 1em;
   line-height: 1;
 }
-body.search #header .searchfield a.btn {
-  height: 28px;
-  width: 28px;
-  line-height: 14px;
-}
 body.search #header .searchfield a.search-source {
-  height: 28px;
-  width: 126px;
   line-height: 14px;
-  color: #191913;
-  padding: 6px 16px;
+}
+#header .remote-search {
   display: block;
-  border-radius: none;
-  text-align: left;
-  border-top: 1px solid #c7c7c3;
-  border-bottom: 1px solid #c7c7c3;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05) inset;
-  font-size: 14px;
-}
-body.search #header .searchfield a.search-source:hover .fa-caret-down {
-  color: #0e4e3e;
-}
-body.search #header .searchfield a.search-source .fa-caret-down {
+  width: 100%;
   position: absolute;
-  right: 6px;
-  color: #1a8f72;
-}
-body.search #header .searchfield em {
-  color: #666664;
-  font-size: 12px;
-}
-.searchfield .remote-search {
+  top: 28px;
   background-color: #eeeeec;
+  clear: both;
+  height: 20px;
+  padding: 0px;
 }
-#header .searchfield .remote-search ul.remotesource {
+#header .remote-search a {
+  margin-right: 3px;
+}
+#header .remote-search ul.remotesource {
   max-width: 369px;
   width: 100%;
   font-size: 13px;
@@ -895,38 +892,22 @@ body.search #header .searchfield em {
   display: inline;
   padding-left: 3px;
 }
-#header .searchfield .remotesource .hitcount {
-  color: #adada9;
-}
-#header .searchfield .remote-search ul.remotesource li {
+#header .remote-search ul.remotesource li {
   display: inline;
 }
-#header .searchfield .remote-search a {
+#header .remote-search ul.remotesource a {
   float: right;
   width: 60px;
   font-size: 13px;
 }
-#header .searchfield a.search-source {
-  width: 128px;
-  border-radius: 0px;
-  color: #191913;
+#header .remote-search ul.remotesource .hitcount {
+  color: #adada9;
 }
-#header .searchfield button {
-  font-size: 1.6em;
-  height: 47px;
-  width: 50px;
-  border: none;
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-  -webkit-transition: background ease-out 0.03s;
-  border-bottom-left-radius: 0px;
-  border-top-left-radius: 0px;
-  border-left: 0;
-  margin-left: 0;
-}
-#header .searchfield input[type="text"],
-#header .searchfield button {
-  float: left;
+body.index #header .remote-search {
+  top: 47px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 /* HEADER SEARCHFIELD END ------------------------- */
 /* HEADER END ------------------------- */
