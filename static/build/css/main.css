@@ -705,9 +705,6 @@ body.edit #header .nav-back :focus::-moz-placeholder {
   z-index: 2;
   /*FF18<*/
   /*FF19>*/
-  -webkit-transition: dbg_opacity 400ms;
-  -o-transition: dbg_opacity 400ms;
-  transition: dbg_opacity 400ms;
   opacity: 0;
 }
 #header .searchfield :focus:-moz-placeholder:focus {
@@ -717,7 +714,7 @@ body.edit #header .nav-back :focus::-moz-placeholder {
   color: #ddddd8;
 }
 #header .searchfield,
-#header .searchfield * {
+#header .searchfield > * {
   transition: all ease-out 50ms;
   -moz-transition: all ease-out 50ms;
   -webkit-transition: all ease-out 50ms;
@@ -869,13 +866,7 @@ body.search #header .searchfield button {
   font-size: 1em;
   line-height: 1;
 }
-body.search #header .searchfield a.btn {
-  width: 28px;
-  line-height: 14px;
-}
 body.search #header .searchfield a.search-source {
-  width: 126px;
-  height: 28px;
   line-height: 14px;
 }
 #header .remote-search {

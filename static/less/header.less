@@ -96,9 +96,7 @@ body.edit #header .nav-back {
 // Global styles. 
 #header .searchfield {
   position: absolute;
-  // left: 384px; // What are these? 
-  // top: 82px;
-  top: 12px;  // Take these from search header instead. Consider making index style default.
+  top: 12px;
   left: 276px;
   min-width: 462px;
   
@@ -106,8 +104,7 @@ body.edit #header .nav-back {
   :focus:-moz-placeholder:focus { color:@grey-lighter; }/*FF18<*/
   :focus::-moz-placeholder { color:@grey-lighter; }/*FF19>*/
 
-  // Set this on all elements under .searchfield or none. Go with opacity for .searchfield for now
-  &, & *{
+  &, &>*{
     transition:all ease-out 50ms;-moz-transition:all ease-out 50ms;-webkit-transition:all ease-out 50ms; 
   }
 
@@ -115,9 +112,6 @@ body.edit #header .nav-back {
     margin-top: -5px;
   }
   
-  -webkit-transition: dbg_opacity 400ms;
-  -o-transition: dbg_opacity 400ms;
-  transition: dbg_opacity 400ms;
   opacity:0;
 
   input[type="text"]{
@@ -271,14 +265,7 @@ body.search #header .searchfield {
     line-height: 1;
   }
 
-  a.btn {
-    width:28px;
-    line-height:14px;
-  }
-
   a.search-source {
-    width:126px;
-    height:28px;
     line-height:14px;
   }
 
