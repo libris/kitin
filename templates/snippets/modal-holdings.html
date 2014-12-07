@@ -7,7 +7,7 @@
   <div data-cg-busy="{promise:promises.holding.loading, message:'Laddar bestånd...', minDuration: 800}"></div>
   <div data-cg-busy="{promise:promises.holding.saving, message:'Sparar bestånd...', minDuration: 800}"></div>
   
-  <accordion class="other-holdings" ng-show="false">
+  <accordion class="other-holdings" ng-show="true">
     <accordion-group is-open="showOtherHoldings">
       <accordion-heading>
         Visa bestånd för andra bibliotek (beta) <i class="pull-right fa" ng-class="{'fa-chevron-down': showOtherHoldings, 'fa-chevron-right': !showOtherHoldings}"></i>
@@ -18,7 +18,8 @@
               {{otherHolding.about.heldBy.notation}} <i class="pull-right fa" ng-class="{'fa-chevron-down': offer.open, 'fa-chevron-right': !offer.open}"></i>
           </accordion-heading>
           <div data-ng-repeat="offer in otherHolding.about.offers" class="other-offer">
-            <span class="offer-value" data-ng-repeat="(property, value) in offer" data-ng-show="property != '@type' && property != 'open'&& property != 'heldBy'">{{property}}: {{value}}<span data-ng-show="!$last">, </span></span>
+            <span><b>Lokalsignum {{$index + 1}}:</b> </span><span class="offer-value" data-ng-repeat="(property, value) in offer" data-ng-show="property != '@type' && property != 'open' && property != 'heldBy'"><span class="prop">{{property}}</span>: <span class="val">{{value}}</span><span data-ng-show="!$last">, </span></span>
+            <hr>
           </div>
         </accordion-group>
       </accordion>
@@ -28,39 +29,92 @@
   <h4>{{ utils.composeTitle(record) | chop:80}}, {{ utils.composeCreator(record) | chop:40 }} {{ utils.composeDate(publication.providerDate) }}</h4>
 
   <form data-ng-show="holding['@id'] || !holding['etag']" name="holdingForm">
-    <section class="offer form-container" data-ng-repeat="offer in holding.about.offers track by $index">
-      <div class="cols">
-          <kitin-group label="Lokalsignum" initially-visible>
-            <!-- Fake Sigel drop-down until we decide how to handle multiple sigels for single users -->
-            <div class="label">
-              <span class="lbl">Sigel</span>
-              <span class="inp">
-                <div class="entity tags">
-                  <span class="select">
-                    <select>
-                      <option data-ng-selected="true" value="{{userSigel}}" data-ng-bind="userSigel"></option>
-                    </select>
-                    <i class="fa fa-caret-down"></i>
-                  </span>
-                </div>
-              </span>
-            </div>
+    <!-- Offers -->
+    <section class="offer form-container">
+      <div data-ng-repeat="offer in holding.about.offers track by $index">
+        <kitin-group label="Lokalsignum">
+          <!-- Fake Sigel drop-down until we decide how to handle multiple sigels for single users -->
+          <div class="label">
+            <span class="lbl">Sigel</span>
+            <span class="inp">
+              <div class="entity tags">
+                <span class="select">
+                  <select>
+                    <option data-ng-selected="true" value="{{userSigel}}" data-ng-bind="userSigel"></option>
+                  </select>
+                  <i class="fa fa-caret-down"></i>
+                </span>
+              </div>
+            </span>
+          </div>
 
-            <kitin-textrow label-prefix="LABEL.holdings." model="offer.shelfLocation" change-model="holding"></kitin-textrow>
-            <kitin-textrow label-prefix="LABEL.holdings." model="offer.classificationPart" change-model="holding"></kitin-textrow>
-            <kitin-textrow label-prefix="LABEL.holdings." model="offer.shelfControlNumber" change-model="holding"></kitin-textrow>
-            <kitin-textrow label-prefix="LABEL.holdings." model="offer.shelfLabel" change-model="holding"></kitin-textrow>
-            <kitin-textrow label-prefix="LABEL.holdings." model="offer.availability" change-model="holding"></kitin-textrow>
-            <kitin-textrow label-prefix="LABEL.holdings." model="offer.copyNumber" change-model="holding"></kitin-textrow>
-            <kitin-textrow label-prefix="LABEL.holdings." model="offer.copyNote" change-model="holding"></kitin-textrow>
-            <kitin-textrow label-prefix="LABEL.holdings." model="offer.editorialNote" change-model="holding"></kitin-textrow>
-          </kitin-group>
+          <kitin-textrow label-prefix="LABEL.holdings." model="offer.shelfLocation" change-model="holding"></kitin-textrow>
+          <kitin-textrow label-prefix="LABEL.holdings." model="offer.classificationPart" change-model="holding"></kitin-textrow>
+          <kitin-textrow label-prefix="LABEL.holdings." model="offer.shelfControlNumber" change-model="holding"></kitin-textrow>
+          <kitin-textrow label-prefix="LABEL.holdings." model="offer.shelfLabel" change-model="holding"></kitin-textrow>
+          <kitin-textrow label-prefix="LABEL.holdings." model="offer.availability" change-model="holding"></kitin-textrow>
+          <kitin-textrow label-prefix="LABEL.holdings." model="offer.copyNumber" change-model="holding"></kitin-textrow>
+          <kitin-textrow label-prefix="LABEL.holdings." model="offer.copyNote" change-model="holding"></kitin-textrow>
+          <kitin-textrow label-prefix="LABEL.holdings." model="offer.editorialNote" change-model="holding"></kitin-textrow>
 
-        <div class="col12">
-          <button class="btn btn-link pull-right" data-ng-if="holding.about.offers.length > 1" data-ng-click="deleteOffer(holding, $index)"><i class="fa fa-trash-o"></i> {{ "Radera lokalsignum" }}</button>
-        </div>
+          <div class="button-bar right">
+            <button class="btn btn-link" data-ng-if="holding.about.offers.length > 1" data-ng-click="deleteOffer(holding, $index)"><i class="fa fa-trash-o"></i> {{ "Radera lokalsignum" }}</button>
+          </div>        
+        </kitin-group>
+      </div>
+      <div class="button-bar">
+        <button class="btn btn-link" data-ng-click="addOffer(holding)" data-ng-show="holding"><i class="fa fa-plus"></i> {{ "Lägg till lokalsignum" }}</button>
       </div>
     </section>
+    
+    <!-- IS PRIMARY TOPIC OF START -->
+    <section class="form-container">
+      <div data-ng-repeat="document in holding.about.isPrimaryTopicOf track by $index">
+        <kitin-group label="'Elektronisk adress och åtkomst'">
+          <kitin-textrow model="document['@id']" change-model="holding"></kitin-textrow>
+
+          <kitin-textrow model="document.description" change-model="holding"></kitin-textrow>
+
+          <kitin-textrow model="document.altLabel" change-model="holding"></kitin-textrow>
+
+          <kitin-textrow model="document.comment" change-model="holding"></kitin-textrow>
+
+          <kitin-table model="document.editorialNote" change-model="holding" labels="['Intern anmärkning']">
+            <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
+          </kitin-table>
+          <div class="button-bar right">
+            <button class="btn btn-link pull-right" data-ng-if="holding.about.isPrimaryTopicOf.length > 1" data-ng-click="deletePrimaryTopicOf(holding, $index)"><i class="fa fa-trash-o"></i> {{ "Radera elektronisk adress" }}</button>
+          </div>
+        </kitin-group>
+      </div>
+      <div class="button-bar">
+        <button class="btn btn-link" data-ng-click="addPrimaryTopicOf(holding)" data-ng-show="holding"><i class="fa fa-plus"></i> {{ "Lägg till elektronisk adress " }}</button>
+      </div>
+    </section>
+    <!-- / IS PRIMARY TOPIC OF END -->
+
+    <!-- ENCODING START 
+    <section class="form-container">
+      <kitin-group label="Encoding">
+        <div data-ng-repeat="enc in holding.about.encoding track by $index">
+          <kitin-table model="enc" type="MediaObject">
+            <kitin-td>
+              <div class="label">
+                <kitin-label label="'LABEL.holding.about.encoding.id'"></kitin-label>
+                <kitin-textarea model="enc['@id']"></kitin-textarea>
+              </div>
+
+              <div class="label">
+                <kitin-label label="'LABEL.holding.about.encoding.comment'"></kitin-label>
+                <kitin-textarea model="enc.comment"></kitin-textarea>
+              </div>
+            </kitin-td>
+          </kitin-table>
+        </div>
+      </kitin-group>
+    </section>
+    ENCODING END -->
+
   </form>
 
   <hr data-ng-show="holding">
@@ -77,9 +131,9 @@
     <alert data-ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
   </div>
 
-  <div>
-    <button class="btn btn-flat btn-purple-light" data-ng-click="addOffer(holding)" data-ng-show="holding"><i class="fa fa-plus"></i> {{ "Lägg till lokalsignum" }}</button>
-  </div>
+  <section>
+    <pre>{{holding}}</pre>
+  </section>
 
 </div>
 

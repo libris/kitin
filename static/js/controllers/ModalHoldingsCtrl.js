@@ -68,6 +68,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
         };
         holding.about.heldBy.notation = holding.about.offers[0].heldBy[0].notation = userData.userSigel;
         $scope.holding = holding;
+        console.log(holding);
       });
     } else {
       $scope.holding = holding;
@@ -108,6 +109,20 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   $scope.deleteOffer = function(holding, index) {
     var offers = holding.about.offers;
     offers.splice(index, 1);
+  };
+
+  $scope.addPrimaryTopicOf = function(holding) {
+    // Get offers from existing holding
+    var eDocuments = holding.about.isPrimaryTopicOf;
+    recordService.holding.create().then(function(response) {
+      var eDocument = response.about.isPrimaryTopicOf[0];
+      eDocuments.push(eDocument);
+    });
+  };
+
+  $scope.deletePrimaryTopicOf = function(holding, index) {
+    var eDocuments = holding.about.isPrimaryTopicOf;
+    eDocuments.splice(index, 1);
   };
 
 });

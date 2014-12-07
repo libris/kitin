@@ -1470,6 +1470,9 @@ html .modal.fade .modal-dialog {
 .modal-header.holdings {
   background-color: #683568;
 }
+.modal-body.holdings {
+  max-height: none;
+}
 /* HOLDINGS MODAL END ------------------------- */
 /* REMOTE SOURCES MODAL START ------------------------- */
 .remote-modal a.database-name {
@@ -2674,6 +2677,12 @@ section.offer {
   height: 100%;
   background: rgba(255, 255, 255, 0.5);
   padding: 80px;
+}
+.holdings .button-bar {
+  padding: 6px 0;
+}
+.holdings .button-bar.right {
+  text-align: right;
 }
 /* HOLDINGS END ------------------------- */
 /* SEARCH START ------------------------- */
