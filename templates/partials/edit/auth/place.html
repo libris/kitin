@@ -1,0 +1,21 @@
+<kitin-group>
+  <kitin-textrow model="instance.prefLabel"></kitin-textrow>
+
+  <kitin-table model="instance.note">
+    <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
+  </kitin-table>
+</kitin-group>
+
+<!-- <div class="label">
+  <span class="lbl">{{ "Label" }}</span>
+  <input data-track-change type="text" class="" data-ng-model="instance.prefLabel"/>
+</div>
+<div class="label">
+  <span class="lbl">{{ "Anmärkning" }}</span>
+  <div data-ng-repeat="note in instance.note">
+    <textarea data-track-change data-ui-jq="autosize" spellcheck="false" data-ng-model="note">{{ note }}</textarea>
+  </div>
+</div> -->
+
+<div class="cols" data-ng-include="'/snippets/source-comment-template'"></div> 
+

@@ -1,20 +1,3 @@
-<!-- Do we need a recurring header? Fields are pretty self-explanatory -->
-<!-- Might be a good place to put tooltips showing what fields are made up of, though -->
-<!-- <div class="hitlist-row header bib compact" data-ng-if="$first||$index % 20 === 0">
-  <div class="title">
-    Titel
-  </div>
-  <div class="creator">
-    Upphovsm.
-  </div>
-  <div class="publication">
-    Publ.
-  </div>
-  <div class="identifier-code">
-    Id
-  </div>
-</div> -->
-
 <div class="hitlist-row bib compact">
   <div class="title">
     <a href="/edit/libris{{record['@id']}}">{{ utils.composeTitle(record) | chop:80}}</a>

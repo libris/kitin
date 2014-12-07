@@ -4,7 +4,7 @@
 </div>
 
 <div class="modal-body marc">
-    <div cg-busy="{promise:promises.marc, message:'Laddar marcformat...', minDuration: 800}"></div>
+    <div data-cg-busy="{promise:promises.marc, message:'Laddar marcformat...', minDuration: 800}"></div>
     <section class="marc">
       <table>
         <tr>
@@ -29,25 +29,11 @@
           </td>
           <td>
             <span ng-if="typeOf(value) === 'string'">{{value}}</span>
-            <span data-ng-init="object = value.subfields" data-ng-include="'/snippets/render-marc-object'"></span>
+            <span data-ng-init="object = value.subfields" data-ng-include="'/snippets/marc-object'"></span>
           </td>
         </tr>
       </table>
     </section>
 </div>
 
-<!--
-            <span data-ng-repeat="(key, value) in field" data-ng-init="obj = field[key]">
-              <ng:switch on="typeOf(obj)">
-                <span data-ng-switch-when="object">
-                  <code data-ng-if="key.length === 3">{{ key }}</code>
-                  <span data-ng-init="object = obj" data-ng-include="'/snippets/render-marc-object'"></span>
-                </span>
-                <span data-ng-switch-when="string">
-                    <code>{{ key }}</code>
-                    <span>{{ obj }}</span>
-                </span>
-              </ng:switch>
-            </span>
--->
 <div class="modal-footer holdings submit"></div>

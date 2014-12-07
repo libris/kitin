@@ -1,12 +1,19 @@
 /*
 
-Creates entity
+Creates entity row
+
+Usage:
+  <kitin-entityrow model="">
+    <kitin-select> ..or.. <kitin-search>
+  </kitin-entityrow>
 
 Params:
   model: (str)
   mutiple: (bool) allow multiple entries
   rich: (bool) sets this entity to rich (for advanced formatting)
   view: (str) view template snippet (detaults to generic)
+  link: (str) link into model, typically model[link]. Used to enable data binding when in a ng-repeat,
+  type: (str) property @type, used when new object is created
 */
 
 kitin.directive('kitinEntityrow', function(editService, $rootScope) {
@@ -21,8 +28,8 @@ kitin.directive('kitinEntityrow', function(editService, $rootScope) {
       scope.options = kitinGroupCtrl ? kitinGroupCtrl.options : null;
     },
 
-    template: '<div class="{{className}}" ng-hide="shouldHide(options, objects)">' + 
-                '<kitin-title title="title" ng-if="title"></kitin-title>' +
+    template: '<div class="label" ng-hide="shouldHide(options, objects)">' + 
+                '<kitin-label label="label" ng-if="label"></kitin-label>' +
                 '<div class="inp">' +
                   '<kitin-entity in-kitin-entity-row="true">' +
                     '<span ng-transclude></span>' +
@@ -32,7 +39,20 @@ kitin.directive('kitinEntityrow', function(editService, $rootScope) {
 
     controller: function($element, $scope, $attrs) {
       // Set non two way bound parameters
-      $scope.title = !$attrs.hasOwnProperty('hideTitle') ? 'LABEL.' + $attrs.model : false;
+      if(!$attrs.hasOwnProperty('hideLabel')) {        
+        var link = '';
+        if($attrs.link) {
+          // When link attribute is set add it to label lookup
+          link = '[\'' + $scope.$eval($attrs.link) +'\']';
+        }
+        if($attrs.hasOwnProperty('labelPrefix')) {
+          $scope.label = $attrs.labelPrefix + $attrs.model + link;
+        } else {
+          $scope.label = 'LABEL.' + $attrs.model + link;
+        }
+      } else {
+        $scope.label = false;
+      }
 
       // Since we want scope to be inherit from parent, to do lookups for controller scope variables like record.
       // The only solution found where to set a in-kitin-entity-row parameter and pass attributes through the shared scope.
@@ -40,24 +60,14 @@ kitin.directive('kitinEntityrow', function(editService, $rootScope) {
         model: $attrs.model,
         multiple: $attrs.hasOwnProperty('multiple'),
         rich: $attrs.hasOwnProperty('rich'),
-        view: $attrs.view
+        view: $attrs.view,
+        changeModel: $attrs.changeModel,
+        link: $attrs.link,
+        type: $attrs.type 
       });
 
       var hasValue = false;
       var savedOptionsHidden;
-
-      var classNames = ['label entity'];
-      if ( $attrs.hasOwnProperty('rich') ) {
-        classNames.push('rich');
-      } else {
-        classNames.push('tags');
-      }
-      if ( $scope.multiple ) {
-        classNames.push('multiple');
-      }
-
-      $scope.className = classNames.join(' ');
-
       var childObjects = null;
 
       // listen for objects and changes

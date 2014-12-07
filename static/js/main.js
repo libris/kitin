@@ -67,6 +67,9 @@ $.Autocompleter.prototype.position = function() {
   });
 };
 
+// Enabling CORS support in jQuery to make jquery autocompleter work in IE
+jQuery.support.cors = true;
+
 // TODO: turn into promptService?
 function openPrompt($event, promptSelect, innerMenuSelect) {
   var tgt = $($event.target),

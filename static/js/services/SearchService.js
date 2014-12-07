@@ -38,10 +38,13 @@ kitin.factory('searchService', function($http, $q, $rootScope) {
       if (params.f) {
         params.f = params.f.replace(/\//g, '\\/');
       }
+      $rootScope.loading = true;
       // $rootScope.promises is used by angular-busy to show and hide loading/saving indicators
       $rootScope.promises.search = $http.get(url, { params: params }).success(function(data) {
+        $rootScope.loading = false;
         deferred.resolve(data);
       }).error(function(data, status) {
+        $rootScope.loading = false;
         deferred.reject(status);
       });
       return deferred.promise;

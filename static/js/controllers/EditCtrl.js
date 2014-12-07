@@ -56,8 +56,8 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   var updateHolding = function () {
     var recordId = $scope.record.about['@id'];
     if(!$scope.record.new) {
-      recordService.holding.find(recordId, userData, true).then(function success(holding) {
-        if (holding) {
+      recordService.holding.find(recordId, userData, true).then(function success(holdings) {
+        if (holdings.userHoldings) {
           $scope.hasHolding = true;  
         } else {
           $scope.hasHolding = false;

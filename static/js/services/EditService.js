@@ -2,7 +2,7 @@
  * editService
  * Service to modify a record. Typically decorate/undecorate
  */
-kitin.service('editService', function(definitions, $http, $q) {
+kitin.service('editService', function(definitions, $http, $q, $rootScope) {
 
 
   /** mergeProperties
@@ -184,32 +184,20 @@ kitin.service('editService', function(definitions, $http, $q) {
       return added;
     },
 
-    createObject: function (type, initalValue) {
-      switch (type) {
-        case 'Person':
-          //objectKeys: ['controlledLabel', 'familyName', 'givenName', 'birthYear', 'deathYear']
-          return {'@type': "Person", controlledLabel: "", birthYear: ""};
-        case 'Concept':
-          // !TODO Handle multiple Concept types
-          return {'@type': 'Place', prefLabel: initalValue };
-        case 'ISBN':
-          return {'@type': "Identifier", identifierScheme: { '@id': "/def/identifiers/isbn" }, identifierValue: ""};
-        case '/def/identifiers/issn':
-          return {'@type': "Identifier", identifierScheme: { '@id': "/def/identifiers/issn" }, identifierValue: ""};
-        case 'Identifier':
-          return {'@type': "Identifier", identifierValue: ""};
-        case 'ProviderEvent':
-          return {'@type': "ProviderEvent", providerName: "", providerDate: "",
-                  place: {'@type': "Place", label: ""}};
-        case 'Comment':
-        case 'IssueNumber':
-        case 'audience':
-        case 'summary':
-        case 'subtitle':
-          return '';
-        default:
-          return {};
+    createObject: function (property, type, initalValue) {
+      var deferer = $q.defer();
+
+      
+      var createdObject = {};
+      try {
+        createdObject = $rootScope.getSkeletonTypeMap().summary[type];
+        if(_.isUndefined(createdObject)) {
+          throw '';
+        }
+      } catch(error) {
+        console.error('Could not find skeleton for', type);
       }
+      return createdObject;
     },
 
     makeReferenceEntity: function (entity) {
@@ -331,6 +319,17 @@ kitin.service('editService', function(definitions, $http, $q) {
         }
         ['Resource'].concat(types).forEach(function (type) {
           var skeletonType = skeletonTypeMap.main[type];
+
+          // Map @type in main from summary
+          _.forEach(skeletonType, function(skeleton, key) {
+            if(skeleton['@type']) {
+              var summaryType = skeletonTypeMap.summary[skeleton['@type']];
+              if(summaryType) {
+                skeletonType[key] = angular.copy(summaryType);
+              }
+            }
+          }); 
+
           if (skeletonType) {
             this.mergeRecordAndTemplate(record.about, skeletonType);
           }
@@ -408,7 +407,7 @@ kitin.service('editService', function(definitions, $http, $q) {
       if (relators.byTerm === undefined) {
         var index = relators.byTerm = {};
         _.each(relators.list, function (obj) {
-          var id = obj['data']['about']['@id'];
+          var id = obj['about']['@id'];
           index[id] = obj;
           var key = id.substring(id.lastIndexOf('/') + 1);
           index[key] = obj;
@@ -453,7 +452,7 @@ kitin.service('editService', function(definitions, $http, $q) {
           if (!role) {  return; }
 
           if (!_.contains(roles, role)) {
-            roles.push(role['data']['about']);
+            roles.push(role['about']);
             delete instance[key];
           }
         });

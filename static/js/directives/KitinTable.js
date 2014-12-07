@@ -1,3 +1,22 @@
+/*
+
+Creates a table, with functionality to add new rows
+
+Usage:
+  <kitin-table labels="[]">
+    <kitin-td>
+      <kitin-textarea> ..or.. <kitin-entity> ..or.. any html
+    </kitin-td>
+  </kitin-table>
+
+Params:
+  model: (str)
+  label: (str)
+  labels: (string array) labels to add to table columns
+  type: (str) type of object to create on add. Defaults to simple string
+
+*/
+
 kitin.directive('kitinTable', function(editService){
   return {
    restrict: 'E',
@@ -11,13 +30,13 @@ kitin.directive('kitinTable', function(editService){
           scope.options = kitinGroupCtrl.options;
       },
       template: '<div class="label" ng-hide="shouldHideTable(model, options)">' + 
-                  '<span class="lbl">{{title | translate}}</span>' +
+                  '<span class="lbl">{{label | translate}}</span>' +
                   '<div class="inp">' +
                     '<div class="datatable">' +
                       '<table>' +
                         '<thead>' +
-                          '<tr class="thead" ng-if="titles.length">' +
-                            '<th ng-repeat="title in titles">{{title | translate}}</th>' +
+                          '<tr class="thead" ng-if="labels.length">' +
+                            '<th ng-repeat="label in labels">{{label | translate}}</th>' +
                           '</tr>' +
                         '</thead>' +
                         '<tbody>' +
@@ -26,7 +45,7 @@ kitin.directive('kitinTable', function(editService){
                         '</tbody>' +
                       '</table>'+
                       '<div class="adder">' +
-                        '<a class="add" href="#" ng-click="addRow()"><i class="fa fa-plus-circle"></i> Lägg till rad</a>' +
+                        '<a class="add" href="" ng-click="addRow()"><i class="fa fa-plus-circle"></i> Lägg till rad</a>' +
                       '</div>' +
                     '</div>' + 
                   '</div>' + 
@@ -64,30 +83,44 @@ kitin.directive('kitinTable', function(editService){
           return true;
         };
        
-        // TODO! Create object for each model. Use editService.createObject?
-        var createObject = function(model) {
-          return ['']; 
+        this.doCreate = function(initialValue) {
+          var createdObject = '';
+          if($attrs.type) {
+            createdObject = editService.createObject($attrs.model, $attrs.type, initialValue);
+          }
+          
+          return createdObject;
         };
 
-        $scope.addRow = function(index) {
-          return $scope.model.push(createObject());
-        };
+        $scope.addRow = function() {
+          return $scope.model.push(this.doCreate());
+        }.bind(this);
 
         $scope.removeRow = function(index) {
           return $scope.model.splice(index,1);
         };
 
-        $scope.title = 'LABEL.' + $attrs.model;
-        $scope.model = _.isArray($scope.model) && $scope.model.length > 0 ? $scope.model : createObject($attrs.model);
-        if($attrs.titles) {
-          $scope.titles = $scope.$eval($attrs.titles);
+        $scope.label = 'LABEL.' + $attrs.model;
+        $scope.model = _.isArray($scope.model) && $scope.model.length > 0 ? $scope.model : [this.doCreate()];
+        if($attrs.labels) {
+          $scope.labels = $scope.$eval($attrs.labels);
         }
 
       }
   };
 });
 
+/*
+Adds ui controls to a table row, only used inside kitin-table
 
+Usage:
+  ...
+    <tr kitin-tr-controls></tr>
+  ...
+
+Params:
+
+*/
 kitin.directive('kitinTrControls', ['$compile', function($compile) {
   return {
     // Type element isnt working since the transclude function is manipulating the element after its been added to the DOM
@@ -110,6 +143,19 @@ kitin.directive('kitinTrControls', ['$compile', function($compile) {
   };
 }]);
 
+
+/*
+Creates a td-tag
+This custom tag is needed since rendering of DOM with td-tags results in incorrect html
+
+Usage:
+  ...
+    <kitin-td></kitin-td>
+  ...
+
+Params:
+
+*/
 kitin.directive('kitinTd', function(editService){
   return {
       restrict: 'E',

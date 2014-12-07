@@ -193,7 +193,7 @@ kitin.factory('utilsService', function($http, $q, $rootScope) {
       // We'd probably want to keep this more general and return matches as an array as well, 
       // putting the logic elsewhere, but this will do for now.
       return {
-        matches: matches.length > 0 ? matches[0] : false,
+        matches: matches.length > 0 ? matches : false,
         nonmatches: nonmatches.length > 0 ? nonmatches : false
       };
     }

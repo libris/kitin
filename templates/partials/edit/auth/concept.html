@@ -1,0 +1,27 @@
+<strong class="subject-head">{{ instance.prefLabel }}</strong>
+<span class="lbl">Allmän offentlig anmärkning</span>
+<div class="subject-data" data-ng-repeat="note in instance.scopeNote">
+  <div class="" data-ng-model="instance.scopeNote">{{ note }}</div>
+</div>
+<div class="subject">
+  <span class="lbl" data-ng-show="instance.broader">Vidare term</span>
+  <ul class="subject-data" data-ng-repeat="broader in instance.broader">
+    <li data-ng-model="broader.prefLabel">{{ broader.prefLabel }}</li>
+  </ul>
+  <span class="lbl"  data-ng-show="instance.narrower">Snävare term</span>
+  <ul data-ng-repeat="narrower in instance.narrower">
+    <li data-ng-model="narrower.prefLabel">{{ narrower.prefLabel }}</li>
+  </ul>
+  <span class="lbl"  data-ng-show="instance.related">Se även</span>
+  <ul data-ng-repeat="related in instance.related">
+    <li data-ng-model="related.prefLabel">{{ related.prefLabel }}</li>
+  </ul>
+  <span class="lbl" data-ng-show="instance.closeMatch">Matchar</span>
+  <ul data-ng-repeat="closeMatch in instance.closeMatch">
+    <li data-ng-model="closeMatch.prefLabel">{{ closeMatch.prefLabel }}</li>
+  </ul>
+</div>
+
+<div></div>
+
+<div data-ng-include="'/snippets/source-comment-template'"></div>

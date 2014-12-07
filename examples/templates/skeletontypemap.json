@@ -17,7 +17,25 @@
           "/topic/chronological": [],
           "Person": [],
           "Place": []
-      }
+      },
+      "bibliographyCode": [],
+
+
+      "instanceTitle": { "@type": "Title" },
+      "titleVariation": { "@type": "Title" },
+      "translatedTitle": { "@type": "Title" },
+      "previousTitle": { "@type": "Title" },
+      "exampleOfWork": { "@type": "UniformWork" },
+      "influentialRelation": [],
+      "languageNote": [],
+      "issueNumber": [],
+      "describedBy": [],
+      "reproduction": [],
+      "performerNote": [],
+      "systemRequirements": [],
+      "hasAnnotation": [],
+      "replaces": []
+
     },
 
     "Monograph": {
@@ -29,13 +47,8 @@
     },
 
     "Serial": {
-      "keyTitle": [
-          {
-            "@type": "Title",
-            "titleValue": "",
-            "titleQualifier": "",
-            "titleSource": ""
-          }
+      "keyTitle": [ 
+        { "@type": "Title" } 
       ],
       "comment": [],
       "influencedBy": [],
@@ -52,14 +65,6 @@
       "originalLanguage": [],
       "classificationDdc": "",
       "classification": [],
-      "instanceTitle": {
-        "@type": "Title",
-        "titleValue": "",
-        "subtitle": "",
-        "titleDate": "",
-        "partNumber": "",
-        "partTitle": ""
-      },
       "responsibilityStatement": "",
       "publication": [],
       "manufacture": [],
@@ -90,24 +95,8 @@
       "additionalCarrierType": {},
       "index": {},
       "cartographer": [],
-      "cartographicAscensionAndDeclination": [
-        {
-          "@type": "CartographyCoordinates",
-          "cartographicScale": "",
-          "constantRatioLinearHorizontalScale": [],
-          "westernmostLongitudeCoordinates": "",
-          "easternmostLongitudeCoordinates": "",
-          "northernmostLatitudeCoordinates": ""
-        }
-      ],
-      "instanceTitle": {
-        "@type": "Title",
-        "titleValue": "",
-        "subtitle": "",
-        "titleDate": "",
-        "partNumber": "",
-        "partTitle": ""
-      },
+      "cartographicAscensionAndDeclination": { "@type": "CartographyCoordinates" },
+      "instanceTitle": { "@type": "Title" },
       "cartographicScale": "",
       "cartographicCoordinates": "",
       "listOfContents": "",
@@ -218,18 +207,29 @@
       "publicationYear": ""
     },
 
-    "CartographyCoordinates": {},
+    "CartographyCoordinates": {
+        "cartographicScale": "",
+        "angularScale": [],
+        "constantRatioLinearVerticalScale": [],
+        "constantRatioLinearHorizontalScale": [],
+        "westernmostLongitudeCoordinates": "",
+        "easternmostLongitudeCoordinates": "",
+        "northernmostLatitudeCoordinates": "",
+        "cartographicAscensionAndDeclination": [],
+        "gRingLatitude": [],
+        "gRingLongitude": [],
+        "extraterrestrialBody": []
+    },
     "Identifier": {
       "identifierScheme": {"@id": "/def/identifiers/isbn"},
       "identifierValue": ""
     },
     "Title": {
-      "@type": "Title",
       "titleValue": "",
       "subtitle": "",
       "titleDate": "",
-      "partNumber": "",
-      "partTitle": ""
+      "partNumber": [],
+      "partTitle": []
     },
 
     "Audience": {},
@@ -264,9 +264,140 @@
         "controlledLabel": "{{familyName}}{%if familyName and givenName%}, {%endif%}{{givenName}}{%if numeration%} ({{numeration}}){%endif%}{%if personTitle%}, {{personTitle}}{%endif%}{%if birthYear or deathYear%} {{birthYear}}-{{deathYear}}{%endif%}"
       }
     },
-    "Place": {"label": ""},
+    "Place": { "label": "" },
     "PlanetaryObject": {"name": ""},
-    "Jurisdiction": {"name": ""}
+    "Jurisdiction": {"name": ""},
+    "UniformWork": {
+      "describedBy": [],
+      "title": "",
+      "subtitle": [],
+      "partTitle": [],
+      "partNumber": [],
+      "language": {},
+      "date": "",
+      "treatySigningDate": [],
+      "version": "",
+      "comment": "",
+      "medium": "",
+      "musicPerformanceMedium": [],
+      "musicArrangement": "",
+      "musicKey": ""
+    },
+    "Product": {
+      "extent": "",
+      "dimensions": "",
+      "otherPhysicalDetails": "",
+      "accompanyingMaterial": "",
+      "device": {},
+      "materialsSpecified": ""
+    },
+    "Map": {
+      "carrierType": [],
+      "color": {},
+      "medium": {},
+      "reproduction": {},
+      "details": {},
+      "posNeg": {},
+      "aspect": {}
+    },
+    "Electronic": {
+      "carrierType": [],
+      "color": {},
+      "dimensionsCategory": {},
+      "sound": {},
+      "imageBitDepth": "",
+      "fileFormats": {},
+      "qATarget": {},
+      "antecedent": {},
+      "compression": {},
+      "reformattingQuality": {},
+      "fileAspect": {}
+    },
+    "Globe": {
+      "carrierType": [],
+      "color": {},
+      "medium": {},
+      "reproduction": {},
+      "aspect": {}
+    },
+    "ProjectedImage": {
+      "carrierType": [],
+      "projGraphColor": {},
+      "projGraphEmulsion": {},
+      "projGraphSound": {},
+      "projGraphMedium": {},
+      "projGraphDimension": {},
+      "projGraphSupport": {},
+      "projGraphAspect": {}
+    },
+    "Mircoform": {
+      "carrierType": [],
+      "posNeg": {},
+      "dimensionsCategory": {},
+      "range": {},
+      "reductionRatioExactRightJustifiedWithLeadingZero": "",
+      "color": {},
+      "emulsion": {},
+      "generation": {},
+      "base": {},
+      "aspect": {}
+    },
+    "StillImage": {
+      "carrierType": [],
+      "nonProjColor": {},
+      "nonProjPrimary": {},
+      "nonProjSecondary": {},
+      "nonProjAspect": {}
+    },
+    "MovingImage": {
+      "carrierType": [],
+      "motionPicColor": {},
+      "motionPicFormat": {},
+      "motionPicSound": {},
+      "motionPicMedium": {},
+      "motionPicDimesion": {},
+      "motionPicConfiguration": {},
+      "motionPicElements": {},
+      "motionPicPosNeg": {},
+      "motionPicGeneration": {},
+      "motionPicBase": {},
+      "motionPicCategories": {},
+      "motionPicColorStock": {},
+      "motionPicDeterioration": {},
+      "motionPicCompleteness": {},
+      "timeOfExemination": "",
+      "motionPicAspect": {}
+    },
+    "Kit": {
+      "carrierType": []
+    },
+    "SoundRecording": {
+      "carrierType": [],
+      "soundSpeed": {},
+      "soundPlaybackChannel": {},
+      "soundGroove": {},
+      "soundDimensions": {},
+      "soundTapeWidth": {},
+      "soundTapeConfiguration": {},
+      "soundKindOfDisc": {},
+      "soundKindOfMaterial": {},
+      "soundKindOfCutting": {},
+      "soundPlaybackCharacter": {},
+      "soundCapture": {},
+      "soundAspect": {}
+    },
+    "Text": {
+      "carrierType": []
+    },
+    "VideoRecording": {
+      "carrierType": [],
+      "videoColor": {},
+      "videoFormat": {},
+      "videoSound": {},
+      "videoMedium": {},
+      "videoDimensions": {},
+      "videoPlayback": {}
+    }
 
   }
 

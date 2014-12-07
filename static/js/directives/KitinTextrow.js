@@ -1,8 +1,24 @@
+/*
+
+Creates a textarea row
+
+Usage:
+  <kitin-textrow model=""></kitin-textrow>
+
+Params:
+  model: (str)
+  change-model: (str)
+  hide-label: (bool)
+  label-prefix: (str)
+
+*/
+
 kitin.directive('kitinTextrow', function(editService, $rootScope){
   return {
       restrict: 'E',
       scope: {
-        model: '=model'
+        model: '=model',
+        changeModel: '@changeModel'
       },
       require:  '?^^kitinGroup',
       replace: true,
@@ -11,13 +27,17 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
       },
       //TODO, move into snippet?
       template: '<div class="label" ng-hide="shouldHide(model, options)">' + 
-                  '<kitin-title title="title"></kitin-title>' +
-                  '<span class="inp"><kitin-textarea model="model"></kitin-textarea></span>' +
+                  '<kitin-label label="label"></kitin-label>' +
+                  '<span class="inp"><kitin-textarea data-track-change="{{changeModel}}" model="model"></kitin-textarea></span>' +
                 '</div>',
       controller: function($scope, $rootScope, $attrs) {
 
-        if(!$attrs.hasOwnProperty('hideTitle')) {
-          $scope.title = 'LABEL.' + $attrs.model;
+        if(!$attrs.hasOwnProperty('hideLabel')) {
+          if($attrs.hasOwnProperty('labelPrefix')) {
+            $scope.label = $attrs.labelPrefix + $attrs.model;
+          } else {
+            $scope.label = 'LABEL.' + $attrs.model;
+          }
         }
 
         var hasValue = false;

@@ -12,7 +12,7 @@ kitin.controller('JSONLDCtrl', function($scope, $modal) {
     var opts = {
       backdrop: true,
       keyboard: true,
-      templateUrl: '/partials/modal_vocabview',
+      templateUrl: '/snippets/modal-vocabview',
       //controller: 'ModalVocabBrowserCtrl',
       scope: $scope,
       resolve: {key: function () { return key; }},

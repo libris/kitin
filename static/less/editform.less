@@ -70,12 +70,13 @@ label.find-entity input[type="text"] { padding-left: 22px; }
       height: 1px;
       background:#ccc;
     }
-    .label {
-    }
     .lbl {
       font-weight:normal;
       padding-left:16px;
       color:#666;
+    }
+    td >.label .lbl{
+      padding-left: 0px;
     }
     .group-title,
      {
@@ -121,6 +122,50 @@ label.find-entity input[type="text"] { padding-left: 22px; }
   }
 }
 
+.tag {
+  position:relative;
+  display:inline-block;
+  border-radius:3px;
+  border: 1px dashed @grey-light; 
+  padding: 1px 20px 1px 8px;
+  margin: 0 3px 3px 0;
+  top: 1px;
+
+  &.auth {
+    background:@green-lighter;
+    border-color:@green-lighter;
+  }
+  .inner {
+    display: inline-block;
+    font-size: 12px;
+    border: none;
+    padding: 0;
+    position: static;
+  }
+  .controls {
+    position: static;
+    width: auto;
+    top: auto;
+    left: auto;
+    a.delete {
+      width: 14px;
+      height: 14px;
+      line-height: 14px;
+      font-weight:600;
+      font-size:12px;
+      color:@green-dark;
+      position:absolute;
+      top: 2px;
+      right:3px;
+      text-decoration:none;
+      i { display: none }
+      opacity: .5;
+      &:before{ content: '\00d7'; }
+      &:hover{color:@green-darker;opacity:1}
+    }
+  }
+}
+
 .entity {
   &.rich {
     .entity-content {
@@ -162,52 +207,15 @@ label.find-entity input[type="text"] { padding-left: 22px; }
     }
     .controls {
       position:absolute;
-      left: @inp_width;
-      width: @act_width;
+      right: 0px;
+      /*left: @inp_width;
+      width: @act_width;*/
       top: 1px;
     }
   }
   &.tags {
     .inp>*{display:inline-block}
-    .entity-content {
-      position:relative;
-      top:1px;
-      display:inline-block;
-      background:@green-lighter;
-      border-radius:3px;
-      border-color:@green-lighter;
-      padding: 2px 20px 3px 8px;
-      margin: 0 3px 3px 0;
-      .inner {
-        display: inline-block;
-        font-size: 12px;
-        border: none;
-        padding: 0;
-        position: static;
-      }
-      .controls {
-        position: static;
-        width: auto;
-        top: auto;
-        left: auto;
-        a.delete {
-          width: 14px;
-          height: 14px;
-          line-height: 14px;
-          font-weight:600;
-          font-size:12px;
-          color:@green-dark;
-          position:absolute;
-          top: 2px;
-          right:3px;
-          text-decoration:none;
-          i { display: none }
-          opacity: .5;
-          &:before{ content: '\00d7'; }
-          &:hover{color:@green-darker;opacity:1}
-        }
-      }
-    }
+    
     .search, .select {
       display: inline-block;
       width: 120px;
@@ -323,14 +331,16 @@ a.add {
       .add-item { margin-bottom:0 }
     }
     &:first-child { border-left-width:1px }
+    >textarea {
+      border:none;
+      &:focus{border:none;box-shadow:none}
+    }
     textarea {
       box-sizing: border-box;
-      border:none;
       padding:0;
       margin:0;
       min-width:50px;
       height: 22px;
-      &:focus{border:none;box-shadow:none}
     }
   }
   tr {

@@ -2,7 +2,7 @@
   <ng:switch on="typeOf(obj)">
     <span data-ng-switch-when="object">
       <code data-ng-if="key.length === 3">{{ key }}</code>
-      <span data-ng-init="object = obj" data-ng-include="'/snippets/render-marc-object'"></span>
+      <span data-ng-init="object = obj" data-ng-include="'/snippets/marc-object'"></span>
     </span>
     <span data-ng-switch-when="string">
         <code class="code" >{{ key }}</code>

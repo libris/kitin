@@ -1,0 +1,10 @@
+<!-- 
+  
+  Linked entity used in lists
+
+-->
+
+<a href="{{API_PATH + object['@id']}}" target="_blank">
+  <i class="fa fa-bookmark" data-ng-if="isAuth(object)"></i>
+  {{ (object.prefLabel || object.prefLabel-en || object['@id']) }}
+</a>
