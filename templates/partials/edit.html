@@ -65,6 +65,20 @@
   <div ng-switch on="recType">
     <div ng-switch-when="auth">
       <div ng-include="'/partials/edit/auth'"></div>
+      <div class="footer footer-sticky">
+        <section class="centered">
+          <div class="row">
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-md-8 right">  
+              <button class="btn btn-dark" id="publish" data-ng-click="publish()" title="{{lastPublishedLabel('Senast publicerad: %s')}}">{{modifications.auth.published ? 'Publicerad' : 'Publicera'}} 
+              <i class="fa fa-check" data-ng-show="modifications.auth.published"></i>
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
     <div ng-switch-default>
       <div ng-include="'/partials/edit/bib'"></div>

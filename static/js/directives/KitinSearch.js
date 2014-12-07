@@ -70,6 +70,16 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope, $q
       elem = elem.is('input') ? elem : elem.find('input');
 
       scope.placeholder = attrs.hasOwnProperty('placeholder') ? attrs.placeholder : 'Lägg till';
+      // Try to parse non auth param, is a variable when ng-repeat for subjects
+      var allowNonAuth = '';
+      if(attrs.hasOwnProperty('allowNonAuth')) {
+        try {
+          allowNonAuth = scope.$eval(attrs.allowNonAuth);
+        } catch(error) {
+          allowNonAuth = attrs.allowNonAuth; 
+        }
+      }
+      
 
       var linker = kitinLinkEntity;
 
@@ -117,7 +127,12 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope, $q
 
         showResult: function (value, data) {
           return template({
-            data: data, value: value, nameRepr: nameRepr, truncate: truncate, isLinked: scope.isLinked
+            data: data, 
+            value: value, 
+            nameRepr: nameRepr, 
+            truncate: truncate, 
+            isLinked: scope.isLinked, 
+            nonAuthPrefix: allowNonAuth ? allowNonAuth + ' ' : ''
           });
         },
 
@@ -163,8 +178,7 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope, $q
             });
           }
 
-          if(attrs.hasOwnProperty('allowNonAuth')) {
-            // !TODO Add propper lookup against entity definitions
+          if(attrs.hasOwnProperty('allowNonAuth') && attrs.allowNonAuth !== false) {
             result.unshift({ 
               value: searchedValue, 
               data: linker.doCreate(searchedValue)
@@ -196,10 +210,10 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope, $q
           if(doc && doc.items && doc.items.length > 0) {
             result = doc.items;
           }
-          if(attrs.allowNonAuth === 'true' && searchedValue) {
+          if(attrs.hasOwnProperty('allowNonAuth') && attrs.allowNonAuth !== false) {
             result.unshift({ 
               value: searchedValue, 
-              data: searchedValue
+              data: linker.doCreate(searchedValue)
             });
           }
           return result;
