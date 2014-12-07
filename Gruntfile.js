@@ -171,6 +171,11 @@ module.exports = function(grunt) {
         tasks: ['ngtemplates']
       }
     },
-    clean: ['static/build']
+    clean: ['static/build'],
+    karma: {
+      unit: {
+        configFile: 'test/js/config/karma.conf.js'
+      }
+    }
   });
 };
