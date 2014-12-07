@@ -15,7 +15,6 @@
     "jKey": "OscarGodson/jKey#d2b426b20a6f786b8bc2b0842e2b394dd0744a29",
     "dyve-jquery-autocomplete": "dyve/jquery-autocomplete#df032d1f3ec734c1415c09825578df336bec8272",
     "jquery-autosize": "~1.17.8",
-    "ngInfiniteScroll": "1.0.0",
     "spin.js": "~2.0.0",
     "xhr-xdr-adapter": "intuit/xhr-xdr-adapter#351100b1dc3508994b134b92ec04588953095dfa",
     "angular-busy": "4.1.0"
