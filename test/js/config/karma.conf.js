@@ -14,18 +14,32 @@ module.exports = function(config) {
 
 
     // list of files / patterns to load in the browser
+    // See main.js for what to include:    
+    // 'ngRoute', 'pascalprecht.translate',
+    // 'ui.utils', 'ui.bootstrap', 'ngAnimate', 'cgBusy',
+    // 'kitin.controllers', 'kitin.filters', 'kitin.services', 'kitin.directives'
     files: [
       'static/vendor/angular/angular.js',
+      'static/vendor/angular-route/angular-route.js',
+      'static/vendor/angular-translate/angular-translate.js',
+      'static/vendor/angular-translate-loader-url/angular-translate-loader-url.js',
+      'static/vendor/angular-ui-utils/ui-utils.js',
+      'static/vendor/angular-bootstrap/ui-bootstrap-tpls.js',
+      'static/vendor/angular-animate/angular-animate.js',
+      'static/vendor/angular-busy/angular-busy.js',
       'static/vendor/jquery/jquery.js',
       'static/vendor/dyve-jquery-autocomplete/jquery.autocomplete.js',
+      'node_modules/angular-mocks/angular-mocks.js',
 
       'test/js/config/globals.js',
 
+      'static/js/controllers/*.js',
+      'static/js/filters/*.js',
+      'static/js/services/*.js',
+      'static/js/directives/*.js',
       'static/js/main.js',
       'test/js/unit/ctrlSpec.js',
       'test/js/unit/srvSpec.js'
-      //'marcmap-overlay.json'
-      //'test/e2e/*.js'
     ],
 
 
