@@ -176,6 +176,19 @@ module.exports = function(grunt) {
       unit: {
         configFile: 'test/js/config/karma.conf.js'
       }
+    },
+    protractor: {
+      // Options: https://www.npmjs.org/package/grunt-protractor-runner
+      options: {
+        configFile: "test/js/config/protractor.conf.js", // Default config file
+        keepAlive: true, // If false, the grunt process stops when the test fails.
+        noColor: false, // If true, protractor will not use colors in its output.
+        // args: {
+        //   seleniumServerJar: 'node_modules/protractor/selenium/selenium-server-standalone-2.44.0.jar',
+        //   seleniumPort: 9986
+        // }
+      },
+      all: {},
     }
   });
 };
