@@ -1,38 +1,27 @@
-// Reference Configuration File
-//
-// This file shows all of the configuration options that may be passed
-// to Protractor.
-
+// Reference Configuration File:
 // https://raw.githubusercontent.com/angular/protractor/master/docs/referenceConf.js
 
-exports.config = {
-  // ---- 4. To connect directly to Drivers ------------------------------------
-  // Boolean. If true, Protractor will connect directly to the browser Drivers
-  // at the locations specified by chromeDriver and firefoxPath. Only Chrome
-  // and Firefox are supported for direct connect.
+var conf = {
+  // Use Chrome directly. 
+  capabilities: {
+    browserName: 'chrome'
+  },
   directConnect: true,
-  // Path to the firefox application binary. If null, will attempt to find
-  // firefox in the default locations.
-  firefoxPath: null,
 
   // ---------------------------------------------------------------------------
   // ----- What tests to run ---------------------------------------------------
   // ---------------------------------------------------------------------------
-
-  // Patterns to exclude.
-  exclude: [],
-
-  // Alternatively, suites may be used. When run without a command line
-  // parameter, all suites will run. If run with --suite=smoke or
-  // --suite=smoke,full only the patterns matched by the specified suites will
-  // run.
+  // We might want to create different scenarios, use suites rather than specs
   suites: {
-    full: '../e2e/*.js'
+    search: [
+      '../e2e/search.bib.js',
+      // '../e2e/search.auth.js',
+      // '../e2e/search.remote.js',
+    ],
+    full: '../e2e/**/*.js'
   },
-
-  capabilities: {
-    browserName: 'chrome'
-  },
+  // Patterns to exclude.
+  exclude: ['../e2e/*PageObject.js'],
 
   // ---------------------------------------------------------------------------
   // ----- Global test information ---------------------------------------------
@@ -42,10 +31,6 @@ exports.config = {
   // with relative paths will be prepended with this.
   baseUrl: 'http://localhost:5000',
 
-  // CSS Selector for the element housing the angular app - this defaults to
-  // body, but is necessary if ng-app is on a descendant of <body>.
-  rootElement: 'body',
-
   // The timeout in milliseconds for each script run on the browser. This should
   // be longer than the maximum time your application needs to stabilize between
   // tasks.
@@ -54,5 +39,33 @@ exports.config = {
   // How long to wait for a page to load.
   getPageTimeout: 10000,
 
-  framework: 'jasmine'
+  framework: 'jasmine',
+
+
+  // A callback function called once protractor is ready and available, and
+  // before the specs are executed.
+  // If multiple capabilities are being run, this will run once per
+  // capability.
+  // You can specify a file containing code to run by setting onPrepare to
+  // the filename string.
+  onPrepare: function() {
+    describe('Log in test user', function() {
+      var findByName = function (name) {
+          return element(by.name(name));
+      };
+
+      it('should log in', function() {
+        browser.get(conf.baseUrl + '/login');
+        findByName('username').sendKeys('test');
+        findByName('password').sendKeys('test');
+        findByName('login').click();
+      });
+
+      it('should redirect to /', function() {
+        expect(browser.getCurrentUrl()).toBe(conf.baseUrl + '/');
+      });
+    });
+  }
 };
+
+exports.config = conf;
