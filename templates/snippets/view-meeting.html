@@ -15,6 +15,10 @@
         <span class="lbl">{{ "Namn" }}</span>
         <kitin-textarea model="object.name"></kitin-textarea>
       </div>
+      <div class="label">
+        <span class="lbl">{{ "Datum" }}</span>
+        <kitin-textarea model="object.date"></kitin-textarea>
+      </div>
       <kitin-entity label="'Plats'" model="object" link="'language'" type="Place">
         <kitin-search service-url="/auth/_search" 
                       template-id="subject-completion-template" 
