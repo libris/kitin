@@ -49,7 +49,7 @@ kitin.directive('kitinTable', function(editService, $filter){
                       '</div>' +
                     '</div>' + 
                   '</div>' +
-                  '<kitin-help help="help" data-positioned></kitin-help>' +
+                  '<kitin-help help="help" data-positioned="positioned"></kitin-help>' +
                 '</div>',
 
       controller: function($scope, $rootScope, $attrs) {
@@ -106,6 +106,8 @@ kitin.directive('kitinTable', function(editService, $filter){
         $scope.model = _.isArray($scope.model) && $scope.model.length > 0 ? $scope.model : [this.doCreate()];
         if($attrs.labels) {
           $scope.labels = $scope.$eval($attrs.labels);
+          // For tables with labels, make sure help gets push down a bit
+          $scope.positioned = 'dropped';
         }
 
       }

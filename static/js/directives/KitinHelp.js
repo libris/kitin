@@ -2,13 +2,18 @@ kitin.directive('kitinHelp', function () {
     return {
         restrict: 'E',
         scope: {
-          'help': '='
+          'help': '=',
+          'positioned': '='
         },
         template: '<a class="{{classNames}}" data-ng-show="hasHelpText" data-ng-click="click()" kitin-popover-placement="{{popoverPlacement}}" kitin-popover="{{helpText}}">' + 
                     '<i class="fa fa-question-circle"></i>' +
                   '</a>',
         link: function(scope, element, attrs) {
-          scope.classNames = (typeof attrs.positioned == 'undefined') ? 'help' : 'help positioned';
+          if (typeof attrs.positioned == 'undefined') {
+            scope.classNames = 'help';
+          } else {
+              scope.classNames = 'help positioned ' + scope.$eval(attrs.positioned);
+          }
           scope.popoverPlacement = (typeof attrs.popoverPlacement == 'undefined') ? 'right' : attrs.popoverPlacement;
         },
         controller: function($scope, $element, $filter, $timeout){

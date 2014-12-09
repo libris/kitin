@@ -2379,8 +2379,11 @@ a.help:hover {
 }
 a.help.positioned {
   position: absolute;
-  top: 10px;
+  top: 11px;
   margin-left: 30px;
+}
+a.help.positioned.dropped {
+  top: 31px;
 }
 .on-hover {
   visibility: hidden;
