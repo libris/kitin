@@ -39,7 +39,7 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
       }
     },
     template:   '<div class="{{classNames}}">' +
-                  '<div ng-if="objects" ng-repeat="object in objects track by $index" class="tag" ng-class="{auth: isLinked(object)}">' +
+                  '<div ng-if="objects" ng-repeat="object in objects track by $index" class="{{innerClassNames}}"" ng-class="{auth: isLinked(object)}">' +
                     '<span class="inner" ng-include="viewTemplate"></span>' +
                     '<span class="controls"><a class="delete" data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a></span>' +
                   '</div>' +
@@ -83,16 +83,19 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
       }
 
       var classNames = ['entity'];
+      var innerClassNames = ['entity-content'];
       if ( $attrs.hasOwnProperty('rich') && $attrs.rich !== false) {
         classNames.push('rich');
       } else {
         classNames.push('tags');
+        innerClassNames.push('tag');
       }
       if ( $scope.multiple ) {
         classNames.push('multiple');
       }
 
       $scope.classNames = classNames.join(' ');
+      $scope.innerClassNames = innerClassNames.join(' ');
 
       this.doAdd = function(data) {
         var added = editService.addObject(subj, $scope.link, $scope.property, $scope.multiple, data);
