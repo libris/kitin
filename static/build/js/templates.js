@@ -669,6 +669,10 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "        <span class=\"lbl\">{{ \"Namn\" }}</span>\n" +
     "        <kitin-textarea model=\"object.name\"></kitin-textarea>\n" +
     "      </div>\n" +
+    "      <div class=\"label\">\n" +
+    "        <span class=\"lbl\">{{ \"Datum\" }}</span>\n" +
+    "        <kitin-textarea model=\"object.date\"></kitin-textarea>\n" +
+    "      </div>\n" +
     "      <kitin-entity label=\"'Plats'\" model=\"object\" link=\"'language'\" type=\"Place\">\n" +
     "        <kitin-search service-url=\"/auth/_search\" \n" +
     "                      template-id=\"subject-completion-template\" \n" +
