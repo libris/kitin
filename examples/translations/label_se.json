@@ -209,6 +209,12 @@
 
                 "genre": "Genre",
 
+                "classificationByInScheme['/topic/kssb/6']": "__/topic/kssb/6__",
+                "classificationByInScheme['/topic/kssb/7']": "__/topic/kssb/7__",
+                "classificationByInScheme['/topic/kssb/8']": "__/topic/kssb/8__",
+                "classificationByInScheme['/topic/sab']": "__/topic/sab__",
+                "classificationByInScheme['http://dewey.info/scheme/edition/e23/swe/']": "__e23/swe/__",
+                "classificationByInScheme['/topic/kssb']": "__/topic/kssb__",
                 "classificationDdc": "DDK (Dewey decimalklassifikation)",
                 "classificationNlm": "NLM (National Library of Medicine)",
                 "classificationUdc": "UDK (Universell decimalklassifikation)",
@@ -219,6 +225,8 @@
                 "subjectByType['/topic/chronological']": "__chronological__",
                 "subjectByType['Person']": "Person",
                 "subjectByType['Place']": "Plats",
+                "subjectByType['Organization']": "Organisation",
+                "subjectByType['Meeting']": "Möte",
 
                 "typeOfEntry": "Behandling vid titeländring",
 
