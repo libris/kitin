@@ -49,7 +49,7 @@ kitin.directive('kitinTable', function(editService, $filter){
                       '</div>' +
                     '</div>' + 
                   '</div>' +
-                  '<kitin-help help="help" positioned="positioned"></kitin-help>' +
+                  '<kitin-help help="help" data-positioned></kitin-help>' +
                 '</div>',
 
       controller: function($scope, $rootScope, $attrs) {
