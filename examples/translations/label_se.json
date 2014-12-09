@@ -286,6 +286,253 @@
             }
 
         }
-    }
+    },
 
+    "HELP": {
+        "record": { 
+            "about": {           
+                "instanceTitle.titleValue": "Det här är en kontextuell hjälptext för Huvudtitel. Här kan man ge tips och i framtiden länka till saker som kan vara till hjälp.",
+                "instanceTitle.subtitle": "Det här är en kontextuell hjälptext för Övrig titelinformation. Här kan man ge tips och i framtiden länka till saker som kan vara till hjälp.",
+                "instanceTitle.titleDate": "Det här är en kontextuell hjälptext för Täcknings- eller tillkomsttid. Här kan man ge tips och i framtiden länka till saker som kan vara till hjälp.",
+                "instanceTitle.partNumber": "Det här är en kontextuell hjälptext för Delbeteckning. Här kan man ge tips och i framtiden länka till saker som kan vara till hjälp.",
+                "instanceTitle.partTitle": "Det här är en kontextuell hjälptext för Deltitel. Här kan man ge tips och i framtiden länka till saker som kan vara till hjälp.",
+
+                "titleVariation.titleValue": "",
+                "titleVariation.subtitle": "",
+                "titleVariation.titleDate": "",
+                "titleVariation.titleType": "",
+                "titleVariation.partNumber": "",
+                "titleVariation.partTitle": "",
+
+                "previousTitle.titleValue": "",
+                "previousTitle.subtitle": "",
+                "previousTitle.titleDate": "",
+                "previousTitle.partNumber": "",
+                "previousTitle.partTitle": "",
+                                                        
+                "translatedTitle.titleValue": "",
+                "translatedTitle.subtitle": "",
+                "translatedTitle.titleDate": "",
+                "translatedTitle.partNumber": "",
+                "translatedTitle.partTitle": "",
+
+                "abbreviatedTitle.titleValue": "",
+                "abbreviatedTitle.titleQualifier": "",
+                "abbreviatedTitle.titleSource": "",
+                
+                "keyTitle.titleValue": "",
+                "keyTitle.titleQualifier": "",
+                "keyTitle.titleSource": "",
+                
+                "exampleOfWork.title": "",
+                "exampleOfWork.subtitle": "",
+                "exampleOfWork.partTitle": "",
+                "exampleOfWork.partNumber": "",
+                "exampleOfWork.language": "",
+                "exampleOfWork.date": "",
+                "exampleOfWork.treatySigningDate": "",
+                "exampleOfWork.version": "",
+                "exampleOfWork.version": "",
+                "exampleOfWork.comment": "",
+                "exampleOfWork.medium": "",
+                "exampleOfWork.musicPerformanceMedium": "",
+                "exampleOfWork.musicArrangement": "",
+                "exampleOfWork.musicKey": "",
+                "exampleOfWork.describedBy": "",
+                
+                "influentialRelation": "",
+                "uniformTitle": "",
+                
+                "language": "",
+                "originalLanguage": "",
+                "responsibilityStatement": "",
+                
+                "literaryForm": "",
+                "biography": "",
+
+                "attributedTo": "",
+                "influencedBy": "",
+                "influencedByByType.Person": "",
+                "influencedByByType.Meeting": "",
+                "influencedByByType.Organization": "",
+
+                "publication.place.label": "",
+                "publication.providerName": "",
+                "publication.providerDate": "",
+                "manufacture": "",
+                "manufacture.place.label": "",
+                "manufacture.providerName": "",
+                "manufacture.providerDate": "",
+
+                "editionStatement.edition": "",
+                "publisherNumber": "",
+
+                "frequencyCategory": "",
+                "frequency": "",
+                "replaces": "",
+                "replaces.frequency": "",
+                "replaces.date": "",
+                "regularity": "",
+                "precededBy": "",
+                "succeededBy": "",
+
+                "issueNumber": "",
+
+                "identifierByIdentifierScheme['/def/identifiers/issn']": "",
+                "identifierByIdentifierScheme['/def/identifiers/isbn']": "",
+                "identifierValue": "",
+                "identifierNote": "",
+
+                "availability": "",
+
+                "mediaTerm": "",
+                "date": "",
+                "publication": "",
+                "publicationStatus": "",
+                "publicationYear": "",
+                "publicationOtherYear": "",
+                "publicationCountry": "",
+                
+                "material": "",
+                "fileType": "",
+                "relief": "",
+                "index": "",
+
+                "hasFormatByType['Product']": "",
+                "hasFormatByType['Electronic']": "",
+                "hasFormatByType['Map']": "",
+                "hasFormatByType['StillImage']": "",
+                "record.hasFormatByType['MovingImage']": "",
+
+                "hasFormatByType.extent": "",
+                "hasFormatByType.otherPhysicalDetails": "",
+                "hasFormatByType.accompanyingMaterial": "",
+                "hasFormatByType.materialsSpecified": "",
+                "hasFormatByType.carrierType": "",
+                "hasFormatByType.color": "",
+                "hasFormatByType.dimensions": "",
+                "hasFormatByType.sound": "",
+                "hasFormatByType.fileFormats": "",
+                "hasFormatByType.qATarget": "",
+                "hasFormatByType.medium": "",
+                "hasFormatByType.reproduction": "",
+                "hasFormatByType.detail": "",
+                "hasFormatByType.posNeg": "",
+                "hasFormatByType.nonProjColor": "",
+                "hasFormatByType.nonProjPrimary": "",
+                "hasFormatByType.nonProjSecondary": "",
+                "hasFormatByType.motionPicFormat": "",
+                "hasFormatByType.motionPicSound": "",
+                "hasFormatByType.motionPicMedium": "",
+                "hasFormatByType.motionPicDimensions": "",
+
+                "cartographicScale": "",
+                "cartographicCoordinates": "",
+                "cartographicAscensionAndDeclination.cartographicAscensionAndDeclination": "",
+                "cartographicAscensionAndDeclination.source": "",
+                "cartographicAscensionAndDeclination.scopeNote": "",
+                "cartographicAscensionAndDeclination.cartographicScale": "",
+                "cartographicAscensionAndDeclination.constantRatioLinearHorizontalScale": "",
+                "cartographicAscensionAndDeclination.constantRatioLinearVerticalScale": "",
+                "cartographicAscensionAndDeclination.westernmostLongitudeCoordinates": "",
+                "cartographicAscensionAndDeclination.easternmostLongitudeCoordinates": "",
+                "cartographicAscensionAndDeclination.northernmostLatitudeCoordinates": "",
+                "cartographicAscensionAndDeclination.southernmostLatitudeCoordinates": "",
+                "cartographicAscensionAndDeclination.angularScale": "",
+                "cartographicAscensionAndDeclination.declinationNorthernLimit": "",
+                "cartographicAscensionAndDeclination.declinationSouthernLimit": "",
+                "cartographicAscensionAndDeclination.rightAscensionEasternLimit": "",
+                "cartographicAscensionAndDeclination.rightAscensionWesternLimit": "",
+                "cartographicAscensionAndDeclination.cartographicEquinox": "",
+                "cartographicAscensionAndDeclination.distanceFromEarth": "",
+                "cartographicAscensionAndDeclination.gRingLatitude": "",
+                "cartographicAscensionAndDeclination.gRingLongitude": "",
+                "cartographicAscensionAndDeclination.startDate": "",
+                "cartographicAscensionAndDeclination.endDate": "",
+                "cartographicAscensionAndDeclination.extraterrestrialBody": "",
+                
+
+                "describedBy": "",
+                "describedBy.label": "",
+                "describedBy['@id']": "",
+
+                "hasPart": "",
+                
+                "isPartOf": "",
+                "isPartOf.title": "",
+                
+                "relation": "",
+                "relation.linkNote": "",
+                
+                "alternateEdition": "",
+                "alternateFormat": "",
+
+                "summary": "",
+                "languageNote": "",
+                "technicalNote": "",
+                "listOfContents": "",
+                "performerNote": "",
+                "note": "",
+                "comment": "",
+                "systemRequirements": "",
+                "isPrimaryTopicOf": "",
+                "audience.label": "",
+                "scopeNote": "",
+                
+                "hasAnnotation": "",
+                "hasAnnotation.note": "",
+                "hasAnnotation.degree": "",
+                "hasAnnotation.location": "",
+                "hasAnnotation.date": "",
+                "hasAnnotation.comment": "",
+               
+                "alphabet": "",
+                "audience": "",
+                "confPub": "",
+                "contentType": "",
+                "festschrift": "",
+                "illustrations": "",
+                "nature": "",
+                "originalItem": "",
+                "runningTime": "",
+
+                "genre": "",
+
+                "classificationDdc": "",
+                "classificationNlm": "",
+                "classificationUdc": "",
+
+                "subjectByInScheme['/topic/sao']": "",
+                "subjectByInScheme['/topic/saogf']": "",
+                "subjectByInScheme['barn']": "",
+                "subjectByType['/topic/chronological']": "",
+                "subjectByType['Person']": "",
+                "subjectByType['Place']": "",
+
+                "typeOfEntry": "",
+
+                "additionalCarrierType": "",
+                "encLevel": "",
+                "characterCoding": "",
+                "status": "",
+                "catForm": "",
+                "sourceNote": "",
+                "bibliographyCode": "i"
+            }
+        },
+
+        "holdings": {
+          "offer": {
+            "heldBy": "",
+            "availability": "",
+            "classificationPart": "",
+            "copyNote": "",
+            "copyNumber": "",
+            "editorialNote": "",
+            "shelfControlNumber": "",
+            "shelfLabel": "",
+            "shelfLocation": ""
+          }
+        }
+    }
 }

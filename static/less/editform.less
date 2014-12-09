@@ -313,6 +313,29 @@ a.add {
   }
 }
 
+a.help {
+  height: 20px;
+  line-height: 20px;
+  width: 28px;
+  text-align:center;
+  display: inline-block;
+  color: @green;
+  border-left: 1px dotted #ddd;
+  margin-left: 8px;
+  .fa {
+    font-size:14px;
+    color: @green;
+  }
+  &:hover {
+    color: @green-dark;
+  }
+}
+a.help.positioned{
+  position: absolute;
+  top: 10px;
+  margin-left: 30px;
+}
+
 
 .on-hover { visibility: hidden; }
 .entity:hover .on-hover { visibility: visible; }
@@ -454,17 +477,18 @@ input[type="text"] :-moz-placeholder { color:@grey;  }/*FF18<*/
 .lbl{ display:block; font-size:13px; color:@grey-very-dark; margin-bottom:0; line-height:16px;  }
 .lbl-suggest{display:block;font-size:12px;color:@green;margin-top:2px;line-height:14px;float:left;clear:both;}
 
-.label .help {
-  font-size:11px; 
-  color:@grey-dark;
-  display:block;
-  margin-top:2px;
-  i.fa {
-    font-size:14px;
-    position:relative;
-    top:1px
-  }
-}
+// I'm guessing this is left over from styleguide, correct?
+// .label .help {
+//   font-size:11px; 
+//   color:@grey-dark;
+//   display:block;
+//   margin-top:2px;
+//   i.fa {
+//     font-size:14px;
+//     position:relative;
+//     top:1px
+//   }
+// }
 
 span.error-label { color: @red; }
 span.error-message { font-size: 10px; color: @red; float:left; }

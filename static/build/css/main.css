@@ -1493,105 +1493,108 @@ html .modal.fade .modal-dialog {
   -moz-box-shadow: none;
   box-shadow: none;
   z-index: 1000;
-  border: none;
+}
+.popover .close {
+  font-size: 14px;
+  padding: 2px;
 }
 .popover.manual {
   display: block;
 }
-.popover.success {
+.success .popover {
   background-color: rgba(26, 143, 114, 0.8);
 }
-.popover.success.right > .arrow {
+.success .popover.right > .arrow {
   border-right-color: transparent;
 }
-.popover.success.right > .arrow:after {
+.success .popover.right > .arrow:after {
   border-right-color: rgba(26, 143, 114, 0.8);
 }
-.popover.success.left > .arrow {
+.success .popover.left > .arrow {
   border-left-color: transparent;
 }
-.popover.success.left > .arrow:after {
+.success .popover.left > .arrow:after {
   border-left-color: rgba(26, 143, 114, 0.8);
 }
-.popover.success.top > .arrow {
+.success .popover.top > .arrow {
   border-top-color: transparent;
 }
-.popover.success.top > .arrow:after {
+.success .popover.top > .arrow:after {
   border-top-color: rgba(26, 143, 114, 0.8);
 }
-.popover.success.bottom > .arrow {
+.success .popover.bottom > .arrow {
   border-bottom-color: transparent;
 }
-.popover.success.bottom > .arrow:after {
+.success .popover.bottom > .arrow:after {
   border-bottom-color: rgba(26, 143, 114, 0.8);
 }
-.popover.success .popover-content {
+.success .popover .popover-content {
   color: #ffffff;
 }
-.popover.warning {
+.warning .popover {
   background-color: rgba(214, 171, 0, 0.8);
 }
-.popover.warning.right > .arrow {
+.warning .popover.right > .arrow {
   border-right-color: transparent;
 }
-.popover.warning.right > .arrow:after {
+.warning .popover.right > .arrow:after {
   border-right-color: rgba(214, 171, 0, 0.8);
 }
-.popover.warning.left > .arrow {
+.warning .popover.left > .arrow {
   border-left-color: transparent;
 }
-.popover.warning.left > .arrow:after {
+.warning .popover.left > .arrow:after {
   border-left-color: rgba(214, 171, 0, 0.8);
 }
-.popover.warning.top > .arrow {
+.warning .popover.top > .arrow {
   border-top-color: transparent;
 }
-.popover.warning.top > .arrow:after {
+.warning .popover.top > .arrow:after {
   border-top-color: rgba(214, 171, 0, 0.8);
 }
-.popover.warning.bottom > .arrow {
+.warning .popover.bottom > .arrow {
   border-bottom-color: transparent;
 }
-.popover.warning.bottom > .arrow:after {
+.warning .popover.bottom > .arrow:after {
   border-bottom-color: rgba(214, 171, 0, 0.8);
 }
-.popover.error {
+.error .popover {
   background-color: rgba(238, 93, 97, 0.8);
 }
-.popover.error.right > .arrow {
+.error .popover.right > .arrow {
   border-right-color: transparent;
 }
-.popover.error.right > .arrow:after {
+.error .popover.right > .arrow:after {
   border-right-color: rgba(238, 93, 97, 0.8);
 }
-.popover.error.left > .arrow {
+.error .popover.left > .arrow {
   border-left-color: transparent;
 }
-.popover.error.left > .arrow:after {
+.error .popover.left > .arrow:after {
   border-left-color: rgba(238, 93, 97, 0.8);
 }
-.popover.error.top > .arrow {
+.error .popover.top > .arrow {
   border-top-color: transparent;
 }
-.popover.error.top > .arrow:after {
+.error .popover.top > .arrow:after {
   border-top-color: rgba(238, 93, 97, 0.8);
 }
-.popover.error.bottom > .arrow {
+.error .popover.bottom > .arrow {
   border-bottom-color: transparent;
 }
-.popover.error.bottom > .arrow:after {
+.error .popover.bottom > .arrow:after {
   border-bottom-color: rgba(238, 93, 97, 0.8);
 }
-.popover.error .popover-content {
+.error .popover .popover-content {
   color: #ffffff;
 }
-.popover h3 {
+h3 {
   font: bold 15px/18px 'Open Sans', sans-serif;
   border: none;
   background: none;
   padding-bottom: 0;
 }
-.popover .popover-content {
+.popover-content {
   font-size: 12px;
   color: #666664;
 }
@@ -2357,6 +2360,28 @@ a.add:hover {
 a.add:hover .fa {
   color: #0e4e3e;
 }
+a.help {
+  height: 20px;
+  line-height: 20px;
+  width: 28px;
+  text-align: center;
+  display: inline-block;
+  color: #1a8f72;
+  border-left: 1px dotted #ddd;
+  margin-left: 8px;
+}
+a.help .fa {
+  font-size: 14px;
+  color: #1a8f72;
+}
+a.help:hover {
+  color: #0e4e3e;
+}
+a.help.positioned {
+  position: absolute;
+  top: 10px;
+  margin-left: 30px;
+}
 .on-hover {
   visibility: hidden;
 }
@@ -2576,17 +2601,6 @@ input[type="text"] :-moz-placeholder {
   line-height: 14px;
   float: left;
   clear: both;
-}
-.label .help {
-  font-size: 11px;
-  color: #999996;
-  display: block;
-  margin-top: 2px;
-}
-.label .help i.fa {
-  font-size: 14px;
-  position: relative;
-  top: 1px;
 }
 span.error-label {
   color: #ee5d61;
