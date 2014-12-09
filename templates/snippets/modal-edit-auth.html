@@ -1,6 +1,6 @@
 <div class="modal-header">
  <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
-  <h4 class="modal-title">Auktoritetspost ({{ instance['@type'] }})</h4>
+  <h4 class="modal-title">Auktoritetspost ({{ record.about['@type'] }})</h4>
 </div>
 <div class="modal-body" data-ng-controller="EditBaseCtrl">    
   <div ng-include="'/partials/edit/auth'"></div>

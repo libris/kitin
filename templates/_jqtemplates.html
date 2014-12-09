@@ -1,7 +1,7 @@
 {% raw %}
 <script type="text/html" id="auth-completion-template">
   <div class="auth">
-  <% if (nameRepr(data) !== ", ") { %>
+  <% if (!_.isUndefined(data['@id'])) { %>
       <h4>
         <span class="name"><%= nameRepr(data) %></span>
         <span class="date"><%= [data.birthYear, data.deathYear].join('–') %></span>
@@ -22,7 +22,7 @@
       <% } %>
     <% } else { %>
       <h4>
-        Ny icke auktoriserad person
+          <%=nonAuthPrefix%><%=data.givenName%> <%=data.familyName%> <%=data.name%>
       </h4>
     <% } %>
   </div>
@@ -30,7 +30,7 @@
 
 <script type="text/html" id="subject-completion-template">
   <div class="auth">
-    <% if (data['prefLabel']) { %>
+    <% if (!_.isUndefined(data['@id'])) { %>
       <h4>
         <span class="name" title="<%= data['@id']%>"><%= data['prefLabel']%></span>
           <% if (isLinked(data)) { %>
@@ -53,7 +53,7 @@
       <% } %>
     <% } else {%>
       <h4>
-        <%= value%>
+        <%=nonAuthPrefix%><%= data.prefLabel %>
       </h4>
     <% } %>
   </div>

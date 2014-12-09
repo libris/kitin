@@ -18,6 +18,11 @@
           "Person": [],
           "Place": []
       },
+      "influencedByByType": {
+        "Person": [],
+        "Meeting": [],
+        "Organization": []
+      },
       "bibliographyCode": [],
 
 
@@ -250,7 +255,11 @@
 
     "Country": {"name": ""},
     "Family": {"name": ""},
-    "Meeting": {"name": ""},
+    "Meeting": {
+      "name": "",
+      "location": {},
+      "date": ""
+    },
     "Organization": {"name": ""},
     "Person": {
       "name": "",
@@ -264,7 +273,7 @@
         "controlledLabel": "{{familyName}}{%if familyName and givenName%}, {%endif%}{{givenName}}{%if numeration%} ({{numeration}}){%endif%}{%if personTitle%}, {{personTitle}}{%endif%}{%if birthYear or deathYear%} {{birthYear}}-{{deathYear}}{%endif%}"
       }
     },
-    "Place": { "label": "" },
+    "Place": { "prefLabel": "" },
     "PlanetaryObject": {"name": ""},
     "Jurisdiction": {"name": ""},
     "UniformWork": {
