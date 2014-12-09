@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.2.28-build.572+sha.169e532
+ * @license AngularJS v1.2.28-build.573+sha.a1e7eb6
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -68,7 +68,7 @@ function minErr(module) {
       return match;
     });
 
-    message = message + '\nhttp://errors.angularjs.org/1.2.28-build.572+sha.169e532/' +
+    message = message + '\nhttp://errors.angularjs.org/1.2.28-build.573+sha.a1e7eb6/' +
       (module ? module + '/' : '') + code;
     for (i = 2; i < arguments.length; i++) {
       message = message + (i == 2 ? '?' : '&') + 'p' + (i-2) + '=' +
@@ -1987,7 +1987,7 @@ function setupModuleLoader(window) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
-  full: '1.2.28-build.572+sha.169e532',    // all of these placeholder strings will be replaced by grunt's
+  full: '1.2.28-build.573+sha.a1e7eb6',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
   minor: 2,
   dot: 28,
@@ -6209,7 +6209,10 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
               // support ngAttr attribute binding
               ngAttrName = directiveNormalize(name);
               if (isNgAttr = NG_ATTR_BINDING.test(ngAttrName)) {
-                name = snake_case(ngAttrName.substr(6), '-');
+                name = name.replace(PREFIX_REGEXP, '')
+                  .substr(8).replace(/_(.)/g, function(match, letter) {
+                    return letter.toUpperCase();
+                  });
               }
 
               var directiveNName = ngAttrName.replace(/(Start|End)$/, '');
