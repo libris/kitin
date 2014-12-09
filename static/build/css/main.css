@@ -2390,6 +2390,14 @@ a.add:hover .fa {
   width: 600px;
   min-height: 1px;
 }
+.datatable th {
+  font-size: 11px;
+  vertical-align: bottom;
+  padding-right: 8px;
+  padding-bottom: 4px;
+  line-height: 15px;
+  font-weight: 500;
+}
 .datatable tbody td {
   padding: 2px 4px;
   border: 1px solid #c7c7c3;
@@ -2951,6 +2959,9 @@ html.ie .cg-busy {
 }
 .acResults h4 .what:hover {
   color: #191913;
+}
+.acResults h4 span.non-auth {
+  color: #1a8f72;
 }
 .acResults .title {
   color: #191913;
