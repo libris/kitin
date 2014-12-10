@@ -1,3 +1,16 @@
+/*
+
+Creates a help element
+
+Usage:
+  <kitin-help help=""></kitin-help>
+
+Params:
+  help: (str)   (For now) A reference to a string in label_se.json. For convenience, 
+                if string starts with 'LABEL.', this directive will replace that with 'HELP.''
+
+*/
+
 kitin.directive('kitinHelp', function () {
     return {
         restrict: 'E',
@@ -25,7 +38,7 @@ kitin.directive('kitinHelp', function () {
 
           if (help && help.length > 0) {
             // This is mostly to keep it DRY, might change in the future
-            var helpText = help.replace('LABEL.', 'HELP.');
+            var helpText = help.replace(/^LABEL\./, 'HELP.');
             helpText = $filter('translate')(helpText);
             if (helpText) {
               $scope.helpText = helpText;
