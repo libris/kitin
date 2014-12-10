@@ -23,7 +23,7 @@ kitin.directive( 'kitinPopoverPopup', function () {
       $scope.close = function() {
         // Find closest trigger and emit event
         $timeout(function() {
-          $element.closest('.kitin-popover-trigger').triggerHandler('kitinPopEvent');
+          $element.parent().find('.kitin-popover-trigger').triggerHandler('kitinPopEvent');
         });
       };
     }
