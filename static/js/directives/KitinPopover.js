@@ -21,9 +21,9 @@ kitin.directive( 'kitinPopoverPopup', function () {
     templateUrl: '/snippets/popover',
     controller: function($scope, $element, $timeout) {
       $scope.close = function() {
-        // Find sibling <a> and emit event
+        // Find closest trigger and emit event
         $timeout(function() {
-          $element.siblings('a.help').triggerHandler('kitinPopEvent');
+          $element.closest('.kitin-popover-trigger').triggerHandler('kitinPopEvent');
         });
       };
     }

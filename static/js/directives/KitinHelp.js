@@ -18,20 +18,19 @@ kitin.directive('kitinHelp', function () {
           'help': '=',
           'positioned': '='
         },
-        template: '<a class="{{classNames}}" data-ng-show="hasHelpText" data-ng-click="click()" kitin-popover-placement="{{popoverPlacement}}" kitin-popover="{{helpText}}">' + 
+        template: '<a data-ng-class="classNames" data-ng-show="hasHelpText" data-ng-click="click()" kitin-popover-placement="{{popoverPlacement}}" kitin-popover="{{helpText}}">' + 
                     '<i class="fa fa-question-circle"></i>' +
                   '</a>',
         link: function(scope, element, attrs) {
-          if (typeof attrs.positioned == 'undefined') {
-            scope.classNames = 'help';
-          } else {
-              scope.classNames = 'help positioned ' + scope.$eval(attrs.positioned);
+          if (angular.isDefined(attrs.positioned)) {
+              scope.classNames.push('positioned');
+              if (scope.$eval(attrs.positioned)) scope.classNames.push(scope.$eval(attrs.positioned));
           }
-          scope.popoverPlacement = (typeof attrs.popoverPlacement == 'undefined') ? 'right' : attrs.popoverPlacement;
+          scope.popoverPlacement = (angular.isDefined(attrs.popoverPlacement)) ? attrs.popoverPlacement : 'right';
         },
         controller: function($scope, $element, $filter, $timeout){
           $scope.hasHelpText = false;
-          $scope.classNames = 'help';
+          $scope.classNames = ['help', 'kitin-popover-trigger'];
 
           var help = $scope.help || false;
           var positioned = $scope.positioned || false;
@@ -47,9 +46,9 @@ kitin.directive('kitinHelp', function () {
           }
 
           $scope.click = function() {
-            // Find <a> inside <kitin-help> and emit event
+            // Find closest trigger and emit event
             $timeout(function() {
-              $element.find('a.help').triggerHandler('kitinPopEvent');
+              $element.children('.kitin-popover-trigger').triggerHandler('kitinPopEvent');
             });
           };
        }
