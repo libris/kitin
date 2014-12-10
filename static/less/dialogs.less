@@ -1,0 +1,54 @@
+.holdings-dialog{
+  .dialog-header-error,
+  .dialog-header-wait,
+  .dialog-header-notify,
+  .dialog-header-confirm{background-color:#fff}
+
+  .dialog-header-confirm h4,
+  .dialog-header-confirm span,
+  .dialog-header-error h4,
+  .dialog-header-error span,
+  .dialog-header-wait h4,
+  .dialog-header-wait span{color:@grey}
+
+  .modal-dialog {
+    margin-top: 200px;
+    max-width: 460px;
+    
+    .modal-content {
+      border-radius: 0;
+      border-color: @grey-light;
+    }
+
+    .modal-header{
+      border-bottom: 0;
+    }
+
+    .modal-footer{
+      border-top-style: dotted;
+      margin: 15px 15px 0 15px;
+      text-align: center;
+    }
+  }
+
+  .centered-icon{
+    padding-bottom:0;
+    .close {
+      color: @grey;
+      text-shadow: none;
+    }
+    h4 {
+      text-align: center;
+      span {
+        font-size: 22px;
+        margin-top: 24px;
+      }
+    }
+    &.dialog-header-confirm h4 span{color:@purple}
+  }
+
+  button {
+    box-shadow: none;
+    border: 0;
+  }
+}

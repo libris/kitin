@@ -864,4 +864,20 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "\n" +
     "<i data-ng-click=\"doRemove($index)\" class=\"no\">&times;</i>"
   );
+
+
+  $templateCache.put('/dialogs/confirm',
+    "<div class=\"modal-header dialog-header-confirm\" ng-class=\"classes.header\">\n" +
+    "  <button type=\"button\" class=\"close\" ng-click=\"no()\">&times;</button>\n" +
+    "  <h4 class=\"modal-title\">\n" +
+    "    <span ng-class=\"classes.icon\"></span>{{header}}\n" +
+    "  </h4>\n" +
+    "</div>\n" +
+    "\n" +
+    "<div class=\"modal-body\" ng-bind-html=\"message\"></div>\n" +
+    "<div class=\"modal-footer\">\n" +
+    "  <button type=\"button\" class=\"btn btn-default\" ng-class=\"classes.yes\" ng-click=\"yes()\">{{yesText || \"LABEL.gui.dialogs.DIALOGS_YES\" | translate}}</button>\n" +
+    "  <button type=\"button\" class=\"btn btn-primary\" ng-class=\"classes.no\" ng-click=\"no()\">{{noText || \"LABEL.gui.dialogs.DIALOGS_NO\" | translate}}</button>\n" +
+    "</div>  "
+  );
 }])

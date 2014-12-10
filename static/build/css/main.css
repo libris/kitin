@@ -1435,6 +1435,9 @@ li.draft form {
   border-radius: 0;
   max-height: 80%;
 }
+.modal-sm .modal-content {
+  border-radius: 0;
+}
 .modal-header .close {
   font-size: 28px;
   color: #fff;
@@ -1488,6 +1491,57 @@ html .modal.fade .modal-dialog {
   color: #999996;
 }
 /* REMOTE SOURCES MODAL END ------------------------- */
+.holdings-dialog .dialog-header-error,
+.holdings-dialog .dialog-header-wait,
+.holdings-dialog .dialog-header-notify,
+.holdings-dialog .dialog-header-confirm {
+  background-color: #ffffff;
+}
+.holdings-dialog .dialog-header-confirm h4,
+.holdings-dialog .dialog-header-confirm span,
+.holdings-dialog .dialog-header-error h4,
+.holdings-dialog .dialog-header-error span,
+.holdings-dialog .dialog-header-wait h4,
+.holdings-dialog .dialog-header-wait span {
+  color: #adada9;
+}
+.holdings-dialog .modal-dialog {
+  margin-top: 200px;
+  max-width: 460px;
+}
+.holdings-dialog .modal-dialog .modal-content {
+  border-radius: 0;
+  border-color: #c7c7c3;
+}
+.holdings-dialog .modal-dialog .modal-header {
+  border-bottom: 0;
+}
+.holdings-dialog .modal-dialog .modal-footer {
+  border-top-style: dotted;
+  margin: 15px 15px 0 15px;
+  text-align: center;
+}
+.holdings-dialog .centered-icon {
+  padding-bottom: 0;
+}
+.holdings-dialog .centered-icon .close {
+  color: #adada9;
+  text-shadow: none;
+}
+.holdings-dialog .centered-icon h4 {
+  text-align: center;
+}
+.holdings-dialog .centered-icon h4 span {
+  font-size: 22px;
+  margin-top: 24px;
+}
+.holdings-dialog .centered-icon.dialog-header-confirm h4 span {
+  color: #683568;
+}
+.holdings-dialog button {
+  box-shadow: none;
+  border: 0;
+}
 /* POPOVER START ------------------------- */
 .popover {
   -webkit-border-radius: 0;

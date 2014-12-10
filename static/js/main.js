@@ -8,7 +8,7 @@ var kitin = angular.module('kitin', [
     'ui.utils', 'ui.bootstrap', 'ngAnimate', 'cgBusy', 'dialogs.main',
     'kitin.controllers', 'kitin.filters', 'kitin.services', 'kitin.directives']);
 
-kitin.config(function($locationProvider, $routeProvider, $translateProvider, $httpProvider) {
+kitin.config(function($locationProvider, $routeProvider, $translateProvider, $httpProvider, dialogsProvider) {
   
       $locationProvider.html5Mode(true).hashPrefix('!');
 
@@ -24,6 +24,12 @@ kitin.config(function($locationProvider, $routeProvider, $translateProvider, $ht
         .when('/marc/:recType/:recId',              { templateUrl: '/partials/marc', isMarc: true });
 
       $httpProvider.interceptors.push('HttpInterceptor');
+
+      dialogsProvider.useBackdrop(false);
+      dialogsProvider.useEscClose(false);
+      dialogsProvider.useFontAwesome(true);
+      dialogsProvider.setSize('md');
+
 });
 
 // default popover options
