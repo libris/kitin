@@ -97,7 +97,7 @@ module.exports = function(grunt) {
       options: {
         jshintrc: '.jshintrc'
       },
-      app: ['static/js/{,*/}*.js']
+      app: ['static/js/{,*/}*.js', 'examples/translations/label_se.json']
     },
     uglify: {
       options: {

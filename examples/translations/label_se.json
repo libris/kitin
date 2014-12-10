@@ -20,7 +20,7 @@
                 "previousTitle.titleDate": "Täcknings- eller tillkomsttid",
                 "previousTitle.partNumber": "Delbeteckning",
                 "previousTitle.partTitle": "Deltitel",
-                                                    		
+                                                        
                 "translatedTitle.titleValue": "Översatt/Normaliserad titel",
                 "translatedTitle.subtitle": "Övrig titelinformation",
                 "translatedTitle.titleDate": "Täcknings- eller tillkomsttid",
@@ -42,7 +42,6 @@
                 "exampleOfWork.language": "Verkets språk",
                 "exampleOfWork.date": "Specificering : årtal",
                 "exampleOfWork.treatySigningDate": "Datum för undertecknande av fördrag",
-                "exampleOfWork.version": "",
                 "exampleOfWork.version": "Version",
                 "exampleOfWork.comment": "Övrig information",
                 "exampleOfWork.medium": "Medieterm",
@@ -87,7 +86,7 @@
                 "precededBy": "Föregående titel",
                 "succeededBy": "Efterföljande titel",
 
-                "issueNumber": "Alfanumeriska och/eller kronologiska volymbeteckningar",	
+                "issueNumber": "Alfanumeriska och/eller kronologiska volymbeteckningar",  
 
                 "identifierByIdentifierScheme['/def/identifiers/issn']": "ISSN",
                 "identifierByIdentifierScheme['/def/identifiers/isbn']": "ISBN",
@@ -241,17 +240,17 @@
         },
 
         "holdings": {
-        	"offer": {
+          "offer": {
             "heldBy": "Sigel",
-        		"availability": "Begränsningar på utlån",
-        		"classificationPart": "Klassifikationsdel av uppställningssignum ",
-        		"copyNote": "Offentlig anmärkning",
-        		"copyNumber": "Exemplarnummer",
-	        	"editorialNote": "Intern anmärkning",
-	        	"shelfControlNumber": "Löpnummer/Formatbeteckning",
-	        	"shelfLabel": "Uppställningsord (titel, författare el. dyl.)",
-	        	"shelfLocation": "Avdelning, samling, hyllsignum el. dyl."
-        	}
+            "availability": "Begränsningar på utlån",
+            "classificationPart": "Klassifikationsdel av uppställningssignum ",
+            "copyNote": "Offentlig anmärkning",
+            "copyNumber": "Exemplarnummer",
+            "editorialNote": "Intern anmärkning",
+            "shelfControlNumber": "Löpnummer/Formatbeteckning",
+            "shelfLabel": "Uppställningsord (titel, författare el. dyl.)",
+            "shelfLocation": "Avdelning, samling, hyllsignum el. dyl."
+          }
         },
         "gui": {
             "index": {
@@ -269,20 +268,20 @@
               "RETURN_TO_HITLIST": "Tillbaka till träfflistan"
             },
             "edit": {
-        		"DATE_CREATED": "Skapad",
-        		"MODIFIED": "Ändrad",
-        		"ID": "Id",
-                "messages": {
-                    "publish": {
-                        "SUCCESS_TITLE": "Publiceringen lyckades!",
-                        "SUCCESS_MSG": "Posten finns nu att se i katalogen.",
-                        "FAILURE_TITLE": "Något gick fel",
-                        "FAILURE_MSG": "Det gick inte att spara posten, försök igen."
+                "DATE_CREATED": "Skapad",
+                "MODIFIED": "Ändrad",
+                "ID": "Id",
+                    "messages": {
+                        "publish": {
+                            "SUCCESS_TITLE": "Publiceringen lyckades!",
+                            "SUCCESS_MSG": "Posten finns nu att se i katalogen.",
+                            "FAILURE_TITLE": "Något gick fel",
+                            "FAILURE_MSG": "Det gick inte att spara posten, försök igen."
+                        }
                     }
-                }
             },
             "terms": {
-	            	"HOLDINGS": "Bestånd"
+                "HOLDINGS": "Bestånd"
             },
             "busy": {
                 "LOADING_BIB": "Laddar artikel...",
@@ -291,10 +290,19 @@
                 "CONVERTING_TO_MARC": "Konverterar till MARC-format...",
                 "LOADING_HOLDING": "Laddar bestånd...",
                 "SAVING_HOLDING": "Sparar bestånd..."
+            },
+            "dialogs": {
+                "DIALOGS_ERROR": "Fel",
+                "DIALOGS_ERROR_MSG": "Något gick fel.",
+                "DIALOGS_CLOSE": "Stäng",
+                "DIALOGS_OK": "Ok",
+                "DIALOGS_YES": "Ja",
+                "DIALOGS_NO": "Nej"
             }
 
         }
     },
+
 
     "HELP": {
         "record": { 
@@ -339,7 +347,6 @@
                 "exampleOfWork.language": "Det här är en kontextuell hjälptext för Verkets språk.",
                 "exampleOfWork.date": "Det här är en kontextuell hjälptext för Specificering : årtal.",
                 "exampleOfWork.treatySigningDate": "Det här är en kontextuell hjälptext för Datum för undertecknande av fördrag.",
-                "exampleOfWork.version": "Det här är en kontextuell hjälptext för .",
                 "exampleOfWork.version": "Det här är en kontextuell hjälptext för Version.",
                 "exampleOfWork.comment": "Det här är en kontextuell hjälptext för Övrig information.",
                 "exampleOfWork.medium": "Det här är en kontextuell hjälptext för Medieterm.",
