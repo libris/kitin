@@ -43,6 +43,10 @@ html .modal {
 /* HOLDINGS MODAL START ------------------------- */
 
 .modal-header.holdings {background-color:@purple;}
+.modal-body.holdings {
+  max-height: 500px; // With holdings modal growing, pixel-based max-height seems inconvenient.
+  max-height: 70vh;  // Try to make it 70% of viewport height instead (making space for header/footer). >=IE9
+}
 
 /* HOLDINGS MODAL END ------------------------- */
 
