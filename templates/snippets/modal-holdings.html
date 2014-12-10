@@ -145,9 +145,9 @@
     <div data-ng-if="!modifications.holding.saved && isNew">{{ "Nyskapat bestånd, inte sparat." }}</div>
   </div>
   <button class="btn-link" id="delete-hld" data-ng-click="deleteHolding(holding)" data-ng-show="holding['@id']"><i class="fa fa-trash-o"></i> {{ "Radera bestånd" }}</button>
-  <button class="btn btn-purple btn-submit" data-ng-click="saveHolding(holding)" data-ng-show="holding" data-ng-disabled="modifications.holding.saved">
-    <span data-ng-if="!modifications.holding.saved">{{ "Spara bestånd" }}</span>
-    <span data-ng-if="modifications.holding.saved">{{ "Bestånd sparat" }} <i class="fa fa-check"></i></span>
+  <button class="btn btn-purple btn-submit" ng-class="classes.saveStatus" data-ng-click="saveHolding(holding, $event)" data-ng-show="holding" data-ng-disabled="modifications.holding.saved">
+    <span data-ng-if="!modifications.holding.saved" class="kitin-popover-trigger" kitin-popover="Det gick inte att spara beståndet." kitin-popover-title="Något gick fel" kitin-popover-placement="top">{{ "Spara bestånd" }}</span>
+    <span data-ng-if="modifications.holding.saved" class="kitin-popover-trigger" kitin-popover="Beståndet finns nu registrerat i katalogen." kitin-popover-title="Beståndet sparades" kitin-popover-placement="top">{{ "Bestånd sparat" }} <i class="fa fa-check"></i></span>
   </button>
   <button class="btn btn-purple btn-submit" data-ng-click="close()" data-ng-show="!holding">{{ "Stäng" }}</button>
 </div>

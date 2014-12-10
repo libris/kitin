@@ -1,4 +1,4 @@
-kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $modalInstance, $location, $http, record, editService, recordService, userData, utilsService, dialogs) {
+kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $modalInstance, $location, $http, $timeout, record, editService, recordService, userData, utilsService, dialogs) {
 
   var recordId = record.about['@id'];
 
@@ -8,6 +8,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   $scope.panels = [];
   $scope.showOtherHoldings = false;
   $scope.utils = utilsService;
+  $scope.classes = {};
 
   $rootScope.modifications.holding = {
     saved: false,
@@ -75,12 +76,18 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     }
   });
 
-  $scope.saveHolding = function(holding) {
+  $scope.saveHolding = function(holding, event) {
     recordService.holding.save(holding).then(function success(holding) {
       onSave(holding);
       $scope.holding = holding;
+      $scope.classes.saveStatus = 'success';
     }, function error(status) {
-
+      $scope.classes.saveStatus = 'error';
+    }).finally(function() {
+      $timeout(function() {
+        var button = angular.element(event.currentTarget);
+        button.find('.kitin-popover-trigger').triggerHandler('kitinPopEvent');
+      });
     });
   };
 
@@ -96,8 +103,9 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
       recordService.holding.del(holding).then(function sucess(response) {
         onDelete(holding);
         delete $scope.holding;
+        //$scope.classes.deleteStatus = 'success';
       }, function error(status) {
-
+        //$scope.classes.deleteStatus = 'error';
       });
     });
   };

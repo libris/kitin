@@ -1561,6 +1561,7 @@ html .modal.fade .modal-dialog {
 }
 .success .popover {
   background-color: rgba(26, 143, 114, 0.8);
+  border: none;
 }
 .success .popover.right > .arrow {
   border-right-color: transparent;
@@ -1586,11 +1587,16 @@ html .modal.fade .modal-dialog {
 .success .popover.bottom > .arrow:after {
   border-bottom-color: rgba(26, 143, 114, 0.8);
 }
+.success .popover .popover-title {
+  background-color: transparent;
+  border: none;
+}
 .success .popover .popover-content {
   color: #ffffff;
 }
 .warning .popover {
   background-color: rgba(214, 171, 0, 0.8);
+  border: none;
 }
 .warning .popover.right > .arrow {
   border-right-color: transparent;
@@ -1616,8 +1622,13 @@ html .modal.fade .modal-dialog {
 .warning .popover.bottom > .arrow:after {
   border-bottom-color: rgba(214, 171, 0, 0.8);
 }
+.warning .popover .popover-title {
+  background-color: transparent;
+  border: none;
+}
 .error .popover {
   background-color: rgba(238, 93, 97, 0.8);
+  border: none;
 }
 .error .popover.right > .arrow {
   border-right-color: transparent;
@@ -1643,6 +1654,10 @@ html .modal.fade .modal-dialog {
 .error .popover.bottom > .arrow:after {
   border-bottom-color: rgba(238, 93, 97, 0.8);
 }
+.error .popover .popover-title {
+  background-color: transparent;
+  border: none;
+}
 .error .popover .popover-content {
   color: #ffffff;
 }
@@ -1655,6 +1670,12 @@ h3 {
 .popover-content {
   font-size: 12px;
   color: #666664;
+}
+.holdings-modal .success .popover,
+.holdings-modal .warning .popover,
+.holdings-modal .error .popover {
+  margin-top: -30px;
+  padding: 12px;
 }
 /* POPOVER END ------------------------- */
 /* STARTPAGE START ------------------------- */
