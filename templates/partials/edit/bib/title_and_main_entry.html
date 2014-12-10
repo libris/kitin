@@ -77,7 +77,7 @@
     </div>
   </kitin-group>
   <kitin-group label="Uppslag">
-    <kitin-entityrow model="record.about.attributedTo" rich view="/snippets/view-person" type="Person">
+    <kitin-entityrow model="record.about.attributedTo" rich view="/snippets/view-person" type="['Person','Meeting', 'Organization']">
       <kitin-search service-url="/auth/_search" 
                     template-id="auth-completion-template" 
                     filter="['about.@type:Person','about.@type:Meeting','about.@type:Organization']"
