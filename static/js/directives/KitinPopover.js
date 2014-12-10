@@ -1,3 +1,18 @@
+/*
+
+Creates a triggarable popover that listens to 'kitinPopEvent' to open and close.
+Takes a subset of the as the Angular UI popover directive attributes:
+    kitin-popover-title, kitin-popover-placement, kitin-popover-animation
+
+Coloration is possible by setting classes on parent element:
+    success, warning, failure, 
+
+Usage:
+  <div kitin-popover="Text top appear" kitin-popover-*=""></div>
+
+
+*/
+
 kitin.directive( 'kitinPopoverPopup', function () {
   return {
     restrict: 'EA',
