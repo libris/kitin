@@ -5,7 +5,7 @@
 
 var kitin = angular.module('kitin', [
     'ngRoute', 'pascalprecht.translate',
-    'ui.utils', 'ui.bootstrap', 'ngAnimate', 'cgBusy',
+    'ui.utils', 'ui.bootstrap', 'ngAnimate', 'cgBusy', 'dialogs.main',
     'kitin.controllers', 'kitin.filters', 'kitin.services', 'kitin.directives']);
 
 kitin.config(function($locationProvider, $routeProvider, $translateProvider, $httpProvider) {
