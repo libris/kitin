@@ -219,6 +219,7 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
           if(_.isUndefined(createdObject)) {
             throw '';
           }
+          createdObject['@type'] = type;
         } catch(error) {
           console.error('Could not find skeleton for', type);
         }
