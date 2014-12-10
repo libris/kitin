@@ -79,9 +79,21 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope, $q
           allowNonAuth = attrs.allowNonAuth; 
         }
       }
-      
 
       var linker = kitinLinkEntity;
+      
+      // add a select box for multiple types
+      var types = linker.getTypes();
+      if ( types.length > 1 ) {
+        var select = angular.element('<select>').on('change', function(e) {
+          var index = $('option:selected', this).attr('data-index');
+          linker.setType(index);
+        });
+        types.forEach(function(type, i) {
+          select.append('<option data-index="'+i+'">'+type+'</option>');
+        });
+        elem.after(select);
+      }
 
       // TODO: IMPROVE: replace current autocomplete mechanism and use angular
       // templates ($compile).. If that is fast enough..

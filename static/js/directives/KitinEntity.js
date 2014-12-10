@@ -97,6 +97,23 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
       $scope.classNames = classNames.join(' ');
       $scope.innerClassNames = innerClassNames.join(' ');
 
+      var typeIndex = 0;
+      var types = [$attrs.type];
+
+      // allow multiple types
+      if ( /^\[.+\]$/.test($attrs.type) ) {
+        types = $scope.$eval($attrs.type);
+      }
+
+      // method for setting type if multiple types are supported
+      this.setType = function(index) {
+        typeIndex = index;
+      };
+
+      this.getTypes = function() {
+        return types;
+      };
+
       this.doAdd = function(data) {
         var added = editService.addObject(subj, $scope.link, $scope.property, $scope.multiple, data);
 
@@ -110,13 +127,7 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
       };
 
       this.doCreate = function(initialValue) {
-        var type = $attrs.type;
-        // For subjects, creation is in an ng-repeat. Then try to eval variable to get type value from scope attribute
-        try { type = $scope.$eval($attrs.type); } catch(error) {}
-        if(_.isUndefined(type)) {
-          type = $attrs.type;
-        }
-        return editService.createObject($scope.property, type, initialValue);
+        return editService.createObject($scope.property, types[typeIndex], initialValue);
       };
 
       $scope.doRemove = function (index) {
