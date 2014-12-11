@@ -251,6 +251,13 @@
             "shelfLabel": "Uppställningsord (titel, författare el. dyl.)",
             "shelfLocation": "Avdelning, samling, hyllsignum el. dyl."
           }
+        },          
+        "document": {
+          "[@id]": "URI",
+          "description": "Del av materialet som avses",
+          "altLabel": "Länktext",
+          "comment": "Offentlig anmärkning",
+          "editorialNote": "Intern anmärkning"
         },
         "gui": {
             "index": {
