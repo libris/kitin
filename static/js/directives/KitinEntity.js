@@ -118,6 +118,10 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
         return types;
       };
 
+      this.getType = function() {
+        return types[typeIndex];
+      };
+
       this.doAdd = function(data) {
         var added = editService.addObject(subj, $scope.link, $scope.property, $scope.multiple, data);
 
@@ -131,7 +135,7 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
       };
 
       this.doCreate = function(initialValue) {
-        return editService.createObject($scope.property, types[typeIndex], initialValue);
+        return editService.createObject($scope.property, this.getType(), initialValue);
       };
 
       $scope.doRemove = function (index) {
