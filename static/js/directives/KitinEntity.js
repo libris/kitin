@@ -40,7 +40,7 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
     },
     template:   '<div class="{{classNames}}">' +
                   '<div ng-if="objects" ng-repeat="object in objects track by $index" class="{{innerClassNames}}"" ng-class="{auth: isLinked(object)}">' +
-                    '<span class="inner" ng-include="viewTemplate"></span>' +
+                    '<span class="inner" ng-include="viewTemplate()"></span>' +
                     '<span class="controls"><a class="delete" data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a></span>' +
                   '</div>' +
                   '<span ng-transclude ng-hide="hideAddControl()"></span>' +
@@ -52,7 +52,14 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
         angular.extend($attrs, $scope.attributes);
       }
       
-      $scope.viewTemplate = $attrs.view || '/snippets/view-generic-linked-entity';
+      $scope.viewTemplate = function() {
+        var type = getType();
+        var view = $attrs.view || '/snippets/view-generic-linked-entity';
+        if ( type ) {
+          view = _.template(view)({ type: getType() });
+        }
+        return view;
+      }
      
       $scope.searchTemplate = $attrs.search;
 
@@ -109,6 +116,8 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
         types = $scope.$eval($attrs.type);
       }
 
+
+
       // method for setting type if multiple types are supported
       this.setType = function(index) {
         typeIndex = index;
@@ -118,9 +127,11 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
         return types;
       };
 
-      this.getType = function() {
+      function getType() {
         return types[typeIndex];
-      };
+      }
+
+      this.getType = getType;
 
       this.doAdd = function(data) {
         var added = editService.addObject(subj, $scope.link, $scope.property, $scope.multiple, data);

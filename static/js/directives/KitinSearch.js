@@ -85,15 +85,17 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope, $q
       var filterParams = {};
 
       var setFilterParams = function() {
-        if ( attrs.filter ) {
-          if ( attrs.filter === 'type' ) {
-            filterParams.filter = 'about.@type:'+linker.getType();
-          } else if ( /^\[.*\]$/.test(attrs.filter) ) {
+        var f = attrs.filter;
+        if ( f ) {
+          if ( linker.getType() ) {
+            f = _.template(f)({ type: linker.getType() });
+          }
+          if ( /^\[.*\]$/.test(f) ) {
             // filter array (filters)
-            filterParams.filters = scope.$eval(attrs.filter);
+            filterParams.filters = scope.$eval(f);
           } else {
             // filter string (filter)
-            filterParams.filter = attrs.filter;
+            filterParams.filter = f;
           }
         }
       };
@@ -119,6 +121,14 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope, $q
       // templates ($compile).. If that is fast enough..
 
       var makeReferenceOnItemSelect = attrs.hasOwnProperty('makeReference');
+
+      var getNonAuthPrefix = function() {
+        var nonAuthPrefix = allowNonAuth;
+        if ( linker.getType() ) {
+          nonAuthPrefix = _.template(allowNonAuth)({ type: linker.getType() })
+        }
+        return nonAuthPrefix;
+      }
 
       var template = _.template(jQuery('#' + attrs.templateId).html());
       var searchedValue = null;
@@ -155,7 +165,7 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope, $q
             nameRepr: nameRepr, 
             truncate: truncate, 
             isLinked: scope.isLinked, 
-            nonAuthPrefix: allowNonAuth ? allowNonAuth + ' ' : ''
+            nonAuthPrefix: getNonAuthPrefix()
           });
         },
 
