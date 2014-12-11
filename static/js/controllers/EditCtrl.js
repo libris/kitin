@@ -2,20 +2,6 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
 
   $scope.classes = {};
 
-  $scope.isLinked = function (thing) {
-    if(!thing) { return; }
-    var id = thing['@id'] || (thing['describedBy'] ? thing['describedBy']['@id'] : null);
-    return id && id.substring(0, 2) !== '_:';
-  };
-
-  $scope.isAuth = function(obj) {
-    return (obj && !_.isEmpty(obj['@id']) && obj['@id'].substr(0,6) === '/auth/');
-  };
-
-  $scope.isInScheme = function(obj) {
-    return (obj && !_.isEmpty(obj['inScheme']));
-  };
-
   $rootScope.modifications.bib = {
     saved:     ($scope.recType === editService.RECORD_TYPES.REMOTE || $scope.record.new) ? false : true, 
     published: ($scope.recType === editService.RECORD_TYPES.REMOTE || $scope.record.draft || $scope.record.new) ? false : true
@@ -25,6 +11,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     $rootScope.modifications.bib.saved = true;
     $rootScope.modifications.bib.lastSaved = new Date();
   }
+  
   function onPublishState() {
     $rootScope.modifications.bib.saved = true;
     $rootScope.modifications.bib.published = true;
@@ -32,7 +19,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   }
 
   // Make sure the edit view holdings button stay updated
-  var updateHolding = function () {
+  function updateHolding() {
     var recordId = $scope.record.about['@id'];
     if(!$scope.record.new) {
       recordService.holding.find(recordId, userData, true).then(function success(holdings) {
@@ -47,7 +34,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     } else {
       $scope.hasHolding = false;
     }
-  };
+  }
   // Set a watcher on holding's dirty flag
   $scope.$watchCollection('modifications.holding',
     function(newValue, oldValue) {
@@ -63,13 +50,19 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   // Set initial value for $scope.hasHolding
   updateHolding();
 
-  // This is not in use, right?
-  // $scope.modifiedClasses = function () {
-  //   var classes = [], mods = $rootScope.modifications.bib;
-  //   if (mods.saved) classes.push('saved');
-  //   if (mods.published) classes.push('published');
-  //   return classes;
-  // };
+  $scope.isLinked = function (thing) {
+    if(!thing) { return; }
+    var id = thing['@id'] || (thing['describedBy'] ? thing['describedBy']['@id'] : null);
+    return id && id.substring(0, 2) !== '_:';
+  };
+
+  $scope.isAuth = function(obj) {
+    return (obj && !_.isEmpty(obj['@id']) && obj['@id'].substr(0,6) === '/auth/');
+  };
+
+  $scope.isInScheme = function(obj) {
+    return (obj && !_.isEmpty(obj['inScheme']));
+  };
 
   $scope.lastSavedLabel = function (tplt) {
     if (!$rootScope.modifications.bib.lastSaved)
@@ -216,143 +209,4 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     $scope.$emit('changed');
   };
 
-
-  // /** debugRecord
-  // * Function for debug purposes, !TODO REMOVE
-
-  // */
-  // function debugRecord() {
-
-  //   var updatePrinted = function(suffix, remove) {
-
-  //     var updateValue = function(value, suffix, remove) {
-  //       // remove or add suffix
-  //       if(remove === true) {
-  //         v = typeof value !== 'undefined' ? value.replace(suffix,'') : value;
-  //       } else {
-  //         v = typeof value !== 'undefined' && value.indexOf(suffix) !== -1 ? value : (value + '' + suffix);
-  //       }
-  //       return v === 'undefined' ? null : v;
-  //     };
-
-  //     var iterateObject = function(obj, suffix, remove) {
-  //       for(var i in obj) {
-  //         if(_.isObject(obj[i])){
-  //           iterateObject(obj[i], suffix, remove);
-  //         } else {
-  //           obj[i] = updateValue(obj[i], suffix, remove);
-  //         }
-  //       }
-  //     };
-
-  //     // Select all mapped elements
-  //     var cssSelector = '[data-ng-model],[ng-model],input,textarea,[data-kitin-link-entity]';
-  //     $(cssSelector).each(function() {
-  //       var dataRef = $(this).data();
-  //       if(dataRef) {
-  //         if(dataRef.$ngModelController) {
-  //           dataRefCtrl = dataRef.$ngModelController;
-  //           if(_.isString(dataRefCtrl.$viewValue)) {
-  //             dataRefCtrl.$setViewValue(updateValue(dataRefCtrl.$viewValue, suffix, remove));  
-  //             if(remove) {
-  //               // Set binding to non dirty and pristine, aka user has not interacted with the control.
-  //               dataRefCtrl.dirty = false;
-  //               dataRefCtrl.$setPristine();
-  //             }
-  //           }
-  //         } else if(dataRef.$scope) {
-  //           // Special handle data-kitin-link-entity
-            
-  //           // Multiple links
-  //           if(dataRef.$scope['objects']) {
-  //             iterateObject(dataRef.$scope['objects'], suffix, remove);
-  //           // Single link
-  //           } else if(dataRef.$scope['object']) {
-  //             obj = dataRef.$scope['object'];
-  //             for(var objkey in obj) {
-  //               if(_.isObject(obj[objkey])) {
-  //                 iterateObject(obj[objkey], suffix, remove);
-  //               } else {
-  //                 obj[objkey] = updateValue(obj[objkey], suffix, remove);
-  //               }
-  //             }
-  //           }
-  //         }
-  //       }
-  //     });
-  //   };
-
-  //   var suffix = ' ***EDITABLE';
-  //   // Add suffix
-  //   updatePrinted(suffix);
-  //   var recordCopy = angular.copy($scope.record);
-  //   // Remove suffix
-  //   updatePrinted(suffix, true);
-  //   // Remove editable parts
-  //   function removeEditables(obj) {
-  //     for (var key in obj) {
-  //       var child = obj[key];
-  //       if (_.isObject(child)) {
-  //           removeEditables(child);
-  //           if ((_.isObject(child) && _.isEmpty(child)) ||
-  //               (_.isArray(child) && child[0] === undefined)) {
-  //             delete obj[key];
-  //           }
-  //       } else if (child && child.indexOf && child.indexOf(suffix) > -1) {
-  //         delete obj[key];
-  //       }
-  //     }
-  //   }
-  //   if(typeof $routeParams.showEditables === 'undefined') {
-  //     removeEditables(recordCopy);
-  //   }
-  //   // Print
-  //   $scope.debugRecord = JSON.stringify(recordCopy, null, 4);
-  // }
-  // // Could not get $viewContentLoading to work. Using timeout as a temporary solution
-  // if($scope.debug && $scope.recType === 'bib') {
-  //   $timeout(function() {
-  //     debugRecord();
-      
-  //     // Experimental file drop 
-  //     // ------------------------------------------------
-  //     var $dropTarget = $('body');
-  //     $dropTarget.on('dragenter dragover', function (e) {
-  //       e.stopPropagation();
-  //       e.preventDefault();
-  //       $(this).css('border', '6px dotted #0B85A1');
-  //     });
-  //     $dropTarget.on('drop', function (e) 
-  //     {
-  //       var that = this;
-  //       $(that).css('border', '6px solid #0B85A1');
-  //       e.preventDefault();
-  //       var files = e.originalEvent.dataTransfer.files;
-  //       var reader = new FileReader();
-
-  //       reader.onloadend = function(e) {
-  //         var result = JSON.parse(this.result);
-  //         editService.decorate(result).then(function(decoratedRecord) {
-  //           $timeout(function(){
-  //             $scope.record = decoratedRecord;
-  //           }).then(function() {
-  //             $timeout(function() {
-  //               debugRecord();
-  //             },1000);
-  //             $(that).css('border', '0');
-  //           });
-  //         });
-  //       };
-
-  //       reader.readAsText(files[0]);  
-  //     });
-
-  //     $(document).on('dragenter dragover drop', function (e) {
-  //         e.stopPropagation();
-  //         e.preventDefault();
-  //     });
-  //     // ------------------------------------------------
-
-  //   }, 1000);
-  // }
 });
