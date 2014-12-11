@@ -1,9 +1,5 @@
 /**
-<<<<<<< HEAD
- * @license AngularJS v1.3.7-build.3682+sha.ca4df47
-=======
- * @license AngularJS v1.2.27
->>>>>>> develop
+ * @license AngularJS v1.3.6
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -58,11 +54,7 @@ function minErr(module, ErrorConstructor) {
       return match;
     });
 
-<<<<<<< HEAD
-    message = message + '\nhttp://errors.angularjs.org/1.3.7-build.3682+sha.ca4df47/' +
-=======
-    message = message + '\nhttp://errors.angularjs.org/1.2.27/' +
->>>>>>> develop
+    message = message + '\nhttp://errors.angularjs.org/1.3.6/' +
       (module ? module + '/' : '') + code;
     for (i = 2; i < arguments.length; i++) {
       message = message + (i == 2 ? '?' : '&') + 'p' + (i - 2) + '=' +
@@ -234,8 +226,8 @@ if ('i' !== 'I'.toLowerCase()) {
 }
 
 
-var /** holds major version number for IE or NaN for real browsers */
-    msie,
+var
+    msie,             // holds major version number for IE, or NaN if UA is not IE.
     jqLite,           // delay binding since jQuery could be loaded after us.
     jQuery,           // delay binding
     slice             = [].slice,
@@ -2113,19 +2105,11 @@ function toDebugString(obj) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
-<<<<<<< HEAD
-  full: '1.3.7-build.3682+sha.ca4df47',    // all of these placeholder strings will be replaced by grunt's
+  full: '1.3.6',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
   minor: 3,
-  dot: 7,
-  codeName: 'snapshot'
-=======
-  full: '1.2.27',    // all of these placeholder strings will be replaced by grunt's
-  major: 1,    // package task
-  minor: 2,
-  dot: 27,
-  codeName: 'prime-factorization'
->>>>>>> develop
+  dot: 6,
+  codeName: 'robofunky-danceblaster'
 };
 
 
@@ -8892,6 +8876,21 @@ function $HttpProvider() {
      * In addition, you can supply a `headers` property in the config object passed when
      * calling `$http(config)`, which overrides the defaults without changing them globally.
      *
+     * To explicitly remove a header automatically added via $httpProvider.defaults.headers on a per request basis,
+     * Use the `headers` property, setting the desired header to `undefined`. For example:
+     *
+     * ```js
+     * var req = {
+     *  method: 'POST',
+     *  url: 'http://example.com',
+     *  headers: {
+     *    'Content-Type': undefined
+     *  },
+     *  data: { test: 'test' },
+     * }
+     *
+     * $http(req).success(function(){...}).error(function(){...});
+     * ```
      *
      * ## Transforming Requests and Responses
      *
@@ -12295,17 +12294,10 @@ Parser.prototype = {
       ensureSafeObject(context, expressionText);
       ensureSafeFunction(fn, expressionText);
 
-<<<<<<< HEAD
       // IE doesn't have apply for some native functions
       var v = fn.apply
             ? fn.apply(context, args)
             : fn(args[0], args[1], args[2], args[3], args[4]);
-=======
-      // IE stupidity! (IE doesn't have apply for some native functions)
-      var v = fnPtr.apply
-            ? fnPtr.apply(context, args)
-            : fnPtr(args[0], args[1], args[2], args[3], args[4]);
->>>>>>> develop
 
       return ensureSafeObject(v, expressionText);
       };
@@ -17670,9 +17662,8 @@ var htmlAnchorDirective = valueFn({
  * make the link go to the wrong URL if the user clicks it before
  * Angular has a chance to replace the `{{hash}}` markup with its
  * value. Until Angular replaces the markup the link will be broken
- * and will most likely return a 404 error.
- *
- * The `ngHref` directive solves this problem.
+ * and will most likely return a 404 error. The `ngHref` directive
+ * solves this problem.
  *
  * The wrong way to write it:
  * ```html
@@ -25224,7 +25215,6 @@ var scriptDirective = ['$templateCache', function($templateCache) {
     compile: function(element, attr) {
       if (attr.type == 'text/ng-template') {
         var templateUrl = attr.id,
-            // IE is not consistent, in scripts we have to read .text but in other nodes we have to read .textContent
             text = element[0].text;
 
         $templateCache.put(templateUrl, text);
