@@ -1,4 +1,4 @@
-kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $modalInstance, $location, $http, record, editService, recordService, userData, utilsService, dialogs) {
+kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $modalInstance, $location, $http, $timeout, record, editService, recordService, userData, utilsService, dialogs) {
 
   var recordId = record.about['@id'];
 
@@ -8,6 +8,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   $scope.panels = [];
   $scope.showOtherHoldings = false;
   $scope.utils = utilsService;
+  $scope.classes = {};
 
   $rootScope.modifications.holding = {
     saved: false,
@@ -79,15 +80,21 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     recordService.holding.save(holding).then(function success(holding) {
       onSave(holding);
       $scope.holding = holding;
+      $scope.classes.saveStatus = 'success';
     }, function error(status) {
-
+      $scope.classes.saveStatus = 'error';
+    }).finally(function() {
+      var element = angular.element('#save-hld');
+      if (element.length) utilsService.showPopup(element).then(function() {
+        //console.log('Popup should now be hidden');
+      });
     });
   };
 
   $scope.deleteHolding = function(holding) {
     var data = {
-      message: 'Vill du verkligen radera beståndet?',
-      yes: 'Ja, gör det',
+      message: 'Är du säker på att du vill radera beståndet? Det här kommandot går inte att ångra.',
+      yes: 'Ja, radera beståndet',
       no: 'Nej, avbryt',
       icon: 'fa fa-exclamation-circle'
     };
@@ -97,7 +104,11 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
         onDelete(holding);
         delete $scope.holding;
       }, function error(status) {
-
+        $scope.classes.deleteStatus = 'error';
+        var element = angular.element('#delete-hld');
+        if (element.length) utilsService.showPopup(element).then(function() {
+          //console.log('Popup should now be hidden');
+        });
       });
     });
   };

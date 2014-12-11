@@ -84,7 +84,7 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
 
       $scope.hideAddControl = function() {
         return ($scope.objects && $scope.objects.length) && !$scope.multiple;
-      }
+      };
 
       var classNames = ['entity'];
       var innerClassNames = ['entity-content'];

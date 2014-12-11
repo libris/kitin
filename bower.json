@@ -4,8 +4,8 @@
   "dependencies": {
     "lodash": "~2.1.0",
     "jquery": "~1.10.2",
-    "angular": "~1.2.27",
-    "angular-route": "~1.2.27",
+    "angular": "~1.2.21",
+    "angular-route": "~1.2.21",
     "angular-ui-utils": "~0.1.0",
     "angular-bootstrap": "~0.11.2",
     "angular-translate": "~2.1.0",
@@ -17,7 +17,7 @@
     "jquery-autosize": "~1.17.8",
     "xhr-xdr-adapter": "intuit/xhr-xdr-adapter#351100b1dc3508994b134b92ec04588953095dfa",
     "angular-busy": "4.1.0",
-    "angular-dialog-service": "~5.2.6"
+    "angular-dialog-service": "5.2.5"
   },
   "exportsOverride": {
     "bootstrap": {
@@ -51,8 +51,5 @@
         "!build/*.min.css"
       ]
     }
-  },
-  "resolutions": {
-    "angular": "1.2.27"
   }
 }

@@ -1,4 +1,6 @@
-kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $timeout, $rootScope, $location, $anchorScroll, recordService, definitions, userData, editService) {
+kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $timeout, $rootScope, $location, $anchorScroll, recordService, definitions, userData, editService, utilsService) {
+
+  $scope.classes = {};
 
   $scope.isLinked = function (thing) {
     if(!thing) { return; }
@@ -28,29 +30,6 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     $rootScope.modifications.bib.published = true;
     $rootScope.modifications.bib.lastPublished = new Date();
   }
-
-  // Debug
-  // $scope.httpAction = {
-  //   classes: 'publish success top',
-  //   title: 'LABEL.gui.edit.messages.publish.SUCCESS_TITLE',
-  //   message: 'LABEL.gui.edit.messages.publish.SUCCESS_MSG'
-  // };
-
-  var setHttpResponse = function (messageObject) {
-    // messageObject.timeout = messageObject.timeout || 5000;
-    // $scope.httpAction = {
-    //   classes: messageObject.classes,
-    //   title: messageObject.title,
-    //   message: messageObject.message
-    // };
-    // $timeout(function () {
-    //   $scope.httpAction = {
-    //     classes: null,
-    //     title: null,
-    //     message: null
-    //   };
-    // }, messageObject.timeout);
-  };
 
   // Make sure the edit view holdings button stay updated
   var updateHolding = function () {
@@ -84,12 +63,13 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   // Set initial value for $scope.hasHolding
   updateHolding();
 
-  $scope.modifiedClasses = function () {
-    var classes = [], mods = $rootScope.modifications.bib;
-    if (mods.saved) classes.push('saved');
-    if (mods.published) classes.push('published');
-    return classes;
-  };
+  // This is not in use, right?
+  // $scope.modifiedClasses = function () {
+  //   var classes = [], mods = $rootScope.modifications.bib;
+  //   if (mods.saved) classes.push('saved');
+  //   if (mods.published) classes.push('published');
+  //   return classes;
+  // };
 
   $scope.lastSavedLabel = function (tplt) {
     if (!$rootScope.modifications.bib.lastSaved)
@@ -130,29 +110,37 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
         console.warn('No ETag for this record. Where is it?');
       }
 
-      recordService.libris.save(parsedRecType, $scope.recId, $scope.record, ifMatchHeader).then(function(data) {
-
+      recordService.libris.save(parsedRecType, $scope.recId, $scope.record, ifMatchHeader).then(function success(data) {
         if($scope.record.draft) {
           // If draft load libris record
           recordService.draft.delete(parsedRecType, $scope.recId);
-          $location.url('/edit/libris' + data['recdata']['@id']);
+          // Redirect with flag so we can show feedback on landing
+          $location.url('/edit/libris' + data['recdata']['@id'] + '?published');
         } else {
-          // Libris rexord, just update record
+          // Libris record, just update record
           $scope.addRecordViewsToScope(data['recdata']);
           $scope.etag = data['etag'];
           onPublishState();
+          $scope.classes.publishStatus = 'success';
         }
+      }, function error(status) {
+        $scope.classes.publishStatus = 'error';
+      }).finally(function() {
+        var element = angular.element('#publish-bib');
+        if (element.length) utilsService.showPopup(element).then(function() {
+          // This would be a good place to do some cleanup if needed
+          //console.log('Popup should now be hidden');
+        });
       });
     } else {
       recordService.libris.create(parsedRecType, $scope.record).then(function(data) {
         if($scope.draft) {
           recordService.draft.delete(parsedRecType, $scope.recId);
         }
-        $location.url('/edit/libris' + data['recdata']['@id']);
+        $location.url('/edit/libris' + data['recdata']['@id'] + '?published');
       });
     }
   };
-  
 
   $scope.saveDraft = function() {
     var parsedRecType = $scope.recType === editService.RECORD_TYPES.REMOTE ? editService.RECORD_TYPES.BIB : $scope.recType;

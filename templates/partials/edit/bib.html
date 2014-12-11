@@ -12,18 +12,7 @@
   <section ng-if="debug && record._marcUncompleted" class="unknown" ng-include="'/partials/edit/bib/unknown'"></section>
 
   <div class="footer footer-sticky">
-    <div data-ng-show="httpAction.message">
-      <div class="manual popover {{httpAction.classes}}">
-        <div class="arrow"></div>
-        <div class="popover-inner">
-          <div class="popover-content">
-            <h3>{{httpAction.title | translate}}</h3>
-            <p>{{httpAction.message | translate}}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <section class="centered">
+    <div class="centered">
       <div class="row">
         <div class="col-md-4">
           <div class="holding">
@@ -36,13 +25,14 @@
         <div class="col-md-8 right">  
           <a data-ng-controller="ModalCtrl" data-ng-click="openMARCModal($event, record)">Förhandsgranska MARC</a> | 
           <span data-ng-show="record.modified" class="bib-edit-modified">{{record.draft ? 'Sparad' : 'Publicerad'}}: {{record.modified | timeAgo:60*60*24}} | </span>
-          <a id="draft" data-ng-click="saveDraft()" title="{{lastSavedLabel('Senast sparad: %s')}}">Spara utkast</a> &nbsp;
-          <button class="btn btn-dark" id="publish" data-ng-class="modifiedClasses()" data-ng-disabled="subform.$invalid || modifications.bib.published" data-ng-click="publish()" title="{{lastPublishedLabel('Senast publicerad: %s')}}">{{modifications.bib.published ? 'Publicerad' : 'Publicera'}} 
-          <i class="fa fa-check" data-ng-show="modifications.bib.published"></i>
+          <a id="save-draft" data-ng-click="saveDraft()" title="{{lastSavedLabel('Senast sparad: %s')}}">Spara utkast</a> &nbsp;
+          <button class="btn btn-dark" id="publish-bib" data-ng-class="classes.publishStatus" data-ng-disabled="subform.$invalid || modifications.bib.published" data-ng-click="publish()" title="{{lastPublishedLabel('Senast publicerad: %s')}}">
+            <span data-ng-if="!modifications.bib.published" class="kitin-popover-trigger" kitin-popover="Det gick inte att publicera posten." kitin-popover-title="Något gick fel" kitin-popover-placement="top">{{ 'Publicera' }}</span>
+            <span data-ng-if="modifications.bib.published" class="kitin-popover-trigger" kitin-popover="Posten finns nu registrerad i katalogen." kitin-popover-title="Publiceringen lyckades" kitin-popover-placement="top">{{ 'Publicerad' }} <i class="fa fa-check"></i></span>
           </button>
         </div>
       </div>
-    </section>
+    </div>
   </div>
 
 </ng-form>
