@@ -76,7 +76,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     }
   });
 
-  $scope.saveHolding = function(holding, event) {
+  $scope.saveHolding = function(holding) {
     recordService.holding.save(holding).then(function success(holding) {
       onSave(holding);
       $scope.holding = holding;
@@ -84,17 +84,17 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     }, function error(status) {
       $scope.classes.saveStatus = 'error';
     }).finally(function() {
-      $timeout(function() {
-        var button = angular.element(event.currentTarget);
-        button.find('.kitin-popover-trigger').triggerHandler('kitinPopEvent');
+      var element = angular.element('#save-hld');
+      if (element.length) utilsService.showPopup(element).then(function() {
+        //console.log('Popup should now be hidden');
       });
     });
   };
 
   $scope.deleteHolding = function(holding) {
     var data = {
-      message: 'Vill du verkligen radera beståndet?',
-      yes: 'Ja, gör det',
+      message: 'Är du säker på att du vill radera beståndet? Det här kommandot går inte att ångra.',
+      yes: 'Ja, radera beståndet',
       no: 'Nej, avbryt',
       icon: 'fa fa-exclamation-circle'
     };
@@ -103,9 +103,12 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
       recordService.holding.del(holding).then(function sucess(response) {
         onDelete(holding);
         delete $scope.holding;
-        //$scope.classes.deleteStatus = 'success';
       }, function error(status) {
-        //$scope.classes.deleteStatus = 'error';
+        $scope.classes.deleteStatus = 'error';
+        var element = angular.element('#delete-hld');
+        if (element.length) utilsService.showPopup(element).then(function() {
+          //console.log('Popup should now be hidden');
+        });
       });
     });
   };
