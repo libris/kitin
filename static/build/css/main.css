@@ -422,6 +422,9 @@ body.edit .footer-sticky div.centered div.right {
   color: #1a8f72;
   outline: none;
   border: 0;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }
 .btn-link:hover {
   color: #0e4e3e;
@@ -434,9 +437,6 @@ body.edit .footer-sticky div.centered div.right {
 }
 .holdings .btn-link {
   color: #683568;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
 }
 .holdings .btn-link:hover {
   color: #462446;
@@ -1587,6 +1587,7 @@ html .modal.fade .modal-dialog {
 }
 .success .popover .popover-title {
   background-color: transparent;
+  color: #ffffff;
   border: none;
   font-weight: bold;
 }
@@ -1623,6 +1624,7 @@ html .modal.fade .modal-dialog {
 }
 .warning .popover .popover-title {
   background-color: transparent;
+  color: #ffffff;
   border: none;
   font-weight: bold;
 }
@@ -1656,6 +1658,7 @@ html .modal.fade .modal-dialog {
 }
 .error .popover .popover-title {
   background-color: transparent;
+  color: #ffffff;
   border: none;
   font-weight: bold;
 }
