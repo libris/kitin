@@ -3,75 +3,6 @@
 body.login #header .searchfield,
 body.styleguide #header .searchfield{display:none;}
 
-body.index #header .searchfield{
-  left:248px;
-  top:220px;
-  min-width: 611px;
-
-  input[type="text"]{padding:11px 16px;}
-  .btn-group { float: right; }
-  a.btn{height:47px;}
-	a.search-source {
-	   color:@grey-very-dark;
-		 padding: 8px 16px;
-		 display:block;
-		 border-radius:none;
-		 text-align: left;
-		 border-top: 1px solid @grey-light;
-		 border-bottom: 1px solid @grey-light;
-		 box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05) inset;
-		 font-size: 14px;
-     &:hover .fa-caret-down {
-       color:@green-dark;
-		 }
-	 	.fa-caret-down {
-	 		position: absolute;
-	 		right: 12px;	
-	 		color:@green;
-	 		}
-	 }  
-  
-  a span {margin-top: 8px;}
-	a .btn-label {position:relative;top:5px;}
-  em {
-    color: @grey-darker;
-    font-size:13px;
-  }
-
-  .remote-search ul.remotesource {
-    max-width: 520px;
-/*     width: 100%; */
-    padding-left: 6px;
-    margin:0px;
-	i {color:@grey-darker;
-	}
-  }
-}
-
-#header .remote-search {
-	display:block;
-	width:100%;
-	position:absolute;
-	top:28px;
-	background-color: @grey-warm;
-	clear:both;
-	height:20px;
-	padding: 0px;
-
-}
-
-body.index #header .remote-search {
-	top:47px;
-	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-
-}
-
-#header .remote-search a {
-	margin-right:3px;
-}
-
 body.search #header-wrapper{
   position: fixed;
   top: 0;
@@ -115,9 +46,7 @@ body.search #header {
 
 }
 
-
-
-#header{ height: 130px; position: relative; -webkit-transition:height 100ms ease-out }
+#header{ height: 130px; position: relative; transition:height 100ms ease-out;-moz-transition:height 100ms ease-out;-webkit-transition:height 100ms ease-out }
 #header .user{
   float:right;
   font-size:12px;
@@ -160,171 +89,226 @@ body.edit #header .nav-back {
   :focus::-moz-placeholder { color:@grey-lighter; }/*FF19>*/
 }
 
+
+
 /* HEADER SEARCHFIELD START ------------------------- */
 
+// Global styles. 
 #header .searchfield {
   position: absolute;
-  left: 384px;
-  top: 82px;
+  top: 12px;
+  left: 276px;
+  min-width: 462px;
+  
   z-index: 2;
   :focus:-moz-placeholder:focus { color:@grey-lighter; }/*FF18<*/
   :focus::-moz-placeholder { color:@grey-lighter; }/*FF19>*/
 
+  &, &>*{
+    transition:all ease-out 50ms;-moz-transition:all ease-out 50ms;-webkit-transition:all ease-out 50ms; 
+  }
+
   .dropdown-menu {
     margin-top: -5px;
   }
-}
+  
+  opacity:0;
 
-#header .searchfield input[type="text"]{
-  width: 433px;
-  border: 1px solid @grey; 
-  padding: 6px 10px 6px;
-  border-color: @grey @white @grey-light @grey;
-  box-shadow: inset 1px 1px 1px rgba(0,0,0,.2);
-  -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0,.2);
-  -webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0,.2);
-  -webkit-border-top-left-radius: 3px;
-  -webkit-border-bottom-left-radius: 3px;
-  -moz-border-radius-topleft: 3px;
-  -moz-border-radius-bottomleft: 3px;
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-  height:47px;
-  border-right-width:0;
-  -webkit-transition:all ease-out 0.05s;
+  input[type="text"]{
+    float:left;
+    height:28px;
+    border: 1px solid @grey;
+    border-top-left-radius: 3px;-moz-border-radius-topleft: 3px;-webkit-border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;-moz-border-radius-bottomleft: 3px;-webkit-border-bottom-left-radius: 3px;
+    border-right-width:0;
+    padding: 6px 10px 6px;
+    border-color: @grey @white @grey-light @grey;
+    box-shadow: inset 1px 1px 1px rgba(0,0,0,.2);-moz-box-shadow: inset 1px 1px 1px rgba(0,0,0,.2);-webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0,.2); 
 
-  :focus{
-    border-color: @grey-darker @white @grey @grey-darker;
-
-    ::-webkit-input-placeholder,
-    :-moz-placeholder:focus,
-    :-moz-placeholder:focus,
-    :-ms-input-placeholder:focus { 
-      color:@grey-lighter; 
-    }
-  } 
-}
-
-body.edit #header .searchfield {
-  display: none;
-}
-
-body.search #header .searchfield {
-    top: 12px;
-    left: 276px;
-    min-width: 462px;
-
-    input[type="text"] {
-      box-shadow:none;
-      box-shadow: inset 1px 1px 1px rgba(0,0,0,.05);
-      -webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0,.05);
-      padding:3px 8px;
-      font-size:14px;
-      height:28px;
-      width:300px;
-      border-color: @grey-light;
-      font-weight: 400;
-      margin-left:0;
-
-      :focus {
-        border-color: @grey;
-      }
+    :focus{
+      border-color: @grey-darker @white @grey @grey-darker;
 
       ::-webkit-input-placeholder,
-      ::-moz-input-placeholder,
-      :-moz-input-placeholder,
-      :-ms-input-placeholder {
-        color:@white; font-style:italic; font-size:14px;
+      :-moz-placeholder:focus,
+      :-moz-placeholder:focus,
+      :-ms-input-placeholder:focus { 
+        color:@grey-lighter; 
       }
-    }
-
-    .btn-group {
-      float: right;    
-    }
-   
-    button {
-      height:28px;
-      width:36px;
-      font-size: 1em;
-      line-height: 1;
-    }
-
-    a.btn {
-      height:28px;width:28px;line-height:14px;
-    }
-    
-    
-    a.search-source {
-      height:28px;width:126px;line-height:14px;color:@grey-very-dark;
-      padding: 6px 16px;
-      display:block;
-      border-radius:none;
-      text-align: left;
-      border-top: 1px solid @grey-light;
-      border-bottom: 1px solid @grey-light;
-      box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05) inset;
-      font-size: 14px;      
-  		 &:hover .fa-caret-down {
-  		  color:@green-dark;
-		 }
-      .fa-caret-down {
-        position: absolute;
-        right: 6px; 
-        color:@green;
-
-        }
-    }
-
-    em {
-      color: @grey-darker;
-      font-size: 12px;
-    }
+    } 
   }
 
-
-.searchfield .remote-search {background-color:@grey-warm;}
-#header .searchfield .remote-search ul.remotesource {
-  max-width: 369px;
-  width: 100%;
-  font-size: 13px;
-  margin: 0px;
-  float: left;
-  list-style: none; 
-  display: inline;
-  padding-left:3px;
-}
-#header .searchfield .remotesource .hitcount {color:@grey;}
-#header .searchfield .remote-search ul.remotesource li {display: inline;}
-#header .searchfield .remote-search a { 
-  float: right;
-  width: 60px;
-  font-size: 13px;
-}
-
-#header .searchfield a.search-source {
-  width:128px;
-  border-radius:0px;color:@grey-very-dark;}
-
-#header .searchfield button {
-    font-size: 1.6em;
-    height: 47px;
-    width: 50px;
+  button {
+    float:left;
+    height: 28px;
+    width: 36px;
     border:none;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
-    -webkit-transition:background ease-out 0.03s;
+    transition:background ease-out 0.03s;-moztransition:background ease-out 0.03s;-webkit-transition:background ease-out 0.03s;
     border-bottom-left-radius: 0px;
     border-top-left-radius: 0px;
     border-left: 0;
     margin-left: 0;
+  }
+  
+  a.btn {
+    height:28px;
+  }
+  
+  a.search-source {
+    width:128px;
+    border-radius:0px;
+    padding: 6px 16px;
+    color:@grey-very-dark;
+    display:block;
+    border-radius:0;
+    text-align: left;
+    border-top: 1px solid @grey-light;
+    border-bottom: 1px solid @grey-light;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05) inset;
+    font-size: 14px;
+    &:hover .fa-caret-down {
+      color:@green-dark;
+    }
+    .fa-caret-down {
+      position: absolute;
+      right: 6px;  
+      color:@green;
+    }
+  }
+  
+  em {
+    color: @grey-darker;
+    font-size:12px;
+  }
 }
 
-#header .searchfield input[type="text"],
-#header .searchfield button{float:left;}
 
-#header .searchfield .btn-group > .btn:first-child {
+// Start page, large search form
+body.index #header .searchfield{
+  left:248px;
+  top:220px;
+  min-width: 611px;
+  opacity:1;
+
+  input[type="text"]{
+    padding:11px 16px;
+    width: 433px;
+    height:47px;
+  }
+
+  button{
+    font-size: 1.6em;
+    height: 47px;
+    width: 50px;
+  }
+
+  a.btn{height:47px;}
+  a.search-source {
+     padding: 8px 16px;
+    .fa-caret-down {
+      right: 12px;  
+    }
+  }  
+  
+  a span {margin-top: 8px;}
+  a .btn-label {position:relative;top:5px;}
+  
+  em {
+    font-size:13px;
+  }
+
+  .remote-search ul.remotesource {
+    max-width: 520px;
+    // width: 100%;
+    padding-left: 6px;
+    margin:0px;
+    i {color:@grey-darker;}
+  }
+}
+
+
+// Edit page, no search form
+body.edit #header .searchfield {
+  display: none;
+}
+
+
+// Search page, small search form
+body.search #header .searchfield {
+  opacity:1;
+
+  input[type="text"] {
+    box-shadow:none;
+    box-shadow: inset 1px 1px 1px rgba(0,0,0,.05);-webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0,.05);
+    padding:3px 8px;
+    font-size:14px;
+    width:300px;
+    border-color: @grey-light;
+    font-weight: 400;
+    margin-left:0;
+
+    :focus {
+      border-color: @grey;
+    }
+
+    ::-webkit-input-placeholder,
+    ::-moz-input-placeholder,
+    :-moz-input-placeholder,
+    :-ms-input-placeholder {
+      color:@white; font-style:italic; font-size:14px;
+    }
+  }
+ 
+  button {
+    font-size: 1em;
+    line-height: 1;
+  }
+
+  a.search-source {
+    line-height:14px;
+  }
 
 }
+
+// Remote search styling
+#header .remote-search {
+  display:block;
+  width:100%;
+  position:absolute;
+  top:28px;
+  background-color: @grey-warm;
+  clear:both;
+  height:20px;
+  padding: 0px;
+  a {
+    margin-right:3px;
+  }
+  ul.remotesource {
+    max-width: 369px;
+    width: 100%;
+    font-size: 13px;
+    margin: 0px;
+    float: left;
+    list-style: none; 
+    display: inline;
+    padding-left:3px;
+    li {display: inline;}
+    a { 
+      float: right;
+      width: 60px;
+      font-size: 13px;
+    }
+    .hitcount {color:@grey;}
+  }
+}
+
+body.index #header .remote-search {
+  top:47px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+
 
 /* HEADER SEARCHFIELD END ------------------------- */
 

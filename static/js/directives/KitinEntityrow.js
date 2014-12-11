@@ -35,6 +35,7 @@ kitin.directive('kitinEntityrow', function(editService, $rootScope) {
                     '<span ng-transclude></span>' +
                   '</kitin-entity>' +
                 '</div>' +
+                '<kitin-help help="label" data-positioned></kitin-help>' +
               '</div>',
 
     controller: function($element, $scope, $attrs) {
@@ -53,6 +54,7 @@ kitin.directive('kitinEntityrow', function(editService, $rootScope) {
       } else {
         $scope.label = false;
       }
+      
 
       // Since we want scope to be inherit from parent, to do lookups for controller scope variables like record.
       // The only solution found where to set a in-kitin-entity-row parameter and pass attributes through the shared scope.

@@ -1,4 +1,4 @@
-kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $modalInstance, $location, $http, record, editService, recordService, userData, utilsService) {
+kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $modalInstance, $location, $http, record, editService, recordService, userData, utilsService, dialogs) {
 
   var recordId = record.about['@id'];
 
@@ -85,11 +85,20 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   };
 
   $scope.deleteHolding = function(holding) {
-    recordService.holding.del(holding).then(function sucess(response) {
-      onDelete(holding);
-      delete $scope.holding;
-    }, function error(status) {
+    var data = {
+      message: 'Vill du verkligen radera beståndet?',
+      yes: 'Ja, gör det',
+      no: 'Nej, avbryt',
+      icon: 'fa fa-exclamation-circle'
+    };
+    var confirm = dialogs.create('/dialogs/confirm', 'CustomConfirmCtrl', data, { windowClass: 'holdings-dialog' });
+    confirm.result.then(function yes(answer) {
+      recordService.holding.del(holding).then(function sucess(response) {
+        onDelete(holding);
+        delete $scope.holding;
+      }, function error(status) {
 
+      });
     });
   };
 
@@ -108,6 +117,20 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   $scope.deleteOffer = function(holding, index) {
     var offers = holding.about.offers;
     offers.splice(index, 1);
+  };
+
+  $scope.addPrimaryTopicOf = function(holding) {
+    // Get offers from existing holding
+    var eDocuments = holding.about.isPrimaryTopicOf;
+    recordService.holding.create().then(function(response) {
+      var eDocument = response.about.isPrimaryTopicOf[0];
+      eDocuments.push(eDocument);
+    });
+  };
+
+  $scope.deletePrimaryTopicOf = function(holding, index) {
+    var eDocuments = holding.about.isPrimaryTopicOf;
+    eDocuments.splice(index, 1);
   };
 
 });
