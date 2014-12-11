@@ -81,7 +81,7 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope, $q
       }
 
       var linker = kitinLinkEntity;
-      
+
       // add a select box for multiple types
       var types = linker.getTypes();
       if ( types.length > 1 ) {
@@ -92,7 +92,7 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope, $q
         types.forEach(function(type, i) {
           select.append('<option data-index="'+i+'">'+type+'</option>');
         });
-        elem.after(select);
+        elem.after($('<span>').addClass('select').append(select, '<i class="fa fa-caret-down"></i>'));
       }
 
       // TODO: IMPROVE: replace current autocomplete mechanism and use angular

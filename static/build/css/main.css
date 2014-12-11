@@ -2311,6 +2311,12 @@ label.find-entity input[type="text"] {
   border-color: #c7c7c3;
   box-shadow: none;
 }
+.entity .search .select {
+  width: 120px;
+  position: absolute;
+  left: 242px;
+  top: -1px;
+}
 .entity .search .fa {
   position: absolute;
   right: 8px;

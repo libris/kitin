@@ -43,7 +43,7 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
                     '<span class="inner" ng-include="viewTemplate"></span>' +
                     '<span class="controls"><a class="delete" data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a></span>' +
                   '</div>' +
-                  '<span ng-transclude></span>' +
+                  '<span ng-transclude ng-hide="hideAddControl()"></span>' +
                 '</div>',
 
     controller: function($element, $scope, $attrs) {
@@ -80,6 +80,10 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
         }
       } else {
         $scope.objects = null;
+      }
+
+      $scope.hideAddControl = function() {
+        return ($scope.objects && $scope.objects.length) && !$scope.multiple;
       }
 
       var classNames = ['entity'];
