@@ -167,10 +167,16 @@
         "copyNote": []
       }],
       "isPrimaryTopicOf": [{"@type": "Document"}],
-      "workExample": [{"@type": "SomeProducts"}],
+      "workExample": [
+        {
+          "@type": "SomeProducts",
+          "scopeNote": "",
+          "editorialNote": [],
+          "copyNote": []
+        }
+      ],
       "encoding": [{"@type": "MediaObject"}],
       "alternateFormat": [{"@type": "Electronic"}],
-      "isPrimaryTopicOf": [{"@type": "Document"}],
       "relation": [{"@type": "Document"}]
     }
 

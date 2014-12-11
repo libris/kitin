@@ -77,10 +77,10 @@
     </div>
   </kitin-group>
   <kitin-group label="Uppslag">
-    <kitin-entityrow model="record.about.attributedTo" rich view="/snippets/view-person" type="Person">
+    <kitin-entityrow model="record.about.attributedTo" rich view="/snippets/view-person" type="['Person','Meeting', 'Organization']">
       <kitin-search service-url="/auth/_search" 
                     template-id="auth-completion-template" 
-                    filter="['about.@type:Person','about.@type:Meeting','about.@type:Organization']"
+                    filter="type"
                     allow-non-auth="Ny icke auktoriserad person">
       </kitin-search>
     </kitin-entityrow>
@@ -89,21 +89,21 @@
     <kitin-entityrow model="record.about.influencedByByType.Person" multiple rich view="/snippets/view-person" type="Person">
       <kitin-search service-url="/auth/_search" 
                     template-id="auth-completion-template" 
-                    filter="about.@type:Person"
+                    filter="type"
                     allow-non-auth="Ny icke auktoriserad person">
       </kitin-search>
     </kitin-entityrow>
     <kitin-entityrow model="record.about.influencedByByType.Meeting" multiple rich view="/snippets/view-meeting" type="Meeting">
       <kitin-search service-url="/auth/_search" 
                     template-id="auth-completion-template" 
-                    filter="about.@type:Meeting"
+                    filter="type"
                     allow-non-auth="Ny icke auktoriserad möte">
       </kitin-search>
     </kitin-entityrow>
     <kitin-entityrow model="record.about.influencedByByType.Organization" multiple rich view="/snippets/view-organization" type="Organization">
       <kitin-search service-url="/auth/_search" 
                     template-id="auth-completion-template" 
-                    filter="about.@type:Organization"
+                    filter="type"
                     allow-non-auth="Ny icke auktoriserad organisation">
       </kitin-search>
     </kitin-entityrow>

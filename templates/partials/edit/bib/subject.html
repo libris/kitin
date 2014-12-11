@@ -15,7 +15,7 @@
 
   <!-- SUBJECT BY TYPE  START -->
     <div data-ng-repeat="(key, container) in record.about.subjectByType">
-      <kitin-entityrow ng-switch on="key" label="key" model="record.about.subjectByType" link="key" multiple type="key">
+      <kitin-entityrow ng-switch on="key" label="key" model="record.about.subjectByType" link="key" multiple type="key" view="/snippets/view-subject">
         <kitin-search service-url="/auth/_search" 
                       template-id="{{ key === 'Person' ? 'auth-completion-template' : 'subject-completion-template'}}" 
                       filter="{{(key === '/topic/chronological') ? 'about.inCollection.@id:\/topic\/chronological\/' : 'about.@type:' + key}}"

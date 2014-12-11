@@ -20,7 +20,7 @@
                 "previousTitle.titleDate": "Täcknings- eller tillkomsttid",
                 "previousTitle.partNumber": "Delbeteckning",
                 "previousTitle.partTitle": "Deltitel",
-                                                    		
+                                                        
                 "translatedTitle.titleValue": "Översatt/Normaliserad titel",
                 "translatedTitle.subtitle": "Övrig titelinformation",
                 "translatedTitle.titleDate": "Täcknings- eller tillkomsttid",
@@ -42,7 +42,6 @@
                 "exampleOfWork.language": "Verkets språk",
                 "exampleOfWork.date": "Specificering : årtal",
                 "exampleOfWork.treatySigningDate": "Datum för undertecknande av fördrag",
-                "exampleOfWork.version": "",
                 "exampleOfWork.version": "Version",
                 "exampleOfWork.comment": "Övrig information",
                 "exampleOfWork.medium": "Medieterm",
@@ -87,7 +86,7 @@
                 "precededBy": "Föregående titel",
                 "succeededBy": "Efterföljande titel",
 
-                "issueNumber": "Alfanumeriska och/eller kronologiska volymbeteckningar",	
+                "issueNumber": "Alfanumeriska och/eller kronologiska volymbeteckningar",  
 
                 "identifierByIdentifierScheme['/def/identifiers/issn']": "ISSN",
                 "identifierByIdentifierScheme['/def/identifiers/isbn']": "ISBN",
@@ -209,6 +208,12 @@
 
                 "genre": "Genre",
 
+                "classificationByInScheme['/topic/kssb/6']": "__/topic/kssb/6__",
+                "classificationByInScheme['/topic/kssb/7']": "__/topic/kssb/7__",
+                "classificationByInScheme['/topic/kssb/8']": "__/topic/kssb/8__",
+                "classificationByInScheme['/topic/sab']": "__/topic/sab__",
+                "classificationByInScheme['http://dewey.info/scheme/edition/e23/swe/']": "__e23/swe/__",
+                "classificationByInScheme['/topic/kssb']": "__/topic/kssb__",
                 "classificationDdc": "DDK (Dewey decimalklassifikation)",
                 "classificationNlm": "NLM (National Library of Medicine)",
                 "classificationUdc": "UDK (Universell decimalklassifikation)",
@@ -219,6 +224,8 @@
                 "subjectByType['/topic/chronological']": "__chronological__",
                 "subjectByType['Person']": "Person",
                 "subjectByType['Place']": "Plats",
+                "subjectByType['Organization']": "Organisation",
+                "subjectByType['Meeting']": "Möte",
 
                 "typeOfEntry": "Behandling vid titeländring",
 
@@ -233,17 +240,17 @@
         },
 
         "holdings": {
-        	"offer": {
+          "offer": {
             "heldBy": "Sigel",
-        		"availability": "Begränsningar på utlån",
-        		"classificationPart": "Klassifikationsdel av uppställningssignum ",
-        		"copyNote": "Offentlig anmärkning",
-        		"copyNumber": "Exemplarnummer",
-	        	"editorialNote": "Intern anmärkning",
-	        	"shelfControlNumber": "Löpnummer/Formatbeteckning",
-	        	"shelfLabel": "Uppställningsord (titel, författare el. dyl.)",
-	        	"shelfLocation": "Avdelning, samling, hyllsignum el. dyl."
-        	}
+            "availability": "Begränsningar på utlån",
+            "classificationPart": "Klassifikationsdel av uppställningssignum ",
+            "copyNote": "Offentlig anmärkning",
+            "copyNumber": "Exemplarnummer",
+            "editorialNote": "Intern anmärkning",
+            "shelfControlNumber": "Löpnummer/Formatbeteckning",
+            "shelfLabel": "Uppställningsord (titel, författare el. dyl.)",
+            "shelfLocation": "Avdelning, samling, hyllsignum el. dyl."
+          }
         },
         "gui": {
             "index": {
@@ -261,20 +268,20 @@
               "RETURN_TO_HITLIST": "Tillbaka till träfflistan"
             },
             "edit": {
-        		"DATE_CREATED": "Skapad",
-        		"MODIFIED": "Ändrad",
-        		"ID": "Id",
-                "messages": {
-                    "publish": {
-                        "SUCCESS_TITLE": "Publiceringen lyckades!",
-                        "SUCCESS_MSG": "Posten finns nu att se i katalogen.",
-                        "FAILURE_TITLE": "Något gick fel",
-                        "FAILURE_MSG": "Det gick inte att spara posten, försök igen."
+                "DATE_CREATED": "Skapad",
+                "MODIFIED": "Ändrad",
+                "ID": "Id",
+                    "messages": {
+                        "publish": {
+                            "SUCCESS_TITLE": "Publiceringen lyckades!",
+                            "SUCCESS_MSG": "Posten finns nu att se i katalogen.",
+                            "FAILURE_TITLE": "Något gick fel",
+                            "FAILURE_MSG": "Det gick inte att spara posten, försök igen."
+                        }
                     }
-                }
             },
             "terms": {
-	            	"HOLDINGS": "Bestånd"
+                "HOLDINGS": "Bestånd"
             },
             "busy": {
                 "LOADING_BIB": "Laddar artikel...",
@@ -283,9 +290,264 @@
                 "CONVERTING_TO_MARC": "Konverterar till MARC-format...",
                 "LOADING_HOLDING": "Laddar bestånd...",
                 "SAVING_HOLDING": "Sparar bestånd..."
+            },
+            "dialogs": {
+                "DIALOGS_ERROR": "Fel",
+                "DIALOGS_ERROR_MSG": "Något gick fel.",
+                "DIALOGS_CLOSE": "Stäng",
+                "DIALOGS_OK": "Ok",
+                "DIALOGS_YES": "Ja",
+                "DIALOGS_NO": "Nej"
             }
 
         }
-    }
+    },
 
+
+    "HELP": {
+        "record": { 
+            "about": {           
+                "instanceTitle.titleValue": "Det här är en kontextuell hjälptext för Huvudtitel. Här kan man ge tips och i framtiden länka till saker som kan vara till hjälp.",
+                "instanceTitle.subtitle": "Det här är en kontextuell hjälptext för Övrig titelinformation. Här kan man ge tips och i framtiden länka till saker som kan vara till hjälp.",
+                "instanceTitle.titleDate": "Det här är en kontextuell hjälptext för Täcknings- eller tillkomsttid. Här kan man ge tips och i framtiden länka till saker som kan vara till hjälp.",
+                "instanceTitle.partNumber": "Det här är en kontextuell hjälptext för Delbeteckning. Här kan man ge tips och i framtiden länka till saker som kan vara till hjälp.",
+                "instanceTitle.partTitle": "Det här är en kontextuell hjälptext för Deltitel. Här kan man ge tips och i framtiden länka till saker som kan vara till hjälp.",
+
+                "titleVariation.titleValue": "Det här är en kontextuell hjälptext för Varianttitel.",
+                "titleVariation.subtitle": "Det här är en kontextuell hjälptext för Övrig titelinformation.",
+                "titleVariation.titleDate": "Det här är en kontextuell hjälptext för Täcknings- eller tillkomsttid.",
+                "titleVariation.titleType": "Det här är en kontextuell hjälptext för Titelanmärkning.",
+                "titleVariation.partNumber": "Det här är en kontextuell hjälptext för Delbeteckning.",
+                "titleVariation.partTitle": "Det här är en kontextuell hjälptext för Deltitel.",
+
+                "previousTitle.titleValue": "Det här är en kontextuell hjälptext för Tidigare titel.",
+                "previousTitle.subtitle": "Det här är en kontextuell hjälptext för Övrig titelinformation",
+                "previousTitle.titleDate": "Det här är en kontextuell hjälptext för Täcknings- eller tillkomsttid.",
+                "previousTitle.partNumber": "Det här är en kontextuell hjälptext för Delbeteckning.",
+                "previousTitle.partTitle": "Det här är en kontextuell hjälptext för Deltitel.",
+                                                        
+                "translatedTitle.titleValue": "Det här är en kontextuell hjälptext för Översatt/Normaliserad titel.",
+                "translatedTitle.subtitle": "Det här är en kontextuell hjälptext för Övrig titelinformation.",
+                "translatedTitle.titleDate": "Det här är en kontextuell hjälptext för Täcknings- eller tillkomsttid.",
+                "translatedTitle.partNumber": "Det här är en kontextuell hjälptext för Delbeteckning.",
+                "translatedTitle.partTitle": "Det här är en kontextuell hjälptext för Deltitel.",
+
+                "abbreviatedTitle.titleValue": "Det här är en kontextuell hjälptext för Förkortad titel.",
+                "abbreviatedTitle.titleQualifier": "Det här är en kontextuell hjälptext för Särskiljande tillägg.",
+                "abbreviatedTitle.titleSource": "Det här är en kontextuell hjälptext för Typ av annan förkortad titel.",
+                
+                "keyTitle.titleValue": "Det här är en kontextuell hjälptext för Nyckeltitel.",
+                "keyTitle.titleQualifier": "Det här är en kontextuell hjälptext för Särskiljande tillägg.",
+                "keyTitle.titleSource": "Det här är en kontextuell hjälptext för Typ av annan förkortad titel.",
+                
+                "exampleOfWork.title": "Det här är en kontextuell hjälptext för Uniform titel.",
+                "exampleOfWork.subtitle": "Det här är en kontextuell hjälptext för Specificering i form av grupptitel.",
+                "exampleOfWork.partTitle": "Det här är en kontextuell hjälptext för Titel på del eller avsnitt av verk.",
+                "exampleOfWork.partNumber": "Det här är en kontextuell hjälptext för Nummer på del eller avsnitt av verk.",
+                "exampleOfWork.language": "Det här är en kontextuell hjälptext för Verkets språk.",
+                "exampleOfWork.date": "Det här är en kontextuell hjälptext för Specificering : årtal.",
+                "exampleOfWork.treatySigningDate": "Det här är en kontextuell hjälptext för Datum för undertecknande av fördrag.",
+                "exampleOfWork.version": "Det här är en kontextuell hjälptext för Version.",
+                "exampleOfWork.comment": "Det här är en kontextuell hjälptext för Övrig information.",
+                "exampleOfWork.medium": "Det här är en kontextuell hjälptext för Medieterm.",
+                "exampleOfWork.musicPerformanceMedium": "Det här är en kontextuell hjälptext för Besättning (musik).",
+                "exampleOfWork.musicArrangement": "Det här är en kontextuell hjälptext för Arrangemang (musik).",
+                "exampleOfWork.musicKey": "Det här är en kontextuell hjälptext för Tonart.",
+                "exampleOfWork.describedBy": "Det här är en kontextuell hjälptext för Beskriven av.",
+                
+                "influentialRelation": "Det här är en kontextuell hjälptext för Biuppslag - Uniform Titel.",
+                "uniformTitle": "Det här är en kontextuell hjälptext för Uniform titel.",
+                
+                "language": "Det här är en kontextuell hjälptext för Språk.",
+                "originalLanguage": "Det här är en kontextuell hjälptext för Originalspråk.",
+                "responsibilityStatement": "Det här är en kontextuell hjälptext för Upphov.",
+                
+                "literaryForm": "Det här är en kontextuell hjälptext för Litterär genre.",
+                "biography": "Det här är en kontextuell hjälptext för Innehåller biografisk information.",
+
+                "attributedTo": "Det här är en kontextuell hjälptext för Huvuduppslag.",
+                "influencedBy": "Det här är en kontextuell hjälptext för Biuppslag.",
+                "influencedByByType.Person": "Det här är en kontextuell hjälptext för Person.",
+                "influencedByByType.Meeting": "Det här är en kontextuell hjälptext för Möte.",
+                "influencedByByType.Organization": "Det här är en kontextuell hjälptext för Organisation.",
+
+                "publication.place.label": "Det här är en kontextuell hjälptext för Utgivningsort.",
+                "publication.providerName": "Det här är en kontextuell hjälptext för Utgivare/förlag.",
+                "publication.providerDate": "Det här är en kontextuell hjälptext för Utgivningstid.",
+                "manufacture": "Det här är en kontextuell hjälptext för Tryckuppgifter.",
+                "manufacture.place.label": "Det här är en kontextuell hjälptext för Tryckort.",
+                "manufacture.providerName": "Det här är en kontextuell hjälptext för Tryckeriets namn.",
+                "manufacture.providerDate": "Det här är en kontextuell hjälptext för Tryckningstid.",
+
+                "editionStatement.edition": "",
+                "publisherNumber": "",
+
+                "frequencyCategory": "",
+                "frequency": "",
+                "replaces": "",
+                "replaces.frequency": "",
+                "replaces.date": "",
+                "regularity": "",
+                "precededBy": "",
+                "succeededBy": "",
+
+                "issueNumber": "",
+
+                "identifierByIdentifierScheme['/def/identifiers/issn']": "",
+                "identifierByIdentifierScheme['/def/identifiers/isbn']": "",
+                "identifierValue": "",
+                "identifierNote": "",
+
+                "availability": "",
+
+                "mediaTerm": "",
+                "date": "",
+                "publication": "",
+                "publicationStatus": "",
+                "publicationYear": "",
+                "publicationOtherYear": "",
+                "publicationCountry": "",
+                
+                "material": "",
+                "fileType": "",
+                "relief": "",
+                "index": "",
+
+                "hasFormatByType['Product']": "",
+                "hasFormatByType['Electronic']": "",
+                "hasFormatByType['Map']": "",
+                "hasFormatByType['StillImage']": "",
+                "record.hasFormatByType['MovingImage']": "",
+
+                "hasFormatByType.extent": "",
+                "hasFormatByType.otherPhysicalDetails": "",
+                "hasFormatByType.accompanyingMaterial": "",
+                "hasFormatByType.materialsSpecified": "",
+                "hasFormatByType.carrierType": "",
+                "hasFormatByType.color": "",
+                "hasFormatByType.dimensions": "",
+                "hasFormatByType.sound": "",
+                "hasFormatByType.fileFormats": "",
+                "hasFormatByType.qATarget": "",
+                "hasFormatByType.medium": "",
+                "hasFormatByType.reproduction": "",
+                "hasFormatByType.detail": "",
+                "hasFormatByType.posNeg": "",
+                "hasFormatByType.nonProjColor": "",
+                "hasFormatByType.nonProjPrimary": "",
+                "hasFormatByType.nonProjSecondary": "",
+                "hasFormatByType.motionPicFormat": "",
+                "hasFormatByType.motionPicSound": "",
+                "hasFormatByType.motionPicMedium": "",
+                "hasFormatByType.motionPicDimensions": "",
+
+                "cartographicScale": "",
+                "cartographicCoordinates": "",
+                "cartographicAscensionAndDeclination.cartographicAscensionAndDeclination": "",
+                "cartographicAscensionAndDeclination.source": "",
+                "cartographicAscensionAndDeclination.scopeNote": "",
+                "cartographicAscensionAndDeclination.cartographicScale": "",
+                "cartographicAscensionAndDeclination.constantRatioLinearHorizontalScale": "",
+                "cartographicAscensionAndDeclination.constantRatioLinearVerticalScale": "",
+                "cartographicAscensionAndDeclination.westernmostLongitudeCoordinates": "",
+                "cartographicAscensionAndDeclination.easternmostLongitudeCoordinates": "",
+                "cartographicAscensionAndDeclination.northernmostLatitudeCoordinates": "",
+                "cartographicAscensionAndDeclination.southernmostLatitudeCoordinates": "",
+                "cartographicAscensionAndDeclination.angularScale": "",
+                "cartographicAscensionAndDeclination.declinationNorthernLimit": "",
+                "cartographicAscensionAndDeclination.declinationSouthernLimit": "",
+                "cartographicAscensionAndDeclination.rightAscensionEasternLimit": "",
+                "cartographicAscensionAndDeclination.rightAscensionWesternLimit": "",
+                "cartographicAscensionAndDeclination.cartographicEquinox": "",
+                "cartographicAscensionAndDeclination.distanceFromEarth": "",
+                "cartographicAscensionAndDeclination.gRingLatitude": "",
+                "cartographicAscensionAndDeclination.gRingLongitude": "",
+                "cartographicAscensionAndDeclination.startDate": "",
+                "cartographicAscensionAndDeclination.endDate": "",
+                "cartographicAscensionAndDeclination.extraterrestrialBody": "",
+                
+
+                "describedBy": "",
+                "describedBy.label": "",
+                "describedBy['@id']": "",
+
+                "hasPart": "",
+                
+                "isPartOf": "",
+                "isPartOf.title": "",
+                
+                "relation": "",
+                "relation.linkNote": "",
+                
+                "alternateEdition": "",
+                "alternateFormat": "",
+
+                "summary": "",
+                "languageNote": "",
+                "technicalNote": "",
+                "listOfContents": "",
+                "performerNote": "",
+                "note": "",
+                "comment": "",
+                "systemRequirements": "",
+                "isPrimaryTopicOf": "",
+                "audience.label": "",
+                "scopeNote": "",
+                
+                "hasAnnotation": "",
+                "hasAnnotation.note": "",
+                "hasAnnotation.degree": "",
+                "hasAnnotation.location": "",
+                "hasAnnotation.date": "",
+                "hasAnnotation.comment": "",
+               
+                "alphabet": "",
+                "audience": "",
+                "confPub": "",
+                "contentType": "",
+                "festschrift": "",
+                "illustrations": "",
+                "nature": "",
+                "originalItem": "",
+                "runningTime": "",
+
+                "genre": "",
+
+                "classificationDdc": "",
+                "classificationNlm": "",
+                "classificationUdc": "",
+
+                "subjectByInScheme['/topic/sao']": "",
+                "subjectByInScheme['/topic/saogf']": "",
+                "subjectByInScheme['barn']": "",
+                "subjectByType['/topic/chronological']": "",
+                "subjectByType['Person']": "",
+                "subjectByType['Place']": "",
+
+                "typeOfEntry": "",
+
+                "additionalCarrierType": "",
+                "encLevel": "",
+                "characterCoding": "",
+                "status": "",
+                "catForm": "",
+                "sourceNote": "",
+                "bibliographyCode": "i"
+            }
+        },
+
+        "holdings": {
+          "offer": {
+            "heldBy": "",
+            "availability": "",
+            "classificationPart": "",
+            "copyNote": "",
+            "copyNumber": "",
+            "editorialNote": "",
+            "shelfControlNumber": "",
+            "shelfLabel": "",
+            "shelfLocation": ""
+          }
+        }
+    }
 }

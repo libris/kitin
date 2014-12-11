@@ -79,22 +79,45 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope, $q
           allowNonAuth = attrs.allowNonAuth; 
         }
       }
-      
 
       var linker = kitinLinkEntity;
 
+      var filterParams = {};
+
+      var setFilterParams = function() {
+        if ( attrs.filter ) {
+          if ( attrs.filter === 'type' ) {
+            filterParams.filter = 'about.@type:'+linker.getType();
+          } else if ( /^\[.*\]$/.test(attrs.filter) ) {
+            // filter array (filters)
+            filterParams.filters = scope.$eval(attrs.filter);
+          } else {
+            // filter string (filter)
+            filterParams.filter = attrs.filter;
+          }
+        }
+      };
+
+      // add a select box for multiple types
+      var types = linker.getTypes();
+
+      if ( types.length > 1 ) {
+        var select = angular.element('<select>').on('change', function(e) {
+          var index = $('option:selected', this).attr('data-index');
+          linker.setType(index);
+          setFilterParams();
+        });
+        types.forEach(function(type, i) {
+          select.append('<option data-index="'+i+'">'+type+'</option>');
+        });
+        elem.after($('<span>').addClass('select').append(select, '<i class="fa fa-caret-down"></i>'));
+      }
+
+      setFilterParams();
+
       // TODO: IMPROVE: replace current autocomplete mechanism and use angular
       // templates ($compile).. If that is fast enough..
-      var filterParams = {};
-      if ( attrs.filter ) {
-        if ( /^\[.*\]$/.test(attrs.filter) ) {
-          // filter array (filters)
-          filterParams.filters = scope.$eval(attrs.filter);
-        } else {
-          // filter string (filter)
-          filterParams.filter = attrs.filter;
-        }
-      }
+
       var makeReferenceOnItemSelect = attrs.hasOwnProperty('makeReference');
 
       var template = _.template(jQuery('#' + attrs.templateId).html());

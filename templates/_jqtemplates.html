@@ -22,7 +22,11 @@
       <% } %>
     <% } else { %>
       <h4>
-          <%=nonAuthPrefix%><%=data.givenName%> <%=data.familyName%> <%=data.name%>
+      <% if (nonAuthPrefix) {%>
+        <span class="non-auth"><i class="fa fa-plus-circle"></i> <%=nonAuthPrefix%></span>
+      <% } else { %>
+        <%=data.givenName%> <%=data.familyName%> <%=data.name%>
+      <% } %>
       </h4>
     <% } %>
   </div>

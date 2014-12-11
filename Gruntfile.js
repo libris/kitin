@@ -10,7 +10,10 @@ module.exports = function(grunt) {
     ngtemplates: {
       kitin: {
         cwd: 'templates',
-        src: ['snippets/**/*.html'],
+        src: [
+          'snippets/**/*.html',
+          'dialogs/**/*.html'
+        ],
         dest: 'static/build/js/templates.js',
         options: {
           prefix: '/',
@@ -97,7 +100,7 @@ module.exports = function(grunt) {
       options: {
         jshintrc: '.jshintrc'
       },
-      app: ['static/js/{,*/}*.js']
+      app: ['static/js/{,*/}*.js', 'examples/translations/label_se.json']
     },
     uglify: {
       options: {
@@ -167,7 +170,7 @@ module.exports = function(grunt) {
         tasks: ['cachebuster']
       },
       ngtemplates: {
-        files: ['templates/partials/**/*.html', 'templates/snippets/**/*.html'],
+        files: ['templates/partials/**/*.html', 'templates/snippets/**/*.html', 'templates/dialogs/**/*.html'],
         tasks: ['ngtemplates']
       }
     },
