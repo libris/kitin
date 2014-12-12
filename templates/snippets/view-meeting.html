@@ -10,7 +10,7 @@
     <div data-ng-hide="editable.on">
         <span>{{object.name}}</span> <a class="auth" href="" data-ng-click="editable.on = !editable.on">Ändra</a>
     </div>
-    <div data-ng-show="editable.on">
+    <div data-ng-show="editable.on" class="editable">
       <div class="label">
         <span class="lbl">{{ "Namn" }}</span>
         <kitin-textarea model="object.name"></kitin-textarea>

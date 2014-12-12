@@ -731,7 +731,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <div data-ng-hide=\"editable.on\">\n" +
     "        <span>{{object.name}}</span> <a class=\"auth\" href=\"\" data-ng-click=\"editable.on = !editable.on\">Ändra</a>\n" +
     "    </div>\n" +
-    "    <div data-ng-show=\"editable.on\">\n" +
+    "    <div data-ng-show=\"editable.on\" class=\"editable\">\n" +
     "      <div class=\"label\">\n" +
     "        <span class=\"lbl\">{{ \"Namn\" }}</span>\n" +
     "        <kitin-textarea model=\"object.name\"></kitin-textarea>\n" +
@@ -767,7 +767,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <div data-ng-hide=\"editable.on\">\n" +
     "        <span>{{object.name}}</span> <a class=\"auth\" href=\"\" data-ng-click=\"editable.on = !editable.on\">Ändra</a>\n" +
     "    </div>\n" +
-    "    <div data-ng-show=\"editable.on\">\n" +
+    "    <div data-ng-show=\"editable.on\" class=\"editable\">\n" +
     "      <div class=\"label\">\n" +
     "        <span class=\"lbl\">{{ \"Namn\" }}</span>\n" +
     "        <input data-track-change class=\"\" type=\"text\" placeholder=\"Namn\"\n" +
@@ -792,7 +792,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <div data-ng-hide=\"editable.on\">\n" +
     "        <span onload=\"person = object\" data-ng-include=\"'/snippets/person-name'\"></span><a class=\"auth\" href=\"\" data-ng-click=\"editable.on = !editable.on\">Ändra</a>\n" +
     "    </div>\n" +
-    "    <div data-ng-show=\"editable.on\">\n" +
+    "    <div data-ng-show=\"editable.on\" class=\"editable\">\n" +
     "      <div class=\"label\">\n" +
     "        <span class=\"lbl\">{{ \"Förnamn\" }}</span>\n" +
     "        <input data-track-change class=\"\" type=\"text\" placeholder=\"Förnamn\"\n" +
@@ -819,7 +819,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    </div>\n" +
     "  </div>\n" +
     "  <kitin-entity multiple hide-title model=\"record.about._reifiedRoles\" type=\"ObjectProperty\" view=\"/snippets/view-role\">\n" +
-    "    <kitin-search service-url=\"/relator/_search\" filter=\"about.@type:ObjectProperty\" template-id=\"select-role-template\" placeholder=\"Lägg till roll\"></kitin-search>\n" +
+    "    <kitin-search service-url=\"/relator/_search\" filter=\"about.@type:ObjectProperty\" template-id=\"select-role-template\" placeholder=\"Lägg till roll\">\n" +
+    "    </kitin-search>\n" +
     "  </kitin-entity>\n" +
     "</div>"
   );

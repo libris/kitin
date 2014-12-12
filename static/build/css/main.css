@@ -2325,6 +2325,26 @@ label.find-entity input[type="text"] {
   padding: 4px 8px;
   border-radius: 2px;
   border: 1px dashed #c7c7c3;
+  background-color: #eeeeec;
+}
+.entity.rich > .entity-content .tags {
+  margin: 2px 0 4px;
+}
+.entity.rich > .entity-content .tags .tag.auth {
+  background-color: #b9dcd2;
+  border: 1px solid #b9dcd2;
+  border-radius: 2px;
+}
+.entity.rich > .entity-content .tags .search input[type="text"] {
+  background: #fff;
+  border-color: #ddddd8;
+}
+.entity.rich > .entity-content .tags .search input[type="text"]:focus {
+  border-color: #c7c7c3 !important;
+}
+.entity.rich > .entity-content .editable .lbl {
+  padding-left: 0;
+  font-size: 12px;
 }
 .entity.rich > .entity-content > .controls {
   position: absolute;
@@ -2342,13 +2362,6 @@ label.find-entity input[type="text"] {
 .entity.rich .inner .main .label {
   border: none;
   padding: 4px 0 0;
-}
-.entity.rich .inner .main.person .tags {
-  margin: 2px 0 4px;
-}
-.entity.rich .inner .main.person .tags .search input[type="text"] {
-  background: #fff;
-  border-color: #c7c7c3;
 }
 .entity.rich .inner .notes {
   margin-top: 2px;
