@@ -77,11 +77,11 @@
     </div>
   </kitin-group>
   <kitin-group label="Uppslag">
-    <kitin-entityrow model="record.about.attributedTo" rich view="/snippets/view-person" type="['Person','Meeting', 'Organization']">
+    <kitin-entityrow model="record.about.attributedTo" rich view="/snippets/view-<% print(type.toLowerCase()) %>" type="['Person','Meeting', 'Organization']">
       <kitin-search service-url="/auth/_search" 
                     template-id="auth-completion-template" 
-                    filter="['about.@type:Person','about.@type:Meeting','about.@type:Organization']"
-                    allow-non-auth="Ny icke auktoriserad person">
+                    filter="about.@type:<%= type %>"
+                    allow-non-auth="Ny icke auktoriserad <%= type %>">
       </kitin-search>
     </kitin-entityrow>
   </kitin-group>

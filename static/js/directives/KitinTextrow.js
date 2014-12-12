@@ -29,6 +29,7 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
       template: '<div class="label" ng-hide="shouldHide(model, options)">' + 
                   '<kitin-label label="label"></kitin-label>' +
                   '<span class="inp"><kitin-textarea data-track-change="{{changeModel}}" model="model"></kitin-textarea></span>' +
+                  '<kitin-help help="label"></kitin-help>' +
                 '</div>',
       controller: function($scope, $rootScope, $attrs) {
 

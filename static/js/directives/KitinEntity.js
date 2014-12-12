@@ -40,10 +40,10 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
     },
     template:   '<div class="{{classNames}}">' +
                   '<div ng-if="objects" ng-repeat="object in objects track by $index" class="{{innerClassNames}}"" ng-class="{auth: isLinked(object)}">' +
-                    '<span class="inner" ng-include="viewTemplate"></span>' +
+                    '<span class="inner" ng-include="viewTemplate()"></span>' +
                     '<span class="controls"><a class="delete" data-ng-click="doRemove($index)"><i class="fa fa-times"></i></a></span>' +
                   '</div>' +
-                  '<span ng-transclude></span>' +
+                  '<span ng-transclude ng-hide="hideAddControl()"></span>' +
                 '</div>',
 
     controller: function($element, $scope, $attrs) {
@@ -52,7 +52,14 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
         angular.extend($attrs, $scope.attributes);
       }
       
-      $scope.viewTemplate = $attrs.view || '/snippets/view-generic-linked-entity';
+      $scope.viewTemplate = function() {
+        var type = getType();
+        var view = $attrs.view || '/snippets/view-generic-linked-entity';
+        if ( type ) {
+          view = _.template(view)({ type: getType() });
+        }
+        return view;
+      }
      
       $scope.searchTemplate = $attrs.search;
 
@@ -82,6 +89,10 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
         $scope.objects = null;
       }
 
+      $scope.hideAddControl = function() {
+        return ($scope.objects && $scope.objects.length) && !$scope.multiple;
+      };
+
       var classNames = ['entity'];
       var innerClassNames = ['entity-content'];
       if ( $attrs.hasOwnProperty('rich') && $attrs.rich !== false) {
@@ -105,6 +116,8 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
         types = $scope.$eval($attrs.type);
       }
 
+
+
       // method for setting type if multiple types are supported
       this.setType = function(index) {
         typeIndex = index;
@@ -113,6 +126,12 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
       this.getTypes = function() {
         return types;
       };
+
+      function getType() {
+        return types[typeIndex];
+      }
+
+      this.getType = getType;
 
       this.doAdd = function(data) {
         var added = editService.addObject(subj, $scope.link, $scope.property, $scope.multiple, data);
@@ -127,7 +146,7 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
       };
 
       this.doCreate = function(initialValue) {
-        return editService.createObject($scope.property, types[typeIndex], initialValue);
+        return editService.createObject($scope.property, this.getType(), initialValue);
       };
 
       $scope.doRemove = function (index) {

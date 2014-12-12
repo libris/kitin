@@ -166,7 +166,7 @@
         "editorialNote": [],
         "copyNote": []
       }],
-      "isPrimaryTopicOf": [],
+      "isPrimaryTopicOf": [{"@type": "Document"}],
       "workExample": [
         {
           "@type": "SomeProducts",
@@ -174,7 +174,10 @@
           "editorialNote": [],
           "copyNote": []
         }
-      ]
+      ],
+      "encoding": [{"@type": "MediaObject"}],
+      "alternateFormat": [{"@type": "Electronic"}],
+      "relation": [{"@type": "Document"}]
     }
 
   },
@@ -406,6 +409,23 @@
       "videoMedium": {},
       "videoDimensions": {},
       "videoPlayback": {}
+    },
+
+    "Document": {
+      "description": "",
+      "@id": "",
+      "editorialNote": [],
+      "altLabel": "",
+      "comment": ""
+    },
+    "SomeProducts": {
+      "scopeNote": "",
+      "editorialNote": [],
+      "copyNote": []
+    },
+    "MediaObject": {
+      "@id": "",
+      "comment": ""
     }
 
   }
