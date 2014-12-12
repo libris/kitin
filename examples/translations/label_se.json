@@ -291,8 +291,8 @@
                 "HOLDINGS": "Bestånd"
             },
             "busy": {
-                "LOADING_BIB": "Laddar artikel...",
-                "SAVING_BIB": "Sparar artikel...",
+                "LOADING_BIB": "Laddar post...",
+                "SAVING_BIB": "Sparar post...",
                 "SEARCHING": "Laddar sökresultat...",
                 "CONVERTING_TO_MARC": "Konverterar till MARC-format...",
                 "LOADING_HOLDING": "Laddar bestånd...",
