@@ -59,7 +59,7 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
           view = _.template(view)({ type: getType() });
         }
         return view;
-      }
+      };
      
       $scope.searchTemplate = $attrs.search;
 

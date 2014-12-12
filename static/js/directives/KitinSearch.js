@@ -125,10 +125,10 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope, $q
       var getNonAuthPrefix = function() {
         var nonAuthPrefix = allowNonAuth;
         if ( linker.getType() ) {
-          nonAuthPrefix = _.template(allowNonAuth)({ type: linker.getType() })
+          nonAuthPrefix = _.template(allowNonAuth)({ type: linker.getType() });
         }
         return nonAuthPrefix;
-      }
+      };
 
       var template = _.template(jQuery('#' + attrs.templateId).html());
       var searchedValue = null;
