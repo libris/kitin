@@ -197,6 +197,12 @@ kitin.factory('utilsService', function($http, $q, $rootScope) {
         matches: matches.length > 0 ? matches : false,
         nonmatches: nonmatches.length > 0 ? nonmatches : false
       };
+    },
+
+    noCacheHeaders: {
+      'If-Modified-Since': new Date(new Date().setYear(2000)).toUTCString(),
+      'Cache-Control': 'no-cache',
+      'Pragma': 'no-cache'
     }
   };
 });
