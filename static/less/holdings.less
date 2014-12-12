@@ -26,11 +26,13 @@
   color: @white;
 }
 
-.holdings ul li { list-style: none; }
-
-accordion.other-holdings{
-  margin-bottom:24px;
+.holdings h4.top {
+  color: #000;
+  border-bottom: 1px dotted #ddd;
+  padding-bottom: 12px;
 }
+
+.holdings ul li { list-style: none; }
 
 .holdings .form-container .group .lbl {
   width:340px;
@@ -55,6 +57,67 @@ section.offer{
 }
 .holdings .button-bar.right {
   text-align: right;
+}
+
+
+accordion.other-holdings {
+  margin-bottom:24px;
+
+  .panel-group .panel,
+  .panel-group .panel + .panel{
+    margin-top:0;
+    border-bottom-width:0;
+    border-radius: 0;
+  }
+  .panel-group .panel:last-child,
+  .panel-group .panel + .panel:last-child{
+    border-bottom-width:1px;
+  }
+
+  .panel-group .panel-heading {
+    background-color: #fff;
+  }
+
+  .panel-group .panel-title a {
+      display: block;
+      padding: 10px 15px;
+      margin: -10px -15px;
+  }
+
+  & > .panel-group > .panel {
+    border-left:0;border-top:0;border-right:0;
+    & > .panel-heading {
+      padding-left:0;
+    }
+    & > .panel-collapse > .panel-body {
+      padding:15px 0 0 0;
+    }
+  }
+
+  .offer-header {
+    font-weight: bold;
+  }
+  .offer-value {
+    width:50%;
+    padding:0;
+    display:inline-block;
+    .prop,
+    .val{
+      display:inline-block;
+      padding:4px 8px;
+    }
+    .prop{
+      width:60%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      vertical-align: top;
+    }
+    .val{
+      width:40%;
+      span{border-bottom: 1px dotted #ddd;}
+    }
+  }
 }
 
 /* HOLDINGS END ------------------------- */
