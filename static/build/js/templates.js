@@ -733,10 +733,15 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  </div>\n" +
     "  <div data-ng-if=\"!isLinked(object)\"\n" +
     "        data-ng-init=\"editable = {on: !object.name}\">\n" +
-    "    <div data-ng-hide=\"editable.on\">\n" +
-    "        <span>{{object.name}}</span> <a class=\"auth\" href=\"\" data-ng-click=\"editable.on = !editable.on\">Ändra</a>\n" +
+    "    <div class=\"toggler\">\n" +
+    "        <button data-ng-hide=\"editable.on\" class=\"btn btn-link\" data-ng-click=\"editable.on = true\"><i class=\"fa fa-edit\"></i> Editera</button>\n" +
+    "        <button data-ng-show=\"editable.on\" class=\"btn btn-link\" data-ng-click=\"editable.on = false\"><i class=\"fa fa-check\"></i> Klar</button>\n" +
+    "    </div>\n" +
+    "    <div class=\"non-editable\">\n" +
+    "        <span><strong>{{object.name}}</strong></span> <span class=\"date\">{{object.date}}</span>\n" +
     "    </div>\n" +
     "    <div data-ng-show=\"editable.on\" class=\"editable\">\n" +
+    "      <span class=\"arr\"></span>\n" +
     "      <div class=\"label\">\n" +
     "        <span class=\"lbl\">{{ \"Namn\" }}</span>\n" +
     "        <kitin-textarea model=\"object.name\"></kitin-textarea>\n" +
@@ -745,15 +750,16 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "        <span class=\"lbl\">{{ \"Datum\" }}</span>\n" +
     "        <kitin-textarea model=\"object.date\"></kitin-textarea>\n" +
     "      </div>\n" +
-    "      <kitin-entity label=\"'Plats'\" model=\"object\" link=\"'language'\" type=\"Place\">\n" +
-    "        <kitin-search service-url=\"/auth/_search\" \n" +
-    "                      template-id=\"subject-completion-template\" \n" +
-    "                      filter=\"about.@type:Place\"\n" +
-    "                      placeholder=\"Lägg till plats\"\n" +
-    "                      allow-non-auth=\"Ny icke auktoriserad plats\">\n" +
-    "        </kitin-search>\n" +
-    "      </kitin-entity>\n" +
+    "      <div style=\"clear:both\"></div>\n" +
     "    </div>\n" +
+    "    <kitin-entity label=\"'Plats'\" model=\"object\" link=\"'language'\" type=\"Place\">\n" +
+    "      <kitin-search service-url=\"/auth/_search\" \n" +
+    "                    template-id=\"subject-completion-template\" \n" +
+    "                    filter=\"about.@type:Place\"\n" +
+    "                    placeholder=\"Lägg till plats\"\n" +
+    "                    allow-non-auth=\"Ny icke auktoriserad plats\">\n" +
+    "      </kitin-search>\n" +
+    "    </kitin-entity>\n" +
     "  </div>\n" +
     "</div>"
   );
@@ -769,15 +775,21 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  </div>\n" +
     "  <div data-ng-if=\"!isLinked(object)\"\n" +
     "        data-ng-init=\"editable = {on: !(object.controlledLabel || object.givenName || object.name)}\">\n" +
-    "    <div data-ng-hide=\"editable.on\">\n" +
-    "        <span>{{object.name}}</span> <a class=\"auth\" href=\"\" data-ng-click=\"editable.on = !editable.on\">Ändra</a>\n" +
+    "    <div class=\"toggler\">\n" +
+    "        <button data-ng-hide=\"editable.on\" class=\"btn btn-link\" data-ng-click=\"editable.on = true\"><i class=\"fa fa-edit\"></i> Editera</button>\n" +
+    "        <button data-ng-show=\"editable.on\" class=\"btn btn-link\" data-ng-click=\"editable.on = false\"><i class=\"fa fa-check\"></i> Klar</button>\n" +
+    "    </div>\n" +
+    "    <div class=\"non-editable\">\n" +
+    "      <span><strong>{{object.name}}</strong></span>\n" +
     "    </div>\n" +
     "    <div data-ng-show=\"editable.on\" class=\"editable\">\n" +
+    "      <span class=\"arr\"></span>\n" +
     "      <div class=\"label\">\n" +
     "        <span class=\"lbl\">{{ \"Namn\" }}</span>\n" +
     "        <input data-track-change class=\"\" type=\"text\" placeholder=\"Namn\"\n" +
     "               data-ng-model=\"object.name\" />\n" +
     "      </div>\n" +
+    "      <div style=\"clear:both\"></div>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "</div>"
