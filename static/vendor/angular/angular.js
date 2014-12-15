@@ -1,9 +1,5 @@
 /**
-<<<<<<< HEAD
- * @license AngularJS v1.3.6
-=======
- * @license AngularJS v1.2.28-build.573+sha.a1e7eb6
->>>>>>> develop
+ * @license AngularJS v1.3.7-build.3695+sha.aac3c4a
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -58,11 +54,7 @@ function minErr(module, ErrorConstructor) {
       return match;
     });
 
-<<<<<<< HEAD
-    message = message + '\nhttp://errors.angularjs.org/1.3.6/' +
-=======
-    message = message + '\nhttp://errors.angularjs.org/1.2.28-build.573+sha.a1e7eb6/' +
->>>>>>> develop
+    message = message + '\nhttp://errors.angularjs.org/1.3.7-build.3695+sha.aac3c4a/' +
       (module ? module + '/' : '') + code;
     for (i = 2; i < arguments.length; i++) {
       message = message + (i == 2 ? '?' : '&') + 'p' + (i - 2) + '=' +
@@ -117,6 +109,7 @@ function minErr(module, ErrorConstructor) {
   isWindow: true,
   isScope: true,
   isFile: true,
+  isFormData: true,
   isBlob: true,
   isBoolean: true,
   isPromiseLike: true,
@@ -635,6 +628,11 @@ function isScope(obj) {
 
 function isFile(obj) {
   return toString.call(obj) === '[object File]';
+}
+
+
+function isFormData(obj) {
+  return toString.call(obj) === '[object FormData]';
 }
 
 
@@ -1500,7 +1498,12 @@ function reloadWithDebugInfo() {
  * @param {DOMElement} element DOM element which is the root of angular application.
  */
 function getTestability(rootElement) {
-  return angular.element(rootElement).injector().get('$$testability');
+  var injector = angular.element(rootElement).injector();
+  if (!injector) {
+    throw ngMinErr('test',
+      'no injector found for element argument to getTestability');
+  }
+  return injector.get('$$testability');
 }
 
 var SNAKE_CASE_REGEXP = /[A-Z]/g;
@@ -2113,19 +2116,11 @@ function toDebugString(obj) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
-<<<<<<< HEAD
-  full: '1.3.6',    // all of these placeholder strings will be replaced by grunt's
+  full: '1.3.7-build.3695+sha.aac3c4a',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
   minor: 3,
-  dot: 6,
-  codeName: 'robofunky-danceblaster'
-=======
-  full: '1.2.28-build.573+sha.a1e7eb6',    // all of these placeholder strings will be replaced by grunt's
-  major: 1,    // package task
-  minor: 2,
-  dot: 28,
+  dot: 7,
   codeName: 'snapshot'
->>>>>>> develop
 };
 
 
@@ -7132,29 +7127,17 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
             var attrEndName = false;
 
             attr = nAttrs[j];
-<<<<<<< HEAD
             name = attr.name;
             value = trim(attr.value);
 
             // support ngAttr attribute binding
             ngAttrName = directiveNormalize(name);
             if (isNgAttr = NG_ATTR_BINDING.test(ngAttrName)) {
-              name = snake_case(ngAttrName.substr(6), '-');
+              name = name.replace(PREFIX_REGEXP, '')
+                .substr(8).replace(/_(.)/g, function(match, letter) {
+                  return letter.toUpperCase();
+                });
             }
-=======
-            if (!msie || msie >= 8 || attr.specified) {
-              name = attr.name;
-              value = trim(attr.value);
-
-              // support ngAttr attribute binding
-              ngAttrName = directiveNormalize(name);
-              if (isNgAttr = NG_ATTR_BINDING.test(ngAttrName)) {
-                name = name.replace(PREFIX_REGEXP, '')
-                  .substr(8).replace(/_(.)/g, function(match, letter) {
-                    return letter.toUpperCase();
-                  });
-              }
->>>>>>> develop
 
             var directiveNName = ngAttrName.replace(/(Start|End)$/, '');
             if (directiveIsMultiElement(directiveNName)) {
@@ -8700,7 +8683,7 @@ function $HttpProvider() {
 
     // transform outgoing request data
     transformRequest: [function(d) {
-      return isObject(d) && !isFile(d) && !isBlob(d) ? toJson(d) : d;
+      return isObject(d) && !isFile(d) && !isBlob(d) && !isFormData(d) ? toJson(d) : d;
     }],
 
     // default headers
@@ -8922,7 +8905,6 @@ function $HttpProvider() {
      *
      * $http(req).success(function(){...}).error(function(){...});
      * ```
-<<<<<<< HEAD
      *
      * ## Transforming Requests and Responses
      *
@@ -8936,8 +8918,6 @@ function $HttpProvider() {
      * The `$httpProvider` provider and `$http` service expose `defaults.transformRequest` and
      * `defaults.transformResponse` properties. If a request does not provide its own transformations
      * then these will be applied.
-=======
->>>>>>> develop
      *
      * You can augment or replace the default transformations by modifying these properties by adding to or
      * replacing the array.
@@ -9299,23 +9279,22 @@ function $HttpProvider() {
 </example>
      */
     function $http(requestConfig) {
-      var config = {
-        method: 'get',
-        transformRequest: defaults.transformRequest,
-        transformResponse: defaults.transformResponse
-      };
-      var headers = mergeHeaders(requestConfig);
 
       if (!angular.isObject(requestConfig)) {
         throw minErr('$http')('badreq', 'Http request configuration must be an object.  Received: {0}', requestConfig);
       }
 
-      extend(config, requestConfig);
-      config.headers = headers;
+      var config = extend({
+        method: 'get',
+        transformRequest: defaults.transformRequest,
+        transformResponse: defaults.transformResponse
+      }, requestConfig);
+
+      config.headers = mergeHeaders(requestConfig);
       config.method = uppercase(config.method);
 
       var serverRequest = function(config) {
-        headers = config.headers;
+        var headers = config.headers;
         var reqData = transformData(config.data, headersGetter(headers), config.transformRequest);
 
         // strip content-type if data is undefined
@@ -9332,7 +9311,7 @@ function $HttpProvider() {
         }
 
         // send request
-        return sendReq(config, reqData, headers).then(transformResponse, transformResponse);
+        return sendReq(config, reqData).then(transformResponse, transformResponse);
       };
 
       var chain = [serverRequest, undefined];
@@ -9384,6 +9363,23 @@ function $HttpProvider() {
           : $q.reject(resp);
       }
 
+      function executeHeaderFns(headers) {
+        var headerContent, processedHeaders = {};
+
+        forEach(headers, function(headerFn, header) {
+          if (isFunction(headerFn)) {
+            headerContent = headerFn();
+            if (headerContent != null) {
+              processedHeaders[header] = headerContent;
+            }
+          } else {
+            processedHeaders[header] = headerFn;
+          }
+        });
+
+        return processedHeaders;
+      }
+
       function mergeHeaders(config) {
         var defHeaders = defaults.headers,
             reqHeaders = extend({}, config.headers),
@@ -9406,23 +9402,7 @@ function $HttpProvider() {
         }
 
         // execute if header value is a function for merged headers
-        execHeaders(reqHeaders);
-        return reqHeaders;
-
-        function execHeaders(headers) {
-          var headerContent;
-
-          forEach(headers, function(headerFn, header) {
-            if (isFunction(headerFn)) {
-              headerContent = headerFn();
-              if (headerContent != null) {
-                headers[header] = headerContent;
-              } else {
-                delete headers[header];
-              }
-            }
-          });
-        }
+        return executeHeaderFns(reqHeaders);
       }
     }
 
@@ -9565,11 +9545,12 @@ function $HttpProvider() {
      * !!! ACCESSES CLOSURE VARS:
      * $httpBackend, defaults, $log, $rootScope, defaultCache, $http.pendingRequests
      */
-    function sendReq(config, reqData, reqHeaders) {
+    function sendReq(config, reqData) {
       var deferred = $q.defer(),
           promise = deferred.promise,
           cache,
           cachedResp,
+          reqHeaders = config.headers,
           url = buildUrl(config.url, config.params);
 
       $http.pendingRequests.push(config);
@@ -12329,15 +12310,9 @@ Parser.prototype = {
       ensureSafeFunction(fn, expressionText);
 
       // IE doesn't have apply for some native functions
-<<<<<<< HEAD
       var v = fn.apply
             ? fn.apply(context, args)
             : fn(args[0], args[1], args[2], args[3], args[4]);
-=======
-      var v = fnPtr.apply
-            ? fnPtr.apply(context, args)
-            : fnPtr(args[0], args[1], args[2], args[3], args[4]);
->>>>>>> develop
 
       return ensureSafeObject(v, expressionText);
       };
@@ -13434,12 +13409,10 @@ function qFactory(nextTick, exceptionHandler) {
 function $$RAFProvider() { //rAF
   this.$get = ['$window', '$timeout', function($window, $timeout) {
     var requestAnimationFrame = $window.requestAnimationFrame ||
-                                $window.webkitRequestAnimationFrame ||
-                                $window.mozRequestAnimationFrame;
+                                $window.webkitRequestAnimationFrame;
 
     var cancelAnimationFrame = $window.cancelAnimationFrame ||
                                $window.webkitCancelAnimationFrame ||
-                               $window.mozCancelAnimationFrame ||
                                $window.webkitCancelRequestAnimationFrame;
 
     var rafSupported = !!requestAnimationFrame;
@@ -17611,29 +17584,37 @@ function orderByFilter($parse) {
           ? function(a, b) {return comp(b,a);}
           : comp;
     }
+
+    function isPrimitive(value) {
+      switch (typeof value) {
+        case 'number': /* falls through */
+        case 'boolean': /* falls through */
+        case 'string':
+          return true;
+        default:
+          return false;
+      }
+    }
+
+    function objectToString(value) {
+      if (value === null) return 'null';
+      if (typeof value.toString === 'function') {
+        value = value.toString();
+        if (isPrimitive(value)) return value;
+      }
+      if (typeof value.valueOf === 'function') {
+        value = value.valueOf();
+        if (isPrimitive(value)) return value;
+      }
+      return '';
+    }
+
     function compare(v1, v2) {
       var t1 = typeof v1;
       var t2 = typeof v2;
-      // Prepare values for Abstract Relational Comparison
-      // (http://www.ecma-international.org/ecma-262/5.1/#sec-11.8.5):
-      // If the resulting values are identical, return 0 to prevent
-      // incorrect re-ordering.
       if (t1 === t2 && t1 === "object") {
-        // If types are both numbers, emulate abstract ToPrimitive() operation
-        // in order to get primitive values suitable for comparison
-        t1 = typeof (v1.valueOf ? v1 = v1.valueOf() : v1);
-        t2 = typeof (v2.valueOf ? v2 = v2.valueOf() : v2);
-        if (t1 === t2 && t1 === "object") {
-          // Object.prototype.valueOf will return the original object, by
-          // default. If we do not receive a primitive value, use ToString()
-          // instead.
-          t1 = typeof (v1.toString ? v1 = v1.toString() : v1);
-          t2 = typeof (v2.toString ? v2 = v2.toString() : v2);
-
-          // If the end result of toString() for each item is the same, do not
-          // perform relational comparison, and do not re-order objects.
-          if (t1 === t2 && v1 === v2 || t1 === "object") return 0;
-        }
+        v1 = objectToString(v1);
+        v2 = objectToString(v2);
       }
       if (t1 === t2) {
         if (t1 === "string") {
