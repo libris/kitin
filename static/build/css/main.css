@@ -2161,6 +2161,7 @@ label.find-entity input[type="text"] {
   text-align: right;
   padding: 0;
   font-size: 13px;
+  display: none;
 }
 .element-adder > div {
   text-align: left;
@@ -2168,6 +2169,9 @@ label.find-entity input[type="text"] {
 .element-adder select {
   font-size: 13px;
   height: 25px;
+}
+.element-adder.visible {
+  display: block;
 }
 .addon .on-hover {
   float: right!important;
@@ -2214,6 +2218,13 @@ label.find-entity input[type="text"] {
   width: 200px;
   display: inline-block;
   vertical-align: middle;
+}
+.form-container kitin-group:last-child .group {
+  border-bottom: 0;
+  margin-bottom: 24px;
+}
+.form-container kitin-group:last-child .group:after {
+  height: 0;
 }
 .form-container .group {
   border-top: 1px solid #ccc;

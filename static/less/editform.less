@@ -24,6 +24,10 @@ label.find-entity input[type="text"] { padding-left: 22px; }
     font-size:13px;
     >div { text-align: left; }
     select {font-size:13px;height:25px;}
+    display:none;
+    &.visible{
+      display:block;
+    }
 }
 
 .addon .on-hover {float:right!important; position:absolute;top:1px;right:3px;color: @grey-dark;}
@@ -60,6 +64,16 @@ label.find-entity input[type="text"] { padding-left: 22px; }
       width:@act_width;
       display:inline-block;
       vertical-align: middle;
+    }
+  }
+  // No thick bottom border for last group 
+  kitin-group:last-child {
+    .group {
+      border-bottom:0;
+      margin-bottom:24px;
+    }
+    .group:after {
+      height:0;
     }
   }
   .group {
