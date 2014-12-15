@@ -486,7 +486,7 @@ button::-moz--focus-inner {
   right: 0;
 }
 #nav .nav-menu > li {
-  border-left: 1px solid #ddddd8;
+  border-left: 1px solid #dddddb;
   padding: 0 8px 0 10px;
   margin: 6px 0;
   display: inline-block;
@@ -691,10 +691,10 @@ body.edit #header .nav-back {
   /*FF19>*/
 }
 body.edit #header .nav-back :focus:-moz-placeholder:focus {
-  color: #ddddd8;
+  color: #dddddb;
 }
 body.edit #header .nav-back :focus::-moz-placeholder {
-  color: #ddddd8;
+  color: #dddddb;
 }
 /* HEADER SEARCHFIELD START ------------------------- */
 #header .searchfield {
@@ -708,10 +708,10 @@ body.edit #header .nav-back :focus::-moz-placeholder {
   opacity: 0;
 }
 #header .searchfield :focus:-moz-placeholder:focus {
-  color: #ddddd8;
+  color: #dddddb;
 }
 #header .searchfield :focus::-moz-placeholder {
-  color: #ddddd8;
+  color: #dddddb;
 }
 #header .searchfield,
 #header .searchfield > * {
@@ -746,7 +746,7 @@ body.edit #header .nav-back :focus::-moz-placeholder {
 #header .searchfield input[type="text"] :focus :-moz-placeholder:focus,
 #header .searchfield input[type="text"] :focus :-moz-placeholder:focus,
 #header .searchfield input[type="text"] :focus :-ms-input-placeholder:focus {
-  color: #ddddd8;
+  color: #dddddb;
 }
 #header .searchfield button {
   float: left;
@@ -1081,7 +1081,7 @@ body.login .content.index header {
   position: relative;
   margin-right: 10px;
   color: #999996;
-  border: 1px solid #ddddd8;
+  border: 1px solid #dddddb;
   border-radius: 35px;
   width: 44px;
   height: 44px;
@@ -1215,7 +1215,7 @@ section.nav dt i {
 }
 .json-ld input {
   font-size: 12px;
-  border-bottom: 1px dashed #ddddd8;
+  border-bottom: 1px dashed #dddddb;
   border-top: 0;
   border-left: 0;
   border-right: 0;
@@ -1976,7 +1976,7 @@ section.result .label {
   text-overflow: ellipsis;
 }
 section.result .label:hover {
-  border-color: #ddddd8;
+  border-color: #dddddb;
 }
 section.result .label .lbl {
   color: #999996;
@@ -2179,6 +2179,9 @@ label.find-entity input[type="text"] {
 .form-container {
   clear: both;
 }
+.form-container kitin-group:last-child {
+  border-bottom: none;
+}
 .form-container hr {
   display: none;
 }
@@ -2337,14 +2340,47 @@ label.find-entity input[type="text"] {
 }
 .entity.rich > .entity-content .tags .search input[type="text"] {
   background: #fff;
-  border-color: #ddddd8;
+  border-color: #dddddb;
 }
 .entity.rich > .entity-content .tags .search input[type="text"]:focus {
   border-color: #c7c7c3 !important;
 }
-.entity.rich > .entity-content .editable .lbl {
-  padding-left: 0;
+.entity.rich > .entity-content .toggler {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.entity.rich > .entity-content .toggler button {
   font-size: 12px;
+  padding: 4px 8px;
+  outline: none;
+}
+.entity.rich > .entity-content .editable {
+  position: relative;
+  padding: 0 0 8px 8px;
+  margin: 8px 0 8px;
+  background: #dddddb;
+  border-radius: 2px;
+}
+.entity.rich > .entity-content .editable .arr {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 5px 6px 5px;
+  border-color: transparent transparent #dddddb transparent;
+  position: absolute;
+  top: -6px;
+  left: 6px;
+}
+.entity.rich > .entity-content .editable .label {
+  width: 178px;
+  margin-right: 8px;
+  float: left;
+  position: relative;
+}
+.entity.rich > .entity-content .editable .label .lbl {
+  padding-left: 0;
+  font-size: 11px;
 }
 .entity.rich > .entity-content > .controls {
   position: absolute;
@@ -3239,7 +3275,7 @@ html.ie .cg-busy {
   background-color: #eeeeec;
 }
 .color-box.grey-lighter {
-  background-color: #ddddd8;
+  background-color: #dddddb;
 }
 .color-box.grey-light {
   background-color: #c7c7c3;
@@ -3333,7 +3369,7 @@ section.result p.holding {
   text-decoration: none;
   vertical-align: middle;
   color: #adada9;
-  background-color: #ddddd8;
+  background-color: #dddddb;
 }
 .input-controls {
   margin: 0 26px 10px 0;

@@ -31,6 +31,7 @@ label.find-entity input[type="text"] { padding-left: 22px; }
 
 .form-container {
   clear:both;
+  kitin-group:last-child{border-bottom:none}
   hr { display:none }
   .label {
     position:relative;
@@ -190,10 +191,41 @@ label.find-entity input[type="text"] { padding-left: 22px; }
           }
         }
       }
-      .editable {
-        .lbl {
-          padding-left: 0;
+      .toggler {
+        position:absolute;
+        right:0;
+        top:0;
+        button {
           font-size:12px;
+          padding: 4px 8px;
+          outline:none;
+        }
+      }
+      .editable {
+        position:relative;
+        padding:0 0 8px 8px;
+        margin:8px 0 8px;
+        background: @grey-lighter;
+        border-radius:2px;
+        .arr {
+          width: 0;
+          height: 0;
+          border-style: solid;
+          border-width: 0 5px 6px 5px;
+          border-color: transparent transparent @grey-lighter transparent;
+          position:absolute;
+          top:-6px;
+          left:6px;
+        }
+        .label{
+          width: 178px;
+          margin-right: 8px;
+          float: left;
+          position: relative;
+          .lbl {
+            padding-left: 0;
+            font-size:11px;
+          }
         }
       }
       >.controls {
