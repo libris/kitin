@@ -201,6 +201,12 @@ kitin.factory('utilsService', function($http, $q, $rootScope, $timeout) {
       };
     },
 
+    noCacheHeaders: {
+      'If-Modified-Since': new Date(new Date().setYear(2000)).toUTCString(),
+      'Cache-Control': 'no-cache',
+      'Pragma': 'no-cache'
+    },
+
     // Helper function to show a message on publish success/failure
     showPopup: function(element, to) {
       console.log(element);

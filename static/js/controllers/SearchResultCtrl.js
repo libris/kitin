@@ -1,4 +1,4 @@
-kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location, $routeParams, $rootScope, $anchorScroll, definitions, searchService, searchUtil, editService, userData, utilsService) {
+kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location, $routeParams, $rootScope, $anchorScroll, definitions, searchService, searchUtil, editService, recordService, userData, utilsService) {
 
   document.body.className = 'search';
   $scope.recType = $routeParams.recType;
@@ -123,23 +123,23 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
   }
 
   var getHoldings = function () {
-    var updateHoldings = function(data, status, headers, config) {
-      if (data && data.items) {
-        config.record.holdings = {
+    var updateHoldings = function(response) {
+      if (response.data && response.data.items) {
+        response.config.record.holdings = {
           items: 0
         };
-        if (data.items.length > 0) {
+        if (response.data.items.length > 0) {
           // At the moment, we're only using userHoldings, but in the future, we might use
           // allHoldings to present the user with extra information on other organisations'
           // holdings.
-          var holdings = utilsService.findDeep(data.items, 'about.heldBy.notation', userData.userSigel);
+          var holdings = utilsService.findDeep(response.data.items, 'about.heldBy.notation', userData.userSigel);
           var userHoldings = holdings.matches;
           var allHoldings = holdings.nonmatches;
 
           if (userHoldings) userHoldings = userHoldings[0];
 
-          config.record.holdings = {
-            items: data.items.length,
+          response.config.record.holdings = {
+            items: response.data.items.length,
             holding: userHoldings
           };
         }
@@ -149,7 +149,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
     for (var i = 0; i < $rootScope.state.search.result.items.length; i++) {
         var record = $rootScope.state.search.result.items[i];
         if (record.about && record.about['@id']) {
-          $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.holdingFor.@id:' + record.about['@id'].replace(/\//g, '\\/'), {record: record}).success(updateHoldings);
+          recordService.holding.search(record.about['@id'], true, record).then(updateHoldings);
         }
     }
   };

@@ -1,5 +1,9 @@
 /**
+<<<<<<< HEAD
  * @license AngularJS v1.3.6
+=======
+ * @license AngularJS v1.2.28-build.573+sha.a1e7eb6
+>>>>>>> develop
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */

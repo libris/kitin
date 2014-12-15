@@ -7,26 +7,31 @@
   <div data-cg-busy="{promise:promises.holding.loading, message:'Laddar bestånd...', minDuration: 800}"></div>
   <div data-cg-busy="{promise:promises.holding.saving, message:'Sparar bestånd...', minDuration: 800}"></div>
   
+  <h4 class="top">{{ utils.composeTitle(record) | chop:80}}, {{ utils.composeCreator(record) | chop:40 }} {{ utils.composeDate(publication.providerDate) }}</h4>
+
   <accordion class="other-holdings" ng-show="otherHoldings.length > 0">
     <accordion-group is-open="showOtherHoldings">
       <accordion-heading>
         Visa bestånd för andra bibliotek (beta) <i class="pull-right fa" ng-class="{'fa-chevron-down': showOtherHoldings, 'fa-chevron-right': !showOtherHoldings}"></i>
       </accordion-heading>
-      <accordion close-others="true">
+      <accordion class="other-holdings-inner" close-others="true">
         <accordion-group data-ng-repeat="otherHolding in otherHoldings" is-open="offer.open">
           <accordion-heading>
               {{otherHolding.about.heldBy.notation}} <i class="pull-right fa" ng-class="{'fa-chevron-down': offer.open, 'fa-chevron-right': !offer.open}"></i>
           </accordion-heading>
           <div data-ng-repeat="offer in otherHolding.about.offers" class="other-offer">
-            <span><b>Lokalsignum {{$index + 1}}:</b> </span><span class="offer-value" data-ng-repeat="(property, value) in offer" data-ng-show="property != '@type' && property != 'open' && property != 'heldBy'"><span class="prop">{{property}}</span>: <span class="val">{{value}}</span><span data-ng-show="!$last">, </span></span>
-            <hr>
+            <div class="offer-header">Lokalsignum {{$index + 1}}:</div>
+            <span class="offer-value" data-ng-repeat="(property, value) in offer" data-ng-show="property != '@type' && property != 'open'">
+              <span class="prop">{{'LABEL.holdings.offer.' + property | translate}}:</span><span class="val"><span>{{property == 'heldBy' ? otherHolding.about.heldBy.notation : value}}</span></span>
+            </span>
+            <hr ng-show="!$last">
           </div>
         </accordion-group>
       </accordion>
     </accordion-group>
   </accordion>
-  
-  <h4>{{ utils.composeTitle(record) | chop:80}}, {{ utils.composeCreator(record) | chop:40 }} {{ utils.composeDate(publication.providerDate) }}</h4>
+
+  <h4>Ditt bestånd</h4>
 
   <form data-ng-show="holding['@id'] || !holding['etag']" name="holdingForm">
     <!-- Offers -->

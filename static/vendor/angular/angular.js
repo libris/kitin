@@ -1,5 +1,9 @@
 /**
+<<<<<<< HEAD
  * @license AngularJS v1.3.6
+=======
+ * @license AngularJS v1.2.28-build.573+sha.a1e7eb6
+>>>>>>> develop
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -54,7 +58,11 @@ function minErr(module, ErrorConstructor) {
       return match;
     });
 
+<<<<<<< HEAD
     message = message + '\nhttp://errors.angularjs.org/1.3.6/' +
+=======
+    message = message + '\nhttp://errors.angularjs.org/1.2.28-build.573+sha.a1e7eb6/' +
+>>>>>>> develop
       (module ? module + '/' : '') + code;
     for (i = 2; i < arguments.length; i++) {
       message = message + (i == 2 ? '?' : '&') + 'p' + (i - 2) + '=' +
@@ -2105,11 +2113,19 @@ function toDebugString(obj) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
+<<<<<<< HEAD
   full: '1.3.6',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
   minor: 3,
   dot: 6,
   codeName: 'robofunky-danceblaster'
+=======
+  full: '1.2.28-build.573+sha.a1e7eb6',    // all of these placeholder strings will be replaced by grunt's
+  major: 1,    // package task
+  minor: 2,
+  dot: 28,
+  codeName: 'snapshot'
+>>>>>>> develop
 };
 
 
@@ -7116,6 +7132,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
             var attrEndName = false;
 
             attr = nAttrs[j];
+<<<<<<< HEAD
             name = attr.name;
             value = trim(attr.value);
 
@@ -7124,6 +7141,20 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
             if (isNgAttr = NG_ATTR_BINDING.test(ngAttrName)) {
               name = snake_case(ngAttrName.substr(6), '-');
             }
+=======
+            if (!msie || msie >= 8 || attr.specified) {
+              name = attr.name;
+              value = trim(attr.value);
+
+              // support ngAttr attribute binding
+              ngAttrName = directiveNormalize(name);
+              if (isNgAttr = NG_ATTR_BINDING.test(ngAttrName)) {
+                name = name.replace(PREFIX_REGEXP, '')
+                  .substr(8).replace(/_(.)/g, function(match, letter) {
+                    return letter.toUpperCase();
+                  });
+              }
+>>>>>>> develop
 
             var directiveNName = ngAttrName.replace(/(Start|End)$/, '');
             if (directiveIsMultiElement(directiveNName)) {
@@ -8891,6 +8922,7 @@ function $HttpProvider() {
      *
      * $http(req).success(function(){...}).error(function(){...});
      * ```
+<<<<<<< HEAD
      *
      * ## Transforming Requests and Responses
      *
@@ -8904,6 +8936,8 @@ function $HttpProvider() {
      * The `$httpProvider` provider and `$http` service expose `defaults.transformRequest` and
      * `defaults.transformResponse` properties. If a request does not provide its own transformations
      * then these will be applied.
+=======
+>>>>>>> develop
      *
      * You can augment or replace the default transformations by modifying these properties by adding to or
      * replacing the array.
@@ -12295,9 +12329,15 @@ Parser.prototype = {
       ensureSafeFunction(fn, expressionText);
 
       // IE doesn't have apply for some native functions
+<<<<<<< HEAD
       var v = fn.apply
             ? fn.apply(context, args)
             : fn(args[0], args[1], args[2], args[3], args[4]);
+=======
+      var v = fnPtr.apply
+            ? fnPtr.apply(context, args)
+            : fnPtr(args[0], args[1], args[2], args[3], args[4]);
+>>>>>>> develop
 
       return ensureSafeObject(v, expressionText);
       };

@@ -7,6 +7,28 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     published: ($scope.recType === editService.RECORD_TYPES.REMOTE || $scope.record.draft || $scope.record.new) ? false : true
   };
 
+  // Some actions trigger location change, watch for these and give feedback accordingly
+  var queryStrings = $location.search();
+  if (queryStrings.saved || queryStrings.published) {
+    var element;
+    // TODO: Ugly, ugly timeout. Hopefully our buttons will be present at the end of it.
+    $timeout(function() {
+      if (queryStrings.saved) {
+        $scope.classes.saveStatus = 'success';
+        element = angular.element('#save-draft');
+      } else if (queryStrings.published) {
+        $scope.classes.publishStatus = 'success';
+        element = angular.element('#publish-bib');
+      }
+      if (element.length) utilsService.showPopup(element).then(function() {
+        $location.search({
+          published: null,
+          saved: null
+        }); 
+      });
+    }, 1000);
+  }
+
   function onSaveState() {
     $rootScope.modifications.bib.saved = true;
     $rootScope.modifications.bib.lastSaved = new Date();
@@ -145,19 +167,10 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
       recordService.draft.save(parsedRecType, $scope.recId, $scope.record, $scope.etag).then(function success(data) {
         $scope.addRecordViewsToScope(data['recdata']);
         $scope.etag = data['etag'];
-        setHttpResponse({
-          classes: 'draft success top',
-          title: 'Utkast sparat',
-          message: 'Posten finns nu att se i katalogen.'
-        });
         onSaveState();
+        $scope.classes.saveStatus = 'success';
       }, function failure (status) {
-        setHttpResponse({
-          classes: 'draft failure top',
-          title: 'Något gick fel',
-          message: 'Posten finns nu att se i katalogen.'
-        });
-        console.log(status);
+
       });
     }
   };

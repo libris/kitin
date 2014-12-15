@@ -422,6 +422,9 @@ body.edit .footer-sticky div.centered div.right {
   color: #1a8f72;
   outline: none;
   border: 0;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }
 .btn-link:hover {
   color: #0e4e3e;
@@ -434,9 +437,6 @@ body.edit .footer-sticky div.centered div.right {
 }
 .holdings .btn-link {
   color: #683568;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
 }
 .holdings .btn-link:hover {
   color: #462446;
@@ -1587,6 +1587,7 @@ html .modal.fade .modal-dialog {
 }
 .success .popover .popover-title {
   background-color: transparent;
+  color: #ffffff;
   border: none;
   font-weight: bold;
 }
@@ -1623,6 +1624,7 @@ html .modal.fade .modal-dialog {
 }
 .warning .popover .popover-title {
   background-color: transparent;
+  color: #ffffff;
   border: none;
   font-weight: bold;
 }
@@ -1656,6 +1658,7 @@ html .modal.fade .modal-dialog {
 }
 .error .popover .popover-title {
   background-color: transparent;
+  color: #ffffff;
   border: none;
   font-weight: bold;
 }
@@ -2158,6 +2161,7 @@ label.find-entity input[type="text"] {
   text-align: right;
   padding: 0;
   font-size: 13px;
+  display: none;
 }
 .element-adder > div {
   text-align: left;
@@ -2165,6 +2169,9 @@ label.find-entity input[type="text"] {
 .element-adder select {
   font-size: 13px;
   height: 25px;
+}
+.element-adder.visible {
+  display: block;
 }
 .addon .on-hover {
   float: right!important;
@@ -2208,6 +2215,13 @@ label.find-entity input[type="text"] {
   width: 200px;
   display: inline-block;
   vertical-align: middle;
+}
+.form-container kitin-group:last-child .group {
+  border-bottom: 0;
+  margin-bottom: 24px;
+}
+.form-container kitin-group:last-child .group:after {
+  height: 0;
 }
 .form-container .group {
   border-top: 1px solid #ccc;
@@ -2322,6 +2336,26 @@ label.find-entity input[type="text"] {
   padding: 4px 8px;
   border-radius: 2px;
   border: 1px dashed #c7c7c3;
+  background-color: #eeeeec;
+}
+.entity.rich > .entity-content .tags {
+  margin: 2px 0 4px;
+}
+.entity.rich > .entity-content .tags .tag.auth {
+  background-color: #b9dcd2;
+  border: 1px solid #b9dcd2;
+  border-radius: 2px;
+}
+.entity.rich > .entity-content .tags .search input[type="text"] {
+  background: #fff;
+  border-color: #ddddd8;
+}
+.entity.rich > .entity-content .tags .search input[type="text"]:focus {
+  border-color: #c7c7c3 !important;
+}
+.entity.rich > .entity-content .editable .lbl {
+  padding-left: 0;
+  font-size: 12px;
 }
 .entity.rich > .entity-content > .controls {
   position: absolute;
@@ -2339,13 +2373,6 @@ label.find-entity input[type="text"] {
 .entity.rich .inner .main .label {
   border: none;
   padding: 4px 0 0;
-}
-.entity.rich .inner .main.person .tags {
-  margin: 2px 0 4px;
-}
-.entity.rich .inner .main.person .tags .search input[type="text"] {
-  background: #fff;
-  border-color: #c7c7c3;
 }
 .entity.rich .inner .notes {
   margin-top: 2px;
@@ -2782,11 +2809,13 @@ span.error-message {
 .holdings h4.modal-title {
   color: #ffffff;
 }
+.holdings h4.top {
+  color: #000;
+  border-bottom: 1px dotted #ddd;
+  padding-bottom: 12px;
+}
 .holdings ul li {
   list-style: none;
-}
-accordion.other-holdings {
-  margin-bottom: 24px;
 }
 .holdings .form-container .group .lbl {
   width: 340px;
@@ -2808,6 +2837,64 @@ section.offer {
 }
 .holdings .button-bar.right {
   text-align: right;
+}
+accordion.other-holdings {
+  margin-bottom: 24px;
+}
+accordion.other-holdings .panel-group .panel,
+accordion.other-holdings .panel-group .panel + .panel {
+  margin-top: 0;
+  border-bottom-width: 0;
+  border-radius: 0;
+}
+accordion.other-holdings .panel-group .panel:last-child,
+accordion.other-holdings .panel-group .panel + .panel:last-child {
+  border-bottom-width: 1px;
+}
+accordion.other-holdings .panel-group .panel-heading {
+  background-color: #fff;
+}
+accordion.other-holdings .panel-group .panel-title a {
+  display: block;
+  padding: 10px 15px;
+  margin: -10px -15px;
+}
+accordion.other-holdings > .panel-group > .panel {
+  border-left: 0;
+  border-top: 0;
+  border-right: 0;
+}
+accordion.other-holdings > .panel-group > .panel > .panel-heading {
+  padding-left: 0;
+}
+accordion.other-holdings > .panel-group > .panel > .panel-collapse > .panel-body {
+  padding: 15px 0 0 0;
+}
+accordion.other-holdings .offer-header {
+  font-weight: bold;
+}
+accordion.other-holdings .offer-value {
+  width: 50%;
+  padding: 0;
+  display: inline-block;
+}
+accordion.other-holdings .offer-value .prop,
+accordion.other-holdings .offer-value .val {
+  display: inline-block;
+  padding: 4px 8px;
+}
+accordion.other-holdings .offer-value .prop {
+  width: 60%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: top;
+}
+accordion.other-holdings .offer-value .val {
+  width: 40%;
+}
+accordion.other-holdings .offer-value .val span {
+  border-bottom: 1px dotted #ddd;
 }
 /* HOLDINGS END ------------------------- */
 /* SEARCH START ------------------------- */

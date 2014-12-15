@@ -153,26 +153,31 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  <div data-cg-busy=\"{promise:promises.holding.loading, message:'Laddar bestånd...', minDuration: 800}\"></div>\n" +
     "  <div data-cg-busy=\"{promise:promises.holding.saving, message:'Sparar bestånd...', minDuration: 800}\"></div>\n" +
     "  \n" +
+    "  <h4 class=\"top\">{{ utils.composeTitle(record) | chop:80}}, {{ utils.composeCreator(record) | chop:40 }} {{ utils.composeDate(publication.providerDate) }}</h4>\n" +
+    "\n" +
     "  <accordion class=\"other-holdings\" ng-show=\"otherHoldings.length > 0\">\n" +
     "    <accordion-group is-open=\"showOtherHoldings\">\n" +
     "      <accordion-heading>\n" +
     "        Visa bestånd för andra bibliotek (beta) <i class=\"pull-right fa\" ng-class=\"{'fa-chevron-down': showOtherHoldings, 'fa-chevron-right': !showOtherHoldings}\"></i>\n" +
     "      </accordion-heading>\n" +
-    "      <accordion close-others=\"true\">\n" +
+    "      <accordion class=\"other-holdings-inner\" close-others=\"true\">\n" +
     "        <accordion-group data-ng-repeat=\"otherHolding in otherHoldings\" is-open=\"offer.open\">\n" +
     "          <accordion-heading>\n" +
     "              {{otherHolding.about.heldBy.notation}} <i class=\"pull-right fa\" ng-class=\"{'fa-chevron-down': offer.open, 'fa-chevron-right': !offer.open}\"></i>\n" +
     "          </accordion-heading>\n" +
     "          <div data-ng-repeat=\"offer in otherHolding.about.offers\" class=\"other-offer\">\n" +
-    "            <span><b>Lokalsignum {{$index + 1}}:</b> </span><span class=\"offer-value\" data-ng-repeat=\"(property, value) in offer\" data-ng-show=\"property != '@type' && property != 'open' && property != 'heldBy'\"><span class=\"prop\">{{property}}</span>: <span class=\"val\">{{value}}</span><span data-ng-show=\"!$last\">, </span></span>\n" +
-    "            <hr>\n" +
+    "            <div class=\"offer-header\">Lokalsignum {{$index + 1}}:</div>\n" +
+    "            <span class=\"offer-value\" data-ng-repeat=\"(property, value) in offer\" data-ng-show=\"property != '@type' && property != 'open'\">\n" +
+    "              <span class=\"prop\">{{'LABEL.holdings.offer.' + property | translate}}:</span><span class=\"val\"><span>{{property == 'heldBy' ? otherHolding.about.heldBy.notation : value}}</span></span>\n" +
+    "            </span>\n" +
+    "            <hr ng-show=\"!$last\">\n" +
     "          </div>\n" +
     "        </accordion-group>\n" +
     "      </accordion>\n" +
     "    </accordion-group>\n" +
     "  </accordion>\n" +
-    "  \n" +
-    "  <h4>{{ utils.composeTitle(record) | chop:80}}, {{ utils.composeCreator(record) | chop:40 }} {{ utils.composeDate(publication.providerDate) }}</h4>\n" +
+    "\n" +
+    "  <h4>Ditt bestånd</h4>\n" +
     "\n" +
     "  <form data-ng-show=\"holding['@id'] || !holding['etag']\" name=\"holdingForm\">\n" +
     "    <!-- Offers -->\n" +
@@ -730,7 +735,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <div data-ng-hide=\"editable.on\">\n" +
     "        <span>{{object.name}}</span> <a class=\"auth\" href=\"\" data-ng-click=\"editable.on = !editable.on\">Ändra</a>\n" +
     "    </div>\n" +
-    "    <div data-ng-show=\"editable.on\">\n" +
+    "    <div data-ng-show=\"editable.on\" class=\"editable\">\n" +
     "      <div class=\"label\">\n" +
     "        <span class=\"lbl\">{{ \"Namn\" }}</span>\n" +
     "        <kitin-textarea model=\"object.name\"></kitin-textarea>\n" +
@@ -766,7 +771,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <div data-ng-hide=\"editable.on\">\n" +
     "        <span>{{object.name}}</span> <a class=\"auth\" href=\"\" data-ng-click=\"editable.on = !editable.on\">Ändra</a>\n" +
     "    </div>\n" +
-    "    <div data-ng-show=\"editable.on\">\n" +
+    "    <div data-ng-show=\"editable.on\" class=\"editable\">\n" +
     "      <div class=\"label\">\n" +
     "        <span class=\"lbl\">{{ \"Namn\" }}</span>\n" +
     "        <input data-track-change class=\"\" type=\"text\" placeholder=\"Namn\"\n" +
@@ -791,7 +796,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <div data-ng-hide=\"editable.on\">\n" +
     "        <span onload=\"person = object\" data-ng-include=\"'/snippets/person-name'\"></span><a class=\"auth\" href=\"\" data-ng-click=\"editable.on = !editable.on\">Ändra</a>\n" +
     "    </div>\n" +
-    "    <div data-ng-show=\"editable.on\">\n" +
+    "    <div data-ng-show=\"editable.on\" class=\"editable\">\n" +
     "      <div class=\"label\">\n" +
     "        <span class=\"lbl\">{{ \"Förnamn\" }}</span>\n" +
     "        <input data-track-change class=\"\" type=\"text\" placeholder=\"Förnamn\"\n" +
@@ -818,7 +823,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    </div>\n" +
     "  </div>\n" +
     "  <kitin-entity multiple hide-title model=\"record.about._reifiedRoles\" type=\"ObjectProperty\" view=\"/snippets/view-role\">\n" +
-    "    <kitin-search service-url=\"/relator/_search\" filter=\"about.@type:ObjectProperty\" template-id=\"select-role-template\" placeholder=\"Lägg till roll\"></kitin-search>\n" +
+    "    <kitin-search service-url=\"/relator/_search\" filter=\"about.@type:ObjectProperty\" template-id=\"select-role-template\" placeholder=\"Lägg till roll\">\n" +
+    "    </kitin-search>\n" +
     "  </kitin-entity>\n" +
     "</div>"
   );

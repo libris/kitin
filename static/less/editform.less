@@ -24,6 +24,10 @@ label.find-entity input[type="text"] { padding-left: 22px; }
     font-size:13px;
     >div { text-align: left; }
     select {font-size:13px;height:25px;}
+    display:none;
+    &.visible{
+      display:block;
+    }
 }
 
 .addon .on-hover {float:right!important; position:absolute;top:1px;right:3px;color: @grey-dark;}
@@ -59,6 +63,16 @@ label.find-entity input[type="text"] { padding-left: 22px; }
       width:@act_width;
       display:inline-block;
       vertical-align: middle;
+    }
+  }
+  // No thick bottom border for last group 
+  kitin-group:last-child {
+    .group {
+      border-bottom:0;
+      margin-bottom:24px;
+    }
+    .group:after {
+      height:0;
     }
   }
   .group {
@@ -174,6 +188,28 @@ label.find-entity input[type="text"] { padding-left: 22px; }
       padding: 4px 8px;
       border-radius: 2px;
       border: 1px dashed @grey-light;
+      background-color: @grey-warm;
+      .tags {
+        margin:2px 0 4px;
+        .tag.auth {
+          background-color: multiply(@grey-warm, @green-lighter); 
+          border: 1px solid multiply(@grey-warm, @green-lighter);
+          border-radius: 2px;
+        }
+        .search input[type="text"] {
+          background: #fff;
+          border-color: @grey-lighter;
+          &:focus {
+            border-color: @grey-light!important;
+          }
+        }
+      }
+      .editable {
+        .lbl {
+          padding-left: 0;
+          font-size:12px;
+        }
+      }
       >.controls {
         position:absolute;
         // right: 0px;
@@ -192,15 +228,6 @@ label.find-entity input[type="text"] { padding-left: 22px; }
         .label {
           border:none;
           padding: 4px 0 0;
-        }
-        &.person {
-          .tags {
-            margin:2px 0 4px;
-            .search input[type="text"] {
-              background: #fff;
-              border-color: #c7c7c3;
-            }
-          }
         }
       }
       .notes {
