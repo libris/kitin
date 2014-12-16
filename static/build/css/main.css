@@ -715,12 +715,6 @@ body.edit #header .nav-back :focus::-moz-placeholder {
 #header .searchfield :focus::-moz-placeholder {
   color: #dddddb;
 }
-#header .searchfield,
-#header .searchfield > * {
-  transition: all ease-out 50ms;
-  -moz-transition: all ease-out 50ms;
-  -webkit-transition: all ease-out 50ms;
-}
 #header .searchfield .dropdown-menu {
   margin-top: -5px;
 }
