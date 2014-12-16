@@ -180,7 +180,9 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  <h4>Ditt bestånd</h4>\n" +
     "\n" +
     "  <form data-ng-show=\"holding['@id'] || !holding['etag']\" name=\"holdingForm\">\n" +
-    "    <!-- Offers -->\n" +
+    "    \n" +
+    "\n" +
+    "    <!-- OFFERS (852) -->\n" +
     "    <section class=\"offer form-container\">\n" +
     "      <div data-ng-repeat=\"offer in holding.about.offers track by $index\">\n" +
     "        <kitin-group label=\"Lokalsignum\">\n" +
@@ -218,7 +220,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "      </div>\n" +
     "    </section>\n" +
     "    \n" +
-    "    <!-- IS PRIMARY TOPIC OF START -->\n" +
+    "    \n" +
+    "    <!-- IS PRIMARY TOPIC OF (856) START -->\n" +
     "    <section class=\"form-container\">\n" +
     "      <div data-ng-repeat=\"document in holding.about.isPrimaryTopicOf track by $index\">\n" +
     "        <kitin-group label=\"'Elektronisk adress och åtkomst'\">\n" +
@@ -244,6 +247,72 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "      </div>\n" +
     "    </section>\n" +
     "    <!-- / IS PRIMARY TOPIC OF END -->\n" +
+    "\n" +
+    "\n" +
+    "    <!-- WORK EXAMPLE BY TYPE (562 - Product) START -->\n" +
+    "    <section class=\"form-container\">\n" +
+    "      <div data-ng-repeat=\"item in holding.about.workExampleByType.Product track by $index\">\n" +
+    "\n" +
+    "          <kitin-group label=\"'Identifiering av exemplar, kopia eller version'\">\n" +
+    "\n" +
+    "            <kitin-table model=\"item.itemCondition\" change-model=\"holding\">\n" +
+    "              <kitin-td><kitin-textarea model=\"model[$index]\"></kitin-textarea></kitin-td>\n" +
+    "            </kitin-table>\n" +
+    "\n" +
+    "            <kitin-table model=\"item.copyIdentification\" change-model=\"holding\">\n" +
+    "              <kitin-td><kitin-textarea model=\"model[$index]\"></kitin-textarea></kitin-td>\n" +
+    "            </kitin-table>\n" +
+    "\n" +
+    "            <kitin-table model=\"item.versionIdentification\" change-model=\"holding\">\n" +
+    "              <kitin-td><kitin-textarea model=\"model[$index]\"></kitin-textarea></kitin-td>\n" +
+    "            </kitin-table>\n" +
+    "\n" +
+    "            <kitin-table model=\"item.presentationFormat\" change-model=\"holding\">\n" +
+    "              <kitin-td><kitin-textarea model=\"model[$index]\"></kitin-textarea></kitin-td>\n" +
+    "            </kitin-table>\n" +
+    "\n" +
+    "            <kitin-table model=\"item.inventoryLevel\" change-model=\"holding\">\n" +
+    "              <kitin-td><kitin-textarea model=\"model[$index]\"></kitin-textarea></kitin-td>\n" +
+    "            </kitin-table>\n" +
+    "\n" +
+    "            <kitin-textrow model=\"item.materialsSpecified\" change-model=\"holding\"></kitin-textrow>\n" +
+    "            \n" +
+    "            <div class=\"button-bar right\">\n" +
+    "              <button class=\"btn btn-link\" data-ng-if=\"holding.about.workExampleByType.Product.length > 1\" data-ng-click=\"deleteWorkExample(holding, $index)\"><i class=\"fa fa-trash-o\"></i> {{ \"Radera identifiering\" }}</button>\n" +
+    "            </div>\n" +
+    "          </kitin-group>\n" +
+    "      </div>\n" +
+    "      <div class=\"button-bar\">\n" +
+    "        <button class=\"btn btn-link\" data-ng-click=\"addWorkExample(holding, 'Product')\" data-ng-show=\"holding\"><i class=\"fa fa-plus\"></i> {{ \"Lägg till identifiering \" }}</button>\n" +
+    "      </div>\n" +
+    "    </section>\n" +
+    "        \n" +
+    "    <!-- WORK EXAMPLE BY TYPE (866 - SomeProducts) START -->\n" +
+    "    <section class=\"form-container\">\n" +
+    "      <div data-ng-repeat=\"item in holding.about.workExampleByType.SomeProducts track by $index\">\n" +
+    "          <kitin-group label=\"'Huvudpublikation'\">\n" +
+    "            \n" +
+    "            <kitin-textrow model=\"item.scopeNote\" change-model=\"holding\" label=\"'Beståndsuppgift'\"></kitin-textrow>\n" +
+    "\n" +
+    "            <kitin-table model=\"item.editorialNote\" change-model=\"holding\">\n" +
+    "              <kitin-td><kitin-textarea model=\"model[$index]\"></kitin-textarea></kitin-td>\n" +
+    "            </kitin-table>\n" +
+    "\n" +
+    "            <kitin-table model=\"item.copyNote\" change-model=\"holding\">\n" +
+    "              <kitin-td><kitin-textarea model=\"model[$index]\"></kitin-textarea></kitin-td>\n" +
+    "            </kitin-table>\n" +
+    "\n" +
+    "            <div class=\"button-bar right\">\n" +
+    "              <button class=\"btn btn-link\" data-ng-if=\"holding.about.workExampleByType.SomeProducts.length > 1\" data-ng-click=\"deleteWorkExample(holding, $index)\"><i class=\"fa fa-trash-o\"></i> {{ \"Radera huvudpublikation\" }}</button>\n" +
+    "            </div>\n" +
+    "          </kitin-group>\n" +
+    "      </div>\n" +
+    "      <div class=\"button-bar\">\n" +
+    "        <button class=\"btn btn-link\" data-ng-click=\"addWorkExample(holding, 'SomeProducts')\" data-ng-show=\"holding\"><i class=\"fa fa-plus\"></i> {{ \"Lägg till huvudpublikation \" }}</button>\n" +
+    "      </div>\n" +
+    "    </section>\n" +
+    "    <!-- WORK EXAMPLE BY TYPE END -->\n" +
+    "\n" +
     "\n" +
     "    <!-- ENCODING START \n" +
     "    <section class=\"form-container\">\n" +
@@ -284,6 +353,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  </div>\n" +
     "\n" +
     "</div>\n" +
+    "\n" +
+    "<pre>{{holding}}</pre>\n" +
     "\n" +
     "<div class=\"modal-footer holdings submit\">\n" +
     "  <div class=\"status pull-left\">\n" +

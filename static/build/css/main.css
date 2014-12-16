@@ -2833,10 +2833,17 @@ section.offer {
   padding: 80px;
 }
 .holdings .button-bar {
-  padding: 6px 0;
+  padding: 0;
+}
+.holdings .button-bar .btn-link {
+  padding-left: 0;
 }
 .holdings .button-bar.right {
   text-align: right;
+}
+.holdings .button-bar.right .btn-link {
+  padding-left: 12px;
+  padding-right: 0;
 }
 accordion.other-holdings {
   margin-bottom: 24px;

@@ -167,14 +167,21 @@
         "copyNote": []
       }],
       "isPrimaryTopicOf": [{"@type": "Document"}],
-      "workExample": [
-        {
-          "@type": "SomeProducts",
-          "scopeNote": "",
+      "workExampleByType": {
+        "Product": [{
+          "itemCondition": [],
+          "copyIdentification": [],
+          "versionIdentification": [],
+          "presentationFormat": [],
+          "inventoryLevel": [],
+          "materialsSpecified": ""
+        }],
+        "SomeProducts": [{
           "editorialNote": [],
-          "copyNote": []
-        }
-      ],
+          "copyNote": [],
+          "scopeNote": ""
+        }]
+      },
       "encoding": [{"@type": "MediaObject"}],
       "alternateFormat": [{"@type": "Electronic"}],
       "relation": [{"@type": "Document"}]

@@ -293,6 +293,14 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
           }
         }
       },
+      workExample: {
+        indexName: "workExampleByType",
+        getIndexKey: function (entity) {
+          if(entity) {
+            return entity["@type"];
+          }
+        }
+      },
       subject: [
         {
           indexName: "subjectByInScheme",
@@ -323,6 +331,7 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
 
     decorate: function(record) {
       var deferer = $q.defer();
+      console.log(record);
 
       function doIndex (entity, key, cfg, reset) {
         var items = entity[key];
