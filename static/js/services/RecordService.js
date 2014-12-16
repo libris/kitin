@@ -77,7 +77,7 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
       convertToMarc: function(data) {
         var deferer = $q.defer();
         editService.undecorate(data).then(function(undecoratedRecord) {
-          $rootScope.promises.marc = $http.post($rootScope.WRITE_API_PATH + '/_format?to=application\/x-marc-json', undecoratedRecord
+          $rootScope.promises.marc.loading = $http.post($rootScope.WRITE_API_PATH + '/_format?to=application\/x-marc-json', undecoratedRecord
           /*{ !TODO change to API_PATH and add header when authentication is implemented in whelk
             headers: {
               'Content-Type': 'application/ld+json'
@@ -266,7 +266,6 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
             'about': skeletonTypeMap.main.HeldMaterial
           };
           editService.decorate(newHolding).then(function(decoratedHolding) {
-            console.log('Decorated:', decoratedHolding);
             deferer.resolve(decoratedHolding);
           });
         });

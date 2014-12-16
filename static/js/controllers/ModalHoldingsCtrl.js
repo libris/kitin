@@ -69,7 +69,6 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
         };
         holding.about.heldBy.notation = holding.about.offers[0].heldBy[0].notation = userData.userSigel;
         $scope.holding = holding;
-      console.log(holding);
       });
     } else {
       $scope.holding = holding;
@@ -147,11 +146,10 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
 
   $scope.addWorkExample = function(holding, type) {
     // Get offers from existing holding
-    var workExample = holding.about.workExampleByType[type];
+    var workExamples = holding.about.workExampleByType[type];
     recordService.holding.create(type).then(function(response) {
-      console.log(response);
-      var eDocument = response.about.workExampleByType[type][0];
-      workExample.push(eDocument);
+      var workExample = response.about.workExampleByType[type][0];
+      workExamples.push(workExample);
     });
   };
 

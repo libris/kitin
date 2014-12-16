@@ -105,9 +105,9 @@
 
     <!-- WORK EXAMPLE BY TYPE (562 - Product) START -->
     <section class="form-container">
-      <div data-ng-repeat="item in holding.about.workExampleByType.Product track by $index">
+      <div data-ng-repeat="item in holding.about.workExampleByType | byType:'Product' track by $index">
 
-          <kitin-group label="'Identifiering av exemplar, kopia eller version'">
+          <kitin-group label="'Identifiering av exemplar, kopia eller version ' + $index">
 
             <kitin-table model="item.itemCondition" change-model="holding">
               <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
@@ -143,8 +143,8 @@
         
     <!-- WORK EXAMPLE BY TYPE (866 - SomeProducts) START -->
     <section class="form-container">
-      <div data-ng-repeat="item in holding.about.workExampleByType.SomeProducts track by $index">
-          <kitin-group label="'Huvudpublikation'">
+      <div data-ng-repeat="item in holding.about.workExampleByType | byType:'SomeProducts' track by $index">
+          <kitin-group label="'Huvudpublikation ' + $index">
             
             <kitin-textrow model="item.scopeNote" change-model="holding" label="'Beståndsuppgift'"></kitin-textrow>
 

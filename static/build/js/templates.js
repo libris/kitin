@@ -251,9 +251,9 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "\n" +
     "    <!-- WORK EXAMPLE BY TYPE (562 - Product) START -->\n" +
     "    <section class=\"form-container\">\n" +
-    "      <div data-ng-repeat=\"item in holding.about.workExampleByType.Product track by $index\">\n" +
+    "      <div data-ng-repeat=\"item in holding.about.workExampleByType | byType:'Product' track by $index\">\n" +
     "\n" +
-    "          <kitin-group label=\"'Identifiering av exemplar, kopia eller version'\">\n" +
+    "          <kitin-group label=\"'Identifiering av exemplar, kopia eller version ' + $index\">\n" +
     "\n" +
     "            <kitin-table model=\"item.itemCondition\" change-model=\"holding\">\n" +
     "              <kitin-td><kitin-textarea model=\"model[$index]\"></kitin-textarea></kitin-td>\n" +
@@ -289,8 +289,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "        \n" +
     "    <!-- WORK EXAMPLE BY TYPE (866 - SomeProducts) START -->\n" +
     "    <section class=\"form-container\">\n" +
-    "      <div data-ng-repeat=\"item in holding.about.workExampleByType.SomeProducts track by $index\">\n" +
-    "          <kitin-group label=\"'Huvudpublikation'\">\n" +
+    "      <div data-ng-repeat=\"item in holding.about.workExampleByType | byType:'SomeProducts' track by $index\">\n" +
+    "          <kitin-group label=\"'Huvudpublikation ' + $index\">\n" +
     "            \n" +
     "            <kitin-textrow model=\"item.scopeNote\" change-model=\"holding\" label=\"'Beståndsuppgift'\"></kitin-textrow>\n" +
     "\n" +
@@ -381,7 +381,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "</div>\n" +
     "\n" +
     "<div class=\"modal-body marc\">\n" +
-    "    <div data-cg-busy=\"{promise:promises.marc, message:'Laddar marcformat...', minDuration: 800}\"></div>\n" +
+    "    <div data-cg-busy=\"{promise:promises.marc.loading, message:'LABEL.gui.busy.LOADING_MARC', minDuration: 800}\"></div>\n" +
     "    <section class=\"marc\">\n" +
     "      <table>\n" +
     "        <tr>\n" +
@@ -954,6 +954,34 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "\n" +
     "\n" +
     "<i data-ng-click=\"doRemove($index)\" class=\"no\">&times;</i>"
+  );
+
+
+  $templateCache.put('/dialogs/busy',
+    "<div class=\"cg-busy-default-wrapper\">\n" +
+    "\n" +
+    "   <div class=\"cg-busy-default-sign\">\n" +
+    "\n" +
+    "      <div class=\"cg-busy-default-spinner\">\n" +
+    "         <div class=\"bar1\"></div>\n" +
+    "         <div class=\"bar2\"></div>\n" +
+    "         <div class=\"bar3\"></div>\n" +
+    "         <div class=\"bar4\"></div>\n" +
+    "         <div class=\"bar5\"></div>\n" +
+    "         <div class=\"bar6\"></div>\n" +
+    "         <div class=\"bar7\"></div>\n" +
+    "         <div class=\"bar8\"></div>\n" +
+    "         <div class=\"bar9\"></div>\n" +
+    "         <div class=\"bar10\"></div>\n" +
+    "         <div class=\"bar11\"></div>\n" +
+    "         <div class=\"bar12\"></div>\n" +
+    "      </div>\n" +
+    "\n" +
+    "      <div class=\"cg-busy-default-text\">{{$message | translate}}</div>\n" +
+    "\n" +
+    "   </div>\n" +
+    "\n" +
+    "</div>"
   );
 
 
