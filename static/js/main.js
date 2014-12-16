@@ -27,6 +27,7 @@ kitin.config(function($locationProvider, $routeProvider, $translateProvider, $ht
 
       dialogsProvider.useBackdrop(false);
       dialogsProvider.useEscClose(false);
+      dialogsProvider.useClass('kitin-dialog');
       dialogsProvider.useFontAwesome(true);
       dialogsProvider.setSize('md');
 

@@ -98,7 +98,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
       no: 'Nej, avbryt',
       icon: 'fa fa-exclamation-circle'
     };
-    var confirm = dialogs.create('/dialogs/confirm', 'CustomConfirmCtrl', data, { windowClass: 'holdings-dialog' });
+    var confirm = dialogs.create('/dialogs/confirm', 'CustomConfirmCtrl', data, { windowClass: 'kitin-dialog holdings-dialog' });
     confirm.result.then(function yes(answer) {
       recordService.holding.del(holding).then(function sucess(response) {
         onDelete(holding);

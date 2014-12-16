@@ -98,21 +98,22 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     return tplt.replace(/%s/, $rootScope.modifications.bib.lastPublished.toLocaleString());
   };
 
-  $scope.promptConfirmDelete = function($event, type, id) {
-    $scope.confirmDeleteDraft = {
-      execute: function() {
-        recordService.draft.delete(type, id).then(function(data) {
-          $scope.confirmDeleteDraft = null;
-        });
-      },
-      abort: function() {
-        $scope.confirmDeleteDraft = null;
-      }
-    };
-    $timeout(function() {
-      openPrompt($event, "#confirmDeleteDraftDialog");
-    });
-  };
+  // TODO: Could not find any reference to this, safe to remove?
+  // $scope.promptConfirmDelete = function($event, type, id) {
+  //   $scope.confirmDeleteDraft = {
+  //     execute: function() {
+  //       recordService.draft.delete(type, id).then(function(data) {
+  //         $scope.confirmDeleteDraft = null;
+  //       });
+  //     },
+  //     abort: function() {
+  //       $scope.confirmDeleteDraft = null;
+  //     }
+  //   };
+  //   $timeout(function() {
+  //     openPrompt($event, "#confirmDeleteDraftDialog");
+  //   });
+  // };
 
   $scope.publish = function() {
     var parsedRecType = $scope.recType === editService.RECORD_TYPES.REMOTE ? editService.RECORD_TYPES.BIB : $scope.recType;

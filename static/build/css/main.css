@@ -376,7 +376,8 @@ body.edit .footer-sticky div.centered div.right {
   background: #22ba94;
 }
 .btn-green,
-.btn-green:focus {
+.btn-green:focus,
+.kitin-dialog .modal-dialog .btn-primary {
   background: #1a8f72;
   color: #ffffff;
 }
@@ -398,7 +399,8 @@ body.edit .footer-sticky div.centered div.right {
 .btn-grey {
   background: #eeeeec;
 }
-.btn-purple {
+.btn-purple,
+.holdings-dialog .btn-primary {
   background-color: #683568;
   color: #ffffff;
 }
@@ -1487,56 +1489,66 @@ html .modal.fade .modal-dialog {
   color: #999996;
 }
 /* REMOTE SOURCES MODAL END ------------------------- */
-.holdings-dialog .dialog-header-error,
-.holdings-dialog .dialog-header-wait,
-.holdings-dialog .dialog-header-notify,
-.holdings-dialog .dialog-header-confirm {
+.kitin-dialog .dialog-header-error,
+.kitin-dialog .dialog-header-wait,
+.kitin-dialog .dialog-header-notify,
+.kitin-dialog .dialog-header-confirm {
   background-color: #ffffff;
 }
-.holdings-dialog .dialog-header-confirm h4,
-.holdings-dialog .dialog-header-confirm span,
-.holdings-dialog .dialog-header-error h4,
-.holdings-dialog .dialog-header-error span,
-.holdings-dialog .dialog-header-wait h4,
-.holdings-dialog .dialog-header-wait span {
+.kitin-dialog .dialog-header-confirm h4,
+.kitin-dialog .dialog-header-confirm span,
+.kitin-dialog .dialog-header-error h4,
+.kitin-dialog .dialog-header-error span,
+.kitin-dialog .dialog-header-wait h4,
+.kitin-dialog .dialog-header-wait span {
   color: #adada9;
 }
-.holdings-dialog .modal-dialog {
-  margin-top: 200px;
+.kitin-dialog .modal-dialog {
   max-width: 460px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -ms-transform: translate(-50%, -50%) !important;
+  transform: translate(-50%, -50%) !important;
 }
-.holdings-dialog .modal-dialog .modal-content {
+.kitin-dialog .modal-dialog .modal-content {
   border-radius: 0;
   border-color: #c7c7c3;
 }
-.holdings-dialog .modal-dialog .modal-header {
+.kitin-dialog .modal-dialog .modal-header {
   border-bottom: 0;
 }
-.holdings-dialog .modal-dialog .modal-footer {
+.kitin-dialog .modal-dialog .modal-footer {
   border-top-style: dotted;
   margin: 15px 15px 0 15px;
   text-align: center;
 }
-.holdings-dialog .centered-icon {
+.kitin-dialog .modal-dialog .dialog-header-confirm h4 span {
+  color: #1a8f72;
+}
+.kitin-dialog .centered-icon {
   padding-bottom: 0;
 }
-.holdings-dialog .centered-icon .close {
+.kitin-dialog .centered-icon .close {
   color: #adada9;
   text-shadow: none;
 }
-.holdings-dialog .centered-icon h4 {
+.kitin-dialog .centered-icon h4 {
   text-align: center;
 }
-.holdings-dialog .centered-icon h4 span {
+.kitin-dialog .centered-icon h4 span {
   font-size: 22px;
   margin-top: 24px;
 }
-.holdings-dialog .centered-icon.dialog-header-confirm h4 span {
-  color: #683568;
-}
-.holdings-dialog button {
+.kitin-dialog button {
   box-shadow: none;
   border: 0;
+}
+.holdings-dialog .modal-dialog {
+  top: 30%;
+}
+.holdings-dialog .dialog-header-confirm h4 span {
+  color: #683568;
 }
 /* POPOVER START ------------------------- */
 .popover {

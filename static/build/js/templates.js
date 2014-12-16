@@ -718,20 +718,6 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('/snippets/popover',
-    "<div class=\"popover {{placement}}\" ng-class=\"{ in: isOpen(), fade: animation() }\">\n" +
-    "  <div class=\"arrow\"></div>\n" +
-    "  <button type=\"button\" class=\"close\" ng-click=\"close()\">\n" +
-    "    <span aria-hidden=\"true\"><i class=\"fa fa-times\"></i></span>\n" +
-    "  </button>\n" +
-    "  <div class=\"popover-inner\">\n" +
-    "    <h3 class=\"popover-title\" ng-bind=\"title\" ng-show=\"title\"></h3>\n" +
-    "    <div class=\"popover-content\" ng-bind=\"content\"></div>\n" +
-    "  </div>\n" +
-    "</div>"
-  );
-
-
   $templateCache.put('/snippets/searchfield',
     "\n" +
     "<div data-ng-controller=\"SearchFormCtrl\">\n" +
@@ -1036,5 +1022,19 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  <button type=\"button\" class=\"btn btn-default\" ng-class=\"classes.yes\" ng-click=\"yes()\">{{yesText || \"LABEL.gui.dialogs.DIALOGS_YES\" | translate}}</button>\n" +
     "  <button type=\"button\" class=\"btn btn-primary\" ng-class=\"classes.no\" ng-click=\"no()\">{{noText || \"LABEL.gui.dialogs.DIALOGS_NO\" | translate}}</button>\n" +
     "</div>  "
+  );
+
+
+  $templateCache.put('/dialogs/popover',
+    "<div class=\"popover {{placement}}\" ng-class=\"{ in: isOpen(), fade: animation() }\">\n" +
+    "  <div class=\"arrow\"></div>\n" +
+    "  <button type=\"button\" class=\"close\" ng-click=\"close()\">\n" +
+    "    <span aria-hidden=\"true\"><i class=\"fa fa-times\"></i></span>\n" +
+    "  </button>\n" +
+    "  <div class=\"popover-inner\">\n" +
+    "    <h3 class=\"popover-title\" ng-bind=\"title\" ng-show=\"title\"></h3>\n" +
+    "    <div class=\"popover-content\" ng-bind=\"content\"></div>\n" +
+    "  </div>\n" +
+    "</div>"
   );
 }])
