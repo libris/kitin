@@ -96,6 +96,44 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('/snippets/modal-bibview',
+    "<div class=\"modal-header bibview\">\n" +
+    "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
+    "  <h4 class=\"modal-title bibview\">Bibliotekspost\n" +
+    "    <span data-ng-show=\"!isRemote\">({{ record['@id'] }})</span>\n" +
+    "    <span data-ng-show=\"isRemote\">({{ \"Remote\" }})</span>\n" +
+    "  </h4>\n" +
+    "</div>\n" +
+    "\n" +
+    "<div class=\"modal-body bibview\">\n" +
+    "    <span data-ng-if=\"isRemote && remoteDatabase != null\" class=\"database\">\n" +
+    "      <i class=\"fa fa-institution\"></i> Källa: {{remoteDatabase}}\n" +
+    "    </span>\n" +
+    "    <h4>{{ utils.composeTitle(record) | chop:80 }}, {{ utils.composeCreator(record) | chop:80 }} {{ utils.composeDate(publication.providerDate) | chop:80 }}</h4>\n" +
+    "    <section>\n" +
+    "      <span data-ng-switch=\"record.about.attributedTo['@type']\">\n" +
+    "        <kitin-valuedisplay label=\"'LABEL.record.about.attributedTo'\" model=\"record.about.attributedTo.familyName + ', ' + record.about.attributedTo.givenName\" data-ng-switch-when=\"Person\"></kitin-valuedisplay>\n" +
+    "        <kitin-valuedisplay label=\"'LABEL.record.about.attributedTo'\" model=\"record.about.attributedTo.name\" data-ng-switch-when=\"Organization\"></kitin-valuedisplay>\n" +
+    "      </span>\n" +
+    "      <kitin-valuedisplay label=\"'LABEL.record.about.instanceTitle.titleValue'\" model=\"record.about.instanceTitle.titleValue\"></kitin-valuedisplay>\n" +
+    "      <span ng-repeat=\"publication in record.about.publication\">\n" +
+    "        <kitin-valuedisplay label=\"'LABEL.record.about.publication.place.label'\" model=\"publication.place.label\"></kitin-valuedisplay>\n" +
+    "        <kitin-valuedisplay label=\"'LABEL.record.about.publication.providerName'\" model=\"publication.providerName\"></kitin-valuedisplay>\n" +
+    "        <kitin-valuedisplay label=\"'LABEL.record.about.publication.providerDate'\" model=\"publication.providerDate\"></kitin-valuedisplay>\n" +
+    "      </span>\n" +
+    "      <span ng-repeat=\"identifier in record.about.identifier\">\n" +
+    "        <kitin-valuedisplay label=\"'LABEL.record.about.identifierByIdentifierScheme[\\''+identifier.identifierScheme['@id']+'\\']'\" model=\"identifier.identifierValue\"></kitin-valuedisplay>\n" +
+    "      </span>\n" +
+    "    </section>\n" +
+    "</div>\n" +
+    "<div class=\"modal-footer submit bibview\">\n" +
+    "  <button class=\"btn btn-green btn-copy-remote\" data-ng-click=\"importRecord(record)\" data-ng-show=\"isRemote\">\n" +
+    "    <span><i class=\"fa fa-inverse fa-plus\"></i> {{ \"Kopiera\" }}</span>\n" +
+    "  </button>\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('/snippets/modal-create-new',
     "<div class=\"modal-header\">\n" +
     "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +

@@ -11,7 +11,7 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
     id = id.replace('/resource',''); // TODO, should be the record id
     $scope.authModal = editService.getRecordTypeId(id).then(function(record) {
     var opts = angular.extend( 
-                defaultModalOptions, 
+                defaultModalOptions,
                 {
                   templateUrl: '/snippets/modal-edit-auth',
                   controller: 'ModalAuthCtrl',
@@ -25,21 +25,19 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
     });
   };
 
-  $scope.openBibModal = function(id) {
-    $scope.bibModal = editService.getRecordTypeId(id).then(function(record) {
-    var opts = angular.extend(
+  $scope.openBibViewModal = function(record, isRemote) {
+    var opts = angular.extend( 
                 defaultModalOptions, 
                 {
-                  templateUrl: '/snippets/modal-edit-bib',
-                  controller: 'ModalBibCtrl',
+                  templateUrl: '/snippets/modal-bibview',
+                  controller: 'ModalBibViewCtrl',
                   windowClass: 'modal-large bib-modal',
                   resolve: {
-                    recType: function() { return record.type; },
-                    recId: function() { return record.id; }
+                    record: function() { return record; },
+                    isRemote: function() { return isRemote; }
                   }
-                });
-      $modal.open(opts);
-    });
+              });
+    $modal.open(opts);
   };
 
   $scope.openReleaseModal = function() {

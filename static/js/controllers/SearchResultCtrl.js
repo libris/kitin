@@ -1,4 +1,4 @@
-kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location, $routeParams, $rootScope, $anchorScroll, definitions, searchService, searchUtil, editService, userData, utilsService) {
+kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location, $routeParams, $rootScope, $anchorScroll, recordService, definitions, searchService, searchUtil, editService, userData, utilsService) {
 
   document.body.className = 'search';
   $scope.recType = $routeParams.recType;
@@ -184,6 +184,18 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
         $rootScope.state.search.result = { items: 0 };
       }
     });
+  };
+
+
+  // TODO: Put this in better place for access from both result list and bib modal.
+  $scope.importRecord = function(data) {
+    recordService.draft.create('bib', null, data)
+      .then(function success(response) {
+        // send user to edit
+        $location.url("edit/draft" + response.recdata['@id']);
+      }, function error(status) {
+
+      });
   };
 
   $scope.getStart = function() {

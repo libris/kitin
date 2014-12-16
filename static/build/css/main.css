@@ -2709,6 +2709,28 @@ section.offer {
   padding: 80px;
 }
 /* HOLDINGS END ------------------------- */
+/* BIB MODAL START ------------------------- */
+.bibview h4.modal-title {
+  color: #ffffff;
+}
+.bibview h4 {
+  font-weight: bold;
+  color: #1a8f72;
+}
+.bibview .valuedisplay {
+  border-top: 1px dotted #ddd;
+  padding: 8px 0;
+}
+.bibview .lbl {
+  display: inline-block;
+  width: 200px;
+  vertical-align: top;
+}
+.bibview .val {
+  display: inline-block;
+  max-width: 500px;
+}
+/* BIB MODAL END ------------------------- */
 /* SEARCH START ------------------------- */
 body.search .content header {
   margin-left: -15px;
