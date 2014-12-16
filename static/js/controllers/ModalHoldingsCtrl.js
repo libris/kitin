@@ -145,4 +145,18 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     eDocuments.splice(index, 1);
   };
 
+  $scope.addWorkExample = function(holding, type) {
+    // Get offers from existing holding
+    var workExamples = holding.about.workExampleByType[type];
+    recordService.holding.create(type).then(function(response) {
+      var workExample = response.about.workExampleByType[type][0];
+      workExamples.push(workExample);
+    });
+  };
+
+  $scope.deleteWorkExample = function(holding, index, type) {
+    var workExample = holding.about.workExampleByType[type];
+    workExample.splice(index, 1);
+  };
+
 });

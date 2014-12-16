@@ -209,13 +209,11 @@ kitin.factory('utilsService', function($http, $q, $rootScope, $timeout) {
 
     // Helper function to show a message on publish success/failure
     showPopup: function(element, to) {
-      console.log(element);
       var deferred = $q.defer();
       to = to || 2500;
       $timeout(function() {
         var _el = element.find('.kitin-popover-trigger');
         element = (_el.length > 0 ) ? _el : element;
-        console.log('triggering event on', element);
         element.triggerHandler('kitinPopEvent');
         $timeout(function() {
           element.triggerHandler('kitinPopEvent');

@@ -1,0 +1,34 @@
+<div class="modal-header bibview">
+  <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
+  <h4 class="modal-title bibview">Bibliotekspost
+    <span data-ng-show="!isRemote">({{ record['@id'] }})</span>
+    <span data-ng-show="isRemote">({{ "Remote" }})</span>
+  </h4>
+</div>
+
+<div class="modal-body bibview">
+    <span data-ng-if="isRemote && remoteDatabase != null" class="database">
+      <i class="fa fa-institution"></i> Källa: {{remoteDatabase}}
+    </span>
+    <h4>{{ utils.composeTitle(record) | chop:80 }}, {{ utils.composeCreator(record) | chop:80 }} {{ utils.composeDate(publication.providerDate) | chop:80 }}</h4>
+    <section>
+      <span data-ng-switch="record.about.attributedTo['@type']">
+        <kitin-valuedisplay label="'LABEL.record.about.attributedTo'" model="record.about.attributedTo.familyName + ', ' + record.about.attributedTo.givenName" data-ng-switch-when="Person"></kitin-valuedisplay>
+        <kitin-valuedisplay label="'LABEL.record.about.attributedTo'" model="record.about.attributedTo.name" data-ng-switch-when="Organization"></kitin-valuedisplay>
+      </span>
+      <kitin-valuedisplay label="'LABEL.record.about.instanceTitle.titleValue'" model="record.about.instanceTitle.titleValue"></kitin-valuedisplay>
+      <span ng-repeat="publication in record.about.publication">
+        <kitin-valuedisplay label="'LABEL.record.about.publication.place.label'" model="publication.place.label"></kitin-valuedisplay>
+        <kitin-valuedisplay label="'LABEL.record.about.publication.providerName'" model="publication.providerName"></kitin-valuedisplay>
+        <kitin-valuedisplay label="'LABEL.record.about.publication.providerDate'" model="publication.providerDate"></kitin-valuedisplay>
+      </span>
+      <span ng-repeat="identifier in record.about.identifier">
+        <kitin-valuedisplay label="'LABEL.record.about.identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']'" model="identifier.identifierValue"></kitin-valuedisplay>
+      </span>
+    </section>
+</div>
+<div class="modal-footer submit bibview">
+  <button class="btn btn-green btn-copy-remote" data-ng-click="importRecord(record)" data-ng-show="isRemote">
+    <span><i class="fa fa-inverse fa-plus"></i> {{ "Kopiera" }}</span>
+  </button>
+</div>

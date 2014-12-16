@@ -39,6 +39,10 @@ kitin.config(function($tooltipProvider) {
   });
 });
 
+kitin.value('cgBusyDefaults',{
+  templateUrl: '/dialogs/busy'
+});
+
 // unsafe filter for html
 kitin.filter('unsafe', ['$sce', function ($sce) {
     return function (val) {

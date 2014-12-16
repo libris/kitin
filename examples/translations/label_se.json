@@ -90,6 +90,7 @@
 
                 "identifierByIdentifierScheme['/def/identifiers/issn']": "ISSN",
                 "identifierByIdentifierScheme['/def/identifiers/isbn']": "ISBN",
+                "identifierByIdentifierScheme['/def/identifiers/ean']": "EAN",
                 "identifierValue": "Nummer",
                 "identifierNote": "Notering",
 
@@ -293,10 +294,19 @@
             "busy": {
                 "LOADING_BIB": "Laddar post...",
                 "SAVING_BIB": "Sparar post...",
-                "SEARCHING": "Laddar sökresultat...",
-                "CONVERTING_TO_MARC": "Konverterar till MARC-format...",
+                "BUILDING_BIB": "Skapar formulärvy...",
+                
                 "LOADING_HOLDING": "Laddar bestånd...",
-                "SAVING_HOLDING": "Sparar bestånd..."
+                "SAVING_HOLDING": "Sparar bestånd...",
+
+                "LOADING_DRAFT": "Laddar utkast...",
+                "SAVING_DRAFT": "Sparar utkast...",
+                
+                "LOADING_MARC": "Laddar marcformat...",
+                
+                "BUILDING_JSONLD": "Skapar JSON-LD-vy...",
+                
+                "SEARCHING": "Laddar sökresultat..."
             },
             "dialogs": {
                 "DIALOGS_ERROR": "Fel",
@@ -314,8 +324,8 @@
     "HELP": {
         "record": { 
             "about": {           
-                "instanceTitle.titleValue": "Det här är en kontextuell hjälptext för Huvudtitel. Här kan man ge tips och i framtiden länka till saker som kan vara till hjälp.",
-                "instanceTitle.subtitle": "Det här är en kontextuell hjälptext för Övrig titelinformation. Här kan man ge tips och i framtiden länka till saker som kan vara till hjälp.",
+                "instanceTitle.titleValue": "Ange titel som den står i objektet. Skriv första ordet i titeln med stor bokstav och resten av titeln med små bokstäver. Skriv egennamn med stor bokstav i början.",
+                "instanceTitle.subtitle": "Ange övrig titelinformation (undertitel, parallelltitel) som den står i objektet. Om undertitel står på annan plats än primärkällan (ofta titelsidan), lägg den inom klammer. Exempel: [recept och guide till 47 caféer]",
                 "instanceTitle.titleDate": "Det här är en kontextuell hjälptext för Täcknings- eller tillkomsttid. Här kan man ge tips och i framtiden länka till saker som kan vara till hjälp.",
                 "instanceTitle.partNumber": "Det här är en kontextuell hjälptext för Delbeteckning. Här kan man ge tips och i framtiden länka till saker som kan vara till hjälp.",
                 "instanceTitle.partTitle": "Det här är en kontextuell hjälptext för Deltitel. Här kan man ge tips och i framtiden länka till saker som kan vara till hjälp.",
@@ -367,13 +377,13 @@
                 
                 "language": "Det här är en kontextuell hjälptext för Språk.",
                 "originalLanguage": "Det här är en kontextuell hjälptext för Originalspråk.",
-                "responsibilityStatement": "Det här är en kontextuell hjälptext för Upphov.",
+                "responsibilityStatement": "Ange upphov som det står i objektet. Uppgiften beskriver hur upphov anges i publikationen och kan skilja sig från kontrollerade namnformer. Om upphov står på annan plats än primärkällan (ofta titelsidan), lägg det inom klammer. Exempel: text: Eva Andersson, Bengt Larsson ; [foto: Sofia Lundgren, Lisa Ek]",
                 
                 "literaryForm": "Det här är en kontextuell hjälptext för Litterär genre.",
                 "biography": "Det här är en kontextuell hjälptext för Innehåller biografisk information.",
 
-                "attributedTo": "Det här är en kontextuell hjälptext för Huvuduppslag.",
-                "influencedBy": "Det här är en kontextuell hjälptext för Biuppslag.",
+                "attributedTo": "Ange namnet för först nämnda upphov här, om det finns högst tre upphov. Välj en auktoriserad namnform från listan eller skapa en ny, om det behövs.",
+                "influencedBy": "Ange övriga upphov som biuppslag, om det finns flera författare, redaktörer, illustratörer etc. Välj en auktoriserad namnform från listan eller skapa en ny, om det behövs. Gör inte biuppslag på alla upphov, t ex formgivare, författare till förord etc.",
                 "influencedByByType.Person": "Det här är en kontextuell hjälptext för Person.",
                 "influencedByByType.Meeting": "Det här är en kontextuell hjälptext för Möte.",
                 "influencedByByType.Organization": "Det här är en kontextuell hjälptext för Organisation.",
@@ -384,7 +394,7 @@
                 "manufacture": "Det här är en kontextuell hjälptext för Tryckuppgifter.",
                 "manufacture.place.label": "Det här är en kontextuell hjälptext för Tryckort.",
                 "manufacture.providerName": "Det här är en kontextuell hjälptext för Tryckeriets namn.",
-                "manufacture.providerDate": "Det här är en kontextuell hjälptext för Tryckningstid.",
+                "manufacture.providerDate": "Ange utgivningstid, i första hand utgivningsår, tillverkningsår eller copyright-år etc.",
 
                 "editionStatement.edition": "",
                 "publisherNumber": "",

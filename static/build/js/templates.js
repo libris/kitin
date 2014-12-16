@@ -96,6 +96,44 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('/snippets/modal-bibview',
+    "<div class=\"modal-header bibview\">\n" +
+    "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
+    "  <h4 class=\"modal-title bibview\">Bibliotekspost\n" +
+    "    <span data-ng-show=\"!isRemote\">({{ record['@id'] }})</span>\n" +
+    "    <span data-ng-show=\"isRemote\">({{ \"Remote\" }})</span>\n" +
+    "  </h4>\n" +
+    "</div>\n" +
+    "\n" +
+    "<div class=\"modal-body bibview\">\n" +
+    "    <span data-ng-if=\"isRemote && remoteDatabase != null\" class=\"database\">\n" +
+    "      <i class=\"fa fa-institution\"></i> Källa: {{remoteDatabase}}\n" +
+    "    </span>\n" +
+    "    <h4>{{ utils.composeTitle(record) | chop:80 }}, {{ utils.composeCreator(record) | chop:80 }} {{ utils.composeDate(publication.providerDate) | chop:80 }}</h4>\n" +
+    "    <section>\n" +
+    "      <span data-ng-switch=\"record.about.attributedTo['@type']\">\n" +
+    "        <kitin-valuedisplay label=\"'LABEL.record.about.attributedTo'\" model=\"record.about.attributedTo.familyName + ', ' + record.about.attributedTo.givenName\" data-ng-switch-when=\"Person\"></kitin-valuedisplay>\n" +
+    "        <kitin-valuedisplay label=\"'LABEL.record.about.attributedTo'\" model=\"record.about.attributedTo.name\" data-ng-switch-when=\"Organization\"></kitin-valuedisplay>\n" +
+    "      </span>\n" +
+    "      <kitin-valuedisplay label=\"'LABEL.record.about.instanceTitle.titleValue'\" model=\"record.about.instanceTitle.titleValue\"></kitin-valuedisplay>\n" +
+    "      <span ng-repeat=\"publication in record.about.publication\">\n" +
+    "        <kitin-valuedisplay label=\"'LABEL.record.about.publication.place.label'\" model=\"publication.place.label\"></kitin-valuedisplay>\n" +
+    "        <kitin-valuedisplay label=\"'LABEL.record.about.publication.providerName'\" model=\"publication.providerName\"></kitin-valuedisplay>\n" +
+    "        <kitin-valuedisplay label=\"'LABEL.record.about.publication.providerDate'\" model=\"publication.providerDate\"></kitin-valuedisplay>\n" +
+    "      </span>\n" +
+    "      <span ng-repeat=\"identifier in record.about.identifier\">\n" +
+    "        <kitin-valuedisplay label=\"'LABEL.record.about.identifierByIdentifierScheme[\\''+identifier.identifierScheme['@id']+'\\']'\" model=\"identifier.identifierValue\"></kitin-valuedisplay>\n" +
+    "      </span>\n" +
+    "    </section>\n" +
+    "</div>\n" +
+    "<div class=\"modal-footer submit bibview\">\n" +
+    "  <button class=\"btn btn-green btn-copy-remote\" data-ng-click=\"importRecord(record)\" data-ng-show=\"isRemote\">\n" +
+    "    <span><i class=\"fa fa-inverse fa-plus\"></i> {{ \"Kopiera\" }}</span>\n" +
+    "  </button>\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('/snippets/modal-create-new',
     "<div class=\"modal-header\">\n" +
     "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
@@ -180,7 +218,9 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  <h4>Ditt bestånd</h4>\n" +
     "\n" +
     "  <form data-ng-show=\"holding['@id'] || !holding['etag']\" name=\"holdingForm\">\n" +
-    "    <!-- Offers -->\n" +
+    "    \n" +
+    "\n" +
+    "    <!-- OFFERS (852) -->\n" +
     "    <section class=\"offer form-container\">\n" +
     "      <div data-ng-repeat=\"offer in holding.about.offers track by $index\">\n" +
     "        <kitin-group label=\"Lokalsignum\">\n" +
@@ -218,7 +258,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "      </div>\n" +
     "    </section>\n" +
     "    \n" +
-    "    <!-- IS PRIMARY TOPIC OF START -->\n" +
+    "    \n" +
+    "    <!-- IS PRIMARY TOPIC OF (856) START -->\n" +
     "    <section class=\"form-container\">\n" +
     "      <div data-ng-repeat=\"document in holding.about.isPrimaryTopicOf track by $index\">\n" +
     "        <kitin-group label=\"'Elektronisk adress och åtkomst'\">\n" +
@@ -244,6 +285,72 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "      </div>\n" +
     "    </section>\n" +
     "    <!-- / IS PRIMARY TOPIC OF END -->\n" +
+    "\n" +
+    "\n" +
+    "    <!-- WORK EXAMPLE BY TYPE (562 - Product) START -->\n" +
+    "    <section class=\"form-container\">\n" +
+    "      <div data-ng-repeat=\"item in holding.about.workExampleByType | byType:'Product' track by $index\">\n" +
+    "\n" +
+    "          <kitin-group label=\"'Identifiering av exemplar, kopia eller version ' + $index\">\n" +
+    "\n" +
+    "            <kitin-table model=\"item.itemCondition\" change-model=\"holding\">\n" +
+    "              <kitin-td><kitin-textarea model=\"model[$index]\"></kitin-textarea></kitin-td>\n" +
+    "            </kitin-table>\n" +
+    "\n" +
+    "            <kitin-table model=\"item.copyIdentification\" change-model=\"holding\">\n" +
+    "              <kitin-td><kitin-textarea model=\"model[$index]\"></kitin-textarea></kitin-td>\n" +
+    "            </kitin-table>\n" +
+    "\n" +
+    "            <kitin-table model=\"item.versionIdentification\" change-model=\"holding\">\n" +
+    "              <kitin-td><kitin-textarea model=\"model[$index]\"></kitin-textarea></kitin-td>\n" +
+    "            </kitin-table>\n" +
+    "\n" +
+    "            <kitin-table model=\"item.presentationFormat\" change-model=\"holding\">\n" +
+    "              <kitin-td><kitin-textarea model=\"model[$index]\"></kitin-textarea></kitin-td>\n" +
+    "            </kitin-table>\n" +
+    "\n" +
+    "            <kitin-table model=\"item.inventoryLevel\" change-model=\"holding\">\n" +
+    "              <kitin-td><kitin-textarea model=\"model[$index]\"></kitin-textarea></kitin-td>\n" +
+    "            </kitin-table>\n" +
+    "\n" +
+    "            <kitin-textrow model=\"item.materialsSpecified\" change-model=\"holding\"></kitin-textrow>\n" +
+    "            \n" +
+    "            <div class=\"button-bar right\">\n" +
+    "              <button class=\"btn btn-link\" data-ng-if=\"holding.about.workExampleByType.Product.length > 1\" data-ng-click=\"deleteWorkExample(holding, $index)\"><i class=\"fa fa-trash-o\"></i> {{ \"Radera identifiering\" }}</button>\n" +
+    "            </div>\n" +
+    "          </kitin-group>\n" +
+    "      </div>\n" +
+    "      <div class=\"button-bar\">\n" +
+    "        <button class=\"btn btn-link\" data-ng-click=\"addWorkExample(holding, 'Product')\" data-ng-show=\"holding\"><i class=\"fa fa-plus\"></i> {{ \"Lägg till identifiering \" }}</button>\n" +
+    "      </div>\n" +
+    "    </section>\n" +
+    "        \n" +
+    "    <!-- WORK EXAMPLE BY TYPE (866 - SomeProducts) START -->\n" +
+    "    <section class=\"form-container\">\n" +
+    "      <div data-ng-repeat=\"item in holding.about.workExampleByType | byType:'SomeProducts' track by $index\">\n" +
+    "          <kitin-group label=\"'Huvudpublikation ' + $index\">\n" +
+    "            \n" +
+    "            <kitin-textrow model=\"item.scopeNote\" change-model=\"holding\" label=\"'Beståndsuppgift'\"></kitin-textrow>\n" +
+    "\n" +
+    "            <kitin-table model=\"item.editorialNote\" change-model=\"holding\">\n" +
+    "              <kitin-td><kitin-textarea model=\"model[$index]\"></kitin-textarea></kitin-td>\n" +
+    "            </kitin-table>\n" +
+    "\n" +
+    "            <kitin-table model=\"item.copyNote\" change-model=\"holding\">\n" +
+    "              <kitin-td><kitin-textarea model=\"model[$index]\"></kitin-textarea></kitin-td>\n" +
+    "            </kitin-table>\n" +
+    "\n" +
+    "            <div class=\"button-bar right\">\n" +
+    "              <button class=\"btn btn-link\" data-ng-if=\"holding.about.workExampleByType.SomeProducts.length > 1\" data-ng-click=\"deleteWorkExample(holding, $index)\"><i class=\"fa fa-trash-o\"></i> {{ \"Radera huvudpublikation\" }}</button>\n" +
+    "            </div>\n" +
+    "          </kitin-group>\n" +
+    "      </div>\n" +
+    "      <div class=\"button-bar\">\n" +
+    "        <button class=\"btn btn-link\" data-ng-click=\"addWorkExample(holding, 'SomeProducts')\" data-ng-show=\"holding\"><i class=\"fa fa-plus\"></i> {{ \"Lägg till huvudpublikation \" }}</button>\n" +
+    "      </div>\n" +
+    "    </section>\n" +
+    "    <!-- WORK EXAMPLE BY TYPE END -->\n" +
+    "\n" +
     "\n" +
     "    <!-- ENCODING START \n" +
     "    <section class=\"form-container\">\n" +
@@ -284,6 +391,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  </div>\n" +
     "</div>\n" +
     "\n" +
+    "<pre>{{holding}}</pre>\n" +
+    "\n" +
     "<div class=\"modal-footer holdings submit\">\n" +
     "  <div class=\"status pull-left\">\n" +
     "    <div data-ng-if=\"modifications.holding.saved\">{{ \"Inga osparade ändringar.\" }}</div>\n" +
@@ -309,7 +418,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "</div>\n" +
     "\n" +
     "<div class=\"modal-body marc\">\n" +
-    "    <div data-cg-busy=\"{promise:promises.marc, message:'Laddar marcformat...', minDuration: 800}\"></div>\n" +
+    "    <div data-cg-busy=\"{promise:promises.marc.loading, message:'LABEL.gui.busy.LOADING_MARC', minDuration: 800}\"></div>\n" +
     "    <section class=\"marc\">\n" +
     "      <table>\n" +
     "        <tr>\n" +
@@ -732,10 +841,15 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  </div>\n" +
     "  <div data-ng-if=\"!isLinked(object)\"\n" +
     "        data-ng-init=\"editable = {on: !object.name}\">\n" +
-    "    <div data-ng-hide=\"editable.on\">\n" +
-    "        <span>{{object.name}}</span> <a class=\"auth\" href=\"\" data-ng-click=\"editable.on = !editable.on\">Ändra</a>\n" +
+    "    <div class=\"toggler\">\n" +
+    "        <button data-ng-hide=\"editable.on\" class=\"btn btn-link\" data-ng-click=\"editable.on = true\"><i class=\"fa fa-edit\"></i> Editera</button>\n" +
+    "        <button data-ng-show=\"editable.on\" class=\"btn btn-link\" data-ng-click=\"editable.on = false\"><i class=\"fa fa-check\"></i> Klar</button>\n" +
+    "    </div>\n" +
+    "    <div class=\"non-editable\">\n" +
+    "        <span><strong>{{object.name}}</strong></span> <span class=\"date\">{{object.date}}</span>\n" +
     "    </div>\n" +
     "    <div data-ng-show=\"editable.on\" class=\"editable\">\n" +
+    "      <span class=\"arr\"></span>\n" +
     "      <div class=\"label\">\n" +
     "        <span class=\"lbl\">{{ \"Namn\" }}</span>\n" +
     "        <kitin-textarea model=\"object.name\"></kitin-textarea>\n" +
@@ -744,15 +858,16 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "        <span class=\"lbl\">{{ \"Datum\" }}</span>\n" +
     "        <kitin-textarea model=\"object.date\"></kitin-textarea>\n" +
     "      </div>\n" +
-    "      <kitin-entity label=\"'Plats'\" model=\"object\" link=\"'language'\" type=\"Place\">\n" +
-    "        <kitin-search service-url=\"/auth/_search\" \n" +
-    "                      template-id=\"subject-completion-template\" \n" +
-    "                      filter=\"about.@type:Place\"\n" +
-    "                      placeholder=\"Lägg till plats\"\n" +
-    "                      allow-non-auth=\"Ny icke auktoriserad plats\">\n" +
-    "        </kitin-search>\n" +
-    "      </kitin-entity>\n" +
+    "      <div style=\"clear:both\"></div>\n" +
     "    </div>\n" +
+    "    <kitin-entity label=\"'Plats'\" model=\"object\" link=\"'language'\" type=\"Place\">\n" +
+    "      <kitin-search service-url=\"/auth/_search\" \n" +
+    "                    template-id=\"subject-completion-template\" \n" +
+    "                    filter=\"about.@type:Place\"\n" +
+    "                    placeholder=\"Lägg till plats\"\n" +
+    "                    allow-non-auth=\"Ny icke auktoriserad plats\">\n" +
+    "      </kitin-search>\n" +
+    "    </kitin-entity>\n" +
     "  </div>\n" +
     "</div>"
   );
@@ -768,15 +883,21 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  </div>\n" +
     "  <div data-ng-if=\"!isLinked(object)\"\n" +
     "        data-ng-init=\"editable = {on: !(object.controlledLabel || object.givenName || object.name)}\">\n" +
-    "    <div data-ng-hide=\"editable.on\">\n" +
-    "        <span>{{object.name}}</span> <a class=\"auth\" href=\"\" data-ng-click=\"editable.on = !editable.on\">Ändra</a>\n" +
+    "    <div class=\"toggler\">\n" +
+    "        <button data-ng-hide=\"editable.on\" class=\"btn btn-link\" data-ng-click=\"editable.on = true\"><i class=\"fa fa-edit\"></i> Editera</button>\n" +
+    "        <button data-ng-show=\"editable.on\" class=\"btn btn-link\" data-ng-click=\"editable.on = false\"><i class=\"fa fa-check\"></i> Klar</button>\n" +
+    "    </div>\n" +
+    "    <div class=\"non-editable\">\n" +
+    "      <span><strong>{{object.name}}</strong></span>\n" +
     "    </div>\n" +
     "    <div data-ng-show=\"editable.on\" class=\"editable\">\n" +
+    "      <span class=\"arr\"></span>\n" +
     "      <div class=\"label\">\n" +
     "        <span class=\"lbl\">{{ \"Namn\" }}</span>\n" +
     "        <input data-track-change class=\"\" type=\"text\" placeholder=\"Namn\"\n" +
     "               data-ng-model=\"object.name\" />\n" +
     "      </div>\n" +
+    "      <div style=\"clear:both\"></div>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "</div>"
@@ -793,10 +914,15 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  </div>\n" +
     "  <div data-ng-if=\"!isLinked(object)\"\n" +
     "        data-ng-init=\"editable = {on: !(object.controlledLabel || object.givenName || object.name)}\">\n" +
-    "    <div data-ng-hide=\"editable.on\">\n" +
-    "        <span onload=\"person = object\" data-ng-include=\"'/snippets/person-name'\"></span><a class=\"auth\" href=\"\" data-ng-click=\"editable.on = !editable.on\">Ändra</a>\n" +
+    "    <div class=\"toggler\">\n" +
+    "        <button data-ng-hide=\"editable.on\" class=\"btn btn-link\" data-ng-click=\"editable.on = true\"><i class=\"fa fa-edit\"></i> Editera</button>\n" +
+    "        <button data-ng-show=\"editable.on\" class=\"btn btn-link\" data-ng-click=\"editable.on = false\"><i class=\"fa fa-check\"></i> Klar</button>\n" +
+    "    </div>\n" +
+    "    <div class=\"non-editable\">\n" +
+    "      <span onload=\"person = object\" data-ng-include=\"'/snippets/person-name'\"></span>\n" +
     "    </div>\n" +
     "    <div data-ng-show=\"editable.on\" class=\"editable\">\n" +
+    "      <span class=\"arr\"></span>\n" +
     "      <div class=\"label\">\n" +
     "        <span class=\"lbl\">{{ \"Förnamn\" }}</span>\n" +
     "        <input data-track-change class=\"\" type=\"text\" placeholder=\"Förnamn\"\n" +
@@ -806,9 +932,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "        <span class=\"lbl\">{{ \"Släktnamn\" }}</span>\n" +
     "        <input data-track-change class=\"\" type=\"text\" placeholder=\"Släktnamn\"\n" +
     "               data-ng-model=\"object.familyName\" />\n" +
-    "      </div>\n" +
-    "    </div>\n" +
-    "    <div data-ng-show=\"editable.on\">\n" +
+    "      </div> \n" +
     "      <div class=\"label\">\n" +
     "        <span class=\"lbl\">{{ \"Född\" }}</span>\n" +
     "        <input data-track-change class=\"authdependant\" type=\"text\" placeholder=\"ÅÅÅÅ\"\n" +
@@ -820,6 +944,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "        <input data-track-change class=\"authdependant\" type=\"text\" placeholder=\"ÅÅÅÅ\" \n" +
     "               data-ng-model=\"object.deathYear\" />\n" +
     "      </div>\n" +
+    "      <div style=\"clear:left\"></div>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "  <kitin-entity multiple hide-title model=\"record.about._reifiedRoles\" type=\"ObjectProperty\" view=\"/snippets/view-role\">\n" +
@@ -866,6 +991,34 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "\n" +
     "\n" +
     "<i data-ng-click=\"doRemove($index)\" class=\"no\">&times;</i>"
+  );
+
+
+  $templateCache.put('/dialogs/busy',
+    "<div class=\"cg-busy-default-wrapper\">\n" +
+    "\n" +
+    "   <div class=\"cg-busy-default-sign\">\n" +
+    "\n" +
+    "      <div class=\"cg-busy-default-spinner\">\n" +
+    "         <div class=\"bar1\"></div>\n" +
+    "         <div class=\"bar2\"></div>\n" +
+    "         <div class=\"bar3\"></div>\n" +
+    "         <div class=\"bar4\"></div>\n" +
+    "         <div class=\"bar5\"></div>\n" +
+    "         <div class=\"bar6\"></div>\n" +
+    "         <div class=\"bar7\"></div>\n" +
+    "         <div class=\"bar8\"></div>\n" +
+    "         <div class=\"bar9\"></div>\n" +
+    "         <div class=\"bar10\"></div>\n" +
+    "         <div class=\"bar11\"></div>\n" +
+    "         <div class=\"bar12\"></div>\n" +
+    "      </div>\n" +
+    "\n" +
+    "      <div class=\"cg-busy-default-text\">{{$message | translate}}</div>\n" +
+    "\n" +
+    "   </div>\n" +
+    "\n" +
+    "</div>"
   );
 
 

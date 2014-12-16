@@ -150,19 +150,21 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
       };
 
       $scope.doRemove = function (index) {
-        var removed = null;
-        if ($scope.multiple && _.isNumber(index)) {
-          removed = subj[$scope.link].splice(index, 1)[0];
-        } else {
-          removed = subj[$scope.link];
-          delete subj[$scope.link];
-          $scope.objects = null;
-          $scope.viewmode = false;
+        if ( window.confirm('Är du säker på att du vill ta bort?') ) {
+          var removed = null;
+          if ($scope.multiple && _.isNumber(index)) {
+            removed = subj[$scope.link].splice(index, 1)[0];
+          } else {
+            removed = subj[$scope.link];
+            delete subj[$scope.link];
+            $scope.objects = null;
+            $scope.viewmode = false;
+          }
+          if (typeof subj.onRemove === 'function') {
+            subj.onRemove($scope.link, removed, index);
+          }
+          $scope.$emit('entity', $scope.objects);
         }
-        if (typeof subj.onRemove === 'function') {
-          subj.onRemove($scope.link, removed, index);
-        }
-        $scope.$emit('entity', $scope.objects);
       };
 
     }
