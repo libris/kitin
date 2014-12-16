@@ -579,6 +579,9 @@ body.search #header-wrapper {
 body.search .content {
   margin-top: 70px;
 }
+body.index #header {
+  height: 130px;
+}
 body.edit #header {
   height: 50px;
 }
@@ -608,11 +611,10 @@ body.search #header .kb {
   display: none;
 }
 #header {
-  height: 130px;
   position: relative;
-  transition: height 100ms ease-out;
-  -moz-transition: height 100ms ease-out;
-  -webkit-transition: height 100ms ease-out;
+  transition: height 200ms ease-out;
+  -moz-transition: height 200ms ease-out;
+  -webkit-transition: height 200ms ease-out;
 }
 #header .user {
   float: right;
@@ -1558,32 +1560,32 @@ html .modal.fade .modal-dialog {
   padding: 2px;
 }
 .success .popover {
-  background-color: rgba(26, 143, 114, 0.9);
+  background-color: rgba(26, 143, 114, 0.95);
   border: none;
 }
 .success .popover.right > .arrow {
   border-right-color: transparent;
 }
 .success .popover.right > .arrow:after {
-  border-right-color: rgba(26, 143, 114, 0.9);
+  border-right-color: rgba(26, 143, 114, 0.95);
 }
 .success .popover.left > .arrow {
   border-left-color: transparent;
 }
 .success .popover.left > .arrow:after {
-  border-left-color: rgba(26, 143, 114, 0.9);
+  border-left-color: rgba(26, 143, 114, 0.95);
 }
 .success .popover.top > .arrow {
   border-top-color: transparent;
 }
 .success .popover.top > .arrow:after {
-  border-top-color: rgba(26, 143, 114, 0.9);
+  border-top-color: rgba(26, 143, 114, 0.95);
 }
 .success .popover.bottom > .arrow {
   border-bottom-color: transparent;
 }
 .success .popover.bottom > .arrow:after {
-  border-bottom-color: rgba(26, 143, 114, 0.9);
+  border-bottom-color: rgba(26, 143, 114, 0.95);
 }
 .success .popover .popover-title {
   background-color: transparent;
@@ -1595,32 +1597,32 @@ html .modal.fade .modal-dialog {
   color: #ffffff;
 }
 .warning .popover {
-  background-color: rgba(214, 171, 0, 0.9);
+  background-color: rgba(214, 171, 0, 0.95);
   border: none;
 }
 .warning .popover.right > .arrow {
   border-right-color: transparent;
 }
 .warning .popover.right > .arrow:after {
-  border-right-color: rgba(214, 171, 0, 0.9);
+  border-right-color: rgba(214, 171, 0, 0.95);
 }
 .warning .popover.left > .arrow {
   border-left-color: transparent;
 }
 .warning .popover.left > .arrow:after {
-  border-left-color: rgba(214, 171, 0, 0.9);
+  border-left-color: rgba(214, 171, 0, 0.95);
 }
 .warning .popover.top > .arrow {
   border-top-color: transparent;
 }
 .warning .popover.top > .arrow:after {
-  border-top-color: rgba(214, 171, 0, 0.9);
+  border-top-color: rgba(214, 171, 0, 0.95);
 }
 .warning .popover.bottom > .arrow {
   border-bottom-color: transparent;
 }
 .warning .popover.bottom > .arrow:after {
-  border-bottom-color: rgba(214, 171, 0, 0.9);
+  border-bottom-color: rgba(214, 171, 0, 0.95);
 }
 .warning .popover .popover-title {
   background-color: transparent;
@@ -1629,32 +1631,32 @@ html .modal.fade .modal-dialog {
   font-weight: bold;
 }
 .error .popover {
-  background-color: rgba(238, 93, 97, 0.9);
+  background-color: rgba(238, 93, 97, 0.95);
   border: none;
 }
 .error .popover.right > .arrow {
   border-right-color: transparent;
 }
 .error .popover.right > .arrow:after {
-  border-right-color: rgba(238, 93, 97, 0.9);
+  border-right-color: rgba(238, 93, 97, 0.95);
 }
 .error .popover.left > .arrow {
   border-left-color: transparent;
 }
 .error .popover.left > .arrow:after {
-  border-left-color: rgba(238, 93, 97, 0.9);
+  border-left-color: rgba(238, 93, 97, 0.95);
 }
 .error .popover.top > .arrow {
   border-top-color: transparent;
 }
 .error .popover.top > .arrow:after {
-  border-top-color: rgba(238, 93, 97, 0.9);
+  border-top-color: rgba(238, 93, 97, 0.95);
 }
 .error .popover.bottom > .arrow {
   border-bottom-color: transparent;
 }
 .error .popover.bottom > .arrow:after {
-  border-bottom-color: rgba(238, 93, 97, 0.9);
+  border-bottom-color: rgba(238, 93, 97, 0.95);
 }
 .error .popover .popover-title {
   background-color: transparent;
@@ -3435,6 +3437,11 @@ h4 {
 }
 a {
   cursor: pointer;
+}
+.btn.disabled,
+.btn[disabled],
+fieldset[disabled] .btn {
+  opacity: .85;
 }
 .container {
   width: 1080px;

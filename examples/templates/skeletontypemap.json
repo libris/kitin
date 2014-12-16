@@ -168,19 +168,8 @@
       }],
       "isPrimaryTopicOf": [{"@type": "Document"}],
       "workExampleByType": {
-        "Product": [{
-          "itemCondition": [],
-          "copyIdentification": [],
-          "versionIdentification": [],
-          "presentationFormat": [],
-          "inventoryLevel": [],
-          "materialsSpecified": ""
-        }],
-        "SomeProducts": [{
-          "editorialNote": [],
-          "copyNote": [],
-          "scopeNote": ""
-        }]
+        "Product": [],
+        "SomeProducts": []
       },
       "encoding": [{"@type": "MediaObject"}],
       "alternateFormat": [{"@type": "Electronic"}],
@@ -308,7 +297,13 @@
       "otherPhysicalDetails": "",
       "accompanyingMaterial": "",
       "device": {},
-      "materialsSpecified": ""
+      "materialsSpecified": "",
+
+      "itemCondition": [],
+      "copyIdentification": [],
+      "versionIdentification": [],
+      "presentationFormat": [],
+      "inventoryLevel": []
     },
     "Map": {
       "carrierType": [],

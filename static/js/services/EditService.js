@@ -177,6 +177,7 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
         added = obj? obj : this.createObject(type);
         subj[rel] = added;
       }
+      console.log(added);
       // TODO: make decorate per object type
       if (_.contains(['Person', 'Organization'], added['@type'])) {
         added._reifiedRoles = this.makeVolatileArray();
@@ -220,6 +221,7 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
             throw '';
           }
           createdObject['@type'] = type;
+          console.log(createdObject);
         } catch(error) {
           console.error('Could not find skeleton for', type);
         }
@@ -331,7 +333,6 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
 
     decorate: function(record) {
       var deferer = $q.defer();
-      console.log(record);
 
       function doIndex (entity, key, cfg, reset) {
         var items = entity[key];
@@ -405,11 +406,13 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
         }
         delete entity[cfg.indexName];
       }
+      console.log('Before mutateObjects', record.about);
       // Rearrange grouped Arrays
       this.mutateObject(record.about, doUnindex);
+      console.log('Before unreifyAgentRoles', record.about);
       // Rearrange Person roles
       this.unreifyAgentRoles(record);
-
+      console.log('Before cleanRecord', record.about);
       // Remove empty entities 
       record = this.cleanRecord(record);
 
