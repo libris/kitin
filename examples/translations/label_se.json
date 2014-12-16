@@ -90,6 +90,7 @@
 
                 "identifierByIdentifierScheme['/def/identifiers/issn']": "ISSN",
                 "identifierByIdentifierScheme['/def/identifiers/isbn']": "ISBN",
+                "identifierByIdentifierScheme['/def/identifiers/ean']": "EAN",
                 "identifierValue": "Nummer",
                 "identifierNote": "Notering",
 

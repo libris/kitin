@@ -145,8 +145,13 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
         var deferer = $q.defer();
         etag = etag ? etag : '';
         var draftDataCopy = angular.copy(draftData);
+        var pathSuffix = type;
+        if (draftId) {
+          pathSuffix = [type, draftId].join('/');
+        }
+
         editService.undecorate(draftDataCopy).then(function(undecoratedRecord) {
-          $http.post("/draft/" + [type, draftId].join('/') , undecoratedRecord, {headers: {"If-match":etag } })
+          $http.post("/draft/" + pathSuffix , undecoratedRecord, {headers: {"If-match":etag } })
             .success(function(data, status, headers) {
               editService.decorate(data).then(function(decoratedRecord) {
                 deferer.resolve({

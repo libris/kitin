@@ -1,7 +1,7 @@
 <!-- IMPORTANT: generated file; do not edit! -->
 <link rel='stylesheet' href='/static/build/css/bootstrap.css?v=b269f36aa2758a0996a9970e83d1bfec' />
 <link rel='stylesheet' href='/static/build/css/vendor.min.css?v=2032d82ecf664a923579a47c0e2321c4' />
-<link rel='stylesheet' href='/static/build/css/main.css?v=a64746d814cd5659a119be344a076802' />
+<link rel='stylesheet' href='/static/build/css/main.css?v=5a4d98b7de3e9a854754ee8c36bede48' />
 <script src='/static/build/js/vendor.min.js?v=4864678ea426314637a7b8eb3309b554'></script>
 <script src='/static/js/controllers/AppCtrl.js?v=843490ce80a3efe020e2cfbb9ac327e4'></script>
 <script src='/static/js/controllers/CustomConfirmCtrl.js?v=c3975371e9821e39406018c024b4bda8'></script>
@@ -10,16 +10,16 @@
 <script src='/static/js/controllers/IndexCtrl.js?v=bee25212b2bb0248ee6b9be6e6b476b6'></script>
 <script src='/static/js/controllers/JSONLDCtrl.js?v=6b14ad06dc246d80fb45f14d3a6bd018'></script>
 <script src='/static/js/controllers/ModalAuthCtrl.js?v=c1e2e8ca52ee64155bfcc7c4ce1b8ab4'></script>
-<script src='/static/js/controllers/ModalBibCtrl.js?v=06860e583f8b062452bd053fa14c654f'></script>
+<script src='/static/js/controllers/ModalBibViewCtrl.js?v=3affdb95f621860ed497bce3c4bf11f3'></script>
 <script src='/static/js/controllers/ModalCreateNewCtrl.js?v=d3ae0a78c9b303e49abe04a28b3d39ac'></script>
-<script src='/static/js/controllers/ModalCtrl.js?v=5e5a286f8ab0fdfda4ed3f5c17bc0381'></script>
+<script src='/static/js/controllers/ModalCtrl.js?v=89e55304455fd54d0b69df1ed7da3ceb'></script>
 <script src='/static/js/controllers/ModalHoldingsCtrl.js?v=60f061180ec62593ebc876bd43cdcf05'></script>
 <script src='/static/js/controllers/ModalMARCCtrl.js?v=46d6f389ca09502752822eeddf471d37'></script>
 <script src='/static/js/controllers/ModalReleaseCtrl.js?v=a4dddb38930ea3b256808377857ccf6d'></script>
 <script src='/static/js/controllers/ModalRemoteCtrl.js?v=139aa883fff668d07b5e2ef75a72f3a5'></script>
 <script src='/static/js/controllers/PopoverCtrl.js?v=7896da9c27c45bf6f5a9bea5271b679b'></script>
 <script src='/static/js/controllers/SearchFormCtrl.js?v=0c59b718224274556069a970e342f276'></script>
-<script src='/static/js/controllers/SearchResultCtrl.js?v=49963dfcbc4b1a753249fb7bca4c969a'></script>
+<script src='/static/js/controllers/SearchResultCtrl.js?v=f8fe05ede1292caabe6f5ddfe3ea4986'></script>
 <script src='/static/js/directives/Addable.js?v=d68b59f1629f04b9cbfc7a66e4da7910'></script>
 <script src='/static/js/directives/ClickSearch.js?v=47e539b0558e9cd1fbd2a31ae0a34bed'></script>
 <script src='/static/js/directives/CollapseButton.js?v=347dc323295ec48322cd3bc82117bff1'></script>
@@ -36,6 +36,8 @@
 <script src='/static/js/directives/KitinTable.js?v=abf13fdd6d45e336f39feca7eb10dc27'></script>
 <script src='/static/js/directives/KitinTextarea.js?v=a83b1b1e42c0a8fd2f2df04f6a2d154a'></script>
 <script src='/static/js/directives/KitinTextrow.js?v=55c5f4d4e953669b749902c3751cdbee'></script>
+<script src='/static/js/directives/KitinValue.js?v=b1dbd179a0b263cdae66a10acc76404b'></script>
+<script src='/static/js/directives/KitinValuedisplay.js?v=92cd1812230a93d288d7cbd10d677ad1'></script>
 <script src='/static/js/directives/NavBack.js?v=49aca8bbec4fe39613e8a7faf8218459'></script>
 <script src='/static/js/directives/TrackChange.js?v=b32c691197158a87d36ef453af89a092'></script>
 <script src='/static/js/filters/ByType.js?v=6fdae4f12d63dd3699d4e2dc910a102e'></script>
@@ -52,9 +54,9 @@
 <script src='/static/js/services/EditService.js?v=25bed43a3f0ccb55502b1fb672c0fbb5'></script>
 <script src='/static/js/services/HttpInterceptor.js?v=df8ec38bf71b6fb8f40086e6de96bba8'></script>
 <script src='/static/js/services/ISBNTools.js?v=5e8948f4ff83c652a6310dab36e0066d'></script>
-<script src='/static/js/services/RecordService.js?v=cd34421ff9af26d5bb12031684198001'></script>
+<script src='/static/js/services/RecordService.js?v=1b7b6d19b0da7195ae42869a2e92628b'></script>
 <script src='/static/js/services/SearchService.js?v=e965b30ad6436ba1f5396eccb277d04f'></script>
 <script src='/static/js/services/SearchUtil.js?v=0b575e6ca7e8ce55635ab2fdb6bc9b89'></script>
 <script src='/static/js/services/UserData.js?v=becac31b01ef4293472a88fc74835de9'></script>
 <script src='/static/js/services/UtilsService.js?v=d52a60dcf99c6f45114f86f1b5f64e69'></script>
-<script src='/static/build/js/templates.js?v=f5e420104681e09afacfefc6fc97bdc6'></script>
+<script src='/static/build/js/templates.js?v=cfaf0fd09204f99ef7a5d0d31c1c693b'></script>
