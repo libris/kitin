@@ -804,10 +804,15 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  </div>\n" +
     "  <div data-ng-if=\"!isLinked(object)\"\n" +
     "        data-ng-init=\"editable = {on: !object.name}\">\n" +
-    "    <div data-ng-hide=\"editable.on\">\n" +
-    "        <span>{{object.name}}</span> <a class=\"auth\" href=\"\" data-ng-click=\"editable.on = !editable.on\">Ändra</a>\n" +
+    "    <div class=\"toggler\">\n" +
+    "        <button data-ng-hide=\"editable.on\" class=\"btn btn-link\" data-ng-click=\"editable.on = true\"><i class=\"fa fa-edit\"></i> Editera</button>\n" +
+    "        <button data-ng-show=\"editable.on\" class=\"btn btn-link\" data-ng-click=\"editable.on = false\"><i class=\"fa fa-check\"></i> Klar</button>\n" +
+    "    </div>\n" +
+    "    <div class=\"non-editable\">\n" +
+    "        <span><strong>{{object.name}}</strong></span> <span class=\"date\">{{object.date}}</span>\n" +
     "    </div>\n" +
     "    <div data-ng-show=\"editable.on\" class=\"editable\">\n" +
+    "      <span class=\"arr\"></span>\n" +
     "      <div class=\"label\">\n" +
     "        <span class=\"lbl\">{{ \"Namn\" }}</span>\n" +
     "        <kitin-textarea model=\"object.name\"></kitin-textarea>\n" +
@@ -816,15 +821,16 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "        <span class=\"lbl\">{{ \"Datum\" }}</span>\n" +
     "        <kitin-textarea model=\"object.date\"></kitin-textarea>\n" +
     "      </div>\n" +
-    "      <kitin-entity label=\"'Plats'\" model=\"object\" link=\"'language'\" type=\"Place\">\n" +
-    "        <kitin-search service-url=\"/auth/_search\" \n" +
-    "                      template-id=\"subject-completion-template\" \n" +
-    "                      filter=\"about.@type:Place\"\n" +
-    "                      placeholder=\"Lägg till plats\"\n" +
-    "                      allow-non-auth=\"Ny icke auktoriserad plats\">\n" +
-    "        </kitin-search>\n" +
-    "      </kitin-entity>\n" +
+    "      <div style=\"clear:both\"></div>\n" +
     "    </div>\n" +
+    "    <kitin-entity label=\"'Plats'\" model=\"object\" link=\"'language'\" type=\"Place\">\n" +
+    "      <kitin-search service-url=\"/auth/_search\" \n" +
+    "                    template-id=\"subject-completion-template\" \n" +
+    "                    filter=\"about.@type:Place\"\n" +
+    "                    placeholder=\"Lägg till plats\"\n" +
+    "                    allow-non-auth=\"Ny icke auktoriserad plats\">\n" +
+    "      </kitin-search>\n" +
+    "    </kitin-entity>\n" +
     "  </div>\n" +
     "</div>"
   );
@@ -840,15 +846,21 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  </div>\n" +
     "  <div data-ng-if=\"!isLinked(object)\"\n" +
     "        data-ng-init=\"editable = {on: !(object.controlledLabel || object.givenName || object.name)}\">\n" +
-    "    <div data-ng-hide=\"editable.on\">\n" +
-    "        <span>{{object.name}}</span> <a class=\"auth\" href=\"\" data-ng-click=\"editable.on = !editable.on\">Ändra</a>\n" +
+    "    <div class=\"toggler\">\n" +
+    "        <button data-ng-hide=\"editable.on\" class=\"btn btn-link\" data-ng-click=\"editable.on = true\"><i class=\"fa fa-edit\"></i> Editera</button>\n" +
+    "        <button data-ng-show=\"editable.on\" class=\"btn btn-link\" data-ng-click=\"editable.on = false\"><i class=\"fa fa-check\"></i> Klar</button>\n" +
+    "    </div>\n" +
+    "    <div class=\"non-editable\">\n" +
+    "      <span><strong>{{object.name}}</strong></span>\n" +
     "    </div>\n" +
     "    <div data-ng-show=\"editable.on\" class=\"editable\">\n" +
+    "      <span class=\"arr\"></span>\n" +
     "      <div class=\"label\">\n" +
     "        <span class=\"lbl\">{{ \"Namn\" }}</span>\n" +
     "        <input data-track-change class=\"\" type=\"text\" placeholder=\"Namn\"\n" +
     "               data-ng-model=\"object.name\" />\n" +
     "      </div>\n" +
+    "      <div style=\"clear:both\"></div>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "</div>"
@@ -865,10 +877,15 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  </div>\n" +
     "  <div data-ng-if=\"!isLinked(object)\"\n" +
     "        data-ng-init=\"editable = {on: !(object.controlledLabel || object.givenName || object.name)}\">\n" +
-    "    <div data-ng-hide=\"editable.on\">\n" +
-    "        <span onload=\"person = object\" data-ng-include=\"'/snippets/person-name'\"></span><a class=\"auth\" href=\"\" data-ng-click=\"editable.on = !editable.on\">Ändra</a>\n" +
+    "    <div class=\"toggler\">\n" +
+    "        <button data-ng-hide=\"editable.on\" class=\"btn btn-link\" data-ng-click=\"editable.on = true\"><i class=\"fa fa-edit\"></i> Editera</button>\n" +
+    "        <button data-ng-show=\"editable.on\" class=\"btn btn-link\" data-ng-click=\"editable.on = false\"><i class=\"fa fa-check\"></i> Klar</button>\n" +
+    "    </div>\n" +
+    "    <div class=\"non-editable\">\n" +
+    "      <span onload=\"person = object\" data-ng-include=\"'/snippets/person-name'\"></span>\n" +
     "    </div>\n" +
     "    <div data-ng-show=\"editable.on\" class=\"editable\">\n" +
+    "      <span class=\"arr\"></span>\n" +
     "      <div class=\"label\">\n" +
     "        <span class=\"lbl\">{{ \"Förnamn\" }}</span>\n" +
     "        <input data-track-change class=\"\" type=\"text\" placeholder=\"Förnamn\"\n" +
@@ -878,9 +895,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "        <span class=\"lbl\">{{ \"Släktnamn\" }}</span>\n" +
     "        <input data-track-change class=\"\" type=\"text\" placeholder=\"Släktnamn\"\n" +
     "               data-ng-model=\"object.familyName\" />\n" +
-    "      </div>\n" +
-    "    </div>\n" +
-    "    <div data-ng-show=\"editable.on\">\n" +
+    "      </div> \n" +
     "      <div class=\"label\">\n" +
     "        <span class=\"lbl\">{{ \"Född\" }}</span>\n" +
     "        <input data-track-change class=\"authdependant\" type=\"text\" placeholder=\"ÅÅÅÅ\"\n" +
@@ -892,6 +907,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "        <input data-track-change class=\"authdependant\" type=\"text\" placeholder=\"ÅÅÅÅ\" \n" +
     "               data-ng-model=\"object.deathYear\" />\n" +
     "      </div>\n" +
+    "      <div style=\"clear:left\"></div>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "  <kitin-entity multiple hide-title model=\"record.about._reifiedRoles\" type=\"ObjectProperty\" view=\"/snippets/view-role\">\n" +

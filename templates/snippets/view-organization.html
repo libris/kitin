@@ -7,15 +7,21 @@
   </div>
   <div data-ng-if="!isLinked(object)"
         data-ng-init="editable = {on: !(object.controlledLabel || object.givenName || object.name)}">
-    <div data-ng-hide="editable.on">
-        <span>{{object.name}}</span> <a class="auth" href="" data-ng-click="editable.on = !editable.on">Ändra</a>
+    <div class="toggler">
+        <button data-ng-hide="editable.on" class="btn btn-link" data-ng-click="editable.on = true"><i class="fa fa-edit"></i> Editera</button>
+        <button data-ng-show="editable.on" class="btn btn-link" data-ng-click="editable.on = false"><i class="fa fa-check"></i> Klar</button>
+    </div>
+    <div class="non-editable">
+      <span><strong>{{object.name}}</strong></span>
     </div>
     <div data-ng-show="editable.on" class="editable">
+      <span class="arr"></span>
       <div class="label">
         <span class="lbl">{{ "Namn" }}</span>
         <input data-track-change class="" type="text" placeholder="Namn"
                data-ng-model="object.name" />
       </div>
+      <div style="clear:both"></div>
     </div>
   </div>
 </div>
