@@ -18,7 +18,7 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
           // open record
           var path = $rootScope.API_PATH + '/' + type + '/' + id;
           // $rootScope.promises is used by angular-busy to show and hide loading/saving indicators
-          $rootScope.promises.bib.loading = $http.get(path).success(function (struct, status, headers) {
+          $rootScope.promises.bib.loading = $http.get(path, { headers: utilsService.noCacheHeaders}).success(function (struct, status, headers) {
             editService.decorate(struct).then(function(decoratedRecord) {
               deferer.resolve({
                 recdata: decoratedRecord,
@@ -95,7 +95,7 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
       get: function (draftId, mainType, aggregateLevel) {
         var deferer = $q.defer();
         if(draftId) {
-          $rootScope.promises.draft.loading = $http.get("/draft/" + draftId).success(function (data, status, headers) {
+          $rootScope.promises.draft.loading = $http.get("/draft/" + draftId, { headers: utilsService.noCacheHeaders }).success(function (data, status, headers) {
             editService.decorate(data).then(function(decoratedRecord) {
               deferer.resolve({
                 recdata: data,
@@ -176,7 +176,7 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
     drafts: {
       get: function() {
         var deferer = $q.defer();
-        $http.get('/drafts').success(function(data, status, headers) {
+        $http.get('/drafts', { headers: utilsService.noCacheHeaders }).success(function(data, status, headers) {
           deferer.resolve(data);
         });
         return deferer.promise;
@@ -184,14 +184,29 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
     },
 
     holding: {
+      search: function(recordId, quiet, record) {
+        var deferer = $q.defer();
+        var searchPath = '/hold/_search?q=*+about.holdingFor.@id:' + recordId.replace(/\//g, '\\/');
+        var promise = $http.get($rootScope.API_PATH + searchPath, { headers: utilsService.noCacheHeaders, record: record })
+          .success(function(data, status, headers, config) {
+            deferer.resolve({ data: data, config: config });
+          })
+          .error(function(data, status, headers) {
+            deferer.reject(status);
+        });
+        // ... unless we have explicitly requested a quiet lookup
+        if (!quiet) $rootScope.promises.holding.loading = promise;
+        return deferer.promise;
+      },
+
       find: function(recordId, userData, quiet) {
         var deferer = $q.defer();
         var sigel = userData.userSigel;
-        var searchPath = '/hold/_search?q=*+about.holdingFor.@id:' + recordId.replace(/\//g, '\\/');
+        
         // $rootScope.promises is used by angular-busy to show and hide loading/saving indicators ...
-        var promise = $http.get($rootScope.API_PATH + searchPath).success(function(data, status, headers) {
-          if (data.items.length > 0) {
-            var holdings = utilsService.findDeep(data.items, 'about.heldBy.notation', sigel);
+        recordService.holding.search(recordId, quiet).then(function(response) {
+          if (response.data.items.length > 0) {
+            var holdings = utilsService.findDeep(response.data.items, 'about.heldBy.notation', sigel);
             var userHoldings = holdings.matches;
             var otherHoldings = holdings.nonmatches;
             if (userHoldings) {
@@ -221,18 +236,14 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
           } else {
             deferer.resolve(false);
           }
-        }).error(function(data, status, headers) {
-            deferer.reject(status);
         });
-        // ... unless we have explicitly requested a quiet lookup
-        if (!quiet) $rootScope.promises.holding.loading = promise;
         return deferer.promise;
       },
 
       get: function(holdingId) {
         var deferer = $q.defer();
         if (holdingId) {
-          $http.get($rootScope.API_PATH + holdingId).success(function(data, status, headers) {
+          $http.get($rootScope.API_PATH + holdingId, { headers: utilsService.noCacheHeaders}).success(function(data, status, headers) {
             var etag = headers('etag') ? headers('etag') : null;
             deferer.resolve({
               holding: data,

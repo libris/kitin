@@ -17,7 +17,7 @@ Params:
 
 */
 
-kitin.directive('kitinTable', function(editService){
+kitin.directive('kitinTable', function(editService, $filter){
   return {
    restrict: 'E',
       scope: {
@@ -48,7 +48,8 @@ kitin.directive('kitinTable', function(editService){
                         '<a class="add" href="" ng-click="addRow()"><i class="fa fa-plus-circle"></i> Lägg till rad</a>' +
                       '</div>' +
                     '</div>' + 
-                  '</div>' + 
+                  '</div>' +
+                  '<kitin-help help="help" data-positioned="positioned"></kitin-help>' +
                 '</div>',
 
       controller: function($scope, $rootScope, $attrs) {
@@ -100,10 +101,13 @@ kitin.directive('kitinTable', function(editService){
           return $scope.model.splice(index,1);
         };
 
+        $scope.help = 'HELP.' + $attrs.model;
         $scope.label = 'LABEL.' + $attrs.model;
         $scope.model = _.isArray($scope.model) && $scope.model.length > 0 ? $scope.model : [this.doCreate()];
         if($attrs.labels) {
           $scope.labels = $scope.$eval($attrs.labels);
+          // For tables with labels, make sure help gets push down a bit
+          $scope.positioned = 'dropped';
         }
 
       }

@@ -1,4 +1,4 @@
-kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $modalInstance, $location, $http, record, editService, recordService, userData, utilsService) {
+kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $modalInstance, $location, $http, $timeout, record, editService, recordService, userData, utilsService, dialogs) {
 
   var recordId = record.about['@id'];
 
@@ -8,6 +8,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   $scope.panels = [];
   $scope.showOtherHoldings = false;
   $scope.utils = utilsService;
+  $scope.classes = {};
 
   $rootScope.modifications.holding = {
     saved: false,
@@ -79,17 +80,36 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     recordService.holding.save(holding).then(function success(holding) {
       onSave(holding);
       $scope.holding = holding;
+      $scope.classes.saveStatus = 'success';
     }, function error(status) {
-
+      $scope.classes.saveStatus = 'error';
+    }).finally(function() {
+      var element = angular.element('#save-hld');
+      if (element.length) utilsService.showPopup(element).then(function() {
+        //console.log('Popup should now be hidden');
+      });
     });
   };
 
   $scope.deleteHolding = function(holding) {
-    recordService.holding.del(holding).then(function sucess(response) {
-      onDelete(holding);
-      delete $scope.holding;
-    }, function error(status) {
-
+    var data = {
+      message: 'Är du säker på att du vill radera beståndet? Det här kommandot går inte att ångra.',
+      yes: 'Ja, radera beståndet',
+      no: 'Nej, avbryt',
+      icon: 'fa fa-exclamation-circle'
+    };
+    var confirm = dialogs.create('/dialogs/confirm', 'CustomConfirmCtrl', data, { windowClass: 'holdings-dialog' });
+    confirm.result.then(function yes(answer) {
+      recordService.holding.del(holding).then(function sucess(response) {
+        onDelete(holding);
+        delete $scope.holding;
+      }, function error(status) {
+        $scope.classes.deleteStatus = 'error';
+        var element = angular.element('#delete-hld');
+        if (element.length) utilsService.showPopup(element).then(function() {
+          //console.log('Popup should now be hidden');
+        });
+      });
     });
   };
 
@@ -108,6 +128,20 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   $scope.deleteOffer = function(holding, index) {
     var offers = holding.about.offers;
     offers.splice(index, 1);
+  };
+
+  $scope.addPrimaryTopicOf = function(holding) {
+    // Get offers from existing holding
+    var eDocuments = holding.about.isPrimaryTopicOf;
+    recordService.holding.create().then(function(response) {
+      var eDocument = response.about.isPrimaryTopicOf[0];
+      eDocuments.push(eDocument);
+    });
+  };
+
+  $scope.deletePrimaryTopicOf = function(holding, index) {
+    var eDocuments = holding.about.isPrimaryTopicOf;
+    eDocuments.splice(index, 1);
   };
 
 });
