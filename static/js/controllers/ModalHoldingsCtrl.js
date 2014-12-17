@@ -98,7 +98,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
       no: 'Nej, avbryt',
       icon: 'fa fa-exclamation-circle'
     };
-    var confirm = dialogs.create('/dialogs/confirm', 'CustomConfirmCtrl', data, { windowClass: 'holdings-dialog' });
+    var confirm = dialogs.create('/dialogs/confirm', 'CustomConfirmCtrl', data, { windowClass: 'kitin-dialog holdings-dialog' });
     confirm.result.then(function yes(answer) {
       recordService.holding.del(holding).then(function sucess(response) {
         onDelete(holding);
@@ -142,6 +142,20 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   $scope.deletePrimaryTopicOf = function(holding, index) {
     var eDocuments = holding.about.isPrimaryTopicOf;
     eDocuments.splice(index, 1);
+  };
+
+  $scope.addWorkExample = function(holding, type) {
+    // Get offers from existing holding
+    var workExamples = holding.about.workExampleByType[type];
+    recordService.holding.create(type).then(function(response) {
+      var workExample = response.about.workExampleByType[type][0];
+      workExamples.push(workExample);
+    });
+  };
+
+  $scope.deleteWorkExample = function(holding, index, type) {
+    var workExample = holding.about.workExampleByType[type];
+    workExample.splice(index, 1);
   };
 
 });

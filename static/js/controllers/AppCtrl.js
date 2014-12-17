@@ -23,7 +23,8 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
     holding: {},
     draft: {},
     marc: {},
-    auth: {}
+    auth: {},
+    jsonld: {}
   };
 
   if ( debug === true ) {

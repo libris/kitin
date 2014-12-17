@@ -167,14 +167,10 @@
         "copyNote": []
       }],
       "isPrimaryTopicOf": [{"@type": "Document"}],
-      "workExample": [
-        {
-          "@type": "SomeProducts",
-          "scopeNote": "",
-          "editorialNote": [],
-          "copyNote": []
-        }
-      ],
+      "workExampleByType": {
+        "Product": [],
+        "SomeProducts": []
+      },
       "encoding": [{"@type": "MediaObject"}],
       "alternateFormat": [{"@type": "Electronic"}],
       "relation": [{"@type": "Document"}]
@@ -301,7 +297,13 @@
       "otherPhysicalDetails": "",
       "accompanyingMaterial": "",
       "device": {},
-      "materialsSpecified": ""
+      "materialsSpecified": "",
+
+      "itemCondition": [],
+      "copyIdentification": [],
+      "versionIdentification": [],
+      "presentationFormat": [],
+      "inventoryLevel": []
     },
     "Map": {
       "carrierType": [],

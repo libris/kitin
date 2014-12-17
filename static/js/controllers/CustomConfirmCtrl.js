@@ -2,7 +2,7 @@ kitin.controller('CustomConfirmCtrl', function ($scope, $modalInstance, data) {
 
   $scope.classes = {
     yes: '',
-    no: 'btn-purple'
+    no: ''
   };
   
   var headerIcon = 'fa ';

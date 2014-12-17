@@ -18,7 +18,7 @@ Params:
   in-kitin-entity-row: (bool) handle special case when in kitin-entity-row (do to scope problems when using transclude)
 */
 
-kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
+kitin.directive('kitinEntity', function(editService, $rootScope, $parse, dialogs) {
 
   return {
     restrict: 'E',
@@ -150,7 +150,14 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
       };
 
       $scope.doRemove = function (index) {
-        if ( window.confirm('Är du säker på att du vill ta bort?') ) {
+        var data = {
+          message: 'Är du säker på att du vill ta bort? Det här kommandot går inte att ångra.',
+          yes: 'Ja, ta bort',
+          no: 'Nej, avbryt',
+          icon: 'fa fa-exclamation-circle'
+        };
+        var confirm = dialogs.create('/dialogs/confirm', 'CustomConfirmCtrl', data);
+        confirm.result.then(function yes(answer) {
           var removed = null;
           if ($scope.multiple && _.isNumber(index)) {
             removed = subj[$scope.link].splice(index, 1)[0];
@@ -164,7 +171,7 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse) {
             subj.onRemove($scope.link, removed, index);
           }
           $scope.$emit('entity', $scope.objects);
-        }
+        });
       };
 
     }

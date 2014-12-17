@@ -27,6 +27,7 @@ kitin.config(function($locationProvider, $routeProvider, $translateProvider, $ht
 
       dialogsProvider.useBackdrop(false);
       dialogsProvider.useEscClose(false);
+      dialogsProvider.useClass('kitin-dialog');
       dialogsProvider.useFontAwesome(true);
       dialogsProvider.setSize('md');
 
@@ -37,6 +38,10 @@ kitin.config(function($tooltipProvider) {
   $tooltipProvider.options({
     placement: "right"
   });
+});
+
+kitin.value('cgBusyDefaults',{
+  templateUrl: '/dialogs/busy'
 });
 
 // unsafe filter for html
