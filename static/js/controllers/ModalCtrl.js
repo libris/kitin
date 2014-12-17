@@ -51,6 +51,17 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
     $scope.releaseModal = $modal.open(opts);
   };
 
+  $scope.openCookiesModal = function() {
+    var opts = angular.extend(
+                defaultModalOptions,
+                {
+                  templateUrl: '/snippets/modal-cookies',
+                  controller: 'ModalCookiesCtrl',
+                  windowClass: 'modal-large cookies-modal'
+                });
+    $scope.releaseModal = $modal.open(opts);
+  };
+
   $scope.openRemoteModal = function() {
     var opts = angular.extend(
                   defaultModalOptions,

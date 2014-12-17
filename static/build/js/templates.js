@@ -134,6 +134,27 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('/snippets/modal-cookies',
+    "<div class=\"modal-header\">\n" +
+    "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
+    "  <h4 class=\"modal-title cookies\">Information om cookies</h2>\n" +
+    "</div>\n" +
+    "<div class=\"modal-body cookies\">\n" +
+    "  <p>\n" +
+    "    LIBRIS katalogisering använder sig av cookies.<br/>\n" +
+    "    <br/>\n" +
+    "    Cookies är små filer som lagras på besökarens dator för att webbservern ska kunna upprätthålla information om användaren inom en viss tidsperiod.\n" +
+    "    LIBRIS katalogisering använder sig av s.k. sessionscookies som sparar information om den inloggade användaren temporärt, så länge som webbläsarsessionen varar.<br/>\n" +
+    "    <br/>\n" +
+    "    Informationen som lagras ser till att tjänsten vet vilken användare som är inloggad och vilka bibliotek som han/hon katalogiserar för.\n" +
+    "    Funktionen \"håll mig inloggad\" sparar en permanent cookie som är aktiv i 31 dagar.<br/>\n" +
+    "    <br/>\n" +
+    "    Post- och telestyrelsen, som är tillsynsmyndighet på området, lämnar ytterligare information om Cookies på sin webbplats, <a href=\"http://www.pts.se\" target=\"_blank\">www.pts.se <i class=\"fa fa-external-link\"></i></a>.\n" +
+    "  </p>\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('/snippets/modal-create-new',
     "<div class=\"modal-header\">\n" +
     "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
@@ -469,7 +490,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/modal-release',
     "<div class=\"modal-header\">\n" +
     "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
-    "  <h2 id=\"rlModalLabel\">Release Notes</h2>\n" +
+    "  <h4 class=\"modal-title rlModalLabel\">Release Notes</h4>\n" +
     "</div>\n" +
     "<div class=\"modal-body\">\n" +
     "  <h4>2014-10-06</h4>\n" +
