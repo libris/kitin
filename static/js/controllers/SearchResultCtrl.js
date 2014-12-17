@@ -192,7 +192,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
     recordService.draft.create('bib', null, data)
       .then(function success(response) {
         // send user to edit
-        $location.url("edit/draft" + response.recdata['@id']);
+        $location.url("edit/draft" + response.recdata['@id'] + "?imported");
       }, function error(status) {
 
       });
