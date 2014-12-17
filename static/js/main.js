@@ -54,7 +54,19 @@ kitin.filter('unsafe', ['$sce', function ($sce) {
  * Global Constants
  * (TODO: move to service and depend on in required places instead)
  */
-kitin.run(function($rootScope) {
+kitin.run(function($rootScope, $location) {
+  var hash = angular.copy($location.hash());
+  var hashParams = _.object(_.map(hash.split('&'),function(params) {
+    var p = params.split('=');
+    return [p[0], decodeURIComponent(p[1])];
+  }));
+
+  if(hashParams['access_token']) {
+    $rootScope.OAUTH_ACCESS_TOKEN = hashParams['access_token'];
+  } else {
+    $location.url('/login');
+  }
+
   $rootScope.API_PATH = WHELK_HOST;
   $rootScope.WRITE_API_PATH = '/whelk-webapi';
 });

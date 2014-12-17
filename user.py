@@ -30,6 +30,8 @@ class User(UserMixin):
         # TODO: Change to /auth/login when new bibdb is deployed
         reply = requests.post("%s/login/auth" % bibdb_api, data = user_data, headers = api_headers)
         try:
+            print "%s/login/auth" % bibdb_api
+            print reply.text
             if reply.text == "Authenticated":
                 print "User %s authenticated." % self.username
                 # TODO: Change to /auth/role when new bibdb is deployed

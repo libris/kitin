@@ -5,7 +5,7 @@ import logging
 import re
 from datetime import datetime, timedelta
 import json
-import urllib2
+import urllib, urllib2
 from urlparse import urlparse
 import mimetypes
 from flask import (Flask, render_template, request, make_response, Response,
@@ -90,7 +90,15 @@ def login():
             login_user(user, remember)
             session.permanent = remember
             app.logger.debug("User %s logged in with sigel %s" % (user.username, user.sigel))
-            return redirect("/")
+
+            oauth_request_params = urllib.urlencode({ 
+              'client_id': app.config.get('OAUTH_CLIENT_ID'),
+              'redirect_uri': app.config.get('OAUTH_REDIRECT_URI'),
+              'approval_prompt': 'auto',
+              'response_type': 'token'
+            })
+            print app.config.get('OAUTH_API') + '/authorize?' + oauth_request_params
+            return redirect(app.config.get('OAUTH_API') + '/authorize?' + oauth_request_params)
     return render_template("partials/login.html", msg = msg, remember = remember)
 
 @app.route("/signout")
@@ -179,12 +187,12 @@ def show_styleguide():
 @login_required
 def proxy_request(path=''):
 
-    # Modify headers
+    # Modify headers    
     headers = extract_x_forwarded_for_header(request)
+    for key, value in request.headers:
+        headers[key] = value
     headers['content-type'] = JSON_LD_MIME_TYPE
-    if 'If-match' in request.headers:
-        headers['If-match'] = request.headers['If-match']
-
+    
     # Handle PUT/POST data
     data = None
     allow_redirects=False
