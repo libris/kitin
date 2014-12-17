@@ -21,7 +21,7 @@
             <span data-ng-show="state.search.page.total">. Visar sida {{state.page}} av {{state.search.page.total}}.</span>
           </div>
           <div class="tools">
-            <span data-ng-show="state.searchType.key != 'remote'" class="sort-option">
+            <span data-ng-show="recType != 'remote'" class="sort-option">
               <span class="hitlist-viewswitch">
                 <a href="" ng-class="{ active: state.searchView=='detailed' }" data-ng-click="state.searchView='detailed'"><i class="fa fa-th-list"></i></a>
                 <a href="" ng-class="{ active: state.searchView=='compact' }" data-ng-click="state.searchView='compact'"><i class="fa fa-list"></i></a>
