@@ -23,8 +23,8 @@
           <div class="tools">
             <span data-ng-show="state.searchType.key != 'remote'" class="sort-option">
               <span class="hitlist-viewswitch">
-                <a href="" data-ng-click="state.searchView='detailed'"><i class="fa fa-th-list"></i></a>
-                <a href="" data-ng-click="state.searchView='compact'"><i class="fa fa-list"></i></a>
+                <a href="" ng-class="{ active: state.searchView=='detailed' }" data-ng-click="state.searchView='detailed'"><i class="fa fa-th-list"></i></a>
+                <a href="" ng-class="{ active: state.searchView=='compact' }" data-ng-click="state.searchView='compact'"><i class="fa fa-list"></i></a>
               </span>
               <select ng-model="selectedSort" ng-options="item as item.text for item in sortables" ng-change="sortChanged(selectedSort)"></select>
             </span>
