@@ -314,7 +314,9 @@
                 "DIALOGS_CLOSE": "Stäng",
                 "DIALOGS_OK": "Ok",
                 "DIALOGS_YES": "Ja",
-                "DIALOGS_NO": "Nej"
+                "DIALOGS_NO": "Nej",
+                "CLOSE_HOLDINGS": "Du har osparade ändringar, vill du verkligen stänga fönstret?",
+                "REMOVE_HOLDING": "Är du säker på att du vill radera beståndet? Det här kommandot går inte att ångra."
             }
 
         }

@@ -392,7 +392,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "\n" +
     "</div>\n" +
     "\n" +
-    "<pre>{{holding}}</pre>\n" +
+    "<!-- <pre>{{holding}}</pre> -->\n" +
+    "<pre>{{modifications.holding}}</pre>\n" +
     "\n" +
     "<div class=\"modal-footer holdings submit\">\n" +
     "  <div class=\"status pull-left\">\n" +
@@ -1013,11 +1014,11 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "<div class=\"modal-header dialog-header-confirm\" ng-class=\"classes.header\">\n" +
     "  <button type=\"button\" class=\"close\" ng-click=\"no()\">&times;</button>\n" +
     "  <h4 class=\"modal-title\">\n" +
-    "    <span ng-class=\"classes.icon\"></span>{{header}}\n" +
+    "    <span ng-class=\"classes.icon\"></span>{{header | translate}}\n" +
     "  </h4>\n" +
     "</div>\n" +
     "\n" +
-    "<div class=\"modal-body\" ng-bind-html=\"message\"></div>\n" +
+    "<div class=\"modal-body\">{{message | translate}}</div>\n" +
     "<div class=\"modal-footer\">\n" +
     "  <button type=\"button\" class=\"btn btn-default\" ng-class=\"classes.yes\" ng-click=\"yes()\">{{yesText || \"LABEL.gui.dialogs.DIALOGS_YES\" | translate}}</button>\n" +
     "  <button type=\"button\" class=\"btn btn-primary\" ng-class=\"classes.no\" ng-click=\"no()\">{{noText || \"LABEL.gui.dialogs.DIALOGS_NO\" | translate}}</button>\n" +

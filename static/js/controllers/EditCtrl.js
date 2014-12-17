@@ -3,6 +3,19 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   $scope.classes = {};
 
   $rootScope.modifications.bib = {
+    makeDirty: function() {
+      this.saved = false;
+      this.published = false;
+    },
+    onSave: function() {
+      this.saved = true;
+      this.lastSaved = new Date();
+    },
+    onPublish: function() {
+      this.saved = true;
+      this.published = true;
+      this.lastPublished = new Date();
+    },
     saved:     ($scope.recType === editService.RECORD_TYPES.REMOTE || $scope.record.new) ? false : true, 
     published: ($scope.recType === editService.RECORD_TYPES.REMOTE || $scope.record.draft || $scope.record.new) ? false : true
   };
@@ -21,23 +34,13 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
         element = angular.element('#publish-bib');
       }
       if (element.length) utilsService.showPopup(element).then(function() {
+        // Remove querystring when popover disappears
         $location.search({
           published: null,
           saved: null
         }); 
       });
     }, 1000);
-  }
-
-  function onSaveState() {
-    $rootScope.modifications.bib.saved = true;
-    $rootScope.modifications.bib.lastSaved = new Date();
-  }
-  
-  function onPublishState() {
-    $rootScope.modifications.bib.saved = true;
-    $rootScope.modifications.bib.published = true;
-    $rootScope.modifications.bib.lastPublished = new Date();
   }
 
   // Make sure the edit view holdings button stay updated
@@ -60,6 +63,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   // Set a watcher on holding's dirty flag
   $scope.$watchCollection('modifications.holding',
     function(newValue, oldValue) {
+      console.log('holding changed', newValue, oldValue);
       if (newValue.saved !== oldValue.saved && newValue.saved) {
         // Holding state _changed_ to 'saved'
         $scope.hasHolding = true;
@@ -136,7 +140,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
           // Libris record, just update record
           $scope.addRecordViewsToScope(data['recdata']);
           $scope.etag = data['etag'];
-          onPublishState();
+          $rootScope.modifications.bib.onPublish();
           $scope.classes.publishStatus = 'success';
         }
       }, function error(status) {
@@ -168,7 +172,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
       recordService.draft.save(parsedRecType, $scope.recId, $scope.record, $scope.etag).then(function success(data) {
         $scope.addRecordViewsToScope(data['recdata']);
         $scope.etag = data['etag'];
-        onSaveState();
+        $rootScope.modifications.bib.onSave();
         $scope.classes.saveStatus = 'success';
       }, function failure (status) {
 
