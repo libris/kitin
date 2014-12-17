@@ -17,27 +17,35 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
       this.lastPublished = new Date();
     },
     saved:     ($scope.recType === editService.RECORD_TYPES.REMOTE || $scope.record.new) ? false : true, 
-    published: ($scope.recType === editService.RECORD_TYPES.REMOTE || $scope.record.draft || $scope.record.new) ? false : true
+    published: ($scope.recType === editService.RECORD_TYPES.REMOTE || $scope.record.draft || $scope.record.new) ? false : true,
+    imported: false
   };
 
   // Some actions trigger location change, watch for these and give feedback accordingly
   var queryStrings = $location.search();
-  if (queryStrings.saved || queryStrings.published) {
+  if (queryStrings.saved || queryStrings.published || queryStrings.imported) {
     var element;
-    // TODO: Ugly, ugly timeout. Hopefully our buttons will be present at the end of it.
+    // TODO: Avoid this timeout if possible:
+    // Ugly, ugly timeout. Hopefully our buttons will be present at the end of it.
     $timeout(function() {
       if (queryStrings.saved) {
-        $scope.classes.saveStatus = 'success';
-        element = angular.element('#save-draft');
+        $scope.classes.saveStatus = queryStrings.saved == 'error' ? 'error' : 'success';
+        element = angular.element('#message-container .save-messages');
       } else if (queryStrings.published) {
-        $scope.classes.publishStatus = 'success';
-        element = angular.element('#publish-bib');
+        $scope.classes.publishStatus = queryStrings.published == 'error' ? 'error' : 'success';
+        element = angular.element('#message-container .publish-messages');
+      } else if (queryStrings.imported) {
+        $rootScope.modifications.bib.imported = true;
+        $scope.classes.importStatus = queryStrings.imported == 'error' ? 'error' : 'success';
+        element = angular.element('#message-container .import-messages');
       }
+
       if (element.length) utilsService.showPopup(element).then(function() {
         // Remove querystring when popover disappears
         $location.search({
           published: null,
-          saved: null
+          saved: null,
+          imported: null
         }); 
       });
     }, 1000);
@@ -63,7 +71,6 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   // Set a watcher on holding's dirty flag
   $scope.$watchCollection('modifications.holding',
     function(newValue, oldValue) {
-      console.log('holding changed', newValue, oldValue);
       if (newValue.saved !== oldValue.saved && newValue.saved) {
         // Holding state _changed_ to 'saved'
         $scope.hasHolding = true;
@@ -146,7 +153,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
       }, function error(status) {
         $scope.classes.publishStatus = 'error';
       }).finally(function() {
-        var element = angular.element('#publish-bib');
+        var element = angular.element('#message-container .publish-messages');
         if (element.length) utilsService.showPopup(element).then(function() {
           // This would be a good place to do some cleanup if needed
           //console.log('Popup should now be hidden');
@@ -223,7 +230,6 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     if (typeof subj.onRemove === 'function') {
       subj.onRemove(rel, removed, index);
     }
-    //$scope.triggerModified();
     $scope.$emit('changed');
   };
 

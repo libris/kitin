@@ -919,15 +919,11 @@ body.index #header .remote-search {
 .content:not(.footer) {
   min-height: 500px;
 }
-.saved #draft,
-.published #publish-bib {
-  opacity: 0.4;
-  pointer-events: none;
-  cursor: default;
-}
-#draft,
-#publish-bib {
-  opacity: 1;
+#message-container,
+#holdings-message-container {
+  position: absolute;
+  right: 120px;
+  top: 0;
 }
 .content header {
   position: relative;
@@ -1475,6 +1471,9 @@ html .modal.fade .modal-dialog {
   max-height: 500px;
   max-height: 70vh;
 }
+.modal-footer.holdings {
+  position: relative;
+}
 /* HOLDINGS MODAL END ------------------------- */
 /* REMOTE SOURCES MODAL START ------------------------- */
 .remote-modal a.database-name {
@@ -1683,22 +1682,16 @@ h3 {
   font-size: 12px;
   color: #666664;
 }
-.footer-sticky .success .popover,
-.footer-sticky .warning .popover,
-.footer-sticky .error .popover,
-.holdings-modal .success .popover,
-.holdings-modal .warning .popover,
-.holdings-modal .error .popover {
-  margin-top: -30px;
+.footer-sticky .popover,
+.holdings-modal .popover {
   padding: 12px;
 }
-.footer-sticky .success .popover .close,
-.footer-sticky .warning .popover .close,
-.footer-sticky .error .popover .close,
-.holdings-modal .success .popover .close,
-.holdings-modal .warning .popover .close,
-.holdings-modal .error .popover .close {
+.footer-sticky .popover .close,
+.holdings-modal .popover .close {
   display: none;
+}
+.footer-sticky .popover {
+  margin-top: -30px;
 }
 /* POPOVER END ------------------------- */
 /* STARTPAGE START ------------------------- */

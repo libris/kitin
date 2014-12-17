@@ -401,14 +401,24 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <div data-ng-if=\"!modifications.holding.saved && !isNew\">{{ \"Du har inte sparat dina ändringar.\" }}</div>\n" +
     "    <div data-ng-if=\"!modifications.holding.saved && isNew\">{{ \"Nyskapat bestånd, inte sparat.\" }}</div>\n" +
     "  </div>\n" +
-    "  <button class=\"btn-link\" id=\"delete-hld\" ng-class=\"classes.deleteStatus\" data-ng-click=\"deleteHolding(holding)\" data-ng-show=\"holding['@id']\">\n" +
-    "    <span class=\"kitin-popover-trigger\" kitin-popover=\"Det gick inte att radera beståndet.\" kitin-popover-title=\"Något gick fel\" kitin-popover-placement=\"top\"><i class=\"fa fa-trash-o\"></i> {{ \"Radera bestånd\" }}</span>\n" +
+    "  <button class=\"btn-link\" id=\"delete-hld\" data-ng-click=\"deleteHolding(holding)\" data-ng-show=\"holding['@id']\">\n" +
+    "    <i class=\"fa fa-trash-o\"></i> {{ \"Radera bestånd\" }}\n" +
     "  </button>\n" +
-    "  <button class=\"btn btn-purple btn-submit\" id=\"save-hld\" ng-class=\"classes.saveStatus\" data-ng-click=\"saveHolding(holding)\" data-ng-show=\"holding\" data-ng-disabled=\"modifications.holding.saved\">\n" +
-    "    <span data-ng-if=\"!modifications.holding.saved\" class=\"kitin-popover-trigger\" kitin-popover=\"Det gick inte att spara beståndet.\" kitin-popover-title=\"Något gick fel\" kitin-popover-placement=\"top\">{{ \"Spara bestånd\" }}</span>\n" +
-    "    <span data-ng-if=\"modifications.holding.saved\" class=\"kitin-popover-trigger\" kitin-popover=\"Beståndet finns nu registrerat i katalogen.\" kitin-popover-title=\"Beståndet sparades\" kitin-popover-placement=\"top\">{{ \"Bestånd sparat\" }} <i class=\"fa fa-check\"></i></span>\n" +
+    "  <button class=\"btn btn-purple btn-submit\" id=\"save-hld\" data-ng-click=\"saveHolding(holding)\" data-ng-show=\"holding\" data-ng-disabled=\"modifications.holding.saved\">\n" +
+    "    <span data-ng-if=\"!modifications.holding.saved\">{{ \"Spara bestånd\" }}</span>\n" +
+    "    <span data-ng-if=\"modifications.holding.saved\">{{ \"Bestånd sparat\" }} <i class=\"fa fa-check\"></i></span>\n" +
     "  </button>\n" +
     "  <button class=\"btn btn-purple btn-submit\" data-ng-click=\"close()\" data-ng-show=\"!holding\">{{ \"Stäng\" }}</button>\n" +
+    "\n" +
+    "  <div id=\"holdings-message-container\">\n" +
+    "    <span class=\"delete-messages\" data-ng-class=\"classes.deleteStatus\">\n" +
+    "      <span class=\"kitin-popover-trigger\" kitin-popover=\"Det gick inte att radera beståndet.\" kitin-popover-title=\"Något gick fel\" kitin-popover-placement=\"top\"></span>\n" +
+    "    </span>\n" +
+    "    <span class=\"save-messages\" data-ng-class=\"classes.saveStatus\">\n" +
+    "      <span data-ng-if=\"!modifications.holding.saved\" class=\"kitin-popover-trigger\" kitin-popover=\"Det gick inte att spara beståndet.\" kitin-popover-title=\"Något gick fel\" kitin-popover-placement=\"top\"></span>\n" +
+    "      <span data-ng-if=\"modifications.holding.saved\" class=\"kitin-popover-trigger\" kitin-popover=\"Beståndet finns nu registrerat i katalogen.\" kitin-popover-title=\"Beståndet sparades\" kitin-popover-placement=\"top\"></span>\n" +
+    "    </span>\n" +
+    "  </div>\n" +
     "</div>"
   );
 

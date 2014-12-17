@@ -101,7 +101,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     }, function error(status) {
       $scope.classes.saveStatus = 'error';
     }).finally(function() {
-      var element = angular.element('#save-hld');
+      var element = angular.element('#holdings-message-container .save-messages');
       if (element.length) utilsService.showPopup(element).then(function() {
         //console.log('Popup should now be hidden');
       });
@@ -122,7 +122,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
         delete $scope.holding;
       }, function error(status) {
         $scope.classes.deleteStatus = 'error';
-        var element = angular.element('#delete-hld');
+        var element = angular.element('#holdings-message-container .delete-messages');
         if (element.length) utilsService.showPopup(element).then(function() {
           //console.log('Popup should now be hidden');
         });
