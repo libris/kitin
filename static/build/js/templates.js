@@ -149,7 +149,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    Informationen som lagras ser till att tjänsten vet vilken användare som är inloggad och vilka bibliotek som han/hon katalogiserar för.\n" +
     "    Funktionen \"håll mig inloggad\" sparar en permanent cookie som är aktiv i 31 dagar.<br/>\n" +
     "    <br/>\n" +
-    "    Post- och telestyrelsen, som är tillsynsmyndighet på området, lämnar ytterligare information om Cookies på sin webbplats, <a href=\"http://www.pts.se\" target=\"_blank\">www.pts.se <i class=\"fa fa-external-link\"></i></a>.\n" +
+    "    Post- och telestyrelsen, som är tillsynsmyndighet på området, lämnar ytterligare information om Cookies på sin webbplats, <a href=\"http://www.pts.se\" target=\"_blank\" title=\"Post- och telestyrelsen\">www.pts.se <i class=\"fa fa-external-link\"></i></a>.\n" +
     "  </p>\n" +
     "</div>"
   );
