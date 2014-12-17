@@ -1898,7 +1898,6 @@ section.nav dd a.active {
   font-weight: bold;
   color: #191913;
   background: url(/static/img/check.png) no-repeat 0 5px;
-  cursor: default;
 }
 section.nav dd a.active:hover {
   text-decoration: none;

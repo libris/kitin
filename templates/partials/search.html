@@ -41,7 +41,7 @@
             <dd data-ng-repeat="item in facet.items">
               <a data-ng-class="{active: item.selected}"
                  data-ng-href="{{item.searchUrl}}">
-                <span ng-if="languages">{{getLabel(item.key, facet.type)}} ({{item.count | chunk}})</span></a>
+                <span ng-if="languages">{{getLabel(item.key, facet.type)}} ({{item.count | chunk}}) <i class="fa fa-times-circle" ng-show="item.selected"></i></span></a>
             </dd>
           </dl>
           <dl>
