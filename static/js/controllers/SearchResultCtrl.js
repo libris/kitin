@@ -52,9 +52,16 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
   $scope.selectedSort = $routeParams.sort ? _.find(searchService.sortables, { 'value': $routeParams.sort }) : searchService.sortables[0];
   $rootScope.state.search.sort = $scope.selectedSort.value;
   $scope.sortChanged = function(item) {
+    $rootScope.state.search.sort = item.value;
     $location.search('sort', item.value);
   };
   // ----------
+
+  $scope.setView = function(view) {
+    // Changing both state and URL seems a bit verbose, but It'll have to do for now.
+    $rootScope.state.search.view = view;
+    $location.search('view', view);
+  };
 
   // TODO: What is this?? 
   // $scope.search = function() {

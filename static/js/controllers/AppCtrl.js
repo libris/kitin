@@ -60,9 +60,10 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $loca
       },
       sort: searchParams.sort || null,
       database: searchParams.database || null,
-      f: searchParams.f || null
+      f: searchParams.f || null,
+      view: 'detailed'
     },
-    searchView: 'detailed',
+    
 
     getSearchParams : function() {
       //console.log($rootScope.state.search);
@@ -73,7 +74,7 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $loca
         sort: $rootScope.state.search.sort,
         database: $rootScope.state.searchType.key === searchService.searchTypeIndex.remote.key ? $rootScope.state.search.database : undefined
       };
-      if ($rootScope.state.search.f !== undefined) {
+      if ($rootScope.state.search.f !== undefined && $rootScope.state.search.f !== 'none') {
         params.f = $rootScope.state.search.f;
       }
       return params;

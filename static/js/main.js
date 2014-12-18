@@ -77,14 +77,15 @@ kitin.run(function($rootScope, $location) {
       n: params.n || null,
       start: (params.page) ? params.page.start || null : null,
       sort: params.sort || null,
-      database: params.database || null,
-      f: params.f || null
+      databases: params.databases || null,
+      view: params.view || null,
+      f: null // Can't persist filter for now, TODO figure this out.
     };
 
     var compactObject = _.partialRight(_.pick, _.identity);
 
     _.extend(queryString, compactObject(persistentQS));
-
+    
     $location.search(queryString);
   });
 
