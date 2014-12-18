@@ -303,6 +303,8 @@ input[type="color"]:focus,
   margin: 8px 0 0 0;
   padding: 0;
   float: left;
+  list-style-type: none;
+  width: 50%;
 }
 .footer footer img {
   float: right;
@@ -311,13 +313,10 @@ input[type="color"]:focus,
 }
 .footer footer li {
   font: 11px/14px 'Open Sans', sans-serif;
-  display: inline-block;
+  display: inline;
   text-transform: uppercase;
   margin-left: 5px;
-}
-.footer footer li:before {
-  content: "\2022";
-  margin-right: 8px;
+  list-style-type: none;
 }
 .footer footer li:first-child {
   margin-left: 0;
@@ -327,6 +326,11 @@ input[type="color"]:focus,
 .footer footer li:first-child:before {
   content: '';
   margin: 0;
+}
+.footer footer li:not(:first-child) {
+  padding-left: 8px;
+  border: solid #adada9;
+  border-width: 0px 0px 0px 1px;
 }
 body.edit {
   padding-bottom: 40px;

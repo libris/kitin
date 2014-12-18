@@ -134,6 +134,27 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('/snippets/modal-cookies',
+    "<div class=\"modal-header\">\n" +
+    "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
+    "  <h4 class=\"modal-title cookies\">Information om cookies</h2>\n" +
+    "</div>\n" +
+    "<div class=\"modal-body cookies\">\n" +
+    "  <p>\n" +
+    "    LIBRIS katalogisering använder sig av cookies.<br/>\n" +
+    "    <br/>\n" +
+    "    Cookies är små filer som lagras på besökarens dator för att webbservern ska kunna upprätthålla information om användaren inom en viss tidsperiod.\n" +
+    "    LIBRIS katalogisering använder sig av s.k. sessionscookies som sparar information om den inloggade användaren temporärt, så länge som webbläsarsessionen varar.<br/>\n" +
+    "    <br/>\n" +
+    "    Informationen som lagras ser till att tjänsten vet vilken användare som är inloggad och vilka bibliotek som han/hon katalogiserar för.\n" +
+    "    Funktionen \"håll mig inloggad\" sparar en permanent cookie som är aktiv i 31 dagar.<br/>\n" +
+    "    <br/>\n" +
+    "    Post- och telestyrelsen, som är tillsynsmyndighet på området, lämnar ytterligare information om Cookies på sin webbplats, <a href=\"http://www.pts.se\" target=\"_blank\" title=\"Extern länk till Post- och telestyrelsen\">www.pts.se <i class=\"fa fa-external-link\"></i></a>.\n" +
+    "  </p>\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('/snippets/modal-create-new',
     "<div class=\"modal-header\">\n" +
     "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
@@ -469,7 +490,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/modal-release',
     "<div class=\"modal-header\">\n" +
     "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
-    "  <h2 id=\"rlModalLabel\">Release Notes</h2>\n" +
+    "  <h4 class=\"modal-title rlModalLabel\">Release Notes</h4>\n" +
     "</div>\n" +
     "<div class=\"modal-body\">\n" +
     "  <h4>2014-10-06</h4>\n" +
@@ -905,7 +926,18 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/view-person',
     "<div class=\"person main\">\n" +
     "  <div data-ng-if=\"isLinked(object) && !isEmpty(object)\" >\n" +
-    "    <span onload=\"person = object\" data-ng-include=\"'/snippets/person-name'\"></span>\n" +
+    "    <strong data-ng-if=\"object.givenName || object.familyName\" class=\"name\">\n" +
+    "      {{ object.givenName }} {{ object.familyName }}\n" +
+    "    </strong>\n" +
+    "    <strong data-ng-if=\"object.name\" class=\"name\">\n" +
+    "      {{ object.name }}\n" +
+    "    </strong>\n" +
+    "    <em data-ng-if=\"object.personTitle\">\n" +
+    "      (<span ng-repeat=\"personTitle in object.personTitle\">{{ personTitle }} </span>)\n" +
+    "    </em>\n" +
+    "    <span data-ng-if=\"object.birthYear || object.deathYear\">\n" +
+    "      <span class=\"timeSpan\">{{ object.birthYear }}-{{ object.deathYear }}</span>\n" +
+    "    </span>\n" +
     "    <a data-ng-if=\"isLinked(object)\" class=\"btn-link auth\" data-ng-controller=\"ModalCtrl\" data-ng-click=\"openAuthModal(person['@id'])\">\n" +
     "      <i class=\"fa fa-bookmark\"></i> Aukt.\n" +
     "    </a>\n" +
@@ -917,7 +949,18 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "        <button data-ng-show=\"editable.on\" class=\"btn btn-link\" data-ng-click=\"editable.on = false\"><i class=\"fa fa-check\"></i> Klar</button>\n" +
     "    </div>\n" +
     "    <div class=\"non-editable\">\n" +
-    "      <span onload=\"person = object\" data-ng-include=\"'/snippets/person-name'\"></span>\n" +
+    "      <strong data-ng-if=\"object.givenName || object.familyName\" class=\"name\">\n" +
+    "        {{ object.givenName }} {{ object.familyName }}\n" +
+    "      </strong>\n" +
+    "      <strong data-ng-if=\"object.name\" class=\"name\">\n" +
+    "        {{ object.name }}\n" +
+    "      </strong>\n" +
+    "      <em data-ng-if=\"object.personTitle\">\n" +
+    "        (<span ng-repeat=\"personTitle in object.personTitle\">{{ personTitle }} </span>)\n" +
+    "      </em>\n" +
+    "      <span data-ng-if=\"object.birthYear || object.deathYear\">\n" +
+    "        <span class=\"timeSpan\">{{ object.birthYear }}-{{ object.deathYear }}</span>\n" +
+    "      </span>\n" +
     "    </div>\n" +
     "    <div data-ng-show=\"editable.on\" class=\"editable\">\n" +
     "      <span class=\"arr\"></span>\n" +
