@@ -303,6 +303,8 @@ input[type="color"]:focus,
   margin: 8px 0 0 0;
   padding: 0;
   float: left;
+  list-style-type: none;
+  width: 50%;
 }
 .footer footer img {
   float: right;
@@ -311,13 +313,10 @@ input[type="color"]:focus,
 }
 .footer footer li {
   font: 11px/14px 'Open Sans', sans-serif;
-  display: inline-block;
+  display: inline;
   text-transform: uppercase;
   margin-left: 5px;
-}
-.footer footer li:before {
-  content: "\2022";
-  margin-right: 8px;
+  list-style-type: none;
 }
 .footer footer li:first-child {
   margin-left: 0;
@@ -327,6 +326,11 @@ input[type="color"]:focus,
 .footer footer li:first-child:before {
   content: '';
   margin: 0;
+}
+.footer footer li:not(:first-child) {
+  padding-left: 8px;
+  border: solid #adada9;
+  border-width: 0px 0px 0px 1px;
 }
 body.edit {
   padding-bottom: 40px;
@@ -919,15 +923,11 @@ body.index #header .remote-search {
 .content:not(.footer) {
   min-height: 500px;
 }
-.saved #draft,
-.published #publish-bib {
-  opacity: 0.4;
-  pointer-events: none;
-  cursor: default;
-}
-#draft,
-#publish-bib {
-  opacity: 1;
+#message-container,
+#holdings-message-container {
+  position: absolute;
+  right: 120px;
+  top: 0;
 }
 .content header {
   position: relative;
@@ -1475,6 +1475,9 @@ html .modal.fade .modal-dialog {
   max-height: 500px;
   max-height: 70vh;
 }
+.modal-footer.holdings {
+  position: relative;
+}
 /* HOLDINGS MODAL END ------------------------- */
 /* REMOTE SOURCES MODAL START ------------------------- */
 .remote-modal a.database-name {
@@ -1683,22 +1686,16 @@ h3 {
   font-size: 12px;
   color: #666664;
 }
-.footer-sticky .success .popover,
-.footer-sticky .warning .popover,
-.footer-sticky .error .popover,
-.holdings-modal .success .popover,
-.holdings-modal .warning .popover,
-.holdings-modal .error .popover {
-  margin-top: -30px;
+.footer-sticky .popover,
+.holdings-modal .popover {
   padding: 12px;
 }
-.footer-sticky .success .popover .close,
-.footer-sticky .warning .popover .close,
-.footer-sticky .error .popover .close,
-.holdings-modal .success .popover .close,
-.holdings-modal .warning .popover .close,
-.holdings-modal .error .popover .close {
+.footer-sticky .popover .close,
+.holdings-modal .popover .close {
   display: none;
+}
+.footer-sticky .popover {
+  margin-top: -30px;
 }
 /* POPOVER END ------------------------- */
 /* STARTPAGE START ------------------------- */
@@ -1898,7 +1895,6 @@ section.nav dd a.active {
   font-weight: bold;
   color: #191913;
   background: url(/static/img/check.png) no-repeat 0 5px;
-  cursor: default;
 }
 section.nav dd a.active:hover {
   text-decoration: none;
@@ -3029,6 +3025,14 @@ body.search .content header .tools .sort-option .hitlist-viewswitch {
 body.search .content header .tools .sort-option .hitlist-viewswitch i {
   padding: 3px;
   color: #666664;
+}
+body.search .content header .tools .sort-option .hitlist-viewswitch a {
+  border: solid 1px;
+  border-color: transparent;
+  border-radius: 4px;
+}
+body.search .content header .tools .sort-option .hitlist-viewswitch a.active {
+  border-color: #adada9;
 }
 body.search .content .facets {
   position: relative;
