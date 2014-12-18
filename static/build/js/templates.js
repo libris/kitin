@@ -414,7 +414,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "</div>\n" +
     "\n" +
     "<!-- <pre>{{holding}}</pre> -->\n" +
-    "<pre>{{modifications.holding}}</pre>\n" +
+    "<!-- <pre>{{modifications.holding}}</pre> -->\n" +
     "\n" +
     "<div class=\"modal-footer holdings submit\">\n" +
     "  <div class=\"status pull-left\">\n" +
