@@ -66,28 +66,28 @@ kitin.run(function($rootScope, $location) {
   var params;
   var queryString;
 
-  $rootScope.$on("$routeChangeStart", function (e, current) {
-    params = $rootScope.state.search;
-    queryString = $location.search();
-  });
+  // $rootScope.$on("$routeChangeStart", function (e, current) {
+  //   params = $rootScope.state.search;
+  //   queryString = $location.search();
+  // });
 
-  $rootScope.$on("$routeChangeSuccess", function (e, current) {
-    var persistentQS = {
-      q: params.q || null,
-      n: params.n || null,
-      start: (params.page) ? params.page.start || null : null,
-      sort: params.sort || null,
-      databases: params.databases || null,
-      view: params.view || null,
-      f: null // Can't persist filter for now, TODO figure this out.
-    };
+  // $rootScope.$on("$routeChangeSuccess", function (e, current) {
+  //   var persistentQS = {
+  //     q: params.q || null,
+  //     n: params.n || null,
+  //     start: (params.page) ? params.page.start || null : null,
+  //     sort: params.sort || null,
+  //     databases: params.databases || null,
+  //     view: params.view || null,
+  //     f: null // Can't persist filter for now, TODO figure this out.
+  //   };
 
-    var compactObject = _.partialRight(_.pick, _.identity);
+  //   var compactObject = _.partialRight(_.pick, _.identity);
 
-    _.extend(queryString, compactObject(persistentQS));
+  //   _.extend(queryString, compactObject(persistentQS));
     
-    $location.search(queryString);
-  });
+  //   $location.search(queryString);
+  // });
 
   // var locationChangeOff = $rootScope.$on('$locationChangeStart', function (event, newUrl, oldUrl) {
   //   // Prevent default action, we need to handle all location changes 

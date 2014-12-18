@@ -38,6 +38,8 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
   // Reset remote search hit count 
   _.map($rootScope.state.remoteDatabases, function(remoteDB) { delete remoteDB.hitCount; });
 
+  $scope.queryString = '?' + utilsService.constructQueryString($rootScope.state.search);
+
   // TODO - remove
   $scope.editPost = function(recType, record) {
     if(recType === 'remote') {
@@ -62,11 +64,6 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
     $rootScope.state.search.view = view;
     $location.search('view', view);
   };
-
-  // TODO: What is this?? 
-  // $scope.search = function() {
-  //   $location.url(url);
-  // };
 
   $scope.getLabel = function (term, termType) {
     var dfn = $scope.terms[term];
@@ -163,8 +160,8 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
     delete $rootScope.state.search.result;
     searchService.search(url, params).then(function(data) {
 
-      $scope.facetGroups = searchUtil.makeLinkedFacetGroups($scope.recType, data.facets, $rootScope.state.search.q, prevFacetsStr);
-      $scope.crumbs = searchUtil.bakeCrumbs($scope.recType, $rootScope.state.search.q, prevFacetsStr);
+      $scope.facetGroups = searchUtil.makeLinkedFacetGroups($scope.recType, data.facets, $rootScope.state.search, prevFacetsStr);
+      $scope.crumbs = searchUtil.bakeCrumbs($scope.recType, $rootScope.state.search, prevFacetsStr);
 
       if (data && data.items) {
         $rootScope.state.search.result = data;

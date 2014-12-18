@@ -219,6 +219,28 @@ kitin.factory('utilsService', function($http, $q, $rootScope, $timeout) {
         }, to);
       });
       return deferred.promise;
+    },
+
+    constructQueryString: function(qs, forFacets) {
+      var QS = {
+        q: qs.q || null,
+        n: qs.n || null,
+        start: (qs.page) ? qs.page.start || null : null,
+        sort: qs.sort || null,
+        databases: qs.databases || null,
+        view: qs.view || null
+      };
+      if (forFacets) {
+        QS.n = QS.start = null;
+      } else {
+        if (qs.f) {
+          QS.f = qs.f;
+        }
+      }
+      var compactObject = _.partialRight(_.pick, _.identity);
+      return _.map(compactObject(QS),function(v,k){
+        return encodeURIComponent(k) + '=' + encodeURIComponent(v);
+      }).join('&');
     }
   };
 });

@@ -7,7 +7,7 @@
   <span data-ng-switch="recType">
 
     <!-- auth result list -->
-    <a class="bib-url" href="/edit/libris{{record['@id']}}" data-ng-click="editPost(recType, record)" data-ng-switch-when="auth">
+    <a class="bib-url" href="/edit/libris{{record['@id']}}{{queryString}}" data-ng-click="editPost(recType, record)" data-ng-switch-when="auth">
     <div class="auth">
       <div class="col5">
         <div class="label title">
@@ -89,7 +89,7 @@
     <!-- // remote result list -->
 
     <!-- bib result list -->
-    <a class="bib-url" href="/edit/libris{{record['@id']}}" data-ng-click="editPost(recType, record)" data-ng-switch-default>
+    <a class="bib-url" href="/edit/libris{{record['@id']}}{{queryString}}" data-ng-click="editPost(recType, record)" data-ng-switch-default>
     <div class="nest-cols bib">
       <div class="col5">
         <div class="label title" title="{{ record.about.instanceTitle.titleValue }} {{ record.about.instanceTitle.subtitle }}">
