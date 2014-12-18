@@ -226,11 +226,13 @@
       "identifierValue": ""
     },
     "Title": {
+      "@type": "Title",
       "titleValue": "",
       "subtitle": "",
       "titleDate": "",
       "partNumber": [],
-      "partTitle": []
+      "partTitle": [],
+      "searchElement": false
     },
 
     "Audience": {},
