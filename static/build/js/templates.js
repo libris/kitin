@@ -260,7 +260,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "            </span>\n" +
     "          </div>\n" +
     "\n" +
-    "          <kitin-table label-prefix=\"LABEL.holdings.\" model=\"offer.shelfLocation\">\n" +
+    "          <kitin-table label-prefix=\"LABEL.holdings.\" model=\"offer.shelfLocation\" change-model=\"holding\">\n" +
     "            <kitin-td><kitin-textarea model=\"model[$index]\" change-model=\"holding\"></kitin-textarea></kitin-td>\n" +
     "          </kitin-table>\n" +
     "          <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.classificationPart\" change-model=\"holding\"></kitin-textrow>\n" +
@@ -269,7 +269,9 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "          <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.availability\" change-model=\"holding\"></kitin-textrow>\n" +
     "          <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.copyNumber\" change-model=\"holding\"></kitin-textrow>\n" +
     "          <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.copyNote\" change-model=\"holding\"></kitin-textrow>\n" +
-    "          <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.editorialNote\" change-model=\"holding\"></kitin-textrow>\n" +
+    "          <kitin-table label-prefix=\"LABEL.holdings.\" model=\"offer.editorialNote\" change-model=\"holding\">\n" +
+    "            <kitin-td><kitin-textarea model=\"model[$index]\" change-model=\"holding\"></kitin-textarea></kitin-td>\n" +
+    "          </kitin-table>\n" +
     "\n" +
     "          <div class=\"button-bar right\">\n" +
     "            <button class=\"btn btn-link\" data-ng-if=\"holding.about.offers.length > 1\" data-ng-click=\"deleteOffer(holding, $index)\"><i class=\"fa fa-trash-o\"></i> {{ \"Radera lokalsignum\" }}</button>\n" +
@@ -294,7 +296,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "\n" +
     "          <kitin-textrow model=\"document.comment\" change-model=\"holding\"></kitin-textrow>\n" +
     "\n" +
-    "          <kitin-table model=\"document.editorialNote\" labels=\"['Intern anmärkning']\">\n" +
+    "          <kitin-table model=\"document.editorialNote\" change-model=\"holding\">\n" +
     "            <kitin-td><kitin-textarea model=\"model[$index]\" change-model=\"holding\"></kitin-textarea></kitin-td>\n" +
     "          </kitin-table>\n" +
     "          \n" +
@@ -316,23 +318,23 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "\n" +
     "          <kitin-group label=\"'Identifiering av exemplar, kopia eller version'\">\n" +
     "\n" +
-    "            <kitin-table model=\"item.itemCondition\">\n" +
+    "            <kitin-table model=\"item.itemCondition\" change-model=\"holding\">\n" +
     "              <kitin-td><kitin-textarea model=\"model[$index]\" change-model=\"holding\"></kitin-textarea></kitin-td>\n" +
     "            </kitin-table>\n" +
     "\n" +
-    "            <kitin-table model=\"item.copyIdentification\">\n" +
+    "            <kitin-table model=\"item.copyIdentification\" change-model=\"holding\">\n" +
     "              <kitin-td><kitin-textarea model=\"model[$index]\" change-model=\"holding\"></kitin-textarea></kitin-td>\n" +
     "            </kitin-table>\n" +
     "\n" +
-    "            <kitin-table model=\"item.versionIdentification\">\n" +
+    "            <kitin-table model=\"item.versionIdentification\" change-model=\"holding\">\n" +
     "              <kitin-td><kitin-textarea model=\"model[$index]\" change-model=\"holding\"></kitin-textarea></kitin-td>\n" +
     "            </kitin-table>\n" +
     "\n" +
-    "            <kitin-table model=\"item.presentationFormat\">\n" +
+    "            <kitin-table model=\"item.presentationFormat\" change-model=\"holding\">\n" +
     "              <kitin-td><kitin-textarea model=\"model[$index]\" change-model=\"holding\"></kitin-textarea></kitin-td>\n" +
     "            </kitin-table>\n" +
     "\n" +
-    "            <kitin-table model=\"item.inventoryLevel\">\n" +
+    "            <kitin-table model=\"item.inventoryLevel\" change-model=\"holding\">\n" +
     "              <kitin-td><kitin-textarea model=\"model[$index]\" change-model=\"holding\"></kitin-textarea></kitin-td>\n" +
     "            </kitin-table>\n" +
     "\n" +
@@ -356,11 +358,11 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "            <kitin-textrow model=\"item.scopeNote\" change-model=\"holding\" label=\"'Beståndsuppgift'\"></kitin-textrow>\n" +
     "\n" +
     "            <kitin-table model=\"item.editorialNote\" change-model=\"holding\">\n" +
-    "              <kitin-td><kitin-textarea model=\"model[$index]\"></kitin-textarea></kitin-td>\n" +
+    "              <kitin-td><kitin-textarea model=\"model[$index]\" change-model=\"holding\"></kitin-textarea></kitin-td>\n" +
     "            </kitin-table>\n" +
     "\n" +
     "            <kitin-table model=\"item.copyNote\" change-model=\"holding\">\n" +
-    "              <kitin-td><kitin-textarea model=\"model[$index]\"></kitin-textarea></kitin-td>\n" +
+    "              <kitin-td><kitin-textarea model=\"model[$index]\" change-model=\"holding\"></kitin-textarea></kitin-td>\n" +
     "            </kitin-table>\n" +
     "\n" +
     "            <div class=\"button-bar right\">\n" +
@@ -379,7 +381,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <section class=\"form-container\">\n" +
     "      <kitin-group label=\"Encoding\">\n" +
     "        <div data-ng-repeat=\"enc in holding.about.encoding track by $index\">\n" +
-    "          <kitin-table model=\"enc\" type=\"MediaObject\">\n" +
+    "          <kitin-table model=\"enc\" type=\"MediaObject\" change-model=\"holding\">\n" +
     "            <kitin-td>\n" +
     "              <div class=\"label\">\n" +
     "                <kitin-label label=\"'LABEL.holding.about.encoding.id'\"></kitin-label>\n" +

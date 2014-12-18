@@ -55,7 +55,7 @@
             </span>
           </div>
 
-          <kitin-table label-prefix="LABEL.holdings." model="offer.shelfLocation">
+          <kitin-table label-prefix="LABEL.holdings." model="offer.shelfLocation" change-model="holding">
             <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
           </kitin-table>
           <kitin-textrow label-prefix="LABEL.holdings." model="offer.classificationPart" change-model="holding"></kitin-textrow>
@@ -64,7 +64,9 @@
           <kitin-textrow label-prefix="LABEL.holdings." model="offer.availability" change-model="holding"></kitin-textrow>
           <kitin-textrow label-prefix="LABEL.holdings." model="offer.copyNumber" change-model="holding"></kitin-textrow>
           <kitin-textrow label-prefix="LABEL.holdings." model="offer.copyNote" change-model="holding"></kitin-textrow>
-          <kitin-textrow label-prefix="LABEL.holdings." model="offer.editorialNote" change-model="holding"></kitin-textrow>
+          <kitin-table label-prefix="LABEL.holdings." model="offer.editorialNote" change-model="holding">
+            <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
+          </kitin-table>
 
           <div class="button-bar right">
             <button class="btn btn-link" data-ng-if="holding.about.offers.length > 1" data-ng-click="deleteOffer(holding, $index)"><i class="fa fa-trash-o"></i> {{ "Radera lokalsignum" }}</button>
@@ -89,7 +91,7 @@
 
           <kitin-textrow model="document.comment" change-model="holding"></kitin-textrow>
 
-          <kitin-table model="document.editorialNote" labels="['Intern anmärkning']">
+          <kitin-table model="document.editorialNote" change-model="holding">
             <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
           </kitin-table>
           
@@ -111,23 +113,23 @@
 
           <kitin-group label="'Identifiering av exemplar, kopia eller version'">
 
-            <kitin-table model="item.itemCondition">
+            <kitin-table model="item.itemCondition" change-model="holding">
               <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
             </kitin-table>
 
-            <kitin-table model="item.copyIdentification">
+            <kitin-table model="item.copyIdentification" change-model="holding">
               <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
             </kitin-table>
 
-            <kitin-table model="item.versionIdentification">
+            <kitin-table model="item.versionIdentification" change-model="holding">
               <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
             </kitin-table>
 
-            <kitin-table model="item.presentationFormat">
+            <kitin-table model="item.presentationFormat" change-model="holding">
               <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
             </kitin-table>
 
-            <kitin-table model="item.inventoryLevel">
+            <kitin-table model="item.inventoryLevel" change-model="holding">
               <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
             </kitin-table>
 
@@ -151,11 +153,11 @@
             <kitin-textrow model="item.scopeNote" change-model="holding" label="'Beståndsuppgift'"></kitin-textrow>
 
             <kitin-table model="item.editorialNote" change-model="holding">
-              <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
+              <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
             </kitin-table>
 
             <kitin-table model="item.copyNote" change-model="holding">
-              <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
+              <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
             </kitin-table>
 
             <div class="button-bar right">
@@ -174,7 +176,7 @@
     <section class="form-container">
       <kitin-group label="Encoding">
         <div data-ng-repeat="enc in holding.about.encoding track by $index">
-          <kitin-table model="enc" type="MediaObject">
+          <kitin-table model="enc" type="MediaObject" change-model="holding">
             <kitin-td>
               <div class="label">
                 <kitin-label label="'LABEL.holding.about.encoding.id'"></kitin-label>
