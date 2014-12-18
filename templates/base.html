@@ -14,6 +14,7 @@
       // Get debug from backend
       var debug = ('{{debug}}' === 'True');
       var WHELK_HOST = '{{WHELK_HOST}}';
+      var WHELK_WRITE_HOST = '{{WHELK_WRITE_HOST}}';
       var OAUTH_API = '{{OAUTH_API}}';
       var OAUTH_CLIENT_ID = '{{OAUTH_CLIENT_ID}}';
       var OAUTH_REDIRECT_URI = '{{OAUTH_REDIRECT_URI}}';
@@ -46,7 +47,7 @@
           <div data-ng-include="'/partials/header_loading_indicators'"></div>
           <div id="nav">
             <ul class="nav-menu pull-right">
-              <li class="active"><a href="http://feedback.kat.libris.kb.se/" target="_blank" title="Feedback forum">Tyck till <i class="icon fa fa-external-link"></i></a></li>
+             
               <li data-ng-controller="ModalCtrl">
                 <a title="Skapa ny post" href="" data-ng-click="openCreateNewModal()"><i class="icon fa fa-plus"></i> Skapa ny post</a>
               </li>
@@ -87,7 +88,12 @@
           <img alt="Kb logo" src="/static/img/kb.svg">
           <ul>
             <li>
-              <a href="" id="contact" title="Information om cookies: Libris katalogisering använder sig av cookies. Cookies är små filer som lagras på besökarens dator för att webbservern ska kunna upprätthålla information om användaren inom en viss tidsperiod. Libris katalogisering använder sig av s.k. sessionscookies som sparar information om den inloggade användaren temporärt, så länge som webbläsarsessionen varar. Informationen som lagras ser till att tjänsten vet vilken användare som är inloggad och vilka bibliotek som han/hon katalogiserar för. Funktionen &quote;håll mig inloggad&quote; sparar en permanent cookie som är aktiv i 31 dagar.Post- och telestyrelsen, som är tillsynsmyndighet på området, lämnar ytterligare information om Cookies på sin webbplats, www.pts.se">Om kakor</a>
+              <a href="" data-ng-controller="ModalCtrl" data-ng-click="openCookiesModal()" title="Information om cookies">
+                Om cookies
+              </a>
+            </li>
+            <li>
+                Kontakt
             </li>
           </ul>
         </footer>

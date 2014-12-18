@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.2.28-build.573+sha.a1e7eb6
+ * @license AngularJS v1.2.29-build.579+sha.97a9119
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -68,7 +68,7 @@ function minErr(module) {
       return match;
     });
 
-    message = message + '\nhttp://errors.angularjs.org/1.2.28-build.573+sha.a1e7eb6/' +
+    message = message + '\nhttp://errors.angularjs.org/1.2.29-build.579+sha.97a9119/' +
       (module ? module + '/' : '') + code;
     for (i = 2; i < arguments.length; i++) {
       message = message + (i == 2 ? '?' : '&') + 'p' + (i-2) + '=' +
@@ -482,6 +482,8 @@ noop.$inject = [];
        return (transformationFn || angular.identity)(value);
      };
    ```
+  * @param {*} value to be returned.
+  * @returns {*} the value passed in.
  */
 function identity($) {return $;}
 identity.$inject = [];
@@ -1987,10 +1989,10 @@ function setupModuleLoader(window) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
-  full: '1.2.28-build.573+sha.a1e7eb6',    // all of these placeholder strings will be replaced by grunt's
+  full: '1.2.29-build.579+sha.97a9119',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
   minor: 2,
-  dot: 28,
+  dot: 29,
   codeName: 'snapshot'
 };
 
@@ -4423,6 +4425,11 @@ function Browser(window, document, $log, $sniffer) {
     }
   }
 
+  function getHash(url) {
+    var index = url.indexOf('#');
+    return index === -1 ? '' : url.substr(index + 1);
+  }
+
   /**
    * @private
    * Note: this method is used only by scenario runner
@@ -4534,8 +4541,10 @@ function Browser(window, document, $log, $sniffer) {
         }
         if (replace) {
           location.replace(url);
-        } else {
+        } else if (!sameBase) {
           location.href = url;
+        } else {
+          location.hash = getHash(url);
         }
       }
       return self;
@@ -6209,10 +6218,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
               // support ngAttr attribute binding
               ngAttrName = directiveNormalize(name);
               if (isNgAttr = NG_ATTR_BINDING.test(ngAttrName)) {
-                name = name.replace(PREFIX_REGEXP, '')
-                  .substr(8).replace(/_(.)/g, function(match, letter) {
-                    return letter.toUpperCase();
-                  });
+                name = snake_case(ngAttrName.substr(6), '-');
               }
 
               var directiveNName = ngAttrName.replace(/(Start|End)$/, '');

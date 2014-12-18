@@ -293,6 +293,14 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
           }
         }
       },
+      workExample: {
+        indexName: "workExampleByType",
+        getIndexKey: function (entity) {
+          if(entity) {
+            return entity["@type"];
+          }
+        }
+      },
       subject: [
         {
           indexName: "subjectByInScheme",
@@ -322,6 +330,7 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
     },
 
     decorate: function(record) {
+
       var deferer = $q.defer();
 
       function doIndex (entity, key, cfg, reset) {
@@ -330,6 +339,7 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
           return;
         }
         var groupedItem = _.groupBy(items, cfg.getIndexKey);
+
         // Remove non matching group.
         if(groupedItem['undefined']) {
           delete groupedItem['undefined'];
@@ -396,11 +406,11 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
         }
         delete entity[cfg.indexName];
       }
+
       // Rearrange grouped Arrays
       this.mutateObject(record.about, doUnindex);
       // Rearrange Person roles
       this.unreifyAgentRoles(record);
-
       // Remove empty entities 
       record = this.cleanRecord(record);
 

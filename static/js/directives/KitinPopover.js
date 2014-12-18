@@ -18,7 +18,7 @@ kitin.directive( 'kitinPopoverPopup', function () {
     restrict: 'EA',
     replace: true,
     scope: { title: '@', content: '@', placement: '@', animation: '&', isOpen: '&' },
-    templateUrl: '/snippets/popover',
+    templateUrl: '/dialogs/popover',
     controller: function($scope, $element, $timeout) {
       $scope.close = function() {
         // Find closest trigger and emit event

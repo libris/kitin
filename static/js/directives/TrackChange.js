@@ -11,8 +11,11 @@ kitin.directive('trackChange', function ($rootScope, $timeout) {
         // Make sure we only trigger once
         //if (triggeredResponse) return;
         $timeout(function() {
-          $rootScope.modifications[targetModel].saved = false;
-          $rootScope.modifications[targetModel].published = false;
+          if (angular.isDefined($rootScope.modifications[targetModel].makeDirty)) {
+            $rootScope.modifications[targetModel].makeDirty();
+          } else {
+            $rootScope.modifications[targetModel].saved = false;
+          }
           //triggeredResponse = true;
         });
       };

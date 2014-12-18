@@ -1,12 +1,11 @@
 <ng-form name="subform">
 
   <section class="title-and-main-entry"       ng-include="'/partials/edit/bib/title_and_main_entry'"></section>
-  <!--
   <section class="publication-and-production" ng-include="'/partials/edit/bib/publication_and_production'"></section>
   <section class="physical-description"       ng-include="'/partials/edit/bib/physical_description'"></section>
   <section class="notes"                      ng-include="'/partials/edit/bib/notes'"></section>
   <section class="edit-subject"               ng-include="'/partials/edit/bib/subject'"></section>
-  -->
+
 <!-- uncompleted marc debug -->
   <section ng-if="debug && record._marcUncompleted" class="unknown" ng-include="'/partials/edit/bib/unknown'"></section>
 
@@ -21,17 +20,35 @@
             </button>
           </div>
         </div>
-        <div class="col-md-8 right">  
+        <div class="col-md-8 right">
           <a data-ng-controller="ModalCtrl" data-ng-click="openMARCModal($event, record)">Förhandsgranska MARC</a> | 
-          <span data-ng-show="record.modified" class="bib-edit-modified">{{record.draft ? 'Sparad' : 'Publicerad'}}: {{record.modified | timeAgo:60*60*24}} | </span>
-          <button class="btn btn-link" id="save-draft" data-ng-class="classes.saveStatus" data-ng-click="saveDraft()" title="{{lastSavedLabel('Senast sparad: %s')}}">
-            <span data-ng-if="!modifications.bib.saved" class="kitin-popover-trigger" kitin-popover="Det gick inte att spara utkast." kitin-popover-title="Något gick fel" kitin-popover-placement="top">{{ 'Spara utkast' }}</span>
-            <span data-ng-if="modifications.bib.saved" class="kitin-popover-trigger" kitin-popover="Utkastet är nu sparat." kitin-popover-title="Sparningen lyckades" kitin-popover-placement="top">{{ 'Spara utkast' }}</span>
+          <span data-ng-show="record.modified" class="bib-edit-modified">
+            {{record.draft ? 'Sparad' : 'Publicerad'}}: {{record.modified | timeAgo:60*60*24}} | 
+          </span>
+          <button class="btn btn-link" id="save-draft" data-ng-click="saveDraft()" title="{{lastSavedLabel('Senast sparad: %s')}}">
+            <span data-ng-if="!modifications.bib.saved">{{ 'Spara utkast' }}</span>
+            <span data-ng-if="modifications.bib.saved">{{ 'Spara utkast' }}</span>
           </button>
-          <button class="btn btn-dark" id="publish-bib" data-ng-class="classes.publishStatus" data-ng-disabled="subform.$invalid || modifications.bib.published" data-ng-click="publish()" title="{{lastPublishedLabel('Senast publicerad: %s')}}">
-            <span data-ng-if="!modifications.bib.published" class="kitin-popover-trigger" kitin-popover="Det gick inte att publicera posten." kitin-popover-title="Något gick fel" kitin-popover-placement="top">{{ 'Publicera' }}</span>
-            <span data-ng-if="modifications.bib.published" class="kitin-popover-trigger" kitin-popover="Posten finns nu registrerad i katalogen." kitin-popover-title="Publiceringen lyckades" kitin-popover-placement="top">{{ 'Publicerad' }} <i class="fa fa-check"></i></span>
+          <button class="btn btn-dark" id="publish-bib" data-ng-disabled="subform.$invalid || modifications.bib.published" data-ng-click="publish()" title="{{lastPublishedLabel('Senast publicerad: %s')}}">
+            <span data-ng-if="!modifications.bib.published">{{ 'Publicera' }}</span>
+            <span data-ng-if="modifications.bib.published">{{ 'Publicerad' }} <i class="fa fa-check"></i></span>
           </button>
+
+          <div id="message-container">
+            <span class="save-messages" data-ng-class="classes.saveStatus">
+              <span data-ng-if="!modifications.bib.saved" class="kitin-popover-trigger" kitin-popover="Det gick inte att spara utkast." kitin-popover-title="Något gick fel" kitin-popover-placement="top"></span>
+              <span data-ng-if="modifications.bib.saved" class="kitin-popover-trigger" kitin-popover="Utkastet är nu sparat." kitin-popover-title="Sparningen lyckades" kitin-popover-placement="top"></span>
+            </span>
+            <span class="import-messages" data-ng-class="classes.importStatus">
+              <span data-ng-if="modifications.bib.import != 'error'" class="kitin-popover-trigger" kitin-popover="Posten är nu sparad som ett lokalt utkast." kitin-popover-title="Fjärrimporten lyckades" kitin-popover-placement="top"></span>
+              <span data-ng-if="modifications.bib.import == 'error'" class="kitin-popover-trigger" kitin-popover="Kunde inte spara posten som ett lokalt utkast." kitin-popover-title="Fjärrimporten misslyckades" kitin-popover-placement="top"></span>
+            </span>
+            <span class="publish-messages" data-ng-class="classes.publishStatus">
+              <span data-ng-if="!modifications.bib.published" class="kitin-popover-trigger" kitin-popover="Det gick inte att publicera posten." kitin-popover-title="Något gick fel" kitin-popover-placement="top"></span>
+              <span data-ng-if="modifications.bib.published" class="kitin-popover-trigger" kitin-popover="Posten finns nu registrerad i katalogen." kitin-popover-title="Publiceringen lyckades" kitin-popover-placement="top"></span>
+            </span>
+          </div>
+
         </div>
       </div>
     </div>

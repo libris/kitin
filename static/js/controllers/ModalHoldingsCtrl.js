@@ -2,7 +2,6 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
 
   var recordId = record.about['@id'];
 
-  $scope.isNew = false;
   $scope.record = record;
   $scope.userData = userData;
   $scope.panels = [];
@@ -11,8 +10,13 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   $scope.classes = {};
 
   $rootScope.modifications.holding = {
+    makeDirty: function() {
+      this.saved = false;
+      this.isNew = false;
+    },
     saved: false,
-    deleted: false
+    deleted: false,
+    isNew: false
   };
 
   function getCurrentRecord() {
@@ -32,11 +36,11 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     var currentRecord = getCurrentRecord();
     if (currentRecord) {
       currentRecord.holdings.holding = holding;
-      if ($scope.isNew) {
+      if ($rootScope.modifications.holding.isNew) {
         currentRecord.holdings.items += 1;
-        $scope.isNew = false;
       }
     }
+    $rootScope.modifications.holding.isNew = false;
     $rootScope.modifications.holding.saved = true;
   }
 
@@ -51,7 +55,20 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   }
 
   $scope.close = function() {
-    $modalInstance.close();
+    // Make sure user doesn't close modal without saving
+    if (!$rootScope.modifications.holding.saved && !$rootScope.modifications.holding.isNew) {
+      // Post is not saved, and not newly created, ask user for confirm
+      var data = {
+        message: 'LABEL.gui.dialogs.CLOSE_HOLDINGS',
+        icon: 'fa fa-exclamation-circle'
+      };
+      var confirm = dialogs.create('/dialogs/confirm', 'CustomConfirmCtrl', data, { windowClass: 'kitin-dialog holdings-dialog' });
+      confirm.result.then(function yes(answer) {
+        $modalInstance.close();
+      });
+    } else {
+      $modalInstance.close();
+    }
   };
 
   // On first run, we have no holding id. Use recordService.find to get all holdings.
@@ -62,7 +79,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     if (!holding) {
       // If no holding is found, we create a new one.
       recordService.holding.create().then(function(response) {
-        $scope.isNew = true;
+        $rootScope.modifications.holding.isNew = true;
         holding = response;
         holding.about.holdingFor = {
           '@id': recordId
@@ -84,7 +101,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     }, function error(status) {
       $scope.classes.saveStatus = 'error';
     }).finally(function() {
-      var element = angular.element('#save-hld');
+      var element = angular.element('#holdings-message-container .save-messages');
       if (element.length) utilsService.showPopup(element).then(function() {
         //console.log('Popup should now be hidden');
       });
@@ -93,19 +110,19 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
 
   $scope.deleteHolding = function(holding) {
     var data = {
-      message: 'Är du säker på att du vill radera beståndet? Det här kommandot går inte att ångra.',
+      message: 'LABEL.gui.dialogs.REMOVE_HOLDING',
       yes: 'Ja, radera beståndet',
       no: 'Nej, avbryt',
       icon: 'fa fa-exclamation-circle'
     };
-    var confirm = dialogs.create('/dialogs/confirm', 'CustomConfirmCtrl', data, { windowClass: 'holdings-dialog' });
+    var confirm = dialogs.create('/dialogs/confirm', 'CustomConfirmCtrl', data, { windowClass: 'kitin-dialog holdings-dialog' });
     confirm.result.then(function yes(answer) {
       recordService.holding.del(holding).then(function sucess(response) {
         onDelete(holding);
         delete $scope.holding;
       }, function error(status) {
         $scope.classes.deleteStatus = 'error';
-        var element = angular.element('#delete-hld');
+        var element = angular.element('#holdings-message-container .delete-messages');
         if (element.length) utilsService.showPopup(element).then(function() {
           //console.log('Popup should now be hidden');
         });
@@ -142,6 +159,20 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   $scope.deletePrimaryTopicOf = function(holding, index) {
     var eDocuments = holding.about.isPrimaryTopicOf;
     eDocuments.splice(index, 1);
+  };
+
+  $scope.addWorkExample = function(holding, type) {
+    // Get offers from existing holding
+    var workExamples = holding.about.workExampleByType[type];
+    recordService.holding.create(type).then(function(response) {
+      var workExample = response.about.workExampleByType[type][0];
+      workExamples.push(workExample);
+    });
+  };
+
+  $scope.deleteWorkExample = function(holding, index, type) {
+    var workExample = holding.about.workExampleByType[type];
+    workExample.splice(index, 1);
   };
 
 });

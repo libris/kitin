@@ -81,7 +81,7 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
       convertToMarc: function(data) {
         var deferer = $q.defer();
         editService.undecorate(data).then(function(undecoratedRecord) {
-          $rootScope.promises.marc = $http.post($rootScope.WRITE_API_PATH + '/_format?to=application\/x-marc-json', undecoratedRecord
+          $rootScope.promises.marc.loading = $http.post($rootScope.WRITE_API_PATH + '/_format?to=application\/x-marc-json', undecoratedRecord
           /*{ !TODO change to API_PATH and add header when authentication is implemented in whelk
             headers: {
               'Content-Type': 'application/ld+json'
@@ -149,8 +149,13 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
         var deferer = $q.defer();
         etag = etag ? etag : '';
         var draftDataCopy = angular.copy(draftData);
+        var pathSuffix = type;
+        if (draftId) {
+          pathSuffix = [type, draftId].join('/');
+        }
+
         editService.undecorate(draftDataCopy).then(function(undecoratedRecord) {
-          $http.post("/draft/" + [type, draftId].join('/') , undecoratedRecord, {headers: {"If-match":etag } })
+          $http.post("/draft/" + pathSuffix , undecoratedRecord, {headers: {"If-match":etag } })
             .success(function(data, status, headers) {
               editService.decorate(data).then(function(decoratedRecord) {
                 deferer.resolve({
@@ -213,13 +218,15 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
               userHoldings = userHoldings[0];
               recordService.holding.get(userHoldings['@id']).then(function(response) {
                 if (response.holding) {
-                  userHoldings = response.holding;
-                  if (response.etag) {
-                    userHoldings.etag = response.etag;
-                  }
-                  deferer.resolve({
-                    userHoldings: userHoldings,
-                    otherHoldings: otherHoldings
+                  editService.decorate(response.holding).then(function(decoratedHolding) {
+                    userHoldings = decoratedHolding;
+                    if (response.etag) {
+                      userHoldings.etag = response.etag;
+                    }
+                    deferer.resolve({
+                      userHoldings: userHoldings,
+                      otherHoldings: otherHoldings
+                    });
                   });
                 } else {
                   deferer.reject({
@@ -244,9 +251,11 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
         if (holdingId) {
           $http.get($rootScope.API_PATH + holdingId, { headers: utilsService.noCacheHeaders}).success(function(data, status, headers) {
             var etag = headers('etag') ? headers('etag') : null;
-            deferer.resolve({
-              holding: data,
-              etag: etag
+            editService.decorate(data).then(function(decoratedHolding) {
+              deferer.resolve({
+                holding: decoratedHolding,
+                etag: etag
+              });
             });
           }).error(function(data, status, headers) {
             deferer.reject(status);
@@ -261,8 +270,12 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
         var deferer = $q.defer();
         var recordSkeletonTypeMap = definitions.recordSkeletonTypeMap;
         recordSkeletonTypeMap.then(function(skeletonTypeMap) {
-          deferer.resolve({
-            about: skeletonTypeMap.main.HeldMaterial
+          var newHolding = {
+            '@type': 'Holding',
+            'about': skeletonTypeMap.main.HeldMaterial
+          };
+          editService.decorate(newHolding).then(function(decoratedHolding) {
+            deferer.resolve(decoratedHolding);
           });
         });
         return deferer.promise;
@@ -271,28 +284,35 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
       save: function(holding) {
         var deferer = $q.defer();
         var etag = holding.etag;
-        if (holding['@id'] && etag) {
-          delete holding.etag;
-          $rootScope.promises.holding.saving = $http.put($rootScope.WRITE_API_PATH + holding['@id'], holding, {headers: {'If-match': etag}}).success(function(data, status, headers) {
-            if (headers('etag')) {
-              holding.etag = headers('etag');
-            }
-            deferer.resolve(holding);
-          }).error(function(data, status, headers) {
-            deferer.reject(status);
+        var redecorate = function(data, deferer) {
+          editService.decorate(data).then(function(decoratedData) {
+            deferer.resolve(decoratedData);
           });
-        } else {
-          // Holding has no ID, assume it's new
-          $rootScope.promises.holding.saving = $http.post($rootScope.WRITE_API_PATH + '/hold', holding).success(function(data, status, headers) {
-            holding = data;
-            if (headers('etag')) {
-              holding.etag = headers('etag');
-            }
-            deferer.resolve(holding);
-          }).error(function(data, status, headers) {
-            deferer.reject(status);
-          });
-        }
+        };
+        editService.undecorate(holding).then(function(undecoratedHolding) {
+          if (undecoratedHolding['@id'] && etag) {
+            delete undecoratedHolding.etag;
+            $rootScope.promises.holding.saving = $http.put($rootScope.WRITE_API_PATH + undecoratedHolding['@id'], undecoratedHolding, {headers: {'If-match': etag}}).success(function(data, status, headers) {
+              if (headers('etag')) {
+                undecoratedHolding.etag = headers('etag');
+              }
+              redecorate(undecoratedHolding, deferer);
+            }).error(function(data, status, headers) {
+              deferer.reject(status);
+            });
+          } else {
+            // Holding has no ID, assume it's new
+            $rootScope.promises.holding.saving = $http.post($rootScope.WRITE_API_PATH + '/hold', undecoratedHolding).success(function(data, status, headers) {
+              undecoratedHolding = data;
+              if (headers('etag')) {
+                undecoratedHolding.etag = headers('etag');
+              }
+              redecorate(undecoratedHolding, deferer);
+            }).error(function(data, status, headers) {
+              deferer.reject(status);
+            });
+          }
+        });
         return deferer.promise;
       },
 
