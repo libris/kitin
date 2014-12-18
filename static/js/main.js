@@ -61,7 +61,7 @@ kitin.filter('unsafe', ['$sce', function ($sce) {
  */
 kitin.run(function($rootScope) {
   $rootScope.API_PATH = WHELK_HOST;
-  $rootScope.WRITE_API_PATH = '/whelk-webapi';
+  $rootScope.WRITE_API_PATH = WHELK_WRITE_HOST;
 });
 
 // Davids preloads
