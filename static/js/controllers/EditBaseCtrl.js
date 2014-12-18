@@ -1,4 +1,4 @@
-kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $timeout, $rootScope, $location, $anchorScroll, recordService, definitions, userData, editService) {
+kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $timeout, $rootScope, $location, $anchorScroll, recordService, definitions, userData, editService, utilsService) {
 
   // recType & recId can be inherited from f.ex modals
   $scope.recType = $scope.recType || $routeParams.recType;
@@ -6,7 +6,8 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
   $scope.userSigel = userData.userSigel;
   $scope.editMode = $location.hash(); // #jsonld changes edit template
   $scope.editSource = $routeParams.editSource;
-  
+  $scope.queryString = '?' + utilsService.constructQueryString($rootScope.state.search);
+
   editService.addableElements = [];
 
   document.body.className = 'edit';
