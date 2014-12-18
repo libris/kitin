@@ -98,6 +98,7 @@ kitin.directive('kitinTable', function(editService, $filter){
         }.bind(this);
 
         $scope.removeRow = function(index) {
+          // TODO We should run getDirty() of current changeModel when removing (and adding?) rows.
           return $scope.model.splice(index,1);
         };
 

@@ -294,8 +294,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "\n" +
     "          <kitin-textrow model=\"document.comment\" change-model=\"holding\"></kitin-textrow>\n" +
     "\n" +
-    "          <kitin-table model=\"document.editorialNote\" change-model=\"holding\" labels=\"['Intern anmärkning']\">\n" +
-    "            <kitin-td><kitin-textarea model=\"model[$index]\"></kitin-textarea></kitin-td>\n" +
+    "          <kitin-table model=\"document.editorialNote\" labels=\"['Intern anmärkning']\">\n" +
+    "            <kitin-td><kitin-textarea model=\"model[$index]\" change-model=\"holding\"></kitin-textarea></kitin-td>\n" +
     "          </kitin-table>\n" +
     "          \n" +
     "          <div class=\"button-bar right\">\n" +
