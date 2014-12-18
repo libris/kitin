@@ -263,7 +263,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <section class=\"form-container\">\n" +
     "      <div data-ng-repeat=\"document in holding.about.isPrimaryTopicOf track by $index\">\n" +
     "        <kitin-group label=\"'Elektronisk adress och åtkomst'\">\n" +
-    "          <kitin-textrow model=\"document['@id']\" change-model=\"holding\"></kitin-textrow>\n" +
+    "          <kitin-textrow model=\"document['@id']\" label.prefix=\"LABEL.\" label=\"document[@'id']\" change-model=\"holding\"></kitin-textrow>\n" +
     "\n" +
     "          <kitin-textrow model=\"document.description\" change-model=\"holding\"></kitin-textrow>\n" +
     "\n" +

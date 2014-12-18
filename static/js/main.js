@@ -59,9 +59,81 @@ kitin.filter('unsafe', ['$sce', function ($sce) {
  * Global Constants
  * (TODO: move to service and depend on in required places instead)
  */
-kitin.run(function($rootScope) {
+kitin.run(function($rootScope, $location) {
   $rootScope.API_PATH = WHELK_HOST;
   $rootScope.WRITE_API_PATH = '/whelk-webapi';
+  
+  var params;
+  var queryString;
+
+  $rootScope.$on("$routeChangeStart", function (e, current) {
+    params = $rootScope.state.search;
+    queryString = $location.search();
+  });
+
+  $rootScope.$on("$routeChangeSuccess", function (e, current) {
+    var persistentQS = {
+      q: params.q || null,
+      n: params.n || null,
+      start: (params.page) ? params.page.start || null : null,
+      sort: params.sort || null,
+      database: params.database || null,
+      f: params.f || null
+    };
+
+    var compactObject = _.partialRight(_.pick, _.identity);
+
+    _.extend(queryString, compactObject(persistentQS));
+
+    $location.search(queryString);
+  });
+
+  // var locationChangeOff = $rootScope.$on('$locationChangeStart', function (event, newUrl, oldUrl) {
+  //   // Prevent default action, we need to handle all location changes 
+  //   // For example, to prompt user when navigation occurs and form is dirty
+  //   event.preventDefault();
+
+  //   console.log(newUrl);
+
+  //   //var searchParams = $location.search();
+  //   var destination;
+  //   var go = function() {
+  //     locationChangeOff();
+  //     console.log('going');
+  //     $location.url('/' + destination);
+  //     //newUrl = destination;
+  //     return;
+  //   };
+
+  //   destination = newUrl.split('/');
+  //   destination.splice(0,3);
+  //   destination = destination.join('/');
+    
+  //   // Make sure query string persists
+  //   if (oldUrl.indexOf('?') >= 0) {
+  //     //console.log(oldUrl.split('?'));
+  //     //destination += '?' +
+  //     console.log('splitting');
+  //     var oldQS = oldUrl.split('?')[1];
+  //     var newPath = destination.split('?')[0];
+  //     newUrl = newPath + oldQS;
+  //   } else {
+  //     newUrl = destination;
+  //   }
+  //   console.log(destination);
+
+  //   // Make sure we have no unsaved forms
+  //   var forms = $rootScope.modifications;
+  //   if (angular.isDefined(forms)) {
+  //     if ( (forms.bib.isDirty && forms.bib.isDirty()) || (forms.bib.isDirty && forms.bib.isDirty()) || (forms.bib.isDirty && forms.bib.isDirty()) ) {
+        
+  //       console.log('dirty form detected');
+  //     }
+  //   }
+
+  //   go();
+
+  // });
 });
 
 // Davids preloads

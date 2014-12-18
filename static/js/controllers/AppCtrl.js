@@ -1,5 +1,5 @@
 var kitin = angular.module('kitin.controllers', []);
-kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, definitions, searchService) {
+kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $location, definitions, searchService) {
 
   // Core Utilities
   $rootScope.lodash = _;
@@ -48,14 +48,24 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
       }
     });
   }
-
+  var searchParams = $location.search();
   $rootScope.state = {
     searchType: {},
     remoteDatabases: [],
-    search: {},
+    search: {
+      q: searchParams.q || null,
+      n: searchParams.n || null,
+      page: {
+        start: searchParams.start || null
+      },
+      sort: searchParams.sort || null,
+      database: searchParams.database || null,
+      f: searchParams.f || null
+    },
     searchView: 'detailed',
 
     getSearchParams : function() {
+      //console.log($rootScope.state.search);
       var params = {
         q: $rootScope.state.search.q,
         start: $rootScope.state.search.page.start,
