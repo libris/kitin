@@ -102,7 +102,11 @@ kitin.directive('kitinTable', function(editService, $filter){
         };
 
         $scope.help = 'HELP.' + $attrs.model;
-        $scope.label = 'LABEL.' + $attrs.model;
+        if($attrs.hasOwnProperty('labelPrefix')) {
+          $scope.label = $attrs.labelPrefix + $attrs.model;
+        } else {
+          $scope.label = 'LABEL.' + $attrs.model;
+        }
         $scope.model = _.isArray($scope.model) && $scope.model.length > 0 ? $scope.model : [this.doCreate()];
         if($attrs.labels) {
           $scope.labels = $scope.$eval($attrs.labels);

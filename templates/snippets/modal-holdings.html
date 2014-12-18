@@ -55,7 +55,9 @@
             </span>
           </div>
 
-          <kitin-textrow label-prefix="LABEL.holdings." model="offer.shelfLocation" change-model="holding"></kitin-textrow>
+          <kitin-table label-prefix="LABEL.holdings." model="offer.shelfLocation">
+            <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
+          </kitin-table>
           <kitin-textrow label-prefix="LABEL.holdings." model="offer.classificationPart" change-model="holding"></kitin-textrow>
           <kitin-textrow label-prefix="LABEL.holdings." model="offer.shelfControlNumber" change-model="holding"></kitin-textrow>
           <kitin-textrow label-prefix="LABEL.holdings." model="offer.shelfLabel" change-model="holding"></kitin-textrow>
@@ -105,34 +107,34 @@
 
     <!-- WORK EXAMPLE BY TYPE (562 - Product) START -->
     <section class="form-container">
-      <div data-ng-repeat="item in holding.about.workExampleByType | byType:'Product' track by $index">
+      <div data-ng-repeat="item in holding.about.workExampleByType.Product track by $index">
 
-          <kitin-group label="'Identifiering av exemplar, kopia eller version ' + $index">
+          <kitin-group label="'Identifiering av exemplar, kopia eller version'">
 
-            <kitin-table model="item.itemCondition" change-model="holding">
-              <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
+            <kitin-table model="item.itemCondition">
+              <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
             </kitin-table>
 
-            <kitin-table model="item.copyIdentification" change-model="holding">
-              <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
+            <kitin-table model="item.copyIdentification">
+              <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
             </kitin-table>
 
-            <kitin-table model="item.versionIdentification" change-model="holding">
-              <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
+            <kitin-table model="item.versionIdentification">
+              <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
             </kitin-table>
 
-            <kitin-table model="item.presentationFormat" change-model="holding">
-              <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
+            <kitin-table model="item.presentationFormat">
+              <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
             </kitin-table>
 
-            <kitin-table model="item.inventoryLevel" change-model="holding">
-              <kitin-td><kitin-textarea model="model[$index]"></kitin-textarea></kitin-td>
+            <kitin-table model="item.inventoryLevel">
+              <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
             </kitin-table>
 
             <kitin-textrow model="item.materialsSpecified" change-model="holding"></kitin-textrow>
             
             <div class="button-bar right">
-              <button class="btn btn-link" data-ng-if="holding.about.workExampleByType.Product.length > 1" data-ng-click="deleteWorkExample(holding, $index)"><i class="fa fa-trash-o"></i> {{ "Radera identifiering" }}</button>
+              <button class="btn btn-link" data-ng-click="deleteWorkExample(holding, 'Product', $index)"><i class="fa fa-trash-o"></i> {{ "Radera identifiering" }}</button>
             </div>
           </kitin-group>
       </div>
@@ -143,8 +145,8 @@
         
     <!-- WORK EXAMPLE BY TYPE (866 - SomeProducts) START -->
     <section class="form-container">
-      <div data-ng-repeat="item in holding.about.workExampleByType | byType:'SomeProducts' track by $index">
-          <kitin-group label="'Huvudpublikation ' + $index">
+      <div data-ng-repeat="item in holding.about.workExampleByType.SomeProducts track by $index">
+          <kitin-group label="'Huvudpublikation'">
             
             <kitin-textrow model="item.scopeNote" change-model="holding" label="'Beståndsuppgift'"></kitin-textrow>
 
@@ -157,7 +159,7 @@
             </kitin-table>
 
             <div class="button-bar right">
-              <button class="btn btn-link" data-ng-if="holding.about.workExampleByType.SomeProducts.length > 1" data-ng-click="deleteWorkExample(holding, $index)"><i class="fa fa-trash-o"></i> {{ "Radera huvudpublikation" }}</button>
+              <button class="btn btn-link" data-ng-click="deleteWorkExample(holding, 'SomeProducts', $index)"><i class="fa fa-trash-o"></i> {{ "Radera huvudpublikation" }}</button>
             </div>
           </kitin-group>
       </div>

@@ -260,7 +260,9 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "            </span>\n" +
     "          </div>\n" +
     "\n" +
-    "          <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.shelfLocation\" change-model=\"holding\"></kitin-textrow>\n" +
+    "          <kitin-table label-prefix=\"LABEL.holdings.\" model=\"offer.shelfLocation\">\n" +
+    "            <kitin-td><kitin-textarea model=\"model[$index]\" change-model=\"holding\"></kitin-textarea></kitin-td>\n" +
+    "          </kitin-table>\n" +
     "          <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.classificationPart\" change-model=\"holding\"></kitin-textrow>\n" +
     "          <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.shelfControlNumber\" change-model=\"holding\"></kitin-textrow>\n" +
     "          <kitin-textrow label-prefix=\"LABEL.holdings.\" model=\"offer.shelfLabel\" change-model=\"holding\"></kitin-textrow>\n" +
@@ -310,34 +312,34 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "\n" +
     "    <!-- WORK EXAMPLE BY TYPE (562 - Product) START -->\n" +
     "    <section class=\"form-container\">\n" +
-    "      <div data-ng-repeat=\"item in holding.about.workExampleByType | byType:'Product' track by $index\">\n" +
+    "      <div data-ng-repeat=\"item in holding.about.workExampleByType.Product track by $index\">\n" +
     "\n" +
-    "          <kitin-group label=\"'Identifiering av exemplar, kopia eller version ' + $index\">\n" +
+    "          <kitin-group label=\"'Identifiering av exemplar, kopia eller version'\">\n" +
     "\n" +
-    "            <kitin-table model=\"item.itemCondition\" change-model=\"holding\">\n" +
-    "              <kitin-td><kitin-textarea model=\"model[$index]\"></kitin-textarea></kitin-td>\n" +
+    "            <kitin-table model=\"item.itemCondition\">\n" +
+    "              <kitin-td><kitin-textarea model=\"model[$index]\" change-model=\"holding\"></kitin-textarea></kitin-td>\n" +
     "            </kitin-table>\n" +
     "\n" +
-    "            <kitin-table model=\"item.copyIdentification\" change-model=\"holding\">\n" +
-    "              <kitin-td><kitin-textarea model=\"model[$index]\"></kitin-textarea></kitin-td>\n" +
+    "            <kitin-table model=\"item.copyIdentification\">\n" +
+    "              <kitin-td><kitin-textarea model=\"model[$index]\" change-model=\"holding\"></kitin-textarea></kitin-td>\n" +
     "            </kitin-table>\n" +
     "\n" +
-    "            <kitin-table model=\"item.versionIdentification\" change-model=\"holding\">\n" +
-    "              <kitin-td><kitin-textarea model=\"model[$index]\"></kitin-textarea></kitin-td>\n" +
+    "            <kitin-table model=\"item.versionIdentification\">\n" +
+    "              <kitin-td><kitin-textarea model=\"model[$index]\" change-model=\"holding\"></kitin-textarea></kitin-td>\n" +
     "            </kitin-table>\n" +
     "\n" +
-    "            <kitin-table model=\"item.presentationFormat\" change-model=\"holding\">\n" +
-    "              <kitin-td><kitin-textarea model=\"model[$index]\"></kitin-textarea></kitin-td>\n" +
+    "            <kitin-table model=\"item.presentationFormat\">\n" +
+    "              <kitin-td><kitin-textarea model=\"model[$index]\" change-model=\"holding\"></kitin-textarea></kitin-td>\n" +
     "            </kitin-table>\n" +
     "\n" +
-    "            <kitin-table model=\"item.inventoryLevel\" change-model=\"holding\">\n" +
-    "              <kitin-td><kitin-textarea model=\"model[$index]\"></kitin-textarea></kitin-td>\n" +
+    "            <kitin-table model=\"item.inventoryLevel\">\n" +
+    "              <kitin-td><kitin-textarea model=\"model[$index]\" change-model=\"holding\"></kitin-textarea></kitin-td>\n" +
     "            </kitin-table>\n" +
     "\n" +
     "            <kitin-textrow model=\"item.materialsSpecified\" change-model=\"holding\"></kitin-textrow>\n" +
     "            \n" +
     "            <div class=\"button-bar right\">\n" +
-    "              <button class=\"btn btn-link\" data-ng-if=\"holding.about.workExampleByType.Product.length > 1\" data-ng-click=\"deleteWorkExample(holding, $index)\"><i class=\"fa fa-trash-o\"></i> {{ \"Radera identifiering\" }}</button>\n" +
+    "              <button class=\"btn btn-link\" data-ng-click=\"deleteWorkExample(holding, 'Product', $index)\"><i class=\"fa fa-trash-o\"></i> {{ \"Radera identifiering\" }}</button>\n" +
     "            </div>\n" +
     "          </kitin-group>\n" +
     "      </div>\n" +
@@ -348,8 +350,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "        \n" +
     "    <!-- WORK EXAMPLE BY TYPE (866 - SomeProducts) START -->\n" +
     "    <section class=\"form-container\">\n" +
-    "      <div data-ng-repeat=\"item in holding.about.workExampleByType | byType:'SomeProducts' track by $index\">\n" +
-    "          <kitin-group label=\"'Huvudpublikation ' + $index\">\n" +
+    "      <div data-ng-repeat=\"item in holding.about.workExampleByType.SomeProducts track by $index\">\n" +
+    "          <kitin-group label=\"'Huvudpublikation'\">\n" +
     "            \n" +
     "            <kitin-textrow model=\"item.scopeNote\" change-model=\"holding\" label=\"'Beståndsuppgift'\"></kitin-textrow>\n" +
     "\n" +
@@ -362,7 +364,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "            </kitin-table>\n" +
     "\n" +
     "            <div class=\"button-bar right\">\n" +
-    "              <button class=\"btn btn-link\" data-ng-if=\"holding.about.workExampleByType.SomeProducts.length > 1\" data-ng-click=\"deleteWorkExample(holding, $index)\"><i class=\"fa fa-trash-o\"></i> {{ \"Radera huvudpublikation\" }}</button>\n" +
+    "              <button class=\"btn btn-link\" data-ng-click=\"deleteWorkExample(holding, 'SomeProducts', $index)\"><i class=\"fa fa-trash-o\"></i> {{ \"Radera huvudpublikation\" }}</button>\n" +
     "            </div>\n" +
     "          </kitin-group>\n" +
     "      </div>\n" +
