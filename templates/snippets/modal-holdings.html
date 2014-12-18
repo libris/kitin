@@ -79,7 +79,7 @@
     <section class="form-container">
       <div data-ng-repeat="document in holding.about.isPrimaryTopicOf track by $index">
         <kitin-group label="'Elektronisk adress och åtkomst'">
-          <kitin-textrow model="document['@id']" change-model="holding"></kitin-textrow>
+          <kitin-textrow model="document['@id']" label.prefix="LABEL." label="document[@'id']" change-model="holding"></kitin-textrow>
 
           <kitin-textrow model="document.description" change-model="holding"></kitin-textrow>
 
