@@ -284,7 +284,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <section class=\"form-container\">\n" +
     "      <div data-ng-repeat=\"document in holding.about.isPrimaryTopicOf track by $index\">\n" +
     "        <kitin-group label=\"'Elektronisk adress och åtkomst'\">\n" +
-    "          <kitin-textrow model=\"document['@id']\" change-model=\"holding\"></kitin-textrow>\n" +
+    "          <kitin-textrow model=\"document['@id']\" label.prefix=\"LABEL.\" label=\"document[@'id']\" change-model=\"holding\"></kitin-textrow>\n" +
     "\n" +
     "          <kitin-textrow model=\"document.description\" change-model=\"holding\"></kitin-textrow>\n" +
     "\n" +
@@ -414,7 +414,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "</div>\n" +
     "\n" +
     "<!-- <pre>{{holding}}</pre> -->\n" +
-    "<pre>{{modifications.holding}}</pre>\n" +
+    "<!-- <pre>{{modifications.holding}}</pre> -->\n" +
     "\n" +
     "<div class=\"modal-footer holdings submit\">\n" +
     "  <div class=\"status pull-left\">\n" +
@@ -926,7 +926,18 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/view-person',
     "<div class=\"person main\">\n" +
     "  <div data-ng-if=\"isLinked(object) && !isEmpty(object)\" >\n" +
-    "    <span onload=\"person = object\" data-ng-include=\"'/snippets/person-name'\"></span>\n" +
+    "    <strong data-ng-if=\"object.givenName || object.familyName\" class=\"name\">\n" +
+    "      {{ object.givenName }} {{ object.familyName }}\n" +
+    "    </strong>\n" +
+    "    <strong data-ng-if=\"object.name\" class=\"name\">\n" +
+    "      {{ object.name }}\n" +
+    "    </strong>\n" +
+    "    <em data-ng-if=\"object.personTitle\">\n" +
+    "      (<span ng-repeat=\"personTitle in object.personTitle\">{{ personTitle }} </span>)\n" +
+    "    </em>\n" +
+    "    <span data-ng-if=\"object.birthYear || object.deathYear\">\n" +
+    "      <span class=\"timeSpan\">{{ object.birthYear }}-{{ object.deathYear }}</span>\n" +
+    "    </span>\n" +
     "    <a data-ng-if=\"isLinked(object)\" class=\"btn-link auth\" data-ng-controller=\"ModalCtrl\" data-ng-click=\"openAuthModal(person['@id'])\">\n" +
     "      <i class=\"fa fa-bookmark\"></i> Aukt.\n" +
     "    </a>\n" +
@@ -938,7 +949,18 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "        <button data-ng-show=\"editable.on\" class=\"btn btn-link\" data-ng-click=\"editable.on = false\"><i class=\"fa fa-check\"></i> Klar</button>\n" +
     "    </div>\n" +
     "    <div class=\"non-editable\">\n" +
-    "      <span onload=\"person = object\" data-ng-include=\"'/snippets/person-name'\"></span>\n" +
+    "      <strong data-ng-if=\"object.givenName || object.familyName\" class=\"name\">\n" +
+    "        {{ object.givenName }} {{ object.familyName }}\n" +
+    "      </strong>\n" +
+    "      <strong data-ng-if=\"object.name\" class=\"name\">\n" +
+    "        {{ object.name }}\n" +
+    "      </strong>\n" +
+    "      <em data-ng-if=\"object.personTitle\">\n" +
+    "        (<span ng-repeat=\"personTitle in object.personTitle\">{{ personTitle }} </span>)\n" +
+    "      </em>\n" +
+    "      <span data-ng-if=\"object.birthYear || object.deathYear\">\n" +
+    "        <span class=\"timeSpan\">{{ object.birthYear }}-{{ object.deathYear }}</span>\n" +
+    "      </span>\n" +
     "    </div>\n" +
     "    <div data-ng-show=\"editable.on\" class=\"editable\">\n" +
     "      <span class=\"arr\"></span>\n" +

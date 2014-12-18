@@ -1,6 +1,17 @@
 <div class="person main">
   <div data-ng-if="isLinked(object) && !isEmpty(object)" >
-    <span onload="person = object" data-ng-include="'/snippets/person-name'"></span>
+    <strong data-ng-if="object.givenName || object.familyName" class="name">
+      {{ object.givenName }} {{ object.familyName }}
+    </strong>
+    <strong data-ng-if="object.name" class="name">
+      {{ object.name }}
+    </strong>
+    <em data-ng-if="object.personTitle">
+      (<span ng-repeat="personTitle in object.personTitle">{{ personTitle }} </span>)
+    </em>
+    <span data-ng-if="object.birthYear || object.deathYear">
+      <span class="timeSpan">{{ object.birthYear }}-{{ object.deathYear }}</span>
+    </span>
     <a data-ng-if="isLinked(object)" class="btn-link auth" data-ng-controller="ModalCtrl" data-ng-click="openAuthModal(person['@id'])">
       <i class="fa fa-bookmark"></i> Aukt.
     </a>
@@ -12,7 +23,18 @@
         <button data-ng-show="editable.on" class="btn btn-link" data-ng-click="editable.on = false"><i class="fa fa-check"></i> Klar</button>
     </div>
     <div class="non-editable">
-      <span onload="person = object" data-ng-include="'/snippets/person-name'"></span>
+      <strong data-ng-if="object.givenName || object.familyName" class="name">
+        {{ object.givenName }} {{ object.familyName }}
+      </strong>
+      <strong data-ng-if="object.name" class="name">
+        {{ object.name }}
+      </strong>
+      <em data-ng-if="object.personTitle">
+        (<span ng-repeat="personTitle in object.personTitle">{{ personTitle }} </span>)
+      </em>
+      <span data-ng-if="object.birthYear || object.deathYear">
+        <span class="timeSpan">{{ object.birthYear }}-{{ object.deathYear }}</span>
+      </span>
     </div>
     <div data-ng-show="editable.on" class="editable">
       <span class="arr"></span>
