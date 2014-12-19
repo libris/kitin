@@ -189,10 +189,12 @@ def proxy_request(path=''):
 
     # Modify headers    
     headers = extract_x_forwarded_for_header(request)
-    for key, value in request.headers:
-        headers[key] = value
-    headers['content-type'] = JSON_LD_MIME_TYPE
-    
+    if 'If-match' in request.headers:
+        headers['If-match'] = request.headers['If-match']
+    if 'Authorization' in request.headers:
+        headers['Authorization'] = request.headers['Authorization']
+    headers['Content-Type'] = JSON_LD_MIME_TYPE
+
     # Handle PUT/POST data
     data = None
     allow_redirects=False

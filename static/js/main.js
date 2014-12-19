@@ -4,7 +4,7 @@
  */
 
 var kitin = angular.module('kitin', [
-    'ngRoute', 'pascalprecht.translate',
+    'ngRoute', 'pascalprecht.translate', 'ngCookies',
     'ui.utils', 'ui.bootstrap', 'ngAnimate', 'cgBusy', 'dialogs.main',
     'kitin.controllers', 'kitin.filters', 'kitin.services', 'kitin.directives']);
 
@@ -59,7 +59,7 @@ kitin.filter('unsafe', ['$sce', function ($sce) {
  * Global Constants
  * (TODO: move to service and depend on in required places instead)
  */
-kitin.run(function($rootScope, $location) {
+kitin.run(function($rootScope, $location, $cookies) {
   var hash = angular.copy($location.hash());
   var hashParams = _.object(_.map(hash.split('&'),function(params) {
     var p = params.split('=');
@@ -67,11 +67,16 @@ kitin.run(function($rootScope, $location) {
   }));
 
   if(hashParams['access_token']) {
-    $rootScope.OAUTH_ACCESS_TOKEN = hashParams['access_token'];
+    $cookies.whelk_access_token = JSON.stringify({ 'access_token': hashParams['access_token'], 'expires': new Date().getTime()+(hashParams['expires_in']*1000) });
+  } 
+  var whelk_access_token = JSON.parse($cookies.whelk_access_token);
+  if(whelk_access_token && (new Date().getTime()) < whelk_access_token.expires) {
+    $rootScope.OAUTH_ACCESS_TOKEN = whelk_access_token.access_token;
   } else {
     $location.url('/login');
   }
-
+  console.log($cookies.whelk_access_token);
+  
   $rootScope.API_PATH = WHELK_HOST;
   $rootScope.WRITE_API_PATH = WHELK_WRITE_HOST;
 });
