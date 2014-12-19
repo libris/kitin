@@ -2,25 +2,6 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
 
   $scope.classes = {};
 
-  $rootScope.modifications.bib = {
-    makeDirty: function() {
-      this.saved = false;
-      this.published = false;
-    },
-    onSave: function() {
-      this.saved = true;
-      this.lastSaved = new Date();
-    },
-    onPublish: function() {
-      this.saved = true;
-      this.published = true;
-      this.lastPublished = new Date();
-    },
-    saved:     ($scope.recType === editService.RECORD_TYPES.REMOTE || $scope.record.new) ? false : true, 
-    published: ($scope.recType === editService.RECORD_TYPES.REMOTE || $scope.record.draft || $scope.record.new) ? false : true,
-    imported: false
-  };
-
   // Some actions trigger location change, watch for these and give feedback accordingly
   var queryStrings = $location.search();
   if (queryStrings.saved || queryStrings.published || queryStrings.imported) {
