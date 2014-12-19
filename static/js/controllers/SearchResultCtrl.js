@@ -187,6 +187,8 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
       } else {
         $rootScope.state.search.result = { items: 0 };
       }
+      // Create an static version of query 
+      $scope.staticQ = angular.copy($rootScope.state.search.q);
     });
   };
 
