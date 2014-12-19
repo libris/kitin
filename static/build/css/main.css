@@ -2066,6 +2066,19 @@ section.result span.page-indicator {
   font-size: 12px;
   word-spacing: -1px;
 }
+section.result .details {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 12px;
+}
+section.result .details a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 section.result .widget {
   position: absolute;
   top: 0px;
