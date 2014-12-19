@@ -28,13 +28,11 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse, dialogs
     require: ['?^^kitinEntityrow', '?^^kitinGroup'],
     link: function(scope, element, attrs, parents) {
       // pass initial objects to parent
-      if ( parents && parents.length ) {
-        scope.$watch(scope.objects, function(a, b, ns) {
-          parents.forEach(function(parent) {
-            if ( parent && parent.passObjects ) {
-              parent.passObjects(ns.objects);
-            }
-          });
+      if ( parents && parents.length && scope.objects ) {
+        parents.forEach(function(parent) {
+          if ( parent && parent.passObjects ) {
+            parent.passObjects(scope.objects);
+          }
         });
       }
     },
