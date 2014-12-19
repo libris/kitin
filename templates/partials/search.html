@@ -21,12 +21,12 @@
             <span data-ng-show="state.search.page.total">. Visar sida {{state.page}} av {{state.search.page.total}}.</span>
           </div>
           <div class="tools">
-            <span data-ng-show="recType != 'remote'" class="sort-option">
+            <span class="sort-option">
               <span class="hitlist-viewswitch">
                 <a href="" ng-class="{ active: state.search.view=='detailed' }" data-ng-click="setView('detailed')"><i class="fa fa-th-list"></i></a>
                 <a href="" ng-class="{ active: state.search.view=='compact' }" data-ng-click="setView('compact')"><i class="fa fa-list"></i></a>
               </span>
-              <select ng-model="selectedSort" ng-options="item as item.text for item in sortables" ng-change="sortChanged(selectedSort)"></select>
+              <select ng-model="selectedSort" ng-options="item as item.text for item in sortables" ng-change="sortChanged(selectedSort)" data-ng-show="recType != 'remote'"></select>
             </span>
           </div>
         </div>

@@ -6,6 +6,12 @@
         <div data-ng-include="'/snippets/hitlist-compact-auth'"></div>
       </div>
     </div>
+    <!--REMOTE RESULT-->
+    <div data-ng-switch-when="remote">
+      <div data-ng-repeat="record in state.search.result.items">
+        <div data-ng-include="'/snippets/hitlist-compact-remote'"></div>
+      </div>
+    </div>
     <!--BIB RESULT-->
     <div data-ng-switch-default>
       <div data-ng-repeat="record in state.search.result.items">
