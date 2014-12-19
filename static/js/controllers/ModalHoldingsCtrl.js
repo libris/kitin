@@ -150,7 +150,6 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   };
 
   $scope.addPrimaryTopicOf = function(holding) {
-    // Get offers from existing holding
     var eDocuments = holding.about.isPrimaryTopicOf;
     recordService.holding.create().then(function(response) {
       var eDocument = response.about.isPrimaryTopicOf[0];

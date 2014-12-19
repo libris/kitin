@@ -95,8 +95,9 @@ kitin.directive('kitinTable', function(editService, $filter){
         };
 
         $scope.addRow = function() {
-          // TODO We must run getDirty() of current changeModel when removing and adding rows.
-          // For now we need to put change-model on both kitin-table and child element, that could be iomproved upon.
+          // We must run getDirty() of current changeModel when removing and adding rows.
+          // TODO For now we need to put change-model on both kitin-table and child element, that could be improved upon.
+          // Also, this doesn't care if track-change is set. 
           if (angular.isDefined($attrs.changeModel) && angular.isDefined($rootScope.modifications[$attrs.changeModel].makeDirty)) {
              $rootScope.modifications[$attrs.changeModel].makeDirty();
           }
