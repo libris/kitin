@@ -38,6 +38,28 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('/snippets/hitlist-compact-remote',
+    "<div class=\"hitlist-row bib compact\">\n" +
+    "  <div class=\"title\">\n" +
+    "    <a href=\"#\" data-ng-controller=\"ModalCtrl\" data-ng-click=\"openBibViewModal(record, true)\">{{ utils.composeTitle(record.data) | chop:80}}</a>\n" +
+    "  </div>\n" +
+    "  <div class=\"creator\">\n" +
+    "    {{ utils.composeCreator(record.data) | chop:40 }}\n" +
+    "  </div>\n" +
+    "  <div class=\"publication\">\n" +
+    "    <span data-ng-repeat=\"publication in record.data.about.publication | limitTo:1\">\n" +
+    "      {{ utils.composeDate(publication.providerDate) }}\n" +
+    "    </span>\n" +
+    "  </div>\n" +
+    "  <div class=\"identifier-code\">\n" +
+    "    <span data-ng-repeat=\"identifier in record.data.about.identifier | limitTo:1\">\n" +
+    "      {{ identifier.identifierValue | chop:20 }}\n" +
+    "    </span>\n" +
+    "  </div>\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('/snippets/jsonld-object',
     "<div class=\"header\" data-ng-if=\"object[TYPE] || object[ID]\">\n" +
     "  <span class=\"type\" data-ng-if=\"object[TYPE]\"\n" +
