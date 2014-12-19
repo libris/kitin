@@ -59,7 +59,6 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
     console.error('No type of record to load');
   }
 
-
   // TODO: move each part of this into editService.decorate, then remove this function
   $scope.addRecordViewsToScope = function(record) {
 
@@ -85,6 +84,26 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
         title: 'Organisation'
       }
     };
+
+    $rootScope.modifications.bib = {
+      makeDirty: function() {
+        this.saved = false;
+        this.published = false;
+      },
+      onSave: function() {
+        this.saved = true;
+        this.lastSaved = new Date();
+      },
+      onPublish: function() {
+        this.saved = true;
+        this.published = true;
+        this.lastPublished = new Date();
+      },
+      saved:     ($scope.recType === editService.RECORD_TYPES.REMOTE || $scope.record.new) ? false : true, 
+      published: ($scope.recType === editService.RECORD_TYPES.REMOTE || $scope.record.draft || $scope.record.new) ? false : true,
+      imported: false
+    };
+
   };
 
   $scope.getCurrentPath = function() { return $location.path(); };
