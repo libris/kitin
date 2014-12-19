@@ -66,7 +66,6 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $loca
     
 
     getSearchParams : function() {
-      //console.log($rootScope.state.search);
       var params = {
         q: $rootScope.state.search.q,
         start: $rootScope.state.search.page.start,
