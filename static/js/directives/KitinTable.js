@@ -14,6 +14,7 @@ Params:
   label: (str)
   labels: (string array) labels to add to table columns
   type: (str) type of object to create on add. Defaults to simple string
+  change-model: (str) which model's dirty flag to set. $rootScope.modifications[bib, holdings etc.]
 
 */
 
@@ -119,7 +120,7 @@ kitin.directive('kitinTable', function(editService, $filter){
         $scope.model = _.isArray($scope.model) && $scope.model.length > 0 ? $scope.model : [this.doCreate()];
         if($attrs.labels) {
           $scope.labels = $scope.$eval($attrs.labels);
-          // For tables with labels, make sure help gets push down a bit
+          // For tables with labels, make sure help gets pushed down a bit
           $scope.positioned = 'dropped';
         }
 

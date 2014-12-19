@@ -25,6 +25,7 @@ kitin.config(function($locationProvider, $routeProvider, $translateProvider, $ht
 
       $httpProvider.interceptors.push('HttpInterceptor');
 
+      // This is used by confirm prompts created with dialogs.create
       dialogsProvider.useBackdrop(false);
       dialogsProvider.useEscClose(false);
       dialogsProvider.useClass('kitin-dialog');
@@ -52,6 +53,7 @@ kitin.filter('unsafe', ['$sce', function ($sce) {
 }]);
 
 // TODO: window.onunload or $routeProvider / $locationChangeStart
+// See kitin.run below
 //if (ajaxInProgress)
 //  confirm('ajaxInProgress; break and leave?')
 
@@ -62,78 +64,16 @@ kitin.filter('unsafe', ['$sce', function ($sce) {
 kitin.run(function($rootScope, $location) {
   $rootScope.API_PATH = WHELK_HOST;
   $rootScope.WRITE_API_PATH = '/whelk-webapi';
-  
-  var params;
-  var queryString;
 
-  // $rootScope.$on("$routeChangeStart", function (e, current) {
-  //   params = $rootScope.state.search;
-  //   queryString = $location.search();
-  // });
-
-  // $rootScope.$on("$routeChangeSuccess", function (e, current) {
-  //   var persistentQS = {
-  //     q: params.q || null,
-  //     n: params.n || null,
-  //     start: (params.page) ? params.page.start || null : null,
-  //     sort: params.sort || null,
-  //     databases: params.databases || null,
-  //     view: params.view || null,
-  //     f: null // Can't persist filter for now, TODO figure this out.
-  //   };
-
-  //   var compactObject = _.partialRight(_.pick, _.identity);
-
-  //   _.extend(queryString, compactObject(persistentQS));
-    
-  //   $location.search(queryString);
-  // });
-
+  // Make sure we have no unsaved forms
   // var locationChangeOff = $rootScope.$on('$locationChangeStart', function (event, newUrl, oldUrl) {
-  //   // Prevent default action, we need to handle all location changes 
-  //   // For example, to prompt user when navigation occurs and form is dirty
-  //   event.preventDefault();
-
-  //   console.log(newUrl);
-
-  //   //var searchParams = $location.search();
-  //   var destination;
-  //   var go = function() {
-  //     locationChangeOff();
-  //     console.log('going');
-  //     $location.url('/' + destination);
-  //     //newUrl = destination;
-  //     return;
-  //   };
-
-  //   destination = newUrl.split('/');
-  //   destination.splice(0,3);
-  //   destination = destination.join('/');
-    
-  //   // Make sure query string persists
-  //   if (oldUrl.indexOf('?') >= 0) {
-  //     //console.log(oldUrl.split('?'));
-  //     //destination += '?' +
-  //     console.log('splitting');
-  //     var oldQS = oldUrl.split('?')[1];
-  //     var newPath = destination.split('?')[0];
-  //     newUrl = newPath + oldQS;
-  //   } else {
-  //     newUrl = destination;
-  //   }
-  //   console.log(destination);
-
-  //   // Make sure we have no unsaved forms
   //   var forms = $rootScope.modifications;
   //   if (angular.isDefined(forms)) {
   //     if ( (forms.bib.isDirty && forms.bib.isDirty()) || (forms.bib.isDirty && forms.bib.isDirty()) || (forms.bib.isDirty && forms.bib.isDirty()) ) {
-        
+  //       event.preventDefault();        
   //       console.log('dirty form detected');
   //     }
   //   }
-
-  //   go();
-
   // });
 });
 
@@ -153,22 +93,6 @@ $.Autocompleter.prototype.position = function() {
 
 // Enabling CORS support in jQuery to make jquery autocompleter work in IE
 jQuery.support.cors = true;
-
-// TODO: turn into promptService?
-function openPrompt($event, promptSelect, innerMenuSelect) {
-  var tgt = $($event.target),
-    off = tgt.offset(), width = tgt.width();
-  var prompt = $(promptSelect);
-  // NOTE: picking width from .dropdown-menu which has absolute pos
-  var menuWidth = (innerMenuSelect? $(innerMenuSelect, prompt) : prompt).width();
-  var topPos = off.top;
-  var leftPos = off.left + width - menuWidth;
-  if (leftPos < 0)
-    leftPos = 0;
-  prompt.css({position: 'absolute',
-              top: topPos + 'px', left: leftPos + 'px'});
-  prompt.find('select').focus();
-}
 
 if(debug) {
   // Get click event log and layout grid toggle

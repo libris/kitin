@@ -90,23 +90,6 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     return tplt.replace(/%s/, $rootScope.modifications.bib.lastPublished.toLocaleString());
   };
 
-  // TODO: Could not find any reference to this, safe to remove?
-  // $scope.promptConfirmDelete = function($event, type, id) {
-  //   $scope.confirmDeleteDraft = {
-  //     execute: function() {
-  //       recordService.draft.delete(type, id).then(function(data) {
-  //         $scope.confirmDeleteDraft = null;
-  //       });
-  //     },
-  //     abort: function() {
-  //       $scope.confirmDeleteDraft = null;
-  //     }
-  //   };
-  //   $timeout(function() {
-  //     openPrompt($event, "#confirmDeleteDraftDialog");
-  //   });
-  // };
-
   $scope.publish = function() {
     var parsedRecType = $scope.recType === editService.RECORD_TYPES.REMOTE ? editService.RECORD_TYPES.BIB : $scope.recType;
     if(!$scope.record.new) {
@@ -163,55 +146,12 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
         $rootScope.modifications.bib.onSave();
         $scope.classes.saveStatus = 'success';
       }, function failure (status) {
-
+        $rootScope.modifications.bib.saved = false;
+        $scope.classes.saveStatus = 'error';
       });
+      var element = angular.element('#message-container .save-messages');
+      if (element.length) utilsService.showPopup(element);
     }
-  };
-
-  $scope.newObject = function(subj, rel, type) {
-    var obj = subj[rel] = editService.createObject(type);
-  };
-
-  $scope.addObject = function(subj, rel, type, target, subCollection) {
-    var isDefined = function(collection) {
-      return typeof collection !== 'undefined' && collection !== 'undefined';
-    };
-
-    var collection = subj[rel];
-    if (!isDefined(collection)) {
-      collection = subj[rel] = isDefined(subCollection) ? {} : [];
-    }
-    //!TODO clean up, subCollections is needed when hasFormat and identifier is undefined
-    if(isDefined(subCollection)) {
-      collection = subj[rel][subCollection];
-      if(!isDefined(collection)) {
-        collection = subj[rel][subCollection] = [];
-      }
-    }
-    var obj = editService.createObject(type);
-    collection.push(obj);
-    // Focus on added row
-    if (target) {
-      var $dataTable = angular.element('[data-ng-target='+target+']');
-      $timeout(function() {
-        $dataTable.find('tbody tr:last input:first').focus();
-      });
-    }
-  };
-
-  $scope.removeObject = function(subj, rel, index) {
-    var obj = _.isArray(subj) && !rel ? subj : subj[rel];
-    var removed = null;
-    if (_.isArray(obj)) {
-      removed = obj.splice(index,1)[0];
-    } else {
-      removed = subj[rel];
-      subj[rel] = null;
-    }
-    if (typeof subj.onRemove === 'function') {
-      subj.onRemove(rel, removed, index);
-    }
-    $scope.$emit('changed');
   };
 
 });
