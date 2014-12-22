@@ -1,5 +1,9 @@
 /**
+<<<<<<< HEAD
  * @license AngularJS v1.3.8-build.3697+sha.f297aa5
+=======
+ * @license AngularJS v1.2.29-build.581+sha.b79f583
+>>>>>>> develop
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -54,7 +58,11 @@ function minErr(module, ErrorConstructor) {
       return match;
     });
 
+<<<<<<< HEAD
     message = message + '\nhttp://errors.angularjs.org/1.3.8-build.3697+sha.f297aa5/' +
+=======
+    message = message + '\nhttp://errors.angularjs.org/1.2.29-build.581+sha.b79f583/' +
+>>>>>>> develop
       (module ? module + '/' : '') + code;
     for (i = 2; i < arguments.length; i++) {
       message = message + (i == 2 ? '?' : '&') + 'p' + (i - 2) + '=' +
@@ -465,6 +473,8 @@ noop.$inject = [];
        return (transformationFn || angular.identity)(value);
      };
    ```
+  * @param {*} value to be returned.
+  * @returns {*} the value passed in.
  */
 function identity($) {return $;}
 identity.$inject = [];
@@ -2116,10 +2126,17 @@ function toDebugString(obj) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
+<<<<<<< HEAD
   full: '1.3.8-build.3697+sha.f297aa5',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
   minor: 3,
   dot: 8,
+=======
+  full: '1.2.29-build.581+sha.b79f583',    // all of these placeholder strings will be replaced by grunt's
+  major: 1,    // package task
+  minor: 2,
+  dot: 29,
+>>>>>>> develop
   codeName: 'snapshot'
 };
 

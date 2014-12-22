@@ -2,42 +2,34 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
 
   $scope.classes = {};
 
-  $rootScope.modifications.bib = {
-    saved:     ($scope.recType === editService.RECORD_TYPES.REMOTE || $scope.record.new) ? false : true, 
-    published: ($scope.recType === editService.RECORD_TYPES.REMOTE || $scope.record.draft || $scope.record.new) ? false : true
-  };
-
   // Some actions trigger location change, watch for these and give feedback accordingly
   var queryStrings = $location.search();
-  if (queryStrings.saved || queryStrings.published) {
+  if (queryStrings.saved || queryStrings.published || queryStrings.imported) {
     var element;
-    // TODO: Ugly, ugly timeout. Hopefully our buttons will be present at the end of it.
+    // TODO: Avoid this timeout if possible:
+    // Ugly, ugly timeout. Hopefully our buttons will be present at the end of it.
     $timeout(function() {
       if (queryStrings.saved) {
-        $scope.classes.saveStatus = 'success';
-        element = angular.element('#save-draft');
+        $scope.classes.saveStatus = queryStrings.saved == 'error' ? 'error' : 'success';
+        element = angular.element('#message-container .save-messages');
       } else if (queryStrings.published) {
-        $scope.classes.publishStatus = 'success';
-        element = angular.element('#publish-bib');
+        $scope.classes.publishStatus = queryStrings.published == 'error' ? 'error' : 'success';
+        element = angular.element('#message-container .publish-messages');
+      } else if (queryStrings.imported) {
+        $rootScope.modifications.bib.imported = true;
+        $scope.classes.importStatus = queryStrings.imported == 'error' ? 'error' : 'success';
+        element = angular.element('#message-container .import-messages');
       }
+
       if (element.length) utilsService.showPopup(element).then(function() {
+        // Remove querystring when popover disappears
         $location.search({
           published: null,
-          saved: null
+          saved: null,
+          imported: null
         }); 
       });
     }, 1000);
-  }
-
-  function onSaveState() {
-    $rootScope.modifications.bib.saved = true;
-    $rootScope.modifications.bib.lastSaved = new Date();
-  }
-  
-  function onPublishState() {
-    $rootScope.modifications.bib.saved = true;
-    $rootScope.modifications.bib.published = true;
-    $rootScope.modifications.bib.lastPublished = new Date();
   }
 
   // Make sure the edit view holdings button stay updated
@@ -98,22 +90,6 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     return tplt.replace(/%s/, $rootScope.modifications.bib.lastPublished.toLocaleString());
   };
 
-  $scope.promptConfirmDelete = function($event, type, id) {
-    $scope.confirmDeleteDraft = {
-      execute: function() {
-        recordService.draft.delete(type, id).then(function(data) {
-          $scope.confirmDeleteDraft = null;
-        });
-      },
-      abort: function() {
-        $scope.confirmDeleteDraft = null;
-      }
-    };
-    $timeout(function() {
-      openPrompt($event, "#confirmDeleteDraftDialog");
-    });
-  };
-
   $scope.publish = function() {
     var parsedRecType = $scope.recType === editService.RECORD_TYPES.REMOTE ? editService.RECORD_TYPES.BIB : $scope.recType;
     if(!$scope.record.new) {
@@ -135,13 +111,13 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
           // Libris record, just update record
           $scope.addRecordViewsToScope(data['recdata']);
           $scope.etag = data['etag'];
-          onPublishState();
+          $rootScope.modifications.bib.onPublish();
           $scope.classes.publishStatus = 'success';
         }
       }, function error(status) {
         $scope.classes.publishStatus = 'error';
       }).finally(function() {
-        var element = angular.element('#publish-bib');
+        var element = angular.element('#message-container .publish-messages');
         if (element.length) utilsService.showPopup(element).then(function() {
           // This would be a good place to do some cleanup if needed
           //console.log('Popup should now be hidden');
@@ -167,59 +143,15 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
       recordService.draft.save(parsedRecType, $scope.recId, $scope.record, $scope.etag).then(function success(data) {
         $scope.addRecordViewsToScope(data['recdata']);
         $scope.etag = data['etag'];
-        onSaveState();
+        $rootScope.modifications.bib.onSave();
         $scope.classes.saveStatus = 'success';
       }, function failure (status) {
-
+        $rootScope.modifications.bib.saved = false;
+        $scope.classes.saveStatus = 'error';
       });
+      var element = angular.element('#message-container .save-messages');
+      if (element.length) utilsService.showPopup(element);
     }
-  };
-
-  $scope.newObject = function(subj, rel, type) {
-    var obj = subj[rel] = editService.createObject(type);
-  };
-
-  $scope.addObject = function(subj, rel, type, target, subCollection) {
-    var isDefined = function(collection) {
-      return typeof collection !== 'undefined' && collection !== 'undefined';
-    };
-
-    var collection = subj[rel];
-    if (!isDefined(collection)) {
-      collection = subj[rel] = isDefined(subCollection) ? {} : [];
-    }
-    //!TODO clean up, subCollections is needed when hasFormat and identifier is undefined
-    if(isDefined(subCollection)) {
-      collection = subj[rel][subCollection];
-      if(!isDefined(collection)) {
-        collection = subj[rel][subCollection] = [];
-      }
-    }
-    var obj = editService.createObject(type);
-    collection.push(obj);
-    // Focus on added row
-    if (target) {
-      var $dataTable = angular.element('[data-ng-target='+target+']');
-      $timeout(function() {
-        $dataTable.find('tbody tr:last input:first').focus();
-      });
-    }
-  };
-
-  $scope.removeObject = function(subj, rel, index) {
-    var obj = _.isArray(subj) && !rel ? subj : subj[rel];
-    var removed = null;
-    if (_.isArray(obj)) {
-      removed = obj.splice(index,1)[0];
-    } else {
-      removed = subj[rel];
-      subj[rel] = null;
-    }
-    if (typeof subj.onRemove === 'function') {
-      subj.onRemove(rel, removed, index);
-    }
-    //$scope.triggerModified();
-    $scope.$emit('changed');
   };
 
 });

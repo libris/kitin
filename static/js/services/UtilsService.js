@@ -183,6 +183,8 @@ kitin.factory('utilsService', function($http, $q, $rootScope, $timeout) {
       return date;
     },
 
+    // Find nested value, return matches and nonmatches
+    // Example: findDeep(list.object, 'path.to.key', 'value')
     findDeep: function(items, path, value) {
       var matches = [];
       var nonmatches = [];
@@ -221,6 +223,33 @@ kitin.factory('utilsService', function($http, $q, $rootScope, $timeout) {
         }, to);
       });
       return deferred.promise;
+    },
+
+    // Returns a query string (sans '?') holding all search parameters
+    constructQueryString: function(qs, forFacets) {
+      var QS = {
+        q: qs.q || null,
+        n: qs.n || null,
+        start: (qs.page) ? qs.page.start || null : null,
+        sort: qs.sort || null,
+        databases: qs.databases || null,
+        view: qs.view || null
+      };
+      if (forFacets) {
+        // Query strings created for facet links: 
+        // remove paging since number of items may change
+        QS.n = QS.start = null;
+      } else {
+        // Ordinary query string for rudimentary state persistance, add in facets
+        if (qs.f) {
+          QS.f = qs.f;
+        }
+      }
+      // Remove null objects
+      var compactObject = _.partialRight(_.pick, _.identity);
+      return _.map(compactObject(QS),function(v,k){
+        return encodeURIComponent(k) + '=' + encodeURIComponent(v);
+      }).join('&');
     }
   };
 });

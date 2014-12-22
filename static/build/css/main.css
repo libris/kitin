@@ -303,6 +303,8 @@ input[type="color"]:focus,
   margin: 8px 0 0 0;
   padding: 0;
   float: left;
+  list-style-type: none;
+  width: 50%;
 }
 .footer footer img {
   float: right;
@@ -311,13 +313,10 @@ input[type="color"]:focus,
 }
 .footer footer li {
   font: 11px/14px 'Open Sans', sans-serif;
-  display: inline-block;
+  display: inline;
   text-transform: uppercase;
   margin-left: 5px;
-}
-.footer footer li:before {
-  content: "\2022";
-  margin-right: 8px;
+  list-style-type: none;
 }
 .footer footer li:first-child {
   margin-left: 0;
@@ -327,6 +326,11 @@ input[type="color"]:focus,
 .footer footer li:first-child:before {
   content: '';
   margin: 0;
+}
+.footer footer li:not(:first-child) {
+  padding-left: 8px;
+  border: solid #adada9;
+  border-width: 0px 0px 0px 1px;
 }
 body.edit {
   padding-bottom: 40px;
@@ -376,7 +380,8 @@ body.edit .footer-sticky div.centered div.right {
   background: #22ba94;
 }
 .btn-green,
-.btn-green:focus {
+.btn-green:focus,
+.kitin-dialog .modal-dialog .btn-primary {
   background: #1a8f72;
   color: #ffffff;
 }
@@ -398,7 +403,8 @@ body.edit .footer-sticky div.centered div.right {
 .btn-grey {
   background: #eeeeec;
 }
-.btn-purple {
+.btn-purple,
+.holdings-dialog .btn-primary {
   background-color: #683568;
   color: #ffffff;
 }
@@ -917,15 +923,11 @@ body.index #header .remote-search {
 .content:not(.footer) {
   min-height: 500px;
 }
-.saved #draft,
-.published #publish-bib {
-  opacity: 0.4;
-  pointer-events: none;
-  cursor: default;
-}
-#draft,
-#publish-bib {
-  opacity: 1;
+#message-container,
+#holdings-message-container {
+  position: absolute;
+  right: 120px;
+  top: 0;
 }
 .content header {
   position: relative;
@@ -1473,6 +1475,9 @@ html .modal.fade .modal-dialog {
   max-height: 500px;
   max-height: 70vh;
 }
+.modal-footer.holdings {
+  position: relative;
+}
 /* HOLDINGS MODAL END ------------------------- */
 /* REMOTE SOURCES MODAL START ------------------------- */
 .remote-modal a.database-name {
@@ -1487,56 +1492,66 @@ html .modal.fade .modal-dialog {
   color: #999996;
 }
 /* REMOTE SOURCES MODAL END ------------------------- */
-.holdings-dialog .dialog-header-error,
-.holdings-dialog .dialog-header-wait,
-.holdings-dialog .dialog-header-notify,
-.holdings-dialog .dialog-header-confirm {
+.kitin-dialog .dialog-header-error,
+.kitin-dialog .dialog-header-wait,
+.kitin-dialog .dialog-header-notify,
+.kitin-dialog .dialog-header-confirm {
   background-color: #ffffff;
 }
-.holdings-dialog .dialog-header-confirm h4,
-.holdings-dialog .dialog-header-confirm span,
-.holdings-dialog .dialog-header-error h4,
-.holdings-dialog .dialog-header-error span,
-.holdings-dialog .dialog-header-wait h4,
-.holdings-dialog .dialog-header-wait span {
+.kitin-dialog .dialog-header-confirm h4,
+.kitin-dialog .dialog-header-confirm span,
+.kitin-dialog .dialog-header-error h4,
+.kitin-dialog .dialog-header-error span,
+.kitin-dialog .dialog-header-wait h4,
+.kitin-dialog .dialog-header-wait span {
   color: #adada9;
 }
-.holdings-dialog .modal-dialog {
-  margin-top: 200px;
+.kitin-dialog .modal-dialog {
   max-width: 460px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -ms-transform: translate(-50%, -50%) !important;
+  transform: translate(-50%, -50%) !important;
 }
-.holdings-dialog .modal-dialog .modal-content {
+.kitin-dialog .modal-dialog .modal-content {
   border-radius: 0;
   border-color: #c7c7c3;
 }
-.holdings-dialog .modal-dialog .modal-header {
+.kitin-dialog .modal-dialog .modal-header {
   border-bottom: 0;
 }
-.holdings-dialog .modal-dialog .modal-footer {
+.kitin-dialog .modal-dialog .modal-footer {
   border-top-style: dotted;
   margin: 15px 15px 0 15px;
   text-align: center;
 }
-.holdings-dialog .centered-icon {
+.kitin-dialog .modal-dialog .dialog-header-confirm h4 span {
+  color: #1a8f72;
+}
+.kitin-dialog .centered-icon {
   padding-bottom: 0;
 }
-.holdings-dialog .centered-icon .close {
+.kitin-dialog .centered-icon .close {
   color: #adada9;
   text-shadow: none;
 }
-.holdings-dialog .centered-icon h4 {
+.kitin-dialog .centered-icon h4 {
   text-align: center;
 }
-.holdings-dialog .centered-icon h4 span {
+.kitin-dialog .centered-icon h4 span {
   font-size: 22px;
   margin-top: 24px;
 }
-.holdings-dialog .centered-icon.dialog-header-confirm h4 span {
-  color: #683568;
-}
-.holdings-dialog button {
+.kitin-dialog button {
   box-shadow: none;
   border: 0;
+}
+.holdings-dialog .modal-dialog {
+  top: 30%;
+}
+.holdings-dialog .dialog-header-confirm h4 span {
+  color: #683568;
 }
 /* POPOVER START ------------------------- */
 .popover {
@@ -1671,22 +1686,16 @@ h3 {
   font-size: 12px;
   color: #666664;
 }
-.footer-sticky .success .popover,
-.footer-sticky .warning .popover,
-.footer-sticky .error .popover,
-.holdings-modal .success .popover,
-.holdings-modal .warning .popover,
-.holdings-modal .error .popover {
-  margin-top: -30px;
+.footer-sticky .popover,
+.holdings-modal .popover {
   padding: 12px;
 }
-.footer-sticky .success .popover .close,
-.footer-sticky .warning .popover .close,
-.footer-sticky .error .popover .close,
-.holdings-modal .success .popover .close,
-.holdings-modal .warning .popover .close,
-.holdings-modal .error .popover .close {
+.footer-sticky .popover .close,
+.holdings-modal .popover .close {
   display: none;
+}
+.footer-sticky .popover {
+  margin-top: -30px;
 }
 /* POPOVER END ------------------------- */
 /* STARTPAGE START ------------------------- */
@@ -1886,7 +1895,6 @@ section.nav dd a.active {
   font-weight: bold;
   color: #191913;
   background: url(/static/img/check.png) no-repeat 0 5px;
-  cursor: default;
 }
 section.nav dd a.active:hover {
   text-decoration: none;
@@ -2057,6 +2065,19 @@ section.result span.page-indicator {
   padding: 0px 0px 0px 4px;
   font-size: 12px;
   word-spacing: -1px;
+}
+section.result .details {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 12px;
+}
+section.result .details a {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 section.result .widget {
   position: absolute;
@@ -3017,6 +3038,14 @@ body.search .content header .tools .sort-option .hitlist-viewswitch {
 body.search .content header .tools .sort-option .hitlist-viewswitch i {
   padding: 3px;
   color: #666664;
+}
+body.search .content header .tools .sort-option .hitlist-viewswitch a {
+  border: solid 1px;
+  border-color: transparent;
+  border-radius: 4px;
+}
+body.search .content header .tools .sort-option .hitlist-viewswitch a.active {
+  border-color: #adada9;
 }
 body.search .content .facets {
   position: relative;

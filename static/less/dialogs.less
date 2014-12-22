@@ -1,4 +1,4 @@
-.holdings-dialog{
+.kitin-dialog {
   .dialog-header-error,
   .dialog-header-wait,
   .dialog-header-notify,
@@ -12,9 +12,13 @@
   .dialog-header-wait span{color:@grey}
 
   .modal-dialog {
-    margin-top: 200px;
     max-width: 460px;
-    
+    position: absolute;
+    left:50%;
+    top:50%;
+    -ms-transform: translate(-50%, -50%)!important;
+    transform: translate(-50%, -50%)!important;
+
     .modal-content {
       border-radius: 0;
       border-color: @grey-light;
@@ -28,6 +32,12 @@
       border-top-style: dotted;
       margin: 15px 15px 0 15px;
       text-align: center;
+    }
+    
+    .dialog-header-confirm h4 span{color:@green}
+    
+    .btn-primary{
+      &:extend(.btn-green);
     }
   }
 
@@ -44,11 +54,23 @@
         margin-top: 24px;
       }
     }
-    &.dialog-header-confirm h4 span{color:@purple}
   }
 
   button {
     box-shadow: none;
     border: 0;
+  }
+}
+
+// Contextual classes:
+
+
+.holdings-dialog {
+  .modal-dialog{
+    top:30%;
+  }
+  .dialog-header-confirm h4 span{color:@purple}
+  .btn-primary{
+    &:extend(.btn-purple);
   }
 }

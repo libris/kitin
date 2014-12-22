@@ -25,8 +25,10 @@ kitin.config(function($locationProvider, $routeProvider, $translateProvider, $ht
 
       $httpProvider.interceptors.push('HttpInterceptor');
 
+      // This is used by confirm prompts created with dialogs.create
       dialogsProvider.useBackdrop(false);
       dialogsProvider.useEscClose(false);
+      dialogsProvider.useClass('kitin-dialog');
       dialogsProvider.useFontAwesome(true);
       dialogsProvider.setSize('md');
 
@@ -51,6 +53,7 @@ kitin.filter('unsafe', ['$sce', function ($sce) {
 }]);
 
 // TODO: window.onunload or $routeProvider / $locationChangeStart
+// See kitin.run below
 //if (ajaxInProgress)
 //  confirm('ajaxInProgress; break and leave?')
 
@@ -58,9 +61,20 @@ kitin.filter('unsafe', ['$sce', function ($sce) {
  * Global Constants
  * (TODO: move to service and depend on in required places instead)
  */
-kitin.run(function($rootScope) {
+kitin.run(function($rootScope, $location) {
   $rootScope.API_PATH = WHELK_HOST;
   $rootScope.WRITE_API_PATH = '/whelk-webapi';
+
+  // Make sure we have no unsaved forms
+  // var locationChangeOff = $rootScope.$on('$locationChangeStart', function (event, newUrl, oldUrl) {
+  //   var forms = $rootScope.modifications;
+  //   if (angular.isDefined(forms)) {
+  //     if ( (forms.bib.isDirty && forms.bib.isDirty()) || (forms.bib.isDirty && forms.bib.isDirty()) || (forms.bib.isDirty && forms.bib.isDirty()) ) {
+  //       event.preventDefault();        
+  //       console.log('dirty form detected');
+  //     }
+  //   }
+  // });
 });
 
 // Davids preloads
@@ -79,22 +93,6 @@ $.Autocompleter.prototype.position = function() {
 
 // Enabling CORS support in jQuery to make jquery autocompleter work in IE
 jQuery.support.cors = true;
-
-// TODO: turn into promptService?
-function openPrompt($event, promptSelect, innerMenuSelect) {
-  var tgt = $($event.target),
-    off = tgt.offset(), width = tgt.width();
-  var prompt = $(promptSelect);
-  // NOTE: picking width from .dropdown-menu which has absolute pos
-  var menuWidth = (innerMenuSelect? $(innerMenuSelect, prompt) : prompt).width();
-  var topPos = off.top;
-  var leftPos = off.left + width - menuWidth;
-  if (leftPos < 0)
-    leftPos = 0;
-  prompt.css({position: 'absolute',
-              top: topPos + 'px', left: leftPos + 'px'});
-  prompt.find('select').focus();
-}
 
 if(debug) {
   // Get click event log and layout grid toggle

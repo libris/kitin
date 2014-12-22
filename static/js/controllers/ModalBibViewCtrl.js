@@ -17,7 +17,7 @@ kitin.controller('ModalBibViewCtrl', function($scope, $modalInstance, $rootScope
     recordService.draft.create('bib', null, data)
       .then(function success(response) {
         // send user to edit
-        $location.url("edit/draft" + response.recdata['@id']);
+        $location.url("edit/draft" + response.recdata['@id'] + "?imported");
         $scope.close();
       }, function error(status) {
 

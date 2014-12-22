@@ -177,7 +177,6 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
         added = obj? obj : this.createObject(type);
         subj[rel] = added;
       }
-      console.log(added);
       // TODO: make decorate per object type
       if (_.contains(['Person', 'Organization'], added['@type'])) {
         added._reifiedRoles = this.makeVolatileArray();
@@ -221,7 +220,6 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
             throw '';
           }
           createdObject['@type'] = type;
-          console.log(createdObject);
         } catch(error) {
           console.error('Could not find skeleton for', type);
         }
@@ -298,7 +296,6 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
       workExample: {
         indexName: "workExampleByType",
         getIndexKey: function (entity) {
-          console.log(entity);
           if(entity) {
             return entity["@type"];
           }

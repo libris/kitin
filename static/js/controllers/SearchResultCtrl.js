@@ -38,6 +38,8 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
   // Reset remote search hit count 
   _.map($rootScope.state.remoteDatabases, function(remoteDB) { delete remoteDB.hitCount; });
 
+  $scope.queryString = '?' + utilsService.constructQueryString($rootScope.state.search);
+
   // TODO - remove
   $scope.editPost = function(recType, record) {
     if(recType === 'remote') {
@@ -52,14 +54,16 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
   $scope.selectedSort = $routeParams.sort ? _.find(searchService.sortables, { 'value': $routeParams.sort }) : searchService.sortables[0];
   $rootScope.state.search.sort = $scope.selectedSort.value;
   $scope.sortChanged = function(item) {
+    $rootScope.state.search.sort = item.value;
     $location.search('sort', item.value);
   };
   // ----------
 
-  // TODO: What is this?? 
-  // $scope.search = function() {
-  //   $location.url(url);
-  // };
+  $scope.setView = function(view) {
+    // Changing both state and URL seems a bit verbose, but It'll have to do for now.
+    $rootScope.state.search.view = view;
+    $location.search('view', view);
+  };
 
   $scope.getLabel = function (term, termType) {
     var dfn = $scope.terms[term];
@@ -158,8 +162,8 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
     delete $rootScope.state.search.result;
     searchService.search(url, params).then(function(data) {
 
-      $scope.facetGroups = searchUtil.makeLinkedFacetGroups($scope.recType, data.facets, $rootScope.state.search.q, prevFacetsStr);
-      $scope.crumbs = searchUtil.bakeCrumbs($scope.recType, $rootScope.state.search.q, prevFacetsStr);
+      $scope.facetGroups = searchUtil.makeLinkedFacetGroups($scope.recType, data.facets, $rootScope.state.search, prevFacetsStr);
+      $scope.crumbs = searchUtil.bakeCrumbs($scope.recType, $rootScope.state.search, prevFacetsStr);
 
       if (data && data.items) {
         $rootScope.state.search.result = data;
@@ -185,6 +189,8 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
       } else {
         $rootScope.state.search.result = { items: 0 };
       }
+      // Create an static version of query 
+      $scope.staticQ = angular.copy($rootScope.state.search.q);
     });
   };
 
@@ -194,7 +200,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
     recordService.draft.create('bib', null, data)
       .then(function success(response) {
         // send user to edit
-        $location.url("edit/draft" + response.recdata['@id']);
+        $location.url("edit/draft" + response.recdata['@id'] + "?imported");
       }, function error(status) {
 
       });

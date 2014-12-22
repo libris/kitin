@@ -3,7 +3,7 @@
     <div id="grid"></div>
     <header>
       <div class="summary">
-        <p>Din sökning på <strong data-ng-bind="state.search.q"></strong> resulterade i 0 träffar.</p>
+        <p>Din sökning på <strong data-ng-bind="staticQ"></strong> resulterade i 0 träffar.</p>
       </div>
     </header>
   </div>
@@ -21,12 +21,12 @@
             <span data-ng-show="state.search.page.total">. Visar sida {{state.page}} av {{state.search.page.total}}.</span>
           </div>
           <div class="tools">
-            <span data-ng-show="state.searchType.key != 'remote'" class="sort-option">
+            <span class="sort-option">
               <span class="hitlist-viewswitch">
-                <a href="" data-ng-click="state.searchView='detailed'"><i class="fa fa-th-list"></i></a>
-                <a href="" data-ng-click="state.searchView='compact'"><i class="fa fa-list"></i></a>
+                <a href="" ng-class="{ active: state.search.view=='detailed' }" data-ng-click="setView('detailed')"><i class="fa fa-th-list"></i></a>
+                <a href="" ng-class="{ active: state.search.view=='compact' }" data-ng-click="setView('compact')"><i class="fa fa-list"></i></a>
               </span>
-              <select ng-model="selectedSort" ng-options="item as item.text for item in sortables" ng-change="sortChanged(selectedSort)"></select>
+              <select ng-model="selectedSort" ng-options="item as item.text for item in sortables" ng-change="sortChanged(selectedSort)" data-ng-show="recType != 'remote'"></select>
             </span>
           </div>
         </div>
@@ -41,7 +41,7 @@
             <dd data-ng-repeat="item in facet.items">
               <a data-ng-class="{active: item.selected}"
                  data-ng-href="{{item.searchUrl}}">
-                <span ng-if="languages">{{getLabel(item.key, facet.type)}} ({{item.count | chunk}})</span></a>
+                <span ng-if="languages">{{getLabel(item.key, facet.type)}} ({{item.count | chunk}}) <i class="fa fa-times-circle" ng-show="item.selected"></i></span></a>
             </dd>
           </dl>
           <dl>
@@ -54,7 +54,7 @@
           </dl>
         </section>
       </div>
-      <div class="results" ng-switch on="state.searchView">
+      <div class="results" ng-switch on="state.search.view">
 		    <div ng-switch-when="compact">
           <div data-ng-include="'/partials/search_hitlist_compact'"></div>
         </div>

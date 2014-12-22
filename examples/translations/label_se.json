@@ -252,9 +252,9 @@
             "shelfLabel": "Uppställningsord (titel, författare el. dyl.)",
             "shelfLocation": "Avdelning, samling, hyllsignum el. dyl."
           }
-        },          
+        },
+        "document['@id']": "URI",
         "document": {
-          "[@id]": "URI",
           "description": "Del av materialet som avses",
           "altLabel": "Länktext",
           "comment": "Offentlig anmärkning",
@@ -314,7 +314,9 @@
                 "DIALOGS_CLOSE": "Stäng",
                 "DIALOGS_OK": "Ok",
                 "DIALOGS_YES": "Ja",
-                "DIALOGS_NO": "Nej"
+                "DIALOGS_NO": "Nej",
+                "CLOSE_HOLDINGS": "Du har osparade ändringar, vill du verkligen stänga fönstret?",
+                "REMOVE_HOLDING": "Är du säker på att du vill radera beståndet? Det här kommandot går inte att ångra."
             }
 
         }

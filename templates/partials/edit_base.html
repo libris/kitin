@@ -2,8 +2,8 @@
   <form class="form-horizontal">
     <div class="edit content {{recType}}" data-ng-if="record"><!-- Do not remove ng-if="record", needed to ensure record loaded -->
       <div class="modes-menu">
-        <a href="{{getCurrentPath()}}#edit"   data-ng-class="{active: (!editMode || editMode == 'edit')}">LIBRIS KATALOGISERING</a>
-        <a href="{{getCurrentPath()}}#jsonld" ng-click="template='/jsonld'" data-ng-class="{active: (editMode == 'jsonld')}">JSON-LD</a>
+        <a href="{{getCurrentPath()}}{{queryString}}#edit"   data-ng-class="{active: (!editMode || editMode == 'edit')}">LIBRIS KATALOGISERING</a>
+        <a href="{{getCurrentPath()}}{{queryString}}#jsonld" ng-click="template='/jsonld'" data-ng-class="{active: (editMode == 'jsonld')}">JSON-LD</a>
       </div>
       <div ng-include="editMode === 'jsonld' ? '/partials/jsonld' : '/partials/edit'"></div>
       <div id="grid"></div>      
