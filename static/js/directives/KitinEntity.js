@@ -18,7 +18,7 @@ Params:
   in-kitin-entity-row: (bool) handle special case when in kitin-entity-row (do to scope problems when using transclude)
 */
 
-kitin.directive('kitinEntity', function(editService, $rootScope, $parse, dialogs) {
+kitin.directive('kitinEntity', function(editService, $rootScope, $parse, dialogs, $timeout) {
 
   return {
     restrict: 'E',
@@ -28,13 +28,11 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse, dialogs
     require: ['?^^kitinEntityrow', '?^^kitinGroup'],
     link: function(scope, element, attrs, parents) {
       // pass initial objects to parent
-      if ( parents && parents.length ) {
-        scope.$watch(scope.objects, function(a, b, ns) {
-          parents.forEach(function(parent) {
-            if ( parent && parent.passObjects ) {
-              parent.passObjects(ns.objects);
-            }
-          });
+      if ( parents && parents.length && scope.objects ) {
+        parents.forEach(function(parent) {
+          if ( parent && parent.passObjects ) {
+            parent.passObjects(scope.objects);
+          }
         });
       }
     },
@@ -116,8 +114,6 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse, dialogs
         types = $scope.$eval($attrs.type);
       }
 
-
-
       // method for setting type if multiple types are supported
       this.setType = function(index) {
         typeIndex = index;
@@ -156,11 +152,14 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse, dialogs
           no: 'Nej, avbryt',
           icon: 'fa fa-exclamation-circle'
         };
+        var cp = $.extend([], subj[$scope.link]);
         var confirm = dialogs.create('/dialogs/confirm', 'CustomConfirmCtrl', data);
         confirm.result.then(function yes(answer) {
           var removed = null;
           if ($scope.multiple && _.isNumber(index)) {
-            removed = subj[$scope.link].splice(index, 1)[0];
+            removed = subj[$scope.link][index];
+            subj[$scope.link].splice(index, 1);
+            $scope.objects = subj[$scope.link];
           } else {
             removed = subj[$scope.link];
             delete subj[$scope.link];

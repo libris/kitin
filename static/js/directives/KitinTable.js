@@ -14,6 +14,7 @@ Params:
   label: (str)
   labels: (string array) labels to add to table columns
   type: (str) type of object to create on add. Defaults to simple string
+  change-model: (str) which model's dirty flag to set. $rootScope.modifications[bib, holdings etc.]
 
 */
 
@@ -94,19 +95,33 @@ kitin.directive('kitinTable', function(editService, $filter){
         };
 
         $scope.addRow = function() {
+          // We must run getDirty() of current changeModel when removing and adding rows.
+          // TODO For now we need to put change-model on both kitin-table and child element, that could be improved upon.
+          // Also, this doesn't care if track-change is set. 
+          if (angular.isDefined($attrs.changeModel) && angular.isDefined($rootScope.modifications[$attrs.changeModel].makeDirty)) {
+             $rootScope.modifications[$attrs.changeModel].makeDirty();
+          }
           return $scope.model.push(this.doCreate());
         }.bind(this);
 
         $scope.removeRow = function(index) {
+          // TODO See above
+          if (angular.isDefined($attrs.changeModel) && angular.isDefined($rootScope.modifications[$attrs.changeModel].makeDirty)) {
+             $rootScope.modifications[$attrs.changeModel].makeDirty();
+          }
           return $scope.model.splice(index,1);
         };
 
         $scope.help = 'HELP.' + $attrs.model;
-        $scope.label = 'LABEL.' + $attrs.model;
+        if($attrs.hasOwnProperty('labelPrefix')) {
+          $scope.label = $attrs.labelPrefix + $attrs.model;
+        } else {
+          $scope.label = 'LABEL.' + $attrs.model;
+        }
         $scope.model = _.isArray($scope.model) && $scope.model.length > 0 ? $scope.model : [this.doCreate()];
         if($attrs.labels) {
           $scope.labels = $scope.$eval($attrs.labels);
-          // For tables with labels, make sure help gets push down a bit
+          // For tables with labels, make sure help gets pushed down a bit
           $scope.positioned = 'dropped';
         }
 
