@@ -142,7 +142,8 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
           if (userHoldings) userHoldings = userHoldings[0];
           response.config.record.holdings = {
             items: response.data.items.length,
-            holding: userHoldings
+            holding: userHoldings,
+            all: allHoldings
           };
         }
       }

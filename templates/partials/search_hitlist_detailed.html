@@ -142,7 +142,7 @@
         <div class="enc-level">
           <div data-ng-include="'/partials/enc_level'" ng-init="encLevel = record.encLevel"></div>
           <span data-ng-if="record.holdings.items != null">
-            <i class="fa fa-thumb-tack"></i> {{record.holdings.items}} bibliotek 
+            <kitin-holdings-summary holdings="record.holdings"></kitin-holdings-summary>
           </span>
         </div>
         <div class="comments">
