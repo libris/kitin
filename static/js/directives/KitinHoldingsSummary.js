@@ -17,7 +17,7 @@ kitin.directive('kitinHoldingsSummary', function () {
 			'holdings' : '='
 		},
         template: '<span popover-placement="bottom" popover-trigger="mouseenter" popover="{{holdingsInfo}}" popover-append-to-body="true">' +
-        		'<i class="fa fa-thumb-tack"></i> {{holdings.items}} bibliotek' +
+        		'<i class="fa fa-thumb-tack"></i> {{ holdings.items > 0 ? holdings.items : "Inga" }} bibliotek' +
         		'</span>',
         controller: function($scope, $element) {
         	$scope.holdingsInfo = '';
