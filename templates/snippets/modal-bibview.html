@@ -28,6 +28,14 @@
     </section>
 </div>
 <div class="modal-footer submit bibview">
+  <div data-ng-show="!isRemote">
+    <button class="btn btn-purple btn-hld" data-ng-if="!record.holdings.holding" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
+      <span><i class="fa fa-inverse fa-plus"></i> Bestånd</span>
+    </button>
+    <button class="btn btn-purple-light btn-hld" data-ng-if="record.holdings.holding" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
+      <span><i class="fa fa-inverse fa-check"></i> Bestånd</span>
+    </button>
+  </div>
   <button class="btn btn-green btn-copy-remote" data-ng-click="importRecord(record)" data-ng-show="isRemote">
     <span><i class="fa fa-inverse fa-plus"></i> {{ "Kopiera" }}</span>
   </button>
