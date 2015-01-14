@@ -1,0 +1,73 @@
+<div class="valuedisplay">
+  <span ng-switch on="label">
+    <kitin-label label="label"></kitin-label>
+    <div class="value">
+
+    <div class="summary" ng-switch-when="LABEL.record.about.summary">
+      <p ng-repeat="summary in record.about.summary">
+        {{ summary }}
+      </p>
+    </div>
+
+    <ul ng-switch-when="LABEL.record.about.publication">
+      <li class="node" ng-repeat="publication in record.about.publication">
+        {{ publication.place.label ? publication.place.label + ', ' : '' }}{{ publication.providerName ? publication.providerName + ', ' : '' }}{{ publication.providerDate }}
+      </li>
+    </ul>
+
+    <ul ng-switch-when="LABEL.record.about.identifierValue">
+      <li class="node" ng-repeat="identifier in record.about.identifier">
+        {{ 'LABEL.record.about.identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }} {{ identifier.identifierValue }}
+      </li>
+    </ul>
+
+    <ul ng-switch-when="LABEL.record.about.attributedTo">
+      <li class="node" ng-switch="record.about.attributedTo['@type']">
+        <span ng-switch-when="Person">
+          {{ record.about.attributedTo.name }} {{ record.about.attributedTo.givenName }} {{ record.about.attributedTo.familyName }}{{ record.about.attributedTo.birthYear ? ', ' + record.about.attributedTo.birthYear + '-' : '' }}{{ record.about.attributedTo.deathYear }}
+        </span>
+        <span ng-switch-when="Organization">
+          {{ record.about.attributedTo.name }}
+        </span>
+        <small>({{ 'LABEL.record.about.subjectByType[\''+record.about.attributedTo['@type']+'\']' | translate }})</small>
+      </li>
+    </ul>
+
+    <ul ng-switch-when="LABEL.record.about.influencedBy">
+      <li ng-repeat="auth in record.about.influencedBy">
+        <span class="node" ng-switch="auth['@type']">
+          <span ng-switch-when="Person">
+            {{ auth.name }} {{ auth.givenName }} {{ auth.familyName }}{{ auth.birthYear ? ', ' + auth.birthYear + '-' : '' }}{{ auth.deathYear }}
+          </span>
+          <span ng-switch-when="Organization">
+            {{ auth.name }}
+          </span>
+          <small>({{ 'LABEL.record.about.subjectByType[\''+auth['@type']+'\']' | translate }})</small>
+        </span>
+      </li>
+    </ul>
+
+    <ul ng-switch-when="LABEL.record.about.classification">
+      <li class="node" ng-repeat="class in record.about.classification">
+        {{ class.notation }} {{ class.notation && class.inScheme.notation ? '|' : '' }} <small>{{ class.inScheme.notation }}</small>
+      </li>
+    </ul>
+
+    <ul ng-switch-when="LABEL.record.about.comment">
+      <li class="node" ng-repeat="comment in record.about.comment">
+        {{ comment }}
+      </li>
+    </ul>
+
+    <ul ng-switch-when="LABEL.record.about.isPartOf">
+      <li class="node" ng-repeat="collection in record.about.isPartOf">
+        {{ collection.title }}{{ collection.controlledLabel ? ', ' + collection.controlledLabel : '' }}, {{ collection.placePublisherAndDateOfPublication }}
+        <span ng-show="{{ collection.identifier | isArray }}" ng-repeat="identifier in collection.identifier"> ({{ 'LABEL.record.about.identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }} {{ identifier.identifierValue }}) </span>
+        <span ng-if="collection.identifier" ng-hide="{{ collection.identifier | isArray }}"> ({{ 'LABEL.record.about.identifierByIdentifierScheme[\''+collection.identifier.identifierScheme['@id']+'\']' | translate }} {{ collection.identifier.identifierValue }}) </span>
+        <span ng-repeat="note in collection.scopeNote"> ({{ note }}) </span>
+      </li>
+    </ul>
+
+  </div>
+  </span>
+</div>

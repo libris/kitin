@@ -91,6 +91,10 @@
                 "identifierByIdentifierScheme['/def/identifiers/issn']": "ISSN",
                 "identifierByIdentifierScheme['/def/identifiers/isbn']": "ISBN",
                 "identifierByIdentifierScheme['/def/identifiers/ean']": "EAN",
+                "identifierByIdentifierScheme['/def/identifiers/EAN']": "EAN",
+                "identifierByIdentifierScheme['/def/identifiers/urn']": "URN",
+                "identifierByIdentifierScheme['/def/identifiers/SB17']": "SB17",
+                "identifierByIdentifierScheme['/def/identifiers/TPB']": "TPB",
                 "identifierValue": "Nummer",
                 "identifierNote": "Notering",
 
@@ -208,6 +212,8 @@
                 "runningTime": "Speltid",  
 
                 "genre": "Genre",
+
+                "classification": "Klassifikation",
 
                 "classificationByInScheme['/topic/kssb/6']": "__/topic/kssb/6__",
                 "classificationByInScheme['/topic/kssb/7']": "__/topic/kssb/7__",

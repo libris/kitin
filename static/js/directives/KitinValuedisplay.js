@@ -15,22 +15,17 @@ Params:
 kitin.directive('kitinValuedisplay', function(editService, $rootScope){
   return {
       restrict: 'E',
+      transclude: true,
       scope: {
         label: '=label',
-        model: '=model'
+        record: '=record'
       },
-      require:  '?^^kitinGroup',
       replace: true,
       link: function(scope, element, attrs, kitinGroupCtrl) {
         scope.options = kitinGroupCtrl ? kitinGroupCtrl.options : null;
       },
-      template: '<div class="valuedisplay">' + 
-                  '<kitin-label label="label"></kitin-label>' +
-                  '<kitin-value value="model"></kitin-value>' +
-                '</div>',
+      templateUrl: '/snippets/kitinvaluedisplay',
       controller: function($scope, $rootScope, $attrs) {
-
-
       }
   };
 });
