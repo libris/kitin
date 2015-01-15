@@ -9,12 +9,14 @@ import urllib, urllib2
 from urlparse import urlparse
 import mimetypes
 from flask import (Flask, render_template, request, make_response, Response,
-        abort, redirect, url_for, Markup, session, send_from_directory)
+        abort, redirect, url_for, Markup, session, send_from_directory, jsonify)
 from flask_login import LoginManager, login_required, login_user, flash, current_user, logout_user
 import jinja2
 import requests
+from flask_oauthlib.client import OAuth
 from storage import Storage
 from user import User
+
 
 
 here = os.path.dirname(os.path.abspath(__file__))
@@ -43,6 +45,21 @@ storage = Storage(app.config.get("DRAFTS_DIR"), app)
 
 JSON_LD_MIME_TYPE = 'application/ld+json'
 
+os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "True"
+oauth = OAuth(app)
+whelk = oauth.remote_app(
+    'whelk',
+    consumer_key='mJ7.nwVHph;E!BQ?vr-JH==yCVbAthy0r4K9!537', #client_id
+    consumer_secret='-JW2zL@m4MgHr:XG62nhMV4QkUSlC68v_Wt:7K-osHI3JfJzCuNJaPT!87lG3dt-J_lc9LE4UxAY?BvqV!7b=ypN0xzY5=ra;rA.Ibaes36so5vxnp3DkEN3LMCG89JR', #client_secret
+    base_url='http://localhost:8180/whelk/',
+    request_token_url=None,
+    access_token_method='POST',
+    access_token_url='https://bibdb.libris.kb.se/o/token/',
+    authorize_url='https://bibdb.libris.kb.se/o/authorize',
+    content_type=JSON_LD_MIME_TYPE
+)
+
+
 @app.context_processor
 def global_view_variables():
     mtime = os.stat(here).st_mtime
@@ -65,41 +82,46 @@ def _handle_unauthorized():
 
 # LOGIN START
 # ----------------------------
-
-@app.route("/login", methods=["GET", "POST"])
+@app.route("/login")
 def login():
     msg = None
     remember = False
-    if request.method == "POST" and "username" in request.form:
-        username = request.form["username"]
-        password = request.form["password"]
-        if "remember" in request.form:
-            remember = True
-        app.logger.debug("remember %s" % remember)
-        user = User(username)
-        if getattr(app, 'fakelogin', False):
-            sigel = "NONE"
-        else:
-            sigel = user.authorize(password, app.config)
-        if sigel == None:
-            sigel = ""
-            msg = u"Kunde inte logga in. Kontrollera användarnamn och lösenord."
-        else:
-            user.sigel = sigel
-            session['sigel'] = sigel
-            login_user(user, remember)
-            session.permanent = remember
-            app.logger.debug("User %s logged in with sigel %s" % (user.username, user.sigel))
-
-            oauth_request_params = urllib.urlencode({ 
-              'client_id': app.config.get('OAUTH_CLIENT_ID'),
-              'redirect_uri': app.config.get('OAUTH_REDIRECT_URI'),
-              'approval_prompt': 'auto',
-              'response_type': 'token'
-            })
-            print app.config.get('OAUTH_API') + '/authorize?' + oauth_request_params
-            return redirect(app.config.get('OAUTH_API') + '/authorize?' + oauth_request_params)
     return render_template("partials/login.html", msg = msg, remember = remember)
+
+@app.route('/login/authorize')
+def authorize():
+    return whelk.authorize(callback=url_for('authorized', _external=True),  approval_prompt='auto')
+
+@app.route('/login/authorized')
+def authorized():
+    resp = whelk.authorized_response()
+    if resp is None:
+       msg = 'Access denied: reason=%s error=%s' % (
+           request.args['error_reason'],
+           request.args['error_description']
+       )
+    elif 'access_token' not in resp: 
+        msg = 'No access token received from bibdb OAuth.'
+    else:
+        session['whelk_token'] = (resp['access_token'], '')
+
+        try:
+            # Get user information, using verify
+            verifyResponse = whelk.get(url='https://bibdb.libris.kb.se/api/o/verify')
+            verifyUser = verifyResponse.data['user']
+            user = User(verifyUser['username'], sigel=verifyUser['authorization'][0]['sigel'], token=session['whelk_token'])
+            login_user(user, True)
+            session['sigel'] = user.sigel;
+            return redirect('/')
+        except Exception, e:
+            msg = e
+         
+    return render_template("partials/login.html", msg = msg)
+
+@whelk.tokengetter
+def get_whelk_oauth_token():
+    return session.get('whelk_token')
+
 
 @app.route("/signout")
 @login_required
@@ -107,6 +129,7 @@ def logout():
     "Trying to sign out..."
     logout_user()
     session.pop('sigel', None)
+    session.pop('whelk_token', None)
     return redirect("/login")
 
 # LOGIN END
@@ -193,7 +216,7 @@ def proxy_request(path=''):
         headers['If-match'] = request.headers['If-match']
     if 'Authorization' in request.headers:
         headers['Authorization'] = request.headers['Authorization']
-    headers['Content-Type'] = JSON_LD_MIME_TYPE
+    #headers['Content-Type'] = JSON_LD_MIME_TYPE
 
     # Handle PUT/POST data
     data = None
@@ -288,25 +311,24 @@ def do_request(path, params=None, method='GET', headers=None, data=None, allow_r
     app.logger.debug('Sending request %s to: %s' % (method, url));
 
     try:
-        if method == 'POST':
-            response = requests.post(url, params=params, headers=headers, data=data)
-        elif method == 'PUT':
-            response = requests.put(url, params=params, headers=headers, data=data, allow_redirects=allow_redirects)
-        elif method == 'DELETE':
-            response = requests.delete(url, headers=headers, allow_redirects=allow_redirects)
+        if method == 'POST' or method == 'PUT' or method == 'DELETE':
+            print whelk.base_url + path
+            print url
+            response = whelk.request(path[1:], method=method, data=data, content_type=JSON_LD_MIME_TYPE, format=None)
         else:
             response = requests.get(url, params=params, headers=headers, allow_redirects=allow_redirects)
 
     except requests.exceptions.RequestException as e:
         app.logger.warning(e)
         if response:
-            app.logger.warning("Error response %s on %s <%s>" % (response.status_code, method, url))
+            app.logger.warning("Error response %s on %s <%s>" % (response.status, method, url))
             abort(response.status_code)
 
-    app.logger.debug('Got response: %s' % response.status_code);
+    print dir(response.data)
+    app.logger.debug('Got response: %s' % response.status);
     
     # OK
-    if response.status_code == 200:
+    if response.status == 200:
         # Convert to propper json
         if json_response:
             resp = raw_json_response(response.text)
@@ -319,20 +341,20 @@ def do_request(path, params=None, method='GET', headers=None, data=None, allow_r
         return resp
 
     # Updated/Created
-    elif response.status_code == 201:
+    elif response.status == 201:
         if 'Location' in response.headers:
             return do_request(response.headers['Location'],host='')
         else:
             app.logger.warning('Error status code 201 but no Location header, %s', (method))
 
     # This is what the server returns when deleting a holding, handle it:
-    elif response.status_code == 204:
+    elif response.status == 204:
         return ''
 
     # Error
     else:
-        app.logger.warning('Error response %s on %s <%s>' % (response.status_code, method, url))
-        abort(response.status_code)
+        app.logger.warning('Error response %s on %s <%s>' % (response.status, method, url))
+        abort(response.status)
 
 
 
