@@ -95,6 +95,7 @@
                 "identifierByIdentifierScheme['/def/identifiers/urn']": "URN",
                 "identifierByIdentifierScheme['/def/identifiers/SB17']": "SB17",
                 "identifierByIdentifierScheme['/def/identifiers/TPB']": "TPB",
+                "identifierByIdentifierScheme['/def/identifiers/doi']": "DOI",
                 "identifierValue": "Nummerbeteckningar",
                 "identifierNote": "Notering",
 
@@ -256,7 +257,8 @@
                 "bibliographyByNotation['KVIN']": "KVINNSAM",
                 "bibliographyByNotation['SHB']": "Svensk historisk bibliografi",
                 "bibliographyByNotation['SKvB']": "Svensk konstvetenskaplig bibliografi",
-                "bibliographyByNotation['SOT']": "Svenskt offentligt tryck -1833"
+                "bibliographyByNotation['SOT']": "Svenskt offentligt tryck -1833",
+                "bibliographyByNotation['SMHB']": "Svensk musikhistorisk bibliografi"
             }
         },
 

@@ -14,9 +14,16 @@
           {{ publication.place.label ? publication.place.label + ', ' : '' }}{{ publication.providerName ? publication.providerName + ', ' : '' }}{{ publication.providerDate }}
         </li>
       </ul>
+
+      <ul ng-switch-when="LABEL.record.about.language">
+        <li class="node lang" ng-if="language.langTag || language.prefLabel" ng-repeat="language in record.about.language">
+          <span class="fa-stack"><i class="fa fa-stack-2x fa-square-o"></i><strong class="fa-stack-1x">{{ language.langTag ? language.langTag : '-' }}</strong></span> {{ language.prefLabel }}
+        </li>
+      </ul>
   
       <ul ng-switch-when="LABEL.record.about.hasFormat">
-        <li class="node" ng-show="format.dimensions || format.extent || format.otherPhysicalDetails" ng-repeat="format in record.about.hasFormat">
+        <li class="node" ng-repeat="format in record.about.hasFormat">
+          <span ng-if="format['@type']">{{ 'LABEL.record.about.hasFormatByType[\''+format['@type']+'\']' | translate }}</span>
           {{ format.extent ? format.extent + ' : ' : '' }}{{ format.otherPhysicalDetails ? format.otherPhysicalDetails + " ; " : '' }}{{ format.dimensions }}
         </li>
       </ul>
@@ -58,7 +65,7 @@
   
       <ul ng-switch-when="LABEL.record.about.isPartOf">
         <li class="node" ng-repeat="collection in record.about.isPartOf">
-          {{ collection.title }}{{ collection.controlledLabel ? ', ' + collection.controlledLabel : '' }}, {{ collection.placePublisherAndDateOfPublication }}
+          {{ collection.uniformTitle }}{{ collection.title }}{{ collection.controlledLabel ? ', ' + collection.controlledLabel : '' }}{{ collection.placePublisherAndDateOfPublication ? ' ,' + collection.placePublisherAndDateOfPublication : '' }}
           <span ng-show="{{ collection.identifier | isArray }}" ng-repeat="identifier in collection.identifier"> ({{ 'LABEL.record.about.identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }} {{ identifier.identifierValue }}) </span>
           <span ng-if="collection.identifier" ng-hide="{{ collection.identifier | isArray }}"> ({{ 'LABEL.record.about.identifierByIdentifierScheme[\''+collection.identifier.identifierScheme['@id']+'\']' | translate }} {{ collection.identifier.identifierValue }}) </span>
           <span ng-repeat="note in collection.scopeNote"> ({{ note }}) </span>
