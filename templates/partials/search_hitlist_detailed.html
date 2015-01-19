@@ -131,7 +131,7 @@
           </div>
   
           <div class="col2">
-            <div class="label identifier code" title="{{ identifier.identifierScheme }}" data-ng-repeat="identifier in record.about.identifier | limitTo:3">{{ identifier.identifierValue }}
+            <div class="label identifier code" title="{{ 'LABEL.record.about.identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }} {{ identifier.identifierValue }}" data-ng-repeat="identifier in record.about.identifier | limitTo:3">{{ 'LABEL.record.about.identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }} {{ identifier.identifierValue }}
             </div>
             <div class="label identifier more" data-ng-show="record.about.identifier.length > 3">{{record.about.identifier.length - 3}} identifierare visas inte.</div>
           </div>

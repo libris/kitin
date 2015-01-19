@@ -6,9 +6,8 @@ Usage:
   <kitin-valuedisplay model=""></kitin-textrow>
 
 Params:
-  model: (str)
-  hide-label: (bool)
-  label-prefix: (str)
+  label: (str)
+  record: (obj)
 
 */
 
@@ -21,10 +20,7 @@ kitin.directive('kitinValuedisplay', function(editService, $rootScope){
         record: '=record'
       },
       replace: true,
-      link: function(scope, element, attrs, kitinGroupCtrl) {
-        scope.options = kitinGroupCtrl ? kitinGroupCtrl.options : null;
-      },
-      templateUrl: '/snippets/kitinvaluedisplay',
+      templateUrl: '/snippets/valuedisplay',
       controller: function($scope, $rootScope, $attrs) {
       }
   };

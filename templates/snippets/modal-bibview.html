@@ -14,10 +14,12 @@
     <section>
 
       <kitin-valuedisplay record="record" ng-if="record.about.summary" label="'LABEL.record.about.summary'"></kitin-valuedisplay>
-      <kitin-valuedisplay record="record" label="'LABEL.record.about.publication'"></kitin-valuedisplay>
-      <kitin-valuedisplay record="record" ng-if="record.about.identifier" label="'LABEL.record.about.identifierValue'"></kitin-valuedisplay>
+      <kitin-valuedisplay record="record" ng-if="record.about.publication" label="'LABEL.record.about.publication'"></kitin-valuedisplay>
+      <kitin-valuedisplay record="record" ng-if="record.about.hasFormat" label="'LABEL.record.about.hasFormat'"></kitin-valuedisplay>
+      <kitin-valuedisplay record="record" ng-if="record.about.identifier || record.controlNumber" label="'LABEL.record.about.identifierValue'"></kitin-valuedisplay>
       <kitin-valuedisplay record="record" ng-if="record.about.attributedTo" label="'LABEL.record.about.attributedTo'"></kitin-valuedisplay>
       <kitin-valuedisplay record="record" ng-if="record.about.influencedBy" label="'LABEL.record.about.influencedBy'"></kitin-valuedisplay>
+      <kitin-valuedisplay record="record" ng-if="record.bibliography" label="'LABEL.record.bibliography.bibliography'"></kitin-valuedisplay>
       <kitin-valuedisplay record="record" ng-if="record.about.classification" label="'LABEL.record.about.classification'"></kitin-valuedisplay>
       <kitin-valuedisplay record="record" ng-if="record.about.comment" label="'LABEL.record.about.comment'"></kitin-valuedisplay>
       <kitin-valuedisplay record="record" ng-if="record.about.isPartOf" label="'LABEL.record.about.isPartOf'"></kitin-valuedisplay>
