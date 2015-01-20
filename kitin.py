@@ -18,8 +18,6 @@ from user import User
 
 
 here = os.path.dirname(os.path.abspath(__file__))
-logger = logging.getLogger(__name__)
-logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]')
 mimetypes.add_type('application/font-woff', '.woff')
 
 
@@ -121,7 +119,7 @@ def index(source=None, rec_type=None, rec_id=None):
     best = request.accept_mimetypes.best_match(['application/json', 'text/html'])
     if (best == 'application/json' and request.accept_mimetypes[best] > request.accept_mimetypes['text/html']):
         return 'Error: Base requested using XHR', 500
-    return render_template('index.html', user=current_user, debug = app.debug, WHELK_HOST = app.config['CLIENT_WHELK_HOST'])
+    return render_template('index.html', user=current_user, debug = app.debug, WHELK_HOST = app.config['WHELK_HOST'], WHELK_WRITE_HOST  = app.config['WHELK_WRITE_HOST'])
 
 # SEARCH TEMPLATE
 # @app.route("/search/<record_type>")
@@ -174,8 +172,8 @@ def show_styleguide():
 # WHELK API PROXY START
 # ----------------------------
 
-@app.route("/whelk-webapi", methods=['GET', 'PUT', 'POST', 'DELETE'])
-@app.route("/whelk-webapi/<path:path>", methods=['GET', 'PUT', 'POST', 'DELETE'])
+@app.route("/whelk", methods=['GET', 'PUT', 'POST', 'DELETE'])
+@app.route("/whelk/<path:path>", methods=['GET', 'PUT', 'POST', 'DELETE'])
 @login_required
 def proxy_request(path=''):
 
@@ -380,6 +378,11 @@ if __name__ == "__main__":
     oparser.add_option('-d', '--debug', action='store_true', default=False)
     oparser.add_option('-L', '--fakelogin', action='store_true', default=False)
     opts, args = oparser.parse_args()
+
+    if not opts.debug:
+        logger = logging.getLogger(__name__)
+        logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]')
+    
     app.debug = opts.debug
     app.fakelogin = opts.fakelogin
     app.run(host='0.0.0.0')

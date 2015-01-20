@@ -91,7 +91,12 @@
                 "identifierByIdentifierScheme['/def/identifiers/issn']": "ISSN",
                 "identifierByIdentifierScheme['/def/identifiers/isbn']": "ISBN",
                 "identifierByIdentifierScheme['/def/identifiers/ean']": "EAN",
-                "identifierValue": "Nummer",
+                "identifierByIdentifierScheme['/def/identifiers/EAN']": "EAN",
+                "identifierByIdentifierScheme['/def/identifiers/urn']": "URN",
+                "identifierByIdentifierScheme['/def/identifiers/SB17']": "SB17",
+                "identifierByIdentifierScheme['/def/identifiers/TPB']": "TPB",
+                "identifierByIdentifierScheme['/def/identifiers/doi']": "DOI",
+                "identifierValue": "Nummerbeteckningar",
                 "identifierNote": "Notering",
 
                 "availability": "Anskaffningsvillkor",
@@ -108,6 +113,8 @@
                 "fileType": "Filtyp",
                 "relief": "Relief",            
                 "index": "Index",
+
+                "hasFormat": "Format",
 
                 "hasFormatByType['Product']": "Fysisk beskrivning",
                 "hasFormatByType['Electronic']": "Elektronisk",
@@ -209,6 +216,8 @@
 
                 "genre": "Genre",
 
+                "classification": "Klassifikation",
+
                 "classificationByInScheme['/topic/kssb/6']": "__/topic/kssb/6__",
                 "classificationByInScheme['/topic/kssb/7']": "__/topic/kssb/7__",
                 "classificationByInScheme['/topic/kssb/8']": "__/topic/kssb/8__",
@@ -237,6 +246,19 @@
                 "catForm": "Katalogiseringsregler",
                 "sourceNote": "Intern anmärkning om katalogiseringskälla",
                 "bibliographyCode": "Bibliografi"
+            },
+            "bibliography": {
+                "bibliography": "Ingår i deldatabas",
+
+                "bibliographyByNotation['BULB']": "BULB - Barn- och ungdomslitteraturbibliografin",
+                "bibliographyByNotation['NB']": "Nationalbibliografin - Böcker, Periodica, Kartor",
+                "bibliographyByNotation['SEE']": "Seelig (bokdistributör)",
+                "bibliographyByNotation['SLB']": "Svensk litteraturvetenskaplig bibliografi",
+                "bibliographyByNotation['KVIN']": "KVINNSAM",
+                "bibliographyByNotation['SHB']": "Svensk historisk bibliografi",
+                "bibliographyByNotation['SKvB']": "Svensk konstvetenskaplig bibliografi",
+                "bibliographyByNotation['SOT']": "Svenskt offentligt tryck -1833",
+                "bibliographyByNotation['SMHB']": "Svensk musikhistorisk bibliografi"
             }
         },
 

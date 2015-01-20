@@ -1,6 +1,41 @@
 angular.module('kitin').run(['$templateCache', function($templateCache) {
   'use strict';
 
+  $templateCache.put('/snippets/display-auth',
+    "<li class=\"node auth\" ng-class=\"{{model['@type']}}\" ng-switch=\"model['@type']\">\n" +
+    "  <span ng-switch-when=\"Person\">\n" +
+    "    <i class=\"fa fa-fw fa-user\"></i>\n" +
+    "    {{ model.name }} {{ model.givenName }} {{ model.familyName }}{{ model.birthYear ? ', ' + model.birthYear + '-' : '' }}{{ model.deathYear }}\n" +
+    "  </span>\n" +
+    "  <span ng-switch-when=\"UniformWork\">\n" +
+    "    <i class=\"fa fa-fw fa-book\"></i>\n" +
+    "    {{ model.title }}\n" +
+    "  </span>\n" +
+    "  <span ng-switch-when=\"Concept\">\n" +
+    "    <i class=\"fa fa-fw fa-lightbulb-o\"></i>\n" +
+    "    {{ model.name }}\n" +
+    "  </span>\n" +
+    "  <span ng-switch-when=\"Place\">\n" +
+    "    <i class=\"fa fa-fw fa-map-marker\"></i>\n" +
+    "    {{ model.name }}\n" +
+    "  </span>\n" +
+    "  <span ng-switch-when=\"Event\">\n" +
+    "    <i class=\"fa fa-fw fa-calendar\"></i>\n" +
+    "    {{ model.name }}\n" +
+    "  </span>\n" +
+    "  <span ng-switch-when=\"Meeting\">\n" +
+    "    <i class=\"fa fa-fw fa-comment\"></i>\n" +
+    "    {{ model.name }}\n" +
+    "  </span>\n" +
+    "  <span ng-switch-when=\"Organization\">\n" +
+    "    <i class=\"fa fa-fw fa-group\"></i>\n" +
+    "    {{ model.name }}\n" +
+    "  </span>\n" +
+    "  <!-- <small>({{ 'LABEL.record.about.subjectByType[\\''+model['@type']+'\\']' | translate }})</small> -->\n" +
+    "</li>"
+  );
+
+
   $templateCache.put('/snippets/hitlist-compact-auth',
     "<div class=\"hitlist-row auth compact\">\n" +
     "  <div class=\"icon\">\n" +
@@ -133,22 +168,31 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    </span>\n" +
     "    <h4>{{ utils.composeTitle(record) | chop:80 }}, {{ utils.composeCreator(record) | chop:80 }} {{ utils.composeDate(publication.providerDate) | chop:80 }}</h4>\n" +
     "    <section>\n" +
-    "      <span data-ng-switch=\"record.about.attributedTo['@type']\">\n" +
-    "        <kitin-valuedisplay label=\"'LABEL.record.about.attributedTo'\" model=\"record.about.attributedTo.familyName + ', ' + record.about.attributedTo.givenName\" data-ng-switch-when=\"Person\"></kitin-valuedisplay>\n" +
-    "        <kitin-valuedisplay label=\"'LABEL.record.about.attributedTo'\" model=\"record.about.attributedTo.name\" data-ng-switch-when=\"Organization\"></kitin-valuedisplay>\n" +
-    "      </span>\n" +
-    "      <kitin-valuedisplay label=\"'LABEL.record.about.instanceTitle.titleValue'\" model=\"record.about.instanceTitle.titleValue\"></kitin-valuedisplay>\n" +
-    "      <span ng-repeat=\"publication in record.about.publication\">\n" +
-    "        <kitin-valuedisplay label=\"'LABEL.record.about.publication.place.label'\" model=\"publication.place.label\"></kitin-valuedisplay>\n" +
-    "        <kitin-valuedisplay label=\"'LABEL.record.about.publication.providerName'\" model=\"publication.providerName\"></kitin-valuedisplay>\n" +
-    "        <kitin-valuedisplay label=\"'LABEL.record.about.publication.providerDate'\" model=\"publication.providerDate\"></kitin-valuedisplay>\n" +
-    "      </span>\n" +
-    "      <span ng-repeat=\"identifier in record.about.identifier\">\n" +
-    "        <kitin-valuedisplay label=\"'LABEL.record.about.identifierByIdentifierScheme[\\''+identifier.identifierScheme['@id']+'\\']'\" model=\"identifier.identifierValue\"></kitin-valuedisplay>\n" +
-    "      </span>\n" +
+    "\n" +
+    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.summary\" label=\"'LABEL.record.about.summary'\"></kitin-valuedisplay>\n" +
+    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.publication\" label=\"'LABEL.record.about.publication'\"></kitin-valuedisplay>\n" +
+    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.hasFormat\" label=\"'LABEL.record.about.hasFormat'\"></kitin-valuedisplay>\n" +
+    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.language\" label=\"'LABEL.record.about.language'\"></kitin-valuedisplay>\n" +
+    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.identifier || record.controlNumber\" label=\"'LABEL.record.about.identifierValue'\"></kitin-valuedisplay>\n" +
+    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.attributedTo\" label=\"'LABEL.record.about.attributedTo'\"></kitin-valuedisplay>\n" +
+    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.influencedBy\" label=\"'LABEL.record.about.influencedBy'\"></kitin-valuedisplay>\n" +
+    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.classification\" label=\"'LABEL.record.about.classification'\"></kitin-valuedisplay>\n" +
+    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.comment\" label=\"'LABEL.record.about.comment'\"></kitin-valuedisplay>\n" +
+    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.isPartOf\" label=\"'LABEL.record.about.isPartOf'\"></kitin-valuedisplay>\n" +
+    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.bibliography\" label=\"'LABEL.record.bibliography.bibliography'\"></kitin-valuedisplay>\n" +
+    "\n" +
+    "\n" +
     "    </section>\n" +
     "</div>\n" +
     "<div class=\"modal-footer submit bibview\">\n" +
+    "  <div data-ng-show=\"!isRemote\">\n" +
+    "    <button class=\"btn btn-purple btn-hld\" data-ng-if=\"!record.holdings.holding\" data-ng-controller=\"ModalCtrl\" data-ng-click=\"openHoldingsModal($event, record)\">\n" +
+    "      <span><i class=\"fa fa-inverse fa-plus\"></i> Bestånd</span>\n" +
+    "    </button>\n" +
+    "    <button class=\"btn btn-purple-light btn-hld\" data-ng-if=\"record.holdings.holding\" data-ng-controller=\"ModalCtrl\" data-ng-click=\"openHoldingsModal($event, record)\">\n" +
+    "      <span><i class=\"fa fa-inverse fa-check\"></i> Bestånd</span>\n" +
+    "    </button>\n" +
+    "  </div>\n" +
     "  <button class=\"btn btn-green btn-copy-remote\" data-ng-click=\"importRecord(record)\" data-ng-show=\"isRemote\">\n" +
     "    <span><i class=\"fa fa-inverse fa-plus\"></i> {{ \"Kopiera\" }}</span>\n" +
     "  </button>\n" +
@@ -830,6 +874,87 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "      <kitin-td><kitin-textarea model=\"item.citation\"></kitin-textarea></kitin-td>\n" +
     "  </kitin-table>\n" +
     "</kitin-group>"
+  );
+
+
+  $templateCache.put('/snippets/valuedisplay',
+    "<div class=\"valuedisplay\">\n" +
+    "  <span ng-switch on=\"label\">\n" +
+    "    <kitin-label label=\"label\" ng-click=\"scope.collapse = !scope.collapse\"></kitin-label> <i class=\"fa\" ng-class=\"scope.collapse ? 'fa-fw fa-angle-right' : 'fa-fw fa-angle-down'\"></i>\n" +
+    "    <div class=\"value\" ng-hide=\"scope.collapse\">\n" +
+    "\n" +
+    "      <ul class=\"summary\" ng-switch-when=\"LABEL.record.about.summary\">\n" +
+    "        <li class=\"node\" ng-repeat=\"summary in record.about.summary\">\n" +
+    "          {{ summary }}\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "  \n" +
+    "      <ul ng-switch-when=\"LABEL.record.about.publication\">\n" +
+    "        <li class=\"node\" ng-repeat=\"publication in record.about.publication\">\n" +
+    "          {{ publication.place.label ? publication.place.label + ', ' : '' }}{{ publication.providerName ? publication.providerName + ', ' : '' }}{{ publication.providerDate }}\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "\n" +
+    "      <ul ng-switch-when=\"LABEL.record.about.language\">\n" +
+    "        <li class=\"node lang\" ng-if=\"language.langTag || language.prefLabel\" ng-repeat=\"language in record.about.language\">\n" +
+    "          <span class=\"fa-stack\"><i class=\"fa fa-stack-2x fa-square-o\"></i><strong class=\"fa-stack-1x\">{{ language.langTag ? language.langTag : '-' }}</strong></span> {{ language.prefLabel }}\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "  \n" +
+    "      <ul ng-switch-when=\"LABEL.record.about.hasFormat\">\n" +
+    "        <li class=\"node\" ng-repeat=\"format in record.about.hasFormat\">\n" +
+    "          <span ng-if=\"format['@type']\">{{ 'LABEL.record.about.hasFormatByType[\\''+format['@type']+'\\']' | translate }}</span>\n" +
+    "          {{ format.extent ? format.extent + ' : ' : '' }}{{ format.otherPhysicalDetails ? format.otherPhysicalDetails + \" ; \" : '' }}{{ format.dimensions }}\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "  \n" +
+    "      <ul ng-switch-when=\"LABEL.record.about.identifierValue\">\n" +
+    "        <li class=\"node identifier\" ng-if=\"record.controlNumber\">\n" +
+    "          LIBRIS-ID: {{ record.controlNumber }}\n" +
+    "        </li>\n" +
+    "        <li class=\"node identifier\" ng-show=\"identifier.identifierValue\" ng-repeat=\"identifier in record.about.identifier\">\n" +
+    "          {{ 'LABEL.record.about.identifierByIdentifierScheme[\\''+identifier.identifierScheme['@id']+'\\']' | translate }}: {{ identifier.identifierValue }}\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "\n" +
+    "      <ul ng-switch-when=\"LABEL.record.bibliography.bibliography\">\n" +
+    "        <li class=\"node\" ng-show=\"bibliography.notation\" ng-repeat=\"bibliography in record.bibliography\">\n" +
+    "          {{ 'LABEL.record.bibliography.bibliographyByNotation[\\''+bibliography.notation+'\\']' | translate }} <small>({{ bibliography.notation }})</small>\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "  \n" +
+    "      <ul ng-switch-when=\"LABEL.record.about.attributedTo\">\n" +
+    "        <kitin-display-auth model=\"record.about.attributedTo\"></kitin-display-auth>\n" +
+    "      </ul>\n" +
+    "  \n" +
+    "      <ul ng-switch-when=\"LABEL.record.about.influencedBy\">\n" +
+    "        <kitin-display-auth model=\"auth\" ng-repeat=\"auth in record.about.influencedBy\"></kitin-display-auth>\n" +
+    "      </ul>\n" +
+    "  \n" +
+    "      <ul ng-switch-when=\"LABEL.record.about.classification\">\n" +
+    "        <li class=\"node\" ng-repeat=\"class in record.about.classification\">\n" +
+    "          {{ class.notation }} {{ class.notation && class.inScheme.notation ? '|' : '' }} <small>{{ class.inScheme.notation }}</small>\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "  \n" +
+    "      <ul ng-switch-when=\"LABEL.record.about.comment\">\n" +
+    "        <li class=\"node\" ng-repeat=\"comment in record.about.comment\">\n" +
+    "          {{ comment }}\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "  \n" +
+    "      <ul ng-switch-when=\"LABEL.record.about.isPartOf\">\n" +
+    "        <li class=\"node\" ng-repeat=\"collection in record.about.isPartOf\">\n" +
+    "          {{ collection.uniformTitle }}{{ collection.title }}{{ collection.controlledLabel ? ', ' + collection.controlledLabel : '' }}{{ collection.placePublisherAndDateOfPublication ? ' ,' + collection.placePublisherAndDateOfPublication : '' }}\n" +
+    "          <span ng-show=\"{{ collection.identifier | isArray }}\" ng-repeat=\"identifier in collection.identifier\"> ({{ 'LABEL.record.about.identifierByIdentifierScheme[\\''+identifier.identifierScheme['@id']+'\\']' | translate }} {{ identifier.identifierValue }}) </span>\n" +
+    "          <span ng-if=\"collection.identifier\" ng-hide=\"{{ collection.identifier | isArray }}\"> ({{ 'LABEL.record.about.identifierByIdentifierScheme[\\''+collection.identifier.identifierScheme['@id']+'\\']' | translate }} {{ collection.identifier.identifierValue }}) </span>\n" +
+    "          <span ng-repeat=\"note in collection.scopeNote\"> ({{ note }}) </span>\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "\n" +
+    "  </div>\n" +
+    "  </span>\n" +
+    "</div>\n"
   );
 
 

@@ -44,14 +44,6 @@
                 <span ng-if="languages">{{getLabel(item.key, facet.type)}} ({{item.count | chunk}}) <i class="fa fa-times-circle" ng-show="item.selected"></i></span></a>
             </dd>
           </dl>
-          <dl>
-            <dt><i></i>Utgivningstid</dt>
-            <dd>
-              <div class="alert alert-block">
-                Ej aktiverad
-              </div>
-            </dd>
-          </dl>
         </section>
       </div>
       <div class="results" ng-switch on="state.search.view">

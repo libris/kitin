@@ -95,7 +95,8 @@
     <!-- bib result list -->
     <div class="nest-cols bib" data-ng-switch-default>
       <div class="details">
-        <a class="bib-url" href="/edit/libris{{record['@id']}}{{queryString}}" data-ng-click="editPost(recType, record)">
+        <a class="bib-url" data-ng-controller="ModalCtrl" data-ng-click="openBibViewModal(record)">
+        <!-- <a class="bib-url" href="/edit/libris{{record['@id']}}{{queryString}}" data-ng-click="editPost(recType, record)"> -->
           <div class="col5">
             <div class="label title" title="{{ record.about.instanceTitle.titleValue }} {{ record.about.instanceTitle.subtitle }}">
               <span class="title-key">{{ record.about.instanceTitle.titleValue | chop }}</span>
@@ -131,7 +132,7 @@
           </div>
   
           <div class="col2">
-            <div class="label identifier code" title="{{ identifier.identifierScheme }}" data-ng-repeat="identifier in record.about.identifier | limitTo:3">{{ identifier.identifierValue }}
+            <div class="label identifier code" title="{{ 'LABEL.record.about.identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }} {{ identifier.identifierValue }}" data-ng-repeat="identifier in record.about.identifier | limitTo:3">{{ 'LABEL.record.about.identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }} {{ identifier.identifierValue }}
             </div>
             <div class="label identifier more" data-ng-show="record.about.identifier.length > 3">{{record.about.identifier.length - 3}} identifierare visas inte.</div>
           </div>
@@ -142,16 +143,18 @@
         <div class="enc-level">
           <div data-ng-include="'/partials/enc_level'" ng-init="encLevel = record.encLevel"></div>
           <span data-ng-if="record.holdings.items != null">
-            <i class="fa fa-thumb-tack"></i> {{record.holdings.items}} bibliotek 
+            <kitin-holdings-summary holdings="record.holdings"></kitin-holdings-summary>
           </span>
         </div>
         <div class="comments">
           <span data-ng-repeat="comment in record.comment">{{comment}}</span>
         </div>
         <div class="holding">
-          <button class="btn btn-purple btn-hld" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
-            <span data-ng-if="!record.holdings.holding"><i class="fa fa-inverse fa-plus"></i> Bestånd</span>
-            <span data-ng-if="record.holdings.holding"><i class="fa fa-inverse fa-check"></i> Bestånd</span>
+          <button class="btn btn-purple btn-hld" data-ng-if="!record.holdings.holding" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
+            <span><i class="fa fa-inverse fa-plus"></i> Bestånd</span>
+          </button>
+          <button class="btn btn-purple-light btn-hld" data-ng-if="record.holdings.holding" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
+            <span><i class="fa fa-inverse fa-check"></i> Bestånd</span>
           </button>
         </div>
       </div>

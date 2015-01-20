@@ -63,8 +63,8 @@ kitin.filter('unsafe', ['$sce', function ($sce) {
  */
 kitin.run(function($rootScope, $location) {
   $rootScope.API_PATH = WHELK_HOST;
-  $rootScope.WRITE_API_PATH = '/whelk-webapi';
-
+  $rootScope.WRITE_API_PATH = WHELK_WRITE_HOST;
+  
   // Make sure we have no unsaved forms
   // var locationChangeOff = $rootScope.$on('$locationChangeStart', function (event, newUrl, oldUrl) {
   //   var forms = $rootScope.modifications;
