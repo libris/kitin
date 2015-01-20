@@ -91,9 +91,7 @@ def _handle_unauthorized():
 # ----------------------------
 @app.route("/login")
 def login():
-    msg = None
-    remember = False
-    return render_template("partials/login.html", msg = msg, remember = remember)
+    return render_template("partials/login.html", msg = None, remember = False)
 
 @app.route("/login/authorize")
 def login_authorize():

@@ -7,6 +7,12 @@
 <div class="content index">
   <header>
     <div id="oauth-login-buttons">
+      {% if msg %}
+        <div class=" control-group alert alert-error">
+        {{ msg }}
+        </div>
+      {% endif %}
+
       <a href="login/authorize" target="_self" class="btn btn-bibdb">Logga in med Biblioteksdatabasen</a>
     </div>
   </header>
