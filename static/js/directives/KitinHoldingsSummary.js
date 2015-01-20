@@ -25,13 +25,13 @@ kitin.directive('kitinHoldingsSummary', function () {
           var holdings = $scope.holdings;
 
           // Build HTML
-          if(holdings.items != 0) {
+          if(holdings.items !== 0) {
             // If own holding, get it first
             if(holdings.holding)
               $scope.holdingsInfo += holdings.holding.about.heldBy.notation;
             // Then get other
             for (var i = 0; i < holdings.all.length; i++) {
-              if (i == 0 && $scope.holdingsInfo.length > 0)
+              if (i === 0 && $scope.holdingsInfo.length > 0)
                 $scope.holdingsInfo += ", ";
               $scope.holdingsInfo += holdings.all[i].about.heldBy.notation;
               if(i < holdings.all.length - 1)
@@ -39,6 +39,6 @@ kitin.directive('kitinHoldingsSummary', function () {
             }
           }
         }
-  }
+  };
 
 });
