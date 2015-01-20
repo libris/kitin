@@ -1879,7 +1879,7 @@ section.nav dt {
 }
 section.nav dd {
   clear: both;
-  margin: 3px 0px;
+  margin: 0px 0px;
   line-height: 1;
   font-size: 13px;
   word-break: break-all;
@@ -1950,11 +1950,13 @@ section.result .bottom {
   right: 134px;
   bottom: 6px;
 }
-section.result .bottom i {
-  font-size: 16px;
-  padding-right: 6px;
-  margin-left: -2px;
-  padding-left: 0;
+section.result .bottom .langIcon {
+  font-size: 12px;
+  margin-top: 0.05em;
+}
+section.result .bottom .langIcon strong {
+  margin-top: -0.1em;
+  font-size: 95%;
 }
 section.result a:visited {
   color: #22ba94;
@@ -2981,18 +2983,18 @@ accordion.other-holdings .offer-value .val span {
 }
 .bibview .node.auth {
   list-style: none;
-  margin-left: -1.5em;
+  margin-left: -1.65em;
 }
 .bibview .node.lang {
   list-style: none;
-  margin-left: -1.7em;
+  margin-left: -1.8em;
 }
 .bibview .node.lang span {
   font-size: 80%;
   margin-top: 0.05em;
 }
 .bibview .node.lang span strong {
-  margin-top: -0.2em;
+  margin-top: -0.1em;
   font-size: 95%;
 }
 .bibview .summary {
@@ -3095,19 +3097,6 @@ body.search .content .results {
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
-}
-body.search .content .navigation {
-  position: relative;
-  float: left;
-  width: 75%;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 480px) {
-  body.search .content .navigation {
-    margin-left: 25%;
-  }
 }
 body.search .content .navigation .pagination > li > a,
 body.search .content .navigation .pagination > li > span {

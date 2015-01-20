@@ -946,7 +946,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  \n" +
     "      <ul ng-switch-when=\"LABEL.record.about.isPartOf\">\n" +
     "        <li class=\"node\" ng-repeat=\"collection in record.about.isPartOf\">\n" +
-    "          {{ collection.uniformTitle }}{{ collection.title }}{{ collection.controlledLabel ? ', ' + collection.controlledLabel : '' }}{{ collection.placePublisherAndDateOfPublication ? ' ,' + collection.placePublisherAndDateOfPublication : '' }}\n" +
+    "          {{ collection.uniformTitle }}{{ collection.title }}{{ collection.controlledLabel ? ', ' + collection.controlledLabel : '' }}{{ collection.placePublisherAndDateOfPublication ? ', ' + collection.placePublisherAndDateOfPublication : '' }}\n" +
     "          <span ng-show=\"{{ collection.identifier | isArray }}\" ng-repeat=\"identifier in collection.identifier\"> ({{ 'LABEL.record.about.identifierByIdentifierScheme[\\''+identifier.identifierScheme['@id']+'\\']' | translate }} {{ identifier.identifierValue }}) </span>\n" +
     "          <span ng-if=\"collection.identifier\" ng-hide=\"{{ collection.identifier | isArray }}\"> ({{ 'LABEL.record.about.identifierByIdentifierScheme[\\''+collection.identifier.identifierScheme['@id']+'\\']' | translate }} {{ collection.identifier.identifierValue }}) </span>\n" +
     "          <span ng-repeat=\"note in collection.scopeNote\"> ({{ note }}) </span>\n" +
