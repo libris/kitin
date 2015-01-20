@@ -95,7 +95,8 @@
     <!-- bib result list -->
     <div class="nest-cols bib" data-ng-switch-default>
       <div class="details">
-        <a class="bib-url" href="/edit/libris{{record['@id']}}{{queryString}}" data-ng-click="editPost(recType, record)">
+        <a class="bib-url" data-ng-controller="ModalCtrl" data-ng-click="openBibViewModal(record)">
+        <!-- <a class="bib-url" href="/edit/libris{{record['@id']}}{{queryString}}" data-ng-click="editPost(recType, record)"> -->
           <div class="col5">
             <div class="label title" title="{{ record.about.instanceTitle.titleValue }} {{ record.about.instanceTitle.subtitle }}">
               <span class="title-key">{{ record.about.instanceTitle.titleValue | chop }}</span>
