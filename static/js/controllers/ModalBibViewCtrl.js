@@ -14,6 +14,11 @@ kitin.controller('ModalBibViewCtrl', function($scope, $modalInstance, $rootScope
 
   // TODO: Put this in better place for access from both result list and bib modal.
   $scope.importRecord = function(data) {
+    if(data['@id'])
+      delete data['@id'];
+    if(data.about['@id'])
+      delete data.about['@id'];
+
     recordService.draft.create('bib', null, data)
       .then(function success(response) {
         // send user to edit

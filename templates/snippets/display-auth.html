@@ -1,0 +1,31 @@
+<li class="node auth" ng-class="{{model['@type']}}" ng-switch="model['@type']">
+  <span ng-switch-when="Person">
+    <i class="fa fa-fw fa-user"></i>
+    {{ model.name }} {{ model.givenName }} {{ model.familyName }}{{ model.birthYear ? ', ' + model.birthYear + '-' : '' }}{{ model.deathYear }}
+  </span>
+  <span ng-switch-when="UniformWork">
+    <i class="fa fa-fw fa-book"></i>
+    {{ model.title }}
+  </span>
+  <span ng-switch-when="Concept">
+    <i class="fa fa-fw fa-lightbulb-o"></i>
+    {{ model.name }}
+  </span>
+  <span ng-switch-when="Place">
+    <i class="fa fa-fw fa-map-marker"></i>
+    {{ model.name }}
+  </span>
+  <span ng-switch-when="Event">
+    <i class="fa fa-fw fa-calendar"></i>
+    {{ model.name }}
+  </span>
+  <span ng-switch-when="Meeting">
+    <i class="fa fa-fw fa-comment"></i>
+    {{ model.name }}
+  </span>
+  <span ng-switch-when="Organization">
+    <i class="fa fa-fw fa-group"></i>
+    {{ model.name }}
+  </span>
+  <!-- <small>({{ 'LABEL.record.about.subjectByType[\''+model['@type']+'\']' | translate }})</small> -->
+</li>

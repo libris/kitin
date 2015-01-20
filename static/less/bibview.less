@@ -1,27 +1,67 @@
 /* BIB MODAL START ------------------------- */
 
 
-.bibview h4.modal-title{
-  color: @white;
-}
-.bibview h4 {
-  font-weight: bold;
-  color: @green;
-}
-
-.bibview .valuedisplay {
-  border-top: 1px dotted #ddd;
-  padding: 8px 0;
-}
-
-.bibview .lbl {
-  display: inline-block;
-  width: 200px;
-  vertical-align: top;
-}
-.bibview .val {
-  display: inline-block;
-  max-width: 500px;
+.bibview {
+	h4.modal-title{
+	  color: @white;
+	}
+	h4 {
+	  font-weight: bold;
+	  color: @green;
+	}
+	
+	.valuedisplay {
+		margin-top: 5px;
+	  	border-top: 0px solid @grey-light;
+	}
+	.value {
+		padding: 3px;
+	}
+	ul {
+		list-style: none;
+		margin-bottom: 0px;
+	}
+	.node {
+		list-style-type: square;
+	}
+	.node.auth {
+		list-style: none;
+		margin-left: -1.5em;
+	}
+	.node.lang {
+		list-style: none;
+		margin-left: -1.7em;
+		span {
+			font-size: 80%;
+			margin-top: 0.05em;
+			strong {
+				margin-top: -0.2em;
+				font-size: 95%;
+			}
+		}
+	}
+	.summary {
+		// background-color: @grey-lighter;
+		text-align: justify;
+		width: 50em;
+		padding: 0em 3em 0em 3em;
+		font-style: italic;
+		// border-radius: 5px;
+		.node {
+			list-style: none;
+		}
+	}
+	
+	.lbl {
+	  font-weight: bold;
+	  display: inline;
+	  cursor: pointer;
+	}
+	i.fa-slack {
+    	-ms-transform: rotate(19deg);
+    	-webkit-transform: rotate(19deg);
+    	transform: rotate(19deg);
+	}
 }
 
 /* BIB MODAL END ------------------------- */
