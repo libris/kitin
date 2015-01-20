@@ -18,8 +18,6 @@ from user import User
 
 
 here = os.path.dirname(os.path.abspath(__file__))
-logger = logging.getLogger(__name__)
-logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]')
 mimetypes.add_type('application/font-woff', '.woff')
 
 
@@ -380,6 +378,11 @@ if __name__ == "__main__":
     oparser.add_option('-d', '--debug', action='store_true', default=False)
     oparser.add_option('-L', '--fakelogin', action='store_true', default=False)
     opts, args = oparser.parse_args()
+
+    if not opts.debug:
+        logger = logging.getLogger(__name__)
+        logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]')
+    
     app.debug = opts.debug
     app.fakelogin = opts.fakelogin
     app.run(host='0.0.0.0')
