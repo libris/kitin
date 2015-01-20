@@ -62,6 +62,7 @@ def get_token():
 
 # Run on access token refreshed
 def token_updater(token):
+    app.logger.debug("Token expired updated to be %s " % jsonify(token))
     session['oauth_token'] = token
 
 def get_requests_oauth():
@@ -107,15 +108,14 @@ def login():
 @app.route("/login/authorize")
 def login_authorize():
     try:
-
         requests_oauth = get_requests_oauth()
         authorization_url, state =  requests_oauth.authorization_url(authorization_base_url, approval_prompt="auto")
-        print authorization_url
+        app.logger.debug("Trying to authorize user redirecting to %s " % authorization_url)
         # Redirect to oauth authorization
         return redirect(authorization_url)
     except Exception, e:
-        msg = e
-        return render_template("partials/login.html", msg = msg)
+        app.logger.debug("Failed to create authorization url,  %s " % str(e))
+        return render_template("partials/login.html", msg = str(e))
 
 @app.route("/login/authorized")
 def authorized():
@@ -123,21 +123,28 @@ def authorized():
         requests_oauth = get_requests_oauth()
         # On authorized fetch token
         session['oauth_token'] = requests_oauth.fetch_token(token_url, client_secret=client_secret, authorization_response=request.url)
+        app.logger.debug("OAuth token received %s " % jsonify(session['oauth_token']))
+        
+        # Get user from verify
         verify_response = requests_oauth.get(oauth_verify_url).json()
         verify_user = verify_response['user']
+        app.logger.debug("User received from verify %s " % jsonify(verify_user))
+
+        # Create Flask User and login
         user = User(verify_user['username'], sigel=verify_user['authorization'][0]['sigel'], token=session['oauth_token'])
         login_user(user, True)
         session['sigel'] = user.sigel
-        print user
+
         return redirect('/')
+
     except Exception, e:
-        msg = e
-        return render_template("partials/login.html", msg = msg)
+        app.logger.debug("Failed to get token,  %s " % str(e))
+        return render_template("partials/login.html", msg = str(e))
 
 @app.route("/signout")
 @login_required
 def logout():
-    "Trying to sign out..."
+    app.logger.debug("Trying to sign out...")
     logout_user()
     session.pop('sigel', None)
     session.pop('oauth_token', None)
@@ -227,7 +234,7 @@ def proxy_request(path=''):
         headers['If-match'] = request.headers['If-match']
     if 'Authorization' in request.headers:
         headers['Authorization'] = request.headers['Authorization']
-    #headers['Content-Type'] = JSON_LD_MIME_TYPE
+    headers['Content-Type'] = JSON_LD_MIME_TYPE
 
     # Handle PUT/POST data
     data = None
@@ -319,27 +326,29 @@ def delete_draft(rec_type, draft_id):
 
 def do_request(path, params=None, method='GET', headers=None, data=None, allow_redirects=False, host=app.config['WHELK_HOST'], json_response=True):
     url = '%s%s' % (host,path)
-    app.logger.debug('Sending request %s to: %s' % (method, url));
+    app.logger.debug('Sending request %s to: %s' % (method, url))
+    requests_oauth = get_requests_oauth()
 
     try:
-        if method == 'POST' or method == 'PUT' or method == 'DELETE':
-            requests_oauth = get_requests_oauth()
-            print method
-            response = requests_oauth.put(url, data=data, headers=headers)
+        if method == 'POST':
+            response = requests_oauth.post(url, params=params, headers=headers, data=data)
+        elif method == 'PUT':
+            response = requests_oauth.put(url, params=params, headers=headers, data=data, allow_redirects=allow_redirects)
+        elif method == 'DELETE':
+            response = requests_oauth.delete(url, headers=headers, allow_redirects=allow_redirects)
         else:
             response = requests.get(url, params=params, headers=headers, allow_redirects=allow_redirects)
 
     except requests.exceptions.RequestException as e:
         app.logger.warning(e)
         if response:
-            app.logger.warning("Error response %s on %s <%s>" % (response.status, method, url))
+            app.logger.warning("Error response %s on %s <%s>" % (response.status_code, method, url))
             abort(response.status_code)
 
-    print dir(response.data)
-    app.logger.debug('Got response: %s' % response.status);
+    app.logger.debug('Got response: %s' % response.status_code);
     
     # OK
-    if response.status == 200:
+    if response.status_code == 200:
         # Convert to propper json
         if json_response:
             resp = raw_json_response(response.text)
@@ -352,20 +361,20 @@ def do_request(path, params=None, method='GET', headers=None, data=None, allow_r
         return resp
 
     # Updated/Created
-    elif response.status == 201:
+    elif response.status_code == 201:
         if 'Location' in response.headers:
             return do_request(response.headers['Location'],host='')
         else:
             app.logger.warning('Error status code 201 but no Location header, %s', (method))
 
     # This is what the server returns when deleting a holding, handle it:
-    elif response.status == 204:
+    elif response.status_code == 204:
         return ''
 
     # Error
     else:
-        app.logger.warning('Error response %s on %s <%s>' % (response.status, method, url))
-        abort(response.status)
+        app.logger.warning('Error response %s on %s <%s>' % (response.status_code, method, url))
+        abort(response.status_code)
 
 
 
