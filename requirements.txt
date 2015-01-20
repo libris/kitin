@@ -1,5 +1,5 @@
 Flask==0.10.1
 Flask-Login==0.2.7
-flask-oauthlib==0.8.0
-requests==0.11.2
+requests==2.5.1
+requests_oauthlib==0.4.1
 pytz==2014.7

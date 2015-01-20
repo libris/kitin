@@ -13,7 +13,7 @@ from flask import (Flask, render_template, request, make_response, Response,
 from flask_login import LoginManager, login_required, login_user, flash, current_user, logout_user
 import jinja2
 import requests
-from flask_oauthlib.client import OAuth
+from requests_oauthlib import OAuth2Session, TokenUpdated
 from storage import Storage
 from user import User
 
@@ -46,18 +46,34 @@ storage = Storage(app.config.get("DRAFTS_DIR"), app)
 JSON_LD_MIME_TYPE = 'application/ld+json'
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "True"
-oauth = OAuth(app)
-whelk = oauth.remote_app(
-    'whelk',
-    consumer_key='mJ7.nwVHph;E!BQ?vr-JH==yCVbAthy0r4K9!537', #client_id
-    consumer_secret='-JW2zL@m4MgHr:XG62nhMV4QkUSlC68v_Wt:7K-osHI3JfJzCuNJaPT!87lG3dt-J_lc9LE4UxAY?BvqV!7b=ypN0xzY5=ra;rA.Ibaes36so5vxnp3DkEN3LMCG89JR', #client_secret
-    base_url='http://localhost:8180/whelk/',
-    request_token_url=None,
-    access_token_method='POST',
-    access_token_url='https://bibdb.libris.kb.se/o/token/',
-    authorize_url='https://bibdb.libris.kb.se/o/authorize',
-    content_type=JSON_LD_MIME_TYPE
-)
+
+client_id = "mJ7.nwVHph;E!BQ?vr-JH==yCVbAthy0r4K9!537"
+client_secret = "-JW2zL@m4MgHr:XG62nhMV4QkUSlC68v_Wt:7K-osHI3JfJzCuNJaPT!87lG3dt-J_lc9LE4UxAY?BvqV!7b=ypN0xzY5=ra;rA.Ibaes36so5vxnp3DkEN3LMCG89JR"
+authorization_base_url = 'https://bibdb.libris.kb.se/o/authorize'
+token_url = 'https://bibdb.libris.kb.se/o/token/'
+authorized_url = 'http://localhost:5000/login/authorized'
+oauth_verify_url = 'https://bibdb.libris.kb.se/api/o/verify'
+
+
+def get_token():
+    if 'oauth_token' in session:
+        return session['oauth_token']
+    return None
+
+# Run on access token refreshed
+def token_updater(token):
+    session['oauth_token'] = token
+
+def get_requests_oauth():
+    # Create new oAuth 2 session
+    requests_oauth = OAuth2Session(client_id, 
+               redirect_uri=authorized_url,
+               auto_refresh_kwargs={ 'client_id': client_id, 'client_secret': client_secret }, 
+               auto_refresh_url=token_url,
+               token = get_token(),
+               token_updater=token_updater
+               )
+    return requests_oauth
 
 
 @app.context_processor
@@ -88,40 +104,35 @@ def login():
     remember = False
     return render_template("partials/login.html", msg = msg, remember = remember)
 
-@app.route('/login/authorize')
-def authorize():
-    return whelk.authorize(callback=url_for('authorized', _external=True),  approval_prompt='auto')
+@app.route("/login/authorize")
+def login_authorize():
+    try:
 
-@app.route('/login/authorized')
+        requests_oauth = get_requests_oauth()
+        authorization_url, state =  requests_oauth.authorization_url(authorization_base_url, approval_prompt="auto")
+        print authorization_url
+        # Redirect to oauth authorization
+        return redirect(authorization_url)
+    except Exception, e:
+        msg = e
+        return render_template("partials/login.html", msg = msg)
+
+@app.route("/login/authorized")
 def authorized():
-    resp = whelk.authorized_response()
-    if resp is None:
-       msg = 'Access denied: reason=%s error=%s' % (
-           request.args['error_reason'],
-           request.args['error_description']
-       )
-    elif 'access_token' not in resp: 
-        msg = 'No access token received from bibdb OAuth.'
-    else:
-        session['whelk_token'] = (resp['access_token'], '')
-
-        try:
-            # Get user information, using verify
-            verifyResponse = whelk.get(url='https://bibdb.libris.kb.se/api/o/verify')
-            verifyUser = verifyResponse.data['user']
-            user = User(verifyUser['username'], sigel=verifyUser['authorization'][0]['sigel'], token=session['whelk_token'])
-            login_user(user, True)
-            session['sigel'] = user.sigel;
-            return redirect('/')
-        except Exception, e:
-            msg = e
-         
-    return render_template("partials/login.html", msg = msg)
-
-@whelk.tokengetter
-def get_whelk_oauth_token():
-    return session.get('whelk_token')
-
+    try:
+        requests_oauth = get_requests_oauth()
+        # On authorized fetch token
+        session['oauth_token'] = requests_oauth.fetch_token(token_url, client_secret=client_secret, authorization_response=request.url)
+        verify_response = requests_oauth.get(oauth_verify_url).json()
+        verify_user = verify_response['user']
+        user = User(verify_user['username'], sigel=verify_user['authorization'][0]['sigel'], token=session['oauth_token'])
+        login_user(user, True)
+        session['sigel'] = user.sigel
+        print user
+        return redirect('/')
+    except Exception, e:
+        msg = e
+        return render_template("partials/login.html", msg = msg)
 
 @app.route("/signout")
 @login_required
@@ -129,7 +140,7 @@ def logout():
     "Trying to sign out..."
     logout_user()
     session.pop('sigel', None)
-    session.pop('whelk_token', None)
+    session.pop('oauth_token', None)
     return redirect("/login")
 
 # LOGIN END
@@ -312,9 +323,9 @@ def do_request(path, params=None, method='GET', headers=None, data=None, allow_r
 
     try:
         if method == 'POST' or method == 'PUT' or method == 'DELETE':
-            print whelk.base_url + path
-            print url
-            response = whelk.request(path[1:], method=method, data=data, content_type=JSON_LD_MIME_TYPE, format=None)
+            requests_oauth = get_requests_oauth()
+            print method
+            response = requests_oauth.put(url, data=data, headers=headers)
         else:
             response = requests.get(url, params=params, headers=headers, allow_redirects=allow_redirects)
 
