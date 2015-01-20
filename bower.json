@@ -10,7 +10,6 @@
     "angular-bootstrap": "~0.11.2",
     "angular-translate": "~2.1.0",
     "angular-translate-loader-url": "~2.1.0",
-    "angular-cookies": "~1.2.28",
     "bootstrap": "~3.1.1",
     "font-awesome": "~4.2.0",
     "jKey": "OscarGodson/jKey#d2b426b20a6f786b8bc2b0842e2b394dd0744a29",
