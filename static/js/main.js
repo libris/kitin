@@ -65,12 +65,6 @@ kitin.run(function($rootScope, $location) {
   $rootScope.API_PATH = WHELK_HOST;
   $rootScope.WRITE_API_PATH = WHELK_WRITE_HOST;
 
-  var hash = angular.copy($location.hash());
-  var hashParams = _.object(_.map(hash.split('&'),function(params) {
-    var p = params.split('=');
-    return [p[0], decodeURIComponent(p[1])];
-  }));
-
   // Make sure we have no unsaved forms
   // var locationChangeOff = $rootScope.$on('$locationChangeStart', function (event, newUrl, oldUrl) {
   //   var forms = $rootScope.modifications;

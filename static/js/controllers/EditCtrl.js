@@ -10,7 +10,12 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     // Ugly, ugly timeout. Hopefully our buttons will be present at the end of it.
     $timeout(function() {
       if (queryStrings.saved) {
-        $scope.classes.saveStatus = queryStrings.saved == 'error' ? 'error' : 'success';
+        if(queryStrings.saved === 'error') {
+          $scope.classes.saveStatus = 'error';
+        } else {
+          $scope.classes.saveStatus = 'success';
+          $rootScope.modifications.bib.onSave();
+        }
         element = angular.element('#message-container .save-messages');
       } else if (queryStrings.published) {
         $scope.classes.publishStatus = queryStrings.published == 'error' ? 'error' : 'success';
@@ -34,7 +39,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
 
   // Make sure the edit view holdings button stay updated
   function updateHolding() {
-    var recordId = $scope.record.about['@id'];
+    var recordId = $scope.record['@id'] || $scope.record.about['@id'];
     if(!$scope.record.new) {
       recordService.holding.find(recordId, userData, true).then(function success(holdings) {
         if (holdings.userHoldings) {
