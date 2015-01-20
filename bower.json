@@ -4,10 +4,10 @@
   "dependencies": {
     "lodash": "~2.1.0",
     "jquery": "~1.10.2",
-    "angular": "~1.2.1",
-    "angular-route": "~1.2.1",
+    "angular": "~1.2.21",
+    "angular-route": "~1.2.21",
     "angular-ui-utils": "~0.1.0",
-    "angular-bootstrap": "~0.11.0",
+    "angular-bootstrap": "~0.11.2",
     "angular-translate": "~2.1.0",
     "angular-translate-loader-url": "~2.1.0",
     "bootstrap": "~3.1.1",
@@ -15,9 +15,9 @@
     "jKey": "OscarGodson/jKey#d2b426b20a6f786b8bc2b0842e2b394dd0744a29",
     "dyve-jquery-autocomplete": "dyve/jquery-autocomplete#df032d1f3ec734c1415c09825578df336bec8272",
     "jquery-autosize": "~1.17.8",
-    "spin.js": "~2.0.0",
     "xhr-xdr-adapter": "intuit/xhr-xdr-adapter#351100b1dc3508994b134b92ec04588953095dfa",
-    "angular-busy": "4.1.0"
+    "angular-busy": "4.1.0",
+    "angular-dialog-service": "5.2.5"
   },
   "exportsOverride": {
     "bootstrap": {

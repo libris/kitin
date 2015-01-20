@@ -24,6 +24,10 @@ label.find-entity input[type="text"] { padding-left: 22px; }
     font-size:13px;
     >div { text-align: left; }
     select {font-size:13px;height:25px;}
+    display:none;
+    &.visible{
+      display:block;
+    }
 }
 
 .addon .on-hover {float:right!important; position:absolute;top:1px;right:3px;color: @grey-dark;}
@@ -31,6 +35,7 @@ label.find-entity input[type="text"] { padding-left: 22px; }
 
 .form-container {
   clear:both;
+  kitin-group:last-child{border-bottom:none}
   hr { display:none }
   .label {
     position:relative;
@@ -59,6 +64,16 @@ label.find-entity input[type="text"] { padding-left: 22px; }
       width:@act_width;
       display:inline-block;
       vertical-align: middle;
+    }
+  }
+  // No thick bottom border for last group 
+  kitin-group:last-child {
+    .group {
+      border-bottom:0;
+      margin-bottom:24px;
+    }
+    .group:after {
+      height:0;
     }
   }
   .group {
@@ -168,12 +183,72 @@ label.find-entity input[type="text"] { padding-left: 22px; }
 
 .entity {
   &.rich {
-    .entity-content {
+    >.entity-content {
       position:relative;
       margin-bottom:6px;
       padding: 4px 8px;
       border-radius: 2px;
       border: 1px dashed @grey-light;
+      background-color: @grey-warm;
+      .tags {
+        margin:2px 0 4px;
+        .tag.auth {
+          background-color: multiply(@grey-warm, @green-lighter); 
+          border: 1px solid multiply(@grey-warm, @green-lighter);
+          border-radius: 2px;
+        }
+        .search input[type="text"] {
+          background: #fff;
+          border-color: @grey-lighter;
+          &:focus {
+            border-color: @grey-light!important;
+          }
+        }
+      }
+      .toggler {
+        position:absolute;
+        right:0;
+        top:0;
+        button {
+          font-size:12px;
+          padding: 4px 8px;
+          outline:none;
+        }
+      }
+      .editable {
+        position:relative;
+        padding:0 0 8px 8px;
+        margin:8px 0 8px;
+        background: @grey-lighter;
+        border-radius:2px;
+        .arr {
+          width: 0;
+          height: 0;
+          border-style: solid;
+          border-width: 0 5px 6px 5px;
+          border-color: transparent transparent @grey-lighter transparent;
+          position:absolute;
+          top:-6px;
+          left:6px;
+        }
+        .label{
+          width: 178px;
+          margin-right: 8px;
+          float: left;
+          position: relative;
+          .lbl {
+            padding-left: 0;
+            font-size:11px;
+          }
+        }
+      }
+      >.controls {
+        position:absolute;
+        // right: 0px;
+        left: @inp_width;
+        width: @act_width;
+        top: 1px;
+      }
     }
     .inner {
       display:block;
@@ -205,13 +280,6 @@ label.find-entity input[type="text"] { padding-left: 22px; }
         }
       }
     }
-    .controls {
-      position:absolute;
-      right: 0px;
-      /*left: @inp_width;
-      width: @act_width;*/
-      top: 1px;
-    }
   }
   &.tags {
     .inp>*{display:inline-block}
@@ -233,6 +301,12 @@ label.find-entity input[type="text"] { padding-left: 22px; }
         border-color:@grey-light;
         box-shadow: none;
       }
+    }
+    .select {
+      width: 120px;
+      position: absolute;
+      left: 242px;
+      top: -1px;
     }
     .fa {
       position:absolute;
@@ -304,6 +378,31 @@ a.add {
   }
 }
 
+a.help {
+  height: 20px;
+  line-height: 20px;
+  width: 28px;
+  text-align:center;
+  display: inline-block;
+  color: @green;
+  border-left: 1px dotted #ddd;
+  margin-left: 8px;
+  .fa {
+    font-size:14px;
+    color: @green;
+  }
+  &:hover {
+    color: @green-dark;
+  }
+}
+a.help.positioned{
+  position: absolute;
+  top: 11px;
+  margin-left: 30px;
+}
+a.help.positioned.dropped{
+  top:31px;
+}
 
 .on-hover { visibility: hidden; }
 .entity:hover .on-hover { visibility: visible; }
@@ -312,6 +411,14 @@ a.add {
 .datatable {
   table { border-collapse: separate; width: @inp_width+@act_width; min-height: 1px; }
   margin-bottom:10px;
+  th {
+    font-size: 11px;
+    vertical-align:bottom;
+    padding-right:8px;
+    padding-bottom:4px;
+    line-height: 15px;
+    font-weight:500;
+  }
   tbody td {
     padding: 2px 4px;
     border:1px solid @grey-light;
@@ -445,17 +552,18 @@ input[type="text"] :-moz-placeholder { color:@grey;  }/*FF18<*/
 .lbl{ display:block; font-size:13px; color:@grey-very-dark; margin-bottom:0; line-height:16px;  }
 .lbl-suggest{display:block;font-size:12px;color:@green;margin-top:2px;line-height:14px;float:left;clear:both;}
 
-.label .help {
-  font-size:11px; 
-  color:@grey-dark;
-  display:block;
-  margin-top:2px;
-  i.fa {
-    font-size:14px;
-    position:relative;
-    top:1px
-  }
-}
+// I'm guessing this is left over from styleguide, correct?
+// .label .help {
+//   font-size:11px; 
+//   color:@grey-dark;
+//   display:block;
+//   margin-top:2px;
+//   i.fa {
+//     font-size:14px;
+//     position:relative;
+//     top:1px
+//   }
+// }
 
 span.error-label { color: @red; }
 span.error-message { font-size: 10px; color: @red; float:left; }

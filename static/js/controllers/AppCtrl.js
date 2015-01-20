@@ -1,5 +1,5 @@
 var kitin = angular.module('kitin.controllers', []);
-kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, definitions, searchService) {
+kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $location, definitions, searchService) {
 
   // Core Utilities
   $rootScope.lodash = _;
@@ -23,7 +23,8 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
     holding: {},
     draft: {},
     marc: {},
-    auth: {}
+    auth: {},
+    jsonld: {}
   };
 
   if ( debug === true ) {
@@ -47,12 +48,22 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
       }
     });
   }
-
+  var searchParams = $location.search();
   $rootScope.state = {
     searchType: {},
     remoteDatabases: [],
-    search: {},
-    searchView: 'detailed',
+    search: {
+      q: searchParams.q || null,
+      n: searchParams.n || null,
+      page: {
+        start: searchParams.start || null
+      },
+      sort: searchParams.sort || null,
+      database: searchParams.database || null,
+      f: searchParams.f || null,
+      view: searchParams.view || 'detailed'
+    },
+    
 
     getSearchParams : function() {
       var params = {
@@ -62,7 +73,7 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
         sort: $rootScope.state.search.sort,
         database: $rootScope.state.searchType.key === searchService.searchTypeIndex.remote.key ? $rootScope.state.search.database : undefined
       };
-      if ($rootScope.state.search.f !== undefined) {
+      if ($rootScope.state.search.f !== undefined && $rootScope.state.search.f !== 'none') {
         params.f = $rootScope.state.search.f;
       }
       return params;
@@ -70,7 +81,7 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
   };
 
   // System Messages
-
+  // TODO Remove these?
   $rootScope.systemMessages = [];
 
   $rootScope.addSystemMessage = function(msgObj) {

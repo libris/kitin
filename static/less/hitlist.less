@@ -7,7 +7,7 @@ section.nav dt{background:@grey;margin-bottom:12px;}
 section.nav dd{clear:both;margin: 3px 0px;line-height:1;font-size:13px;word-break:break-all;}
 section.nav dd a{color:@grey-darker;padding:4px 0 3px 18px;background:url(/static/img/dot.png) no-repeat 4px 9px;display:inline-block;}
 .remote-modal div a.active,
-section.nav dd a.active{font-weight:bold;color:@grey-very-dark;background:url(/static/img/check.png) no-repeat 0 5px;cursor:default;}
+section.nav dd a.active{font-weight:bold;color:@grey-very-dark;background:url(/static/img/check.png) no-repeat 0 5px;}
 section.nav dd a.active:hover{text-decoration: none}
 
 section.nav.remote { visibility: hidden; } // Hide facets container if in remote
@@ -102,6 +102,19 @@ section.result span.page-indicator {
   padding: 0px 0px 0px 4px;
   font-size: 12px;
   word-spacing: -1px;
+}
+section.result .details {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 12px;
+  a {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
 }
 section.result .widget {
   position: absolute;

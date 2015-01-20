@@ -70,22 +70,65 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope, $q
       elem = elem.is('input') ? elem : elem.find('input');
 
       scope.placeholder = attrs.hasOwnProperty('placeholder') ? attrs.placeholder : 'Lägg till';
+      // Try to parse non auth param, is a variable when ng-repeat for subjects
+      var allowNonAuth = '';
+      if(attrs.hasOwnProperty('allowNonAuth')) {
+        try {
+          allowNonAuth = scope.$eval(attrs.allowNonAuth);
+        } catch(error) {
+          allowNonAuth = attrs.allowNonAuth; 
+        }
+      }
 
       var linker = kitinLinkEntity;
 
+      var filterParams = {};
+
+      var setFilterParams = function() {
+        var f = attrs.filter;
+        if ( f ) {
+          if ( linker.getType() ) {
+            f = _.template(f)({ type: linker.getType() });
+          }
+          if ( /^\[.*\]$/.test(f) ) {
+            // filter array (filters)
+            filterParams.filters = scope.$eval(f);
+          } else {
+            // filter string (filter)
+            filterParams.filter = f;
+          }
+        }
+      };
+
+      // add a select box for multiple types
+      var types = linker.getTypes();
+
+      if ( types.length > 1 ) {
+        var select = angular.element('<select>').on('change', function(e) {
+          var index = $('option:selected', this).attr('data-index');
+          linker.setType(index);
+          setFilterParams();
+        });
+        types.forEach(function(type, i) {
+          select.append('<option data-index="'+i+'">'+type+'</option>');
+        });
+        elem.after($('<span>').addClass('select').append(select, '<i class="fa fa-caret-down"></i>'));
+      }
+
+      setFilterParams();
+
       // TODO: IMPROVE: replace current autocomplete mechanism and use angular
       // templates ($compile).. If that is fast enough..
-      var filterParams = {};
-      if ( attrs.filter ) {
-        if ( /^\[.*\]$/.test(attrs.filter) ) {
-          // filter array (filters)
-          filterParams.filters = scope.$eval(attrs.filter);
-        } else {
-          // filter string (filter)
-          filterParams.filter = attrs.filter;
-        }
-      }
+
       var makeReferenceOnItemSelect = attrs.hasOwnProperty('makeReference');
+
+      var getNonAuthPrefix = function() {
+        var nonAuthPrefix = allowNonAuth;
+        if ( linker.getType() ) {
+          nonAuthPrefix = _.template(allowNonAuth)({ type: linker.getType() });
+        }
+        return nonAuthPrefix;
+      };
 
       var template = _.template(jQuery('#' + attrs.templateId).html());
       var searchedValue = null;
@@ -117,7 +160,12 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope, $q
 
         showResult: function (value, data) {
           return template({
-            data: data, value: value, nameRepr: nameRepr, truncate: truncate, isLinked: scope.isLinked
+            data: data, 
+            value: value, 
+            nameRepr: nameRepr, 
+            truncate: truncate, 
+            isLinked: scope.isLinked, 
+            nonAuthPrefix: getNonAuthPrefix()
           });
         },
 
@@ -163,8 +211,7 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope, $q
             });
           }
 
-          if(attrs.hasOwnProperty('allowNonAuth')) {
-            // !TODO Add propper lookup against entity definitions
+          if(attrs.hasOwnProperty('allowNonAuth') && attrs.allowNonAuth !== false) {
             result.unshift({ 
               value: searchedValue, 
               data: linker.doCreate(searchedValue)
@@ -196,10 +243,10 @@ kitin.directive('kitinSearch', function(definitions, editService, $rootScope, $q
           if(doc && doc.items && doc.items.length > 0) {
             result = doc.items;
           }
-          if(attrs.allowNonAuth === 'true' && searchedValue) {
+          if(attrs.hasOwnProperty('allowNonAuth') && attrs.allowNonAuth !== false) {
             result.unshift({ 
               value: searchedValue, 
-              data: searchedValue
+              data: linker.doCreate(searchedValue)
             });
           }
           return result;

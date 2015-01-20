@@ -2,8 +2,10 @@
  * utilsService
  * Global utility functions
  */
-kitin.factory('utilsService', function($http, $q, $rootScope) {
+kitin.factory('utilsService', function($http, $q, $rootScope, $timeout) {
   // Private functions
+
+  // Example
   function genericFunctions (value) {
     // This is just a generic function 
     var deferred = $q.defer();
@@ -17,6 +19,7 @@ kitin.factory('utilsService', function($http, $q, $rootScope) {
     return deferred.promise;
   }
 
+  // Helper function for compose functions
   function constructName (obj) {
     // In some cases, obj might be an array (f.ex. sameAs).
     // Pick the first element and move on.
@@ -180,6 +183,8 @@ kitin.factory('utilsService', function($http, $q, $rootScope) {
       return date;
     },
 
+    // Find nested value, return matches and nonmatches
+    // Example: findDeep(list.object, 'path.to.key', 'value')
     findDeep: function(items, path, value) {
       var matches = [];
       var nonmatches = [];
@@ -194,6 +199,55 @@ kitin.factory('utilsService', function($http, $q, $rootScope) {
         matches: matches.length > 0 ? matches : false,
         nonmatches: nonmatches.length > 0 ? nonmatches : false
       };
+    },
+
+    noCacheHeaders: {
+      'If-Modified-Since': new Date(new Date().setYear(2000)).toUTCString(),
+      'Cache-Control': 'no-cache',
+      'Pragma': 'no-cache'
+    },
+
+    // Helper function to show a message on publish success/failure
+    showPopup: function(element, to) {
+      var deferred = $q.defer();
+      to = to || 2500;
+      $timeout(function() {
+        var _el = element.find('.kitin-popover-trigger');
+        element = (_el.length > 0 ) ? _el : element;
+        element.triggerHandler('kitinPopEvent');
+        $timeout(function() {
+          element.triggerHandler('kitinPopEvent');
+          deferred.resolve();
+        }, to);
+      });
+      return deferred.promise;
+    },
+
+    // Returns a query string (sans '?') holding all search parameters
+    constructQueryString: function(qs, forFacets) {
+      var QS = {
+        q: qs.q || null,
+        n: qs.n || null,
+        start: (qs.page) ? qs.page.start || null : null,
+        sort: qs.sort || null,
+        databases: qs.databases || null,
+        view: qs.view || null
+      };
+      if (forFacets) {
+        // Query strings created for facet links: 
+        // remove paging since number of items may change
+        QS.n = QS.start = null;
+      } else {
+        // Ordinary query string for rudimentary state persistance, add in facets
+        if (qs.f) {
+          QS.f = qs.f;
+        }
+      }
+      // Remove null objects
+      var compactObject = _.partialRight(_.pick, _.identity);
+      return _.map(compactObject(QS),function(v,k){
+        return encodeURIComponent(k) + '=' + encodeURIComponent(v);
+      }).join('&');
     }
   };
 });

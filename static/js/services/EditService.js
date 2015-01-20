@@ -184,18 +184,49 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
       return added;
     },
 
+    setInitalValue: function(createdObject, type, initalValue) {
+      if(_.isObject(createdObject)) {
+        switch(type) {
+          // For Person try to set given and family name
+          case 'Person': 
+            var values = initalValue.split(' ');
+            if(values.length > 0) {
+              createdObject.givenName = values[0];
+            }
+            if(values.length > 1) {
+              createdObject.familyName = values[1];
+            }
+            break;
+          default: 
+            // Default try to set prefLabel
+            if(!_.isUndefined(createdObject.prefLabel)) {
+              createdObject.prefLabel = initalValue;
+            } else if(!_.isUndefined(createdObject.name)) {
+              createdObject.name = initalValue;
+            }
+            break;
+        }
+      }
+    },
+
     createObject: function (property, type, initalValue) {
       var deferer = $q.defer();
 
-      
       var createdObject = {};
-      try {
-        createdObject = $rootScope.getSkeletonTypeMap().summary[type];
-        if(_.isUndefined(createdObject)) {
-          throw '';
+      if(type) {
+        try {
+          createdObject = angular.copy($rootScope.getSkeletonTypeMap().summary[type]);
+          if(_.isUndefined(createdObject)) {
+            throw '';
+          }
+          createdObject['@type'] = type;
+        } catch(error) {
+          console.error('Could not find skeleton for', type);
         }
-      } catch(error) {
-        console.error('Could not find skeleton for', type);
+
+        if(initalValue) {
+          this.setInitalValue(createdObject, type, initalValue);
+        }
       }
       return createdObject;
     },
@@ -262,6 +293,14 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
           }
         }
       },
+      workExample: {
+        indexName: "workExampleByType",
+        getIndexKey: function (entity) {
+          if(entity) {
+            return entity["@type"];
+          }
+        }
+      },
       subject: [
         {
           indexName: "subjectByInScheme",
@@ -279,10 +318,19 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
             }
           }
         }
-      ]
+      ],
+      influencedBy: {
+        indexName: "influencedByByType",
+        getIndexKey: function (entity) {
+          if(entity) {
+            return entity["@type"];
+          }
+        }
+      },
     },
 
     decorate: function(record) {
+
       var deferer = $q.defer();
 
       function doIndex (entity, key, cfg, reset) {
@@ -291,6 +339,7 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
           return;
         }
         var groupedItem = _.groupBy(items, cfg.getIndexKey);
+
         // Remove non matching group.
         if(groupedItem['undefined']) {
           delete groupedItem['undefined'];
@@ -357,11 +406,11 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
         }
         delete entity[cfg.indexName];
       }
+
       // Rearrange grouped Arrays
       this.mutateObject(record.about, doUnindex);
       // Rearrange Person roles
       this.unreifyAgentRoles(record);
-
       // Remove empty entities 
       record = this.cleanRecord(record);
 

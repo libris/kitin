@@ -1,16 +1,43 @@
 <div class="person main">
   <div data-ng-if="isLinked(object) && !isEmpty(object)" >
-    <span onload="person = object" data-ng-include="'/snippets/person-name'"></span>
+    <strong data-ng-if="object.givenName || object.familyName" class="name">
+      {{ object.givenName }} {{ object.familyName }}
+    </strong>
+    <strong data-ng-if="object.name" class="name">
+      {{ object.name }}
+    </strong>
+    <em data-ng-if="object.personTitle">
+      (<span ng-repeat="personTitle in object.personTitle">{{ personTitle }} </span>)
+    </em>
+    <span data-ng-if="object.birthYear || object.deathYear">
+      <span class="timeSpan">{{ object.birthYear }}-{{ object.deathYear }}</span>
+    </span>
     <a data-ng-if="isLinked(object)" class="btn-link auth" data-ng-controller="ModalCtrl" data-ng-click="openAuthModal(person['@id'])">
       <i class="fa fa-bookmark"></i> Aukt.
     </a>
   </div>
   <div data-ng-if="!isLinked(object)"
         data-ng-init="editable = {on: !(object.controlledLabel || object.givenName || object.name)}">
-    <div data-ng-hide="editable.on">
-        <span onload="person = object" data-ng-include="'/snippets/person-name'"></span><a class="auth" href="" data-ng-click="editable.on = !editable.on">Ändra</a>
+    <div class="toggler">
+        <button data-ng-hide="editable.on" class="btn btn-link" data-ng-click="editable.on = true"><i class="fa fa-edit"></i> Editera</button>
+        <button data-ng-show="editable.on" class="btn btn-link" data-ng-click="editable.on = false"><i class="fa fa-check"></i> Klar</button>
     </div>
-    <div data-ng-show="editable.on">
+    <div class="non-editable">
+      <strong data-ng-if="object.givenName || object.familyName" class="name">
+        {{ object.givenName }} {{ object.familyName }}
+      </strong>
+      <strong data-ng-if="object.name" class="name">
+        {{ object.name }}
+      </strong>
+      <em data-ng-if="object.personTitle">
+        (<span ng-repeat="personTitle in object.personTitle">{{ personTitle }} </span>)
+      </em>
+      <span data-ng-if="object.birthYear || object.deathYear">
+        <span class="timeSpan">{{ object.birthYear }}-{{ object.deathYear }}</span>
+      </span>
+    </div>
+    <div data-ng-show="editable.on" class="editable">
+      <span class="arr"></span>
       <div class="label">
         <span class="lbl">{{ "Förnamn" }}</span>
         <input data-track-change class="" type="text" placeholder="Förnamn"
@@ -20,9 +47,7 @@
         <span class="lbl">{{ "Släktnamn" }}</span>
         <input data-track-change class="" type="text" placeholder="Släktnamn"
                data-ng-model="object.familyName" />
-      </div>
-    </div>
-    <div data-ng-show="editable.on">
+      </div> 
       <div class="label">
         <span class="lbl">{{ "Född" }}</span>
         <input data-track-change class="authdependant" type="text" placeholder="ÅÅÅÅ"
@@ -34,9 +59,11 @@
         <input data-track-change class="authdependant" type="text" placeholder="ÅÅÅÅ" 
                data-ng-model="object.deathYear" />
       </div>
+      <div style="clear:left"></div>
     </div>
   </div>
   <kitin-entity multiple hide-title model="record.about._reifiedRoles" type="ObjectProperty" view="/snippets/view-role">
-    <kitin-search service-url="/relator/_search" filter="about.@type:ObjectProperty" template-id="select-role-template" placeholder="Lägg till roll"></kitin-search>
+    <kitin-search service-url="/relator/_search" filter="about.@type:ObjectProperty" template-id="select-role-template" placeholder="Lägg till roll">
+    </kitin-search>
   </kitin-entity>
 </div>

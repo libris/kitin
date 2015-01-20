@@ -18,14 +18,18 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
           // open record
           var path = $rootScope.API_PATH + '/' + type + '/' + id;
           // $rootScope.promises is used by angular-busy to show and hide loading/saving indicators
-          $rootScope.promises.bib.loading = $http.get(path).success(function (struct, status, headers) {
-            editService.decorate(struct).then(function(decoratedRecord) {
-              deferer.resolve({
-                recdata: decoratedRecord,
-                etag: headers('etag')
+          $rootScope.promises.bib.loading = $http.get(path, { headers: utilsService.noCacheHeaders})
+            .success(function (struct, status, headers) {
+              editService.decorate(struct).then(function(decoratedRecord) {
+                deferer.resolve({
+                  recdata: decoratedRecord,
+                  etag: headers('etag')
+                });
               });
+            })
+            .error(function(data, status, headers) {
+              deferer.reject(status);
             });
-          });
 
         return deferer.promise;
       },
@@ -50,7 +54,10 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
                   etag: headers('etag')
                 });
               });
-          });
+            })
+            .error(function(data, status, headers) {
+              deferer.reject(status);
+            });
         });
         return deferer.promise;
       },
@@ -69,7 +76,10 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
                   etag: headers('etag')
                 });
               });
-          });
+            })
+            .error(function(data, status, headers) {
+              deferer.reject(status);
+            });
         });
         return deferer.promise;
       },
@@ -77,15 +87,19 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
       convertToMarc: function(data) {
         var deferer = $q.defer();
         editService.undecorate(data).then(function(undecoratedRecord) {
-          $rootScope.promises.marc = $http.post($rootScope.WRITE_API_PATH + '/_format?to=application\/x-marc-json', undecoratedRecord
+          $rootScope.promises.marc.loading = $http.post($rootScope.WRITE_API_PATH + '/_format?to=application\/x-marc-json', undecoratedRecord
           /*{ !TODO change to API_PATH and add header when authentication is implemented in whelk
             headers: {
               'Content-Type': 'application/ld+json'
             }
           }*/
-          ).success(function(data, status, headers) {
-            deferer.resolve(data);
-          });
+          )
+            .success(function(data, status, headers) {
+              deferer.resolve(data);
+            })
+            .error(function(data, status, headers) {
+              deferer.reject(status);
+            });
         });
         return deferer.promise;
       }
@@ -95,14 +109,18 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
       get: function (draftId, mainType, aggregateLevel) {
         var deferer = $q.defer();
         if(draftId) {
-          $rootScope.promises.draft.loading = $http.get("/draft/" + draftId).success(function (data, status, headers) {
-            editService.decorate(data).then(function(decoratedRecord) {
-              deferer.resolve({
-                recdata: data,
-                etag: headers('etag')
+          $rootScope.promises.draft.loading = $http.get("/draft/" + draftId, { headers: utilsService.noCacheHeaders })
+            .success(function (data, status, headers) {
+              editService.decorate(data).then(function(decoratedRecord) {
+                deferer.resolve({
+                  recdata: data,
+                  etag: headers('etag')
+                });
               });
+            })
+            .error(function(data, status, headers) {
+              deferer.reject(status);
             });
-          });
         } else {
           // new record
           var struct = {
@@ -130,12 +148,14 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
           $rootScope.promises.draft.saving = $http.put("/draft/" + [type, draftId].join('/'), undecoratedRecord, {headers: {"If-match":etag } })
             .success(function(data, status, headers) {
               editService.decorate(data).then(function(decoratedRecord) {
-
                 deferer.resolve({
                   recdata: decoratedRecord,
                   etag: headers('etag')
                 });
               });
+            })
+            .error(function(data, status, headers) {
+              deferer.reject(status);
             });
         });
         return deferer.promise;
@@ -145,8 +165,13 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
         var deferer = $q.defer();
         etag = etag ? etag : '';
         var draftDataCopy = angular.copy(draftData);
+        var pathSuffix = type;
+        if (draftId) {
+          pathSuffix = [type, draftId].join('/');
+        }
+
         editService.undecorate(draftDataCopy).then(function(undecoratedRecord) {
-          $http.post("/draft/" + [type, draftId].join('/') , undecoratedRecord, {headers: {"If-match":etag } })
+          $http.post("/draft/" + pathSuffix , undecoratedRecord, {headers: {"If-match":etag } })
             .success(function(data, status, headers) {
               editService.decorate(data).then(function(decoratedRecord) {
                 deferer.resolve({
@@ -154,6 +179,9 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
                   etag: headers('etag')
                 });
               });
+            })
+            .error(function(data, status, headers) {
+              deferer.reject(status);
             });
         });
         return deferer.promise;
@@ -161,9 +189,13 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
 
       delete: function(type, draftId) {
         var deferer = $q.defer();
-        $http.delete("/draft/" + [type, draftId].join('/')).success(function(data, status, headers) {
-          deferer.resolve(data);
-        });
+        $http.delete("/draft/" + [type, draftId].join('/'))
+          .success(function(data, status, headers) {
+            deferer.resolve(data);
+          })
+          .error(function(data, status, headers) {
+            deferer.reject(status);
+          });
         return deferer.promise;
       }
     },
@@ -171,22 +203,41 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
     drafts: {
       get: function() {
         var deferer = $q.defer();
-        $http.get('/drafts').success(function(data, status, headers) {
-          deferer.resolve(data);
-        });
+        $http.get('/drafts', { headers: utilsService.noCacheHeaders })
+          .success(function(data, status, headers) {
+            deferer.resolve(data);
+          })
+          .error(function(data, status, headers) {
+            deferer.reject(status);
+          });
         return deferer.promise;
       }
     },
 
     holding: {
+      search: function(recordId, quiet, record) {
+        var deferer = $q.defer();
+        var searchPath = '/hold/_search?q=*+about.holdingFor.@id:' + recordId.replace(/\//g, '\\/');
+        var promise = $http.get($rootScope.API_PATH + searchPath, { headers: utilsService.noCacheHeaders, record: record })
+          .success(function(data, status, headers, config) {
+            deferer.resolve({ data: data, config: config });
+          })
+          .error(function(data, status, headers) {
+            deferer.reject(status);
+          });
+        // ... unless we have explicitly requested a quiet lookup
+        if (!quiet) $rootScope.promises.holding.loading = promise;
+        return deferer.promise;
+      },
+
       find: function(recordId, userData, quiet) {
         var deferer = $q.defer();
         var sigel = userData.userSigel;
-        var searchPath = '/hold/_search?q=*+about.holdingFor.@id:' + recordId.replace(/\//g, '\\/');
+        
         // $rootScope.promises is used by angular-busy to show and hide loading/saving indicators ...
-        var promise = $http.get($rootScope.API_PATH + searchPath).success(function(data, status, headers) {
-          if (data.items.length > 0) {
-            var holdings = utilsService.findDeep(data.items, 'about.heldBy.notation', sigel);
+        recordService.holding.search(recordId, quiet).then(function(response) {
+          if (response.data.items.length > 0) {
+            var holdings = utilsService.findDeep(response.data.items, 'about.heldBy.notation', sigel);
             var userHoldings = holdings.matches;
             var otherHoldings = holdings.nonmatches;
             if (userHoldings) {
@@ -194,13 +245,15 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
               userHoldings = userHoldings[0];
               recordService.holding.get(userHoldings['@id']).then(function(response) {
                 if (response.holding) {
-                  userHoldings = response.holding;
-                  if (response.etag) {
-                    userHoldings.etag = response.etag;
-                  }
-                  deferer.resolve({
-                    userHoldings: userHoldings,
-                    otherHoldings: otherHoldings
+                  editService.decorate(response.holding).then(function(decoratedHolding) {
+                    userHoldings = decoratedHolding;
+                    if (response.etag) {
+                      userHoldings.etag = response.etag;
+                    }
+                    deferer.resolve({
+                      userHoldings: userHoldings,
+                      otherHoldings: otherHoldings
+                    });
                   });
                 } else {
                   deferer.reject({
@@ -216,26 +269,26 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
           } else {
             deferer.resolve(false);
           }
-        }).error(function(data, status, headers) {
-            deferer.reject(status);
         });
-        // ... unless we have explicitly requested a quiet lookup
-        if (!quiet) $rootScope.promises.holding.loading = promise;
         return deferer.promise;
       },
 
       get: function(holdingId) {
         var deferer = $q.defer();
         if (holdingId) {
-          $http.get($rootScope.API_PATH + holdingId).success(function(data, status, headers) {
-            var etag = headers('etag') ? headers('etag') : null;
-            deferer.resolve({
-              holding: data,
-              etag: etag
+          $http.get($rootScope.API_PATH + holdingId, { headers: utilsService.noCacheHeaders})
+            .success(function(data, status, headers) {
+              var etag = headers('etag') ? headers('etag') : null;
+              editService.decorate(data).then(function(decoratedHolding) {
+                deferer.resolve({
+                  holding: decoratedHolding,
+                  etag: etag
+                });
+              });
+            })
+            .error(function(data, status, headers) {
+              deferer.reject(status);
             });
-          }).error(function(data, status, headers) {
-            deferer.reject(status);
-          });
         } else {
           deferer.resolve(null);
         }
@@ -246,8 +299,12 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
         var deferer = $q.defer();
         var recordSkeletonTypeMap = definitions.recordSkeletonTypeMap;
         recordSkeletonTypeMap.then(function(skeletonTypeMap) {
-          deferer.resolve({
-            about: skeletonTypeMap.main.HeldMaterial
+          var newHolding = {
+            '@type': 'Holding',
+            'about': skeletonTypeMap.main.HeldMaterial
+          };
+          editService.decorate(newHolding).then(function(decoratedHolding) {
+            deferer.resolve(decoratedHolding);
           });
         });
         return deferer.promise;
@@ -256,28 +313,39 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
       save: function(holding) {
         var deferer = $q.defer();
         var etag = holding.etag;
-        if (holding['@id'] && etag) {
-          delete holding.etag;
-          $rootScope.promises.holding.saving = $http.put($rootScope.WRITE_API_PATH + holding['@id'], holding, {headers: {'If-match': etag}}).success(function(data, status, headers) {
-            if (headers('etag')) {
-              holding.etag = headers('etag');
-            }
-            deferer.resolve(holding);
-          }).error(function(data, status, headers) {
-            deferer.reject(status);
+        var redecorate = function(data, deferer) {
+          editService.decorate(data).then(function(decoratedData) {
+            deferer.resolve(decoratedData);
           });
-        } else {
-          // Holding has no ID, assume it's new
-          $rootScope.promises.holding.saving = $http.post($rootScope.WRITE_API_PATH + '/hold', holding).success(function(data, status, headers) {
-            holding = data;
-            if (headers('etag')) {
-              holding.etag = headers('etag');
-            }
-            deferer.resolve(holding);
-          }).error(function(data, status, headers) {
-            deferer.reject(status);
-          });
-        }
+        };
+        editService.undecorate(holding).then(function(undecoratedHolding) {
+          if (undecoratedHolding['@id'] && etag) {
+            delete undecoratedHolding.etag;
+            $rootScope.promises.holding.saving = $http.put($rootScope.WRITE_API_PATH + undecoratedHolding['@id'], undecoratedHolding, {headers: {'If-match': etag}})
+              .success(function(data, status, headers) {
+                if (headers('etag')) {
+                  undecoratedHolding.etag = headers('etag');
+                }
+                redecorate(undecoratedHolding, deferer);
+              })
+              .error(function(data, status, headers) {
+                deferer.reject(status);
+              });
+          } else {
+            // Holding has no ID, assume it's new
+            $rootScope.promises.holding.saving = $http.post($rootScope.WRITE_API_PATH + '/hold', undecoratedHolding)
+              .success(function(data, status, headers) {
+                undecoratedHolding = data;
+                if (headers('etag')) {
+                  undecoratedHolding.etag = headers('etag');
+                }
+                redecorate(undecoratedHolding, deferer);
+              })
+              .error(function(data, status, headers) {
+                deferer.reject(status);
+              });
+          }
+        });
         return deferer.promise;
       },
 
@@ -285,12 +353,14 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
         var deferer = $q.defer();
         var holdingId = holding['@id'];
         var etag = holding.etag;
-        $http['delete']($rootScope.WRITE_API_PATH + holdingId, {headers: {'If-match': etag}}).success(function(data, success, headers, also) {
-          holding = data;
-          deferer.resolve(holding);
-        }).error(function(data, status, headers) {
-          deferer.reject(status);
-        });
+        $http['delete']($rootScope.WRITE_API_PATH + holdingId, {headers: {'If-match': etag}})
+          .success(function(data, success, headers, also) {
+            holding = data;
+            deferer.resolve(holding);
+          })
+          .error(function(data, status, headers) {
+            deferer.reject(status);
+          });
         return deferer.promise;
       }
     }

@@ -3,7 +3,8 @@
 .modal { color:@grey-very-dark; text-transform: none; }
 //.modal.fade { top:10%; transition:none }
 .modal-large > .modal-dialog { width: 1080px; }
-.modal-large .modal-content { border-radius:0; max-height: 80%; }
+.modal-large .modal-content { border-radius: 0; max-height: 80%; }
+.modal-sm .modal-content { border-radius: 0}
 
 .modal-header .close{
   font-size: 28px;
@@ -43,6 +44,13 @@ html .modal {
 /* HOLDINGS MODAL START ------------------------- */
 
 .modal-header.holdings {background-color:@purple;}
+.modal-body.holdings {
+  max-height: 500px; // With holdings modal growing, pixel-based max-height seems inconvenient.
+  max-height: 70vh;  // Try to make it 70% of viewport height instead (making space for header/footer). >=IE9
+}
+.modal-footer.holdings {
+  position:relative;
+}
 
 /* HOLDINGS MODAL END ------------------------- */
 

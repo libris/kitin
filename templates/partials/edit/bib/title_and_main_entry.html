@@ -3,7 +3,7 @@
   <i></i>
 </h2>
 <div class="form-container">
-
+  
   <kitin-group label="LABEL.record.about.instanceTitle.titleValue">
     <kitin-textrow model="record.about.instanceTitle.titleValue"></kitin-textrow>
 
@@ -77,17 +77,34 @@
     </div>
   </kitin-group>
   <kitin-group label="Uppslag">
-    <kitin-entityrow model="record.about.attributedTo" rich view="/snippets/view-person">
+    <kitin-entityrow model="record.about.attributedTo" rich view="/snippets/view-<% print(type.toLowerCase()) %>" type="['Person','Meeting', 'Organization']">
       <kitin-search service-url="/auth/_search" 
                     template-id="auth-completion-template" 
-                    filter="['about.@type:Person','about.@type:Meeting','about.@type:Organization']">
+                    filter="about.@type:<%= type %>"
+                    allow-non-auth="Ny icke auktoriserad <%= type %>">
       </kitin-search>
     </kitin-entityrow>
-    <kitin-entityrow model="record.about.influencedBy" multiple rich view="/snippets/view-person" type="Person">
+  </kitin-group>
+  <kitin-group label="Biuppslag">
+    <kitin-entityrow model="record.about.influencedByByType.Person" multiple rich view="/snippets/view-person" type="Person">
       <kitin-search service-url="/auth/_search" 
                     template-id="auth-completion-template" 
-                    filter="['about.@type:Person','about.@type:Meeting','about.@type:Organization']"
-                    allow-non-auth>
+                    filter="about.@type:Person"
+                    allow-non-auth="Ny icke auktoriserad person">
+      </kitin-search>
+    </kitin-entityrow>
+    <kitin-entityrow model="record.about.influencedByByType.Meeting" multiple rich view="/snippets/view-meeting" type="Meeting">
+      <kitin-search service-url="/auth/_search" 
+                    template-id="auth-completion-template" 
+                    filter="about.@type:Meeting"
+                    allow-non-auth="Ny icke auktoriserad möte">
+      </kitin-search>
+    </kitin-entityrow>
+    <kitin-entityrow model="record.about.influencedByByType.Organization" multiple rich view="/snippets/view-organization" type="Organization">
+      <kitin-search service-url="/auth/_search" 
+                    template-id="auth-completion-template" 
+                    filter="about.@type:Organization"
+                    allow-non-auth="Ny icke auktoriserad organisation">
       </kitin-search>
     </kitin-entityrow>
   </kitin-group>
