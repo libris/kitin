@@ -61,12 +61,11 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $loca
       sort: searchParams.sort || null,
       database: searchParams.database || null,
       f: searchParams.f || null,
-      view: 'detailed'
+      view: searchParams.view || 'detailed'
     },
     
 
     getSearchParams : function() {
-      //console.log($rootScope.state.search);
       var params = {
         q: $rootScope.state.search.q,
         start: $rootScope.state.search.page.start,
@@ -82,7 +81,7 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $loca
   };
 
   // System Messages
-
+  // TODO Remove these?
   $rootScope.systemMessages = [];
 
   $rootScope.addSystemMessage = function(msgObj) {

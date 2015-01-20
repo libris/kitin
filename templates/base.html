@@ -50,10 +50,10 @@
               </li>
               <li class="dropdown">
                 <a class="dropdown-toggle login" data-toggle="dropdown" title="Logga ut - inställningar">
-                  <span class="username">{{current_user.username}} ({{current_user.sigel}})</span><i class="fa fa-caret-down"></i>
+                  <span class="username"><i class="fa fa-user"></i> {{current_user.sigel}}</span><i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu pull-right">
-                  <li class="disabled"><a href=""> Mitt konto</a></li>
+                  <li class="disabled"><a href=""> Mitt konto<br/><small>{{current_user.username}}</small></a></li>
                   <li><a href="/signout" target="_self">Logga ut</a></li>
                 </ul>
               </li>

@@ -139,26 +139,29 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
       // Set hidden values and push to offers
       offer.heldBy[0].notation = userData.userSigel;
       offers.push(offer);
+      $rootScope.modifications.holding.makeDirty();
     });
   };
 
   $scope.deleteOffer = function(holding, index) {
     var offers = holding.about.offers;
     offers.splice(index, 1);
+    $rootScope.modifications.holding.makeDirty();
   };
 
   $scope.addPrimaryTopicOf = function(holding) {
-    // Get offers from existing holding
     var eDocuments = holding.about.isPrimaryTopicOf;
     recordService.holding.create().then(function(response) {
       var eDocument = response.about.isPrimaryTopicOf[0];
       eDocuments.push(eDocument);
+      $rootScope.modifications.holding.makeDirty();
     });
   };
 
   $scope.deletePrimaryTopicOf = function(holding, index) {
     var eDocuments = holding.about.isPrimaryTopicOf;
     eDocuments.splice(index, 1);
+    $rootScope.modifications.holding.makeDirty();
   };
 
   $scope.addWorkExample = function(holding, type) {
@@ -167,12 +170,14 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     recordService.holding.create(type).then(function(response) {
       var workExample = response.about.workExampleByType[type][0];
       workExamples.push(workExample);
+      $rootScope.modifications.holding.makeDirty();
     });
   };
 
-  $scope.deleteWorkExample = function(holding, index, type) {
+  $scope.deleteWorkExample = function(holding, type, index) {
     var workExample = holding.about.workExampleByType[type];
     workExample.splice(index, 1);
+    $rootScope.modifications.holding.makeDirty();
   };
 
 });
