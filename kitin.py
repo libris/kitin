@@ -45,15 +45,7 @@ storage = Storage(app.config.get("DRAFTS_DIR"), app)
 
 JSON_LD_MIME_TYPE = 'application/ld+json'
 
-os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "True"
-
-client_id = "mJ7.nwVHph;E!BQ?vr-JH==yCVbAthy0r4K9!537"
-client_secret = "-JW2zL@m4MgHr:XG62nhMV4QkUSlC68v_Wt:7K-osHI3JfJzCuNJaPT!87lG3dt-J_lc9LE4UxAY?BvqV!7b=ypN0xzY5=ra;rA.Ibaes36so5vxnp3DkEN3LMCG89JR"
-authorization_base_url = 'https://bibdb.libris.kb.se/o/authorize'
-token_url = 'https://bibdb.libris.kb.se/o/token/'
-authorized_url = 'http://localhost:5000/login/authorized'
-oauth_verify_url = 'https://bibdb.libris.kb.se/api/o/verify'
-
+os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = app.config['OAUTHLIB_INSECURE_TRANSPORT']
 
 def get_token():
     if 'oauth_token' in session:
@@ -67,10 +59,10 @@ def token_updater(token):
 
 def get_requests_oauth():
     # Create new oAuth 2 session
-    requests_oauth = OAuth2Session(client_id, 
-               redirect_uri=authorized_url,
-               auto_refresh_kwargs={ 'client_id': client_id, 'client_secret': client_secret }, 
-               auto_refresh_url=token_url,
+    requests_oauth = OAuth2Session(app.config['OAUTH_CLIENT_ID'], 
+               redirect_uri=app.config['OAUTH_REDIRECT_URI'],
+               auto_refresh_kwargs={ 'client_id': app.config['OAUTH_CLIENT_ID'], 'client_secret': app.config['OAUTH_CLIENT_SECRET'] }, 
+               auto_refresh_url=app.config['OAUTH_TOKEN_URL'],
                token = get_token(),
                token_updater=token_updater
                )
@@ -109,7 +101,7 @@ def login():
 def login_authorize():
     try:
         requests_oauth = get_requests_oauth()
-        authorization_url, state =  requests_oauth.authorization_url(authorization_base_url, approval_prompt="auto")
+        authorization_url, state =  requests_oauth.authorization_url(app.config['OAUTH_AUTHORIZATION_URL'], approval_prompt="auto")
         app.logger.debug("Trying to authorize user redirecting to %s " % authorization_url)
         # Redirect to oauth authorization
         return redirect(authorization_url)
@@ -122,11 +114,11 @@ def authorized():
     try:
         requests_oauth = get_requests_oauth()
         # On authorized fetch token
-        session['oauth_token'] = requests_oauth.fetch_token(token_url, client_secret=client_secret, authorization_response=request.url)
+        session['oauth_token'] = requests_oauth.fetch_token(app.config['OAUTH_TOKEN_URL'], client_secret=app.config['OAUTH_CLIENT_SECRET'], authorization_response=request.url)
         app.logger.debug("OAuth token received %s " % jsonify(session['oauth_token']))
         
         # Get user from verify
-        verify_response = requests_oauth.get(oauth_verify_url).json()
+        verify_response = requests_oauth.get(app.config['OAUTH_VERIFY_URL']).json()
         verify_user = verify_response['user']
         app.logger.debug("User received from verify %s " % jsonify(verify_user))
 
