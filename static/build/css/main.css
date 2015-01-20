@@ -2966,23 +2966,53 @@ accordion.other-holdings .offer-value .val span {
   color: #1a8f72;
 }
 .bibview .valuedisplay {
+  margin-top: 5px;
   border-top: 0px solid #c7c7c3;
 }
 .bibview .value {
   padding: 3px;
-  margin: 5px;
+}
+.bibview ul {
+  list-style: none;
+  margin-bottom: 0px;
 }
 .bibview .node {
   list-style-type: square;
 }
+.bibview .node.auth {
+  list-style: none;
+  margin-left: -1.5em;
+}
+.bibview .node.lang {
+  list-style: none;
+  margin-left: -1.7em;
+}
+.bibview .node.lang span {
+  font-size: 80%;
+  margin-top: 0.05em;
+}
+.bibview .node.lang span strong {
+  margin-top: -0.2em;
+  font-size: 95%;
+}
 .bibview .summary {
-  background-color: #dddddb;
+  text-align: justify;
   width: 50em;
-  padding: 10px;
-  border-radius: 5px;
+  padding: 0em 3em 0em 3em;
+  font-style: italic;
+}
+.bibview .summary .node {
+  list-style: none;
 }
 .bibview .lbl {
   font-weight: bold;
+  display: inline;
+  cursor: pointer;
+}
+.bibview i.fa-slack {
+  -ms-transform: rotate(19deg);
+  -webkit-transform: rotate(19deg);
+  transform: rotate(19deg);
 }
 /* BIB MODAL END ------------------------- */
 /* SEARCH START ------------------------- */
