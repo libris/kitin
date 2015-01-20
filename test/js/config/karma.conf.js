@@ -21,6 +21,8 @@ module.exports = function(config) {
       'static/vendor/angular-bootstrap/ui-bootstrap-tpls.js',
       'static/vendor/angular-animate/angular-animate.js',
       'static/vendor/angular-busy/angular-busy.js',
+      'static/vendor/angular-sanitize/angular-sanitize.js',
+      'static/vendor/angular-dialog-service/dialogs.min.js',
       'static/vendor/jquery/jquery.js',
       'static/vendor/dyve-jquery-autocomplete/jquery.autocomplete.js',
       'node_modules/angular-mocks/angular-mocks.js',
