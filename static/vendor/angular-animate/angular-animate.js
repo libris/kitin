@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.3.9-build.3723+sha.e4f23c4
+ * @license AngularJS v1.3.11-build.29+sha.dea1c0d
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -1875,7 +1875,7 @@ angular.module('ngAnimate', ['ng'])
           return;
         }
 
-        if (!staggerTime && styles) {
+        if (!staggerTime && styles && Object.keys(styles).length > 0) {
           if (!timings.transitionDuration) {
             element.css('transition', timings.animationDuration + 's linear all');
             appliedStyles.push('transition');
