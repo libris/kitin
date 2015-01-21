@@ -22,6 +22,10 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
     $scope.languages = data;
   });
 
+  definitions.enums.encLevel.then(function(data) {
+    $scope.encLevels = data;
+  });
+
   // TODO: localization
   $scope.facetLabels = searchService.facetLabels;
 
@@ -73,15 +77,19 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
     // !TODO fix propper linking
     if (termType && termType.indexOf('language') > 0) {
       var lang = _.find($scope.languages.items, function(lang) {
-        if (lang['@id'] === term) { 
-        return true; 
-      }});
+        if (lang['@id'] === term) { return true; }
+      });
       if (lang) {
-        return lang.about['prefLabel'];
+        return lang.about['prefLabel'] || term;
       }
     }
     if(termType && termType.indexOf('encLevel') > -1) {
-      return $scope.parseEncLevel(term);
+      var encLevel = _.find($scope.encLevels.items, function(encLevel) {
+        if (encLevel['@id'] === term) { return true; }
+      });
+      if (encLevel) {
+        return encLevel.about['prefLabel'] || term;
+      }
     }
     
     return term;
@@ -160,7 +168,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
   $scope.doSearch = function(url, params) {
     delete $rootScope.state.search.result;
     searchService.search(url, params).then(function(data) {
-
+     
       $scope.facetGroups = searchUtil.makeLinkedFacetGroups($scope.recType, data.facets, $rootScope.state.search, prevFacetsStr);
       $scope.crumbs = searchUtil.bakeCrumbs($scope.recType, $rootScope.state.search, prevFacetsStr);
 
