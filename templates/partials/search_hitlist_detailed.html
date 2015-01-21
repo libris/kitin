@@ -116,11 +116,13 @@
             </div>
   
             <div class="f bottom">
-              <span>  
-                <span data-ng-show="record.about['@type'] == 'Book'"><i class="fa fa-square fa-fw"></i></span>
-                <span data-ng-show="record.about['@type'] == 'MusicCD'"><i class="fa fa-square fa-fw"></i></span>
-                <span data-ng-show="record.about['@type'] == 'EBook'"><i class="fa fa-square fa-fw"></i></span>
-                <span data-ng-show="record.about['@type'] == 'Serial'"><i class="fa fa-square fa-fw"></i></span>
+              <span>
+                <span data-ng-repeat="language in record.about.language" ng-if="language.langTag" title="{{language.prefLabel}}" class="fa-stack langIcon"><i class="fa fa-stack-2x fa-square-o"></i><strong class="fa-stack-1x">{{ language.langTag ? language.langTag : '-' }}</strong></span>
+                <!-- <span data-ng-show="record.about['@type'].indexOf('Text') >= 0"><i class="fa fa-square fa-fw"></i></span> -->
+                <!-- <span data-ng-show="record.about['@type'].indexOf('Book') >= 0"><i class="fa fa-square fa-fw"></i></span> -->
+                <!-- <span data-ng-show="record.about['@type'].indexOf('MusicCD') >= 0"><i class="fa fa-square fa-fw"></i></span> -->
+                <!-- <span data-ng-show="record.about['@type'].indexOf('EBook') >= 0"><i class="fa fa-square fa-fw"></i></span> -->
+                <!-- <span data-ng-show="record.about['@type'].indexOf('Serial') >= 0"><i class="fa fa-square fa-fw"></i></span> -->
                 <span title="provider-date" data-ng-repeat="publication in record.about.publication | limitTo:1"
                   data-ng-show="publication.providerDate">{{ utils.composeDate(publication.providerDate) }}</span>
                 <span title="provider" data-ng-repeat="publication in record.about.publication | limitTo:1"> {{publication.place.label}} {{publication.providerName}}</span>
