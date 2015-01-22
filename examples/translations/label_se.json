@@ -96,7 +96,7 @@
                 "identifierByIdentifierScheme['/def/identifiers/SB17']": "SB17",
                 "identifierByIdentifierScheme['/def/identifiers/TPB']": "TPB",
                 "identifierByIdentifierScheme['/def/identifiers/doi']": "DOI",
-                "identifierValue": "Nummerbeteckningar",
+                "identifierValue": "Nummer",
                 "identifierNote": "Notering",
 
                 "availability": "Anskaffningsvillkor",
@@ -258,7 +258,11 @@
                 "bibliographyByNotation['SHB']": "Svensk historisk bibliografi",
                 "bibliographyByNotation['SKvB']": "Svensk konstvetenskaplig bibliografi",
                 "bibliographyByNotation['SOT']": "Svenskt offentligt tryck -1833",
-                "bibliographyByNotation['SMHB']": "Svensk musikhistorisk bibliografi"
+                "bibliographyByNotation['SMHB']": "Svensk musikhistorisk bibliografi",
+                "bibliographyByNotation['DALA']": "Dalabibliografin",
+                "bibliographyByNotation['SUEC']": "Suecana extranea",
+                "bibliographyByNotation['SAH']": "Suecia Antiqua et Hodierna"
+                
             }
         },
 
