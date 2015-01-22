@@ -1,5 +1,5 @@
 var kitin = angular.module('kitin.controllers', []);
-kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $location, definitions, searchService) {
+kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $location, $document, $modalStack, definitions, searchService, dialogs) {
 
   // Core Utilities
   $rootScope.lodash = _;
@@ -79,6 +79,28 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $loca
       return params;
     }
   };
+
+  // Custom Modal controls ------------
+
+  // Create our own ESC keydown event so we can use
+  // .close() instead of .dismiss() (this checks dirty flags)
+  $document.bind('keydown', function (evt) {
+    var modal = $modalStack.getTop();
+    if (evt.which === 27 && typeof modal.value.modalScope.close !== 'undefined') {
+      modal.value.modalScope.close();
+    }
+  });
+  // Create our own backdrop click event so we can use
+  // .close() instead of .dismiss() (this checks dirty flags)
+  document.addEventListener('click', function (event) {
+    var target = angular.element(event.target);
+    if (target.hasClass('modal')) {
+      var modal = $modalStack.getTop();
+      if (typeof modal.value.modalScope.close !== 'undefined') {
+        modal.value.modalScope.close();
+      }
+    }
+  });
 
   // System Messages
   // TODO Remove these?
