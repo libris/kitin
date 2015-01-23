@@ -61,6 +61,9 @@
         <li class="node" ng-repeat="comment in record.about.comment">
           {{ comment }}
         </li>
+        <li class="node" ng-repeat="annotation in record.about.hasAnnotation">
+          {{ annotation.note }}
+        </li>
       </ul>
   
       <ul ng-switch-when="LABEL.record.about.isPartOf">
