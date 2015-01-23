@@ -1950,14 +1950,6 @@ section.result .bottom {
   right: 134px;
   bottom: 6px;
 }
-section.result .bottom .langIcon {
-  font-size: 12px;
-  margin-top: 0.05em;
-}
-section.result .bottom .langIcon strong {
-  margin-top: -0.1em;
-  font-size: 95%;
-}
 section.result a:visited {
   color: #22ba94;
 }
@@ -2991,15 +2983,8 @@ accordion.other-holdings .offer-value .val span {
 }
 .bibview .node.lang {
   list-style: none;
-  margin-left: -1.8em;
-}
-.bibview .node.lang span {
-  font-size: 12px;
-  margin-top: 0.05em;
-}
-.bibview .node.lang span strong {
-  margin-top: -0.1em;
-  font-size: 95%;
+  margin-left: -2.2em;
+  margin-bottom: 0.2em;
 }
 .bibview .summary {
   text-align: justify;
@@ -3622,10 +3607,15 @@ a.beta-blocker {
   margin-top: -20px;
 }
 .langIcon {
-  margin-right: 10px;
+  margin-right: 0.2em;
+  border: 2px solid;
+  border-radius: 5px;
+  font-size: 12px;
+  padding: 0px 1px 0px 0px;
+  text-transform: uppercase;
 }
-.langIcon .fa-square-o {
-  transform: scale(1.6, 0.9);
+.langIcon strong {
+  font-size: 90%;
 }
 /* GENERAL END ------------------------- */
 /*# sourceMappingURL=main.css.map */
