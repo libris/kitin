@@ -173,6 +173,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.summary\" label=\"'LABEL.record.about.summary'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.publication\" label=\"'LABEL.record.about.publication'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.manufacture\" label=\"'LABEL.record.about.manufacture'\"></kitin-valuedisplay>\n" +
+    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.frequency\" label=\"'LABEL.record.about.frequency'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.hasFormat\" label=\"'LABEL.record.about.hasFormat'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.language && record.about.language[0].langCode !== 'zxx'\" label=\"'LABEL.record.about.language'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.originalLanguage\" label=\"'LABEL.record.about.originalLanguage'\"></kitin-valuedisplay>\n" +
@@ -892,7 +893,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "          {{ summary }}\n" +
     "        </li>\n" +
     "      </ul>\n" +
-    "  \n" +
+    "\n" +
     "      <ul ng-switch-when=\"LABEL.record.about.publication\">\n" +
     "        <li class=\"node\" ng-repeat=\"publication in record.about.publication\">\n" +
     "          {{ publication.place.label ? publication.place.label + ', ' : '' }}{{ publication.providerName ? publication.providerName + ', ' : '' }}{{ publication.providerDate }}\n" +
@@ -904,7 +905,12 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "          {{ manufacture.place.label ? manufacture.place.label + ', ' : '' }}{{ manufacture.providerName ? manufacture.providerName + ', ' : '' }}{{ manufacture.providerDate }}\n" +
     "        </li>\n" +
     "      </ul>\n" +
-    "      \n" +
+    "\n" +
+    "      <ul ng-switch-when=\"LABEL.record.about.frequency\">\n" +
+    "        {{ record.about.frequency }}\n" +
+    "      </ul>\n" +
+    "\n" +
+    "\n" +
     "      <ul ng-switch-when=\"LABEL.record.about.language\">\n" +
     "        <li class=\"node lang\" ng-if=\"language.prefLabel || language.langTag\" ng-repeat=\"language in record.about.language | orderBy:'langTag'\">\n" +
     "          <kitin-language-icon model=\"language\"></kitin-language-icon> {{ language.prefLabel }}\n" +

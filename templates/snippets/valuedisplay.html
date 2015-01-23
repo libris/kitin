@@ -8,7 +8,7 @@
           {{ summary }}
         </li>
       </ul>
-  
+
       <ul ng-switch-when="LABEL.record.about.publication">
         <li class="node" ng-repeat="publication in record.about.publication">
           {{ publication.place.label ? publication.place.label + ', ' : '' }}{{ publication.providerName ? publication.providerName + ', ' : '' }}{{ publication.providerDate }}
@@ -20,7 +20,12 @@
           {{ manufacture.place.label ? manufacture.place.label + ', ' : '' }}{{ manufacture.providerName ? manufacture.providerName + ', ' : '' }}{{ manufacture.providerDate }}
         </li>
       </ul>
-      
+
+      <ul ng-switch-when="LABEL.record.about.frequency">
+        {{ record.about.frequency }}
+      </ul>
+
+
       <ul ng-switch-when="LABEL.record.about.language">
         <li class="node lang" ng-if="language.prefLabel || language.langTag" ng-repeat="language in record.about.language | orderBy:'langTag'">
           <kitin-language-icon model="language"></kitin-language-icon> {{ language.prefLabel }}
