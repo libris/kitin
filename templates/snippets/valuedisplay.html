@@ -15,6 +15,12 @@
         </li>
       </ul>
 
+      <ul ng-switch-when="LABEL.record.about.manufacture">
+        <li class="node" ng-repeat="manufacture in record.about.manufacture">
+          {{ manufacture.place.label ? manufacture.place.label + ', ' : '' }}{{ manufacture.providerName ? manufacture.providerName + ', ' : '' }}{{ manufacture.providerDate }}
+        </li>
+      </ul>
+      
       <ul ng-switch-when="LABEL.record.about.language">
         <li class="node lang" ng-if="language.prefLabel || language.langTag" ng-repeat="language in record.about.language | orderBy:'langTag'">
           <kitin-language-icon model="language"></kitin-language-icon> {{ language.prefLabel }}

@@ -172,6 +172,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.summary\" label=\"'LABEL.record.about.summary'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.publication\" label=\"'LABEL.record.about.publication'\"></kitin-valuedisplay>\n" +
+    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.manufacture\" label=\"'LABEL.record.about.manufacture'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.hasFormat\" label=\"'LABEL.record.about.hasFormat'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.language && record.about.language[0].langCode !== 'zxx'\" label=\"'LABEL.record.about.language'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.identifier || record.controlNumber\" label=\"'LABEL.record.about.identifierValue'\"></kitin-valuedisplay>\n" +
@@ -897,6 +898,12 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "        </li>\n" +
     "      </ul>\n" +
     "\n" +
+    "      <ul ng-switch-when=\"LABEL.record.about.manufacture\">\n" +
+    "        <li class=\"node\" ng-repeat=\"manufacture in record.about.manufacture\">\n" +
+    "          {{ manufacture.place.label ? manufacture.place.label + ', ' : '' }}{{ manufacture.providerName ? manufacture.providerName + ', ' : '' }}{{ manufacture.providerDate }}\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "      \n" +
     "      <ul ng-switch-when=\"LABEL.record.about.language\">\n" +
     "        <li class=\"node lang\" ng-if=\"language.prefLabel || language.langTag\" ng-repeat=\"language in record.about.language | orderBy:'langTag'\">\n" +
     "          <kitin-language-icon model=\"language\"></kitin-language-icon> {{ language.prefLabel }}\n" +
