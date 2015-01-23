@@ -86,7 +86,7 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $loca
   // .close() instead of .dismiss() (this checks dirty flags)
   $document.bind('keydown', function (evt) {
     var modal = $modalStack.getTop();
-    if (evt.which === 27 && typeof modal.value.modalScope.close !== 'undefined') {
+    if (evt.which === 27 && typeof modal !== 'undefined' && typeof modal.value.modalScope.close !== 'undefined') {
       modal.value.modalScope.close();
     }
   });
