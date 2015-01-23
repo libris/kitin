@@ -12,6 +12,8 @@
     </span>
     <h2>{{ record.about.instanceTitle.titleValue }} :</h2>
     <h3> {{ record.about.instanceTitle.subtitle }} / {{ utils.composeCreator(record) }}</h3>
+    {{ getTypeLabel(record.about) }}
+    <span data-ng-repeat="contentType in record.about.contentType">| {{ contentType.prefLabel }} </span>
     <section>
 
       <kitin-valuedisplay record="record" ng-if="record.about.summary" label="'LABEL.record.about.summary'"></kitin-valuedisplay>
