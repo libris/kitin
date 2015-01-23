@@ -156,17 +156,17 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/modal-bibview',
     "<div class=\"modal-header bibview\">\n" +
     "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
-    "  <h4 class=\"modal-title bibview\">Bibliotekspost\n" +
+    "  <h1 class=\"modal-title bibview\">Bibliotekspost\n" +
     "    <span data-ng-show=\"!isRemote\">({{ record['@id'] }})</span>\n" +
     "    <span data-ng-show=\"isRemote\">({{ \"Remote\" }})</span>\n" +
-    "  </h4>\n" +
+    "  </h1>\n" +
     "</div>\n" +
     "\n" +
     "<div class=\"modal-body bibview\">\n" +
     "    <span data-ng-if=\"isRemote && remoteDatabase != null\" class=\"database\">\n" +
     "      <i class=\"fa fa-institution\"></i> Källa: {{remoteDatabase}}\n" +
     "    </span>\n" +
-    "    <h4>{{ record.about.instanceTitle.titleValue }} :</h4>\n" +
+    "    <h2>{{ record.about.instanceTitle.titleValue }} :</h2>\n" +
     "    <h3> {{ record.about.instanceTitle.subtitle }} / {{ utils.composeCreator(record) }}</h3>\n" +
     "    <section>\n" +
     "\n" +

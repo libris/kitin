@@ -1,16 +1,16 @@
 <div class="modal-header bibview">
   <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
-  <h4 class="modal-title bibview">Bibliotekspost
+  <h1 class="modal-title bibview">Bibliotekspost
     <span data-ng-show="!isRemote">({{ record['@id'] }})</span>
     <span data-ng-show="isRemote">({{ "Remote" }})</span>
-  </h4>
+  </h1>
 </div>
 
 <div class="modal-body bibview">
     <span data-ng-if="isRemote && remoteDatabase != null" class="database">
       <i class="fa fa-institution"></i> Källa: {{remoteDatabase}}
     </span>
-    <h4>{{ record.about.instanceTitle.titleValue }} :</h4>
+    <h2>{{ record.about.instanceTitle.titleValue }} :</h2>
     <h3> {{ record.about.instanceTitle.subtitle }} / {{ utils.composeCreator(record) }}</h3>
     <section>
 
