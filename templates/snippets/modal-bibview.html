@@ -7,14 +7,15 @@
 </div>
 
 <div class="modal-body bibview">
-    <span data-ng-if="isRemote && remoteDatabase != null" class="database">
-      <i class="fa fa-institution"></i> Källa: {{remoteDatabase}}
-    </span>
-    <span>{{ record.about.attributedTo.name }} {{ record.about.attributedTo.familyName }}{{ record.about.attributedTo.familyName ? ', ' + record.about.attributedTo.givenName : record.about.attributedTo.givenName }}{{ record.about.attributedTo.birthYear ? ', ' + record.about.attributedTo.birthYear + '-' : '' }}{{ record.about.attributedTo.deathYear }}</span>
+    <h3 ng-if="record.about.attributedTo['@type'] == 'Person'">{{ record.about.attributedTo.name }} {{ record.about.attributedTo.familyName }}{{ record.about.attributedTo.familyName ? ', ' + record.about.attributedTo.givenName : record.about.attributedTo.givenName }}{{ record.about.attributedTo.birthYear ? ', ' + record.about.attributedTo.birthYear + '-' : '' }}{{ record.about.attributedTo.deathYear }}</h3>
     <h2>{{ record.about.instanceTitle.titleValue }} :</h2>
     <h3> {{ record.about.instanceTitle.subtitle }} / {{ utils.composeCreator(record) }}</h3>
     {{ getTypeLabel(record.about) }}
     <span data-ng-repeat="contentType in record.about.contentType">| {{ contentType.prefLabel }} </span>
+    <hr>
+    <span data-ng-if="isRemote && remoteDatabase != null" class="database">
+      <i class="fa fa-institution"></i> Källa: {{remoteDatabase}}
+    </span>
     <section>
 
       <kitin-valuedisplay record="record" ng-if="record.about.summary" label="'LABEL.record.about.summary'"></kitin-valuedisplay>
@@ -33,7 +34,6 @@
       <kitin-valuedisplay record="record" ng-if="record.bibliography" label="'LABEL.record.bibliography.bibliography'"></kitin-valuedisplay>
       <kitin-valuedisplay record="record" ng-if="record.about.subject" label="'LABEL.record.about.subject'"></kitin-valuedisplay>
       <kitin-valuedisplay record="record" ng-if="record.about.alternateFormat" label="'LABEL.record.about.relatedTitles'"></kitin-valuedisplay>
-
 
     </section>
 </div>

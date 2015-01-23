@@ -1457,9 +1457,27 @@ li.draft form {
 body.modal-open {
   overflow: hidden!important;
 }
-h4.modal-title {
-  font: bold italic 16px/20px 'Droid Serif', georgia, serif;
+.modal h1.modal-title {
   color: #ffffff;
+  font: bold italic 16px/20px 'Droid Serif', georgia, serif;
+}
+.modal h2 {
+  font: bold 21px/24px 'Droid Serif', georgia, serif;
+  color: #000000;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+.modal h3 {
+  font: bold 16px/20px 'Droid Serif', georgia, serif;
+  color: #000000;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+.modal h4 {
+  font: bold 16px/20px 'Droid Serif', georgia, serif;
+  color: #000000;
+  margin-top: 0px;
+  margin-bottom: 10px;
 }
 html .modal.fade .modal-dialog {
   -webkit-transform: translate(0, 0);
@@ -2952,20 +2970,9 @@ accordion.other-holdings .offer-value .val span {
 }
 /* HOLDINGS END ------------------------- */
 /* BIB MODAL START ------------------------- */
-.bibview h1.modal-title {
-  color: #ffffff;
-  font: bold italic 16px/20px 'Droid Serif', georgia, serif;
-}
-.bibview h1 {
-  font-weight: bold;
-  color: #1a8f72;
-}
 .bibview .valuedisplay {
   margin-top: 5px;
   border-top: 0px solid #c7c7c3;
-}
-.bibview .valuedisplay .small {
-  color: #c7c7c3;
 }
 .bibview .value {
   padding: 3px;
@@ -2996,11 +3003,6 @@ accordion.other-holdings .offer-value .val span {
   font-weight: bold;
   display: inline;
   cursor: pointer;
-}
-.bibview i.fa-slack {
-  -ms-transform: rotate(19deg);
-  -webkit-transform: rotate(19deg);
-  transform: rotate(19deg);
 }
 /* BIB MODAL END ------------------------- */
 /* SEARCH START ------------------------- */
