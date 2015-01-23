@@ -156,23 +156,27 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/modal-bibview',
     "<div class=\"modal-header bibview\">\n" +
     "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
-    "  <h4 class=\"modal-title bibview\">Bibliotekspost\n" +
+    "  <h1 class=\"modal-title bibview\">Bibliotekspost\n" +
     "    <span data-ng-show=\"!isRemote\">({{ record['@id'] }})</span>\n" +
     "    <span data-ng-show=\"isRemote\">({{ \"Remote\" }})</span>\n" +
-    "  </h4>\n" +
+    "  </h1>\n" +
     "</div>\n" +
     "\n" +
     "<div class=\"modal-body bibview\">\n" +
     "    <span data-ng-if=\"isRemote && remoteDatabase != null\" class=\"database\">\n" +
     "      <i class=\"fa fa-institution\"></i> Källa: {{remoteDatabase}}\n" +
     "    </span>\n" +
-    "    <h4>{{ utils.composeTitle(record) | chop:80 }}, {{ utils.composeCreator(record) | chop:80 }} {{ utils.composeDate(publication.providerDate) | chop:80 }}</h4>\n" +
+    "    <h2>{{ record.about.instanceTitle.titleValue }} :</h2>\n" +
+    "    <h3> {{ record.about.instanceTitle.subtitle }} / {{ utils.composeCreator(record) }}</h3>\n" +
     "    <section>\n" +
     "\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.summary\" label=\"'LABEL.record.about.summary'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.publication\" label=\"'LABEL.record.about.publication'\"></kitin-valuedisplay>\n" +
+    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.manufacture\" label=\"'LABEL.record.about.manufacture'\"></kitin-valuedisplay>\n" +
+    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.frequency\" label=\"'LABEL.record.about.frequency'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.hasFormat\" label=\"'LABEL.record.about.hasFormat'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.language && record.about.language[0].langCode !== 'zxx'\" label=\"'LABEL.record.about.language'\"></kitin-valuedisplay>\n" +
+    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.originalLanguage\" label=\"'LABEL.record.about.originalLanguage'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.identifier || record.controlNumber\" label=\"'LABEL.record.about.identifierValue'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.attributedTo\" label=\"'LABEL.record.about.attributedTo'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.influencedBy\" label=\"'LABEL.record.about.influencedBy'\"></kitin-valuedisplay>\n" +
@@ -198,7 +202,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  <button class=\"btn btn-green btn-copy-remote\" data-ng-click=\"importRecord(record)\" data-ng-show=\"isRemote\">\n" +
     "    <span><i class=\"fa fa-inverse fa-plus\"></i> {{ \"Kopiera\" }}</span>\n" +
     "  </button>\n" +
-    "</div>"
+    "</div>\n"
   );
 
 
@@ -891,19 +895,36 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "          {{ summary }}\n" +
     "        </li>\n" +
     "      </ul>\n" +
-    "  \n" +
+    "\n" +
     "      <ul ng-switch-when=\"LABEL.record.about.publication\">\n" +
     "        <li class=\"node\" ng-repeat=\"publication in record.about.publication\">\n" +
     "          {{ publication.place.label ? publication.place.label + ', ' : '' }}{{ publication.providerName ? publication.providerName + ', ' : '' }}{{ publication.providerDate }}\n" +
     "        </li>\n" +
     "      </ul>\n" +
     "\n" +
+    "      <ul ng-switch-when=\"LABEL.record.about.manufacture\">\n" +
+    "        <li class=\"node\" ng-repeat=\"manufacture in record.about.manufacture\">\n" +
+    "          {{ manufacture.place.label ? manufacture.place.label + ', ' : '' }}{{ manufacture.providerName ? manufacture.providerName + ', ' : '' }}{{ manufacture.providerDate }}\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "\n" +
+    "      <ul ng-switch-when=\"LABEL.record.about.frequency\">\n" +
+    "        {{ record.about.frequency }}\n" +
+    "      </ul>\n" +
+    "\n" +
+    "\n" +
     "      <ul ng-switch-when=\"LABEL.record.about.language\">\n" +
     "        <li class=\"node lang\" ng-if=\"language.prefLabel || language.langTag\" ng-repeat=\"language in record.about.language | orderBy:'langTag'\">\n" +
     "          <kitin-language-icon model=\"language\"></kitin-language-icon> {{ language.prefLabel }}\n" +
     "        </li>\n" +
     "      </ul>\n" +
-    "  \n" +
+    "\n" +
+    "      <ul ng-switch-when=\"LABEL.record.about.originalLanguage\">\n" +
+    "        <li class=\"node lang\" ng-if=\"language.prefLabel || language.langTag\" ng-repeat=\"language in record.about.originalLanguage | orderBy:'langTag'\">\n" +
+    "          <kitin-language-icon model=\"language\"></kitin-language-icon> {{ language.prefLabel }}\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "\n" +
     "      <ul ng-switch-when=\"LABEL.record.about.hasFormat\">\n" +
     "        <li class=\"node\" ng-repeat=\"format in record.about.hasFormat\">\n" +
     "          <span ng-if=\"format['@type']\">{{ 'LABEL.record.about.hasFormatByType[\\''+format['@type']+'\\']' | translate }}</span>\n" +

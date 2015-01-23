@@ -8,19 +8,36 @@
           {{ summary }}
         </li>
       </ul>
-  
+
       <ul ng-switch-when="LABEL.record.about.publication">
         <li class="node" ng-repeat="publication in record.about.publication">
           {{ publication.place.label ? publication.place.label + ', ' : '' }}{{ publication.providerName ? publication.providerName + ', ' : '' }}{{ publication.providerDate }}
         </li>
       </ul>
 
+      <ul ng-switch-when="LABEL.record.about.manufacture">
+        <li class="node" ng-repeat="manufacture in record.about.manufacture">
+          {{ manufacture.place.label ? manufacture.place.label + ', ' : '' }}{{ manufacture.providerName ? manufacture.providerName + ', ' : '' }}{{ manufacture.providerDate }}
+        </li>
+      </ul>
+
+      <ul ng-switch-when="LABEL.record.about.frequency">
+        {{ record.about.frequency }}
+      </ul>
+
+
       <ul ng-switch-when="LABEL.record.about.language">
         <li class="node lang" ng-if="language.prefLabel || language.langTag" ng-repeat="language in record.about.language | orderBy:'langTag'">
           <kitin-language-icon model="language"></kitin-language-icon> {{ language.prefLabel }}
         </li>
       </ul>
-  
+
+      <ul ng-switch-when="LABEL.record.about.originalLanguage">
+        <li class="node lang" ng-if="language.prefLabel || language.langTag" ng-repeat="language in record.about.originalLanguage | orderBy:'langTag'">
+          <kitin-language-icon model="language"></kitin-language-icon> {{ language.prefLabel }}
+        </li>
+      </ul>
+
       <ul ng-switch-when="LABEL.record.about.hasFormat">
         <li class="node" ng-repeat="format in record.about.hasFormat">
           <span ng-if="format['@type']">{{ 'LABEL.record.about.hasFormatByType[\''+format['@type']+'\']' | translate }}</span>

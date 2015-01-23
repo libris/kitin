@@ -1,22 +1,26 @@
 <div class="modal-header bibview">
   <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
-  <h4 class="modal-title bibview">Bibliotekspost
+  <h1 class="modal-title bibview">Bibliotekspost
     <span data-ng-show="!isRemote">({{ record['@id'] }})</span>
     <span data-ng-show="isRemote">({{ "Remote" }})</span>
-  </h4>
+  </h1>
 </div>
 
 <div class="modal-body bibview">
     <span data-ng-if="isRemote && remoteDatabase != null" class="database">
       <i class="fa fa-institution"></i> Källa: {{remoteDatabase}}
     </span>
-    <h4>{{ utils.composeTitle(record) | chop:80 }}, {{ utils.composeCreator(record) | chop:80 }} {{ utils.composeDate(publication.providerDate) | chop:80 }}</h4>
+    <h2>{{ record.about.instanceTitle.titleValue }} :</h2>
+    <h3> {{ record.about.instanceTitle.subtitle }} / {{ utils.composeCreator(record) }}</h3>
     <section>
 
       <kitin-valuedisplay record="record" ng-if="record.about.summary" label="'LABEL.record.about.summary'"></kitin-valuedisplay>
       <kitin-valuedisplay record="record" ng-if="record.about.publication" label="'LABEL.record.about.publication'"></kitin-valuedisplay>
+      <kitin-valuedisplay record="record" ng-if="record.about.manufacture" label="'LABEL.record.about.manufacture'"></kitin-valuedisplay>
+      <kitin-valuedisplay record="record" ng-if="record.about.frequency" label="'LABEL.record.about.frequency'"></kitin-valuedisplay>
       <kitin-valuedisplay record="record" ng-if="record.about.hasFormat" label="'LABEL.record.about.hasFormat'"></kitin-valuedisplay>
       <kitin-valuedisplay record="record" ng-if="record.about.language && record.about.language[0].langCode !== 'zxx'" label="'LABEL.record.about.language'"></kitin-valuedisplay>
+      <kitin-valuedisplay record="record" ng-if="record.about.originalLanguage" label="'LABEL.record.about.originalLanguage'"></kitin-valuedisplay>
       <kitin-valuedisplay record="record" ng-if="record.about.identifier || record.controlNumber" label="'LABEL.record.about.identifierValue'"></kitin-valuedisplay>
       <kitin-valuedisplay record="record" ng-if="record.about.attributedTo" label="'LABEL.record.about.attributedTo'"></kitin-valuedisplay>
       <kitin-valuedisplay record="record" ng-if="record.about.influencedBy" label="'LABEL.record.about.influencedBy'"></kitin-valuedisplay>
