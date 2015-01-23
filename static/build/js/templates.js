@@ -5,7 +5,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "<li class=\"node auth\" ng-class=\"{{model['@type']}}\" ng-switch=\"model['@type']\">\n" +
     "  <span ng-switch-when=\"Person\">\n" +
     "    <i class=\"fa fa-fw fa-user\"></i>\n" +
-    "    {{ model.name }} {{ model.givenName }} {{ model.familyName }}{{ model.birthYear ? ', ' + model.birthYear + '-' : '' }}{{ model.deathYear }}\n" +
+    "    {{ model.name }} {{ model.familyName }}{{ model.familyName ? ', ' + model.givenName : model.givenName }}{{ model.birthYear ? ', ' + model.birthYear + '-' : '' }}{{ model.deathYear }}\n" +
     "  </span>\n" +
     "  <span ng-switch-when=\"UniformWork\">\n" +
     "    <i class=\"fa fa-fw fa-book\"></i>\n" +
