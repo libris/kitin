@@ -2972,6 +2972,9 @@ accordion.other-holdings .offer-value .val span {
   margin-top: 5px;
   border-top: 0px solid #c7c7c3;
 }
+.bibview .valuedisplay .small {
+  color: #c7c7c3;
+}
 .bibview .value {
   padding: 3px;
 }
@@ -3617,6 +3620,12 @@ a.beta-blocker {
 }
 .modal-dialog .cg-busy-default-wrapper {
   margin-top: -20px;
+}
+.langIcon {
+  margin-right: 10px;
+}
+.langIcon .fa-square-o {
+  transform: scale(1.6, 0.9);
 }
 /* GENERAL END ------------------------- */
 /*# sourceMappingURL=main.css.map */
