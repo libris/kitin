@@ -173,7 +173,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.summary\" label=\"'LABEL.record.about.summary'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.publication\" label=\"'LABEL.record.about.publication'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.hasFormat\" label=\"'LABEL.record.about.hasFormat'\"></kitin-valuedisplay>\n" +
-    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.language\" label=\"'LABEL.record.about.language'\"></kitin-valuedisplay>\n" +
+    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.language && record.about.language[0].langCode !== 'zxx'\" label=\"'LABEL.record.about.language'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.identifier || record.controlNumber\" label=\"'LABEL.record.about.identifierValue'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.attributedTo\" label=\"'LABEL.record.about.attributedTo'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.influencedBy\" label=\"'LABEL.record.about.influencedBy'\"></kitin-valuedisplay>\n" +
@@ -898,8 +898,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "      </ul>\n" +
     "\n" +
     "      <ul ng-switch-when=\"LABEL.record.about.language\">\n" +
-    "        <li class=\"node lang\" ng-if=\"language.langTag || language.prefLabel\" ng-repeat=\"language in record.about.language\">\n" +
-    "          <span class=\"fa-stack\"><i class=\"fa fa-stack-2x fa-square-o\"></i><strong class=\"fa-stack-1x\">{{ language.langTag ? language.langTag : '-' }}</strong></span> {{ language.prefLabel }}\n" +
+    "        <li class=\"node lang\" ng-if=\"language.prefLabel || language.langTag\" ng-repeat=\"language in record.about.language | orderBy:'langTag'\">\n" +
+    "          <kitin-language-icon model=\"language\"></kitin-language-icon> {{ language.prefLabel }}\n" +
     "        </li>\n" +
     "      </ul>\n" +
     "  \n" +
