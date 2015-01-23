@@ -168,6 +168,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    </span>\n" +
     "    <h2>{{ record.about.instanceTitle.titleValue }} :</h2>\n" +
     "    <h3> {{ record.about.instanceTitle.subtitle }} / {{ utils.composeCreator(record) }}</h3>\n" +
+    "    {{ getTypeLabel(record.about) }}\n" +
+    "    <span data-ng-repeat=\"contentType in record.about.contentType\">| {{ contentType.prefLabel }} </span>\n" +
     "    <section>\n" +
     "\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.summary\" label=\"'LABEL.record.about.summary'\"></kitin-valuedisplay>\n" +
