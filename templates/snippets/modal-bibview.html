@@ -10,6 +10,7 @@
     <span data-ng-if="isRemote && remoteDatabase != null" class="database">
       <i class="fa fa-institution"></i> Källa: {{remoteDatabase}}
     </span>
+    <span>{{ record.about.attributedTo.name }} {{ record.about.attributedTo.familyName }}{{ record.about.attributedTo.familyName ? ', ' + record.about.attributedTo.givenName : record.about.attributedTo.givenName }}{{ record.about.attributedTo.birthYear ? ', ' + record.about.attributedTo.birthYear + '-' : '' }}{{ record.about.attributedTo.deathYear }}</span>
     <h2>{{ record.about.instanceTitle.titleValue }} :</h2>
     <h3> {{ record.about.instanceTitle.subtitle }} / {{ utils.composeCreator(record) }}</h3>
     {{ getTypeLabel(record.about) }}

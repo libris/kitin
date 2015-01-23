@@ -166,6 +166,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <span data-ng-if=\"isRemote && remoteDatabase != null\" class=\"database\">\n" +
     "      <i class=\"fa fa-institution\"></i> Källa: {{remoteDatabase}}\n" +
     "    </span>\n" +
+    "    <span>{{ record.about.attributedTo.name }} {{ record.about.attributedTo.familyName }}{{ record.about.attributedTo.familyName ? ', ' + record.about.attributedTo.givenName : record.about.attributedTo.givenName }}{{ record.about.attributedTo.birthYear ? ', ' + record.about.attributedTo.birthYear + '-' : '' }}{{ record.about.attributedTo.deathYear }}</span>\n" +
     "    <h2>{{ record.about.instanceTitle.titleValue }} :</h2>\n" +
     "    <h3> {{ record.about.instanceTitle.subtitle }} / {{ utils.composeCreator(record) }}</h3>\n" +
     "    {{ getTypeLabel(record.about) }}\n" +

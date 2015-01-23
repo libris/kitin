@@ -96,6 +96,7 @@
                 "identifierByIdentifierScheme['/def/identifiers/SB17']": "SB17",
                 "identifierByIdentifierScheme['/def/identifiers/TPB']": "TPB",
                 "identifierByIdentifierScheme['/def/identifiers/doi']": "DOI",
+                "identifierByIdentifierScheme['']": "Odefinierad typ",
                 "identifierValue": "Nummer",
                 "identifierNote": "Notering",
 
