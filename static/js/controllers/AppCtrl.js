@@ -96,7 +96,7 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $loca
     var target = angular.element(event.target);
     if (target.hasClass('modal')) {
       var modal = $modalStack.getTop();
-      if (typeof modal.value.modalScope.close !== 'undefined') {
+      if (typeof modal !== 'undefined' && typeof modal.value.modalScope.close !== 'undefined') {
         modal.value.modalScope.close();
       }
     }
