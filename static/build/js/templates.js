@@ -166,7 +166,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <span data-ng-if=\"isRemote && remoteDatabase != null\" class=\"database\">\n" +
     "      <i class=\"fa fa-institution\"></i> Källa: {{remoteDatabase}}\n" +
     "    </span>\n" +
-    "    <h4>{{ utils.composeTitle(record) | chop:80 }}, {{ utils.composeCreator(record) | chop:80 }} {{ utils.composeDate(publication.providerDate) | chop:80 }}</h4>\n" +
+    "    <h4>{{ record.about.instanceTitle.titleValue }} :</h4>\n" +
+    "    <h3> {{ record.about.instanceTitle.subtitle }} / {{ utils.composeCreator(record) }}</h3>\n" +
     "    <section>\n" +
     "\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.summary\" label=\"'LABEL.record.about.summary'\"></kitin-valuedisplay>\n" +

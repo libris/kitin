@@ -10,7 +10,8 @@
     <span data-ng-if="isRemote && remoteDatabase != null" class="database">
       <i class="fa fa-institution"></i> Källa: {{remoteDatabase}}
     </span>
-    <h4>{{ utils.composeTitle(record) | chop:80 }}, {{ utils.composeCreator(record) | chop:80 }} {{ utils.composeDate(publication.providerDate) | chop:80 }}</h4>
+    <h4>{{ record.about.instanceTitle.titleValue }} :</h4>
+    <h3> {{ record.about.instanceTitle.subtitle }} / {{ utils.composeCreator(record) }}</h3>
     <section>
 
       <kitin-valuedisplay record="record" ng-if="record.about.summary" label="'LABEL.record.about.summary'"></kitin-valuedisplay>
