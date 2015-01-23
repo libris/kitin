@@ -182,8 +182,10 @@
                 "relation": "Länkfält",
                 "relation.linkNote": "Anmärkning",
                 
+                "relatedTitles": "Sammanhörande titlar",
+
                 "alternateEdition": "Länkfält - Annan utgåva",
-                "alternateFormat": "Länkfält - Annat medium",
+                "alternateFormat": "Annan version",
 
                 "summary": "Innehållsbeskrivning, sammanfattning",
                 "languageNote": "Språkanmärkning",
@@ -228,6 +230,7 @@
                 "classificationNlm": "NLM (National Library of Medicine)",
                 "classificationUdc": "UDK (Universell decimalklassifikation)",
 
+                "subject": "Ämnesord och genrebeteckningar",
                 "subjectByInScheme['/topic/sao']": "SAO",
                 "subjectByInScheme['/topic/saogf']": "SAOGF",
                 "subjectByInScheme['barn']": "Barn",

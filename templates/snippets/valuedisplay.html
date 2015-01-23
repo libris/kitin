@@ -65,6 +65,7 @@
           {{ annotation.note }}
         </li>
       </ul>
+
   
       <ul ng-switch-when="LABEL.record.about.isPartOf">
         <li class="node" ng-repeat="collection in record.about.isPartOf">
@@ -72,6 +73,25 @@
           <span ng-show="{{ collection.identifier | isArray }}" ng-repeat="identifier in collection.identifier"> ({{ 'LABEL.record.about.identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }} {{ identifier.identifierValue }}) </span>
           <span ng-if="collection.identifier" ng-hide="{{ collection.identifier | isArray }}"> ({{ 'LABEL.record.about.identifierByIdentifierScheme[\''+collection.identifier.identifierScheme['@id']+'\']' | translate }} {{ collection.identifier.identifierValue }}) </span>
           <span ng-repeat="note in collection.scopeNote"> ({{ note }}) </span>
+        </li>
+      </ul>
+
+      <ul ng-switch-when="LABEL.record.about.subject">
+        <li class="node" ng-repeat="subject in record.about.subject">
+          {{ subject.prefLabel }}
+          <span ng-repeat="node in subject.broader">{{ node.prefLabel }} <span ng-if="!$last">-- </span></span>
+          <small>{{ subject.inScheme.notation }}</small>
+        </li>
+      </ul>
+
+      <ul ng-switch-when="LABEL.record.about.relatedTitles">
+        <li class="node" ng-repeat="format in record.about.alternateFormat">
+          <i>{{ 'LABEL.record.about.alternateFormat' | translate }}:</i>
+          <span ng-repeat="note in format.linkNote track by $index">{{ note }}</span>
+          {{ format.controlledLabel }}
+          {{ format.title }}
+          {{ format.placePublisherAndDateOfPublication }}
+
         </li>
       </ul>
 

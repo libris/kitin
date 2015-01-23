@@ -180,6 +180,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.comment\" label=\"'LABEL.record.about.comment'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.isPartOf\" label=\"'LABEL.record.about.isPartOf'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.bibliography\" label=\"'LABEL.record.bibliography.bibliography'\"></kitin-valuedisplay>\n" +
+    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.subject\" label=\"'LABEL.record.about.subject'\"></kitin-valuedisplay>\n" +
+    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.alternateFormat\" label=\"'LABEL.record.about.relatedTitles'\"></kitin-valuedisplay>\n" +
     "\n" +
     "\n" +
     "    </section>\n" +
@@ -946,6 +948,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "          {{ annotation.note }}\n" +
     "        </li>\n" +
     "      </ul>\n" +
+    "\n" +
     "  \n" +
     "      <ul ng-switch-when=\"LABEL.record.about.isPartOf\">\n" +
     "        <li class=\"node\" ng-repeat=\"collection in record.about.isPartOf\">\n" +
@@ -953,6 +956,25 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "          <span ng-show=\"{{ collection.identifier | isArray }}\" ng-repeat=\"identifier in collection.identifier\"> ({{ 'LABEL.record.about.identifierByIdentifierScheme[\\''+identifier.identifierScheme['@id']+'\\']' | translate }} {{ identifier.identifierValue }}) </span>\n" +
     "          <span ng-if=\"collection.identifier\" ng-hide=\"{{ collection.identifier | isArray }}\"> ({{ 'LABEL.record.about.identifierByIdentifierScheme[\\''+collection.identifier.identifierScheme['@id']+'\\']' | translate }} {{ collection.identifier.identifierValue }}) </span>\n" +
     "          <span ng-repeat=\"note in collection.scopeNote\"> ({{ note }}) </span>\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "\n" +
+    "      <ul ng-switch-when=\"LABEL.record.about.subject\">\n" +
+    "        <li class=\"node\" ng-repeat=\"subject in record.about.subject\">\n" +
+    "          {{ subject.prefLabel }}\n" +
+    "          <span ng-repeat=\"node in subject.broader\">{{ node.prefLabel }} <span ng-if=\"!$last\">-- </span></span>\n" +
+    "          <small>{{ subject.inScheme.notation }}</small>\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "\n" +
+    "      <ul ng-switch-when=\"LABEL.record.about.relatedTitles\">\n" +
+    "        <li class=\"node\" ng-repeat=\"format in record.about.alternateFormat\">\n" +
+    "          <i>{{ 'LABEL.record.about.alternateFormat' | translate }}:</i>\n" +
+    "          <span ng-repeat=\"note in format.linkNote track by $index\">{{ note }}</span>\n" +
+    "          {{ format.controlledLabel }}\n" +
+    "          {{ format.title }}\n" +
+    "          {{ format.placePublisherAndDateOfPublication }}\n" +
+    "\n" +
     "        </li>\n" +
     "      </ul>\n" +
     "\n" +
