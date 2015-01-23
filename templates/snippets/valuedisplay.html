@@ -26,7 +26,13 @@
           <kitin-language-icon model="language"></kitin-language-icon> {{ language.prefLabel }}
         </li>
       </ul>
-  
+
+      <ul ng-switch-when="LABEL.record.about.originalLanguage">
+        <li class="node lang" ng-if="language.prefLabel || language.langTag" ng-repeat="language in record.about.originalLanguage | orderBy:'langTag'">
+          <kitin-language-icon model="language"></kitin-language-icon> {{ language.prefLabel }}
+        </li>
+      </ul>
+
       <ul ng-switch-when="LABEL.record.about.hasFormat">
         <li class="node" ng-repeat="format in record.about.hasFormat">
           <span ng-if="format['@type']">{{ 'LABEL.record.about.hasFormatByType[\''+format['@type']+'\']' | translate }}</span>

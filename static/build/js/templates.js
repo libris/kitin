@@ -175,6 +175,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.manufacture\" label=\"'LABEL.record.about.manufacture'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.hasFormat\" label=\"'LABEL.record.about.hasFormat'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.language && record.about.language[0].langCode !== 'zxx'\" label=\"'LABEL.record.about.language'\"></kitin-valuedisplay>\n" +
+    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.originalLanguage\" label=\"'LABEL.record.about.originalLanguage'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.identifier || record.controlNumber\" label=\"'LABEL.record.about.identifierValue'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.attributedTo\" label=\"'LABEL.record.about.attributedTo'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.influencedBy\" label=\"'LABEL.record.about.influencedBy'\"></kitin-valuedisplay>\n" +
@@ -198,7 +199,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  <button class=\"btn btn-green btn-copy-remote\" data-ng-click=\"importRecord(record)\" data-ng-show=\"isRemote\">\n" +
     "    <span><i class=\"fa fa-inverse fa-plus\"></i> {{ \"Kopiera\" }}</span>\n" +
     "  </button>\n" +
-    "</div>"
+    "</div>\n"
   );
 
 
@@ -909,7 +910,13 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "          <kitin-language-icon model=\"language\"></kitin-language-icon> {{ language.prefLabel }}\n" +
     "        </li>\n" +
     "      </ul>\n" +
-    "  \n" +
+    "\n" +
+    "      <ul ng-switch-when=\"LABEL.record.about.originalLanguage\">\n" +
+    "        <li class=\"node lang\" ng-if=\"language.prefLabel || language.langTag\" ng-repeat=\"language in record.about.originalLanguage | orderBy:'langTag'\">\n" +
+    "          <kitin-language-icon model=\"language\"></kitin-language-icon> {{ language.prefLabel }}\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "\n" +
     "      <ul ng-switch-when=\"LABEL.record.about.hasFormat\">\n" +
     "        <li class=\"node\" ng-repeat=\"format in record.about.hasFormat\">\n" +
     "          <span ng-if=\"format['@type']\">{{ 'LABEL.record.about.hasFormatByType[\\''+format['@type']+'\\']' | translate }}</span>\n" +
