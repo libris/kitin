@@ -22,8 +22,8 @@ kitin.directive('kitinLanguageIcon', function(editService, $rootScope){
       controller: function($scope, $rootScope, $attrs) {
         $scope.iconTag = '';
 
-        if($scope.model.langTag) {
-          $scope.iconTag = $scope.model.langTag;
+        if($scope.model.langCode) {
+          $scope.iconTag = $scope.model.langCode;
         }
         else if ($scope.model.langCode === 'und')
           // Language is undefined
