@@ -1484,6 +1484,9 @@ html .modal.fade .modal-dialog {
   -ms-transform: translate(0, 0);
   transform: translate(0, 0);
 }
+.modal-footer div {
+  display: inline;
+}
 /* MODAL END ------------------------- */
 /* HOLDINGS MODAL START ------------------------- */
 .modal-header.holdings {
@@ -2108,10 +2111,17 @@ section.result .widget {
 section.result .widget .label {
   color: #666664;
 }
-section.result .widget .btn {
+section.result .widget .buttons {
   position: absolute;
-  right: 10px;
   bottom: 10px;
+  width: 90%;
+}
+section.result .widget .buttons .btn {
+  width: 90%;
+  margin-top: 5px;
+}
+section.result .widget .buttons .btn span {
+  color: #ffffff;
 }
 section.result-pre {
   border-style: dashed;
@@ -2974,8 +2984,15 @@ accordion.other-holdings .offer-value .val span {
   margin-top: 5px;
   border-top: 0px solid #c7c7c3;
 }
+.bibview .database {
+  display: block;
+  padding-top: 5px;
+}
 .bibview .value {
   padding: 3px;
+}
+.bibview hr {
+  margin-bottom: 0px;
 }
 .bibview ul {
   list-style: none;
@@ -2997,7 +3014,6 @@ accordion.other-holdings .offer-value .val span {
   text-align: justify;
   width: 50em;
   padding: 0em 3em 0em 3em;
-  font-style: italic;
 }
 .bibview .lbl {
   font-weight: bold;
@@ -3613,7 +3629,7 @@ a.beta-blocker {
   border: 2px solid;
   border-radius: 5px;
   font-size: 12px;
-  padding: 0px 1px 0px 0px;
+  padding: 0px 2px 0px 2px;
   text-transform: uppercase;
 }
 .langIcon strong {

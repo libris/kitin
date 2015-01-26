@@ -130,7 +130,19 @@ section.result .widget {
   border-left-color: @grey-warm;
 }
 section.result .widget .label {color: @grey-darker;}
-section.result .widget .btn{position:absolute;right:10px;bottom:10px;}
+section.result .widget .buttons {
+  position: absolute;
+  // right: 10px;
+  bottom: 10px;
+  width: 90%;
+  .btn {
+    width: 90%;
+    margin-top: 5px;
+    span {
+      color: @white;
+    }
+  }
+}
 
 section.result-pre {border-style: dashed;}
 

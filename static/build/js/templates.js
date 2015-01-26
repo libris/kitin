@@ -163,15 +163,15 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "</div>\n" +
     "\n" +
     "<div class=\"modal-body bibview\">\n" +
-    "    <h3 ng-if=\"record.about.attributedTo['@type'] == 'Person'\">{{ record.about.attributedTo.name }} {{ record.about.attributedTo.familyName }}{{ record.about.attributedTo.familyName ? ', ' + record.about.attributedTo.givenName : record.about.attributedTo.givenName }}{{ record.about.attributedTo.birthYear ? ', ' + record.about.attributedTo.birthYear + '-' : '' }}{{ record.about.attributedTo.deathYear }}</h3>\n" +
+    "    <h4 ng-if=\"record.about.attributedTo['@type'] == 'Person'\">{{ record.about.attributedTo.name }} {{ record.about.attributedTo.familyName }}{{ record.about.attributedTo.familyName ? ', ' + record.about.attributedTo.givenName : record.about.attributedTo.givenName }}{{ record.about.attributedTo.birthYear ? ', ' + record.about.attributedTo.birthYear + '-' : '' }}{{ record.about.attributedTo.deathYear }}</h4>\n" +
     "    <h2>{{ record.about.instanceTitle.titleValue }} :</h2>\n" +
     "    <h3> {{ record.about.instanceTitle.subtitle }} / {{ utils.composeCreator(record) }}</h3>\n" +
     "    {{ getTypeLabel(record.about) }}\n" +
     "    <span data-ng-repeat=\"contentType in record.about.contentType\">| {{ contentType.prefLabel }} </span>\n" +
-    "    <hr>\n" +
     "    <span data-ng-if=\"isRemote && remoteDatabase != null\" class=\"database\">\n" +
     "      <i class=\"fa fa-institution\"></i> Källa: {{remoteDatabase}}\n" +
     "    </span>\n" +
+    "    <hr>\n" +
     "    <section>\n" +
     "\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.summary\" label=\"'LABEL.record.about.summary'\"></kitin-valuedisplay>\n" +
@@ -190,10 +190,18 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.bibliography\" label=\"'LABEL.record.bibliography.bibliography'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.subject\" label=\"'LABEL.record.about.subject'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.alternateFormat\" label=\"'LABEL.record.about.relatedTitles'\"></kitin-valuedisplay>\n" +
-    "\n" +
+    "      \n" +
     "    </section>\n" +
     "</div>\n" +
     "<div class=\"modal-footer submit bibview\">\n" +
+    "  <div>\n" +
+    "    <button class=\"btn btn-green btn-copy-remote\" data-ng-click=\"importRecord(record)\" data-ng-show=\"isRemote\">\n" +
+    "      <span><i class=\"fa fa-inverse fa-plus\"></i> {{ \"Kopiera\" }}</span>\n" +
+    "    </button>\n" +
+    "    <button class=\"btn btn-green btn-copy-remote\" data-ng-click=\"editPost(record)\" data-ng-show=\"!isRemote\">\n" +
+    "      <span><i class=\"fa fa-inverse fa-edit\"></i> {{ \"Redigera\" }}</span>\n" +
+    "    </button>\n" +
+    "  </div>\n" +
     "  <div data-ng-show=\"!isRemote\">\n" +
     "    <button class=\"btn btn-purple btn-hld\" data-ng-if=\"!record.holdings.holding\" data-ng-controller=\"ModalCtrl\" data-ng-click=\"openHoldingsModal($event, record)\">\n" +
     "      <span><i class=\"fa fa-inverse fa-plus\"></i> Bestånd</span>\n" +
@@ -202,9 +210,6 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "      <span><i class=\"fa fa-inverse fa-check\"></i> Bestånd</span>\n" +
     "    </button>\n" +
     "  </div>\n" +
-    "  <button class=\"btn btn-green btn-copy-remote\" data-ng-click=\"importRecord(record)\" data-ng-show=\"isRemote\">\n" +
-    "    <span><i class=\"fa fa-inverse fa-plus\"></i> {{ \"Kopiera\" }}</span>\n" +
-    "  </button>\n" +
     "</div>\n"
   );
 
@@ -572,7 +577,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  <h1 class=\"modal-title rlModalLabel\">Release Notes</h1>\n" +
     "</div>\n" +
     "<div class=\"modal-body\">\n" +
-    "  <h4>2014-10-06</h4>\n" +
+    "  <h3>2014-10-06</h3>\n" +
     "  <ul>\n" +
     "    <li>Formuläret för editering av bib-poster har tillfälligt blivit lite stökigt.<br>\n" +
     "        Arbete pågår för fullt med att bygga om formuläret, från dem tidigare två spalterna, till tre nya kolumner.<br>\n" +
@@ -580,21 +585,21 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "        Ny uppdatering av formuläret kommer inom kort.</li>\n" +
     "    <li>Antalet sökbara poster har begränsats för att förenkla release och tester av klienten.</li>\n" +
     "  </ul>\n" +
-    "  <h4>2014-07-02</h4>\n" +
+    "  <h3>2014-07-02</h3>\n" +
     "  <ul>\n" +
     "    <li>Förenklad träfflista.</li>\n" +
     "    <li>Förbättrad funktionalitet för att lägga till fält i post.</li>\n" +
     "    <li>Tillägg av oauktoriserade uppslag.</li>\n" +
     "    <li>Hantering av laddnings- och systemfelsmeddelanden.</li>\n" +
     "  </ul>\n" +
-    "  <h4>2014-06-02</h4>\n" +
+    "  <h3>2014-06-02</h3>\n" +
     "  <p>Gränssnitt</p>\n" +
     "  <ul>\n" +
     "    <li>Förbättrad autosuggest för språk, länder, personer och ämnesord.</li>\n" +
     "    <li>Påbörjat arbete med implementering av värden från fasta fält.</li>\n" +
     "    <li>Förbättrat flöde och mallhantering för katalogisering av monografi.</li>\n" +
     "  </ul>\n" +
-    "  <h4>2014-05-19</h4>\n" +
+    "  <h3>2014-05-19</h3>\n" +
     "  <p>Gränssnitt</p>\n" +
     "  <ul>\n" +
     "    <li>Ny sökruta med tydligare information i vilken delmängd man söker i.</li>\n" +
@@ -603,7 +608,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <li>Påbörjat ombyggnad av \"taggning\" för språk, länder och ämnesord, samt andra definitionslistor</li>\n" +
     "    <li>En \"åter träfflistan\" länk har ersatt sökrutan i redigeringsläget för att spara utrymme.</li>\n" +
     "  </ul>\n" +
-    "  <h4>2014-04-15</h4>\n" +
+    "  <h3>2014-04-15</h3>\n" +
     "  <p>Gränssnitt</p>\n" +
     "  <ul>\n" +
     "    <li>Sökning och hämtning av poster i externa databaser (remotesök).</li>\n" +
@@ -611,7 +616,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <li>Fler detaljer i fullposten, bla fler titeltyper, bärarspecifika detaljer och anmärkningar.</li>\n" +
     "    <li>Första iteration för att lägga till fält i vissa sektioner.</li>\n" +
     "  </ul>\n" +
-    "  <h4>2013-12-18</h4>\n" +
+    "  <h3>2013-12-18</h3>\n" +
     "  <p>Gränssnitt</p>\n" +
     "  <ul>\n" +
     "    <li>Semifunktionell prototyp av personhantering med tillägg av roller (förändringar av roller påverkar ännu inte den data som sparas).</li>\n" +
@@ -627,7 +632,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <li>ElasticSearch, tokenisering i index och möjlighet att ställa in konfigurering specifikt per indextyp</li>\n" +
     "    <li>Förberedelse inför möjlighet att göra sökning mot externa kataloger via Z39.50. API som gör sökning mot metaproxy (där en testinstans i ett första steg söker mot LC Library of Congress, ESTER Estland och NLE Spanien) och returnerar metadata i JSON-LD.</li>\n" +
     "  </ul>\n" +
-    "  <h4>2013-11-18</h4>\n" +
+    "  <h3>2013-11-18</h3>\n" +
     "  <p>Gränssnitt</p>\n" +
     "  <ul>\n" +
     "    <li>Omstrukturerad layout efter användartester för att förbättra arbetsflöde och översikt</li>\n" +
@@ -637,7 +642,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  <ul>\n" +
     "    <li>Vi har förbättrat katalogsystemets infrastruktur för inläsning, lagring, bearbetning och indexering av metadata samt arbetat med optimering av APIer och uppslag för relaterat metadata baserat på länkar.</li>\n" +
     "  </ul>\n" +
-    "  <h4>2013-10-25</h4>\n" +
+    "  <h3>2013-10-25</h3>\n" +
     "  <p>Auktoritetsdata</p>\n" +
     "  <ul>\n" +
     "    <li>Länkar från bib-data till auth-data</li>\n" +
@@ -654,7 +659,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <li>Navigerbara <code>@id</code>-länkar</li>\n" +
     "  </ul>\n" +
     "  <hr />\n" +
-    "  <h4>2013-10-11</h4>\n" +
+    "  <h3>2013-10-11</h3>\n" +
     "  <p>Ämnesord</p>\n" +
     "  <ul>\n" +
     "    <li>Se kontrollerade ämnesord uppdelat på system</li>\n" +
@@ -986,7 +991,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "      <ul ng-switch-when=\"LABEL.record.about.subject\">\n" +
     "        <li class=\"node\" ng-repeat=\"subject in record.about.subject\">\n" +
     "          {{ subject.prefLabel }}\n" +
-    "          <span ng-repeat=\"node in subject.broader\">{{ node.prefLabel }} <span ng-if=\"!$last\">-- </span></span>\n" +
+    "          <span ng-repeat=\"node in subject.broader\">{{ node.prefLabel }} <span ng-if=\"!$last\"> <i alt=\"--\" class=\"fa fa-long-arrow-right\"></i> </span></span>\n" +
     "          <small>{{ subject.inScheme.notation }}</small>\n" +
     "        </li>\n" +
     "      </ul>\n" +

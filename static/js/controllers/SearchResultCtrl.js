@@ -44,14 +44,6 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
 
   $scope.queryString = '?' + utilsService.constructQueryString($rootScope.state.search);
 
-  // TODO - remove
-  $scope.editPost = function(recType, record) {
-    if(recType === 'remote') {
-      record.identifier = '/remote/new';
-      editService.setRecord(record);
-    }
-    return false;
-  };
 
   // Sort
   // ----------

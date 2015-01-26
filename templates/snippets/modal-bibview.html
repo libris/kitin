@@ -7,15 +7,15 @@
 </div>
 
 <div class="modal-body bibview">
-    <h3 ng-if="record.about.attributedTo['@type'] == 'Person'">{{ record.about.attributedTo.name }} {{ record.about.attributedTo.familyName }}{{ record.about.attributedTo.familyName ? ', ' + record.about.attributedTo.givenName : record.about.attributedTo.givenName }}{{ record.about.attributedTo.birthYear ? ', ' + record.about.attributedTo.birthYear + '-' : '' }}{{ record.about.attributedTo.deathYear }}</h3>
+    <h4 ng-if="record.about.attributedTo['@type'] == 'Person'">{{ record.about.attributedTo.name }} {{ record.about.attributedTo.familyName }}{{ record.about.attributedTo.familyName ? ', ' + record.about.attributedTo.givenName : record.about.attributedTo.givenName }}{{ record.about.attributedTo.birthYear ? ', ' + record.about.attributedTo.birthYear + '-' : '' }}{{ record.about.attributedTo.deathYear }}</h4>
     <h2>{{ record.about.instanceTitle.titleValue }} :</h2>
     <h3> {{ record.about.instanceTitle.subtitle }} / {{ utils.composeCreator(record) }}</h3>
     {{ getTypeLabel(record.about) }}
     <span data-ng-repeat="contentType in record.about.contentType">| {{ contentType.prefLabel }} </span>
-    <hr>
     <span data-ng-if="isRemote && remoteDatabase != null" class="database">
       <i class="fa fa-institution"></i> Källa: {{remoteDatabase}}
     </span>
+    <hr>
     <section>
 
       <kitin-valuedisplay record="record" ng-if="record.about.summary" label="'LABEL.record.about.summary'"></kitin-valuedisplay>
@@ -34,10 +34,18 @@
       <kitin-valuedisplay record="record" ng-if="record.bibliography" label="'LABEL.record.bibliography.bibliography'"></kitin-valuedisplay>
       <kitin-valuedisplay record="record" ng-if="record.about.subject" label="'LABEL.record.about.subject'"></kitin-valuedisplay>
       <kitin-valuedisplay record="record" ng-if="record.about.alternateFormat" label="'LABEL.record.about.relatedTitles'"></kitin-valuedisplay>
-
+      
     </section>
 </div>
 <div class="modal-footer submit bibview">
+  <div>
+    <button class="btn btn-green btn-copy-remote" data-ng-click="importRecord(record)" data-ng-show="isRemote">
+      <span><i class="fa fa-inverse fa-plus"></i> {{ "Kopiera" }}</span>
+    </button>
+    <button class="btn btn-green btn-copy-remote" data-ng-click="editPost(record)" data-ng-show="!isRemote">
+      <span><i class="fa fa-inverse fa-edit"></i> {{ "Redigera" }}</span>
+    </button>
+  </div>
   <div data-ng-show="!isRemote">
     <button class="btn btn-purple btn-hld" data-ng-if="!record.holdings.holding" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
       <span><i class="fa fa-inverse fa-plus"></i> Bestånd</span>
@@ -46,7 +54,4 @@
       <span><i class="fa fa-inverse fa-check"></i> Bestånd</span>
     </button>
   </div>
-  <button class="btn btn-green btn-copy-remote" data-ng-click="importRecord(record)" data-ng-show="isRemote">
-    <span><i class="fa fa-inverse fa-plus"></i> {{ "Kopiera" }}</span>
-  </button>
 </div>
