@@ -163,12 +163,14 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "</div>\n" +
     "\n" +
     "<div class=\"modal-body bibview\">\n" +
-    "    <span data-ng-if=\"isRemote && remoteDatabase != null\" class=\"database\">\n" +
-    "      <i class=\"fa fa-institution\"></i> Källa: {{remoteDatabase}}\n" +
-    "    </span>\n" +
+    "    <h3 ng-if=\"record.about.attributedTo['@type'] == 'Person'\">{{ record.about.attributedTo.name }} {{ record.about.attributedTo.familyName }}{{ record.about.attributedTo.familyName ? ', ' + record.about.attributedTo.givenName : record.about.attributedTo.givenName }}{{ record.about.attributedTo.birthYear ? ', ' + record.about.attributedTo.birthYear + '-' : '' }}{{ record.about.attributedTo.deathYear }}</h3>\n" +
     "    <h2>{{ record.about.instanceTitle.titleValue }} :</h2>\n" +
     "    <h3> {{ record.about.instanceTitle.subtitle }} / {{ utils.composeCreator(record) }}</h3>\n" +
     "    <kitin-display-type model=\"record\"></kitin-display-type>\n" +
+    "    <hr>\n" +
+    "    <span data-ng-if=\"isRemote && remoteDatabase != null\" class=\"database\">\n" +
+    "      <i class=\"fa fa-institution\"></i> Källa: {{remoteDatabase}}\n" +
+    "    </span>\n" +
     "    <section>\n" +
     "\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.summary\" label=\"'LABEL.record.about.summary'\"></kitin-valuedisplay>\n" +
@@ -187,7 +189,6 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.bibliography\" label=\"'LABEL.record.bibliography.bibliography'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.subject\" label=\"'LABEL.record.about.subject'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.alternateFormat\" label=\"'LABEL.record.about.relatedTitles'\"></kitin-valuedisplay>\n" +
-    "\n" +
     "\n" +
     "    </section>\n" +
     "</div>\n" +
@@ -210,7 +211,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/modal-cookies',
     "<div class=\"modal-header\">\n" +
     "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
-    "  <h4 class=\"modal-title cookies\">Information om cookies</h2>\n" +
+    "  <h1 class=\"modal-title cookies\">Information om cookies</h1>\n" +
     "</div>\n" +
     "<div class=\"modal-body cookies\">\n" +
     "  <p>\n" +
@@ -231,7 +232,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/modal-create-new',
     "<div class=\"modal-header\">\n" +
     "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
-    "  <h2 id=\"rlModalLabel\">Skapa ny katalogpost</h2>\n" +
+    "  <h1 class=\"modal-title\" id=\"rlModalLabel\">Skapa ny katalogpost</h1>\n" +
     "</div>\n" +
     "<div class=\"modal-body cols\">\n" +
     "<tabset>\n" +
@@ -278,7 +279,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/modal-holdings',
     "<div class=\"modal-header holdings\">\n" +
     "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
-    "  <h4 class=\"modal-title\"><span translate>LABEL.gui.terms.HOLDINGS</span> ({{userData.userSigel}})</h4>\n" +
+    "  <h1 class=\"modal-title\"><span translate>LABEL.gui.terms.HOLDINGS</span> ({{userData.userSigel}})</h1>\n" +
     "</div>\n" +
     "\n" +
     "<div class=\"modal-body holdings\">\n" +
@@ -524,7 +525,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/modal-marc',
     "<div class=\"modal-header marc\">\n" +
     "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
-    "  <h4 class=\"modal-title\">MARC förhandsgranskning</h4>\n" +
+    "  <h1 class=\"modal-title\">MARC förhandsgranskning</h1>\n" +
     "</div>\n" +
     "\n" +
     "<div class=\"modal-body marc\">\n" +
@@ -567,7 +568,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/modal-release',
     "<div class=\"modal-header\">\n" +
     "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
-    "  <h4 class=\"modal-title rlModalLabel\">Release Notes</h4>\n" +
+    "  <h1 class=\"modal-title rlModalLabel\">Release Notes</h1>\n" +
     "</div>\n" +
     "<div class=\"modal-body\">\n" +
     "  <h4>2014-10-06</h4>\n" +
@@ -668,7 +669,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/modal-remote',
     "<div class=\"modal-header\">\n" +
     "  <button type=\"button\" class=\"close\" ng-click=\"remoteDatabaseFilterQuery = ''; close()\">×</button>\n" +
-    "  <h3 id=\"remoteModalLabel\">Remotekällor</h3>\n" +
+    "  <h1 class=\"modal-title\" id=\"remoteModalLabel\">Remotekällor</h1>\n" +
     "  <div class=\"input-group col-md-4\">\n" +
     "    <input ng-model=\"remoteDatabaseFilterQuery\" placeholder=\"filtrera databaser\" class=\"form-control\">\n" +
     "    <span class=\"input-group-btn\">\n" +
