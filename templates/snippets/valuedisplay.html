@@ -8,19 +8,36 @@
           {{ summary }}
         </li>
       </ul>
-  
+
       <ul ng-switch-when="LABEL.record.about.publication">
         <li class="node" ng-repeat="publication in record.about.publication">
           {{ publication.place.label ? publication.place.label + ', ' : '' }}{{ publication.providerName ? publication.providerName + ', ' : '' }}{{ publication.providerDate }}
         </li>
       </ul>
 
-      <ul ng-switch-when="LABEL.record.about.language">
-        <li class="node lang" ng-if="language.langTag || language.prefLabel" ng-repeat="language in record.about.language">
-          <span class="fa-stack"><i class="fa fa-stack-2x fa-square-o"></i><strong class="fa-stack-1x">{{ language.langTag ? language.langTag : '-' }}</strong></span> {{ language.prefLabel }}
+      <ul ng-switch-when="LABEL.record.about.manufacture">
+        <li class="node" ng-repeat="manufacture in record.about.manufacture">
+          {{ manufacture.place.label ? manufacture.place.label + ', ' : '' }}{{ manufacture.providerName ? manufacture.providerName + ', ' : '' }}{{ manufacture.providerDate }}
         </li>
       </ul>
-  
+
+      <ul ng-switch-when="LABEL.record.about.frequency">
+        {{ record.about.frequency }}
+      </ul>
+
+
+      <ul ng-switch-when="LABEL.record.about.language">
+        <li class="node lang" ng-if="language.prefLabel || language.langTag" ng-repeat="language in record.about.language | orderBy:'langTag'">
+          <kitin-language-icon model="language"></kitin-language-icon> {{ language.prefLabel }}
+        </li>
+      </ul>
+
+      <ul ng-switch-when="LABEL.record.about.originalLanguage">
+        <li class="node lang" ng-if="language.prefLabel || language.langTag" ng-repeat="language in record.about.originalLanguage | orderBy:'langTag'">
+          <kitin-language-icon model="language"></kitin-language-icon> {{ language.prefLabel }}
+        </li>
+      </ul>
+
       <ul ng-switch-when="LABEL.record.about.hasFormat">
         <li class="node" ng-repeat="format in record.about.hasFormat">
           <span ng-if="format['@type']">{{ 'LABEL.record.about.hasFormatByType[\''+format['@type']+'\']' | translate }}</span>
@@ -61,7 +78,11 @@
         <li class="node" ng-repeat="comment in record.about.comment">
           {{ comment }}
         </li>
+        <li class="node" ng-repeat="annotation in record.about.hasAnnotation">
+          {{ annotation.note }}
+        </li>
       </ul>
+
   
       <ul ng-switch-when="LABEL.record.about.isPartOf">
         <li class="node" ng-repeat="collection in record.about.isPartOf">
@@ -69,6 +90,25 @@
           <span ng-show="{{ collection.identifier | isArray }}" ng-repeat="identifier in collection.identifier"> ({{ 'LABEL.record.about.identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }} {{ identifier.identifierValue }}) </span>
           <span ng-if="collection.identifier" ng-hide="{{ collection.identifier | isArray }}"> ({{ 'LABEL.record.about.identifierByIdentifierScheme[\''+collection.identifier.identifierScheme['@id']+'\']' | translate }} {{ collection.identifier.identifierValue }}) </span>
           <span ng-repeat="note in collection.scopeNote"> ({{ note }}) </span>
+        </li>
+      </ul>
+
+      <ul ng-switch-when="LABEL.record.about.subject">
+        <li class="node" ng-repeat="subject in record.about.subject">
+          {{ subject.prefLabel }}
+          <span ng-repeat="node in subject.broader">{{ node.prefLabel }} <span ng-if="!$last">-- </span></span>
+          <small>{{ subject.inScheme.notation }}</small>
+        </li>
+      </ul>
+
+      <ul ng-switch-when="LABEL.record.about.relatedTitles">
+        <li class="node" ng-repeat="format in record.about.alternateFormat">
+          <i>{{ 'LABEL.record.about.alternateFormat' | translate }}:</i>
+          <span ng-repeat="note in format.linkNote track by $index">{{ note }}</span>
+          {{ format.controlledLabel }}
+          {{ format.title }}
+          {{ format.placePublisherAndDateOfPublication }}
+
         </li>
       </ul>
 

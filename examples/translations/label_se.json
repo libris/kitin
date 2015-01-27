@@ -96,7 +96,8 @@
                 "identifierByIdentifierScheme['/def/identifiers/SB17']": "SB17",
                 "identifierByIdentifierScheme['/def/identifiers/TPB']": "TPB",
                 "identifierByIdentifierScheme['/def/identifiers/doi']": "DOI",
-                "identifierValue": "Nummerbeteckningar",
+                "identifierByIdentifierScheme['']": "Odefinierad typ",
+                "identifierValue": "Nummer",
                 "identifierNote": "Notering",
 
                 "availability": "Anskaffningsvillkor",
@@ -120,7 +121,8 @@
                 "hasFormatByType['Electronic']": "Elektronisk",
                 "hasFormatByType['Map']": "Karta",
                 "hasFormatByType['StillImage']": "Bild",
-                "record.hasFormatByType['MovingImage']": "Film",
+                "hasFormatByType['MovingImage']": "Film",
+                "hasFormatByType['SoundRecording']": "Ljudinspelning",
 
                 "hasFormatByType.extent": "Omfång",
                 "hasFormatByType.otherPhysicalDetails": "Övriga fysiska detaljer",
@@ -182,8 +184,10 @@
                 "relation": "Länkfält",
                 "relation.linkNote": "Anmärkning",
                 
+                "relatedTitles": "Sammanhörande titlar",
+
                 "alternateEdition": "Länkfält - Annan utgåva",
-                "alternateFormat": "Länkfält - Annat medium",
+                "alternateFormat": "Annan version",
 
                 "summary": "Innehållsbeskrivning, sammanfattning",
                 "languageNote": "Språkanmärkning",
@@ -228,6 +232,7 @@
                 "classificationNlm": "NLM (National Library of Medicine)",
                 "classificationUdc": "UDK (Universell decimalklassifikation)",
 
+                "subject": "Ämnesord och genrebeteckningar",
                 "subjectByInScheme['/topic/sao']": "SAO",
                 "subjectByInScheme['/topic/saogf']": "SAOGF",
                 "subjectByInScheme['barn']": "Barn",
@@ -258,7 +263,11 @@
                 "bibliographyByNotation['SHB']": "Svensk historisk bibliografi",
                 "bibliographyByNotation['SKvB']": "Svensk konstvetenskaplig bibliografi",
                 "bibliographyByNotation['SOT']": "Svenskt offentligt tryck -1833",
-                "bibliographyByNotation['SMHB']": "Svensk musikhistorisk bibliografi"
+                "bibliographyByNotation['SMHB']": "Svensk musikhistorisk bibliografi",
+                "bibliographyByNotation['DALA']": "Dalabibliografin",
+                "bibliographyByNotation['SUEC']": "Suecana extranea",
+                "bibliographyByNotation['SAH']": "Suecia Antiqua et Hodierna"
+                
             }
         },
 

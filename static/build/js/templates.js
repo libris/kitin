@@ -5,7 +5,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "<li class=\"node auth\" ng-class=\"{{model['@type']}}\" ng-switch=\"model['@type']\">\n" +
     "  <span ng-switch-when=\"Person\">\n" +
     "    <i class=\"fa fa-fw fa-user\"></i>\n" +
-    "    {{ model.name }} {{ model.givenName }} {{ model.familyName }}{{ model.birthYear ? ', ' + model.birthYear + '-' : '' }}{{ model.deathYear }}\n" +
+    "    {{ model.name }} {{ model.familyName }}{{ model.familyName ? ', ' + model.givenName : model.givenName }}{{ model.birthYear ? ', ' + model.birthYear + '-' : '' }}{{ model.deathYear }}\n" +
     "  </span>\n" +
     "  <span ng-switch-when=\"UniformWork\">\n" +
     "    <i class=\"fa fa-fw fa-book\"></i>\n" +
@@ -156,23 +156,30 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/modal-bibview',
     "<div class=\"modal-header bibview\">\n" +
     "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
-    "  <h4 class=\"modal-title bibview\">Bibliotekspost\n" +
+    "  <h1 class=\"modal-title bibview\">Bibliotekspost\n" +
     "    <span data-ng-show=\"!isRemote\">({{ record['@id'] }})</span>\n" +
     "    <span data-ng-show=\"isRemote\">({{ \"Remote\" }})</span>\n" +
-    "  </h4>\n" +
+    "  </h1>\n" +
     "</div>\n" +
     "\n" +
     "<div class=\"modal-body bibview\">\n" +
+    "    <h3 ng-if=\"record.about.attributedTo['@type'] == 'Person'\">{{ record.about.attributedTo.name }} {{ record.about.attributedTo.familyName }}{{ record.about.attributedTo.familyName ? ', ' + record.about.attributedTo.givenName : record.about.attributedTo.givenName }}{{ record.about.attributedTo.birthYear ? ', ' + record.about.attributedTo.birthYear + '-' : '' }}{{ record.about.attributedTo.deathYear }}</h3>\n" +
+    "    <h2>{{ record.about.instanceTitle.titleValue }} :</h2>\n" +
+    "    <h3> {{ record.about.instanceTitle.subtitle }} / {{ utils.composeCreator(record) }}</h3>\n" +
+    "    <kitin-display-type model=\"record\"></kitin-display-type>\n" +
+    "    <hr>\n" +
     "    <span data-ng-if=\"isRemote && remoteDatabase != null\" class=\"database\">\n" +
     "      <i class=\"fa fa-institution\"></i> Källa: {{remoteDatabase}}\n" +
     "    </span>\n" +
-    "    <h4>{{ utils.composeTitle(record) | chop:80 }}, {{ utils.composeCreator(record) | chop:80 }} {{ utils.composeDate(publication.providerDate) | chop:80 }}</h4>\n" +
     "    <section>\n" +
     "\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.summary\" label=\"'LABEL.record.about.summary'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.publication\" label=\"'LABEL.record.about.publication'\"></kitin-valuedisplay>\n" +
+    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.manufacture\" label=\"'LABEL.record.about.manufacture'\"></kitin-valuedisplay>\n" +
+    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.frequency\" label=\"'LABEL.record.about.frequency'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.hasFormat\" label=\"'LABEL.record.about.hasFormat'\"></kitin-valuedisplay>\n" +
-    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.language\" label=\"'LABEL.record.about.language'\"></kitin-valuedisplay>\n" +
+    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.language && record.about.language[0].langCode !== 'zxx'\" label=\"'LABEL.record.about.language'\"></kitin-valuedisplay>\n" +
+    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.originalLanguage\" label=\"'LABEL.record.about.originalLanguage'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.identifier || record.controlNumber\" label=\"'LABEL.record.about.identifierValue'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.attributedTo\" label=\"'LABEL.record.about.attributedTo'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.influencedBy\" label=\"'LABEL.record.about.influencedBy'\"></kitin-valuedisplay>\n" +
@@ -180,7 +187,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.comment\" label=\"'LABEL.record.about.comment'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.isPartOf\" label=\"'LABEL.record.about.isPartOf'\"></kitin-valuedisplay>\n" +
     "      <kitin-valuedisplay record=\"record\" ng-if=\"record.bibliography\" label=\"'LABEL.record.bibliography.bibliography'\"></kitin-valuedisplay>\n" +
-    "\n" +
+    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.subject\" label=\"'LABEL.record.about.subject'\"></kitin-valuedisplay>\n" +
+    "      <kitin-valuedisplay record=\"record\" ng-if=\"record.about.alternateFormat\" label=\"'LABEL.record.about.relatedTitles'\"></kitin-valuedisplay>\n" +
     "\n" +
     "    </section>\n" +
     "</div>\n" +
@@ -196,14 +204,14 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  <button class=\"btn btn-green btn-copy-remote\" data-ng-click=\"importRecord(record)\" data-ng-show=\"isRemote\">\n" +
     "    <span><i class=\"fa fa-inverse fa-plus\"></i> {{ \"Kopiera\" }}</span>\n" +
     "  </button>\n" +
-    "</div>"
+    "</div>\n"
   );
 
 
   $templateCache.put('/snippets/modal-cookies',
     "<div class=\"modal-header\">\n" +
     "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
-    "  <h4 class=\"modal-title cookies\">Information om cookies</h2>\n" +
+    "  <h1 class=\"modal-title cookies\">Information om cookies</h1>\n" +
     "</div>\n" +
     "<div class=\"modal-body cookies\">\n" +
     "  <p>\n" +
@@ -224,7 +232,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/modal-create-new',
     "<div class=\"modal-header\">\n" +
     "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
-    "  <h2 id=\"rlModalLabel\">Skapa ny katalogpost</h2>\n" +
+    "  <h1 class=\"modal-title\" id=\"rlModalLabel\">Skapa ny katalogpost</h1>\n" +
     "</div>\n" +
     "<div class=\"modal-body cols\">\n" +
     "<tabset>\n" +
@@ -271,7 +279,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/modal-holdings',
     "<div class=\"modal-header holdings\">\n" +
     "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
-    "  <h4 class=\"modal-title\"><span translate>LABEL.gui.terms.HOLDINGS</span> ({{userData.userSigel}})</h4>\n" +
+    "  <h1 class=\"modal-title\"><span translate>LABEL.gui.terms.HOLDINGS</span> ({{userData.userSigel}})</h1>\n" +
     "</div>\n" +
     "\n" +
     "<div class=\"modal-body holdings\">\n" +
@@ -516,7 +524,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/modal-marc',
     "<div class=\"modal-header marc\">\n" +
     "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
-    "  <h4 class=\"modal-title\">MARC förhandsgranskning</h4>\n" +
+    "  <h1 class=\"modal-title\">MARC förhandsgranskning</h1>\n" +
     "</div>\n" +
     "\n" +
     "<div class=\"modal-body marc\">\n" +
@@ -559,7 +567,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/modal-release',
     "<div class=\"modal-header\">\n" +
     "  <button type=\"button\" class=\"close\" ng-click=\"close()\" aria-hidden=\"true\">&times;</button>\n" +
-    "  <h4 class=\"modal-title rlModalLabel\">Release Notes</h4>\n" +
+    "  <h1 class=\"modal-title rlModalLabel\">Release Notes</h1>\n" +
     "</div>\n" +
     "<div class=\"modal-body\">\n" +
     "  <h4>2014-10-06</h4>\n" +
@@ -660,7 +668,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/modal-remote',
     "<div class=\"modal-header\">\n" +
     "  <button type=\"button\" class=\"close\" ng-click=\"remoteDatabaseFilterQuery = ''; close()\">×</button>\n" +
-    "  <h3 id=\"remoteModalLabel\">Remotekällor</h3>\n" +
+    "  <h1 class=\"modal-title\" id=\"remoteModalLabel\">Remotekällor</h1>\n" +
     "  <div class=\"input-group col-md-4\">\n" +
     "    <input ng-model=\"remoteDatabaseFilterQuery\" placeholder=\"filtrera databaser\" class=\"form-control\">\n" +
     "    <span class=\"input-group-btn\">\n" +
@@ -888,19 +896,36 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "          {{ summary }}\n" +
     "        </li>\n" +
     "      </ul>\n" +
-    "  \n" +
+    "\n" +
     "      <ul ng-switch-when=\"LABEL.record.about.publication\">\n" +
     "        <li class=\"node\" ng-repeat=\"publication in record.about.publication\">\n" +
     "          {{ publication.place.label ? publication.place.label + ', ' : '' }}{{ publication.providerName ? publication.providerName + ', ' : '' }}{{ publication.providerDate }}\n" +
     "        </li>\n" +
     "      </ul>\n" +
     "\n" +
-    "      <ul ng-switch-when=\"LABEL.record.about.language\">\n" +
-    "        <li class=\"node lang\" ng-if=\"language.langTag || language.prefLabel\" ng-repeat=\"language in record.about.language\">\n" +
-    "          <span class=\"fa-stack\"><i class=\"fa fa-stack-2x fa-square-o\"></i><strong class=\"fa-stack-1x\">{{ language.langTag ? language.langTag : '-' }}</strong></span> {{ language.prefLabel }}\n" +
+    "      <ul ng-switch-when=\"LABEL.record.about.manufacture\">\n" +
+    "        <li class=\"node\" ng-repeat=\"manufacture in record.about.manufacture\">\n" +
+    "          {{ manufacture.place.label ? manufacture.place.label + ', ' : '' }}{{ manufacture.providerName ? manufacture.providerName + ', ' : '' }}{{ manufacture.providerDate }}\n" +
     "        </li>\n" +
     "      </ul>\n" +
-    "  \n" +
+    "\n" +
+    "      <ul ng-switch-when=\"LABEL.record.about.frequency\">\n" +
+    "        {{ record.about.frequency }}\n" +
+    "      </ul>\n" +
+    "\n" +
+    "\n" +
+    "      <ul ng-switch-when=\"LABEL.record.about.language\">\n" +
+    "        <li class=\"node lang\" ng-if=\"language.prefLabel || language.langTag\" ng-repeat=\"language in record.about.language | orderBy:'langTag'\">\n" +
+    "          <kitin-language-icon model=\"language\"></kitin-language-icon> {{ language.prefLabel }}\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "\n" +
+    "      <ul ng-switch-when=\"LABEL.record.about.originalLanguage\">\n" +
+    "        <li class=\"node lang\" ng-if=\"language.prefLabel || language.langTag\" ng-repeat=\"language in record.about.originalLanguage | orderBy:'langTag'\">\n" +
+    "          <kitin-language-icon model=\"language\"></kitin-language-icon> {{ language.prefLabel }}\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "\n" +
     "      <ul ng-switch-when=\"LABEL.record.about.hasFormat\">\n" +
     "        <li class=\"node\" ng-repeat=\"format in record.about.hasFormat\">\n" +
     "          <span ng-if=\"format['@type']\">{{ 'LABEL.record.about.hasFormatByType[\\''+format['@type']+'\\']' | translate }}</span>\n" +
@@ -941,7 +966,11 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "        <li class=\"node\" ng-repeat=\"comment in record.about.comment\">\n" +
     "          {{ comment }}\n" +
     "        </li>\n" +
+    "        <li class=\"node\" ng-repeat=\"annotation in record.about.hasAnnotation\">\n" +
+    "          {{ annotation.note }}\n" +
+    "        </li>\n" +
     "      </ul>\n" +
+    "\n" +
     "  \n" +
     "      <ul ng-switch-when=\"LABEL.record.about.isPartOf\">\n" +
     "        <li class=\"node\" ng-repeat=\"collection in record.about.isPartOf\">\n" +
@@ -949,6 +978,25 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "          <span ng-show=\"{{ collection.identifier | isArray }}\" ng-repeat=\"identifier in collection.identifier\"> ({{ 'LABEL.record.about.identifierByIdentifierScheme[\\''+identifier.identifierScheme['@id']+'\\']' | translate }} {{ identifier.identifierValue }}) </span>\n" +
     "          <span ng-if=\"collection.identifier\" ng-hide=\"{{ collection.identifier | isArray }}\"> ({{ 'LABEL.record.about.identifierByIdentifierScheme[\\''+collection.identifier.identifierScheme['@id']+'\\']' | translate }} {{ collection.identifier.identifierValue }}) </span>\n" +
     "          <span ng-repeat=\"note in collection.scopeNote\"> ({{ note }}) </span>\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "\n" +
+    "      <ul ng-switch-when=\"LABEL.record.about.subject\">\n" +
+    "        <li class=\"node\" ng-repeat=\"subject in record.about.subject\">\n" +
+    "          {{ subject.prefLabel }}\n" +
+    "          <span ng-repeat=\"node in subject.broader\">{{ node.prefLabel }} <span ng-if=\"!$last\">-- </span></span>\n" +
+    "          <small>{{ subject.inScheme.notation }}</small>\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "\n" +
+    "      <ul ng-switch-when=\"LABEL.record.about.relatedTitles\">\n" +
+    "        <li class=\"node\" ng-repeat=\"format in record.about.alternateFormat\">\n" +
+    "          <i>{{ 'LABEL.record.about.alternateFormat' | translate }}:</i>\n" +
+    "          <span ng-repeat=\"note in format.linkNote track by $index\">{{ note }}</span>\n" +
+    "          {{ format.controlledLabel }}\n" +
+    "          {{ format.title }}\n" +
+    "          {{ format.placePublisherAndDateOfPublication }}\n" +
+    "\n" +
     "        </li>\n" +
     "      </ul>\n" +
     "\n" +

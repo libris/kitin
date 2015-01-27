@@ -1,7 +1,9 @@
 kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) {
   var defaultModalOptions = {
-    backdrop: true, // This should make modals closable on backdrop click.
-    keyboard: true,
+    // Disallow .dismiss() on backdrop click and ESC-keydown.
+    // AppCtrl will handle this and call .close() on the top modal instead (makes it possible to check dirty flags)
+    backdrop: 'static', // Should be static
+    keyboard: false,    // Should be false
     controller: 'OpenModalCtrl',
     backdropFade: false,
     dialogFade: false,

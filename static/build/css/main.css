@@ -1457,9 +1457,27 @@ li.draft form {
 body.modal-open {
   overflow: hidden!important;
 }
-h4.modal-title {
-  font: bold italic 16px/20px 'Droid Serif', georgia, serif;
+.modal h1.modal-title {
   color: #ffffff;
+  font: bold italic 16px/20px 'Droid Serif', georgia, serif;
+}
+.modal h2 {
+  font: bold 21px/24px 'Droid Serif', georgia, serif;
+  color: #000000;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+.modal h3 {
+  font: bold 16px/20px 'Droid Serif', georgia, serif;
+  color: #000000;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+.modal h4 {
+  font: bold 16px/20px 'Droid Serif', georgia, serif;
+  color: #000000;
+  margin-top: 0px;
+  margin-bottom: 10px;
 }
 html .modal.fade .modal-dialog {
   -webkit-transform: translate(0, 0);
@@ -1949,14 +1967,6 @@ section.result .bottom {
   left: 12px;
   right: 134px;
   bottom: 6px;
-}
-section.result .bottom .langIcon {
-  font-size: 12px;
-  margin-top: 0.05em;
-}
-section.result .bottom .langIcon strong {
-  margin-top: -0.1em;
-  font-size: 95%;
 }
 section.result a:visited {
   color: #22ba94;
@@ -2960,13 +2970,6 @@ accordion.other-holdings .offer-value .val span {
 }
 /* HOLDINGS END ------------------------- */
 /* BIB MODAL START ------------------------- */
-.bibview h4.modal-title {
-  color: #ffffff;
-}
-.bibview h4 {
-  font-weight: bold;
-  color: #1a8f72;
-}
 .bibview .valuedisplay {
   margin-top: 5px;
   border-top: 0px solid #c7c7c3;
@@ -2987,15 +2990,8 @@ accordion.other-holdings .offer-value .val span {
 }
 .bibview .node.lang {
   list-style: none;
-  margin-left: -1.8em;
-}
-.bibview .node.lang span {
-  font-size: 80%;
-  margin-top: 0.05em;
-}
-.bibview .node.lang span strong {
-  margin-top: -0.1em;
-  font-size: 95%;
+  margin-left: -2.2em;
+  margin-bottom: 0.2em;
 }
 .bibview .summary {
   text-align: justify;
@@ -3007,11 +3003,6 @@ accordion.other-holdings .offer-value .val span {
   font-weight: bold;
   display: inline;
   cursor: pointer;
-}
-.bibview i.fa-slack {
-  -ms-transform: rotate(19deg);
-  -webkit-transform: rotate(19deg);
-  transform: rotate(19deg);
 }
 /* BIB MODAL END ------------------------- */
 /* SEARCH START ------------------------- */
@@ -3616,6 +3607,17 @@ a.beta-blocker {
 }
 .modal-dialog .cg-busy-default-wrapper {
   margin-top: -20px;
+}
+.langIcon {
+  margin-right: 0.2em;
+  border: 2px solid;
+  border-radius: 5px;
+  font-size: 12px;
+  padding: 0px 1px 0px 0px;
+  text-transform: uppercase;
+}
+.langIcon strong {
+  font-size: 90%;
 }
 /* GENERAL END ------------------------- */
 /*# sourceMappingURL=main.css.map */
