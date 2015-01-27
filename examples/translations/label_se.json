@@ -121,7 +121,8 @@
                 "hasFormatByType['Electronic']": "Elektronisk",
                 "hasFormatByType['Map']": "Karta",
                 "hasFormatByType['StillImage']": "Bild",
-                "record.hasFormatByType['MovingImage']": "Film",
+                "hasFormatByType['MovingImage']": "Film",
+                "hasFormatByType['SoundRecording']": "Ljudinspelning",
 
                 "hasFormatByType.extent": "Omfång",
                 "hasFormatByType.otherPhysicalDetails": "Övriga fysiska detaljer",

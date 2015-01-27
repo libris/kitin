@@ -23,7 +23,7 @@
               {{ scopeNote }}
             </div>
             <div class="f bottom">
-              {{ record.about['@type'] }}
+              <kitin-display-type model="record"></kitin-display-type>
             </div>
           </div>
         </a>
@@ -55,10 +55,7 @@
     
                 <div class="f bottom">
                   <span>  
-                    <span data-ng-show="record.data.about['@type'] == 'Book'"><i class="fa fa-square fa-fw"></i></span>
-                    <span data-ng-show="record.data.about['@type'] == 'MusicCD'"><i class="fa fa-square fa-fw"></i></span>
-                    <span data-ng-show="record.data.about['@type'] == 'EBook'"><i class="fa fa-square fa-fw"></i></span>
-                    <span data-ng-show="record.data.about['@type'] == 'Serial'"><i class="fa fa-square fa-fw"></i></span>
+                    <kitin-display-type model="record"></kitin-display-type>
                     <span title="provider-date" data-ng-repeat="publication in record.data.about.publication | limitTo:1"
                       data-ng-show="publication.providerDate">{{publication.providerDate}}</span>
                     <span title="provider" data-ng-repeat="publication in record.data.about.publication | limitTo:1"> {{publication.place.label}} {{publication.providerName}}</span>
@@ -120,11 +117,7 @@
             <div class="f bottom">
               <span>
                 <kitin-language-icon model="language" data-ng-repeat="language in record.about.language | orderBy:'langTag'" ng-if="language.prefLabel || language.langTag"></kitin-language-icon>
-                <!-- <span data-ng-show="record.about['@type'].indexOf('Text') >= 0"><i class="fa fa-square fa-fw"></i></span> -->
-                <!-- <span data-ng-show="record.about['@type'].indexOf('Book') >= 0"><i class="fa fa-square fa-fw"></i></span> -->
-                <!-- <span data-ng-show="record.about['@type'].indexOf('MusicCD') >= 0"><i class="fa fa-square fa-fw"></i></span> -->
-                <!-- <span data-ng-show="record.about['@type'].indexOf('EBook') >= 0"><i class="fa fa-square fa-fw"></i></span> -->
-                <!-- <span data-ng-show="record.about['@type'].indexOf('Serial') >= 0"><i class="fa fa-square fa-fw"></i></span> -->
+                <kitin-display-type model="record"></kitin-display-type>
                 <span title="provider-date" data-ng-repeat="publication in record.about.publication | limitTo:1"
                   data-ng-show="publication.providerDate">{{ utils.composeDate(publication.providerDate) }}</span>
                 <span title="provider" data-ng-repeat="publication in record.about.publication | limitTo:1"> {{publication.place.label}} {{publication.providerName}}</span>
