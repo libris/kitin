@@ -3635,5 +3635,8 @@ a.beta-blocker {
 .langIcon strong {
   font-size: 90%;
 }
+.inline {
+  display: inline;
+}
 /* GENERAL END ------------------------- */
 /*# sourceMappingURL=main.css.map */

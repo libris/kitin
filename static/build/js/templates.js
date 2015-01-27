@@ -164,10 +164,12 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "\n" +
     "<div class=\"modal-body bibview\">\n" +
     "    <h4 ng-if=\"record.about.attributedTo['@type'] == 'Person'\">{{ record.about.attributedTo.name }} {{ record.about.attributedTo.familyName }}{{ record.about.attributedTo.familyName ? ', ' + record.about.attributedTo.givenName : record.about.attributedTo.givenName }}{{ record.about.attributedTo.birthYear ? ', ' + record.about.attributedTo.birthYear + '-' : '' }}{{ record.about.attributedTo.deathYear }}</h4>\n" +
-    "    <h2>{{ record.about.instanceTitle.titleValue }} :</h2>\n" +
+    "    <h2>{{ record.about.instanceTitle.titleValue }}</h2>\n" +
     "    <h3> {{ record.about.instanceTitle.subtitle }} / {{ utils.composeCreator(record) }}</h3>\n" +
-    "    {{ getTypeLabel(record.about) }}\n" +
-    "    <span data-ng-repeat=\"contentType in record.about.contentType\">| {{ contentType.prefLabel }} </span>\n" +
+    "    <p>\n" +
+    "      {{ getTypeLabel(record.about) }}\n" +
+    "      <span data-ng-repeat=\"contentType in record.about.contentType\">| {{ contentType.prefLabel }} </span>\n" +
+    "    </p>\n" +
     "    <span data-ng-if=\"isRemote && remoteDatabase != null\" class=\"database\">\n" +
     "      <i class=\"fa fa-institution\"></i> Källa: {{remoteDatabase}}\n" +
     "    </span>\n" +
