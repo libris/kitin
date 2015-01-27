@@ -27,7 +27,7 @@ kitin.directive('kitinDisplayType', function(editService, $rootScope){
 
 
         function getFormatTypeLabel(obj) {
-          var type = '@type';
+          var TYPE = '@type';
           if (typeof obj === "undefined") { 
             return; 
           }
