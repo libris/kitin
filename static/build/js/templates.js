@@ -194,10 +194,10 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "</div>\n" +
     "<div class=\"modal-footer submit bibview\">\n" +
     "  <div>\n" +
-    "    <button class=\"btn btn-green btn-copy-remote\" data-ng-click=\"importRecord(record)\" data-ng-show=\"isRemote\">\n" +
+    "    <button class=\"btn btn-green btn-copy-remote\" data-ng-click=\"importRecord(record)\" data-ng-if=\"isRemote\">\n" +
     "      <span><i class=\"fa fa-inverse fa-plus\"></i> {{ \"Kopiera\" }}</span>\n" +
     "    </button>\n" +
-    "    <button class=\"btn btn-green btn-copy-remote\" data-ng-click=\"editPost(record)\" data-ng-show=\"!isRemote\">\n" +
+    "    <button class=\"btn btn-green btn-copy-remote\" data-ng-click=\"editPost(record)\" data-ng-if=\"!isRemote\">\n" +
     "      <span><i class=\"fa fa-inverse fa-edit\"></i> {{ \"Redigera\" }}</span>\n" +
     "    </button>\n" +
     "  </div>\n" +
@@ -480,17 +480,17 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "\n" +
     "  </form>\n" +
     "\n" +
-    "  <hr data-ng-show=\"holding\">\n" +
+    "  <hr data-ng-if=\"holding\">\n" +
     "\n" +
-    "  <div class=\"alert alert-success\" role=\"alert\" data-ng-show=\"modifications.holding.deleted\">\n" +
+    "  <div class=\"alert alert-success\" role=\"alert\" data-ng-if=\"modifications.holding.deleted\">\n" +
     "    {{ \"Beståndet raderat\" }}\n" +
     "  </div>\n" +
     "  \n" +
-    "  <div class=\"alert alert-error\" role=\"alert\" data-ng-show=\"holding.about.offers.length < 1\">\n" +
+    "  <div class=\"alert alert-error\" role=\"alert\" data-ng-if=\"holding.about.offers.length < 1\">\n" +
     "    {{ \"Beståndet saknar lokalsignum\" }}\n" +
     "  </div>\n" +
     "\n" +
-    "  <div class=\"modal-alerts\" data-ng-show=\"alerts.length > 0\">\n" +
+    "  <div class=\"modal-alerts\" data-ng-if=\"alerts.length > 0\">\n" +
     "    <alert data-ng-repeat=\"alert in alerts\" type=\"{{alert.type}}\" close=\"closeAlert($index)\">{{alert.msg}}</alert>\n" +
     "  </div>\n" +
     "\n" +
@@ -505,14 +505,15 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <div data-ng-if=\"!modifications.holding.saved && !isNew\">{{ \"Du har inte sparat dina ändringar.\" }}</div>\n" +
     "    <div data-ng-if=\"!modifications.holding.saved && isNew\">{{ \"Nyskapat bestånd, inte sparat.\" }}</div>\n" +
     "  </div>\n" +
-    "  <button class=\"btn-link\" id=\"delete-hld\" data-ng-click=\"deleteHolding(holding)\" data-ng-show=\"holding['@id']\">\n" +
+    "  <a data-ng-controller=\"ModalCtrl\" data-ng-click=\"openMARCModal($event, holding)\">Förhandsgranska MARC</a> | \n" +
+    "  <button class=\"btn-link\" id=\"delete-hld\" data-ng-click=\"deleteHolding(holding)\" data-ng-if=\"holding['@id']\">\n" +
     "    <i class=\"fa fa-trash-o\"></i> {{ \"Radera bestånd\" }}\n" +
     "  </button>\n" +
-    "  <button class=\"btn btn-purple btn-submit\" id=\"save-hld\" data-ng-click=\"saveHolding(holding)\" data-ng-show=\"holding\" data-ng-disabled=\"modifications.holding.saved\">\n" +
+    "  <button class=\"btn btn-purple btn-submit\" id=\"save-hld\" data-ng-click=\"saveHolding(holding)\" data-ng-if=\"holding\" data-ng-disabled=\"modifications.holding.saved\">\n" +
     "    <span data-ng-if=\"!modifications.holding.saved\">{{ \"Spara bestånd\" }}</span>\n" +
     "    <span data-ng-if=\"modifications.holding.saved\">{{ \"Bestånd sparat\" }} <i class=\"fa fa-check\"></i></span>\n" +
     "  </button>\n" +
-    "  <button class=\"btn btn-purple btn-submit\" data-ng-click=\"close()\" data-ng-show=\"!holding\">{{ \"Stäng\" }}</button>\n" +
+    "  <button class=\"btn btn-purple btn-submit\" data-ng-click=\"close()\" data-ng-if=\"!holding\">{{ \"Stäng\" }}</button>\n" +
     "\n" +
     "  <div id=\"holdings-message-container\">\n" +
     "    <span class=\"delete-messages\" data-ng-class=\"classes.deleteStatus\">\n" +

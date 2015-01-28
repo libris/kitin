@@ -1931,7 +1931,7 @@ section.result {
   box-sizing: border-box;
   border-color: #eeeeec;
   padding: 12px;
-  min-height: 160px;
+  height: 160px;
   overflow: hidden;
 }
 section.result:nth-child(10n+10) {
