@@ -54,7 +54,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
   $templateCache.put('/snippets/hitlist-compact-bib',
     "<div class=\"hitlist-row bib compact\">\n" +
     "  <div class=\"title\">\n" +
-    "    <a href=\"/edit/libris{{record['@id']}}{{queryString}}\">{{ utils.composeTitle(record) | chop:80}}</a>\n" +
+    "    <a class=\"bib-url\" data-ng-controller=\"ModalCtrl\" data-ng-click=\"openBibViewModal(record)\">{{ utils.composeTitle(record) | chop:80}}</a>\n" +
     "  </div>\n" +
     "  <div class=\"creator\">\n" +
     "    {{ utils.composeCreator(record) | chop:40 }}\n" +
