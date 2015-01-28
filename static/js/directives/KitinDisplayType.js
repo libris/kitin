@@ -23,9 +23,6 @@ kitin.directive('kitinDisplayType', function(editService, $rootScope){
                   '<span data-ng-if="formatLabels">, {{ "LABEL.record.about.hasFormatByType[\'" + formatLabels + "\']" | translate }}</span>' +
                 '</span>',
       controller: function($scope, $rootScope, $attrs) {
-        var isAukt = $scope.model['@id'].indexOf('auth') !== -1 ? 'Aukt. ': '';
-
-
         function getFormatTypeLabel(obj) {
           var TYPE = '@type';
           if (typeof obj === "undefined") { 
@@ -41,8 +38,12 @@ kitin.directive('kitinDisplayType', function(editService, $rootScope){
           return formatTypeLabel.join(', ');
         }
 
-        $scope.typeLabels = isAukt + $rootScope.getTypeLabel($scope.model.about);
-        $scope.formatLabels = getFormatTypeLabel($scope.model.about.hasFormat);
+        if($scope.model) {
+          var isAukt = $scope.model['@id'] && $scope.model['@id'].indexOf('auth') !== -1 ? 'Aukt. ': '';
+
+          $scope.typeLabels = isAukt + $rootScope.getTypeLabel($scope.model.about);
+          $scope.formatLabels = getFormatTypeLabel($scope.model.about.hasFormat);
+        }
       }
   };
 });

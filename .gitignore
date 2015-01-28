@@ -3,6 +3,7 @@
 *.pyc
 .DS_store
 config.cfg
+version.cfg
 kitin.wsgi
 storage/
 test/web/.nodeids

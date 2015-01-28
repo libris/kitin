@@ -597,7 +597,8 @@ body.search #header-wrapper {
 body.search .content {
   margin-top: 70px;
 }
-body.index #header {
+body.index #header,
+body.login #header {
   height: 130px;
 }
 body.edit #header {
@@ -1985,6 +1986,9 @@ section.result .bottom {
 }
 section.result a:hover .label.title .title-key {
   text-decoration: underline;
+}
+section.result a:active {
+  color: #22ba94;
 }
 section.result:hover {
   border-color: #adada9;

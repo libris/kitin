@@ -29,6 +29,7 @@ mimetypes.add_type('application/font-woff', '.woff')
 #app = SubFlask(__name__)
 app = Flask(__name__)
 app.config.from_pyfile('config.cfg')
+app.config.from_pyfile('version.cfg', silent=True)
 app.config.from_envvar('SETTINGS', silent=True)
 app.secret_key = app.config.get('SESSION_SECRET_KEY')
 app.remember_cookie_duration = timedelta(days=31)
@@ -58,7 +59,9 @@ def _load_user(uid):
 
 @login_manager.unauthorized_handler
 def _handle_unauthorized():
-    return redirect("/login")
+    # Redirect to "/login" removed. Since IE finds itself in an infinit loop
+    # trying to decide between /login and /#!/login 
+    return render_template("partials/login.html")
 
 
 # LOGIN START
@@ -149,7 +152,7 @@ def get_template(type):
 
 # RESOURCES
 @app.route("/resource/<path:path>")
-@login_required
+#@login_required
 def get_resource(path):
     if path == 'translation':
         language = request.args.get('lang')
