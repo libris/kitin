@@ -505,7 +505,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <div data-ng-if=\"!modifications.holding.saved && !isNew\">{{ \"Du har inte sparat dina ändringar.\" }}</div>\n" +
     "    <div data-ng-if=\"!modifications.holding.saved && isNew\">{{ \"Nyskapat bestånd, inte sparat.\" }}</div>\n" +
     "  </div>\n" +
-    "  <button class=\"btn-link\" id=\"delete-hld\" data-ng-click=\"deleteHolding(holding)\" data-ng-show=\"holding['@id']\">\n" +
+    "  <a data-ng-controller=\"ModalCtrl\" data-ng-click=\"openMARCModal($event, holding)\">Förhandsgranska MARC</a> | \n" +
+    "  <button class=\"btn-link\" id=\"delete-hld\" data-ng-click=\"deleteHolding(holding)\" data-ng-if=\"holding['@id']\">\n" +
     "    <i class=\"fa fa-trash-o\"></i> {{ \"Radera bestånd\" }}\n" +
     "  </button>\n" +
     "  <button class=\"btn btn-purple btn-submit\" id=\"save-hld\" data-ng-click=\"saveHolding(holding)\" data-ng-show=\"holding\" data-ng-disabled=\"modifications.holding.saved\">\n" +

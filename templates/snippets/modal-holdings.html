@@ -221,7 +221,8 @@
     <div data-ng-if="!modifications.holding.saved && !isNew">{{ "Du har inte sparat dina ändringar." }}</div>
     <div data-ng-if="!modifications.holding.saved && isNew">{{ "Nyskapat bestånd, inte sparat." }}</div>
   </div>
-  <button class="btn-link" id="delete-hld" data-ng-click="deleteHolding(holding)" data-ng-show="holding['@id']">
+  <a data-ng-controller="ModalCtrl" data-ng-click="openMARCModal($event, holding)">Förhandsgranska MARC</a> | 
+  <button class="btn-link" id="delete-hld" data-ng-click="deleteHolding(holding)" data-ng-if="holding['@id']">
     <i class="fa fa-trash-o"></i> {{ "Radera bestånd" }}
   </button>
   <button class="btn btn-purple btn-submit" id="save-hld" data-ng-click="saveHolding(holding)" data-ng-show="holding" data-ng-disabled="modifications.holding.saved">
