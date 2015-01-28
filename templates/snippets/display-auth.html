@@ -1,7 +1,7 @@
 <li class="node auth" ng-class="{{model['@type']}}" ng-switch="model['@type']">
   <span ng-switch-when="Person">
     <i class="fa fa-fw fa-user"></i>
-    {{ model.name }} {{ model.givenName }} {{ model.familyName }}{{ model.birthYear ? ', ' + model.birthYear + '-' : '' }}{{ model.deathYear }}
+    {{ model.name }} {{ model.familyName }}{{ model.familyName ? ', ' + model.givenName : model.givenName }}{{ model.birthYear ? ', ' + model.birthYear + '-' : '' }}{{ model.deathYear }}
   </span>
   <span ng-switch-when="UniformWork">
     <i class="fa fa-fw fa-book"></i>

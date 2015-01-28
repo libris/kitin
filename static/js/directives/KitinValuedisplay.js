@@ -3,7 +3,7 @@
 Creates a text row for displaying information
 
 Usage:
-  <kitin-valuedisplay model=""></kitin-textrow>
+  <kitin-valuedisplay label="" record=""></kitin-textrow>
 
 Params:
   label: (str)

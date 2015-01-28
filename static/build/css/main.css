@@ -1473,14 +1473,35 @@ li.draft form {
 body.modal-open {
   overflow: hidden!important;
 }
-h4.modal-title {
-  font: bold italic 16px/20px 'Droid Serif', georgia, serif;
+.modal h1.modal-title {
   color: #ffffff;
+  font: bold italic 16px/20px 'Droid Serif', georgia, serif;
+}
+.modal h2 {
+  font: bold 21px/24px 'Droid Serif', georgia, serif;
+  color: #000000;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+.modal h3 {
+  font: bold 16px/20px 'Droid Serif', georgia, serif;
+  color: #000000;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+.modal h4 {
+  font: bold 16px/20px 'Droid Serif', georgia, serif;
+  color: #000000;
+  margin-top: 0px;
+  margin-bottom: 10px;
 }
 html .modal.fade .modal-dialog {
   -webkit-transform: translate(0, 0);
   -ms-transform: translate(0, 0);
   transform: translate(0, 0);
+}
+.modal-footer div {
+  display: inline;
 }
 /* MODAL END ------------------------- */
 /* HOLDINGS MODAL START ------------------------- */
@@ -1895,7 +1916,7 @@ section.nav dt {
 }
 section.nav dd {
   clear: both;
-  margin: 3px 0px;
+  margin: 0px 0px;
   line-height: 1;
   font-size: 13px;
   word-break: break-all;
@@ -1926,7 +1947,7 @@ section.result {
   box-sizing: border-box;
   border-color: #eeeeec;
   padding: 12px;
-  min-height: 160px;
+  height: 160px;
   overflow: hidden;
 }
 section.result:nth-child(10n+10) {
@@ -1965,12 +1986,6 @@ section.result .bottom {
   left: 12px;
   right: 134px;
   bottom: 6px;
-}
-section.result .bottom i {
-  font-size: 16px;
-  padding-right: 6px;
-  margin-left: -2px;
-  padding-left: 0;
 }
 section.result a:visited {
   color: #22ba94;
@@ -2112,10 +2127,17 @@ section.result .widget {
 section.result .widget .label {
   color: #666664;
 }
-section.result .widget .btn {
+section.result .widget .buttons {
   position: absolute;
-  right: 10px;
   bottom: 10px;
+  width: 90%;
+}
+section.result .widget .buttons .btn {
+  width: 90%;
+  margin-top: 5px;
+}
+section.result .widget .buttons .btn span {
+  color: #ffffff;
 }
 section.result-pre {
   border-style: dashed;
@@ -2974,19 +2996,19 @@ accordion.other-holdings .offer-value .val span {
 }
 /* HOLDINGS END ------------------------- */
 /* BIB MODAL START ------------------------- */
-.bibview h4.modal-title {
-  color: #ffffff;
-}
-.bibview h4 {
-  font-weight: bold;
-  color: #1a8f72;
-}
 .bibview .valuedisplay {
   margin-top: 5px;
   border-top: 0px solid #c7c7c3;
 }
+.bibview .database {
+  display: block;
+  padding-top: 5px;
+}
 .bibview .value {
   padding: 3px;
+}
+.bibview hr {
+  margin-bottom: 0px;
 }
 .bibview ul {
   list-style: none;
@@ -2997,35 +3019,22 @@ accordion.other-holdings .offer-value .val span {
 }
 .bibview .node.auth {
   list-style: none;
-  margin-left: -1.5em;
+  margin-left: -1.65em;
 }
 .bibview .node.lang {
   list-style: none;
-  margin-left: -1.7em;
-}
-.bibview .node.lang span {
-  font-size: 80%;
-  margin-top: 0.05em;
-}
-.bibview .node.lang span strong {
-  margin-top: -0.2em;
-  font-size: 95%;
+  margin-left: -2.2em;
+  margin-bottom: 0.2em;
 }
 .bibview .summary {
   text-align: justify;
   width: 50em;
   padding: 0em 3em 0em 3em;
-  font-style: italic;
 }
 .bibview .lbl {
   font-weight: bold;
   display: inline;
   cursor: pointer;
-}
-.bibview i.fa-slack {
-  -ms-transform: rotate(19deg);
-  -webkit-transform: rotate(19deg);
-  transform: rotate(19deg);
 }
 /* BIB MODAL END ------------------------- */
 /* SEARCH START ------------------------- */
@@ -3111,19 +3120,6 @@ body.search .content .results {
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
-}
-body.search .content .navigation {
-  position: relative;
-  float: left;
-  width: 75%;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 480px) {
-  body.search .content .navigation {
-    margin-left: 25%;
-  }
 }
 body.search .content .navigation .pagination > li > a,
 body.search .content .navigation .pagination > li > span {
@@ -3508,7 +3504,6 @@ section.result p.holding {
   padding-bottom: 7px;
 }
 html {
-  overflow-y: scroll;
   -webkit-font-smoothing: antialiased;
 }
 body {
@@ -3643,6 +3638,20 @@ a.beta-blocker {
 }
 .modal-dialog .cg-busy-default-wrapper {
   margin-top: -20px;
+}
+.langIcon {
+  margin-right: 0.2em;
+  border: 2px solid;
+  border-radius: 5px;
+  font-size: 12px;
+  padding: 0px 2px 0px 2px;
+  text-transform: uppercase;
+}
+.langIcon strong {
+  font-size: 90%;
+}
+.inline {
+  display: inline;
 }
 /* GENERAL END ------------------------- */
 /*# sourceMappingURL=main.css.map */

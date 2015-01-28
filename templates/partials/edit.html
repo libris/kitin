@@ -3,8 +3,7 @@
     <section>
       <div class="record-type">
         <h1>
-          <span data-ng-if="recType == 'auth'">Aukt.</span>{{ getTypeLabel(record.about) }}
-          <span data-ng-repeat="contentType in record.about.contentType">| {{ contentType.prefLabel }} </span>
+          <kitin-display-type model="record"></kitin-display-type>
           <span>{{ record.about.text['@id'] }}</span>
         </h1>
       </div>

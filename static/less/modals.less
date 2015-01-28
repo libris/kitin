@@ -26,7 +26,15 @@
 body.modal-open {
     overflow: hidden!important;
 }
-h4.modal-title{font: bold italic 16px/20px @header-font, georgia,serif; color:@white; }
+.modal {
+  h1.modal-title{
+    color: @white;
+    font: bold italic 16px/20px 'Droid Serif', georgia, serif;
+  }
+  h2 {font: bold 21px/24px @header-font, georgia,serif; color:@black; margin-top: 0px; margin-bottom: 10px; }
+  h3 {font: bold 16px/20px @header-font, georgia,serif; color:@black; margin-top: 0px; margin-bottom: 10px; }
+  h4 {font: bold 16px/20px @header-font, georgia,serif; color:@black; margin-top: 0px; margin-bottom: 10px; }
+}
 
 html .modal {
   // Remove sliding and speed up
@@ -37,6 +45,10 @@ html .modal {
              transform: translate(0,0);
     }
   }
+}
+
+.modal-footer div {
+  display: inline;
 }
 
 /* MODAL END ------------------------- */
