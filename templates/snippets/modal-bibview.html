@@ -38,10 +38,10 @@
 </div>
 <div class="modal-footer submit bibview">
   <div>
-    <button class="btn btn-green btn-copy-remote" data-ng-click="importRecord(record)" data-ng-show="isRemote">
+    <button class="btn btn-green btn-copy-remote" data-ng-click="importRecord(record)" data-ng-if="isRemote">
       <span><i class="fa fa-inverse fa-plus"></i> {{ "Kopiera" }}</span>
     </button>
-    <button class="btn btn-green btn-copy-remote" data-ng-click="editPost(record)" data-ng-show="!isRemote">
+    <button class="btn btn-green btn-copy-remote" data-ng-click="editPost(record)" data-ng-if="!isRemote">
       <span><i class="fa fa-inverse fa-edit"></i> {{ "Redigera" }}</span>
     </button>
   </div>

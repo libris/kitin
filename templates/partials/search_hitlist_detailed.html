@@ -55,7 +55,7 @@
     
                 <div class="f bottom">
                   <span>  
-                    <kitin-display-type model="record"></kitin-display-type>
+                    <kitin-display-type model="record.data"></kitin-display-type>
                     <span title="provider-date" data-ng-repeat="publication in record.data.about.publication | limitTo:1"
                       data-ng-show="publication.providerDate">{{publication.providerDate}}</span>
                     <span title="provider" data-ng-repeat="publication in record.data.about.publication | limitTo:1"> {{publication.place.label}} {{publication.providerName}}</span>

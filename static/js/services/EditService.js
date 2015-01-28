@@ -329,7 +329,7 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
       },
     },
 
-    decorate: function(record) {
+    decorate: function(record, baseTypes) {
 
       var deferer = $q.defer();
 
@@ -366,7 +366,7 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
         if (!_.isArray(types)) {
           types = [types];
         }
-        ['Resource'].concat(types).forEach(function (type) {
+        (baseTypes || ['CreativeWork']).concat(types).forEach(function (type) {
           var skeletonType = skeletonTypeMap.main[type];
 
           // Map @type in main from summary
