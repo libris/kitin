@@ -245,8 +245,7 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
               userHoldings = userHoldings[0];
               recordService.holding.get(userHoldings['@id']).then(function(response) {
                 if (response.holding) {
-                  editService.decorate(response.holding).then(function(decoratedHolding) {
-                    userHoldings = decoratedHolding;
+                    userHoldings = response.holding;//decoratedHolding;
                     if (response.etag) {
                       userHoldings.etag = response.etag;
                     }
@@ -254,7 +253,6 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
                       userHoldings: userHoldings,
                       otherHoldings: otherHoldings
                     });
-                  });
                 } else {
                   deferer.reject({
                     msg: 'Hittade inget bestånd med önskat id.'
@@ -279,12 +277,10 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
           $http.get($rootScope.API_PATH + holdingId, { headers: utilsService.noCacheHeaders})
             .success(function(data, status, headers) {
               var etag = headers('etag') ? headers('etag') : null;
-              editService.decorate(data).then(function(decoratedHolding) {
                 deferer.resolve({
-                  holding: decoratedHolding,
+                  holding: data,
                   etag: etag
                 });
-              });
             })
             .error(function(data, status, headers) {
               deferer.reject(status);
@@ -303,9 +299,7 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
             '@type': 'Holding',
             'about': skeletonTypeMap.main.HeldMaterial
           };
-          editService.decorate(newHolding).then(function(decoratedHolding) {
-            deferer.resolve(decoratedHolding);
-          });
+            deferer.resolve(newHolding);
         });
         return deferer.promise;
       },
@@ -313,39 +307,32 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
       save: function(holding) {
         var deferer = $q.defer();
         var etag = holding.etag;
-        var redecorate = function(data, deferer) {
-          editService.decorate(data).then(function(decoratedData) {
-            deferer.resolve(decoratedData);
-          });
-        };
-        editService.undecorate(holding).then(function(undecoratedHolding) {
-          if (undecoratedHolding['@id'] && etag) {
-            delete undecoratedHolding.etag;
-            $rootScope.promises.holding.saving = $http.put($rootScope.WRITE_API_PATH + undecoratedHolding['@id'], undecoratedHolding, {headers: {'If-match': etag}})
+
+          if (holding['@id'] && etag) {
+            delete holding.etag;
+            $rootScope.promises.holding.saving = $http.put($rootScope.WRITE_API_PATH + holding['@id'], holding, {headers: {'If-match': etag}})
               .success(function(data, status, headers) {
                 if (headers('etag')) {
-                  undecoratedHolding.etag = headers('etag');
+                  holding.etag = headers('etag');
                 }
-                redecorate(undecoratedHolding, deferer);
+                deferer.resolve(holding);
               })
               .error(function(data, status, headers) {
                 deferer.reject(status);
               });
           } else {
             // Holding has no ID, assume it's new
-            $rootScope.promises.holding.saving = $http.post($rootScope.WRITE_API_PATH + '/hold', undecoratedHolding)
+            $rootScope.promises.holding.saving = $http.post($rootScope.WRITE_API_PATH + '/hold', holding)
               .success(function(data, status, headers) {
-                undecoratedHolding = data;
                 if (headers('etag')) {
-                  undecoratedHolding.etag = headers('etag');
+                  data.etag = headers('etag');
                 }
-                redecorate(undecoratedHolding, deferer);
+                deferer.resolve(data);
               })
               .error(function(data, status, headers) {
                 deferer.reject(status);
               });
           }
-        });
         return deferer.promise;
       },
 
