@@ -196,17 +196,17 @@
 
   </form>
 
-  <hr data-ng-show="holding">
+  <hr data-ng-if="holding">
 
-  <div class="alert alert-success" role="alert" data-ng-show="modifications.holding.deleted">
+  <div class="alert alert-success" role="alert" data-ng-if="modifications.holding.deleted">
     {{ "Beståndet raderat" }}
   </div>
   
-  <div class="alert alert-error" role="alert" data-ng-show="holding.about.offers.length < 1">
+  <div class="alert alert-error" role="alert" data-ng-if="holding.about.offers.length < 1">
     {{ "Beståndet saknar lokalsignum" }}
   </div>
 
-  <div class="modal-alerts" data-ng-show="alerts.length > 0">
+  <div class="modal-alerts" data-ng-if="alerts.length > 0">
     <alert data-ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
   </div>
 
@@ -225,11 +225,11 @@
   <button class="btn-link" id="delete-hld" data-ng-click="deleteHolding(holding)" data-ng-if="holding['@id']">
     <i class="fa fa-trash-o"></i> {{ "Radera bestånd" }}
   </button>
-  <button class="btn btn-purple btn-submit" id="save-hld" data-ng-click="saveHolding(holding)" data-ng-show="holding" data-ng-disabled="modifications.holding.saved">
+  <button class="btn btn-purple btn-submit" id="save-hld" data-ng-click="saveHolding(holding)" data-ng-if="holding" data-ng-disabled="modifications.holding.saved">
     <span data-ng-if="!modifications.holding.saved">{{ "Spara bestånd" }}</span>
     <span data-ng-if="modifications.holding.saved">{{ "Bestånd sparat" }} <i class="fa fa-check"></i></span>
   </button>
-  <button class="btn btn-purple btn-submit" data-ng-click="close()" data-ng-show="!holding">{{ "Stäng" }}</button>
+  <button class="btn btn-purple btn-submit" data-ng-click="close()" data-ng-if="!holding">{{ "Stäng" }}</button>
 
   <div id="holdings-message-container">
     <span class="delete-messages" data-ng-class="classes.deleteStatus">
