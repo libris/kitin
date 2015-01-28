@@ -29,6 +29,11 @@ kitin.controller('ModalBibViewCtrl', function($scope, $modalInstance, $rootScope
       });
   };
 
+  $scope.editPost = function(data) {
+    $location.url("edit/libris" + record['@id']);
+    $scope.close();
+  };
+
   $scope.close = function() {
     $modalInstance.close();
   };

@@ -96,7 +96,7 @@
       <ul ng-switch-when="LABEL.record.about.subject">
         <li class="node" ng-repeat="subject in record.about.subject">
           {{ subject.prefLabel }}
-          <span ng-repeat="node in subject.broader">{{ node.prefLabel }} <span ng-if="!$last">-- </span></span>
+          <span ng-repeat="node in subject.broader">{{ node.prefLabel }} <span ng-if="!$last"> <i alt="--" class="fa fa-long-arrow-right"></i> </span></span>
           <small>{{ subject.inScheme.notation }}</small>
         </li>
       </ul>

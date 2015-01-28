@@ -23,7 +23,7 @@
               {{ scopeNote }}
             </div>
             <div class="f bottom">
-              {{ record.about['@type'] }}
+              <kitin-display-type model="record"></kitin-display-type>
             </div>
           </div>
         </a>
@@ -55,10 +55,7 @@
     
                 <div class="f bottom">
                   <span>  
-                    <span data-ng-show="record.data.about['@type'] == 'Book'"><i class="fa fa-square fa-fw"></i></span>
-                    <span data-ng-show="record.data.about['@type'] == 'MusicCD'"><i class="fa fa-square fa-fw"></i></span>
-                    <span data-ng-show="record.data.about['@type'] == 'EBook'"><i class="fa fa-square fa-fw"></i></span>
-                    <span data-ng-show="record.data.about['@type'] == 'Serial'"><i class="fa fa-square fa-fw"></i></span>
+                    <kitin-display-type model="record.data"></kitin-display-type>
                     <span title="provider-date" data-ng-repeat="publication in record.data.about.publication | limitTo:1"
                       data-ng-show="publication.providerDate">{{publication.providerDate}}</span>
                     <span title="provider" data-ng-repeat="publication in record.data.about.publication | limitTo:1"> {{publication.place.label}} {{publication.providerName}}</span>
@@ -86,8 +83,10 @@
         <div class="comments">
           <span data-ng-repeat="comment in record.comment">{{comment}}</span>
         </div>
-        <!-- <button data-ng-click="log([record, encLevel, recType])" class="btn btn-green btn-copy-remote"><i class="fa fa-inverse fa-plus"></i> Kopiera</button> -->
-        <button data-ng-click="importRecord(record.data)" class="btn btn-green btn-copy-remote"><i class="fa fa-inverse fa-plus"></i> Kopiera</button>
+        <div class="buttons">
+          <!-- <button data-ng-click="log([record, encLevel, recType])" class="btn btn-green btn-copy-remote"><i class="fa fa-inverse fa-plus"></i> Kopiera</button> -->
+          <button data-ng-click="importRecord(record.data)" class="btn btn-green btn-copy-remote"><i class="fa fa-inverse fa-plus"></i> Kopiera</button>
+        </div>
       </div>
     </div>
     <!-- // remote result list -->
@@ -118,11 +117,7 @@
             <div class="f bottom">
               <span>
                 <kitin-language-icon model="language" data-ng-repeat="language in record.about.language | orderBy:'langTag'" ng-if="language.prefLabel || language.langTag"></kitin-language-icon>
-                <!-- <span data-ng-show="record.about['@type'].indexOf('Text') >= 0"><i class="fa fa-square fa-fw"></i></span> -->
-                <!-- <span data-ng-show="record.about['@type'].indexOf('Book') >= 0"><i class="fa fa-square fa-fw"></i></span> -->
-                <!-- <span data-ng-show="record.about['@type'].indexOf('MusicCD') >= 0"><i class="fa fa-square fa-fw"></i></span> -->
-                <!-- <span data-ng-show="record.about['@type'].indexOf('EBook') >= 0"><i class="fa fa-square fa-fw"></i></span> -->
-                <!-- <span data-ng-show="record.about['@type'].indexOf('Serial') >= 0"><i class="fa fa-square fa-fw"></i></span> -->
+                <kitin-display-type model="record"></kitin-display-type>
                 <span title="provider-date" data-ng-repeat="publication in record.about.publication | limitTo:1"
                   data-ng-show="publication.providerDate">{{ utils.composeDate(publication.providerDate) }}</span>
                 <span title="provider" data-ng-repeat="publication in record.about.publication | limitTo:1"> {{publication.place.label}} {{publication.providerName}}</span>
@@ -151,12 +146,12 @@
         <div class="comments">
           <span data-ng-repeat="comment in record.comment">{{comment}}</span>
         </div>
-        <div class="holding">
-          <button class="btn btn-purple btn-hld" data-ng-if="!record.holdings.holding" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
-            <span><i class="fa fa-inverse fa-plus"></i> Bestånd</span>
-          </button>
-          <button class="btn btn-purple-light btn-hld" data-ng-if="record.holdings.holding" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
-            <span><i class="fa fa-inverse fa-check"></i> Bestånd</span>
+        <div class="buttons">
+          <a class="btn btn-green btn-xs" href="/edit/libris{{record['@id']}}{{queryString}}">
+            <span><i class="fa fa-inverse fa-edit"></i> Redigera</span>
+          </a>
+          <button class="btn btn-hld btn-xs" ng-class="{ 'btn-purple': !record.holdings.holding, 'btn-purple-light': record.holdings.holding }" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
+            <span><i ng-if="!record.holdings.holding" class="fa fa-inverse fa-plus"></i><i ng-if="record.holdings.holding" class="fa fa-inverse fa-check"></i> Bestånd</span>
           </button>
         </div>
       </div>

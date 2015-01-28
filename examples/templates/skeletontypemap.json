@@ -7,7 +7,17 @@
       }
     },
 
-    "Resource": {
+    "HoldingsRecord": {
+      "@type": "HoldingsRecord",
+      "encLevel": {"@id": "/def/enum/record/HoldingsLevel1"},
+      "status": {"@id": "/def/enum/record/New"},
+      "holdingType": {"@id": "/def/enum/record/SinglePartItemHolding"},
+      "about": {
+        "@type": "HeldMaterial"
+      }
+    },
+
+    "CreativeWork": {
       "subjectByInScheme": {
           "/topic/sao": [],
           "/topic/saogf": [],
