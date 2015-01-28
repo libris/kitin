@@ -3488,7 +3488,6 @@ section.result p.holding {
   padding-bottom: 7px;
 }
 html {
-  overflow-y: scroll;
   -webkit-font-smoothing: antialiased;
 }
 body {
