@@ -194,10 +194,10 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "</div>\n" +
     "<div class=\"modal-footer submit bibview\">\n" +
     "  <div>\n" +
-    "    <button class=\"btn btn-green btn-copy-remote\" data-ng-click=\"importRecord(record)\" data-ng-show=\"isRemote\">\n" +
+    "    <button class=\"btn btn-green btn-copy-remote\" data-ng-click=\"importRecord(record)\" data-ng-if=\"isRemote\">\n" +
     "      <span><i class=\"fa fa-inverse fa-plus\"></i> {{ \"Kopiera\" }}</span>\n" +
     "    </button>\n" +
-    "    <button class=\"btn btn-green btn-copy-remote\" data-ng-click=\"editPost(record)\" data-ng-show=\"!isRemote\">\n" +
+    "    <button class=\"btn btn-green btn-copy-remote\" data-ng-click=\"editPost(record)\" data-ng-if=\"!isRemote\">\n" +
     "      <span><i class=\"fa fa-inverse fa-edit\"></i> {{ \"Redigera\" }}</span>\n" +
     "    </button>\n" +
     "  </div>\n" +
