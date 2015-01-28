@@ -1983,14 +1983,8 @@ section.result .bottom {
   right: 134px;
   bottom: 6px;
 }
-section.result a:visited {
-  color: #22ba94;
-}
 section.result a:hover .label.title .title-key {
   text-decoration: underline;
-}
-section.result a:active {
-  color: #22ba94;
 }
 section.result:hover {
   border-color: #adada9;
@@ -3634,7 +3628,7 @@ a.beta-blocker {
 }
 .langIcon {
   margin-right: 0.2em;
-  border: 2px solid;
+  border: 1px solid;
   border-radius: 5px;
   font-size: 12px;
   padding: 0px 2px 0px 2px;
