@@ -424,6 +424,18 @@ body.edit .footer-sticky div.centered div.right {
   background-color: #683568;
   color: #ffffff;
 }
+.btn-white-purple {
+  background-color: #ffffff;
+  color: #683568;
+  border: rgba(104, 53, 104, 0.3) solid;
+  border-width: 1px 1px 1px 1px;
+}
+.btn-white-purple:hover,
+.btn-white-purple:focus,
+.btn-white-purple:active {
+  background-color: #dddddb;
+  color: #683568;
+}
 .btn-link {
   color: #1a8f72;
   outline: none;
@@ -2119,9 +2131,6 @@ section.result .widget .buttons {
 section.result .widget .buttons .btn {
   width: 90%;
   margin-top: 5px;
-}
-section.result .widget .buttons .btn span {
-  color: #ffffff;
 }
 section.result-pre {
   border-style: dashed;
