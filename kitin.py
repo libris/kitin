@@ -77,8 +77,6 @@ def global_view_variables():
 
 @login_manager.user_loader
 def _load_user(uid):
-    app.logger.debug("Loading user %s " % uid)
-    #app.logger.debug("Sigel in session %s" % session.get('sigel'))
     if not 'sigel' in session:
         return None
     return User(uid, sigel=session.get('sigel'))
@@ -126,10 +124,11 @@ def authorized():
         verify_response = requests_oauth.get(app.config['OAUTH_VERIFY_URL']).json()
         verify_user = verify_response['user']
         sigel = verify_user['authorization'][0]['sigel']
-        app.logger.debug("User received from verify %s " % jsonify(verify_user))
+        username = verify_user['username']
+        app.logger.debug("User received from verify %s, %s, %s " % (username, sigel, jsonify(verify_user)))
 
         # Create Flask User and login
-        user = User(verify_user['username'], sigel=sigel, token=session['oauth_token'])
+        user = User(username, sigel=sigel, token=session['oauth_token'])
         session['sigel'] = sigel
         login_user(user, True)
 
