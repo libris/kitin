@@ -2942,6 +2942,27 @@ section.offer {
   padding-left: 12px;
   padding-right: 0;
 }
+.holdings .otherHoldings {
+  border-bottom: 1px solid #CCC;
+  margin-bottom: 1em;
+}
+.holdings .otherHoldings h4 {
+  cursor: pointer;
+}
+.holdings .otherHoldings table {
+  margin-bottom: 1em;
+  width: 100%;
+}
+.holdings .otherHoldings table th {
+  cursor: pointer;
+}
+.holdings .otherHoldings table th .opaque {
+  opacity: 0;
+}
+.holdings .otherHoldings table td,
+.holdings .otherHoldings table th {
+  padding: 0.1em 0.5em;
+}
 accordion.other-holdings {
   margin-bottom: 24px;
 }

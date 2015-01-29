@@ -293,7 +293,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  \n" +
     "  <h4 class=\"top\">{{ utils.composeTitle(record) | chop:80}}, {{ utils.composeCreator(record) | chop:40 }} {{ utils.composeDate(publication.providerDate) }}</h4>\n" +
     "\n" +
-    "  <accordion class=\"other-holdings\" ng-show=\"otherHoldings.length > 0\">\n" +
+    "<!-- TODO: REMOVE ACCORDION -->\n" +
+    "<!--   <accordion class=\"other-holdings\" ng-show=\"otherHoldings.length > 0\">\n" +
     "    <accordion-group is-open=\"showOtherHoldings\">\n" +
     "      <accordion-heading>\n" +
     "        Visa bestånd för andra bibliotek (beta) <i class=\"pull-right fa\" ng-class=\"{'fa-chevron-down': showOtherHoldings, 'fa-chevron-right': !showOtherHoldings}\"></i>\n" +
@@ -313,7 +314,29 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "        </accordion-group>\n" +
     "      </accordion>\n" +
     "    </accordion-group>\n" +
-    "  </accordion>\n" +
+    "  </accordion> -->\n" +
+    "\n" +
+    "  <div class=\"otherHoldings\" ng-show=\"otherHoldings.length > 0\">\n" +
+    "    <h4 ng-click=\"showOtherHoldings = !showOtherHoldings\">Visa bestånd för andra bibliotek <i class=\"pull-right fa\" ng-class=\"{'fa-chevron-down': showOtherHoldings, 'fa-chevron-right': !showOtherHoldings}\"></i></h4>\n" +
+    "    <table class=\"table-striped table-bordered tbl-otherHoldings\" ng-show=\"showOtherHoldings\">\n" +
+    "      <thead>\n" +
+    "      <tr>\n" +
+    "        <th title=\"Klicka för att sortera kolumn\" ng-click=\"otherHoldingsPredicate = 'about.heldBy.notation'\">{{'LABEL.holdings.offer.heldBy' | translate}} <i ng-class=\"{'opaque' : otherHoldingsPredicate != 'about.heldBy.notation'}\" class=\"fa fa-caret-down\"></i></th>\n" +
+    "        <th title=\"Klicka för att sortera kolumn\" ng-click=\"otherHoldingsPredicate = 'about.offers[0].classificationPart'\">{{'LABEL.holdings.offer.classificationPart' | translate}} <i ng-class=\"{'opaque' : otherHoldingsPredicate != 'about.offers[0].classificationPart'}\" class=\"fa fa-caret-down\"></i></th>\n" +
+    "        <th title=\"Klicka för att sortera kolumn\" ng-click=\"otherHoldingsPredicate = 'about.offers[0].shelfLocation'\">{{'LABEL.holdings.offer.shelfLocation' | translate}} <i ng-class=\"{'opaque' : otherHoldingsPredicate != 'about.offers[0].shelfLocation'}\" class=\"fa fa-caret-down\"></i></th>\n" +
+    "        <th title=\"Klicka för att sortera kolumn\" ng-click=\"otherHoldingsPredicate = 'about.offers[0].shelfControlNumber'\">{{'LABEL.holdings.offer.shelfControlNumber' | translate}} <i ng-class=\"{'opaque' : otherHoldingsPredicate != 'about.offers[0].shelfControlNumber'}\" class=\"fa fa-caret-down\"></i></th>\n" +
+    "      </tr>\n" +
+    "      </thead>\n" +
+    "      <tbody>\n" +
+    "        <tr ng-repeat=\"otherHolding in otherHoldings | orderBy:otherHoldingsPredicate track by $index\">\n" +
+    "          <td>{{ otherHolding.about.heldBy.notation }}</td>\n" +
+    "          <td>{{ otherHolding.about.offers[0].classificationPart}}</td>\n" +
+    "          <td>{{ otherHolding.about.offers[0].shelfLocation}}</td>\n" +
+    "          <td>{{ otherHolding.about.offers[0].shelfControlNumber}}</td>\n" +
+    "        </tr>\n" +
+    "      </tbody>\n" +
+    "    </table>\n" +
+    "  </div>\n" +
     "\n" +
     "  <h4>Ditt bestånd</h4>\n" +
     "\n" +
