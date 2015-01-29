@@ -8,6 +8,8 @@
     <meta charset="utf-8" />
     <title>LIBRIS katalogisering</title>
 
+    <base href="/">
+    
     <link rel="shortcut icon" type="image/x-icon" href="/static/img/favicon.ico" />
 
     <script type="text/javascript">
@@ -51,8 +53,8 @@
               <li data-ng-controller="ModalCtrl">
                 <a title="Skapa ny post" href="" data-ng-click="openCreateNewModal()"><i class="icon fa fa-plus"></i> Skapa ny post</a>
               </li>
-              <li class="dropdown">
-                <a class="dropdown-toggle login" data-toggle="dropdown" title="Logga ut - inställningar">
+              <li class="dropdown" dropdown>
+                <a class="dropdown-toggle login" dropdown-toggle title="Logga ut - inställningar">
                   <span class="username"><i class="fa fa-user"></i> {{current_user.sigel}}</span><i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu pull-right">

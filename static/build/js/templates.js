@@ -205,8 +205,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "    <button class=\"btn btn-purple btn-hld\" data-ng-if=\"!record.holdings.holding\" data-ng-controller=\"ModalCtrl\" data-ng-click=\"openHoldingsModal($event, record)\">\n" +
     "      <span><i class=\"fa fa-inverse fa-plus\"></i> Bestånd</span>\n" +
     "    </button>\n" +
-    "    <button class=\"btn btn-purple-light btn-hld\" data-ng-if=\"record.holdings.holding\" data-ng-controller=\"ModalCtrl\" data-ng-click=\"openHoldingsModal($event, record)\">\n" +
-    "      <span><i class=\"fa fa-inverse fa-check\"></i> Bestånd</span>\n" +
+    "    <button class=\"btn btn-white-purple btn-hld\" data-ng-if=\"record.holdings.holding\" data-ng-controller=\"ModalCtrl\" data-ng-click=\"openHoldingsModal($event, record)\">\n" +
+    "      <span><i class=\"fa fa-check\"></i> Bestånd</span>\n" +
     "    </button>\n" +
     "  </div>\n" +
     "</div>\n"
@@ -493,7 +493,6 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "  <div class=\"modal-alerts\" data-ng-if=\"alerts.length > 0\">\n" +
     "    <alert data-ng-repeat=\"alert in alerts\" type=\"{{alert.type}}\" close=\"closeAlert($index)\">{{alert.msg}}</alert>\n" +
     "  </div>\n" +
-    "\n" +
     "</div>\n" +
     "\n" +
     "<!-- <pre>{{holding}}</pre> -->\n" +
@@ -848,8 +847,8 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "             value=\"{{ state.search.q }}\" placeholder=\"{{ state.searchType.placeholder }}\"\n" +
     "      autocomplete=\"off\" role=\"textbox\"\n" +
     "      aria-autocomplete=\"list\" aria-haspopup=\"true\" data-ng-model=\"state.search.q\">\n" +
-    "      <div class=\"btn-group dropdown\" data-is-open=\"isopen\">\n" +
-    "        <a class=\"btn btn-grey search-source dropdown-toggle\">\n" +
+    "      <div class=\"btn-group dropdown\" dropdown data-is-open=\"isopen\">\n" +
+    "        <a class=\"btn btn-grey search-source dropdown-toggle\" dropdown-toggle>\n" +
     "          <span class=\"btn-label\">{{ state.searchType.label }}</span>\n" +
     "          <span class=\"fa fa-caret-down\"></span>\n" +
     "        </a>\n" +

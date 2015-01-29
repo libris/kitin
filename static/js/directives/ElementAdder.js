@@ -3,8 +3,8 @@ kitin.directive('elementAdder', function(editService) {
     restrict: 'A',
     require: 'editCtrl',
     scope: true,
-    template: '<li class="dropdown">' +
-                '<a class="dropdown-toggle" title="Lägg till fält">' +
+    template: '<li class="dropdown" dropdown>' +
+                '<a class="dropdown-toggle" dropdown-toggle title="Lägg till fält">' +
                   'Lägg till fält' +
                   '<i class="icon fa fa-caret-down"></i>' +
                 '</a>' +

@@ -424,6 +424,18 @@ body.edit .footer-sticky div.centered div.right {
   background-color: #683568;
   color: #ffffff;
 }
+.btn-white-purple {
+  background-color: #ffffff;
+  color: #683568;
+  border: rgba(104, 53, 104, 0.3) solid;
+  border-width: 1px 1px 1px 1px;
+}
+.btn-white-purple:hover,
+.btn-white-purple:focus,
+.btn-white-purple:active {
+  background-color: #dddddb;
+  color: #683568;
+}
 .btn-bibdb {
   background-color: #CA9543;
   color: #ffffff;
@@ -1987,9 +1999,6 @@ section.result .bottom {
   right: 134px;
   bottom: 6px;
 }
-section.result a:visited {
-  color: #22ba94;
-}
 section.result a:hover .label.title .title-key {
   text-decoration: underline;
 }
@@ -2135,9 +2144,6 @@ section.result .widget .buttons {
 section.result .widget .buttons .btn {
   width: 90%;
   margin-top: 5px;
-}
-section.result .widget .buttons .btn span {
-  color: #ffffff;
 }
 section.result-pre {
   border-style: dashed;
@@ -3641,7 +3647,7 @@ a.beta-blocker {
 }
 .langIcon {
   margin-right: 0.2em;
-  border: 2px solid;
+  border: 1px solid;
   border-radius: 5px;
   font-size: 12px;
   padding: 0px 2px 0px 2px;

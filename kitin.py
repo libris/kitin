@@ -85,7 +85,9 @@ def _load_user(uid):
 
 @login_manager.unauthorized_handler
 def _handle_unauthorized():
-    return redirect("/login")
+    # Redirect to "/login" removed. Since IE finds itself in an infinit loop
+    # trying to decide between /login and /#!/login 
+    return render_template("partials/login.html")
 
 
 # LOGIN START
@@ -189,7 +191,7 @@ def get_template(type):
 
 # RESOURCES
 @app.route("/resource/<path:path>")
-@login_required
+#@login_required
 def get_resource(path):
     if path == 'translation':
         language = request.args.get('lang')

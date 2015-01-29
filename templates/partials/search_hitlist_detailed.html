@@ -150,8 +150,8 @@
           <a class="btn btn-green btn-xs" href="/edit/libris{{record['@id']}}{{queryString}}">
             <span><i class="fa fa-inverse fa-edit"></i> Redigera</span>
           </a>
-          <button class="btn btn-hld btn-xs" ng-class="{ 'btn-purple': !record.holdings.holding, 'btn-purple-light': record.holdings.holding }" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
-            <span><i ng-if="!record.holdings.holding" class="fa fa-inverse fa-plus"></i><i ng-if="record.holdings.holding" class="fa fa-inverse fa-check"></i> Bestånd</span>
+          <button class="btn btn-hld btn-xs" ng-class="{ 'btn-purple': !record.holdings.holding, 'btn-white-purple': record.holdings.holding }" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
+            <span><i ng-if="!record.holdings.holding" class="fa fa-inverse fa-plus"></i><i ng-if="record.holdings.holding" class="fa fa-check"></i> Bestånd</span>
           </button>
         </div>
       </div>
