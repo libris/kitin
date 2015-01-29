@@ -86,7 +86,6 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
         };
         holding.about.heldBy.notation = holding.about.offers[0].heldBy[0].notation = userData.userSigel;
         $scope.holding = holding;
-        console.log(holding);
       });
     } else {
       $scope.holding = holding;
