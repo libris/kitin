@@ -94,6 +94,12 @@ def _handle_unauthorized():
 # ----------------------------
 @app.route("/login")
 def login():
+    if app.fakelogin:
+        user = User('Fake banana', sigel='NONE')
+        login_user(user, True)
+        session['sigel'] = user.sigel
+        return redirect('/')
+        
     return render_template("partials/login.html", msg = None, remember = False)
 
 @app.route("/login/authorize")
@@ -119,12 +125,13 @@ def authorized():
         # Get user from verify
         verify_response = requests_oauth.get(app.config['OAUTH_VERIFY_URL']).json()
         verify_user = verify_response['user']
+        sigel = verify_user['authorization'][0]['sigel']
         app.logger.debug("User received from verify %s " % jsonify(verify_user))
 
         # Create Flask User and login
-        user = User(verify_user['username'], sigel=verify_user['authorization'][0]['sigel'], token=session['oauth_token'])
+        user = User(verify_user['username'], sigel=sigel, token=session['oauth_token'])
+        session['sigel'] = sigel
         login_user(user, True)
-        session['sigel'] = user.sigel
 
         return redirect('/')
 
