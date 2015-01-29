@@ -37,18 +37,26 @@
     <table class="table-striped table-bordered tbl-otherHoldings" ng-show="showOtherHoldings">
       <thead>
       <tr>
-        <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.heldBy.notation'">{{'LABEL.holdings.offer.heldBy' | translate}} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.heldBy.notation'}" class="fa fa-caret-down"></i></th>
-        <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].classificationPart'">{{'LABEL.holdings.offer.classificationPart' | translate}} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].classificationPart'}" class="fa fa-caret-down"></i></th>
-        <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].shelfLocation'">{{'LABEL.holdings.offer.shelfLocation' | translate}} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].shelfLocation'}" class="fa fa-caret-down"></i></th>
-        <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].shelfControlNumber'">{{'LABEL.holdings.offer.shelfControlNumber' | translate}} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].shelfControlNumber'}" class="fa fa-caret-down"></i></th>
+        <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.heldBy.notation'">
+          {{'LABEL.holdings.offer.heldBy' | translate}} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.heldBy.notation'}" class="fa fa-caret-down"></i>
+        </th>
+        <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].classificationPart'">
+          {{ 'LABEL.holdings.offer.classificationPart' | translate }} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].classificationPart'}" class="fa fa-caret-down"></i>
+        </th>
+        <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].shelfLocation'">
+          {{'LABEL.holdings.offer.shelfLocation' | translate}} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].shelfLocation'}" class="fa fa-caret-down"></i>
+        </th>
+        <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].shelfControlNumber'">
+          {{'LABEL.holdings.offer.shelfControlNumber' | translate}} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].shelfControlNumber'}" class="fa fa-caret-down"></i>
+        </th>
       </tr>
       </thead>
       <tbody>
         <tr ng-repeat="otherHolding in otherHoldings | orderBy:otherHoldingsPredicate track by $index">
           <td>{{ otherHolding.about.heldBy.notation }}</td>
-          <td>{{ otherHolding.about.offers[0].classificationPart}}</td>
-          <td>{{ otherHolding.about.offers[0].shelfLocation.join(', ')}}</td>
-          <td>{{ otherHolding.about.offers[0].shelfControlNumber}}</td>
+          <td>{{ otherHolding.about.offers[0].classificationPart ? otherHolding.about.offers[0].classificationPart : '-'}}</td>
+          <td>{{ otherHolding.about.offers[0].shelfLocation ? otherHolding.about.offers[0].shelfLocation.join(', ') : '-'}}</td>
+          <td>{{ otherHolding.about.offers[0].shelfControlNumber ? otherHolding.about.offers[0].shelfControlNumber : '-'}}</td>
         </tr>
       </tbody>
     </table>
