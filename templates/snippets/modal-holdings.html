@@ -47,7 +47,7 @@
         <tr ng-repeat="otherHolding in otherHoldings | orderBy:otherHoldingsPredicate track by $index">
           <td>{{ otherHolding.about.heldBy.notation }}</td>
           <td>{{ otherHolding.about.offers[0].classificationPart}}</td>
-          <td>{{ otherHolding.about.offers[0].shelfLocation}}</td>
+          <td>{{ otherHolding.about.offers[0].shelfLocation.join(', ')}}</td>
           <td>{{ otherHolding.about.offers[0].shelfControlNumber}}</td>
         </tr>
       </tbody>
