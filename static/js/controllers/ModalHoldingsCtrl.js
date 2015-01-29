@@ -6,6 +6,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   $scope.userData = userData;
   $scope.panels = [];
   $scope.showOtherHoldings = false;
+  $scope.otherHoldingsPredicate = 'about.heldBy.notation';
   $scope.utils = utilsService;
   $scope.classes = {};
 

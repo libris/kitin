@@ -9,7 +9,8 @@
   
   <h4 class="top">{{ utils.composeTitle(record) | chop:80}}, {{ utils.composeCreator(record) | chop:40 }} {{ utils.composeDate(publication.providerDate) }}</h4>
 
-  <accordion class="other-holdings" ng-show="otherHoldings.length > 0">
+<!-- TODO: REMOVE ACCORDION -->
+<!--   <accordion class="other-holdings" ng-show="otherHoldings.length > 0">
     <accordion-group is-open="showOtherHoldings">
       <accordion-heading>
         Visa bestånd för andra bibliotek (beta) <i class="pull-right fa" ng-class="{'fa-chevron-down': showOtherHoldings, 'fa-chevron-right': !showOtherHoldings}"></i>
@@ -29,7 +30,29 @@
         </accordion-group>
       </accordion>
     </accordion-group>
-  </accordion>
+  </accordion> -->
+
+  <div class="otherHoldings" ng-show="otherHoldings.length > 0">
+    <h4 ng-click="showOtherHoldings = !showOtherHoldings">Visa bestånd för andra bibliotek <i class="pull-right fa" ng-class="{'fa-chevron-down': showOtherHoldings, 'fa-chevron-right': !showOtherHoldings}"></i></h4>
+    <table class="table-striped table-bordered tbl-otherHoldings" ng-show="showOtherHoldings">
+      <thead>
+      <tr>
+        <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.heldBy.notation'">{{'LABEL.holdings.offer.heldBy' | translate}} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.heldBy.notation'}" class="fa fa-caret-down"></i></th>
+        <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].classificationPart'">{{'LABEL.holdings.offer.classificationPart' | translate}} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].classificationPart'}" class="fa fa-caret-down"></i></th>
+        <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].shelfLocation'">{{'LABEL.holdings.offer.shelfLocation' | translate}} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].shelfLocation'}" class="fa fa-caret-down"></i></th>
+        <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].shelfControlNumber'">{{'LABEL.holdings.offer.shelfControlNumber' | translate}} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].shelfControlNumber'}" class="fa fa-caret-down"></i></th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="otherHolding in otherHoldings | orderBy:otherHoldingsPredicate track by $index">
+          <td>{{ otherHolding.about.heldBy.notation }}</td>
+          <td>{{ otherHolding.about.offers[0].classificationPart}}</td>
+          <td>{{ otherHolding.about.offers[0].shelfLocation}}</td>
+          <td>{{ otherHolding.about.offers[0].shelfControlNumber}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <h4>Ditt bestånd</h4>
 
