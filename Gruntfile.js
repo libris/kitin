@@ -155,7 +155,7 @@ module.exports = function(grunt) {
         tasks: ['jshint']
       },
       cachebuster: {
-        files: ['<%= cachebuster.build.src %>'],
+        files: ['<%= cachebuster.dev.src %>'],
         tasks: ['cachebuster']
       },
       ngtemplates: {
