@@ -45,7 +45,11 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
         editService.undecorate(recordDataCopy).then(function(undecoratedRecord) {
           $rootScope.promises.bib.saving = $http.put($rootScope.WRITE_API_PATH + '/' + type + '/' + id, undecoratedRecord,
               {
-                headers: {"If-match":recordEtag}
+                headers: {
+                  'If-match': recordEtag,
+                  'Authorization': 'Bearer ' +  $rootScope.OAUTH_ACCESS_TOKEN
+                }
+                
               })
             .success(function(savedRecord, status, headers) {
               editService.decorate(savedRecord).then(function(decoratedRecord) {
@@ -86,7 +90,7 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
 
       convertToMarc: function(data) {
         var deferer = $q.defer();
-        editService.undecorate(data).then(function(undecoratedRecord) {
+        editService.undecorate(angular.copy(data)).then(function(undecoratedRecord) {
           $rootScope.promises.marc.loading = $http.post($rootScope.WRITE_API_PATH + '/_format?to=application\/x-marc-json', undecoratedRecord
           /*{ !TODO change to API_PATH and add header when authentication is implemented in whelk
             headers: {

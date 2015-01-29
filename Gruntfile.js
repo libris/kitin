@@ -1,11 +1,12 @@
 module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
-  grunt.registerTask('default', ['build']);
-  grunt.registerTask('build', ['vendor', 'app', 'ngtemplates', 'cachebuster']);
-  grunt.registerTask('templates', ['ngtemplates']);
-  grunt.registerTask('validate', ['htmlangular']);
+
+  grunt.registerTask('default', ['app']);
+  grunt.registerTask('all', ['vendor', 'app', 'validate']);
   grunt.registerTask('vendor', ['bower:install', 'cssmin:vendor', 'uglify:vendor']);
-  grunt.registerTask('app', ['less', 'coffee', 'jshint']);
+  grunt.registerTask('app', ['less', 'jshint', 'ngtemplates', 'cachebuster']);
+  grunt.registerTask('validate', ['htmlangular']);
+
   return grunt.initConfig({
     ngtemplates: {
       kitin: {
@@ -85,17 +86,6 @@ module.exports = function(grunt) {
         }
       }
     },
-    coffee: {
-      options: {
-        sourceMap: true,
-        sourceRoot: ''
-      },
-      src: {
-        expand: true,
-        src: 'static/js/{,*/}*.coffee',
-        ext: '.js'
-      }
-    },
     jshint: {
       options: {
         jshintrc: '.jshintrc'
@@ -156,10 +146,6 @@ module.exports = function(grunt) {
         options: {
           livereload: true
         }
-      },
-      coffee: {
-        files: ['<%= coffee.src.src %>'],
-        tasks: ['coffee']
       },
       jshint: {
         files: ['<%= jshint.app %>'],
