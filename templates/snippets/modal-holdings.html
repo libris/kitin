@@ -1,87 +1,241 @@
 <div class="modal-header holdings">
   <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
-  <h4 class="modal-title"><span translate>LABEL.gui.terms.HOLDINGS</span> ({{userData.userSigel}})</h4>
+  <h1 class="modal-title"><span translate>LABEL.gui.terms.HOLDINGS</span> ({{userData.userSigel}})</h1>
 </div>
 
 <div class="modal-body holdings">
   <div data-cg-busy="{promise:promises.holding.loading, message:'Laddar bestånd...', minDuration: 800}"></div>
   <div data-cg-busy="{promise:promises.holding.saving, message:'Sparar bestånd...', minDuration: 800}"></div>
   
-  <accordion class="other-holdings" ng-show="false">
+  <h4 class="top">{{ utils.composeTitle(record) | chop:80}}, {{ utils.composeCreator(record) | chop:40 }} {{ utils.composeDate(publication.providerDate) }}</h4>
+
+<!-- TODO: REMOVE ACCORDION -->
+<!--   <accordion class="other-holdings" ng-show="otherHoldings.length > 0">
     <accordion-group is-open="showOtherHoldings">
       <accordion-heading>
         Visa bestånd för andra bibliotek (beta) <i class="pull-right fa" ng-class="{'fa-chevron-down': showOtherHoldings, 'fa-chevron-right': !showOtherHoldings}"></i>
       </accordion-heading>
-      <accordion close-others="true">
+      <accordion class="other-holdings-inner" close-others="true">
         <accordion-group data-ng-repeat="otherHolding in otherHoldings" is-open="offer.open">
           <accordion-heading>
               {{otherHolding.about.heldBy.notation}} <i class="pull-right fa" ng-class="{'fa-chevron-down': offer.open, 'fa-chevron-right': !offer.open}"></i>
           </accordion-heading>
           <div data-ng-repeat="offer in otherHolding.about.offers" class="other-offer">
-            <span class="offer-value" data-ng-repeat="(property, value) in offer" data-ng-show="property != '@type' && property != 'open'&& property != 'heldBy'">{{property}}: {{value}}<span data-ng-show="!$last">, </span></span>
+            <div class="offer-header">Lokalsignum {{$index + 1}}:</div>
+            <span class="offer-value" data-ng-repeat="(property, value) in offer" data-ng-show="property != '@type' && property != 'open'">
+              <span class="prop">{{'LABEL.holdings.offer.' + property | translate}}:</span><span class="val"><span>{{property == 'heldBy' ? otherHolding.about.heldBy.notation : value}}</span></span>
+            </span>
+            <hr ng-show="!$last">
           </div>
         </accordion-group>
       </accordion>
     </accordion-group>
-  </accordion>
-  
-  <h4>{{ utils.composeTitle(record) | chop:80}}, {{ utils.composeCreator(record) | chop:40 }} {{ utils.composeDate(publication.providerDate) }}</h4>
+  </accordion> -->
+
+  <div class="otherHoldings" ng-show="otherHoldings.length > 0">
+    <h4 ng-click="showOtherHoldings = !showOtherHoldings">Visa bestånd för andra bibliotek <i class="pull-right fa" ng-class="{'fa-chevron-down': showOtherHoldings, 'fa-chevron-right': !showOtherHoldings}"></i></h4>
+    <table class="table-striped table-bordered tbl-otherHoldings" ng-show="showOtherHoldings">
+      <thead>
+      <tr>
+        <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.heldBy.notation'">{{'LABEL.holdings.offer.heldBy' | translate}} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.heldBy.notation'}" class="fa fa-caret-down"></i></th>
+        <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].classificationPart'">{{'LABEL.holdings.offer.classificationPart' | translate}} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].classificationPart'}" class="fa fa-caret-down"></i></th>
+        <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].shelfLocation'">{{'LABEL.holdings.offer.shelfLocation' | translate}} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].shelfLocation'}" class="fa fa-caret-down"></i></th>
+        <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].shelfControlNumber'">{{'LABEL.holdings.offer.shelfControlNumber' | translate}} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].shelfControlNumber'}" class="fa fa-caret-down"></i></th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="otherHolding in otherHoldings | orderBy:otherHoldingsPredicate track by $index">
+          <td>{{ otherHolding.about.heldBy.notation }}</td>
+          <td>{{ otherHolding.about.offers[0].classificationPart}}</td>
+          <td>{{ otherHolding.about.offers[0].shelfLocation.join(', ')}}</td>
+          <td>{{ otherHolding.about.offers[0].shelfControlNumber}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>Ditt bestånd</h4>
 
   <form data-ng-show="holding['@id'] || !holding['etag']" name="holdingForm">
-    <section class="offer form-container" data-ng-repeat="offer in holding.about.offers track by $index">
-      <div class="cols">
-          <kitin-group label="Lokalsignum" initially-visible>
-            <!-- Fake Sigel drop-down until we decide how to handle multiple sigels for single users -->
-            <div class="label">
-              <span class="lbl">Sigel</span>
-              <span class="inp">
-                <div class="entity tags">
-                  <span class="select">
-                    <select>
-                      <option data-ng-selected="true">{{userSigel}}</option>
-                    </select>
-                    <i class="fa fa-caret-down"></i>
-                  </span>
-                </div>
-              </span>
-            </div>
+    
 
-            <kitin-textrow label-prefix="LABEL.holdings." model="offer.shelfLocation" change-model="holding"></kitin-textrow>
-            <kitin-textrow label-prefix="LABEL.holdings." model="offer.classificationPart" change-model="holding"></kitin-textrow>
-            <kitin-textrow label-prefix="LABEL.holdings." model="offer.shelfControlNumber" change-model="holding"></kitin-textrow>
-            <kitin-textrow label-prefix="LABEL.holdings." model="offer.shelfLabel" change-model="holding"></kitin-textrow>
-            <kitin-textrow label-prefix="LABEL.holdings." model="offer.availability" change-model="holding"></kitin-textrow>
-            <kitin-textrow label-prefix="LABEL.holdings." model="offer.copyNumber" change-model="holding"></kitin-textrow>
-            <kitin-textrow label-prefix="LABEL.holdings." model="offer.copyNote" change-model="holding"></kitin-textrow>
-            <kitin-textrow label-prefix="LABEL.holdings." model="offer.editorialNote" change-model="holding"></kitin-textrow>
-          </kitin-group>
+    <!-- OFFERS (852) -->
+    <section class="offer form-container">
+      <div data-ng-repeat="offer in holding.about.offers track by $index">
+        <kitin-group label="Lokalsignum">
+          <!-- Fake Sigel drop-down until we decide how to handle multiple sigels for single users -->
+          <div class="label">
+            <span class="lbl">Sigel</span>
+            <span class="inp">
+              <div class="entity tags">
+                <span class="select">
+                  <select>
+                    <option data-ng-selected="true" value="{{userSigel}}" data-ng-bind="userSigel"></option>
+                  </select>
+                  <i class="fa fa-caret-down"></i>
+                </span>
+              </div>
+            </span>
+          </div>
 
-        <div class="col12">
-          <button class="btn btn-link pull-right" data-ng-if="holding.about.offers.length > 1" data-ng-click="deleteOffer(holding, $index)"><i class="fa fa-trash-o"></i> {{ "Radera lokalsignum" }}</button>
-        </div>
+          <kitin-table label-prefix="LABEL.holdings." model="offer.shelfLocation" change-model="holding">
+            <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
+          </kitin-table>
+          <kitin-textrow label-prefix="LABEL.holdings." model="offer.classificationPart" change-model="holding"></kitin-textrow>
+          <kitin-textrow label-prefix="LABEL.holdings." model="offer.shelfControlNumber" change-model="holding"></kitin-textrow>
+          <kitin-textrow label-prefix="LABEL.holdings." model="offer.shelfLabel" change-model="holding"></kitin-textrow>
+          <kitin-textrow label-prefix="LABEL.holdings." model="offer.availability" change-model="holding"></kitin-textrow>
+          <kitin-textrow label-prefix="LABEL.holdings." model="offer.copyNumber" change-model="holding"></kitin-textrow>
+          <kitin-textrow label-prefix="LABEL.holdings." model="offer.copyNote" change-model="holding"></kitin-textrow>
+          <kitin-table label-prefix="LABEL.holdings." model="offer.editorialNote" change-model="holding">
+            <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
+          </kitin-table>
+
+          <div class="button-bar right">
+            <button class="btn btn-link" data-ng-if="holding.about.offers.length > 1" data-ng-click="deleteOffer(holding, $index)"><i class="fa fa-trash-o"></i> {{ "Radera lokalsignum" }}</button>
+          </div>        
+        </kitin-group>
+      </div>
+      <div class="button-bar">
+        <button class="btn btn-link" data-ng-click="addOffer(holding)" data-ng-show="holding"><i class="fa fa-plus"></i> {{ "Lägg till lokalsignum" }}</button>
       </div>
     </section>
+    
+    
+    <!-- IS PRIMARY TOPIC OF (856) START -->
+    <section class="form-container">
+      <div data-ng-repeat="document in holding.about.isPrimaryTopicOf track by $index">
+        <kitin-group label="'Elektronisk adress och åtkomst'">
+          <kitin-textrow model="document['@id']" label.prefix="LABEL." label="document[@'id']" change-model="holding"></kitin-textrow>
+
+          <kitin-textrow model="document.description" change-model="holding"></kitin-textrow>
+
+          <kitin-textrow model="document.altLabel" change-model="holding"></kitin-textrow>
+
+          <kitin-textrow model="document.comment" change-model="holding"></kitin-textrow>
+
+          <kitin-table model="document.editorialNote" change-model="holding">
+            <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
+          </kitin-table>
+          
+          <div class="button-bar right">
+            <button class="btn btn-link" data-ng-if="holding.about.isPrimaryTopicOf.length > 1" data-ng-click="deletePrimaryTopicOf(holding, $index)"><i class="fa fa-trash-o"></i> {{ "Radera elektronisk adress" }}</button>
+          </div>
+        </kitin-group>
+      </div>
+      <div class="button-bar">
+        <button class="btn btn-link" data-ng-click="addPrimaryTopicOf(holding)" data-ng-show="holding"><i class="fa fa-plus"></i> {{ "Lägg till elektronisk adress " }}</button>
+      </div>
+    </section>
+    <!-- / IS PRIMARY TOPIC OF END -->
+
+
+    <!-- WORK EXAMPLE BY TYPE (562 - Product) START -->
+    <section class="form-container">
+      <div data-ng-repeat="item in holding.about.workExampleByType.Product track by $index">
+
+          <kitin-group label="'Identifiering av exemplar, kopia eller version'">
+
+            <kitin-table model="item.itemCondition" change-model="holding">
+              <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
+            </kitin-table>
+
+            <kitin-table model="item.copyIdentification" change-model="holding">
+              <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
+            </kitin-table>
+
+            <kitin-table model="item.versionIdentification" change-model="holding">
+              <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
+            </kitin-table>
+
+            <kitin-table model="item.presentationFormat" change-model="holding">
+              <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
+            </kitin-table>
+
+            <kitin-table model="item.inventoryLevel" change-model="holding">
+              <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
+            </kitin-table>
+
+            <kitin-textrow model="item.materialsSpecified" change-model="holding"></kitin-textrow>
+            
+            <div class="button-bar right">
+              <button class="btn btn-link" data-ng-click="deleteWorkExample(holding, 'Product', $index)"><i class="fa fa-trash-o"></i> {{ "Radera identifiering" }}</button>
+            </div>
+          </kitin-group>
+      </div>
+      <div class="button-bar">
+        <button class="btn btn-link" data-ng-click="addWorkExample(holding, 'Product')" data-ng-show="holding"><i class="fa fa-plus"></i> {{ "Lägg till identifiering " }}</button>
+      </div>
+    </section>
+        
+    <!-- WORK EXAMPLE BY TYPE (866 - SomeProducts) START -->
+    <section class="form-container">
+      <div data-ng-repeat="item in holding.about.workExampleByType.SomeProducts track by $index">
+          <kitin-group label="'Huvudpublikation'">
+            
+            <kitin-textrow model="item.scopeNote" change-model="holding" label="'Beståndsuppgift'"></kitin-textrow>
+
+            <kitin-table model="item.editorialNote" change-model="holding">
+              <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
+            </kitin-table>
+
+            <kitin-table model="item.copyNote" change-model="holding">
+              <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
+            </kitin-table>
+
+            <div class="button-bar right">
+              <button class="btn btn-link" data-ng-click="deleteWorkExample(holding, 'SomeProducts', $index)"><i class="fa fa-trash-o"></i> {{ "Radera huvudpublikation" }}</button>
+            </div>
+          </kitin-group>
+      </div>
+      <div class="button-bar">
+        <button class="btn btn-link" data-ng-click="addWorkExample(holding, 'SomeProducts')" data-ng-show="holding"><i class="fa fa-plus"></i> {{ "Lägg till huvudpublikation " }}</button>
+      </div>
+    </section>
+    <!-- WORK EXAMPLE BY TYPE END -->
+
+
+    <!-- ENCODING START 
+    <section class="form-container">
+      <kitin-group label="Encoding">
+        <div data-ng-repeat="enc in holding.about.encoding track by $index">
+          <kitin-table model="enc" type="MediaObject" change-model="holding">
+            <kitin-td>
+              <div class="label">
+                <kitin-label label="'LABEL.holding.about.encoding.id'"></kitin-label>
+                <kitin-textarea model="enc['@id']"></kitin-textarea>
+              </div>
+
+              <div class="label">
+                <kitin-label label="'LABEL.holding.about.encoding.comment'"></kitin-label>
+                <kitin-textarea model="enc.comment"></kitin-textarea>
+              </div>
+            </kitin-td>
+          </kitin-table>
+        </div>
+      </kitin-group>
+    </section>
+    ENCODING END -->
+
   </form>
 
-  <hr data-ng-show="holding">
+  <hr data-ng-if="holding">
 
-  <div class="alert alert-success" role="alert" data-ng-show="modifications.holding.deleted">
+  <div class="alert alert-success" role="alert" data-ng-if="modifications.holding.deleted">
     {{ "Beståndet raderat" }}
   </div>
   
-  <div class="alert alert-error" role="alert" data-ng-show="holding.about.offers.length < 1">
+  <div class="alert alert-error" role="alert" data-ng-if="holding.about.offers.length < 1">
     {{ "Beståndet saknar lokalsignum" }}
   </div>
 
-  <div class="modal-alerts" data-ng-show="alerts.length > 0">
+  <div class="modal-alerts" data-ng-if="alerts.length > 0">
     <alert data-ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
   </div>
-
-  <div>
-    <button class="btn btn-flat btn-purple-light" data-ng-click="addOffer(holding)" data-ng-show="holding"><i class="fa fa-plus"></i> {{ "Lägg till lokalsignum" }}</button>
-  </div>
-
 </div>
+
+<!-- <pre>{{holding}}</pre> -->
+<!-- <pre>{{modifications.holding}}</pre> -->
 
 <div class="modal-footer holdings submit">
   <div class="status pull-left">
@@ -89,10 +243,23 @@
     <div data-ng-if="!modifications.holding.saved && !isNew">{{ "Du har inte sparat dina ändringar." }}</div>
     <div data-ng-if="!modifications.holding.saved && isNew">{{ "Nyskapat bestånd, inte sparat." }}</div>
   </div>
-  <button class="btn-link" id="delete-hld" data-ng-click="deleteHolding(holding)" data-ng-show="holding['@id']"><i class="fa fa-trash-o"></i> {{ "Radera bestånd" }}</button>
-  <button class="btn btn-purple btn-submit" data-ng-click="saveHolding(holding)" data-ng-show="holding" data-ng-disabled="modifications.holding.saved">
+  <a data-ng-controller="ModalCtrl" data-ng-click="openMARCModal($event, holding)">Förhandsgranska MARC</a> | 
+  <button class="btn-link" id="delete-hld" data-ng-click="deleteHolding(holding)" data-ng-if="holding['@id']">
+    <i class="fa fa-trash-o"></i> {{ "Radera bestånd" }}
+  </button>
+  <button class="btn btn-purple btn-submit" id="save-hld" data-ng-click="saveHolding(holding)" data-ng-if="holding" data-ng-disabled="modifications.holding.saved">
     <span data-ng-if="!modifications.holding.saved">{{ "Spara bestånd" }}</span>
     <span data-ng-if="modifications.holding.saved">{{ "Bestånd sparat" }} <i class="fa fa-check"></i></span>
   </button>
-  <button class="btn btn-purple btn-submit" data-ng-click="close()" data-ng-show="!holding">{{ "Stäng" }}</button>
+  <button class="btn btn-purple btn-submit" data-ng-click="close()" data-ng-if="!holding">{{ "Stäng" }}</button>
+
+  <div id="holdings-message-container">
+    <span class="delete-messages" data-ng-class="classes.deleteStatus">
+      <span class="kitin-popover-trigger" kitin-popover="Det gick inte att radera beståndet." kitin-popover-title="Något gick fel" kitin-popover-placement="top"></span>
+    </span>
+    <span class="save-messages" data-ng-class="classes.saveStatus">
+      <span data-ng-if="!modifications.holding.saved" class="kitin-popover-trigger" kitin-popover="Det gick inte att spara beståndet." kitin-popover-title="Något gick fel" kitin-popover-placement="top"></span>
+      <span data-ng-if="modifications.holding.saved" class="kitin-popover-trigger" kitin-popover="Beståndet finns nu registrerat i katalogen." kitin-popover-title="Beståndet sparades" kitin-popover-placement="top"></span>
+    </span>
+  </div>
 </div>

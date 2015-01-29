@@ -8,16 +8,26 @@
     <meta charset="utf-8" />
     <title>LIBRIS katalogisering</title>
 
+    <base href="/">
+
     <link rel="shortcut icon" type="image/x-icon" href="/static/img/favicon.ico" />
 
     <script type="text/javascript">
       // Get debug from backend
       var debug = ('{{debug}}' === 'True');
       var WHELK_HOST = '{{WHELK_HOST}}';
+      var WHELK_WRITE_HOST = '{{WHELK_WRITE_HOST}}';
+      var OAUTH_API = '{{OAUTH_API}}';
+      var OAUTH_CLIENT_ID = '{{OAUTH_CLIENT_ID}}';
+      var OAUTH_REDIRECT_URI = '{{OAUTH_REDIRECT_URI}}';
     </script>
-    
-    {% include "_media.html" %}
-		
+
+    {% if debug %}
+      {% include "_media-dev.html" %}
+    {% else %}
+      {% include "_media-prod.html" %}
+    {% endif %}
+
     {% if not debug %}
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -43,16 +53,16 @@
           <div data-ng-include="'/partials/header_loading_indicators'"></div>
           <div id="nav">
             <ul class="nav-menu pull-right">
-              <li class="active"><a href="http://feedback.kat.libris.kb.se/" target="_blank" title="Feedback forum">Tyck till <i class="icon fa fa-external-link"></i></a></li>
+             
               <li data-ng-controller="ModalCtrl">
                 <a title="Skapa ny post" href="" data-ng-click="openCreateNewModal()"><i class="icon fa fa-plus"></i> Skapa ny post</a>
               </li>
-              <li class="dropdown">
-                <a class="dropdown-toggle login" data-toggle="dropdown" title="Logga ut - inställningar">
-                  <span class="username">{{current_user.username}} ({{current_user.sigel}})</span><i class="fa fa-caret-down"></i>
+              <li class="dropdown" dropdown>
+                <a class="dropdown-toggle login" dropdown-toggle title="Logga ut - inställningar">
+                  <span class="username"><i class="fa fa-user"></i> {{current_user.sigel}}</span><i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu pull-right">
-                  <li class="disabled"><a href=""> Mitt konto</a></li>
+                  <li class="disabled"><a href=""> Mitt konto<br/><small>{{current_user.username}}</small></a></li>
                   <li><a href="/signout" target="_self">Logga ut</a></li>
                 </ul>
               </li>
@@ -63,7 +73,7 @@
           <div class="logo">
             <a href="/"><h1>Libris <strong>Katalogisering</strong></h1></a>
             <span class="beta">BETA</span>
-            <span class="system-updated" title="{{ modified.strftime('%Y-%m-%d %H:%m') }}">
+            <span class="system-updated" title="{{ modified.strftime('%Y-%m-%d %H:%m') }} (release {{ config.VERSION }})">
               Uppdaterad {{ modified.strftime('%d %b') }} - 
               <a href="" data-ng-controller="ModalCtrl" data-ng-click="openReleaseModal()">Release notes</a> | 
               <a href="https://docs.google.com/presentation/d/1Q4Abhn1t5ThQoAhm_wNYrNrs6nvGEUTDSCC7gf8O4U0/pub?start=false&loop=false&delayms=3000#slide=id.p" target="_blank">Testanvisningar</a>
@@ -84,7 +94,12 @@
           <img alt="Kb logo" src="/static/img/kb.svg">
           <ul>
             <li>
-              <a href="" id="contact" title="Information om cookies: Libris katalogisering använder sig av cookies. Cookies är små filer som lagras på besökarens dator för att webbservern ska kunna upprätthålla information om användaren inom en viss tidsperiod. Libris katalogisering använder sig av s.k. sessionscookies som sparar information om den inloggade användaren temporärt, så länge som webbläsarsessionen varar. Informationen som lagras ser till att tjänsten vet vilken användare som är inloggad och vilka bibliotek som han/hon katalogiserar för. Funktionen &quote;håll mig inloggad&quote; sparar en permanent cookie som är aktiv i 31 dagar.Post- och telestyrelsen, som är tillsynsmyndighet på området, lämnar ytterligare information om Cookies på sin webbplats, www.pts.se">Om kakor</a>
+              <a href="" data-ng-controller="ModalCtrl" data-ng-click="openCookiesModal()" title="Information om cookies">
+                Om cookies
+              </a>
+            </li>
+            <li>
+                Kontakt
             </li>
           </ul>
         </footer>

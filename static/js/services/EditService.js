@@ -184,18 +184,49 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
       return added;
     },
 
+    setInitalValue: function(createdObject, type, initalValue) {
+      if(_.isObject(createdObject)) {
+        switch(type) {
+          // For Person try to set given and family name
+          case 'Person': 
+            var values = initalValue.split(' ');
+            if(values.length > 0) {
+              createdObject.givenName = values[0];
+            }
+            if(values.length > 1) {
+              createdObject.familyName = values[1];
+            }
+            break;
+          default: 
+            // Default try to set prefLabel
+            if(!_.isUndefined(createdObject.prefLabel)) {
+              createdObject.prefLabel = initalValue;
+            } else if(!_.isUndefined(createdObject.name)) {
+              createdObject.name = initalValue;
+            }
+            break;
+        }
+      }
+    },
+
     createObject: function (property, type, initalValue) {
       var deferer = $q.defer();
 
-      
       var createdObject = {};
-      try {
-        createdObject = $rootScope.getSkeletonTypeMap().summary[type];
-        if(_.isUndefined(createdObject)) {
-          throw '';
+      if(type) {
+        try {
+          createdObject = angular.copy($rootScope.getSkeletonTypeMap().summary[type]);
+          if(_.isUndefined(createdObject)) {
+            throw '';
+          }
+          createdObject['@type'] = type;
+        } catch(error) {
+          console.error('Could not find skeleton for', type);
         }
-      } catch(error) {
-        console.error('Could not find skeleton for', type);
+
+        if(initalValue) {
+          this.setInitalValue(createdObject, type, initalValue);
+        }
       }
       return createdObject;
     },
@@ -262,6 +293,14 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
           }
         }
       },
+      workExample: {
+        indexName: "workExampleByType",
+        getIndexKey: function (entity) {
+          if(entity) {
+            return entity["@type"];
+          }
+        }
+      },
       subject: [
         {
           indexName: "subjectByInScheme",
@@ -279,10 +318,19 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
             }
           }
         }
-      ]
+      ],
+      influencedBy: {
+        indexName: "influencedByByType",
+        getIndexKey: function (entity) {
+          if(entity) {
+            return entity["@type"];
+          }
+        }
+      },
     },
 
-    decorate: function(record) {
+    decorate: function(record, baseTypes) {
+
       var deferer = $q.defer();
 
       function doIndex (entity, key, cfg, reset) {
@@ -291,6 +339,7 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
           return;
         }
         var groupedItem = _.groupBy(items, cfg.getIndexKey);
+
         // Remove non matching group.
         if(groupedItem['undefined']) {
           delete groupedItem['undefined'];
@@ -301,39 +350,42 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
         }
       }
 
-      // Rearrange Array elements into display groups
-      this.mutateObject(record.about, doIndex);
+      // Decorate thing with template json
+      var thing = record.about;
+      var recordSkeletonTypeMap = definitions.recordSkeletonTypeMap;
+      recordSkeletonTypeMap.then(function(skeletonTypeMap) {
+        var types = thing['@type'];
+        if (!_.isArray(types)) {
+          types = [types];
+        }
+        (baseTypes || ['CreativeWork']).concat(types).forEach(function (type) {
+          var skeletonType = skeletonTypeMap.main[type];
+
+          if (skeletonType) {
+            this.mergeRecordAndTemplate(thing, skeletonType);
+
+            // Expand @type references in result from summary
+            _.forEach(thing, function(obj, key) {
+              if(obj['@type']) {
+                var summarySkeleton = skeletonTypeMap.summary[obj['@type']];
+                if(summarySkeleton) {
+                  thing[key] = doMergeObjects(obj, angular.copy(summarySkeleton));
+                }
+              }
+            });
+          }
+
+          // Rearrange Array elements into display groups
+          this.mutateObject(thing, doIndex);
+
+        }.bind(this));
+      }.bind(this));
+
       // Rearrange Person roles
       var relators = definitions.relators;
       relators.then(function (relators) {
         var roleMap = {};
         this.reifyAgentRoles(record, relators);
-      }.bind(this));
-
-      // Decorate record with template json
-      var recordSkeletonTypeMap = definitions.recordSkeletonTypeMap;
-      recordSkeletonTypeMap.then(function(skeletonTypeMap) {
-        var types = record.about['@type'];
-        if (!_.isArray(types)) {
-          types = [types];
-        }
-        ['Resource'].concat(types).forEach(function (type) {
-          var skeletonType = skeletonTypeMap.main[type];
-
-          // Map @type in main from summary
-          _.forEach(skeletonType, function(skeleton, key) {
-            if(skeleton['@type']) {
-              var summaryType = skeletonTypeMap.summary[skeleton['@type']];
-              if(summaryType) {
-                skeletonType[key] = angular.copy(summaryType);
-              }
-            }
-          }); 
-
-          if (skeletonType) {
-            this.mergeRecordAndTemplate(record.about, skeletonType);
-          }
-        }.bind(this));
       }.bind(this));
 
       // Combine all promises into one single, to prevent timing issues
@@ -357,11 +409,11 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
         }
         delete entity[cfg.indexName];
       }
+
       // Rearrange grouped Arrays
       this.mutateObject(record.about, doUnindex);
       // Rearrange Person roles
       this.unreifyAgentRoles(record);
-
       // Remove empty entities 
       record = this.cleanRecord(record);
 

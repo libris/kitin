@@ -1,5 +1,5 @@
 var kitin = angular.module('kitin.controllers', []);
-kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, definitions, searchService) {
+kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $location, $document, $modalStack, definitions, searchService, dialogs) {
 
   // Core Utilities
   $rootScope.lodash = _;
@@ -23,7 +23,8 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
     holding: {},
     draft: {},
     marc: {},
-    auth: {}
+    auth: {},
+    jsonld: {}
   };
 
   if ( debug === true ) {
@@ -47,12 +48,22 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
       }
     });
   }
-
+  var searchParams = $location.search();
   $rootScope.state = {
     searchType: {},
     remoteDatabases: [],
-    search: {},
-    searchView: 'detailed',
+    search: {
+      q: searchParams.q || null,
+      n: searchParams.n || null,
+      page: {
+        start: searchParams.start || null
+      },
+      sort: searchParams.sort || null,
+      database: searchParams.database || null,
+      f: searchParams.f || null,
+      view: searchParams.view || 'detailed'
+    },
+    
 
     getSearchParams : function() {
       var params = {
@@ -62,15 +73,37 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
         sort: $rootScope.state.search.sort,
         database: $rootScope.state.searchType.key === searchService.searchTypeIndex.remote.key ? $rootScope.state.search.database : undefined
       };
-      if ($rootScope.state.search.f !== undefined) {
+      if ($rootScope.state.search.f !== undefined && $rootScope.state.search.f !== 'none') {
         params.f = $rootScope.state.search.f;
       }
       return params;
     }
   };
 
-  // System Messages
+  // Custom Modal controls ------------
 
+  // Create our own ESC keydown event so we can use
+  // .close() instead of .dismiss() (this checks dirty flags)
+  $document.bind('keydown', function (evt) {
+    var modal = $modalStack.getTop();
+    if (evt.which === 27 && typeof modal !== 'undefined' && typeof modal.value.modalScope.close !== 'undefined') {
+      modal.value.modalScope.close();
+    }
+  });
+  // Create our own backdrop click event so we can use
+  // .close() instead of .dismiss() (this checks dirty flags)
+  document.addEventListener('click', function (event) {
+    var target = angular.element(event.target);
+    if (target.hasClass('modal')) {
+      var modal = $modalStack.getTop();
+      if (typeof modal !== 'undefined' && typeof modal.value.modalScope.close !== 'undefined') {
+        modal.value.modalScope.close();
+      }
+    }
+  });
+
+  // System Messages
+  // TODO Remove these?
   $rootScope.systemMessages = [];
 
   $rootScope.addSystemMessage = function(msgObj) {
@@ -110,52 +143,52 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, defin
   var ID = '@id';
   var TYPE = '@type';
   var TERMS = 'http://libris.kb.se/def/terms#';
+  if($rootScope.API_PATH !== '') {
+    definitions.terms.then(function(data) {
+      var terms = data.index;
+      var items = []; for (var key in data.index) items.push(data.index[key]);
+      var termIndex = Gild.buildIndex(items);
 
-  definitions.terms.then(function(data) {
-    var terms = data.index;
-    var items = []; for (var key in data.index) items.push(data.index[key]);
-    var termIndex = Gild.buildIndex(items);
+      $rootScope.ID = ID;
+      $rootScope.TYPE = TYPE;
+      $rootScope.TERMS = TERMS;
+      $rootScope.termIndex = termIndex;
 
-    $rootScope.ID = ID;
-    $rootScope.TYPE = TYPE;
-    $rootScope.TERMS = TERMS;
-    $rootScope.termIndex = termIndex;
+      $rootScope.getTermToken = function (obj) {
+        var id = obj[ID];
+        if (typeof id !== 'string')
+          return null;
+        return id.substring(id.indexOf('#') + 1);
+      };
 
-    $rootScope.getTermToken = function (obj) {
-      var id = obj[ID];
-      if (typeof id !== 'string')
-        return null;
-      return id.substring(id.indexOf('#') + 1);
-    };
+      $rootScope.getTypeDef = function (obj) {
+        if (typeof obj === "undefined")
+          return;
+        return terms[obj[TYPE]];
+      };
 
-    $rootScope.getTypeDef = function (obj) {
-      if (typeof obj === "undefined")
-        return;
-      return terms[obj[TYPE]];
-    };
+      // TODO: merge with getLabel (defined in SearchCtrl)
+      $rootScope.getTypeLabel = function (obj) {
+        if (typeof obj === "undefined")
+          return;
+        var typeLabels = [];
+        var typeKeys = obj[TYPE];
+        if (!_.isArray(typeKeys)) {
+          typeKeys= [typeKeys];
+        }
+        typeKeys.forEach(function (typeKey) {
+          var dfn = terms[typeKey];
+          typeLabels.push(dfn? dfn.label : typeKey);
+        });
+        return typeLabels.join(', ');
+      };
+    });
 
-    // TODO: merge with getLabel (defined in SearchCtrl)
-    $rootScope.getTypeLabel = function (obj) {
-      if (typeof obj === "undefined")
-        return;
-      var typeLabels = [];
-      var typeKeys = obj[TYPE];
-      if (!_.isArray(typeKeys)) {
-        typeKeys= [typeKeys];
-      }
-      typeKeys.forEach(function (typeKey) {
-        var dfn = terms[typeKey];
-        typeLabels.push(dfn? dfn.label : typeKey);
-      });
-      return typeLabels.join(', ');
-    };
-  });
-
-  definitions.recordSkeletonTypeMap.then(function(skeletonTypeMap) {
-    $rootScope.getSkeletonTypeMap = function() {
-      return skeletonTypeMap;
-    };
-  });
-
+    definitions.recordSkeletonTypeMap.then(function(skeletonTypeMap) {
+      $rootScope.getSkeletonTypeMap = function() {
+        return skeletonTypeMap;
+      };
+    });
+  }
 
 });

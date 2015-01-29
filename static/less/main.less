@@ -10,11 +10,13 @@
 @import "marc.less";
 @import "login.less";
 @import "modals.less";
+@import "dialogs.less";
 @import "popover.less";
 @import "startpage.less";
 @import "hitlist.less";
 @import "editform.less";
 @import "holdings.less";
+@import "bibview.less";
 @import "search.less";
 @import "iespecific.less";
 
@@ -25,7 +27,7 @@
 
 // GENERAL START -------------------------
 
-html {overflow-y: scroll; -webkit-font-smoothing:antialiased; }
+html { -webkit-font-smoothing:antialiased; }
 
 body{font-family: @paragraph-font, arial, sans-serif; font-size:14px; line-height: 20px; color:@grey-very-dark;}
 
@@ -37,6 +39,7 @@ h4{font-size:15px; }
 .label {font-weight: 400;margin-bottom: 10px; }
 a { cursor: pointer; }
 
+.btn.disabled, .btn[disabled], fieldset[disabled] .btn{opacity:.85;}
 
 //padding override bootstrap grid
 .container{width:1080px;margin: 0 auto;padding:0;}
@@ -129,10 +132,20 @@ a.beta-blocker {text-decoration: none; cursor:default;}
 .modal-dialog .cg-busy-default-wrapper {
   margin-top: -20px; // Padding is 20 pixels inside modal
 }
+
+.langIcon {
+	margin-right: 0.2em;
+  border: 1px solid;
+  border-radius: 5px;
+  font-size: 12px;
+  padding: 0px 2px 0px 2px;
+  text-transform: uppercase;
+  strong {
+    font-size: 90%;
+  }
+}
+
+.inline {
+  display: inline;
+}
 /* GENERAL END ------------------------- */
-
-
-
-
-
-

@@ -6,14 +6,17 @@ kitin.directive('trackChange', function ($rootScope, $timeout) {
       var customEvent = attrs.changeEvent || 'changed';
       var targetModel = attrs.trackChange || 'bib';
 
-      var triggeredResponse = false;
+      //var triggeredResponse = false;
       var trigger = function(someVar, event) {
         // Make sure we only trigger once
-        if (triggeredResponse) return;
+        //if (triggeredResponse) return;
         $timeout(function() {
-          $rootScope.modifications[targetModel].saved = false;
-          $rootScope.modifications[targetModel].published = false;
-          triggeredResponse = true;
+          if (angular.isDefined($rootScope.modifications[targetModel].makeDirty)) {
+            $rootScope.modifications[targetModel].makeDirty();
+          } else {
+            $rootScope.modifications[targetModel].saved = false;
+          }
+          //triggeredResponse = true;
         });
       };
 

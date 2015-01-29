@@ -4,153 +4,163 @@
   <span class="page-indicator" data-ng-if="($index > 0 && ($index + 1) % 10 == 0) || ($index+1) == hitCount">{{ $index + 1 }} träffar av {{ state.search.hitCount }}</span>
   
   <!-- ng recType switch -->
-  <a class="bib-url" href="/edit/libris{{record['@id']}}" data-ng-click="editPost(recType, record)" data-ng-switch="recType">
+  <span data-ng-switch="recType">
 
     <!-- auth result list -->
-    <div data-ng-switch-when="auth" class="auth">
-      <div class="col5">
-        <div class="label title">
-          <span class="title-key">
-            {{ record.about.controlledLabel }}
-            {{ record.about.prefLabel }}
-            {{ record.about.name }}
-            {{ record.about.uniformTitle }}
-            {{ record.about.label }}
-          </span>
-        </div>
-        <div class="label" data-ng-repeat="note in record.about.note">
-          {{ note }}
-        </div>
-        <div class="label" data-ng-repeat="scopeNote in record.about.scopeNote">
-          {{ scopeNote }}
-        </div>
-        <div class="f bottom">
-          {{ record.about['@type'] }}
-        </div>
+    <div class="auth" data-ng-switch-when="auth">
+      <div class="details">
+        <a class="bib-url" href="/edit/libris{{record['@id']}}{{queryString}}" data-ng-click="editPost(recType, record)">
+          <div class="col5">
+            <div class="label title">
+              <span class="title-key">
+                {{ utils.composeTitle(record, recType) | chop:60 }}
+              </span>
+            </div>
+            <div class="label" data-ng-repeat="note in record.about.note">
+              {{ note }}
+            </div>
+            <div class="label" data-ng-repeat="scopeNote in record.about.scopeNote">
+              {{ scopeNote }}
+            </div>
+            <div class="f bottom">
+              <kitin-display-type model="record"></kitin-display-type>
+            </div>
+          </div>
+        </a>
       </div>
     </div>
     <!-- // auth result list -->
 
     <!-- remote result list -->
-    <div data-ng-switch-when="remote" class="nest-cols remote">
-      <div class="col5">
-        <div class="label title" title="{{ record.data.about.instanceTitle.titleValue }} {{ record.data.about.instanceTitle.subtitle }}">
-          <span class="title-key">{{ record.data.about.instanceTitle.titleValue | chop }}</span>
-          <span class="title-subtitle">{{ record.data.about.instanceTitle.subtitle | chop }}
-          <span class="title-variation">{{ record.data.about.titleVariation.titleValue | chop }}</span>
-          <span class="title-key-real" data-ng-repeat="keyTitle in record.data.about.keyTitle">{{ keyTitle.titleValue | chop }}</span>
-          <span class="title-creator"> {{ record.data.about.responsibilityStatement | chop }}</span></span>
-        </div>
-
-        <div class="label contributors" title="contributors">
-          <ul title="" data-ng-repeat="attributedTo in record.data.about.instanceOf.attributedTo"
-            data-ng-show="attributedTo.controlledLabel"><li class="primary-attribution">{{ attributedTo.controlledLabel }}</li>
-          </ul> 
-          <ul title="" data-ng-repeat="influencedBy in record.data.about.instanceOf.influencedBy | limitTo:3"
-            data-ng-show="influencedBy.controlledLabel"><li>{{ influencedBy.controlledLabel }}</li>
-          </ul> 
-        </div>
-
-        <div class="f bottom">
-          <span>  
-            <span data-ng-show="record.data.about['@type'] == 'Book'"><i class="fa fa-square fa-fw"></i></span>
-            <span data-ng-show="record.data.about['@type'] == 'MusicCD'"><i class="fa fa-square fa-fw"></i></span>
-            <span data-ng-show="record.data.about['@type'] == 'EBook'"><i class="fa fa-square fa-fw"></i></span>
-            <span data-ng-show="record.data.about['@type'] == 'Serial'"><i class="fa fa-square fa-fw"></i></span>
-            <span title="provider-date" data-ng-repeat="publication in record.data.about.publication | limitTo:1"
-              data-ng-show="publication.providerDate">{{publication.providerDate}}</span>
-            <span title="provider" data-ng-repeat="publication in record.data.about.publication | limitTo:1"> {{publication.place.label}} {{publication.providerName}}</span>
-            <span data-ng-show="record.data.about.extent">{{ record.about.extent }}</span>
-          </span>
-          <span class="ng-binding ng-hide" data-ng-show="enums.bibLevel[record.data.bibLevel]"></span>
-          <span class="ng-binding ng-hide" data-ng-show="enums.encLevel[record.data.encLevel]"></span>
-        </div>
-      </div>
-
-      <div class="col2">
-        <div class="label identifier-code" title="{{ identifier.identifierScheme }}" data-ng-repeat="identifier in record.about.identifier">{{ identifier.identifierValue }}
-        </div>
+    <div class="nest-cols remote" data-ng-switch-when="remote">
+      <div class="details">
+        <a class="bib-url" data-ng-controller="ModalCtrl" data-ng-click="openBibViewModal(record, true)">
+            <div class="col5">
+              <div class="label title" title="{{ record.data.about.instanceTitle.titleValue }} {{ record.data.about.instanceTitle.subtitle }}">
+                <span class="title-key">{{ record.data.about.instanceTitle.titleValue | chop }}</span>
+                <span class="title-subtitle">{{ record.data.about.instanceTitle.subtitle | chop }}
+                <span class="title-variation">{{ record.data.about.titleVariation.titleValue | chop }}</span>
+                <span class="title-key-real" data-ng-repeat="keyTitle in record.data.about.keyTitle">{{ keyTitle.titleValue | chop }}</span>
+                <span class="title-creator"> {{ record.data.about.responsibilityStatement | chop }}</span></span>
+              </div>
+    
+                <div class="label contributors" title="contributors">
+                  <ul title="" data-ng-repeat="attributedTo in record.data.about.instanceOf.attributedTo"
+                    data-ng-show="attributedTo.controlledLabel"><li class="primary-attribution">{{ attributedTo.controlledLabel }}</li>
+                  </ul> 
+                  <ul title="" data-ng-repeat="influencedBy in record.data.about.instanceOf.influencedBy | limitTo:3"
+                    data-ng-show="influencedBy.controlledLabel"><li>{{ influencedBy.controlledLabel }}</li>
+                  </ul> 
+                </div>
+    
+                <div class="f bottom">
+                  <span>  
+                    <kitin-display-type model="record.data"></kitin-display-type>
+                    <span title="provider-date" data-ng-repeat="publication in record.data.about.publication | limitTo:1"
+                      data-ng-show="publication.providerDate">{{publication.providerDate}}</span>
+                    <span title="provider" data-ng-repeat="publication in record.data.about.publication | limitTo:1"> {{publication.place.label}} {{publication.providerName}}</span>
+                    <span data-ng-show="record.data.about.extent">{{ record.about.extent }}</span>
+                  </span>
+                  <span class="ng-binding ng-hide" data-ng-show="enums.bibLevel[record.data.bibLevel]"></span>
+                  <span class="ng-binding ng-hide" data-ng-show="enums.encLevel[record.data.encLevel]"></span>
+                </div>
+              </div>
+    
+            <div class="col2">
+              <div class="label identifier-code" title="{{ identifier.identifierScheme }}" data-ng-repeat="identifier in record.about.identifier">{{ identifier.identifierValue }}
+              </div>
+          </div>
+        </a>
       </div>
 
       <div class="widget">
         <div class="enc-level">
           <!-- <div data-ng-include="'/partials/enc_level'" ng-init="encLevel = record.encLevel"></div> -->
           <span data-ng-if="record.database != null" class="database">
-            <i class="fa fa-institution"></i> Källa: {{record.database}} 
+            <i class="fa fa-institution"></i> Källa: {{record.database}}
           </span>
         </div>
         <div class="comments">
           <span data-ng-repeat="comment in record.comment">{{comment}}</span>
         </div>
-        <button data-ng-click="log([record, encLevel, recType])" class="btn btn-green btn-copy-remote"><i class="fa fa-inverse fa-plus"></i> Kopiera</button>
+        <div class="buttons">
+          <!-- <button data-ng-click="log([record, encLevel, recType])" class="btn btn-green btn-copy-remote"><i class="fa fa-inverse fa-plus"></i> Kopiera</button> -->
+          <button data-ng-click="importRecord(record.data)" class="btn btn-green btn-copy-remote"><i class="fa fa-inverse fa-plus"></i> Kopiera</button>
+        </div>
       </div>
     </div>
     <!-- // remote result list -->
 
     <!-- bib result list -->
-    <div data-ng-switch-default class="nest-cols bib">
-      <div class="col5">
-        <div class="label title" title="{{ record.about.instanceTitle.titleValue }} {{ record.about.instanceTitle.subtitle }}">
-          <span class="title-key">{{ record.about.instanceTitle.titleValue | chop }}</span>
-          <span class="title-subtitle">{{ record.about.instanceTitle.subtitle | chop }}
-          <span class="title-variation">{{ record.about.titleVariation.titleValue | chop }}</span>
-          <span class="title-key-real" data-ng-repeat="keyTitle in record.about.keyTitle">{{ keyTitle.titleValue | chop }}</span>
-          <span class="title-creator"> {{ record.about.responsibilityStatement | chop }}</span></span>
-        </div>
-
-        <div class="label contributors" title="contributors">
-          <ul title="" data-ng-repeat="attributedTo in record.about.instanceOf.attributedTo"
-            data-ng-show="attributedTo.controlledLabel"><li class="primary-attribution">{{ attributedTo.controlledLabel }}</li>
-          </ul> 
-          <ul title="" data-ng-repeat="influencedBy in record.about.instanceOf.influencedBy | limitTo:3"
-            data-ng-show="influencedBy.controlledLabel"><li>{{ influencedBy.controlledLabel }}</li>
-          </ul> 
-        </div>
-
-        <div class="f bottom">
-          <span>  
-            <span data-ng-show="record.about['@type'] == 'Book'"><i class="fa fa-square fa-fw"></i></span>
-            <span data-ng-show="record.about['@type'] == 'MusicCD'"><i class="fa fa-square fa-fw"></i></span>
-            <span data-ng-show="record.about['@type'] == 'EBook'"><i class="fa fa-square fa-fw"></i></span>
-            <span data-ng-show="record.about['@type'] == 'Serial'"><i class="fa fa-square fa-fw"></i></span>
-            <span title="provider-date" data-ng-repeat="publication in record.about.publication | limitTo:1"
-              data-ng-show="publication.providerDate">{{ utils.composeDate(publication.providerDate) }}</span>
-            <span title="provider" data-ng-repeat="publication in record.about.publication | limitTo:1"> {{publication.place.label}} {{publication.providerName}}</span>
-            <span data-ng-show="record.about.extent">{{ record.about.extent }}</span>
-          </span>
-          <span class="ng-binding ng-hide" data-ng-show="enums.bibLevel[record.bibLevel]"></span>
-          <span class="ng-binding ng-hide" data-ng-show="enums.encLevel[record.encLevel]"></span>
-        </div>
-      </div>
-
-      <div class="col2">
-        <div class="label identifier code" title="{{ identifier.identifierScheme }}" data-ng-repeat="identifier in record.about.identifier | limitTo:3">{{ identifier.identifierValue }}
-        </div>
-        <div class="label identifier more" data-ng-show="record.about.identifier.length > 3">{{record.about.identifier.length - 3}} identifierare visas inte.</div>
+    <div class="nest-cols bib" data-ng-switch-default>
+      <div class="details">
+        <a class="bib-url" data-ng-controller="ModalCtrl" data-ng-click="openBibViewModal(record)">
+        <!-- <a class="bib-url" href="/edit/libris{{record['@id']}}{{queryString}}" data-ng-click="editPost(recType, record)"> -->
+          <div class="col5">
+            <div class="label title" title="{{ record.about.instanceTitle.titleValue }} {{ record.about.instanceTitle.subtitle }}">
+              <span class="title-key">{{ record.about.instanceTitle.titleValue | chop }}</span>
+              <span class="title-subtitle">{{ record.about.instanceTitle.subtitle | chop }}
+              <span class="title-variation">{{ record.about.titleVariation.titleValue | chop }}</span>
+              <span class="title-key-real" data-ng-repeat="keyTitle in record.about.keyTitle">{{ keyTitle.titleValue | chop }}</span>
+              <span class="title-creator"> {{ record.about.responsibilityStatement | chop }}</span></span>
+            </div>
+  
+            <div class="label contributors" title="contributors">
+              <ul title="" data-ng-repeat="attributedTo in record.about.instanceOf.attributedTo"
+                data-ng-show="attributedTo.controlledLabel"><li class="primary-attribution">{{ attributedTo.controlledLabel }}</li>
+              </ul> 
+              <ul title="" data-ng-repeat="influencedBy in record.about.instanceOf.influencedBy | limitTo:3"
+                data-ng-show="influencedBy.controlledLabel"><li>{{ influencedBy.controlledLabel }}</li>
+              </ul> 
+            </div>
+  
+            <div class="f bottom">
+              <span>
+                <kitin-language-icon model="language" data-ng-repeat="language in record.about.language | orderBy:'langTag'" ng-if="language.prefLabel || language.langTag"></kitin-language-icon>
+                <kitin-display-type model="record"></kitin-display-type>
+                <span title="provider-date" data-ng-repeat="publication in record.about.publication | limitTo:1"
+                  data-ng-show="publication.providerDate">{{ utils.composeDate(publication.providerDate) }}</span>
+                <span title="provider" data-ng-repeat="publication in record.about.publication | limitTo:1"> {{publication.place.label}} {{publication.providerName}}</span>
+                <span data-ng-show="record.about.extent">{{ record.about.extent }}</span>
+              </span>
+              <span class="ng-binding ng-hide" data-ng-show="enums.bibLevel[record.bibLevel]"></span>
+              <span class="ng-binding ng-hide" data-ng-show="enums.encLevel[record.encLevel]"></span>
+            </div>
+          </div>
+  
+          <div class="col2">
+            <div class="label identifier code" title="{{ 'LABEL.record.about.identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }} {{ identifier.identifierValue }}" data-ng-repeat="identifier in record.about.identifier | limitTo:3">{{ 'LABEL.record.about.identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }} {{ identifier.identifierValue }}
+            </div>
+            <div class="label identifier more" data-ng-show="record.about.identifier.length > 3">{{record.about.identifier.length - 3}} identifierare visas inte.</div>
+          </div>
+        </a>
       </div>
 
       <div class="widget">
         <div class="enc-level">
           <div data-ng-include="'/partials/enc_level'" ng-init="encLevel = record.encLevel"></div>
           <span data-ng-if="record.holdings.items != null">
-            <i class="fa fa-thumb-tack"></i> {{record.holdings.items}} bibliotek 
+            <kitin-holdings-summary holdings="record.holdings"></kitin-holdings-summary>
           </span>
         </div>
         <div class="comments">
           <span data-ng-repeat="comment in record.comment">{{comment}}</span>
         </div>
-        <div class="holding">
-          <button class="btn btn-purple btn-hld" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
-            <span data-ng-if="!record.holdings.holding"><i class="fa fa-inverse fa-plus"></i> Bestånd</span>
-            <span data-ng-if="record.holdings.holding"><i class="fa fa-inverse fa-check"></i> Bestånd</span>
+        <div class="buttons">
+          <a class="btn btn-green btn-xs" href="/edit/libris{{record['@id']}}{{queryString}}">
+            <span><i class="fa fa-inverse fa-edit"></i> Redigera</span>
+          </a>
+          <button class="btn btn-hld btn-xs" ng-class="{ 'btn-purple': !record.holdings.holding, 'btn-white-purple': record.holdings.holding }" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
+            <span><i ng-if="!record.holdings.holding" class="fa fa-inverse fa-plus"></i><i ng-if="record.holdings.holding" class="fa fa-check"></i> Bestånd</span>
           </button>
         </div>
       </div>
 
     </div>
+
     <!-- // bib result list -->
 
-  </a>
+  </span>
   <!-- // ng recType switch -->
 
 </section>

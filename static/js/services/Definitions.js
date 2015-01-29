@@ -25,7 +25,7 @@ kitin.factory('definitions', function($http, $rootScope) {
   }
 
   function getEnumDefinition(collectionName) {
-    return getDefinition('about.inCollection.@id:\\/def\\/enum\\/content\\/' + collectionName + '\\-collection');
+    return getDefinition('about.inCollection.@id:/def/enum/record/' + collectionName + '-collection');
   }
 
   // Defined definitions

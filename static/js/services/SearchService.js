@@ -2,7 +2,7 @@
  * searchService
  *
  */
-kitin.factory('searchService', function($http, $q, $rootScope) {
+kitin.factory('searchService', function($http, $q, $rootScope, utilsService) {
   return {
     pageSize: 10,
     facetLabels: { 
@@ -40,7 +40,7 @@ kitin.factory('searchService', function($http, $q, $rootScope) {
       }
       $rootScope.loading = true;
       // $rootScope.promises is used by angular-busy to show and hide loading/saving indicators
-      $rootScope.promises.search = $http.get(url, { params: params }).success(function(data) {
+      $rootScope.promises.search = $http.get(url, { params: params, headers: utilsService.noCacheHeaders }).success(function(data) {
         $rootScope.loading = false;
         deferred.resolve(data);
       }).error(function(data, status) {

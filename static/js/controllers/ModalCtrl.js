@@ -1,7 +1,9 @@
 kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) {
   var defaultModalOptions = {
-    backdrop: true, // This should make modals closable on backdrop click.
-    keyboard: true,
+    // Disallow .dismiss() on backdrop click and ESC-keydown.
+    // AppCtrl will handle this and call .close() on the top modal instead (makes it possible to check dirty flags)
+    backdrop: 'static', // Should be static
+    keyboard: false,    // Should be false
     controller: 'OpenModalCtrl',
     backdropFade: false,
     dialogFade: false,
@@ -11,7 +13,7 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
     id = id.replace('/resource',''); // TODO, should be the record id
     $scope.authModal = editService.getRecordTypeId(id).then(function(record) {
     var opts = angular.extend( 
-                defaultModalOptions, 
+                defaultModalOptions,
                 {
                   templateUrl: '/snippets/modal-edit-auth',
                   controller: 'ModalAuthCtrl',
@@ -25,21 +27,19 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
     });
   };
 
-  $scope.openBibModal = function(id) {
-    $scope.bibModal = editService.getRecordTypeId(id).then(function(record) {
-    var opts = angular.extend(
+  $scope.openBibViewModal = function(record, isRemote) {
+    var opts = angular.extend( 
                 defaultModalOptions, 
                 {
-                  templateUrl: '/snippets/modal-edit-bib',
-                  controller: 'ModalBibCtrl',
+                  templateUrl: '/snippets/modal-bibview',
+                  controller: 'ModalBibViewCtrl',
                   windowClass: 'modal-large bib-modal',
                   resolve: {
-                    recType: function() { return record.type; },
-                    recId: function() { return record.id; }
+                    record: function() { return record; },
+                    isRemote: function() { return isRemote; }
                   }
-                });
-      $modal.open(opts);
-    });
+              });
+    $modal.open(opts);
   };
 
   $scope.openReleaseModal = function() {
@@ -49,6 +49,17 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
                   templateUrl: '/snippets/modal-release',
                   controller: 'ModalReleaseCtrl',
                   windowClass: 'modal-large release-modal'
+                });
+    $scope.releaseModal = $modal.open(opts);
+  };
+
+  $scope.openCookiesModal = function() {
+    var opts = angular.extend(
+                defaultModalOptions,
+                {
+                  templateUrl: '/snippets/modal-cookies',
+                  controller: 'ModalCookiesCtrl',
+                  windowClass: 'modal-large cookies-modal'
                 });
     $scope.releaseModal = $modal.open(opts);
   };

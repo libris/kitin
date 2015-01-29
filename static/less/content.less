@@ -3,9 +3,18 @@
 .content{position:relative;background:url(/static/img/bg.png);padding:0 24px 24px 24px;overflow:hidden;}
 .content:not(.footer){min-height:500px}
 
-.saved #draft, .published #publish { opacity: 0.4; pointer-events: none;
-   cursor: default;}
-#draft, #publish { opacity: 1; }
+// We do this with ng-disable now
+// .saved #save-draft, .published #publish-bib {
+//   opacity: 0.85;
+//   pointer-events: none;
+//   cursor: default;
+// }
+// #save-draft, #publish-bib { opacity: 1; }
+
+#message-container,
+#holdings-message-container{
+  position:absolute;right:120px;top:0;
+}
 
 .content header{
   position: relative;

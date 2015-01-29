@@ -1,17 +1,21 @@
 module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
-  grunt.registerTask('default', ['build']);
-  grunt.registerTask('build', ['vendor', 'app', 'ngtemplates', 'cachebuster']);
-  grunt.registerTask('templates', ['ngtemplates']);
-  grunt.registerTask('validate', ['htmlangular']);
+
+  grunt.registerTask('default', ['app']);
+  grunt.registerTask('all', ['vendor', 'app', 'validate']);
   grunt.registerTask('vendor', ['bower:install', 'cssmin:vendor', 'uglify:vendor']);
-  grunt.registerTask('app', ['less', 'coffee', 'jshint']);
+  grunt.registerTask('app', ['less', 'jshint', 'ngtemplates', 'cssmin:app', 'uglify:app', 'cachebuster']);
+  grunt.registerTask('validate', ['htmlangular']);
+
   return grunt.initConfig({
     ngtemplates: {
       kitin: {
         cwd: 'templates',
-        src: ['snippets/**/*.html'],
-        dest: 'static/build/js/templates.js',
+        src: [
+          'snippets/**/*.html',
+          'dialogs/**/*.html'
+        ],
+        dest: 'static/build/js/app/templates.js',
         options: {
           prefix: '/',
           url: function(url) {
@@ -57,17 +61,17 @@ module.exports = function(grunt) {
     less: {
       maincss: {
         files: {
-          "static/build/css/main.css": "static/less/main.less"
+          "static/build/css/app/main.css": "static/less/main.less"
         },
         options: {
           sourceMap: true,
-          sourceMapFilename: 'static/build/css/main.css.map',
+          sourceMapFilename: 'static/build/css/app/main.css.map',
           sourceMapURL: 'main.css.map'
         }
       },
       bootstrapcss: {
         files: {
-          "static/build/css/bootstrap.css": "static/less/bootstrap.less"
+          "static/build/css/app/bootstrap.css": "static/less/bootstrap.less"
         }
       }
     },
@@ -80,32 +84,36 @@ module.exports = function(grunt) {
         files: {
           'static/build/css/vendor.min.css': ['static/vendor/*/{,css/}*.css']
         }
-      }
-    },
-    coffee: {
-      options: {
-        sourceMap: true,
-        sourceRoot: ''
       },
-      src: {
-        expand: true,
-        src: 'static/js/{,*/}*.coffee',
-        ext: '.js'
+      app: {
+        options: {
+          target: 'static/build/css/app.min.css',
+          relativeTo: '/'
+        },
+        files: {
+          'static/build/css/app.min.css': ['static/build/css/app/*.css']
+        }
       }
     },
     jshint: {
       options: {
         jshintrc: '.jshintrc'
       },
-      app: ['static/js/{,*/}*.js']
+      app: ['static/js/{,*/}*.js', 'examples/translations/label_se.json']
     },
     uglify: {
       options: {
         preserveComments: 'some'
       },
       app: {
+        options: {
+          mangle: false,
+          sourceMap: 'static/build/js/app.min.js.map',
+          sourceMappingURL: './app.min.js.map',
+          sourceMapRoot: '/'
+        },
         files: {
-          'static/build/js/app.min.js': ['static/js/*.js', 'static/js/**/*.js']
+          'static/build/js/app.min.js': ['static/js/**/*.js', 'static/js/*.js', 'static/build/js/app/*.js']
         }
       },
       vendor: {
@@ -120,27 +128,15 @@ module.exports = function(grunt) {
       }
     },
     cachebuster: {
-      build: {
-        options: {
-          formatter: function(hashes) {
-            var hash, src;
-            return '<!-- IMPORTANT: generated file; do not edit! -->\n' + ((function() {
-              var _results;
-              _results = [];
-              for (src in hashes) {
-                hash = hashes[src];
-                if (src.match(/\.js$/)) {
-                  _results.push("<script src='/" + src + "?v=" + hash + "'></script>");
-                } else {
-                  _results.push("<link rel='stylesheet' href='/" + src + "?v=" + hash + "' />");
-                }
-              }
-              return _results;
-            })()).join("\n");
-          }
-        },
-        src: ['static/build/css/bootstrap.css', 'static/build/css/vendor.min.css', 'static/build/css/main.css', 'static/build/js/*.min.js', 'static/js/**/*.js', 'static/js/{main,*locale*}.js', 'static/build/js/templates.js'],
-        dest: 'templates/_media.html'
+      dev: {
+        options: {formatter: createMediaFile},
+        src: ['static/build/css/vendor.min.css', 'static/build/css/app/bootstrap.css', 'static/build/css/app/main.css', 'static/build/js/vendor.min.js', 'static/js/**/*.js', 'static/js/{main,*locale*}.js', '<%= ngtemplates.kitin.dest %>'],
+        dest: 'templates/_media-dev.html'
+      },
+      prod: {
+        options: {formatter: createMediaFile},
+        src: ['static/build/css/*.min.css', 'static/build/js/vendor.min.js', 'static/build/js/app.min.js'],
+        dest: 'templates/_media-prod.html'
       }
     },
     watch: {
@@ -149,28 +145,37 @@ module.exports = function(grunt) {
         tasks: ['less']
       },
       css: {
-        files: ['static/build/css/main.css'],
+        files: ['static/build/css/app/main.css'],
         options: {
           livereload: true
         }
-      },
-      coffee: {
-        files: ['<%= coffee.src.src %>'],
-        tasks: ['coffee']
       },
       jshint: {
         files: ['<%= jshint.app %>'],
         tasks: ['jshint']
       },
       cachebuster: {
-        files: ['<%= cachebuster.build.src %>'],
+        files: ['<%= cachebuster.dev.src %>'],
         tasks: ['cachebuster']
       },
       ngtemplates: {
-        files: ['templates/partials/**/*.html', 'templates/snippets/**/*.html'],
+        files: ['templates/partials/**/*.html', 'templates/snippets/**/*.html', 'templates/dialogs/**/*.html'],
         tasks: ['ngtemplates']
       }
     },
     clean: ['static/build']
   });
 };
+
+function createMediaFile(hashes) {
+  var lines = [];
+  for (var src in hashes) {
+    var hash = hashes[src];
+    if (src.match(/\.js$/)) {
+      lines.push("<script src='/"+ src +"?v="+ hash +"'></script>");
+    } else {
+      lines.push("<link rel='stylesheet' href='/"+ src +"?v="+ hash +"' />");
+    }
+  }
+  return '<!-- IMPORTANT: generated file; do not edit! -->\n' + lines.join("\n");
+}

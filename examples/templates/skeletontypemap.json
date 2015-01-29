@@ -7,7 +7,17 @@
       }
     },
 
-    "Resource": {
+    "HoldingsRecord": {
+      "@type": "HoldingsRecord",
+      "encLevel": {"@id": "/def/enum/record/HoldingsLevel1"},
+      "status": {"@id": "/def/enum/record/New"},
+      "holdingType": {"@id": "/def/enum/record/SinglePartItemHolding"},
+      "about": {
+        "@type": "HeldMaterial"
+      }
+    },
+
+    "CreativeWork": {
       "subjectByInScheme": {
           "/topic/sao": [],
           "/topic/saogf": [],
@@ -17,6 +27,11 @@
           "/topic/chronological": [],
           "Person": [],
           "Place": []
+      },
+      "influencedByByType": {
+        "Person": [],
+        "Meeting": [],
+        "Organization": []
       },
       "bibliographyCode": [],
 
@@ -161,15 +176,11 @@
         "editorialNote": [],
         "copyNote": []
       }],
-      "isPrimaryTopicOf": [],
-      "workExample": [
-        {
-          "@type": "SomeProducts",
-          "scopeNote": "",
-          "editorialNote": [],
-          "copyNote": []
-        }
-      ]
+      "isPrimaryTopicOf": [{"@type": "Document"}],
+      "workExample": [{"@type": "Product"}, {"@type": "SomeProducts"}],
+      "encoding": [{"@type": "MediaObject"}],
+      "alternateFormat": [{"@type": "Electronic"}],
+      "relation": [{"@type": "Document"}]
     }
 
   },
@@ -225,11 +236,13 @@
       "identifierValue": ""
     },
     "Title": {
+      "@type": "Title",
       "titleValue": "",
       "subtitle": "",
       "titleDate": "",
       "partNumber": [],
-      "partTitle": []
+      "partTitle": [],
+      "searchElement": false
     },
 
     "Audience": {},
@@ -250,7 +263,11 @@
 
     "Country": {"name": ""},
     "Family": {"name": ""},
-    "Meeting": {"name": ""},
+    "Meeting": {
+      "name": "",
+      "location": {},
+      "date": ""
+    },
     "Organization": {"name": ""},
     "Person": {
       "name": "",
@@ -264,7 +281,7 @@
         "controlledLabel": "{{familyName}}{%if familyName and givenName%}, {%endif%}{{givenName}}{%if numeration%} ({{numeration}}){%endif%}{%if personTitle%}, {{personTitle}}{%endif%}{%if birthYear or deathYear%} {{birthYear}}-{{deathYear}}{%endif%}"
       }
     },
-    "Place": { "label": "" },
+    "Place": { "prefLabel": "" },
     "PlanetaryObject": {"name": ""},
     "Jurisdiction": {"name": ""},
     "UniformWork": {
@@ -289,7 +306,13 @@
       "otherPhysicalDetails": "",
       "accompanyingMaterial": "",
       "device": {},
-      "materialsSpecified": ""
+      "materialsSpecified": "",
+
+      "itemCondition": [],
+      "copyIdentification": [],
+      "versionIdentification": [],
+      "presentationFormat": [],
+      "inventoryLevel": []
     },
     "Map": {
       "carrierType": [],
@@ -397,6 +420,23 @@
       "videoMedium": {},
       "videoDimensions": {},
       "videoPlayback": {}
+    },
+
+    "Document": {
+      "description": "",
+      "@id": "",
+      "editorialNote": [],
+      "altLabel": "",
+      "comment": ""
+    },
+    "SomeProducts": {
+      "scopeNote": "",
+      "editorialNote": [],
+      "copyNote": []
+    },
+    "MediaObject": {
+      "@id": "",
+      "comment": ""
     }
 
   }

@@ -1,0 +1,117 @@
+<div class="valuedisplay">
+  <span ng-switch on="label">
+    <kitin-label label="label" ng-click="scope.collapse = !scope.collapse"></kitin-label> <i class="fa" ng-class="scope.collapse ? 'fa-fw fa-angle-right' : 'fa-fw fa-angle-down'"></i>
+    <div class="value" ng-hide="scope.collapse">
+
+      <ul class="summary" ng-switch-when="LABEL.record.about.summary">
+        <li class="node" ng-repeat="summary in record.about.summary">
+          {{ summary }}
+        </li>
+      </ul>
+
+      <ul ng-switch-when="LABEL.record.about.publication">
+        <li class="node" ng-repeat="publication in record.about.publication">
+          {{ publication.place.label ? publication.place.label + ', ' : '' }}{{ publication.providerName ? publication.providerName + ', ' : '' }}{{ publication.providerDate }}
+        </li>
+      </ul>
+
+      <ul ng-switch-when="LABEL.record.about.manufacture">
+        <li class="node" ng-repeat="manufacture in record.about.manufacture">
+          {{ manufacture.place.label ? manufacture.place.label + ', ' : '' }}{{ manufacture.providerName ? manufacture.providerName + ', ' : '' }}{{ manufacture.providerDate }}
+        </li>
+      </ul>
+
+      <ul ng-switch-when="LABEL.record.about.frequency">
+        {{ record.about.frequency }}
+      </ul>
+
+
+      <ul ng-switch-when="LABEL.record.about.language">
+        <li class="node lang" ng-if="language.prefLabel || language.langTag" ng-repeat="language in record.about.language | orderBy:'langTag'">
+          <kitin-language-icon model="language"></kitin-language-icon> {{ language.prefLabel }}
+        </li>
+      </ul>
+
+      <ul ng-switch-when="LABEL.record.about.originalLanguage">
+        <li class="node lang" ng-if="language.prefLabel || language.langTag" ng-repeat="language in record.about.originalLanguage | orderBy:'langTag'">
+          <kitin-language-icon model="language"></kitin-language-icon> {{ language.prefLabel }}
+        </li>
+      </ul>
+
+      <ul ng-switch-when="LABEL.record.about.hasFormat">
+        <li class="node" ng-repeat="format in record.about.hasFormat">
+          <span ng-if="format['@type']">{{ 'LABEL.record.about.hasFormatByType[\''+format['@type']+'\']' | translate }}</span>
+          {{ format.extent ? format.extent + ' : ' : '' }}{{ format.otherPhysicalDetails ? format.otherPhysicalDetails + " ; " : '' }}{{ format.dimensions }}
+        </li>
+      </ul>
+  
+      <ul ng-switch-when="LABEL.record.about.identifierValue">
+        <li class="node identifier" ng-if="record.controlNumber">
+          LIBRIS-ID: {{ record.controlNumber }}
+        </li>
+        <li class="node identifier" ng-show="identifier.identifierValue" ng-repeat="identifier in record.about.identifier">
+          {{ 'LABEL.record.about.identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }}: {{ identifier.identifierValue }}
+        </li>
+      </ul>
+
+      <ul ng-switch-when="LABEL.record.bibliography.bibliography">
+        <li class="node" ng-show="bibliography.notation" ng-repeat="bibliography in record.bibliography">
+          {{ 'LABEL.record.bibliography.bibliographyByNotation[\''+bibliography.notation+'\']' | translate }} <small>({{ bibliography.notation }})</small>
+        </li>
+      </ul>
+  
+      <ul ng-switch-when="LABEL.record.about.attributedTo">
+        <kitin-display-auth model="record.about.attributedTo"></kitin-display-auth>
+      </ul>
+  
+      <ul ng-switch-when="LABEL.record.about.influencedBy">
+        <kitin-display-auth model="auth" ng-repeat="auth in record.about.influencedBy"></kitin-display-auth>
+      </ul>
+  
+      <ul ng-switch-when="LABEL.record.about.classification">
+        <li class="node" ng-repeat="class in record.about.classification">
+          {{ class.notation }} {{ class.notation && class.inScheme.notation ? '|' : '' }} <small>{{ class.inScheme.notation }}</small>
+        </li>
+      </ul>
+  
+      <ul ng-switch-when="LABEL.record.about.comment">
+        <li class="node" ng-repeat="comment in record.about.comment">
+          {{ comment }}
+        </li>
+        <li class="node" ng-repeat="annotation in record.about.hasAnnotation">
+          {{ annotation.note }}
+        </li>
+      </ul>
+
+  
+      <ul ng-switch-when="LABEL.record.about.isPartOf">
+        <li class="node" ng-repeat="collection in record.about.isPartOf">
+          {{ collection.uniformTitle }}{{ collection.title }}{{ collection.controlledLabel ? ', ' + collection.controlledLabel : '' }}{{ collection.placePublisherAndDateOfPublication ? ', ' + collection.placePublisherAndDateOfPublication : '' }}
+          <span ng-show="{{ collection.identifier | isArray }}" ng-repeat="identifier in collection.identifier"> ({{ 'LABEL.record.about.identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }} {{ identifier.identifierValue }}) </span>
+          <span ng-if="collection.identifier" ng-hide="{{ collection.identifier | isArray }}"> ({{ 'LABEL.record.about.identifierByIdentifierScheme[\''+collection.identifier.identifierScheme['@id']+'\']' | translate }} {{ collection.identifier.identifierValue }}) </span>
+          <span ng-repeat="note in collection.scopeNote"> ({{ note }}) </span>
+        </li>
+      </ul>
+
+      <ul ng-switch-when="LABEL.record.about.subject">
+        <li class="node" ng-repeat="subject in record.about.subject">
+          {{ subject.prefLabel }}
+          <span ng-repeat="node in subject.broader">{{ node.prefLabel }} <span ng-if="!$last"> <i alt="--" class="fa fa-long-arrow-right"></i> </span></span>
+          <small>{{ subject.inScheme.notation }}</small>
+        </li>
+      </ul>
+
+      <ul ng-switch-when="LABEL.record.about.relatedTitles">
+        <li class="node" ng-repeat="format in record.about.alternateFormat">
+          <i>{{ 'LABEL.record.about.alternateFormat' | translate }}:</i>
+          <span ng-repeat="note in format.linkNote track by $index">{{ note }}</span>
+          {{ format.controlledLabel }}
+          {{ format.title }}
+          {{ format.placePublisherAndDateOfPublication }}
+
+        </li>
+      </ul>
+
+  </div>
+  </span>
+</div>

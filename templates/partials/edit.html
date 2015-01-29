@@ -3,8 +3,7 @@
     <section>
       <div class="record-type">
         <h1>
-          <span data-ng-if="recType == 'auth'">Aukt.</span>{{ getTypeLabel(record.about) }}
-          <span data-ng-repeat="contentType in record.about.contentType">| {{ contentType.prefLabel }} </span>
+          <kitin-display-type model="record"></kitin-display-type>
           <span>{{ record.about.text['@id'] }}</span>
         </h1>
       </div>
@@ -65,6 +64,20 @@
   <div ng-switch on="recType">
     <div ng-switch-when="auth">
       <div ng-include="'/partials/edit/auth'"></div>
+      <div class="footer footer-sticky">
+        <section class="centered">
+          <div class="row">
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-md-8 right">  
+              <button class="btn btn-dark" id="publish-auth" data-ng-click="publish()" title="{{lastPublishedLabel('Senast publicerad: %s')}}">{{modifications.auth.published ? 'Publicerad' : 'Publicera'}} 
+              <i class="fa fa-check" data-ng-show="modifications.auth.published"></i>
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
     <div ng-switch-default>
       <div ng-include="'/partials/edit/bib'"></div>
@@ -72,7 +85,8 @@
   </div>
 
   <!-- dialog -->
-  <div id="confirmDeleteDraftDialog" data-ng-show="confirmDeleteDraft" class="popover">
+  <!-- TODO: Could not find any reference to this, safe to remove? -->
+<!--   <div id="confirmDeleteDraftDialog" data-ng-show="confirmDeleteDraft" class="popover">
     <div class="popover-inner">
       <button class="close" data-ng-click="confirmDeleteDraft.abort()">&times;</button>
     </div>
@@ -81,5 +95,5 @@
       <button class="btn btn-success" data-ng-click="confirmDeleteDraft.execute()">Ja</button>
       <button class="btn btn-warning" data-ng-click="confirmDeleteDraft.abort()">Nej</button>
     </div>
-  </div>
+  </div> -->
 </div>

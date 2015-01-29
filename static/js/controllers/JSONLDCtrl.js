@@ -1,7 +1,7 @@
 kitin.controller('JSONLDCtrl', function($scope, $modal) {
 
   $scope.getLeaf = function (uri) {
-    return uri.replace(/.*?([^\/#]+)$/, "$1");
+    return (uri) ? uri.replace(/.*?([^\/#]+)$/, "$1") : '';
   };
 
   $scope.ensureArray = function (obj) {

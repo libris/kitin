@@ -1,0 +1,38 @@
+<div class="meeting main">
+  <div data-ng-if="isLinked(object) && !isEmpty(object)" >
+    <span>{{object.name}}</span>
+    <a data-ng-if="isLinked(object)" class="btn-link auth" data-ng-controller="ModalCtrl" data-ng-click="openAuthModal(object['@id'])">
+      <i class="fa fa-bookmark"></i> Aukt.
+    </a>
+  </div>
+  <div data-ng-if="!isLinked(object)"
+        data-ng-init="editable = {on: !object.name}">
+    <div class="toggler">
+        <button data-ng-hide="editable.on" class="btn btn-link" data-ng-click="editable.on = true"><i class="fa fa-edit"></i> Editera</button>
+        <button data-ng-show="editable.on" class="btn btn-link" data-ng-click="editable.on = false"><i class="fa fa-check"></i> Klar</button>
+    </div>
+    <div class="non-editable">
+        <span><strong>{{object.name}}</strong></span> <span class="date">{{object.date}}</span>
+    </div>
+    <div data-ng-show="editable.on" class="editable">
+      <span class="arr"></span>
+      <div class="label">
+        <span class="lbl">{{ "Namn" }}</span>
+        <kitin-textarea model="object.name"></kitin-textarea>
+      </div>
+      <div class="label">
+        <span class="lbl">{{ "Datum" }}</span>
+        <kitin-textarea model="object.date"></kitin-textarea>
+      </div>
+      <div style="clear:both"></div>
+    </div>
+    <kitin-entity label="'Plats'" model="object" link="'language'" type="Place">
+      <kitin-search service-url="/auth/_search" 
+                    template-id="subject-completion-template" 
+                    filter="about.@type:Place"
+                    placeholder="Lägg till plats"
+                    allow-non-auth="Ny icke auktoriserad plats">
+      </kitin-search>
+    </kitin-entity>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location, $routeParams, $rootScope, $anchorScroll, definitions, searchService, searchUtil, editService, userData, utilsService) {
+kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location, $routeParams, $rootScope, $anchorScroll, recordService, definitions, searchService, searchUtil, editService, userData, utilsService) {
 
   document.body.className = 'search';
   $scope.recType = $routeParams.recType;
@@ -22,6 +22,10 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
     $scope.languages = data;
   });
 
+  definitions.enums.encLevel.then(function(data) {
+    $scope.encLevels = data;
+  });
+
   // TODO: localization
   $scope.facetLabels = searchService.facetLabels;
 
@@ -38,28 +42,24 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
   // Reset remote search hit count 
   _.map($rootScope.state.remoteDatabases, function(remoteDB) { delete remoteDB.hitCount; });
 
-  // TODO - remove
-  $scope.editPost = function(recType, record) {
-    if(recType === 'remote') {
-      record.identifier = '/remote/new';
-      editService.setRecord(record);
-    }
-    return false;
-  };
+  $scope.queryString = '?' + utilsService.constructQueryString($rootScope.state.search);
+
 
   // Sort
   // ----------
   $scope.selectedSort = $routeParams.sort ? _.find(searchService.sortables, { 'value': $routeParams.sort }) : searchService.sortables[0];
   $rootScope.state.search.sort = $scope.selectedSort.value;
   $scope.sortChanged = function(item) {
+    $rootScope.state.search.sort = item.value;
     $location.search('sort', item.value);
   };
   // ----------
 
-  // TODO: What is this?? 
-  // $scope.search = function() {
-  //   $location.url(url);
-  // };
+  $scope.setView = function(view) {
+    // Changing both state and URL seems a bit verbose, but It'll have to do for now.
+    $rootScope.state.search.view = view;
+    $location.search('view', view);
+  };
 
   $scope.getLabel = function (term, termType) {
     var dfn = $scope.terms[term];
@@ -69,15 +69,19 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
     // !TODO fix propper linking
     if (termType && termType.indexOf('language') > 0) {
       var lang = _.find($scope.languages.items, function(lang) {
-        if (lang['@id'] === term) { 
-        return true; 
-      }});
+        if (lang['@id'] === term) { return true; }
+      });
       if (lang) {
-        return lang.about['prefLabel'];
+        return lang.about['prefLabel'] || term;
       }
     }
     if(termType && termType.indexOf('encLevel') > -1) {
-      return $scope.parseEncLevel(term);
+      var encLevel = _.find($scope.encLevels.items, function(encLevel) {
+        if (encLevel['@id'] === term) { return true; }
+      });
+      if (encLevel) {
+        return encLevel.about['prefLabel'] || term;
+      }
     }
     
     return term;
@@ -123,22 +127,25 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
   }
 
   var getHoldings = function () {
-    var updateHoldings = function(data, status, headers, config) {
-      if (data && data.items) {
-        config.record.holdings = {
+    var updateHoldings = function(response) {
+      if (response.data && response.data.items) {
+        response.config.record.holdings = {
           items: 0
         };
-        if (data.items.length > 0) {
+        if (response.data.items.length > 0) {
           // At the moment, we're only using userHoldings, but in the future, we might use
           // allHoldings to present the user with extra information on other organisations'
           // holdings.
-          var holdings = utilsService.findDeep(data.items, 'about.heldBy.notation', userData.userSigel);
+          var holdings = utilsService.findDeep(response.data.items, 'about.heldBy.notation', userData.userSigel);
           var userHoldings = holdings.matches;
           var allHoldings = holdings.nonmatches;
+
           if (userHoldings) userHoldings = userHoldings[0];
-          config.record.holdings = {
-            items: data.items.length,
-            holding: userHoldings
+
+          response.config.record.holdings = {
+            items: response.data.items.length,
+            holding: userHoldings,
+            all: allHoldings
           };
         }
       }
@@ -147,7 +154,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
     for (var i = 0; i < $rootScope.state.search.result.items.length; i++) {
         var record = $rootScope.state.search.result.items[i];
         if (record.about && record.about['@id']) {
-          $http.get($rootScope.API_PATH + '/hold/_search?q=*+about.holdingFor.@id:' + record.about['@id'].replace(/\//g, '\\/'), {record: record}).success(updateHoldings);
+          recordService.holding.search(record.about['@id'], true, record).then(updateHoldings);
         }
     }
   };
@@ -155,9 +162,9 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
   $scope.doSearch = function(url, params) {
     delete $rootScope.state.search.result;
     searchService.search(url, params).then(function(data) {
-
-      $scope.facetGroups = searchUtil.makeLinkedFacetGroups($scope.recType, data.facets, $rootScope.state.search.q, prevFacetsStr);
-      $scope.crumbs = searchUtil.bakeCrumbs($scope.recType, $rootScope.state.search.q, prevFacetsStr);
+     
+      $scope.facetGroups = searchUtil.makeLinkedFacetGroups($scope.recType, data.facets, $rootScope.state.search, prevFacetsStr);
+      $scope.crumbs = searchUtil.bakeCrumbs($scope.recType, $rootScope.state.search, prevFacetsStr);
 
       if (data && data.items) {
         $rootScope.state.search.result = data;
@@ -183,7 +190,26 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
       } else {
         $rootScope.state.search.result = { items: 0 };
       }
+      // Create an static version of query 
+      $scope.staticQ = angular.copy($rootScope.state.search.q);
     });
+  };
+
+
+  // TODO: Put this in better place for access from both result list and bib modal.
+  $scope.importRecord = function(data) {
+    if(data['@id'])
+      delete data['@id'];
+    if(data.about['@id'])
+      delete data.about['@id'];
+
+    recordService.draft.create('bib', null, data)
+      .then(function success(response) {
+        // send user to edit
+        $location.url("edit/draft" + response.recdata['@id'] + "?imported");
+      }, function error(status) {
+
+      });
   };
 
   $scope.getStart = function() {

@@ -4,10 +4,10 @@ section.nav dt i{border-right-color:@grey-darker;}
 
 section.nav{background-color:@grey-warm;padding-top:12px}
 section.nav dt{background:@grey;margin-bottom:12px;}
-section.nav dd{clear:both;margin: 3px 0px;line-height:1;font-size:13px;word-break:break-all;}
+section.nav dd{clear:both;margin: 0px 0px;line-height:1;font-size:13px;word-break:break-all;}
 section.nav dd a{color:@grey-darker;padding:4px 0 3px 18px;background:url(/static/img/dot.png) no-repeat 4px 9px;display:inline-block;}
 .remote-modal div a.active,
-section.nav dd a.active{font-weight:bold;color:@grey-very-dark;background:url(/static/img/check.png) no-repeat 0 5px;cursor:default;}
+section.nav dd a.active{font-weight:bold;color:@grey-very-dark;background:url(/static/img/check.png) no-repeat 0 5px;}
 section.nav dd a.active:hover{text-decoration: none}
 
 section.nav.remote { visibility: hidden; } // Hide facets container if in remote
@@ -19,7 +19,7 @@ section.result{
   box-sizing:border-box;
   border-color: @grey-warm; 
   padding:12px; 
-  min-height: 160px;
+  height: 160px;
   &:nth-child(10n+10) { margin-bottom: 25px; };
   overflow:hidden;
 }
@@ -51,11 +51,10 @@ section.result .bottom {
   left:12px;
   right: 134px; // Widget width + 12px
   bottom: 6px;
-  i {font-size: 16px;padding-right: 6px; margin-left: -2px;padding-left: 0;}
 }
 
 section.result a {
-    &:visited {  color: @green-light; }
+    // &:visited {  color: @green-light; }
     &:hover .label.title .title-key { text-decoration: underline; }
     &:active {   color: @green-light; }
 }
@@ -103,6 +102,19 @@ section.result span.page-indicator {
   font-size: 12px;
   word-spacing: -1px;
 }
+section.result .details {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 12px;
+  a {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
 section.result .widget {
   position: absolute;
   top: 0px;
@@ -118,7 +130,16 @@ section.result .widget {
   border-left-color: @grey-warm;
 }
 section.result .widget .label {color: @grey-darker;}
-section.result .widget .btn{position:absolute;right:10px;bottom:10px;}
+section.result .widget .buttons {
+  position: absolute;
+  // right: 10px;
+  bottom: 10px;
+  width: 90%;
+  .btn {
+    width: 90%;
+    margin-top: 5px;
+  }
+}
 
 section.result-pre {border-style: dashed;}
 

@@ -15,6 +15,9 @@ body.search #header-wrapper{
 
 body.search .content{margin-top:70px;}
 
+body.index #header, body.login #header{
+  height: 130px;
+}
 body.edit #header {
   height: 50px;
 }
@@ -46,7 +49,7 @@ body.search #header {
 
 }
 
-#header{ height: 130px; position: relative; transition:height 100ms ease-out;-moz-transition:height 100ms ease-out;-webkit-transition:height 100ms ease-out }
+#header{ position: relative; transition:height 200ms ease-out;-moz-transition:height 200ms ease-out;-webkit-transition:height 200ms ease-out }
 #header .user{
   float:right;
   font-size:12px;
@@ -104,9 +107,9 @@ body.edit #header .nav-back {
   :focus:-moz-placeholder:focus { color:@grey-lighter; }/*FF18<*/
   :focus::-moz-placeholder { color:@grey-lighter; }/*FF19>*/
 
-  &, &>*{
-    transition:all ease-out 50ms;-moz-transition:all ease-out 50ms;-webkit-transition:all ease-out 50ms; 
-  }
+  // &, &>*{
+  //   transition:all ease-out 50ms;-moz-transition:all ease-out 50ms;-webkit-transition:all ease-out 50ms; 
+  // }
 
   .dropdown-menu {
     margin-top: -5px;

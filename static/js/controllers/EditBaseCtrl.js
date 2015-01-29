@@ -1,4 +1,4 @@
-kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $timeout, $rootScope, $location, $anchorScroll, recordService, definitions, userData, editService) {
+kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $timeout, $rootScope, $location, $anchorScroll, recordService, definitions, userData, editService, utilsService) {
 
   // recType & recId can be inherited from f.ex modals
   $scope.recType = $scope.recType || $routeParams.recType;
@@ -6,7 +6,8 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
   $scope.userSigel = userData.userSigel;
   $scope.editMode = $location.hash(); // #jsonld changes edit template
   $scope.editSource = $routeParams.editSource;
-  
+  $scope.queryString = '?' + utilsService.constructQueryString($rootScope.state.search);
+
   editService.addableElements = [];
 
   document.body.className = 'edit';
@@ -14,7 +15,7 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
   $scope.$on('$routeUpdate', function() {
     // This is where lazy people put their fake loading indicators
     if ($location.hash() == 'jsonld') {
-      $rootScope.promises.jsonld = $timeout(function() {}, 500);
+      $rootScope.promises.jsonld.building = $timeout(function() {}, 500);
     } else if ($location.hash() == 'edit') {
       $rootScope.promises.bib.building = $timeout(function() {}, 500);
     }
@@ -58,7 +59,6 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
     console.error('No type of record to load');
   }
 
-
   // TODO: move each part of this into editService.decorate, then remove this function
   $scope.addRecordViewsToScope = function(record) {
 
@@ -84,6 +84,26 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
         title: 'Organisation'
       }
     };
+
+    $rootScope.modifications.bib = {
+      makeDirty: function() {
+        this.saved = false;
+        this.published = false;
+      },
+      onSave: function() {
+        this.saved = true;
+        this.lastSaved = new Date();
+      },
+      onPublish: function() {
+        this.saved = true;
+        this.published = true;
+        this.lastPublished = new Date();
+      },
+      saved:     ($scope.recType === editService.RECORD_TYPES.REMOTE || $scope.record.new) ? false : true, 
+      published: ($scope.recType === editService.RECORD_TYPES.REMOTE || $scope.record.draft || $scope.record.new) ? false : true,
+      imported: false
+    };
+
   };
 
   $scope.getCurrentPath = function() { return $location.path(); };
