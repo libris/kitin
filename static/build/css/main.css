@@ -436,6 +436,16 @@ body.edit .footer-sticky div.centered div.right {
   background-color: #dddddb;
   color: #683568;
 }
+.btn-bibdb {
+  background-color: #CA9543;
+  color: #ffffff;
+}
+.btn-bibdb:hover,
+.btn-bibdb:focus,
+.btn-bibdb:active {
+  background-color: #A87E3D;
+  color: #ffffff;
+}
 .btn-link {
   color: #1a8f72;
   outline: none;
@@ -1419,6 +1429,11 @@ form.login .checks label .lbl {
 }
 form.login .label .lbl-login {
   text-transform: lowercase;
+}
+#oauth-login-buttons {
+  width: 100%;
+  margin-top: 68px;
+  text-align: center;
 }
 ul.drafts {
   list-style: none;

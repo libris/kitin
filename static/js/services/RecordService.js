@@ -45,7 +45,11 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
         editService.undecorate(recordDataCopy).then(function(undecoratedRecord) {
           $rootScope.promises.bib.saving = $http.put($rootScope.WRITE_API_PATH + '/' + type + '/' + id, undecoratedRecord,
               {
-                headers: {"If-match":recordEtag}
+                headers: {
+                  'If-match': recordEtag,
+                  'Authorization': 'Bearer ' +  $rootScope.OAUTH_ACCESS_TOKEN
+                }
+                
               })
             .success(function(savedRecord, status, headers) {
               editService.decorate(savedRecord).then(function(decoratedRecord) {

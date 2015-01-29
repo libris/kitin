@@ -6,27 +6,15 @@
 
 <div class="content index">
   <header>
-    <form class="login" method="post" action="/login">
-      <h4>Logga in</h4>
-      <div class="label inp">
-        <input name="username" type="text" autofocus>
-        <span class="lbl">Användarnamn <span class="lbl-login">(samma som för Libris beståndsregistrering, eller "test")</span></span>
-      </div>
-      <div class="label inp">
-        <input name="password" type="password" autocomplete="off">
-        <span class="lbl">Lösenord <span class="lbl-login">("test" om användarnamn är "test")</span></span>
-      </div>
-      <div class="submit">
-        <button type="submit" class="btn btn-submit btn-dark">Logga in</button>
-      </div>
-      <div class="checks">
-        <!--<div class="label" class="check"><input type="checkbox"> <span class="lbl">Visa lösenord <br>(minskar risken för att skriva fel)</span></div>-->
-        <div class="label check">
-          <input name="remember" type="checkbox" checked="checked" value="{{ remember }}">
-          <span class="lbl">Håll mig inloggad</span>
+    <div id="oauth-login-buttons">
+      {% if msg %}
+        <div class=" control-group alert alert-error">
+        {{ msg }}
         </div>
-      </div>
-    </form>
+      {% endif %}
+
+      <a href="login/authorize" target="_self" class="btn btn-bibdb">Logga in med Biblioteksdatabasen</a>
+    </div>
   </header>
   <div class="cols">
     <div class="col8">
