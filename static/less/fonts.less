@@ -1,11 +1,11 @@
 
 .font-face(@title, @name, @svgAnchor, @weight, @style) {
     font-family: @title;
-    src: url('../../fonts/@{name}.eot');
-    src: url('../../fonts/@{name}.eot?#iefix') format('embedded-opentype'),
-         url('../../fonts/@{name}.woff') format('woff'),
-         url('../../fonts/@{name}.ttf') format('truetype'),
-         url('../../fonts/@{name}.svg#@{svgAnchor}') format('svg');
+    src: url('/static/fonts/@{name}.eot');
+    src: url('/static/fonts/@{name}.eot?#iefix') format('embedded-opentype'),
+         url('/static/fonts/@{name}.woff') format('woff'),
+         url('/static/fonts/@{name}.ttf') format('truetype'),
+         url('/static/fonts/@{name}.svg#@{svgAnchor}') format('svg');
     font-weight: @weight;
     font-style: @style;
 }
