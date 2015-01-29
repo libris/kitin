@@ -130,7 +130,7 @@ module.exports = function(grunt) {
     cachebuster: {
       dev: {
         options: {formatter: createMediaFile},
-        src: ['static/build/css/vendor.min.css', 'static/build/css/app/main.css', 'static/build/css/app/bootstrap.css', 'static/build/js/vendor.min.js', 'static/js/**/*.js', 'static/js/{main,*locale*}.js', '<%= ngtemplates.kitin.dest %>'],
+        src: ['static/build/css/vendor.min.css', 'static/build/css/app/bootstrap.css', 'static/build/css/app/main.css', 'static/build/js/vendor.min.js', 'static/js/**/*.js', 'static/js/{main,*locale*}.js', '<%= ngtemplates.kitin.dest %>'],
         dest: 'templates/_media-dev.html'
       },
       prod: {
