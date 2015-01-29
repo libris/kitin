@@ -94,7 +94,7 @@ def _handle_unauthorized():
 # ----------------------------
 @app.route("/login")
 def login():
-    if app.fakelogin:
+    if hasattr(app, 'fakelogin') and app.fakelogin:
         user = User('Fake banana', sigel='NONE')
         login_user(user, True)
         session['sigel'] = user.sigel
