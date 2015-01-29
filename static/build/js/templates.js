@@ -1192,7 +1192,7 @@ angular.module('kitin').run(['$templateCache', function($templateCache) {
     "      <div style=\"clear:left\"></div>\n" +
     "    </div>\n" +
     "  </div>\n" +
-    "  <kitin-entity multiple hide-title model=\"record.about._reifiedRoles\" type=\"ObjectProperty\" view=\"/snippets/view-role\">\n" +
+    "  <kitin-entity multiple hide-title model=\"object\" link=\"_reifiedRoles\" type=\"ObjectProperty\" view=\"/snippets/view-role\">\n" +
     "    <kitin-search service-url=\"/relator/_search\" filter=\"about.@type:ObjectProperty\" template-id=\"select-role-template\" placeholder=\"Lägg till roll\">\n" +
     "    </kitin-search>\n" +
     "  </kitin-entity>\n" +
