@@ -97,7 +97,6 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
                   templateUrl: '/snippets/modal-holdings',
                   controller: 'ModalHoldingsCtrl',
                   windowClass: 'modal-large holdings-modal',
-                  scope: $scope,
                   resolve: {
                     record: function() {
                       return record;

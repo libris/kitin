@@ -1,4 +1,4 @@
-kitin.controller('ModalBibViewCtrl', function($scope, $modalInstance, $rootScope, $location, record, isRemote, recordService, userData, utilsService) {
+kitin.controller('ModalBibViewCtrl', function($scope, $modalInstance, $rootScope, $location, $q, record, isRemote, recordService, userData, utilsService) {
 
   $scope.userData = userData;
   $scope.utils = utilsService;
@@ -35,6 +35,9 @@ kitin.controller('ModalBibViewCtrl', function($scope, $modalInstance, $rootScope
   };
 
   $scope.close = function() {
+    var deferred = $q.defer();
     $modalInstance.close();
+    deferred.resolve();
+    return deferred.promise;
   };
 });

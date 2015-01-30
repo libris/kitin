@@ -1,6 +1,3 @@
 #!/bin/bash
-if [ -z $1 ]; then
-    echo "Usage: $0 VERSION"
-    exit 1
-fi
+[[ -z $1 ]] && echo "Usage: $0 VERSION" && exit 1
 echo "VERSION = '$1'" > version.cfg
