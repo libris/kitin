@@ -70,7 +70,6 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
                   {
                     templateUrl: '/snippets/modal-remote',
                     controller: 'ModalRemoteCtrl',
-                    scope: $scope,
                     windowClass: 'modal-large remote-modal'
                   });
     $scope.remoteModal = $modal.open(opts);
@@ -82,7 +81,6 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
                 {
                   templateUrl: '/snippets/modal-create-new',
                   controller: 'ModalCreateNewCtrl',
-                  scope: $scope,
                   windowClass: 'modal-large create-modal'
                 });
     $scope.remoteModal = $modal.open(opts);
