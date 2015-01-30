@@ -13,7 +13,6 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   $rootScope.modifications.holding = {
     makeDirty: function() {
       this.saved = false;
-      this.isNew = false;
     },
     saved: false,
     deleted: false,
@@ -57,7 +56,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
 
   $scope.close = function() {
     // Make sure user doesn't close modal without saving
-    if (!$rootScope.modifications.holding.saved && !$rootScope.modifications.holding.isNew) {
+    if (!$rootScope.modifications.holding.saved) {
       // Post is not saved, and not newly created, ask user for confirm
       var data = {
         message: 'LABEL.gui.dialogs.CLOSE_HOLDINGS',
