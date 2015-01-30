@@ -77,7 +77,7 @@ kitin.run(function($rootScope, $location, $modalStack) {
       } else {
         return;
       }
-    }
+    };
 
     if($modalStack.getTop()) {
       closeModals(0);
