@@ -1,4 +1,4 @@
-kitin.controller('ModalRemoteCtrl', function($scope, $rootScope, $modalInstance, definitions, searchService) {
+kitin.controller('ModalRemoteCtrl', function($scope, $rootScope, $modalInstance, $q, definitions, searchService) {
   // For remote search, load list of remote database definitions
   if(_.isEmpty($rootScope.state.remoteDatabases)) {
     definitions.remotedatabases.then(function(databases){
@@ -19,6 +19,9 @@ kitin.controller('ModalRemoteCtrl', function($scope, $rootScope, $modalInstance,
   }
 
   $scope.close = function() {
+    var deferred = $q.defer();
     $modalInstance.close();
+    deferred.resolve();
+    return deferred.promise;
   };
 });

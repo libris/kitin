@@ -1,4 +1,4 @@
-kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $modalInstance, $location, $http, $timeout, record, editService, recordService, userData, utilsService, dialogs) {
+kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $modalInstance, $location, $http, $timeout, $q, record, editService, recordService, userData, utilsService, dialogs) {
 
   var recordId = record.about['@id'];
 
@@ -55,7 +55,9 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     $rootScope.modifications.holding.deleted = true;
   }
 
-  $scope.close = function() {
+  $scope.close = function(callback) {
+    var deferred = $q.defer();
+    
     // Make sure user doesn't close modal without saving
     if (!$rootScope.modifications.holding.saved && !$rootScope.modifications.holding.isNew) {
       // Post is not saved, and not newly created, ask user for confirm
@@ -66,10 +68,15 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
       var confirm = dialogs.create('/dialogs/confirm', 'CustomConfirmCtrl', data, { windowClass: 'kitin-dialog holdings-dialog' });
       confirm.result.then(function yes(answer) {
         $modalInstance.close();
+        deferred.resolve();
+      }, function no(answer) {
+        deferred.reject();
       });
     } else {
       $modalInstance.close();
+      deferred.resolve();
     }
+    return deferred.promise;
   };
 
   // On first run, we have no holding id. Use recordService.find to get all holdings.
