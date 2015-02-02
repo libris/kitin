@@ -5,21 +5,27 @@
 {% block content %}
 
 <div class="content index">
-  <header>
-    <div id="oauth-login-buttons">
-      {% if msg %}
-        <div class=" control-group alert alert-error">
-        {{ msg }}
+  <header></header>
+  <div class="cols">
+    <div class="login-box">
+      <section class="dash orange">
+        <span class="circle"><i class="icon fa fa-key"></i></span>
+        <div id="oauth-login-buttons">
+            {% if msg %}
+              <div class=" control-group alert alert-error">
+              {{ msg }}
+              </div>
+            {% endif %}
+    
+            <a href="login/authorize" target="_self" class="btn btn-bibdb">Logga in med Biblioteksdatabasen</a>
         </div>
-      {% endif %}
-
-      <a href="login/authorize" target="_self" class="btn btn-bibdb">Logga in med Biblioteksdatabasen</a>
+      </section>
     </div>
-  </header>
+  </div>
   <div class="cols">
     <div class="col8">
       <section class="dash green">
-        <span class="circle"><i class="icon fa fa-key"></i></span>
+        <span class="circle"><i class="icon fa fa-info"></i></span>
         <h4>Information om inloggning</h4>
         <p>För att använda LIBRIS Katalogisering behöver du logga in via LIBRIS Biblioteksdatabas. Det går att testa betaversionen av katalogiseringen genom att logga in med användarnamn <code>test</code> och lösenord <code>test</code>.</p>
         <p>Om det är första gången du använder klienten så behöver du godkänna kopplingen till Biblioteksdatabasen när du loggar in.</p>
