@@ -16,29 +16,30 @@ kitin.directive('kitinHoldingsSummary', function () {
     scope: {
       'holdings' : '='
     },
-        template: '<span popover-placement="bottom" popover-trigger="mouseenter" popover="{{holdingsInfo}}" popover-append-to-body="true">' +
-            '<i class="fa fa-thumb-tack"></i> {{ holdings.items > 0 ? holdings.items : "Inga" }} bibliotek' +
-            '</span>',
-        controller: function($scope, $element) {
-          $scope.holdingsInfo = '';
+    template: '<span popover-placement="bottom" popover-trigger="mouseenter" popover="{{holdingsInfo}}" popover-append-to-body="true">' +
+        '<i class="fa fa-thumb-tack"></i> {{ holdings.items > 0 ? holdings.items : "Inga" }} bibliotek' +
+        '</span>',
+    controller: function($scope, $element) {
 
-          var holdings = $scope.holdings;
-
-          // Build HTML
-          if(holdings.items !== 0) {
-            // If own holding, get it first
-            if(holdings.holding)
-              $scope.holdingsInfo += holdings.holding.about.heldBy.notation;
-            // Then get other
-            for (var i = 0; i < holdings.all.length; i++) {
-              if (i === 0 && $scope.holdingsInfo.length > 0)
-                $scope.holdingsInfo += ", ";
-              $scope.holdingsInfo += holdings.all[i].about.heldBy.notation;
-              if(i < holdings.all.length - 1)
-                $scope.holdingsInfo += ", ";
-            }
+      $scope.$watch('holdings', function() {
+        $scope.holdingsInfo = '';
+        // Build HTML
+        if($scope.holdings.items !== 0) {
+          // If own holding, get it first
+          if($scope.holdings.holding)
+            $scope.holdingsInfo += $scope.holdings.holding.about.heldBy.notation;
+          // Then get other
+          for (var i = 0; i < $scope.holdings.all.length; i++) {
+            if (i === 0 && $scope.holdingsInfo.length > 0)
+              $scope.holdingsInfo += ", ";
+            $scope.holdingsInfo += $scope.holdings.all[i].about.heldBy.notation;
+            if(i < $scope.holdings.all.length - 1)
+              $scope.holdingsInfo += ", ";
           }
         }
+      }, true);
+
+    }
   };
 
 });
