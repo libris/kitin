@@ -29,12 +29,14 @@ kitin.directive('kitinHoldingsSummary', function () {
           if($scope.holdings.holding)
             $scope.holdingsInfo += $scope.holdings.holding.about.heldBy.notation;
           // Then get other
-          for (var i = 0; i < $scope.holdings.all.length; i++) {
-            if (i === 0 && $scope.holdingsInfo.length > 0)
-              $scope.holdingsInfo += ", ";
-            $scope.holdingsInfo += $scope.holdings.all[i].about.heldBy.notation;
-            if(i < $scope.holdings.all.length - 1)
-              $scope.holdingsInfo += ", ";
+          if($scope.holdings.all) {
+            for (var i = 0; i < $scope.holdings.all.length; i++) {
+              if (i === 0 && $scope.holdingsInfo.length > 0)
+                $scope.holdingsInfo += ", ";
+              $scope.holdingsInfo += $scope.holdings.all[i].about.heldBy.notation;
+              if(i < $scope.holdings.all.length - 1)
+                $scope.holdingsInfo += ", ";
+            }
           }
         }
       }, true);
