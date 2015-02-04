@@ -173,7 +173,7 @@
         "copyrightArticleFeeCode": [],
         "copyNumber": "",
         "url": [],
-        "editorialNote": [],
+        "cataloguersNote": [],
         "copyNote": []
       }],
       "isPrimaryTopicOf": [{"@type": "Document"}],
@@ -425,13 +425,13 @@
     "Document": {
       "description": "",
       "@id": "",
-      "editorialNote": [],
+      "cataloguersNote": [],
       "altLabel": "",
       "comment": ""
     },
     "SomeProducts": {
-      "scopeNote": "",
-      "editorialNote": [],
+      "description": "",
+      "cataloguersNote": [],
       "copyNote": []
     },
     "MediaObject": {
