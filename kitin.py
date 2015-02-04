@@ -440,6 +440,8 @@ if __name__ == "__main__":
     if opts.debug:
         app.debug = opts.debug
     else:
+        logger = logging.getLogger(__name__)
+        logger.setLevel(log_level)
         logging.basicConfig(stream=sys.stderr, format='%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]')
 
 
