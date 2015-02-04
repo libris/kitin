@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os
+import os, sys
 import logging
 import re
 from datetime import datetime, timedelta
@@ -9,13 +9,14 @@ import urllib, urllib2
 from urlparse import urlparse
 import mimetypes
 from flask import (Flask, render_template, request, make_response, Response,
-        abort, redirect, url_for, Markup, session, send_from_directory, jsonify)
+        abort, redirect, url_for, Markup, session, send_from_directory)
 from flask_login import LoginManager, login_required, login_user, flash, current_user, logout_user
 import jinja2
 import requests
 from requests_oauthlib import OAuth2Session, TokenUpdated
 from storage import Storage
 from user import User
+from logging.handlers import RotatingFileHandler
 
 
 
@@ -53,7 +54,7 @@ def get_token():
 
 # Run on access token refreshed
 def token_updater(token):
-    app.logger.debug("Token expired updated to be %s " % jsonify(token))
+    app.logger.debug("Token expired updated to be %s ", json.dumps(token))
     session['oauth_token'] = token
 
 def get_requests_oauth():
@@ -105,11 +106,11 @@ def login_authorize():
     try:
         requests_oauth = get_requests_oauth()
         authorization_url, state =  requests_oauth.authorization_url(app.config['OAUTH_AUTHORIZATION_URL'], approval_prompt="auto")
-        app.logger.debug("Trying to authorize user redirecting to %s " % authorization_url)
+        app.logger.debug("Trying to authorize user redirecting to %s ", authorization_url)
         # Redirect to oauth authorization
         return redirect(authorization_url)
     except Exception, e:
-        app.logger.debug("Failed to create authorization url,  %s " % str(e))
+        app.logger.debug("Failed to create authorization url,  %s ", str(e))
         return render_template("partials/login.html", msg = str(e))
 
 @app.route("/login/authorized")
@@ -118,14 +119,16 @@ def authorized():
         requests_oauth = get_requests_oauth()
         # On authorized fetch token
         session['oauth_token'] = requests_oauth.fetch_token(app.config['OAUTH_TOKEN_URL'], client_secret=app.config['OAUTH_CLIENT_SECRET'], authorization_response=request.url)
-        app.logger.debug("OAuth token received %s " % jsonify(session['oauth_token']))
+        if app.debug:
+            app.logger.debug("OAuth token received %s ", json.dumps(session['oauth_token']))
         
         # Get user from verify
         verify_response = requests_oauth.get(app.config['OAUTH_VERIFY_URL']).json()
         verify_user = verify_response['user']
         sigel = verify_user['authorization'][0]['sigel']
         username = verify_user['username']
-        app.logger.debug("User received from verify %s, %s, %s " % (username, sigel, jsonify(verify_user)))
+        if app.debug:
+            app.logger.debug("User received from verify %s, %s, %s ", username, sigel, json.dumps(verify_user))
 
         # Create Flask User and login
         user = User(username, sigel=sigel, token=session['oauth_token'])
@@ -135,7 +138,7 @@ def authorized():
         return redirect('/')
 
     except Exception, e:
-        app.logger.debug("Failed to get token,  %s " % str(e))
+        app.logger.debug("Failed to get token,  %s ", str(e))
         return render_template("partials/login.html", msg = str(e))
 
 @app.route("/signout")
@@ -322,7 +325,7 @@ def delete_draft(rec_type, draft_id):
 
 def do_request(path, params=None, method='GET', headers=None, data=None, allow_redirects=False, host=app.config['WHELK_HOST'], json_response=True):
     url = '%s%s' % (host,path)
-    app.logger.debug('Sending request %s to: %s' % (method, url))
+    app.logger.debug('Sending %s request to: %s' , method, url)
     requests_oauth = get_requests_oauth()
 
     try:
@@ -338,10 +341,10 @@ def do_request(path, params=None, method='GET', headers=None, data=None, allow_r
     except requests.exceptions.RequestException as e:
         app.logger.warning(e)
         if response:
-            app.logger.warning("Error response %s on %s <%s>" % (response.status_code, method, url))
+            app.logger.warning("Error response %s on %s <%s>", response.status_code, method, url)
             abort(response.status_code)
 
-    app.logger.debug('Got response: %s' % response.status_code);
+    app.logger.debug('Got response: %s', response.status_code);
     
     # OK
     if response.status_code == 200:
@@ -361,7 +364,7 @@ def do_request(path, params=None, method='GET', headers=None, data=None, allow_r
         if 'Location' in response.headers:
             return do_request(response.headers['Location'],host='')
         else:
-            app.logger.warning('Error status code 201 but no Location header, %s', (method))
+            app.logger.warning('Error status code 201 but no Location header, %s', method)
 
     # This is what the server returns when deleting a holding, handle it:
     elif response.status_code == 204:
@@ -369,7 +372,7 @@ def do_request(path, params=None, method='GET', headers=None, data=None, allow_r
 
     # Error
     else:
-        app.logger.warning('Error response %s on %s <%s>' % (response.status_code, method, url))
+        app.logger.warning('Error response %s on %s <%s>' , response.status_code, method, url)
         abort(response.status_code)
 
 
@@ -429,14 +432,17 @@ if __name__ == "__main__":
     oparser.add_option('-L', '--fakelogin', action='store_true', default=False)
     opts, args = oparser.parse_args()
 
+    log_level = logging.INFO
     if 'DEBUG' in app.config:
         app.debug = app.config['DEBUG']
+        log_level = logging.DEBUG
         
     if opts.debug:
         app.debug = opts.debug
     else:
-        logger = logging.getLogger(__name__)
-        logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]')
+        logging.basicConfig(stream=sys.stderr, format='%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]')
+
+
     
     app.fakelogin = opts.fakelogin
     app.run(host='0.0.0.0')
