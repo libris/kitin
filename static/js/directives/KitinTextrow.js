@@ -10,6 +10,7 @@ Params:
   change-model: (str)
   hide-label: (bool)
   label-prefix: (str)
+  always-visible: (bool) visible at start
 
 */
 
@@ -47,7 +48,7 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
         $scope.shouldHide = function(model, options) {
 
           // always show for single rows
-          if ( !options || options.single ) {
+          if ( !options || options.single || $attrs.hasOwnProperty('alwaysVisible') ) {
             return false;
           }
 
