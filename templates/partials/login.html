@@ -5,22 +5,31 @@
 {% block content %}
 
 <div class="content index">
-  <header>
-    <div id="oauth-login-buttons">
-      {% if msg %}
-        <div class=" control-group alert alert-error">
-        {{ msg }}
+  <header></header>
+  <div class="cols">
+    <div class="login-box">
+      <section class="dash orange">
+        <span class="circle"><i class="icon fa fa-key"></i></span>
+        <div id="oauth-login-buttons">
+            {% if msg %}
+              <div class=" control-group alert alert-error">
+              {{ msg }}
+              </div>
+            {% endif %}
+    
+            <a href="login/authorize" target="_self" class="btn btn-bibdb">Logga in med Biblioteksdatabasen</a>
         </div>
-      {% endif %}
-
-      <a href="login/authorize" target="_self" class="btn btn-bibdb">Logga in med Biblioteksdatabasen</a>
+      </section>
     </div>
-  </header>
+  </div>
   <div class="cols">
     <div class="col8">
       <section class="dash green">
-        <span class="circle"><i class="icon fa fa-rss"></i></span>
-        <p>För att använda Libris katalogisering krävs inloggning. Har man ett konto för att beståndsregistrera i nuvarande tjänst Libris beståndsregistrering, kan man använda dessa uppgifter för att logga in. Det går dessutom att testa betaversionen av katalogiseringen med användarnamn: <em>test</em> och lösenord: <em>test</em>.</p>
+        <span class="circle"><i class="icon fa fa-info"></i></span>
+        <h4>Information om inloggning</h4>
+        <p>För att använda LIBRIS Katalogisering behöver du logga in via LIBRIS Biblioteksdatabas. Det går att testa betaversionen av katalogiseringen genom att logga in med användarnamn <code>test</code> och lösenord <code>test</code>.</p>
+        <p>Om det är första gången du använder klienten så behöver du godkänna kopplingen till Biblioteksdatabasen när du loggar in.</p>
+        <p>Tryck på knappen ovan för att bli skickad till inloggningen. När kopplingen är genomförd blir du automatiskt skickad tillbaka till Katalogiseringsklienten.</p>
       </section>
     </div>
     <div class="col4">
