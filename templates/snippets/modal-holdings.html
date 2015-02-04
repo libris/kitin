@@ -7,31 +7,9 @@
   <div data-cg-busy="{promise:promises.holding.loading, message:'Laddar bestånd...', minDuration: 800}"></div>
   <div data-cg-busy="{promise:promises.holding.saving, message:'Sparar bestånd...', minDuration: 800}"></div>
   
-  <h4 class="top">{{ utils.composeTitle(record) | chop:80}}, {{ utils.composeCreator(record) | chop:40 }} {{ utils.composeDate(publication.providerDate) }}</h4>
+  <kitin-display-header model="record"></kitin-display-header>
 
-<!-- TODO: REMOVE ACCORDION -->
-<!--   <accordion class="other-holdings" ng-show="otherHoldings.length > 0">
-    <accordion-group is-open="showOtherHoldings">
-      <accordion-heading>
-        Visa bestånd för andra bibliotek (beta) <i class="pull-right fa" ng-class="{'fa-chevron-down': showOtherHoldings, 'fa-chevron-right': !showOtherHoldings}"></i>
-      </accordion-heading>
-      <accordion class="other-holdings-inner" close-others="true">
-        <accordion-group data-ng-repeat="otherHolding in otherHoldings" is-open="offer.open">
-          <accordion-heading>
-              {{otherHolding.about.heldBy.notation}} <i class="pull-right fa" ng-class="{'fa-chevron-down': offer.open, 'fa-chevron-right': !offer.open}"></i>
-          </accordion-heading>
-          <div data-ng-repeat="offer in otherHolding.about.offers" class="other-offer">
-            <div class="offer-header">Lokalsignum {{$index + 1}}:</div>
-            <span class="offer-value" data-ng-repeat="(property, value) in offer" data-ng-show="property != '@type' && property != 'open'">
-              <span class="prop">{{'LABEL.holding.offer.' + property | translate}}:</span><span class="val"><span>{{property == 'heldBy' ? otherHolding.about.heldBy.notation : value}}</span></span>
-            </span>
-            <hr ng-show="!$last">
-          </div>
-        </accordion-group>
-      </accordion>
-    </accordion-group>
-  </accordion> -->
-
+  <!-- TODO: Make table dynamic -->
   <div class="otherHoldings" ng-show="otherHoldings.length > 0">
     <h4 ng-click="showOtherHoldings = !showOtherHoldings">{{ 'LABEL.gui.holding.showOtherHoldings' | translate }} <i class="pull-right fa" ng-class="{'fa-chevron-down': showOtherHoldings, 'fa-chevron-right': !showOtherHoldings}"></i></h4>
     <table class="table-striped table-bordered tbl-otherHoldings" ng-show="showOtherHoldings">
