@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os
+import os, sys
 import logging
 import re
 from datetime import datetime, timedelta
@@ -440,10 +440,8 @@ if __name__ == "__main__":
     if opts.debug:
         app.debug = opts.debug
     else:
-        logFormatter = logging.Formatter("%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]")
-        consoleHandler = logging.StreamHandler()
-        consoleHandler.setFormatter(logFormatter)
-        logging.getLogger().addHandler(consoleHandler)
+        logging.basicConfig(stream=sys.stderr, format='%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]')
+
 
     
     app.fakelogin = opts.fakelogin
