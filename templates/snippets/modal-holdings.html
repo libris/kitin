@@ -40,7 +40,7 @@
     </table>
   </div>
 
-  <h4>{{ modifications.holding.isNew ? LABEL.gui.holding.newHolding : LABEL.gui.holding.yourHolding | translate }}</h4>
+  <h4>{{ modifications.holding.isNew ? 'LABEL.gui.holding.newHolding' : 'LABEL.gui.holding.yourHolding' | translate }}</h4>
 
   <form data-ng-show="holding['@id'] || !holding['etag']" name="holdingForm">
     
