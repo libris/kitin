@@ -1,37 +1,15 @@
 <div class="modal-header holdings">
   <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
-  <h1 class="modal-title"><span translate>LABEL.gui.terms.HOLDINGS</span> ({{userData.userSigel}})</h1>
+  <h1 class="modal-title"><span translate>LABEL.gui.terms.HOLDINGS</span> för {{userData.userSigel}} ({{ record['@id'] }})</h1>
 </div>
 
 <div class="modal-body holdings">
   <div data-cg-busy="{promise:promises.holding.loading, message:'Laddar bestånd...', minDuration: 800}"></div>
   <div data-cg-busy="{promise:promises.holding.saving, message:'Sparar bestånd...', minDuration: 800}"></div>
   
-  <h4 class="top">{{ utils.composeTitle(record) | chop:80}}, {{ utils.composeCreator(record) | chop:40 }} {{ utils.composeDate(publication.providerDate) }}</h4>
+  <kitin-display-header model="record"></kitin-display-header>
 
-<!-- TODO: REMOVE ACCORDION -->
-<!--   <accordion class="other-holdings" ng-show="otherHoldings.length > 0">
-    <accordion-group is-open="showOtherHoldings">
-      <accordion-heading>
-        Visa bestånd för andra bibliotek (beta) <i class="pull-right fa" ng-class="{'fa-chevron-down': showOtherHoldings, 'fa-chevron-right': !showOtherHoldings}"></i>
-      </accordion-heading>
-      <accordion class="other-holdings-inner" close-others="true">
-        <accordion-group data-ng-repeat="otherHolding in otherHoldings" is-open="offer.open">
-          <accordion-heading>
-              {{otherHolding.about.heldBy.notation}} <i class="pull-right fa" ng-class="{'fa-chevron-down': offer.open, 'fa-chevron-right': !offer.open}"></i>
-          </accordion-heading>
-          <div data-ng-repeat="offer in otherHolding.about.offers" class="other-offer">
-            <div class="offer-header">Lokalsignum {{$index + 1}}:</div>
-            <span class="offer-value" data-ng-repeat="(property, value) in offer" data-ng-show="property != '@type' && property != 'open'">
-              <span class="prop">{{'LABEL.holding.offer.' + property | translate}}:</span><span class="val"><span>{{property == 'heldBy' ? otherHolding.about.heldBy.notation : value}}</span></span>
-            </span>
-            <hr ng-show="!$last">
-          </div>
-        </accordion-group>
-      </accordion>
-    </accordion-group>
-  </accordion> -->
-
+  <!-- TODO: Make table dynamic -->
   <div class="otherHoldings" ng-show="otherHoldings.length > 0">
     <h4 ng-click="showOtherHoldings = !showOtherHoldings">{{ 'LABEL.gui.holding.showOtherHoldings' | translate }} <i class="pull-right fa" ng-class="{'fa-chevron-down': showOtherHoldings, 'fa-chevron-right': !showOtherHoldings}"></i></h4>
     <table class="table-striped table-bordered tbl-otherHoldings" ng-show="showOtherHoldings">
@@ -47,7 +25,7 @@
           {{'LABEL.holding.about.offer.shelfLocation' | translate}} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].shelfLocation'}" class="fa fa-caret-down"></i>
         </th>
         <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].shelfControlNumber'">
-          {{'LABEL.holding.aout.offer.shelfControlNumber' | translate}} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].shelfControlNumber'}" class="fa fa-caret-down"></i>
+          {{'LABEL.holding.about.offer.shelfControlNumber' | translate}} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].shelfControlNumber'}" class="fa fa-caret-down"></i>
         </th>
       </tr>
       </thead>
@@ -62,7 +40,7 @@
     </table>
   </div>
 
-  <h4>{{ modifications.holding.isNew ? LABEL.gui.holding.newHolding : LABEL.gui.holding.yourHolding | translate }}</h4>
+  <h4>{{ modifications.holding.isNew ? 'LABEL.gui.holding.newHolding' : 'LABEL.gui.holding.yourHolding' | translate }}</h4>
 
   <form data-ng-show="holding['@id'] || !holding['etag']" name="holdingForm">
     
