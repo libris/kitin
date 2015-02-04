@@ -432,11 +432,6 @@ if __name__ == "__main__":
     oparser.add_option('-L', '--fakelogin', action='store_true', default=False)
     opts, args = oparser.parse_args()
 
-    if 'LOG_FILE' in app.config:
-        log_file = app.config['LOG_FILE']
-    else:
-        log_file = 'kitin.log'
-
     log_level = logging.INFO
     if 'DEBUG' in app.config:
         app.debug = app.config['DEBUG']
@@ -445,11 +440,11 @@ if __name__ == "__main__":
     if opts.debug:
         app.debug = opts.debug
     else:
-        handler = RotatingFileHandler(log_file, maxBytes=10000, backupCount=1)
-        formatter = logging.Formatter("[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s")
-        handler.setLevel(log_level)
-        handler.setFormatter(formatter)
-        app.logger.addHandler(handler)
+        logFormatter = logging.Formatter("%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]")
+        consoleHandler = logging.StreamHandler()
+        consoleHandler.setFormatter(logFormatter)
+        logging.getLogger().addHandler(consoleHandler)
+
     
     app.fakelogin = opts.fakelogin
     app.run(host='0.0.0.0')
