@@ -7,7 +7,12 @@
   <div data-cg-busy="{promise:promises.holding.loading, message:'Laddar bestånd...', minDuration: 800}"></div>
   <div data-cg-busy="{promise:promises.holding.saving, message:'Sparar bestånd...', minDuration: 800}"></div>
   
-  <kitin-display-header model="record"></kitin-display-header>
+  <section class="top">
+    <div class="header-container">
+      <kitin-bib-header record="record" static></kitin-bib-header>
+    </div>
+  </section>
+  <hr>
 
   <!-- TODO: Make table dynamic -->
   <div class="otherHoldings" ng-show="otherHoldings.length > 0">

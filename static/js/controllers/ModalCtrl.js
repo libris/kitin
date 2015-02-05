@@ -27,7 +27,7 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
     });
   };
 
-  $scope.openBibViewModal = function(record, isRemote) {
+  $scope.openBibViewModal = function(record) {
     var opts = angular.extend( 
                 defaultModalOptions, 
                 {
@@ -35,8 +35,7 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
                   controller: 'ModalBibViewCtrl',
                   windowClass: 'modal-large bib-modal',
                   resolve: {
-                    record: function() { return record; },
-                    isRemote: function() { return isRemote; }
+                    record: function() { return record; }
                   }
               });
     $modal.open(opts);
