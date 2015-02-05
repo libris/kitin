@@ -70,10 +70,14 @@
           <kitin-textrow label-prefix="LABEL.holding.about." model="offer.classificationPart" change-model="holding" always-visible></kitin-textrow>
           <kitin-textrow label-prefix="LABEL.holding.about." model="offer.shelfControlNumber" change-model="holding" always-visible></kitin-textrow>
           <kitin-textrow label-prefix="LABEL.holding.about." model="offer.shelfLabel" change-model="holding"></kitin-textrow>
-          <kitin-textrow label-prefix="LABEL.holding.about." model="offer.availability" change-model="holding"></kitin-textrow>
+          <kitin-table label-prefix="LABEL.holding.about." model="offer.availability" change-model="holding">
+            <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
+          </kitin-table>
           <kitin-textrow label-prefix="LABEL.holding.about." model="offer.copyNumber" change-model="holding"></kitin-textrow>
-          <kitin-textrow label-prefix="LABEL.holding.about." model="offer.copyNote" change-model="holding"></kitin-textrow>
           <kitin-table label-prefix="LABEL.holding.about." model="offer.cataloguersNote" change-model="holding">
+            <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
+          </kitin-table>
+          <kitin-table label-prefix="LABEL.holding.about." model="offer.copyNote" change-model="holding">
             <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
           </kitin-table>
 
@@ -124,11 +128,11 @@
 
           <kitin-textrow label-prefix="LABEL.holding.about." model="isPrimaryTopicOf.altLabel" change-model="holding"></kitin-textrow>
 
-          <kitin-textrow label-prefix="LABEL.holding.about." model="isPrimaryTopicOf.comment" change-model="holding"></kitin-textrow>
-
           <kitin-table label-prefix="LABEL.holding.about." model="isPrimaryTopicOf.cataloguersNote" change-model="holding">
             <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
           </kitin-table>
+          
+          <kitin-textrow label-prefix="LABEL.holding.about." model="isPrimaryTopicOf.comment" change-model="holding"></kitin-textrow>
           
           <div class="button-bar right">
             <button class="btn btn-link" data-ng-click="deletePrimaryTopicOf(holding, $index)"><i class="fa fa-trash-o"></i> {{ 'LABEL.gui.holding.removeIsPrimaryTopicOf' | translate }}</button>
