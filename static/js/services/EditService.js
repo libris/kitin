@@ -329,7 +329,7 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
       },
     },
 
-    decorate: function(record) {
+    decorate: function(record, baseTypes) {
 
       var deferer = $q.defer();
 
@@ -350,39 +350,42 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
         }
       }
 
-      // Rearrange Array elements into display groups
-      this.mutateObject(record.about, doIndex);
+      // Decorate thing with template json
+      var thing = record.about;
+      var recordSkeletonTypeMap = definitions.recordSkeletonTypeMap;
+      recordSkeletonTypeMap.then(function(skeletonTypeMap) {
+        var types = thing['@type'];
+        if (!_.isArray(types)) {
+          types = [types];
+        }
+        (baseTypes || ['CreativeWork']).concat(types).forEach(function (type) {
+          var skeletonType = skeletonTypeMap.main[type];
+
+          if (skeletonType) {
+            this.mergeRecordAndTemplate(thing, skeletonType);
+
+            // Expand @type references in result from summary
+            _.forEach(thing, function(obj, key) {
+              if(obj['@type']) {
+                var summarySkeleton = skeletonTypeMap.summary[obj['@type']];
+                if(summarySkeleton) {
+                  thing[key] = doMergeObjects(obj, angular.copy(summarySkeleton));
+                }
+              }
+            });
+          }
+
+          // Rearrange Array elements into display groups
+          this.mutateObject(thing, doIndex);
+
+        }.bind(this));
+      }.bind(this));
+
       // Rearrange Person roles
       var relators = definitions.relators;
       relators.then(function (relators) {
         var roleMap = {};
         this.reifyAgentRoles(record, relators);
-      }.bind(this));
-
-      // Decorate record with template json
-      var recordSkeletonTypeMap = definitions.recordSkeletonTypeMap;
-      recordSkeletonTypeMap.then(function(skeletonTypeMap) {
-        var types = record.about['@type'];
-        if (!_.isArray(types)) {
-          types = [types];
-        }
-        ['Resource'].concat(types).forEach(function (type) {
-          var skeletonType = skeletonTypeMap.main[type];
-
-          // Map @type in main from summary
-          _.forEach(skeletonType, function(skeleton, key) {
-            if(skeleton['@type']) {
-              var summaryType = skeletonTypeMap.summary[skeleton['@type']];
-              if(summaryType) {
-                skeletonType[key] = angular.copy(summaryType);
-              }
-            }
-          }); 
-
-          if (skeletonType) {
-            this.mergeRecordAndTemplate(record.about, skeletonType);
-          }
-        }.bind(this));
       }.bind(this));
 
       // Combine all promises into one single, to prevent timing issues

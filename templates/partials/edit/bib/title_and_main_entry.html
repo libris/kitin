@@ -67,14 +67,9 @@
     <kitin-textrow model="record.about.keyTitle.titleSource"></kitin-textrow>
   </kitin-group>
 
+  <!-- PERSONS  START -->
   <kitin-group single>
-    <!-- PERSONS  START -->
-    <div class="label">
-      <span class="lbl" translate>LABEL.record.about.responsibilityStatement</span>
-      <textarea spellcheck="false"
-          data-track-change data-ui-jq="autosize"
-          data-ng-model="record.about.responsibilityStatement"></textarea>
-    </div>
+    <kitin-textrow model="record.about.responsibilityStatement"></kitin-textrow>
   </kitin-group>
   <kitin-group label="Uppslag">
     <kitin-entityrow model="record.about.attributedTo" rich view="/snippets/view-<% print(type.toLowerCase()) %>" type="['Person','Meeting', 'Organization']">

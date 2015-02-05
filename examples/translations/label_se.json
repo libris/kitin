@@ -96,7 +96,8 @@
                 "identifierByIdentifierScheme['/def/identifiers/SB17']": "SB17",
                 "identifierByIdentifierScheme['/def/identifiers/TPB']": "TPB",
                 "identifierByIdentifierScheme['/def/identifiers/doi']": "DOI",
-                "identifierValue": "Nummerbeteckningar",
+                "identifierByIdentifierScheme['']": "Odefinierad typ",
+                "identifierValue": "Nummer",
                 "identifierNote": "Notering",
 
                 "availability": "Anskaffningsvillkor",
@@ -120,7 +121,8 @@
                 "hasFormatByType['Electronic']": "Elektronisk",
                 "hasFormatByType['Map']": "Karta",
                 "hasFormatByType['StillImage']": "Bild",
-                "record.hasFormatByType['MovingImage']": "Film",
+                "hasFormatByType['MovingImage']": "Film",
+                "hasFormatByType['SoundRecording']": "Ljudinspelning",
 
                 "hasFormatByType.extent": "Omfång",
                 "hasFormatByType.otherPhysicalDetails": "Övriga fysiska detaljer",
@@ -182,8 +184,10 @@
                 "relation": "Länkfält",
                 "relation.linkNote": "Anmärkning",
                 
+                "relatedTitles": "Sammanhörande titlar",
+
                 "alternateEdition": "Länkfält - Annan utgåva",
-                "alternateFormat": "Länkfält - Annat medium",
+                "alternateFormat": "Annan version",
 
                 "summary": "Innehållsbeskrivning, sammanfattning",
                 "languageNote": "Språkanmärkning",
@@ -228,6 +232,7 @@
                 "classificationNlm": "NLM (National Library of Medicine)",
                 "classificationUdc": "UDK (Universell decimalklassifikation)",
 
+                "subject": "Ämnesord och genrebeteckningar",
                 "subjectByInScheme['/topic/sao']": "SAO",
                 "subjectByInScheme['/topic/saogf']": "SAOGF",
                 "subjectByInScheme['barn']": "Barn",
@@ -258,31 +263,64 @@
                 "bibliographyByNotation['SHB']": "Svensk historisk bibliografi",
                 "bibliographyByNotation['SKvB']": "Svensk konstvetenskaplig bibliografi",
                 "bibliographyByNotation['SOT']": "Svenskt offentligt tryck -1833",
-                "bibliographyByNotation['SMHB']": "Svensk musikhistorisk bibliografi"
+                "bibliographyByNotation['SMHB']": "Svensk musikhistorisk bibliografi",
+                "bibliographyByNotation['DALA']": "Dalabibliografin",
+                "bibliographyByNotation['SUEC']": "Suecana extranea",
+                "bibliographyByNotation['SAH']": "Suecia Antiqua et Hodierna"
+                
             }
         },
 
-        "holdings": {
-          "offer": {
-            "heldBy": "Sigel",
-            "availability": "Begränsningar på utlån",
-            "classificationPart": "Klassifikationsdel av uppställningssignum ",
-            "copyNote": "Offentlig anmärkning",
-            "copyNumber": "Exemplarnummer",
-            "editorialNote": "Intern anmärkning",
-            "shelfControlNumber": "Löpnummer/Formatbeteckning",
-            "shelfLabel": "Uppställningsord (titel, författare el. dyl.)",
-            "shelfLocation": "Avdelning, samling, hyllsignum el. dyl."
-          }
+        "holding": {
+            "about": {
+                "workExampleByType": {
+                    "SomeProduct": {
+                        "description": "Volymer, häften, nummer etc.",
+                        "copyNote": "Publik anmärkning",
+                        "cataloguersNote": "Intern anmärkning"
+                    }
+                },
+                "offer": {
+                    "heldBy": "Sigel",
+                    "availability": "Utlånestatus (exemplar)",
+                    "classificationPart": "Klassifikation (hylla)",
+                    "copyNote": "Publik anmärkning",
+                    "copyNumber": "Exemplarnummer",
+                    "cataloguersNote": "Intern anmärkning",
+                    "shelfControlNumber": "Löpnummer",
+                    "shelfLabel": "Uppställningsord",
+                    "shelfLocation": "Avdelning, samling, hyllsignum el. dyl."
+                },
+                "isPrimaryTopicOf": {
+                    "description": "Del av materialet som avses",
+                    "altLabel": "Länktext",
+                    "copyNote": "Publik anmärkning",
+                    "cataloguersNote": "Intern anmärkning"  
+                },
+                "isPrimaryTopicOf['@id']": "URI"
+            }
         },
-        "document['@id']": "URI",
-        "document": {
-          "description": "Del av materialet som avses",
-          "altLabel": "Länktext",
-          "comment": "Offentlig anmärkning",
-          "editorialNote": "Intern anmärkning"
-        },
+        
         "gui": {
+            "holding": {
+                "save": "Spara bestånd",
+                "saved": "Bestånd sparat",
+                "remove": "Radera bestånd",
+                "removed": "Beståndet raderat",
+                "missingOffers": "Beståndet saknar placeringsinformation",
+                "showOtherHoldings": "Visa bestånd för andra bibliotek",
+                "newHolding": "Ny beståndspost",
+                "yourHolding": "Ditt bestånd",
+                "offers": "Placering",
+                "addOffer": "Lägg till placeringsfält",
+                "removeOffer": "Radera placeringsfält",
+                "someProduct": "Bestånd för seriella resurser",
+                "addSomeProduct": "Lägg till Bestånd för seriella resurser",
+                "removeSomeProduct": "Radera bestånd för seriella resurser",
+                "isPrimaryTopicOf": "URI till åtkomstbegränsade resurser",
+                "addIsPrimaryTopicOf": "Lägg till URI till åtkomstbegränsade resurser",
+                "removeIsPrimaryTopicOf": "Radera URI till åtkomstbegränsade resurser"
+            },
             "index": {
                 "headers": {
                     "ABOUT_THE_PROJECT": "Om projektet",
@@ -584,7 +622,7 @@
             "classificationPart": "",
             "copyNote": "",
             "copyNumber": "",
-            "editorialNote": "",
+            "cataloguersNote": "",
             "shelfControlNumber": "",
             "shelfLabel": "",
             "shelfLocation": ""

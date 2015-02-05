@@ -1,4 +1,4 @@
-kitin.controller('ModalCreateNewCtrl', function ($scope, $rootScope, $modalInstance) {
+kitin.controller('ModalCreateNewCtrl', function ($scope, $rootScope, $modalInstance, $q) {
   var termIndex = $rootScope.termIndex,
       MARCENUM = 'http://libris.kb.se/def/marc/enum/';
 
@@ -23,6 +23,9 @@ kitin.controller('ModalCreateNewCtrl', function ($scope, $rootScope, $modalInsta
   $scope.createNew = {mainType: 'Text', aggregateLevel: 'Monograph'};
 
   $scope.close = function() {
+    var deferred = $q.defer();
     $modalInstance.close();
+    deferred.resolve();
+    return deferred.promise;
   };
 });

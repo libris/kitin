@@ -1,5 +1,8 @@
-kitin.controller('ModalReleaseCtrl', function($scope, $modalInstance) {
+kitin.controller('ModalReleaseCtrl', function($scope, $modalInstance, $q) {
   $scope.close = function() {
+    var deferred = $q.defer();
     $modalInstance.close();
+    deferred.resolve();
+    return deferred.promise;
   };
 });

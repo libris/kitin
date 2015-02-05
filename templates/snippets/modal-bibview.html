@@ -1,22 +1,25 @@
 <div class="modal-header bibview">
   <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
-  <h4 class="modal-title bibview">Bibliotekspost
+  <h1 class="modal-title bibview">Bibliotekspost
     <span data-ng-show="!isRemote">({{ record['@id'] }})</span>
     <span data-ng-show="isRemote">({{ "Remote" }})</span>
-  </h4>
+  </h1>
 </div>
 
 <div class="modal-body bibview">
+    <kitin-display-header model="record"></kitin-display-header>
     <span data-ng-if="isRemote && remoteDatabase != null" class="database">
       <i class="fa fa-institution"></i> Källa: {{remoteDatabase}}
     </span>
-    <h4>{{ utils.composeTitle(record) | chop:80 }}, {{ utils.composeCreator(record) | chop:80 }} {{ utils.composeDate(publication.providerDate) | chop:80 }}</h4>
     <section>
 
       <kitin-valuedisplay record="record" ng-if="record.about.summary" label="'LABEL.record.about.summary'"></kitin-valuedisplay>
       <kitin-valuedisplay record="record" ng-if="record.about.publication" label="'LABEL.record.about.publication'"></kitin-valuedisplay>
+      <kitin-valuedisplay record="record" ng-if="record.about.manufacture" label="'LABEL.record.about.manufacture'"></kitin-valuedisplay>
+      <kitin-valuedisplay record="record" ng-if="record.about.frequency" label="'LABEL.record.about.frequency'"></kitin-valuedisplay>
       <kitin-valuedisplay record="record" ng-if="record.about.hasFormat" label="'LABEL.record.about.hasFormat'"></kitin-valuedisplay>
-      <kitin-valuedisplay record="record" ng-if="record.about.language" label="'LABEL.record.about.language'"></kitin-valuedisplay>
+      <kitin-valuedisplay record="record" ng-if="record.about.language && record.about.language[0].langCode !== 'zxx'" label="'LABEL.record.about.language'"></kitin-valuedisplay>
+      <kitin-valuedisplay record="record" ng-if="record.about.originalLanguage" label="'LABEL.record.about.originalLanguage'"></kitin-valuedisplay>
       <kitin-valuedisplay record="record" ng-if="record.about.identifier || record.controlNumber" label="'LABEL.record.about.identifierValue'"></kitin-valuedisplay>
       <kitin-valuedisplay record="record" ng-if="record.about.attributedTo" label="'LABEL.record.about.attributedTo'"></kitin-valuedisplay>
       <kitin-valuedisplay record="record" ng-if="record.about.influencedBy" label="'LABEL.record.about.influencedBy'"></kitin-valuedisplay>
@@ -24,20 +27,26 @@
       <kitin-valuedisplay record="record" ng-if="record.about.comment" label="'LABEL.record.about.comment'"></kitin-valuedisplay>
       <kitin-valuedisplay record="record" ng-if="record.about.isPartOf" label="'LABEL.record.about.isPartOf'"></kitin-valuedisplay>
       <kitin-valuedisplay record="record" ng-if="record.bibliography" label="'LABEL.record.bibliography.bibliography'"></kitin-valuedisplay>
-
-
+      <kitin-valuedisplay record="record" ng-if="record.about.subject" label="'LABEL.record.about.subject'"></kitin-valuedisplay>
+      <kitin-valuedisplay record="record" ng-if="record.about.alternateFormat" label="'LABEL.record.about.relatedTitles'"></kitin-valuedisplay>
+      
     </section>
 </div>
 <div class="modal-footer submit bibview">
+  <div>
+    <button class="btn btn-green btn-copy-remote" data-ng-click="importRecord(record)" data-ng-if="isRemote">
+      <span><i class="fa fa-inverse fa-plus"></i> {{ "Kopiera" }}</span>
+    </button>
+    <button class="btn btn-green btn-copy-remote" data-ng-click="editPost(record)" data-ng-if="!isRemote">
+      <span><i class="fa fa-inverse fa-edit"></i> {{ "Redigera" }}</span>
+    </button>
+  </div>
   <div data-ng-show="!isRemote">
     <button class="btn btn-purple btn-hld" data-ng-if="!record.holdings.holding" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
       <span><i class="fa fa-inverse fa-plus"></i> Bestånd</span>
     </button>
-    <button class="btn btn-purple-light btn-hld" data-ng-if="record.holdings.holding" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
-      <span><i class="fa fa-inverse fa-check"></i> Bestånd</span>
+    <button class="btn btn-white-purple btn-hld" data-ng-if="record.holdings.holding" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
+      <span><i class="fa fa-check"></i> Bestånd</span>
     </button>
   </div>
-  <button class="btn btn-green btn-copy-remote" data-ng-click="importRecord(record)" data-ng-show="isRemote">
-    <span><i class="fa fa-inverse fa-plus"></i> {{ "Kopiera" }}</span>
-  </button>
 </div>

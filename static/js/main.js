@@ -61,10 +61,30 @@ kitin.filter('unsafe', ['$sce', function ($sce) {
  * Global Constants
  * (TODO: move to service and depend on in required places instead)
  */
-kitin.run(function($rootScope, $location) {
+kitin.run(function($rootScope, $location, $modalStack) {
   $rootScope.API_PATH = WHELK_HOST;
   $rootScope.WRITE_API_PATH = WHELK_WRITE_HOST;
-  
+
+  $rootScope.$on('$locationChangeStart', function (event) {
+    var closeModals = function(i) {
+      i++; // Added for some false safety
+      if($modalStack.getTop() && i <= 10) {
+        $modalStack.getTop().value.modalScope.close().then(function() {
+          // If modal are closed contiune and close next modal
+          // Holdings modal isnt closed if edited and user clicks no in confirm dialog
+          closeModals(i);
+        });   
+      } else {
+        return;
+      }
+    };
+
+    if($modalStack.getTop()) {
+      closeModals(0);
+      event.preventDefault();
+    }
+  });
+
   // Make sure we have no unsaved forms
   // var locationChangeOff = $rootScope.$on('$locationChangeStart', function (event, newUrl, oldUrl) {
   //   var forms = $rootScope.modifications;
