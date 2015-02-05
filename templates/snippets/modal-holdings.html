@@ -132,7 +132,9 @@
             <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
           </kitin-table>
           
-          <kitin-textrow label-prefix="LABEL.holding.about." model="isPrimaryTopicOf.comment" change-model="holding"></kitin-textrow>
+          <kitin-table label-prefix="LABEL.holding.about." model="isPrimaryTopicOf.copyNote" change-model="holding">
+            <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
+          </kitin-table>
           
           <div class="button-bar right">
             <button class="btn btn-link" data-ng-click="deletePrimaryTopicOf(holding, $index)"><i class="fa fa-trash-o"></i> {{ 'LABEL.gui.holding.removeIsPrimaryTopicOf' | translate }}</button>

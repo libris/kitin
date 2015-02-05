@@ -294,7 +294,7 @@
                 "isPrimaryTopicOf": {
                     "description": "Del av materialet som avses",
                     "altLabel": "Länktext",
-                    "comment": "Publik anmärkning",
+                    "copyNote": "Publik anmärkning",
                     "cataloguersNote": "Intern anmärkning"  
                 },
                 "isPrimaryTopicOf['@id']": "URI"
