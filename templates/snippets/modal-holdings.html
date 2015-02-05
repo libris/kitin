@@ -31,7 +31,7 @@
       </thead>
       <tbody>
         <tr ng-repeat="otherHolding in otherHoldings | orderBy:otherHoldingsPredicate track by $index">
-          <td>{{ otherHolding.about.heldBy.notation }}</td>
+          <td><a href="http://bibdb.libris.kb.se/library/{{ otherHolding.about.heldBy.notation }}" title="Visa {{ otherHolding.about.heldBy.notation }} i Biblioteksdatabasen (nytt fönster)" target="_blank">{{ otherHolding.about.heldBy.notation }}</a></td>
           <td>{{ otherHolding.about.offers[0].classificationPart ? otherHolding.about.offers[0].classificationPart : '-'}}</td>
           <td>{{ otherHolding.about.offers[0].shelfLocation ? otherHolding.about.offers[0].shelfLocation.join(', ') : '-'}}</td>
           <td>{{ otherHolding.about.offers[0].shelfControlNumber ? otherHolding.about.offers[0].shelfControlNumber : '-'}}</td>
