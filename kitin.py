@@ -82,10 +82,20 @@ def _load_user(uid):
         return None
     return User(uid, sigel=session.get('sigel'))
 
+def fakeLogin():
+    if hasattr(app, 'fakelogin') and app.fakelogin:
+        user = User('Fake banana', sigel='NONE')
+        login_user(user, True)
+        session['sigel'] = user.sigel
+        return True
+    return False
+
 @login_manager.unauthorized_handler
 def _handle_unauthorized():
     # Redirect to "/login" removed. Since IE finds itself in an infinit loop
     # trying to decide between /login and /#!/login 
+    if fakeLogin():
+        return redirect('/')
     return render_template("partials/login.html")
 
 
@@ -93,13 +103,9 @@ def _handle_unauthorized():
 # ----------------------------
 @app.route("/login")
 def login():
-    if hasattr(app, 'fakelogin') and app.fakelogin:
-        user = User('Fake banana', sigel='NONE')
-        login_user(user, True)
-        session['sigel'] = user.sigel
+    if fakeLogin():
         return redirect('/')
-        
-    return render_template("partials/login.html", msg = None, remember = False)
+    return render_template("partials/login.html")
 
 @app.route("/login/authorize")
 def login_authorize():
