@@ -69,6 +69,15 @@ def get_requests_oauth():
     return requests_oauth
 
 
+def fake_login():
+    if hasattr(app, 'fakelogin') and app.fakelogin:
+        user = User('Fake banana', sigel='NONE')
+        app.logger.debug("Faking login %s %s", user.get_id(), user.get_sigel())
+        login_user(user, True)
+        session['sigel'] = user.sigel
+        return True
+    return False
+
 @app.context_processor
 def global_view_variables():
     mtime = os.stat(here).st_mtime
@@ -82,10 +91,13 @@ def _load_user(uid):
         return None
     return User(uid, sigel=session.get('sigel'))
 
+
 @login_manager.unauthorized_handler
 def _handle_unauthorized():
     # Redirect to "/login" removed. Since IE finds itself in an infinit loop
     # trying to decide between /login and /#!/login 
+    if fake_login():
+        return redirect('/')
     return render_template("partials/login.html")
 
 
@@ -93,54 +105,66 @@ def _handle_unauthorized():
 # ----------------------------
 @app.route("/login")
 def login():
-    if hasattr(app, 'fakelogin') and app.fakelogin:
-        user = User('Fake banana', sigel='NONE')
-        login_user(user, True)
-        session['sigel'] = user.sigel
+    if fake_login():
         return redirect('/')
-        
-    return render_template("partials/login.html", msg = None, remember = False)
+    return render_template("partials/login.html")
 
 @app.route("/login/authorize")
 def login_authorize():
     try:
         requests_oauth = get_requests_oauth()
         authorization_url, state =  requests_oauth.authorization_url(app.config['OAUTH_AUTHORIZATION_URL'], approval_prompt="auto")
-        app.logger.debug("Trying to authorize user redirecting to %s ", authorization_url)
+        app.logger.debug("Trying to authorize user, redirecting to %s ", authorization_url)
         # Redirect to oauth authorization
         return redirect(authorization_url)
     except Exception, e:
-        app.logger.debug("Failed to create authorization url,  %s ", str(e))
+        app.logger.error("Failed to create authorization url,  %s ", str(e))
         return render_template("partials/login.html", msg = str(e))
 
 @app.route("/login/authorized")
 def authorized():
+    app.logger.debug("Got authorized redirect")
+
     try:
-        requests_oauth = get_requests_oauth()
-        # On authorized fetch token
-        session['oauth_token'] = requests_oauth.fetch_token(app.config['OAUTH_TOKEN_URL'], client_secret=app.config['OAUTH_CLIENT_SECRET'], authorization_response=request.url)
-        if app.debug:
-            app.logger.debug("OAuth token received %s ", json.dumps(session['oauth_token']))
-        
+        # Get access token
+        try:
+            token_url = app.config['OAUTH_TOKEN_URL']
+            app.logger.debug("Trying to get access token from %s", token_url)
+            requests_oauth = get_requests_oauth()
+            # On authorized fetch token
+            session['oauth_token'] = requests_oauth.fetch_token(token_url, client_secret=app.config['OAUTH_CLIENT_SECRET'], authorization_response=request.url)
+            if app.debug:
+                app.logger.debug("OAuth token received %s ", json.dumps(session['oauth_token']))
+        except Exception, e:
+            print e
+            raise Exception("Failed to get token, %s response: %s " % (token_url, str(e)))
+
         # Get user from verify
-        verify_response = requests_oauth.get(app.config['OAUTH_VERIFY_URL']).json()
-        verify_user = verify_response['user']
-        sigel = verify_user['authorization'][0]['sigel']
-        username = verify_user['username']
-        if app.debug:
-            app.logger.debug("User received from verify %s, %s, %s ", username, sigel, json.dumps(verify_user))
+        try:    
+            varify_url = app.config['OAUTH_VERIFY_URL']
+            verify_response = requests_oauth.get(varify_url).json()
+            verify_user = verify_response['user']
+            sigel = verify_user['authorization'][0]['sigel']
+            username = verify_user['username']
+            if app.debug:
+                app.logger.debug("User received from verify %s, %s, %s ", username, sigel, json.dumps(verify_user))
 
-        # Create Flask User and login
-        user = User(username, sigel=sigel, token=session['oauth_token'])
-        session['sigel'] = sigel
-        login_user(user, True)
+            # Create Flask User and login
+            user = User(username, sigel=sigel, token=session['oauth_token'])
+            session['sigel'] = sigel
+            login_user(user, True)
 
-        return redirect('/')
+            return redirect('/')
 
+        except Exception, e:
+            raise Exception("Failed to verify user. %s response: %s " % (varify_url, str(e)))
+            
     except Exception, e:
-        app.logger.debug("Failed to get token,  %s ", str(e))
-        return render_template("partials/login.html", msg = str(e))
+        msg = str(e)
+        app.logger.error(msg)
+        return render_template("partials/login.html", msg = msg)
 
+    
 @app.route("/signout")
 @login_required
 def logout():
