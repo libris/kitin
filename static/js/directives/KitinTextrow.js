@@ -11,6 +11,9 @@ Params:
   hide-label: (bool)
   label-prefix: (str)
   always-visible: (bool) visible at start
+  suggestion: (array) Array of objects:
+                      i.e. [{ 'list' : record.about.classification, 'property' : 'notation' }]
+                      List = array, Property = property to add as suggestions
 
 */
 
@@ -19,7 +22,8 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
       restrict: 'E',
       scope: {
         model: '=model',
-        changeModel: '@changeModel'
+        changeModel: '@changeModel',
+        suggestion: '=suggestion'
       },
       require:  '?^^kitinGroup',
       replace: true,
@@ -31,6 +35,7 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
                   '<kitin-label label="label"></kitin-label>' +
                   '<span class="inp"><kitin-textarea data-track-change="{{changeModel}}" model="model"></kitin-textarea></span>' +
                   '<kitin-help help="label"></kitin-help>' +
+                  '<div ng-show="suggestions" class="suggestions"><span style="margin-left: 3px;font-size: 0.7em;display:block;">Förslag</span><span class="suggestion" title="Kopiera till fält" ng-repeat="suggestion in suggestions" ng-click="$parent.model = suggestion">{{ suggestion }}</span></div>' +
                 '</div>',
       controller: function($scope, $rootScope, $attrs) {
 
@@ -40,6 +45,29 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
           } else {
             $scope.label = 'LABEL.' + $attrs.model;
           }
+        }
+
+
+        if(typeof $scope.suggestion !== 'undefined') {
+          // [{ 'list' ; '', 'property' : '' }]
+          var tmpListFrom = $scope.suggestion; // Array from directive
+          var tmpListTo = []; // new array
+
+          for(var i = 0;i<tmpListFrom.length;i++) {
+            var property = tmpListFrom[i].property;
+            var currentList = tmpListFrom[i].list;
+
+            if(typeof currentList !== 'undefined') {
+              for(var x = 0;x<currentList.length;x++) {
+                tmpListTo.push(currentList[x][property]);
+              }
+            }
+            else {
+              $scope.suggestions = '';
+              return;
+            }
+          }
+          $scope.suggestions = tmpListTo;
         }
 
         var hasValue = false;
