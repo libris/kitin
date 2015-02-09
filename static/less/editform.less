@@ -38,20 +38,22 @@ label.find-entity input[type="text"] { padding-left: 22px; }
   line-height: 1.7;
   border-left: 1px dashed #CCC;
   padding-left: 3px;
-}
-.suggestion {
-  background-color: @yellow-lighter;
-  margin: 2px 2px;
-  padding: 1px 3px;
-  cursor: pointer;
-  display: inline-block;
-  line-height: 1.3;
-  font-style: italic;
-  border: 1px dashed @yellow-light;
-  &:hover {
-    border: 1px dashed @yellow-dark;
+  .suggestion-label { margin-left: 3px;font-size: 0.7em;display:block; }
+  .item {
+    background-color: @yellow-lighter;
+    margin: 2px 2px;
+    padding: 1px 3px;
+    cursor: pointer;
+    display: inline-block;
+    line-height: 1.3;
+    font-style: italic;
+    border: 1px dashed @yellow-light;
+    &:hover {
+      border: 1px dashed @yellow-dark;
+    }
   }
 }
+
 
 .form-container {
   clear:both;

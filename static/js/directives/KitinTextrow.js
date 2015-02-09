@@ -35,7 +35,7 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
                   '<kitin-label label="label"></kitin-label>' +
                   '<span class="inp"><kitin-textarea data-track-change="{{changeModel}}" model="model"></kitin-textarea></span>' +
                   '<kitin-help help="label"></kitin-help>' +
-                  '<div ng-show="suggestions" class="suggestions"><span style="margin-left: 3px;font-size: 0.7em;display:block;">Förslag</span><span class="suggestion" title="Kopiera till fält" ng-repeat="suggestion in suggestions" ng-click="$parent.model = suggestion">{{ suggestion }}</span></div>' +
+                  '<div ng-show="suggestions" class="suggestions"><span class="suggestion-label">Förslag</span><span class="item" title="Kopiera till fält" ng-repeat="suggestion in suggestions track by $index" ng-click="$parent.model = suggestion">{{ suggestion }}</span></div>' +
                 '</div>',
       controller: function($scope, $rootScope, $attrs) {
 
