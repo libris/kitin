@@ -47,16 +47,14 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
           }
         }
 
-
+        // Suggestions
         if(typeof $scope.suggestion !== 'undefined') {
-          // [{ 'list' ; '', 'property' : '' }]
           var tmpListFrom = $scope.suggestion; // Array from directive
-          var tmpListTo = []; // new array
+          var tmpListTo = [];
 
           for(var i = 0;i<tmpListFrom.length;i++) {
             var property = tmpListFrom[i].property;
             var currentList = tmpListFrom[i].list;
-
             if(typeof currentList !== 'undefined') {
               for(var x = 0;x<currentList.length;x++) {
                 tmpListTo.push(currentList[x][property]);
@@ -67,6 +65,11 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
               return;
             }
           }
+          // For better stacking of suggestion words, sort them by string length.
+          tmpListTo = tmpListTo.sort(function(a, b){
+            return b.length - a.length;
+          });
+
           $scope.suggestions = tmpListTo;
         }
 
