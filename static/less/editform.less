@@ -49,7 +49,14 @@ label.find-entity input[type="text"] { padding-left: 22px; }
     font-style: italic;
     border: 1px dashed @yellow-light;
     &:hover {
-      border: 1px dashed @yellow-dark;
+      border: 1px dashed @yellow;
+      -webkit-box-shadow: 0 0px 2px 0px rgba(0,0,0,0.3);
+      box-shadow: 0 0px 2px 0px rgba(0,0,0,0.3);
+    }
+    &:active {
+      background-color: @white;
+      -webkit-box-shadow:inset 0 0 15px 3px @yellow-lighter;
+      box-shadow:inset 0 0 15px 3px @yellow-lighter;
     }
   }
 }
