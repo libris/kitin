@@ -32,6 +32,28 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     }
   }
 
+  function getClassificationsFromOtherHoldings(holdingsList) {
+    var classifications = [];
+    var rankedClassifications = [];
+    if(typeof holdingsList !== 'undefined') {
+      for(var i = 0; i < holdingsList.length; i++) {
+        var offers = holdingsList[i].about.offers;
+        for(var x = 0; x < offers.length;x++) {
+          if(offers[x].classificationPart)
+            classifications.push(offers[x].classificationPart);
+        }
+      }
+    }
+    uniques = _.uniq(classifications);
+    for(var u = 0; u < uniques.length; u++ ){
+      rankedClassifications.push({ 'classification' : uniques[u], 'occurences' : utilsService.findOccurrences(classifications, uniques[u]) });
+    }
+    rankedClassifications = rankedClassifications.sort(function(a, b){
+      return b.occurences - a.occurences;
+    });
+    return rankedClassifications;
+  }
+
   function onSave(holding) {    
     var currentRecord = getCurrentRecord();
     if (currentRecord) {
@@ -81,7 +103,10 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   // On first run, we have no holding id. Use recordService.find to get all holdings.
   recordService.holding.find(recordId, userData).then(function(response) {
     var otherHoldings = response.otherHoldings;
-    if (otherHoldings) $scope.otherHoldings = otherHoldings;
+    if (otherHoldings) {
+      $scope.otherHoldings = otherHoldings;
+      $scope.otherClassifications = getClassificationsFromOtherHoldings(otherHoldings);
+    }
     holding = response.userHoldings;
     if (!holding) {
       // If no holding is found, we create a new one.

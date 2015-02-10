@@ -72,7 +72,7 @@
           <kitin-table label-prefix="LABEL.holding.about." model="offer.shelfLocation" change-model="holding">
             <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
           </kitin-table>
-          <kitin-textrow label-prefix="LABEL.holding.about." model="offer.classificationPart" change-model="holding" suggestion="[{ 'list' : record.about.classification, 'property' : 'notation' }]" always-visible></kitin-textrow>
+          <kitin-textrow label-prefix="LABEL.holding.about." model="offer.classificationPart" change-model="holding" suggestion="[{ 'list' : otherClassifications, 'property' : 'classification' },{ 'list' : record.about.classification, 'property' : 'notation' }]" always-visible></kitin-textrow>
           <kitin-textrow label-prefix="LABEL.holding.about." model="offer.shelfControlNumber" change-model="holding" always-visible></kitin-textrow>
           <kitin-textrow label-prefix="LABEL.holding.about." model="offer.shelfLabel" change-model="holding"></kitin-textrow>
           <kitin-table label-prefix="LABEL.holding.about." model="offer.availability" change-model="holding">

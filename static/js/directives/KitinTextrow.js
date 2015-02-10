@@ -57,20 +57,17 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
             var currentList = tmpListFrom[i].list;
             if(typeof currentList !== 'undefined') {
               for(var x = 0;x<currentList.length;x++) {
-                tmpListTo.push(currentList[x][property]);
+                if(typeof property !== 'undefined') {
+                  tmpListTo.push(currentList[x][property]);
+                }
+                else {
+                  tmpListTo.push(currentList[x]);
+                }
               }
             }
-            else {
-              $scope.suggestions = '';
-              return;
-            }
           }
-          // For better stacking of suggestion words, sort them by string length.
-          tmpListTo = tmpListTo.sort(function(a, b){
-            return b.length - a.length;
-          });
-
-          $scope.suggestions = tmpListTo;
+          if(tmpListTo.length > 0)
+            $scope.suggestions = tmpListTo;
         }
 
         $scope.putSuggestion = function (str) {
