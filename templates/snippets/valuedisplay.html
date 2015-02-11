@@ -1,6 +1,7 @@
 <div class="valuedisplay">
   <span ng-switch on="label">
-    <kitin-label label="label" ng-click="scope.collapse = !scope.collapse"></kitin-label> <i class="fa" ng-class="scope.collapse ? 'fa-fw fa-angle-right' : 'fa-fw fa-angle-down'"></i>
+    <!-- <kitin-label label="label" ng-click="scope.collapse = !scope.collapse"></kitin-label> <i class="fa" ng-class="scope.collapse ? 'fa-fw fa-angle-right' : 'fa-fw fa-angle-down'"></i> -->
+    <kitin-label label="label"></kitin-label>
     <div class="value" ng-hide="scope.collapse">
 
       <ul class="summary" ng-switch-when="LABEL.record.about.summary">
