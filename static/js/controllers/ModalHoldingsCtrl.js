@@ -89,12 +89,14 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
       var confirm = dialogs.create('/dialogs/confirm', 'CustomConfirmCtrl', data, { windowClass: 'kitin-dialog holdings-dialog' });
       confirm.result.then(function yes(answer) {
         $modalInstance.close();
+        $rootScope.modifications.holding = {};
         deferred.resolve();
       }, function no(answer) {
         deferred.reject();
       });
     } else {
       $modalInstance.close();
+      $rootScope.modifications.holding = {};
       deferred.resolve();
     }
     return deferred.promise;
