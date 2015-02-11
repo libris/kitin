@@ -14,8 +14,8 @@ kitin.config(function($locationProvider, $routeProvider, $translateProvider, $ht
 
        // add translation table
       $translateProvider
-        .useUrlLoader('/resource/translation')
-        .preferredLanguage('se');
+        .preferredLanguage('se')
+        .useInterpolation('labelTranslateInterpolator');
 
       $routeProvider
         .when('/',                                  { templateUrl: '/partials/index' })
