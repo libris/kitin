@@ -159,7 +159,7 @@ module.exports = function(grunt) {
       },
       cachebuster: {
         files: ['<%= cachebuster.dev.src %>'],
-        tasks: ['cachebuster']
+        tasks: ['cachebuster:dev']
       },
       ngtemplates: {
         files: ['templates/partials/**/*.html', 'templates/snippets/**/*.html', 'templates/dialogs/**/*.html'],
