@@ -27,6 +27,12 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $loca
     jsonld: {}
   };
 
+  window.onbeforeunload = function() {
+    if ($rootScope.modifications.holding.saved === false) {
+      return 'Du har osparande ändringar.';
+    }
+  };
+
   if ( debug === true ) {
     $rootScope.log = function(variables,event) {
       if ( event ) {

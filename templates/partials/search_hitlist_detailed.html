@@ -34,7 +34,7 @@
     <!-- remote result list -->
     <div class="nest-cols remote" data-ng-switch-when="remote">
       <div class="details">
-        <kitin-bib-header record="record" static></kitin-bib-header>
+        <kitin-bib-header record="record" rectype="recType"></kitin-bib-header>
       </div>
       <div class="widget">
         <div class="enc-level">
@@ -57,7 +57,7 @@
     <!-- bib result list -->
     <div class="nest-cols bib" data-ng-switch-default>
       <div class="details">
-        <kitin-bib-header record="record"></kitin-bib-header>
+        <kitin-bib-header record="record" rectype="recType"></kitin-bib-header>
       </div>
       <div class="widget">
         <div class="enc-level">
