@@ -9,7 +9,7 @@
 <div class="modal-body bibview">
     <section class="top">
       <div class="header-container">
-        <kitin-bib-header record="record" static></kitin-bib-header>
+        <kitin-bib-header record="record" rectype="recType" static></kitin-bib-header>
       </div>
     </section>
     <hr>
@@ -40,7 +40,7 @@
     </section>
 </div>
 <div class="modal-footer submit bibview">
-  <div>
+  <div class="button-container">
     <button class="btn btn-green btn-copy-remote" data-ng-click="importRecord(record)" data-ng-if="isRemote">
       <span><i class="fa fa-inverse fa-plus"></i> {{ "Kopiera" }}</span>
     </button>
@@ -48,7 +48,7 @@
       <span><i class="fa fa-inverse fa-edit"></i> {{ "Redigera" }}</span>
     </button>
   </div>
-  <div data-ng-show="!isRemote">
+  <div class="button-container" data-ng-show="!isRemote">
     <button class="btn btn-purple btn-hld" data-ng-if="!record.holdings.holding" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
       <span><i class="fa fa-inverse fa-plus"></i> Bestånd</span>
     </button>

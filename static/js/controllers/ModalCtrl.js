@@ -27,7 +27,7 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
     });
   };
 
-  $scope.openBibViewModal = function(record) {
+  $scope.openBibViewModal = function(record, recType) {
     var opts = angular.extend( 
                 defaultModalOptions, 
                 {
@@ -35,7 +35,8 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
                   controller: 'ModalBibViewCtrl',
                   windowClass: 'modal-large bib-modal',
                   resolve: {
-                    record: function() { return record; }
+                    record: function() { return record; },
+                    recType: function() { return recType; }
                   }
               });
     $modal.open(opts);

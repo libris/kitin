@@ -11,15 +11,6 @@
     <header>
       <div class="summary">
         <div class="tool-container">
-          <div class="crumbs" data-ng-show="state.search.hitCount">
-            {{ state.search.hitCount | countTotal | chunk }} träffar för
-            <span data-ng-repeat="crumb in crumbs">
-              <span data-ng-show="crumb.bridge">{{ crumb.bridge }}</span>
-              <span data-ng-hide="crumb.urlpart"><strong>{{ getLabel(crumb.term, crumb.type) }}</strong></span>
-              <a data-ng-show="crumb.urlpart" href="{{ crumb.urlpart }}">{{ getLabel(crumb.term, crumb.type) }}</a>
-            </span>
-            <span data-ng-show="state.search.page.total">. Visar sida {{state.page}} av {{state.search.page.total}}.</span>
-          </div>
           <div class="tools">
             <span class="sort-option">
               <span class="hitlist-viewswitch">
@@ -28,6 +19,15 @@
               </span>
               <select ng-model="selectedSort" ng-options="item as item.text for item in sortables" ng-change="sortChanged(selectedSort)" data-ng-show="recType != 'remote'"></select>
             </span>
+          </div>
+          <div class="crumbs" data-ng-show="state.search.hitCount">
+            {{ state.search.hitCount | countTotal | chunk }} träffar för
+            <span data-ng-repeat="crumb in crumbs">
+              <span data-ng-show="crumb.bridge">{{ crumb.bridge }}</span>
+              <span data-ng-hide="crumb.urlpart"><strong>{{ getLabel(crumb.term, crumb.type) }}</strong></span>
+              <a data-ng-show="crumb.urlpart" href="{{ crumb.urlpart }}">{{ getLabel(crumb.term, crumb.type) }}</a>
+            </span>
+            <span data-ng-show="state.search.page.total">. Visar sida {{state.page}} av {{state.search.page.total}}.</span>
           </div>
         </div>
       </div>

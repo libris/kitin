@@ -9,7 +9,7 @@
   
   <section class="top">
     <div class="header-container">
-      <kitin-bib-header record="record" static></kitin-bib-header>
+      <kitin-bib-header record="record" rectype="recType" static></kitin-bib-header>
     </div>
   </section>
   <hr>
@@ -72,7 +72,7 @@
           <kitin-table label-prefix="LABEL.holding.about." model="offer.shelfLocation" change-model="holding">
             <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
           </kitin-table>
-          <kitin-textrow label-prefix="LABEL.holding.about." model="offer.classificationPart" change-model="holding" always-visible></kitin-textrow>
+          <kitin-textrow label-prefix="LABEL.holding.about." model="offer.classificationPart" change-model="holding" suggestion="[{ 'list' : otherClassifications, 'property' : 'classification' },{ 'list' : record.about.classification, 'property' : 'notation' }]" always-visible></kitin-textrow>
           <kitin-textrow label-prefix="LABEL.holding.about." model="offer.shelfControlNumber" change-model="holding" always-visible></kitin-textrow>
           <kitin-textrow label-prefix="LABEL.holding.about." model="offer.shelfLabel" change-model="holding"></kitin-textrow>
           <kitin-table label-prefix="LABEL.holding.about." model="offer.availability" change-model="holding">
@@ -204,15 +204,19 @@
     <div data-ng-if="!modifications.holding.saved && !modifications.holding.isNew">{{ "Du har inte sparat dina ändringar." }}</div>
     <div data-ng-if="!modifications.holding.saved && modifications.holding.isNew">{{ "Nyskapat bestånd, inte sparat." }}</div>
   </div>
-  <a data-ng-controller="ModalCtrl" data-ng-click="openMARCModal($event, holding)">Förhandsgranska MARC</a> | 
-  <button class="btn-link" id="delete-hld" data-ng-click="deleteHolding(holding)" data-ng-if="holding['@id']">
-    <i class="fa fa-trash-o"></i> {{ 'LABEL.gui.holding.remove' | translate }}
-  </button>
-  <button class="btn btn-purple btn-submit" id="save-hld" data-ng-click="saveHolding(holding)" data-ng-if="holding" data-ng-disabled="modifications.holding.saved">
-    <span data-ng-if="!modifications.holding.saved">{{ 'LABEL.gui.holding.save' | translate }}</span>
-    <span data-ng-if="modifications.holding.saved">{{ 'LABEL.gui.holding.save' | translate }} <i class="fa fa-check"></i></span>
-  </button>
-  <button class="btn btn-purple btn-submit" data-ng-click="close()" data-ng-if="!holding">{{ "Stäng" }}</button>
+  <div class="button-container">
+    <button class="btn-link green" id="preview-marc" data-ng-controller="ModalCtrl" data-ng-click="openMARCModal($event, holding)">
+      <i class="fa fa-search"></i> Förhandsgranska MARC</a> 
+    </button>
+    <button class="btn-link purple" id="delete-hld" data-ng-click="deleteHolding(holding)" data-ng-if="holding['@id']">
+      <i class="fa fa-trash-o"></i> {{ 'LABEL.gui.holding.remove' | translate }}
+    </button>
+    <button class="btn btn-purple btn-submit" id="save-hld" data-ng-click="saveHolding(holding)" data-ng-if="holding" data-ng-disabled="modifications.holding.saved">
+      <span data-ng-if="!modifications.holding.saved">{{ 'LABEL.gui.holding.save' | translate }}</span>
+      <span data-ng-if="modifications.holding.saved">{{ 'LABEL.gui.holding.save' | translate }} <i class="fa fa-check"></i></span>
+    </button>
+    <button class="btn btn-purple btn-submit" data-ng-click="close()" data-ng-if="!holding">{{ "Stäng" }}</button>
+  </div>
 
   <div id="holdings-message-container">
     <span class="delete-messages" data-ng-class="classes.deleteStatus">

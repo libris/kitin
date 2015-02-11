@@ -14,7 +14,8 @@ kitin.directive('kitinBibHeader', function(editService, $rootScope, utilsService
   return {
     restrict: 'E',
     scope: {
-      record: '=record'
+      record: '=record',
+      recType: '=rectype'
     },
     replace: true,
     templateUrl: '/snippets/bib-header',
@@ -24,6 +25,16 @@ kitin.directive('kitinBibHeader', function(editService, $rootScope, utilsService
       }
       else {
         scope.disableLinks = false;
+      }
+      if (scope.recType === "remote") {
+        // reroute record variable
+        if(scope.record.data)
+          scope.recordInfo = scope.record.data;
+        else
+          scope.recordInfo = scope.record;
+      }
+      else {
+        scope.recordInfo = scope.record;
       }
     }
   };

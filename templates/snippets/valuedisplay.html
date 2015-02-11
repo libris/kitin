@@ -1,6 +1,7 @@
 <div class="valuedisplay">
   <span ng-switch on="label">
-    <kitin-label label="label" ng-click="scope.collapse = !scope.collapse"></kitin-label> <i class="fa" ng-class="scope.collapse ? 'fa-fw fa-angle-right' : 'fa-fw fa-angle-down'"></i>
+    <!-- <kitin-label label="label" ng-click="scope.collapse = !scope.collapse"></kitin-label> <i class="fa" ng-class="scope.collapse ? 'fa-fw fa-angle-right' : 'fa-fw fa-angle-down'"></i> -->
+    <kitin-label label="label"></kitin-label>
     <div class="value" ng-hide="scope.collapse">
 
       <ul class="summary" ng-switch-when="LABEL.record.about.summary">
@@ -24,7 +25,6 @@
       <ul ng-switch-when="LABEL.record.about.frequency">
         {{ record.about.frequency }}
       </ul>
-
 
       <ul ng-switch-when="LABEL.record.about.language">
         <li class="node lang" ng-if="language.prefLabel || language.langTag" ng-repeat="language in record.about.language | orderBy:'langTag'">
@@ -83,7 +83,6 @@
         </li>
       </ul>
 
-  
       <ul ng-switch-when="LABEL.record.about.isPartOf">
         <li class="node" ng-repeat="collection in record.about.isPartOf">
           {{ collection.uniformTitle }}{{ collection.title }}{{ collection.controlledLabel ? ', ' + collection.controlledLabel : '' }}{{ collection.placePublisherAndDateOfPublication ? ', ' + collection.placePublisherAndDateOfPublication : '' }}
@@ -94,10 +93,18 @@
       </ul>
 
       <ul ng-switch-when="LABEL.record.about.subject">
-        <li class="node" ng-repeat="subject in record.about.subject">
-          {{ subject.prefLabel }}
-          <span ng-repeat="node in subject.broader">{{ node.prefLabel }} <span ng-if="!$last"> <i alt="--" class="fa fa-long-arrow-right"></i> </span></span>
-          <small>{{ subject.inScheme.notation }}</small>
+        <li class="node" ng-repeat="subject in record.about.subject" ng-switch on="subject['@type']">
+          <span ng-switch-when="Person">
+            {{ subject.familyName }}, {{ subject.givenName }} ({{subject.birthYear}}-{{subject.deathYear}})
+          </span>
+          <span ng-switch-when="Organization">
+            {{ subject.name }}
+          </span>
+          <span ng-switch-default>
+            {{ subject.prefLabel }}
+            <span ng-repeat="node in subject.broader">{{ node.prefLabel }} <span ng-if="!$last"> <i alt="--" class="fa fa-long-arrow-right"></i> </span></span>
+            <small>{{ subject.inScheme.notation }}</small>
+          </span>
         </li>
       </ul>
 
@@ -108,7 +115,6 @@
           {{ format.controlledLabel }}
           {{ format.title }}
           {{ format.placePublisherAndDateOfPublication }}
-
         </li>
       </ul>
 
