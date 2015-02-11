@@ -35,7 +35,7 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
                   '<kitin-label label="label"></kitin-label>' +
                   '<span class="inp"><kitin-textarea data-track-change="{{changeModel}}" model="model"></kitin-textarea></span>' +
                   '<kitin-help help="label"></kitin-help>' +
-                  '<div ng-show="suggestions" class="suggestions"><span class="suggestion-label">Förslag</span><span class="item" title="Kopiera till fält" ng-repeat="suggestion in suggestions track by $index" ng-click="$parent.putSuggestion(suggestion)">{{ suggestion }}</span></div>' +
+                  '<div ng-show="suggestions" class="suggestions"><span class="suggestion-label">Förslag</span><span class="item" title="Kopiera till fält" ng-repeat="suggestion in suggestions track by $index" ng-click="$parent.putSuggestionToInput(suggestion)">{{ suggestion }}</span></div>' +
                 '</div>',
       controller: function($scope, $rootScope, $attrs) {
 
@@ -66,13 +66,15 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
               }
             }
           }
-          if(tmpListTo.length > 0)
+          if(tmpListTo.length > 0) {
+            tmpListTo = _.uniq(tmpListTo);
             $scope.suggestions = tmpListTo;
+          }
         }
 
-        $scope.putSuggestion = function (str) {
+        $scope.putSuggestionToInput = function (str) {
           $scope.model = str;
-          $rootScope.modifications.holding.saved = false;
+          $rootScope.modifications.holding.makeDirty();
         };
 
         var hasValue = false;
