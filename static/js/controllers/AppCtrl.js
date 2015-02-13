@@ -28,7 +28,11 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $loca
   };
 
   window.onbeforeunload = function() {
-    if ($rootScope.modifications.holding.saved === false) {
+    if (
+      $rootScope.modifications.holding.saved === false ||
+      $rootScope.modifications.bib.saved === false ||
+      $rootScope.modifications.auth.saved === false
+    ) {
       return 'Du har osparande ändringar.';
     }
   };

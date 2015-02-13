@@ -61,7 +61,7 @@ kitin.filter('unsafe', ['$sce', function ($sce) {
  * Global Constants
  * (TODO: move to service and depend on in required places instead)
  */
-kitin.run(function($rootScope, $location, $modalStack) {
+kitin.run(function($rootScope, $location, $modalStack, $window, dialogs) {
   $rootScope.API_PATH = WHELK_HOST;
   $rootScope.WRITE_API_PATH = WHELK_WRITE_HOST;
 
@@ -85,16 +85,29 @@ kitin.run(function($rootScope, $location, $modalStack) {
     }
   });
 
-  // Make sure we have no unsaved forms
-  // var locationChangeOff = $rootScope.$on('$locationChangeStart', function (event, newUrl, oldUrl) {
-  //   var forms = $rootScope.modifications;
-  //   if (angular.isDefined(forms)) {
-  //     if ( (forms.bib.isDirty && forms.bib.isDirty()) || (forms.bib.isDirty && forms.bib.isDirty()) || (forms.bib.isDirty && forms.bib.isDirty()) ) {
-  //       event.preventDefault();        
-  //       console.log('dirty form detected');
-  //     }
-  //   }
-  // });
+  // Making sure we have no unsaved changes before loading a new page, will prompt the user
+  $rootScope.$on("$locationChangeStart",function(event, next, current){
+    if (
+      $rootScope.modifications.bib.saved === false ||
+      $rootScope.modifications.auth.saved === false
+    ) {
+      event.preventDefault();
+      var data = {
+        message: 'LABEL.gui.dialogs.NAVIGATE_UNSAVED',
+        icon: 'fa fa-exclamation-circle'
+      };
+      var confirm = dialogs.create('/dialogs/confirm', 'CustomConfirmCtrl', data, { windowClass: 'kitin-dialog' });
+      confirm.result.then(function yes(answer) {
+        $rootScope.modifications.bib = {};
+        $rootScope.modifications.auth = {};
+        $window.location.href=next;
+      }, function no(answer) {
+        return;
+      });
+    }
+  });
+
+
 });
 
 // Davids preloads
