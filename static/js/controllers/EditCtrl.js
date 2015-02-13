@@ -111,6 +111,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
           // If draft load libris record
           recordService.draft.delete(parsedRecType, $scope.recId);
           // Redirect with flag so we can show feedback on landing
+          $rootScope.modifications.bib.onSave(); // Faking save so that we're allowed to leave page without prompt
           $location.url('/edit/libris' + data['recdata']['@id'] + '?published');
         } else {
           // Libris record, just update record
@@ -142,6 +143,7 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
     var parsedRecType = $scope.recType === editService.RECORD_TYPES.REMOTE ? editService.RECORD_TYPES.BIB : $scope.recType;
     if(!$scope.record.draft) {
       recordService.draft.create(parsedRecType, $scope.recId, $scope.record).then(function(data) {
+        $rootScope.modifications.bib.onSave();
         $location.url('/edit/draft' + data['recdata']['@id'] + '?saved');
       });
     } else {

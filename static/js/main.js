@@ -69,11 +69,14 @@ kitin.run(function($rootScope, $location, $modalStack, $window, dialogs) {
     var closeModals = function(i) {
       i++; // Added for some false safety
       if($modalStack.getTop() && i <= 10) {
-        $modalStack.getTop().value.modalScope.close().then(function() {
-          // If modal are closed contiune and close next modal
-          // Holdings modal isnt closed if edited and user clicks no in confirm dialog
-          closeModals(i);
-        });   
+        var modalScope = $modalStack.getTop().value.modalScope;
+        if(modalScope && modalScope.close) {
+          modalScope.close().then(function() {
+            // If modal are closed contiune and close next modal
+            // Holdings modal isnt closed if edited and user clicks no in confirm dialog
+            closeModals(i);
+          });
+        }
       } else {
         return;
       }
@@ -91,6 +94,18 @@ kitin.run(function($rootScope, $location, $modalStack, $window, dialogs) {
       $rootScope.modifications.bib.saved === false ||
       $rootScope.modifications.auth.saved === false
     ) {
+      // Compare if the base location has really changed,
+      // otherwise just return out of this function and let the redirect proceed.
+      // For this we'll throw away any queries and hashes in the URL
+      // In IE we've added #! before the interesting part so we'll have to check [1] instead of [0]
+      if(current.indexOf('#!') !== -1) {
+        if (next.split('#')[1].split('?')[0] === current.split('#')[1].split('?')[0]) // IE
+          return;
+      } else {
+        if (next.split('#')[0].split('?')[0] === current.split('#')[0].split('?')[0])
+          return;
+      }
+      // We are indeed trying to change page, let's prevent default and summon prompt
       event.preventDefault();
       var data = {
         message: 'LABEL.gui.dialogs.NAVIGATE_UNSAVED',
@@ -98,6 +113,8 @@ kitin.run(function($rootScope, $location, $modalStack, $window, dialogs) {
       };
       var confirm = dialogs.create('/dialogs/confirm', 'CustomConfirmCtrl', data, { windowClass: 'kitin-dialog' });
       confirm.result.then(function yes(answer) {
+        // User has accepted redirect without saving.
+        // Destroy modification status and redirect to the requested page.
         $rootScope.modifications.bib = {};
         $rootScope.modifications.auth = {};
         $window.location.href=next;
@@ -106,7 +123,6 @@ kitin.run(function($rootScope, $location, $modalStack, $window, dialogs) {
       });
     }
   });
-
 
 });
 

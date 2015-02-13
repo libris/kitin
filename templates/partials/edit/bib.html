@@ -25,9 +25,9 @@
           <span data-ng-show="record.modified" class="bib-edit-modified">
             {{record.draft ? 'Sparad' : 'Publicerad'}}: {{record.modified | timeAgo:60*60*24}} | 
           </span>
-          <button class="btn btn-link" id="save-draft" data-ng-click="saveDraft()" title="{{lastSavedLabel('Senast sparad: %s')}}">
+          <button class="btn btn-link" id="save-draft" data-ng-disabled="modifications.bib.saved" data-ng-click="saveDraft()" title="{{lastSavedLabel('Senast sparad: %s')}}">
             <span data-ng-if="!modifications.bib.saved">{{ 'Spara utkast' }}</span>
-            <span data-ng-if="modifications.bib.saved">{{ 'Spara utkast' }}</span>
+            <span data-ng-if="modifications.bib.saved" style="color: #CCC;">{{ 'Spara utkast' }}</span>
           </button>
           <button class="btn btn-dark" id="publish-bib" data-ng-disabled="subform.$invalid || modifications.bib.published" data-ng-click="publish()" title="{{lastPublishedLabel('Senast publicerad: %s')}}">
             <span data-ng-if="!modifications.bib.published">{{ 'Publicera' }}</span>
