@@ -9,6 +9,7 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $loca
 
   // App State
   $rootScope.debug = (debug === true) || false;
+  $rootScope.allowEdit = true; // To be controlled by permissions
 
   // Container for dirty flags
   $rootScope.modifications = {
