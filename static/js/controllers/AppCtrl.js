@@ -9,7 +9,7 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $loca
 
   // App State
   $rootScope.debug = (debug === true) || false;
-  $rootScope.allowEdit = true; // To be controlled by permissions
+  $rootScope.allowEdit = false; // To be controlled by permissions
 
   // Container for dirty flags
   $rootScope.modifications = {
@@ -26,6 +26,11 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $loca
     marc: {},
     auth: {},
     jsonld: {}
+  };
+
+  window.toggleEdit = function () {
+    $rootScope.allowEdit = !$rootScope.allowEdit;
+    return $rootScope.allowEdit;
   };
 
   window.onbeforeunload = function() {
