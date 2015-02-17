@@ -271,27 +271,56 @@
             }
         },
 
-        "holdings": {
-          "offer": {
-            "heldBy": "Sigel",
-            "availability": "Begränsningar på utlån",
-            "classificationPart": "Klassifikationsdel av uppställningssignum ",
-            "copyNote": "Offentlig anmärkning",
-            "copyNumber": "Exemplarnummer",
-            "editorialNote": "Intern anmärkning",
-            "shelfControlNumber": "Löpnummer/Formatbeteckning",
-            "shelfLabel": "Uppställningsord (titel, författare el. dyl.)",
-            "shelfLocation": "Avdelning, samling, hyllsignum el. dyl."
-          }
+        "holding": {
+            "about": {
+                "workExampleByType": {
+                    "SomeProduct": {
+                        "description": "Volymer, häften, nummer etc.",
+                        "copyNote": "Publik anmärkning",
+                        "cataloguersNote": "Intern anmärkning"
+                    }
+                },
+                "offer": {
+                    "heldBy": "Sigel",
+                    "availability": "Utlånestatus (exemplar)",
+                    "classificationPart": "Klassifikation (hylla)",
+                    "copyNote": "Publik anmärkning",
+                    "copyNumber": "Exemplarnummer",
+                    "cataloguersNote": "Intern anmärkning",
+                    "shelfControlNumber": "Löpnummer",
+                    "shelfLabel": "Uppställningsord",
+                    "shelfLocation": "Avdelning, samling el. dyl."
+                },
+                "isPrimaryTopicOf": {
+                    "description": "Del av materialet som avses",
+                    "altLabel": "Länktext",
+                    "copyNote": "Publik anmärkning",
+                    "cataloguersNote": "Intern anmärkning"  
+                },
+                "isPrimaryTopicOf['@id']": "URI"
+            }
         },
-        "document['@id']": "URI",
-        "document": {
-          "description": "Del av materialet som avses",
-          "altLabel": "Länktext",
-          "comment": "Offentlig anmärkning",
-          "editorialNote": "Intern anmärkning"
-        },
+        
         "gui": {
+            "holding": {
+                "save": "Spara bestånd",
+                "saved": "Bestånd sparat",
+                "remove": "Radera bestånd",
+                "removed": "Beståndet raderat",
+                "missingOffers": "Beståndet saknar placeringsinformation",
+                "showOtherHoldings": "Visa bestånd för andra bibliotek",
+                "newHolding": "Ny beståndspost",
+                "yourHolding": "Ditt bestånd",
+                "offers": "Placering",
+                "addOffer": "Lägg till placeringsfält",
+                "removeOffer": "Radera placeringsfält",
+                "someProduct": "Bestånd för seriella resurser",
+                "addSomeProduct": "Lägg till Bestånd för seriella resurser",
+                "removeSomeProduct": "Radera bestånd för seriella resurser",
+                "isPrimaryTopicOf": "URI till åtkomstbegränsade resurser",
+                "addIsPrimaryTopicOf": "Lägg till URI till åtkomstbegränsade resurser",
+                "removeIsPrimaryTopicOf": "Radera URI till åtkomstbegränsade resurser"
+            },
             "index": {
                 "headers": {
                     "ABOUT_THE_PROJECT": "Om projektet",
@@ -347,7 +376,8 @@
                 "DIALOGS_YES": "Ja",
                 "DIALOGS_NO": "Nej",
                 "CLOSE_HOLDINGS": "Du har osparade ändringar, vill du verkligen stänga fönstret?",
-                "REMOVE_HOLDING": "Är du säker på att du vill radera beståndet? Det här kommandot går inte att ångra."
+                "REMOVE_HOLDING": "Är du säker på att du vill radera beståndet? Det här kommandot går inte att ångra.",
+                "NAVIGATE_UNSAVED": "Du har osparade ändringar, är du säker på att du vill navigera bort från den här sidan?"
             }
 
         }
@@ -593,7 +623,7 @@
             "classificationPart": "",
             "copyNote": "",
             "copyNumber": "",
-            "editorialNote": "",
+            "cataloguersNote": "",
             "shelfControlNumber": "",
             "shelfLabel": "",
             "shelfLocation": ""

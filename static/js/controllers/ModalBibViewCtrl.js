@@ -1,11 +1,12 @@
-kitin.controller('ModalBibViewCtrl', function($scope, $modalInstance, $rootScope, $location, record, isRemote, recordService, userData, utilsService) {
+kitin.controller('ModalBibViewCtrl', function($scope, $modalInstance, $rootScope, $location, $q, record, recType, recordService, userData, utilsService) {
 
   $scope.userData = userData;
   $scope.utils = utilsService;
   $scope.record = record;
+  $scope.recType = recType;
 
-  $scope.isRemote = isRemote;
-  if ($scope.isRemote) {
+  if ($scope.recType === "remote") {
+    $scope.isRemote = true;
     // Get full name
     $scope.remoteDatabase = _.where($rootScope.state.remoteDatabases, {database : record.database})[0].name;
     // reroute record variable
@@ -35,6 +36,9 @@ kitin.controller('ModalBibViewCtrl', function($scope, $modalInstance, $rootScope
   };
 
   $scope.close = function() {
+    var deferred = $q.defer();
     $modalInstance.close();
+    deferred.resolve();
+    return deferred.promise;
   };
 });

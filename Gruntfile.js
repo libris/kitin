@@ -152,11 +152,14 @@ module.exports = function(grunt) {
       },
       jshint: {
         files: ['<%= jshint.app %>'],
-        tasks: ['jshint']
+        tasks: ['jshint'],
+        options: {
+          livereload: true
+        }
       },
       cachebuster: {
         files: ['<%= cachebuster.dev.src %>'],
-        tasks: ['cachebuster']
+        tasks: ['cachebuster:dev']
       },
       ngtemplates: {
         files: ['templates/partials/**/*.html', 'templates/snippets/**/*.html', 'templates/dialogs/**/*.html'],
@@ -176,6 +179,9 @@ function createMediaFile(hashes) {
     } else {
       lines.push("<link rel='stylesheet' href='/"+ src +"?v="+ hash +"' />");
     }
+  }
+  if(this.target === 'dev') {
+    lines.push("<script src='//localhost:35729/livereload.js'></script>");
   }
   return '<!-- IMPORTANT: generated file; do not edit! -->\n' + lines.join("\n");
 }

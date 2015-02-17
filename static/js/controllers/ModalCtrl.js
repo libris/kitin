@@ -27,7 +27,7 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
     });
   };
 
-  $scope.openBibViewModal = function(record, isRemote) {
+  $scope.openBibViewModal = function(record, recType) {
     var opts = angular.extend( 
                 defaultModalOptions, 
                 {
@@ -36,7 +36,7 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
                   windowClass: 'modal-large bib-modal',
                   resolve: {
                     record: function() { return record; },
-                    isRemote: function() { return isRemote; }
+                    recType: function() { return recType; }
                   }
               });
     $modal.open(opts);
@@ -70,7 +70,6 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
                   {
                     templateUrl: '/snippets/modal-remote',
                     controller: 'ModalRemoteCtrl',
-                    scope: $scope,
                     windowClass: 'modal-large remote-modal'
                   });
     $scope.remoteModal = $modal.open(opts);
@@ -82,7 +81,6 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
                 {
                   templateUrl: '/snippets/modal-create-new',
                   controller: 'ModalCreateNewCtrl',
-                  scope: $scope,
                   windowClass: 'modal-large create-modal'
                 });
     $scope.remoteModal = $modal.open(opts);
@@ -97,7 +95,6 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
                   templateUrl: '/snippets/modal-holdings',
                   controller: 'ModalHoldingsCtrl',
                   windowClass: 'modal-large holdings-modal',
-                  scope: $scope,
                   resolve: {
                     record: function() {
                       return record;

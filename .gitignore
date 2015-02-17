@@ -18,3 +18,4 @@
 /static/build/js/app/*
 /static/build/js/app.min.*
 /templates/_media-*.html
+kitin.log

@@ -183,6 +183,16 @@ kitin.factory('utilsService', function($http, $q, $rootScope, $timeout) {
       return date;
     },
 
+    // Get number of occurences in an array
+    findOccurrences: function(arr, val) {
+      var count = 0;
+      for (var i = 0;i < arr.length; i++) {
+          if (arr[i] === val)
+            count++;
+      }
+      return count;
+    },
+
     // Find nested value, return matches and nonmatches
     // Example: findDeep(list.object, 'path.to.key', 'value')
     findDeep: function(items, path, value) {

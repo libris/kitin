@@ -137,10 +137,13 @@ body.login .content.index header{margin-bottom:60px;}
 .content section{
   background: @white; 
   margin: 0px 0px 10px 0px; 
-  padding: 12px 24px;  
-  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.1);
-     -moz-box-shadow: 0 1px 2px rgba(0,0,0,.1);
-      box-shadow: 0 1px 2px rgba(0,0,0,.1);
+  padding: 12px 24px;
+  .shadow;
+}
+.shadow {
+  -webkit-box-shadow: 0 2px 0px 1px @grey-lighter;
+   -moz-box-shadow: 0 2px 0px 1px @grey-lighter;
+    box-shadow: 0 2px 0px 1px @grey-lighter;
 }
 
 body.edit .content header section {

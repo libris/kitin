@@ -133,6 +133,46 @@ a.beta-blocker {text-decoration: none; cursor:default;}
   margin-top: -20px; // Padding is 20 pixels inside modal
 }
 
+.bib-header {
+	width: 96%;
+	height: 135px;
+	margin: 12px;
+	position: relative;
+
+	.identifiers { float: right; }
+	// Identifiers, ellipsis on long fields
+	.label.identifier{
+  	width: 180px;
+  	white-space: nowrap;
+  	overflow: hidden;
+  	color: @grey-very-dark;
+  	text-align: right;
+  	&.code {font-weight: 600;}
+  	&.more {font-size: 12px;}
+	}
+
+	.label{padding-left: 1px;}
+	.label{text-overflow:ellipsis;}
+	.label:hover{border-color:@grey-lighter;}
+	.label .lbl{color:@grey-dark;}
+	.label.title{display:block;}
+	.label.title .title-key {font-size:18px;line-height:22px;display:block;font-weight: 600;display:block;padding-bottom: 4px;}
+	.label.title .title-subtitle {color:@green-dark; font-size: 14px; line-height: 18px;display: block;}
+	.label .title-creator {color:@grey-darker;font-size: 14px; line-height: 18px;}
+	.label.title .icon{font-size:16px;color:@green-light;}
+	.label.title .lbl{margin-top:4px;}
+	.label.contributors {padding-bottom: 0px; margin-bottom:18px;}
+	.contributors ul {list-style: none;padding:0;margin:0;}
+	.contributors ul li .primary-attribution {font-weight: 600;}
+	.bottom {
+	  color:@grey-dark;
+	  font-size:14px;
+	  background: @white;
+	  position: absolute;
+	  bottom: 0px;
+	}
+}
+
 .langIcon {
 	margin-right: 0.2em;
   border: 1px solid;

@@ -1,4 +1,4 @@
-kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $modalInstance, $location, $http, $timeout, record, editService, recordService, userData, utilsService, dialogs) {
+kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $modalInstance, $location, $http, $timeout, $q, record, editService, recordService, userData, utilsService, dialogs) {
 
   var recordId = record.about['@id'];
 
@@ -13,7 +13,6 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   $rootScope.modifications.holding = {
     makeDirty: function() {
       this.saved = false;
-      this.isNew = false;
     },
     saved: false,
     deleted: false,
@@ -31,6 +30,28 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     } else {
       return false;
     }
+  }
+
+  function getClassificationsFromOtherHoldings(holdingsList) {
+    var classifications = [];
+    var rankedClassifications = [];
+    if(typeof holdingsList !== 'undefined') {
+      for(var i = 0; i < holdingsList.length; i++) {
+        var offers = holdingsList[i].about.offers;
+        for(var x = 0; x < offers.length;x++) {
+          if(offers[x].classificationPart)
+            classifications.push(offers[x].classificationPart);
+        }
+      }
+    }
+    uniques = _.uniq(classifications);
+    for(var u = 0; u < uniques.length; u++ ){
+      rankedClassifications.push({ 'classification' : uniques[u], 'occurences' : utilsService.findOccurrences(classifications, uniques[u]) });
+    }
+    rankedClassifications = rankedClassifications.sort(function(a, b){
+      return b.occurences - a.occurences;
+    });
+    return rankedClassifications;
   }
 
   function onSave(holding) {    
@@ -55,9 +76,11 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     $rootScope.modifications.holding.deleted = true;
   }
 
-  $scope.close = function() {
+  $scope.close = function(callback) {
+    var deferred = $q.defer();
+    
     // Make sure user doesn't close modal without saving
-    if (!$rootScope.modifications.holding.saved && !$rootScope.modifications.holding.isNew) {
+    if (!$rootScope.modifications.holding.saved) {
       // Post is not saved, and not newly created, ask user for confirm
       var data = {
         message: 'LABEL.gui.dialogs.CLOSE_HOLDINGS',
@@ -66,16 +89,26 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
       var confirm = dialogs.create('/dialogs/confirm', 'CustomConfirmCtrl', data, { windowClass: 'kitin-dialog holdings-dialog' });
       confirm.result.then(function yes(answer) {
         $modalInstance.close();
+        $rootScope.modifications.holding = {};
+        deferred.resolve();
+      }, function no(answer) {
+        deferred.reject();
       });
     } else {
       $modalInstance.close();
+      $rootScope.modifications.holding = {};
+      deferred.resolve();
     }
+    return deferred.promise;
   };
 
   // On first run, we have no holding id. Use recordService.find to get all holdings.
   recordService.holding.find(recordId, userData).then(function(response) {
     var otherHoldings = response.otherHoldings;
-    if (otherHoldings) $scope.otherHoldings = otherHoldings;
+    if (otherHoldings) {
+      $scope.otherHoldings = otherHoldings;
+      $scope.otherClassifications = getClassificationsFromOtherHoldings(otherHoldings);
+    }
     holding = response.userHoldings;
     if (!holding) {
       // If no holding is found, we create a new one.

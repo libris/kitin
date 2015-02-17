@@ -1,0 +1,52 @@
+<div class="bib-header">
+    <div class="identifiers">
+      <div class="label identifier code" title="{{ 'LABEL.record.about.identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }} {{ identifier.identifierValue }}" data-ng-repeat="identifier in record.about.identifier | limitTo:3">{{ 'LABEL.record.about.identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }} {{ identifier.identifierValue }}
+      </div>
+      <div class="label identifier more" data-ng-show="recordInfo.about.identifier.length > 3">{{recordInfo.about.identifier.length - 3}} identifierare visas inte.</div>
+    </div>
+
+    <div class="labels">
+      <div class="label title" title="{{ recordInfo.about.instanceTitle.titleValue }} {{ recordInfo.about.instanceTitle.subtitle }}">
+        <span ng-if="!disableLinks">
+          <a class="bib-url" data-ng-controller="ModalCtrl" data-ng-click="openBibViewModal(record, recType)">
+            <span class="title-key">{{ recordInfo.about.instanceTitle.titleValue | chop }}</span>
+            <span class="title-subtitle">{{ recordInfo.about.instanceTitle.subtitle | chop }}
+            <span class="title-variation">{{ recordInfo.about.titleVariation.titleValue | chop }}</span>
+            <span class="title-key-real" data-ng-repeat="keyTitle in recordInfo.about.keyTitle">{{ keyTitle.titleValue | chop }}</span>
+            <span class="title-creator"> {{ recordInfo.about.responsibilityStatement | chop }}</span></span>
+          </a>
+        </span>
+        <span ng-if="disableLinks">
+          <span class="title-key">{{ recordInfo.about.instanceTitle.titleValue | chop }}</span>
+          <span class="title-subtitle">{{ recordInfo.about.instanceTitle.subtitle | chop }}
+          <span class="title-variation">{{ recordInfo.about.titleVariation.titleValue | chop }}</span>
+          <span class="title-key-real" data-ng-repeat="keyTitle in recordInfo.about.keyTitle">{{ keyTitle.titleValue | chop }}</span>
+          <span class="title-creator"> {{ recordInfo.about.responsibilityStatement | chop }}</span></span>
+        </span>
+      </div>
+
+      <div class="label contributors" title="contributors">
+        <ul title="" data-ng-repeat="attributedTo in recordInfo.about.instanceOf.attributedTo"
+          data-ng-show="attributedTo.controlledLabel"><li class="primary-attribution">{{ attributedTo.controlledLabel }}</li>
+        </ul> 
+        <ul title="" data-ng-repeat="influencedBy in recordInfo.about.instanceOf.influencedBy | limitTo:3"
+          data-ng-show="influencedBy.controlledLabel"><li>{{ influencedBy.controlledLabel }}</li>
+        </ul> 
+      </div>
+
+      <div class="f bottom">
+        <span>
+          <kitin-language-icon model="language" data-ng-repeat="language in recordInfo.about.language | orderBy:'langTag'" ng-if="language.prefLabel || language.langTag"></kitin-language-icon>
+          <kitin-display-type ng-if="recordInfo.hasFormat" model="recordInfo"></kitin-display-type>
+          <span title="provider-date" data-ng-repeat="publication in recordInfo.about.publication | limitTo:1"
+            data-ng-show="publication.providerDate">{{ utils.composeDate(publication.providerDate) }}</span>
+          <span title="provider" data-ng-repeat="publication in recordInfo.about.publication | limitTo:1"> {{publication.place.label}} {{publication.providerName}}</span>
+          <span data-ng-show="recordInfo.about.extent">{{ recordInfo.about.extent }}</span>
+        </span>
+        <span class="ng-binding ng-hide" data-ng-show="enums.bibLevel[recordInfo.bibLevel]"></span>
+        <span class="ng-binding ng-hide" data-ng-show="enums.encLevel[recordInfo.encLevel]"></span>
+      </div>
+    </div>
+
+
+</div>

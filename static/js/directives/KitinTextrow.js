@@ -10,6 +10,10 @@ Params:
   change-model: (str)
   hide-label: (bool)
   label-prefix: (str)
+  always-visible: (bool) visible at start
+  suggestion: (array) Array of objects:
+                      i.e. [{ 'list' : record.about.classification, 'property' : 'notation' }]
+                      List = array, Property = property to add as suggestions
 
 */
 
@@ -18,7 +22,8 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
       restrict: 'E',
       scope: {
         model: '=model',
-        changeModel: '@changeModel'
+        changeModel: '@changeModel',
+        suggestion: '=suggestion'
       },
       require:  '?^^kitinGroup',
       replace: true,
@@ -30,6 +35,7 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
                   '<kitin-label label="label"></kitin-label>' +
                   '<span class="inp"><kitin-textarea data-track-change="{{changeModel}}" model="model"></kitin-textarea></span>' +
                   '<kitin-help help="label"></kitin-help>' +
+                  '<div ng-show="suggestions" class="suggestions"><span class="suggestion-label">Förslag</span><span class="item" title="Kopiera till fält" ng-repeat="suggestion in suggestions track by $index" ng-click="$parent.putSuggestionToInput(suggestion)">{{ suggestion }}</span></div>' +
                 '</div>',
       controller: function($scope, $rootScope, $attrs) {
 
@@ -41,13 +47,43 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
           }
         }
 
+        // Suggestions
+        if(typeof $scope.suggestion !== 'undefined') {
+          var tmpListFrom = $scope.suggestion; // Array from directive
+          var tmpListTo = [];
+
+          for(var i = 0;i<tmpListFrom.length;i++) {
+            var property = tmpListFrom[i].property;
+            var currentList = tmpListFrom[i].list;
+            if(typeof currentList !== 'undefined') {
+              for(var x = 0;x<currentList.length;x++) {
+                if(typeof property !== 'undefined') {
+                  tmpListTo.push(currentList[x][property]);
+                }
+                else {
+                  tmpListTo.push(currentList[x]);
+                }
+              }
+            }
+          }
+          if(tmpListTo.length > 0) {
+            tmpListTo = _.uniq(tmpListTo);
+            $scope.suggestions = tmpListTo;
+          }
+        }
+
+        $scope.putSuggestionToInput = function (str) {
+          $scope.model = str;
+          $rootScope.modifications.holding.makeDirty();
+        };
+
         var hasValue = false;
         var savedOptionsHidden;
 
         $scope.shouldHide = function(model, options) {
 
           // always show for single rows
-          if ( !options || options.single ) {
+          if ( !options || options.single || $attrs.hasOwnProperty('alwaysVisible') ) {
             return false;
           }
 
