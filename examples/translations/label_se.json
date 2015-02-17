@@ -289,7 +289,7 @@
                     "cataloguersNote": "Intern anmärkning",
                     "shelfControlNumber": "Löpnummer",
                     "shelfLabel": "Uppställningsord",
-                    "shelfLocation": "Avdelning, samling, hyllsignum el. dyl."
+                    "shelfLocation": "Avdelning, samling el. dyl."
                 },
                 "isPrimaryTopicOf": {
                     "description": "Del av materialet som avses",
