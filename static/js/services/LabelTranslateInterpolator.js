@@ -1,6 +1,18 @@
 kitin.factory('labelTranslateInterpolator', function ($interpolate, $rootScope) {
  
   var $locale;
+
+   getGUILabel = function(identifier) {
+      $rootScope.GUILabels = response.data;
+  
+      var test = identifier.split('.');
+      var locale = 'se';
+      var label = $rootScope.GUILabels[locale];
+      for (var i = 0; i < test.length; i++) {
+        label = label[test[i]];
+      }
+      return label;
+    };
  
   return {
  
@@ -13,23 +25,28 @@ kitin.factory('labelTranslateInterpolator', function ($interpolate, $rootScope) 
     },
  
     interpolate: function (str, interpolateParams) {
+      var locale = $locale;
       var translatedStr = str;
-      if(str.indexOf('gui') !== -1) {
-
-      } else if(str.indexOf('HELP') !== -1) {
-
-      } else {
-        var model = str.replace('LABEL.record.about.','');
-        var modelParts = model.split('.');
-        var label = $rootScope.getTypeLabel({'@type': modelParts[modelParts.length-1]});
-        //console.log(modelParts, modelParts[modelParts.length-1], label);
-        if(label !== '') {
-          translatedStr = label;
-        }
-
-        //debugger;
+      var model, modelParts, label;
+      if(!$rootScope.getTypeLabel) {
+        console.warn('RootScope not initated, trying to translate:',str, interpolateParams);
+        return;
       }
-      return translatedStr; //$locale + '_' + $interpolate(string)(interpolateParams) + '_' + $locale;
+      if(str.indexOf('HELP') !== -1) {
+        model = str.replace('HELP.record.about.','');
+        modelParts = model.split('.');  
+        label = $rootScope.getTypeComment({'@type': modelParts[modelParts.length-1]}, locale);
+      } else {
+        model = str.replace('LABEL.record.about.','');
+        model = model.replace('LABEL.holding.about.','');
+        modelParts = model.split('.');  
+        label = $rootScope.getTypeLabel({'@type': modelParts[modelParts.length-1]}, locale);
+      }
+
+      if(label !== '') {
+        translatedStr = label;
+      }
+      return translatedStr;
     }
   };
 });

@@ -15,6 +15,8 @@ kitin.config(function($locationProvider, $routeProvider, $translateProvider, $ht
        // add translation table
       $translateProvider
         .preferredLanguage('se')
+        .useLoaderCache(true)
+        .useLoader('labelLoader')
         .useInterpolation('labelTranslateInterpolator');
 
       $routeProvider
@@ -62,7 +64,8 @@ kitin.filter('unsafe', ['$sce', function ($sce) {
  * (TODO: move to service and depend on in required places instead)
  */
 kitin.run(function($rootScope, $location, $modalStack) {
-  $rootScope.API_PATH = WHELK_HOST;
+
+  $rootScope.API_PATH = API_PATH;
   $rootScope.WRITE_API_PATH = WHELK_WRITE_HOST;
 
   $rootScope.$on('$locationChangeStart', function (event) {
