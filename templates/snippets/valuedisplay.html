@@ -23,12 +23,15 @@
       </ul>
 
       <ul ng-switch-when="LABEL.record.about.frequency">
-        {{ record.about.frequency }}
+        <li class="node">{{ record.about.frequency }}</li>
       </ul>
 
       <ul ng-switch-when="LABEL.record.about.language">
         <li class="node lang" ng-if="language.prefLabel || language.langTag" ng-repeat="language in record.about.language | orderBy:'langTag'">
           <kitin-language-icon model="language"></kitin-language-icon> {{ language.prefLabel }}
+        </li>
+        <li class="node" ng-if="!language.prefLabel && !language.langTag && language['@id']" ng-repeat="language in record.about.language | orderBy:'langTag'">
+          {{ language['@id'] }}
         </li>
       </ul>
 
@@ -74,11 +77,11 @@
         </li>
       </ul>
   
-      <ul ng-switch-when="LABEL.record.about.comment">
+      <ul ng-switch-when="LABEL.record.about.comment ">
         <li class="node" ng-repeat="comment in record.about.comment">
           {{ comment }}
         </li>
-        <li class="node" ng-repeat="annotation in record.about.hasAnnotation">
+        <li class="node" ng-if="annotation.note" ng-repeat="annotation in record.about.hasAnnotation">
           {{ annotation.note }}
         </li>
       </ul>

@@ -63,8 +63,8 @@ kitin.filter('unsafe', ['$sce', function ($sce) {
  * Global Constants
  * (TODO: move to service and depend on in required places instead)
  */
-kitin.run(function($rootScope, $location, $modalStack) {
 
+kitin.run(function($rootScope, $location, $modalStack, $window, dialogs) {
   $rootScope.API_PATH = API_PATH;
   $rootScope.WRITE_API_PATH = WHELK_WRITE_HOST;
 
@@ -72,11 +72,14 @@ kitin.run(function($rootScope, $location, $modalStack) {
     var closeModals = function(i) {
       i++; // Added for some false safety
       if($modalStack.getTop() && i <= 10) {
-        $modalStack.getTop().value.modalScope.close().then(function() {
-          // If modal are closed contiune and close next modal
-          // Holdings modal isnt closed if edited and user clicks no in confirm dialog
-          closeModals(i);
-        });   
+        var modalScope = $modalStack.getTop().value.modalScope;
+        if(modalScope && modalScope.close) {
+          modalScope.close().then(function() {
+            // If modal are closed contiune and close next modal
+            // Holdings modal isnt closed if edited and user clicks no in confirm dialog
+            closeModals(i);
+          });
+        }
       } else {
         return;
       }
@@ -88,16 +91,42 @@ kitin.run(function($rootScope, $location, $modalStack) {
     }
   });
 
-  // Make sure we have no unsaved forms
-  // var locationChangeOff = $rootScope.$on('$locationChangeStart', function (event, newUrl, oldUrl) {
-  //   var forms = $rootScope.modifications;
-  //   if (angular.isDefined(forms)) {
-  //     if ( (forms.bib.isDirty && forms.bib.isDirty()) || (forms.bib.isDirty && forms.bib.isDirty()) || (forms.bib.isDirty && forms.bib.isDirty()) ) {
-  //       event.preventDefault();        
-  //       console.log('dirty form detected');
-  //     }
-  //   }
-  // });
+  // Making sure we have no unsaved changes before loading a new page, will prompt the user
+  $rootScope.$on("$locationChangeStart",function(event, next, current){
+    if (
+      $rootScope.modifications.bib.saved === false ||
+      $rootScope.modifications.auth.saved === false
+    ) {
+      // Compare if the base location has really changed,
+      // otherwise just return out of this function and let the redirect proceed.
+      // For this we'll throw away any queries and hashes in the URL
+      // In IE we've added #! before the interesting part so we'll have to check [1] instead of [0]
+      if(current.indexOf('#!') !== -1) {
+        if (next.split('#')[1].split('?')[0] === current.split('#')[1].split('?')[0]) // IE
+          return;
+      } else {
+        if (next.split('#')[0].split('?')[0] === current.split('#')[0].split('?')[0])
+          return;
+      }
+      // We are indeed trying to change page, let's prevent default and summon prompt
+      event.preventDefault();
+      var data = {
+        message: 'LABEL.gui.dialogs.NAVIGATE_UNSAVED',
+        icon: 'fa fa-exclamation-circle'
+      };
+      var confirm = dialogs.create('/dialogs/confirm', 'CustomConfirmCtrl', data, { windowClass: 'kitin-dialog' });
+      confirm.result.then(function yes(answer) {
+        // User has accepted redirect without saving.
+        // Destroy modification status and redirect to the requested page.
+        $rootScope.modifications.bib = {};
+        $rootScope.modifications.auth = {};
+        $window.location.href=next;
+      }, function no(answer) {
+        return;
+      });
+    }
+  });
+
 });
 
 // Davids preloads

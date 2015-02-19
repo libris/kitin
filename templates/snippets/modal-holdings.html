@@ -54,17 +54,12 @@
     <section class="offer form-container">
       <div data-ng-repeat="offer in holding.about.offers track by $index">
         <kitin-group label="LABEL.gui.holding.offers">
-          <!-- Fake Sigel drop-down until we decide how to handle multiple sigels for single users -->
+          <!-- Locked sigel until we decide how to handle multiple sigels for single users -->
           <div class="label">
             <span class="lbl">Sigel</span>
             <span class="inp">
               <div class="entity tags">
-                <span class="select">
-                  <select>
-                    <option data-ng-selected="true" value="{{userData.userSigel}}" data-ng-bind="userData.userSigel"></option>
-                  </select>
-                  <i class="fa fa-caret-down"></i>
-                </span>
+                {{userData.userSigel}}
               </div>
             </span>
           </div>
@@ -79,10 +74,10 @@
             <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
           </kitin-table>
           <kitin-textrow label-prefix="LABEL.holding.about." model="offer.copyNumber" change-model="holding"></kitin-textrow>
-          <kitin-table label-prefix="LABEL.holding.about." model="offer.cataloguersNote" change-model="holding">
+          <kitin-table label-prefix="LABEL.holding.about." model="offer.copyNote" change-model="holding">
             <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
           </kitin-table>
-          <kitin-table label-prefix="LABEL.holding.about." model="offer.copyNote" change-model="holding">
+          <kitin-table label-prefix="LABEL.holding.about." model="offer.cataloguersNote" change-model="holding">
             <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
           </kitin-table>
 
@@ -103,11 +98,11 @@
             
             <kitin-textrow label-prefix="LABEL.holding.about.workExampleByType." model="SomeProduct.description" change-model="holding"></kitin-textrow>
 
-            <kitin-table label-prefix="LABEL.holding.about.workExampleByType." model="SomeProduct.cataloguersNote" change-model="holding">
+            <kitin-table label-prefix="LABEL.holding.about.workExampleByType." model="SomeProduct.copyNote" change-model="holding">
               <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
             </kitin-table>
 
-            <kitin-table label-prefix="LABEL.holding.about.workExampleByType." model="SomeProduct.copyNote" change-model="holding">
+            <kitin-table label-prefix="LABEL.holding.about.workExampleByType." model="SomeProduct.cataloguersNote" change-model="holding">
               <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
             </kitin-table>
 
@@ -133,11 +128,11 @@
 
           <kitin-textrow label-prefix="LABEL.holding.about." model="isPrimaryTopicOf.altLabel" change-model="holding"></kitin-textrow>
 
-          <kitin-table label-prefix="LABEL.holding.about." model="isPrimaryTopicOf.cataloguersNote" change-model="holding">
+          <kitin-table label-prefix="LABEL.holding.about." model="isPrimaryTopicOf.copyNote" change-model="holding">
             <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
           </kitin-table>
-          
-          <kitin-table label-prefix="LABEL.holding.about." model="isPrimaryTopicOf.copyNote" change-model="holding">
+
+          <kitin-table label-prefix="LABEL.holding.about." model="isPrimaryTopicOf.cataloguersNote" change-model="holding">
             <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
           </kitin-table>
           

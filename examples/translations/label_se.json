@@ -289,7 +289,7 @@
                     "cataloguersNote": "Intern anmärkning",
                     "shelfControlNumber": "Löpnummer",
                     "shelfLabel": "Uppställningsord",
-                    "shelfLocation": "Avdelning, samling, hyllsignum el. dyl."
+                    "shelfLocation": "Avdelning, samling el. dyl."
                 },
                 "isPrimaryTopicOf": {
                     "description": "Del av materialet som avses",
@@ -376,7 +376,8 @@
                 "DIALOGS_YES": "Ja",
                 "DIALOGS_NO": "Nej",
                 "CLOSE_HOLDINGS": "Du har osparade ändringar, vill du verkligen stänga fönstret?",
-                "REMOVE_HOLDING": "Är du säker på att du vill radera beståndet? Det här kommandot går inte att ångra."
+                "REMOVE_HOLDING": "Är du säker på att du vill radera beståndet? Det här kommandot går inte att ångra.",
+                "NAVIGATE_UNSAVED": "Du har osparade ändringar, är du säker på att du vill navigera bort från den här sidan?"
             }
 
         }

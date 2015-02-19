@@ -48,7 +48,7 @@
         </div>
         <div class="buttons">
           <!-- <button data-ng-click="log([record, encLevel, recType])" class="btn btn-green btn-copy-remote"><i class="fa fa-inverse fa-plus"></i> Kopiera</button> -->
-          <button data-ng-click="importRecord(record.data)" class="btn btn-green btn-copy-remote"><i class="fa fa-inverse fa-plus"></i> Kopiera</button>
+          <button ng-if="allowEdit" data-ng-click="importRecord(record.data)" class="btn btn-green btn-copy-remote"><i class="fa fa-inverse fa-plus"></i> Kopiera</button>
         </div>
       </div>
     </div>
@@ -70,7 +70,7 @@
           <span data-ng-repeat="comment in record.comment">{{comment}}</span>
         </div>
         <div class="buttons">
-          <a class="btn btn-green btn-xs" href="/edit/libris{{record['@id']}}{{queryString}}">
+          <a class="btn btn-green btn-xs" ng-if="allowEdit" href="/edit/libris{{record['@id']}}{{queryString}}">
             <span><i class="fa fa-inverse fa-edit"></i> Redigera</span>
           </a>
           <button class="btn btn-hld btn-xs" ng-class="{ 'btn-purple': !record.holdings.holding, 'btn-white-purple': record.holdings.holding }" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
