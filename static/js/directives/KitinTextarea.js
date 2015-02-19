@@ -16,10 +16,11 @@ kitin.directive('kitinTextarea', function(editService, $rootScope){
       restrict: 'E',
       scope: {
         model: '=model',
-        changeModel: '@changeModel'
+        changeModel: '@changeModel',
+        title: '@title'
       },
       replace: true,
-      template: '<textarea data-track-change="{{changeModel}}" data-ui-jq="autosize" spellcheck="false" data-ng-model="model"></textarea>',
+      template: '<textarea title="{{title}}" data-track-change="{{changeModel}}" data-ui-jq="autosize" spellcheck="false" data-ng-model="model"></textarea>',
       controller: function($scope, $rootScope, $attrs) {
 
       }

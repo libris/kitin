@@ -8,7 +8,7 @@
   <div class="searchfield">
     <form data-ng-submit="state.search.q ? search() : false" method="GET" name="search_form">
       <input id="search" name="q" type="text" autofocus
-             value="{{ state.search.q }}" placeholder="{{ state.searchType.placeholder }}"
+             value="{{ state.search.q }}" aria-label="{{ state.searchType.placeholder }}" placeholder="{{ state.searchType.placeholder }}"
       autocomplete="off" role="textbox"
       aria-autocomplete="list" aria-haspopup="true" data-ng-model="state.search.q">
       <div class="btn-group dropdown" dropdown data-is-open="isopen">
@@ -22,7 +22,7 @@
                data-ng-click="setSearchType(opt.key)">{{ opt.label }}</a>
           </li>
         </ul>
-        <button class="btn btn-green" type="submit"><i class="fa fa-search"></i></button>
+        <button class="btn btn-green" aria-label="Sök" type="submit"><i class="fa fa-search"></i></button>
       </div>
       <div class="remote-search" data-ng-show="state.searchType.key == 'remote'">
         <!-- List seleceted remote databases -->
