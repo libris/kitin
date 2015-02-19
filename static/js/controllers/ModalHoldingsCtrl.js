@@ -54,25 +54,29 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     return rankedClassifications;
   }
 
-  function getBibClassifications(array) {
+  function getClassificationsFromBibPost(array) {
+    /*
+      Get classifications from bib post
+      Returns array of matching classifications as objects
+      Will try to match strings in array against scheme notation of classifications in about.classification
+      Possible to match against different endings using * wildcard
+    */
     var classificationsFrom = $scope.record.about.classification;
     var classificationsTo = [];
     for(var i = 0; i < array.length;i++) {
-      var schemeKey = array[i];
+      var schemeKey = array[i].toLowerCase();
       for(var y = 0; y < classificationsFrom.length;y++) {
-        var shouldCopy = false;
-        var schemeNotation = classificationsFrom[y].inScheme.notation;
+        var match = false;
+        var schemeNotation = classificationsFrom[y].inScheme.notation.toLowerCase();
         var asteriskIndex = schemeKey.indexOf('*');
         if(asteriskIndex !== -1) {
           var tmpNotation = schemeNotation.substr(0, asteriskIndex);
           var tmpKey = schemeKey.substr(0, asteriskIndex);
           if(tmpNotation === tmpKey)
-            shouldCopy = true;
-        }
-        else if (schemeNotation === schemeKey) {
-          shouldCopy = true;
-        }
-        if(shouldCopy) {
+            match = true;
+        } else if (schemeNotation === schemeKey)
+          match = true;
+        if(match) {
           classificationsTo.push(classificationsFrom[y]);
         }
       }
@@ -134,7 +138,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     if (otherHoldings) {
       $scope.otherHoldings = otherHoldings;
       // $scope.otherClassifications = getClassificationsFromOtherHoldings(otherHoldings);
-      $scope.bibClassifications = getBibClassifications(['kssb*', 'DDC']);
+      $scope.bibClassifications = getClassificationsFromBibPost(['kssb*', 'DDC', 'UDC']);
     }
     holding = response.userHoldings;
     if (!holding) {
