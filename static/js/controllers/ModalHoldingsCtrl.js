@@ -54,6 +54,32 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     return rankedClassifications;
   }
 
+  function getBibClassifications(array) {
+    var classificationsFrom = $scope.record.about.classification;
+    var classificationsTo = [];
+    for(var i = 0; i < array.length;i++) {
+      var schemeKey = array[i];
+      for(var y = 0; y < classificationsFrom.length;y++) {
+        var shouldCopy = false;
+        var schemeNotation = classificationsFrom[y].inScheme.notation;
+        var asteriskIndex = schemeKey.indexOf('*');
+        if(asteriskIndex !== -1) {
+          var tmpNotation = schemeNotation.substr(0, asteriskIndex);
+          var tmpKey = schemeKey.substr(0, asteriskIndex);
+          if(tmpNotation === tmpKey)
+            shouldCopy = true;
+        }
+        else if (schemeNotation === schemeKey) {
+          shouldCopy = true;
+        }
+        if(shouldCopy) {
+          classificationsTo.push(classificationsFrom[y]);
+        }
+      }
+    }
+    return classificationsTo;
+  }
+
   function onSave(holding) {    
     var currentRecord = getCurrentRecord();
     if (currentRecord) {
@@ -107,7 +133,8 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     var otherHoldings = response.otherHoldings;
     if (otherHoldings) {
       $scope.otherHoldings = otherHoldings;
-      $scope.otherClassifications = getClassificationsFromOtherHoldings(otherHoldings);
+      // $scope.otherClassifications = getClassificationsFromOtherHoldings(otherHoldings);
+      $scope.bibClassifications = getBibClassifications(['kssb*', 'DDC']);
     }
     holding = response.userHoldings;
     if (!holding) {
