@@ -62,22 +62,26 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
       Possible to match against different endings using * wildcard
     */
     var classificationsFrom = $scope.record.about.classification;
+    if(typeof classificationsFrom === 'undefined') return;
     var classificationsTo = [];
     for(var i = 0; i < array.length;i++) {
       var schemeKey = array[i].toLowerCase();
       for(var y = 0; y < classificationsFrom.length;y++) {
         var match = false;
-        var schemeNotation = classificationsFrom[y].inScheme.notation.toLowerCase();
-        var asteriskIndex = schemeKey.indexOf('*');
-        if(asteriskIndex !== -1) {
-          var tmpNotation = schemeNotation.substr(0, asteriskIndex);
-          var tmpKey = schemeKey.substr(0, asteriskIndex);
-          if(tmpNotation === tmpKey)
+        var schemeNotation;
+        if(typeof classificationsFrom[y].inScheme !== 'undefined') { // TODO: Do we need to handle classifications without scheme?
+          schemeNotation = classificationsFrom[y].inScheme.notation.toLowerCase();
+          var asteriskIndex = schemeKey.indexOf('*');
+          if(asteriskIndex !== -1) {
+            var tmpNotation = schemeNotation.substr(0, asteriskIndex);
+            var tmpKey = schemeKey.substr(0, asteriskIndex);
+            if(tmpNotation === tmpKey)
+              match = true;
+          } else if (schemeNotation === schemeKey)
             match = true;
-        } else if (schemeNotation === schemeKey)
-          match = true;
-        if(match) {
-          classificationsTo.push(classificationsFrom[y]);
+          if(match) {
+            classificationsTo.push(classificationsFrom[y]);
+          }
         }
       }
     }
@@ -137,8 +141,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     var otherHoldings = response.otherHoldings;
     if (otherHoldings) {
       $scope.otherHoldings = otherHoldings;
-      // $scope.otherClassifications = getClassificationsFromOtherHoldings(otherHoldings);
-      $scope.bibClassifications = getClassificationsFromBibPost(['kssb*', 'DDC', 'UDC']);
+      $scope.otherClassifications = getClassificationsFromOtherHoldings(otherHoldings);
     }
     holding = response.userHoldings;
     if (!holding) {
@@ -156,6 +159,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
       $scope.holding = holding;
       $rootScope.modifications.holding.saved = true;
     }
+    $scope.bibClassifications = getClassificationsFromBibPost(['kssb*', 'DDC', 'UDC']);
   });
 
   $scope.saveHolding = function(holding) {
