@@ -1,0 +1,28 @@
+<div class="modal-header sigelselectview">
+  <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
+  <h1 class="modal-title bibview">Välj sigel</h1>
+</div>
+
+<div class="modal-body sigelselectview">
+  {{userData.authorization}}
+    <select ng-model="userData.authorization" ng-options="auth.sigel for auth in authorization"></select>
+    
+</div>
+<div class="modal-footer submit sigelselectview">
+  <div class="button-container">
+    <button class="btn btn-green btn-copy-remote" data-ng-click="importRecord(record)" data-ng-if="isRemote && allowEdit">
+      <span><i class="fa fa-inverse fa-plus"></i> {{ "Kopiera" }}</span>
+    </button>
+    <button class="btn btn-green btn-copy-remote" data-ng-click="editPost(record)" data-ng-if="!isRemote && allowEdit">
+      <span><i class="fa fa-inverse fa-edit"></i> {{ "Redigera" }}</span>
+    </button>
+  </div>
+  <div class="button-container" data-ng-show="!isRemote">
+    <button class="btn btn-purple btn-hld" data-ng-if="!record.holdings.holding" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
+      <span><i class="fa fa-inverse fa-plus"></i> Bestånd</span>
+    </button>
+    <button class="btn btn-white-purple btn-hld" data-ng-if="record.holdings.holding" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
+      <span><i class="fa fa-check"></i> Bestånd</span>
+    </button>
+  </div>
+</div>

@@ -71,10 +71,10 @@ def get_requests_oauth():
 
 def fake_login():
     if hasattr(app, 'fakelogin') and app.fakelogin:
-        user = User('Fake banana', sigel='NONE')
-        app.logger.debug("Faking login %s %s", user.get_id(), user.get_sigel())
+        user = User('Fake banana', authorization='[{sigel: "NONE"}]')
+        app.logger.debug("Faking login %s %s", user.get_id(), json.dumps(user.get_authorization()))
         login_user(user, True)
-        session['sigel'] = user.sigel
+        session['authorization'] = user.authorization
         return True
     return False
 
@@ -87,10 +87,13 @@ def global_view_variables():
 
 @login_manager.user_loader
 def _load_user(uid):
-    if not 'sigel' in session:
+    if not 'authorization' in session:
         return None
-    return User(uid, sigel=session.get('sigel'))
+    return User(uid, authorization=session.get('authorization'))
 
+
+def _render_login(msg = None):
+    return render_template("partials/login.html", msg = msg, WHELK_HOST = app.config['WHELK_HOST'])
 
 @login_manager.unauthorized_handler
 def _handle_unauthorized():
@@ -98,7 +101,7 @@ def _handle_unauthorized():
     # trying to decide between /login and /#!/login 
     if fake_login():
         return redirect('/')
-    return render_template("partials/login.html")
+    return _render_login()
 
 
 # LOGIN START
@@ -107,7 +110,7 @@ def _handle_unauthorized():
 def login():
     if fake_login():
         return redirect('/')
-    return render_template("partials/login.html")
+    return _render_login()
 
 @app.route("/login/authorize")
 def login_authorize():
@@ -119,7 +122,7 @@ def login_authorize():
         return redirect(authorization_url)
     except Exception, e:
         app.logger.error("Failed to create authorization url,  %s ", str(e))
-        return render_template("partials/login.html", msg = str(e))
+        return _render_login(str(e))
 
 @app.route("/login/authorized")
 def authorized():
@@ -144,14 +147,14 @@ def authorized():
             varify_url = app.config['OAUTH_VERIFY_URL']
             verify_response = requests_oauth.get(varify_url).json()
             verify_user = verify_response['user']
-            sigel = verify_user['authorization'][0]['sigel']
+            authorization = verify_user['authorization']
             username = verify_user['username']
             if app.debug:
-                app.logger.debug("User received from verify %s, %s, %s ", username, sigel, json.dumps(verify_user))
+                app.logger.debug("User received from verify %s, %s, %s ", username, json.dumps(verify_user))
 
             # Create Flask User and login
-            user = User(username, sigel=sigel, token=session['oauth_token'])
-            session['sigel'] = sigel
+            user = User(username, authorization=authorization, token=session['oauth_token'])
+            session['authorization'] = authorization
             login_user(user, True)
 
             return redirect('/')
@@ -162,7 +165,7 @@ def authorized():
     except Exception, e:
         msg = str(e)
         app.logger.error(msg)
-        return render_template("partials/login.html", msg = msg)
+        return _render_login(msg)
 
     
 @app.route("/signout")
@@ -170,7 +173,7 @@ def authorized():
 def logout():
     app.logger.debug("Trying to sign out...")
     logout_user()
-    session.pop('sigel', None)
+    session.pop('authorization', None)
     session.pop('oauth_token', None)
     return redirect("/login")
 

@@ -62,8 +62,8 @@ kitin.filter('unsafe', ['$sce', function ($sce) {
  * (TODO: move to service and depend on in required places instead)
  */
 kitin.run(function($rootScope, $location, $modalStack, $window, dialogs) {
-  $rootScope.API_PATH = WHELK_HOST;
-  $rootScope.WRITE_API_PATH = WHELK_WRITE_HOST;
+  $rootScope.API_PATH = API_PATH;
+  $rootScope.WRITE_API_PATH = WRITE_API_PATH;
 
   $rootScope.$on('$locationChangeStart', function (event) {
     var closeModals = function(i) {

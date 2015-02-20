@@ -15,8 +15,8 @@
     <script type="text/javascript">
       // Get debug from backend
       var debug = ('{{debug}}' === 'True');
-      var WHELK_HOST = '{{WHELK_HOST}}';
-      var WHELK_WRITE_HOST = '{{WHELK_WRITE_HOST}}';
+      var API_PATH = '{{WHELK_HOST}}';
+      var WRITE_API_PATH = '{{WHELK_WRITE_HOST}}';
       var OAUTH_API = '{{OAUTH_API}}';
       var OAUTH_CLIENT_ID = '{{OAUTH_CLIENT_ID}}';
       var OAUTH_REDIRECT_URI = '{{OAUTH_REDIRECT_URI}}';
@@ -105,10 +105,12 @@
         </footer>
       </div>
     </div>
-    {% if current_user %}
+    {% if current_user and current_user.is_authenticated() %}
     <script type="text/javascript">
+      var test = {};
       kitin.run(['userData', function (userData) {
-        userData.userSigel = '{{ current_user.sigel }}';
+        userData.authorization = JSON.parse('{{ current_user.get_authorization()|tojson|safe }}');
+        test = userData;
       }]);
     </script>
     {% endif %}
