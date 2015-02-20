@@ -82,12 +82,12 @@
           </kitin-table>
 
           <div class="button-bar right">
-            <button class="btn btn-link" data-ng-if="holding.about.offers.length > 1" data-ng-click="deleteOffer(holding, $index)"><i class="fa fa-trash-o"></i> {{ 'LABEL.gui.holding.removeOffer' | translate }}</button>
+            <button class="btn btn-link" data-ng-if="holding.about.offers.length > 1" data-ng-click="deleteOffer(holding, $index)"><i class="fa fa-trash-o"></i> {{ 'LABEL.gui.general.remove' | translate }} {{ 'LABEL.gui.holding.offers' | translate }}</button>
           </div>        
         </kitin-group>
       </div>
-      <div class="button-bar">
-        <button class="btn btn-link" data-ng-click="addOffer(holding)" data-ng-show="holding"><i class="fa fa-plus"></i> {{ 'LABEL.gui.holding.addOffer' | translate }}</button>
+      <div class="button-bar right">
+        <button class="btn btn-link" data-ng-click="addOffer(holding)" data-ng-show="holding"><i class="fa fa-plus"></i> {{ 'LABEL.gui.general.add' | translate }} {{ 'LABEL.gui.holding.offers' | translate }}</button>
       </div>
     </section>
     
@@ -96,7 +96,7 @@
       <div data-ng-repeat="SomeProduct in holding.about.workExampleByType.SomeProducts track by $index">
           <kitin-group label="LABEL.gui.holding.someProduct">
             
-            <kitin-textrow label-prefix="LABEL.holding.about.workExampleByType." model="SomeProduct.description" change-model="holding"></kitin-textrow>
+            <kitin-textrow label-prefix="LABEL.holding.about.workExampleByType." model="SomeProduct.description" change-model="holding" always-visible></kitin-textrow>
 
             <kitin-table label-prefix="LABEL.holding.about.workExampleByType." model="SomeProduct.copyNote" change-model="holding">
               <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
@@ -107,12 +107,12 @@
             </kitin-table>
 
             <div class="button-bar right">
-              <button class="btn btn-link" data-ng-click="deleteWorkExample(holding, 'SomeProducts', $index)"><i class="fa fa-trash-o"></i> {{ 'LABEL.gui.holding.removeSomeProduct' | translate }}</button>
+              <button class="btn btn-link" data-ng-click="deleteWorkExample(holding, 'SomeProducts', $index)"><i class="fa fa-trash-o"></i> {{ 'LABEL.gui.general.remove' | translate }} {{ 'LABEL.gui.holding.someProduct' | translate }}</button>
             </div>
           </kitin-group>
       </div>
-      <div class="button-bar">
-        <button class="btn btn-link" data-ng-click="addWorkExample(holding, 'SomeProducts')" data-ng-show="holding"><i class="fa fa-plus"></i> {{ 'LABEL.gui.holding.addSomeProduct' | translate }}</button>
+      <div class="button-bar right">
+        <button class="btn btn-link" data-ng-click="addWorkExample(holding, 'SomeProducts')" data-ng-show="holding"><i class="fa fa-plus"></i> {{ 'LABEL.gui.general.add' | translate }} {{ 'LABEL.gui.holding.someProduct' | translate }}</button>
       </div>
     </section>
     <!-- WORK EXAMPLE BY TYPE END -->
@@ -124,7 +124,7 @@
           
           <kitin-textrow label-prefix="LABEL.holding.about." model="isPrimaryTopicOf.description" change-model="holding"></kitin-textrow>
 
-          <kitin-textrow label-prefix="LABEL.holding.about." model="isPrimaryTopicOf['@id']" change-model="holding"></kitin-textrow>
+          <kitin-textrow label-prefix="LABEL.holding.about." model="isPrimaryTopicOf['@id']" change-model="holding" always-visible></kitin-textrow>
 
           <kitin-textrow label-prefix="LABEL.holding.about." model="isPrimaryTopicOf.altLabel" change-model="holding"></kitin-textrow>
 
@@ -137,12 +137,12 @@
           </kitin-table>
           
           <div class="button-bar right">
-            <button class="btn btn-link" data-ng-click="deletePrimaryTopicOf(holding, $index)"><i class="fa fa-trash-o"></i> {{ 'LABEL.gui.holding.removeIsPrimaryTopicOf' | translate }}</button>
+            <button class="btn btn-link" data-ng-click="deletePrimaryTopicOf(holding, $index)"><i class="fa fa-trash-o"></i> {{ 'LABEL.gui.general.remove' | translate }} {{ 'LABEL.gui.holding.isPrimaryTopicOf' | translate }}</button>
           </div>
         </kitin-group>
       </div>
-      <div class="button-bar">
-        <button class="btn btn-link" data-ng-click="addPrimaryTopicOf(holding)" data-ng-show="holding"><i class="fa fa-plus"></i> {{ 'LABEL.gui.holding.addIsPrimaryTopicOf' | translate }}</button>
+      <div class="button-bar right">
+        <button class="btn btn-link" data-ng-click="addPrimaryTopicOf(holding)" data-ng-show="holding"><i class="fa fa-plus"></i> {{ 'LABEL.gui.general.add' | translate }} {{ 'LABEL.gui.holding.isPrimaryTopicOf' | translate }}</button>
       </div>
     </section>
     <!-- / IS PRIMARY TOPIC OF END -->
@@ -174,8 +174,6 @@
     ENCODING END -->
 
   </form>
-
-  <hr data-ng-if="holding">
 
   <div class="alert alert-success" role="alert" data-ng-if="modifications.holding.deleted">
     {{ 'LABEL.gui.holding.removed' | translate }}

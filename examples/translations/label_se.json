@@ -302,6 +302,10 @@
         },
         
         "gui": {
+            "general" : {
+                "remove" : "Radera",
+                "add" : "Lägg till"
+            },
             "holding": {
                 "save": "Spara bestånd",
                 "saved": "Bestånd sparat",
