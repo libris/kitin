@@ -194,10 +194,12 @@
 <!-- <pre>{{modifications.holding}}</pre> -->
 
 <div class="modal-footer holdings submit">
-  <div class="status pull-left">
+  <div class="status pull-left" style="text-align: left">
     <div data-ng-if="modifications.holding.saved">{{ "Inga osparade ändringar." }}</div>
     <div data-ng-if="!modifications.holding.saved && !modifications.holding.isNew">{{ "Du har inte sparat dina ändringar." }}</div>
     <div data-ng-if="!modifications.holding.saved && modifications.holding.isNew">{{ "Nyskapat bestånd, inte sparat." }}</div>
+    <hr ng-if="holding.modified">
+    <span data-ng-if="holding.modified">Sparad: {{ holding.modified | timeAgo:60*60*24 }}</span>
   </div>
   <div class="button-container">
     <button class="btn-link green" id="preview-marc" data-ng-controller="ModalCtrl" data-ng-click="openMARCModal($event, holding)">
