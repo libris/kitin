@@ -202,7 +202,7 @@
     <span data-ng-if="holding.modified">Sparad: {{ holding.modified | timeAgo:60*60*24 }}</span>
   </div>
   <div class="button-container">
-    <button class="btn-link green" id="preview-marc" data-ng-controller="ModalCtrl" data-ng-click="openMARCModal($event, holding)">
+    <button class="btn-link green" id="preview-marc" ng-hide="!holding" data-ng-controller="ModalCtrl" data-ng-click="openMARCModal($event, holding)">
       <i class="fa fa-search"></i> Granska MARC</a> 
     </button>
     <button class="btn-link purple" id="delete-hld" data-ng-click="deleteHolding(holding)" data-ng-if="holding['@id']">
