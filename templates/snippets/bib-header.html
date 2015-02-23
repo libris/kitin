@@ -49,20 +49,22 @@
     </div>
 
   <div class="stickToTop fade" ng-show="showSticky">
-    <div class="identifiers">
-      <div class="label identifier code" title="{{ 'LABEL.record.about.identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }} {{ identifier.identifierValue }}" data-ng-repeat="identifier in record.about.identifier | limitTo:1">{{ 'LABEL.record.about.identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }} {{ identifier.identifierValue }}
-      </div>
-      <div class="label identifier more" data-ng-show="recordInfo.about.identifier.length > 1">{{recordInfo.about.identifier.length - 1}} identifierare visas inte.</div>
-    </div>    
-    <div class="labels">
-      <div class="label title" title="{{ recordInfo.about.instanceTitle.titleValue }} {{ recordInfo.about.instanceTitle.subtitle }}">
-        <span>
-          <span class="title-key">{{ recordInfo.about.instanceTitle.titleValue | chop }}</span>
-          <span class="title-subtitle">{{ recordInfo.about.instanceTitle.subtitle | chop }}
-          <span class="title-variation">{{ recordInfo.about.titleVariation.titleValue | chop }}</span>
-          <span class="title-key-real" data-ng-repeat="keyTitle in recordInfo.about.keyTitle">{{ keyTitle.titleValue | chop }}</span>
-          <span class="title-creator"> {{ recordInfo.about.responsibilityStatement | chop }}</span></span>
-        </span>
+    <div class="container">
+      <div class="identifiers">
+        <div class="label identifier code" title="{{ 'LABEL.record.about.identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }} {{ identifier.identifierValue }}" data-ng-repeat="identifier in record.about.identifier | limitTo:1">{{ 'LABEL.record.about.identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }} {{ identifier.identifierValue }}
+        </div>
+        <div class="label identifier more" data-ng-show="recordInfo.about.identifier.length > 1">{{recordInfo.about.identifier.length - 1}} identifierare visas inte.</div>
+      </div>    
+      <div class="labels">
+        <div class="label title" title="{{ recordInfo.about.instanceTitle.titleValue }} {{ recordInfo.about.instanceTitle.subtitle }}">
+          <span>
+            <span class="title-key">{{ recordInfo.about.instanceTitle.titleValue | chop }}</span>
+            <span class="title-subtitle">{{ recordInfo.about.instanceTitle.subtitle | chop }}
+            <span class="title-variation">{{ recordInfo.about.titleVariation.titleValue | chop }}</span>
+            <span class="title-key-real" data-ng-repeat="keyTitle in recordInfo.about.keyTitle">{{ keyTitle.titleValue | chop }}</span>
+            <span class="title-creator"> {{ recordInfo.about.responsibilityStatement | chop }}</span></span>
+          </span>
+        </div>
       </div>
     </div>
   </div>
