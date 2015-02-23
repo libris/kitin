@@ -15,11 +15,13 @@ kitin.directive('kitinBibHeader', function(editService, $rootScope, utilsService
     restrict: 'E',
     scope: {
       record: '=record',
-      recType: '=rectype'
+      recType: '=rectype',
+      showSticky: '=sticky'
     },
     replace: true,
     templateUrl: '/snippets/bib-header',
     link: function(scope, elem, attrs) {
+
       if (attrs.hasOwnProperty('static')) {
         scope.disableLinks = true;
       }
@@ -36,6 +38,6 @@ kitin.directive('kitinBibHeader', function(editService, $rootScope, utilsService
       else {
         scope.recordInfo = scope.record;
       }
-    }
+    },
   };
 });

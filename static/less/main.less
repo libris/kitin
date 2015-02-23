@@ -1,5 +1,6 @@
 
-@import "variables.less"; 
+@import "variables.less";
+@import "animations.less";
 @import "fonts.less";
 @import "footer.less";
 @import "buttons.less";
@@ -171,6 +172,20 @@ a.beta-blocker {text-decoration: none; cursor:default;}
 	  position: absolute;
 	  bottom: 0px;
 	}
+}
+
+.stickToTop {
+	z-index: 100;
+	margin: 0px !important;
+	background-color: white;
+	position: absolute;
+	top: 0;
+	border-bottom: 1px solid @grey-light;
+	padding: 10px 10px 5px 10px;
+	left: -45px;
+	height: 70px;
+	width: 1063px !important;
+	box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
 .langIcon {

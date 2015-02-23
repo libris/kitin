@@ -19,6 +19,17 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     isNew: false
   };
 
+  // Scrolling inside modal
+  $scope.modalScroll = 0;
+  $timeout(function() {
+    angular.element('.modal-body.holdings').scroll(function() {
+        $scope.modalScroll = angular.element('.modal-body.holdings').scrollTop();
+        var elem = angular.element('.stickToTop');
+        elem.css('top', ($scope.modalScroll - 50) + 'px');
+        $scope.$apply();
+    });
+  }, 10);
+
   function getCurrentRecord() {
     // In search view, we need to know which record the user is editing holdings for.
     // If we're not in search view, return false

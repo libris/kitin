@@ -1,4 +1,4 @@
-kitin.controller('ModalBibViewCtrl', function($scope, $modalInstance, $rootScope, $location, $q, record, recType, recordService, userData, utilsService) {
+kitin.controller('ModalBibViewCtrl', function($scope, $modalInstance, $rootScope, $location, $timeout, $q, record, recType, recordService, userData, utilsService) {
 
   $scope.userData = userData;
   $scope.utils = utilsService;
@@ -12,6 +12,17 @@ kitin.controller('ModalBibViewCtrl', function($scope, $modalInstance, $rootScope
     // reroute record variable
     $scope.record = $scope.record.data;
   }
+
+  // Scrolling inside modal
+  $scope.modalScroll = 0;
+  $timeout(function() {
+    angular.element('.modal-body.bibview').scroll(function() {
+        $scope.modalScroll = angular.element('.modal-body.bibview').scrollTop();
+        var elem = angular.element('.stickToTop');
+        elem.css('top', ($scope.modalScroll - 50) + 'px');
+        $scope.$apply();
+    });
+  }, 10);
 
   // TODO: Put this in better place for access from both result list and bib modal.
   $scope.importRecord = function(data) {
