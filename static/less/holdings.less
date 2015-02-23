@@ -18,14 +18,31 @@
 }
 
 .holdings section.form-container {
-  background-color: @grey-lightest;
-  padding: 0px 10px;
-  border: solid 1px @grey-light;
-  margin-bottom: 15px;
-  // .shadow(@grey-lighter);
-  .group {
-    border-width: 0px;
+  > div {
+    position: relative;
     margin-bottom: 0px;
+    background-color: @grey-lightest;
+    padding: 0px 10px;
+    border: solid @grey-light;
+    border-width: 0px 1px 1px 1px;
+    margin-bottom: 0px;
+    box-shadow: 0px 10px 5px -5px rgba(0, 0, 0, 0.1);
+    z-index: 5;
+    .group {
+      border: 0px;
+      margin-bottom: 10px;
+    }
+    &:first-of-type {
+      border-width: 1px !important;
+    }
+    &:last-of-type {
+      width: 98%;
+      margin-left: 1%;
+      margin-bottom: -1px;
+      border-width: 0px 1px 1px 1px;
+      z-index: 4;
+      box-shadow: none;
+    }
   }
 }
 
