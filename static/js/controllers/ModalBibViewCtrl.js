@@ -13,18 +13,6 @@ kitin.controller('ModalBibViewCtrl', function($scope, $modalInstance, $rootScope
     $scope.record = $scope.record.data;
   }
 
-  // Scrolling inside modal
-  $scope.modalScroll = 0;
-  $timeout(function() {
-    angular.element('.modal-body.bibview').scroll(function() {
-        $scope.modalScroll = angular.element('.modal-body.bibview').scrollTop();
-        var elem = angular.element('.modal-body.bibview .stickToTop');
-        var offset = 47;
-        elem.css('transform', 'translate(0px, ' + ($scope.modalScroll - offset) +'px)');
-        $scope.$apply();
-    });
-  }, 10);
-
   // TODO: Put this in better place for access from both result list and bib modal.
   $scope.importRecord = function(data) {
     if(data['@id'])
