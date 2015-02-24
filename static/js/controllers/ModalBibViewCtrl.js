@@ -18,8 +18,9 @@ kitin.controller('ModalBibViewCtrl', function($scope, $modalInstance, $rootScope
   $timeout(function() {
     angular.element('.modal-body.bibview').scroll(function() {
         $scope.modalScroll = angular.element('.modal-body.bibview').scrollTop();
-        var elem = angular.element('.stickToTop');
-        elem.css('top', ($scope.modalScroll - 50) + 'px');
+        var elem = angular.element('.modal-body.bibview .stickToTop');
+        var offset = 47;
+        elem.css('transform', 'translate(0px, ' + ($scope.modalScroll - offset) +'px)');
         $scope.$apply();
     });
   }, 10);
