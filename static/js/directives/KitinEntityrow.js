@@ -49,7 +49,7 @@ kitin.directive('kitinEntityrow', function(editService, $rootScope) {
         if($attrs.hasOwnProperty('labelPrefix')) {
           $scope.label = $attrs.labelPrefix + $attrs.model + link;
         } else {
-          $scope.label = 'LABEL.' + $attrs.model + link;
+          $scope.label = $attrs.model + link;
         }
       } else {
         $scope.label = false;

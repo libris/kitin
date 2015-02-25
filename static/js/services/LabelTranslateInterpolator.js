@@ -37,8 +37,8 @@ kitin.factory('labelTranslateInterpolator', function ($interpolate, $rootScope) 
         modelParts = model.split('.');  
         label = $rootScope.getTypeComment({'@type': modelParts[modelParts.length-1]}, locale);
       } else {
-        model = str.replace('LABEL.record.about.','');
-        model = model.replace('LABEL.holding.about.','');
+        model = str.replace('record.about.','');
+        model = model.replace('holding.about.','');
         modelParts = model.split('.');  
         label = $rootScope.getTypeLabel({'@type': modelParts[modelParts.length-1]}, locale);
       }

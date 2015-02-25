@@ -1,6 +1,6 @@
 <div class="bib-header">
     <div class="identifiers">
-      <div class="label identifier code" title="{{ 'LABEL.record.about.identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }} {{ identifier.identifierValue }}" data-ng-repeat="identifier in record.about.identifier | limitTo:3">{{ 'LABEL.record.about.identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }} {{ identifier.identifierValue }}
+      <div class="label identifier code" title="{{ 'identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }} {{ identifier.identifierValue }}" data-ng-repeat="identifier in record.about.identifier | limitTo:3">{{ 'identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }} {{ identifier.identifierValue }}
       </div>
       <div class="label identifier more" data-ng-show="recordInfo.about.identifier.length > 3">{{recordInfo.about.identifier.length - 3}} identifierare visas inte.</div>
     </div>
