@@ -88,7 +88,7 @@ kitin.directive('kitinTable', function(editService, $filter){
         this.doCreate = function(initialValue) {
           var createdObject = '';
           if($attrs.type) {
-            createdObject = editService.createObject($attrs.model, $attrs.type, initialValue);
+            createdObject = editService.createObject($attrs.type, initialValue);
           }
           
           return createdObject;
