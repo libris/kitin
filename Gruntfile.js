@@ -154,7 +154,7 @@ module.exports = function(grunt) {
         files: ['<%= jshint.app %>'],
         tasks: ['jshint'],
         options: {
-          livereload: true
+          livereload: false
         }
       },
       cachebuster: {
