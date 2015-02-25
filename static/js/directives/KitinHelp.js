@@ -28,7 +28,7 @@ kitin.directive('kitinHelp', function () {
           }
           scope.popoverPlacement = (angular.isDefined(attrs.popoverPlacement)) ? attrs.popoverPlacement : 'right';
         },
-        controller: function($scope, $element, $filter, $timeout){
+        controller: function($scope, $element, $translate, $timeout){
           $scope.hasHelpText = false;
           $scope.classNames = ['help', 'kitin-popover-trigger'];
 
@@ -38,7 +38,7 @@ kitin.directive('kitinHelp', function () {
           if (help && help.length > 0) {
             // This is mostly to keep it DRY, might change in the future
             var helpText = help.replace(/^LABEL\./, 'HELP.');
-            helpText = $filter('translate')(helpText);
+            helpText = $translate.instant(helpText);
             if (helpText) {
               $scope.helpText = helpText;
               $scope.hasHelpText = true;

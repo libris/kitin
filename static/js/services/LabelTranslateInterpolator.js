@@ -46,7 +46,7 @@ kitin.factory('labelTranslateInterpolator', function ($interpolate, $rootScope) 
       if(label !== '') {
         translatedStr = label;
       }
-      return translatedStr;
+      return $interpolate(translatedStr)(interpolateParams || {});
     }
   };
 });

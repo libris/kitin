@@ -17,6 +17,9 @@ kitin.directive('kitinLabel', function(editService, $rootScope){
         label: '=label'
       },
       replace: true,
-      template: '<span class="lbl">{{label  | translate}}</span>'
+      template: '<span class="lbl">{{translatedLabel}}</span>',
+      controller: function($scope, $element, $translate) {
+        $scope.translatedLabel = $translate.instant($scope.label);
+      }
   };
 });
