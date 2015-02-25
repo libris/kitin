@@ -119,5 +119,27 @@
     <!--[if IE]>
     <script>window.onload = new function() { document.documentElement.className += ' ie'; };</script>
     <![endif]-->
+    <script type="text/javascript">
+      var _kundo = _kundo || {};
+      _kundo["org"] = "kungliga-biblioteket";
+      _kundo["lang"] = "sv";
+      _kundo["btn-type"] = "1";
+      
+      (function() {
+          function async_load(){
+              var s = document.createElement('script');
+              s.type = 'text/javascript';
+              s.async = true;
+              s.src = ('https:' == document.location.protocol ? 'https://static-ssl' : 'http://static') +
+              '.kundo.se/embed.js';
+              var x = document.getElementsByTagName('script')[0];
+              x.parentNode.insertBefore(s, x);
+          }
+          if (window.attachEvent)
+              window.attachEvent('onload', async_load);
+          else
+              window.addEventListener('load', async_load, false);
+      })();
+    </script>
   </body>
 </html>
