@@ -64,6 +64,17 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
     $scope.releaseModal = $modal.open(opts);
   };
 
+  $scope.openContactModal = function() {
+    var opts = angular.extend(
+                defaultModalOptions,
+                {
+                  templateUrl: '/snippets/modal-contact',
+                  controller: 'ModalContactCtrl',
+                  windowClass: 'modal-large contact-modal'
+                });
+    $scope.releaseModal = $modal.open(opts);
+  };
+
   $scope.openRemoteModal = function() {
     var opts = angular.extend(
                   defaultModalOptions,
