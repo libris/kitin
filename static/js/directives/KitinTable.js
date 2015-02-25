@@ -181,7 +181,7 @@ kitin.directive('kitinTd', function(editService){
       scope: false,
       replace: true,
       transclude: true,
-      template: '<td ng-transclude></td>'
+      template: '<td ng-transclude style="background-color: #ffffff"></td>'
   };
 });
 

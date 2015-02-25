@@ -1,4 +1,4 @@
-kitin.controller('ModalBibViewCtrl', function($scope, $modalInstance, $rootScope, $location, $q, record, recType, recordService, userData, utilsService) {
+kitin.controller('ModalBibViewCtrl', function($scope, $modalInstance, $rootScope, $location, $timeout, $q, record, recType, recordService, userData, utilsService) {
 
   $scope.userData = userData;
   $scope.utils = utilsService;

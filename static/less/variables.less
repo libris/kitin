@@ -36,6 +36,7 @@
 @green-translucent: fade(@green, 95%);
 
 @grey-warm: #eeeeec;      // dropdown disabled selection
+@grey-lightest: #F7F7F7;  
 @grey-lighter: #dddddb;   // unused? 
 @grey-light: #c7c7c3;     // delimiters
 @grey: #adada9;           // backgrounds, footer
@@ -200,3 +201,8 @@ input[type="color"]:focus,
   margin-left: 4px;
 }
 
+.shadow(@color) {
+  -webkit-box-shadow: 0 2px 0px 1px @color;
+   -moz-box-shadow: 0 2px 0px 1px @color;
+    box-shadow: 0 2px 0px 1px @color;
+}

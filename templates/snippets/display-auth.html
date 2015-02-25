@@ -1,30 +1,30 @@
 <li class="node auth" ng-class="{{model['@type']}}" ng-switch="model['@type']">
   <span ng-switch-when="Person">
-    <i class="fa fa-fw fa-user"></i>
+    <i aria-label="Person" title="Person" class="fa fa-fw fa-user"></i>
     {{ model.name }} {{ model.familyName }}{{ model.familyName ? ', ' + model.givenName : model.givenName }}{{ model.birthYear ? ', ' + model.birthYear + '-' : '' }}{{ model.deathYear }}
   </span>
   <span ng-switch-when="UniformWork">
-    <i class="fa fa-fw fa-book"></i>
+    <i aria-label="Uniform Work" title="Uniform Work" class="fa fa-fw fa-book"></i>
     {{ model.title }}
   </span>
   <span ng-switch-when="Concept">
-    <i class="fa fa-fw fa-lightbulb-o"></i>
+    <i aria-label="Concept" title="Concept" class="fa fa-fw fa-lightbulb-o"></i>
     {{ model.name }}
   </span>
   <span ng-switch-when="Place">
-    <i class="fa fa-fw fa-map-marker"></i>
+    <i aria-label="Place" title="Place" class="fa fa-fw fa-map-marker"></i>
     {{ model.name }}
   </span>
   <span ng-switch-when="Event">
-    <i class="fa fa-fw fa-calendar"></i>
+    <i aria-label="Event" title="Event" class="fa fa-fw fa-calendar"></i>
     {{ model.name }}
   </span>
   <span ng-switch-when="Meeting">
-    <i class="fa fa-fw fa-comment"></i>
+    <i aria-label="Meeting" title="Meeting" class="fa fa-fw fa-comment"></i>
     {{ model.name }}
   </span>
   <span ng-switch-when="Organization">
-    <i class="fa fa-fw fa-group"></i>
+    <i aria-label="Organization" title="Organization" class="fa fa-fw fa-group"></i>
     {{ model.name }}
   </span>
   <!-- <small>({{ 'subjectByType[\''+model['@type']+'\']' | translate }})</small> -->
