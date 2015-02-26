@@ -24,12 +24,17 @@ module.exports = function(config) {
       'static/vendor/angular-sanitize/angular-sanitize.js',
       'static/vendor/angular-dialog-service/dialogs.min.js',
       'static/vendor/jquery/jquery.js',
+      'static/vendor/lodash/lodash.compat.js',
       'static/vendor/dyve-jquery-autocomplete/jquery.autocomplete.js',
+      'static/vendor/bind-polyfill/index.js',
+      'static/vendor/karma-read-json/karma-read-json.js',
       'node_modules/angular-mocks/angular-mocks.js',
       // Global variables
       'test/js/config/globals.js',
       // App files
       'static/js/**/*.js',
+      // Json mock data
+      {pattern: 'test/js/mocks/**/*.json', included: false},
       // Test files
       'test/js/unit/*Spec.js',
     ],
