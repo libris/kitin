@@ -27,7 +27,7 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
     });
   };
 
-  $scope.openBibViewModal = function(record, isRemote) {
+  $scope.openBibViewModal = function(record, recType) {
     var opts = angular.extend( 
                 defaultModalOptions, 
                 {
@@ -36,7 +36,7 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
                   windowClass: 'modal-large bib-modal',
                   resolve: {
                     record: function() { return record; },
-                    isRemote: function() { return isRemote; }
+                    recType: function() { return recType; }
                   }
               });
     $modal.open(opts);
@@ -60,6 +60,17 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
                   templateUrl: '/snippets/modal-cookies',
                   controller: 'ModalCookiesCtrl',
                   windowClass: 'modal-large cookies-modal'
+                });
+    $scope.releaseModal = $modal.open(opts);
+  };
+
+  $scope.openContactModal = function() {
+    var opts = angular.extend(
+                defaultModalOptions,
+                {
+                  templateUrl: '/snippets/modal-contact',
+                  controller: 'ModalContactCtrl',
+                  windowClass: 'modal-large contact-modal'
                 });
     $scope.releaseModal = $modal.open(opts);
   };

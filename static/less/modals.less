@@ -1,7 +1,29 @@
 .modal-body hr {
   margin: 10px 0px;
   border-color: #CCC;
+  width: 100%;
 }
+.modal-body section.top {
+  background: url(/static/img/bg.png);
+  padding: 12px;
+  .header-container {
+    padding: 1px 0px;
+    border: 1px solid #c7c7c3;
+    background-color: #FFFFFF;
+  -webkit-box-shadow: 0 2px 0px 1px @grey-lighter;
+   -moz-box-shadow: 0 2px 0px 1px @grey-lighter;
+    box-shadow: 0 2px 0px 1px @grey-lighter;
+  }
+}
+.modal-body .bib-header {
+  margin: 12px;
+}
+
+.modal-body .popover {
+  width: 240px;
+  overflow-wrap: break-word;
+}
+
 
 /* MODAL START ------------------------- */
 
@@ -52,8 +74,11 @@ html .modal {
   }
 }
 
-.modal-footer div {
-  display: inline;
+.modal-footer {
+  .button-container {
+    display: inline;
+    margin-left: 1em;
+  }
 }
 
 /* MODAL END ------------------------- */

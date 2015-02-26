@@ -46,7 +46,7 @@ kitin.directive('kitinTable', function(editService, $filter){
                         '</tbody>' +
                       '</table>'+
                       '<div class="adder">' +
-                        '<a class="add" href="" ng-click="addRow()"><i class="fa fa-plus-circle"></i> Lägg till rad</a>' +
+                        '<a class="add" href="" ng-click="addRow()"><i class="fa fa-plus-circle"></i> Lägg till</a>' +
                       '</div>' +
                     '</div>' + 
                   '</div>' +
@@ -88,7 +88,7 @@ kitin.directive('kitinTable', function(editService, $filter){
         this.doCreate = function(initialValue) {
           var createdObject = '';
           if($attrs.type) {
-            createdObject = editService.createObject($attrs.model, $attrs.type, initialValue);
+            createdObject = editService.createObject($attrs.type, initialValue);
           }
           
           return createdObject;
@@ -181,7 +181,7 @@ kitin.directive('kitinTd', function(editService){
       scope: false,
       replace: true,
       transclude: true,
-      template: '<td ng-transclude></td>'
+      template: '<td ng-transclude style="background-color: #ffffff"></td>'
   };
 });
 

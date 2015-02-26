@@ -4,7 +4,6 @@
  */
 kitin.factory('searchService', function($http, $q, $rootScope, utilsService) {
   return {
-    pageSize: 10,
     facetLabels: { 
      'about.@type': 'Typer',
      'about.language.@id': 'Språk',
@@ -32,6 +31,13 @@ kitin.factory('searchService', function($http, $q, $rootScope, utilsService) {
       { text: 'Nyast först',  value: '-about.publication.providerDate' },
       { text: 'Äldst först',  value: 'about.publication.providerDate' }
     ],
+    getPageSize: function(string) {
+      if(string === 'detailed') {
+        return 10;
+      } else {
+        return 50;
+      }
+    },
     search: function(url, params) {
       var deferred = $q.defer();
       // Make sure slashes are correctly escaped

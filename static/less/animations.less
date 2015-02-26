@@ -1,0 +1,49 @@
+.fade {
+	opacity: 1;
+}
+
+.fade.ng-hide {
+  opacity:0;
+}
+
+.fade.ng-hide-add, .fade.ng-hide-remove {
+  /* this needs to be here to make it visible during the animation
+     since the .ng-hide class is already on the element rendering
+     it as hidden. */
+  -webkit-transition:0.3s linear opacity;
+  transition:0.3s linear opacity;
+  display:block!important;
+}
+
+
+
+
+
+
+.field.animate-repeat {
+  box-sizing:border-box;
+  display: block!important;
+  max-height: 500px;
+  overflow: hidden;
+}
+ 
+.field.animate-repeat.ng-move,
+.field.animate-repeat.ng-enter,
+.field.animate-repeat.ng-leave {
+  -webkit-transition:all linear 1s;
+  transition:all linear 1s;
+}
+ 
+.field.animate-repeat.ng-leave.ng-leave-active,
+.field.animate-repeat.ng-move,
+.field.animate-repeat.ng-enter {
+  // opacity:0;
+  max-height:0px;
+}
+ 
+.field.animate-repeat.ng-leave,
+.field.animate-repeat.ng-move.ng-move-active,
+.field.animate-repeat.ng-enter.ng-enter-active {
+  // opacity:1;
+  max-height: 500px;
+}

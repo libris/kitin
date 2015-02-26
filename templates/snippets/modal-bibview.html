@@ -7,7 +7,14 @@
 </div>
 
 <div class="modal-body bibview">
-    <kitin-display-header model="record"></kitin-display-header>
+    <section class="top">
+      <div class="header-container">
+        <kitin-bib-header record="record" rectype="recType" static stickto="'.modal-body.bibview'"></kitin-bib-header>
+      </div>
+    </section>
+    <hr>
+    <h4>Detaljerad information</h4>
+    <hr>
     <span data-ng-if="isRemote && remoteDatabase != null" class="database">
       <i class="fa fa-institution"></i> Källa: {{remoteDatabase}}
     </span>
@@ -33,15 +40,15 @@
     </section>
 </div>
 <div class="modal-footer submit bibview">
-  <div>
-    <button class="btn btn-green btn-copy-remote" data-ng-click="importRecord(record)" data-ng-if="isRemote">
+  <div class="button-container">
+    <button class="btn btn-green btn-copy-remote" data-ng-click="importRecord(record)" data-ng-if="isRemote && allowEdit">
       <span><i class="fa fa-inverse fa-plus"></i> {{ "Kopiera" }}</span>
     </button>
-    <button class="btn btn-green btn-copy-remote" data-ng-click="editPost(record)" data-ng-if="!isRemote">
+    <button class="btn btn-green btn-copy-remote" data-ng-click="editPost(record)" data-ng-if="!isRemote && allowEdit">
       <span><i class="fa fa-inverse fa-edit"></i> {{ "Redigera" }}</span>
     </button>
   </div>
-  <div data-ng-show="!isRemote">
+  <div class="button-container" data-ng-show="!isRemote">
     <button class="btn btn-purple btn-hld" data-ng-if="!record.holdings.holding" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
       <span><i class="fa fa-inverse fa-plus"></i> Bestånd</span>
     </button>

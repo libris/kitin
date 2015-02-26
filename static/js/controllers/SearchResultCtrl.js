@@ -34,8 +34,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
   $rootScope.state.search.f = $routeParams.f;
   $rootScope.state.search.database = $routeParams.database;
   $rootScope.state.search.page = {
-    start: $routeParams.start || 0,
-    n: searchService.pageSize
+    start: $routeParams.start || 0
   };
   $scope.sortables = searchService.sortables;
   
@@ -182,10 +181,23 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
           });
         }
 
-        $rootScope.state.search.hitCount = data.totalResults;
-        $rootScope.state.search.page.total = Math.ceil(data.totalResults / searchService.pageSize);
+        var pageSize = $rootScope.state.getSearchParams().n;
+
+        // Remote results come as an object, libris results as an int
+        if(typeof data.totalResults === 'object') {
+          $rootScope.state.search.hitCount = 0;
+          var tmp = _.values(data.totalResults);
+          for (var i = 0; i < tmp.length;i++){
+            $rootScope.state.search.hitCount += tmp[i];
+          }
+        } else {
+          $rootScope.state.search.hitCount = data.totalResults;
+        }
+
+        $rootScope.state.search.page.total = Math.ceil($rootScope.state.search.hitCount / pageSize);
         // Everything we need is set, change paginator page
-        var page = ($rootScope.state.search.page.start / $rootScope.state.search.page.n || 0) + 1;
+        var page = ($rootScope.state.search.page.start / pageSize || 0) + 1;
+        // var page = ($rootScope.state.search.page.start / $rootScope.state.search.page.n || 0) + 1;
         $scope.state.page = page;
       } else {
         $rootScope.state.search.result = { items: 0 };
@@ -194,7 +206,6 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
       $scope.staticQ = angular.copy($rootScope.state.search.q);
     });
   };
-
 
   // TODO: Put this in better place for access from both result list and bib modal.
   $scope.importRecord = function(data) {
@@ -213,7 +224,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
   };
 
   $scope.getStart = function() {
-    var start = ($scope.state.page - 1) * $rootScope.state.search.page.n;
+    var start = ($scope.state.page - 1) * $rootScope.state.getSearchParams().n;
     return start;
   };
 
@@ -221,7 +232,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
     // User clicked paginator
     $scope.gotoTop();
     $location.search('start', $scope.getStart());
-    $location.search('n', searchService.pageSize);
+    // $location.search('n', searchService.pageSize);
   };
 
   // Get first page

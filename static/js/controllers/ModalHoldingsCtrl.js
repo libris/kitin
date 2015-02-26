@@ -32,6 +32,62 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     }
   }
 
+  function getClassificationsFromOtherHoldings(holdingsList) {
+    var classifications = [];
+    var rankedClassifications = [];
+    if(typeof holdingsList !== 'undefined') {
+      for(var i = 0; i < holdingsList.length; i++) {
+        var offers = holdingsList[i].about.offers;
+        for(var x = 0; x < offers.length;x++) {
+          if(offers[x].classificationPart)
+            classifications.push(offers[x].classificationPart);
+        }
+      }
+    }
+    uniques = _.uniq(classifications);
+    for(var u = 0; u < uniques.length; u++ ){
+      rankedClassifications.push({ 'classification' : uniques[u], 'occurences' : utilsService.findOccurrences(classifications, uniques[u]) });
+    }
+    rankedClassifications = rankedClassifications.sort(function(a, b){
+      return b.occurences - a.occurences;
+    });
+    return rankedClassifications;
+  }
+
+  function getClassificationsFromBibPost(array) {
+    /*
+      Get classifications from bib post
+      Returns array of matching classifications as objects
+      Will try to match strings in array against scheme notation of classifications in about.classification
+      Possible to match against different endings using * wildcard
+    */
+    var classificationsFrom = $scope.record.about.classification;
+    if(typeof classificationsFrom === 'undefined') return;
+    var classificationsTo = [];
+    for(var i = 0; i < array.length;i++) {
+      var schemeKey = array[i].toLowerCase();
+      for(var y = 0; y < classificationsFrom.length;y++) {
+        var match = false;
+        var schemeNotation;
+        if(typeof classificationsFrom[y].inScheme !== 'undefined') { // TODO: Do we need to handle classifications without scheme?
+          schemeNotation = classificationsFrom[y].inScheme.notation.toLowerCase();
+          var asteriskIndex = schemeKey.indexOf('*');
+          if(asteriskIndex !== -1) {
+            var tmpNotation = schemeNotation.substr(0, asteriskIndex);
+            var tmpKey = schemeKey.substr(0, asteriskIndex);
+            if(tmpNotation === tmpKey)
+              match = true;
+          } else if (schemeNotation === schemeKey)
+            match = true;
+          if(match) {
+            classificationsTo.push(classificationsFrom[y]);
+          }
+        }
+      }
+    }
+    return classificationsTo;
+  }
+
   function onSave(holding) {    
     var currentRecord = getCurrentRecord();
     if (currentRecord) {
@@ -67,12 +123,14 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
       var confirm = dialogs.create('/dialogs/confirm', 'CustomConfirmCtrl', data, { windowClass: 'kitin-dialog holdings-dialog' });
       confirm.result.then(function yes(answer) {
         $modalInstance.close();
+        $rootScope.modifications.holding = {};
         deferred.resolve();
       }, function no(answer) {
         deferred.reject();
       });
     } else {
       $modalInstance.close();
+      $rootScope.modifications.holding = {};
       deferred.resolve();
     }
     return deferred.promise;
@@ -81,7 +139,10 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   // On first run, we have no holding id. Use recordService.find to get all holdings.
   recordService.holding.find(recordId, userData).then(function(response) {
     var otherHoldings = response.otherHoldings;
-    if (otherHoldings) $scope.otherHoldings = otherHoldings;
+    if (otherHoldings) {
+      $scope.otherHoldings = otherHoldings;
+      $scope.otherClassifications = getClassificationsFromOtherHoldings(otherHoldings);
+    }
     holding = response.userHoldings;
     if (!holding) {
       // If no holding is found, we create a new one.
@@ -98,6 +159,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
       $scope.holding = holding;
       $rootScope.modifications.holding.saved = true;
     }
+    $scope.bibClassifications = getClassificationsFromBibPost(['kssb*', 'DDC', 'UDC']);
   });
 
   $scope.saveHolding = function(holding) {
