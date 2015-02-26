@@ -13,9 +13,11 @@ kitin.config(function($locationProvider, $routeProvider, $translateProvider, $ht
       $locationProvider.html5Mode(true).hashPrefix('!');
 
        // add translation table
-      $translateProvider
-        .useUrlLoader('/resource/translation')
-        .preferredLanguage('se');
+      if(typeof TESTING_SKIP_TRANSLATION === 'undefined') {
+        $translateProvider
+          .useUrlLoader('/resource/translation')
+          .preferredLanguage('se');
+      }
 
       $routeProvider
         .when('/',                                  { templateUrl: '/partials/index' })
