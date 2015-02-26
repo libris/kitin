@@ -1,5 +1,6 @@
 
-@import "variables.less"; 
+@import "variables.less";
+@import "animations.less";
 @import "fonts.less";
 @import "footer.less";
 @import "buttons.less";
@@ -170,6 +171,30 @@ a.beta-blocker {text-decoration: none; cursor:default;}
 	  background: @white;
 	  position: absolute;
 	  bottom: 0px;
+	}
+}
+
+.stickToTop {
+	z-index: 100;
+	margin: 0px !important;
+	position: absolute;
+	top: 0;
+	background: url(/static/img/bg.png);
+	border-bottom: 1px solid @grey-light;
+	padding: 11px 15px 0px 15px;
+	left: -45px;
+	height: 85px;
+	width: 1060px !important;
+	box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.15);
+	.container {
+		width: 100%;
+		padding: 5px;
+		border: 1px solid @grey-light;
+		background-color: #FFFFFF;
+		.shadow(@grey-lighter);
+		div {
+			line-height: 1;
+		}
 	}
 }
 

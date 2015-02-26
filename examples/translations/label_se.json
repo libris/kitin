@@ -282,14 +282,14 @@
                 },
                 "offer": {
                     "heldBy": "Sigel",
-                    "availability": "Utlånestatus (exemplar)",
+                    "availability": "Exemplarstatus",
                     "classificationPart": "Klassifikation (hylla)",
                     "copyNote": "Publik anmärkning",
                     "copyNumber": "Exemplarnummer",
                     "cataloguersNote": "Intern anmärkning",
                     "shelfControlNumber": "Löpnummer",
                     "shelfLabel": "Uppställningsord",
-                    "shelfLocation": "Avdelning, samling el. dyl."
+                    "shelfLocation": "Avdelning, samling"
                 },
                 "isPrimaryTopicOf": {
                     "description": "Del av materialet som avses",
@@ -302,6 +302,10 @@
         },
         
         "gui": {
+            "general" : {
+                "remove" : "Radera",
+                "add" : "Lägg till"
+            },
             "holding": {
                 "save": "Spara bestånd",
                 "saved": "Bestånd sparat",

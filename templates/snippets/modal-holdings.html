@@ -9,7 +9,7 @@
   
   <section class="top">
     <div class="header-container">
-      <kitin-bib-header record="record" rectype="recType" static></kitin-bib-header>
+      <kitin-bib-header record="record" rectype="recType" static stickto="'.modal-body.holdings'"></kitin-bib-header>
     </div>
   </section>
   <hr>
@@ -67,7 +67,7 @@
           <kitin-table label-prefix="LABEL.holding.about." model="offer.shelfLocation" change-model="holding">
             <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
           </kitin-table>
-          <kitin-textrow label-prefix="LABEL.holding.about." model="offer.classificationPart" change-model="holding" suggestion="[{ 'list' : otherClassifications, 'property' : 'classification' },{ 'list' : record.about.classification, 'property' : 'notation' }]" always-visible></kitin-textrow>
+          <kitin-textrow label-prefix="LABEL.holding.about." model="offer.classificationPart" change-model="holding" suggestion="[{ 'list' : bibClassifications, 'property' : 'notation' }]" always-visible></kitin-textrow>
           <kitin-textrow label-prefix="LABEL.holding.about." model="offer.shelfControlNumber" change-model="holding" always-visible></kitin-textrow>
           <kitin-textrow label-prefix="LABEL.holding.about." model="offer.shelfLabel" change-model="holding"></kitin-textrow>
           <kitin-table label-prefix="LABEL.holding.about." model="offer.availability" change-model="holding">
@@ -82,12 +82,12 @@
           </kitin-table>
 
           <div class="button-bar right">
-            <button class="btn btn-link" data-ng-if="holding.about.offers.length > 1" data-ng-click="deleteOffer(holding, $index)"><i class="fa fa-trash-o"></i> {{ 'LABEL.gui.holding.removeOffer' | translate }}</button>
+            <button class="btn btn-link" data-ng-if="holding.about.offers.length > 1" data-ng-click="deleteOffer(holding, $index)"><i class="fa fa-trash-o"></i> {{ 'LABEL.gui.general.remove' | translate }} {{ 'LABEL.gui.holding.offers' | translate }}</button>
           </div>        
         </kitin-group>
       </div>
-      <div class="button-bar">
-        <button class="btn btn-link" data-ng-click="addOffer(holding)" data-ng-show="holding"><i class="fa fa-plus"></i> {{ 'LABEL.gui.holding.addOffer' | translate }}</button>
+      <div class="button-bar right">
+        <button class="btn btn-link" data-ng-click="addOffer(holding)" data-ng-show="holding"><i class="fa fa-plus"></i> {{ 'LABEL.gui.general.add' | translate }} {{ 'LABEL.gui.holding.offers' | translate }}</button>
       </div>
     </section>
     
@@ -96,7 +96,7 @@
       <div data-ng-repeat="SomeProduct in holding.about.workExampleByType.SomeProducts track by $index">
           <kitin-group label="LABEL.gui.holding.someProduct">
             
-            <kitin-textrow label-prefix="LABEL.holding.about.workExampleByType." model="SomeProduct.description" change-model="holding"></kitin-textrow>
+            <kitin-textrow label-prefix="LABEL.holding.about.workExampleByType." model="SomeProduct.description" change-model="holding" always-visible></kitin-textrow>
 
             <kitin-table label-prefix="LABEL.holding.about.workExampleByType." model="SomeProduct.copyNote" change-model="holding">
               <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
@@ -107,12 +107,12 @@
             </kitin-table>
 
             <div class="button-bar right">
-              <button class="btn btn-link" data-ng-click="deleteWorkExample(holding, 'SomeProducts', $index)"><i class="fa fa-trash-o"></i> {{ 'LABEL.gui.holding.removeSomeProduct' | translate }}</button>
+              <button class="btn btn-link" data-ng-click="deleteWorkExample(holding, 'SomeProducts', $index)"><i class="fa fa-trash-o"></i> {{ 'LABEL.gui.general.remove' | translate }} {{ 'LABEL.gui.holding.someProduct' | translate }}</button>
             </div>
           </kitin-group>
       </div>
-      <div class="button-bar">
-        <button class="btn btn-link" data-ng-click="addWorkExample(holding, 'SomeProducts')" data-ng-show="holding"><i class="fa fa-plus"></i> {{ 'LABEL.gui.holding.addSomeProduct' | translate }}</button>
+      <div class="button-bar right">
+        <button class="btn btn-link" data-ng-click="addWorkExample(holding, 'SomeProducts')" data-ng-show="holding"><i class="fa fa-plus"></i> {{ 'LABEL.gui.general.add' | translate }} {{ 'LABEL.gui.holding.someProduct' | translate }}</button>
       </div>
     </section>
     <!-- WORK EXAMPLE BY TYPE END -->
@@ -124,7 +124,7 @@
           
           <kitin-textrow label-prefix="LABEL.holding.about." model="isPrimaryTopicOf.description" change-model="holding"></kitin-textrow>
 
-          <kitin-textrow label-prefix="LABEL.holding.about." model="isPrimaryTopicOf['@id']" change-model="holding"></kitin-textrow>
+          <kitin-textrow label-prefix="LABEL.holding.about." model="isPrimaryTopicOf['@id']" change-model="holding" always-visible></kitin-textrow>
 
           <kitin-textrow label-prefix="LABEL.holding.about." model="isPrimaryTopicOf.altLabel" change-model="holding"></kitin-textrow>
 
@@ -137,12 +137,12 @@
           </kitin-table>
           
           <div class="button-bar right">
-            <button class="btn btn-link" data-ng-click="deletePrimaryTopicOf(holding, $index)"><i class="fa fa-trash-o"></i> {{ 'LABEL.gui.holding.removeIsPrimaryTopicOf' | translate }}</button>
+            <button class="btn btn-link" data-ng-click="deletePrimaryTopicOf(holding, $index)"><i class="fa fa-trash-o"></i> {{ 'LABEL.gui.general.remove' | translate }} {{ 'LABEL.gui.holding.isPrimaryTopicOf' | translate }}</button>
           </div>
         </kitin-group>
       </div>
-      <div class="button-bar">
-        <button class="btn btn-link" data-ng-click="addPrimaryTopicOf(holding)" data-ng-show="holding"><i class="fa fa-plus"></i> {{ 'LABEL.gui.holding.addIsPrimaryTopicOf' | translate }}</button>
+      <div class="button-bar right">
+        <button class="btn btn-link" data-ng-click="addPrimaryTopicOf(holding)" data-ng-show="holding"><i class="fa fa-plus"></i> {{ 'LABEL.gui.general.add' | translate }} {{ 'LABEL.gui.holding.isPrimaryTopicOf' | translate }}</button>
       </div>
     </section>
     <!-- / IS PRIMARY TOPIC OF END -->
@@ -173,9 +173,8 @@
     </section>
     ENCODING END -->
 
+    <br><br>
   </form>
-
-  <hr data-ng-if="holding">
 
   <div class="alert alert-success" role="alert" data-ng-if="modifications.holding.deleted">
     {{ 'LABEL.gui.holding.removed' | translate }}
@@ -194,14 +193,16 @@
 <!-- <pre>{{modifications.holding}}</pre> -->
 
 <div class="modal-footer holdings submit">
-  <div class="status pull-left">
+  <div class="status pull-left" style="text-align: left">
     <div data-ng-if="modifications.holding.saved">{{ "Inga osparade ändringar." }}</div>
     <div data-ng-if="!modifications.holding.saved && !modifications.holding.isNew">{{ "Du har inte sparat dina ändringar." }}</div>
     <div data-ng-if="!modifications.holding.saved && modifications.holding.isNew">{{ "Nyskapat bestånd, inte sparat." }}</div>
+    <hr ng-if="holding.modified">
+    <span data-ng-if="holding.modified">Sparad: {{ holding.modified | timeAgo:60*60*24 }}</span>
   </div>
   <div class="button-container">
-    <button class="btn-link green" id="preview-marc" data-ng-controller="ModalCtrl" data-ng-click="openMARCModal($event, holding)">
-      <i class="fa fa-search"></i> Förhandsgranska MARC</a> 
+    <button class="btn-link green" id="preview-marc" ng-hide="!holding" data-ng-controller="ModalCtrl" data-ng-click="openMARCModal($event, holding)">
+      <i class="fa fa-search"></i> Granska MARC</a> 
     </button>
     <button class="btn-link purple" id="delete-hld" data-ng-click="deleteHolding(holding)" data-ng-if="holding['@id']">
       <i class="fa fa-trash-o"></i> {{ 'LABEL.gui.holding.remove' | translate }}
