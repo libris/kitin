@@ -72,7 +72,7 @@
           
           <div class="logo">
             <a href="/"><h1>Libris <strong>Katalogisering</strong></h1></a>
-            <span class="beta">BETA</span>
+            <span class="beta" title="{{ modified.strftime('%Y-%m-%d %H:%m') }} (release {{ config.VERSION }})">BETA</span>
             
           </div>
           <div class="kb"></div>
@@ -119,5 +119,27 @@
     <!--[if IE]>
     <script>window.onload = new function() { document.documentElement.className += ' ie'; };</script>
     <![endif]-->
+    <script type="text/javascript">
+      var _kundo = _kundo || {};
+      _kundo["org"] = "libris-katalogisering";
+      _kundo["lang"] = "sv";
+      _kundo["btn-type"] = "4";
+      
+      (function() {
+          function async_load(){
+              var s = document.createElement('script');
+              s.type = 'text/javascript';
+              s.async = true;
+              s.src = ('https:' == document.location.protocol ? 'https://static-ssl' : 'http://static') +
+              '.kundo.se/embed.js';
+              var x = document.getElementsByTagName('script')[0];
+              x.parentNode.insertBefore(s, x);
+          }
+          if (window.attachEvent)
+              window.attachEvent('onload', async_load);
+          else
+              window.addEventListener('load', async_load, false);
+      })();
+    </script>
   </body>
 </html>
