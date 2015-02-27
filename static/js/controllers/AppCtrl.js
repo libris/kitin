@@ -28,6 +28,8 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $loca
     jsonld: {}
   };
 
+  $rootScope.MAIN_STATUS_MSG = MAIN_STATUS_MSG;
+
   window.toggleEdit = function () {
     $rootScope.allowEdit = !$rootScope.allowEdit;
     return $rootScope.allowEdit;
