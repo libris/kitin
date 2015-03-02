@@ -9,7 +9,6 @@ Params:
   level: (str)
   header: (str)
   message: (str)
-
 */
 
 kitin.directive('kitinAlert', function($rootScope){
@@ -22,8 +21,9 @@ kitin.directive('kitinAlert', function($rootScope){
       },
       replace: true,
       templateUrl: '/snippets/alert',
-      controller: function($scope, $rootScope, $attrs) {
-        
+      controller: function ($scope, $attrs) {
+      },
+      link: function(scope, element, attrs) {
       }
   };
 });
