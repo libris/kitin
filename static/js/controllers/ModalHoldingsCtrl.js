@@ -86,7 +86,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
       }
     }
     return classificationsTo;
-  }
+  };
 
   function onSave(holding) {    
     var currentRecord = getCurrentRecord();
