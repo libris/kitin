@@ -48,7 +48,7 @@
       </div>
     </div>
 
-  <div class="stickToTop fade" ng-show="showSticky">
+  <div class="stickToTop fade hidden" ng-show="showSticky">
     <div class="container">
       <div class="identifiers">
         <div class="label identifier code" title="{{ identifier.identifierScheme['@id'] | translate }} {{ identifier.identifierValue }}" data-ng-repeat="identifier in record.about.identifier | limitTo:1">{{ identifier.identifierScheme['@id'] | translate }} {{ identifier.identifierValue }}
