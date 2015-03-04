@@ -1,4 +1,23 @@
+(function () {
+   'use strict';
+
 kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location, $routeParams, $rootScope, $anchorScroll, recordService, definitions, searchService, searchUtil, editService, userData, utilsService) {
+
+
+  $scope.getHitCount = function (totalResults) {
+    var count = 0;
+    // Remote results come as an object, libris results as an int
+    if(typeof totalResults === 'object') {
+      var tmp = _.values(totalResults);
+      for (var i = 0; i < tmp.length;i++){
+        count += tmp[i];
+      }
+      return count;
+    } else {
+      count = totalResults;
+    }
+    return count;
+  };
 
   document.body.className = 'search';
   $scope.recType = $routeParams.recType;
@@ -29,13 +48,16 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
   // TODO: localization
   $scope.facetLabels = searchService.facetLabels;
 
-  $rootScope.state.search = $rootScope.state.search || {};
-  $rootScope.state.search.q = $routeParams.q;
-  $rootScope.state.search.f = $routeParams.f;
-  $rootScope.state.search.database = $routeParams.database;
-  $rootScope.state.search.page = {
-    start: $routeParams.start || 0
+  $scope.setSearchState = function () {
+    $rootScope.state.search = $rootScope.state.search || {};
+    $rootScope.state.search.q = $routeParams.q;
+    $rootScope.state.search.f = $routeParams.f;
+    $rootScope.state.search.database = $routeParams.database;
+    $rootScope.state.search.page = {
+      start: $routeParams.start || 0
+    };
   };
+  $scope.setSearchState();
   $scope.sortables = searchService.sortables;
   
   // Reset remote search hit count 
@@ -158,6 +180,11 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
     }
   };
 
+  $scope.calculatePages = function (results, pageSize) {
+    
+    return Math.ceil(results / pageSize);
+  };
+
   $scope.doSearch = function(url, params) {
     delete $rootScope.state.search.result;
     searchService.search(url, params).then(function(data) {
@@ -183,18 +210,9 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
 
         var pageSize = $rootScope.state.getSearchParams().n;
 
-        // Remote results come as an object, libris results as an int
-        if(typeof data.totalResults === 'object') {
-          $rootScope.state.search.hitCount = 0;
-          var tmp = _.values(data.totalResults);
-          for (var i = 0; i < tmp.length;i++){
-            $rootScope.state.search.hitCount += tmp[i];
-          }
-        } else {
-          $rootScope.state.search.hitCount = data.totalResults;
-        }
+        $rootScope.state.search.hitCount = $scope.getHitCount(data.totalResults);
 
-        $rootScope.state.search.page.total = Math.ceil($rootScope.state.search.hitCount / pageSize);
+        $rootScope.state.search.page.total = $scope.calculatePages($rootScope.state.search.hitCount, pageSize);
         // Everything we need is set, change paginator page
         var page = ($rootScope.state.search.page.start / pageSize || 0) + 1;
         // var page = ($rootScope.state.search.page.start / $rootScope.state.search.page.n || 0) + 1;
@@ -239,3 +257,5 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
   $scope.doSearch($scope.url, $rootScope.state.getSearchParams());
 
 });
+
+}());

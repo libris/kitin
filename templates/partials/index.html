@@ -1,45 +1,10 @@
 <div class="content index">
   <header></header>
-  <div class="alert alert-warning" role="alert" style="width: 432px; margin-left: 225px; margin-top: -50px; margin-bottom: 25px; border: 0; padding-bottom: 25px;">
-    <span class="fa fa-caret-up" style="margin-top: -45px; font-size: 80px; line-height: 0.5; color: #fff7d6;"></span>
-    <h3>Observera</h3>
-    <p>För att förenkla uppdatering och tester av katalogiseringsklienten så innehåller katalogen just nu en begränsad mängd poster.</p>
-  </div>
-
-  <div class="cols">
-    <div class="col6">
-      <section class="dash green">
-        <span class="circle"><i class="icon fa fa-inbox fa-inverse"></i></span>
-        <h4 translate>LABEL.gui.index.headers.ABOUT_THE_PROJECT</h4>
-        <ul>
-          <li><a href="https://docs.google.com/document/d/1zddAtmDIWdnj6Kk1gUtZgFwleDuigmWR5pxQ8rL7lWU/pub?embedded=true" target="_blank">Introduktion till projektet</a></li>
-          <li><a href="https://docs.google.com/spreadsheet/pub?key=0AvvnsO7eMP6AdDNMakxnYVppblVvNWtyUzFfc1hpQmc&amp;output=html" target="_blank">Behov/funktioner</a></li>
-          <li><a href="https://docs.google.com/presentation/d/11vrN-b0PS2PPUXPEb7qaYj1pFzEFuISZ0ysq0dO5icU/pub?start=false&amp;loop=false&amp;delayms=3000" target="_blank">Designförslag</a></li>
-          <li><a href="https://docs.google.com/document/d/16_f02OEF2wxlzob3fLvcM4wc_rmbGIsIuHNTdzoMFow/pub?embedded=true" target="_blank">Format och mappningar</a></li>
-        </ul>
-        <p>Senaste nytt från <a href="http://librisbloggen.kb.se" target="_blank" title="Extern länk till Librisbloggen">Librisbloggen</a></p>
-        <p><a href="http://feedback.kat.libris.kb.se/" target="_blank" title="Feedback forum"><i class="fa fa-comments"></i>
- Tyck till på vårat forum</a></p>
-        <p><a href="http://github.com/libris/kitin/" target="_blank" title="Extern länk till Katalogiseringsverktygets Github sida"><i class="fa fa-github"></i> Katalogiseringsverktyget på Github</a></p>
-
-      </section>
-    </div>
-    <div class="col6">
-      <section class="dash purple">
-        <span class="circle"><i class="icon fa fa-bullhorn fa-inverse"></i></span>
-        <h4 translate>LABEL.gui.index.headers.CHANGE_MESSAGES</h4>
-        <ul>
-          <li>Lorem Ipsum</li>
-          <li>Lorem Ipsum</li>
-          <li>Lorem Ipsum</li>
-          <li>Lorem Ipsum</li>
-        </ul>
-      </section>
-    </div>
-  </div>
+  <kitin-alert id="MAIN_STATUS_MSG" header="MAIN_STATUS_MSG.HEADER" message="MAIN_STATUS_MSG.MESSAGE" level="MAIN_STATUS_MSG.LEVEL"></kitin-alert>
+  
   <div class="cols" data-ng-controller="IndexCtrl">
     <div class="col12" ng-if="allowEdit">
-      <section class="dash pink drafts">
+      <section class="dash green drafts">
         <span class="circle"><i class="icon fa fa-file-text fa-inverse"></i></span>
         <h4 translate>LABEL.gui.index.headers.MY_SAVED_DRAFTS</h4>
         <ul class="container-fluid" data-ng-show="drafts.length > 0">
@@ -55,6 +20,26 @@
           </li>
         </ul>
         <div translate data-ng-show="!drafts || drafts.length < 1">LABEL.gui.index.messages.NO_SAVED_DRAFTS</div>
+      </section>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div class="col6">
+      <section class="dash pink">
+        <span class="circle"><i class="icon fa fa-info fa-inverse"></i></span>
+        <h4 translate>Om katalogiseringsverktyget</h4>
+        <p>
+          <a href="http://github.com/libris/kitin/" target="_blank" title="Extern länk till Katalogiseringsverktygets Github sida"><i class="fa fa-github"></i> Katalogiseringsverktyget på Github</a>
+        </p>
+      </section>
+    </div>
+    <div class="col6">
+      <section class="dash green-dark">
+        <span class="circle"><i class="icon fa fa-leaf fa-inverse"></i></span>
+        <h4 translate>Om LIBRIS Katalogisering</h4>
+        <p><a href="http://librisbloggen.kb.se" target="_blank" title="Extern länk till Librisbloggen"><i class="fa fa-rss-square"></i> Senaste nytt från Librisbloggen</a></p>
+
       </section>
     </div>
   </div>

@@ -142,7 +142,7 @@ kitin.directive('kitinEntity', function(editService, $rootScope, $parse, dialogs
       };
 
       this.doCreate = function(initialValue) {
-        return editService.createObject($scope.property, this.getType(), initialValue);
+        return editService.createObject(this.getType(), initialValue);
       };
 
       $scope.doRemove = function (index) {

@@ -209,7 +209,7 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
       }
     },
 
-    createObject: function (property, type, initalValue) {
+    createObject: function (type, initalValue) {
       var deferer = $q.defer();
 
       var createdObject = {};

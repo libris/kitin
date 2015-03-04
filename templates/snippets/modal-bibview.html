@@ -40,6 +40,9 @@
     </section>
 </div>
 <div class="modal-footer submit bibview">
+  <div class="status pull-left" style="text-align: left">
+    <span data-ng-if="record.modified">Uppdaterad: {{ record.modified | timeAgo:60*60*24 }}</span>
+  </div>
   <div class="button-container">
     <button class="btn btn-green btn-copy-remote" data-ng-click="importRecord(record)" data-ng-if="isRemote && allowEdit">
       <span><i class="fa fa-inverse fa-plus"></i> {{ "Kopiera" }}</span>

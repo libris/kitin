@@ -1,0 +1,83 @@
+{
+    "status": {
+        "@id": "/def/enum/record/New"
+    },
+    "about": {
+        "encoding": [
+            {
+                "@type": "MediaObject"
+            }
+        ],
+        "holdingFor": {
+            "@type": [
+                "Text",
+                "Monograph"
+            ],
+            "@id": "/resource/bib/11279947",
+            "@reverse": {
+                "about": {
+                    "controlNumber": "11279947"
+                }
+            }
+        },
+        "isPrimaryTopicOf": [
+            {
+                "@type": "Document"
+            }
+        ],
+        "offers": [
+            {
+                "heldBy": [
+                    {
+                        "@type": "Organization",
+                        "notation": "SEK"
+                    }
+                ],
+                "copyNote": [
+                    "sdfd"
+                ],
+                "shelfLocation": [
+                    "d"
+                ],
+                "@type": "Offer",
+                "classificationPart": "sdf"
+            },
+            {
+                "heldBy": [
+                    {
+                        "@type": "Organization"
+                    }
+                ],
+                "@type": "Offer"
+            }
+        ],
+        "heldBy": {
+            "@type": "Organization",
+            "notation": "SEK"
+        },
+        "alternateFormat": [
+            {
+                "@type": "Electronic"
+            }
+        ],
+        "relation": [
+            {
+                "@type": "Document"
+            }
+        ],
+        "@id": "/resource/hold/2126ff7e-16b6-44d2-b7ba-1792ebc4daa0",
+        "@type": [
+            "HeldMaterial"
+        ]
+    },
+    "created": "2015-02-26T09:01:48.882000000+01:00",
+    "encLevel": {
+        "@id": "/def/enum/record/HoldingsLevel1"
+    },
+    "modified": "2015-02-26T11:11:45.598000000+01:00",
+    "holdingType": {
+        "@id": "/def/enum/record/SinglePartItemHolding"
+    },
+    "@id": "/hold/2126ff7e-16b6-44d2-b7ba-1792ebc4daa0",
+    "@type": "HoldingsRecord"
+}
