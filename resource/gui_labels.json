@@ -1,83 +1,94 @@
- {
+ {  
     "LABEL": {
-    "gui": {
-        "TEST": "TESTAR",
-        "holding": {
-            "save": "Spara bestånd",
-            "saved": "Bestånd sparat",
-            "remove": "Radera bestånd",
-            "removed": "Beståndet raderat",
-            "missingOffers": "Beståndet saknar placeringsinformation",
-            "showOtherHoldings": "Visa bestånd för andra bibliotek",
-            "newHolding": "Ny beståndspost",
-            "yourHolding": "Ditt bestånd",
-            "offers": "Placering",
-            "addOffer": "Lägg till placeringsfält",
-            "removeOffer": "Radera placeringsfält",
-            "someProduct": "Bestånd för seriella resurser",
-            "addSomeProduct": "Lägg till Bestånd för seriella resurser",
-            "removeSomeProduct": "Radera bestånd för seriella resurser",
-            "isPrimaryTopicOf": "URI till åtkomstbegränsade resurser",
-            "addIsPrimaryTopicOf": "Lägg till URI till åtkomstbegränsade resurser",
-            "removeIsPrimaryTopicOf": "Radera URI till åtkomstbegränsade resurser"
-        },
-        "index": {
-            "headers": {
-                "ABOUT_THE_PROJECT": "Om projektet",
-                "CHANGE_MESSAGES": "Ändringsmeddelanden (fd CXZ-listan)",
-                "MY_SAVED_DRAFTS": "Mina sparade utkast",
-                "DISCUSSION_FORUM": "Diskussionsforum (fd Marc21-listan)"
-            },
-            "messages": {
-                "NO_SAVED_DRAFTS": "Du har inga sparade utkast."
+        "term": {
+            "@id": "URI",
+            "isPrimaryTopicOf": {
+                    "description": "Del av materialet som avses",
+                    "altLabel": "Länktext"
             }
         },
-        "search": {
-          "RETURN_TO_HITLIST": "Tillbaka till träfflistan"
-        },
-        "edit": {
-            "DATE_CREATED": "Skapad",
-            "MODIFIED": "Ändrad",
-            "ID": "Id",
+        "gui": {
+            "holding": {
+                "save": "Spara bestånd",
+                "saved": "Bestånd sparat",
+                "remove": "Radera bestånd",
+                "removed": "Beståndet raderat",
+                "missingOffers": "Beståndet saknar placeringsinformation",
+                "showOtherHoldings": "Visa bestånd för andra bibliotek",
+                "newHolding": "Ny beståndspost",
+                "yourHolding": "Ditt bestånd",
+                "offers": "Placering",
+                "addOffer": "Lägg till placeringsfält",
+                "removeOffer": "Radera placeringsfält",
+                "someProduct": "Bestånd för seriella resurser",
+                "addSomeProduct": "Lägg till Bestånd för seriella resurser",
+                "removeSomeProduct": "Radera bestånd för seriella resurser",
+                "isPrimaryTopicOf": "URI till åtkomstbegränsade resurser",
+                "addIsPrimaryTopicOf": "Lägg till URI till åtkomstbegränsade resurser",
+                "removeIsPrimaryTopicOf": "Radera URI till åtkomstbegränsade resurser"
+            },
+            "index": {
+                "headers": {
+                    "ABOUT_THE_PROJECT": "Om projektet",
+                    "CHANGE_MESSAGES": "Ändringsmeddelanden (fd CXZ-listan)",
+                    "MY_SAVED_DRAFTS": "Mina sparade utkast",
+                    "DISCUSSION_FORUM": "Diskussionsforum (fd Marc21-listan)"
+                },
                 "messages": {
-                    "publish": {
-                        "SUCCESS_TITLE": "Publiceringen lyckades!",
-                        "SUCCESS_MSG": "Posten finns nu att se i katalogen.",
-                        "FAILURE_TITLE": "Något gick fel",
-                        "FAILURE_MSG": "Det gick inte att spara posten, försök igen."
-                    }
+                    "NO_SAVED_DRAFTS": "Du har inga sparade utkast."
                 }
-        },
-        "terms": {
-            "HOLDINGS": "Bestånd"
-        },
-        "busy": {
-            "LOADING_BIB": "Laddar post...",
-            "SAVING_BIB": "Sparar post...",
-            "BUILDING_BIB": "Skapar formulärvy...",
-            
-            "LOADING_HOLDING": "Laddar bestånd...",
-            "SAVING_HOLDING": "Sparar bestånd...",
+            },
+            "search": {
+              "RETURN_TO_HITLIST": "Tillbaka till träfflistan"
+            },
+            "edit": {
+                "DATE_CREATED": "Skapad",
+                "MODIFIED": "Ändrad",
+                "ID": "Id",
+                    "messages": {
+                        "publish": {
+                            "SUCCESS_TITLE": "Publiceringen lyckades!",
+                            "SUCCESS_MSG": "Posten finns nu att se i katalogen.",
+                            "FAILURE_TITLE": "Något gick fel",
+                            "FAILURE_MSG": "Det gick inte att spara posten, försök igen."
+                        }
+                    }
+            },
+            "terms": {
+                "HOLDINGS": "Bestånd"
+            },
+            "busy": {
+                "LOADING_BIB": "Laddar post...",
+                "SAVING_BIB": "Sparar post...",
+                "BUILDING_BIB": "Skapar formulärvy...",
+                
+                "LOADING_HOLDING": "Laddar bestånd...",
+                "SAVING_HOLDING": "Sparar bestånd...",
 
-            "LOADING_DRAFT": "Laddar utkast...",
-            "SAVING_DRAFT": "Sparar utkast...",
-            
-            "LOADING_MARC": "Laddar marcformat...",
-            
-            "BUILDING_JSONLD": "Skapar JSON-LD-vy...",
-            
-            "SEARCHING": "Laddar sökresultat..."
-        },
-        "dialogs": {
-            "DIALOGS_ERROR": "Fel",
-            "DIALOGS_ERROR_MSG": "Något gick fel.",
-            "DIALOGS_CLOSE": "Stäng",
-            "DIALOGS_OK": "Ok",
-            "DIALOGS_YES": "Ja",
-            "DIALOGS_NO": "Nej",
-            "CLOSE_HOLDINGS": "Du har osparade ändringar, vill du verkligen stänga fönstret?",
-            "REMOVE_HOLDING": "Är du säker på att du vill radera beståndet? Det här kommandot går inte att ångra."
+                "LOADING_DRAFT": "Laddar utkast...",
+                "SAVING_DRAFT": "Sparar utkast...",
+                
+                "LOADING_MARC": "Laddar marcformat...",
+                
+                "BUILDING_JSONLD": "Skapar JSON-LD-vy...",
+                
+                "SEARCHING": "Laddar sökresultat..."
+            },
+            "dialogs": {
+                "DIALOGS_ERROR": "Fel",
+                "DIALOGS_ERROR_MSG": "Något gick fel.",
+                "DIALOGS_CLOSE": "Stäng",
+                "DIALOGS_OK": "Ok",
+                "DIALOGS_YES": "Ja",
+                "DIALOGS_NO": "Nej",
+                "CLOSE_HOLDINGS": "Du har osparade ändringar, vill du verkligen stänga fönstret?",
+                "REMOVE_HOLDING": "Är du säker på att du vill radera beståndet? Det här kommandot går inte att ångra."
+            }
+        }
+    },
+    "HELP": {
+        "offer": {
+            "shelfLocation": "test"
         }
     }
-}
 }

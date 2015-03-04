@@ -11,14 +11,14 @@ Params:
 
 */
 
-kitin.directive('kitinHelp', function () {
+kitin.directive('kitinHelp', function (definitions) {
     return {
         restrict: 'E',
         scope: {
-          'help': '=',
+          'model': '=',
           'positioned': '='
         },
-        template: '<a data-ng-class="classNames" data-ng-show="hasHelpText" data-ng-click="click()" kitin-popover-placement="{{popoverPlacement}}" kitin-popover="{{helpText}}">' + 
+        template: '<a data-ng-class="classNames" data-ng-show="helpText" data-ng-click="click()" kitin-popover-placement="{{popoverPlacement}}" kitin-popover="{{helpText}}">' + 
                     '<i class="fa fa-question-circle"></i>' +
                   '</a>',
         link: function(scope, element, attrs) {
@@ -29,20 +29,17 @@ kitin.directive('kitinHelp', function () {
           scope.popoverPlacement = (angular.isDefined(attrs.popoverPlacement)) ? attrs.popoverPlacement : 'right';
         },
         controller: function($scope, $element, $translate, $timeout){
-          $scope.hasHelpText = false;
           $scope.classNames = ['help', 'kitin-popover-trigger'];
 
-          var help = $scope.help || false;
+          var model = $scope.model || false;
           var positioned = $scope.positioned || false;
 
-          if (help && help.length > 0) {
+          if (model && model.length > 0) {
             // This is mostly to keep it DRY, might change in the future
-            var helpText = help.replace(/^LABEL\./, 'HELP.');
-            helpText = $translate.instant(helpText);
-            if (helpText) {
-              $scope.helpText = helpText;
-              $scope.hasHelpText = true;
-            }
+            definitions.terms.then(function(terms) {
+              var modelParts = model.split('.');
+              $scope.helpText = terms.getComment(modelParts[modelParts.length-1]);
+            });
           }
 
           $scope.click = function() {

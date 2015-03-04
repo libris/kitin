@@ -68,8 +68,8 @@ kitin.factory('definitions', function($http, $rootScope, $q) {
             return label;
           },
 
-          getTypeComment: function (obj, locale) {
-            return this._getTypeAttr(obj, 'comment', locale, this.terms);
+          getComment: function (type, locale) {
+            return this._getTypeAttr({'@type': type }, 'comment', locale, this.terms);
           },
 
           _getTypeAttr: function (obj, attr, locale, terms) {

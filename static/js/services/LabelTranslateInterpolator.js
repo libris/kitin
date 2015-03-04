@@ -45,6 +45,8 @@ kitin.factory('labelTranslateInterpolator', function ($interpolate, $rootScope) 
 
       if(label !== '') {
         translatedStr = label;
+      } else if(debug && (str.indexOf('record') !== -1 || str.indexOf('hold') !== -1)) {
+          console.warn('No tranlation found for:', label, str);
       }
       return $interpolate(translatedStr)(interpolateParams || {});
     }

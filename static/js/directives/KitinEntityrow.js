@@ -35,7 +35,7 @@ kitin.directive('kitinEntityrow', function(editService, $rootScope) {
                     '<span ng-transclude></span>' +
                   '</kitin-entity>' +
                 '</div>' +
-                '<kitin-help help="label" data-positioned></kitin-help>' +
+                '<kitin-help model="label" data-positioned></kitin-help>' +
               '</div>',
 
     controller: function($element, $scope, $attrs) {
