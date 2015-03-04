@@ -81,12 +81,12 @@
             <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
           </kitin-table>
 
-          <div class="button-bar right">
+          <div class="button-bar remove-bar right">
             <button class="btn btn-link" data-ng-if="holding.about.offers.length > 1" data-ng-click="deleteOffer(holding, $index)"><i class="fa fa-trash-o"></i> {{ 'LABEL.gui.general.remove' | translate }} {{ 'LABEL.gui.holding.offers' | translate }}</button>
           </div>        
         </kitin-group>
       </div>
-      <div class="button-bar right">
+      <div class="button-bar add-bar right">
         <button class="btn btn-link" data-ng-click="addOffer(holding)" data-ng-show="holding"><i class="fa fa-plus"></i> {{ 'LABEL.gui.general.add' | translate }} {{ 'LABEL.gui.holding.offers' | translate }}</button>
       </div>
     </section>
@@ -106,12 +106,12 @@
               <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
             </kitin-table>
 
-            <div class="button-bar right">
+            <div class="button-bar remove-bar right">
               <button class="btn btn-link" data-ng-click="deleteWorkExample(holding, 'SomeProducts', $index)"><i class="fa fa-trash-o"></i> {{ 'LABEL.gui.general.remove' | translate }} {{ 'LABEL.gui.holding.someProduct' | translate }}</button>
             </div>
           </kitin-group>
       </div>
-      <div class="button-bar right">
+      <div class="button-bar add-bar right">
         <button class="btn btn-link" data-ng-click="addWorkExample(holding, 'SomeProducts')" data-ng-show="holding"><i class="fa fa-plus"></i> {{ 'LABEL.gui.general.add' | translate }} {{ 'LABEL.gui.holding.someProduct' | translate }}</button>
       </div>
     </section>
@@ -136,12 +136,12 @@
             <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
           </kitin-table>
           
-          <div class="button-bar right">
+          <div class="button-bar remove-bar right">
             <button class="btn btn-link" data-ng-click="deletePrimaryTopicOf(holding, $index)"><i class="fa fa-trash-o"></i> {{ 'LABEL.gui.general.remove' | translate }} {{ 'LABEL.gui.holding.isPrimaryTopicOf' | translate }}</button>
           </div>
         </kitin-group>
       </div>
-      <div class="button-bar right">
+      <div class="button-bar add-bar right">
         <button class="btn btn-link" data-ng-click="addPrimaryTopicOf(holding)" data-ng-show="holding"><i class="fa fa-plus"></i> {{ 'LABEL.gui.general.add' | translate }} {{ 'LABEL.gui.holding.isPrimaryTopicOf' | translate }}</button>
       </div>
     </section>

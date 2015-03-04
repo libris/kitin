@@ -44,18 +44,18 @@
     <span data-ng-if="record.modified">Uppdaterad: {{ record.modified | timeAgo:60*60*24 }}</span>
   </div>
   <div class="button-container">
-    <button class="btn btn-green btn-copy-remote" data-ng-click="importRecord(record)" data-ng-if="isRemote && allowEdit">
+    <button class="button-import btn btn-green btn-copy-remote" data-ng-click="importRecord(record)" data-ng-if="isRemote && allowEdit">
       <span><i class="fa fa-inverse fa-plus"></i> {{ "Kopiera" }}</span>
     </button>
-    <button class="btn btn-green btn-copy-remote" data-ng-click="editPost(record)" data-ng-if="!isRemote && allowEdit">
+    <button class="button-edit btn btn-green btn-copy-remote" data-ng-click="editPost(record)" data-ng-if="!isRemote && allowEdit">
       <span><i class="fa fa-inverse fa-edit"></i> {{ "Redigera" }}</span>
     </button>
   </div>
   <div class="button-container" data-ng-show="!isRemote">
-    <button class="btn btn-purple btn-hld" data-ng-if="!record.holdings.holding" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
+    <button class="button-holdings btn btn-purple btn-hld" data-ng-if="!record.holdings.holding" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
       <span><i class="fa fa-inverse fa-plus"></i> Bestånd</span>
     </button>
-    <button class="btn btn-white-purple btn-hld" data-ng-if="record.holdings.holding" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
+    <button class="button-holdings btn btn-white-purple btn-hld" data-ng-if="record.holdings.holding" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
       <span><i class="fa fa-check"></i> Bestånd</span>
     </button>
   </div>

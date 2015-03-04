@@ -14,8 +14,8 @@
           <div class="tools">
             <span class="sort-option">
               <span class="hitlist-viewswitch">
-                <a title="Detaljerad träfflista" href="" ng-class="{ active: state.search.view=='detailed' }" data-ng-click="setView('detailed')"><i class="fa fa-th-list"></i></a>
-                <a title="Kompakt träfflista" href="" ng-class="{ active: state.search.view=='compact' }" data-ng-click="setView('compact')"><i class="fa fa-list"></i></a>
+                <a title="Detaljerad träfflista" href="" ng-class="{ active: state.search.view=='detailed' }" class="detailed" data-ng-click="setView('detailed')"><i class="fa fa-th-list"></i></a>
+                <a title="Kompakt träfflista" href="" ng-class="{ active: state.search.view=='compact' }" class="compact" data-ng-click="setView('compact')"><i class="fa fa-list"></i></a>
               </span>
               <select aria-label="Sortera träfflista" ng-model="selectedSort" ng-options="item as item.text for item in sortables" ng-change="sortChanged(selectedSort)" data-ng-show="recType != 'remote'"></select>
             </span>
