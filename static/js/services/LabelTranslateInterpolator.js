@@ -32,16 +32,11 @@ kitin.factory('labelTranslateInterpolator', function ($interpolate, $rootScope) 
         console.warn('RootScope not initated, trying to translate:',str, interpolateParams);
         return;
       }
-      if(str.indexOf('HELP') !== -1) {
-        model = str.replace('HELP.record.about.','');
-        modelParts = model.split('.');  
-        label = $rootScope.getTypeComment({'@type': modelParts[modelParts.length-1]}, locale);
-      } else {
-        model = str.replace('record.about.','');
-        model = model.replace('holding.about.','');
-        modelParts = model.split('.');  
-        label = $rootScope.getTypeLabel({'@type': modelParts[modelParts.length-1]}, locale);
-      }
+
+      model = str.replace('record.about.','');
+      model = model.replace('holding.about.','');
+      modelParts = model.split('.');  
+      label = $rootScope.getTypeLabel({'@type': modelParts[modelParts.length-1]}, locale);
 
       if(label !== '') {
         translatedStr = label;
