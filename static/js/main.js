@@ -66,6 +66,7 @@ kitin.filter('unsafe', ['$sce', function ($sce) {
 kitin.run(function($rootScope, $location, $modalStack, $window, dialogs) {
   $rootScope.API_PATH = WHELK_HOST;
   $rootScope.WRITE_API_PATH = WHELK_WRITE_HOST;
+  $rootScope.MAIN_STATUS_MSG = MAIN_STATUS_MSG;
 
   $rootScope.$on('$locationChangeStart', function (event) {
     var closeModals = function(i) {

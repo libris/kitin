@@ -54,7 +54,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     return rankedClassifications;
   }
 
-  function getClassificationsFromBibPost(array) {
+  $scope.getClassificationsFromBibPost = function (array) {
     /*
       Get classifications from bib post
       Returns array of matching classifications as objects
@@ -86,7 +86,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
       }
     }
     return classificationsTo;
-  }
+  };
 
   function onSave(holding) {    
     var currentRecord = getCurrentRecord();
@@ -159,7 +159,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
       $scope.holding = holding;
       $rootScope.modifications.holding.saved = true;
     }
-    $scope.bibClassifications = getClassificationsFromBibPost(['kssb*', 'DDC', 'UDC']);
+    $scope.bibClassifications = $scope.getClassificationsFromBibPost(['kssb*', 'DDC', 'UDC']);
   });
 
   $scope.saveHolding = function(holding) {

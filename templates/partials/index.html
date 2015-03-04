@@ -1,9 +1,27 @@
 <div class="content index">
   <header></header>
-  <div class="alert alert-warning" role="alert" style="width: 432px; margin-left: 225px; margin-top: -50px; margin-bottom: 25px; border: 0; padding-bottom: 25px;">
-    <span class="fa fa-caret-up" style="margin-top: -45px; font-size: 80px; line-height: 0.5; color: #fff7d6;"></span>
-    <h3>Observera</h3>
-    <p>För att förenkla uppdatering och tester av katalogiseringsklienten så innehåller katalogen just nu en begränsad mängd poster.</p>
+  <kitin-alert id="MAIN_STATUS_MSG" header="MAIN_STATUS_MSG.HEADER" message="MAIN_STATUS_MSG.MESSAGE" level="MAIN_STATUS_MSG.LEVEL"></kitin-alert>
+  
+  <div class="cols" data-ng-controller="IndexCtrl">
+    <div class="col12" ng-if="allowEdit">
+      <section class="dash green drafts">
+        <span class="circle"><i class="icon fa fa-file-text fa-inverse"></i></span>
+        <h4 translate>LABEL.gui.index.headers.MY_SAVED_DRAFTS</h4>
+        <ul class="container-fluid" data-ng-show="drafts.length > 0">
+          <li data-ng-repeat="draft in drafts | orderBy:'modified':true" class="draft">
+            <form data-ng-submit="delete(draft['@id'])" method="POST" class="form-inline">
+          	  <div class="title"><a href="/edit/draft{{ draft['@id'] }}">{{utils.composeTitle(draft, 'draft') | chop:80 }}</a></div>
+              <div class="creator">{{draft.creator | chop:40}}</div>
+              <div class="publication"><span data-ng-repeat="publication in draft.publication | limitTo:1">{{publication.providerDate}}</span></div>
+              <div class="modified">{{draft.modified | timeAgo }}</div>
+              <div class="delete"><button type="submit" class="btn-link pull-right" title="Ta bort utkast"><i class="fa fa-trash-o"></i></button></div>
+              <input type="hidden" name="_method" value="DELETE" />
+            </form>
+          </li>
+        </ul>
+        <div translate data-ng-show="!drafts || drafts.length < 1">LABEL.gui.index.messages.NO_SAVED_DRAFTS</div>
+      </section>
+    </div>
   </div>
 
   <div class="cols">
@@ -22,27 +40,6 @@
         <h4 translate>Om LIBRIS Katalogisering</h4>
         <p><a href="http://librisbloggen.kb.se" target="_blank" title="Extern länk till Librisbloggen"><i class="fa fa-rss-square"></i> Senaste nytt från Librisbloggen</a></p>
 
-      </section>
-    </div>
-  </div>
-  <div class="cols" data-ng-controller="IndexCtrl">
-    <div class="col12" ng-if="allowEdit">
-      <section class="dash pink drafts">
-        <span class="circle"><i class="icon fa fa-file-text fa-inverse"></i></span>
-        <h4 translate>LABEL.gui.index.headers.MY_SAVED_DRAFTS</h4>
-        <ul class="container-fluid" data-ng-show="drafts.length > 0">
-          <li data-ng-repeat="draft in drafts | orderBy:'modified':true" class="draft">
-            <form data-ng-submit="delete(draft['@id'])" method="POST" class="form-inline">
-          	  <div class="title"><a href="/edit/draft{{ draft['@id'] }}">{{utils.composeTitle(draft, 'draft') | chop:80 }}</a></div>
-              <div class="creator">{{draft.creator | chop:40}}</div>
-              <div class="publication"><span data-ng-repeat="publication in draft.publication | limitTo:1">{{publication.providerDate}}</span></div>
-              <div class="modified">{{draft.modified | timeAgo }}</div>
-              <div class="delete"><button type="submit" class="btn-link pull-right" title="Ta bort utkast"><i class="fa fa-trash-o"></i></button></div>
-              <input type="hidden" name="_method" value="DELETE" />
-            </form>
-          </li>
-        </ul>
-        <div translate data-ng-show="!drafts || drafts.length < 1">LABEL.gui.index.messages.NO_SAVED_DRAFTS</div>
       </section>
     </div>
   </div>
