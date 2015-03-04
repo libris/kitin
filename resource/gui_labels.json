@@ -85,10 +85,5 @@
                 "REMOVE_HOLDING": "Är du säker på att du vill radera beståndet? Det här kommandot går inte att ångra."
             }
         }
-    },
-    "HELP": {
-        "offer": {
-            "shelfLocation": "test"
-        }
     }
 }
