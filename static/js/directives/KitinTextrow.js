@@ -10,6 +10,7 @@ Params:
   change-model: (str)
   hide-label: (bool)
   label-prefix: (str)
+  label: (str)
   always-visible: (bool) visible at start
   suggestion: (array) Array of objects:
                       i.e. [{ 'list' : record.about.classification, 'property' : 'notation' }]
@@ -40,10 +41,11 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
       controller: function($scope, $rootScope, $attrs) {
 
         if(!$attrs.hasOwnProperty('hideLabel')) {
+          var label = $attrs.label ? $attrs.label : $attrs.model;
           if($attrs.hasOwnProperty('labelPrefix')) {
-            $scope.label = $attrs.labelPrefix + $attrs.model;
+            $scope.label = $attrs.labelPrefix + label;
           } else {
-            $scope.label = $attrs.model;
+            $scope.label = label;
           }
         }
 
