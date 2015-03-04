@@ -26,9 +26,9 @@ module.exports = function(config) {
       'static/vendor/jquery/jquery.js',
       'static/vendor/lodash/lodash.compat.js',
       'static/vendor/dyve-jquery-autocomplete/jquery.autocomplete.js',
-      'static/vendor/bind-polyfill/index.js',
-      'static/vendor/karma-read-json/karma-read-json.js',
       'node_modules/angular-mocks/angular-mocks.js',
+      // Util functions
+      'test/js/config/utils.js',
       // Global variables
       'test/js/config/globals.js',
       // App files
