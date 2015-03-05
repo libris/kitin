@@ -14,6 +14,7 @@ var conf = {
   // We might want to create different scenarios, use suites rather than specs
   suites: {
     search: [
+      '../e2e/general.js',
       '../e2e/search.bib.js',
       // '../e2e/search.auth.js',
       // '../e2e/search.remote.js',
