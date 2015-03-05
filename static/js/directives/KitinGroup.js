@@ -26,7 +26,7 @@ kitin.directive('kitinGroup', function(){
                       '<span><i class="{{classNames[hidden]}}"></i></span> {{hidden ? "Visa fler" : "Göm tomma"}} fält</button>' +
                     '</span>'+
                   '</div>' +
-                  '<div ng-transclude></div>' +
+                  '<div class="group-contents" ng-transclude></div>' +
                 '</div>',
       controller: function($element, $scope, $attrs) {
         var isSingle = $attrs.hasOwnProperty('single');

@@ -46,6 +46,11 @@ describe('Kitin hitlist', function() {
   	});
     var resultTextPost = element(by.css('.crumbs')).getText();
   	expect(resultTextPost).not.toEqual(resultTextPre);
+    element.all(by.repeater('item in facet.items')).then(function(items) {
+      items[0].element(by.css('a.active')).click();
+    });
+    resultTextPost = element(by.css('.crumbs')).getText();
+    expect(resultTextPost).toEqual(resultTextPre);
   });
 
 });
