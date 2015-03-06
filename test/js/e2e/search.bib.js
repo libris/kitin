@@ -58,13 +58,14 @@ describe('Kitin Libris search', function() {
   });
 
 
-  it('should be able to display bib view modal', function() {
+  it('should be able to display bib view modal libris settings', function() {
     var detailedSwitch = element(by.css('.hitlist-viewswitch .detailed'));
     detailedSwitch.click();
     var buttonHoldings;
     element.all(by.css('.bib-url')).first().click();
     var modal = element(by.className('bib-modal'));
     expect(modal.isPresent()).toBeTruthy();
+    expect(element(by.css('.bib-modal .button-holdings')).isPresent()).toBeTruthy();
     element(by.css('.bib-modal button.close')).click();
   });
 

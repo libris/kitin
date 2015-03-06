@@ -51,7 +51,7 @@
       <span><i class="fa fa-inverse fa-edit"></i> {{ "Redigera" }}</span>
     </button>
   </div>
-  <div class="button-container" data-ng-show="!isRemote">
+  <div class="button-container" data-ng-if="!isRemote">
     <button class="button-holdings btn btn-purple btn-hld" data-ng-if="!record.holdings.holding" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
       <span><i class="fa fa-inverse fa-plus"></i> Bestånd</span>
     </button>
