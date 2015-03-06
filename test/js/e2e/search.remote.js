@@ -1,10 +1,14 @@
-describe('Kitin hitlist', function() {
+describe('Kitin Remote search', function() {
   var kitinSearch = require('./SearchPageObject.js');
-  kitinSearch.home();
-  kitinSearch.doSearch('*', 'bib');
 
   beforeEach(function() {
     
+  });
+
+  it('should be able to search correct source', function() {
+    kitinSearch.home();
+    kitinSearch.doSearch('sverige', 'remote');
+    expect(browser.getCurrentUrl()).toContain('search/remote');
   });
 
   it('should be able to display detailed hitlist', function () {
@@ -39,18 +43,14 @@ describe('Kitin hitlist', function() {
 		});
   });
 
-  it('should be able to modify hitlist with facettes', function () {
-    var resultTextPre = element(by.css('.crumbs')).getText();
-  	element.all(by.repeater('item in facet.items')).then(function(items) {
-  		items[0].element(by.css('a')).click();
-  	});
-    var resultTextPost = element(by.css('.crumbs')).getText();
-  	expect(resultTextPost).not.toEqual(resultTextPre);
-    element.all(by.repeater('item in facet.items')).then(function(items) {
-      items[0].element(by.css('a.active')).click();
-    });
-    resultTextPost = element(by.css('.crumbs')).getText();
-    expect(resultTextPost).toEqual(resultTextPre);
+  it('should be able to display bib view modal', function() {
+    var detailedSwitch = element(by.css('.hitlist-viewswitch .detailed'));
+    detailedSwitch.click();
+    var buttonHoldings;
+    element.all(by.css('.bib-url')).first().click();
+    var modal = element(by.className('bib-modal'));
+    expect(modal.isPresent()).toBeTruthy();
+    element(by.css('.bib-modal button.close')).click();
   });
 
 });

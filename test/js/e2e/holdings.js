@@ -1,16 +1,14 @@
 describe('Kitin holdings modal', function() {
   var kitinSearch = require('./SearchPageObject.js');
 
-
-  kitinSearch.home();
-  kitinSearch.doSearch('*', 'bib');
-
   beforeEach(function() {
     
   });
 
   it('should be able to display holdings modal', function () {
 
+    kitinSearch.home();
+    kitinSearch.doSearch('*', 'bib');
     var detailedSwitch = element(by.css('.hitlist-viewswitch .detailed'));
     detailedSwitch.click();
   	var buttonHoldings;

@@ -17,8 +17,7 @@ var conf = {
       '../e2e/general.js',
       '../e2e/search.bib.js',
       // '../e2e/search.auth.js',
-      // '../e2e/search.remote.js',
-      '../e2e/hitlist.js',
+      '../e2e/search.remote.js',
       '../e2e/holdings.js',
     ],
     full: '../e2e/**/*.js'
