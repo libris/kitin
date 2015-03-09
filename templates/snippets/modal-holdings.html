@@ -23,11 +23,11 @@
     </section>
     <section class="info-container">
       <div>
-        <p>
+        <p class="inline">
           Beståndspost finns för {{ otherHoldings.length }} {{ otherHoldings.length > 1 ? 'andra' : 'annat' }} bibliotek.
-        </p>
-        <p class="btn btn-xs btn-link" ng-click="showOtherHoldings = !showOtherHoldings">
-          {{ showOtherHoldings ? 'Dölj tabell' : 'Visa tabell' }} <i class="fa" ng-class="{'fa-chevron-down': showOtherHoldings, 'fa-chevron-right': !showOtherHoldings}"></i>
+          <p class="btn btn-xs btn-link" ng-click="showOtherHoldings = !showOtherHoldings">
+            {{ showOtherHoldings ? 'Dölj tabell' : 'Visa tabell' }} <i class="fa" ng-class="{'fa-caret-down': showOtherHoldings, 'fa-caret-right fa-fw': !showOtherHoldings}"></i>
+          </p>
         </p>
         <table class="table-striped table-bordered tbl-otherHoldings" ng-show="showOtherHoldings">
           <thead>
