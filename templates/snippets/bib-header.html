@@ -37,7 +37,7 @@
       <div class="f bottom">
         <span>
           <kitin-language-icon model="language" data-ng-repeat="language in recordInfo.about.language | orderBy:'langTag'" ng-if="language.prefLabel || language.langTag"></kitin-language-icon>
-          <kitin-display-type ng-if="recordInfo.hasFormat" model="recordInfo"></kitin-display-type>
+          <kitin-display-type model="recordInfo"></kitin-display-type>
           <span title="provider-date" data-ng-repeat="publication in recordInfo.about.publication | limitTo:1"
             data-ng-show="publication.providerDate">{{ utils.composeDate(publication.providerDate) }}</span>
           <span title="provider" data-ng-repeat="publication in recordInfo.about.publication | limitTo:1"> {{publication.place.label}} {{publication.providerName}}</span>

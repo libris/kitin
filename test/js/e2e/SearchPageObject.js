@@ -17,9 +17,9 @@ var KitinSearch = function() {
   this.doSearch = function(searchQuery, searchType) {
     searchType = searchType || 'bib';
     var typeIndices = {
-      bib: 0,
-      auth: 1,
-      remote: 2
+      'bib': 0,
+      'auth': 1,
+      'remote': 2
     }
 
     var ddMenu = this.searchDropDownMenu;

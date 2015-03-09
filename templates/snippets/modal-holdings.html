@@ -12,47 +12,61 @@
       <kitin-bib-header record="record" rectype="recType" static stickto="'.modal-body.holdings'"></kitin-bib-header>
     </div>
   </section>
-  <hr>
 
   <!-- TODO: Make table dynamic -->
   <div class="otherHoldings" ng-show="otherHoldings.length > 0">
-    <h4 ng-click="showOtherHoldings = !showOtherHoldings">{{ 'LABEL.gui.holding.showOtherHoldings' | translate }} <i class="pull-right fa" ng-class="{'fa-chevron-down': showOtherHoldings, 'fa-chevron-right': !showOtherHoldings}"></i></h4>
-    <table class="table-striped table-bordered tbl-otherHoldings" ng-show="showOtherHoldings">
-      <thead>
-      <tr>
-        <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.heldBy.notation'">
-          <kitin-label label="'heldBy'"><kitin-label> <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.heldBy.notation'}" class="fa fa-caret-down"></i>
-        </th>
-        <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].classificationPart'">
-          <kitin-label label="'classificationPart'"><kitin-label> <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].classificationPart'}" class="fa fa-caret-down"></i>
-        </th>
-        <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].shelfLocation'">
-          <kitin-label label="'shelfLocation'"><kitin-label> <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].shelfLocation'}" class="fa fa-caret-down"></i>
-        </th>
-        <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].classificationPart'">
-          {{ 'LABEL.holding.about.offer.classificationPart' | translate }} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].classificationPart'}" class="fa fa-caret-down"></i>
-        </th>
-        <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].shelfControlNumber'">
-          <kitin-label label="'shelfControlNumber'"><kitin-label> <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].shelfControlNumber'}" class="fa fa-caret-down"></i>
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="otherHolding in otherHoldings | orderBy:otherHoldingsPredicate track by $index">
-          <td><a href="http://bibdb.libris.kb.se/library/{{ otherHolding.about.heldBy.notation }}" title="Visa {{ otherHolding.about.heldBy.notation }} i Biblioteksdatabasen (nytt fönster)" target="_blank">{{ otherHolding.about.heldBy.notation }}</a></td>
-          <td>{{ otherHolding.about.offers[0].classificationPart ? otherHolding.about.offers[0].classificationPart : '-'}}</td>
-          <td>{{ otherHolding.about.offers[0].shelfLocation ? otherHolding.about.offers[0].shelfLocation.join(', ') : '-'}}</td>
-          <td>{{ otherHolding.about.offers[0].shelfControlNumber ? otherHolding.about.offers[0].shelfControlNumber : '-'}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <section class="header">
+      <h2>
+        {{ 'LABEL.gui.holding.showOtherHoldings' | translate }}
+        <i></i>
+      </h2>
+    </section>
+    <section class="info-container">
+      <div>
+        <p class="inline">
+          Beståndspost finns för {{ otherHoldings.length }} {{ otherHoldings.length > 1 ? 'andra' : 'annat' }} bibliotek.
+          <p class="btn btn-xs btn-link" ng-click="showOtherHoldings = !showOtherHoldings">
+            {{ showOtherHoldings ? 'Dölj tabell' : 'Visa tabell' }} <i class="fa" ng-class="{'fa-caret-down': showOtherHoldings, 'fa-caret-right fa-fw': !showOtherHoldings}"></i>
+          </p>
+        </p>
+        <table class="table-striped table-bordered tbl-otherHoldings" ng-show="showOtherHoldings">
+          <thead>
+            <tr>
+              <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.heldBy.notation'">
+                <kitin-label label="'heldBy'"><kitin-label> <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.heldBy.notation'}" class="fa fa-caret-down"></i>
+              </th>
+              <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].shelfLocation'">
+                <kitin-label label="'shelfLocation'"><kitin-label> <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].shelfLocation'}" class="fa fa-caret-down"></i>
+              </th>
+              <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].classificationPart'">
+                {{ 'LABEL.holding.about.offer.classificationPart' | translate }} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].classificationPart'}" class="fa fa-caret-down"></i>
+              </th>
+              <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].shelfControlNumber'">
+                <kitin-label label="'shelfControlNumber'"><kitin-label> <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].shelfControlNumber'}" class="fa fa-caret-down"></i>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="otherHolding in otherHoldings | orderBy:otherHoldingsPredicate track by $index">
+              <td><a href="http://bibdb.libris.kb.se/library/{{ otherHolding.about.heldBy.notation }}" title="Visa {{ otherHolding.about.heldBy.notation }} i Biblioteksdatabasen (nytt fönster)" target="_blank">{{ otherHolding.about.heldBy.notation }}</a></td>
+              <td>{{ otherHolding.about.offers[0].classificationPart ? otherHolding.about.offers[0].classificationPart : '-'}}</td>
+              <td>{{ otherHolding.about.offers[0].shelfLocation ? otherHolding.about.offers[0].shelfLocation.join(', ') : '-'}}</td>
+              <td>{{ otherHolding.about.offers[0].shelfControlNumber ? otherHolding.about.offers[0].shelfControlNumber : '-'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      <div>
+    </section>
   </div>
-
-  <h4>{{ modifications.holding.isNew ? 'LABEL.gui.holding.newHolding' : 'LABEL.gui.holding.yourHolding' | translate }}</h4>
-
+  
   <form data-ng-show="holding['@id'] || !holding['etag']" name="holdingForm">
+    <section class="header">
+      <h2>
+        {{ modifications.holding.isNew ? 'LABEL.gui.holding.newHolding' : 'LABEL.gui.holding.yourHolding' | translate }}
+        <i></i>
+      </h2>
+    </section>
     
-
     <!-- OFFERS (852) -->
     <section class="offer form-container">
       <div data-ng-repeat="offer in holding.about.offers track by $index">
@@ -84,12 +98,12 @@
             <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
           </kitin-table>
 
-          <div class="button-bar right">
+          <div class="button-bar remove-bar right">
             <button class="btn btn-link" data-ng-if="holding.about.offers.length > 1" data-ng-click="deleteOffer(holding, $index)"><i class="fa fa-trash-o"></i> {{ 'LABEL.gui.general.remove' | translate }} {{ 'LABEL.gui.holding.offers' | translate }}</button>
           </div>        
         </kitin-group>
       </div>
-      <div class="button-bar right">
+      <div class="button-bar add-bar right">
         <button class="btn btn-link" data-ng-click="addOffer(holding)" data-ng-show="holding"><i class="fa fa-plus"></i> {{ 'LABEL.gui.general.add' | translate }} {{ 'LABEL.gui.holding.offers' | translate }}</button>
       </div>
     </section>
@@ -109,12 +123,12 @@
               <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
             </kitin-table>
 
-            <div class="button-bar right">
+            <div class="button-bar remove-bar right">
               <button class="btn btn-link" data-ng-click="deleteWorkExample(holding, 'SomeProducts', $index)"><i class="fa fa-trash-o"></i> {{ 'LABEL.gui.general.remove' | translate }} {{ 'LABEL.gui.holding.someProduct' | translate }}</button>
             </div>
           </kitin-group>
       </div>
-      <div class="button-bar right">
+      <div class="button-bar add-bar right">
         <button class="btn btn-link" data-ng-click="addWorkExample(holding, 'SomeProducts')" data-ng-show="holding"><i class="fa fa-plus"></i> {{ 'LABEL.gui.general.add' | translate }} {{ 'LABEL.gui.holding.someProduct' | translate }}</button>
       </div>
     </section>
@@ -139,12 +153,12 @@
             <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
           </kitin-table>
           
-          <div class="button-bar right">
+          <div class="button-bar remove-bar right">
             <button class="btn btn-link" data-ng-click="deletePrimaryTopicOf(holding, $index)"><i class="fa fa-trash-o"></i> {{ 'LABEL.gui.general.remove' | translate }} {{ 'LABEL.gui.holding.isPrimaryTopicOf' | translate }}</button>
           </div>
         </kitin-group>
       </div>
-      <div class="button-bar right">
+      <div class="button-bar add-bar right">
         <button class="btn btn-link" data-ng-click="addPrimaryTopicOf(holding)" data-ng-show="holding"><i class="fa fa-plus"></i> {{ 'LABEL.gui.general.add' | translate }} {{ 'LABEL.gui.holding.isPrimaryTopicOf' | translate }}</button>
       </div>
     </section>
