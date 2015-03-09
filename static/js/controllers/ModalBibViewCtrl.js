@@ -8,7 +8,7 @@ kitin.controller('ModalBibViewCtrl', function($scope, $modalInstance, $rootScope
   if ($scope.recType === "remote") {
     $scope.isRemote = true;
     // Get full name
-    $scope.remoteDatabase = _.where($rootScope.state.remoteDatabases, {database : record.database})[0].name;
+    $scope.remoteDatabase = _.where($rootScope.state.remoteDatabases, {database : record.database})[0];
     // reroute record variable
     $scope.record = $scope.record.data;
   }
