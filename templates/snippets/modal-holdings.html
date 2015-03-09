@@ -12,44 +12,61 @@
       <kitin-bib-header record="record" rectype="recType" static stickto="'.modal-body.holdings'"></kitin-bib-header>
     </div>
   </section>
-  <hr>
 
   <!-- TODO: Make table dynamic -->
   <div class="otherHoldings" ng-show="otherHoldings.length > 0">
-    <h4 ng-click="showOtherHoldings = !showOtherHoldings">{{ 'LABEL.gui.holding.showOtherHoldings' | translate }} <i class="pull-right fa" ng-class="{'fa-chevron-down': showOtherHoldings, 'fa-chevron-right': !showOtherHoldings}"></i></h4>
-    <table class="table-striped table-bordered tbl-otherHoldings" ng-show="showOtherHoldings">
-      <thead>
-      <tr>
-        <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.heldBy.notation'">
-          {{'LABEL.holding.about.offer.heldBy' | translate}} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.heldBy.notation'}" class="fa fa-caret-down"></i>
-        </th>
-        <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].shelfLocation'">
-          {{'LABEL.holding.about.offer.shelfLocation' | translate}} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].shelfLocation'}" class="fa fa-caret-down"></i>
-        </th>
-        <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].classificationPart'">
-          {{ 'LABEL.holding.about.offer.classificationPart' | translate }} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].classificationPart'}" class="fa fa-caret-down"></i>
-        </th>
-        <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].shelfControlNumber'">
-          {{'LABEL.holding.about.offer.shelfControlNumber' | translate}} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].shelfControlNumber'}" class="fa fa-caret-down"></i>
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="otherHolding in otherHoldings | orderBy:otherHoldingsPredicate track by $index">
-          <td><a href="http://bibdb.libris.kb.se/library/{{ otherHolding.about.heldBy.notation }}" title="Visa {{ otherHolding.about.heldBy.notation }} i Biblioteksdatabasen (nytt fönster)" target="_blank">{{ otherHolding.about.heldBy.notation }}</a></td>
-          <td>{{ otherHolding.about.offers[0].classificationPart ? otherHolding.about.offers[0].classificationPart : '-'}}</td>
-          <td>{{ otherHolding.about.offers[0].shelfLocation ? otherHolding.about.offers[0].shelfLocation.join(', ') : '-'}}</td>
-          <td>{{ otherHolding.about.offers[0].shelfControlNumber ? otherHolding.about.offers[0].shelfControlNumber : '-'}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <section class="header">
+      <h2>
+        {{ 'LABEL.gui.holding.showOtherHoldings' | translate }}
+        <i></i>
+      </h2>
+    </section>
+    <section class="info-container">
+      <div>
+        <p>
+          Beståndspost finns för {{ otherHoldings.length }} {{ otherHoldings.length > 1 ? 'andra' : 'annat' }} bibliotek.
+        </p>
+        <p class="btn btn-xs btn-link" ng-click="showOtherHoldings = !showOtherHoldings">
+          {{ showOtherHoldings ? 'Dölj tabell' : 'Visa tabell' }} <i class="fa" ng-class="{'fa-chevron-down': showOtherHoldings, 'fa-chevron-right': !showOtherHoldings}"></i>
+        </p>
+        <table class="table-striped table-bordered tbl-otherHoldings" ng-show="showOtherHoldings">
+          <thead>
+          <tr>
+            <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.heldBy.notation'">
+              {{'LABEL.holding.about.offer.heldBy' | translate}} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.heldBy.notation'}" class="fa fa-caret-down"></i>
+            </th>
+            <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].shelfLocation'">
+              {{'LABEL.holding.about.offer.shelfLocation' | translate}} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].shelfLocation'}" class="fa fa-caret-down"></i>
+            </th>
+            <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].classificationPart'">
+              {{ 'LABEL.holding.about.offer.classificationPart' | translate }} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].classificationPart'}" class="fa fa-caret-down"></i>
+            </th>
+            <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].shelfControlNumber'">
+              {{'LABEL.holding.about.offer.shelfControlNumber' | translate}} <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].shelfControlNumber'}" class="fa fa-caret-down"></i>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="otherHolding in otherHoldings | orderBy:otherHoldingsPredicate track by $index">
+              <td><a href="http://bibdb.libris.kb.se/library/{{ otherHolding.about.heldBy.notation }}" title="Visa {{ otherHolding.about.heldBy.notation }} i Biblioteksdatabasen (nytt fönster)" target="_blank">{{ otherHolding.about.heldBy.notation }}</a></td>
+              <td>{{ otherHolding.about.offers[0].classificationPart ? otherHolding.about.offers[0].classificationPart : '-'}}</td>
+              <td>{{ otherHolding.about.offers[0].shelfLocation ? otherHolding.about.offers[0].shelfLocation.join(', ') : '-'}}</td>
+              <td>{{ otherHolding.about.offers[0].shelfControlNumber ? otherHolding.about.offers[0].shelfControlNumber : '-'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      <div>
+    </section>
   </div>
-
-  <h4>{{ modifications.holding.isNew ? 'LABEL.gui.holding.newHolding' : 'LABEL.gui.holding.yourHolding' | translate }}</h4>
-
+  
   <form data-ng-show="holding['@id'] || !holding['etag']" name="holdingForm">
+    <section class="header">
+      <h2>
+        {{ modifications.holding.isNew ? 'LABEL.gui.holding.newHolding' : 'LABEL.gui.holding.yourHolding' | translate }}
+        <i></i>
+      </h2>
+    </section>
     
-
     <!-- OFFERS (852) -->
     <section class="offer form-container">
       <div data-ng-repeat="offer in holding.about.offers track by $index">

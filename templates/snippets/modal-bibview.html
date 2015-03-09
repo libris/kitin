@@ -12,14 +12,18 @@
         <kitin-bib-header record="record" rectype="recType" static stickto="'.modal-body.bibview'"></kitin-bib-header>
       </div>
     </section>
-    <hr>
-    <h4>Detaljerad information</h4>
-    <hr>
-    <span data-ng-if="isRemote && remoteDatabase != null" class="database">
-      <i class="fa fa-institution"></i> Källa: {{remoteDatabase}}
-    </span>
-    <section>
 
+
+    <section class="header">
+      <h2>
+        Detaljerad information
+        <i></i>
+      </h2>
+    </section>
+    <section class="info-container">
+      <span data-ng-if="isRemote && remoteDatabase != null" class="database">
+        <i class="fa fa-institution"></i> Källa: {{remoteDatabase}}
+      </span>
       <kitin-valuedisplay record="record" ng-if="record.about.summary" label="'LABEL.record.about.summary'"></kitin-valuedisplay>
       <kitin-valuedisplay record="record" ng-if="record.about.publication" label="'LABEL.record.about.publication'"></kitin-valuedisplay>
       <kitin-valuedisplay record="record" ng-if="record.about.manufacture" label="'LABEL.record.about.manufacture'"></kitin-valuedisplay>
@@ -41,7 +45,14 @@
 </div>
 <div class="modal-footer submit bibview">
   <div class="status pull-left" style="text-align: left">
-    <span data-ng-if="record.modified">Uppdaterad: {{ record.modified | timeAgo:60*60*24 }}</span>
+    <table class="modificationdates" data-ng-if="!isRemote">
+      <tr data-ng-if="record.created">
+        <td>Skapad: </td><td>{{ record.created | timeAgo:60*60*24 }}</td>
+      </tr>
+      <tr data-ng-if="record.modified">
+        <td>Uppdaterad: </td><td>{{ record.modified | timeAgo:60*60*24 }}</td>
+      </tr>
+    </table>
   </div>
   <div class="button-container">
     <button class="button-import btn btn-green btn-copy-remote" data-ng-click="importRecord(record)" data-ng-if="isRemote && allowEdit">

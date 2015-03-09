@@ -4,9 +4,8 @@
   width: 100%;
 }
 .modal-body section.top {
-  background: url(/static/img/bg.png);
-  padding: 12px;
   .header-container {
+    margin-bottom: 12px;
     padding: 1px 0px;
     border: 1px solid #c7c7c3;
     background-color: #FFFFFF;
@@ -95,6 +94,18 @@ html .modal {
 }
 
 /* HOLDINGS MODAL END ------------------------- */
+/* BIBVIEW MODAL START ------------------------- */
+
+.modal-header.bibview {background-color:@green;}
+.modal-body.bibview {
+  max-height: 500px; // With holdings modal growing, pixel-based max-height seems inconvenient.
+  max-height: 70vh;  // Try to make it 70% of viewport height instead (making space for header/footer). >=IE9
+}
+.modal-footer.bibview {
+  position:relative;
+}
+
+/* BIBVIEW MODAL END ------------------------- */
 
 /* REMOTE SOURCES MODAL START ------------------------- */
 
