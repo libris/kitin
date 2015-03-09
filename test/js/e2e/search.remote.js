@@ -50,8 +50,6 @@ describe('Kitin Remote search', function() {
     element.all(by.css('.bib-url')).first().click();
     var modal = element(by.className('bib-modal'));
     expect(modal.isPresent()).toBeTruthy();
-    
-    expect(modal.isPresent()).toBeTruthy();
     expect(element(by.css('.bib-modal .button-holdings')).isPresent()).toBeFalsy();
     element(by.css('.bib-modal button.close')).click();
   });
