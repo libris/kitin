@@ -3,9 +3,11 @@
         "term": {
             "@id": "URI",
             "isPrimaryTopicOf": {
-                    "description": "Del av materialet som avses",
-                    "altLabel": "Länktext"
-            }
+                "description": "Del av materialet som avses",
+                "altLabel": "Länktext"
+            },
+            "SomeProduct": "Bestånd för seriella resurser",
+            "SomeProductDescription": "Volymer, häften, nummer etc."
         },
         "gui": {
             "holding": {
@@ -20,7 +22,7 @@
                 "offers": "Placering",
                 "addOffer": "Lägg till placeringsfält",
                 "removeOffer": "Radera placeringsfält",
-                "someProduct": "Bestånd för seriella resurser",
+                
                 "addSomeProduct": "Lägg till Bestånd för seriella resurser",
                 "removeSomeProduct": "Radera bestånd för seriella resurser",
                 "isPrimaryTopicOf": "URI till åtkomstbegränsade resurser",

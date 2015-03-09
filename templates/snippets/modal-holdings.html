@@ -97,9 +97,9 @@
      <!-- WORK EXAMPLE BY TYPE (866 - SomeProducts) START -->
     <section class="form-container">
       <div data-ng-repeat="SomeProduct in holding.about.workExampleByType.SomeProducts track by $index">
-          <kitin-group label="'someProduct'">
+          <kitin-group label="'LABEL.term.SomeProduct'">
             
-            <kitin-textrow model="SomeProduct.description" change-model="holding" always-visible></kitin-textrow>
+            <kitin-textrow label="LABEL.term.SomeProductDescription" model="SomeProduct.description" change-model="holding" always-visible></kitin-textrow>
 
             <kitin-table model="SomeProduct.copyNote" change-model="holding">
               <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
