@@ -28,19 +28,20 @@ kitin.factory('labelTranslateInterpolator', function ($interpolate, $rootScope) 
 
       var locale = $locale;
       var translatedStr = str;
-      var model, modelParts, label;
+      var model, modelParts, label, lastModel;
 
       model = str.replace('record.about.','');
       model = model.replace('holding.about.','');
       modelParts = model.split('.');  
+      lastModel = modelParts[modelParts.length-1];
       if($rootScope.getTypeLabel) {
-        label = $rootScope.getTypeLabel({'@type': modelParts[modelParts.length-1]}, locale);
-
-        if(label !== '') {
+        label = $rootScope.getTypeLabel({'@type': lastModel}, locale);
+      
+        if(label === lastModel) {
+          translatedStr = str;
+        } else if(label !== '') {
           translatedStr = label;
-        } else if(debug && (str.indexOf('record') !== -1 || str.indexOf('hold') !== -1)) {
-            console.warn('No tranlation found for:', label, str);
-        }
+        } 
       }
       return $interpolate(translatedStr)(interpolateParams || {});
     }
