@@ -20,7 +20,7 @@ kitin.directive('kitinDisplayType', function(editService, $rootScope){
       template: '<span class="record-type">' +
                   '{{ typeLabels }}' +
                   '<span data-ng-repeat="contentType in model.about.contentType">| {{ contentType.prefLabel }}</span>' +
-                  '<span data-ng-if="formatLabels">, {{ "LABEL.record.about.hasFormatByType[\'" + formatLabels + "\']" | translate }}</span>' +
+                  '<span data-ng-if="formatLabels">, {{ formatLabels | translate }}</span>' +
                 '</span>',
       controller: function($scope, $rootScope, $attrs) {
         function getFormatTypeLabel(obj) {
