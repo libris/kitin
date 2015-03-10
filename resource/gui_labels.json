@@ -54,16 +54,7 @@
                 "otherLibrary": "annat bibliotek",
                 "holdingExistsFor": "Beståndspost finns för",
                 "newHolding": "Ny beståndspost",
-                "yourHolding": "Ditt bestånd",
-                "offers": "Placering",
-                "addOffer": "Lägg till placeringsfält",
-                "removeOffer": "Radera placeringsfält",
-                
-                "addSomeProduct": "Lägg till Bestånd för seriella resurser",
-                "removeSomeProduct": "Radera bestånd för seriella resurser",
-                "isPrimaryTopicOf": "URI till åtkomstbegränsade resurser",
-                "addIsPrimaryTopicOf": "Lägg till URI till åtkomstbegränsade resurser",
-                "removeIsPrimaryTopicOf": "Radera URI till åtkomstbegränsade resurser"
+                "yourHolding": "Ditt bestånd"
             },
             "index": {
                 "headers": {
@@ -127,7 +118,7 @@
     "HELP": {
         "term": {
             "@id": "URI",
-            "offers": "<div lang='sv'><p>Bibliotekets sigel är obligatorisk och förifylld. Klicka på ”Spara bestånd” om du inte ska lägga till fler uppgifter om placering etc.<br></p><p>För att lägga till fler uppgifter, gå till fälten Klassifikation (hylla) och eller Löpnummer. Placeringsuppgift registreras enligt praxis vid ditt bibliotek.<br></p><p>Klassifikationskoden kan kompletteras med ytterligare placeringsuppgifter, t.ex. titel- eller författarord. Klicka på ”Visa fler fält” om respektive uppställningsled behöver särskiljas eller anges i olika fält.</p><p>Klicka på ”Visa fler fält” om uppgiften behöver kompletteras med anmärkning.</p><p>Klicka på ”Lägg till bestånd för seriella resurser” om uppgiften behöver kompletteras med beståndsanmärkning.</p><p>För eventuella exemplar uppställda på annan hylla (motsvarande), eller med med avvikande tillgänglighet, eller uppställda enligt annan placering, eller med annat löpnummer, eller uppställda under annat ord / annan fras, eller uppställda på annan avdelning (motsvarande), klicka på ”Lägg till placeringsfält”.</p></div>",
+            "offers": "<div lang=\"sv\"><p>Bibliotekets sigel är obligatorisk och förifylld. Klicka på \"Spara bestånd\" om du inte ska lägga till fler uppgifter om placering etc.<br></p><p>För att lägga till fler uppgifter, gå till fälten Klassifikation (hylla) och eller Löpnummer. Placeringsuppgift registreras enligt praxis vid ditt bibliotek.<br></p><p>Klassifikationskoden kan kompletteras med ytterligare placeringsuppgifter, t.ex. titel- eller författarord. Klicka på \"Visa fler fält\" om respektive uppställningsled behöver särskiljas eller anges i olika fält.</p><p>Klicka på \"Visa fler fält\" om uppgiften behöver kompletteras med anmärkning.</p><p>Klicka på \"Lägg till bestånd för seriella resurser\" om uppgiften behöver kompletteras med beståndsanmärkning.</p><p>För eventuella exemplar uppställda på annan hylla (motsvarande), eller med med avvikande tillgänglighet, eller uppställda enligt annan placering, eller med annat löpnummer, eller uppställda under annat ord / annan fras, eller uppställda på annan avdelning (motsvarande), klicka på \"Lägg till placeringsfält\".</p></div>",
             "SomeProductDescription": "Ange de volymer, häften, nummer etc. som biblioteket har av tidskriften (motsvarande)."
         }
     }
