@@ -1,6 +1,6 @@
 <div class="hitlist-row bib compact">
   <div class="title">
-    <a href="#" data-ng-controller="ModalCtrl" data-ng-click="openBibViewModal(record, recType)">{{ utils.composeTitle(record.data) | chop:80}}</a>
+    <a class="bib-url" href="#" data-ng-controller="ModalCtrl" data-ng-click="openBibViewModal(record, recType)">{{ utils.composeTitle(record.data) | chop:80}}</a>
   </div>
   <div class="creator">
     {{ utils.composeCreator(record.data) | chop:40 }}

@@ -11,36 +11,57 @@ describe('Kitin Libris search', function() {
     expect(browser.getCurrentUrl()).toContain('search/bib');
   });
 
-  it('should be able to display detailed hitlist', function () {
-  	var detailedSwitch = element(by.css('.hitlist-viewswitch .detailed'));
-  	detailedSwitch.click();
-  	expect(element.all(by.repeater('record in state.search.result.items')).count()).toEqual(10);
-
-  	element.all(by.repeater('record in state.search.result.items')).then(function(items) {
-   		var post = items[0];
-   		var details = post.element(by.className('details'));
-   		var widget = post.element(by.className('widget'));
-   		var row = post.element(by.className('hitlist-row'));
-   		expect(details.isPresent()).toBeTruthy();
-   		expect(widget.isPresent()).toBeTruthy();
-   		expect(row.isPresent()).toBeFalsy();
-		});
+  describe('Detailed hitlist', function() {
+    it('should be able to display detailed hitlist', function () {
+      	var detailedSwitch = element(by.css('.hitlist-viewswitch .detailed'));
+      	detailedSwitch.click();
+      	expect(element.all(by.repeater('record in state.search.result.items')).count()).toEqual(10);
+      	element.all(by.repeater('record in state.search.result.items')).then(function(items) {
+       		var post = items[0];
+       		var details = post.element(by.className('details'));
+       		var widget = post.element(by.className('widget'));
+       		var row = post.element(by.className('hitlist-row'));
+       		expect(details.isPresent()).toBeTruthy();
+       		expect(widget.isPresent()).toBeTruthy();
+       		expect(row.isPresent()).toBeFalsy();
+  	 	});
+    });
+    it('should be able to display bib view modal with libris settings', function() {
+      element.all(by.css('.bib-url')).first().click();
+      var modal = element(by.className('bib-modal'));
+      expect(modal.isPresent()).toBeTruthy();
+      var titleText = element.all(by.css('.bib-header .title-key')).first();
+      expect(titleText.getText()).not.toEqual("");
+      expect(element(by.css('.bib-modal .button-holdings')).isPresent()).toBeTruthy();
+      element(by.css('.bib-modal button.close')).click();
+    });
   });
 
-  it('should be able to display compact hitlist', function () {
-  	var compactSwitch = element(by.css('.hitlist-viewswitch .compact'));
-  	compactSwitch.click();
-  	expect(element.all(by.repeater('record in state.search.result.items')).count()).toEqual(50);
+  describe('Compact hitlist', function() {
+    it('should be able to display compact hitlist', function () {
+    	var compactSwitch = element(by.css('.hitlist-viewswitch .compact'));
+    	compactSwitch.click();
+    	expect(element.all(by.repeater('record in state.search.result.items')).count()).toEqual(50);
 
-  	element.all(by.repeater('record in state.search.result.items')).then(function(items) {
-   		var post = items[0];
-   		var details = post.element(by.className('details'));
-   		var widget = post.element(by.className('widget'));
-   		var row = post.element(by.className('hitlist-row'));
-   		expect(row.isPresent()).toBeTruthy();
-   		expect(details.isPresent()).toBeFalsy();
-   		expect(widget.isPresent()).toBeFalsy();
-		});
+    	element.all(by.repeater('record in state.search.result.items')).then(function(items) {
+     		var post = items[0];
+     		var details = post.element(by.className('details'));
+     		var widget = post.element(by.className('widget'));
+     		var row = post.element(by.className('hitlist-row'));
+     		expect(row.isPresent()).toBeTruthy();
+     		expect(details.isPresent()).toBeFalsy();
+     		expect(widget.isPresent()).toBeFalsy();
+	 	 });
+    });
+    it('should be able to display bib view modal with libris settings', function() {
+      element.all(by.css('.bib-url')).first().click();
+      var modal = element(by.className('bib-modal'));
+      expect(modal.isPresent()).toBeTruthy();
+      var titleText = element.all(by.css('.bib-header .title-key')).first();
+      expect(titleText.getText()).not.toEqual("");
+      expect(element(by.css('.bib-modal .button-holdings')).isPresent()).toBeTruthy();
+      element(by.css('.bib-modal button.close')).click();
+    });
   });
 
   it('should be able to modify hitlist with facettes', function () {
@@ -55,18 +76,6 @@ describe('Kitin Libris search', function() {
     });
     resultTextPost = element(by.css('.crumbs')).getText();
     expect(resultTextPost).toEqual(resultTextPre);
-  });
-
-
-  it('should be able to display bib view modal libris settings', function() {
-    var detailedSwitch = element(by.css('.hitlist-viewswitch .detailed'));
-    detailedSwitch.click();
-    var buttonHoldings;
-    element.all(by.css('.bib-url')).first().click();
-    var modal = element(by.className('bib-modal'));
-    expect(modal.isPresent()).toBeTruthy();
-    expect(element(by.css('.bib-modal .button-holdings')).isPresent()).toBeTruthy();
-    element(by.css('.bib-modal button.close')).click();
   });
 
 });
