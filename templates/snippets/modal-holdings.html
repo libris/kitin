@@ -32,25 +32,25 @@
         <table class="table-striped table-bordered tbl-otherHoldings" ng-show="showOtherHoldings">
           <thead>
             <tr>
-              <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.heldBy.notation'">
-                <kitin-label label="'heldBy'"><kitin-label> <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.heldBy.notation'}" class="fa fa-caret-down"></i>
+              <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.heldBy.notation';console.log(otherHoldingsPredicate)">
+                <kitin-label class="inline" label="'heldBy'"></kitin-label> <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.heldBy.notation'}" class="fa fa-caret-down"></i>
               </th>
               <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].shelfLocation'">
-                <kitin-label label="'shelfLocation'"><kitin-label> <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].shelfLocation'}" class="fa fa-caret-down"></i>
+                <kitin-label class="inline" label="'shelfLocation'"></kitin-label> <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].shelfLocation'}" class="fa fa-caret-down"></i>
               </th>
               <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].classificationPart'">
-                <kitin-label label="'classificationPart'"><kitin-label> <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].classificationPart'}" class="fa fa-caret-down"></i>
+                <kitin-label class="inline" label="'classificationPart'"></kitin-label> <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].classificationPart'}" class="fa fa-caret-down"></i>
               </th>
               <th title="Klicka för att sortera kolumn" ng-click="otherHoldingsPredicate = 'about.offers[0].shelfControlNumber'">
-                <kitin-label label="'shelfControlNumber'"><kitin-label> <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].shelfControlNumber'}" class="fa fa-caret-down"></i>
+                <kitin-label class="inline" label="'shelfControlNumber'"></kitin-label> <i ng-class="{'opaque' : otherHoldingsPredicate != 'about.offers[0].shelfControlNumber'}" class="fa fa-caret-down"></i>
               </th>
             </tr>
           </thead>
           <tbody>
             <tr ng-repeat="otherHolding in otherHoldings | orderBy:otherHoldingsPredicate track by $index">
               <td><a href="http://bibdb.libris.kb.se/library/{{ otherHolding.about.heldBy.notation }}" title="Visa {{ otherHolding.about.heldBy.notation }} i Biblioteksdatabasen (nytt fönster)" target="_blank">{{ otherHolding.about.heldBy.notation }}</a></td>
-              <td>{{ otherHolding.about.offers[0].classificationPart ? otherHolding.about.offers[0].classificationPart : '-'}}</td>
               <td>{{ otherHolding.about.offers[0].shelfLocation ? otherHolding.about.offers[0].shelfLocation.join(', ') : '-'}}</td>
+              <td>{{ otherHolding.about.offers[0].classificationPart ? otherHolding.about.offers[0].classificationPart : '-'}}</td>
               <td>{{ otherHolding.about.offers[0].shelfControlNumber ? otherHolding.about.offers[0].shelfControlNumber : '-'}}</td>
             </tr>
           </tbody>
