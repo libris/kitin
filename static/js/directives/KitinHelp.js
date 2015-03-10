@@ -38,7 +38,7 @@ kitin.directive('kitinHelp', function (definitions) {
             // This is mostly to keep it DRY, might change in the future
             definitions.terms.then(function(terms) {
               var modelParts = model.split('.');
-              var lastModel = modelParts[modelParts.length-1]
+              var lastModel = modelParts[modelParts.length-1];
               var comment = terms.getComment(lastModel);
               if(comment !== lastModel) {
                 $scope.helpText = comment;
