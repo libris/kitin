@@ -2,14 +2,8 @@
 	opacity: 1;
 }
 
-.fade.ng-hide {
+.fade.hidden {
   opacity:0;
-}
-
-.fade.ng-hide-add, .fade.ng-hide-remove {
-  /* this needs to be here to make it visible during the animation
-     since the .ng-hide class is already on the element rendering
-     it as hidden. */
   -webkit-transition:0.3s linear opacity;
   transition:0.3s linear opacity;
   display:block!important;

@@ -225,12 +225,7 @@ def get_template(type):
 @app.route("/resource/<path:path>")
 #@login_required
 def get_resource(path):
-    if path == 'translation':
-        language = request.args.get('lang')
-        if(language == 'se'):
-            return raw_json_response(open(os.path.join(here, "examples/translations/label_%s.json" % language), 'r').read())    
-    else:
-        return get_dataset("resource/%s?%s" % (path, request.query_string))
+    return send_from_directory('resource/', '%s' % path)
 
 # STYLEGUIDE
 @app.route("/styleguide/")

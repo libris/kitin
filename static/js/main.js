@@ -15,8 +15,10 @@ kitin.config(function($locationProvider, $routeProvider, $translateProvider, $ht
        // add translation table
       if(typeof TESTING_SKIP_TRANSLATION === 'undefined') {
         $translateProvider
-          .useUrlLoader('/resource/translation')
-          .preferredLanguage('se');
+          .preferredLanguage('se')
+          .useLoaderCache(true)
+          .useLoader('labelLoader')
+          .useInterpolation('labelTranslateInterpolator');
       }
 
       $routeProvider
@@ -63,8 +65,9 @@ kitin.filter('unsafe', ['$sce', function ($sce) {
  * Global Constants
  * (TODO: move to service and depend on in required places instead)
  */
+
 kitin.run(function($rootScope, $location, $modalStack, $window, dialogs) {
-  $rootScope.API_PATH = WHELK_HOST;
+  $rootScope.API_PATH = API_PATH;
   $rootScope.WRITE_API_PATH = WHELK_WRITE_HOST;
   $rootScope.MAIN_STATUS_MSG = MAIN_STATUS_MSG;
 

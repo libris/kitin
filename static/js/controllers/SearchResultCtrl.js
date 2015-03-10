@@ -83,7 +83,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
   };
 
   $scope.getLabel = function (term, termType) {
-    var dfn = $scope.terms[term];
+    var dfn = $rootScope.terms[term];
     
     if (dfn && dfn['label']) return dfn['label']; 
 

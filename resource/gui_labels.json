@@ -1,0 +1,124 @@
+ {  
+    "LABEL": {
+        "term": {
+            "@id": "URI",
+            "offers": "Placering",
+            "isPrimaryTopicOf": {
+                "description": "Del av materialet som avses",
+                "altLabel": "Länktext"
+            },
+            "SomeProduct": "Bestånd för seriella resurser",
+            "SomeProductDescription": "Volymer, häften, nummer etc.",
+            "identifier": {
+                "/def/identifiers/isbn": "ISBN",
+                "/def/identifiers/issn": "ISSN",
+                "/def/identifiers/ean": "EAN",
+                "/def/identifiers/EAN": "EAN",
+                "/def/identifiers/urn": "URN",
+                "/def/identifiers/SB17": "SB17",
+                "/def/identifiers/TPB": "TPB",
+                "/def/identifiers/doi": "DOI"
+            },
+            "notation": {
+                "BULB": "BULB - Barn- och ungdomslitteraturbibliografin",
+                "NB": "Nationalbibliografin - Böcker, Periodica, Kartor",
+                "SEE": "Seelig (bokdistributör)",
+                "SLB": "Svensk litteraturvetenskaplig bibliografi",
+                "KVIN": "KVINNSAM",
+                "SHB": "Svensk historisk bibliografi",
+                "SKvB": "Svensk konstvetenskaplig bibliografi",
+                "SOT": "Svenskt offentligt tryck -1833",
+                "SMHB": "Svensk musikhistorisk bibliografi",
+                "DALA": "Dalabibliografin",
+                "SUEC": "Suecana extranea",
+                "SAH": "Suecia Antiqua et Hodierna"
+            }
+        },
+        "gui": {
+            "holding": {
+                "save": "Spara bestånd",
+                "saved": "Bestånd sparat",
+                "remove": "Radera bestånd",
+                "removed": "Beståndet raderat",
+                "missingOffers": "Beståndet saknar placeringsinformation",
+                "showOtherHoldings": "Visa bestånd för andra bibliotek",
+                "newHolding": "Ny beståndspost",
+                "yourHolding": "Ditt bestånd",
+                "offers": "Placering",
+                "addOffer": "Lägg till placeringsfält",
+                "removeOffer": "Radera placeringsfält",
+                
+                "addSomeProduct": "Lägg till Bestånd för seriella resurser",
+                "removeSomeProduct": "Radera bestånd för seriella resurser",
+                "isPrimaryTopicOf": "URI till åtkomstbegränsade resurser",
+                "addIsPrimaryTopicOf": "Lägg till URI till åtkomstbegränsade resurser",
+                "removeIsPrimaryTopicOf": "Radera URI till åtkomstbegränsade resurser"
+            },
+            "index": {
+                "headers": {
+                    "ABOUT_THE_PROJECT": "Om projektet",
+                    "CHANGE_MESSAGES": "Ändringsmeddelanden (fd CXZ-listan)",
+                    "MY_SAVED_DRAFTS": "Mina sparade utkast",
+                    "DISCUSSION_FORUM": "Diskussionsforum (fd Marc21-listan)"
+                },
+                "messages": {
+                    "NO_SAVED_DRAFTS": "Du har inga sparade utkast."
+                }
+            },
+            "search": {
+              "RETURN_TO_HITLIST": "Tillbaka till träfflistan"
+            },
+            "edit": {
+                "DATE_CREATED": "Skapad",
+                "MODIFIED": "Ändrad",
+                "ID": "Id",
+                    "messages": {
+                        "publish": {
+                            "SUCCESS_TITLE": "Publiceringen lyckades!",
+                            "SUCCESS_MSG": "Posten finns nu att se i katalogen.",
+                            "FAILURE_TITLE": "Något gick fel",
+                            "FAILURE_MSG": "Det gick inte att spara posten, försök igen."
+                        }
+                    }
+            },
+            "terms": {
+                "HOLDINGS": "Bestånd"
+            },
+            "busy": {
+                "LOADING_BIB": "Laddar post...",
+                "SAVING_BIB": "Sparar post...",
+                "BUILDING_BIB": "Skapar formulärvy...",
+                
+                "LOADING_HOLDING": "Laddar bestånd...",
+                "SAVING_HOLDING": "Sparar bestånd...",
+
+                "LOADING_DRAFT": "Laddar utkast...",
+                "SAVING_DRAFT": "Sparar utkast...",
+                
+                "LOADING_MARC": "Laddar marcformat...",
+                
+                "BUILDING_JSONLD": "Skapar JSON-LD-vy...",
+                
+                "SEARCHING": "Laddar sökresultat..."
+            },
+            "dialogs": {
+                "DIALOGS_ERROR": "Fel",
+                "DIALOGS_ERROR_MSG": "Något gick fel.",
+                "DIALOGS_CLOSE": "Stäng",
+                "DIALOGS_OK": "Ok",
+                "DIALOGS_YES": "Ja",
+                "DIALOGS_NO": "Nej",
+                "CLOSE_HOLDINGS": "Du har osparade ändringar, vill du verkligen stänga fönstret?",
+                "REMOVE_HOLDING": "Är du säker på att du vill radera beståndet? Det här kommandot går inte att ångra."
+            }
+        }
+    },
+    "HELP": {
+        "term": {
+            "@id": "URI",
+            "offers": "<div lang='sv'><p>Bibliotekets sigel är obligatorisk och förifylld. Klicka på ”Spara bestånd” om du inte ska lägga till fler uppgifter om placering etc.<br></p><p>För att lägga till fler uppgifter, gå till fälten Klassifikation (hylla) och eller Löpnummer. Placeringsuppgift registreras enligt praxis vid ditt bibliotek.<br></p><p>Klassifikationskoden kan kompletteras med ytterligare placeringsuppgifter, t.ex. titel- eller författarord. Klicka på ”Visa fler fält” om respektive uppställningsled behöver särskiljas eller anges i olika fält.</p><p>Klicka på ”Visa fler fält” om uppgiften behöver kompletteras med anmärkning.</p><p>Klicka på ”Lägg till bestånd för seriella resurser” om uppgiften behöver kompletteras med beståndsanmärkning.</p><p>För eventuella exemplar uppställda på annan hylla (motsvarande), eller med med avvikande tillgänglighet, eller uppställda enligt annan placering, eller med annat löpnummer, eller uppställda under annat ord / annan fras, eller uppställda på annan avdelning (motsvarande), klicka på ”Lägg till placeringsfält”.</p></div>",
+            "SomeProductDescription": "Ange de volymer, häften, nummer etc. som biblioteket har av tidskriften (motsvarande)."
+        }
+    }
+
+}

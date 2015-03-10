@@ -9,7 +9,9 @@ Params:
   model: (str)
   change-model: (str)
   hide-label: (bool)
-  label-prefix: (str)
+  label-prefix: (str) 
+  label: (str)  Override terms lookup for label
+  help: (str)   Override terms lookup for help
   always-visible: (bool) visible at start
   suggestion: (array) Array of objects:
                       i.e. [{ 'list' : record.about.classification, 'property' : 'notation' }]
@@ -34,18 +36,20 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
       template: '<div class="label" ng-hide="shouldHide(model, options)">' + 
                   '<kitin-label label="label"></kitin-label>' +
                   '<span class="inp"><kitin-textarea title="label" data-track-change="{{changeModel}}" model="model"></kitin-textarea></span>' +
-                  '<kitin-help help="label"></kitin-help>' +
+                  '<kitin-help model="help"></kitin-help>' +
                   '<div ng-show="suggestions" class="suggestions"><span class="suggestion-label">Förslag</span><span class="item" title="Kopiera till fält" ng-repeat="suggestion in suggestions track by $index" ng-click="$parent.putSuggestionToInput(suggestion)">{{ suggestion }}</span></div>' +
                 '</div>',
       controller: function($scope, $rootScope, $attrs) {
+        var label = $attrs.hasOwnProperty('label') ? $attrs.label : $attrs.model;
+        if($attrs.hasOwnProperty('labelPrefix')) {
+          label = $attrs.labelPrefix + label;
+        }
 
         if(!$attrs.hasOwnProperty('hideLabel')) {
-          if($attrs.hasOwnProperty('labelPrefix')) {
-            $scope.label = $attrs.labelPrefix + $attrs.model;
-          } else {
-            $scope.label = 'LABEL.' + $attrs.model;
-          }
+          $scope.label = label; 
         }
+
+        $scope.help = $attrs.hasOwnProperty('help') ? $attrs.help : label;  
 
         // Suggestions
         if(typeof $scope.suggestion !== 'undefined') {
