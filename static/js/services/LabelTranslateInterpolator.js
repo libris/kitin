@@ -25,6 +25,7 @@ kitin.factory('labelTranslateInterpolator', function ($interpolate, $rootScope) 
     },
  
     interpolate: function (str, interpolateParams) {
+
       var locale = $locale;
       var translatedStr = str;
       var model, modelParts, label;
@@ -32,12 +33,14 @@ kitin.factory('labelTranslateInterpolator', function ($interpolate, $rootScope) 
       model = str.replace('record.about.','');
       model = model.replace('holding.about.','');
       modelParts = model.split('.');  
-      label = $rootScope.getTypeLabel({'@type': modelParts[modelParts.length-1]}, locale);
+      if($rootScope) {
+        label = $rootScope.getTypeLabel({'@type': modelParts[modelParts.length-1]}, locale);
 
-      if(label !== '') {
-        translatedStr = label;
-      } else if(debug && (str.indexOf('record') !== -1 || str.indexOf('hold') !== -1)) {
-          console.warn('No tranlation found for:', label, str);
+        if(label !== '') {
+          translatedStr = label;
+        } else if(debug && (str.indexOf('record') !== -1 || str.indexOf('hold') !== -1)) {
+            console.warn('No tranlation found for:', label, str);
+        }
       }
       return $interpolate(translatedStr)(interpolateParams || {});
     }
