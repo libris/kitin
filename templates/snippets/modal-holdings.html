@@ -17,16 +17,16 @@
   <div class="otherHoldings" ng-show="otherHoldings.length > 0">
     <section class="header">
       <h2>
-        {{ 'LABEL.gui.holding.showOtherHoldings' | translate }}
+        {{ 'LABEL.gui.holding.otherLibraries' | translate }}
         <i></i>
       </h2>
     </section>
     <section class="info-container">
       <div>
         <p class="inline">
-          Beståndspost finns för {{ otherHoldings.length }} {{ otherHoldings.length > 1 ? 'andra' : 'annat' }} bibliotek.
+          {{ 'LABEL.gui.holding.holdingExistsFor' | translate }} {{ otherHoldings.length }} {{ otherHoldings.length > 1 ? 'LABEL.gui.holding.otherLibraries' : 'LABEL.gui.holding.otherLibrary' | translate }}.
           <p class="btn btn-xs btn-link" ng-click="showOtherHoldings = !showOtherHoldings">
-            {{ showOtherHoldings ? 'Dölj tabell' : 'Visa tabell' }} <i class="fa" ng-class="{'fa-caret-down': showOtherHoldings, 'fa-caret-right fa-fw': !showOtherHoldings}"></i>
+            {{ showOtherHoldings ? 'LABEL.gui.general.hide' : 'LABEL.gui.general.show' | translate }} <i class="fa" ng-class="{'fa-caret-down': showOtherHoldings, 'fa-caret-right fa-fw': !showOtherHoldings}"></i>
           </p>
         </p>
         <table class="table-striped table-bordered tbl-otherHoldings" ng-show="showOtherHoldings">
@@ -138,7 +138,7 @@
     <section class="form-container">
       <div data-ng-repeat="isPrimaryTopicOf in holding.about.isPrimaryTopicOf track by $index">
         <kitin-group label="'isPrimaryTopicOf'">
-          
+
           <kitin-textrow  label-prefix="LABEL.term." model="isPrimaryTopicOf.description" change-model="holding"></kitin-textrow>
 
           <kitin-textrow label="LABEL.term.@id" help="HELP.term.@id" model="isPrimaryTopicOf['@id']" change-model="holding" always-visible></kitin-textrow>
