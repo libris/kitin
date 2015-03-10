@@ -3,10 +3,10 @@
 Creates a help element
 
 Usage:
-  <kitin-help help=""></kitin-help>
+  <kitin-help model=""></kitin-help>
 
 Params:
-  help: (str)   (For now) A reference to a string in label_se.json. For convenience, 
+  model: (str)   (For now) A reference to a string in label_se.json. For convenience, 
                 if string starts with 'LABEL.', this directive will replace that with 'HELP.''
 
 */
@@ -40,7 +40,7 @@ kitin.directive('kitinHelp', function (definitions) {
               var modelParts = model.split('.');
               var lastModel = modelParts[modelParts.length-1];
               var comment = terms.getComment(lastModel);
-              if(comment !== lastModel) {
+              if(comment && comment !== lastModel || comment !== '') {
                 $scope.helpText = comment;
               } else {
                 // Try to get helptext from labels json
