@@ -28,10 +28,6 @@ kitin.factory('labelTranslateInterpolator', function ($interpolate, $rootScope) 
       var locale = $locale;
       var translatedStr = str;
       var model, modelParts, label;
-      if(!$rootScope.getTypeLabel) {
-        console.warn('RootScope not initated, trying to translate:',str, interpolateParams);
-        return;
-      }
 
       model = str.replace('record.about.','');
       model = model.replace('holding.about.','');

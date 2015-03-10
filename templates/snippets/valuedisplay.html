@@ -43,7 +43,7 @@
 
       <ul ng-switch-when="hasFormat">
         <li class="node" ng-repeat="format in record.about.hasFormat">
-          <span ng-if="format['@type']">{{ 'hasFormatByType[\''+format['@type']+'\']' | translate }}</span>
+          <span ng-if="format['@type']">{{ format['@type'] | translate }}</span>
           {{ format.extent ? format.extent + ' : ' : '' }}{{ format.otherPhysicalDetails ? format.otherPhysicalDetails + " ; " : '' }}{{ format.dimensions }}
         </li>
       </ul>
@@ -53,13 +53,13 @@
           LIBRIS-ID: {{ record.controlNumber }}
         </li>
         <li class="node identifier" ng-show="identifier.identifierValue" ng-repeat="identifier in record.about.identifier">
-          {{ 'identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }}: {{ identifier.identifierValue }}
+          {{ 'LABEL.term.identifier.'+identifier.identifierScheme['@id'] | translate }}: {{ identifier.identifierValue }}
         </li>
       </ul>
 
       <ul ng-switch-when="LABEL.record.bibliography.bibliography">
         <li class="node" ng-show="bibliography.notation" ng-repeat="bibliography in record.bibliography">
-          {{ 'LABEL.record.bibliography.bibliographyByNotation[\''+bibliography.notation+'\']' | translate }} <small>({{ bibliography.notation }})</small>
+          {{ 'LABEL.term.notation.'+bibliography.notation | translate }} <small>({{ bibliography.notation }})</small>
         </li>
       </ul>
   

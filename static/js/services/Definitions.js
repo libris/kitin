@@ -85,7 +85,10 @@ kitin.factory('definitions', function($http, $rootScope, $q) {
               var dfn = terms[obj[TYPE]];
               typeLabels.push(dfn ? dfn[param] : typeKey);
             });
-            return typeLabels.join(', ');
+            if(typeLabels && typeLabels.length > 0) {
+              return typeLabels.join(', ');  
+            }
+            return;
           }
         });
       });
