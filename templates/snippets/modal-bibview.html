@@ -21,7 +21,7 @@
     </section>
     <section class="info-container">
       <span data-ng-if="isRemote && remoteDatabase != null" class="database">
-        <i class="fa fa-institution"></i> Källa: {{remoteDatabase}}
+        <i class="fa fa-institution"></i> Källa: <a href="{{remoteDatabase.address}}" target="_blank" title="Länk till {{ remoteDatabase.name }}">{{remoteDatabase.name }}</a>
       </span>
       <kitin-valuedisplay record="record" ng-if="record.about.summary" label="'summary'"></kitin-valuedisplay>
       <kitin-valuedisplay record="record" ng-if="record.about.publication" label="'publication'"></kitin-valuedisplay>

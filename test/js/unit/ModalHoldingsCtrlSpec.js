@@ -39,26 +39,32 @@ describe('Modal Holdings', function () {
 	describe('Get classification with matching schemes from bib post', function () {
 		it('Match all', function () {
 			controller = createController();
-			var classificationsFrom = ['*'];
-			var result = scope.getClassificationsFromBibPost(classificationsFrom);
+			var classificationsFrom = ['*'],
+					result = scope.getClassificationsFromBibPost(classificationsFrom);
 			expect(result.length).toEqual(5);
+		});
+		it('Match several', function () {
+			controller = createController();
+			var classificationsFrom = ['DDC', 'kssb*', 'DDC'],
+					result = scope.getClassificationsFromBibPost(classificationsFrom);
+			expect(result.length).toEqual(3);
 		});
 		it('Match exactly', function () {
 			controller = createController();
-			var classificationsFrom = ['DDC'];
-			var result = scope.getClassificationsFromBibPost(classificationsFrom);
+			var classificationsFrom = ['DDC'],
+					result = scope.getClassificationsFromBibPost(classificationsFrom);
 			expect(result.length).toEqual(1);
 		});
 		it('Match with trailing wildcard', function () {
 			controller = createController();
-			var classificationsFrom = ['kssb*'];
-			var result = scope.getClassificationsFromBibPost(classificationsFrom);
+			var classificationsFrom = ['kssb*'],
+					result = scope.getClassificationsFromBibPost(classificationsFrom);
 			expect(result.length).toEqual(2);
 		});
 		it('Match nothing', function () {
 			controller = createController();
-			var classificationsFrom = ['INVALIDSCHEME'];
-			var result = scope.getClassificationsFromBibPost(classificationsFrom);
+			var classificationsFrom = ['INVALIDSCHEME'],
+					result = scope.getClassificationsFromBibPost(classificationsFrom);
 			expect(result.length).toEqual(0);
 		});
 		

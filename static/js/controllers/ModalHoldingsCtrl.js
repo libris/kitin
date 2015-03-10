@@ -85,6 +85,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
         }
       }
     }
+    classificationsTo = _.uniq(classificationsTo);
     return classificationsTo;
   };
 

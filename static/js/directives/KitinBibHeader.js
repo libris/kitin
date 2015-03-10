@@ -39,7 +39,7 @@ kitin.directive('kitinBibHeader', function(editService, $rootScope, utilsService
         $scope.recordInfo = $scope.record;
       }
 
-      $scope.showSticky = true;
+      $scope.showSticky = false;
 
       var sticky = angular.element($scope.stickto + ' .stickToTop');
       sticky.css('transform', 'translate(0px, -5000px)'); // Initially hidden (otherwise hide animation will be shown)
