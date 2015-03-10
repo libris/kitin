@@ -70,7 +70,7 @@
     <!-- OFFERS (852) -->
     <section class="offer form-container">
       <div data-ng-repeat="offer in holding.about.offers track by $index">
-        <kitin-group label="'LABEL.term.offers'">
+        <kitin-group label="'LABEL.term.offers'" help="HELP.gui.offers">
           <!-- Locked sigel until we decide how to handle multiple sigels for single users -->
           <div class="label">
             <kitin-label label="'sigel'"></kitin-label>
@@ -79,7 +79,6 @@
                 {{userData.userSigel}}
               </div>
             </span>
-            <kitin-help model="'HELP.term.offers'"></kitin-help>
           </div>
 
           <kitin-table  model="offer.shelfLocation" change-model="holding">
@@ -138,11 +137,11 @@
     <!-- IS PRIMARY TOPIC OF (856) START -->
     <section class="form-container">
       <div data-ng-repeat="isPrimaryTopicOf in holding.about.isPrimaryTopicOf track by $index">
-        <kitin-group label="'isPrimaryTopicOf'">
+        <kitin-group label="'isPrimaryTopicOf'" help="HELP.gui.isPrimaryTopicOf">
 
           <kitin-textrow  label-prefix="LABEL.term." model="isPrimaryTopicOf.description" change-model="holding"></kitin-textrow>
 
-          <kitin-textrow label="LABEL.term.@id" help="HELP.term.@id" model="isPrimaryTopicOf['@id']" change-model="holding" always-visible></kitin-textrow>
+          <kitin-textrow label="LABEL.term.@id" help="HELP.term.uri" model="isPrimaryTopicOf['@id']" change-model="holding" always-visible></kitin-textrow>
 
           <kitin-textrow label-prefix="LABEL.term." model="isPrimaryTopicOf.altLabel" change-model="holding"></kitin-textrow>
 

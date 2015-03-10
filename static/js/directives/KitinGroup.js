@@ -9,6 +9,7 @@ Usage:
 
 Params:
   label: (str)
+  help: (str)
   initially-visible: (bool) visible at start
   single: (bool) single element aka disable toggling functionality of children
 */
@@ -25,6 +26,7 @@ kitin.directive('kitinGroup', function(){
                     '<span class="inp"><button class="btn-link" ng-click="toggle()">' +
                       '<span><i class="{{classNames[hidden]}}"></i></span> {{hidden ? "LABEL.gui.general.showMore" : "LABEL.gui.general.hideEmpty" | translate }} {{ "LABEL.gui.general.fields" | translate }}</button>' +
                     '</span>'+
+                    '<kitin-help model="help"></kitin-help>' +
                   '</div>' +
                   '<div class="group-contents" ng-transclude></div>' +
                 '</div>',
@@ -48,7 +50,11 @@ kitin.directive('kitinGroup', function(){
         }
         $scope.label = label || $attrs.label;
          
-        
+        // Help
+        if($attrs.hasOwnProperty('help')) {
+          $scope.help = $attrs.help;
+        }
+
         $scope.classNames = {
           true: 'fa fa-chevron-down',
           false: 'fa fa-chevron-up'
