@@ -39,6 +39,17 @@ h3{font-family: @header-font, georgia, serif; }
 h4{font-size:15px; }
 
 .label {font-weight: 400;margin-bottom: 10px; }
+.lbl{ 
+  display:block; 
+  font-size:13px; 
+  color:@grey-very-dark;
+  margin-bottom:0;
+  line-height:16px;  
+  &:first-letter {
+    text-transform: uppercase;
+  }
+}
+
 a { cursor: pointer; }
 
 .btn.disabled, .btn[disabled], fieldset[disabled] .btn{opacity:.85;}
@@ -50,8 +61,6 @@ a { cursor: pointer; }
 //block unfinished elements, should not be in final release
 a.beta-blocker {text-decoration: none; cursor:default;}
 .todo{display:none!important}
-.hidden {visibility:hidden}
-
 
 #system-message-container {
 	z-index: 9001; 
