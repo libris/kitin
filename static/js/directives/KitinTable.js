@@ -46,7 +46,7 @@ kitin.directive('kitinTable', function(editService, $filter){
                         '</tbody>' +
                       '</table>'+
                       '<div class="adder">' +
-                        '<a class="add" href="" ng-click="addRow()"><i class="fa fa-plus-circle"></i> Lägg till</a>' +
+                        '<a class="add" href="" ng-click="addRow()"><i class="fa fa-plus-circle"></i> {{ "LABEL.gui.general.add" | translate }}</a>' +
                       '</div>' +
                     '</div>' + 
                   '</div>' +

@@ -35,9 +35,14 @@
             }
         },
         "gui": {
-            "general" : {
-                "remove" : "Radera",
-                "add" : "Lägg till"
+            "general": {
+                "show": "Visa",
+                "hide": "Dölj",
+                "add": "lägg till",
+                "remove": "radera",
+                "showMore": "Visa fler",
+                "hideEmpty": "Dölj tomma",
+                "fields": "fält"
             },
             "holding": {
                 "save": "Spara bestånd",
@@ -45,7 +50,9 @@
                 "remove": "Radera bestånd",
                 "removed": "Beståndet raderat",
                 "missingOffers": "Beståndet saknar placeringsinformation",
-                "showOtherHoldings": "Visa bestånd för andra bibliotek",
+                "otherLibraries": "andra bibliotek",
+                "otherLibrary": "annat bibliotek",
+                "holdingExistsFor": "Beståndspost finns för",
                 "newHolding": "Ny beståndspost",
                 "yourHolding": "Ditt bestånd"
             },

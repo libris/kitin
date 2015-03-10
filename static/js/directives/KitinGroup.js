@@ -23,7 +23,7 @@ kitin.directive('kitinGroup', function(){
                   '<div class="group-title label">' +
                     '<kitin-label label="label" ng-if="label"></kitin-label>' +
                     '<span class="inp"><button class="btn-link" ng-click="toggle()">' +
-                      '<span><i class="{{classNames[hidden]}}"></i></span> {{hidden ? "Visa fler" : "Göm tomma"}} fält</button>' +
+                      '<span><i class="{{classNames[hidden]}}"></i></span> {{hidden ? "LABEL.gui.general.showMore" : "LABEL.gui.general.hideEmpty" | translate }} {{ "LABEL.gui.general.fields" | translate }}</button>' +
                     '</span>'+
                   '</div>' +
                   '<div class="group-contents" ng-transclude></div>' +
