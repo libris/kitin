@@ -18,9 +18,12 @@ kitin.directive('kitinHelp', function (definitions) {
           'model': '=',
           'positioned': '='
         },
-        template: '<a data-ng-class="classNames" data-ng-show="helpText" data-ng-click="click()" kitin-popover-placement="{{popoverPlacement}}" kitin-popover="{{helpText}}">' + 
-                    '<i class="fa fa-question-circle"></i>' +
-                  '</a>',
+        replace: true,
+        template: '<span class="kitin-help">' + 
+                    '<a data-ng-class="classNames" data-ng-show="helpText" data-ng-click="click()" kitin-popover-placement="{{popoverPlacement}}" kitin-popover="{{helpText}}">' + 
+                      '<i class="fa fa-question-circle"></i>' +
+                    '</a>' +
+                  '</span>',
         link: function(scope, element, attrs) {
           if (angular.isDefined(attrs.positioned)) {
               scope.classNames.push('positioned');
