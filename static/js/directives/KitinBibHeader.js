@@ -20,26 +20,26 @@ kitin.directive('kitinBibHeader', function(editService, $rootScope, utilsService
     },
     replace: true,
     templateUrl: '/snippets/bib-header',
-    link: function(scope, elem, attrs) {
-
-      if (attrs.hasOwnProperty('static')) {
-        scope.disableLinks = true;
-      }
-      else {
-        scope.disableLinks = false;
-      }
-      if (scope.recType === "remote") {
-        // reroute record variable
-        if(scope.record.data)
-          scope.recordInfo = scope.record.data;
-        else
-          scope.recordInfo = scope.record;
-      }
-      else {
-        scope.recordInfo = scope.record;
-      }
-    },
     controller: function ($scope, $attrs) {
+      
+      if ($attrs.hasOwnProperty('static')) {
+        $scope.disableLinks = true;
+      }
+      else {
+        $scope.disableLinks = false;
+      }
+      if ($scope.recType === "remote") {
+        // reroute record variable
+        if($scope.record.data)
+          $scope.recordInfo = $scope.record.data;
+        else
+          $scope.recordInfo = $scope.record;
+      }
+      else {
+        $scope.recordInfo = $scope.record;
+      }
+
+      $scope.showSticky = false;
 
       var sticky = angular.element($scope.stickto + ' .stickToTop');
       sticky.css('transform', 'translate(0px, -5000px)'); // Initially hidden (otherwise hide animation will be shown)
