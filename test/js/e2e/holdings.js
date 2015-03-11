@@ -52,10 +52,11 @@ describe('Kitin holdings modal', function() {
   });
 
   it('should provide help texts', function () {
-    var helpButton = element.all(by.css('div.label:not(.ng-hide) kitin-help')).first();
-    expect(helpButton.isPresent()).toBeTruthy();
+    var helpElement = element.all(by.css('div:not(.ng-hide) .kitin-help')).first();
+    var helpButton = helpElement.element(by.css('a'));
+    expect(helpElement.isPresent()).toBeTruthy();
     helpButton.click();
-    var popover = helpButton.element(by.css('.popover'));
+    var popover = helpElement.element(by.css('.popover'));
     expect(popover.isPresent()).toBeTruthy();
     helpButton.click();
     expect(popover.isPresent()).toBeFalsy();
