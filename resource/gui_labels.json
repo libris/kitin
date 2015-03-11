@@ -38,8 +38,8 @@
             "general": {
                 "show": "Visa",
                 "hide": "Dölj",
-                "add": "lägg till",
-                "remove": "radera",
+                "add": "Lägg till",
+                "remove": "Radera",
                 "showMore": "Visa fler",
                 "hideEmpty": "Dölj tomma",
                 "fields": "fält"
