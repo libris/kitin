@@ -299,7 +299,7 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
         return deferer.promise;
       },
 
-      create: function(type) {
+      create: function() {
         var deferer = $q.defer();
         var recordSkeletonTypeMap = definitions.recordSkeletonTypeMap;
         recordSkeletonTypeMap.then(function(skeletonTypeMap) {
@@ -323,11 +323,11 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
           if (undecoratedHolding['@id'] && etag) {
             delete undecoratedHolding.etag;
             $rootScope.promises.holding.saving = $http.put($rootScope.WRITE_API_PATH + undecoratedHolding['@id'], undecoratedHolding, {headers: {'If-match': etag}})
-              .success(function(data, status, headers) {
+              .success(function(savedHolding, status, headers) {
                 if (headers('etag')) {
-                  undecoratedHolding.etag = headers('etag');
+                  savedHolding.etag = headers('etag');
                 }
-                redecorate(undecoratedHolding, deferer);
+                redecorate(savedHolding, deferer);
               })
               .error(function(data, status, headers) {
                 deferer.reject(status);
@@ -335,12 +335,11 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
           } else {
             // Holding has no ID, assume it's new
             $rootScope.promises.holding.saving = $http.post($rootScope.WRITE_API_PATH + '/hold', undecoratedHolding)
-              .success(function(data, status, headers) {
-                undecoratedHolding = data;
+              .success(function(savedHolding, status, headers) {
                 if (headers('etag')) {
-                  undecoratedHolding.etag = headers('etag');
+                  savedHolding.etag = headers('etag');
                 }
-                redecorate(undecoratedHolding, deferer);
+                redecorate(savedHolding, deferer);
               })
               .error(function(data, status, headers) {
                 deferer.reject(status);

@@ -66,6 +66,23 @@ describe("edit service", function () {
     expect(mergedObject).toEqual(expectedMergedObject);
   });
 
+  it("decorate @type in thing", function () {
+    var thing = {
+      obj: { '@type': 'test' },
+      arr: [ { '@type': 'test' } ]
+    };
+    var skeleton = {
+      test: { val1: 1, val2: 2 }
+    };
+    var result = {
+      obj: { '@type': 'test', val1: 1, val2: 2 },
+      arr: [ { '@type': 'test', val1: 1, val2: 2 } ]
+    };
+
+    editService.expandTypes(thing, skeleton);
+    expect(thing).toEqual(result);
+  });
+
   it("decorate holding", function () {
     var holding = readJSON('test/js/mocks/hold_sek_for_7149593.json');
     // What should be a decorated record, for now just a copy of orignial record

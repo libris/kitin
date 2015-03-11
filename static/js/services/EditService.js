@@ -335,7 +335,7 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
 
       function doIndex (entity, key, cfg, reset) {
         var items = entity[key];
-        if(_.isEmpty(items)) {
+        if(_.isUndefined(items)) {
           return;
         }
         var groupedItem = _.groupBy(items, cfg.getIndexKey);
@@ -364,15 +364,7 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
           if (skeletonType) {
             this.mergeRecordAndTemplate(thing, skeletonType);
 
-            // Expand @type references in result from summary
-            _.forEach(thing, function(obj, key) {
-              if(obj['@type']) {
-                var summarySkeleton = skeletonTypeMap.summary[obj['@type']];
-                if(summarySkeleton) {
-                  thing[key] = doMergeObjects(obj, angular.copy(summarySkeleton));
-                }
-              }
-            });
+            this.expandTypes(thing, skeletonTypeMap.summary);
           }
 
           // Rearrange Array elements into display groups
@@ -423,7 +415,7 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
     },
 
     mutateObject: function(entity, mutator) {
-      if(!_.isEmpty(entity)) {
+      if(!_.isUndefined(entity)) {
         for (var key in this.indexes) {
           var cfgs = this.indexes[key];
           // Handle multiple mutators for single entity
@@ -441,6 +433,26 @@ kitin.service('editService', function(definitions, $http, $q, $rootScope) {
     mergeRecordAndTemplate: doMergeObjects,
 
     cleanRecord: doCleanObject,
+
+    expandTypes: function(thing, skeletonTypeMapReference) {
+      // Expand @type references in result from summary
+      _.forEach(thing, function(obj, key) {
+        var summarySkeleton = {};
+        if(obj['@type']) {
+          // Regular object (typically {'@type': 'SomeType'})
+          summarySkeleton = skeletonTypeMapReference[obj['@type']];
+          if(summarySkeleton) {
+            thing[key] = doMergeObjects(obj, angular.copy(summarySkeleton));
+          }
+        } else if(_.isArray(obj) && obj.length > 0 && obj[0]['@type']) {
+          // If is an array (typically [{'@type': 'SomeType'])
+          summarySkeleton = skeletonTypeMapReference[obj[0]['@type']];
+          if(summarySkeleton) {
+            thing[key][0] = doMergeObjects(obj[0], angular.copy(summarySkeleton));
+          }
+        }
+      });
+    },
 
     makeVolatileArray: function () {
         var l = [];
