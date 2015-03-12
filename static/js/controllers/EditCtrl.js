@@ -5,12 +5,6 @@ kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $time
   // Some actions trigger location change, watch for these and give feedback accordingly
   var queryStrings = $location.search();
 
-  if (queryStrings.imported) {
-    // Since the routing to bib form puts searchType to "bib"
-    // we need to put it back to "remote" if it's an imported record.
-    searchService.setSearchType("remote");
-  }
-
   if (queryStrings.saved || queryStrings.published || queryStrings.imported) {
     var element;
     // TODO: Avoid this timeout if possible:

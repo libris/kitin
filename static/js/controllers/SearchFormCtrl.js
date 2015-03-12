@@ -27,7 +27,10 @@ kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, $ro
     $location.url("/search/" + $rootScope.state.searchType.key + "?q="+encodeURIComponent($rootScope.state.search.q) + selectRemoteDatabases + searchParamString);
   };
   $scope.$on('$routeChangeSuccess', function () {
-    searchService.setSearchType($routeParams.recType || "bib");
+    if ($location.search().imported)
+      searchService.setSearchType("remote");
+    else
+      searchService.setSearchType($routeParams.recType || "bib");
   });
   $scope.$watch('state.searchType.key', function(newValue, oldValue) {
     $scope.isopen = false;
