@@ -17,8 +17,8 @@ var KitinSearch = function() {
   this.doSearch = function(searchQuery, searchType) {
     searchType = searchType || 'bib';
     var typeIndices = {
-      'bib': 0,
-      'auth': 1,
+      'auth': 0,
+      'bib': 1,
       'remote': 2
     }
 

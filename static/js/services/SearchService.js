@@ -38,6 +38,10 @@ kitin.factory('searchService', function($http, $q, $rootScope, utilsService) {
         return 50;
       }
     },
+    setSearchType: function (key) {
+      // FIXME: dont put to rootScope.
+      $rootScope.state.searchType = this.searchTypeIndex[key];
+    },
     search: function(url, params) {
       var deferred = $q.defer();
       // Make sure slashes are correctly escaped
