@@ -66,6 +66,9 @@
         <i></i>
       </h2>
     </section>
+    <div class="alert alert-success" role="alert" data-ng-if="modifications.holding.deleted">
+      {{ 'LABEL.gui.holding.removed' | translate }}
+    </div>
     
     <!-- OFFERS (852) -->
     <section class="offer form-container">
@@ -193,9 +196,7 @@
     <br><br>
   </form>
 
-  <div class="alert alert-success" role="alert" data-ng-if="modifications.holding.deleted">
-    {{ 'LABEL.gui.holding.removed' | translate }}
-  </div>
+
   
   <div class="alert alert-error" role="alert" data-ng-if="holding.about.offers.length < 1">
     {{ 'LABEL.gui.holding.missingOffers' | translate }}
