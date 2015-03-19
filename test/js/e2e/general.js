@@ -5,10 +5,6 @@ describe('Kitin general', function() {
     kitinSearch.home();    
   });
 
-  it('should be able to show contact modal', function() {
-    element(by.id('contact-modal-link')).click();
-    expect(element(by.css('.contact-modal')).isPresent()).toBeTruthy();
-  });
   it('should be able to show cookies modal', function() {
     element(by.id('cookies-modal-link')).click();
     expect(element(by.css('.cookies-modal')).isPresent()).toBeTruthy();
