@@ -147,7 +147,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     var holding = response.userHoldings;
     if (!holding) {
       // If no holding is found, we create a new one.
-      recordService.holding.create().then(function(response) {
+      recordService.holding.get().then(function(response) {
         $rootScope.modifications.holding.isNew = true;
         holding = response;
         holding.about.holdingFor = {
@@ -169,8 +169,14 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
   });
 
   $scope.saveHolding = function(holding) {
-    recordService.holding.save(holding).then(function success(holding) {
-      onSave(holding);
+    // New or existing holding?
+    var holdingStoreService = recordService.holding.save;
+    if(!holding['@id']) {
+      holdingStoreService = recordService.holding.create;
+    }
+
+    holdingStoreService(holding).then(function success(holding) {
+      onSave(holding);      
       $scope.holding = holding;
       $scope.classes.saveStatus = 'success';
     }, function error(status) {
@@ -192,7 +198,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     };
     var confirm = dialogs.create('/dialogs/confirm', 'CustomConfirmCtrl', data, { windowClass: 'kitin-dialog holdings-dialog' });
     confirm.result.then(function yes(answer) {
-      recordService.holding.del(holding).then(function sucess(response) {
+      recordService.holding.delete(holding).then(function sucess(response) {
         onDelete(holding);
         delete $scope.holding;
       }, function error(status) {

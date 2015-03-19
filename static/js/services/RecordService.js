@@ -294,62 +294,57 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
               deferer.reject(status);
             });
         } else {
-          deferer.resolve(null);
+          var recordSkeletonTypeMap = definitions.recordSkeletonTypeMap;
+          recordSkeletonTypeMap.then(function(skeletonTypeMap) {
+            var newHolding = angular.copy(skeletonTypeMap.main['HoldingsRecord']);
+            editService.decorate(newHolding, []).then(function(decoratedHolding) {
+              deferer.resolve(decoratedHolding);
+            });
+          });
         }
         return deferer.promise;
       },
 
-      create: function() {
+      create: function(holdingData) {
         var deferer = $q.defer();
-        var recordSkeletonTypeMap = definitions.recordSkeletonTypeMap;
-        recordSkeletonTypeMap.then(function(skeletonTypeMap) {
-          var newHolding = angular.copy(skeletonTypeMap.main['HoldingsRecord']);
-          editService.decorate(newHolding, []).then(function(decoratedHolding) {
-            deferer.resolve(decoratedHolding);
-          });
+        var holdingDataCopy = angular.copy(holdingData);
+        editService.undecorate(holdingDataCopy).then(function(undecoratedHolding) {
+          $rootScope.promises.holding.saving = $http.post($rootScope.WRITE_API_PATH + '/hold', undecoratedHolding)
+            .success(function(createdHolding, status, headers) {
+              editService.decorate(createdHolding).then(function(decoratedHolding) {
+                decoratedHolding.etag = headers('etag');
+                deferer.resolve(decoratedHolding);
+              });
+            })
+            .error(function(data, status, headers) {
+              deferer.reject(status);
+            });
         });
         return deferer.promise;
       },
 
-      save: function(holding) {
+      save: function(holdingData) {
         var deferer = $q.defer();
-        var etag = holding.etag;
-        var redecorate = function(data, deferer) {
-          editService.decorate(data, []).then(function(decoratedData) {
-            deferer.resolve(decoratedData);
-          });
-        };
-        editService.undecorate(holding).then(function(undecoratedHolding) {
-          if (undecoratedHolding['@id'] && etag) {
-            delete undecoratedHolding.etag;
-            $rootScope.promises.holding.saving = $http.put($rootScope.WRITE_API_PATH + undecoratedHolding['@id'], undecoratedHolding, {headers: {'If-match': etag}})
-              .success(function(savedHolding, status, headers) {
-                if (headers('etag')) {
-                  savedHolding.etag = headers('etag');
-                }
-                redecorate(savedHolding, deferer);
-              })
-              .error(function(data, status, headers) {
-                deferer.reject(status);
+        var etag = holdingData.etag;
+        var holdingDataCopy = angular.copy(holdingData);
+
+        editService.undecorate(holdingDataCopy).then(function(undecoratedHolding) {
+          delete undecoratedHolding.etag;
+          $rootScope.promises.holding.saving = $http.put($rootScope.WRITE_API_PATH + undecoratedHolding['@id'], undecoratedHolding, {headers: {'If-match': etag}})
+            .success(function(savedHolding, status, headers) {
+              editService.decorate(savedHolding).then(function(decoratedHolding) {
+                decoratedHolding.etag = headers('etag');
+                deferer.resolve(decoratedHolding);
               });
-          } else {
-            // Holding has no ID, assume it's new
-            $rootScope.promises.holding.saving = $http.post($rootScope.WRITE_API_PATH + '/hold', undecoratedHolding)
-              .success(function(savedHolding, status, headers) {
-                if (headers('etag')) {
-                  savedHolding.etag = headers('etag');
-                }
-                redecorate(savedHolding, deferer);
-              })
-              .error(function(data, status, headers) {
-                deferer.reject(status);
-              });
-          }
+            })
+            .error(function(data, status, headers) {
+              deferer.reject(status);
+            });
         });
         return deferer.promise;
       },
 
-      del: function(holding) {
+      delete: function(holding) {
         var deferer = $q.defer();
         var holdingId = holding['@id'];
         var etag = holding.etag;
