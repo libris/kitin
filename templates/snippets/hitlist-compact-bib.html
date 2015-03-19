@@ -3,7 +3,8 @@
     <a class="bib-url" data-ng-controller="ModalCtrl" data-ng-click="openBibViewModal(record)">{{ ::utils.composeTitle(record) | chop:80}}</a>
   </div>
   <div class="creator">
-    {{ ::utils.composeCreator(record) | chop:40 }}
+    <span ng-if="record.about.responsibilityStatement">{{ ::record.about.responsibilityStatement | chop:40 }}</span>
+    <span ng-if="!record.about.responsibilityStatement">{{ ::utils.composeCreator(record) | chop:40 }}</span>
   </div>
   <div class="publication">
     <span data-ng-repeat="publication in record.about.publication | limitTo:1">
