@@ -82,7 +82,7 @@ kitin.factory('definitions', function($http, $rootScope, $q) {
             }
             var param = attr + (locale && locale !== 'se' ? '_'+locale : '');
             typeKeys.forEach(function (typeKey) {
-              var dfn = terms[obj[TYPE]];
+              var dfn = terms[typeKey];
               typeLabels.push(dfn ? dfn[param] : typeKey);
             });
             if(typeLabels && typeLabels.length > 0) {
