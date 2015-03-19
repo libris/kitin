@@ -12,7 +12,7 @@
       autocomplete="off" role="textbox"
       aria-autocomplete="list" aria-haspopup="true" data-ng-model="state.search.q">
       <div class="btn-group dropdown" dropdown data-is-open="isopen">
-        <a class="btn btn-grey search-source dropdown-toggle" dropdown-toggle>
+<!--         <a class="btn btn-grey search-source dropdown-toggle" dropdown-toggle>
           <span class="btn-label">{{ state.searchType.label }}</span>
           <span class="fa fa-caret-down"></span>
         </a>
@@ -21,7 +21,7 @@
             <a data-ng-class="{selected: opt.key == state.searchType.key}"
                data-ng-click="setSearchType(opt.key)">{{ opt.label }}</a>
           </li>
-        </ul>
+        </ul> -->
         <button class="btn btn-green" aria-label="Sök" type="submit"><i class="fa fa-search"></i></button>
       </div>
       <div class="remote-search" data-ng-show="state.searchType.key == 'remote'">
