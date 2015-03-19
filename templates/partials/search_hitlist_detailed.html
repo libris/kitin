@@ -13,14 +13,14 @@
           <div class="col5">
             <div class="label title">
               <span class="title-key">
-                {{ utils.composeTitle(record, recType) | chop:60 }}
+                {{ ::utils.composeTitle(record, recType) | chop:60 }}
               </span>
             </div>
             <div class="label" data-ng-repeat="note in record.about.note">
-              {{ note }}
+              {{ ::note }}
             </div>
             <div class="label" data-ng-repeat="scopeNote in record.about.scopeNote">
-              {{ scopeNote }}
+              {{ ::scopeNote }}
             </div>
             <div class="f bottom">
               <kitin-display-type model="record"></kitin-display-type>
@@ -40,11 +40,11 @@
         <div class="enc-level">
           <!-- <div data-ng-include="'/partials/enc_level'" ng-init="encLevel = record.encLevel"></div> -->
           <span data-ng-if="record.database != null" class="database">
-            <i class="fa fa-institution"></i> Källa: {{record.database}}
+            <i class="fa fa-institution"></i> Källa: {{::record.database}}
           </span>
         </div>
         <div class="comments">
-          <span data-ng-repeat="comment in record.comment">{{comment}}</span>
+          <span data-ng-repeat="comment in record.comment">{{::comment}}</span>
         </div>
         <div class="buttons">
           <!-- <button data-ng-click="log([record, encLevel, recType])" class="btn btn-green btn-copy-remote"><i class="fa fa-inverse fa-plus"></i> Kopiera</button> -->
@@ -67,7 +67,7 @@
           </span>
         </div>
         <div class="comments">
-          <span data-ng-repeat="comment in record.comment">{{comment}}</span>
+          <span data-ng-repeat="comment in record.comment">{{::comment}}</span>
         </div>
         <div class="buttons">
           <a class="button-edit btn btn-green btn-xs" ng-if="allowEdit" href="/edit/libris{{record['@id']}}{{queryString}}">
