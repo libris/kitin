@@ -179,16 +179,23 @@ module.exports = function(grunt) {
       options: {
         configFile: "test/js/config/protractor.conf.js", // Default config file
         keepAlive: true, // If false, the grunt process stops when the test fails.
-        noColor: false // If true, protractor will not use colors in its output.
-      },
-      search: {
-        args: {
-          suite: 'search'
-        }
-      },
-      full: {
+        noColor: false, // If true, protractor will not use colors in its output.
         args: {
           suite: 'full'
+        }
+      },
+      holdings: {
+        options: {
+          args: {
+            suite: 'holdings'
+          }
+        }
+      },
+      search: {
+        options: {
+          args: {
+            suite: 'search'
+          }
         }
       }
     }
