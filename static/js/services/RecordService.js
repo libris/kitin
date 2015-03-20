@@ -249,16 +249,14 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
               userHoldings = userHoldings[0];
               recordService.holding.get(userHoldings['@id']).then(function(response) {
                 if (response.holding) {
-                  editService.decorate(response.holding, []).then(function(decoratedHolding) {
-                    userHoldings = decoratedHolding;
-                    if (response.etag) {
-                      userHoldings.etag = response.etag;
-                    }
-                    deferer.resolve({
-                      userHoldings: userHoldings,
-                      otherHoldings: otherHoldings
-                    });
-                  });
+                  userHoldings = response.holding;
+                  if (response.etag) {
+                    userHoldings.etag = response.etag;
+                  }
+                  deferer.resolve({
+                    userHoldings: userHoldings,
+                    otherHoldings: otherHoldings
+                  });                
                 } else {
                   deferer.reject({
                     msg: 'Hittade inget bestånd med önskat id.'
@@ -281,9 +279,9 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
         var deferer = $q.defer();
         if (holdingId) {
           $http.get($rootScope.API_PATH + holdingId, { headers: utilsService.noCacheHeaders})
-            .success(function(data, status, headers) {
+            .success(function(holdingData, status, headers) {
               var etag = headers('etag') ? headers('etag') : null;
-              editService.decorate(data, []).then(function(decoratedHolding) {
+              editService.decorate(holdingData, []).then(function(decoratedHolding) {
                 deferer.resolve({
                   holding: decoratedHolding,
                   etag: etag
@@ -311,7 +309,7 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
         editService.undecorate(holdingDataCopy).then(function(undecoratedHolding) {
           $rootScope.promises.holding.saving = $http.post($rootScope.WRITE_API_PATH + '/hold', undecoratedHolding)
             .success(function(createdHolding, status, headers) {
-              editService.decorate(createdHolding).then(function(decoratedHolding) {
+              editService.decorate(createdHolding, []).then(function(decoratedHolding) {
                 decoratedHolding.etag = headers('etag');
                 deferer.resolve(decoratedHolding);
               });
