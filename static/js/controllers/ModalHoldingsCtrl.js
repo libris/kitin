@@ -175,10 +175,11 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
       holdingStoreService = recordService.holding.create;
     }
 
-    holdingStoreService(holding).then(function success(holding) {
-      onSave(holding);      
-      $scope.holding = holding;
+    holdingStoreService(holding).then(function success(savedHolding) {
+      onSave(savedHolding);
+      $scope.holding = savedHolding;
       $scope.classes.saveStatus = 'success';
+
     }, function error(status) {
       $scope.classes.saveStatus = 'error';
     }).finally(function() {
