@@ -19,7 +19,7 @@ kitin.directive('kitinDisplayType', function(editService, $rootScope){
       replace: true,
       template: '<span class="record-type">' +
                   '{{ typeLabels }}' +
-                  '<span data-ng-repeat="contentType in model.about.contentType">| {{ (contentType.prefLabel || contentType["@id"]) }}</span>' +
+                  '<span data-ng-repeat="contentType in model.about.contentType"> | {{ (contentType.prefLabel || contentType["@id"]) }}</span>' +
                   '<span data-ng-if="formatLabels">, {{ formatLabels | translate }}</span>' +
                 '</span>',
       controller: function($scope, $rootScope, $attrs) {
