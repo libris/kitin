@@ -99,7 +99,7 @@
       <kitin-label label="label"></kitin-label>
       <ul>
         <li class="node" ng-repeat="class in record.about.classification">
-          {{ class.notation }} <small>({{ class.inScheme.notation }})</small>
+          {{ class.notation }} <small ng-if="class.inScheme.notation">({{ class.inScheme.notation }})</small>
         </li>
       </ul>
     </div>
