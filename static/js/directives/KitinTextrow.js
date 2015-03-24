@@ -35,7 +35,7 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
       //TODO, move into snippet?
       template: '<div class="label" ng-hide="shouldHide(model, options)">' + 
                   '<kitin-label label="label"></kitin-label>' +
-                  '<span class="inp"><kitin-textarea title="{{label}}" data-track-change="{{changeModel}}" model="model"></kitin-textarea></span>' +
+                  '<span class="inp"><kitin-textarea title="{{label | translate}}" data-track-change="{{changeModel}}" model="model"></kitin-textarea></span>' +
                   '<kitin-help model="help"></kitin-help>' +
                   '<div ng-show="suggestions" class="suggestions"><span class="suggestion-label">Förslag</span><span class="item" title="Kopiera till fält" ng-repeat="suggestion in suggestions track by $index" ng-click="$parent.putSuggestionToInput(suggestion)">{{ suggestion }}</span></div>' +
                 '</div>',
