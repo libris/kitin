@@ -20,7 +20,7 @@ kitin.directive('kitinHelp', function (definitions) {
         },
         replace: true,
         template: '<span class="kitin-help">' + 
-                    '<a data-ng-class="classNames" data-ng-show="helpText" data-ng-click="click()" kitin-popover-placement="{{popoverPlacement}}" kitin-popover="{{helpText}}">' + 
+                    '<a data-ng-class="classNames" href="#" data-ng-show="helpText" data-ng-click="click()" kitin-popover-placement="{{popoverPlacement}}" kitin-popover="{{helpText}}">' + 
                       '<i class="fa fa-question-circle"></i>' +
                     '</a>' +
                   '</span>',
