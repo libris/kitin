@@ -110,7 +110,25 @@
         <li class="node" ng-repeat="comment in record.about.comment">
           {{ comment }}
         </li>
-        <li class="node" ng-if="annotation.note" ng-repeat="annotation in record.about.hasAnnotation">
+      </ul>
+    </div>
+
+    <div ng-switch-when="hasAnnotation">
+      <kitin-label label="label"></kitin-label>
+      <ul ng-repeat="annotation in record.about.hasAnnotation">
+        <li class="node" ng-if="annotation.date">
+          {{ annotation.date }}
+        </li>
+        <li class="node" ng-if="annotation.location">
+          {{ annotation.location }}
+        </li>
+        <li class="node" ng-if="annotation.degree">
+          {{ annotation.degree }}
+        </li>
+        <li class="node" ng-if="annotation.comment">
+          {{ annotation.comment }}
+        </li>
+        <li class="node" ng-if="annotation.note">
           {{ annotation.note }}
         </li>
       </ul>
