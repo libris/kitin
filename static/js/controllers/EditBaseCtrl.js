@@ -128,7 +128,6 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
     var opts = {
       backdrop: 'static',
       keyboard: false,
-      controller: 'OpenModalCtrl',
       backdropFade: false,
       dialogFade: false,
       templateUrl: '/snippets/modal-holdings',
@@ -144,6 +143,6 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
       // on close send the user to start page
       $location.url('');
     });
-  }
+  };
 
 });
