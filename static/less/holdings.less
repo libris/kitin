@@ -1,11 +1,10 @@
-/* HOLDINGS START ------------------------- */
+ /* HOLDINGS START ------------------------- */
 
 .holdings .label input[type="text"]:focus,
 .holdings .label textarea:focus{}
 
 .holdings .lbl {color:@purple;}
 
-.holdings section h2{background-color: @purple-light;}
 .holdings section h2 i{border-right-color: @purple;}
 
 .holdings section h3{font:bold italic 16px/20px @header-font, georgia,serif; color: @purple-light; border-bottom:1px solid @purple-light; padding-bottom: 2px; }
@@ -37,17 +36,30 @@
       margin-bottom: 10px;
     }
     &:first-of-type {
-      border-width: 1px !important;
+      border-width: 1px;
     }
     &:last-of-type {
       width: 98%;
       background-color: @grey-lightest;
       margin-left: 1%;
       margin-bottom: -1px;
-      border-width: 0px 1px 1px 1px;
+      // border-width: 0px 1px 1px 1px;
       z-index: 4;
       box-shadow: none;
     }
+  }
+}
+.holdings.jsonld section.form-container {
+  > div {
+    position: relative;
+    margin-bottom: 0px;
+    background-color: white;
+    padding: 0px 10px;
+    border-width: 0px;
+    box-shadow: none !important;
+  }
+  &:first-of-type {
+    border-width: 0px !important;
   }
 }
 
@@ -57,8 +69,6 @@
     margin-bottom: 0px;
     background-color: white;
     padding: 0px 10px;
-    border: solid @grey-light;
-    border-width: 0px 1px 1px 1px;
     margin-bottom: 0px;
     .shadow(rgba(0, 0, 0, 0.1));
     z-index: 5;
@@ -68,46 +78,6 @@
     &:last-of-type {
       margin-bottom: -1px;
       border-width: 0px 1px 1px 1px;
-    }
-  }
-}
-
-.holdings section {
-  &.header {
-    background-color: white;
-    width: 100%;
-    height: 50px;
-    margin-bottom: 0px;
-    background-color: white;
-    padding: 0px 10px;
-    border: solid @grey-light;
-    border-width: 0px 1px 0px 1px;
-    margin-bottom: 0px;
-    .shadow(rgba(0, 0, 0, 0.1));
-  }
-  h2, section.nav dt{
-    background:@purple;
-    font:bold 12px/16px @paragraph-font, sans-serif; 
-    text-transform:uppercase;
-    float:left;
-    padding: 5px 24px; 
-    color:@white;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.08);
-    -webkit-font-smoothing: antialiased;
-    margin: 10px 0 10px -23px;
-    min-height:16px;
-    position:relative;
-    box-shadow: 1px 2px 0px rgba(0, 0, 0, 0.1);
-    i {
-      position:absolute;left:2px;bottom:-10px;
-      width: 0px;
-      height: 0px;
-      border-style: solid;
-      border-width: 0 10px 10px 0;
-      border-color: transparent @purple-dark transparent transparent;
     }
   }
 }
