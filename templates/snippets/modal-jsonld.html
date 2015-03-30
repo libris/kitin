@@ -1,0 +1,37 @@
+<div class="modal-header jsonld {{ record['@type'] === 'HoldingsRecord' ? 'holdings' : '' }}">
+  <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
+  <h1 class="modal-title">{{ record['@type'] === 'Record' ? 'Bibliografisk post' : 'Beståndspost' }} visad som JSON-LD</h1>
+</div>
+
+<div class="modal-body jsonld {{ record['@type'] === 'Record' ? 'bibview' : '' }} {{ record['@type'] == 'HoldingsRecord' ? 'holdings' : '' }}">
+    <div data-cg-busy="{promise:promises.marc.loading, message:'LABEL.gui.busy.LOADING_MARC', minDuration: 800}"></div>
+    <section class="info-container">
+      <div class="record-metadata">
+        <p>
+          Den underliggande datastrukturen representerad som ett träd av entiteter, på formatet <a href="http://json-ld.org/" target="_blank">JSON-LD <i class="fa fa-external-link"></i></a>. Här visas all data som är lyft ur MARC-posten (samt de delar som ännu inte mappats klart, placerade i block prefixade med '_marc').
+        </p>
+        <p>
+          Denna struktur är under utveckling. Kom gärna med synpunkter om något saknas eller ser feltolkat ut.
+        </p>
+      </div>
+    </section>
+
+    <section class="header">
+      <h2>
+        JSON-LD
+        <i></i>
+      </h2>
+    </section>
+    <section class="jsonld info-container record-metadata">
+
+      <div ng-controller="JSONLDCtrl">
+        <header class="clearfix">
+        </header>
+    
+        <section data-ng-repeat="object in [record]" class="json-ld form-container" data-ng-include="'/snippets/jsonld-object'"></section>
+      </div>
+
+    </section>
+</div>
+
+<div class="modal-footer jsonld submit"></div>
