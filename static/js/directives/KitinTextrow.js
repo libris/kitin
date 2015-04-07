@@ -33,7 +33,7 @@ kitin.directive('kitinTextrow', function(editService, $rootScope){
         scope.options = kitinGroupCtrl ? kitinGroupCtrl.options : null;
       },
       //TODO, move into snippet?
-      template: '<div class="label" ng-hide="shouldHide(model, options)">' + 
+      template: '<div class="label kitin-textrow" ng-hide="shouldHide(model, options)">' + 
                   '<kitin-label label="label"></kitin-label>' +
                   '<span class="inp"><kitin-textarea title="{{label | translate}}" data-track-change="{{changeModel}}" model="model"></kitin-textarea></span>' +
                   '<kitin-help model="help"></kitin-help>' +
