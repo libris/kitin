@@ -397,16 +397,26 @@ a.add {
   text-transform:uppercase;
   color: @grey;
   letter-spacing: 0.5px;
+  text-decoration:none;
   .fa {
     font-size:14px;
     color: @green;
   }
   &:hover {
-    text-decoration:none;
+    text-decoration:underline;
     color: @green-dark;
     .fa {
       color: @green-dark;
     }
+  }
+}
+.holdings a.add {
+  color: @purple;
+  .fa {
+    color: @purple;
+  }
+  &:hover {
+    color: @purple-dark;
   }
 }
 
