@@ -67,7 +67,12 @@
           LIBRIS-ID: {{ record.controlNumber }}
         </li>
         <li class="node identifier" ng-show="identifier.identifierValue" ng-repeat="identifier in record.about.identifier">
-          {{ 'LABEL.term.identifier.'+identifier.identifierScheme['@id'] | translate }}: {{ identifier.identifierValue }}
+          <span ng-if="identifier.identifierScheme">
+            {{ 'LABEL.term.identifier.'+identifier.identifierScheme['@id'] | translate }}: {{ identifier.identifierValue }}
+          </span>
+          <span ng-if="!identifier.identifierScheme">
+            Okänt schema: {{ identifier.identifierValue }}
+          </span>
         </li>
       </ul>
     </div>
