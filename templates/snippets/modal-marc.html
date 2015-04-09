@@ -5,7 +5,9 @@
 
 <div class="modal-body marc">
     <div data-cg-busy="{promise:promises.marc.loading, message:'LABEL.gui.busy.LOADING_MARC', minDuration: 800}"></div>
-    <section class="marc">
+    <div class="alert alert-info" role="alert">Observera att denna vy inte visar posten som den kommer att se ut i det mottagande systemet utan endast visar de inmatade fälten,<br>tillfälligt konverterade till MARC.</div>
+    <hr>
+    <section class="marc-code">
       <table>
         <tr>
           <td data-ng-if="record.leader">

@@ -30,12 +30,14 @@
 @orange-translucent: translucent(@orange, 95%);
 
 @green-light: lighten(@green, 10%); // buttons, headers
+@green-lightish: lighten(@green, 40%);  // alert success
 @green-lighter: desaturate(lighten(@green, 52%), 20%);  // dropdowns select
 @green-dark: darken(@green, 15%);     // link and button hovers
 @green-darker: darken(@green, 40%);   // dark button hover
 @green-translucent: fade(@green, 95%);
 
 @grey-warm: #eeeeec;      // dropdown disabled selection
+@grey-lightest: #F7F7F7;  
 @grey-lighter: #dddddb;   // unused? 
 @grey-light: #c7c7c3;     // delimiters
 @grey: #adada9;           // backgrounds, footer
@@ -196,7 +198,20 @@ input[type="color"]:focus,
           box-shadow: none;
 }
 
+.no-bullets {
+  list-style-type: none;
+  padding-left: 0px;
+  .li {
+    list-style-type: none;
+  }
+}
+
 .fa-caret-down { 
   margin-left: 4px;
 }
 
+.shadow(@color) {
+  -webkit-box-shadow: 0 2px 0px 0px @color;
+   -moz-box-shadow: 0 2px 0px 0px @color;
+    box-shadow: 0 2px 0px 0px @color;
+}

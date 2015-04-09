@@ -1,101 +1,154 @@
 <div class="valuedisplay">
   <span ng-switch on="label">
     <!-- <kitin-label label="label" ng-click="scope.collapse = !scope.collapse"></kitin-label> <i class="fa" ng-class="scope.collapse ? 'fa-fw fa-angle-right' : 'fa-fw fa-angle-down'"></i> -->
-    <kitin-label label="label"></kitin-label>
     <div class="value" ng-hide="scope.collapse">
 
-      <ul class="summary" ng-switch-when="LABEL.record.about.summary">
+    <div ng-switch-when="summary">
+      <kitin-label label="label"></kitin-label>
+      <ul class="summary">
         <li class="node" ng-repeat="summary in record.about.summary">
           {{ summary }}
         </li>
       </ul>
+    </div>
 
-      <ul ng-switch-when="LABEL.record.about.publication">
+    <div ng-switch-when="publication">
+      <kitin-label label="label"></kitin-label>
+      <ul >
         <li class="node" ng-repeat="publication in record.about.publication">
           {{ publication.place.label ? publication.place.label + ', ' : '' }}{{ publication.providerName ? publication.providerName + ', ' : '' }}{{ publication.providerDate }}
         </li>
       </ul>
+    </div>
 
-      <ul ng-switch-when="LABEL.record.about.manufacture">
+    <div ng-switch-when="manufacture">
+      <kitin-label label="label"></kitin-label>
+      <ul >
         <li class="node" ng-repeat="manufacture in record.about.manufacture">
           {{ manufacture.place.label ? manufacture.place.label + ', ' : '' }}{{ manufacture.providerName ? manufacture.providerName + ', ' : '' }}{{ manufacture.providerDate }}
         </li>
       </ul>
+    </div>
 
-      <ul ng-switch-when="LABEL.record.about.frequency">
+    <div ng-switch-when="frequency">
+      <kitin-label label="label"></kitin-label>
+      <ul>
         <li class="node">{{ record.about.frequency }}</li>
       </ul>
+    </div>
 
-      <ul ng-switch-when="LABEL.record.about.language">
-        <li class="node lang" ng-if="language.prefLabel || language.langTag" ng-repeat="language in record.about.language | orderBy:'langTag'">
+    <div ng-switch-when="language">
+      <kitin-label label="label"></kitin-label>
+      <ul>
+        <li class="node lang" ng-if="language.prefLabel" ng-repeat="language in record.about.language | orderBy:'langTag'">
+          <kitin-language-icon model="language"></kitin-language-icon> {{ language.prefLabel }}
+
+        </li>
+      </ul>
+    </div>
+
+    <div ng-switch-when="originalLanguage">
+      <kitin-label label="label"></kitin-label>
+      <ul>
+        <li class="node lang" ng-if="language.prefLabel" ng-repeat="language in record.about.originalLanguage | orderBy:'langTag'">
           <kitin-language-icon model="language"></kitin-language-icon> {{ language.prefLabel }}
         </li>
-        <li class="node" ng-if="!language.prefLabel && !language.langTag && language['@id']" ng-repeat="language in record.about.language | orderBy:'langTag'">
-          {{ language['@id'] }}
-        </li>
       </ul>
+    </div>
 
-      <ul ng-switch-when="LABEL.record.about.originalLanguage">
-        <li class="node lang" ng-if="language.prefLabel || language.langTag" ng-repeat="language in record.about.originalLanguage | orderBy:'langTag'">
-          <kitin-language-icon model="language"></kitin-language-icon> {{ language.prefLabel }}
-        </li>
-      </ul>
-
-      <ul ng-switch-when="LABEL.record.about.hasFormat">
-        <li class="node" ng-repeat="format in record.about.hasFormat">
-          <span ng-if="format['@type']">{{ 'LABEL.record.about.hasFormatByType[\''+format['@type']+'\']' | translate }}</span>
-          {{ format.extent ? format.extent + ' : ' : '' }}{{ format.otherPhysicalDetails ? format.otherPhysicalDetails + " ; " : '' }}{{ format.dimensions }}
-        </li>
-      </ul>
+    <div ng-switch-when="hasFormat">
+      <kitin-display-format model="record.about.hasFormat"></kitin-display-format>
+    </div>
   
-      <ul ng-switch-when="LABEL.record.about.identifierValue">
+    <div ng-switch-when="identifierValue">
+      <kitin-label label="label"></kitin-label>
+      <ul>
         <li class="node identifier" ng-if="record.controlNumber">
           LIBRIS-ID: {{ record.controlNumber }}
         </li>
         <li class="node identifier" ng-show="identifier.identifierValue" ng-repeat="identifier in record.about.identifier">
-          {{ 'LABEL.record.about.identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }}: {{ identifier.identifierValue }}
+          {{ 'LABEL.term.identifier.'+identifier.identifierScheme['@id'] | translate }}: {{ identifier.identifierValue }}
         </li>
       </ul>
+    </div>
 
-      <ul ng-switch-when="LABEL.record.bibliography.bibliography">
+    <div ng-switch-when="bibliography">
+      <kitin-label label="label"></kitin-label>
+      <ul>
         <li class="node" ng-show="bibliography.notation" ng-repeat="bibliography in record.bibliography">
-          {{ 'LABEL.record.bibliography.bibliographyByNotation[\''+bibliography.notation+'\']' | translate }} <small>({{ bibliography.notation }})</small>
+          {{ 'LABEL.term.notation.'+bibliography.notation | translate }} <small>({{ bibliography.notation }})</small>
         </li>
       </ul>
+    </div>
   
-      <ul ng-switch-when="LABEL.record.about.attributedTo">
+    <div ng-switch-when="attributedTo">
+      <kitin-label label="label"></kitin-label>
+      <ul>
         <kitin-display-auth model="record.about.attributedTo"></kitin-display-auth>
       </ul>
+    </div>
   
-      <ul ng-switch-when="LABEL.record.about.influencedBy">
+    <div ng-switch-when="influencedBy">
+      <kitin-label label="label"></kitin-label>
+      <ul>
         <kitin-display-auth model="auth" ng-repeat="auth in record.about.influencedBy"></kitin-display-auth>
       </ul>
+    </div>
   
-      <ul ng-switch-when="LABEL.record.about.classification">
+    <div ng-switch-when="classification">
+      <kitin-label label="label"></kitin-label>
+      <ul>
         <li class="node" ng-repeat="class in record.about.classification">
-          {{ class.notation }} {{ class.notation && class.inScheme.notation ? '|' : '' }} <small>{{ class.inScheme.notation }}</small>
+          {{ class.notation }} <small ng-if="class.inScheme.notation">({{ class.inScheme.notation }})</small>
         </li>
       </ul>
+    </div>
   
-      <ul ng-switch-when="LABEL.record.about.comment ">
+    <div ng-switch-when="comment">
+      <kitin-label label="label"></kitin-label>
+      <ul>
         <li class="node" ng-repeat="comment in record.about.comment">
           {{ comment }}
         </li>
-        <li class="node" ng-if="annotation.note" ng-repeat="annotation in record.about.hasAnnotation">
+      </ul>
+    </div>
+
+    <div ng-switch-when="hasAnnotation">
+      <kitin-label label="label"></kitin-label>
+      <ul ng-repeat="annotation in record.about.hasAnnotation">
+        <li class="node" ng-if="annotation.date">
+          {{ annotation.date }}
+        </li>
+        <li class="node" ng-if="annotation.location">
+          {{ annotation.location }}
+        </li>
+        <li class="node" ng-if="annotation.degree">
+          {{ annotation.degree }}
+        </li>
+        <li class="node" ng-if="annotation.comment">
+          {{ annotation.comment }}
+        </li>
+        <li class="node" ng-if="annotation.note">
           {{ annotation.note }}
         </li>
       </ul>
+    </div>
 
-      <ul ng-switch-when="LABEL.record.about.isPartOf">
+    <div ng-switch-when="isPartOf">
+      <kitin-label label="label"></kitin-label>
+      <ul>
         <li class="node" ng-repeat="collection in record.about.isPartOf">
           {{ collection.uniformTitle }}{{ collection.title }}{{ collection.controlledLabel ? ', ' + collection.controlledLabel : '' }}{{ collection.placePublisherAndDateOfPublication ? ', ' + collection.placePublisherAndDateOfPublication : '' }}
-          <span ng-show="{{ collection.identifier | isArray }}" ng-repeat="identifier in collection.identifier"> ({{ 'LABEL.record.about.identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }} {{ identifier.identifierValue }}) </span>
-          <span ng-if="collection.identifier" ng-hide="{{ collection.identifier | isArray }}"> ({{ 'LABEL.record.about.identifierByIdentifierScheme[\''+collection.identifier.identifierScheme['@id']+'\']' | translate }} {{ collection.identifier.identifierValue }}) </span>
+          <span ng-show="{{ collection.identifier | isArray }}" ng-repeat="identifier in collection.identifier"> ({{ 'identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }} {{ identifier.identifierValue }}) </span>
+          <span ng-if="collection.identifier" ng-hide="{{ collection.identifier | isArray }}"> ({{ 'identifierByIdentifierScheme[\''+collection.identifier.identifierScheme['@id']+'\']' | translate }} {{ collection.identifier.identifierValue }}) </span>
           <span ng-repeat="note in collection.scopeNote"> ({{ note }}) </span>
         </li>
       </ul>
+    </div>
 
-      <ul ng-switch-when="LABEL.record.about.subject">
+    <div ng-switch-when="subject">
+      <kitin-label label="label"></kitin-label>
+      <ul>
         <li class="node" ng-repeat="subject in record.about.subject" ng-switch on="subject['@type']">
           <span ng-switch-when="Person">
             {{ subject.familyName }}, {{ subject.givenName }} ({{subject.birthYear}}-{{subject.deathYear}})
@@ -106,20 +159,24 @@
           <span ng-switch-default>
             {{ subject.prefLabel }}
             <span ng-repeat="node in subject.broader">{{ node.prefLabel }} <span ng-if="!$last"> <i alt="--" class="fa fa-long-arrow-right"></i> </span></span>
-            <small>{{ subject.inScheme.notation }}</small>
+            <small>({{ subject.inScheme.notation }})</small>
           </span>
         </li>
       </ul>
+    </div>
 
-      <ul ng-switch-when="LABEL.record.about.relatedTitles">
+    <div ng-switch-when="relatedTitles">
+      <kitin-label label="label"></kitin-label>
+      <ul>
         <li class="node" ng-repeat="format in record.about.alternateFormat">
-          <i>{{ 'LABEL.record.about.alternateFormat' | translate }}:</i>
+          <i>{{ 'alternateFormat' | translate }}:</i>
           <span ng-repeat="note in format.linkNote track by $index">{{ note }}</span>
           {{ format.controlledLabel }}
           {{ format.title }}
           {{ format.placePublisherAndDateOfPublication }}
         </li>
       </ul>
+    </div>
 
   </div>
   </span>

@@ -157,7 +157,7 @@ kitin.factory('utilsService', function($http, $q, $rootScope, $timeout) {
       var creator = '';
       var post = record.about;
       if (post.creator) {
-        creator = post.creator;  
+        creator = constructName(post.creator);
       } else if (post.responsibilityStatement) {
         creator = post.responsibilityStatement;
       } else if (post.attributedTo) {

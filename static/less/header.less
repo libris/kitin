@@ -74,7 +74,7 @@ body.search #header {
 #header .beta { font-size: 16px; color: @pink; position: absolute;right:10px;top:16px}
 #header .system-updated { font-size: 11px; color: @grey-dark; padding: 0px; margin: 0px; }
 
-#header .logo { position: absolute; left: 0; bottom: 6px; color: @grey-dark; text-transform: uppercase; height:72px;
+#header .logo { position: absolute; left: 0; bottom: 6px; color: @grey-dark; text-transform: uppercase; height:72px; width: 308px;
   >a { 
     display: block; width: 260px; height:52px; background:url(/static/img/logo.svg) no-repeat;background-size:100%; text-indent:-10000px; padding-bottom:1px;
     * { position:absolute;left:-10000px;margin:0}
@@ -189,7 +189,8 @@ body.edit #header .nav-back {
 
 // Start page, large search form
 body.index #header .searchfield{
-  left:248px;
+  // left:248px; // with dropdown
+  left: 308px; // without dorpdwon
   top:220px;
   min-width: 611px;
   opacity:1;

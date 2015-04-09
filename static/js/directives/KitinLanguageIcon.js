@@ -17,7 +17,7 @@ kitin.directive('kitinLanguageIcon', function(editService, $rootScope){
         model: '=model'
       },
       replace: true,
-      template: '<span ng-hide="model.langCode===\'zxx\'" title="{{model.prefLabel}}" class="langIcon">' +
+      template: '<span title="{{model.prefLabel}}" class="langIcon">' +
                 '<strong>{{ iconTag }}</strong></span> ',
       controller: function($scope, $rootScope, $attrs) {
         $scope.iconTag = '';

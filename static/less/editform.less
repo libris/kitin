@@ -36,8 +36,10 @@ label.find-entity input[type="text"] { padding-left: 22px; }
   display: inline-table;
   max-width: 200px;
   line-height: 1.7;
-  border-left: 1px dashed #CCC;
+  border-left: 1px dotted #CCC;
   padding-left: 3px;
+  margin-left: 8px;
+  vertical-align: top;
   .suggestion-label { margin-left: 3px;font-size: 0.7em;display:block; }
   .item {
     background-color: @yellow-lighter;
@@ -408,6 +410,11 @@ a.add {
   }
 }
 
+.kitin-help .popover .popover-content {
+  max-height: 200px;
+  overflow: auto;
+}
+
 a.help {
   height: 20px;
   line-height: 20px;
@@ -474,6 +481,7 @@ a.help.positioned.dropped{
     }
     textarea {
       box-sizing: border-box;
+      border: none;
       padding:0;
       margin:0;
       min-width:50px;
@@ -579,7 +587,6 @@ input[type="text"] :-moz-placeholder { color:@grey;  }/*FF18<*/
 .label textarea{overflow:hidden;resize:none;color:@grey-very-dark;}
 .label textarea.title{font-weight:bold;}
 
-.lbl{ display:block; font-size:13px; color:@grey-very-dark; margin-bottom:0; line-height:16px;  }
 .lbl-suggest{display:block;font-size:12px;color:@green;margin-top:2px;line-height:14px;float:left;clear:both;}
 
 // I'm guessing this is left over from styleguide, correct?

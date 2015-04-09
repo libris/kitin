@@ -3,14 +3,6 @@
 .content{position:relative;background:url(/static/img/bg.png);padding:0 24px 24px 24px;overflow:hidden;}
 .content:not(.footer){min-height:500px}
 
-// We do this with ng-disable now
-// .saved #save-draft, .published #publish-bib {
-//   opacity: 0.85;
-//   pointer-events: none;
-//   cursor: default;
-// }
-// #save-draft, #publish-bib { opacity: 1; }
-
 #message-container,
 #holdings-message-container{
   position:absolute;right:120px;top:0;
@@ -40,7 +32,7 @@
 .content footer a {color:@grey; padding-left: 10px;padding-right: 5px;}
 .content footer a:hover {color:@grey-dark;background-color: transparent;}
 
-.content.index header{ background-image:url(/static/img/top-index.png);margin-bottom:130px;min-height:80px;background-repeat: no-repeat;}
+.content.index header{ background-image:url(/static/img/top-index.png);min-height:80px;background-repeat: no-repeat;}
 .content.index > .cols{margin-left:12px;overflow:visible;}
 
 body.login .content.index header{margin-bottom:60px;}
@@ -138,12 +130,7 @@ body.login .content.index header{margin-bottom:60px;}
   background: @white; 
   margin: 0px 0px 10px 0px; 
   padding: 12px 24px;
-  .shadow;
-}
-.shadow {
-  -webkit-box-shadow: 0 2px 0px 1px @grey-lighter;
-   -moz-box-shadow: 0 2px 0px 1px @grey-lighter;
-    box-shadow: 0 2px 0px 1px @grey-lighter;
+  .shadow(rgba(0, 0, 0, 0.1));
 }
 
 body.edit .content header section {
@@ -202,6 +189,7 @@ section.nav dt{
   margin: 0 0 10px -36px;
   min-height:16px;
   position:relative;
+  box-shadow: 1px 2px 0px rgba(0, 0, 0, 0.1);
 }
 
 .content section h2 i,

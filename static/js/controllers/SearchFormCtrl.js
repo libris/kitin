@@ -1,10 +1,7 @@
 kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, $rootScope, definitions, searchService, searchUtil) {
 
-  $scope.searchTypes = [searchService.searchTypeIndex.bib, searchService.searchTypeIndex.auth, searchService.searchTypeIndex.remote];
-  $scope.setSearchType = function (key) {
-    $rootScope.state.searchType = searchService.searchTypeIndex[key];
-  };
-
+  $scope.searchTypes = searchService.searchTypeIndex;
+  $scope.setSearchType = function(key) { searchService.setSearchType(key); };
   $scope.search = function(searchParams) {
     var selectRemoteDatabases = '';
     if($rootScope.state.searchType.key === searchService.searchTypeIndex.remote.key) {
@@ -30,7 +27,10 @@ kitin.controller('SearchFormCtrl', function($scope, $location, $routeParams, $ro
     $location.url("/search/" + $rootScope.state.searchType.key + "?q="+encodeURIComponent($rootScope.state.search.q) + selectRemoteDatabases + searchParamString);
   };
   $scope.$on('$routeChangeSuccess', function () {
-    $scope.setSearchType($routeParams.recType || "bib");
+    if ($location.search().imported)
+      searchService.setSearchType("remote");
+    else
+      searchService.setSearchType($routeParams.recType || "bib");
   });
   $scope.$watch('state.searchType.key', function(newValue, oldValue) {
     $scope.isopen = false;

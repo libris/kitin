@@ -17,10 +17,110 @@
   line-height: 32px;
 }
 
+.holdings.modal-body {
+  background: url(/static/img/bg.png);
+}
+
+.holdings section.form-container {
+  > div {
+    position: relative;
+    margin-bottom: 0px;
+    background-color: white;
+    padding: 0px 10px;
+    border: solid @grey-light;
+    border-width: 0px 1px 1px 1px;
+    margin-bottom: 0px;
+    .shadow(rgba(0, 0, 0, 0.1));
+    z-index: 5;
+    .group {
+      border: 0px;
+      margin-bottom: 10px;
+    }
+    &:first-of-type {
+      border-width: 1px !important;
+    }
+    &:last-of-type {
+      width: 98%;
+      background-color: @grey-lightest;
+      margin-left: 1%;
+      margin-bottom: -1px;
+      border-width: 0px 1px 1px 1px;
+      z-index: 4;
+      box-shadow: none;
+    }
+  }
+}
+
+.holdings section.info-container {
+  > div {
+    position: relative;
+    margin-bottom: 0px;
+    background-color: white;
+    padding: 0px 10px;
+    border: solid @grey-light;
+    border-width: 0px 1px 1px 1px;
+    margin-bottom: 0px;
+    .shadow(rgba(0, 0, 0, 0.1));
+    z-index: 5;
+    p {
+      margin-bottom: 5px;
+    }
+    &:last-of-type {
+      margin-bottom: -1px;
+      border-width: 0px 1px 1px 1px;
+    }
+  }
+}
+
+.holdings section {
+  &.header {
+    background-color: white;
+    width: 100%;
+    height: 50px;
+    margin-bottom: 0px;
+    background-color: white;
+    padding: 0px 10px;
+    border: solid @grey-light;
+    border-width: 0px 1px 0px 1px;
+    margin-bottom: 0px;
+    .shadow(rgba(0, 0, 0, 0.1));
+  }
+  h2, section.nav dt{
+    background:@purple;
+    font:bold 12px/16px @paragraph-font, sans-serif; 
+    text-transform:uppercase;
+    float:left;
+    padding: 5px 24px; 
+    color:@white;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.08);
+    -webkit-font-smoothing: antialiased;
+    margin: 10px 0 10px -23px;
+    min-height:16px;
+    position:relative;
+    box-shadow: 1px 2px 0px rgba(0, 0, 0, 0.1);
+    i {
+      position:absolute;left:2px;bottom:-10px;
+      width: 0px;
+      height: 0px;
+      border-style: solid;
+      border-width: 0 10px 10px 0;
+      border-color: transparent @purple-dark transparent transparent;
+    }
+  }
+}
+
 .holdings.modal-footer {
   background-color: rgba(108, 108, 108, 0.1);
   box-shadow: 0px 0px 35px -10px rgba(0, 0, 0, 0.52);
   margin: 0px;
+  hr {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    border-color: @grey-light;
+  }
 }
 
 .holdings h4 {
@@ -42,6 +142,10 @@
 
 .holdings .form-container .group .lbl {
   width:340px;
+}
+
+form .alert {
+  margin-top: 0px;
 }
 
 .modal-alerts{

@@ -33,10 +33,26 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
     });
   } else if($routeParams.editSource === 'libris') {
     // LIBRIS
-    recordService.libris.get($scope.recType, $scope.recId).then(function(data) {
-        $scope.addRecordViewsToScope(data['recdata'], $scope);
-        $scope.etag = data['etag'];
-    });
+    if($scope.recType === 'hold'){
+      // Holding
+      recordService.libris.get($scope.recType, $scope.recId).then(function(holdingsData) {
+        // TODO: Build holding view that will take an ID instead of a record obj
+        // This is currently a bit verbose, as holdings modal will do a similar lookup reversed
+        var bibResource = holdingsData.recdata.about.holdingFor['@id'];
+        bibResource = bibResource.split('/');
+        var bibId = bibResource[bibResource.length-1];
+        recordService.libris.get('bib', bibId).then(function(recordData) {
+          $scope.openHoldingsModal(recordData.recdata);
+        });
+      });
+
+    } else {
+      // Bib
+      recordService.libris.get($scope.recType, $scope.recId).then(function(data) {
+          $scope.addRecordViewsToScope(data['recdata'], $scope);
+          $scope.etag = data['etag'];
+      });
+    }
   } else if($routeParams.editSource === 'draft') {
     // DRAFT
     recordService.draft.get($scope.recType + '/' + $scope.recId)
@@ -108,5 +124,25 @@ kitin.controller('EditBaseCtrl', function($scope, $modal, $http, $routeParams, $
 
   $scope.getCurrentPath = function() { return $location.path(); };
  
+  $scope.openHoldingsModal = function(record) {
+    var opts = {
+      backdrop: 'static',
+      keyboard: false,
+      backdropFade: false,
+      dialogFade: false,
+      templateUrl: '/snippets/modal-holdings',
+      controller: 'ModalHoldingsCtrl',
+      windowClass: 'modal-large holdings-modal',
+      resolve: {
+        record: function() {
+          return record;
+        }
+      }
+    };
+    $scope.holdingsModal = $modal.open(opts).result.finally(function() {
+      // on close send the user to start page
+      $location.url('');
+    });
+  };
 
 });

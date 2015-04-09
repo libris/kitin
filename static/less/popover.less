@@ -7,9 +7,14 @@
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
-  z-index: 1000;
+  z-index: 99;
   min-width: 220px;
   
+  &.right {
+    margin-top: 11px;
+    margin-left: 3px;
+  }
+
   .close{
     font-size: 14px;
     padding:2px;
@@ -66,7 +71,7 @@ h3 {font:bold 15px/18px @paragraph-font, sans-serif; border:none; background:non
 
 
 .footer-sticky .popover,
-.holdings-modal .popover{
+.modal-footer .popover{
   padding:12px;
   .close{display:none;}
 }

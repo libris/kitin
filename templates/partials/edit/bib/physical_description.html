@@ -18,27 +18,27 @@
       <kitin-table model="record.about.hasFormatByType['Product']" type="Product">
         <kitin-td>
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.extent'"></kitin-label>
+            <kitin-label label="'extent'"></kitin-label>
             <kitin-textarea model="item.extent"></kitin-textarea>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.dimensions'"></kitin-label>
+            <kitin-label label="'dimensions'"></kitin-label>
             <kitin-textarea model="item.dimensions"></kitin-textarea>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.otherPhysicalDetails'"></kitin-label>
+            <kitin-label label="'otherPhysicalDetails'"></kitin-label>
             <kitin-textarea model="item.otherPhysicalDetails"></kitin-textarea>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.accompanyingMaterial'"></kitin-label>
+            <kitin-label label="'accompanyingMaterial'"></kitin-label>
             <kitin-textarea model="item.accompanyingMaterial"></kitin-textarea>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.materialsSpecified'"></kitin-label>
+            <kitin-label label="'materialsSpecified'"></kitin-label>
             <kitin-textarea model="item.materialsSpecified"></kitin-textarea>
           </div>
           
@@ -51,28 +51,28 @@
       <kitin-table model="record.about.hasFormatByType['Electronic']" type="Electronic">
         <kitin-td>
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-label>
+            <kitin-label label="'carrierType'"></kitin-label>
               <kitin-entity model="item" link="'carrierType'" multiple>
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/carrierType-collection"></kitin-select>
             </kitin-entity>
           </div>
           
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.color'"></kitin-label>
+            <kitin-label label="'color'"></kitin-label>
               <kitin-entity model="item" link="'color'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/color-collection"></kitin-select>
             </kitin-entity>
           </div>
           
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.dimensions'"></kitin-label>
+            <kitin-label label="'dimensions'"></kitin-label>
               <kitin-entity model="item" link="'dimensionsCategory'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/dimensions-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.sound'"></kitin-label>
+            <kitin-label label="'sound'"></kitin-label>
               <kitin-entity model="item" link="'sound'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/sound-collection"></kitin-select>
             </kitin-entity>
@@ -81,35 +81,35 @@
           <!--  item.imageBitDepth, mapped but not used in any record  -->
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.fileFormats'"></kitin-label>
+            <kitin-label label="'fileFormats'"></kitin-label>
               <kitin-entity model="item" link="'fileFormats'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/fileFormats-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.qATarget'"></kitin-label>
+            <kitin-label label="'qATarget'"></kitin-label>
               <kitin-entity model="item" link="'qATarget'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/qATarget-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.antecedent'"></kitin-label>
+            <kitin-label label="'antecedent'"></kitin-label>
               <kitin-entity model="item" link="'antecedent'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/antecedent-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.compression'"></kitin-label>
+            <kitin-label label="'compression'"></kitin-label>
               <kitin-entity model="item" link="'compression'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/compression-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.reformattingQuality.reformattingQuality'"></kitin-label>
+            <kitin-label label="'reformattingQuality.reformattingQuality'"></kitin-label>
               <kitin-entity model="item" link="'reformattingQuality'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/reformattingQuality-collection"></kitin-select>
             </kitin-entity>
@@ -125,42 +125,42 @@
       <kitin-table model="record.about.hasFormatByType['Map']" type="Map">
         <kitin-td>
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-label>
+            <kitin-label label="'carrierType'"></kitin-label>
               <kitin-entity model="item" link="'carrierType'" multiple>
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/carrierType-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.color'"></kitin-label>
+            <kitin-label label="'color'"></kitin-label>
               <kitin-entity model="item" link="'color'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/color-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.medium'"></kitin-label>
+            <kitin-label label="'medium'"></kitin-label>
               <kitin-entity model="item" link="'medium'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/medium-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.reproduction'"></kitin-label>
+            <kitin-label label="'reproduction'"></kitin-label>
               <kitin-entity model="item" link="'reproduction'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/reproduction-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.details'"></kitin-label>
+            <kitin-label label="'details'"></kitin-label>
               <kitin-entity model="item" link="'details'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/details-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.posNeg'"></kitin-label>
+            <kitin-label label="'posNeg'"></kitin-label>
               <kitin-entity model="item" link="'detail'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/posNeg-collection"></kitin-select>
             </kitin-entity>
@@ -176,21 +176,21 @@
       <kitin-table model="record.about.hasFormatByType['Globe']" type="Globe">
         <kitin-td>
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-label>
+            <kitin-label label="'carrierType'"></kitin-label>
               <kitin-entity model="item" link="'carrierType'" multiple>
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/carrierType-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.color'"></kitin-label>
+            <kitin-label label="'color'"></kitin-label>
               <kitin-entity model="item" link="'color'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/color-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.medium'"></kitin-label>
+            <kitin-label label="'medium'"></kitin-label>
               <kitin-entity model="item" link="'medium'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/medium-collection"></kitin-select>
             </kitin-entity>
@@ -208,63 +208,63 @@
       <kitin-table model="record.about.hasFormatByType['Microform']" type="Mircoform">
         <kitin-td>
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-label>
+            <kitin-label label="'carrierType'"></kitin-label>
               <kitin-entity model="item" link="'carrierType'" multiple>
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/carrierType-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.posNeg'"></kitin-label>
+            <kitin-label label="'posNeg'"></kitin-label>
               <kitin-entity model="item" link="'posNeg'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/posNeg-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.dimensionsCategory'"></kitin-label>
+            <kitin-label label="'dimensionsCategory'"></kitin-label>
               <kitin-entity model="item" link="'dimensionsCategory'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/dimensionsCategory-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.range'"></kitin-label>
+            <kitin-label label="'range'"></kitin-label>
               <kitin-entity model="item" link="'range'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/range-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.color'"></kitin-label>
+            <kitin-label label="'color'"></kitin-label>
               <kitin-entity model="item" link="'color'" >
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/color-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.emulsion'"></kitin-label>
+            <kitin-label label="'emulsion'"></kitin-label>
               <kitin-entity model="item" link="'emulsion'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/emulsion-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.generation'"></kitin-label>
+            <kitin-label label="'generation'"></kitin-label>
               <kitin-entity model="item" link="'generation'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/generation-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.base'"></kitin-label>
+            <kitin-label label="'base'"></kitin-label>
               <kitin-entity model="item" link="'base'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/base-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.aspect'"></kitin-label>
+            <kitin-label label="'aspect'"></kitin-label>
             <kitin-entity model="item" link="'aspect'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/aspect-collection"></kitin-select>
             </kitin-entity>
@@ -278,28 +278,28 @@
       <kitin-table model="record.about.hasFormatByType['StillImage']" type="StillImage">
         <kitin-td>      
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-label>
+            <kitin-label label="'carrierType'"></kitin-label>
             <kitin-entity model="item" link="'carrierType'" multiple>
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/carrierType-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.nonProjColor'"></kitin-label>
+            <kitin-label label="'nonProjColor'"></kitin-label>
             <kitin-entity model="item" link="'nonProjColor'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/nonProjColor-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.nonProjPrimary'"></kitin-label>
+            <kitin-label label="'nonProjPrimary'"></kitin-label>
             <kitin-entity model="item" link="'nonProjPrimary'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/nonProjPrimary-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.nonProjSecondary'"></kitin-label>
+            <kitin-label label="'nonProjSecondary'"></kitin-label>
             <kitin-entity model="item" link="'nonProjSecondary'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/nonProjSecondary-collection"></kitin-select>
             </kitin-entity>
@@ -315,84 +315,84 @@
       <kitin-table model="record.about.hasFormatByType['MovingImage']" type="MovingImage">
         <kitin-td>
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-label>
+            <kitin-label label="'carrierType'"></kitin-label>
               <kitin-entity model="item" link="'carrierType'" multiple>
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/carrierType-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.motionPicColor'"></kitin-label>
+            <kitin-label label="'motionPicColor'"></kitin-label>
               <kitin-entity model="item" link="'motionPicColor'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/motionPicColor-collection"></kitin-select>
             </kitin-entity>
           </div>
         
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.motionPicFormat'"></kitin-label>
+            <kitin-label label="'motionPicFormat'"></kitin-label>
               <kitin-entity model="item" link="'motionPicFormat'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/motionPicFormat-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.motionPicSound'"></kitin-label>
+            <kitin-label label="'motionPicSound'"></kitin-label>
               <kitin-entity model="item" link="'motionPicSound'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/projGraphSound-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.motionPicMedium'"></kitin-label>
+            <kitin-label label="'motionPicMedium'"></kitin-label>
               <kitin-entity model="item" link="'motionPicMedium'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/projGraphMedium-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.motionPicDimensions'"></kitin-label>
+            <kitin-label label="'motionPicDimensions'"></kitin-label>
               <kitin-entity model="item" link="'motionPicDimensions'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/motionPicDimensions-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.motionPicConfiguration'"></kitin-label>
+            <kitin-label label="'motionPicConfiguration'"></kitin-label>
               <kitin-entity model="item" link="'motionPicConfiguration'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/motionPicConfiguration-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.motionPicElements'"></kitin-label>
+            <kitin-label label="'motionPicElements'"></kitin-label>
               <kitin-entity model="item" link="'motionPicElements'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/motionPicElements-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.motionPicPosNeg'"></kitin-label>
+            <kitin-label label="'motionPicPosNeg'"></kitin-label>
               <kitin-entity model="item" link="'motionPicPosNeg'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/motionPicPosNeg-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.motionPicGeneration'"></kitin-label>
+            <kitin-label label="'motionPicGeneration'"></kitin-label>
               <kitin-entity model="item" link="'motionPicGeneration'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/motionPicGeneration-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.motionPicCategories'"></kitin-label>
+            <kitin-label label="'motionPicCategories'"></kitin-label>
               <kitin-entity model="item" link="'motionPicCategories'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/motionPicCategories-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.motionPicCategories'"></kitin-label>
+            <kitin-label label="'motionPicCategories'"></kitin-label>
               <kitin-entity model="item" link="'motionPicCategories'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/motionPicCategories-collection"></kitin-select>
             </kitin-entity>
@@ -406,84 +406,84 @@
       <kitin-table model="record.about.hasFormatByType['SoundRecording']" type="SoundRecording">
         <kitin-td>
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-label>
+            <kitin-label label="'carrierType'"></kitin-label>
               <kitin-entity model="item" link="'carrierType'" multiple>
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/carrierType-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.soundSpeed'"></kitin-label>
+            <kitin-label label="'soundSpeed'"></kitin-label>
               <kitin-entity model="item" link="'soundSpeed'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/soundSpeed-collection"></kitin-select>
             </kitin-entity>
           </div>
         
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.soundPlaybackChannel'"></kitin-label>
+            <kitin-label label="'soundPlaybackChannel'"></kitin-label>
               <kitin-entity model="item" link="'soundPlaybackChannel'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/soundPlaybackChannel-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.soundGroove'"></kitin-label>
+            <kitin-label label="'soundGroove'"></kitin-label>
               <kitin-entity model="item" link="'soundGroove'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/soundGroove-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.soundDimensions'"></kitin-label>
+            <kitin-label label="'soundDimensions'"></kitin-label>
               <kitin-entity model="item" link="'soundDimensions'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/soundDimensions-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.soundTapeWidth'"></kitin-label>
+            <kitin-label label="'soundTapeWidth'"></kitin-label>
               <kitin-entity model="item" link="'soundTapeWidth'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/soundTapeWidth-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.soundTapeConfiguration'"></kitin-label>
+            <kitin-label label="'soundTapeConfiguration'"></kitin-label>
               <kitin-entity model="item" link="'soundTapeConfiguration'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/soundTapeConfiguration-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.soundKindOfDisc'"></kitin-label>
+            <kitin-label label="'soundKindOfDisc'"></kitin-label>
               <kitin-entity model="item" link="'soundKindOfDisc'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/soundKindOfDisc-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.soundKindOfMaterial'"></kitin-label>
+            <kitin-label label="'soundKindOfMaterial'"></kitin-label>
               <kitin-entity model="item" link="'soundKindOfMaterial'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/soundKindOfMaterial-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.soundKindOfCutting'"></kitin-label>
+            <kitin-label label="'soundKindOfCutting'"></kitin-label>
               <kitin-entity model="item" link="'soundKindOfCutting'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/soundKindOfCutting-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.soundPlaybackCharacter'"></kitin-label>
+            <kitin-label label="'soundPlaybackCharacter'"></kitin-label>
               <kitin-entity model="item" link="'soundPlaybackCharacter'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/soundPlaybackCharacter-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.soundCapture'"></kitin-label>
+            <kitin-label label="'soundCapture'"></kitin-label>
               <kitin-entity model="item" link="'soundCapture'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/soundCapture-collection"></kitin-select>
             </kitin-entity>
@@ -497,49 +497,49 @@
       <kitin-table model="record.about.hasFormatByType['VideoRecording']" type="VideoRecording">
         <kitin-td>
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-label>
+            <kitin-label label="'carrierType'"></kitin-label>
               <kitin-entity model="item" link="'carrierType'" multiple>
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/carrierType-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.videoColor'"></kitin-label>
+            <kitin-label label="'videoColor'"></kitin-label>
               <kitin-entity model="item" link="'videoColor'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/videoColor-collection"></kitin-select>
             </kitin-entity>
           </div>
         
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.videoFormat'"></kitin-label>
+            <kitin-label label="'videoFormat'"></kitin-label>
               <kitin-entity model="item" link="'videoFormat'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/videoFormat-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.videoSound'"></kitin-label>
+            <kitin-label label="'videoSound'"></kitin-label>
               <kitin-entity model="item" link="'videoSound'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/videoSound-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.videoMedium'"></kitin-label>
+            <kitin-label label="'videoMedium'"></kitin-label>
               <kitin-entity model="item" link="'videoMedium'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/videoMedium-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.videoDimensions'"></kitin-label>
+            <kitin-label label="'videoDimensions'"></kitin-label>
               <kitin-entity model="item" link="'videoDimensions'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/videoDimensions-collection"></kitin-select>
             </kitin-entity>
           </div>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.videoPlayback'"></kitin-label>
+            <kitin-label label="'videoPlayback'"></kitin-label>
               <kitin-entity model="item" link="'videoPlayback'">
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/videoPlayback-collection"></kitin-select>
             </kitin-entity>
@@ -556,7 +556,7 @@
         <kitin-td>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-label>
+            <kitin-label label="'carrierType'"></kitin-label>
               <kitin-entity model="item" link="'carrierType'" multiple>
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/carrierType-collection"></kitin-select>
             </kitin-entity>
@@ -571,7 +571,7 @@
         <kitin-td>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-label>
+            <kitin-label label="'carrierType'"></kitin-label>
               <kitin-entity model="item" link="'carrierType'" multiple>
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/carrierType-collection"></kitin-select>
             </kitin-entity>
@@ -586,7 +586,7 @@
         <kitin-td>
 
           <div class="label">
-            <kitin-label label="'LABEL.record.about.hasFormatByType.carrierType'"></kitin-label>
+            <kitin-label label="'carrierType'"></kitin-label>
               <kitin-entity model="item" link="'carrierType'" multiple>
               <kitin-select filter="about.inCollection.@id:/def/enum/carrier/carrierType-collection"></kitin-select>
             </kitin-entity>
@@ -633,7 +633,7 @@
 
 <!-- More Map Details -->
   <kitin-group label="Specifikt för kartor title">
-    <kitin-textrow model="record.about.availability"></kitin-textrow>
+    <kitin-textrow model="record.about.termsOfAvailability"></kitin-textrow>
     <kitin-textrow model="record.about.cartographicScale"></kitin-textrow>
     <kitin-textrow model="record.about.cartographicCoordinates"></kitin-textrow>
 
