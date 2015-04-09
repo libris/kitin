@@ -24,8 +24,11 @@
     </div>
     <span data-ng-switch-when="string">
       <code data-ng-click="openTermDef(key)">{{ key }}</code>
-      <input data-ng-if="!linked" data-ng-model="obj" type="text" />
-      <span data-ng-if="linked">{{ obj }}</span>
+      <span data-ng-if="editable">
+        <input data-ng-if="!linked" data-ng-model="obj" type="text" />
+        <span data-ng-if="linked">{{ obj }}</span>
+      </span>
+      <span data-ng-if="!editable">{{ obj }}</span>
     </span>
   </ng:switch>
 </div>

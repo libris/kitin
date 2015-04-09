@@ -21,7 +21,7 @@
 
 .json-ld .type {font-size: 12px; font-weight:600;color:@grey-very-dark;padding-left: 3px;}
 .json-ld .header {font-size: 12px;}
-.json-ld .label {font-size: 12px;display: block;background-color:@white;color:@grey;}
+.json-ld .label {font-size: 12px;display: block;background-color:@white;color:@grey;margin-bottom:0px;padding:0px !important;}
 
 .collapsed > code {
   background-color: @grey-light;
@@ -43,6 +43,7 @@
     content: " \f0d7"; font-size: 12px;
     font-family: FontAwesome;
     padding-left: 4px;
+    font-style: normal;
   }
 
   .collapsed > &:after {
@@ -54,13 +55,13 @@
 
 .json-ld .entity {
   background-color: @white;
-  padding: 3px 15px 6px;
-  margin: 3px 9px;
+  padding: 3px 15px 6px !important;
+  margin: 2px 2px 2px 6px !important;
   border-radius: 3px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, .4);
   max-height: 2000em;
   transition: max-height 0.25s ease-in-out;
-  overflow: auto;
+  overflow: hidden;
 }
 .edit .json-ld .entity.linked,
 .edit .json-ld .entity.linked:hover {
@@ -73,7 +74,7 @@
 
 .collapsed > .entity {
   max-height: 2em;
-  overflow: auto;
+  overflow: hidden;
   box-shadow: inset 0px 5px 8px @white;
   border: 1px dotted @grey-light;
   opacity: 0.4;
@@ -84,11 +85,11 @@
 
 section.json-ld {background-color:@white;}
 
-div.array > section.entity {
+div.array > .json-ld section.entity {
     background-color: #fdfdfd;
     box-shadow: 0 2px 10px 4px @grey-warm inset;
     border-radius: 3px;
-    padding: 9px 15px;
+    padding: 0px;
 }
 
 div.array {

@@ -63,6 +63,9 @@
     </button>
   </div>
   <div class="button-container" data-ng-if="!isRemote">
+    <button class="btn-link green" id="view-jsonld" data-ng-controller="ModalCtrl" data-ng-click="openJSONLDModal($event, record)">
+      <i class="fa fa-share-alt"></i> JSON-LD</a> 
+    </button>
     <button class="button-holdings btn btn-purple btn-hld" data-ng-if="!record.holdings.holding" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
       <span><i class="fa fa-inverse fa-plus"></i> Bestånd</span>
     </button>

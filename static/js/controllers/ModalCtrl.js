@@ -142,4 +142,18 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
     $scope.marcModal = $modal.open(opts);
   };
 
+  $scope.openJSONLDModal = function(event, record) {
+    var opts = angular.extend( 
+                defaultModalOptions, 
+                {
+                  templateUrl: '/snippets/modal-jsonld',
+                  controller: 'ModalJSONLDCtrl',
+                  windowClass: 'modal-large jsonld-modal',
+                  resolve: {
+                    record: function() { return record; }
+                  }
+              });
+    $scope.jsonldModal = $modal.open(opts);
+  };
+
 });

@@ -397,22 +397,38 @@ a.add {
   text-transform:uppercase;
   color: @grey;
   letter-spacing: 0.5px;
+  text-decoration:none;
   .fa {
     font-size:14px;
     color: @green;
   }
   &:hover {
-    text-decoration:none;
+    text-decoration:underline;
     color: @green-dark;
     .fa {
       color: @green-dark;
     }
   }
 }
-
+.holdings a.add {
+  color: @purple;
+  .fa {
+    color: @purple;
+  }
+  &:hover {
+    color: @purple-dark;
+  }
+}
+.kitin-help .popover {
+  width: auto;
+}
 .kitin-help .popover .popover-content {
   max-height: 200px;
   overflow: auto;
+}
+.kitin-textrow .kitin-help,
+.group-title .kitin-help {
+  margin-left: 22px;
 }
 
 a.help {
@@ -426,7 +442,6 @@ a.help {
   margin-left: 8px;
   .fa {
     font-size:14px;
-    color: @green;
   }
   &:hover {
     color: @green-dark;
@@ -439,6 +454,12 @@ a.help.positioned{
 }
 a.help.positioned.dropped{
   top:31px;
+}
+.holdings a.help {
+  color: @purple;
+  &:hover {
+    color: @purple-dark;
+  }
 }
 
 .on-hover { visibility: hidden; }
