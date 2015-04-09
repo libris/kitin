@@ -138,37 +138,34 @@
     <!-- WORK EXAMPLE BY TYPE END -->
 
     <!-- IS PRIMARY TOPIC OF (856) START -->
-    <section class="form-container">
-      <div data-ng-repeat="isPrimaryTopicOf in holding.about.isPrimaryTopicOf track by $index">
-        <kitin-group label="'isPrimaryTopicOf'" help="HELP.gui.isPrimaryTopicOf">
+    <section class="form-container" ng-repeat="link in ['associatedMedia', 'alternateFormat', 'isPrimaryTopicOf']">
+      <div data-ng-repeat="linked in holding.about[link] track by $index">
+        <kitin-group label="'LABEL.term.'+link" help="'LABEL.term.'+link">
 
-          <kitin-textrow  label-prefix="LABEL.term." model="isPrimaryTopicOf.description" change-model="holding"></kitin-textrow>
+          <kitin-textrow label-prefix="LABEL.term." model="linked.description" change-model="holding"></kitin-textrow>
 
-          <kitin-textrow label="LABEL.term.@id" help="HELP.term.uri" model="isPrimaryTopicOf['@id']" change-model="holding" always-visible></kitin-textrow>
+          <kitin-textrow label="LABEL.term.@id" help="HELP.term.uri" model="linked['@id']" change-model="holding" always-visible></kitin-textrow>
 
-          <kitin-textrow label-prefix="LABEL.term." model="isPrimaryTopicOf.altLabel" change-model="holding"></kitin-textrow>
+          <kitin-textrow label-prefix="LABEL.term." model="linked.altLabel" change-model="holding"></kitin-textrow>
 
-          <kitin-table model="isPrimaryTopicOf.copyNote" change-model="holding">
+          <kitin-table model="linked.copyNote" change-model="holding">
             <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
           </kitin-table>
 
-          <kitin-table model="isPrimaryTopicOf.cataloguersNote" change-model="holding">
+          <kitin-table model="linked.cataloguersNote" change-model="holding">
             <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
           </kitin-table>
           
           <div class="button-bar remove-bar right">
-            <button class="btn btn-link" data-ng-click="removeField(holding.about.isPrimaryTopicOf, $index)"><i class="fa fa-trash-o"></i> {{ 'LABEL.gui.general.remove' | translate }} {{ 'isPrimaryTopicOf' | translate }}</button>
+            <button class="btn btn-link" data-ng-click="removeField(holding.about[link], $index)"><i class="fa fa-trash-o"></i> {{ 'LABEL.gui.general.remove' | translate }} {{ 'LABEL.term.'+link | translate }}</button>
           </div>
         </kitin-group>
       </div>
       <div class="button-bar add-bar right">
-        <button class="btn btn-link" data-ng-click="addField(holding.about.isPrimaryTopicOf, 'Document')" data-ng-show="holding"><i class="fa fa-plus"></i> {{ 'LABEL.gui.general.add' | translate }} {{ 'isPrimaryTopicOf' | translate }}</button>
+        <button class="btn btn-link" data-ng-click="addField(holding.about[link], 'Document')" data-ng-show="holding"><i class="fa fa-plus"></i> {{ 'LABEL.gui.general.add' | translate }} {{ 'LABEL.term.'+link | translate }}</button>
       </div>
     </section>
     <!-- / IS PRIMARY TOPIC OF END -->
-
-        
-   
 
 
     <!-- ENCODING START 
