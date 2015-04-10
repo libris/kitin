@@ -6,8 +6,6 @@
 /version.cfg
 /kitin.wsgi
 /storage/
-/test/web/.nodeids
-/test/web/screenshots/
 /node_modules/
 /bower_components/
 /npm-debug.log
@@ -19,3 +17,5 @@
 /static/build/js/app.min.*
 /templates/_media-*.html
 kitin.log
+static/vendor/bind-polyfill/index.js
+static/vendor/karma-read-json/karma-read-json.js

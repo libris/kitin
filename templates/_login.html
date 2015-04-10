@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block login %}
+<div class="span6 offset3">
+          {% if msg %}
+          <div class=" control-group alert alert-error">
+            {{ msg }}
+          </div>
+          {% endif %}
+  <section class="well">
+    <h4>Logga in</h4>
+      <form class="form-horizontal" method="POST" action="/login">
+	    <div class="control-group">
+            <input name="username" type="text" class="input-xlarge" placeholder="">
+          <div class="label"  for="inputEmail">Användarnamn</div>
+        </div>
+        <div class="control-group">
+            <input name="password" autocomplete="off" type="password" class="input-xlarge" placeholder="">
+          <div class="label" for="inputPassword">Lösenord</div>
+         </div>
+
+         <div class="control-group">
+           <button name="login" type="submit" class="btn btn-success btn-xlarge">Logga in</button><!--<div class="label" class="checkbox pull-right"><input type="checkbox"> Kom ihåg mig <a href="">?</a></div>-->
+	    </div>
+      </form>
+  </section>
+</div>
+{% endblock %}

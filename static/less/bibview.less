@@ -1,11 +1,13 @@
 /* BIB MODAL START ------------------------- */
 
+.bibview.modal-body {
+  background: url(/static/img/bg.png);
+}
 
 .bibview {
 
 	.valuedisplay {
-		margin-top: 5px;
-	  border-top: 0px solid @grey-light;
+	  border: 0px solid @grey-light;
 	}
 	.database {
 		display: block;
@@ -31,23 +33,32 @@
 		margin-bottom: 0.2em;
 	}
 	.summary {
-		// background-color: @grey-lighter;
 		text-align: justify;
 		width: 50em;
 		padding: 0em 3em 0em 3em;
-		// font-style: italic;
-		// border-radius: 5px;
 	}
-	
 	.lbl {
 	  font-weight: bold;
 	  display: inline;
-	  // cursor: pointer;
 	}
 	h4 {
   font-weight: bold;
   color: @green;
 	}
+}
+
+.bibview.modal-footer {
+  background-color: rgba(108, 108, 108, 0.1);
+  box-shadow: 0px 0px 35px -10px rgba(0, 0, 0, 0.52);
+  margin: 0px;
+  padding: 10px 20px;
+}
+
+.modificationdates {
+	margin: 6px;
+}
+.modificationdates td:first-of-type {
+	width: 100px;
 }
 
 /* BIB MODAL END ------------------------- */

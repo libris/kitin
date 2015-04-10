@@ -1,9 +1,10 @@
 <div class="hitlist-row bib compact">
   <div class="title">
-    <a href="#" data-ng-controller="ModalCtrl" data-ng-click="openBibViewModal(record, true)">{{ utils.composeTitle(record.data) | chop:80}}</a>
+    <a class="bib-url" href="#" data-ng-controller="ModalCtrl" data-ng-click="openBibViewModal(record, recType)">{{ utils.composeTitle(record.data) | chop:80}}</a>
   </div>
   <div class="creator">
-    {{ utils.composeCreator(record.data) | chop:40 }}
+    <span ng-if="record.data.about.responsibilityStatement">{{ ::record.data.about.responsibilityStatement | chop:40 }}</span>
+    <span ng-if="!record.data.about.responsibilityStatement">{{ ::utils.composeCreator(record.data) | chop:40 }}</span>
   </div>
   <div class="publication">
     <span data-ng-repeat="publication in record.data.about.publication | limitTo:1">

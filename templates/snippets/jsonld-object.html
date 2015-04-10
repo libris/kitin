@@ -1,5 +1,5 @@
 <div class="header" data-ng-if="object[TYPE] || object[ID]">
-  <span class="type" data-ng-if="object[TYPE]"
+  <span class="type" class="termkey" data-ng-if="object[TYPE]"
         data-ng-repeat="typekey in ensureArray(object[TYPE])"
         data-ng-click="openTermDef(typekey)">{{ typekey }} </span>
   <span data-ng-if="object[ID]">
@@ -8,13 +8,13 @@
 </div>
 <div data-ng-repeat="key in jsonLdKeys(object)"
      data-ng-init="obj = object[key]"
-     data-ng-if="key[0] != '@'">
-  <ng:switch on="typeOf(obj)">
+     data-ng-if="key[0] != '@'" class="obj">
+  <div class="ngswitch" ng-switch on="typeOf(obj)">
     <div data-ng-switch-when="object"
          data-ng-init="collapsed = (key == '_marcUncompleted')"
          data-ng-class="{collapsed: collapsed, array: lodash.isArray(obj)}">
       <div class="label entitylink">
-        <span data-ng-click="openTermDef(key)">{{ key }}</span>
+        <span class="termkey" data-ng-click="openTermDef(key)">{{ key }}</span>
         <i data-ng-click="collapsed=!collapsed"> </i>
       </div>
       <section data-ng-init="object = obj;
@@ -22,10 +22,13 @@
           data-ng-include="'/snippets/jsonld-object'"
           data-ng-class="{linked: linked}" class="entity"></section>
     </div>
-    <span data-ng-switch-when="string">
-      <code data-ng-click="openTermDef(key)">{{ key }}</code>
-      <input data-ng-if="!linked" data-ng-model="obj" type="text" />
-      <span data-ng-if="linked">{{ obj }}</span>
+    <span data-ng-switch-when="string" class="string">
+      <code class="termkey" data-ng-click="openTermDef(key)">{{ key }}</code>
+      <span data-ng-if="editable">
+        <input data-ng-if="!linked" data-ng-model="obj" type="text" />
+        <span data-ng-if="linked">{{ obj }}</span>
+      </span>
+      <span data-ng-if="!editable">{{ obj }}</span>
     </span>
-  </ng:switch>
+  </div>
 </div>

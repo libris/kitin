@@ -1,9 +1,10 @@
-kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $timeout, $rootScope, $location, $anchorScroll, recordService, definitions, userData, editService, utilsService) {
+kitin.controller('EditCtrl', function($scope, $modal, $http, $routeParams, $timeout, $rootScope, $location, $anchorScroll, recordService, definitions, userData, editService, searchService, utilsService) {
 
   $scope.classes = {};
 
   // Some actions trigger location change, watch for these and give feedback accordingly
   var queryStrings = $location.search();
+
   if (queryStrings.saved || queryStrings.published || queryStrings.imported) {
     var element;
     // TODO: Avoid this timeout if possible:

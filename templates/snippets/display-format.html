@@ -1,0 +1,8 @@
+<div ng-hide="collapse">
+<kitin-label label="'record.about.hasFormat'"></kitin-label>
+<ul>
+  <li ng-repeat="(key,value) in formats" class="node">
+    {{ key | translate }}: {{ value }}
+  </li>
+</ul>
+</div>

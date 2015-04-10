@@ -1,11 +1,10 @@
-/* HOLDINGS START ------------------------- */
+ /* HOLDINGS START ------------------------- */
 
 .holdings .label input[type="text"]:focus,
 .holdings .label textarea:focus{}
 
 .holdings .lbl {color:@purple;}
 
-.holdings section h2{background-color: @purple-light;}
 .holdings section h2 i{border-right-color: @purple;}
 
 .holdings section h3{font:bold italic 16px/20px @header-font, georgia,serif; color: @purple-light; border-bottom:1px solid @purple-light; padding-bottom: 2px; }
@@ -17,31 +16,68 @@
   line-height: 32px;
 }
 
+.holdings.modal-body {
+  background: url(/static/img/bg.png);
+}
+
 .holdings section.form-container {
   > div {
     position: relative;
     margin-bottom: 0px;
-    background-color: @grey-lightest;
+    background-color: white;
     padding: 0px 10px;
     border: solid @grey-light;
-    border-width: 0px 1px 1px 1px;
+    border-width: 0px 0px 1px 0px;
     margin-bottom: 0px;
-    box-shadow: 0px 10px 5px -5px rgba(0, 0, 0, 0.1);
+    .shadow(rgba(0, 0, 0, 0.1));
     z-index: 5;
     .group {
       border: 0px;
       margin-bottom: 10px;
     }
     &:first-of-type {
-      border-width: 1px !important;
+      border-top-width: 1px;
     }
     &:last-of-type {
       width: 98%;
+      background-color: @grey-lightest;
       margin-left: 1%;
       margin-bottom: -1px;
-      border-width: 0px 1px 1px 1px;
+      // border-width: 0px 1px 1px 1px;
       z-index: 4;
       box-shadow: none;
+    }
+  }
+}
+.holdings.jsonld section.form-container {
+  > div {
+    position: relative;
+    margin-bottom: 0px;
+    background-color: white;
+    padding: 0px 10px;
+    border-width: 0px;
+    box-shadow: none !important;
+  }
+  &:first-of-type {
+    border-width: 0px !important;
+  }
+}
+
+.holdings section.info-container {
+  > div {
+    position: relative;
+    margin-bottom: 0px;
+    background-color: white;
+    padding: 0px 10px;
+    margin-bottom: 0px;
+    .shadow(rgba(0, 0, 0, 0.1));
+    z-index: 5;
+    p {
+      margin-bottom: 5px;
+    }
+    &:last-of-type {
+      margin-bottom: -1px;
+      border-width: 0px 1px 1px 1px;
     }
   }
 }
@@ -50,6 +86,7 @@
   background-color: rgba(108, 108, 108, 0.1);
   box-shadow: 0px 0px 35px -10px rgba(0, 0, 0, 0.52);
   margin: 0px;
+  padding: 10px 20px;
   hr {
     margin-top: 3px;
     margin-bottom: 3px;
@@ -76,6 +113,10 @@
 
 .holdings .form-container .group .lbl {
   width:340px;
+}
+
+form .alert {
+  margin-top: 0px;
 }
 
 .modal-alerts{

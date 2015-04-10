@@ -1,0 +1,296 @@
+{
+    "@id": "/bib/7149593",
+    "about": {
+        "@type": [
+            "Text",
+            "Monograph"
+        ],
+        "publicationCountry": [
+            {
+                "exactMatch": "http://id.loc.gov/vocabulary/countries/sw",
+                "@type": [
+                    "Concept",
+                    "Country"
+                ],
+                "notation": "sw",
+                "prefLabel": "Sverige",
+                "prefLabel_en": "Sweden",
+                "@id": "/def/countries/sw",
+                "label_en": "Sweden"
+            }
+        ],
+        "language": [
+            {
+                "@type": [
+                    "Language",
+                    "Concept"
+                ],
+                "notation": "swe",
+                "langCode": "swe",
+                "prefLabel": "Svenska",
+                "prefLabel_en": "Swedish",
+                "langTag": "sv",
+                "@id": "/def/languages/swe",
+                "matches": "http://id.loc.gov/vocabulary/iso639-2/swe"
+            }
+        ],
+        "confPub": {
+            "related": [
+                {
+                    "@id": "/def/terms#Text"
+                },
+                {
+                    "@id": "/def/terms#Serial"
+                }
+            ],
+            "@type": "Concept",
+            "prefLabel": "Nej, resursen härrör ej från konferens",
+            "prefLabel_en": "Not a conference publication",
+            "inCollection": [
+                {
+                    "@id": "/def/enum/content/confPub-collection"
+                }
+            ],
+            "@id": "/def/enum/content/NotAConferencePublication"
+        },
+        "festschrift": {
+            "related": [
+                {
+                    "@id": "/def/terms#Text"
+                }
+            ],
+            "@type": "Concept",
+            "prefLabel": "Nej, resursen är inte festskrift",
+            "prefLabel_en": "Not a festschrift",
+            "inCollection": [
+                {
+                    "@id": "/def/enum/content/festschrift-collection"
+                }
+            ],
+            "@id": "/def/enum/content/NotAFestschrift"
+        },
+        "index": {
+            "@id": "/def/enum/content/NoIndex"
+        },
+        "literaryForm": {
+            "related": [
+                {
+                    "@id": "/def/terms#Text"
+                }
+            ],
+            "@type": "Concept",
+            "prefLabel": "Ej skönlitterärt verk",
+            "prefLabel_en": "Not fiction (not further specified)",
+            "inCollection": [
+                {
+                    "@id": "/def/enum/content/literaryForm-collection"
+                }
+            ],
+            "@id": "/def/enum/content/NotFictionNotFurtherSpecified"
+        },
+        "biography": {
+            "related": [
+                {
+                    "@id": "/def/terms#Text"
+                },
+                {
+                    "@id": "/def/terms#Audio"
+                }
+            ],
+            "@type": "Concept",
+            "prefLabel": "Självbiografisk text",
+            "prefLabel_en": "Autobiography",
+            "inCollection": [
+                {
+                    "@id": "/def/enum/content/biography-collection"
+                },
+                {
+                    "@id": "/def/enum/content/text-collection"
+                }
+            ],
+            "@id": "/def/enum/content/Autobiography"
+        },
+        "identifier": [
+            {
+                "@type": "Identifier",
+                "identifierValue": "91-0-056322-6",
+                "identifierNote": "inb.",
+                "identifierScheme": {
+                    "@id": "/def/identifiers/isbn"
+                }
+            }
+        ],
+        "termsOfAvailability": "310:00",
+        "classification": [
+            {
+                "@type": "Concept",
+                "notation": "839.7374",
+                "inScheme": {
+                    "@type": "ConceptScheme",
+                    "@id": "http://dewey.info/scheme/edition/e23/swe/",
+                    "version": "23",
+                    "language": "swe",
+                    "notation": "DDC",
+                    "isVersionOf": {
+                        "@id": "http://dewey.info/scheme/ddc/"
+                    }
+                },
+                "@id": "http://dewey.info/class/839.7374/e23/"
+            },
+            {
+                "@type": "Concept",
+                "notation": "Gcdz Jansson, Tove",
+                "inScheme": {
+                    "@type": "ConceptScheme",
+                    "@id": "/topic/kssb/6",
+                    "notation": "kssb/6"
+                },
+                "@id": "/topic/kssb/6/Gcdz%20Jansson%2C%20Tove"
+            },
+            {
+                "@type": "Concept",
+                "notation": "Ibz Pietilä, Tuulikki",
+                "inScheme": {
+                    "@type": "ConceptScheme",
+                    "@id": "/topic/kssb/6",
+                    "notation": "kssb/6"
+                },
+                "@id": "/topic/kssb/6/Ibz%20Pietil%C3%A4%2C%20Tuulikki"
+            },
+            {
+                "@type": "Concept",
+                "notation": "Lz",
+                "@id": "/topic/kssb/Lz"
+            },
+            {
+                "@type": "Concept",
+                "inScheme": {
+                    "@type": "ConceptScheme",
+                    "@id": "/topic/sab",
+                    "notation": "sab"
+                },
+                "notation": "Gcdz",
+                "prefLabel": "Litteraturhistoria Finlandssvensk",
+                "@id": "/topic/sab/Gcdz"
+            },
+            {
+                "@type": "Concept",
+                "inScheme": {
+                    "@type": "ConceptScheme",
+                    "@id": "/topic/sab",
+                    "notation": "sab"
+                },
+                "notation": "Ibz",
+                "prefLabel": "Konst Konsthistoria",
+                "@id": "/topic/sab/Ibz"
+            }
+        ],
+        "attributedTo": {
+            "birthYear": "1914",
+            "deathYear": "2001",
+            "@type": "Person",
+            "givenName": "Tove",
+            "familyName": "Jansson",
+            "@id": "/resource/auth/191503"
+        },
+        "instanceTitle": {
+            "@type": "Title",
+            "titleValue": "Anteckningar från en ö"
+        },
+        "responsibilityStatement": "Tove Jansson, Tuulikki Pietilä",
+        "publication": [
+            {
+                "@type": "ProviderEvent",
+                "place": {
+                    "@type": "Place",
+                    "label": "Stockholm"
+                },
+                "providerName": "Bonnier",
+                "providerDate": "1996"
+            }
+        ],
+        "manufacture": [
+            {
+                "@type": "ProviderEvent",
+                "place": {
+                    "@type": "Place",
+                    "label": "Finland"
+                }
+            }
+        ],
+        "hasFormat": [
+            {
+                "@type": "Product",
+                "extent": "102, [1] s.",
+                "otherPhysicalDetails": "ill.",
+                "dimensions": "25 cm"
+            }
+        ],
+        "comment": [
+            "Även tillg. med tryckår: 2. uppl., 1996"
+        ],
+        "subject": [
+            {
+                "@type": "Person",
+                "familyName": "Jansson",
+                "givenName": "Tove",
+                "birthYear": "1914",
+                "deathYear": "2001",
+                "@id": "/resource/auth/191503"
+            },
+            {
+                "@type": "Person",
+                "familyName": "Pietilä",
+                "givenName": "Tuulikki",
+                "birthYear": "1917",
+                "deathYear": "2009"
+            }
+        ],
+        "influencedBy": [
+            {
+                "@type": "Person",
+                "familyName": "Pietilä",
+                "givenName": "Tuulikki",
+                "birthYear": "1917",
+                "deathYear": "2009"
+            }
+        ],
+        "@id": "/resource/bib/7149593"
+    },
+    "catForm": {
+        "@id": "/def/enum/record/AACR2"
+    },
+    "@type": "Record",
+    "controlNumber": "7149593",
+    "created": "2015-02-26T08:57:49.17000000+01:00",
+    "modified": "2014-06-10T10:05:06.0+02:00",
+    "librisIIINumber": [
+        "9100563226"
+    ],
+    "originalCatalogingAgency": {
+        "@type": "Organization",
+        "name": "NB"
+    },
+    "bibliography": [
+        {
+            "@type": "Organization",
+            "notation": "BULB"
+        },
+        {
+            "@type": "Organization",
+            "notation": "NB"
+        },
+        {
+            "@type": "Organization",
+            "notation": "SEE"
+        },
+        {
+            "@type": "Organization",
+            "notation": "SLB"
+        },
+        {
+            "@type": "Organization",
+            "notation": "KVIN"
+        }
+    ]
+}

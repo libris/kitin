@@ -1,18 +1,19 @@
 <div class="hitlist-row bib compact">
   <div class="title">
-    <a class="bib-url" data-ng-controller="ModalCtrl" data-ng-click="openBibViewModal(record)">{{ utils.composeTitle(record) | chop:80}}</a>
+    <a class="bib-url" data-ng-controller="ModalCtrl" data-ng-click="openBibViewModal(record)">{{ ::utils.composeTitle(record) | chop:80}}</a>
   </div>
   <div class="creator">
-    {{ utils.composeCreator(record) | chop:40 }}
+    <span ng-if="record.about.responsibilityStatement">{{ ::record.about.responsibilityStatement | chop:40 }}</span>
+    <span ng-if="!record.about.responsibilityStatement">{{ ::utils.composeCreator(record) | chop:40 }}</span>
   </div>
   <div class="publication">
     <span data-ng-repeat="publication in record.about.publication | limitTo:1">
-      {{ utils.composeDate(publication.providerDate) }}
+      {{ ::utils.composeDate(publication.providerDate) }}
     </span>
   </div>
   <div class="identifier-code">
     <span data-ng-repeat="identifier in record.about.identifier | limitTo:1">
-      {{ identifier.identifierValue | chop:20 }}
+      {{ ::identifier.identifierValue | chop:20 }}
     </span>
   </div>
 </div>

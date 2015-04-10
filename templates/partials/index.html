@@ -1,33 +1,27 @@
 <div class="content index">
   <header></header>
-  <div class="alert alert-warning" role="alert" style="width: 432px; margin-left: 225px; margin-top: -50px; margin-bottom: 25px; border: 0; padding-bottom: 25px;">
-    <span class="fa fa-caret-up" style="margin-top: -45px; font-size: 80px; line-height: 0.5; color: #fff7d6;"></span>
-    <h3>Observera</h3>
-    <p>För att förenkla uppdatering och tester av katalogiseringsklienten så innehåller katalogen just nu en begränsad mängd poster.</p>
-  </div>
-
-  <div class="cols">
-    <div class="col6">
-      <section class="dash pink">
-        <span class="circle"><i class="icon fa fa-info fa-inverse"></i></span>
-        <h4 translate>Om katalogiseringsverktyget</h4>
-        <p>
-          <a href="http://github.com/libris/kitin/" target="_blank" title="Extern länk till Katalogiseringsverktygets Github sida"><i class="fa fa-github"></i> Katalogiseringsverktyget på Github</a>
-        </p>
-      </section>
-    </div>
-    <div class="col6">
-      <section class="dash green-dark">
-        <span class="circle"><i class="icon fa fa-leaf fa-inverse"></i></span>
-        <h4 translate>Om LIBRIS Katalogisering</h4>
-        <p><a href="http://librisbloggen.kb.se" target="_blank" title="Extern länk till Librisbloggen"><i class="fa fa-rss-square"></i> Senaste nytt från Librisbloggen</a></p>
-
-      </section>
-    </div>
-  </div>
+  <kitin-alert id="MAIN_STATUS_MSG" level="MAIN_STATUS_MSG.LEVEL">
+    <!-- {{ MAIN_STATUS_MSG.MESSAGE }} -->
+    <h3 translate>Välkommen till LIBRIS Katalogisering!</h3>
+    <p>
+      I denna version kan du:
+    </p>
+    <ul class="no-bullets">
+      <li><i class="fa fa-fw fa-check"></i> Söka fram och få en överblick över bibliografiska poster</li>
+      <!--<li><i class="fa fa-fw fa-check"></i> Få en överblick över de utgåvor som finns i LIBRIS</li>-->
+      <!-- <li><i class="fa fa-fw fa-check"></i> Få detaljerad information om bibliografiska poster</li> -->
+      <!-- <li><i class="fa fa-fw fa-check"></i> Se om bestånd redan är registrerat för ditt bibliotek (din sigel)</li> -->
+      <li><i class="fa fa-fw fa-check"></i> Lägga till, ändra och ta bort bestånd för ditt bibliotek (din sigel)</li>
+      <li><i class="fa fa-fw fa-check"></i> Granska hur de registrerade beståndsfälten ser ut i MARC21</li>
+    </ul>
+<!--     <p>
+      Bibliografiska poster kan tills vidare bara läggas till eller uppdateras i Voyager.
+    </p> -->
+  </kitin-alert>
+  
   <div class="cols" data-ng-controller="IndexCtrl">
     <div class="col12" ng-if="allowEdit">
-      <section class="dash pink drafts">
+      <section class="dash green drafts">
         <span class="circle"><i class="icon fa fa-file-text fa-inverse"></i></span>
         <h4 translate>LABEL.gui.index.headers.MY_SAVED_DRAFTS</h4>
         <ul class="container-fluid" data-ng-show="drafts.length > 0">
@@ -43,6 +37,31 @@
           </li>
         </ul>
         <div translate data-ng-show="!drafts || drafts.length < 1">LABEL.gui.index.messages.NO_SAVED_DRAFTS</div>
+      </section>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div class="col6">
+      <section class="dash pink">
+        <span class="circle"><i class="icon fa fa-info fa-inverse"></i></span>
+        <h4 translate>Om katalogiseringsverktyget</h4>
+        <ul class="no-bullets">
+          <li>
+            <a href="http://github.com/libris/kitin/" target="_blank" title="Extern länk till Katalogiseringsverktygets sida på GitHub"><i class="fa fa-fw fa-github"></i> Katalogiseringsverktyget på GitHub</a>
+          </li>
+          <li>
+            <a href="https://kundo.se/org/libris-katalogisering/" target="_blank" title="Extern länk till Katalogiseringsverktygets supportforum"><i class="fa fa-fw fa-comments"></i> Kund- och supportforum</a>
+          </li>
+        </ul>
+      </section>
+    </div>
+    <div class="col6">
+      <section class="dash green-dark">
+        <span class="circle"><i class="icon fa fa-leaf fa-inverse"></i></span>
+        <h4 translate>Om LIBRIS Katalogisering</h4>
+        <p><a href="http://librisbloggen.kb.se" target="_blank" title="Extern länk till Librisbloggen"><i class="fa fa-rss-square"></i> Senaste nytt från Librisbloggen</a></p>
+
       </section>
     </div>
   </div>

@@ -46,17 +46,18 @@ kitin.directive('kitinTable', function(editService, $filter){
                         '</tbody>' +
                       '</table>'+
                       '<div class="adder">' +
-                        '<a class="add" href="" ng-click="addRow()"><i class="fa fa-plus-circle"></i> Lägg till</a>' +
+                        '<a class="add" href="" ng-click="addRow()"><i class="fa fa-plus-circle"></i> {{ "LABEL.gui.general.add" | translate }}</a>' +
                       '</div>' +
                     '</div>' + 
                   '</div>' +
-                  '<kitin-help help="help" data-positioned="positioned"></kitin-help>' +
+                  '<kitin-help model="help" data-positioned="positioned"></kitin-help>' +
                 '</div>',
 
-      controller: function($scope, $rootScope, $attrs) {
+      controller: function($scope, $rootScope, $attrs, $element) {
 
         var hasValue = false;
         var savedOptionsHidden;
+
 
         $scope.shouldHideTable = function(model, options) {
           // always show for single rows
@@ -85,10 +86,10 @@ kitin.directive('kitinTable', function(editService, $filter){
           return true;
         };
        
-        this.doCreate = function(initialValue) {
+        $scope.doCreate = function(initialValue) {
           var createdObject = '';
           if($attrs.type) {
-            createdObject = editService.createObject($attrs.model, $attrs.type, initialValue);
+            createdObject = editService.createObject($attrs.type, initialValue);
           }
           
           return createdObject;
@@ -101,14 +102,17 @@ kitin.directive('kitinTable', function(editService, $filter){
           if (angular.isDefined($attrs.changeModel) && angular.isDefined($rootScope.modifications[$attrs.changeModel].makeDirty)) {
              $rootScope.modifications[$attrs.changeModel].makeDirty();
           }
-          return $scope.model.push(this.doCreate());
+          return $scope.model.push($scope.doCreate());
         }.bind(this);
+
+        $scope.addButton = $element.find('.adder .add'); // Used in removeRow()
 
         $scope.removeRow = function(index) {
           // TODO See above
           if (angular.isDefined($attrs.changeModel) && angular.isDefined($rootScope.modifications[$attrs.changeModel].makeDirty)) {
              $rootScope.modifications[$attrs.changeModel].makeDirty();
           }
+          $scope.addButton.focus();
           return $scope.model.splice(index,1);
         };
 
@@ -116,15 +120,21 @@ kitin.directive('kitinTable', function(editService, $filter){
         if($attrs.hasOwnProperty('labelPrefix')) {
           $scope.label = $attrs.labelPrefix + $attrs.model;
         } else {
-          $scope.label = 'LABEL.' + $attrs.model;
+          $scope.label = $attrs.model;
         }
-        $scope.model = _.isArray($scope.model) && $scope.model.length > 0 ? $scope.model : [this.doCreate()];
+
+        // Deactivated this watch. See issue #255
+        //$scope.$watch('model', function(newModel, oldModel) {
+          // if(newModel !== oldModel) {
+          //   $scope.model = _.isArray($scope.model) && $scope.model.length > 0 ? $scope.model : [$scope.doCreate()];
+          // }
+        //});
+      
         if($attrs.labels) {
           $scope.labels = $scope.$eval($attrs.labels);
           // For tables with labels, make sure help gets pushed down a bit
           $scope.positioned = 'dropped';
         }
-
       }
   };
 });
@@ -152,7 +162,7 @@ kitin.directive('kitinTrControls', ['$compile', function($compile) {
         // Append button to each row
         var controls = angular.element(
           '<td class="actions">' + 
-            '<a class="delete" data-ng-click="removeRow($index)"><i class="fa fa-times"></i></a>' + 
+            '<a class="delete" href="#" data-ng-click="removeRow($index)"><i class="fa fa-times"></i></a>' + 
           '</td>');
         element.append(clone).append(controls);
         // Controls needs compiling to be bound to scope

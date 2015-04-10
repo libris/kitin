@@ -1,5 +1,5 @@
 var kitin = angular.module('kitin.controllers', []);
-kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $location, $document, $modalStack, definitions, searchService, dialogs) {
+kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $location, $document, $modalStack, $http, definitions, searchService, dialogs) {
 
   // Core Utilities
   $rootScope.lodash = _;
@@ -156,48 +156,10 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $loca
 
   // Data Model Utilities
 
-  var ID = '@id';
-  var TYPE = '@type';
-  var TERMS = 'http://libris.kb.se/def/terms#';
+ 
   if($rootScope.API_PATH !== '') {
-    definitions.terms.then(function(data) {
-      var terms = data.index;
-      var items = []; for (var key in data.index) items.push(data.index[key]);
-      var termIndex = Gild.buildIndex(items);
-
-      $rootScope.ID = ID;
-      $rootScope.TYPE = TYPE;
-      $rootScope.TERMS = TERMS;
-      $rootScope.termIndex = termIndex;
-
-      $rootScope.getTermToken = function (obj) {
-        var id = obj[ID];
-        if (typeof id !== 'string')
-          return null;
-        return id.substring(id.indexOf('#') + 1);
-      };
-
-      $rootScope.getTypeDef = function (obj) {
-        if (typeof obj === "undefined")
-          return;
-        return terms[obj[TYPE]];
-      };
-
-      // TODO: merge with getLabel (defined in SearchCtrl)
-      $rootScope.getTypeLabel = function (obj) {
-        if (typeof obj === "undefined")
-          return;
-        var typeLabels = [];
-        var typeKeys = obj[TYPE];
-        if (!_.isArray(typeKeys)) {
-          typeKeys= [typeKeys];
-        }
-        typeKeys.forEach(function (typeKey) {
-          var dfn = terms[typeKey];
-          typeLabels.push(dfn? dfn.label : typeKey);
-        });
-        return typeLabels.join(', ');
-      };
+    definitions.terms.then(function(termsObj) {
+      angular.extend($rootScope, termsObj);
     });
 
     definitions.recordSkeletonTypeMap.then(function(skeletonTypeMap) {
