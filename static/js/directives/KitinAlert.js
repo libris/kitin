@@ -3,23 +3,21 @@
 Creates an alert box
 
 Usage:
-  <kitin-alert level="" header="" message=""></kitin-alert>
+  <kitin-alert level=""></kitin-alert>
 
 Params:
   level: (str)
   header: (str)
-  message: (str)
 */
 
 kitin.directive('kitinAlert', function($rootScope){
   return {
       restrict: 'E',
       scope: {
-        level: '=level',
-        header: '=header',
-        message: '=message'
+        level: '=level'
       },
       replace: true,
+      transclude: true,
       templateUrl: '/snippets/alert',
       controller: function ($scope, $attrs) {
       },

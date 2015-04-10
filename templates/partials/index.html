@@ -1,6 +1,23 @@
 <div class="content index">
   <header></header>
-  <kitin-alert id="MAIN_STATUS_MSG" header="MAIN_STATUS_MSG.HEADER" message="MAIN_STATUS_MSG.MESSAGE" level="MAIN_STATUS_MSG.LEVEL"></kitin-alert>
+  <kitin-alert id="MAIN_STATUS_MSG" level="MAIN_STATUS_MSG.LEVEL">
+    <!-- {{ MAIN_STATUS_MSG.MESSAGE }} -->
+    <h3 translate>Välkommen till LIBRIS Katalogisering!</h3>
+    <p>
+      I denna version kan du:
+    </p>
+    <ul class="no-bullets">
+      <li><i class="fa fa-fw fa-check"></i> Söka fram och få en överblick över bibliografiska poster</li>
+      <!--<li><i class="fa fa-fw fa-check"></i> Få en överblick över de utgåvor som finns i LIBRIS</li>-->
+      <!-- <li><i class="fa fa-fw fa-check"></i> Få detaljerad information om bibliografiska poster</li> -->
+      <!-- <li><i class="fa fa-fw fa-check"></i> Se om bestånd redan är registrerat för ditt bibliotek (din sigel)</li> -->
+      <li><i class="fa fa-fw fa-check"></i> Lägga till, ändra och ta bort bestånd för ditt bibliotek (din sigel)</li>
+      <li><i class="fa fa-fw fa-check"></i> Granska hur de registrerade beståndsfälten ser ut i MARC21</li>
+    </ul>
+<!--     <p>
+      Bibliografiska poster kan tills vidare bara läggas till eller uppdateras i Voyager.
+    </p> -->
+  </kitin-alert>
   
   <div class="cols" data-ng-controller="IndexCtrl">
     <div class="col12" ng-if="allowEdit">
