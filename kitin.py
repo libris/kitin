@@ -229,7 +229,7 @@ def get_template(type):
 @app.route("/resource/<path:path>")
 #@login_required
 def get_resource(path):
-    return send_from_directory('resource/', '%s' % path)
+    return send_from_directory(app.root_path + '/resource/', '%s' % path)
 
 # STYLEGUIDE
 @app.route("/styleguide/")
