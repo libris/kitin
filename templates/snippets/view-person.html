@@ -12,7 +12,7 @@
     <span data-ng-if="object.birthYear || object.deathYear">
       <span class="timeSpan">{{ object.birthYear }}-{{ object.deathYear }}</span>
     </span>
-    <a data-ng-if="isLinked(object)" class="btn-link auth" data-ng-controller="ModalCtrl" data-ng-click="openAuthModal(person['@id'])">
+    <a data-ng-if="isLinked(object)" class="btn-link auth" data-ng-controller="ModalCtrl" data-ng-click="openAuthModal(object['@id'])">
       <i class="fa fa-bookmark"></i> Aukt.
     </a>
   </div>

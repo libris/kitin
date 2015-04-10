@@ -3,24 +3,27 @@
 Creates a help element
 
 Usage:
-  <kitin-help help=""></kitin-help>
+  <kitin-help model=""></kitin-help>
 
 Params:
-  help: (str)   (For now) A reference to a string in label_se.json. For convenience, 
+  model: (str)   (For now) A reference to a string in label_se.json. For convenience, 
                 if string starts with 'LABEL.', this directive will replace that with 'HELP.''
 
 */
 
-kitin.directive('kitinHelp', function () {
+kitin.directive('kitinHelp', function (definitions) {
     return {
         restrict: 'E',
         scope: {
-          'help': '=',
+          'model': '=',
           'positioned': '='
         },
-        template: '<a data-ng-class="classNames" data-ng-show="hasHelpText" data-ng-click="click()" kitin-popover-placement="{{popoverPlacement}}" kitin-popover="{{helpText}}">' + 
-                    '<i class="fa fa-question-circle"></i>' +
-                  '</a>',
+        replace: true,
+        template: '<span class="kitin-help">' + 
+                    '<a data-ng-class="classNames" href="#" data-ng-show="helpText" data-ng-click="click()" kitin-popover-placement="{{popoverPlacement}}" kitin-popover="{{helpText}}">' + 
+                      '<i class="fa fa-question-circle"></i>' +
+                    '</a>' +
+                  '</span>',
         link: function(scope, element, attrs) {
           if (angular.isDefined(attrs.positioned)) {
               scope.classNames.push('positioned');
@@ -28,21 +31,29 @@ kitin.directive('kitinHelp', function () {
           }
           scope.popoverPlacement = (angular.isDefined(attrs.popoverPlacement)) ? attrs.popoverPlacement : 'right';
         },
-        controller: function($scope, $element, $filter, $timeout){
-          $scope.hasHelpText = false;
+        controller: function($scope, $element, $translate, $timeout){
           $scope.classNames = ['help', 'kitin-popover-trigger'];
 
-          var help = $scope.help || false;
+          var model = $scope.model || false;
           var positioned = $scope.positioned || false;
 
-          if (help && help.length > 0) {
+          if (model && model.length > 0) {
             // This is mostly to keep it DRY, might change in the future
-            var helpText = help.replace(/^LABEL\./, 'HELP.');
-            helpText = $filter('translate')(helpText);
-            if (helpText) {
-              $scope.helpText = helpText;
-              $scope.hasHelpText = true;
-            }
+            definitions.terms.then(function(terms) {
+              var modelParts = model.split('.');
+              var lastModel = modelParts[modelParts.length-1];
+              var comment = terms.getComment(lastModel);
+              if(comment && comment !== lastModel && comment !== '') {
+                $scope.helpText = comment;
+              } else {
+                // Try to get helptext from labels json
+                var helpModel = model.replace('LABEL','HELP');
+                var translatedHelpText = $translate.instant(helpModel);
+                if(translatedHelpText !== helpModel) {
+                  $scope.helpText = translatedHelpText;
+                }
+              }
+            });
           }
 
           $scope.click = function() {

@@ -22,6 +22,7 @@ kitin.directive('kitinValuedisplay', function(editService, $rootScope){
       replace: true,
       templateUrl: '/snippets/valuedisplay',
       controller: function($scope, $rootScope, $attrs) {
+
       }
   };
 });

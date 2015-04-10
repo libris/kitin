@@ -150,36 +150,12 @@
       "librisIIINumber": [],
       "callno": [],
       "subject": [],
-      "offers": [{
-        "@type": "Offer",
-        "heldBy": [{
-          "@type": "Organization",
-          "notation": ""
-        }],
-        "shelfLocation": [],
-        "formerShelfLocation": [],
-        "address": [],
-        "codedLocationQualifier": [],
-        "nonCodedLocationQualifier": [],
-        "classificationPart": "",
-        "availability": [],
-        "shelfControlNumber": "",
-        "callNumberPrefix": [],
-        "shelfLabel": "",
-        "callNumberSuffix": [],
-        "countryCode": "",
-        "pieceDesignation": "",
-        "itemCondition": "",
-        "copyrightArticleFeeCode": [],
-        "copyNumber": "",
-        "url": [],
-        "cataloguersNote": [],
-        "copyNote": []
-      }],
-      "isPrimaryTopicOf": [{"@type": "Document"}],
-      "workExample": [{"@type": "Product"}, {"@type": "SomeProducts"}],
+      "offers": [{ "@type": "Offer"}],
+      "isPrimaryTopicOf": [],
+      "associatedMedia": [],
+      "workExample": [],
       "encoding": [{"@type": "MediaObject"}],
-      "alternateFormat": [{"@type": "Electronic"}],
+      "alternateFormat": [],
       "relation": [{"@type": "Document"}]
     }
 
@@ -421,11 +397,36 @@
       "videoDimensions": {},
       "videoPlayback": {}
     },
-
+    "Offer": {
+      "heldBy": [{
+        "@type": "Organization",
+        "notation": ""
+      }],
+      "shelfLocation": [],
+      "formerShelfLocation": [],
+      "address": [],
+      "codedLocationQualifier": [],
+      "nonCodedLocationQualifier": [],
+      "classificationPart": "",
+      "availability": [],
+      "shelfControlNumber": "",
+      "callNumberPrefix": [],
+      "shelfLabel": "",
+      "callNumberSuffix": [],
+      "countryCode": "",
+      "pieceDesignation": "",
+      "itemCondition": "",
+      "copyrightArticleFeeCode": [],
+      "copyNumber": "",
+      "url": [],
+      "cataloguersNote": [],
+      "copyNote": []
+    },
     "Document": {
       "description": "",
       "@id": "",
       "cataloguersNote": [],
+      "copyNote" : [],
       "altLabel": "",
       "comment": ""
     },

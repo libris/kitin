@@ -15,11 +15,12 @@
     <script type="text/javascript">
       // Get debug from backend
       var debug = ('{{debug}}' === 'True');
-      var WHELK_HOST = '{{WHELK_HOST}}';
+      var API_PATH = '{{WHELK_HOST}}';
       var WHELK_WRITE_HOST = '{{WHELK_WRITE_HOST}}';
       var OAUTH_API = '{{OAUTH_API}}';
       var OAUTH_CLIENT_ID = '{{OAUTH_CLIENT_ID}}';
       var OAUTH_REDIRECT_URI = '{{OAUTH_REDIRECT_URI}}';
+      var MAIN_STATUS_MSG = JSON.parse('{{(MAIN_STATUS_MSG if MAIN_STATUS_MSG else {} )|tojson|safe}}');
     </script>
 
     {% if debug %}
@@ -90,17 +91,12 @@
           <img alt="Kb logo" src="/static/img/kb.svg">
           <ul>
             <li>
-              <a href="" data-ng-controller="ModalCtrl" data-ng-click="openCookiesModal()" title="Information om cookies">
-                Om cookies
+              <a href="" id="cookies-modal-link" data-ng-controller="ModalCtrl" data-ng-click="openCookiesModal()" title="Information om kakor">
+                Om kakor
               </a>
             </li>
             <li>
-              <a href="" data-ng-controller="ModalCtrl" data-ng-click="openContactModal()" title="Kontaktinformation">
-                Kontakt
-              </a>
-            </li>
-            <li>
-              <a href="" data-ng-controller="ModalCtrl" data-ng-click="openReleaseModal()" title="Release notes">
+              <a href="" id="release-modal-link" data-ng-controller="ModalCtrl" data-ng-click="openReleaseModal()" title="Release notes">
                 Release notes
               </a>
             </li>

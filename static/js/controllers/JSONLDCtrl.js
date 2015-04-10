@@ -21,6 +21,9 @@ kitin.controller('JSONLDCtrl', function($scope, $modal) {
           $scope.term = $scope.termIndex.byTerm[key];
         };
         $scope.viewTerm(key);
+        $scope.close = function() {
+          $modalInstance.close();
+        };
       },
       windowClass: ''
     };

@@ -54,7 +54,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     return rankedClassifications;
   }
 
-  function getClassificationsFromBibPost(array) {
+  $scope.getClassificationsFromBibPost = function (array) {
     /*
       Get classifications from bib post
       Returns array of matching classifications as objects
@@ -85,8 +85,9 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
         }
       }
     }
+    classificationsTo = _.uniq(classificationsTo);
     return classificationsTo;
-  }
+  };
 
   function onSave(holding) {    
     var currentRecord = getCurrentRecord();
@@ -143,30 +144,42 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
       $scope.otherHoldings = otherHoldings;
       $scope.otherClassifications = getClassificationsFromOtherHoldings(otherHoldings);
     }
-    holding = response.userHoldings;
+    var holding = response.userHoldings;
     if (!holding) {
       // If no holding is found, we create a new one.
-      recordService.holding.create().then(function(response) {
+      recordService.holding.get().then(function(response) {
         $rootScope.modifications.holding.isNew = true;
         holding = response;
         holding.about.holdingFor = {
           '@id': recordId
         };
-        holding.about.heldBy.notation = holding.about.offers[0].heldBy[0].notation = userData.userSigel;
+        // Set sigel to default notation
+        var notation = userData.userSigel;
+        if(holding.about.offers && holding.about.offers.length > 0 && holding.about.offers[0].heldBy && holding.about.offers[0].heldBy.length > 0 && holding.about.offers[0].heldBy[0].notation) {
+          notation = holding.about.offers[0].heldBy[0].notation;
+        }
+        holding.about.heldBy.notation = notation;
         $scope.holding = holding;
       });
     } else {
       $scope.holding = holding;
       $rootScope.modifications.holding.saved = true;
     }
-    $scope.bibClassifications = getClassificationsFromBibPost(['kssb*', 'DDC', 'UDC']);
+    $scope.bibClassifications = $scope.getClassificationsFromBibPost(['kssb*', 'DDC', 'UDC']);
   });
 
   $scope.saveHolding = function(holding) {
-    recordService.holding.save(holding).then(function success(holding) {
-      onSave(holding);
-      $scope.holding = holding;
+    // New or existing holding?
+    var holdingStoreService = recordService.holding.save;
+    if(!holding['@id']) {
+      holdingStoreService = recordService.holding.create;
+    }
+
+    holdingStoreService(holding).then(function success(savedHolding) {
+      onSave(savedHolding);
+      $scope.holding = savedHolding;
       $scope.classes.saveStatus = 'success';
+
     }, function error(status) {
       $scope.classes.saveStatus = 'error';
     }).finally(function() {
@@ -186,7 +199,7 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     };
     var confirm = dialogs.create('/dialogs/confirm', 'CustomConfirmCtrl', data, { windowClass: 'kitin-dialog holdings-dialog' });
     confirm.result.then(function yes(answer) {
-      recordService.holding.del(holding).then(function sucess(response) {
+      recordService.holding.delete(holding).then(function sucess(response) {
         onDelete(holding);
         delete $scope.holding;
       }, function error(status) {
@@ -199,54 +212,26 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     });
   };
 
-  $scope.addOffer = function(holding) {
-    // Get offers from existing holding
-    var offers = holding.about.offers;
-    // Create a new holding temporarily to get an empty offer
-    recordService.holding.create().then(function(response) {
-      var offer = response.about.offers[0];
-      // Set hidden values and push to offers
-      offer.heldBy[0].notation = userData.userSigel;
-      offers.push(offer);
-      $rootScope.modifications.holding.makeDirty();
-    });
-  };
-
-  $scope.deleteOffer = function(holding, index) {
-    var offers = holding.about.offers;
-    offers.splice(index, 1);
+  $scope.addField = function(model, type, link) {
     $rootScope.modifications.holding.makeDirty();
+    var fieldArray = model;
+    // Link into model to support grouped arrays, ex. workExampleByType
+    if(link) {
+      if(_.isUndefined(model[link])) {
+        model[link] = [];
+      }
+      fieldArray = model[link];
+    }
+
+    if(_.isUndefined(fieldArray)) {
+      fieldArray = [];
+    }
+    fieldArray.push(editService.createObject(type));
   };
 
-  $scope.addPrimaryTopicOf = function(holding) {
-    var eDocuments = holding.about.isPrimaryTopicOf;
-    recordService.holding.create().then(function(response) {
-      var eDocument = response.about.isPrimaryTopicOf[0];
-      eDocuments.push(eDocument);
-      $rootScope.modifications.holding.makeDirty();
-    });
-  };
-
-  $scope.deletePrimaryTopicOf = function(holding, index) {
-    var eDocuments = holding.about.isPrimaryTopicOf;
-    eDocuments.splice(index, 1);
+  $scope.removeField = function(model, index) {
     $rootScope.modifications.holding.makeDirty();
-  };
-
-  $scope.addWorkExample = function(holding, type) {
-    // Get offers from existing holding
-    var workExamples = holding.about.workExampleByType[type];
-    recordService.holding.create(type).then(function(response) {
-      var workExample = response.about.workExampleByType[type][0];
-      workExamples.push(workExample);
-      $rootScope.modifications.holding.makeDirty();
-    });
-  };
-
-  $scope.deleteWorkExample = function(holding, type, index) {
-    var workExample = holding.about.workExampleByType[type];
-    workExample.splice(index, 1);
-    $rootScope.modifications.holding.makeDirty();
+    model.splice(index,1);
   };
 
 });

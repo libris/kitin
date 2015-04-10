@@ -166,7 +166,39 @@ module.exports = function(grunt) {
         tasks: ['ngtemplates']
       }
     },
-    clean: ['static/build']
+    clean: ['static/build'],
+    // Karma for unit testing
+    karma: {
+      unit: {
+        configFile: 'test/js/config/karma.conf.js'
+      }
+    },
+    // Protractor is now the preferred tool for e2e testing
+    protractor: {
+      // Options: https://www.npmjs.org/package/grunt-protractor-runner
+      options: {
+        configFile: "test/js/config/protractor.conf.js", // Default config file
+        keepAlive: true, // If false, the grunt process stops when the test fails.
+        noColor: false, // If true, protractor will not use colors in its output.
+        args: {
+          suite: 'full'
+        }
+      },
+      holdings: {
+        options: {
+          args: {
+            suite: 'holdings'
+          }
+        }
+      },
+      search: {
+        options: {
+          args: {
+            suite: 'search'
+          }
+        }
+      }
+    }
   });
 };
 

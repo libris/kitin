@@ -19,8 +19,8 @@ kitin.directive('kitinDisplayType', function(editService, $rootScope){
       replace: true,
       template: '<span class="record-type">' +
                   '{{ typeLabels }}' +
-                  '<span data-ng-repeat="contentType in model.about.contentType">| {{ contentType.prefLabel }}</span>' +
-                  '<span data-ng-if="formatLabels">, {{ "LABEL.record.about.hasFormatByType[\'" + formatLabels + "\']" | translate }}</span>' +
+                  '<span data-ng-repeat="contentType in model.about.contentType"> | {{ (contentType.prefLabel || contentType["@id"]) }}</span>' +
+                  '<span data-ng-if="formatLabels">, {{ formatLabels | translate }}</span>' +
                 '</span>',
       controller: function($scope, $rootScope, $attrs) {
         function getFormatTypeLabel(obj) {
@@ -32,10 +32,12 @@ kitin.directive('kitinDisplayType', function(editService, $rootScope){
           // Remove product
           var formats = _.filter(obj, function (format) { return format[TYPE] !== 'Product'; });
           // Get type for other formats
-          if(formats.length === 1) {
-            formatTypeLabel = formats[0][TYPE];
+          if(formats.length > 0) {
+            return formats.map(function(format){ return format[TYPE]; }).join(', ');
+          } else {
+            return;
           }
-          return formatTypeLabel.join(', ');
+          
         }
 
         if($scope.model) {
