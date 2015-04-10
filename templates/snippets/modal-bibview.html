@@ -46,9 +46,6 @@
 <div class="modal-footer submit bibview">
   <div class="status pull-left" style="text-align: left">
     <table class="modificationdates" data-ng-if="!isRemote">
-      <tr data-ng-if="record.created">
-        <td>Skapad: </td><td>{{ record.created | timeAgo:60*60*24 }}</td>
-      </tr>
       <tr data-ng-if="record.modified">
         <td>Uppdaterad: </td><td>{{ record.modified | timeAgo:60*60*24 }}</td>
       </tr>
