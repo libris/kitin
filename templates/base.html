@@ -60,10 +60,11 @@
               </li>
               <li class="dropdown" dropdown>
                 <a class="dropdown-toggle login" dropdown-toggle title="Logga ut - inställningar">
-                  <span class="username"><i class="fa fa-user"></i> {{current_user.sigel}}</span><i class="fa fa-caret-down"></i>
+                  <span class="username"><i class="fa fa-fw fa-institution"></i> {{current_user.sigel}}</span><i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu pull-right">
-                  <li class="disabled"><a href=""> Mitt konto<br/><small>{{current_user.username}}</small></a></li>
+                  <li class="disabled"><a href="">Mitt konto<br/><small><i class="fa fa-fw fa-user"></i> {{current_user.username}}</small></a></li>
+                  <!-- <li class="disabled"><a href="">Ändra sigel</a></li> -->
                   <li><a href="/signout" target="_self">Logga ut</a></li>
                 </ul>
               </li>
