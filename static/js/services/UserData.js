@@ -3,14 +3,18 @@
  */
 kitin.factory('userData', function() {
   var username = null,
-      activeAuthorization = null, // Active sigel authorization
+      activeAuthorization = {}, // Active sigel authorization
       authorization = [];  // Users all authorizations
   return {
     
     set: function(user) {
-      username = user.username;
-      authorization = user.authorization;
-      this.setActive(authorization[0].sigel);
+      if(user) {
+        username = user.username;
+        if(user.authorization) {
+          authorization = user.authorization;
+          this.setActive(authorization[0].sigel);
+        }
+      }
       return this;
     },
     get: function() {
