@@ -28,6 +28,18 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $loca
     jsonld: {}
   };
 
+  $rootScope.globalAlert = {
+    msg : MAIN_STATUS_MSG.MESSAGE,
+    level : MAIN_STATUS_MSG.LEVEL
+  };
+  if(localStorage.getItem('MAIN_STATUS_MSG') === $rootScope.globalAlert.msg)
+  {
+    $rootScope.globalAlert.read = true;
+  } else {
+    $rootScope.globalAlert.read = false;
+    localStorage.setItem('MAIN_STATUS_MSG', $rootScope.globalAlert.msg);
+  }
+
   window.toggleEdit = function () {
     $rootScope.allowEdit = !$rootScope.allowEdit;
     return $rootScope.allowEdit;
