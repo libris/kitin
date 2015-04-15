@@ -21,6 +21,10 @@
       var OAUTH_CLIENT_ID = '{{OAUTH_CLIENT_ID}}';
       var OAUTH_REDIRECT_URI = '{{OAUTH_REDIRECT_URI}}';
       var MAIN_STATUS_MSG = JSON.parse('{{(MAIN_STATUS_MSG if MAIN_STATUS_MSG else {} )|tojson|safe}}');
+      var CURRENT_USER = {};
+      {% if current_user and current_user.is_authenticated() %}
+        CURRENT_USER = JSON.parse('{{ current_user.get()|tojson|safe }}');
+      {% endif %}
     </script>
 
     {% if debug %}
@@ -51,25 +55,27 @@
       <div class="container">
         <div id="header">
           {% if current_user and current_user.is_authenticated() %}
-          <div data-ng-include="'/partials/header_loading_indicators'"></div>
-          <div id="nav">
-            <ul class="nav-menu pull-right">
-             
-              <li ng-if="allowEdit" data-ng-controller="ModalCtrl">
-                <a title="Skapa ny post" href="" data-ng-click="openCreateNewModal()"><i class="icon fa fa-plus"></i> Skapa ny post</a>
-              </li>
-              <li class="dropdown" dropdown>
-                <a class="dropdown-toggle login" dropdown-toggle title="Logga ut - inställningar">
-                  <span class="username"><i class="fa fa-fw fa-institution"></i> {{current_user.sigel}}</span><i class="fa fa-caret-down"></i>
-                </a>
-                <ul class="dropdown-menu pull-right">
-                  <li class="disabled"><a href="">Mitt konto<br/><small><i class="fa fa-fw fa-user"></i> {{current_user.username}}</small></a></li>
-                  <!-- <li class="disabled"><a href="">Ändra sigel</a></li> -->
-                  <li><a href="/signout" target="_self">Logga ut</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
+            {% raw %}
+            <div data-ng-include="'/partials/header_loading_indicators'"></div>
+            <div id="nav">
+              <ul class="nav-menu pull-right">
+               
+                <li ng-if="allowEdit" data-ng-controller="ModalCtrl">
+                  <a title="Skapa ny post" href="" data-ng-click="openCreateNewModal()"><i class="icon fa fa-plus"></i> Skapa ny post</a>
+                </li>
+                <li class="dropdown" dropdown>
+                  <a class="dropdown-toggle login" dropdown-toggle title="Logga ut - inställningar">
+                    <span class="username"><i class="fa fa-fw fa-institution"></i> {{user.sigel}}</span><i class="fa fa-caret-down"></i>
+                  </a>
+                  <ul class="dropdown-menu pull-right">
+                    <li class="disabled"><a href="">Mitt konto<br/><small><i class="fa fa-fw fa-user"></i> {{user.username}}</small></a></li>
+                    <!-- <li class="disabled"><a href="">Ändra sigel</a></li> -->
+                    <li><a href="/signout" target="_self">Logga ut</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            {% endraw %}
           {% endif %}
           
           <div class="logo">
@@ -105,13 +111,7 @@
         </footer>
       </div>
     </div>
-    {% if current_user %}
-    <script type="text/javascript">
-      kitin.run(['userData', function (userData) {
-        userData.userSigel = '{{ current_user.sigel }}';
-      }]);
-    </script>
-    {% endif %}
+    
     {% include "_jqtemplates.html" %}
     <!--[if IE]>
     <script>window.onload = new function() { document.documentElement.className += ' ie'; };</script>
