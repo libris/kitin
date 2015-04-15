@@ -71,7 +71,7 @@ def get_requests_oauth():
 
 def fake_login():
     if hasattr(app, 'fakelogin') and app.fakelogin:
-        user = User('Fake banana', authorization='[{sigel: "NONE"}]')
+        user = User('Fake banana', authorization=[{ 'sigel': 'NONE', 'xlreg': True, 'kat': True, 'reg': True }])
         app.logger.debug("Faking login %s %s", user.get_id(), json.dumps(user.get_authorization()))
         login_user(user, True)
         session['authorization'] = user.authorization
