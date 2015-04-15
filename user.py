@@ -14,6 +14,9 @@ class User(UserMixin):
     def __repr__(self):
         return '<User %r>' % (self.username)
 
+    def get(self):
+        return { "username": self.username, "authorization": self.authorization }
+
     def get_id(self):
         return self.username
 
