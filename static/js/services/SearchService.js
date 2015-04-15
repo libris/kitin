@@ -6,6 +6,7 @@ kitin.factory('searchService', function($http, $q, $rootScope, utilsService) {
   return {
     facetLabels: { 
      'about.@type': 'Typer',
+     'about.hasFormat.@type': 'Format',
      'about.language.@id': 'Språk',
      'encLevel.@id': 'Beskrivningsnivå'
     },
@@ -13,7 +14,8 @@ kitin.factory('searchService', function($http, $q, $rootScope, utilsService) {
       bib: {
         key: 'bib', 
         label: 'Libris',
-        placeholder: 'Sök bland bibliografiskt material (på ISBN, titel, författare etc.)'
+        placeholder: 'Sök bland bibliografiskt material (på ISBN, titel, författare etc.)',
+        facets: ["about.@type", "about.hasFormat.@type", "about.language.@id"]
       },
       auth: {
         key: 'auth', 
