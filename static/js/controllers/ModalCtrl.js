@@ -9,19 +9,6 @@ kitin.controller('ModalCtrl', function($scope, $modal, $rootScope, editService) 
     dialogFade: false,
   };
 
-  $scope.openSelectSigelModal = function() {
-    var opts = angular.extend( 
-                defaultModalOptions, 
-                {
-                  templateUrl: '/snippets/modal-select-sigel',
-                  controller: 'ModalSelectSigelCtrl',
-                  windowClass: 'modal-large select-sigel-modal',
-                  resolve: {
-                  }
-              });
-    $modal.open(opts);
-  };
-
   $scope.openAuthModal = function(id) {
     id = id.replace('/resource',''); // TODO, should be the record id
     $scope.authModal = editService.getRecordTypeId(id).then(function(record) {
