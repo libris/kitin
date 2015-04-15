@@ -1,6 +1,9 @@
-kitin.controller('ModalJSONLDCtrl', function($scope, $modalInstance, $q, recordService, record) {
+kitin.controller('ModalJSONLDCtrl', function($scope, $modalInstance, $q, recordService, editService, record) {
 
-  $scope.record = record;
+  var recordDataCopy = angular.copy(record);
+  editService.undecorate(recordDataCopy).then(function(undecoratedRecord) {
+    $scope.record = undecoratedRecord;
+  });
 
   $scope.close = function() {
     var deferred = $q.defer();
@@ -8,4 +11,5 @@ kitin.controller('ModalJSONLDCtrl', function($scope, $modalInstance, $q, recordS
     deferred.resolve();
     return deferred.promise;
   };
+
 });
