@@ -5,7 +5,8 @@ kitin.factory('labelLoader', function ($http, $q, definitions) {
         definitions.terms.then(function(termsObj) { 
           // Load gui labels
           $http.get('resource/gui_labels.json', {cache: true}).then(function(guiLabels) {
-            deferred.resolve(angular.extend(termsObj, guiLabels.data));
+            var labels = angular.extend(termsObj, guiLabels.data);
+            deferred.resolve(labels);
           });
         });
         

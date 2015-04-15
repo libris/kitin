@@ -196,7 +196,11 @@ def index(source=None, rec_type=None, rec_id=None):
     best = request.accept_mimetypes.best_match(['application/json', 'text/html'])
     if (best == 'application/json' and request.accept_mimetypes[best] > request.accept_mimetypes['text/html']):
         return 'Error: Base requested using XHR', 500
-    return render_template('index.html', user=current_user, debug = app.debug, WHELK_HOST = app.config['WHELK_HOST'], WHELK_WRITE_HOST  = app.config['WHELK_WRITE_HOST'], MAIN_STATUS_MSG = app.main_status_msg)
+
+    return render_template('index.html', user=current_user, debug=app.debug,
+            WHELK_HOST=app.config['WHELK_HOST'],
+            WHELK_WRITE_HOST=app.config['WHELK_WRITE_HOST'],
+            MAIN_STATUS_MSG=app.config.get('MAIN_STATUS_MSG', {}))
 
 # SEARCH TEMPLATE
 # @app.route("/search/<record_type>")
@@ -228,7 +232,7 @@ def get_template(type):
 @app.route("/resource/<path:path>")
 #@login_required
 def get_resource(path):
-    return send_from_directory('resource/', '%s' % path)
+    return send_from_directory(app.root_path + '/resource/', '%s' % path)
 
 # STYLEGUIDE
 @app.route("/styleguide/")
@@ -458,11 +462,6 @@ if __name__ == "__main__":
     if 'DEBUG' in app.config:
         app.debug = app.config['DEBUG']
         log_level = logging.DEBUG
-    
-    if 'MAIN_STATUS_MSG' in app.config:
-        app.main_status_msg = app.config['MAIN_STATUS_MSG'];
-    else:
-        app.main_status_msg = {}
 
     if opts.debug:
         app.debug = opts.debug

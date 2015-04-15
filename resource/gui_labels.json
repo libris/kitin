@@ -3,7 +3,10 @@
         "term": {
             "@id": "URI",
             "offers": "Placering",
-            "isPrimaryTopicOf": {
+            "associatedMedia": "URL för nedladdning",
+            "alternateFormat": "URL till digital representation",
+            "isPrimaryTopicOf": "URL till relaterat dokument",
+            "linked": {
                 "description": "Del av materialet som avses",
                 "altLabel": "Länktext"
             },

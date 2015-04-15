@@ -40,19 +40,31 @@ kitin.directive('kitinGroup', function(){
           single: isSingle
         };
          
-        // Set label from attribute, look-up if its a variable
-        try {
-          // If the label is a string and contains non variable characters like spaces
-          // $eval will throw an unexpected token exception, then use label attribute 
-          label = $scope.$eval($attrs.label);
-        } catch(error) {
-          label = $attrs.label;
+        if($attrs.hasOwnProperty('label')) {
+          var label = null;
+          // Set label from attribute, look-up if its a variable
+          try {
+            // If the label is a string and contains non variable characters like spaces
+            // $eval will throw an unexpected token exception, then use label attribute 
+            label = $scope.$eval($attrs.label);
+          } catch(error) {
+            label = $attrs.label;
+          }
+          $scope.label = label || $attrs.label;
         }
-        $scope.label = label || $attrs.label;
          
-        // Help
+        
         if($attrs.hasOwnProperty('help')) {
-          $scope.help = $attrs.help;
+          var help = null;
+          // Set help from attribute, look-up if its a variable
+          try {
+            // If the help is a string and contains non variable characters like spaces
+            // $eval will throw an unexpected token exception, then use help attribute 
+            help = $scope.$eval($attrs.help);
+          } catch(error) {
+            help = $attrs.help;
+          }
+          $scope.help = help || $attrs.help;
         }
 
         $scope.classNames = {

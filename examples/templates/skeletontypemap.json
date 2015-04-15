@@ -152,9 +152,10 @@
       "subject": [],
       "offers": [{ "@type": "Offer"}],
       "isPrimaryTopicOf": [],
+      "associatedMedia": [],
       "workExample": [],
       "encoding": [{"@type": "MediaObject"}],
-      "alternateFormat": [{"@type": "Electronic"}],
+      "alternateFormat": [],
       "relation": [{"@type": "Document"}]
     }
 
@@ -425,6 +426,7 @@
       "description": "",
       "@id": "",
       "cataloguersNote": [],
+      "copyNote" : [],
       "altLabel": "",
       "comment": ""
     },

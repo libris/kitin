@@ -122,18 +122,19 @@ kitin.directive('kitinTable', function(editService, $filter){
         } else {
           $scope.label = $attrs.model;
         }
-        $scope.$watch('model', function(newModel, oldModel) {
-          if(newModel !== oldModel) {
-            $scope.model = _.isArray($scope.model) && $scope.model.length > 0 ? $scope.model : [$scope.doCreate()];
-          }
-        });
+
+        // Deactivated this watch. See issue #255
+        //$scope.$watch('model', function(newModel, oldModel) {
+          // if(newModel !== oldModel) {
+          //   $scope.model = _.isArray($scope.model) && $scope.model.length > 0 ? $scope.model : [$scope.doCreate()];
+          // }
+        //});
       
         if($attrs.labels) {
           $scope.labels = $scope.$eval($attrs.labels);
           // For tables with labels, make sure help gets pushed down a bit
           $scope.positioned = 'dropped';
         }
-
       }
   };
 });
