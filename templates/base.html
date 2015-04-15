@@ -52,8 +52,7 @@
     {% endif %}
 
     <div id="header-wrapper">
-      <div id="GLOBAL_ALERT" ng-show="globalAlert.read === false"><div><h3 ng-bind="globalAlert.msg"></h3><br>
-        <br><button class="btn btn-danger" ng-click="globalAlert.markRead()">Ok, jag förstår!</button>
+      <div id="GLOBAL_ALERT" ng-show="globalAlert.read === false"><div><h3 ng-bind="globalAlert.msg"></h3><button class="btn btn-green" ng-click="globalAlert.markRead()">Stäng meddelandet</button>
       </div></div>
       <div class="container">
         <div id="header">
