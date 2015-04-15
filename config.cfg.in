@@ -16,3 +16,4 @@ MAIN_STATUS_MSG = {
   "HEADER":   "Observera",
   "MESSAGE":  "För att förenkla uppdatering och tester av katalogiseringsklienten så innehåller katalogen just nu en begränsad mängd poster."
 }
+ALWAYS_ALLOW_XLREG = 'False'

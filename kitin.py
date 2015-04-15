@@ -153,6 +153,9 @@ def authorized():
                 app.logger.debug("User received from verify %s, %s, %s ", username, json.dumps(verify_user))
 
             # Create Flask User and login
+            if(app.config.get('ALWAYS_ALLOW_XLREG') == 'True'):
+                for auth in authorization:
+                    auth['xlreg'] = True;
             user = User(username, authorization=authorization, token=session['oauth_token'])
             session['authorization'] = authorization
             login_user(user, True)
