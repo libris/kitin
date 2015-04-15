@@ -13,7 +13,8 @@ kitin.factory('searchService', function($http, $q, $rootScope, utilsService) {
       bib: {
         key: 'bib', 
         label: 'Libris',
-        placeholder: 'Sök bland bibliografiskt material (på ISBN, titel, författare etc.)'
+        placeholder: 'Sök bland bibliografiskt material (på ISBN, titel, författare etc.)',
+        facets: ["about.@type", "about.language.@id", "encLevel.@id"]
       },
       auth: {
         key: 'auth', 
