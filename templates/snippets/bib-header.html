@@ -38,9 +38,9 @@
         <span>
           <kitin-language-icon model="language" data-ng-repeat="language in recordInfo.about.language | orderBy:'langTag'" ng-if="language.prefLabel || language.langTag"></kitin-language-icon>
           <kitin-display-type model="recordInfo"></kitin-display-type>
+          <span title="provider" data-ng-repeat="publication in recordInfo.about.publication | limitTo:1">| {{ ::publication.place.label}} {{::publication.providerName}}</span>
           <span title="provider-date" data-ng-repeat="publication in recordInfo.about.publication | limitTo:1"
-            data-ng-show="publication.providerDate"> | {{ ::utils.composeDate(publication.providerDate) }}</span>
-          <span title="provider" data-ng-repeat="publication in recordInfo.about.publication | limitTo:1"> {{ ::publication.place.label}} {{::publication.providerName}}</span>
+            data-ng-show="publication.providerDate">{{ ::publication.providerDate }}</span>
           <span data-ng-show="recordInfo.about.extent">{{ ::recordInfo.about.extent }}</span>
         </span>
         <span class="ng-binding ng-hide" data-ng-show="enums.bibLevel[recordInfo.bibLevel]"></span>

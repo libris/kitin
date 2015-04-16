@@ -28,6 +28,20 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $loca
     jsonld: {}
   };
 
+  $rootScope.globalAlert = {
+    msg : MAIN_STATUS_MSG.MESSAGE,
+    markRead : function () {
+      localStorage.setItem('MAIN_STATUS_MSG', $rootScope.globalAlert.msg);
+      $rootScope.globalAlert.read = true;
+    }
+  };
+  if($rootScope.globalAlert.msg === '' || localStorage.getItem('MAIN_STATUS_MSG') === $rootScope.globalAlert.msg)
+  {
+    $rootScope.globalAlert.read = true;
+  } else {
+    $rootScope.globalAlert.read = false;
+  }
+
   window.toggleEdit = function () {
     $rootScope.allowEdit = !$rootScope.allowEdit;
     return $rootScope.allowEdit;
@@ -64,7 +78,9 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $loca
       }
     });
   }
+
   var searchParams = $location.search();
+
   $rootScope.state = {
     searchType: {},
     remoteDatabases: [],
@@ -79,12 +95,12 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $loca
       f: searchParams.f || null,
       view: searchParams.view || 'detailed'
     },
-    
 
     getSearchParams : function() {
       var params = {
         q: $rootScope.state.search.q,
         start: $rootScope.state.search.page.start,
+        facets: searchService.searchTypeIndex.bib.facets,
         n: $rootScope.state.search.n || searchService.getPageSize($rootScope.state.search.view),
         sort: $rootScope.state.search.sort,
         database: $rootScope.state.searchType.key === searchService.searchTypeIndex.remote.key ? $rootScope.state.search.database : undefined

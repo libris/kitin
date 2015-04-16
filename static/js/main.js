@@ -66,10 +66,13 @@ kitin.filter('unsafe', ['$sce', function ($sce) {
  * (TODO: move to service and depend on in required places instead)
  */
 
-kitin.run(function($rootScope, $location, $modalStack, $window, dialogs) {
+kitin.run(function($rootScope, $location, $modalStack, $window, dialogs, userData) {
   $rootScope.API_PATH = API_PATH;
   $rootScope.WRITE_API_PATH = WHELK_WRITE_HOST;
   $rootScope.MAIN_STATUS_MSG = MAIN_STATUS_MSG;
+  // Set current user, returned from back-end
+  userData.set(CURRENT_USER);
+  $rootScope.user = userData.get();
 
   $rootScope.$on('$locationChangeStart', function (event) {
     var closeModals = function(i) {
