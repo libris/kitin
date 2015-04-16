@@ -52,8 +52,14 @@
     {% endif %}
 
     <div id="header-wrapper">
-      <div id="GLOBAL_ALERT" ng-show="globalAlert.read === false"><div><h3 ng-bind="globalAlert.msg"></h3><button class="btn btn-green" ng-click="globalAlert.markRead()">Stäng meddelandet</button>
-      </div></div>
+      <div id="GLOBAL_ALERT" ng-show="globalAlert.read === false">
+        <div>
+          <button type="button" class="btn btn-green" ng-click="globalAlert.markRead()">Stäng meddelandet</button>
+          <div>
+            <p ng-bind="globalAlert.msg"></p>
+          </div>
+        </div>
+      </div>
       <div class="container">
         <div id="header">
           {% if current_user and current_user.is_authenticated() %}

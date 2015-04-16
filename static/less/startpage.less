@@ -76,20 +76,30 @@ section.dash.drafts li{border-top: 1px solid @grey-light;padding-top:6px;
 }
 
 #GLOBAL_ALERT {
-  background-color: @green;
+  background-color: lighten(@green,2%);
   width: 100%;
+  min-height: 55px;
   color: white;
-  text-shadow: 0px 1px 5px rgba(0, 0, 0, 0.5);
+  text-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
   padding: 10px 0px;
   border: solid @green-dark;
   border-width: 1px 0px;
   div {
     margin: auto;
     text-align: center;
-    width: 600px;
+    width: 1080px;
+    div {
+      width: 675px;
+      padding: 6px 0px 4px 0px;
+    }
   }
-  h3 {
-    margin: 10px 0px;
+  p {
+    font-weight: bold;
+    text-align: center;
+    display: inline;
+  }
+  button {
+    float: right;
   }
 }
 
