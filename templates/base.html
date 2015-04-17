@@ -121,32 +121,13 @@
         </footer>
       </div>
     </div>
+
+    <div id="kundo_button">
+      <a title="Frågor och förslag (öppnas i nytt fönster)" href="https://kundo.se/org/libris-katalogisering/" target="_blank">
+        <img src="/static/img/feedback.png" />
+      </a>
+    </div>
     
     {% include "_jqtemplates.html" %}
-    <!--[if IE]>
-    <script>window.onload = new function() { document.documentElement.className += ' ie'; };</script>
-    <![endif]-->
-    <script type="text/javascript">
-      var _kundo = _kundo || {};
-      _kundo["org"] = "libris-katalogisering";
-      _kundo["lang"] = "sv";
-      _kundo["btn-type"] = "4";
-      
-      (function() {
-          function async_load(){
-              var s = document.createElement('script');
-              s.type = 'text/javascript';
-              s.async = true;
-              s.src = ('https:' == document.location.protocol ? 'https://static-ssl' : 'http://static') +
-              '.kundo.se/embed.js';
-              var x = document.getElementsByTagName('script')[0];
-              x.parentNode.insertBefore(s, x);
-          }
-          if (window.attachEvent)
-              window.attachEvent('onload', async_load);
-          else
-              window.addEventListener('load', async_load, false);
-      })();
-    </script>
   </body>
 </html>
