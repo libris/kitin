@@ -78,13 +78,12 @@
           <div class="label">
             <kitin-label label="'sigel'"></kitin-label>
             <span class="inp">
-              <div class="entity tags">
-                {{userData.userSigel}}
+              <div class="entity tags" ng-init="offer.heldBy[0].notation = user.sigel">
+                {{user.sigel}}
               </div>
             </span>
           </div>
-
-          <kitin-table  model="offer.shelfLocation" change-model="holding">
+          <kitin-table model="offer.shelfLocation" change-model="holding">
             <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
           </kitin-table>
           <kitin-textrow model="offer.classificationPart" change-model="holding" suggestion="[{ 'list' : bibClassifications, 'property' : 'notation' }]" always-visible></kitin-textrow>
