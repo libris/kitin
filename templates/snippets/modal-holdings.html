@@ -142,9 +142,9 @@
       <div data-ng-repeat="linked in holding.about[linkdef.link] track by $index">
         <kitin-group label="'LABEL.term.' + linkdef.link" help="'LABEL.term.' + linkdef.link">
 
-          <kitin-textrow label-prefix="LABEL.term." model="linked.description" change-model="holding"></kitin-textrow>
+          <kitin-textrow label-prefix="LABEL.term." model="linked.description" help="HELP.term.description" change-model="holding"></kitin-textrow>
 
-          <kitin-textrow label="LABEL.term.@id" help="HELP.term.uri" model="linked['@id']" change-model="holding" always-visible></kitin-textrow>
+          <kitin-textrow label="LABEL.term.@id" model="linked['@id']" change-model="holding" always-visible></kitin-textrow>
 
           <kitin-textrow label-prefix="LABEL.term." model="linked.altLabel" change-model="holding"></kitin-textrow>
 
