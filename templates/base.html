@@ -1,10 +1,18 @@
 <!DOCTYPE html>
 <html lang="sv">
   <head>
-    <!--[if lt IE 9]>
-      Vi rekommenderar uppdaterade versioner av Google Chrome eller Mozilla Firefox för att testa betaversionen av Libris katalogisering.
-    <![endif]-->
 
+    <!--[if lt IE 9]> 
+      <style>
+        .container {
+          display: none;
+        }
+        #oldbrowsermsg {
+          padding: 25px;
+          display: block !important;
+        }
+      </style>
+    <![endif]-->
     <meta charset="utf-8" />
     <title>LIBRIS katalogisering</title>
 
@@ -46,6 +54,21 @@
   </head>
 
   <body data-ng-app="kitin" class="{% block bodyclass %}{% endblock %}" data-ng-controller="AppCtrl">
+    <div id="oldbrowsermsg" style="display:none">
+      <h1>LIBRIS Katalogisering</h1>
+      <p><u>Systemkrav (rekommenderade)</u><br>
+        Skärmupplösning på minst 1280 x 720 pixlar.<br>
+        <br>
+        <u>Webbläsarstöd</u><br>
+        Google Chrome<br>
+        Apple Safari<br>
+        Mozilla Firefox<br>
+        Microsoft Internet Explorer (version 9 eller senare)<br>
+        <br><br>
+        Kontakta oss via vårat <a title="Kund- och supportforum" href="https://kundo.se/org/libris-katalogisering/" target="_blank">supportforum</a> om du har några frågor.
+      </li>
+    </p>
+    </div>
     {{alerts}}
     {% if current_user and current_user.is_authenticated() %}
     <div data-ng-include="'/snippets/messages'"></div>
