@@ -96,7 +96,7 @@ kitin.factory('HttpInterceptor', function($q, $rootScope) {
         
         switch(status) {
           case 0:
-            alert.msg += 'Kontakta en administratör.';
+            alert.msg += 'Kontakta LIBRIS kundtjänst.';
             break;
           case 404:
             alert.msg += 'Dokumentet saknas.';
