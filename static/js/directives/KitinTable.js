@@ -30,7 +30,7 @@ kitin.directive('kitinTable', function(editService, $filter){
       link: function(scope, element, attrs, kitinGroupCtrl) {
           scope.options = kitinGroupCtrl.options;
       },
-      template: '<div class="label" ng-hide="shouldHideTable(model, options)">' + 
+      template: '<div class="label kitin-table" ng-hide="shouldHideTable(model, options)">' + 
                   '<span class="lbl">{{label | translate}}</span>' +
                   '<div class="inp">' +
                     '<div class="datatable">' +
