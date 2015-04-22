@@ -30,7 +30,7 @@ kitin.directive('kitinTable', function(editService, $filter){
       link: function(scope, element, attrs, kitinGroupCtrl) {
           scope.options = kitinGroupCtrl.options;
       },
-      template: '<div class="label" ng-hide="shouldHideTable(model, options)">' + 
+      template: '<div class="label kitin-table" ng-hide="shouldHideTable(model, options)">' + 
                   '<span class="lbl">{{label | translate}}</span>' +
                   '<div class="inp">' +
                     '<div class="datatable">' +
@@ -116,12 +116,16 @@ kitin.directive('kitinTable', function(editService, $filter){
           return $scope.model.splice(index,1);
         };
 
-        $scope.help = 'HELP.' + $attrs.model;
+        var label = $attrs.hasOwnProperty('label') ? $attrs.label : $attrs.model;
         if($attrs.hasOwnProperty('labelPrefix')) {
-          $scope.label = $attrs.labelPrefix + $attrs.model;
-        } else {
-          $scope.label = $attrs.model;
+          label = $attrs.labelPrefix + label;
         }
+
+        if(!$attrs.hasOwnProperty('hideLabel')) {
+          $scope.label = label; 
+        }
+
+        $scope.help = $attrs.hasOwnProperty('help') ? $attrs.help : label;
 
         // Deactivated this watch. See issue #255
         //$scope.$watch('model', function(newModel, oldModel) {

@@ -20,7 +20,9 @@
                 "/def/identifiers/urn": "URN",
                 "/def/identifiers/SB17": "SB17",
                 "/def/identifiers/TPB": "TPB",
-                "/def/identifiers/doi": "DOI"
+                "/def/identifiers/doi": "DOI",
+                "/def/identifiers/upc": "UPC",
+                "/def/identifiers/gtin-14": "GTIN-14"
             },
             "notation": {
                 "BULB": "BULB - Barn- och ungdomslitteraturbibliografin",

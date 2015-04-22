@@ -48,9 +48,11 @@ kitin.directive('kitinHelp', function (definitions) {
               } else {
                 // Try to get helptext from labels json
                 var helpModel = model.replace('LABEL','HELP');
-                var translatedHelpText = $translate.instant(helpModel);
-                if(translatedHelpText !== helpModel) {
-                  $scope.helpText = translatedHelpText;
+                if(helpModel.indexOf('HELP') !== -1) {
+                  var translatedHelpText = $translate.instant(helpModel);
+                  if(translatedHelpText !== helpModel) {
+                    $scope.helpText = translatedHelpText;
+                  }
                 }
               }
             });
