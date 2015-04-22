@@ -30,15 +30,14 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $loca
 
   $rootScope.globalAlert = {
     msg : MAIN_STATUS_MSG.MESSAGE,
+    read : true,
     markRead : function () {
       localStorage.setItem('MAIN_STATUS_MSG', $rootScope.globalAlert.msg);
       $rootScope.globalAlert.read = true;
     }
   };
-  if($rootScope.globalAlert.msg === '' || localStorage.getItem('MAIN_STATUS_MSG') === $rootScope.globalAlert.msg)
+  if(localStorage.getItem('MAIN_STATUS_MSG') !== $rootScope.globalAlert.msg)
   {
-    $rootScope.globalAlert.read = true;
-  } else {
     $rootScope.globalAlert.read = false;
   }
 

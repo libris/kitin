@@ -76,7 +76,7 @@
 
     <div id="header-wrapper">
       {% if current_user and current_user.is_authenticated() %}
-      <div id="GLOBAL_ALERT" ng-show="globalAlert.read === false">
+      <div id="GLOBAL_ALERT" ng-class="{ 'unread' : !globalAlert.read }">
         <div>
           <button type="button" class="btn btn-green" ng-click="globalAlert.markRead()">Stäng meddelandet</button>
           <div>
