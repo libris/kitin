@@ -116,12 +116,16 @@ kitin.directive('kitinTable', function(editService, $filter){
           return $scope.model.splice(index,1);
         };
 
-        $scope.help = 'HELP.' + $attrs.model;
+        var label = $attrs.hasOwnProperty('label') ? $attrs.label : $attrs.model;
         if($attrs.hasOwnProperty('labelPrefix')) {
-          $scope.label = $attrs.labelPrefix + $attrs.model;
-        } else {
-          $scope.label = $attrs.model;
+          label = $attrs.labelPrefix + label;
         }
+
+        if(!$attrs.hasOwnProperty('hideLabel')) {
+          $scope.label = label; 
+        }
+
+        $scope.help = $attrs.hasOwnProperty('help') ? $attrs.help : label;
 
         // Deactivated this watch. See issue #255
         //$scope.$watch('model', function(newModel, oldModel) {
