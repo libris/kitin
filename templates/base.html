@@ -29,6 +29,7 @@
       var OAUTH_CLIENT_ID = '{{OAUTH_CLIENT_ID}}';
       var OAUTH_REDIRECT_URI = '{{OAUTH_REDIRECT_URI}}';
       var MAIN_STATUS_MSG = JSON.parse('{{(MAIN_STATUS_MSG if MAIN_STATUS_MSG else {} )|tojson|safe}}');
+      var ENVIRONMENT = JSON.parse('{{(ENVIRONMENT if ENVIRONMENT else {} )|tojson|safe}}');
       var CURRENT_USER = {};
       {% if current_user and current_user.is_authenticated() %}
         CURRENT_USER = JSON.parse('{{ current_user.get()|tojson|safe }}');
@@ -114,6 +115,7 @@
           <div class="logo">
             <a href="/"><h1>Libris <strong>Katalogisering</strong></h1></a>
             <span class="beta" title="{{ modified.strftime('%Y-%m-%d %H:%m') }} (release {{ config.VERSION }})">BETA</span>
+            <span class="environment" ng-bind="environment.LABEL"></span>
             
           </div>
           <div class="kb"></div>

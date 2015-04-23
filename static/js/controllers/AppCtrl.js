@@ -28,6 +28,7 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $loca
     jsonld: {}
   };
 
+  $rootScope.environment = ENVIRONMENT;
   $rootScope.globalAlert = {
     msg : MAIN_STATUS_MSG.MESSAGE,
     read : true,

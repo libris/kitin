@@ -203,7 +203,8 @@ def index(source=None, rec_type=None, rec_id=None):
     return render_template('index.html', user=current_user, debug=app.debug,
             WHELK_HOST=app.config['WHELK_HOST'],
             WHELK_WRITE_HOST=app.config['WHELK_WRITE_HOST'],
-            MAIN_STATUS_MSG=app.config.get('MAIN_STATUS_MSG', {}))
+            MAIN_STATUS_MSG=app.config.get('MAIN_STATUS_MSG', {}),
+            ENVIRONMENT=app.config.get('ENVIRONMENT', {}))
 
 # SEARCH TEMPLATE
 # @app.route("/search/<record_type>")
