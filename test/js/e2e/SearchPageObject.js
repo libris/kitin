@@ -1,6 +1,7 @@
 var KitinSearch = function() {
   
   this.searchField = element(by.model('state.search.q'));
+  this.globalMessageClose = element(by.css('#GLOBAL_ALERT button'));
   this.searchButton = element(by.css('.searchfield .btn-green'));
   this.searchDropDown = element(by.css('.searchfield .search-source'));
   this.searchDropDownMenu = element(by.css('.searchfield .dropdown-menu'));
@@ -22,17 +23,25 @@ var KitinSearch = function() {
       'remote': 2
     }
 
-    var ddMenu = this.searchDropDownMenu;
+    this.globalMessageClose.click();
+
     var sField = this.searchField;
     var sButt = this.searchButton;
-    this.searchDropDown.click().then(function() {
-      ddMenu.all(by.css('li a')).then(function(elements) {
-        elements[typeIndices[searchType]].click().then(function() {
-          sField.sendKeys(searchQuery);
-          sButt.click();
-        });
-      });
-    });
+
+    sField.sendKeys(searchQuery);
+    sButt.click();
+
+    // var ddMenu = this.searchDropDownMenu;
+    // var sField = this.searchField;
+    // var sButt = this.searchButton;
+    // this.searchDropDown.click().then(function() {
+    //   ddMenu.all(by.css('li a')).then(function(elements) {
+    //     elements[typeIndices[searchType]].click().then(function() {
+    //       sField.sendKeys(searchQuery);
+    //       sButt.click();
+    //     });
+    //   });
+    // });
   };
 };
 
