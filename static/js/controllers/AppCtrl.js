@@ -28,9 +28,9 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $loca
     jsonld: {}
   };
 
-  $rootScope.environment = ENVIRONMENT;
+  $rootScope.MESSAGES = MESSAGES;
   $rootScope.globalAlert = {
-    msg : MAIN_STATUS_MSG.MESSAGE,
+    msg: MESSAGES.main_status_msg,
     read : true,
     markRead : function () {
       localStorage.setItem('MAIN_STATUS_MSG', $rootScope.globalAlert.msg);
