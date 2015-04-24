@@ -144,8 +144,8 @@
       <ul>
         <li class="node" ng-repeat="collection in record.about.isPartOf">
           {{ collection.uniformTitle }}{{ collection.title }}{{ collection.controlledLabel ? ', ' + collection.controlledLabel : '' }}{{ collection.placePublisherAndDateOfPublication ? ', ' + collection.placePublisherAndDateOfPublication : '' }}
-          <span ng-show="{{ collection.identifier | isArray }}" ng-repeat="identifier in collection.identifier"> ({{ 'identifierByIdentifierScheme[\''+identifier.identifierScheme['@id']+'\']' | translate }} {{ identifier.identifierValue }}) </span>
-          <span ng-if="collection.identifier" ng-hide="{{ collection.identifier | isArray }}"> ({{ 'identifierByIdentifierScheme[\''+collection.identifier.identifierScheme['@id']+'\']' | translate }} {{ collection.identifier.identifierValue }}) </span>
+          <span ng-show="{{ collection.identifier | isArray }}" ng-repeat="identifier in collection.identifier"> ({{ 'LABEL.term.identifier.'+identifier.identifierScheme['@id'] | translate }} {{ identifier.identifierValue }}) </span>
+          <span ng-if="collection.identifier" ng-hide="{{ collection.identifier | isArray }}"> ({{ 'LABEL.term.identifier.'+collection.identifier.identifierScheme['@id'] | translate }} {{ collection.identifier.identifierValue }}) </span>
           <span ng-repeat="note in collection.scopeNote"> ({{ note }}) </span>
         </li>
       </ul>
