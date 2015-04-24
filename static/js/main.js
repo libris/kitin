@@ -69,7 +69,6 @@ kitin.filter('unsafe', ['$sce', function ($sce) {
 kitin.run(function($rootScope, $location, $modalStack, $window, dialogs, userData) {
   $rootScope.API_PATH = API_PATH;
   $rootScope.WRITE_API_PATH = WHELK_WRITE_HOST;
-  $rootScope.MAIN_STATUS_MSG = MAIN_STATUS_MSG;
   // Set current user, returned from back-end
   userData.set(CURRENT_USER);
   $rootScope.user = userData.get();

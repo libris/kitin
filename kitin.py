@@ -24,12 +24,9 @@ here = os.path.dirname(os.path.abspath(__file__))
 mimetypes.add_type('application/font-woff', '.woff')
 
 
-#class SubFlask(Flask):
-#    jinja_options = dict(Flask.jinja_options,
-#            variable_start_string='{%=',
-#            variable_end_string='%}')
+JSON_LD_MIME_TYPE = 'application/ld+json'
 
-#app = SubFlask(__name__)
+
 app = Flask(__name__)
 app.config.from_pyfile('config.cfg')
 app.config.from_pyfile('version.cfg', silent=True)
@@ -43,7 +40,10 @@ login_manager.setup_app(app)
 
 storage = Storage(app.config.get("DRAFTS_DIR"), app)
 
-JSON_LD_MIME_TYPE = 'application/ld+json'
+with open(os.path.join(here, 'messages.json')) as f:
+    message_base = json.load(f)
+    messages = dict(message_base['all'],
+            **message_base.get(app.config['ENVIRONMENT'], {}))
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = app.config['OAUTHLIB_INSECURE_TRANSPORT']
 
@@ -203,8 +203,7 @@ def index(source=None, rec_type=None, rec_id=None):
     return render_template('index.html', user=current_user, debug=app.debug,
             WHELK_HOST=app.config['WHELK_HOST'],
             WHELK_WRITE_HOST=app.config['WHELK_WRITE_HOST'],
-            MAIN_STATUS_MSG=app.config.get('MAIN_STATUS_MSG', {}),
-            ENVIRONMENT=app.config.get('ENVIRONMENT', {}))
+            MESSAGES=messages)
 
 # SEARCH TEMPLATE
 # @app.route("/search/<record_type>")

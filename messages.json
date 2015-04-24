@@ -1,0 +1,15 @@
+{
+  "all": {
+  },
+  "dev": {
+    "environment_label": "DEV",
+    "main_status_msg": "Observera att detta är en experimentiell testmiljö som inte påverkar Voyager eller export till era lokala system."
+  },
+  "stg": {
+    "environment_label": "TEST",
+    "main_status_msg": "Observera att detta är en testmiljö som inte påverkar Voyager eller export till era lokala system."
+  },
+  "prod": {
+    "main_status_msg": "Observera att detta är en produktionsmiljö. All registrering och uppdatering av beståndsposter kommer att exporteras till Voyager och era lokala system."
+  }
+}
