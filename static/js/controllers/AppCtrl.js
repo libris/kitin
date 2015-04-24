@@ -30,7 +30,7 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $loca
 
   $rootScope.MESSAGES = MESSAGES;
   $rootScope.globalAlert = {
-    msg: MESSAGES.main_status_msg,
+    msg: MESSAGES['main_status_msg'],
     read : true,
     markRead : function () {
       localStorage.setItem('MAIN_STATUS_MSG', $rootScope.globalAlert.msg);
