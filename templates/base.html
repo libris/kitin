@@ -1,10 +1,18 @@
 <!DOCTYPE html>
 <html lang="sv">
   <head>
-    <!--[if lt IE 9]>
-      Vi rekommenderar uppdaterade versioner av Google Chrome eller Mozilla Firefox för att testa betaversionen av Libris katalogisering.
-    <![endif]-->
 
+    <!--[if lt IE 9]> 
+      <style>
+        .container {
+          display: none;
+        }
+        #oldbrowsermsg {
+          padding: 25px;
+          display: block !important;
+        }
+      </style>
+    <![endif]-->
     <meta charset="utf-8" />
     <title>LIBRIS katalogisering</title>
 
@@ -21,6 +29,7 @@
       var OAUTH_CLIENT_ID = '{{OAUTH_CLIENT_ID}}';
       var OAUTH_REDIRECT_URI = '{{OAUTH_REDIRECT_URI}}';
       var MAIN_STATUS_MSG = JSON.parse('{{(MAIN_STATUS_MSG if MAIN_STATUS_MSG else {} )|tojson|safe}}');
+      var ENVIRONMENT = JSON.parse('{{(ENVIRONMENT if ENVIRONMENT else {} )|tojson|safe}}');
       var CURRENT_USER = {};
       {% if current_user and current_user.is_authenticated() %}
         CURRENT_USER = JSON.parse('{{ current_user.get()|tojson|safe }}');
@@ -46,13 +55,29 @@
   </head>
 
   <body data-ng-app="kitin" class="{% block bodyclass %}{% endblock %}" data-ng-controller="AppCtrl">
+    <div id="oldbrowsermsg" style="display:none">
+      <h1>LIBRIS Katalogisering</h1>
+      <p><u>Systemkrav (rekommenderade)</u><br>
+        Skärmupplösning på minst 1280 x 720 pixlar.<br>
+        <br>
+        <u>Webbläsarstöd</u><br>
+        Google Chrome<br>
+        Apple Safari<br>
+        Mozilla Firefox<br>
+        Microsoft Internet Explorer (version 9 eller senare)<br>
+        <br><br>
+        Kontakta oss via vårat <a title="Kund- och supportforum" href="https://kundo.se/org/libris-katalogisering/" target="_blank">supportforum</a> om du har några frågor.
+      </li>
+    </p>
+    </div>
     {{alerts}}
     {% if current_user and current_user.is_authenticated() %}
     <div data-ng-include="'/snippets/messages'"></div>
     {% endif %}
 
     <div id="header-wrapper">
-      <div id="GLOBAL_ALERT" ng-show="globalAlert.read === false">
+      {% if current_user and current_user.is_authenticated() %}
+      <div id="GLOBAL_ALERT" ng-class="{ 'unread' : !globalAlert.read }">
         <div>
           <button type="button" class="btn btn-green" ng-click="globalAlert.markRead()">Stäng meddelandet</button>
           <div>
@@ -60,6 +85,7 @@
           </div>
         </div>
       </div>
+      {% endif %}
       <div class="container">
         <div id="header">
           {% if current_user and current_user.is_authenticated() %}
@@ -89,6 +115,7 @@
           <div class="logo">
             <a href="/"><h1>Libris <strong>Katalogisering</strong></h1></a>
             <span class="beta" title="{{ modified.strftime('%Y-%m-%d %H:%m') }} (release {{ config.VERSION }})">BETA</span>
+            <span class="environment" ng-bind="environment.LABEL"></span>
             
           </div>
           <div class="kb"></div>
@@ -119,32 +146,13 @@
         </footer>
       </div>
     </div>
+
+    <div id="kundo_button">
+      <a title="Frågor och förslag (öppnas i nytt fönster)" href="https://kundo.se/org/libris-katalogisering/" target="_blank">
+        <img src="/static/img/feedback.png" />
+      </a>
+    </div>
     
     {% include "_jqtemplates.html" %}
-    <!--[if IE]>
-    <script>window.onload = new function() { document.documentElement.className += ' ie'; };</script>
-    <![endif]-->
-    <script type="text/javascript">
-      var _kundo = _kundo || {};
-      _kundo["org"] = "libris-katalogisering";
-      _kundo["lang"] = "sv";
-      _kundo["btn-type"] = "4";
-      
-      (function() {
-          function async_load(){
-              var s = document.createElement('script');
-              s.type = 'text/javascript';
-              s.async = true;
-              s.src = ('https:' == document.location.protocol ? 'https://static-ssl' : 'http://static') +
-              '.kundo.se/embed.js';
-              var x = document.getElementsByTagName('script')[0];
-              x.parentNode.insertBefore(s, x);
-          }
-          if (window.attachEvent)
-              window.attachEvent('onload', async_load);
-          else
-              window.addEventListener('load', async_load, false);
-      })();
-    </script>
   </body>
 </html>

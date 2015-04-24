@@ -236,7 +236,7 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
 
       find: function(recordId, userData, quiet) {
         var deferer = $q.defer();
-        var sigel = userData.userSigel;
+        var sigel = userData.get().sigel;
         
         // $rootScope.promises is used by angular-busy to show and hide loading/saving indicators ...
         recordService.holding.search(recordId, quiet).then(function(response) {

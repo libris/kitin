@@ -22,7 +22,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
   document.body.className = 'search';
   $scope.recType = $routeParams.recType;
   $scope.utils = utilsService;
-  $scope.userSigel = userData.userSigel;
+  $scope.userSigel = userData.get().sigel;
 
   function getSearchURL() {
     var url = $rootScope.API_PATH + '/' + $scope.recType + '/_search';
@@ -157,7 +157,7 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
           // At the moment, we're only using userHoldings, but in the future, we might use
           // allHoldings to present the user with extra information on other organisations'
           // holdings.
-          var holdings = utilsService.findDeep(response.data.items, 'about.heldBy.notation', userData.userSigel);
+          var holdings = utilsService.findDeep(response.data.items, 'about.heldBy.notation', userData.get().sigel);
           var userHoldings = holdings.matches;
           var allHoldings = holdings.nonmatches;
 

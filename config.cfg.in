@@ -12,8 +12,9 @@ OAUTHLIB_INSECURE_TRANSPORT = 'True'
 SESSION_SECRET_KEY = '%(SESSION_SECRET_KEY)s'
 DEBUG = False
 MAIN_STATUS_MSG = {
-  "LEVEL":    "WARNING",
-  "HEADER":   "Observera",
   "MESSAGE":  "För att förenkla uppdatering och tester av katalogiseringsklienten så innehåller katalogen just nu en begränsad mängd poster."
+}
+ENVIRONMENT = {
+	"LABEL"	: ""
 }
 ALWAYS_ALLOW_XLREG = 'False'

@@ -78,13 +78,12 @@
           <div class="label">
             <kitin-label label="'sigel'"></kitin-label>
             <span class="inp">
-              <div class="entity tags">
-                {{userData.userSigel}}
+              <div class="entity tags" ng-init="offer.heldBy[0].notation = user.sigel">
+                {{user.sigel}}
               </div>
             </span>
           </div>
-
-          <kitin-table  model="offer.shelfLocation" change-model="holding">
+          <kitin-table model="offer.shelfLocation" change-model="holding">
             <kitin-td><kitin-textarea model="model[$index]" change-model="holding"></kitin-textarea></kitin-td>
           </kitin-table>
           <kitin-textrow model="offer.classificationPart" change-model="holding" suggestion="[{ 'list' : bibClassifications, 'property' : 'notation' }]" always-visible></kitin-textrow>
@@ -142,9 +141,9 @@
       <div data-ng-repeat="linked in holding.about[linkdef.link] track by $index">
         <kitin-group label="'LABEL.term.' + linkdef.link" help="'LABEL.term.' + linkdef.link">
 
-          <kitin-textrow label-prefix="LABEL.term." model="linked.description" change-model="holding"></kitin-textrow>
+          <kitin-textrow label-prefix="LABEL.term." model="linked.description" help="HELP.term.description" change-model="holding"></kitin-textrow>
 
-          <kitin-textrow label="LABEL.term.@id" help="HELP.term.uri" model="linked['@id']" change-model="holding" always-visible></kitin-textrow>
+          <kitin-textrow label="LABEL.term.@id" model="linked['@id']" change-model="holding" always-visible></kitin-textrow>
 
           <kitin-textrow label-prefix="LABEL.term." model="linked.altLabel" change-model="holding"></kitin-textrow>
 

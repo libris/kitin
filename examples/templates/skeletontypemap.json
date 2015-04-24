@@ -310,7 +310,9 @@
       "antecedent": {},
       "compression": {},
       "reformattingQuality": {},
-      "fileAspect": {}
+      "fileAspect": {},
+      "cataloguersNote": [],
+      "copyNote" : []
     },
     "Globe": {
       "carrierType": [],
@@ -437,7 +439,9 @@
     },
     "MediaObject": {
       "@id": "",
-      "comment": ""
+      "comment": "",
+      "cataloguersNote": [],
+      "copyNote" : []
     }
 
   }

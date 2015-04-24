@@ -20,7 +20,6 @@
 @import "bibview.less";
 @import "search.less";
 @import "alert.less";
-@import "iespecific.less";
 
 //override
 @import "autocomplete.less";
@@ -193,7 +192,7 @@ a.beta-blocker {text-decoration: none; cursor:default;}
 	padding: 4px 4px 0px 5px;
 	left: -32px;
 	height: 85px;
-	width: 1062px !important;
+	width: 1060px !important;
 	.container {
 		width: 100%;
 		padding: 5px;
@@ -218,7 +217,11 @@ a.beta-blocker {text-decoration: none; cursor:default;}
     font-size: 90%;
   }
 }
-
+#kundo_button {
+	position: fixed;
+	top: 200px;
+	right: 0px;
+}
 .inline {
   display: inline;
 }

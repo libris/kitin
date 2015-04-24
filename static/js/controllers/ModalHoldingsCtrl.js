@@ -153,12 +153,8 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
         holding.about.holdingFor = {
           '@id': recordId
         };
-        // Set sigel to default notation
-        var notation = userData.userSigel;
-        if(holding.about.offers && holding.about.offers.length > 0 && holding.about.offers[0].heldBy && holding.about.offers[0].heldBy.length > 0 && holding.about.offers[0].heldBy[0].notation) {
-          notation = holding.about.offers[0].heldBy[0].notation;
-        }
-        holding.about.heldBy.notation = notation;
+        // Set notation to user sigel
+        holding.about.heldBy.notation = userData.get().sigel;
         $scope.holding = holding;
       });
     } else {
