@@ -81,7 +81,10 @@ def fake_login():
 @app.context_processor
 def global_view_variables():
     mtime = os.stat(here).st_mtime
-    return {'modified': datetime.fromtimestamp(mtime)}
+    return {
+        'modified': datetime.fromtimestamp(mtime),
+        'MESSAGES': messages
+    }
 
 
 
@@ -202,8 +205,7 @@ def index(source=None, rec_type=None, rec_id=None):
 
     return render_template('index.html', user=current_user, debug=app.debug,
             WHELK_HOST=app.config['WHELK_HOST'],
-            WHELK_WRITE_HOST=app.config['WHELK_WRITE_HOST'],
-            MESSAGES=messages)
+            WHELK_WRITE_HOST=app.config['WHELK_WRITE_HOST'])
 
 # SEARCH TEMPLATE
 # @app.route("/search/<record_type>")
