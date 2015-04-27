@@ -63,10 +63,10 @@
     <button class="btn-link green" id="view-jsonld" data-ng-controller="ModalCtrl" data-ng-click="openJSONLDModal($event, record)">
       <i class="fa fa-share-alt"></i> JSON-LD</a> 
     </button>
-    <button class="button-holdings btn btn-purple btn-hld" data-ng-if="!exists(record.holdings.holding) && user.xlreg" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
+    <button class="button-holdings btn btn-purple btn-hld" data-ng-if="!record.holdings.holding && user.xlreg" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
       <span><i class="fa fa-inverse fa-plus"></i> Bestånd</span>
     </button>
-    <button class="button-holdings btn btn-white-purple btn-hld" data-ng-if="exists(record.holdings.holding) && user.xlreg" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
+    <button class="button-holdings btn btn-white-purple btn-hld" data-ng-if="record.holdings.holding && user.xlreg" data-ng-controller="ModalCtrl" data-ng-click="openHoldingsModal($event, record)">
       <span><i class="fa fa-check"></i> Bestånd</span>
     </button>
   </div>
