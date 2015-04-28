@@ -128,7 +128,16 @@
         "term": {
             "classificationPart": "<div lang=\"sv\"> <p> Om materialet ställs upp efter klassifikation, ange tillämplig kod, normalt en förkortad Dewey- eller SAB-kod.<br> Kan kombineras med kompletterande placeringsuppgifter, t.ex. löpnummer eller uppställningsord. </p></div>",
             "description": "Kan användas för att förtydliga att URI:n (webbadressen) bara avser delar av materialet, t.ex. en innehållsförteckning (table of contents).",
-            "SomeProductDescription": "Ange de volymer, häften, nummer etc. som biblioteket har av tidskriften (motsvarande)."
+            "SomeProductDescription": "Ange de volymer, häften, nummer etc. som biblioteket har av tidskriften (motsvarande).",
+            "associatedMedia" : {
+                "uri" : "Endast för åtkomstbegränsade resurser. Används då den bibliografiska posten beskriver en digital representation med fjärråtkomst av resursen (jfr \"URL för digital representation\")."
+            },
+            "alternateFormat" : {
+                "uri" : "Endast för åtkomstbegränsade resurser. Används då den bibliografiska posten beskriver t.ex. den tryckta representationen av resursen (jfr \"URL för nedladdning\")."
+            },
+            "isPrimaryTopicOf" : {
+                "uri" : "Används för att länka till sammanfattningar (abstracts), författarbeskrivningar, eller andra dokument/webbsidor som på något sätt hör samman med den resurs som beskrivs i den bibliografiska posten."
+            }
         }
     }
 
