@@ -126,6 +126,7 @@
             "offers": "<div lang=\"sv\"> <p>Bibliotekets sigel är obligatorisk och förifylld. Välj \"Spara bestånd\" om du inte ska lägga till fler uppgifter om placering etc.<br></p> <p>För att lägga till fler uppgifter, gå till fälten Hyllsignum (klassifikation och/eller löpnummer). Placeringsuppgift registreras enligt praxis vid ditt bibliotek.<br></p> <p>Klassifikationskod kan kompletteras med ytterligare placeringsuppgifter, t.ex. titel- eller författarord. Välj \"Visa fler fält\" om respektive uppställningsled behöver särskiljas eller anges i olika fält.</p> <p>Välj \"Visa fler fält\" om uppgiften behöver kompletteras med anmärkning eller exemplarinformation.</p> <p>Välj \"Lägg till bestånd för seriella resurser\" om uppgiften behöver kompletteras med beståndsuppgift.</p> <p>För eventuella exemplar uppställda på annat hyllsignum eller annan avdelning etc, välj \"Lägg till Placering\".</p></div>"
         },
         "term": {
+            "classificationPart": "<div lang=\"sv\"> <p> Om materialet ställs upp efter klassifikation, ange tillämplig kod, normalt en förkortad Dewey- eller SAB-kod.<br> Kan kombineras med kompletterande placeringsuppgifter, t.ex. löpnummer eller uppställningsord. </p></div>",
             "description": "Kan användas för att förtydliga att URI:n (webbadressen) bara avser delar av materialet, t.ex. en innehållsförteckning (table of contents).",
             "SomeProductDescription": "Ange de volymer, häften, nummer etc. som biblioteket har av tidskriften (motsvarande)."
         }
