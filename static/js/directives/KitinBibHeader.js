@@ -39,8 +39,6 @@ kitin.directive('kitinBibHeader', function(editService, $rootScope, utilsService
         $scope.recordInfo = $scope.record;
       }
 
-      $scope.showSticky = false;
-
       var sticky = angular.element($scope.stickto + ' .stickToTop');
       sticky.css('transform', 'translate(0px, -5000px)'); // Initially hidden (otherwise hide animation will be shown)
 
@@ -48,9 +46,11 @@ kitin.directive('kitinBibHeader', function(editService, $rootScope, utilsService
         angular.element(hookElement).scroll(function() {
           $scope.modalScroll = angular.element(hookElement).scrollTop();
           if ($scope.modalScroll > 100 && $attrs.hasOwnProperty('stickto')) {
+            sticky.removeClass('fade');
             sticky.removeClass('hidden');
           }
           else {
+            sticky.addClass('fade');
             sticky.addClass('hidden');
           }
 

@@ -38,24 +38,26 @@ kitin.directive('kitinHelp', function (definitions) {
           var positioned = $scope.positioned || false;
 
           if (model && model.length > 0) {
-            // This is mostly to keep it DRY, might change in the future
-            definitions.terms.then(function(terms) {
-              var modelParts = model.split('.');
-              var lastModel = modelParts[modelParts.length-1];
-              var comment = terms.getComment(lastModel);
-              if(comment && comment !== lastModel && comment !== '') {
-                $scope.helpText = comment;
-              } else {
-                // Try to get helptext from labels json
-                var helpModel = model.replace('LABEL','HELP');
-                if(helpModel.indexOf('HELP') !== -1) {
-                  var translatedHelpText = $translate.instant(helpModel);
-                  if(translatedHelpText !== helpModel) {
-                    $scope.helpText = translatedHelpText;
-                  }
-                }
+            // Try to get helptext from labels json
+            var helpModel = model.replace('LABEL','HELP');
+            if(helpModel.indexOf('HELP') !== -1) {
+              var translatedHelpText = $translate.instant(helpModel);
+              if(translatedHelpText !== helpModel) {
+                $scope.helpText = translatedHelpText;
               }
-            });
+            }
+            if(typeof $scope.helpText == 'undefined') {
+              definitions.terms.then(function(terms) {
+                var modelParts = model.split('.');
+                var lastModel = modelParts[modelParts.length-1];
+                var comment = terms.getComment(lastModel);
+                if(comment && comment !== lastModel && comment !== '') {
+                  $scope.helpText = comment;
+                } else {
+  
+                  }
+              });
+            }
           }
 
           $scope.click = function() {
