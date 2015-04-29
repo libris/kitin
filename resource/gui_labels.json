@@ -1,7 +1,7 @@
  {  
     "LABEL": {
         "term": {
-            "@id": "URI",
+            "@id": "URL",
             "offers": "Placering",
             "associatedMedia": "URL för nedladdning",
             "alternateFormat": "URL till digital representation",
