@@ -2,6 +2,9 @@ kitin.controller('ModalJSONLDCtrl', function($scope, $modalInstance, $q, recordS
 
   var recordDataCopy = angular.copy(record);
   editService.undecorate(recordDataCopy).then(function(undecoratedRecord) {
+    if(undecoratedRecord.holdings) {
+      delete undecoratedRecord.holdings;
+    }
     $scope.record = undecoratedRecord;
   });
 
