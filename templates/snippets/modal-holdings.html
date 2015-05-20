@@ -285,7 +285,7 @@
     <div data-ng-if="!modifications.holding.saved && !modifications.holding.isNew">{{ "Du har inte sparat dina ändringar." }}</div>
     <div data-ng-if="!modifications.holding.saved && modifications.holding.isNew">{{ "Nyskapat bestånd, inte sparat." }}</div>
     <hr ng-if="holding.modified">
-    <span data-ng-if="holding.modified" title="{{holding.modified | timeAgo:-1}}">Sparad: {{ holding.modified | timeAgo:60*60*24 }}</span>
+    <span data-ng-if="holding.modified">Sparad: <span time-ago="holding.modified" verbose-after="60*60*24"></span></span>
   </div>
   <div class="button-container">
     <button class="btn-link purple" id="view-jsonld" ng-hide="!holding" data-ng-controller="ModalCtrl" data-ng-click="openJSONLDModal($event, holding)">
