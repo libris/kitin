@@ -18,7 +18,8 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
           // open record
           var path = $rootScope.API_PATH + '/' + type + '/' + id;
           // $rootScope.promises is used by angular-busy to show and hide loading/saving indicators
-          $rootScope.promises.bib.loading = $http.get(path, { headers: utilsService.noCacheHeaders})
+          $rootScope.promises.bib.loading = deferer.promise;
+          $http.get(path, { headers: utilsService.noCacheHeaders})
             .success(function (struct, status, headers) {
               editService.decorate(struct).then(function(decoratedRecord) {
                 deferer.resolve({
@@ -42,8 +43,9 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
         var recordDataCopy = angular.copy(recordData);
         delete recordDataCopy['new'];
         delete recordDataCopy['draft'];
+        $rootScope.promises.bib.saving = deferer.promise;
         editService.undecorate(recordDataCopy).then(function(undecoratedRecord) {
-          $rootScope.promises.bib.saving = $http.put($rootScope.WRITE_API_PATH + '/' + type + '/' + id, undecoratedRecord,
+          $http.put($rootScope.WRITE_API_PATH + '/' + type + '/' + id, undecoratedRecord,
               {
                 headers: {
                   'If-match': recordEtag,
@@ -71,6 +73,7 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
         var recordDataCopy = angular.copy(recordData);
         delete recordDataCopy['new'];
         delete recordDataCopy['draft'];
+        $rootScope.promises.bib.saving = deferer.promise;
         editService.undecorate(recordDataCopy).then(function(undecoratedRecord) {
           $http.post($rootScope.WRITE_API_PATH + '/' + type, undecoratedRecord)
             .success(function(createdRecord, status, headers) {
@@ -90,8 +93,9 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
 
       convertToMarc: function(data) {
         var deferer = $q.defer();
+        $rootScope.promises.marc.loading = deferer.promise;
         editService.undecorate(angular.copy(data)).then(function(undecoratedRecord) {
-          $rootScope.promises.marc.loading = $http.post($rootScope.WRITE_API_PATH + '/_format?to=application\/x-marc-json', undecoratedRecord
+          $http.post($rootScope.WRITE_API_PATH + '/_format?to=application\/x-marc-json', undecoratedRecord
           /*{ !TODO change to API_PATH and add header when authentication is implemented in whelk
             headers: {
               'Content-Type': 'application/ld+json'
@@ -112,8 +116,9 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
     draft: {
       get: function (draftId, mainType, aggregateLevel) {
         var deferer = $q.defer();
+        $rootScope.promises.draft.loading = deferer.promise;
         if(draftId) {
-          $rootScope.promises.draft.loading = $http.get("/draft/" + draftId, { headers: utilsService.noCacheHeaders })
+          $http.get("/draft/" + draftId, { headers: utilsService.noCacheHeaders })
             .success(function (data, status, headers) {
               editService.decorate(data).then(function(decoratedRecord) {
                 deferer.resolve({
@@ -148,8 +153,9 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
         var deferer = $q.defer();
         etag = etag ? etag : '';
         var draftDataCopy = angular.copy(draftData);
+        $rootScope.promises.draft.saving = deferer.promise;
         editService.undecorate(draftDataCopy).then(function(undecoratedRecord) {
-          $rootScope.promises.draft.saving = $http.put("/draft/" + [type, draftId].join('/'), undecoratedRecord, {headers: {"If-match":etag } })
+          $http.put("/draft/" + [type, draftId].join('/'), undecoratedRecord, {headers: {"If-match":etag } })
             .success(function(data, status, headers) {
               editService.decorate(data).then(function(decoratedRecord) {
                 deferer.resolve({
@@ -173,7 +179,7 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
         if (draftId) {
           pathSuffix = [type, draftId].join('/');
         }
-
+        $rootScope.promises.draft.saving = deferer.promise;
         editService.undecorate(draftDataCopy).then(function(undecoratedRecord) {
           $http.post("/draft/" + pathSuffix , undecoratedRecord, {headers: {"If-match":etag } })
             .success(function(data, status, headers) {
@@ -193,6 +199,7 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
 
       delete: function(type, draftId) {
         var deferer = $q.defer();
+        $rootScope.promises.draft.loading = deferer.promise;
         $http.delete("/draft/" + [type, draftId].join('/'))
           .success(function(data, status, headers) {
             deferer.resolve(data);
@@ -207,6 +214,7 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
     drafts: {
       get: function() {
         var deferer = $q.defer();
+        $rootScope.promises.draft.loading = deferer.promise;
         $http.get('/drafts', { headers: utilsService.noCacheHeaders })
           .success(function(data, status, headers) {
             deferer.resolve(data);
@@ -222,7 +230,7 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
       search: function(recordId, quiet, record) {
         var deferer = $q.defer();
         var searchPath = '/hold/_search?q=*+about.holdingFor.@id:' + recordId.replace(/\//g, '\\/');
-        var promise = $http.get($rootScope.API_PATH + searchPath, { headers: utilsService.noCacheHeaders, record: record })
+        $http.get($rootScope.API_PATH + searchPath, { headers: utilsService.noCacheHeaders, record: record })
           .success(function(data, status, headers, config) {
             deferer.resolve({ data: data, config: config });
           })
@@ -230,7 +238,7 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
             deferer.reject(status);
           });
         // ... unless we have explicitly requested a quiet lookup
-        if (!quiet) $rootScope.promises.holding.loading = promise;
+        if (!quiet) $rootScope.promises.holding.loading = deferer.promise;
         return deferer.promise;
       },
 
@@ -277,6 +285,7 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
 
       get: function(holdingId) {
         var deferer = $q.defer();
+        $rootScope.promises.holding.loading = deferer.promise; // Show loading message
         if (holdingId) {
           $http.get($rootScope.API_PATH + holdingId, { headers: utilsService.noCacheHeaders})
             .success(function(holdingData, status, headers) {
@@ -306,8 +315,9 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
       create: function(holdingData) {
         var deferer = $q.defer();
         var holdingDataCopy = angular.copy(holdingData);
+        $rootScope.promises.holding.saving = deferer.promise; // Show saving message
         editService.undecorate(holdingDataCopy).then(function(undecoratedHolding) {
-          $rootScope.promises.holding.saving = $http.post($rootScope.WRITE_API_PATH + '/hold', undecoratedHolding)
+          $http.post($rootScope.WRITE_API_PATH + '/hold', undecoratedHolding)
             .success(function(createdHolding, status, headers) {
               editService.decorate(createdHolding, []).then(function(decoratedHolding) {
                 decoratedHolding.etag = headers('etag');
@@ -325,15 +335,15 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
         var deferer = $q.defer();
         var etag = holdingData.etag;
         var holdingDataCopy = angular.copy(holdingData);
-
+        $rootScope.promises.holding.saving = deferer.promise; // Show saving message
         editService.undecorate(holdingDataCopy).then(function(undecoratedHolding) {
           delete undecoratedHolding.etag;
-          $rootScope.promises.holding.saving = $http.put($rootScope.WRITE_API_PATH + undecoratedHolding['@id'], undecoratedHolding, {headers: {'If-match': etag}})
+          $http.put($rootScope.WRITE_API_PATH + undecoratedHolding['@id'], undecoratedHolding, {headers: {'If-match': etag}})
             .success(function(savedHolding, status, headers) {
-              editService.decorate(savedHolding).then(function(decoratedHolding) {
-                decoratedHolding.etag = headers('etag');
-                deferer.resolve(decoratedHolding);
-              });
+                editService.decorate(savedHolding).then(function(decoratedHolding) {
+                  decoratedHolding.etag = headers('etag');
+                  deferer.resolve(decoratedHolding);
+                });
             })
             .error(function(data, status, headers) {
               deferer.reject(status);
@@ -346,6 +356,7 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
         var deferer = $q.defer();
         var holdingId = holding['@id'];
         var etag = holding.etag;
+        $rootScope.promises.holding.loading = deferer.promise; // Show loading message
         $http['delete']($rootScope.WRITE_API_PATH + holdingId, {headers: {'If-match': etag}})
           .success(function(data, success, headers, also) {
             holding = data;
