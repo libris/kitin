@@ -3,9 +3,10 @@
   <h1 class="modal-title"><span translate>LABEL.gui.terms.HOLDINGS</span> för {{userData.userSigel}} ({{ record['@id'] }})</h1>
 </div>
 
+<div data-cg-busy="{promise:promises.holding.loading, message:'Laddar bestånd...', minDuration: 800}"></div>
+<div data-cg-busy="{promise:promises.holding.saving, message:'Sparar bestånd...', minDuration: 800}"></div>
+
 <div class="modal-body holdings">
-  <div data-cg-busy="{promise:promises.holding.loading, message:'Laddar bestånd...', minDuration: 800}"></div>
-  <div data-cg-busy="{promise:promises.holding.saving, message:'Sparar bestånd...', minDuration: 800}"></div>
   
   <section class="top">
     <div class="header-container">
