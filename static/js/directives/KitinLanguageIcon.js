@@ -25,14 +25,15 @@ kitin.directive('kitinLanguageIcon', function(editService, $rootScope){
         if($scope.model.langCode) {
           $scope.iconTag = $scope.model.langCode;
         }
-        else if ($scope.model.langCode === 'und')
+        else if ($scope.model.langCode === 'und' || $scope.model['@id'] === '/def/languages/und') {
           // Language is undefined
           $scope.iconTag = '?';
+        }
         else if ($scope.model.langCode === 'mul')
           // Multiple languages
           $scope.iconTag = '*';
         else {
-          $scope.iconTag = '+';
+          $scope.iconTag = '?';
         }
 
       }
