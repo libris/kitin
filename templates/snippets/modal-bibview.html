@@ -47,7 +47,7 @@
   <div class="status pull-left" style="text-align: left">
     <table class="modificationdates" data-ng-if="!isRemote">
       <tr data-ng-if="record.modified">
-        <td>Uppdaterad: </td><td>{{ record.modified | timeAgo:60*60*24 }}</td>
+        <td>Uppdaterad: </td><td><span time-ago="record.modified" verbose-after="60*60*24"></td>
       </tr>
     </table>
   </div>

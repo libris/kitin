@@ -30,7 +30,7 @@
           	  <div class="title"><a href="/edit/draft{{ draft['@id'] }}">{{utils.composeTitle(draft, 'draft') | chop:80 }}</a></div>
               <div class="creator">{{draft.creator | chop:40}}</div>
               <div class="publication"><span data-ng-repeat="publication in draft.publication | limitTo:1">{{publication.providerDate}}</span></div>
-              <div class="modified">{{draft.modified | timeAgo }}</div>
+              <div class="modified"><span time-ago="draft.modified"></span></div>
               <div class="delete"><button type="submit" class="btn-link pull-right" title="Ta bort utkast"><i class="fa fa-trash-o"></i></button></div>
               <input type="hidden" name="_method" value="DELETE" />
             </form>
