@@ -48,9 +48,16 @@ kitin.directive('kitinBibHeader', function(editService, $rootScope, utilsService
           }
           else {
             sticky.addClass('fade');
+
+            // If sticky is not shown we need to push it away so that we can correctly select the text beneath it
+            setTimeout(function () {
+              if (sticky.css('opacity') <= 0)
+                sticky.css('transform', 'translate(0px, -500px)');
+            }, 400);
           }
 
           sticky.css('transform', 'translate(0px, ' + ($scope.modalScroll - 47) +'px)');
+
         });
       };
 
