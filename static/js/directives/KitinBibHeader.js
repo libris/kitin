@@ -39,27 +39,38 @@ kitin.directive('kitinBibHeader', function(editService, $rootScope, utilsService
         $scope.recordInfo = $scope.record;
       }
 
-      var sticky = angular.element($scope.stickto + ' .stickToTop');
-      sticky.css('transform', 'translate(0px, -5000px)'); // Initially hidden (otherwise hide animation will be shown)
 
       $scope.hookScroll = function (hookElement) {
         angular.element(hookElement).scroll(function() {
           $scope.modalScroll = angular.element(hookElement).scrollTop();
           if ($scope.modalScroll > 100 && $attrs.hasOwnProperty('stickto')) {
             sticky.removeClass('fade');
-            sticky.removeClass('hidden');
           }
           else {
             sticky.addClass('fade');
-            sticky.addClass('hidden');
+
+            // If sticky is not shown we need to push it away so that we can correctly select the text beneath it
+            setTimeout(function () {
+              if (sticky.css('opacity') <= 0)
+                sticky.css('transform', 'translate(0px, -500px)');
+            }, 400);
           }
 
           sticky.css('transform', 'translate(0px, ' + ($scope.modalScroll - 47) +'px)');
+
         });
       };
 
-      $scope.modalScroll = 0;
-      $scope.hookScroll($scope.stickto);
+      var sticky = angular.element($scope.stickto + ' .stickToTop');
+
+      if(typeof $scope.stickto === 'undefined') {
+        sticky.addClass('hidden');
+      } else {
+        sticky.removeClass('hidden');
+        $scope.modalScroll = 0;
+        $scope.hookScroll($scope.stickto);
+      }
+
 
     }
   };

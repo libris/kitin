@@ -40,9 +40,9 @@
     <div ng-switch-when="language">
       <kitin-label label="label"></kitin-label>
       <ul>
-        <li class="node lang" ng-if="language.prefLabel" ng-repeat="language in record.about.language | orderBy:'langTag'">
-          <kitin-language-icon model="language"></kitin-language-icon> {{ language.prefLabel }}
-
+        <li class="node lang" ng-repeat="language in record.about.language | orderBy:'langTag'">
+          <span ng-if="language.prefLabel"><kitin-language-icon model="language"></kitin-language-icon> {{ language.prefLabel }}</span>
+          <span ng-if="!language.prefLabel"><kitin-language-icon model="language"></kitin-language-icon> <span class="value-error">{{ language.notation }} ({{ language['@id'] }})</span></span>
         </li>
       </ul>
     </div>
@@ -50,8 +50,9 @@
     <div ng-switch-when="originalLanguage">
       <kitin-label label="label"></kitin-label>
       <ul>
-        <li class="node lang" ng-if="language.prefLabel" ng-repeat="language in record.about.originalLanguage | orderBy:'langTag'">
-          <kitin-language-icon model="language"></kitin-language-icon> {{ language.prefLabel }}
+        <li class="node lang" ng-repeat="language in record.about.originalLanguage | orderBy:'langTag'">
+          <span ng-if="language.prefLabel"><kitin-language-icon model="language"></kitin-language-icon> {{ language.prefLabel }}</span>
+          <span ng-if="!language.prefLabel"><kitin-language-icon model="language"></kitin-language-icon> <span class="value-error">{{ language.notation }} ({{ language['@id'] }})</span></span>
         </li>
       </ul>
     </div>

@@ -30,6 +30,14 @@ kitin.directive('kitinDisplayFormat', function(editService, $rootScope){
           _.each(format, function(value, key) {
             if(!_.isArray(value) && !_.isObject(value))
               formats[key] = value;
+            else if(_.isObject(value) && typeof value !== 'undefined') {
+              var subProps = _.map(value, function (item) {
+                return item['@id'];
+              }).join(', ');
+
+              if(subProps.length >= 1)
+                formats[key] = subProps;
+            }
           });
         });
 

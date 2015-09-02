@@ -14,14 +14,21 @@
 		padding-top: 5px;
 	}
 	.value {
-		padding: 3px;
+		padding: 10px 3px 10px 3px;
+		border: dotted @grey-light;
+		border-width: 1px 0px 0px 0px;
+	}
+	.value-error {
+		border-bottom: 1px dashed red;
 	}
 	ul {
 		list-style: none;
+		display: inline-block;
 		margin-bottom: 0px;
 	}
 	.node {
 		list-style-type: square;
+		max-width: 765px;
 	}
 	.node.auth {
 		list-style: none;
@@ -32,14 +39,11 @@
 		margin-left: -2.2em;
 		margin-bottom: 0.2em;
 	}
-	.summary {
-		text-align: justify;
-		width: 50em;
-		padding: 0em 3em 0em 3em;
-	}
 	.lbl {
+		vertical-align: top;
 	  font-weight: bold;
-	  display: inline;
+	  display: inline-block;
+	  width: 170px;
 	}
 	h4 {
   font-weight: bold;
