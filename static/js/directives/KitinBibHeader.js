@@ -51,7 +51,7 @@ kitin.directive('kitinBibHeader', function(editService, $rootScope, utilsService
 
             // If sticky is not shown we need to push it away so that we can correctly select the text beneath it
             setTimeout(function () {
-              if (sticky.css('opacity') <= 0)
+              if (sticky.css('opacity') <= 0) // This check makes sure that the delayed transformation isn't triggered if the fade was cancelled
                 sticky.css('transform', 'translate(0px, -500px)');
             }, 400);
           }
