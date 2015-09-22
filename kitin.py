@@ -229,13 +229,11 @@ def show_snippets(path):
 
 # INITIAL STATIC RECORD
 @app.route("/record/template/<type>", methods=["GET"])
-@login_required
 def get_template(type):
     return raw_json_response(open(os.path.join(here, "examples/templates/%s.json" % type), 'r').read())
 
 # RESOURCES
 @app.route("/resource/<path:path>")
-#@login_required
 def get_resource(path):
     return send_from_directory(app.root_path + '/resource/', '%s' % path)
 
