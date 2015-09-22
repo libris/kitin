@@ -173,7 +173,7 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $loca
   // Data Model Utilities
 
  
-  if($rootScope.API_PATH !== '') {
+  if($rootScope.API_PATH !== '' && !_.isEmpty(CURRENT_USER)) {
     definitions.terms.then(function(termsObj) {
       angular.extend($rootScope, termsObj);
     });
