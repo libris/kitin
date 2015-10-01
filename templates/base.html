@@ -29,6 +29,7 @@
       var OAUTH_CLIENT_ID = '{{OAUTH_CLIENT_ID}}';
       var OAUTH_REDIRECT_URI = '{{OAUTH_REDIRECT_URI}}';
       var MESSAGES = JSON.parse('{{MESSAGES|tojson|safe}}');
+      var ENVIRONMENT = '{{ENVIRONMENT}}';
       var CURRENT_USER = {};
       {% if current_user and current_user.is_authenticated() %}
         CURRENT_USER = JSON.parse('{{ current_user.get()|tojson|safe }}');
@@ -152,5 +153,28 @@
     </div>
     
     {% include "_jqtemplates.html" %}
+    {% if not debug %}
+    <!-- Piwik -->
+    <script type="text/javascript">
+      if (ENVIRONMENT === 'prod')
+        var siteID = 22;
+      
+      if (siteID) {
+        var _paq = _paq || [];
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+          var u="//analytics.kb.se/";
+          _paq.push(['setTrackerUrl', u+'piwik.php']);
+          _paq.push(['setSiteId', siteID]);
+          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+          g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+        })();
+      }
+    
+    </script>
+    <noscript><p><img src="//analytics.kb.se/piwik.php?idsite=22" style="border:0;" alt="" /></p></noscript>
+    <!-- End Piwik Code -->
+    {% endif %}
   </body>
 </html>
