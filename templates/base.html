@@ -161,6 +161,10 @@
       
       if (siteID) {
         var _paq = _paq || [];
+        if(CURRENT_USER.username) {
+          _paq.push(['setUserId', CURRENT_USER.username]);
+          _paq.push(['setCustomVariable', 1, "Sigel", CURRENT_USER.authorization[0].sigel, "visit"]);
+        }
         _paq.push(['trackPageView']);
         _paq.push(['enableLinkTracking']);
         (function() {
