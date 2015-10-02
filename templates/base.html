@@ -29,7 +29,6 @@
       var OAUTH_CLIENT_ID = '{{OAUTH_CLIENT_ID}}';
       var OAUTH_REDIRECT_URI = '{{OAUTH_REDIRECT_URI}}';
       var MESSAGES = JSON.parse('{{MESSAGES|tojson|safe}}');
-      var ENVIRONMENT = '{{ENVIRONMENT}}';
       var CURRENT_USER = {};
       {% if current_user and current_user.is_authenticated() %}
         CURRENT_USER = JSON.parse('{{ current_user.get()|tojson|safe }}');
@@ -156,8 +155,7 @@
     {% if not debug %}
     <!-- Piwik -->
     <script type="text/javascript">
-      if (ENVIRONMENT === 'prod')
-        var siteID = 22;
+      var siteID = MESSAGES.piwik_id;
       
       if (siteID) {
         var _paq = _paq || [];
@@ -177,7 +175,6 @@
       }
     
     </script>
-    <noscript><p><img src="//analytics.kb.se/piwik.php?idsite=22" style="border:0;" alt="" /></p></noscript>
     <!-- End Piwik Code -->
     {% endif %}
   </body>

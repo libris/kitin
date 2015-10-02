@@ -205,8 +205,7 @@ def index(source=None, rec_type=None, rec_id=None):
 
     return render_template('index.html', user=current_user, debug=app.debug,
             WHELK_HOST=app.config['WHELK_HOST'],
-            WHELK_WRITE_HOST=app.config['WHELK_WRITE_HOST'],
-            ENVIRONMENT=app.config['ENVIRONMENT'])
+            WHELK_WRITE_HOST=app.config['WHELK_WRITE_HOST'])
 
 # SEARCH TEMPLATE
 # @app.route("/search/<record_type>")

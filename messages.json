@@ -10,6 +10,7 @@
     "main_status_msg": "Observera att detta är en testmiljö som inte påverkar Voyager eller export till era lokala system."
   },
   "prod": {
+    "piwik_id": "22",
     "main_status_msg": "Observera att detta är en produktionsmiljö. All registrering och uppdatering av beståndsposter kommer att exporteras till Voyager och era lokala system."
   }
 }
