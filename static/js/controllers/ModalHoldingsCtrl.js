@@ -175,11 +175,14 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
       onSave(savedHolding);
       $scope.holding = savedHolding;
       $scope.classes.saveStatus = 'success';
-      if (typeof(_paq) !== 'undefined') _paq.push(['trackEvent', 'Holding', 'Save', recordId]);
+      if (typeof(_paq) !== 'undefined') _paq.push(['trackEvent', 'Holding', 'Save', savedHolding['@id']]);
 
     }, function error(status) {
       $scope.classes.saveStatus = 'error';
-      if (typeof(_paq) !== 'undefined') _paq.push(['trackEvent', 'Holding', 'Failed save', recordId]);
+      if(holding['@id'])
+        if (typeof(_paq) !== 'undefined') _paq.push(['trackEvent', 'Holding', 'Failed save' + ' (STATUS '+status+')', holding['@id']]);
+      else
+        if (typeof(_paq) !== 'undefined') _paq.push(['trackEvent', 'Holding', 'Failed save new' + ' (STATUS '+status+')', recordId]);
     }).finally(function() {
       var element = angular.element('#holdings-message-container .save-messages');
       if (element.length) utilsService.showPopup(element).then(function() {
@@ -199,11 +202,11 @@ kitin.controller('ModalHoldingsCtrl', function($scope, $rootScope, $modal, $moda
     confirm.result.then(function yes(answer) {
       recordService.holding.delete(holding).then(function sucess(response) {
         onDelete(holding);
-        if (typeof(_paq) !== 'undefined') _paq.push(['trackEvent', 'Holding', 'Delete', recordId]);
+        if (typeof(_paq) !== 'undefined') _paq.push(['trackEvent', 'Holding', 'Delete', holding['@id']]);
         delete $scope.holding;
       }, function error(status) {
         $scope.classes.deleteStatus = 'error';
-        if (typeof(_paq) !== 'undefined') _paq.push(['trackEvent', 'Holding', 'Failed delete', recordId]);
+        if (typeof(_paq) !== 'undefined') _paq.push(['trackEvent', 'Holding', 'Failed delete' + ' (STATUS '+status+')', holding['@id']]);
         var element = angular.element('#holdings-message-container .delete-messages');
         if (element.length) utilsService.showPopup(element).then(function() {
           //console.log('Popup should now be hidden');
