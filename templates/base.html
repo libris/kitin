@@ -152,5 +152,30 @@
     </div>
     
     {% include "_jqtemplates.html" %}
+    {% if not debug %}
+    <!-- Piwik -->
+    <script type="text/javascript">
+      var siteID = MESSAGES.piwik_id;
+      
+      if (siteID) {
+        var _paq = _paq || [];
+        if(CURRENT_USER.username) {
+          _paq.push(['setUserId', CURRENT_USER.username]);
+          _paq.push(['setCustomVariable', 1, "Sigel", CURRENT_USER.authorization[0].sigel, "visit"]);
+        }
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+          var u="//analytics.kb.se/";
+          _paq.push(['setTrackerUrl', u+'piwik.php']);
+          _paq.push(['setSiteId', siteID]);
+          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+          g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+        })();
+      }
+    
+    </script>
+    <!-- End Piwik Code -->
+    {% endif %}
   </body>
 </html>

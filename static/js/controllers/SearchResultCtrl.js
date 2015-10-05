@@ -222,6 +222,21 @@ kitin.controller('SearchResultCtrl', function($scope, $http, $timeout, $location
       }
       // Create an static version of query 
       $scope.staticQ = angular.copy($rootScope.state.search.q);
+      
+      if (typeof(_paq) !== 'undefined') {
+        // TRACK SEARCH
+        var searchString = params.q;
+        if (params.f) {
+          var facetString = params.f.split(' ');
+          searchString += " AND " + facetString.join(' AND ');
+        }
+        _paq.push(['trackSiteSearch',
+            searchString,
+            false, // Search category selected in your search engine. If you do not need this, set to false
+            $rootScope.state.search.hitCount // Number of results on the Search results page. Zero indicates a 'No Result Search Keyword'.
+        ]);
+      }
+      
     });
   };
 
