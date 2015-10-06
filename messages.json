@@ -5,8 +5,9 @@
     "environment_label": "DEV",
     "main_status_msg": "Observera att detta är en experimentiell testmiljö som inte påverkar Voyager eller export till era lokala system."
   },
-  "stg": {
-    "environment_label": "TEST",
+  "qa": {
+    "piwik_id": "23",
+    "environment_label": "QA",
     "main_status_msg": "Observera att detta är en testmiljö som inte påverkar Voyager eller export till era lokala system."
   },
   "prod": {
