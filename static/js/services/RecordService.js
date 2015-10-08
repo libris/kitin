@@ -381,7 +381,7 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
           })
           .error(function(data, status, headers) {
             // Log
-            if (typeof(_paq) !== 'undefined') _paq.push(['trackEvent', 'Holding', 'Failed delete', holdingId]);
+            if (typeof(_paq) !== 'undefined') _paq.push(['trackEvent', 'Holding', 'Failed delete' + ' (STATUS '+status+')', holdingId]);
             
             deferer.reject(status);
           });
