@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 import os, sys
 import logging
+from logging import config
+import time
 import re
 from datetime import datetime, timedelta
 import json
@@ -16,7 +18,6 @@ import requests
 from requests_oauthlib import OAuth2Session, TokenUpdated
 from storage import Storage
 from user import User
-from logging.handlers import RotatingFileHandler
 
 
 
@@ -453,7 +454,6 @@ def chunk_number(num):
 
 jinja2.filters.FILTERS['chunk_number'] = chunk_number
 
-
 if __name__ == "__main__":
     from optparse import OptionParser
     oparser = OptionParser()
@@ -468,12 +468,9 @@ if __name__ == "__main__":
 
     if opts.debug:
         app.debug = opts.debug
-    else:
-        logger = logging.getLogger(__name__)
-        logger.setLevel(log_level)
-        logging.basicConfig(stream=sys.stderr, format='%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]')
 
-
+    logging.config.fileConfig('logging.cfg', disable_existing_loggers=False)
+    logging.Formatter.converter = time.gmtime
     
     app.fakelogin = opts.fakelogin
     app.run(host='0.0.0.0')
