@@ -319,12 +319,19 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
         editService.undecorate(holdingDataCopy).then(function(undecoratedHolding) {
           $http.post($rootScope.WRITE_API_PATH + '/hold', undecoratedHolding)
             .success(function(createdHolding, status, headers) {
+              // Log
+              if (typeof(_paq) !== 'undefined') _paq.push(['trackEvent', 'Holding', 'Created', createdHolding['@id']]);
+              
               editService.decorate(createdHolding, []).then(function(decoratedHolding) {
                 decoratedHolding.etag = headers('etag');
                 deferer.resolve(decoratedHolding);
               });
             })
             .error(function(data, status, headers) {
+              // Log
+              var recordId = holdingData && holdingData.about && holdingData.about.holdingFor ? holdingData.about.holdingFor['@id'] : 'Missing holdingFor';
+              if (typeof(_paq) !== 'undefined') _paq.push(['trackEvent', 'Holding', 'Failed create' + ' (STATUS '+status+')', recordId]);
+              
               deferer.reject(status);
             });
         });
@@ -340,12 +347,19 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
           delete undecoratedHolding.etag;
           $http.put($rootScope.WRITE_API_PATH + undecoratedHolding['@id'], undecoratedHolding, {headers: {'If-match': etag}})
             .success(function(savedHolding, status, headers) {
-                editService.decorate(savedHolding).then(function(decoratedHolding) {
-                  decoratedHolding.etag = headers('etag');
-                  deferer.resolve(decoratedHolding);
-                });
+              // Log
+              if (typeof(_paq) !== 'undefined') _paq.push(['trackEvent', 'Holding', 'Saved', savedHolding['@id']]);
+              
+              editService.decorate(savedHolding).then(function(decoratedHolding) {
+                decoratedHolding.etag = headers('etag');
+                deferer.resolve(decoratedHolding);
+              });
             })
             .error(function(data, status, headers) {
+              // Log
+              var recordId = holdingData && holdingData.about && holdingData.about.holdingFor ? holdingData.about.holdingFor['@id'] : 'Missing holdingFor';
+              if (typeof(_paq) !== 'undefined') _paq.push(['trackEvent', 'Holding', 'Failed save' + ' (STATUS '+status+')', recordId]);
+              
               deferer.reject(status);
             });
         });
@@ -359,10 +373,16 @@ kitin.factory('recordService', function ($http, $q, $rootScope, definitions, edi
         $rootScope.promises.holding.loading = deferer.promise; // Show loading message
         $http['delete']($rootScope.WRITE_API_PATH + holdingId, {headers: {'If-match': etag}})
           .success(function(data, success, headers, also) {
+            // Log
+            if (typeof(_paq) !== 'undefined') _paq.push(['trackEvent', 'Holding', 'Deleted', holdingId]);
+            
             holding = data;
             deferer.resolve(holding);
           })
           .error(function(data, status, headers) {
+            // Log
+            if (typeof(_paq) !== 'undefined') _paq.push(['trackEvent', 'Holding', 'Failed delete', holdingId]);
+            
             deferer.reject(status);
           });
         return deferer.promise;
