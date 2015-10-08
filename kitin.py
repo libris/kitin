@@ -469,7 +469,10 @@ if __name__ == "__main__":
     if opts.debug:
         app.debug = opts.debug
 
-    logging.config.fileConfig('logging.cfg', disable_existing_loggers=False)
+    logFilename = 'logging.cfg'
+    if (not os.path.isfile(logFilename)):
+        logFilename += '.defaults'
+    logging.config.fileConfig(logFilename, disable_existing_loggers=False)
     logging.Formatter.converter = time.gmtime
     
     app.fakelogin = opts.fakelogin

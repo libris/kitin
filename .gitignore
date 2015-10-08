@@ -18,5 +18,6 @@
 /static/build/js/app.min.*
 /templates/_media-*.html
 runtime.log
+logging.cfg
 static/vendor/bind-polyfill/index.js
 static/vendor/karma-read-json/karma-read-json.js
