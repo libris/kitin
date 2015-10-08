@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 import os, sys
 import logging
+from logging import config
+import time
 import re
 from datetime import datetime, timedelta
 import json
@@ -16,7 +18,6 @@ import requests
 from requests_oauthlib import OAuth2Session, TokenUpdated
 from storage import Storage
 from user import User
-from logging.handlers import RotatingFileHandler
 
 
 
@@ -54,7 +55,7 @@ def get_token():
 
 # Run on access token refreshed
 def token_updater(token):
-    app.logger.debug("Token expired updated to be %s ", json.dumps(token))
+    app.logger.info("Token expired updated to be %s ", json.dumps(token))
     session['oauth_token'] = token
 
 def get_requests_oauth():
@@ -120,7 +121,7 @@ def login_authorize():
     try:
         requests_oauth = get_requests_oauth()
         authorization_url, state =  requests_oauth.authorization_url(app.config['OAUTH_AUTHORIZATION_URL'], approval_prompt="auto")
-        app.logger.debug("Trying to authorize user, redirecting to %s ", authorization_url)
+        app.logger.info("[%s] Trying to authorize user, redirecting to %s ", request.remote_addr, authorization_url)
         # Redirect to oauth authorization
         return redirect(authorization_url)
     except Exception, e:
@@ -135,12 +136,12 @@ def authorized():
         # Get access token
         try:
             token_url = app.config['OAUTH_TOKEN_URL']
-            app.logger.debug("Trying to get access token from %s", token_url)
+            app.logger.info("[%s] Trying to get access token from %s", request.remote_addr, token_url)
             requests_oauth = get_requests_oauth()
             # On authorized fetch token
             session['oauth_token'] = requests_oauth.fetch_token(token_url, client_secret=app.config['OAUTH_CLIENT_SECRET'], authorization_response=request.url)
             if app.debug:
-                app.logger.debug("OAuth token received %s ", json.dumps(session['oauth_token']))
+                app.logger.info("OAuth token received %s ", json.dumps(session['oauth_token']))
         except Exception, e:
             print e
             raise Exception("Failed to get token, %s response: %s " % (token_url, str(e)))
@@ -152,8 +153,7 @@ def authorized():
             verify_user = verify_response['user']
             authorization = verify_user['authorization']
             username = verify_user['username']
-            if app.debug:
-                app.logger.debug("User received from verify %s, %s, %s ", username, json.dumps(verify_user))
+            app.logger.info("[%s] User received from verify %s, %s", request.remote_addr, username, json.dumps(verify_user))
 
             # Create Flask User and login
             if(app.config.get('ALWAYS_ALLOW_XLREG') == 'True'):
@@ -177,7 +177,7 @@ def authorized():
 @app.route("/signout")
 @login_required
 def logout():
-    app.logger.debug("Trying to sign out...")
+    app.logger.info("[%s] Trying to sign out.", request.remote_addr)
     logout_user()
     session.pop('authorization', None)
     session.pop('oauth_token', None)
@@ -354,7 +354,7 @@ def delete_draft(rec_type, draft_id):
 
 def do_request(path, params=None, method='GET', headers=None, data=None, allow_redirects=False, host=app.config['WHELK_HOST'], json_response=True):
     url = '%s%s' % (host,path)
-    app.logger.debug('Sending %s request to: %s' , method, url)
+    app.logger.info('Sending %s request to: %s' , method, url)
     requests_oauth = get_requests_oauth()
 
     try:
@@ -453,7 +453,6 @@ def chunk_number(num):
 
 jinja2.filters.FILTERS['chunk_number'] = chunk_number
 
-
 if __name__ == "__main__":
     from optparse import OptionParser
     oparser = OptionParser()
@@ -468,12 +467,12 @@ if __name__ == "__main__":
 
     if opts.debug:
         app.debug = opts.debug
-    else:
-        logger = logging.getLogger(__name__)
-        logger.setLevel(log_level)
-        logging.basicConfig(stream=sys.stderr, format='%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]')
 
+    logFilename = 'logging.cfg'
+    if (not os.path.isfile(logFilename)):
+        logFilename += '.defaults'
+    logging.config.fileConfig(logFilename, disable_existing_loggers=False)
+    logging.Formatter.converter = time.gmtime
 
-    
     app.fakelogin = opts.fakelogin
     app.run(host='0.0.0.0')

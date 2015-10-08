@@ -1,6 +1,7 @@
 *.swp
 *.db
 *.pyc
+*.*~
 .DS_store
 /config.cfg
 /version.cfg
@@ -16,6 +17,7 @@
 /static/build/js/app/*
 /static/build/js/app.min.*
 /templates/_media-*.html
-kitin.log
+runtime.log
+logging.cfg
 static/vendor/bind-polyfill/index.js
 static/vendor/karma-read-json/karma-read-json.js
