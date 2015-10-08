@@ -121,7 +121,7 @@ def login_authorize():
     try:
         requests_oauth = get_requests_oauth()
         authorization_url, state =  requests_oauth.authorization_url(app.config['OAUTH_AUTHORIZATION_URL'], approval_prompt="auto")
-        app.logger.debug("Trying to authorize user, redirecting to %s ", authorization_url)
+        app.logger.debug("[%s] Trying to authorize user, redirecting to %s ", request.remote_addr, authorization_url)
         # Redirect to oauth authorization
         return redirect(authorization_url)
     except Exception, e:
@@ -136,7 +136,7 @@ def authorized():
         # Get access token
         try:
             token_url = app.config['OAUTH_TOKEN_URL']
-            app.logger.debug("Trying to get access token from %s", token_url)
+            app.logger.debug("[%s] Trying to get access token from %s", request.remote_addr, token_url)
             requests_oauth = get_requests_oauth()
             # On authorized fetch token
             session['oauth_token'] = requests_oauth.fetch_token(token_url, client_secret=app.config['OAUTH_CLIENT_SECRET'], authorization_response=request.url)
@@ -154,7 +154,7 @@ def authorized():
             authorization = verify_user['authorization']
             username = verify_user['username']
             if app.debug:
-                app.logger.debug("User received from verify %s, %s, %s ", username, json.dumps(verify_user))
+                app.logger.debug("[%s] User received from verify %s, %s", request.remote_addr, username, json.dumps(verify_user))
 
             # Create Flask User and login
             if(app.config.get('ALWAYS_ALLOW_XLREG') == 'True'):
@@ -178,7 +178,7 @@ def authorized():
 @app.route("/signout")
 @login_required
 def logout():
-    app.logger.debug("Trying to sign out...")
+    app.logger.debug("[%s] Trying to sign out.", request.remote_addr)
     logout_user()
     session.pop('authorization', None)
     session.pop('oauth_token', None)
@@ -474,6 +474,6 @@ if __name__ == "__main__":
         logFilename += '.defaults'
     logging.config.fileConfig(logFilename, disable_existing_loggers=False)
     logging.Formatter.converter = time.gmtime
-    
+
     app.fakelogin = opts.fakelogin
     app.run(host='0.0.0.0')
