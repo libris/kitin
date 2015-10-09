@@ -3,6 +3,7 @@
 import os, sys
 import logging
 from logging import config
+from logging.handlers import RotatingFileHandler
 import time
 import re
 from datetime import datetime, timedelta
@@ -468,10 +469,11 @@ if __name__ == "__main__":
     if opts.debug:
         app.debug = opts.debug
 
-    logFilename = 'logging.cfg'
-    if (not os.path.isfile(logFilename)):
-        logFilename += '.defaults'
-    logging.config.fileConfig(logFilename, disable_existing_loggers=False)
+    if 'LOG_FILE' in app.config:
+        file_handler = RotatingFileHandler(app.config['LOG_FILE'], "a", 10485760, 3, "utf-8")
+        file_handler.setLevel(logging.INFO)
+        app.logger.addHandler(file_handler)
+    
     logging.Formatter.converter = time.gmtime
 
     app.fakelogin = opts.fakelogin
