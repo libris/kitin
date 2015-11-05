@@ -159,6 +159,15 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $loca
     msgObj.hash = hashString;
 
     $rootScope.systemMessages.push(msgObj);
+    
+    // Log
+    if (typeof(_paq) !== 'undefined') {
+      if (msgObj.status)
+        _paq.push(['trackEvent', 'SYSTEM', msgObj.msg, msgObj.status);
+      else
+        _paq.push(['trackEvent', 'SYSTEM', msgObj.msg, 'No status');
+    }
+    
     if(msgObj.timeout) {
       $timeout(function() {
         $rootScope.closeSystemMessage($rootScope.systemMessages.length-1);
