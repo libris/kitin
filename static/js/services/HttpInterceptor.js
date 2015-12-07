@@ -89,7 +89,7 @@ kitin.factory('HttpInterceptor', function($q, $rootScope) {
           action = 'ladda';
         }
 
-        var alert = {
+        var errorObj = {
           msg: 'Det gick inte att ' + action + '. ',
           status: status,
           statusText: rejection.statusText,
@@ -99,28 +99,33 @@ kitin.factory('HttpInterceptor', function($q, $rootScope) {
         
         switch(status) {
           case 0:
-            alert.msg += 'Kontakta LIBRIS kundtjänst.';
+            errorObj.msg += 'Kontakta LIBRIS kundtjänst.';
             break;
           case 404:
-            alert.msg += 'Dokumentet saknas.';
+            errorObj.msg += 'Dokumentet saknas.';
             break;
           case 412:
-            alert.msg += 'Någon har redigerat dokumentet sedan du sparade senast.';
+            errorObj.msg += 'Någon har redigerat dokumentet sedan du sparade senast.';
             break;
           default:
-            alert.msg += 'Kontrollera din internetanslutning.';
+            errorObj.msg += 'Kontrollera din internetanslutning.';
             break;
         }
         
-        if (typeof alert.status === 'undefined' || alert.status === null || alert.status < 0) {
-          alert.statusText = 'Unknown';
+        if (typeof errorObj.status === 'undefined' || errorObj.status === null || errorObj.status < 0) {
+          errorObj.statusText = 'Unknown';
         }
         
-        if (alert.status === 0) {
-          alert.statusText = 'Timeout';
+        if (errorObj.status === 0) {
+          errorObj.statusText = 'Timeout';
         }
         
-        $rootScope.addSystemMessage(alert);
+        // Log
+        if (typeof _paq !== 'undefined') {
+          _paq.push(['trackEvent', 'System error', errorObj.status + ' ' + errorObj.statusText, errorObj.method + ' ' + errorObj.url]);
+        }
+        
+        $rootScope.addSystemMessage(errorObj);
 
         return $q.reject(rejection);
       }
