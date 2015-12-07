@@ -163,9 +163,9 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $loca
     // Log
     if (typeof(_paq) !== 'undefined') {
       if (msgObj.status)
-        _paq.push(['trackEvent', 'SYSTEM', msgObj.msg, msgObj.status);
+        _paq.push(['trackEvent', 'SYSTEM', msgObj.msg, msgObj.status]);
       else
-        _paq.push(['trackEvent', 'SYSTEM', msgObj.msg, 'No status');
+        _paq.push(['trackEvent', 'SYSTEM', msgObj.msg, 'No status']);
     }
     
     if(msgObj.timeout) {
