@@ -161,11 +161,9 @@ kitin.controller('AppCtrl', function($scope, $rootScope, $modal, $timeout, $loca
     $rootScope.systemMessages.push(msgObj);
     
     // Log
-    if (typeof(_paq) !== 'undefined') {
-      if (msgObj.status)
-        _paq.push(['trackEvent', 'SYSTEM', msgObj.msg, msgObj.status]);
-      else
-        _paq.push(['trackEvent', 'SYSTEM', msgObj.msg, 'No status']);
+    if (typeof _paq !== 'undefined') {
+      
+      _paq.push(['trackEvent', 'System error', msgObj.status + ' ' + msgObj.statusText, msgObj.method + ' ' + msgObj.url]);
     }
     
     if(msgObj.timeout) {

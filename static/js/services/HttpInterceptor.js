@@ -91,7 +91,10 @@ kitin.factory('HttpInterceptor', function($q, $rootScope) {
 
         var alert = {
           msg: 'Det gick inte att ' + action + '. ',
-          status: status
+          status: status,
+          statusText: rejection.statusText,
+          method: method,
+          url: rejection.config.url
         };
         
         switch(status) {
@@ -106,7 +109,17 @@ kitin.factory('HttpInterceptor', function($q, $rootScope) {
             break;
           default:
             alert.msg += 'Kontrollera din internetanslutning.';
+            break;
         }
+        
+        if (typeof alert.status === 'undefined' || alert.status === null || alert.status < 0) {
+          alert.statusText = 'Unknown';
+        }
+        
+        if (alert.status === 0) {
+          alert.statusText = 'Timeout';
+        }
+        
         $rootScope.addSystemMessage(alert);
 
         return $q.reject(rejection);
